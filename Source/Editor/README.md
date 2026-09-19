@@ -41,6 +41,9 @@ Faire une carte de bout en bout : le
 - **L'éditeur fait foi pour les cartes** (décision D4, `LOT-EDITOR-06`) : il ouvre l'arbre des
   sources, jamais la copie de la construction, et aucun script n'écrit plus dans `Levels/`
   (`EX-EDIT-078`).
+- **Un contrôle, deux entrées.** `--check` et le panneau « Problems » appellent le même
+  `hmi::checkAllMaps`, sur toutes les cartes ; un constat nomme sa carte, sa case et son entité, et
+  le panneau y mène (`EX-EDIT-079`, `EX-EDIT-080`).
 - **Deux façons d'éditer, un seul chemin.** La souris et `--apply` appellent les mêmes fonctions
   pures, dans le même ordre ; un scénario `--apply` par outil, comparé à un fichier attendu, tient
   lieu de test d'IHM (`EX-EDIT-074`, `EX-EDIT-076`).
@@ -62,7 +65,11 @@ Faire une carte de bout en bout : le
 - `GestureScript` — `--apply` : un fichier de gestes rejoué par les fonctions des outils, l'état
   que la fenêtre garde d'un geste à l'autre, et le refus lisible d'un geste (`EX-EDIT-074`).
 - `LevelFileOperations`, `LevelNameValidation` — créer (avec son lieu, `EX-EDIT-077`), renommer,
-  dupliquer, supprimer une carte.
+  dupliquer, supprimer une carte ; son nom est une clé, que les catalogues reçoivent (`EX-EDIT-081`).
+- `ContentCheck` — le contrôle du contenu, après celui du format : références, rencontres,
+  atteignabilité, portails sans retour, points d'arrivée orphelins, textes (`EX-EDIT-079`).
+- `MapTexts` — la clé du nom d'une carte, et les catalogues de traduction qu'on lit et complète
+  (`EX-EDIT-081`).
 - `DataRoot` — la racine des données que l'éditeur ouvre : `--data`, sinon l'arbre des sources qui
   l'a construit, sinon le dossier de l'exécutable (`LOT-EDITOR-06`).
 - `EditorTool`, `PanelFocus` — l'outil actif et le panneau qu'il met en avant.
@@ -96,7 +103,7 @@ de l'arbre qui l'a construit, et à défaut le dossier de l'exécutable (`hmi::r
 
 | Commande | Ce qu'elle fait |
 |---|---|
-| `LevelEditor --data Source/Elements --check` | Contrôle toutes les cartes ; sort en 1 à la première erreur (`EX-EDIT-062`). |
+| `LevelEditor --data Source/Elements --check` | Contrôle le format et le contenu de toutes les cartes ; sort en 1 s'il y a une erreur (`EX-EDIT-062`, `EX-EDIT-079`). |
 | `LevelEditor --migrate [carte…] [--output f]` | Convertit en v4 canonique (`EX-EDIT-062`). |
 | `LevelEditor --apply gestes.json [carte] [--output f]` | Rejoue les gestes du fichier ; un geste refusé n'écrit rien (`EX-EDIT-074`). |
 | `LevelEditor --render [carte…] [--output f.png\|dossier] [--layers floors,relief,figures,collision] [--scale s]` | Rend en PNG, en isométrie (`EX-EDIT-075`). |

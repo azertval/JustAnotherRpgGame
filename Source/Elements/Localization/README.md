@@ -9,4 +9,8 @@ Catalogues de traduction de l'interface, un **fichier par langue** (`<langue>.la
   ajouter une langue = ajouter un fichier `<langue>.lang`, sans modifier le code.
 - Chargés à l'exécution par `hmi::Localization` (copiés à côté de l'exécutable par CMake).
 
+Les cartes ne portent pas de texte : leur nom est la clé `map.<identifiant>.name`, celui de leurs
+îlots `city_block.<nom>`, et l'éditeur exige chaque clé dans chaque catalogue (`EX-EDIT-081`).
+Créer une carte dans l'éditeur ajoute sa clé ici, avec le nom tapé pour texte.
+
 Réf. specs : `EX-REN-033` (catalogue de traduction), `EX-REN-032` (texte).

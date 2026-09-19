@@ -105,7 +105,8 @@ Les deux derniers constats bloquaient le jalon : ils sont traités dans ce lot, 
   plus haut ; rendus relus à l'œil. La CI publie le rendu des trois cartes dans `map-renders` :
   c'est la première PR qui éprouve cette étape du `LOT-EDITOR-13`.
 - **Guide d'usage : créer une carte de bout en bout.** ✔ @ref guide-usage-editeur ;
-  `LevelFileOps.UneCarteCreeeAvecUnLieuPasseLeControle` garde le premier pas.
+  `LevelFileOps.UneCarteCreeeAvecUnLieuASesDeuxCouches` garde le premier pas, et
+  `ContentCheckTest.UneCarteNeuveASonNomDansChaqueCatalogue` le contrôle (`LOT-EDITOR-07`).
 
 **Vérification à la souris, due** : lancer `LevelEditor` sans argument — le titre montre
 `…\Source\Elements` ; « New » sur une carte `essai`, lieu `martpart` ; poser un rectangle de pavés,

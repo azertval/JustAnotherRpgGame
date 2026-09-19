@@ -93,8 +93,17 @@ build\ninja\bin\LevelEditor.exe --check
 build\ninja\bin\LevelEditor.exe --render echoppe --scale 0.5 --output echoppe.png
 ```
 
-`--check` contrôle **toutes** les cartes — références, pièces, collision, identifiants — et c'est
-ce que la CI exige. `--render` rend la carte en PNG, comme elle rendra dans la PR : la CI publie le
+`--check` contrôle **toutes** les cartes — format, pièces, collision, identifiants, puis ce qui se
+joue : références des entités, rencontres, cases utiles hors d'atteinte, portails sans retour,
+clés de traduction — et c'est ce que la CI exige. Dans la fenêtre, le même contrôle remplit le
+panneau **Problems**, en bas : au lancement, à chaque enregistrement, et par *Map › Check all
+maps*. Un double-clic sur un constat ouvre sa carte, sélectionne l'entité et cerne la case en
+magenta. Le panneau lit les cartes **enregistrées** ; les avertissements en direct de la carte
+ouverte restent dans le panneau *Entities*.
+
+Le nom d'une carte n'est pas du texte mais une clé, `map.<identifiant>.name` : « New » l'écrit
+dans `Source/Elements/Localization/fr.lang` et `en.lang` avec le nom tapé ; il reste à y mettre
+le vrai nom, dans chaque langue. `--render` rend la carte en PNG, comme elle rendra dans la PR : la CI publie le
 rendu de chaque carte qu'une PR change (artefact `map-renders`). La carte se relit alors en diff :
 le fichier est canonique, une retouche ne change que ses cases.
 

@@ -29,6 +29,9 @@ Cartes du jeu, un fichier **JSON** par carte (`EX-LVL-001`, `EX-LVL-003`).
 > de lot, comme trace, et refusent d'écrire ici. Faire une carte : guide d'usage
 > `Documentation/Editeur/guide-usage.md`.
 
+- Le **`name`** d'une carte est une clé de traduction, `map.<identifiant>.name`
+  (`map.capital.martpart.name`), que le bandeau du jeu traduit et que chaque catalogue de
+  `Localization/` doit porter : `LevelEditor --check` le vérifie (`LOT-EDITOR-07`).
 - Une carte est un objet JSON : `version`, `name`, `width`, `height`, et une liste **`tiles`**
   d'objets `{ "x", "y", "type" }` — la grille de **collision**, entrée comprise, **déduite** des
   pièces posées (`EX-LVL-020`). Les cases **vides** ne sont pas listées (absence = vide). Là où

@@ -194,7 +194,7 @@ sont des noms, pas un ordre : l'ordre vient des prérequis.
 | `LOT-EDITOR-05` | Entités et zones sur le canevas — **livré** | 02, 12 | M |
 | `LOT-EDITOR-13` | L'éditeur sans fenêtre — **livré** | 04 | S |
 | `LOT-EDITOR-06` | Les cartes quittent leurs scripts — **livré** | 05, 13 | S |
-| `LOT-EDITOR-07` | Contrôle du contenu | 06 | M |
+| `LOT-EDITOR-07` | Contrôle du contenu — **livré** | 06 | M |
 | `LOT-EDITOR-14` | Renommer et remplacer | 06 | M |
 | `LOT-EDITOR-08` | Tampons et préfabriqués | 04 | S |
 | `LOT-EDITOR-09` | Le monde : onglets, portails, ville | 05, 13 | M |
@@ -203,7 +203,7 @@ sont des noms, pas un ordre : l'ordre vient des prérequis.
 
 Tailles relatives : S tient en une séance, M en quelques-unes, L demande un découpage en phases.
 
-Le jalon est atteint : 01, 02, 12, 03, 04, 05, 13 et 06 sont livrés. Le graphe est donné en source
+Le jalon est atteint : 01, 02, 12, 03, 04, 05, 13 et 06 sont livrés, et 07 après lui. Le graphe est donné en source
 Graphviz, comme celui du jeu (la chaîne Doxygen tourne sans `HAVE_DOT`).
 
 ```dot
@@ -218,7 +218,7 @@ digraph editeur {
   E05 [label="05\nentités, zones\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E13 [label="13\nsans fenêtre\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E06 [label="06\nfin des scripts\n(jalon, livré)", style="rounded,filled,bold", fillcolor="#dddddd"];
-  E07 [label="07\ncontrôles"];
+  E07 [label="07\ncontrôles\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E14 [label="14\nrenommer, remplacer"];
   E08 [label="08\ntampons"];
   E09 [label="09\nmonde"];
@@ -338,20 +338,18 @@ boutiques du marché de Martpart, un angle de mur égaré sur le parvis d'Arenar
 enfin l'arbre des sources, et non la copie de la construction ; une nouvelle carte choisit son lieu
 et passe le contrôle telle quelle (`EX-EDIT-077`). Guide : @ref guide-usage-editeur.
 
-### LOT-EDITOR-07 — Contrôle du contenu {#lot-editor-07}
+### LOT-EDITOR-07 — Contrôle du contenu
 
-> Statut : **à faire**. Prérequis : 06.
+> Statut : **livré le 19 septembre 2026**. Le lot a quitté cette page pour son dossier :
+> @subpage lot-editor-07.
 
-Un panneau « Problèmes » couvre toutes les cartes du projet ; le contrôle de la CI s'étend.
-
-- Atteignabilité : toute case utile (portail, PNJ, coffre, zone) est joignable depuis une entrée.
-- Rencontres tactiques (le contrôle du [LOT-11](@ref lot-11) étendu à toutes les cartes) ; portails
-  sans retour, points d'arrivée orphelins.
-- Drapeaux de monde et clés de traduction cités par les cartes ; variantes dont la base a changé.
-- Double-clic = aller à la case.
-
-*Acceptation* — une carte de test avec un défaut de chaque sorte les fait tous sortir ; la CI
-échoue sur l'un d'eux.
+`LevelEditor --check` ne dit plus seulement qu'une carte est bien écrite, mais qu'elle se joue, sur
+toutes les cartes : références des entités et drapeaux de monde, terrain des rencontres,
+atteignabilité de chaque case utile depuis l'entrée ou un point d'arrivée nommé d'ailleurs,
+portails sans retour, points d'arrivée orphelins ; une variante se contrôle sur les cases de sa
+base (`EX-EDIT-079`). Le nom d'une carte devient une clé de traduction, que le jeu traduit et que
+chaque catalogue doit porter (`EX-EDIT-081`). Un dock « Problems » montre les constats de toutes
+les cartes ; un double-clic mène à la case (`EX-EDIT-080`).
 
 ### LOT-EDITOR-14 — Renommer et remplacer {#lot-editor-14}
 
