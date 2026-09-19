@@ -4,12 +4,12 @@
   "source": "tanares",
   "status": {
     "provisoire": true,
-    "raison": "La region de l'Arene du Futur n'a pas ete relue dans le Sourcebook ; l'Empire central est un choix de commodite (LOT-50). Sa carte est celle du Colisee (LOT-09), dont le sable est la zone de combat : l'Arene du Destin d'Arenarea aura sa propre composition au LOT-27.",
+    "raison": "L'identité et la région de cette arène restent à relire dans le Sourcebook. Le terrain jouable utilise désormais la carte Arena of Brave validée par l'auteur.",
     "retraitSi": "La relecture des livres (LOT-46 ou LOT-80) confirme ou corrige la region, et le LOT-27 donne a l'Arene du Destin sa propre entree ; le champ status disparait alors."
   },
   "region": "central-empire",
   "location": "central-empire-the-capital-city-arenarea",
-  "map": "coliseum.json",
+  "map": "capital/arena-of-brave.json",
   "zone": "sable",
   "lethal": false,
   "heroicMark": true,

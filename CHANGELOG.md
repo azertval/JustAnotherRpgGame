@@ -6,6 +6,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Nouvelle interface du Colisée : Arena of Brave.** Le parvis, la piste et les deux
+  vestiaires remplacent l’ancienne carte en exploration et servent de décor au combat.
+  Le kit de 366 pièces conserve ses ancrages, sa profondeur et sa projection dans le jeu
+  et l’éditeur ; les portails relient Arenarea, la piste et les deux camps.
+  Guide : [Arena of Brave](Documentation/arena-of-brave-map.md).
+
 - **Renommer et remplacer (LOT-EDITOR-14).**
   - **Un renommage suit tout ce qui cite** : renommer une carte — dossier compris,
     `coliseum` → `capital/coliseum` — récrit les portails, les variantes, les quartiers et portes

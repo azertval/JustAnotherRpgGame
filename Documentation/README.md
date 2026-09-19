@@ -25,3 +25,7 @@ Expliquer *comment* le code et les outils fonctionnent : modules, classes, fonct
 
 ## Conventions de code
 Les règles de style, de nommage et d'architecture sont détaillées dans [`Specification/conventions.md`](Specification/conventions.md).
+
+## Cartes jouables
+
+- [Arena of Brave — carte du Colisée](arena-of-brave-map.md) : accès, édition et vérifications.

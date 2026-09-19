@@ -4,6 +4,7 @@
 #include "HMI/Graphics/PlaceAppearance.h"
 
 #include <algorithm>
+#include <cmath>
 #include <optional>
 #include <set>
 #include <utility>
@@ -151,6 +152,18 @@ PlaceAppearanceResult PlaceAppearance::fromDocument(const core::JsonDocument& do
         return failure("place manquant ou non textuel", PlaceAppearanceError::MalformedStructure);
     }
     appearance._place = place->get<std::string>();
+    if (document.root.contains("diamondRatio")) {
+        const auto& ratio = document.root["diamondRatio"];
+        if (!ratio.is_number()) {
+            return failure("diamondRatio doit etre numerique",
+                           PlaceAppearanceError::MalformedStructure);
+        }
+        const float value = ratio.get<float>();
+        if (!std::isfinite(value) || value <= 0.0F || value > 2.0F) {
+            return failure("diamondRatio hors limites", PlaceAppearanceError::MalformedStructure);
+        }
+        appearance._diamondRatio = value;
+    }
 
     std::string error;
     if (!readTable(document.root, FIELD_FLOORS, appearance._floors, error) ||

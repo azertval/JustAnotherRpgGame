@@ -26,8 +26,12 @@
 #include <rhi/qrhi.h>
 
 #include "Core/Combat/IsoProjection.h"
+#include "Core/Gameplay/WorldFlags.h"
 #include "Core/Levels/Level.h"
+#include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/LevelLoader.h"
+#include "Core/World/WorldTravel.h"
+#include "Editor/Ui/SceneImages.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
@@ -332,5 +336,87 @@ TEST(WorldSceneRendererTest, LesQuartiersLivresDeviennentDesPixels) {
         EXPECT_NE(soldat->second.texture, renderer.textures().missing.texture) << quartier;
         EXPECT_GT(paintedPixels(image), static_cast<std::size_t>(TARGET_SIZE * TARGET_SIZE / 4))
             << quartier;
+    }
+}
+
+/**
+ * @brief Les trois cartes se sauvegardent et se rendent avec le kit livré.
+ * \castest{<b>Les trois cartes se sauvegardent et se rendent avec le kit livré.</b><br/>
+ * \tcat Unitaire · Rendu du Colisée<br/>
+ * \tcrit Critique<br/>
+ * \tetapes Charger et enregistrer chaque carte ; comparer les textures du jeu et de l’éditeur.<br/>
+ * \tattendu Entités et couches conservées, ancrages et profondeurs identiques, aucune texture
+ * manquante.
+ * }
+ */
+TEST(WorldSceneRendererTest, ArenaOfBraveMapsRoundTripAndRenderWithInstalledKit) {
+    const auto rhi = createOffscreenRhi();
+    ASSERT_NE(rhi, nullptr);
+    const auto table =
+        hmi::PlaceAppearance::loadFromFile(assets() / "Scene/arena-of-brave/appearance.json");
+    ASSERT_TRUE(table.ok()) << table.message;
+    for (const std::string name :
+         {"arena-of-brave", "arena-of-brave-camp-a", "arena-of-brave-camp-b"}) {
+        const auto loaded = core::LevelLoader::loadFromFile(assets().parent_path() /
+                                                            "Levels/capital" / (name + ".json"));
+        ASSERT_TRUE(loaded.ok()) << name << ": " << loaded.error;
+        const auto draft = core::LevelDraft::fromLevel(*loaded.level);
+        const auto saved = core::LevelLoader::loadFromString(draft.toJson());
+        ASSERT_TRUE(saved.ok()) << saved.error;
+        EXPECT_EQ(saved.level->layers().size(), loaded.level->layers().size());
+        EXPECT_EQ(saved.level->entities().size(), loaded.level->entities().size());
+        OffscreenTarget target(*rhi);
+        hmi::WorldSceneRenderer renderer(assets());
+        ASSERT_TRUE(renderer.ensureResources(rhi.get()));
+        renderer.setSnapshot(hmi::snapshotWorldScene(*saved.level, table.appearance, {}));
+        hmi::SceneImages editorImages(assets());
+        const auto paths =
+            hmi::worldTexturePaths(hmi::snapshotWorldScene(*saved.level, table.appearance, {}));
+        editorImages.ensure(paths);
+        renderer.setFocus(name == "arena-of-brave" ? core::Vector2{44, 44} : core::Vector2{6, 6});
+        const auto image = renderFrame(*rhi, renderer, target);
+        EXPECT_GT(paintedPixels(image), static_cast<std::size_t>(TARGET_SIZE * TARGET_SIZE / 4));
+        for (const auto& quad : renderer.composed().quads())
+            EXPECT_NE(quad.texture, renderer.textures().missing.texture) << name;
+        for (const auto& path : paths) {
+            const auto& gpu = renderer.textures().byPath.at(path);
+            const auto& editor = editorImages.textures().byPath.at(path);
+            EXPECT_EQ(editor.depthOffset, gpu.depthOffset) << path;
+            ASSERT_EQ(editor.anchor.has_value(), gpu.anchor.has_value()) << path;
+            if (gpu.anchor) {
+                EXPECT_FLOAT_EQ(editor.anchor->x, gpu.anchor->x);
+                EXPECT_FLOAT_EQ(editor.anchor->y, gpu.anchor->y);
+            }
+        }
+        EXPECT_TRUE(image.save(QString::fromStdString(name + "-renderer.png")));
+    }
+}
+
+/**
+ * @brief Tous les portails de l’arène se traversent.
+ * \castest{<b>Tous les portails de l’arène se traversent.</b><br/>
+ * \tcat Unitaire · Rendu du Colisée<br/>
+ * \tcrit Critique<br/>
+ * \tetapes Entrer dans chaque carte et traverser chaque portail avec WorldTravel.<br/>
+ * \tattendu Arrivées sur une case libre, sans boucle de téléportation.
+ * }
+ */
+TEST(WorldSceneRendererTest, ArenaOfBravePortalsUseRealWorldTravel) {
+    core::WorldTravel travel(core::WorldTravel::directoryLoader(assets().parent_path() / "Levels"));
+    const core::WorldFlags flags;
+    for (const std::string name :
+         {"arena-of-brave", "arena-of-brave-camp-a", "arena-of-brave-camp-b"}) {
+        const std::string id = "capital/" + name;
+        ASSERT_EQ(travel.enter(id, {}), core::TravelResult::Moved);
+        const auto entities = travel.currentMap()->entities();
+        for (const auto& entity : entities) {
+            if (entity.type != "portal")
+                continue;
+            ASSERT_EQ(travel.enter(id, {}), core::TravelResult::Moved);
+            EXPECT_EQ(travel.cross(entity.position, flags), core::TravelResult::Moved);
+            const auto pos = travel.position();
+            EXPECT_FALSE(core::isSolid(travel.currentMap()->tileMap().tile(pos.column, pos.row)));
+            EXPECT_FALSE(core::portalAt(*travel.currentMap(), pos).has_value());
+        }
     }
 }

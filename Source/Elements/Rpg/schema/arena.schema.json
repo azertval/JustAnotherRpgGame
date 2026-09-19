@@ -24,7 +24,7 @@
     },
     "map": {
       "type": "string",
-      "pattern": "^[a-z0-9-]+\\.json$",
+      "pattern": "^(?:[a-z0-9-]+/)*[a-z0-9-]+\\.json$",
       "description": "Nom du fichier de carte dans Source/Elements/Levels/. Absent : l'arene n'a pas encore de carte."
     },
     "lethal": {

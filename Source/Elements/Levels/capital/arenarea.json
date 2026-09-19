@@ -3,7 +3,7 @@
   "name": "map.capital.arenarea.name",
   "width": 48,
   "height": 40,
-  "nextEntityId": 15,
+  "nextEntityId": 17,
   "tiles": [
     {"x": 0, "y": 0, "type": "wall"},
     {"x": 1, "y": 0, "type": "wall"},
@@ -2475,6 +2475,21 @@
       "height": 13,
       "name": "portes-du-sud",
       "width": 29
+    },
+    {
+      "id": "e15",
+      "type": "spawnPoint",
+      "x": 32,
+      "y": 27,
+      "name": "arena-of-brave"
+    },
+    {
+      "id": "e16",
+      "type": "portal",
+      "x": 32,
+      "y": 26,
+      "arrival": "parvis",
+      "targetMap": "capital/arena-of-brave"
     }
   ]
 }

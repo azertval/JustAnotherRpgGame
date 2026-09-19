@@ -34,7 +34,7 @@ constexpr float MAXIMUM_FRAME_SECONDS = 0.25F;
  */
 class ArenaViewportRenderer : public QQuickRhiItemRenderer {
 public:
-    ArenaViewportRenderer() : _arena(executableDirectory() / "Assets" / "Coliseum") {}
+    ArenaViewportRenderer() : _arena(executableDirectory() / "Assets" / "Coliseum", true) {}
 
     void initialize(QRhiCommandBuffer* commandBuffer) override;
     void synchronize(QQuickRhiItem* item) override;
@@ -119,7 +119,8 @@ ArenaViewportItem::ArenaViewportItem(QQuickItem* parent) : QQuickRhiItem(parent)
 ArenaViewportItem::Framing ArenaViewportItem::framing() const {
     const ArenaModel* const model = _model.data();
     core::IsoProjection projection(model != nullptr ? model->gridColumns() : 0,
-                                   model != nullptr ? model->gridRows() : 0);
+                                   model != nullptr ? model->gridRows() : 0,
+                                   core::ARENA_TILE_WIDTH_UNITS, 42.0F / 68.0F);
     // La taille réelle de la texture une fois le rendu passé ; avant, celle qu'il prendra.
     QSize pixels = effectiveColorBufferSize();
     if (pixels.isEmpty()) {

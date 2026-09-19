@@ -11,6 +11,7 @@
 #include <string_view>
 #include <vector>
 
+#include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/PieceFootprint.h"
 #include "Core/Levels/TileType.h"
@@ -93,6 +94,9 @@ public:
     [[nodiscard]] const std::string& place() const noexcept {
         return _place;
     }
+    [[nodiscard]] float diamondRatio() const noexcept {
+        return _diamondRatio;
+    }
 
     /**
      * @brief La pièce de sol d'une case.
@@ -132,6 +136,7 @@ private:
     [[nodiscard]] static PlaceAppearanceResult fromDocument(const core::JsonDocument& document);
 
     std::string _place;
+    float _diamondRatio = core::ARENA_DIAMOND_RATIO;
     Table _floors;
     Table _relief;
     /// Ancien nom -> nom courant (`aliases` du manifeste).

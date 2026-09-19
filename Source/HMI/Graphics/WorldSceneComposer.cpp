@@ -115,10 +115,12 @@ void composeRelief(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
     const auto emprise = snapshot.footprints.find(piece);
     const core::GridPosition pied = core::footprintFootCorner(
         cell, emprise == snapshot.footprints.end() ? core::PieceFootprint{} : emprise->second);
-    const float footY =
-        projection
-            .gridToWorld(gridPoint(static_cast<float>(pied.column), static_cast<float>(pied.row)))
-            .y;
+    const float footY = texture.depthOffset
+                            ? topVertex.y + *texture.depthOffset * projection.tileHeight() / 2.0F
+                            : projection
+                                  .gridToWorld(gridPoint(static_cast<float>(pied.column),
+                                                         static_cast<float>(pied.row)))
+                                  .y;
     const SpriteQuad quad = standingPieceQuad(texture, topVertex, unitsPerScenePixel);
     scene.addSprite(RenderLayer::Object, texture.texture,
                     worldDepthSortOrder(footY, WorldDepthSlot::Relief), quad);
@@ -241,6 +243,7 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
     const core::TileMap& grilleSol = sol != nullptr ? sol->tiles : source.root;
 
     WorldSceneSnapshot snapshot;
+    snapshot.diamondRatio = appearance.diamondRatio();
     snapshot.columns = std::max(0, grilleSol.width());
     snapshot.rows = std::max(0, grilleSol.height());
     snapshot.place = scenePlaceOf(source.layers);

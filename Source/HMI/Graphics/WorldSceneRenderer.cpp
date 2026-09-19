@@ -14,6 +14,7 @@
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/MissingTexture.h"
+#include "HMI/Graphics/ScenePiecePlacement.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 
@@ -115,8 +116,7 @@ std::optional<LoadedTexture> WorldSceneRenderer::figureMarker(const std::string&
         return std::nullopt;
     }
     GRAPHICS_LOG_INFO("Lieu : la figurine " + cle + " n'a pas d'image, son marqueur la remplace.");
-    return createTexture(_resources.context(), image.width, image.height,
-                         markerPixelsRgba8(image));
+    return createTexture(_resources.context(), image.width, image.height, markerPixelsRgba8(image));
 }
 
 void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
@@ -146,6 +146,17 @@ void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
                                               .width = texture->width,
                                               .height = texture->height,
                                               .frameWidth = bandFrameWidth(path)};
+        if (path.starts_with("Scene/")) {
+            const auto file = _directory / path;
+            const auto document =
+                core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
+            if (document.ok()) {
+                _textures.byPath[path].anchor =
+                    scenePieceAnchor(document.root, file.filename().string());
+                _textures.byPath[path].depthOffset =
+                    scenePieceDepthOffset(document.root, file.filename().string());
+            }
+        }
         _loaded.push_back(std::move(*texture));
     }
 }
@@ -186,7 +197,8 @@ void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarg
     // et ce sont ses pieces qui disent quoi charger.
     ensureTextures(worldTexturePaths(_snapshot));
 
-    const core::IsoProjection projection(_snapshot.columns, _snapshot.rows);
+    const core::IsoProjection projection(_snapshot.columns, _snapshot.rows,
+                                         core::ARENA_TILE_WIDTH_UNITS, _snapshot.diamondRatio);
     _composed.clear();
     composeWorldScene(_composed, _snapshot, projection, _textures);
     _composed.sort();

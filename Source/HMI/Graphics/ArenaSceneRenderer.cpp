@@ -10,9 +10,13 @@
 #include <rhi/qrhi.h>
 
 #include "Core/Combat/IsoProjection.h"
+#include "Core/Levels/LevelLoader.h"
+#include "Core/World/CombatZone.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/MissingTexture.h"
+#include "HMI/Graphics/PlaceAppearance.h"
+#include "HMI/Graphics/ScenePiecePlacement.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 
@@ -37,8 +41,10 @@ Camera2D arenaCamera(const core::IsoProjection& projection, int pixelWidth, int 
     return camera;
 }
 
-ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory)
+ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, bool productionMap)
     : _directory(std::move(coliseumDirectory)) {
+    if (productionMap)
+        loadBattlefield();
     // Lectures de fichiers, une fois : ni le catalogue ni les clips ne touchent au GPU, et une
     // recréation des ressources n'a pas à les relire.
     ArenaAppearanceCatalogResult catalog =
@@ -75,6 +81,36 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory)
     for (const std::string& gladiator : _catalog.gladiators()) {
         declare(gladiator, core::CombatSide::Enemies);
     }
+}
+
+void ArenaSceneRenderer::loadBattlefield() {
+    const auto data = _directory.parent_path().parent_path();
+    const auto definition =
+        core::readJsonObjectFromFile(data / "World/arena/arena-of-the-future.json", 1);
+    if (!definition.ok()) {
+        GRAPHICS_LOG_WARNING("Arena battlefield definition: " + definition.message);
+        return;
+    }
+    const auto level = core::LevelLoader::loadFromFile(data / "Levels" /
+                                                       definition.root.value("map", std::string{}));
+    if (!level.ok()) {
+        GRAPHICS_LOG_WARNING("Arena battlefield: " + level.error);
+        return;
+    }
+    const auto zones = core::combatZonesOf(*level.level);
+    const auto* zone = core::findCombatZone(zones, definition.root.value("zone", std::string{}));
+    if (zone == nullptr) {
+        GRAPHICS_LOG_WARNING("Arena battlefield: unknown combat zone");
+        return;
+    }
+    const auto appearance = PlaceAppearance::loadFromFile(_directory.parent_path() /
+                                                          "Scene/arena-of-brave/appearance.json");
+    if (!appearance.ok()) {
+        GRAPHICS_LOG_WARNING("Arena battlefield appearance: " + appearance.message);
+        return;
+    }
+    _battlefield = snapshotWorldScene(*level.level, appearance.appearance, {});
+    _battlefieldOrigin = zone->origin;
 }
 
 ArenaSceneRenderer::~ArenaSceneRenderer() {
@@ -129,12 +165,43 @@ void ArenaSceneRenderer::loadTextures() {
                          .frameWidth = band != _bandFrameWidths.end() ? band->second : 0};
         _loaded.push_back(std::move(*texture));
     }
+    if (_battlefield) {
+        for (const auto& path : worldTexturePaths(*_battlefield)) {
+            const auto file = _directory.parent_path() / path;
+            auto texture = loadTextureFromFile(context, file);
+            if (!texture) {
+                GRAPHICS_LOG_WARNING(missingTextureWarning(path));
+                continue;
+            }
+            SceneTexture descriptor{
+                .texture = texture->handle(), .width = texture->width, .height = texture->height};
+            const auto manifest =
+                core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
+            if (manifest.ok()) {
+                descriptor.anchor = scenePieceAnchor(manifest.root, file.filename().string());
+                descriptor.depthOffset =
+                    scenePieceDepthOffset(manifest.root, file.filename().string());
+            }
+            _battlefieldTextures.byPath[path] = descriptor;
+            _loaded.push_back(std::move(*texture));
+        }
+        _battlefieldTextures.missing = {
+            .texture = _missing.handle(), .width = _missing.width, .height = _missing.height};
+        composeWorldScene(
+            _battlefieldScene, *_battlefield,
+            core::IsoProjection(_battlefield->columns, _battlefield->rows,
+                                core::ARENA_TILE_WIDTH_UNITS, _battlefield->diamondRatio),
+            _battlefieldTextures);
+    }
 }
 
 void ArenaSceneRenderer::release() noexcept {
     // L'ordre : ce qui désigne une texture, puis les textures, puis la grappe qui porte le
     // pipeline. Le lot de création jamais soumis est rendu à QRhi, qui en garde un nombre borné.
     _composed.clear();
+    _battlefieldScene.clear();
+    _battlefieldTextures.byPath.clear();
+    _battlefieldTextures.missing = {};
     _textures.byPath.clear();
     _textures.missing = ArenaTexture{};
     _loaded.clear();
@@ -182,10 +249,32 @@ void ArenaSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarg
 
     _animation.advance(std::max(0.0F, realDeltaSeconds));
     const ArenaAnimationState animation = _animation.snapshot();
-    const core::IsoProjection projection(_snapshot.columns, _snapshot.rows);
+    const core::IsoProjection projection(
+        _snapshot.columns, _snapshot.rows, core::ARENA_TILE_WIDTH_UNITS,
+        _battlefield ? _battlefield->diamondRatio : core::ARENA_DIAMOND_RATIO);
 
     _composed.clear();
-    composeArenaScene(_composed, _snapshot, _catalog, animation, projection, _textures);
+    if (_battlefield) {
+        const core::IsoProjection full(_battlefield->columns, _battlefield->rows,
+                                       projection.tileWidth(), _battlefield->diamondRatio);
+        const auto origin = full.gridToWorld({static_cast<float>(_battlefieldOrigin.column),
+                                              static_cast<float>(_battlefieldOrigin.row)});
+        const auto local = projection.gridToWorld({0, 0});
+        const core::Vector2 delta{local.x - origin.x, local.y - origin.y};
+        for (const auto& quad : _battlefieldScene.quads()) {
+            auto sprite = quad.sprite;
+            sprite.x += delta.x;
+            sprite.y += delta.y;
+            const auto order =
+                quad.layer == RenderLayer::Object
+                    ? ((quad.sortOrder / WORLD_DEPTH_SLOTS) + depthSortOrder(delta.y)) *
+                          ARENA_DEPTH_SLOTS
+                    : quad.sortOrder;
+            _composed.addSprite(quad.layer, quad.texture, order, sprite);
+        }
+    }
+    composeArenaScene(_composed, _snapshot, _catalog, animation, projection, _textures,
+                      !_battlefield);
     _composed.sort();
 
     // Cadrage : la scène entière, centrée. La projection isométrique a déjà placé les pièces en

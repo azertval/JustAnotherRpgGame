@@ -152,3 +152,8 @@ d'éprouver la reprise.
 | `D` · `N` | mesure (5 pieds la case), note d'auteur |
 | `M` | miroir, par la case survolée |
 | `P` · `Shift+P` | essai depuis l'entrée, depuis la case survolée |
+
+Pour ouvrir le nouveau Colisée, utiliser `scripts/open-arena-editor.ps1` ou
+`LevelEditor --data <Source/Elements> --map=capital/arena-of-brave`.
+`--screenshot=<fichier.png>` capture la fenêtre puis quitte.
+Voir le [guide Arena of Brave](../../Documentation/arena-of-brave-map.md).

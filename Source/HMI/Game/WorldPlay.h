@@ -77,6 +77,9 @@ public:
 
     /// @return L'instantané que `hmi::WorldSceneRenderer` dessine ; vide hors carte.
     [[nodiscard]] WorldSceneSnapshot snapshot() const;
+    [[nodiscard]] float diamondRatio() const noexcept {
+        return _appearance.diamondRatio();
+    }
 
 private:
     /// @brief Relit la table d'apparence du lieu de la carte courante.

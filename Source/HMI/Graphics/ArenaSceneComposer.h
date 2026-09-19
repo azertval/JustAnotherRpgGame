@@ -26,13 +26,14 @@
  *
  * | Pièce | Calque | Tri |
  * |---|---|---|
- * | sol (sable et variantes, pierre, seuil) | `RenderLayer::Tile` | texture, puis profondeur de case |
- * | enceinte (pan, angle, pilier, bannière, torche, arche) | `RenderLayer::Object` | pied de la case |
+ * | sol (sable et variantes, pierre, seuil) | `RenderLayer::Tile` | texture, puis profondeur de
+ * case | | enceinte (pan, angle, pilier, bannière, torche, arche) | `RenderLayer::Object` | pied de
+ * la case |
  *
  * Le décor vient de l'atelier des textures (`LOT-92`, `Assets/Scene/coliseum/`) : **une** pièce par
- * case d'enceinte, qui porte son mur (une torche est un pan à torche), dressée contre l'arête du fond
- * parallèle au bord de la grille et posée par son ancre. Les figurines restent celles du Colisée.
- * | figurine d'un combattant | `RenderLayer::Player` | pied de son emprise |
+ * case d'enceinte, qui porte son mur (une torche est un pan à torche), dressée contre l'arête du
+ * fond parallèle au bord de la grille et posée par son ancre. Les figurines restent celles du
+ * Colisée. | figurine d'un combattant | `RenderLayer::Player` | pied de son emprise |
  *
  * `Object` et `Player` partagent la bande de profondeur (`hmi::sortsByDepth`) : un mur plus bas à
  * l'écran passe devant une figurine, un mur plus haut derrière — ce que faisait le `z: c + r` de la
@@ -222,10 +223,12 @@ struct ArenaSceneSnapshot {
  * @param animation  Image courante de chaque figurine.
  * @param projection Projection isométrique de la grille.
  * @param textures   Textures liables.
+ * @param scenery    Composer le décor historique ; faux quand la carte fournit le décor.
  */
 void composeArenaScene(ComposedScene& scene, const ArenaSceneSnapshot& snapshot,
                        const ArenaAppearanceCatalog& catalog, const ArenaAnimationState& animation,
-                       const core::IsoProjection& projection, const ArenaSceneTextures& textures);
+                       const core::IsoProjection& projection, const ArenaSceneTextures& textures,
+                       bool scenery = true);
 
 /**
  * @brief Compose la scène de combat dans un tampon réutilisé.

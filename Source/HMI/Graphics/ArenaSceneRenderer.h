@@ -19,6 +19,7 @@
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/SceneResources.h"
 #include "HMI/Graphics/TextureLoader.h"
+#include "HMI/Graphics/WorldSceneComposer.h"
 
 class QRhi;
 class QRhiCommandBuffer;
@@ -84,8 +85,10 @@ public:
      *                          À côté de lui, `Assets/Npc/manifest.json` (l'atelier des PNJ,
      *                          LOT-91) peut mettre un PNJ à la place d'un héros
      *                          (`ArenaAppearanceCatalog::applyNpcManifest`) ; absent : rien.
+     * @param productionMap Utiliser la carte du catalogue comme décor de combat.
      */
-    explicit ArenaSceneRenderer(std::filesystem::path coliseumDirectory);
+    explicit ArenaSceneRenderer(std::filesystem::path coliseumDirectory,
+                                bool productionMap = false);
     ~ArenaSceneRenderer();
 
     ArenaSceneRenderer(const ArenaSceneRenderer&) = delete;
@@ -161,6 +164,11 @@ public:
 
 private:
     void loadTextures();
+    void loadBattlefield();
+    std::optional<WorldSceneSnapshot> _battlefield;
+    core::GridPosition _battlefieldOrigin{};
+    ScenePieceTextures _battlefieldTextures;
+    ComposedScene _battlefieldScene;
 
     std::filesystem::path _directory;
     ArenaAppearanceCatalog _catalog;

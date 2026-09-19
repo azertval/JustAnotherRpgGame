@@ -11,6 +11,7 @@
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
+#include "HMI/Graphics/ScenePiecePlacement.h"
 #include "HMI/Graphics/TileVisuals.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/HmiLog.h"
@@ -115,6 +116,17 @@ void SceneImages::ensure(const std::vector<std::string>& paths) {
             QImage& stored = _images[path] =
                 loaded.convertToFormat(QImage::Format_ARGB32_Premultiplied);
             _textures.byPath[path] = textureOf(stored, bandFrameWidth(path));
+            if (path.starts_with("Scene/")) {
+                const auto file = _directory / path;
+                const auto document =
+                    core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
+                if (document.ok()) {
+                    _textures.byPath[path].anchor =
+                        scenePieceAnchor(document.root, file.filename().string());
+                    _textures.byPath[path].depthOffset =
+                        scenePieceDepthOffset(document.root, file.filename().string());
+                }
+            }
             continue;
         }
         // Une figurine sans image se dessine par son marqueur, comme en jeu (LOT-39, LOT-96).
