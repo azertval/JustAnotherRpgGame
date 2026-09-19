@@ -145,7 +145,12 @@ public:
     [[nodiscard]] bool isDirty() const noexcept {
         return _draft.revision() != _savedRevision;
     }
-    bool renameOpenLevel(const std::string& newName);
+    /// Renomme des pièces de la carte ouverte, en un pas d'annulation
+    /// (`core::LevelDraft::replacePieces`, `LOT-EDITOR-14`).
+    bool replacePieces(const core::PieceRenaming& renaming);
+    /// Fait passer la carte ouverte à la planche du lieu @p place, pièces traduites par @p table,
+    /// en un pas d'annulation (`core::LevelDraft::changeScene`, `LOT-EDITOR-14`).
+    bool changeScene(const std::string& place, const core::PieceRenaming& table);
 
     // --- Sauvegarde automatique et garde du fichier (LOT-EDITOR-01) ---
     /// @return L'identifiant de la carte ouverte (`capital/martpart`).

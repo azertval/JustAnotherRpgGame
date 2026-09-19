@@ -5,6 +5,8 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <functional>
+#include <map>
 #include <memory>
 #include <optional>
 #include <string>
@@ -27,6 +29,10 @@
  */
 
 namespace core {
+
+/// @brief Ancien nom de pièce → nouveau : un remplacement, ou la table de correspondance d'un
+///        changement de planche (`LOT-EDITOR-14`).
+using PieceRenaming = std::map<std::string, std::string, std::less<>>;
 
 /**
  * @brief Carte **mutable** en cours d'édition, distincte de `Level` (immuable).
@@ -252,6 +258,30 @@ public:
 
     /// @return Vrai si la collision de @p cell est forcée à la main.
     [[nodiscard]] bool isCollisionForced(GridPosition cell) const noexcept;
+
+    /**
+     * @brief Renomme, sur toutes les couches visuelles, chaque pièce que @p renaming nomme
+     *        (`LOT-EDITOR-14`, `EX-EDIT-083`), en **un** pas d'annulation.
+     *
+     * La pièce garde sa case d'ancrage et son type (décision D3) ; la collision des cases que
+     * couvrent l'ancienne et la nouvelle emprise suit.
+     * @return `false` (rien d'empilé) si rien ne change, ou si une nouvelle emprise déborderait de
+     *         la carte.
+     */
+    bool replacePieces(const PieceRenaming& renaming);
+
+    /**
+     * @brief Fait passer la carte à la planche du lieu @p place (`LOT-EDITOR-14`), en **un** pas :
+     *        la propriété `scene` des couches qui la portent (la première couche de sol, si aucune
+     *        ne la porte), le manifeste @p manifest, et les pièces renommées par @p renaming.
+     *
+     * Une pièce que @p renaming ne nomme pas garde son nom. Toute la collision est redéduite par
+     * le nouveau manifeste, hors cases forcées et hors entrée.
+     * @return `false` si rien ne change, si la carte n'a pas de couche visuelle, ou si une emprise
+     *         déborderait de la carte.
+     */
+    bool changeScene(const std::string& place, std::shared_ptr<const ScenePieceManifest> manifest,
+                     const PieceRenaming& renaming);
 
     /** @} */
 

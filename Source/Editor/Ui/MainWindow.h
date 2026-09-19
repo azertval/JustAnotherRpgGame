@@ -42,6 +42,8 @@ class MiniMap;
 class ProblemsPanel;
 struct EditorReferences;
 struct MapCheckFinding;
+struct Citation;
+struct RefactorPlan;
 
 /**
  * @brief Fenêtre principale de l'éditeur (Qt Widgets, style Fusion, textes anglais).
@@ -99,6 +101,23 @@ private:
      * @return `false` si l'auteur a renoncé ou si la carte ne s'ouvre pas.
      */
     bool openLevelGuarded(const std::filesystem::path& path);
+    /// Enregistre la carte ouverte (garde du fichier modifié sur disque d'abord), puis relit ce
+    /// qui en dépend : références, graphe du monde, contrôle.
+    bool saveMap();
+
+    // --- Renommer et remplacer (LOT-EDITOR-14) ---
+    /// Les commandes du menu *Map* : qui cite ceci, renommer une entité ou un point d'arrivée,
+    /// remplacer une pièce, changer de planche.
+    void buildRefactorMenu(QMenu* mapMenu);
+    /// Renomme la carte @p mapId par le renommage propagé ; la carte ouverte suit.
+    void renameMap(const std::string& mapId);
+    /// Un renommage récrit des fichiers : la carte ouverte doit être enregistrée. @return `false`
+    /// si l'auteur renonce.
+    bool saveBeforeRefactor();
+    /// Montre ce que @p plan récrit, l'écrit si l'auteur accepte, puis rouvre @p openAfter.
+    void carryOutPlan(const RefactorPlan& plan, const QString& title, const std::string& openAfter);
+    /// Ouvre la carte de la citation et y va, comme pour un constat du contrôle.
+    void goToCitation(const Citation& citation);
 
     // --- Sauvegarde automatique, reprise, garde du fichier (LOT-EDITOR-01) ---
     void setUpSafetyNet();

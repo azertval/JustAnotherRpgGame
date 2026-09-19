@@ -7,6 +7,7 @@
 #include <utility>
 
 #include "Core/Levels/CollisionDerivation.h"
+#include "Core/Levels/LevelVariant.h"
 #include "Core/Levels/LevelWriter.h"
 
 namespace core {
@@ -554,6 +555,125 @@ bool LevelDraft::unforceCollision(const std::vector<GridPosition>& cells) {
         return std::ranges::find(released, cell) != released.end();
     });
     followCollision(released);
+    return true;
+}
+
+// --- Remplacer, changer de planche (LOT-EDITOR-14) ---
+
+namespace {
+
+// L'emprise de @p piece selon @p manifest, 1 x 1 si elle y est inconnue.
+[[nodiscard]] PieceFootprint footprintIn(const ScenePieceManifest* manifest,
+                                         std::string_view piece) noexcept {
+    const ScenePiece* const found =
+        piece.empty() || manifest == nullptr ? nullptr : manifest->find(piece);
+    return found != nullptr ? found->footprint() : PieceFootprint{};
+}
+
+// Renomme dans @p layers les pieces que @p renaming nomme ; @p touched recoit les cases des
+// anciennes emprises (lues par @p before) et des nouvelles (lues par @p after). Faux si une
+// nouvelle emprise deborde de la carte : @p layers est alors a jeter.
+[[nodiscard]] bool renamePieces(std::vector<TileLayer>& layers, const PieceRenaming& renaming,
+                                const ScenePieceManifest* before, const ScenePieceManifest* after,
+                                std::vector<GridPosition>& touched, std::size_t& renamed) {
+    for (TileLayer& layer : layers) {
+        if (!isVisualLayerKind(layer.kind) || !layer.hasPieces()) {
+            continue;
+        }
+        for (int row = 0; row < layer.tiles.height(); ++row) {
+            for (int column = 0; column < layer.tiles.width(); ++column) {
+                const auto found = renaming.find(layer.pieceAt(column, row));
+                if (found == renaming.end() || found->second == found->first) {
+                    continue;
+                }
+                const GridPosition anchor{.column = column, .row = row};
+                const PieceFootprint next = footprintIn(after, found->second);
+                if (!layer.tiles.inBounds(column + next.columns - 1, row + next.rows - 1)) {
+                    return false;
+                }
+                const std::vector<GridPosition> old =
+                    footprintCells(anchor, footprintIn(before, found->first));
+                const std::vector<GridPosition> covered = footprintCells(anchor, next);
+                touched.insert(touched.end(), old.begin(), old.end());
+                touched.insert(touched.end(), covered.begin(), covered.end());
+                layer.setPiece(column, row, found->second);
+                ++renamed;
+            }
+        }
+    }
+    return true;
+}
+
+}  // namespace
+
+bool LevelDraft::replacePieces(const PieceRenaming& renaming) {
+    std::vector<TileLayer> layers = _layers;
+    std::vector<GridPosition> touched;
+    std::size_t renamed = 0;
+    if (!renamePieces(layers, renaming, _manifest.get(), _manifest.get(), touched, renamed) ||
+        renamed == 0) {
+        return false;
+    }
+    pushUndo();
+    _layers = std::move(layers);
+    followCollision(touched);
+    return true;
+}
+
+bool LevelDraft::changeScene(const std::string& place,
+                             std::shared_ptr<const ScenePieceManifest> manifest,
+                             const PieceRenaming& renaming) {
+    if (!derivesCollision() || place.empty()) {
+        return false;
+    }
+    std::vector<TileLayer> layers = _layers;
+    std::vector<GridPosition> touched;
+    std::size_t renamed = 0;
+    if (!renamePieces(layers, renaming, _manifest.get(), manifest.get(), touched, renamed)) {
+        return false;
+    }
+    // La planche se dit sur les couches qui la nomment ; a defaut, sur la premiere couche de sol.
+    const std::string key{SCENE_LAYER_PROPERTY};
+    bool named = false;
+    bool changed = renamed > 0;
+    for (TileLayer& layer : layers) {
+        const auto found = layer.properties.find(key);
+        if (found == layer.properties.end()) {
+            continue;
+        }
+        named = true;
+        if (found->second != PropertyValue{place}) {
+            found->second = place;
+            changed = true;
+        }
+    }
+    if (!named) {
+        auto target = std::ranges::find_if(
+            layers, [](const TileLayer& layer) { return layer.kind == LayerKind::Ground; });
+        if (target == layers.end()) {
+            // derivesCollision() : la carte a une couche visuelle, donc un decor.
+            target = std::ranges::find_if(
+                layers, [](const TileLayer& layer) { return isVisualLayerKind(layer.kind); });
+        }
+        target->properties[key] = place;
+        changed = true;
+    }
+    if (!changed) {
+        return false;
+    }
+    pushUndo();
+    _layers = std::move(layers);
+    _manifest = std::move(manifest);
+    // Une piece qui garde son nom peut changer d'emprise ou de type tactique : tout se rededuit.
+    std::vector<GridPosition> all;
+    all.reserve(static_cast<std::size_t>(_tileMap.width()) *
+                static_cast<std::size_t>(_tileMap.height()));
+    for (int row = 0; row < _tileMap.height(); ++row) {
+        for (int column = 0; column < _tileMap.width(); ++column) {
+            all.push_back({.column = column, .row = row});
+        }
+    }
+    followCollision(all);
     return true;
 }
 

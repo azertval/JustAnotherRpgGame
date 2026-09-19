@@ -53,8 +53,10 @@ public:
     [[nodiscard]] FileOperationResult create(const std::string& name, int width, int height,
                                              const std::string& place = {}) const;
 
-    /// Renomme le niveau @p source en @p newName : son nom devient la clé du nouvel identifiant,
-    /// dont les catalogues reprennent les traductions de l'ancienne (`LOT-EDITOR-07`).
+    /// Renomme le niveau @p source en @p newName, dans son dossier, par le renommage propagé
+    /// (`hmi::planRenameMap`, `LOT-EDITOR-14`) : portails, variantes, villes et clé du nom suivent,
+    /// et les catalogues gardent leurs traductions sous la nouvelle clé. Refusé sans rien écrire
+    /// si une carte du projet est illisible ou si le nom est pris.
     [[nodiscard]] FileOperationResult rename(const std::filesystem::path& source,
                                              const std::string& newName) const;
 

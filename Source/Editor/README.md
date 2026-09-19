@@ -66,6 +66,9 @@ Faire une carte de bout en bout : le
   que la fenêtre garde d'un geste à l'autre, et le refus lisible d'un geste (`EX-EDIT-074`).
 - `LevelFileOperations`, `LevelNameValidation` — créer (avec son lieu, `EX-EDIT-077`), renommer,
   dupliquer, supprimer une carte ; son nom est une clé, que les catalogues reçoivent (`EX-EDIT-081`).
+- `MapRefactor` — renommer et remplacer d'un bout à l'autre du projet : qui cite une carte, un
+  point d'arrivée, une entité, une pièce ; le plan de chaque fichier à récrire, calculé avant d'en
+  écrire un (`EX-EDIT-082`, `EX-EDIT-083`, `EX-EDIT-084`).
 - `ContentCheck` — le contrôle du contenu, après celui du format : références, rencontres,
   atteignabilité, portails sans retour, points d'arrivée orphelins, textes (`EX-EDIT-079`).
 - `MapTexts` — la clé du nom d'une carte, et les catalogues de traduction qu'on lit et complète
@@ -107,6 +110,14 @@ de l'arbre qui l'a construit, et à défaut le dossier de l'exécutable (`hmi::r
 | `LevelEditor --migrate [carte…] [--output f]` | Convertit en v4 canonique (`EX-EDIT-062`). |
 | `LevelEditor --apply gestes.json [carte] [--output f]` | Rejoue les gestes du fichier ; un geste refusé n'écrit rien (`EX-EDIT-074`). |
 | `LevelEditor --render [carte…] [--output f.png\|dossier] [--layers floors,relief,figures,collision] [--scale s]` | Rend en PNG, en isométrie (`EX-EDIT-075`). |
+| `LevelEditor --who-cites map <carte>` (ou `arrival <carte> <point>`, `entity <carte> <id>`, `piece <pièce>`) | Liste ce qui cite, sans rien écrire (`EX-EDIT-082`). |
+| `LevelEditor --rename-map <ancien> <nouveau>` | Renomme une carte, dossier compris, et tout ce qui la cite ; refusé, n'écrit rien (`EX-EDIT-082`). |
+| `LevelEditor --rename-arrival <carte> <ancien> <nouveau>`, `--rename-id <carte> <ancien> <nouveau>` | Renomme un point d'arrivée, un identifiant d'entité, et ce qui les cite (`EX-EDIT-082`). |
+| `LevelEditor --replace-piece <ancienne> <nouvelle> [carte…]` | Remplace une pièce sur les cartes nommées, toutes celles qui la posent à défaut (`EX-EDIT-083`). |
+| `LevelEditor --change-scene <carte> <lieu> [--table table.json]` | Fait passer une carte à une autre planche ; la table (`jadg-piece-table`, version 1, `"pieces": {"ancienne": "nouvelle"}`) donne les pièces sans homonyme (`EX-EDIT-084`). |
+
+Suivie de `--check`, une commande de renommage ou de remplacement contrôle ensuite toutes les
+cartes.
 
 Un fichier de gestes (`jadg-editor-gestures`, version 1) décrit ce que la main ferait : l'outil,
 l'appui (`at`), le glisser (`path`, ou `from` et `to`), et ce qu'on arme entre deux gestes (`piece`,

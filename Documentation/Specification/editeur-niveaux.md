@@ -328,7 +328,35 @@ Une carte bien écrite (`EX-EDIT-062`) doit aussi se jouer ([LOT-EDITOR-07](@ref
 - \anchor EX-EDIT-081 **EX-EDIT-081** — Une carte ne porte pas de texte affiché : son nom est la
   clé `map.<identifiant>.name`, celui d'un îlot se lit sous `city_block.<nom>`, et chaque clé est
   dans chaque catalogue de traduction. Créer, renommer ou dupliquer une carte écrit sa clé et
-  complète les catalogues, traductions de l'ancien nom reprises.
+  complète les catalogues, traductions de l'ancien nom reprises ; un renommage renomme la clé
+  (`EX-EDIT-082`).
+
+## 17. Renommer et remplacer (`LOT-EDITOR-14`)
+L'identifiant d'une carte est son chemin, et les pièces d'une planche peuvent changer : un nom qui
+change ne casse rien ([LOT-EDITOR-14](@ref lot-editor-14)).
+
+- \anchor EX-EDIT-082 **EX-EDIT-082** — Renommer une carte, un point d'arrivée ou un identifiant
+  d'entité récrit **tout ce qui le cite** : pour une carte, les propriétés d'entité de source
+  `Maps` (les portails), les variantes (`base`), les villes (`World/cities`), la clé de son nom dans
+  chaque catalogue, texte gardé, et son annexe, qui la suit ; pour un point d'arrivée, les
+  propriétés de source `ArrivalPoints` qui visent sa carte et la porte de départ d'une ville ; pour
+  une entité, les propriétés de source `EntityRefs` (`carte#id`). Une carte peut changer de
+  dossier. « Qui cite ceci ? » liste ces citations sans rien écrire. Un renommage impossible — nom
+  pris, invalide, identifiant que l'éditeur pourrait redonner, carte du projet illisible — est
+  refusé **sans écrire aucun fichier**. La fenêtre et `LevelEditor --rename-map`,
+  `--rename-arrival`, `--rename-id`, `--who-cites` appellent les mêmes fonctions.
+- \anchor EX-EDIT-083 **EX-EDIT-083** — Une pièce se **remplace** par une autre de sa planche : sur
+  la carte ouverte, en un pas d'annulation, ou sur toutes les cartes qui la posent
+  (`LevelEditor --replace-piece`). La pièce garde sa case d'ancrage et son type ; la collision
+  suit. Refusé : une pièce absente de la planche, un sol remplacé par une pièce debout ou
+  l'inverse, une emprise qui déborderait.
+- \anchor EX-EDIT-084 **EX-EDIT-084** — Une carte **change de planche** sans être repeinte : chaque
+  pièce qu'elle pose va à la pièce de même nom (ou dont elle est un ancien nom) de la nouvelle
+  planche, et une **table de correspondance** donne les autres. Tant qu'une pièce reste sans
+  correspondant, le changement est refusé. Sur la carte ouverte, c'est un pas d'annulation ; par
+  `LevelEditor --change-scene <carte> <lieu> --table <table.json>`, un fichier récrit. La collision
+  se redéduit par le nouveau manifeste ; le lieu reçoit une table d'apparence traduite de l'ancienne
+  s'il n'en a pas.
 
 ## Exigences retirées {#edit-retirees}
 

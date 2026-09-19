@@ -195,7 +195,7 @@ sont des noms, pas un ordre : l'ordre vient des prérequis.
 | `LOT-EDITOR-13` | L'éditeur sans fenêtre — **livré** | 04 | S |
 | `LOT-EDITOR-06` | Les cartes quittent leurs scripts — **livré** | 05, 13 | S |
 | `LOT-EDITOR-07` | Contrôle du contenu — **livré** | 06 | M |
-| `LOT-EDITOR-14` | Renommer et remplacer | 06 | M |
+| `LOT-EDITOR-14` | Renommer et remplacer — **livré** | 06 | M |
 | `LOT-EDITOR-08` | Tampons et préfabriqués | 04 | S |
 | `LOT-EDITOR-09` | Le monde : onglets, portails, ville | 05, 13 | M |
 | `LOT-EDITOR-10` | Essai complet dans le jeu | 01 | S |
@@ -203,7 +203,7 @@ sont des noms, pas un ordre : l'ordre vient des prérequis.
 
 Tailles relatives : S tient en une séance, M en quelques-unes, L demande un découpage en phases.
 
-Le jalon est atteint : 01, 02, 12, 03, 04, 05, 13 et 06 sont livrés, et 07 après lui. Le graphe est donné en source
+Le jalon est atteint : 01, 02, 12, 03, 04, 05, 13 et 06 sont livrés, et 07 et 14 après lui. Le graphe est donné en source
 Graphviz, comme celui du jeu (la chaîne Doxygen tourne sans `HAVE_DOT`).
 
 ```dot
@@ -219,7 +219,7 @@ digraph editeur {
   E13 [label="13\nsans fenêtre\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E06 [label="06\nfin des scripts\n(jalon, livré)", style="rounded,filled,bold", fillcolor="#dddddd"];
   E07 [label="07\ncontrôles\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
-  E14 [label="14\nrenommer, remplacer"];
+  E14 [label="14\nrenommer, remplacer\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E08 [label="08\ntampons"];
   E09 [label="09\nmonde"];
   E10 [label="10\nessai complet"];
@@ -351,19 +351,18 @@ base (`EX-EDIT-079`). Le nom d'une carte devient une clé de traduction, que le 
 chaque catalogue doit porter (`EX-EDIT-081`). Un dock « Problems » montre les constats de toutes
 les cartes ; un double-clic mène à la case (`EX-EDIT-080`).
 
-### LOT-EDITOR-14 — Renommer et remplacer {#lot-editor-14}
+### LOT-EDITOR-14 — Renommer et remplacer
 
-> Statut : **à faire**. Prérequis : 06.
+> Statut : **livré le 19 septembre 2026**. Le lot a quitté cette page pour son dossier :
+> @subpage lot-editor-14.
 
-Les renommages se propagent, et les cartes survivent aux planches qui changent (A7, §5 règle 3).
-
-- Renommer une carte (son chemin), un point d'arrivée, un `id`, une pièce, partout où ils sont
-  cités ; le fichier annexe suit sa carte ; « qui cite ceci ? ».
-- « Remplacer la pièce A par B », sur une carte ou sur toutes.
-- **Changer une carte de planche**, avec une table de correspondance des pièces.
-
-*Acceptation* — Arenarea passe de la planche de Martpart à la sienne sans être repeinte ; renommer
-`capital/martpart` laisse le `--check` vert.
+Un renommage suit tout ce qui cite : une carte (son chemin, dossier compris) récrit les portails,
+variantes, villes et la clé de son nom, son annexe la suit ; un point d'arrivée récrit les portails
+et la porte de départ d'une ville ; un identifiant d'entité, les `carte#id`. « Qui cite ceci ? »
+les montre avant. Un renommage impossible n'écrit rien (`EX-EDIT-082`). Une pièce se remplace sur
+la carte ouverte, en un pas, ou sur toutes les cartes (`EX-EDIT-083`). Une carte change de planche
+par une table de correspondance, sans être repeinte (`EX-EDIT-084`) ; la planche d'Arenarea reste
+à produire par l'atelier du [LOT-92](@ref lot-92), sa commande est prête.
 
 ### LOT-EDITOR-08 — Tampons et préfabriqués {#lot-editor-08}
 

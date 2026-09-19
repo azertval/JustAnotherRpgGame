@@ -8,7 +8,6 @@
 #include <QDialogButtonBox>
 #include <QFormLayout>
 #include <QHBoxLayout>
-#include <QInputDialog>
 #include <QLineEdit>
 #include <QListView>
 #include <QMessageBox>
@@ -197,21 +196,9 @@ void LevelBrowserPanel::onNew() {
 
 void LevelBrowserPanel::onRename() {
     const std::filesystem::path path = selectedPath();
-    if (path.empty()) {
-        return;
+    if (!path.empty()) {
+        emit mapRenameRequested(QString::fromStdString(core::mapIdOf(_dir, path)));
     }
-    bool accepted = false;
-    const QString name = QInputDialog::getText(
-        this, QStringLiteral("Rename"), QStringLiteral("New name:"), QLineEdit::Normal,
-        QString::fromStdString(path.stem().string()), &accepted);
-    if (!accepted || name.isEmpty()) {
-        return;
-    }
-    const LevelFileOperations ops(_dir);
-    HMI_LOG_INFO("Niveaux : renommage de « " + path.stem().string() + " » en « " +
-                 name.toStdString() + " ».");
-    reportIfError(this, QStringLiteral("Operation failed"), ops.rename(path, name.toStdString()));
-    refresh();
 }
 
 void LevelBrowserPanel::onDuplicate() {
