@@ -40,6 +40,7 @@
 #include "Editor/Logic/LevelFileOperations.h"
 #include "Editor/Logic/LevelNameValidation.h"
 #include "Editor/Logic/MapFormat.h"
+#include "Editor/Logic/MapTexts.h"
 #include "Editor/Ui/DraftRenderer.h"
 #include "Editor/Ui/SceneImages.h"
 #include "Editor/Ui/ScenePainter.h"
@@ -404,6 +405,13 @@ void EditorViewport::centerOnGridPoint(core::Vector2 gridPoint) {
     emit framingChanged();
 }
 
+void EditorViewport::revealCell(core::GridPosition cell) {
+    _revealedCell = cell;
+    centerOnGridPoint(
+        {static_cast<float>(cell.column) + 0.5F, static_cast<float>(cell.row) + 0.5F});
+    viewport()->update();
+}
+
 core::Vector2 EditorViewport::worldPosition(const QMouseEvent* event) const {
     const QPointF scenePoint = mapToScene(event->position().toPoint());
     return {static_cast<float>(scenePoint.x()), static_cast<float>(scenePoint.y())};
@@ -518,6 +526,11 @@ void EditorViewport::paintFlat(QPainter& painter, const QRectF& exposed) {
         painter.setPen(screenPen(QColor(255, 236, 140), 2.0));
         painter.setBrush(Qt::NoBrush);
         painter.drawRect(QRectF(_hoverCell->column, _hoverCell->row, 1.0, 1.0));
+    }
+    if (_revealedCell) {
+        painter.setPen(screenPen(QColor(255, 70, 200), 3.0));
+        painter.setBrush(Qt::NoBrush);
+        painter.drawRect(QRectF(_revealedCell->column, _revealedCell->row, 1.0, 1.0));
     }
 }
 
@@ -658,6 +671,12 @@ void EditorViewport::paintIsoOverlays(QPainter& painter, const CellRange& cells,
         painter.setBrush(Qt::NoBrush);
         painter.setPen(screenPen(QColor(255, 236, 140), 2.0));
         painter.drawPolygon(diamondOf(iso, *_hoverCell));
+    }
+    // La case d'un constat, d'une couleur qu'aucun autre repère ne prend.
+    if (_revealedCell) {
+        painter.setBrush(Qt::NoBrush);
+        painter.setPen(screenPen(QColor(255, 70, 200), 3.0));
+        painter.drawPolygon(diamondOf(iso, *_revealedCell));
     }
 }
 
@@ -1428,14 +1447,15 @@ bool EditorViewport::renameOpenLevel(const std::string& newName) {
         return false;
     }
     const std::string trimmed = hmi::trimLevelName(newName);
-    if (trimmed == _draft.name()) {
+    const std::filesystem::path oldPath = levelsDirectory() / (_mapId + ".json");
+    // Le nom de la carte est une clé (LOT-EDITOR-07) : c'est le nom du fichier qu'on renomme.
+    if (trimmed == oldPath.stem().string()) {
         return true;
     }
-    const std::filesystem::path oldPath = levelsDirectory() / (_mapId + ".json");
     const std::filesystem::path renamedPath = oldPath.parent_path() / (trimmed + ".json");
     if (std::filesystem::exists(oldPath)) {
         // Carte déjà enregistrée : on renomme le fichier, même chemin que le navigateur de cartes.
-        const hmi::LevelFileOperations ops(oldPath.parent_path());
+        const hmi::LevelFileOperations ops(oldPath.parent_path(), levelsDirectory());
         const hmi::FileOperationResult result = ops.rename(oldPath, trimmed);
         if (!result.ok()) {
             HMI_LOG_WARNING("Editeur : renommage refuse : " + result.error);
@@ -1444,8 +1464,10 @@ bool EditorViewport::renameOpenLevel(const std::string& newName) {
             return false;
         }
     }
-    _draft.setName(trimmed);
     _mapId = mapIdOf(renamedPath);
+    // Déjà fait par le renommage du fichier, sauf pour une carte jamais enregistrée.
+    _draft.setName(
+        hmi::nameMapInCatalogs(levelsDirectory().parent_path(), _mapId, trimmed, _draft.name()));
     _diskFingerprint = fingerprintFile(renamedPath);
     // Les notes suivent la carte ; celles d'une carte jamais enregistrée n'ont pas été déplacées
     // avec son fichier (LOT-EDITOR-04).
@@ -1472,6 +1494,7 @@ bool EditorViewport::openLevel(const std::filesystem::path& path) {
     _dragging = false;
     _draft = core::LevelDraft::fromLevel(*loaded.level);
     _mapId = mapIdOf(path);
+    _revealedCell.reset();  // une case d'une autre carte.
     // Une carte ouverte repart de sa collision, tout affiché, rien de sélectionné : les réglages
     // de la carte précédente n'ont aucun sens pour celle-ci.
     _layerView.reset();

@@ -6,6 +6,7 @@
 #include <QByteArray>
 #include <QMainWindow>
 #include <array>
+#include <filesystem>
 #include <memory>
 #include <optional>
 #include <string>
@@ -38,7 +39,9 @@ class LevelBrowserPanel;
 class LayersPanel;
 class EntityPanel;
 class MiniMap;
+class ProblemsPanel;
 struct EditorReferences;
+struct MapCheckFinding;
 
 /**
  * @brief Fenêtre principale de l'éditeur (Qt Widgets, style Fusion, textes anglais).
@@ -85,6 +88,18 @@ private:
     void applyPanelFocus(hmi::EditorTool tool);
     [[nodiscard]] QDockWidget* dockFor(PanelId panel) const;
 
+    // --- Contrôle du contenu (LOT-EDITOR-07) ---
+    /// Contrôle toutes les cartes enregistrées et montre le bilan dans « Problems ».
+    void runContentCheck();
+    /// Ouvre la carte du constat (garde-fou des modifications d'abord), sélectionne son entité et
+    /// cerne sa case.
+    void goToFinding(const MapCheckFinding& finding);
+    /**
+     * @brief Ouvre @p path, après avoir demandé quoi faire des modifications non enregistrées.
+     * @return `false` si l'auteur a renoncé ou si la carte ne s'ouvre pas.
+     */
+    bool openLevelGuarded(const std::filesystem::path& path);
+
     // --- Sauvegarde automatique, reprise, garde du fichier (LOT-EDITOR-01) ---
     void setUpSafetyNet();
     /// Relance le délai de sauvegarde automatique : une rafale de gestes n'écrit qu'une fois.
@@ -114,6 +129,9 @@ private:
     /// La mini-carte (LOT-EDITOR-02) : un dock hors de la mise en avant par outil.
     MiniMap* _miniMap = nullptr;
     QDockWidget* _miniMapDock = nullptr;
+    /// Les constats du contrôle, sur toutes les cartes (LOT-EDITOR-07) : hors de la mise en avant.
+    ProblemsPanel* _problems = nullptr;
+    QDockWidget* _problemsDock = nullptr;
     std::unique_ptr<EditorReferences> _references;
     EditorActions* _actions = nullptr;
     QToolBar* _toolBar = nullptr;

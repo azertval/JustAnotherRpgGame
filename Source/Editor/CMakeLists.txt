@@ -47,6 +47,9 @@ add_library(EditorLogic STATIC
     Logic/GestureScript.cpp
     # Les cartes se font dans l'éditeur (LOT-EDITOR-06) : la racine des données qu'il ouvre.
     Logic/DataRoot.cpp
+    # Le contrôle du contenu (LOT-EDITOR-07) : références, terrain, atteignabilité, textes.
+    Logic/ContentCheck.cpp
+    Logic/MapTexts.cpp
 )
 target_include_directories(EditorLogic PUBLIC ${PROJECT_SOURCE_DIR}/Source)
 target_link_libraries(EditorLogic
@@ -92,6 +95,8 @@ add_executable(LevelEditor
     Ui/EditorViewport.cpp
     Ui/PalettePanel.cpp
     Ui/LevelBrowserPanel.cpp
+    # Le panneau « Problems » (LOT-EDITOR-07) : les constats du contrôle, sur toutes les cartes.
+    Ui/ProblemsPanel.cpp
     Ui/LayersPanel.cpp
     Ui/EntityPanel.cpp
     Ui/WorldGraphView.cpp

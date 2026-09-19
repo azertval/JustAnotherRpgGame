@@ -6,6 +6,16 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Contrôle du contenu (LOT-EDITOR-07).**
+  - **`--check` dit si une carte se joue**, sur toutes les cartes, et la CI échoue sinon :
+    références des entités et drapeaux de monde, rencontres qui ne tiennent pas, PNJ, coffre,
+    portail ou zone hors d'atteinte depuis l'entrée et les points d'arrivée ; il avertit d'un
+    portail sans retour ou d'un point d'arrivée que rien ne nomme. Une variante se contrôle sur les
+    cases de sa base.
+  - **Panneau « Problems »** : les constats de toutes les cartes, au lancement et à chaque
+    enregistrement ; un double-clic ouvre la carte, sélectionne l'entité et cerne la case.
+  - **Le nom d'une carte est une clé de traduction** (`map.coliseum.name`), que le jeu traduit :
+    « The Coliseum » en anglais. Créer, renommer ou dupliquer une carte complète les catalogues.
 - **Les cartes quittent leurs scripts (LOT-EDITOR-06)** — premier jalon de l'éditeur.
   - **L'éditeur fait foi** : le Colisée, Martpart et Arenarea s'ouvrent et s'enregistrent dans
     l'éditeur sans changer d'un octet ; les scripts qui les posaient restent comme trace et

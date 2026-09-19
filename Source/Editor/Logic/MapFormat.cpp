@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <fstream>
+#include <iterator>
 #include <map>
 #include <set>
 #include <sstream>
@@ -20,6 +21,7 @@
 #include "Core/Levels/TileTypeName.h"
 #include "Core/World/WorldGraph.h"
 #include "Core/World/WorldTravel.h"
+#include "Editor/Logic/ContentCheck.h"
 #include "Editor/Logic/EditorSidecar.h"
 #include "Editor/Logic/GestureScript.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
@@ -416,6 +418,12 @@ std::string formatFinding(const MapCheckFinding& finding) {
 
 std::vector<MapCheckFinding> checkMapFile(std::string_view mapId, const std::filesystem::path& file,
                                           const std::filesystem::path& dataRoot) {
+    return checkMapFile(mapId, file, dataRoot, loadContentContext(dataRoot));
+}
+
+std::vector<MapCheckFinding> checkMapFile(std::string_view mapId, const std::filesystem::path& file,
+                                          const std::filesystem::path& dataRoot,
+                                          const ContentContext& context) {
     Findings findings(mapId);
     const std::string text = readText(file);
     const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(file);
@@ -455,7 +463,11 @@ std::vector<MapCheckFinding> checkMapFile(std::string_view mapId, const std::fil
         checkPieces(level, assets, place, findings);
         checkCollision(level, assets, findings);
     }
-    return findings.take();
+    std::vector<MapCheckFinding> found = findings.take();
+    std::vector<MapCheckFinding> content = checkMapContent(mapId, level, context);
+    found.insert(found.end(), std::make_move_iterator(content.begin()),
+                 std::make_move_iterator(content.end()));
+    return found;
 }
 
 std::size_t MapCheckReport::count(MapCheckSeverity severity) const {
@@ -466,10 +478,11 @@ std::size_t MapCheckReport::count(MapCheckSeverity severity) const {
 MapCheckReport checkAllMaps(const std::filesystem::path& dataRoot) {
     MapCheckReport report;
     const std::filesystem::path levels = levelsOf(dataRoot);
+    const ContentContext context = loadContentContext(dataRoot);
     for (const std::filesystem::path& file : listMapFiles(levels)) {
         ++report.maps;
         std::vector<MapCheckFinding> found =
-            checkMapFile(core::mapIdOf(levels, file), file, dataRoot);
+            checkMapFile(core::mapIdOf(levels, file), file, dataRoot, context);
         report.findings.insert(report.findings.end(), found.begin(), found.end());
     }
     // Les portails, d'une carte à l'autre : ce qu'aucune carte seule ne voit.

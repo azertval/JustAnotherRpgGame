@@ -44,6 +44,9 @@
  * manifeste, collision égale à la déduction hors des cases forcées, identifiants d'entité. Les
  * avertissements ne font pas échouer : réserve de hauteur non nulle, pièce citée par un ancien nom,
  * gêne et abri pas encore joués, case forcée inutile, pièces larges qui se recouvrent.
+ *
+ * Puis le **contenu** (`LOT-EDITOR-07`, `ContentCheck.h`) : références des entités, terrain des
+ * rencontres, atteignabilité, portails sans retour, points d'arrivée orphelins, clés de traduction.
  */
 
 namespace hmi {
@@ -78,6 +81,9 @@ struct MapCheckFinding {
     std::string mapId;
     std::optional<core::GridPosition> cell;
     std::string message;
+    /// L'entité en cause, par son `id`, vide si le constat n'en vise aucune : le panneau
+    /// « Problems » la sélectionne (`LOT-EDITOR-07`).
+    std::string entityId;
 
     [[nodiscard]] bool operator==(const MapCheckFinding&) const = default;
 };
@@ -85,12 +91,21 @@ struct MapCheckFinding {
 /// @return Le constat en une ligne : `capital/martpart (12, 3): error: …`.
 [[nodiscard]] std::string formatFinding(const MapCheckFinding& finding);
 
+struct ContentContext;
+
 /**
- * @brief Contrôle une carte, lue depuis son fichier.
+ * @brief Contrôle une carte, lue depuis son fichier : son format, puis son contenu.
  * @param mapId    Son identifiant (`capital/martpart`), pour les messages.
  * @param file     Son fichier.
  * @param dataRoot La racine des données (`Source/Elements`), où vivent les planches.
+ * @param context  Ce contre quoi le contenu se contrôle (`hmi::loadContentContext`).
  */
+[[nodiscard]] std::vector<MapCheckFinding> checkMapFile(std::string_view mapId,
+                                                        const std::filesystem::path& file,
+                                                        const std::filesystem::path& dataRoot,
+                                                        const ContentContext& context);
+
+/// @brief Comme ci-dessus, le contexte étant lu sous @p dataRoot pour cette seule carte.
 [[nodiscard]] std::vector<MapCheckFinding> checkMapFile(std::string_view mapId,
                                                         const std::filesystem::path& file,
                                                         const std::filesystem::path& dataRoot);

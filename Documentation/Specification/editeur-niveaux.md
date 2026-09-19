@@ -312,6 +312,24 @@ L'éditeur fait foi pour les cartes faites à la main (décision D4) : plus aucu
   défait jusqu'au fichier livré. Aucun script n'écrit plus dans `Levels/` : ceux qui y écrivaient
   restent dans leurs dossiers de lot, comme trace, et refusent d'y écrire.
 
+## 16. Le contrôle du contenu (`LOT-EDITOR-07`)
+Une carte bien écrite (`EX-EDIT-062`) doit aussi se jouer ([LOT-EDITOR-07](@ref lot-editor-07)).
+
+- \anchor EX-EDIT-079 **EX-EDIT-079** — `LevelEditor --check` contrôle aussi le **contenu** de
+  toutes les cartes, et échoue sur toute erreur : références des entités (catalogues, propriétés
+  requises, bornes, drapeaux de monde qu'un dialogue pose), terrain des rencontres, **atteignabilité**
+  de chaque case utile — portail, point d'arrivée, PNJ, coffre, panneau, rencontre, zone — depuis
+  l'entrée ou un point d'arrivée nommé par un portail ou une ville, selon la règle de marche du jeu.
+  Il avertit d'un portail sans retour, d'un point d'arrivée que rien ne nomme, d'une famille
+  d'entité inconnue. Une variante se contrôle sur les cases de sa base.
+- \anchor EX-EDIT-080 **EX-EDIT-080** — La fenêtre montre les constats de **toutes** les cartes,
+  tels qu'enregistrés, dans un panneau « Problems » : au lancement, après chaque enregistrement et
+  à la demande. Un double-clic ouvre la carte du constat, sélectionne son entité et cerne sa case.
+- \anchor EX-EDIT-081 **EX-EDIT-081** — Une carte ne porte pas de texte affiché : son nom est la
+  clé `map.<identifiant>.name`, celui d'un îlot se lit sous `city_block.<nom>`, et chaque clé est
+  dans chaque catalogue de traduction. Créer, renommer ou dupliquer une carte écrit sa clé et
+  complète les catalogues, traductions de l'ancien nom reprises.
+
 ## Exigences retirées {#edit-retirees}
 
 > Ancres conservées, jamais renumérotées : les lots livrés s'y réfèrent. Chacune servait un

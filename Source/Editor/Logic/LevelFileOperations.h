@@ -26,7 +26,14 @@ namespace hmi {
  */
 class LevelFileOperations {
 public:
-    explicit LevelFileOperations(std::filesystem::path levelsDir);
+    /**
+     * @param levelsDir  Le dossier des cartes qu'on gère (`Levels`, ou un sous-dossier).
+     * @param levelsRoot Le dossier `Levels` lui-même, d'où se tirent les identifiants de carte
+     *                   (`capital/martpart`) ; à défaut, @p levelsDir. Les catalogues de traduction
+     *                   sont à côté de lui, dans `Localization`.
+     */
+    explicit LevelFileOperations(std::filesystem::path levelsDir,
+                                 std::filesystem::path levelsRoot = {});
 
     /// @return Les fichiers `.json` du dossier, triés par nom (vide si le dossier n'existe pas).
     [[nodiscard]] std::vector<std::filesystem::path> list() const;
@@ -39,15 +46,20 @@ public:
      * comme les cartes livrées : une couche de sol `sol` qui prend ses pièces dans la planche de
      * @p place (propriété `scene`), une couche de décor `relief` au-dessus, et la collision
      * déduite — tout est vide, donc tout arrête la vue, sauf la case d'entrée, qui reçoit un sol.
+     *
+     * Son nom est la clé `map.<identifiant>.name` (`LOT-EDITOR-07`), que chaque catalogue de
+     * traduction reçoit avec @p name pour texte : la carte passe le contrôle telle quelle.
      */
     [[nodiscard]] FileOperationResult create(const std::string& name, int width, int height,
                                              const std::string& place = {}) const;
 
-    /// Renomme le niveau @p source en @p newName (met à jour le nom interne).
+    /// Renomme le niveau @p source en @p newName : son nom devient la clé du nouvel identifiant,
+    /// dont les catalogues reprennent les traductions de l'ancienne (`LOT-EDITOR-07`).
     [[nodiscard]] FileOperationResult rename(const std::filesystem::path& source,
                                              const std::string& newName) const;
 
-    /// Duplique le niveau @p source sous un nom unique (« … (copie) », « … (copie 2) », …).
+    /// Duplique le niveau @p source sous un nom unique (« … (copie) », « … (copie 2) », …) ; le
+    /// nom de la copie est sa propre clé, aux traductions de l'original.
     [[nodiscard]] FileOperationResult duplicate(const std::filesystem::path& source) const;
 
     /// Supprime le fichier de niveau @p source.
@@ -57,7 +69,15 @@ private:
     /// Chemin du fichier `.json` correspondant à un nom de niveau, dans le dossier géré.
     [[nodiscard]] std::filesystem::path pathForName(const std::string& name) const;
 
+    /// @return La clé du nom de la carte écrite en @p file.
+    [[nodiscard]] std::string nameKeyFor(const std::filesystem::path& file) const;
+
+    /// @brief Ajoute aux catalogues la clé du nom de @p file (voir `hmi::addTranslation`).
+    void addNameTranslation(const std::filesystem::path& file, const std::string& text,
+                            const std::string& copyFrom = {}) const;
+
     std::filesystem::path _dir;
+    std::filesystem::path _root;
 };
 
 }  // namespace hmi

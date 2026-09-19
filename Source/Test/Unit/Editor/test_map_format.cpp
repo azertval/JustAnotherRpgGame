@@ -98,6 +98,10 @@ public:
             std::filesystem::copy_file(dataRoot() / "Assets" / "Scene" / "martpart" / fichier,
                                        planche / fichier);
         }
+        // Les figurines que les PNJ citent : le contrôle du contenu les cherche (LOT-EDITOR-07).
+        std::filesystem::create_directories(_racine / "Assets" / "Npc");
+        std::filesystem::copy_file(dataRoot() / "Assets" / "Npc" / "manifest.json",
+                                   _racine / "Assets" / "Npc" / "manifest.json");
     }
     ~DossierDeDonnees() {
         std::error_code ignore;

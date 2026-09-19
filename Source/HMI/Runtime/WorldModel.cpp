@@ -12,6 +12,7 @@
 #include "Core/World/WorldTravel.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Platform/ExecutableDirectory.h"
+#include "HMI/Runtime/RuleLabels.h"
 
 namespace hmi {
 
@@ -23,8 +24,8 @@ WorldModel::WorldModel(QObject* parent) : QObject(parent) {
     _clock.setTimerType(Qt::PreciseTimer);
     connect(&_clock, &QTimer::timeout, this, &WorldModel::step);
 
-    const std::filesystem::path ville = executableDirectory() / "World" / "cities" /
-                                        (std::string{START_CITY} + ".json");
+    const std::filesystem::path ville =
+        executableDirectory() / "World" / "cities" / (std::string{START_CITY} + ".json");
     core::CityPlanResult lue = core::loadCityPlan(ville);
     if (lue.ok()) {
         _city = std::move(lue.plan);
@@ -156,7 +157,11 @@ QString WorldModel::mapId() const {
 
 QString WorldModel::mapName() const {
     const core::Level* const carte = _play->session().map();
-    return carte != nullptr ? QString::fromStdString(carte->name()) : QString{};
+    // Le nom d'une carte est une cle (`map.<identifiant>.name`, LOT-EDITOR-07) ; un nom qui n'en
+    // est pas une revient tel quel.
+    return carte != nullptr
+               ? QString::fromStdString(hmi::ruleLabel(carte->name(), hmi::activeLanguage()))
+               : QString{};
 }
 
 bool WorldModel::loaded() const {
