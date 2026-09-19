@@ -40,13 +40,17 @@
 #include <fstream>
 #include <iterator>
 #include <optional>
+#include <variant>
 
+#include "Core/World/EntityKinds.h"
 #include "Editor/Logic/Autosave.h"
 #include "Editor/Logic/DataRoot.h"
 #include "Editor/Logic/DiskGuard.h"
 #include "Editor/Logic/EditorStatus.h"
 #include "Editor/Logic/EntityReferences.h"
 #include "Editor/Logic/MapFormat.h"
+#include "Editor/Logic/MapRefactor.h"
+#include "Editor/Logic/PieceCatalog.h"
 #include "Editor/Ui/EditorActions.h"
 #include "Editor/Ui/EditorViewport.h"
 #include "Editor/Ui/EntityPanel.h"
@@ -55,6 +59,8 @@
 #include "Editor/Ui/MiniMap.h"
 #include "Editor/Ui/PalettePanel.h"
 #include "Editor/Ui/ProblemsPanel.h"
+#include "Editor/Ui/RefactorDialogs.h"
+#include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Platform/CrashDump.h"
 
@@ -80,6 +86,8 @@ constexpr int MAXIMUM_MAP_SIDE = 100;
 constexpr int AUTOSAVE_DELAY_MS = 2000;
 // Délai avant de relire un fichier signalé changé : un script qui l'écrit en plusieurs fois a fini.
 constexpr int DISK_CHECK_DELAY_MS = 300;
+// Durée d'un message de la barre d'état après une commande de renommage ou de remplacement.
+constexpr int REFACTOR_STATUS_TIMEOUT_MS = 5000;
 
 // Dossier des brouillons de reprise, sur le poste et hors du dépôt :
 // %LOCALAPPDATA%/JustAnotherRpgGame/Editor/autosave (organisation et application posées par main).
@@ -177,6 +185,8 @@ MainWindow::MainWindow(bool crashAfterAutosave)
     connect(_levels, &LevelBrowserPanel::levelOpenRequested, this, [this](const QString& path) {
         openLevelGuarded(std::filesystem::path(path.toStdString()));
     });
+    connect(_levels, &LevelBrowserPanel::mapRenameRequested, this,
+            [this](const QString& mapId) { renameMap(mapId.toStdString()); });
     // Les constats : un nouveau contrôle à la demande, et le chemin vers chacun.
     connect(_problems, &ProblemsPanel::checkRequested, this, &MainWindow::runContentCheck);
     connect(_problems, &ProblemsPanel::findingActivated, this, &MainWindow::goToFinding);
@@ -309,6 +319,8 @@ void MainWindow::buildMenus() {
         _problemsDock->show();
         _problemsDock->raise();
     });
+    mapMenu->addSeparator();
+    buildRefactorMenu(mapMenu);
 
     QMenu* const viewMenu = menuBar()->addMenu(QStringLiteral("&View"));
     viewMenu->addAction(_actions->action(EditorCommand::IsoView));
@@ -445,6 +457,237 @@ bool MainWindow::openLevelGuarded(const std::filesystem::path& path) {
     return _viewport->openLevel(path);
 }
 
+bool MainWindow::saveMap() {
+    // La carte a pu changer sur disque : jamais d'écrasement en silence. Si l'auteur choisit la
+    // version du disque, il n'y a plus rien à enregistrer.
+    if (!checkDiskChange() || !_viewport->save()) {
+        return false;
+    }
+    // Enregistrée : le fichier de reprise n'a plus d'objet, tout de suite.
+    _autosaveTimer->stop();
+    writeAutosave();
+    // Une carte enregistrée peut avoir changé ses points d'arrivée ou son nom : les portails
+    // des AUTRES cartes se valident contre le fichier, et le graphe du monde le montre.
+    reloadEditorReferences();
+    _levels->refreshWorldGraph();
+    runContentCheck();  // les autres cartes peuvent dépendre de celle-ci (portails, retours).
+    return true;
+}
+
+// --- Renommer et remplacer (LOT-EDITOR-14) ---------------------------------------------------
+
+void MainWindow::buildRefactorMenu(QMenu* mapMenu) {
+    const std::filesystem::path root = editorDataRoot();
+    const auto selected = [this]() -> const core::MapEntity* {
+        const std::optional<std::size_t> index = _viewport->selectedEntity();
+        const std::vector<core::MapEntity>& entities = _viewport->draft().entities();
+        return index && *index < entities.size() ? &entities[*index] : nullptr;
+    };
+    const auto arrivalName = [](const core::MapEntity& entity) -> std::string {
+        const auto found = entity.properties.find(std::string{core::SPAWN_POINT_NAME_PROPERTY});
+        const std::string* name =
+            found != entity.properties.end() ? std::get_if<std::string>(&found->second) : nullptr;
+        return entity.type == core::SPAWN_POINT_ENTITY_TYPE && name != nullptr ? *name
+                                                                               : std::string{};
+    };
+    const auto showAndGo = [this, root](const QString& title,
+                                        const std::vector<Citation>& citations) {
+        if (const std::optional<Citation> chosen = showCitations(this, title, citations, root)) {
+            goToCitation(*chosen);
+        }
+    };
+
+    QAction* const citesMap = mapMenu->addAction(QStringLiteral("Who cites this map?"));
+    connect(citesMap, &QAction::triggered, this, [this, root, showAndGo] {
+        showAndGo(QStringLiteral("Who cites %1").arg(QString::fromStdString(_viewport->mapId())),
+                  citationsOfMap(root, _viewport->mapId()));
+    });
+    QAction* const citesEntity =
+        mapMenu->addAction(QStringLiteral("Who cites the selected entity?"));
+    connect(citesEntity, &QAction::triggered, this, [this, root, selected, arrivalName, showAndGo] {
+        const core::MapEntity* entity = selected();
+        if (entity == nullptr) {
+            showTransientStatusMessage(QStringLiteral("Select an entity first."),
+                                       REFACTOR_STATUS_TIMEOUT_MS);
+            return;
+        }
+        // Un point d'arrivée est cité par son nom ; toute entité, par `carte#id`.
+        std::vector<Citation> citations = citationsOfEntity(root, _viewport->mapId(), entity->id);
+        if (const std::string name = arrivalName(*entity); !name.empty()) {
+            const std::vector<Citation> byName = citationsOfArrival(root, _viewport->mapId(), name);
+            citations.insert(citations.end(), byName.begin(), byName.end());
+        }
+        showAndGo(QStringLiteral("Who cites %1")
+                      .arg(QString::fromStdString(entityRef(_viewport->mapId(), entity->id))),
+                  citations);
+    });
+    QAction* const renameId = mapMenu->addAction(QStringLiteral("Rename entity id…"));
+    connect(renameId, &QAction::triggered, this, [this, root, selected] {
+        if (selected() == nullptr) {
+            showTransientStatusMessage(QStringLiteral("Select an entity first."),
+                                       REFACTOR_STATUS_TIMEOUT_MS);
+            return;
+        }
+        const std::string oldId = selected()->id;
+        if (!saveBeforeRefactor()) {
+            return;
+        }
+        bool accepted = false;
+        const QString newId = QInputDialog::getText(this, QStringLiteral("Rename entity id"),
+                                                    QStringLiteral("New id:"), QLineEdit::Normal,
+                                                    QString::fromStdString(oldId), &accepted);
+        if (accepted && !newId.isEmpty()) {
+            carryOutPlan(planRenameEntityId(root, _viewport->mapId(), oldId, newId.toStdString()),
+                         QStringLiteral("Rename entity id"), _viewport->mapId());
+        }
+    });
+    QAction* const renameArrival = mapMenu->addAction(QStringLiteral("Rename arrival point…"));
+    connect(renameArrival, &QAction::triggered, this, [this, root, selected, arrivalName] {
+        const core::MapEntity* entity = selected();
+        const std::string oldName = entity != nullptr ? arrivalName(*entity) : std::string{};
+        if (oldName.empty()) {
+            showTransientStatusMessage(QStringLiteral("Select an arrival point first."),
+                                       REFACTOR_STATUS_TIMEOUT_MS);
+            return;
+        }
+        if (!saveBeforeRefactor()) {
+            return;
+        }
+        bool accepted = false;
+        const QString newName = QInputDialog::getText(
+            this, QStringLiteral("Rename arrival point"), QStringLiteral("New name:"),
+            QLineEdit::Normal, QString::fromStdString(oldName), &accepted);
+        if (accepted && !newName.isEmpty()) {
+            carryOutPlan(
+                planRenameArrival(root, _viewport->mapId(), oldName, newName.toStdString()),
+                QStringLiteral("Rename arrival point"), _viewport->mapId());
+        }
+    });
+    mapMenu->addSeparator();
+    QAction* const replacePiece = mapMenu->addAction(QStringLiteral("Replace piece…"));
+    connect(replacePiece, &QAction::triggered, this, [this, root] {
+        const core::ScenePieceManifest* sheet = _viewport->draft().pieceManifest();
+        if (sheet == nullptr) {
+            showTransientStatusMessage(QStringLiteral("This map has no sheet."),
+                                       REFACTOR_STATUS_TIMEOUT_MS);
+            return;
+        }
+        // Les pièces que la carte pose : celles de la palette, plus celles qui manquent.
+        std::vector<std::string> cited;
+        for (const core::TileLayer& layer : _viewport->draft().layers()) {
+            if (core::isVisualLayerKind(layer.kind)) {
+                for (const std::string& piece : layer.pieces) {
+                    if (!piece.empty() && std::ranges::find(cited, piece) == cited.end()) {
+                        cited.push_back(piece);
+                    }
+                }
+            }
+        }
+        std::ranges::sort(cited);
+        const std::optional<PieceReplacementChoice> choice =
+            askPieceReplacement(this, cited, *sheet);
+        if (!choice) {
+            return;
+        }
+        if (!choice->allMaps) {
+            if (!_viewport->replacePieces({{choice->from, choice->to}})) {
+                showTransientStatusMessage(
+                    QStringLiteral("Nothing replaced: the piece would overflow the map."),
+                    REFACTOR_STATUS_TIMEOUT_MS);
+            }
+            return;
+        }
+        if (saveBeforeRefactor()) {
+            carryOutPlan(planReplacePiece(root, choice->from, choice->to, {}),
+                         QStringLiteral("Replace piece"), _viewport->mapId());
+        }
+    });
+    QAction* const changeSheet = mapMenu->addAction(QStringLiteral("Change sheet…"));
+    connect(changeSheet, &QAction::triggered, this, [this, root] {
+        const std::optional<SceneChangeChoice> choice = askSceneChange(
+            this, _viewport->draft().layers(), root, scenePlaceOf(_viewport->draft().layers()));
+        if (choice && !_viewport->changeScene(choice->place, choice->table)) {
+            showTransientStatusMessage(
+                QStringLiteral("Sheet not changed (a variant changes it with --change-scene)."),
+                REFACTOR_STATUS_TIMEOUT_MS);
+        }
+    });
+}
+
+bool MainWindow::saveBeforeRefactor() {
+    if (!_viewport->isDirty()) {
+        return true;
+    }
+    const QMessageBox::StandardButton answer = QMessageBox::question(
+        this, QStringLiteral("Save first"),
+        QStringLiteral("This rewrites map files, maybe the open one. Save the open map first?"),
+        QMessageBox::Save | QMessageBox::Cancel);
+    return answer == QMessageBox::Save && saveMap();
+}
+
+void MainWindow::renameMap(const std::string& mapId) {
+    // Même pour une autre carte : un portail de la carte ouverte peut la citer, et le plan la
+    // récrit puis la rouvre.
+    if (!saveBeforeRefactor()) {
+        return;
+    }
+    bool accepted = false;
+    const QString newId =
+        QInputDialog::getText(this, QStringLiteral("Rename map"),
+                              QStringLiteral("New id (a folder is allowed: capital/market):"),
+                              QLineEdit::Normal, QString::fromStdString(mapId), &accepted);
+    if (!accepted || newId.isEmpty() || newId.toStdString() == mapId) {
+        return;
+    }
+    const std::string openAfter =
+        mapId == _viewport->mapId() ? newId.toStdString() : _viewport->mapId();
+    carryOutPlan(planRenameMap(editorDataRoot(), mapId, newId.toStdString()),
+                 QStringLiteral("Rename map"), openAfter);
+}
+
+void MainWindow::carryOutPlan(const RefactorPlan& plan, const QString& title,
+                              const std::string& openAfter) {
+    const std::filesystem::path root = editorDataRoot();
+    if (!plan.ok()) {
+        QMessageBox::warning(this, title, QString::fromStdString(plan.error));
+        return;
+    }
+    if (!confirmPlan(this, title, plan, root)) {
+        return;
+    }
+    std::string error;
+    const bool written = applyRefactorPlan(plan, error);
+    HMI_LOG_INFO("Editeur : " + title.toStdString() + ", " + std::to_string(plan.edits.size()) +
+                 " fichiers" + (written ? std::string{"."} : " : " + error));
+    if (!written) {
+        QMessageBox::warning(this, title, QString::fromStdString(error));
+    }
+    // La carte ouverte a pu être récrite ou déplacée : on la relit, propre, là où elle est.
+    const std::filesystem::path reopened = root / "Levels" / (openAfter + ".json");
+    std::error_code missing;
+    if (std::filesystem::exists(reopened, missing)) {
+        _viewport->openLevel(reopened);
+        watchLevelFile();
+    }
+    _levels->refresh();
+    reloadEditorReferences();
+    runContentCheck();
+}
+
+void MainWindow::goToCitation(const Citation& citation) {
+    if (citation.mapId.empty()) {
+        showTransientStatusMessage(
+            QString::fromStdString(formatCitation(citation, editorDataRoot())),
+            REFACTOR_STATUS_TIMEOUT_MS);
+        return;
+    }
+    goToFinding(MapCheckFinding{.severity = MapCheckSeverity::Warning,
+                                .mapId = citation.mapId,
+                                .cell = citation.cell,
+                                .message = citation.what,
+                                .entityId = citation.entityId});
+}
+
 void MainWindow::runContentCheck() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
     const MapCheckReport report = checkAllMaps(editorDataRoot());
@@ -497,21 +740,8 @@ void MainWindow::connectToolActions() {
 }
 
 void MainWindow::connectEditorCommands() {
-    connect(_actions->action(EditorCommand::Save), &QAction::triggered, this, [this] {
-        // La carte a pu changer sur disque : jamais d'écrasement en silence. Si l'auteur choisit la
-        // version du disque, il n'y a plus rien à enregistrer.
-        if (!checkDiskChange() || !_viewport->save()) {
-            return;
-        }
-        // Enregistrée : le fichier de reprise n'a plus d'objet, tout de suite.
-        _autosaveTimer->stop();
-        writeAutosave();
-        // Une carte enregistrée peut avoir changé ses points d'arrivée ou son nom : les portails
-        // des AUTRES cartes se valident contre le fichier, et le graphe du monde le montre.
-        reloadEditorReferences();
-        _levels->refreshWorldGraph();
-        runContentCheck();  // les autres cartes peuvent dépendre de celle-ci (portails, retours).
-    });
+    connect(_actions->action(EditorCommand::Save), &QAction::triggered, this,
+            [this] { saveMap(); });
     connect(_actions->action(EditorCommand::Playtest), &QAction::triggered, _viewport,
             [this] { _viewport->startPlaytest(); });
     connect(_actions->action(EditorCommand::PlaytestHere), &QAction::triggered, _viewport,
@@ -542,20 +772,9 @@ void MainWindow::connectEditorCommands() {
     });
     connect(_actions->action(EditorCommand::SeeThroughRelief), &QAction::toggled, _viewport,
             [this](bool enabled) { _viewport->setSeeThroughRelief(enabled); });
-    // Renommer la carte ouverte : même dialogue que LevelBrowserPanel::onRename.
-    connect(_actions->action(EditorCommand::Rename), &QAction::triggered, this, [this] {
-        bool accepted = false;
-        const QString name = QInputDialog::getText(
-            this, QStringLiteral("Rename"), QStringLiteral("New name:"), QLineEdit::Normal,
-            QString::fromStdString(std::filesystem::path(_viewport->mapId()).filename().string()),
-            &accepted);
-        if (!accepted || name.isEmpty()) {
-            return;
-        }
-        if (_viewport->renameOpenLevel(name.toStdString())) {
-            _levels->refresh();  // le fichier a pu changer de nom dans le dossier listé.
-        }
-    });
+    // Renommer la carte ouverte : le même renommage propagé que le navigateur de cartes.
+    connect(_actions->action(EditorCommand::Rename), &QAction::triggered, this,
+            [this] { renameMap(_viewport->mapId()); });
     connect(_actions->action(EditorCommand::ShortcutsOverview), &QAction::triggered, this,
             [this] { openShortcutsDialog(); });
     connect(_resizeAction, &QAction::triggered, this, [this] { openResizeDialog(); });

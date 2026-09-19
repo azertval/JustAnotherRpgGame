@@ -50,6 +50,8 @@ add_library(EditorLogic STATIC
     # Le contrôle du contenu (LOT-EDITOR-07) : références, terrain, atteignabilité, textes.
     Logic/ContentCheck.cpp
     Logic/MapTexts.cpp
+    # Renommer et remplacer (LOT-EDITOR-14) : ce qui cite une carte, un point, une entité, une pièce.
+    Logic/MapRefactor.cpp
 )
 target_include_directories(EditorLogic PUBLIC ${PROJECT_SOURCE_DIR}/Source)
 target_link_libraries(EditorLogic
@@ -97,6 +99,7 @@ add_executable(LevelEditor
     Ui/LevelBrowserPanel.cpp
     # Le panneau « Problems » (LOT-EDITOR-07) : les constats du contrôle, sur toutes les cartes.
     Ui/ProblemsPanel.cpp
+    Ui/RefactorDialogs.cpp
     Ui/LayersPanel.cpp
     Ui/EntityPanel.cpp
     Ui/WorldGraphView.cpp

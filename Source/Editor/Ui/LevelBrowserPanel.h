@@ -51,6 +51,9 @@ public:
 signals:
     /// Émis quand l'utilisateur demande l'ouverture d'un niveau (chemin absolu du fichier).
     void levelOpenRequested(const QString& path);
+    /// Émis par « Rename » : le renommage propagé (`LOT-EDITOR-14`) réécrit d'autres fichiers, et
+    /// peut-être la carte ouverte ; c'est l'appelant (`MainWindow`) qui le mène.
+    void mapRenameRequested(const QString& mapId);
 
 private:
     void onNew();

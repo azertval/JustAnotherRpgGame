@@ -37,10 +37,7 @@
 #include "Editor/Logic/EntityGesture.h"
 #include "Editor/Logic/EntityReferences.h"
 #include "Editor/Logic/EntityShapes.h"
-#include "Editor/Logic/LevelFileOperations.h"
-#include "Editor/Logic/LevelNameValidation.h"
 #include "Editor/Logic/MapFormat.h"
-#include "Editor/Logic/MapTexts.h"
 #include "Editor/Ui/DraftRenderer.h"
 #include "Editor/Ui/SceneImages.h"
 #include "Editor/Ui/ScenePainter.h"
@@ -1441,43 +1438,26 @@ bool EditorViewport::save() {
     return true;
 }
 
-bool EditorViewport::renameOpenLevel(const std::string& newName) {
-    if (!hmi::isValidLevelName(newName)) {
-        emit statusMessage(QStringLiteral("Invalid map name."));
+bool EditorViewport::replacePieces(const core::PieceRenaming& renaming) {
+    if (!_draft.replacePieces(renaming)) {
         return false;
     }
-    const std::string trimmed = hmi::trimLevelName(newName);
-    const std::filesystem::path oldPath = levelsDirectory() / (_mapId + ".json");
-    // Le nom de la carte est une clé (LOT-EDITOR-07) : c'est le nom du fichier qu'on renomme.
-    if (trimmed == oldPath.stem().string()) {
-        return true;
+    markDraftMutated();
+    return true;
+}
+
+bool EditorViewport::changeScene(const std::string& place, const core::PieceRenaming& table) {
+    PlaceAssets assets = loadPlaceAssets(hmi::editorDataRoot(), place);
+    if (!assets.manifest) {
+        return false;
     }
-    const std::filesystem::path renamedPath = oldPath.parent_path() / (trimmed + ".json");
-    if (std::filesystem::exists(oldPath)) {
-        // Carte déjà enregistrée : on renomme le fichier, même chemin que le navigateur de cartes.
-        const hmi::LevelFileOperations ops(oldPath.parent_path(), levelsDirectory());
-        const hmi::FileOperationResult result = ops.rename(oldPath, trimmed);
-        if (!result.ok()) {
-            HMI_LOG_WARNING("Editeur : renommage refuse : " + result.error);
-            emit statusMessage(
-                QStringLiteral("Rename failed: %1").arg(QString::fromStdString(result.error)));
-            return false;
-        }
-    }
-    _mapId = mapIdOf(renamedPath);
-    // Déjà fait par le renommage du fichier, sauf pour une carte jamais enregistrée.
-    _draft.setName(
-        hmi::nameMapInCatalogs(levelsDirectory().parent_path(), _mapId, trimmed, _draft.name()));
-    _diskFingerprint = fingerprintFile(renamedPath);
-    // Les notes suivent la carte ; celles d'une carte jamais enregistrée n'ont pas été déplacées
-    // avec son fichier (LOT-EDITOR-04).
-    if (!_sidecar.empty() && writeSidecar(sidecarPath(renamedPath), _sidecar)) {
-        std::error_code ignored;
-        std::filesystem::remove(sidecarPath(oldPath), ignored);
+    // Le manifeste neuf sert à redéduire la collision ; la scène le relit par son lieu.
+    if (!_draft.changeScene(
+            place, std::make_shared<const core::ScenePieceManifest>(std::move(*assets.manifest)),
+            table)) {
+        return false;
     }
     markDraftMutated();
-    HMI_LOG_INFO("Editeur : carte renommee en « " + trimmed + " ».");
-    emit statusMessage(QStringLiteral("Map renamed: %1").arg(QString::fromStdString(trimmed)));
     return true;
 }
 

@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <string>
+#include <variant>
 #include <vector>
 
 #include <gtest/gtest.h>
@@ -337,4 +338,99 @@ TEST(LevelDraftPiecesTest, UnGesteNeToucheQueSesCases) {
 
     EXPECT_EQ(collision(draft, 1, 2), TileType::Wall);
     EXPECT_EQ(collision(draft, 3, 0), TileType::Wall);
+}
+
+/**
+ * @brief Remplacer une pièce renomme chacune de ses cases en un pas, et la collision suit ce que la
+ *        nouvelle pièce oppose (`LOT-EDITOR-14`, `EX-EDIT-083`).
+ * \castest{<b>Remplacer une pièce : un pas, la collision suit.</b><br/>
+ * \tcat Unitaire · Pièces du brouillon<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Poser deux piliers.<br/>2. Remplacer `pillar` par `pit`, une fosse 1 × 2.<br/>
+ * 3. Défaire.<br/>
+ * \tattendu Les deux ancres nomment `pit`, leur type reste `wall`, la collision passe à `cliff` sur
+ * l'emprise ; un seul pas d'annulation rend les piliers.
+ * }
+ */
+TEST(LevelDraftPiecesTest, RemplacerUnePieceEnUnPasLaCollisionSuit) {
+    LevelDraft draft = brouillon();
+    ASSERT_TRUE(draft.placePiece(DECOR, {.column = 1, .row = 0}, "pillar", TileType::Wall));
+    ASSERT_TRUE(draft.placePiece(DECOR, {.column = 3, .row = 0}, "pillar", TileType::Wall));
+    const std::size_t depth = draft.undoDepth();
+
+    ASSERT_TRUE(draft.replacePieces({{"pillar", "pit"}}));
+
+    EXPECT_EQ(draft.layers()[DECOR].pieceAt(1, 0), "pit");
+    EXPECT_EQ(draft.layers()[DECOR].pieceAt(3, 0), "pit");
+    EXPECT_EQ(draft.layers()[DECOR].tiles.tile(1, 0), TileType::Wall);
+    EXPECT_EQ(collision(draft, 1, 0), TileType::Cliff);
+    EXPECT_EQ(collision(draft, 1, 1), TileType::Cliff);
+    EXPECT_EQ(draft.undoDepth(), depth + 1);
+
+    ASSERT_TRUE(draft.undo());
+    EXPECT_EQ(draft.layers()[DECOR].pieceAt(1, 0), "pillar");
+    EXPECT_EQ(collision(draft, 1, 1), TileType::Empty);
+}
+
+/**
+ * @brief Un remplacement dont une emprise déborderait est refusé en entier, et un remplacement qui
+ *        ne change rien n'empile rien.
+ * \castest{<b>Un remplacement qui déborde est refusé en entier.</b><br/>
+ * \tcat Unitaire · Pièces du brouillon<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Poser un pilier au milieu et un sur la dernière ligne.<br/>2. Remplacer `pillar` par
+ * `pit` (1 × 2).<br/>3. Remplacer une pièce que la carte ne pose pas.<br/>
+ * \tattendu Les deux refusés ; les piliers restent, aucun pas empilé.
+ * }
+ */
+TEST(LevelDraftPiecesTest, UnRemplacementQuiDebordeEstRefuseEnEntier) {
+    LevelDraft draft = brouillon();
+    ASSERT_TRUE(draft.placePiece(DECOR, {.column = 1, .row = 0}, "pillar", TileType::Wall));
+    ASSERT_TRUE(draft.placePiece(DECOR, {.column = 2, .row = 2}, "pillar", TileType::Wall));
+    const std::size_t depth = draft.undoDepth();
+
+    EXPECT_FALSE(draft.replacePieces({{"pillar", "pit"}}));
+    EXPECT_FALSE(draft.replacePieces({{"stall", "pillar"}}));
+
+    EXPECT_EQ(draft.layers()[DECOR].pieceAt(1, 0), "pillar");
+    EXPECT_EQ(draft.undoDepth(), depth);
+}
+
+/**
+ * @brief Changer de planche nomme le lieu, traduit les pièces par la table, et redéduit toute la
+ *        collision par le nouveau manifeste, en un pas (`LOT-EDITOR-14`, `EX-EDIT-084`).
+ * \castest{<b>Changer de planche : lieu, pièces et collision en un pas.</b><br/>
+ * \tcat Unitaire · Pièces du brouillon<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Poser un pilier en (2, 1).<br/>2. Passer à une planche où le pavé s'appelle
+ * `paving` et où le pilier, gardant son nom, se franchit.<br/>3. Défaire.<br/>
+ * \tattendu Le sol nomme le lieu `autre` et pose `paving` ; le pilier garde son nom et sa case se
+ * libère ; un pas d'annulation rend tout.
+ * }
+ */
+TEST(LevelDraftPiecesTest, ChangerDePlancheTraduitLesPiecesEtRededuitLaCollision) {
+    LevelDraft draft = brouillon();
+    ASSERT_TRUE(draft.placePiece(DECOR, {.column = 2, .row = 1}, "pillar", TileType::Wall));
+    ASSERT_EQ(collision(draft, 2, 1), TileType::Wall);
+    constexpr const char* AUTRE = R"({
+      "version": 1, "disposition": "autre",
+      "textures": {
+        "scene/autre/paving": {"file": "paving.png", "class": "floor", "footprint": [1, 1], "tactical": "open"},
+        "scene/autre/pillar": {"file": "pillar.png", "class": "tall", "footprint": [1, 1], "tactical": "open"}
+      }
+    })";
+    auto manifest = std::make_shared<const core::ScenePieceManifest>(
+        core::ScenePieceManifest::loadFromString(AUTRE).manifest);
+
+    ASSERT_TRUE(draft.changeScene("autre", manifest, {{"street", "paving"}}));
+
+    EXPECT_EQ(std::get<std::string>(draft.layers()[SOL].properties.at("scene")), "autre");
+    EXPECT_EQ(draft.layers()[SOL].pieceAt(3, 2), "paving");
+    EXPECT_EQ(draft.layers()[DECOR].pieceAt(2, 1), "pillar");
+    EXPECT_EQ(collision(draft, 2, 1), TileType::Empty);
+
+    ASSERT_TRUE(draft.undo());
+    EXPECT_EQ(draft.layers()[SOL].properties.count("scene"), 0U);
+    EXPECT_EQ(draft.layers()[SOL].pieceAt(3, 2), "street");
+    EXPECT_EQ(collision(draft, 2, 1), TileType::Wall);
 }

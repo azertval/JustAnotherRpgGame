@@ -13,14 +13,16 @@
  * automatique : c'est ce qui éprouve la reprise d'un brouillon après un plantage.
  *
  * `--check` et `--migrate` (`LOT-EDITOR-12`, décision D9), `--apply` et `--render`
- * (`LOT-EDITOR-13`) s'exécutent **sans fenêtre** et rendent la main aussitôt : ni `QApplication` ni
- * affichage, ce qui les fait tourner en CI (`hmi::runMapCommand`, `hmi::runRenderCommand`).
+ * (`LOT-EDITOR-13`), les renommages et remplacements (`LOT-EDITOR-14`) s'exécutent **sans fenêtre**
+ * et rendent la main aussitôt : ni `QApplication` ni affichage, ce qui les fait tourner en CI
+ * (`hmi::runMapCommand`, `hmi::runRenderCommand`).
  */
 
 #include <QApplication>
 #include <QCoreApplication>
 #include <QString>
 #include <QStyleFactory>
+#include <algorithm>
 #include <filesystem>
 #include <iostream>
 #include <optional>
@@ -30,6 +32,7 @@
 #include "App/Common/Bootstrap.h"
 #include "Editor/Logic/DataRoot.h"
 #include "Editor/Logic/MapFormat.h"
+#include "Editor/Logic/MapRefactor.h"
 #include "Editor/Ui/MainWindow.h"
 #include "Editor/Ui/MapRender.h"
 #include "HMI/HmiLog.h"
@@ -51,7 +54,19 @@ int main(int argc, char** argv) {
     const std::filesystem::path dataRoot = hmi::resolveDataRoot(
         arguments, executable.parent_path(), std::filesystem::path{JADG_EDITOR_SOURCE_DATA});
 
-    // Les commandes sans fenêtre, avant toute construction Qt.
+    // Les commandes sans fenêtre, avant toute construction Qt. Un renommage suivi de `--check`
+    // contrôle ensuite toutes les cartes (LOT-EDITOR-14).
+    if (const std::optional<int> code = hmi::runRefactorCommand(arguments, dataRoot, report)) {
+        const bool check = std::ranges::find(arguments, "--check") != arguments.end();
+        if (*code != 0 || !check) {
+            std::cout << report << std::flush;
+            return *code;
+        }
+        const std::vector<std::string> checkOnly{"--check", "--data", dataRoot.string()};
+        const std::optional<int> checked = hmi::runMapCommand(checkOnly, dataRoot, report);
+        std::cout << report << std::flush;
+        return checked.value_or(0);
+    }
     if (const std::optional<int> code = hmi::runMapCommand(arguments, dataRoot, report)) {
         std::cout << report << std::flush;
         return *code;

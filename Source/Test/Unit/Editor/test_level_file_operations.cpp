@@ -19,19 +19,23 @@
 
 namespace {
 
-// Fournit un dossier temporaire vierge par test (créé/supprimé automatiquement).
+// Fournit un dossier temporaire vierge par test (créé/supprimé automatiquement). Les cartes
+// vivent dans `<racine>/Levels`, comme dans le projet : le renommage propagé (LOT-EDITOR-14) lit
+// les autres cartes, les villes et les catalogues autour de ce dossier.
 class LevelFileOps : public ::testing::Test {
 protected:
+    std::filesystem::path root;
     std::filesystem::path dir;
 
     void SetUp() override {
-        dir = std::filesystem::temp_directory_path() /
-              ("pg_levelops_" + std::to_string(reinterpret_cast<std::uintptr_t>(this)));
+        root = std::filesystem::temp_directory_path() /
+               ("pg_levelops_" + std::to_string(reinterpret_cast<std::uintptr_t>(this)));
+        dir = root / "Levels";
         std::filesystem::create_directories(dir);
     }
     void TearDown() override {
         std::error_code error;
-        std::filesystem::remove_all(dir, error);
+        std::filesystem::remove_all(root, error);
     }
 };
 

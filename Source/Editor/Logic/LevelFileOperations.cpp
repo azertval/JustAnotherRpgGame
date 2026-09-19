@@ -16,6 +16,7 @@
 #include "Core/World/WorldGraph.h"
 #include "Editor/Logic/EditorSidecar.h"
 #include "Editor/Logic/LevelNameValidation.h"
+#include "Editor/Logic/MapRefactor.h"
 #include "Editor/Logic/MapTexts.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
@@ -148,24 +149,24 @@ FileOperationResult LevelFileOperations::rename(const std::filesystem::path& sou
     if (!hmi::isValidLevelName(newName)) {
         return FileOperationResult::failure("Nom de niveau invalide.");
     }
-    const std::filesystem::path target = pathForName(trimmed);
-    if (target != source && std::filesystem::exists(target, error)) {
-        return FileOperationResult::failure("Un niveau porte déjà ce nom.");
+    const std::filesystem::path target = source.parent_path() / (trimmed + ".json");
+    const std::string oldId = core::mapIdOf(_root, source);
+    const std::string newId = core::mapIdOf(_root, target);
+    if (oldId == newId) {
+        return FileOperationResult::success(source);
     }
-    std::string previousName;
-    const FileOperationResult written =
-        writeRenamed(source, nameKeyFor(target), target, previousName);
-    if (written.ok()) {
-        addNameTranslation(target, trimmed, previousName);
+    // Le renommage propagé (LOT-EDITOR-14) : portails, villes, clé du nom, annexe.
+    const RefactorPlan plan = planRenameMap(_root.parent_path(), oldId, newId);
+    if (!plan.ok()) {
+        return FileOperationResult::failure(plan.error);
     }
-    if (written.ok() && target != source) {
-        std::filesystem::remove(source, error);  // retire l'ancien fichier (échec non bloquant).
-        // Les notes d'auteur suivent leur carte (LOT-EDITOR-04), échec non bloquant.
-        if (std::filesystem::exists(sidecarPath(source), error)) {
-            std::filesystem::rename(sidecarPath(source), sidecarPath(target), error);
-        }
+    std::string written;
+    if (!applyRefactorPlan(plan, written)) {
+        return FileOperationResult::failure(written);
     }
-    return written;
+    // Un catalogue qui n'avait pas l'ancienne clé reçoit la nouvelle, le nom tapé pour texte.
+    addNameTranslation(target, trimmed);
+    return FileOperationResult::success(target);
 }
 
 FileOperationResult LevelFileOperations::duplicate(const std::filesystem::path& source) const {
