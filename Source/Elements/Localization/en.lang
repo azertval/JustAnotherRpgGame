@@ -282,3 +282,9 @@ city_block.colisee = The Coliseum
 city_block.arene-du-destin = The Arena of Fate
 city_block.porte-de-martpart = The Martpart gate
 city_block.portes-du-sud = The southern gates
+
+# Map names (LOT-EDITOR-07): a map's `name` field is the key map.<identifier>.name, which
+# the game's banner translates. The editor's check requires the key in every catalog.
+map.coliseum.name = The Coliseum
+map.capital.martpart.name = Martpart
+map.capital.arenarea.name = Arenarea

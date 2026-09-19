@@ -57,18 +57,17 @@ TEST_F(LevelFileOps, CreeUnNiveauValide) {
 }
 
 /**
- * @brief Une carte créée avec un lieu naît comme les cartes livrées, et passe le contrôle
- * (`LOT-EDITOR-06`) : on la fait ensuite entièrement dans l'éditeur.
- * \castest{<b>Une carte creee avec un lieu passe le controle.</b><br/>
+ * @brief Une carte créée avec un lieu naît comme les cartes livrées (`LOT-EDITOR-06`) : on la fait
+ * ensuite entièrement dans l'éditeur. Qu'elle passe le contrôle, nom traduit compris, est vérifié
+ * dans un projet complet : `ContentCheckTest.UneCarteNeuveASonNomDansChaqueCatalogue`.
+ * \castest{<b>Une carte creee avec un lieu a ses deux couches.</b><br/>
  * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Créer une carte 12 × 8 au lieu `martpart`.<br/>2. La relire, puis la contrôler avec
- * les planches livrées.<br/>
- * \tattendu Une couche de sol `sol` au lieu `martpart`, une couche de décor `relief` ; aucune
- * erreur de contrôle.
+ * \tetapes 1. Créer une carte 12 × 8 au lieu `martpart`.<br/>2. La relire.<br/>
+ * \tattendu Une couche de sol `sol` au lieu `martpart`, une couche de décor `relief`.
  * }
  */
-TEST_F(LevelFileOps, UneCarteCreeeAvecUnLieuPasseLeControle) {
+TEST_F(LevelFileOps, UneCarteCreeeAvecUnLieuASesDeuxCouches) {
     const hmi::LevelFileOperations ops(dir);
     const hmi::FileOperationResult result = ops.create("Echoppe", 12, 8, "martpart");
     ASSERT_TRUE(result.ok()) << result.error;
@@ -84,11 +83,6 @@ TEST_F(LevelFileOps, UneCarteCreeeAvecUnLieuPasseLeControle) {
     }
     EXPECT_EQ(sols, 1);
     EXPECT_EQ(decors, 1);
-
-    const std::filesystem::path donnees = std::filesystem::path(JADG_LEVELS_DIR).parent_path();
-    for (const hmi::MapCheckFinding& constat : hmi::checkMapFile("Echoppe", result.path, donnees)) {
-        EXPECT_NE(constat.severity, hmi::MapCheckSeverity::Error) << hmi::formatFinding(constat);
-    }
 }
 
 /**

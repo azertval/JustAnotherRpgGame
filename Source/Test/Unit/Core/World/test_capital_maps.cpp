@@ -52,6 +52,8 @@ const std::filesystem::path MONDE{JADG_WORLD_DIR};
 struct Quartier {
     const char* carte;
     const char* nom;
+    /// Le champ `name` de la carte : une cle de traduction (LOT-EDITOR-07).
+    const char* cleDuNom;
     const char* lieu;
     int largeur;
     int hauteur;
@@ -64,9 +66,9 @@ void PrintTo(const Quartier& quartier, std::ostream* flux) {
 
 // Les quartiers qui ont leur carte. Les dix autres ont une porte gardee (LOT-96, phase 4).
 const Quartier QUARTIERS[] = {
-    {"capital/martpart", "Martpart", "martpart", 48, 40},
+    {"capital/martpart", "Martpart", "map.capital.martpart.name", "martpart", 48, 40},
     // Arenarea emprunte la planche de Martpart, faute de planche propre (LOT-96, phase 2).
-    {"capital/arenarea", "Arenarea", "martpart", 48, 40},
+    {"capital/arenarea", "Arenarea", "map.capital.arenarea.name", "martpart", 48, 40},
 };
 
 [[nodiscard]] core::Level charger(const Quartier& quartier) {
@@ -158,7 +160,7 @@ TEST_P(CapitalMapTest, LaCarteLivreeSeCharge) {
     const Quartier& quartier = GetParam();
     const core::Level carte = charger(quartier);
 
-    EXPECT_EQ(carte.name(), quartier.nom);
+    EXPECT_EQ(carte.name(), quartier.cleDuNom);
     EXPECT_EQ(carte.tileMap().width(), quartier.largeur);
     EXPECT_EQ(carte.tileMap().height(), quartier.hauteur);
     EXPECT_EQ(hmi::scenePlaceOf(carte), quartier.lieu);

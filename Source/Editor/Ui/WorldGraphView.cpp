@@ -110,7 +110,8 @@ QString WorldGraphView::nodeLabel(std::size_t node) const {
     if (n.ghost && n.mapId.empty()) {
         return QStringLiteral("(no target)");
     }
-    return QString::fromStdString(n.name.empty() ? n.mapId : n.name);
+    // L'identifiant : le nom d'une carte est une clé de traduction (LOT-EDITOR-07).
+    return QString::fromStdString(n.mapId);
 }
 
 QString WorldGraphView::statusText(core::PortalLinkStatus status) const {
@@ -344,15 +345,12 @@ void WorldGraphView::paintNodes(QPainter& painter) const {
 }
 
 QString WorldGraphView::nodeDetail(const WorldGraphLayoutNode& node) const {
-    // L'identifiant d'une carte nommée, ou l'état d'une carte à problème.
+    // L'état d'une carte à problème.
     if (node.unreadable) {
         return QStringLiteral("unreadable");
     }
     if (node.ghost) {
         return QStringLiteral("missing");
-    }
-    if (!node.name.empty() && node.name != node.mapId) {
-        return QString::fromStdString(node.mapId);
     }
     return {};
 }

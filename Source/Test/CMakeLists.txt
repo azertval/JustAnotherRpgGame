@@ -69,6 +69,7 @@ add_executable(UnitTests
     Unit/Core/World/test_city_plan.cpp
     Unit/Core/World/test_city_block.cpp
     Unit/Core/World/test_combat_zone.cpp
+    Unit/Core/World/test_exploration_reach.cpp
     Unit/Core/Gameplay/test_interaction.cpp
     Unit/Core/Time/test_fixed_timestep.cpp
     Unit/Core/Diagnostics/test_logger.cpp
@@ -121,6 +122,7 @@ add_executable(UnitTests
     Unit/Editor/test_canvas_picking.cpp
     Unit/Editor/test_canvas_scene.cpp
     Unit/Editor/test_map_format.cpp
+    Unit/Editor/test_content_check.cpp
     Unit/Editor/test_piece_catalog.cpp
     Unit/Editor/test_brush_gesture.cpp
     Unit/Editor/test_paint_tools.cpp

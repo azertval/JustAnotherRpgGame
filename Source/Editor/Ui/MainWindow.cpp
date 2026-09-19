@@ -4,6 +4,7 @@
 #include "Editor/Ui/MainWindow.h"
 
 #include <QAction>
+#include <QApplication>
 #include <QCloseEvent>
 #include <QDateTime>
 #include <QDialog>
@@ -45,6 +46,7 @@
 #include "Editor/Logic/DiskGuard.h"
 #include "Editor/Logic/EditorStatus.h"
 #include "Editor/Logic/EntityReferences.h"
+#include "Editor/Logic/MapFormat.h"
 #include "Editor/Ui/EditorActions.h"
 #include "Editor/Ui/EditorViewport.h"
 #include "Editor/Ui/EntityPanel.h"
@@ -52,6 +54,7 @@
 #include "Editor/Ui/LevelBrowserPanel.h"
 #include "Editor/Ui/MiniMap.h"
 #include "Editor/Ui/PalettePanel.h"
+#include "Editor/Ui/ProblemsPanel.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Platform/CrashDump.h"
 
@@ -61,7 +64,7 @@ namespace {
 
 // Version de la disposition sérialisée : à incrémenter si l'ensemble des docks change, pour
 // invalider proprement une disposition sauvegardée devenue incompatible (`restoreState`).
-constexpr int LAYOUT_VERSION = 12;  // 12 : la palette des pièces prend la hauteur (LOT-EDITOR-03)
+constexpr int LAYOUT_VERSION = 13;  // 13 : le panneau « Problems » (LOT-EDITOR-07)
 
 // Clés de persistance (portée application ; l'organisation/appli sont fixées dans `main`).
 constexpr const char* GEOMETRY_KEY = "mainWindow/geometry";
@@ -172,17 +175,11 @@ MainWindow::MainWindow(bool crashAfterAutosave)
     connect(_viewport, &EditorViewport::draftChanged, this, [this] { refreshStatusHelp(); });
     // Ouvrir une carte depuis le panneau : garde-fou des modifications non enregistrées d'abord.
     connect(_levels, &LevelBrowserPanel::levelOpenRequested, this, [this](const QString& path) {
-        if (_viewport->isDirty()) {
-            const QMessageBox::StandardButton answer = QMessageBox::question(
-                this, QStringLiteral("Unsaved changes"),
-                QStringLiteral("The current map has unsaved changes. Discard them and open the "
-                               "other map?"));
-            if (answer != QMessageBox::Yes) {
-                return;
-            }
-        }
-        _viewport->openLevel(std::filesystem::path(path.toStdString()));
+        openLevelGuarded(std::filesystem::path(path.toStdString()));
     });
+    // Les constats : un nouveau contrôle à la demande, et le chemin vers chacun.
+    connect(_problems, &ProblemsPanel::checkRequested, this, &MainWindow::runContentCheck);
+    connect(_problems, &ProblemsPanel::findingActivated, this, &MainWindow::goToFinding);
 
     connectMapPanels();
     reloadEditorReferences();
@@ -199,6 +196,8 @@ MainWindow::MainWindow(bool crashAfterAutosave)
     restoreLayout();
 
     setUpSafetyNet();
+    // Le bilan de toutes les cartes, dès que la fenêtre est montrée.
+    QTimer::singleShot(0, this, &MainWindow::runContentCheck);
     // Le canevas prend le clavier au lancement : les raccourcis à une touche (P, F8, F9) marchent
     // tout de suite, au lieu d'aller à la recherche au clavier de la palette.
     _viewport->setFocus();
@@ -246,6 +245,11 @@ void MainWindow::buildUi() {
     _miniMap = new MiniMap([this](core::TileType type) { return _viewport->tileColor(type); });
     _miniMapDock = addPanel(QStringLiteral("MiniMapPanel"), QStringLiteral("Overview"), _miniMap,
                             Qt::LeftDockWidgetArea);
+
+    // Les constats du contrôle, sous le canevas : une liste large, peu haute (LOT-EDITOR-07).
+    _problems = new ProblemsPanel;
+    _problemsDock = addPanel(QStringLiteral("ProblemsPanel"), QStringLiteral("Problems"), _problems,
+                             Qt::BottomDockWidgetArea);
 
     // Cartes et Entités partagent une pile d'onglets par défaut ; chacun reste déplaçable,
     // détachable et refermable. Doit précéder la capture de _defaultState.
@@ -298,6 +302,13 @@ void MainWindow::buildMenus() {
     QMenu* const mapMenu = menuBar()->addMenu(QStringLiteral("&Map"));
     mapMenu->addAction(_actions->action(EditorCommand::Playtest));
     mapMenu->addAction(_actions->action(EditorCommand::PlaytestHere));
+    mapMenu->addSeparator();
+    QAction* const checkAll = mapMenu->addAction(QStringLiteral("Check all maps"));
+    connect(checkAll, &QAction::triggered, this, [this] {
+        runContentCheck();
+        _problemsDock->show();
+        _problemsDock->raise();
+    });
 
     QMenu* const viewMenu = menuBar()->addMenu(QStringLiteral("&View"));
     viewMenu->addAction(_actions->action(EditorCommand::IsoView));
@@ -310,6 +321,7 @@ void MainWindow::buildMenus() {
         panelsMenu->addAction(dock->toggleViewAction());
     }
     panelsMenu->addAction(_miniMapDock->toggleViewAction());
+    panelsMenu->addAction(_problemsDock->toggleViewAction());
     panelsMenu->addSeparator();
     // Mise en avant automatique du panneau de l'outil actif : persistée, active par défaut.
     _actFollowActiveTool = panelsMenu->addAction(QStringLiteral("Follow active tool"));
@@ -420,6 +432,48 @@ void MainWindow::connectMapPanels() {
     refreshEntities();
 }
 
+bool MainWindow::openLevelGuarded(const std::filesystem::path& path) {
+    if (_viewport->isDirty()) {
+        const QMessageBox::StandardButton answer = QMessageBox::question(
+            this, QStringLiteral("Unsaved changes"),
+            QStringLiteral("The current map has unsaved changes. Discard them and open the "
+                           "other map?"));
+        if (answer != QMessageBox::Yes) {
+            return false;
+        }
+    }
+    return _viewport->openLevel(path);
+}
+
+void MainWindow::runContentCheck() {
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    const MapCheckReport report = checkAllMaps(editorDataRoot());
+    QApplication::restoreOverrideCursor();
+    _problems->setReport(report);
+    HMI_LOG_INFO("Editeur : controle de " + std::to_string(report.maps) + " cartes, " +
+                 std::to_string(report.count(MapCheckSeverity::Error)) + " erreurs.");
+}
+
+void MainWindow::goToFinding(const MapCheckFinding& finding) {
+    if (finding.mapId != _viewport->mapId() &&
+        !openLevelGuarded(editorDataRoot() / "Levels" / (finding.mapId + ".json"))) {
+        return;
+    }
+    std::optional<core::GridPosition> cell = finding.cell;
+    if (!finding.entityId.empty()) {
+        const std::vector<core::MapEntity>& entities = _viewport->draft().entities();
+        const auto entity = std::ranges::find(entities, finding.entityId, &core::MapEntity::id);
+        if (entity != entities.end()) {
+            _viewport->selectEntity(static_cast<std::size_t>(entity - entities.begin()));
+            cell = cell.value_or(entity->position);
+        }
+    }
+    if (cell) {
+        _viewport->revealCell(*cell);
+    }
+    _viewport->setFocus();
+}
+
 void MainWindow::reloadEditorReferences() {
     _references =
         std::make_unique<EditorReferences>(hmi::loadEditorReferences(hmi::editorDataRoot()));
@@ -456,6 +510,7 @@ void MainWindow::connectEditorCommands() {
         // des AUTRES cartes se valident contre le fichier, et le graphe du monde le montre.
         reloadEditorReferences();
         _levels->refreshWorldGraph();
+        runContentCheck();  // les autres cartes peuvent dépendre de celle-ci (portails, retours).
     });
     connect(_actions->action(EditorCommand::Playtest), &QAction::triggered, _viewport,
             [this] { _viewport->startPlaytest(); });
@@ -492,7 +547,8 @@ void MainWindow::connectEditorCommands() {
         bool accepted = false;
         const QString name = QInputDialog::getText(
             this, QStringLiteral("Rename"), QStringLiteral("New name:"), QLineEdit::Normal,
-            QString::fromStdString(_viewport->draft().name()), &accepted);
+            QString::fromStdString(std::filesystem::path(_viewport->mapId()).filename().string()),
+            &accepted);
         if (!accepted || name.isEmpty()) {
             return;
         }
@@ -890,7 +946,8 @@ void MainWindow::refreshStatusHelp() {
     // L'essai n'édite rien : la barre d'état ne décrit alors aucun outil.
     if (!_viewport->playtesting()) {
         LevelStatusInfo level;
-        level.name = _viewport->draft().name();
+        // L'identifiant, pas le nom : celui-ci est une clé de traduction (LOT-EDITOR-07).
+        level.name = _viewport->mapId();
         level.dirty = _viewport->isDirty();
         level.tool = _viewport->activeTool();
         level.hoveredCell = _viewport->hoveredCell();

@@ -78,7 +78,7 @@ private:
     /**
      * @brief Seconde ligne sous un nœud.
      * @param node Nœud dessiné.
-     * @return L'identifiant d'une carte nommée, l'état d'une carte à problème, ou rien.
+     * @return L'état d'une carte à problème, ou rien : le nœud porte déjà l'identifiant.
      */
     [[nodiscard]] QString nodeDetail(const WorldGraphLayoutNode& node) const;
     void paintLegend(QPainter& painter) const;

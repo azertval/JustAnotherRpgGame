@@ -61,7 +61,8 @@ const std::filesystem::path ASSETS{JADG_ASSETS_DIR};
 
 /**
  * @brief La carte livree se charge, et c'est un lieu, pas une grille nue.
- * \castest{<b>coliseum.json se charge : 40 x 34 cases, un sol, un relief, et un lieu nomme.</b><br/>
+ * \castest{<b>coliseum.json se charge : 40 x 34 cases, un sol, un relief, et un lieu
+ * nomme.</b><br/>
  * \tcat Unitaire · Carte du Colisee<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Charger `Source/Elements/Levels/coliseum.json`.<br/>
@@ -72,7 +73,8 @@ const std::filesystem::path ASSETS{JADG_ASSETS_DIR};
 TEST(ColiseumMapTest, LaCarteLivreeSeCharge) {
     const core::Level carte = colisee();
 
-    EXPECT_EQ(carte.name(), "Le Colisée");
+    // Une cle de traduction, que le bandeau du jeu traduit (LOT-EDITOR-07).
+    EXPECT_EQ(carte.name(), "map.coliseum.name");
     EXPECT_EQ(carte.tileMap().width(), 40);
     EXPECT_EQ(carte.tileMap().height(), 34);
     EXPECT_EQ(hmi::scenePlaceOf(carte), "coliseum");
@@ -97,7 +99,8 @@ TEST(ColiseumMapTest, LaCarteLivreeSeCharge) {
 
 /**
  * @brief Le graphe du dossier des niveaux livre ne porte aucun defaut.
- * \castest{<b>Aucun portail orphelin, aucun point d'arrivee en double dans les cartes livrees.</b><br/>
+ * \castest{<b>Aucun portail orphelin, aucun point d'arrivee en double dans les cartes
+ * livrees.</b><br/>
  * \tcat Unitaire · Carte du Colisee<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Lire le graphe du dossier des niveaux livre.<br/>
@@ -189,7 +192,8 @@ TEST(ColiseumMapTest, ChaquePieceNommeeExisteSurLaPlanche) {
  * loge.</b><br/>
  * \tcat Unitaire · Carte du Colisee<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Remplir la carte depuis la case d'entree, en ne passant que par le franchissable.<br/>
+ * \tetapes 1. Remplir la carte depuis la case d'entree, en ne passant que par le
+ * franchissable.<br/>
  * 2. Verifier qu'une case de chaque lieu est atteinte, et qu'aucune case atteinte n'est hors du
  * batiment.<br/>
  * \tattendu Les six lieux du Colisee sont relies ; une salle inatteignable serait du contenu
@@ -217,7 +221,8 @@ TEST(ColiseumMapTest, ToutLeColiseeSeParcourtDepuisSaPorte) {
         }
     }
 
-    // Une case temoin par lieu : le hall, le sable, les deux vestiaires, les deux tribunes, la loge.
+    // Une case temoin par lieu : le hall, le sable, les deux vestiaires, les deux tribunes, la
+    // loge.
     const std::pair<int, int> temoins[7] = {
         {19, 31},  // le hall
         {20, 16},  // le sable
@@ -235,8 +240,7 @@ TEST(ColiseumMapTest, ToutLeColiseeSeParcourtDepuisSaPorte) {
     hmi::PlaceAppearanceResult table =
         hmi::PlaceAppearance::loadFromFile(ASSETS / "Scene" / "coliseum" / "appearance.json");
     ASSERT_TRUE(table.ok());
-    const hmi::WorldSceneSnapshot instantane =
-        hmi::snapshotWorldScene(carte, table.appearance, {});
+    const hmi::WorldSceneSnapshot instantane = hmi::snapshotWorldScene(carte, table.appearance, {});
     for (const auto& [colonne, ligne] : vues) {
         EXPECT_FALSE(instantane.floorAt({colonne, ligne}).empty())
             << "case franchissable sans sol : (" << colonne << ", " << ligne << ")";

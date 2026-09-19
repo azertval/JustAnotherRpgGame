@@ -283,3 +283,9 @@ city_block.colisee = Le Colisée
 city_block.arene-du-destin = L'Arène du Destin
 city_block.porte-de-martpart = La porte de Martpart
 city_block.portes-du-sud = Les portes du sud
+
+# Noms des cartes (LOT-EDITOR-07) : le champ `name` d'une carte est la clé map.<identifiant>.name,
+# que le bandeau du jeu traduit. Le contrôle de l'éditeur exige la clé dans chaque catalogue.
+map.coliseum.name = Le Colisée
+map.capital.martpart.name = Martpart
+map.capital.arenarea.name = Arenarea

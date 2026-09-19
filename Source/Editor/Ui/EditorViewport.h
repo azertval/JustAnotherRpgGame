@@ -240,6 +240,11 @@ public:
     [[nodiscard]] std::array<core::Vector2, 4> visibleGridCorners() const;
     /// Centre la vue sur un point de grille continu (colonne, ligne).
     void centerOnGridPoint(core::Vector2 gridPoint);
+    /**
+     * @brief Centre la vue sur @p cell et la cerne, jusqu'à la carte suivante ou au prochain
+     *        appel : la case d'un constat du panneau « Problems » (`LOT-EDITOR-07`).
+     */
+    void revealCell(core::GridPosition cell);
 
     void resizeLevel(int width, int height);
     [[nodiscard]] bool wouldResizeDrop(int width, int height) const;
@@ -467,6 +472,8 @@ private:
     core::GridPosition _dragStart{};
     core::GridPosition _dragCurrent{};
     std::optional<core::GridPosition> _hoverCell;
+    /// La case d'un constat, cernée (`revealCell`).
+    std::optional<core::GridPosition> _revealedCell;
     float _lastEmittedZoom = 0.0F;
     std::optional<std::pair<core::GridPosition, core::GridPosition>> _selection;
     std::vector<std::vector<core::TileType>> _clipboard;

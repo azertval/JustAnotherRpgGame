@@ -17,6 +17,7 @@ add_library(Core STATIC
     World/WorldGraph.cpp
     World/WorldTravel.cpp
     World/ExplorationSession.cpp
+    World/ExplorationReach.cpp
     World/CombatZone.cpp
     Gameplay/Interaction.cpp
     Gameplay/MapEntitySpawner.cpp

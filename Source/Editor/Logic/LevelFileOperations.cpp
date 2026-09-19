@@ -16,6 +16,7 @@
 #include "Core/World/WorldGraph.h"
 #include "Editor/Logic/EditorSidecar.h"
 #include "Editor/Logic/LevelNameValidation.h"
+#include "Editor/Logic/MapTexts.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace hmi {
@@ -23,14 +24,17 @@ namespace hmi {
 namespace {
 
 // Charge un niveau, en fait un brouillon renommé, valide, écrit à `target`. Facteur commun à
-// rename/duplicate. Renvoie un FileOperationResult (jamais d'exception).
+// rename/duplicate. Renvoie un FileOperationResult (jamais d'exception) ; @p previousName reçoit le
+// nom qu'avait la carte.
 [[nodiscard]] FileOperationResult writeRenamed(const std::filesystem::path& source,
                                                const std::string& newName,
-                                               const std::filesystem::path& target) {
+                                               const std::filesystem::path& target,
+                                               std::string& previousName) {
     core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(source);
     if (!loaded.ok()) {
         return FileOperationResult::failure("Niveau source illisible : " + loaded.error);
     }
+    previousName = loaded.level->name();
     core::LevelDraft draft = core::LevelDraft::fromLevel(*loaded.level);
     draft.setName(newName);
     core::LevelLoadResult validated = draft.toLevel();
@@ -45,8 +49,21 @@ namespace {
 
 }  // namespace
 
-LevelFileOperations::LevelFileOperations(std::filesystem::path levelsDir)
-    : _dir(std::move(levelsDir)) {}
+LevelFileOperations::LevelFileOperations(std::filesystem::path levelsDir,
+                                         std::filesystem::path levelsRoot)
+    : _dir(std::move(levelsDir)), _root(levelsRoot.empty() ? _dir : std::move(levelsRoot)) {}
+
+std::string LevelFileOperations::nameKeyFor(const std::filesystem::path& file) const {
+    return mapNameKey(core::mapIdOf(_root, file));
+}
+
+void LevelFileOperations::addNameTranslation(const std::filesystem::path& file,
+                                             const std::string& text,
+                                             const std::string& copyFrom) const {
+    // Un catalogue qui ne s'écrit pas n'empêche pas la carte d'exister : le contrôle le dira.
+    static_cast<void>(addTranslation(localizationDirectory(_root.parent_path()), nameKeyFor(file),
+                                     text, copyFrom));
+}
 
 std::filesystem::path LevelFileOperations::pathForName(const std::string& name) const {
     return _dir / (name + ".json");
@@ -93,7 +110,7 @@ FileOperationResult LevelFileOperations::create(const std::string& name, int wid
         return FileOperationResult::failure("Un niveau porte déjà ce nom.");
     }
     // Niveau minimal valide : grille vide + une entrée (coin bas gauche).
-    core::LevelDraft draft = core::LevelDraft::empty(trimmed, width, height);
+    core::LevelDraft draft = core::LevelDraft::empty(nameKeyFor(target), width, height);
     if (!place.empty()) {
         // Les couches des cartes livrées. Le sol nomme le lieu ; la collision est celle que la
         // déduction donne à une carte vide : le vide arrête la vue (décision D10).
@@ -117,6 +134,7 @@ FileOperationResult LevelFileOperations::create(const std::string& name, int wid
     if (!core::LevelWriter::saveToFile(*validated.level, target)) {
         return FileOperationResult::failure("Échec de l'écriture du fichier.");
     }
+    addNameTranslation(target, trimmed);
     return FileOperationResult::success(target);
 }
 
@@ -134,7 +152,12 @@ FileOperationResult LevelFileOperations::rename(const std::filesystem::path& sou
     if (target != source && std::filesystem::exists(target, error)) {
         return FileOperationResult::failure("Un niveau porte déjà ce nom.");
     }
-    const FileOperationResult written = writeRenamed(source, trimmed, target);
+    std::string previousName;
+    const FileOperationResult written =
+        writeRenamed(source, nameKeyFor(target), target, previousName);
+    if (written.ok()) {
+        addNameTranslation(target, trimmed, previousName);
+    }
     if (written.ok() && target != source) {
         std::filesystem::remove(source, error);  // retire l'ancien fichier (échec non bloquant).
         // Les notes d'auteur suivent leur carte (LOT-EDITOR-04), échec non bloquant.
@@ -156,7 +179,12 @@ FileOperationResult LevelFileOperations::duplicate(const std::filesystem::path& 
     for (int index = 2; std::filesystem::exists(pathForName(candidate), error); ++index) {
         candidate = base + " (copie " + std::to_string(index) + ")";
     }
-    const FileOperationResult written = writeRenamed(source, candidate, pathForName(candidate));
+    std::string previousName;
+    const FileOperationResult written = writeRenamed(source, nameKeyFor(pathForName(candidate)),
+                                                     pathForName(candidate), previousName);
+    if (written.ok()) {
+        addNameTranslation(pathForName(candidate), candidate, previousName);
+    }
     if (written.ok() && std::filesystem::exists(sidecarPath(source), error)) {
         std::filesystem::copy_file(sidecarPath(source), sidecarPath(pathForName(candidate)),
                                    error);  // la copie garde les notes, échec non bloquant.
