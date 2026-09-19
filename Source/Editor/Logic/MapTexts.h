@@ -62,7 +62,9 @@ using TranslationCatalogs =
 
 /**
  * @brief La clé du nom de la carte @p mapId, ajoutée aux catalogues de @p dataRoot.
- * @param text     Le texte des catalogues qui n'ont ni la clé, ni @p copyFrom.
+ * @param dataRoot La racine des données, dont les catalogues de traduction s'écrivent.
+ * @param mapId    L'identifiant de la carte, qui forme la clé `map.<id>.name`.
+ * @param text    Le texte des catalogues qui n'ont ni la clé, ni @p copyFrom.
  * @param copyFrom L'ancien nom de la carte, dont les traductions se reprennent.
  * @return La clé ; vide si un catalogue n'a pas pu s'écrire.
  */
