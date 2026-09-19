@@ -4,6 +4,7 @@ var classhmi_1_1LevelBrowserPanel =
     [ "LevelBrowserPanel", "classhmi_1_1LevelBrowserPanel.html#a1d943d1cd819db0b8fb913666e3f914a", null ],
     [ "~LevelBrowserPanel", "classhmi_1_1LevelBrowserPanel.html#adde81f1cab1c37e2a715cdb8641fd8ba", null ],
     [ "levelOpenRequested", "classhmi_1_1LevelBrowserPanel.html#a69eb067948088996f047d0ad7582edab", null ],
+    [ "mapRenameRequested", "classhmi_1_1LevelBrowserPanel.html#a9dbd80c38c7388fee03d0ffbab541623", null ],
     [ "onActivated", "classhmi_1_1LevelBrowserPanel.html#a50d72c90bbc6ba9c459fd280e4b65252", null ],
     [ "onDelete", "classhmi_1_1LevelBrowserPanel.html#a5df8e9d86cd2cac721e90074d0db8fc3", null ],
     [ "onDuplicate", "classhmi_1_1LevelBrowserPanel.html#a25b7284f27f1872d508ab86e847c63ae", null ],

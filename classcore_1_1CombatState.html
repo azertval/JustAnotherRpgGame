@@ -216,10 +216,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un combat, du montage de la rencontre à sa fin. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1109"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1126"></a>
 Le cycle</h2>
 <p><span class="tt"><a class="el" href="#a311f1bd4157e775aaa91f3fc8c43d2bb" title="Jette l&#39;initiative de chacun et ouvre le premier tour.">start</a></span> jette l'initiative de chacun — <b>une fois</b> : l'ordre ne bouge plus (<span class="tt">EX-CBT-010</span>) —, ouvre la fenêtre d'avant le premier tour, puis le premier round. Chaque round parcourt les places de l'ordre ; un repère d'initiative fixe y annonce son crochet, un combattant à terre y est passé, un combattant debout y ouvre son tour, et le combat <b>attend</b> : rien n'avance tant que <span class="tt"><a class="el" href="#a103e0cac46c3818d612fa11dd71e4887" title="Termine explicitement le tour en cours (EX-CBT-012).">endTurn</a></span> n'a pas été appelé (<span class="tt">EX-CBT-012</span>). Épuiser ses ressources ne termine pas le tour — ne rien faire est une décision.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1110"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1127"></a>
 Les trois fins</h2>
 <p>Évaluées après <b>chaque</b> changement, et non à la fin d'un tour : un combat gagné par une attaque d'opportunité pendant le tour d'un ennemi est gagné tout de suite.</p>
 <ul>
@@ -228,10 +228,10 @@ Les trois fins</h2>
 <li><b>fuite</b> — plus aucun allié n'est debout, et au moins un est <b>parti</b>. Ceux qui restent à terre derrière lui sont l'affaire de l'agonie (<span class="tt">LOT-72</span>), pas de l'issue.</li>
 </ul>
 <p>Si un même changement abat les deux camps à la fois, la défaite l'emporte : on ne gagne pas un combat où plus personne ne se tient debout de son côté.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1111"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1128"></a>
 Les changements en cascade</h2>
 <p>Un abonné peut changer l'état pendant qu'on l'avertit : infliger des dégâts qui abattent le combattant dont le tour commence, faire entrer un renfort. Ces conséquences ne sont <b>jamais</b> tirées au milieu d'une annonce : la machine les règle quand l'appel extérieur se termine, une par une et dans un ordre fixe — la fin du combat d'abord, puis le tour d'un combattant qui ne peut plus le jouer, puis la place suivante. Deux abonnés de même crochet sont avertis dans l'ordre de leur abonnement.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1112"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1129"></a>
 Sans héros unique</h2>
 <p>Rien ici ne suppose un personnage seul : les alliés sont un camp, en nombre quelconque, et un test en monte quatre (<span class="tt">LOT-29</span>).</p>
 <p>L'état n'est ni copiable ni déplaçable : les <span class="tt"><a class="el" href="structcore_1_1Mover.html" title="Qui se déplace, comment, et à travers qui.">core::Mover</a></span> qu'il construit et les abonnés qui le reçoivent le désignent par son adresse. </p>

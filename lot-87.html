@@ -97,16 +97,16 @@ $(function(){initNavTree('lot-87.html','',''); });
 <p>Statut : <b>livré</b>. Prérequis : <span class="tt">LOT-86</span>, <span class="tt">LOT-39</span>.</p>
 <p>Exigences refondues : <a class="el" href="spec-interface-ihm.html#EX-IHM-070" title="EX-IHM-070"><span class="tt">EX-IHM-070</span></a> (charte v2, facteur réel), <a class="el" href="spec-interface-ihm.html#EX-IHM-075" title="EX-IHM-075"><span class="tt">EX-IHM-075</span></a> (ornements produits en images, sous trois conditions), <a class="el" href="spec-interface-ihm.html#EX-IHM-076" title="EX-IHM-076"><span class="tt">EX-IHM-076</span></a> (illustrations extraites ou produites, jamais sans provenance). Exigence précisée : <a class="el" href="spec-interface-ihm.html#EX-IHM-081" title="EX-IHM-081"><span class="tt">EX-IHM-081</span></a> (les deux facteurs). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md657"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md659"></a>
 Objectif</h1>
 <p>Adopter les dix maquettes du pack UI comme charte visuelle v2, et transcrire les écrans du jeu sur cette base : panneaux sombres et parchemin, <span class="tt">Cinzel</span> en titres, <span class="tt">IM Fell English</span> en corps, illustrations peintes. Les assets (cadres 9-patch, plaques, boutons, fonds) sont produits à part, à 1080p, depuis un cahier des assets — jamais découpés des maquettes elles-mêmes, qui restent des références de cotes et de composition.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md658"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md660"></a>
 Pourquoi les maquettes remplacent la charte parchemin pixel</h1>
 <p>Les maquettes du pack contredisent la direction retenue par les <span class="tt">LOT-66</span> et <span class="tt">LOT-76</span> (parchemin de Tanares, sans illustration peinte). Elles sont malgré tout la matière la plus riche dont dispose le projet pour les dix écrans qu'elles couvrent : la décision, prise le 11 septembre 2026, est de les adopter comme charte v2 plutôt que de continuer à les ignorer. Le prix assumé : deux directions graphiques auront coexisté dans l'historique du dépôt, la seconde remplaçant entièrement la première.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md659"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md661"></a>
 Ce que Claude ne produit pas</h1>
 <p>Aucun cadre doré, aucun fond peint n'est dessiné par un modèle Claude. La phase 2 sépare deux métiers : Claude écrit le cahier des assets (liste, dimensions, marges 9-patch, description, prompt de génération par pièce) et vérifie/enregistre ce qui revient ; la production des images passe par un générateur d'images ou un illustrateur, à partir de ce cahier.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md660"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md662"></a>
 Programme, en six phases</h1>
 <ol type="1">
 <li><b>Socle vert</b> — dépôt propre (branches mortes archivées et retirées, débris de travail retirés, maquettes déplacées dans ce dossier), lot inscrit à la feuille de route.</li>
@@ -116,9 +116,9 @@ Programme, en six phases</h1>
 <li><b>Le cadre du HUD</b> — <span class="tt">CombatHudForm</span> et <span class="tt">GameViewForm</span> réécrits avec le cadre de la maquette, branchement différé aux lots qui fourniront les données réelles.</li>
 <li><b>Retrait</b> — le dossier des dix maquettes du pack (retiré dès la phase 0) et l'ancienne charte (<span class="tt">LOT-86</span>) supprimés une fois qu'aucun écran ne les cite plus.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md661"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md663"></a>
 Phase 1 — le module de conception</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md662"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md664"></a>
 T1.1 — Le diagnostic, avant d'écrire</h2>
 <p>L'hypothèse du plan — <em>le mode conception est grisé parce que <span class="tt">Jadg.Ui</span> mêle QML et C++</em> — a été mise à l'épreuve le 12 septembre 2026 en ouvrant <span class="tt">Source/Ui/JadgUi.qmlproject</span> de l'état <span class="tt"><a class="el" href="Editor_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> (phase 0) dans Qt Design Studio <b>4.8.3</b> (Qt 6.8.7 embarqué, <span class="tt">qmlpuppet-4.8.3.exe</span>), puis en résolvant chaque fichier avec le <span class="tt">qmllint</span> de ce même Qt. <b>Elle est fausse dans sa forme, et juste dans son fond.</b></p>
 <p>Ce qui a été observé :</p>
@@ -131,7 +131,7 @@ T1.1 — Le diagnostic, avant d'écrire</h2>
 <p><b>Cause nommée</b> : un module unique (<span class="tt">Jadg.Ui</span>, porté par l'exécutable) qui contient à la fois les formulaires, le câblage et les types C++. <b>Critère qui la fait disparaître</b> : chaque formulaire et chaque jumeau se résout avec le <span class="tt">qmllint</span> du Qt embarqué de l'atelier, sans plugin C++, et l'atelier les ouvre sans un problème signalé.</p>
 <p><b>Ce qui reste ouvert : le panneau Composants.</b> Une fois la phase 1 faite (0 problème, 0 avertissement dans l'atelier), le panneau liste toujours chaque dossier « (vide) », y compris <span class="tt">Mocks</span>. Une expérience à part — un projet jetable avec deux modules <span class="tt">designersupported</span>, l'un à fichiers plats dans le répertoire du <span class="tt">qmldir</span>, l'autre en sous-dossiers — donne le même résultat pour les deux : ni la disposition ni le mot ne suffisent. Ce panneau n'est pas un critère de la phase 1 ; l'artiste pose une brique depuis la galerie <span class="tt">DesignStudio/Main.ui.qml</span> ou par le code, et la phase 2 (T2.7, les briques de la charte v2) instruira ce qu'il exige de plus — un <span class="tt">.qmltypes</span> ou un <span class="tt">designer/*.metainfo</span>, probablement.</p>
 <p>La branche abandonnée (125 commits) visait le bon découpage, mais l'a fait en laissant les fichiers en place et en réécrivant leurs chemins de ressource un par un, avec des cibles qui vérifiaient des fichiers engendrés. C'est cette plomberie qui a dérivé, pas l'idée.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md663"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md665"></a>
 T1.2 à T1.4 — Ce qui a été fait</h2>
 <p>Trois modules QML, <b>chacun déclaré dans le répertoire de ses fichiers</b>, sans un seul alias de ressource :</p>
 <table class="markdownTable">
@@ -152,7 +152,7 @@ T1.2 à T1.4 — Ce qui a été fait</h2>
 <li><span class="tt">Source/Ui/Mocks/Jadg/Runtime/</span> : six doublures QML (<span class="tt">OptionsModel</span>, <span class="tt">ScreenRouter</span>, <span class="tt">PendingData</span>, <span class="tt">CharacterSheetModel</span>, <span class="tt">InventoryModel</span>, <span class="tt">GameViewport</span>) aux mêmes noms et propriétés que le C++ ; le <span class="tt">.qmlproject</span> les place dans ses <span class="tt">importPaths</span> et déclare les jumeaux dans ses <span class="tt">QmlFiles</span>. CMake ne connaît pas ce dossier.</li>
 <li><span class="tt">scripts/check_qml_designer_compat.py</span> réécrit : un <b>contrat</b> en neuf règles (imports et motifs des formulaires, aucun type C++ dans un formulaire, doublures complètes — chaque <span class="tt">Q_PROPERTY</span> et <span class="tt">Q_INVOKABLE</span> a son pendant —, jumeaux appareillés, chaque fichier QML listé par son CMake, aucun alias ni désactivation de <span class="tt">qmldir</span> engendré, <span class="tt">qmldir</span> de conception <span class="tt">designersupported</span>, aucune dépendance circulaire). <span class="tt">check_ui_layers.py</span> suit la nouvelle arborescence (règle 1 étendue à <span class="tt">Runtime/</span>, règle 3 sur <span class="tt">Source/App/CMakeLists.txt</span>, règle 6 étendue au câblage). <span class="tt">check_qt_version_pin.py</span> lit <span class="tt">Source/CMakeLists.txt</span>. Le pin garde son objet — la CI installe cette version — donc le script reste.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md664"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md666"></a>
 T1.5 — Le test de l'artiste, passé le 12 septembre 2026</h2>
 <p>Trois changements, faits dans <span class="tt">Source/Ui</span> seulement, puis le jeu relancé avec <span class="tt">JADG_QML_FROM_SOURCE=1</span> — <b>sans qu'aucun compilateur C++ n'ait tourné</b> :</p>
 <ol type="1">
@@ -169,7 +169,7 @@ T1.5 — Le test de l'artiste, passé le 12 septembre 2026</h2>
 <td class="markdownTableBodyNone"><img src="captures/phase1-avant-fiche.png" alt="fiche avant" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/phase1-apres-fiche.png" alt="fiche après" class="inline"/>  </td></tr>
 </table>
 <p>Le <span class="tt">git diff</span> du test touche trois fichiers, tous sous <span class="tt">Source/Ui/**</span> ; aucun <span class="tt">.cpp</span>, aucun <span class="tt">.h</span>, aucun fichier engendré. Les deux journaux de session ne contiennent aucun avertissement QML.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md665"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md667"></a>
 Où en est la phase 1</h2>
 <ul>
 <li>Le jeu démarre sur les quatorze écrans (<span class="tt">--screen=&lt;Nom&gt; --screenshot=</span>), aucun avertissement QML dans le journal ; <span class="tt">JADG_QML_FROM_SOURCE=1</span> relit <span class="tt">Source/Ui</span> (« Interface lue depuis les sources »).</li>
@@ -177,19 +177,19 @@ Où en est la phase 1</h2>
 <li>Avec le <span class="tt">qmllint</span> 6.8.7 de l'atelier et les doublures : 44 fichiers sur 46 se résolvent — les quatorze formulaires, les quatorze contrôles, la galerie, les quatorze jumeaux. Les deux restants, <span class="tt">Main.qml</span> et <span class="tt">ScreenStack.qml</span>, importent <span class="tt">Jadg.App</span> lui-même : fichiers de câblage, rien ne s'y dessine.</li>
 <li><span class="tt">check_qml_designer_compat.py</span> (196 éléments, 9 règles), <span class="tt">check_ui_layers.py</span> (278 éléments), <span class="tt">check_qt_version_pin.py</span>, <span class="tt">lint_lots.py</span>, <span class="tt">lint_exigences.py</span> : verts.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md666"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md668"></a>
 Phase 2 — charte v2 et matière première</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md667"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md669"></a>
 T2.1 — La charte v2</h2>
 <p>Cette section <b>remplace</b> la direction du parchemin pixel (<span class="tt">LOT-66</span>, <span class="tt">LOT-76</span>, <span class="tt">LOT-86</span>) pour les écrans du jeu. Elle ne réécrit pas ces lots : ils décrivent ce qui a été livré, et la v1 reste à l'écran jusqu'à ce que la phase 3 ait transcrit chaque écran.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md668"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md670"></a>
 Ce qui est gardé</h3>
 <ul>
 <li><b>Le parchemin de Tanares</b>, avec ses rôles et leurs valeurs : <span class="tt">background</span>, <span class="tt">surface</span>, <span class="tt">surfaceAlt</span>, <span class="tt">text</span>, <span class="tt">textMuted</span>, relevés sur les feuilles de personnage du corpus. Les maquettes ne les contredisent pas : le champ de parchemin de l'inventaire (maquette 04) mesure <span class="tt">#e4d4ac</span>, contre <span class="tt">#e0d0b0</span> pour <span class="tt">surface</span> — un pas de quantification d'écart. On garde la mesure du corpus : c'est la source, la maquette n'en est qu'une interprétation.</li>
 <li><b>L'or et le grenat</b> : <span class="tt">accent</span>, <span class="tt">border</span>, <span class="tt">frameOrnament</span>, <span class="tt">gem</span>, <span class="tt">gemShadow</span>. Les maquettes en ajoutent les faces éclairées (<span class="tt">goldLight</span>, <span class="tt">gemLight</span>) sans remplacer les valeurs existantes.</li>
 <li><b>Le focus signalé par une marque</b>, pas par une teinte (<span class="tt">EX-IHM-071</span>) ; l'étanchéité des deux portées, jeu et éditeur (<span class="tt">EX-IHM-050</span>) ; aucune couleur, famille ni taille hors de <span class="tt">Tokens.qml</span> (<span class="tt">EX-IHM-105</span>).</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md669"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md671"></a>
 Ce qui change</h3>
 <ul>
 <li><b>Deux matières, et chaque écran en choisit une.</b> Les <b>panneaux sombres</b> cerclés d'un filet d'or portent le menu principal, les options, les crédits, la carte et le HUD — des écrans posés sur une scène peinte, qu'ils ne doivent pas masquer. Le <b>parchemin</b> porte la fiche de personnage, l'inventaire, l'équipe de mercenaires et les compétences — des documents du personnage, qui se lisent comme la feuille du corpus. Pause et journal passent sur panneau sombre, dialogue et marchand sur parchemin (T3.9).</li>
@@ -197,7 +197,7 @@ Ce qui change</h3>
 <li><b>Les illustrations peintes</b> : fonds de scène, portraits, carte, et les ornements eux-mêmes — cadres, plaques, boutons, médaillons — livrés en <b>images 9-patch produites à 1080p</b> depuis le cahier des assets (T2.4), et non plus tracés (<span class="tt">EX-IHM-075</span> refondue).</li>
 <li><b>Le facteur d'agrandissement devient réel</b> : <span class="tt">uiScale</span>, la fenêtre rapportée à 1920 × 1080.</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md670"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md672"></a>
 Ce qui est écarté, et pourquoi</h3>
 <ul>
 <li><b>Les polices pixel</b> (<span class="tt">Pixelify Sans</span>, <span class="tt">Press Start 2P</span>). Une police bitmap et une illustration peinte ne cohabitent pas — le <span class="tt">LOT-66</span> l'avait écrit contre le pixel art, et les maquettes le rendent visible. Leurs fichiers partent après la phase 3, pas avant : les écrans v1 les emploient.</li>
@@ -206,7 +206,7 @@ Ce qui est écarté, et pourquoi</h3>
 <li><b>Le découpage des maquettes.</b> Elles sont sorties d'un générateur, à une définition qui n'est pas celle du jeu (1536 à 1672 px de large), avec du texte incrusté : on y relève des cotes et des couleurs, on n'y prélève aucun pixel.</li>
 <li><b>La scène isométrique peinte du HUD</b> (maquette 01). Le moteur rend un viewport en pixel art ; la maquette en fixe le cadre, pas la scène (T4.1).</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md671"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md673"></a>
 La palette relevée</h3>
 <p>Chaque rôle <b>nouveau</b> est mesuré par <span class="tt">scripts/measure_mockup_palette.py</span> sur une zone nommée d'une maquette ; la valeur écrite dans <span class="tt">Tokens.qml</span> est celle que le script imprime, et <span class="tt">--check</span> échoue si l'une s'en écarte. <span class="tt">--annotate &lt;dossier&gt;</span> dessine chaque zone sur sa maquette — c'est ainsi que les zones ont été vérifiées une à une, et corrigées quand elles mordaient sur un libellé ou un ornement.</p>
 <p>Trois mesures, parce qu'une maquette porte trois sortes de matière :</p>
@@ -245,10 +245,10 @@ La palette relevée</h3>
 <li><b><span class="tt">success</span>, <span class="tt">danger</span> et <span class="tt">info</span> sont des matières de plaque, pas des couleurs de texte.</b> Sur les maquettes, la coche d'« Appliquer » est crème et la croix d'« Annuler » est dorée : ce qui dit « valider » ou « annuler », c'est la plaque. Aucune des trois n'est lisible en texte sur <span class="tt">panel</span>. Le texte posé dessus est <span class="tt">textOnPanel</span>.</li>
 <li><b>Le filet des panneaux sombres est de l'or vif, pas du bronze.</b> <span class="tt">panelEdge</span> (<span class="tt">#e4a43c</span>) est plus proche de <span class="tt">goldLight</span> que d'<span class="tt">accent</span> (<span class="tt">#c0a060</span>, l'or mat du parchemin) : un panneau sombre se cercle d'or éclairé, et c'est ce qui le détache de la scène.</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md672"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md674"></a>
 Exigences refondues</h3>
 <p><span class="tt">EX-IHM-070</span> décrit la charte v2 et son facteur réel ; <span class="tt">EX-IHM-075</span> passe du tracé à l'image produite, en gardant ses trois raisons comme conditions ; <span class="tt">EX-IHM-076</span> admet une seconde provenance, la production depuis le cahier ; <span class="tt">EX-IHM-081</span> borne les deux facteurs. Chaque refonte garde le texte ou le motif de la version précédente, et nomme ce lot. Le guide de conception suit (facteur, échelle, ornements).</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md673"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md675"></a>
 Laissé ouvert, et à qui</h3>
 <ul>
 <li><b><span class="tt">EX-IHM-072</span> contre le T3.2.</b> L'exigence retire tout contrôle grisé non branché ; le plan des options dessine les sections de la maquette « désactivées, non disponible ». Les deux ne tiennent pas ensemble : le T3.2 tranche — retirer ces sections, ou refondre <span class="tt">EX-IHM-072</span> — avant d'écrire le formulaire. <b>Tranché au T3.2</b> : sections retirées, l'exigence est gardée.</li>
@@ -256,7 +256,7 @@ Laissé ouvert, et à qui</h3>
 <li><b>Les couleurs de texte du HUD</b> — le bleu du tour du joueur, le rouge du tour ennemi, l'or de la quête active (maquette 01) — ne sont pas des rôles de cette phase. Le T4.1 les relève avec le même script s'il en a besoin.</li>
 <li><b>Les noms de famille des polices</b> (<span class="tt">Cinzel</span>, <span class="tt">IM Fell English</span>) sont ceux de leur distribution ; le T2.3 les confronte à la table <span class="tt">name</span> des fichiers déposés, et corrige <span class="tt">Tokens.qml</span> s'ils diffèrent.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md674"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md676"></a>
 T2.2 — Les jetons</h2>
 <p><span class="tt">Source/Ui/Theme/Tokens.qml</span> gagne, sans rien retirer :</p>
 <ul>
@@ -272,7 +272,7 @@ T2.2 — Les jetons</h2>
 </ul>
 <p><span class="tt">Source/App/Game/Qml/Main.qml</span> lie <span class="tt">uiScale</span> à la fenêtre : <span class="tt">max(0,5 ; min(largeur / 1920 ; hauteur / 1080))</span>. Le plus petit des deux rapports, pour que l'écran de conception tienne entier quel que soit le format ; une liaison et non deux gestionnaires, parce que le facteur dépend des deux dimensions ; plancher à 0,5, sous lequel un corps de 18 px ne se lit plus. Aucune boucle (<span class="tt">EX-IHM-080</span>, <span class="tt">EX-IHM-081</span>) : aucun écran ne contraint la fenêtre.</p>
 <p>Les grandeurs v1 (<span class="tt">scale</span>, <span class="tt">screenTitle</span>… <span class="tt">frameThickness</span>) sont <b>marquées obsolètes</b> dans le fichier et restent lues par les quatorze écrans. <b>Conséquence visible, attendue</b> : les écrans v1 lisent <span class="tt">bodyFamily</span> et <span class="tt">titleFamily</span>, qui nomment désormais des polices que le jeu n'enregistre pas encore. Jusqu'au T2.3, ils s'affichent dans la famille générique de repli (<span class="tt">EX-IHM-052</span>) — tailles et mise en page inchangées. Le journal ne le signale pas : il ne dit qu'un fichier absent de la liste de <span class="tt">registerIdentityFonts()</span>, où ces polices n'entrent qu'au T2.3.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md675"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md677"></a>
 T2.4 — Le cahier des assets</h2>
 <p>Le cahier est une page à part, <a class="el" href="lot-87-cahier-assets.html" title="LOT-87 — Cahier des assets de la charte v2">LOT-87 — Cahier des assets de la charte v2</a>, et son jumeau machine <span class="tt">assets-brief.json</span>, validé contre <span class="tt">assets-brief.schema.json</span> par <span class="tt">scripts/check_assets_brief.py</span>. <b>80 pièces, 214 images</b> (une par état ou par membre d'un jeu d'icônes), en onze familles ; chacune porte sa clé au format du <span class="tt">LOT-39</span> (<span class="tt">ui/&lt;famille&gt;/&lt;pièce&gt;</span>), sa taille de production à 1080p, ses marges 9-patch ou sa taille fixe, son fond, ses états, sa description, son prompt, les zones de maquette qui la montrent, les écrans qui la posent et l'aplat de jetons qui la remplace tant qu'elle manque. Six éléments des maquettes sont écartés du cahier avec leur raison (carte, portraits, icônes d'objets, scène du HUD, illustrations de la base, planche 02).</p>
 <p>Ce que la tâche a décidé, en plus de la liste :</p>
@@ -285,7 +285,7 @@ T2.4 — Le cahier des assets</h2>
 <li><b>Six onglets d'options</b>, pas huit : ceux de la maquette 05.</li>
 </ul>
 <p>Les zones ont été relevées sur les maquettes puis contrôlées en les y dessinant (<span class="tt">--annotate</span>) ; une seule mordait à côté, corrigée. Le garde-fou a été éprouvé par injection : zone hors maquette, jeton inconnu, marges sans milieu, clé en double, pièce dérivée d'une pièce absente, marges sur une pièce fixe, <span class="tt">{jeton}</span> hors palette, écran sans pièce, page en retard — chacune le fait échouer.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md676"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md678"></a>
 T2.5 — Le manifeste étendu aux images produites</h2>
 <p><span class="tt">illustrations.json</span> ne connaissait qu'une provenance, l'extraction du corpus (<span class="tt">document</span>, <span class="tt">page</span>, <span class="tt">region</span>). Une seconde provenance s'ajoute, <span class="tt">"produced"</span> : la clé du cahier (<span class="tt">cahier</span>), le prompt tel qu'assemblé et envoyé (<span class="tt">prompt</span>), la date (<span class="tt">date</span>), et pour une pièce 9-patch les marges (<span class="tt">margins</span>, celles du cahier, recopiées à la lettre). Les champs d'empreinte et de dimensions (<span class="tt">sha256</span>, <span class="tt">bytes</span>, <span class="tt">size</span>) restent communs aux deux provenances : une image produite se vérifie comme une image extraite, seule sa provenance et ce qu'elle cite diffèrent.</p>
 <p><span class="tt">scripts/check_ui_assets.py</span> garde ses trois contrôles (empreinte, dimensions, orphelin — étendu à <span class="tt">UI.rglob()</span> pour suivre les images produites dans leurs sous-dossiers de famille), et en gagne deux :</p>
@@ -295,13 +295,13 @@ T2.5 — Le manifeste étendu aux images produites</h2>
 </ul>
 <p>Le recoupement avec le code (<span class="tt">check_code_keys</span>) ne porte plus que sur les illustrations <b>extraites</b> : une image produite n'est nommée par aucun écran avant que le T2.7 pose les briques qui la consomment, l'exiger maintenant aurait fait échouer le contrôle sur chaque pièce livrée avant son écran.</p>
 <p><b>Vérifié par injection</b> : un fichier déposé sans entrée (orphelin), une clé de cahier inconnue citée par une entrée produite, la section <span class="tt">pending</span> vidée avec les 214 clés du cahier encore non couvertes — chacune fait échouer <span class="tt">check_ui_assets.py</span> avec un message qui nomme la clé en cause.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md677"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md679"></a>
 T2.6 — La réception des images produites</h2>
 <p><span class="tt">scripts/receive_ui_assets.py</span> : un dossier de PNG livrés par le générateur, chacun nommé par la clé du cahier qu'il porte (<span class="tt">ui/frame/panel-dark.png</span> → <span class="tt">ui__frame__panel-dark.png</span>, une variante <span class="tt">ui/button/apply/hover</span> → <span class="tt">ui__button__apply__hover.png</span>). Pour chaque fichier : la clé existe dans le cahier et n'a pas déjà été reçue, les dimensions et la présence d'un canal alpha (octet de type de couleur de l'en-tête PNG) correspondent à ce que la pièce annonce. Ce qui passe est installé sous <span class="tt">installRoot/&lt;famille&gt;/...</span> (la clé, préfixe <span class="tt">ui/</span> ôté) et ajouté au manifeste avec le prompt assemblé par <span class="tt">check_assets_brief.assembler()</span> — le même module est réutilisé, pas recopié. Ce qui échoue est refusé avec le motif, pour régénération ; <span class="tt">--dry-run</span> rapporte sans rien écrire.</p>
 <p>Ce que le script ne vérifie pas — lettres incrustées, fidélité de la matière au prompt — reste une relecture humaine avant de le lancer : ce sont des jugements, pas des mesures.</p>
 <p><b>Vérifié</b> : un dossier de quatre PNG de test (une pièce fixe valide, une pièce 9-patch valide, une clé de variante mal formée, une clé inconnue, une pièce aux mauvaises dimensions, une pièce sans le canal alpha attendu) — les deux valides installées et déclarées, les quatre autres refusées avec leur motif ; <span class="tt">check_ui_assets.py</span> reste vert après une installation réelle.</p>
 <p>Aucune pièce n'est encore produite : la production (le générateur d'images, hors de portée de Claude) n'a pas tourné. Le cahier et les deux scripts sont la matière prête à la recevoir. La production a tourné ensuite : les 213 pièces sont reçues le 18 septembre 2026 (voir <a class="el" href="#lot-87-reception" title="La réception des images produites (18 septembre 2026)">la réception des images produites</a>).</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md678"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md680"></a>
 T2.7 — Les briques de la charte v2</h2>
 <p>Treize briques dans <span class="tt">Source/Ui/Controls/</span>, toutes en <span class="tt">.ui.qml</span>, toutes nommées par le plan :</p>
 <table class="markdownTable">
@@ -349,7 +349,7 @@ T2.7 — Les briques de la charte v2</h2>
 </ul>
 <p><b>Vérifié de bout en bout</b> avec quatre mires PNG (coins, bords et centre de trois couleurs, aux marges exactes du cahier) : <span class="tt">receive_ui_assets.py</span> les installe et réécrit <span class="tt">Artwork.qml</span>, <span class="tt">check_ui_assets.py</span> reste vert, le jeu reconstruit les embarque par le motif, et la galerie les pose à 720p avec des extrémités de plaque de 107 px (160 × 2/3). Mires retirées ensuite. La mire a montré une contrainte que le cahier implique sans la dire : <b>un 9-patch plus petit que ses deux marges superpose ses coins</b> — 224 px de haut au moins pour <span class="tt">panel-dark</span>, 256 pour <span class="tt">panel-parchment</span>. Les écrans de la phase 3 prennent un sous-panneau en deçà.</p>
 <p>Laissé ouvert : <b>le panneau Composants de l'atelier</b> (constat de la phase 1, toujours « (vide) »). Les briques se posent depuis la galerie ou par le code ; un <span class="tt">.qmltypes</span> ou des <span class="tt">designer/*.metainfo</span> restent l'hypothèse, et ne sont pas instruits ici.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md679"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md681"></a>
 Où en est la phase 2 — vérifié le 13 septembre 2026</h2>
 <ul>
 <li><span class="tt">scripts/build.ps1 -Preset ninja -Test</span> : construction propre, <span class="tt">ctest</span> 1033/1033.</li>
@@ -357,9 +357,9 @@ Où en est la phase 2 — vérifié le 13 septembre 2026</h2>
 <li><span class="tt">qmllint</span> du Qt 6.8.7 de l'atelier, avec les doublures : muet sur <span class="tt">Tokens.qml</span>, <span class="tt">MainMenuForm.ui.qml</span> et <span class="tt">OptionsForm.ui.qml</span>.</li>
 <li><span class="tt">measure_mockup_palette.py --check</span> (10 rôles, 0 divergence), <span class="tt">check_ui_layers.py</span>, <span class="tt">check_qml_designer_compat.py</span>, <span class="tt">lint_exigences.py</span> (352/352), <span class="tt">lint_lots.py</span> : verts. Doxygen sans erreur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md680"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md682"></a>
 Phase 3 — les écrans</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md681"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md683"></a>
 T3.1 — Le menu principal (maquette 06)</h2>
 <p><span class="tt">MainMenuForm.ui.qml</span> réécrit sur les briques v2, cotes relevées sur la maquette (1672 × 941) et ramenées à 1920 × 1080, puis multipliées par <span class="tt">Tokens.uiScale</span> : scène en fond, logotype, six entrées à icône, encart de profil, citation, version.</p>
 <ul>
@@ -384,7 +384,7 @@ T3.1 — Le menu principal (maquette 06)</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><img src="references/06_Main_Menu_Mockup.png" alt="maquette 06" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-1-menu-1080p.png" alt="menu à 1080p" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-1-menu-720p.png" alt="menu à 720p" class="inline"/>  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md682"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md684"></a>
 T3.2 — Les options (maquette 05)</h2>
 <p><b><span class="tt">EX-IHM-072</span> contre le plan : tranché le 14 septembre 2026, l'exigence est gardée.</b> Aucune section de la maquette sans réglage branché n'est dessinée, même désactivée. Il reste donc <b>trois onglets sur six</b> : Général (langue, journaux), Graphismes (plein écran, synchronisation verticale, compteur de diagnostic), Audio (volume). Jeu, Commandes et Accessibilité reviendront avec leurs réglages, et les sections Difficulté, Réseau, Sauvegarde et Confidentialité avec les leurs.</p>
 <ul>
@@ -401,7 +401,7 @@ T3.2 — Les options (maquette 05)</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><img src="references/05_Options_Mockup.png" alt="maquette 05" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-2-options-1080p.png" alt="options à 1080p" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-2-options-720p.png" alt="options à 720p" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-2-options-graphismes-720p.png" alt="graphismes à 720p" class="inline"/>  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md683"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md685"></a>
 T3.3 — Les crédits (maquette 07)</h2>
 <p>Scène du menu, logotype, grand panneau sombre coiffé de sa plaque « Crédits », deux colonnes de sections, citation au pied du panneau, bouton Retour, version.</p>
 <ul>
@@ -417,7 +417,7 @@ T3.3 — Les crédits (maquette 07)</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><img src="references/07_Credit_Mockup.png" alt="maquette 07" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-3-credits-1080p.png" alt="crédits à 1080p" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-3-credits-720p.png" alt="crédits à 720p" class="inline"/>  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md684"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md686"></a>
 T3.4 — La fiche de personnage (maquette 03)</h2>
 <p>Un grand parchemin relié en trois colonnes : portrait et six médaillons à gauche ; identité, jauges, sceau et paraphe au centre ; dix-huit compétences à droite.</p>
 <ul>
@@ -439,7 +439,7 @@ T3.4 — La fiche de personnage (maquette 03)</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><img src="references/03_Character_Sheet_Mockup.png" alt="maquette 03" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-4-fiche-1080p.png" alt="fiche à 1080p" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-4-fiche-720p.png" alt="fiche à 720p" class="inline"/>  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md685"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md687"></a>
 T3.5 — L'inventaire et l'équipement (maquette 04)</h2>
 <p>Trois parchemins : l'équipement porté et les statistiques dérivées ; les onglets, la grille du sac, la charge, l'or et le tri ; la fiche de l'objet sélectionné et ses actions.</p>
 <p><b>L'écran agit.</b> Filtrer, sélectionner, équiper, retirer, jeter, trier modifient l'inventaire, et tout se recalcule depuis lui : classe d'armure, charge, grille. Rien n'est ajouté ni retranché à une valeur publiée (règle du <span class="tt">LOT-14</span>).</p>
@@ -465,7 +465,7 @@ T3.5 — L'inventaire et l'équipement (maquette 04)</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><img src="references/04_Inventory_Equipment_Mockup.png" alt="maquette 04" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-5-inventaire-1080p.png" alt="inventaire à 1080p" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-5-inventaire-720p.png" alt="inventaire à 720p" class="inline"/>  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md686"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md688"></a>
 T3.6 — La carte du monde (maquette 08)</h2>
 <p>La carte VTT de Tanares en plein écran, qu'on déplace (glisser) et qu'on agrandit (molette, <span class="tt">+</span> et <span class="tt">-</span>, boutons de la mini-carte). Par-dessus : la plaque de titre, la barre de boussole, l'encart du personnage, la mini-carte, la barre d'état et la barre de navigation.</p>
 <p><b>Constat qui change le critère du plan : l'atlas n'a pas de coordonnées.</b> Le <span class="tt">LOT-37</span> a extrait du livre les 13 régions et les 94 lieux, avec leurs textes, et <b>aucune position</b>. « Les 94 lieux posés aux coordonnées de l'atlas » n'était donc pas réalisable. Ce qui a été fait :</p>
@@ -488,7 +488,7 @@ T3.6 — La carte du monde (maquette 08)</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><img src="references/08_Map_Mockup.png" alt="maquette 08" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-6-carte-1080p.png" alt="carte à 1080p" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-6-carte-720p.png" alt="carte à 720p" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-6-carte-fiche-720p.png" alt="fiche de région" class="inline"/>  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md687"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md689"></a>
 T3.7 — L'équipe de mercenaires (maquette 09)</h2>
 <p><b>Deux écrans deviennent un.</b> La feuille d'équipe (<span class="tt">TeamSheetForm</span>, <span class="tt">LOT-38</span>) et le tableau de la Guilde (<span class="tt">GuildBoardForm</span>) sont remplacés par <span class="tt">CompanyForm</span>, à quatre onglets : Équipe, Recrutement, Contrats, Réserve.</p>
 <ul>
@@ -504,7 +504,7 @@ T3.7 — L'équipe de mercenaires (maquette 09)</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><img src="references/09_MercenaryScreen_Mockup.png" alt="maquette 09" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-7-compagnie-1080p.png" alt="compagnie à 1080p" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-7-compagnie-720p.png" alt="compagnie à 720p" class="inline"/>  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md688"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md690"></a>
 T3.8 — Les compétences et sorts (maquette 10)</h2>
 <p>Nouvel écran, <span class="tt">SkillsForm</span>. À gauche, les attaques et les sortilèges ; au centre, les écoles de magie avec leurs emplacements et leurs sorts connus ; à droite, le détail du sort choisi.</p>
 <ul>
@@ -522,7 +522,7 @@ T3.8 — Les compétences et sorts (maquette 10)</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><img src="references/10_Skills_Mockup.png" alt="maquette 10" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-8-sorts-1080p.png" alt="sorts à 1080p" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-8-sorts-720p.png" alt="sorts à 720p" class="inline"/>  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md689"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md691"></a>
 T3.9 — Pause, dialogue, marchand, journal : restylés</h2>
 <p>Pas de maquette : les briques et les jetons de la charte v2, sur la structure v1 de chaque écran. La matière suit la charte : <b>panneau sombre</b> pour la pause et le journal, <b>parchemin</b> pour le dialogue et le marchand.</p>
 <ul>
@@ -543,12 +543,12 @@ T3.9 — Pause, dialogue, marchand, journal : restylés</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Journal  </td><td class="markdownTableBodyNone"><img src="captures/t3-9-journal-1080p.png" alt="journal à 1080p" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t3-9-journal-720p.png" alt="journal à 720p" class="inline"/>  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md690"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md692"></a>
 Où en est la phase 3</h2>
 <p>Les neuf tâches sont faites, <b>une PR par tâche, empilées</b> : #28 (T3.1, fusionnée), puis #29 à #36. Aucune image du cahier n'est encore produite : tous les écrans sont posés sur les aplats de repli des briques, et les captures jugent la mise en page. La porte 3 attend la revue.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md691"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md693"></a>
 Phase 4 — le cadre du HUD</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md692"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md694"></a>
 T4.1 — Le HUD de jeu (maquette 01), sans la scène</h2>
 <p>Le cadre de la maquette, posé <b>par-dessus</b> la surface de rendu : ni fond ni panneau plein écran, tout ce qui n'est pas un bloc laisse voir la scène. La scène elle-même reste le viewport QRhi en pixel art ; la scène isométrique peinte de la maquette n'est pas un objectif du moteur (charte v2, « ce qui est écarté »).</p>
 <ul>
@@ -583,13 +583,13 @@ T4.1 — Le HUD de jeu (maquette 01), sans la scène</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><img src="captures/t4-1-exploration-1080p.png" alt="exploration à 1080p" class="inline"/>  </td><td class="markdownTableBodyNone"><img src="captures/t4-1-exploration-720p.png" alt="exploration à 720p" class="inline"/>  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md693"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md695"></a>
 Phase 5 — retirer ce qui ne sert plus</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md694"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md696"></a>
 T5.1 — Le pack de maquettes</h2>
 <p>Déjà fait à la phase 0 : les dix PNG avaient rejoint <span class="tt">references/</span> et le reste du pack (kits QML, zip, build) avait été supprimé avant l'ouverture de la branche du lot. <span class="tt">git grep -i
 "MercenaryRpgUiKit\|JADG_UI\|UI_ASSET_PACK"</span> ne renvoie plus rien qu'un jeton CMake sans rapport (<span class="tt">JADG_UI_QML_FILES</span>, la liste des fichiers du module <span class="tt">Jadg.Ui</span>). Aucune icône schématique du pack n'a été promue en icône produite : la production des images n'a pas tourné pour ce lot (T2.6), donc rien ne restait à basculer sous <span class="tt">Source/Elements/Assets/UI/icons/</span>.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md695"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md697"></a>
 T5.2 — L'ancienne charte</h2>
 <ul>
 <li><b>Treize contrôles du <span class="tt">LOT-86</span></b> retirés de <span class="tt">Source/Ui/Controls/</span> et de <span class="tt">Source/Ui/CMakeLists.txt</span> — <span class="tt">RpgScreenFrame</span>, <span class="tt">ParchmentFrame</span>, <span class="tt">Cabochon</span>, <span class="tt">TitleBanner</span>, <span class="tt">FocusFleuron</span>, <span class="tt">MenuEntry</span>, et les sept briques de fiche (<span class="tt">SheetActionBar</span>, <span class="tt">SheetBlock</span>, <span class="tt">SheetLine</span>, <span class="tt">SheetList</span>, <span class="tt">SheetPortrait</span>, <span class="tt">SheetProse</span>, <span class="tt">SheetTrack</span>). Vérifié un par un avant suppression : aucune instanciation restante en dehors de la chaîne elle-même (<span class="tt">RpgScreenFrame { … }</span> n'apparaissait plus nulle part), <span class="tt">MenuEntry</span> compris — la seule mention restante était une comparaison en commentaire dans <span class="tt">ItemSlot.ui.qml</span>, laissée telle quelle.</li>
@@ -614,13 +614,13 @@ La réception des images produites (18 septembre 2026)</h1>
 </ul>
 <p><b>Vérifié</b> : les dix-neuf références d'écran de <span class="tt">QmlTests</span> régénérées et relues une à une (menu, options, crédits, fiche, inventaire, compagnie, sorts, pause, dialogue, marchand, journal, HUD d'exploration et de combat, cinq niveaux de carte) ; <span class="tt">scripts/build.ps1 -Preset ninja -Test</span> : 767/767 ; <span class="tt">check_ui_assets.py</span>, <span class="tt">check_ui_layers.py</span>, <span class="tt">check_qml_designer_compat.py</span>, <span class="tt">lint_exigences.py</span>, <span class="tt">lint_lots.py</span>, <span class="tt">check_translations.py</span> verts.</p>
 <p>Reste à faire, hors de cette réception : les essais d'interaction dans le jeu (survol, appui, manette) sur les états livrés, que les captures statiques ne montrent pas.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md696"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md698"></a>
 Exigences couvertes</h1>
 <ul>
 <li><a class="el" href="spec-interface-ihm.html#EX-IHM-070" title="EX-IHM-070"><span class="tt">EX-IHM-070</span></a>, <a class="el" href="spec-interface-ihm.html#EX-IHM-075" title="EX-IHM-075"><span class="tt">EX-IHM-075</span></a>, <a class="el" href="spec-interface-ihm.html#EX-IHM-076" title="EX-IHM-076"><span class="tt">EX-IHM-076</span></a>, <a class="el" href="spec-interface-ihm.html#EX-IHM-081" title="EX-IHM-081"><span class="tt">EX-IHM-081</span></a> : refondues ou précisées par la phase 2 (T2.1), pour décrire la charte v2.</li>
 <li><a class="el" href="spec-interface-ihm.html#EX-IHM-053" title="EX-IHM-053"><span class="tt">EX-IHM-053</span></a> : refondue par le T2.4 — les icônes des écrans du jeu sont produites, au double de leur taille d'affichage.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md697"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md699"></a>
 Où en est le lot</h1>
 <p><b>Livré.</b> Phases 0 à 5 faites. Les huit écrans transcrits (menu, options, crédits, fiche, inventaire, carte, compagnie, sorts), les quatre restylés sans redessin (pause, dialogue, marchand, journal) et le cadre du HUD tiennent tous sur la charte v2 ; plus aucun écran n'importe un contrôle ou un jeton de la charte v1. Les 214 images du cahier sont livrées depuis le 18 septembre 2026 (<a class="el" href="#lot-87-reception" title="La réception des images produites (18 septembre 2026)">la réception</a>) : les briques posent les images produites, plus aucun aplat de repli ne s'affiche. Restent aussi ouverts, notés au T5.2 : la portée identité du châssis d'édition (police pixel, jetons entiers) n'a pas suivi la charte v2, et les branches distantes mortes de la phase 0 attendent une suppression manuelle.</p>
 <p>Rappel de la phase 0 :</p>
@@ -631,7 +631,7 @@ Où en est le lot</h1>
 <li>Les dix maquettes déplacées dans <span class="tt">references/</span>.</li>
 <li>Ce dossier créé : comme tout lot démarré, le <span class="tt">LOT-87</span> quitte <span class="tt">roadmap-0.1.0.md</span> pour cet epic, et <span class="tt"><a class="el" href="lots_8md.html">lots.md</a></span> porte désormais son <span class="tt">@subpage lot-87</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md698"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md700"></a>
 Critères d'acceptation de la phase 0</h1>
 <ul>
 <li><span class="tt">git branch -a</span> ne liste plus que <span class="tt"><a class="el" href="Editor_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span>, <span class="tt">gh-pages</span> et <span class="tt">lot/LOT-87-charte-v2</span>, hors branches distantes en attente de suppression manuelle.</li>

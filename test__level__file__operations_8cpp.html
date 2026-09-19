@@ -110,8 +110,8 @@ $(function(){initNavTree('test__level__file__operations_8cpp.html','',''); });
 Functions</h2></td></tr>
 <tr class="memitem:ad67ac8305af02c7245a71b1cf3557b2d" id="r_ad67ac8305af02c7245a71b1cf3557b2d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad67ac8305af02c7245a71b1cf3557b2d">TEST_F</a> (LevelFileOps, CreeUnNiveauValide)</td></tr>
 <tr class="memdesc:ad67ac8305af02c7245a71b1cf3557b2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créer un niveau écrit sur disque un fichier <b>valide</b> et l'expose immédiatement dans la liste : la création part d'un <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Carte mutable en cours d&#39;édition, distincte de Level (immuable).">core::LevelDraft</a></span> vide passé par la validation, jamais d'un fichier vide qui échouerait au premier chargement.  <br /></td></tr>
-<tr class="memitem:a1a5cb3646f3982f26d0f5a4da795d884" id="r_a1a5cb3646f3982f26d0f5a4da795d884"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1a5cb3646f3982f26d0f5a4da795d884">TEST_F</a> (LevelFileOps, UneCarteCreeeAvecUnLieuPasseLeControle)</td></tr>
-<tr class="memdesc:a1a5cb3646f3982f26d0f5a4da795d884"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte créée avec un lieu naît comme les cartes livrées, et passe le contrôle (<span class="tt">LOT-EDITOR-06</span>) : on la fait ensuite entièrement dans l'éditeur.  <br /></td></tr>
+<tr class="memitem:ad09925ad74140da2dce94c19b7e80c53" id="r_ad09925ad74140da2dce94c19b7e80c53"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad09925ad74140da2dce94c19b7e80c53">TEST_F</a> (LevelFileOps, UneCarteCreeeAvecUnLieuASesDeuxCouches)</td></tr>
+<tr class="memdesc:ad09925ad74140da2dce94c19b7e80c53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte créée avec un lieu naît comme les cartes livrées (<span class="tt">LOT-EDITOR-06</span>) : on la fait ensuite entièrement dans l'éditeur.  <br /></td></tr>
 <tr class="memitem:a9423a3f90e4424d0f413e035c38d0044" id="r_a9423a3f90e4424d0f413e035c38d0044"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9423a3f90e4424d0f413e035c38d0044">TEST</a> (ScenePlacesTest, LesLieuxProposesOntUnManifeste)</td></tr>
 <tr class="memdesc:a9423a3f90e4424d0f413e035c38d0044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les lieux qu'une nouvelle carte peut prendre sont les planches qui ont un manifeste.  <br /></td></tr>
 <tr class="memitem:a8c629c3aea97ecc02804a4844945a032" id="r_a8c629c3aea97ecc02804a4844945a032"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8c629c3aea97ecc02804a4844945a032">TEST_F</a> (LevelFileOps, LaPlusPetiteCarteFaitUneCase)</td></tr>
@@ -367,8 +367,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1a5cb3646f3982f26d0f5a4da795d884" name="a1a5cb3646f3982f26d0f5a4da795d884"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a5cb3646f3982f26d0f5a4da795d884">&#9670;&#160;</a></span>TEST_F() <span class="overload">[8/8]</span></h2>
+<a id="ad09925ad74140da2dce94c19b7e80c53" name="ad09925ad74140da2dce94c19b7e80c53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad09925ad74140da2dce94c19b7e80c53">&#9670;&#160;</a></span>TEST_F() <span class="overload">[8/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -381,19 +381,19 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UneCarteCreeeAvecUnLieuPasseLeControle</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">UneCarteCreeeAvecUnLieuASesDeuxCouches</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Une carte créée avec un lieu naît comme les cartes livrées, et passe le contrôle (<span class="tt">LOT-EDITOR-06</span>) : on la fait ensuite entièrement dans l'éditeur. </p>
-<p><b>Cas de test :</b> <b>Une carte creee avec un lieu passe le controle.</b><br  />
+<p>Une carte créée avec un lieu naît comme les cartes livrées (<span class="tt">LOT-EDITOR-06</span>) : on la fait ensuite entièrement dans l'éditeur. </p>
+<p>Qu'elle passe le contrôle, nom traduit compris, est vérifié dans un projet complet : <span class="tt">ContentCheckTest.UneCarteNeuveASonNomDansChaqueCatalogue</span>. <b>Cas de test :</b> <b>Une carte creee avec un lieu a ses deux couches.</b><br  />
  <b>Categorie :</b> Unitaire · Opérations sur fichiers de niveau<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
  1. Créer une carte 12 × 8 au lieu <span class="tt">martpart</span>.<br  />
-2. La relire, puis la contrôler avec les planches livrées.<br  />
- <b>Resultat attendu :</b> Une couche de sol <span class="tt">sol</span> au lieu <span class="tt">martpart</span>, une couche de décor <span class="tt">relief</span> ; aucune erreur de contrôle. </p>
+2. La relire.<br  />
+ <b>Resultat attendu :</b> Une couche de sol <span class="tt">sol</span> au lieu <span class="tt">martpart</span>, une couche de décor <span class="tt">relief</span>. </p>
 
 </div>
 </div>

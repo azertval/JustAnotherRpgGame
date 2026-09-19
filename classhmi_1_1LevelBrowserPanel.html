@@ -113,6 +113,8 @@ Classes</h2></td></tr>
 Signals</h2></td></tr>
 <tr class="memitem:a69eb067948088996f047d0ad7582edab" id="r_a69eb067948088996f047d0ad7582edab"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a69eb067948088996f047d0ad7582edab">levelOpenRequested</a> (const QString &amp;path)</td></tr>
 <tr class="memdesc:a69eb067948088996f047d0ad7582edab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur demande l'ouverture d'un niveau (chemin absolu du fichier).  <br /></td></tr>
+<tr class="memitem:a9dbd80c38c7388fee03d0ffbab541623" id="r_a9dbd80c38c7388fee03d0ffbab541623"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9dbd80c38c7388fee03d0ffbab541623">mapRenameRequested</a> (const QString &amp;mapId)</td></tr>
+<tr class="memdesc:a9dbd80c38c7388fee03d0ffbab541623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis par « Rename » : le renommage propagé (<span class="tt">LOT-EDITOR-14</span>) réécrit d'autres fichiers, et peut-être la carte ouverte ; c'est l'appelant (<span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;éditeur (Qt Widgets, style Fusion, textes anglais).">MainWindow</a></span>) qui le mène.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -226,6 +228,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Émis quand l'utilisateur demande l'ouverture d'un niveau (chemin absolu du fichier). </p>
+
+</div>
+</div>
+<a id="a9dbd80c38c7388fee03d0ffbab541623" name="a9dbd80c38c7388fee03d0ffbab541623"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dbd80c38c7388fee03d0ffbab541623">&#9670;&#160;</a></span>mapRenameRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::LevelBrowserPanel::mapRenameRequested </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis par « Rename » : le renommage propagé (<span class="tt">LOT-EDITOR-14</span>) réécrit d'autres fichiers, et peut-être la carte ouverte ; c'est l'appelant (<span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;éditeur (Qt Widgets, style Fusion, textes anglais).">MainWindow</a></span>) qui le mène. </p>
 
 </div>
 </div>

@@ -93,10 +93,10 @@ $(function(){initNavTree('dir_52c08823cef41a3df195c0648e30f2b3.html','',''); });
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><h1 class="doxsection"><a class="anchor" id="autotoc_md1200"></a>
+<div class="textblock"><h1 class="doxsection"><a class="anchor" id="autotoc_md1218"></a>
 Fabrique d’assets — pilote PNJ</h1>
 <p>Génération et relecture dans le chat local ; commandes Python pour mémoire, préparation, réception, contrôle et rapport. Aucun SDK, clé API ou plafond en dollars. Ce dossier contient les originaux générés du projet et leur historique. Les images de référence sont locales, ignorées par Git, y compris celles issues du projet ; chemins et empreintes seuls sont versionnés.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1201"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1219"></a>
 Exécution</h1>
 <p>Depuis la racine, avec Python 3.13 et Pillow/numpy ; PyMuPDF sert à la lecture du corpus :</p>
 <div class="fragment"><div class="line">py -3.13 scripts/asset_factory.py init</div>
@@ -109,7 +109,7 @@ Exécution</h1>
 <div class="line">py -3.13 scripts/asset_factory.py report</div>
 <div class="line">py -3.13 scripts/asset_factory.py status</div>
 </div><!-- fragment --><p>Une passe <span class="tt">request &lt;slug&gt; &lt;idle|walk|hit|death|attack|cast&gt; --correction "…"</span> refait seulement l’animation fautive. Chaque tour reçoit un numéro neuf ; une réception existante ne s’écrase pas. <span class="tt">reprocess &lt;slug&gt; &lt;tour&gt;</span> rejoue seulement l’extraction après correction de l’outil, garde ses verdicts précédents dans <span class="tt">processing-*.json</span> et ne compte pas comme un appel au générateur. Une requête sans réponse reste explicitement en attente : ne pas la facturer ni la rejouer silencieusement. Le journal ne connaît pas les quotas consommés si le service ne les expose pas. Les réceptions sont séquentielles : ce prototype ne fournit pas encore de verrou entre plusieurs processus. Les empreintes de texte normalisent CRLF en LF pour survivre au checkout Git ; les empreintes binaires restent exactes. Les anciens hashes bruts des premiers tours sont conservés dans <span class="tt">original_byte_hashes</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1202"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1220"></a>
 Mémoire et contrôles</h1>
 <ul>
 <li><span class="tt">assets/Npc/&lt;slug&gt;/</span> : fiche sourcée, bloc B, palette héritée, empreintes du résultat manuel, tours, candidats, provenance, mesures et preuves ancien/nouveau. Les copies figées <span class="tt">reference-*.png</span> et <span class="tt">pose-reference.png</span> restent locales et doivent être conservées pour retraiter leurs tours ; après un nouveau clone, les rétablir depuis leurs sources avec vérification des empreintes avant réception, sans les ajouter à Git.</li>
@@ -121,7 +121,7 @@ Mémoire et contrôles</h1>
 <p>Le découpage n’ajoute ni ne duplique de frame et ne rogne aucun dessin pour le faire tenir. Les particules proches peuvent être regroupées ; toute ambiguïté de compte reste un rejet. La hauteur de référence et les contacts au sol servent à une échelle commune par tour. Cette estimation géométrique <b>ne sait pas isoler une tête d’une arme ou un pied d’un effet</b> : les cas concernés exigent un meilleur ancrage corporel avant validation, sans réduire artificiellement le personnage. La normalisation alpha/palette reste distincte de la revue du fond, du halo, de la silhouette, de l’arme et de la locomotion.</p>
 <p>Après ouverture réelle des portraits et preuves, <span class="tt">review &lt;slug&gt; rejected|review|validated
 --notes "…"</span> enregistre le verdict avec empreintes. Un résultat numérique bloquant empêche <span class="tt">validated</span>. Changer le brief, la palette, le profil ou le processeur invalide le verdict. <span class="tt">integrate &lt;slug&gt;</span> exige les deux contrôles à jour et une branche distincte de main ; conserve les anciens fichiers dans une transaction locale et la table <span class="tt">replaces</span>. Une installation interrompue reste à examiner avant reprise. L’installation seule ne vaut pas validation en jeu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1203"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1221"></a>
 Acceptation finale du PoC</h1>
 <p>Les cinq PNJ doivent être conformes, leurs trente bandes et descripteurs chargés par le jeu, visibles dans la galerie, comparés aux manuels, puis livrés avec crédits, rapport et CI verte. Les tests d’intégration du jeu exécutés avant promotion ne prouvent que l’état déjà livré. Ne pas marquer T00 terminé tant que ces preuves manquent.</p>
 <p>Tests locaux du traitement : <span class="tt">py -3.13 -m pytest scripts/tests/test_asset_factory.py</span>. Build et tests du jeu : <span class="tt">powershell -File scripts/build.ps1 -Label integration</span>. </p>

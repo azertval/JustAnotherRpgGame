@@ -92,9 +92,9 @@ $(function(){initNavTree('md__2home_2runner_2work_2JustAnotherRpgGame_2JustAnoth
   <div class="headertitle"><div class="title">Premier essai PNJ — 19 septembre 2026 </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md1205"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md1223"></a></p>
 <p><b>Verdict : industrialisation non démontrée ; zéro PNJ autorisé à intégrer.</b> Le socle de préparation/réception fonctionne, mais T00 reste ouverte. Les seuils ne sont pas abaissés pour accepter les images produites. Aucun candidat ne remplace les assets du jeu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1206"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1224"></a>
 Production observée</h1>
 <p>39 appels réels au générateur intégré : 6 portraits (dont la reprise de Xorius), 5 planches complètes et 28 reprises d’animation. Les 39 réponses sont reçues, aucune requête ne reste incertaine. Après extraction, 5 portraits et 28 bandes candidates sont disponibles. Chaque tour conserve son prompt A+B+C, ses références projet figées hors Git, sa réponse originale, ses empreintes et ses verdicts de traitement. Les retraitements ne sont pas comptés comme de nouvelles générations. Coût et consommation de quota : inconnus, pas zéro inventé.</p>
 <table class="markdownTable">
@@ -112,7 +112,7 @@ Production observée</h1>
 <td class="markdownTableBodyNone">Xorius  </td><td class="markdownTableBodyRight">6  </td><td class="markdownTableBodyNone">Marche encore discontinue et mouvement des jambes insuffisant ; l’arc dépasse la tête et fausse la mesure du corps. Palette trop sombre après réduction.  </td></tr>
 </table>
 <p>Les cinq comparaisons ancien/nouveau ont été ouvertes et relues. Les GIF sont produits pour les bandes présentes, avec les durées du moteur ; ils ne constituent pas une validation en jeu. Les détails chiffrés et les journaux sont liés dans <a class="el" href="md__2home_2runner_2work_2JustAnotherRpgGame_2JustAnotherRpgGame_2Tools_2AssetFactory_2rapport-poc.html" title="PoC Fabrique d’assets — état de production">le rapport</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1207"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1225"></a>
 Ce que l’essai établit</h1>
 <ul>
 <li>La reprise d’une animation seule, sans duplication ni emprunt à une autre bande, est praticable.</li>
@@ -120,7 +120,7 @@ Ce que l’essai établit</h1>
 <li>Un rejet récent retire l’ancien candidat concerné. Une modification du brief, du traitement ou de la calibration invalide la revue. Une image illisible reste un échec journalisé.</li>
 <li>Les témoins manuels ont eux aussi des défauts mesurés (palette, hauteur, boucle) : ils servent à comparer, pas à justifier un relâchement des critères.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1208"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1226"></a>
 Corrections nécessaires avant nouvelle campagne</h1>
 <ol type="1">
 <li>Remplacer la hauteur de boîte englobante par des repères corporels explicites, vérifiés sur l’image : sommet du crâne, sol et pivot, effets et armes exclus. Garder une échelle unique par tour ; ne pas faire rentrer un débordement en réduisant le personnage.</li>
@@ -129,11 +129,11 @@ Corrections nécessaires avant nouvelle campagne</h1>
 <li>Enrichir les fiches structurées : le pilote reprend encore l’apparence détaillée du bloc B de LOT-91 et les localisateurs vérifiés du Compendium ; l’extraction autonome du corpus vers les champs de fiche n’est pas implémentée.</li>
 <li>Refaire les animations rejetées, relire les preuves, puis seulement tester les nouveaux descripteurs avec le lecteur du jeu et leur rendu dans la galerie. Finaliser ensuite la récupération d’installation après arrêt brutal et l’état « intégré » attesté par ces tests.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1209"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1227"></a>
 Périmètre et provenance</h1>
 <p>Cet essai utilise exclusivement les ancres, portraits et bandes créés pour le projet. Aucune illustration du corpus n’a été envoyée ou copiée dans l’historique versionné. Les textes ont été confrontés aux pages PDF 10, 68, 83, 92 et 148 du Character Compendium. Lizz sans arme est une adaptation du projet, pas une affirmation sur l’équipement du livre.</p>
 <p>Le chat appelle le générateur ; la ligne de commande prépare, reçoit et contrôle les résultats. Il n’existe pas ici de commande autonome capable d’invoquer le générateur du chat. Les tests du jeu portant sur les assets déjà livrés ne valident pas les nouveaux candidats. Les régions, textures et Ironhand restent dans les tâches suivantes, hors roadmap.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1210"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1228"></a>
 Vérifications exécutées</h1>
 <ul>
 <li>Python 3.13 : 105 tests des scripts réussis, puis 15 tests de la fabrique après ajout du contrôle du code de sortie CLI : un QC rejeté renvoie bien un échec au programme appelant.</li>

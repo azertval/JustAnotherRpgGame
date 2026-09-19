@@ -96,15 +96,15 @@ $(function(){initNavTree('lot-79.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 943/943, <span class="tt">clang-format</span>, lint d'exigences, lint des lots, cahier de test et Doxygen verts). Prérequis : aucun. Prérequis du <span class="tt">LOT-32</span>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md635"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md637"></a>
 Objectif</h1>
 <p>Écrire <b>une</b> routine de lecture JSON avant que la filière contenu n'en ajoute quinze, et créer la capacité de <b>test paramétré</b> que la suite n'avait pas.</p>
 <p>Le §10 de la feuille de route attribuait ces deux travaux au <span class="tt">LOT-32</span> — mais son périmètre ne livre que des schémas, un script Python et un test d'énumérations : <b>personne ne portait le travail C++</b>. C'est l'audit qui l'a trouvé, et ce lot qui le fait.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md636"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md638"></a>
 Ce qui existait</h1>
 <p>Six réimplémentations de <span class="tt">loadFromFile</span>, chacune avec sa validation écrite à la main : <span class="tt">hmi::SkinCatalog</span>, <span class="tt"><a class="el" href="classhmi_1_1AnimationCatalog.html" title="Lecture, validation et traduction en région de texture du format nom-asset.anim.json.">hmi::AnimationCatalog</a></span>, <span class="tt">hmi::SoundCatalog</span>, <span class="tt">hmi::PixelPalette</span>, <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></span>, <span class="tt">core::LevelSequenceLoader</span>. Toutes répétaient la même séquence — <span class="tt">accept()</span> puis <span class="tt">parse()</span>, racine objet, champ de version absent valant 1, version supérieure refusée — et quatre d'entre elles redéfinissaient les <b>mêmes cinq catégories d'échec</b> sous quatre noms différents.</p>
 <p>Aucune ne disait <b>où</b> était l'erreur. <span class="tt">nlohmann</span> ne rapporte qu'un décalage en octets, et les six lecteurs le jetaient : le message était « JSON malformé », devant un catalogue de mille lignes.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md637"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md639"></a>
 Ce que le lot livre</h1>
 <p><b><span class="tt"><a class="el" href="structcore_1_1JsonDocument.html" title="Résultat de la lecture de l&#39;enveloppe commune d&#39;un document JSON.">core::JsonDocument</a></span></b> (<span class="tt">Source/Core/Data/JsonDocument.{h,cpp}</span>) :</p>
 <ul>
@@ -116,12 +116,12 @@ Ce que le lot livre</h1>
 <p><b>Les six lecteurs migrés.</b> Chacun garde son énumération publique, documentée pour son format, et traduit depuis la catégorie partagée par un <span class="tt">switch</span> <b>exhaustif et sans <span class="tt">default</span></b> : ajouter une catégorie d'un côté fait échouer la compilation plutôt que de tomber dans un cas par défaut. C'est la même discipline que <span class="tt"><a class="el" href="TileTypeName_8cpp.html">TileTypeName.cpp</a></span>.</p>
 <p><b>La capacité de test paramétré.</b> <span class="tt">Source/Test/</span> ne comptait <b>aucun</b> <span class="tt"><a class="el" href="test__capital__maps_8cpp.html#abed757c6a1e28c6056fa1f4a765d7dcf" title="La carte livree se charge, et c&#39;est un lieu, pas une grille nue.">TEST_P</a></span> ni aucun parcours de dossier de fixtures. Le lot en pose le premier : <span class="tt">Source/Test/Fixtures/Json/</span> porte six fichiers — valide, tronqué, virgule en trop, racine tableau, version future, version non entière — et un <span class="tt"><a class="el" href="test__capital__maps_8cpp.html#abed757c6a1e28c6056fa1f4a765d7dcf" title="La carte livree se charge, et c&#39;est un lieu, pas une grille nue.">TEST_P</a></span> vérifie que chacun produit la catégorie annoncée par son nom. Un test supplémentaire vérifie qu'<b>aucune fixture du dossier n'est orpheline</b> : un fichier de fixture qu'aucun test ne lit ne protège de rien.</p>
 <p>C'est la capacité qui compte plus que ces six cas : un catalogue de 176 créatures se teste en balayant un dossier, pas en écrivant 176 <span class="tt"><a class="el" href="test__exploration__carte__livree_8cpp.html#a44382b6483fdc50f7876d1a2fcf0c18d" title="Le Colisée livré s&#39;ouvre, nomme son lieu et se compose avec ses planches.">TEST</a></span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md638"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md640"></a>
 Ce que la réalisation a tranché</h1>
 <p><b><span class="tt">nlohmann_json</span> devient une dépendance PUBLIC de <span class="tt">Core</span>.</b> <span class="tt"><a class="el" href="JsonDocument_8h.html" title="Brique de lecture JSON partagée par tous les catalogues (EX-CNT-012).">JsonDocument.h</a></span> expose l'arbre parsé à ses appelants : la bibliothèque fait donc partie de l'interface de <span class="tt">Core</span>, et non de son implémentation. La seule façon de l'éviter aurait été d'écrire une façade typée par-dessus <span class="tt">nlohmann</span> — soit un second modèle d'arbre à maintenir, pour ne rien gagner d'observable.</p>
 <p><b>La brique parse en laissant l'exception se produire, à l'intérieur.</b> Le mode non-lançant de <span class="tt">nlohmann</span> renvoie « document rejeté » sans dire <b>où</b>. L'exception est donc capturée dans la brique pour en extraire la position, et aucune ne franchit la frontière — la garantie d'<span class="tt">EX-NFR-040</span> est tenue au même endroit pour les six lecteurs, au lieu de six fois.</p>
 <p><b>Le défaut de version absente passe de 0 à 1 pour <span class="tt">LevelSequenceLoader</span>.</b> Sans effet observable : la version gérée valant 1, les deux valeurs franchissent la même garde. C'est noté ici parce qu'un changement sans effet aujourd'hui en a un le jour où la version gérée monte.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md639"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md641"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Les six lecteurs passent par la brique, et leurs tests restent verts. ✔</li>

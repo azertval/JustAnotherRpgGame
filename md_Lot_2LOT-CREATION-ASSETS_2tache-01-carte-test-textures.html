@@ -92,7 +92,7 @@ $(function(){initNavTree('md_Lot_2LOT-CREATION-ASSETS_2tache-01-carte-test-textu
   <div class="headertitle"><div class="title">T01 — Carte de test des textures dans le jeu </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md893"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md895"></a></p>
 <blockquote class="doxtable">
 <p>À réaliser après la référence de taille validée de <a class="el" href="md_Lot_2LOT-CREATION-ASSETS_2tache-00-socle-pilote-pnj.html" title="T00 — Socle et reprise des cinq PNJ du PoC">T00</a>, avant acceptation de toute texture régionale. Travail planifié, aucun test exécuté ici. Contrat obligatoire pour les reprises <a class="el" href="md_Lot_2LOT-CREATION-ASSETS_2tache-ce-r01-reprise-trois-sites.html" title="CE-R01 — Reprise intégrale de Martpart, Arenarea et du Colisée">CE-R01</a> et toutes les séries futures contenant textures, tuiles ou pièces de décor. </p>
 </blockquote>
@@ -114,11 +114,11 @@ $(function(){initNavTree('md_Lot_2LOT-CREATION-ASSETS_2tache-01-carte-test-textu
 <ul class="check">
 <li class="unchecked">Produire des captures du rendu réel après chargement complet des textures, une vue générale, des détails de chaque jonction et une séquence du parcours. Ouvrir les images et les frames de la séquence pour une revue visuelle consignée, avec comparaison côte à côte ancien/nouveau et témoin identique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md894"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md896"></a>
 Verdict bloquant</h1>
 <p>Couverture exigée : 100 % des textures utilisées et des raccords requis ; zéro ressource manquante, zéro ancre/emprise différente du contrat, zéro trou ou recouvrement parasite dans les masques de couverture attendue. Distinguer les marges transparentes légitimes, l’occultation volontaire et les défauts. Vérifier PNG RGBA, alpha propre, palette et dimensions exactes. Mesurer les écarts de jonction en pixels et les rapports de taille au témoin ; figer leurs tolérances dans le profil avant de noter la production, sans les élargir pour accepter un échec. Les raccords de couleurs, motifs, perspective et éclairage demandent aussi une revue visuelle : une distance de couleur seule ne prouve pas la cohérence.</p>
 <p>Une capture manquante, un test graphique sauté faute de backend, une couverture incomplète ou une revue indécise donne <b>à revoir</b>, jamais validé. Refaire les éléments fautifs puis rejouer leurs jonctions et le parcours complet affecté. Aucun changement de référence visuelle sans justification et nouvelle revue.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md895"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md897"></a>
 Intégration technique prévue</h1>
 <p>Les tests actuels <span class="tt"><a class="el" href="test__exploration__carte__livree_8cpp.html" title="Test d&#39;intégration : d&#39;un fichier de carte livré jusqu&#39;à l&#39;instantané que le rendu du lieu dessine — ...">Source/Test/Integration/test_exploration_carte_livree.cpp</a></span> vérifient chargement/composition du Colisée et marche à Martpart ; ils ne prouvent pas l’imbrication visuelle. Le test <span class="tt"><a class="el" href="test__rhi__offscreen_8cpp.html" title="Non-régression visuelle du portage QRhi (EX-REN-050, EX-ARCH-022) : rendu hors écran d&#39;un motif témoi...">Source/Test/Unit/HMI/Graphics/test_rhi_offscreen.cpp</a></span> protège un motif de rendu et peut être sauté sans backend : l’étendre ou le compléter ne dispense pas de la carte jouée.</p>
 <ul class="check">

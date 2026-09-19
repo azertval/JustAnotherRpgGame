@@ -141,14 +141,14 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ligne de vue et abri sur la grille tactique (<span class="tt">LOT-22</span>, <span class="tt">EX-CBT-021</span>). </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1122"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1139"></a>
 Ce que dit le Manuel, et ce qu'il laisse à trancher</h2>
 <p>Chapitre 9, « Abri » : les murs, les arbres, les créatures et autres obstacles abritent ; un abri partiel donne +2 à la CA et aux sauvegardes de Dextérité, un abri important +5, un abri total interdit d'être ciblé directement ; <b>les abris ne s'additionnent pas</b>, seul le meilleur compte. Chapitre 10, « Un chemin dégagé jusqu'à la cible » : pour viser une chose, il ne faut pas qu'elle soit derrière un abri total.</p>
 <p>Le Manuel ne dit pas <b>comment</b> mesurer ces fractions de corps sur un quadrillage. Ce fichier prend la méthode du <em>Guide du Maître</em>, la seule que les tables connaissent : choisir un coin de l'emprise de l'attaquant, tracer des lignes vers les quatre coins d'une case de la cible, et compter celles qu'un obstacle coupe — une ou deux : abri partiel ; trois : abri important ; quatre depuis chaque coin : abri total. L'attaquant prend le coin et la case qui l'arrangent.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1123"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1140"></a>
 La symétrie, par construction</h2>
 <p>Un tracé qui part de A, avance case par case et s'arrête au premier obstacle ne donne pas le même résultat depuis B : c'est le défaut classique, et le joueur le découvre en tirant sur un ennemi qui ne peut pas riposter. Ici, rien n'avance : la question est « ce <b>segment</b> coupe-t-il cette case ? », posée en arithmétique entière exacte sur des points à coordonnées en demi-cases. Un segment n'a pas de sens de parcours, et l'ensemble des segments examinés — tous les points de grille d'une emprise vers tous ceux de l'autre — est le même dans les deux sens. A voit B si et seulement si B voit A ; les tests le vérifient sur des grilles générées.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1124"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1141"></a>
 Ce qui coupe un segment</h2>
 <ul>
 <li><b>La vue</b> (<span class="tt">BattleGrid::blocksSight</span> : matière pleine, objet à abri total) coupe un segment qui <b>touche</b> la case, bord et coin compris, extrémités exceptées. Un segment qui rase la face d'un mur ne voit donc pas au travers, et deux murs en diagonale ne laissent pas passer le regard par leur coin commun — la même règle que le déplacement (« Coins », chapitre 9).</li>

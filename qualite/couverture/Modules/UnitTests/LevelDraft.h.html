@@ -16,6 +16,8 @@
 
 #include &lt;cstddef&gt;
 #include &lt;cstdint&gt;
+#include &lt;functional&gt;
+#include &lt;map&gt;
 #include &lt;memory&gt;
 #include &lt;optional&gt;
 #include &lt;string&gt;
@@ -38,6 +40,10 @@
  */
 
 namespace core {
+
+/// @brief Ancien nom de piÃ¨ce â nouveau : un remplacement, ou la table de correspondance d'un
+///        changement de planche (`LOT-EDITOR-14`).
+using PieceRenaming = std::map&lt;std::string, std::string, std::less&lt;&gt;&gt;;
 
 /**
  * @brief Carte **mutable** en cours d'Ã©dition, distincte de `Level` (immuable).
@@ -263,6 +269,30 @@ public:
 
     /// @return Vrai si la collision de @p cell est forcÃ©e Ã  la main.
     [[nodiscard]] bool isCollisionForced(GridPosition cell) const noexcept;
+
+    /**
+     * @brief Renomme, sur toutes les couches visuelles, chaque piÃ¨ce que @p renaming nomme
+     *        (`LOT-EDITOR-14`, `EX-EDIT-083`), en **un** pas d'annulation.
+     *
+     * La piÃ¨ce garde sa case d'ancrage et son type (dÃ©cision D3) ; la collision des cases que
+     * couvrent l'ancienne et la nouvelle emprise suit.
+     * @return `false` (rien d'empilÃ©) si rien ne change, ou si une nouvelle emprise dÃ©borderait de
+     *         la carte.
+     */
+    bool replacePieces(const PieceRenaming&amp; renaming);
+
+    /**
+     * @brief Fait passer la carte Ã  la planche du lieu @p place (`LOT-EDITOR-14`), en **un** pas :
+     *        la propriÃ©tÃ© `scene` des couches qui la portent (la premiÃ¨re couche de sol, si aucune
+     *        ne la porte), le manifeste @p manifest, et les piÃ¨ces renommÃ©es par @p renaming.
+     *
+     * Une piÃ¨ce que @p renaming ne nomme pas garde son nom. Toute la collision est redÃ©duite par
+     * le nouveau manifeste, hors cases forcÃ©es et hors entrÃ©e.
+     * @return `false` si rien ne change, si la carte n'a pas de couche visuelle, ou si une emprise
+     *         dÃ©borderait de la carte.
+     */
+    bool changeScene(const std::string&amp; place, std::shared_ptr&lt;const ScenePieceManifest&gt; manifest,
+                     const PieceRenaming&amp; renaming);
 
     /** @} */
 

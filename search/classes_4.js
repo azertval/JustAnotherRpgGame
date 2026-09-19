@@ -40,6 +40,7 @@ var searchData=
   ['experiencetable_37',['ExperienceTable',['../structcore_1_1ExperienceTable.html',1,'core']]],
   ['explorationevent_38',['ExplorationEvent',['../structcore_1_1ExplorationEvent.html',1,'core']]],
   ['explorationintent_39',['ExplorationIntent',['../structcore_1_1ExplorationIntent.html',1,'core']]],
-  ['explorationsession_40',['ExplorationSession',['../classcore_1_1ExplorationSession.html',1,'core']]],
-  ['explorationsnapshot_41',['ExplorationSnapshot',['../structcore_1_1ExplorationSnapshot.html',1,'core']]]
+  ['explorationreach_40',['ExplorationReach',['../classcore_1_1ExplorationReach.html',1,'core']]],
+  ['explorationsession_41',['ExplorationSession',['../classcore_1_1ExplorationSession.html',1,'core']]],
+  ['explorationsnapshot_42',['ExplorationSnapshot',['../structcore_1_1ExplorationSnapshot.html',1,'core']]]
 ];

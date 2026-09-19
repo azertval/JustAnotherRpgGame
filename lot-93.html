@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-93.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 18 septembre 2026</b> (ouvert le même jour). Le lion, le loup et le soldat Ironhand sont dans <span class="tt">Source/Elements/Assets/Monsters/</span>, au manifeste, et dans la galerie des assets ; <span class="tt">check_asset_keys.py</span> et les 768 tests sont verts. Reste la <b>relecture à l'écran</b> dans la galerie (<span class="tt">--screen=AssetGallery</span>, famille « Monstres »), animation par animation : la capture automatique part avant le chargement des images. Le détail de la production est plus bas. Prérequis : <a class="el" href="lot-91.html" title="LOT-91 — Atelier des PNJ : les figurines du Character Compendium">LOT-91</a> (la méthode, le style gelé, les scripts de normalisation), <a class="el" href="lot-33.html" title="LOT-33 — Bestiaire de base">LOT-33</a> (les 94 bêtes du SRD), <a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a> (le style de scène). Alimente : <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a> (le lion et les loups du Colisée, le soldat Ironhand de la ville), <span class="tt">LOT-46</span> (les 82 blocs de Tanares). Exigences : <span class="tt">EX-CNT-040</span> et <span class="tt">EX-CNT-041</span> (les clés d'assets et leur état d'avancement, que <span class="tt">check_asset_keys.py</span> étend aux figurines), <span class="tt">EX-CNT-042</span> (tout asset livré paraît dans la galerie). Aucune exigence ajoutée. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md742"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md744"></a>
 Objectif</h1>
 <p>L'atelier des PNJ part d'une <b>image</b> : le portrait peint du <em>Character Compendium</em>, que la chaîne normalise avant de l'imiter. Le bestiaire n'en a pas. Ce lot dérive l'atelier pour le cas <b>sans référence visuelle</b> : la créature est décrite par le <b>texte</b> seul — son bloc, sa taille, ce que le Sourcebook en dit —, et le style est celui des PNJ, pour que la bête et la figurine qui l'affronte soient du même monde.</p>
 <p>Les premières fiches sont celles dont la version <span class="tt">0.0.1</span> a besoin, et elles sont <b>trois</b>, décidées par l'auteur le 18 septembre 2026 :</p>
@@ -111,7 +111,7 @@ Objectif</h1>
 <td class="markdownTableBodyNone"><b>Soldat Ironhand</b> (<span class="tt">ironhand-soldier</span>)  </td><td class="markdownTableBodyNone">Moyenne  </td><td class="markdownTableBodyNone">48 × 64  </td><td class="markdownTableBodyNone">l'armée qui tient la Capitale ; un humanoïde sans portrait prouve que la chaîne ne se limite pas aux bêtes  </td></tr>
 </table>
 <p>Le contrôle visuel se fait <b>dans la galerie des assets</b> (<span class="tt">--screen=AssetGallery</span>), et seulement là : c'est l'outil fait pour cela. Les faire jouer au Colisée ou en ville est le travail du <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md743"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md745"></a>
 Les décisions</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -135,7 +135,7 @@ Les décisions</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>Tailles hors gabarit</b>  </td><td class="markdownTableBodyNone"><em>Huge</em> (3 × 3 cases) et <em>Gargantuan</em> attendent un troisième gabarit, écrit à la première qui le demande ; <em>Tiny</em> et <em>Small</em> prennent le gabarit Moyen.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md744"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md746"></a>
 Les deux gabarits</h2>
 <p>La <b>planche</b> a la même grille aux deux gabarits — 1 536 × 2 048, huit rangées de 256 px, les rangées 5 à 8 en cellules de 384 px —, si bien que <span class="tt">compose.py</span> n'en dépend pas ; seules les <b>bandes</b> changent, et <span class="tt">normalise.py --gabarit</span> les découpe.</p>
 <table class="markdownTable">
@@ -151,7 +151,7 @@ Les deux gabarits</h2>
 <td class="markdownTableBodyNone">cellules de planche, rangées 1-4  </td><td class="markdownTableBodyNone">192 (rangée 4 : 256)  </td><td class="markdownTableBodyNone">192  </td></tr>
 </table>
 <p>Tant qu'aucune planche Grande n'est retenue, la référence 1 d'une planche Grande est celle d'Anariel, pour le <b>style seul</b> (la disposition le dit) ; la première retenue — le lion — est versée dans <span class="tt">atelier/ancres/planche_grand.png</span> et devient l'ancre des suivantes.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md745"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md747"></a>
 L'atelier</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -170,7 +170,7 @@ L'atelier</h1>
 <p>Les scripts <b>communs</b> restent dans l'atelier des PNJ (<span class="tt">LOT-91-atelier-pnj/atelier/scripts/</span>) et ont gagné ce qu'il fallait : <span class="tt">normalise.py --gabarit grand</span>, <span class="tt">compose.py --travail &lt;dossier&gt;</span>, <span class="tt">palette.py &lt;slug&gt; &lt;portrait&gt; &lt;dossier des fiches&gt;</span>. <span class="tt">normalise_portrait.py</span> sert tel quel.</p>
 <p>Le <b>dossier de travail</b>, hors dépôt (variable <span class="tt">MONSTRES_ATELIER</span>, par défaut <span class="tt">D:\JustAnotherDnDGame-monstres</span>), reçoit les envois préparés (<span class="tt">chatgpt\</span>), les images générées et leurs normalisations (<span class="tt">&lt;slug&gt;\token\</span>, <span class="tt">&lt;slug&gt;\tourK\</span>, <span class="tt">&lt;slug&gt;\final\</span>).</p>
 <p>Les scripts se lancent depuis <span class="tt">atelier/scripts/</span>, avec <span class="tt">py -3.13</span> (<span class="tt">numpy</span>, <span class="tt">Pillow</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md746"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md748"></a>
 La méthode, pour une créature</h1>
 <p>Les créatures d'une série passent <b>ensemble, étape par étape</b>, comme les PNJ.</p>
 <table class="markdownTable">
@@ -192,7 +192,7 @@ La méthode, pour une créature</h1>
 <td class="markdownTableBodyNone"><b>I — Intégration</b>  </td><td class="markdownTableBodyNone"><span class="tt">integre.py &lt;slug&gt;</span> : bandes, <span class="tt">.anim.json</span> et <span class="tt">portrait.png</span> dans <span class="tt">Assets/Monsters/&lt;slug&gt;/</span>, entrée au manifeste, <b>case cochée ci-dessous</b> ; puis <span class="tt">scripts/check_asset_keys.py</span>, et la créature se regarde dans la galerie.  </td><td class="markdownTableBodyNone"><span class="tt">check_asset_keys.py</span> rend 0 ; la revue, animation par animation, dans la galerie.  </td></tr>
 </table>
 <p>Les règles du LOT-91 valent ici : on corrige le prompt, jamais l'image ; une animation fausse se refait seule ; au plus trois tours par étape.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md747"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md749"></a>
 La revue (huit « oui »)</h2>
 <ol type="1">
 <li>La créature que décrit le bloc B : LOOK et SILHOUETTE reconnaissables.</li>
@@ -204,7 +204,7 @@ La revue (huit « oui »)</h2>
 <li>Rien dans les rangées 7-8 d'une créature sans sort ; les effets restent dans leur cellule.</li>
 <li>Aucun texte, cadre, ombre au sol, décor.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md748"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md750"></a>
 La production du 18 septembre 2026</h1>
 <p><b>Un seul tour par étape, par décision de l'auteur</b> : les portraits et les planches du tour 1 sont retenus tels quels, sans passe M ni X. Ce que la planche avait de faux se règle <b>à la lecture</b>, jamais en retouchant une image ; <span class="tt">normalise.py</span> y a gagné trois recours, chacun nommé dans le rapport de la planche :</p>
 <table class="markdownTable">
@@ -219,10 +219,10 @@ La production du 18 septembre 2026</h1>
 </table>
 <p>Le dernier recours de lecture, <span class="tt">par_la_grille</span> (couper près des bornes de cellule quand les figures se touchent sur la grille), est écrit et n'a pas servi : <span class="tt">scinder</span> a suffi. La planche du lion est versée dans <span class="tt">atelier/ancres/planche_grand.png</span>.</p>
 <p>Écarts relevés à la revue, gardés : le soldat porte des filets dorés que sa fiche ne demandait pas, et une traînée d'épée orangée ; les figurines sont petites dans leur cellule (le loup fait 28 pixels d'art, le lion 44 dans une cellule de 96), comme la fiche le voulait.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md749"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md751"></a>
 Les sentinelles portent le soldat</h1>
 <p><em>Décision de l'auteur, 18 septembre 2026</em> : le soldat Ironhand <b>est</b> la « sentinelle » et la « patrouille Ironhand » des figurines de la Capitale (<a class="el" href="lot-96.html" title="LOT-96 — Martpart et Arenarea se parcourent : le graphe des quartiers">LOT-96</a>, <span class="tt">LOT-27</span>). Les dix sentinelles des portes de Martpart et d'Arenarea, jusque-là dessinées par leur marqueur, portent donc <span class="tt">"figure": "Monsters/ironhand-soldier"</span>. Une valeur de <span class="tt">figure</span> qui contient une barre est un dossier depuis <span class="tt">Assets/</span> (<span class="tt"><a class="el" href="namespacehmi.html#ab7381540071701283f2f87b282a68eb5" title="Le chemin d&#39;une bande de figurine, relatif au dossier des assets.">hmi::figureStripPath</a></span>) ; sans barre, c'est un PNJ de <span class="tt">Npc/</span>, comme avant. Le marqueur d'une figurine de monstre absente a sa clé, <span class="tt">monsters/&lt;slug&gt;</span>. Le lion et les loups, eux, attendent le <span class="tt">LOT-27</span> pour paraître au Colisée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md750"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md752"></a>
 Ce qui a été livré à l'ouverture</h1>
 <ul>
 <li>L'outillage ci-dessus, éprouvé à blanc le 18 septembre 2026 : deux planches <b>synthétiques</b> (un lion Grand, un loup Moyen, sans <span class="tt">cast</span>) sont passées de <span class="tt">chatgpt.py</span> à <span class="tt">integre.py</span>, bandes aux bonnes dimensions, manifeste écrit, <span class="tt">check_asset_keys.py</span> vert, la famille « Monstres » dans la galerie ; puis retirées.</li>
@@ -231,10 +231,10 @@ Ce qui a été livré à l'ouverture</h1>
 <li>La galerie des assets lit <span class="tt">Monsters/</span> comme <span class="tt">Npc/</span> (<span class="tt">readFigures</span>), testée par <span class="tt">AssetGalleryTest.FigurinesDeMonstres</span>.</li>
 <li>Les fiches B des trois créatures, puis leurs portraits et leurs figurines (ci-dessus).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md751"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md753"></a>
 Les blocs</h1>
 <p>Cochés par <span class="tt">integre.py</span> quand la figurine est intégrée. <b>173 blocs relevés</b> : les 94 du SRD (<span class="tt">LOT-33</span>, au catalogue), et 79 blocs du <em>Tanares Sourcebook</em> relevés le 18 septembre 2026 par leur ligne de taille suivie d'« Armor Class ». Le <span class="tt">LOT-46</span> en annonce 82 : son extraction fait foi, et complètera cette liste. Les trois premières sont en tête.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md752"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md754"></a>
 Les trois de la version 0.0.1</h2>
 <ul class="check">
 <li class="checked">Lion — Grande — <span class="tt">lion</span></li>
@@ -245,7 +245,7 @@ Les trois de la version 0.0.1</h2>
 <ul class="check">
 <li class="checked">Soldat Ironhand — Moyenne — Sourcebook p. 164 — <span class="tt">ironhand-soldier</span></li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md753"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md755"></a>
 Le bestiaire du SRD (<span class="tt">LOT-33</span>)</h2>
 <ul class="check">
 <li class="unchecked">Grand singe — Moyenne — <span class="tt">ape</span></li>
@@ -523,7 +523,7 @@ Le bestiaire du SRD (<span class="tt">LOT-33</span>)</h2>
 <ul class="check">
 <li class="unchecked">Zombi — Moyenne — <span class="tt">zombie</span></li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md754"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md756"></a>
 Les blocs de Tanares (<span class="tt">LOT-46</span>, relevé provisoire)</h2>
 <ul class="check">
 <li class="unchecked">Giant Beetle — Grande — Sourcebook p. 79 — <span class="tt">giant-beetle</span></li>
@@ -759,7 +759,7 @@ Les blocs de Tanares (<span class="tt">LOT-46</span>, relevé provisoire)</h2>
 <ul class="check">
 <li class="unchecked">Makian Tool — Moyenne — Sourcebook p. 175 — <span class="tt">makian-tool</span></li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md755"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md757"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Le lion, le loup et le soldat Ironhand ont, dans <span class="tt">Source/Elements/Assets/Monsters/&lt;slug&gt;/</span>, leurs bandes aux dimensions de leur gabarit, leurs <span class="tt">.anim.json</span> et <span class="tt">portrait.png</span>, et une entrée au manifeste — sans <span class="tt">cast</span>.</li>

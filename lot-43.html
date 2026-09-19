@@ -97,16 +97,16 @@ $(function(){initNavTree('lot-43.html','',''); });
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 954/954, <span class="tt">clang-format</span>, les six lints, cahier de test et Doxygen verts). Prérequis : <a class="el" href="lot-32.html" title="LOT-32 — Schémas de données RPG"><span class="tt">LOT-32</span></a>. Alimente <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a>, <span class="tt">LOT-36</span>.</p>
 <p>Exigences couvertes : <a class="el" href="spec-regles-d20.html#EX-REG-012" title="EX-REG-012"><span class="tt">EX-REG-012</span></a>, <a class="el" href="spec-rpg.html#EX-RPG-040" title="EX-RPG-040"><span class="tt">EX-RPG-040</span></a>, <a class="el" href="spec-rpg.html#EX-RPG-041" title="EX-RPG-041"><span class="tt">EX-RPG-041</span></a>, <a class="el" href="spec-rpg.html#EX-RPG-042" title="EX-RPG-042"><span class="tt">EX-RPG-042</span></a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md571"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md573"></a>
 Objectif</h1>
 <p>Quatre catalogues oubliés du premier découpage, tous présents dans le corpus et tous exigés par la fiche de personnage : <b>18 compétences</b>, <b>16 langues</b>, <b>42 dons</b>, et la règle du <b>multiclassage</b>. Le <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a> les suppose sans jamais dire d'où ils viennent ; ils viennent d'ici.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md572"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md574"></a>
 Ce que le lot livre</h1>
 <p><b>77 fichiers de données</b> sous <span class="tt">Source/Elements/Rpg/</span> — <span class="tt">skills/</span> (18), <span class="tt">languages/</span> (16), <span class="tt">feats/</span> (42), <span class="tt">rules/multiclassing.json</span> (1) — et <b>quatre schémas</b> qui les décrivent.</p>
 <p><b><span class="tt">scripts/sourcebook/options.py</span></b> et la sous-commande <span class="tt">python scripts/sourcebook options</span>, qui les régénèrent depuis le corpus.</p>
 <p><b><span class="tt"><a class="el" href="namespacecore.html#a5efe1ddb8ab76545ac60552ba2c43a32" title="Niveau de lanceur cumulé d&#39;un personnage multiclassé.">core::multiclassCasterLevel</a></span></b> (<span class="tt">Source/Core/Rpg/Multiclassing.{h,cpp}</span>), et six tests.</p>
 <p><b>Un contrôle de référence croisée</b> dans <span class="tt">scripts/check_rpg_data.py</span> : toute langue citée par une créature ou une espèce doit exister au catalogue.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md573"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md575"></a>
 Le choix de la source est la moitié du travail</h1>
 <p>Sur ce lot, la question n'était pas <em>comment extraire</em> mais <em>d'où</em>. Chaque catalogue a une réponse différente, et chacune est écrite dans le module :</p>
 <table class="markdownTable">
@@ -122,29 +122,29 @@ Le choix de la source est la moitié du travail</h1>
 <td class="markdownTableBodyNone">multiclassage  </td><td class="markdownTableBodyNone"><em>Manuel des Joueurs</em> p. 165-167  </td><td class="markdownTableBodyNone"><b>seule</b> source complète  </td></tr>
 </table>
 <p><b>Le multiclassage vient du <em>Manuel des Joueurs</em>, et c'était la bonne exigence.</b> Les <em>Basic Rules</em> n'en portent ni les prérequis ni les maîtrises : elles renvoient explicitement au chapitre 6 du <em>Manuel</em>. Les douze prérequis de caractéristique et les douze lignes de maîtrises en sortent proprement, à un artefact près — <span class="tt">1 ntelligence</span> pour <span class="tt">Intelligence</span>, visible et corrigé.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md574"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md576"></a>
 Trois défauts du corpus que ce lot a mis au jour</h1>
 <p><b>1. L'OCR efface les cellules valant <span class="tt">1</span>.</b> Sur la table d'emplacements du <em>Manuel des Joueurs</em>, <b>onze lignes sur vingt</b> sont amputées d'une à quatre cellules — un lanceur de niveau 20 y perd ses emplacements de niveau 8 et 9. Ce n'est pas de la corruption mais de la <b>disparition</b> : une case effacée ressemble à une case vide légitime, et cette table en contient de vraies.</p>
 <p>La parade est un <b>recoupement</b>, pas une relecture : la table du multiclassage est identique à la progression du <b>magicien</b>, qui figure en texte natif propre dans les <em>Basic Rules</em> p. 31. La donnée est prise sur cette dernière, puis confrontée cellule à cellule à celle du <em>Manuel</em> — <b>26 cellules</b> rétablies, et la génération l'annonce à chaque exécution. Une divergence qui ne serait <em>pas</em> un <span class="tt">1</span> manquant <b>arrête la génération</b> : ce serait que les deux tables ne décrivent pas la même chose, et cela se tranche à la main.</p>
 <p><b>2. Les deux sources françaises ne traduisent pas les mêmes dons pareil.</b> Le <em>Manuel des Joueurs</em> écrit « Adepte des éléments », « Spécialiste des boucliers », « Ritualiste » ; le lexique (aidedd) écrit « Adepte élémentaire », « Maître des boucliers », « Magie rituelle ». Douze dons sur quarante-deux divergent. Les deux graphies sont défendables ; ce qui ne l'est pas, c'est d'en avoir deux dans le même jeu. Le lexique fait autorité, et le nom du livre est conservé en <span class="tt">variantes</span> pour que la correspondance reste traçable.</p>
 <p><b>3. « Sorcier » n'est pas <em>sorcerer</em>.</b> Le <em>Manuel des Joueurs</em> appelle « Sorcier » la classe que le lexique nomme « occultiste » — le <em>warlock</em>. « Sorcier » ressemble à <em>sorcerer</em>, qui est l'<b>ensorceleur</b>, une autre classe présente dans la même table deux lignes plus haut. Un rapprochement par ressemblance aurait interverti leurs prérequis en silence. L'alias est <b>déclaré</b>, avec la raison, dans <span class="tt">ALIAS_DU_LIVRE</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md575"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md577"></a>
 Le multiclassage, la règle qu'il est le plus facile d'implémenter de travers</h1>
 <p><span class="tt">EX-RPG-041</span> le dit, et deux pièges le confirment :</p>
 <p><b>L'arrondi se fait par classe, jamais sur le total.</b> Un paladin 3/rôdeur 3 donne <span class="tt">1 + 1 = 2</span>, et non <span class="tt">⌊6/2⌋ = 3</span>. Sommer d'abord et diviser ensuite donne un emplacement de trop, à un niveau où c'en est un tiers de plus.</p>
 <p><b>La magie de pacte est exclue de la somme</b> (<span class="tt">EX-RPG-052</span>). Les emplacements du sorcier (occultiste) sont peu nombreux, toujours au niveau maximal, et récupérés au repos <b>court</b>. Les additionner double la puissance du personnage sans que rien ne le signale.</p>
 <p><b>Le meilleur test disponible est celui du livre.</b> Le <em>Manuel</em> travaille lui-même un exemple : <em>« ce rôdeur 4/magicien 3, vous êtes considéré comme un personnage de niveau 5 […] : vous avez donc quatre emplacements de niveau 1, trois de niveau 2 et deux de niveau 3 »</em>. Le test le reproduit tel quel, et lit les emplacements dans la table <b>livrée</b>. C'est le livre qui vérifie l'implémentation, et non l'implémentation qui vérifie sa propre arithmétique.</p>
 <p>La correspondance classe → progression (<span class="tt">full</span>, <span class="tt">half</span>, <span class="tt">third</span>, <span class="tt">pact</span>, <span class="tt">none</span>) est une <b>donnée</b>, attestée sur la phrase de la page 166 : la génération vérifie que chaque classe qu'elle déclare y est bien citée. Une table de fractions saisie de mémoire est indétectablement fausse — un lanceur multiclassé mal calculé <b>reste jouable, simplement faux</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md576"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md578"></a>
 Les dons sont livrés provisoires, et le disent</h1>
 <p>Aucun mécanisme de don n'existe encore dans le moteur. Les quarante-deux dons portent donc <span class="tt">narratif: true</span> (<span class="tt">EX-RPG-040</span>, <span class="tt">EX-RPG-051</span>) et <span class="tt">status.provisoire</span> avec son <b>critère de retrait écrit d'avance</b> (<span class="tt">EX-CNT-032</span>) : <em>le <span class="tt">LOT-13</span> a livré la fiche et les mécanismes que ce don exige, et l'effet est décrit en <span class="tt">mecanismesRequis</span></em>.</p>
 <p>Un don qui se présenterait comme jouable sans l'être coûterait bien plus cher à diagnostiquer qu'un don déclaré non joué. La CI les énumère, groupés par motif — quarante-deux lignes identiques ne se lisent pas.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md577"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md579"></a>
 Ce que le lot ne fait pas</h1>
 <p><b>Il ne décrit pas l'effet des dons.</b> Nom, provenance, variantes : c'est tout, et c'est déclaré.</p>
 <p><b>Il n'extrait pas les prérequis de dons.</b> Le champ existe au schéma, aucun ne le porte : les lignes « Prérequis » du livre sont dans le corps du texte, sous des titres mutilés, et les extraire demanderait le découpage par don que ce lot n'a pas fait.</p>
 <p><b>Il ne charge rien en C++ hors du multiclassage.</b> Les catalogues sont des données validées en CI ; le moteur n'en lit que ce dont il a besoin, par <span class="tt"><a class="el" href="structcore_1_1JsonDocument.html" title="Résultat de la lecture de l&#39;enveloppe commune d&#39;un document JSON.">core::JsonDocument</a></span> (<a class="el" href="lot-79.html" title="LOT-79 — Socle de chargement de données">LOT-79</a>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md578"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md580"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Un personnage multiclassé calcule ses emplacements conformément à la table, <b>vérifié sur trois combinaisons</b> — rôdeur 4/magicien 3 (l'exemple du livre), paladin 3/rôdeur 3, sorcier 5/magicien 3 — plus guerrier 5/roublard 5 et deux cas limites. ✔</li>

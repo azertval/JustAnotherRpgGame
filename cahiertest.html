@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>850 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>870 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (847)</h1>
+Tests unitaires (867)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -2104,7 +2104,7 @@ Vérifie que <span class="tt">drapeaux.isSet("donjon/chest@1,1")</span> est faux
 Vérifie que <span class="tt">drapeaux.size()</span> vaut <span class="tt">2U</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
-Levels (113)</h3>
+Levels (116)</h3>
 <p><b><span class="tt"><a class="el" href="test__format__v4_8cpp.html" title="Tests unitaires du format de carte v4 (LOT-EDITOR-12) : versions passées, écriture canonique,...">test_format_v4.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2668,7 +2668,7 @@ Vérifie que <span class="tt">draft.tileMap().tile(3, 1)</span> vaut <span class
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelDraftPiecesTest.PoserUnePieceEcritSaCoucheSaPieceEtSaCollision</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:82</span></sub>  </td><td class="markdownTableBodyNone">Poser une pièce écrit sa couche, sa pièce et sa collision.  </td><td class="markdownTableBodyNone">1. Poser un pilier en (2, 1) du décor.<br  />
+<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:83</span></sub>  </td><td class="markdownTableBodyNone">Poser une pièce écrit sa couche, sa pièce et sa collision.  </td><td class="markdownTableBodyNone">1. Poser un pilier en (2, 1) du décor.<br  />
 2. Défaire.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 2, .row = 1}, "pillar", TileType::Wall)</span> est vrai.<br  />
 Vérifie que <span class="tt">draft.layers()[DECOR].pieceAt(2, 1)</span> vaut <span class="tt">"pillar"</span>.<br  />
 Vérifie que <span class="tt">draft.layers()[DECOR].tiles.tile(2, 1)</span> vaut <span class="tt">TileType::Wall</span>.<br  />
@@ -2679,7 +2679,7 @@ Vérifie que <span class="tt">draft.layers()[DECOR].pieceAt(2, 1).empty()</span>
 Vérifie que <span class="tt">collision(draft, 2, 1)</span> vaut <span class="tt">TileType::Empty</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelDraftPiecesTest.PoserPuisGommerUnEtalOccupePuisLibereSesDeuxCases</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:108</span></sub>  </td><td class="markdownTableBodyNone">Un étal 2 × 1 occupe puis libère ses deux cases.  </td><td class="markdownTableBodyNone">1. Poser l'étal en (1, 1).<br  />
+<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:109</span></sub>  </td><td class="markdownTableBodyNone">Un étal 2 × 1 occupe puis libère ses deux cases.  </td><td class="markdownTableBodyNone">1. Poser l'étal en (1, 1).<br  />
 2. Gommer sa deuxième case, (2, 1).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 1, .row = 1}, "stall", TileType::Wall)</span> est vrai.<br  />
 Vérifie que <span class="tt">collision(draft, 1, 1)</span> vaut <span class="tt">TileType::Wall</span>.<br  />
 Vérifie que <span class="tt">collision(draft, 2, 1)</span> vaut <span class="tt">TileType::Wall</span>.<br  />
@@ -2693,12 +2693,12 @@ Vérifie que <span class="tt">collision(draft, 1, 1)</span> vaut <span class="tt
 Vérifie que <span class="tt">collision(draft, 2, 1)</span> vaut <span class="tt">TileType::Empty</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelDraftPiecesTest.ReposerLaMemePieceNeModifiePasLaCarte</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:136</span></sub>  </td><td class="markdownTableBodyNone">Reposer la même pièce ne modifie pas la carte.  </td><td class="markdownTableBodyNone">1. Reposer <span class="tt">street</span> sur une case qui la porte déjà.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePiece(SOL, {.column = 3, .row = 2}, "street", TileType::Dirt)</span> est faux.<br  />
+<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:137</span></sub>  </td><td class="markdownTableBodyNone">Reposer la même pièce ne modifie pas la carte.  </td><td class="markdownTableBodyNone">1. Reposer <span class="tt">street</span> sur une case qui la porte déjà.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePiece(SOL, {.column = 3, .row = 2}, "street", TileType::Dirt)</span> est faux.<br  />
 Vérifie que <span class="tt">draft.revision()</span> vaut <span class="tt">revision</span>.<br  />
 Vérifie que <span class="tt">draft.canUndo()</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelDraftPiecesTest.UnePieceRetireCellesQuElleCouvrirait</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:156</span></sub>  </td><td class="markdownTableBodyNone">Une pièce retire celles qu'elle couvrirait.  </td><td class="markdownTableBodyNone">1. Poser un étal en (0, 1) et un pilier en (3, 1).<br  />
+<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:157</span></sub>  </td><td class="markdownTableBodyNone">Une pièce retire celles qu'elle couvrirait.  </td><td class="markdownTableBodyNone">1. Poser un étal en (0, 1) et un pilier en (3, 1).<br  />
 2. Poser un étal en (1, 1).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 0, .row = 1}, "stall", TileType::Wall)</span> est vrai.<br  />
 Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 3, .row = 1}, "pillar", TileType::Wall)</span> est vrai.<br  />
 Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 1, .row = 1}, "stall", TileType::Wall)</span> est vrai.<br  />
@@ -2710,11 +2710,11 @@ Vérifie que <span class="tt">collision(draft, 2, 1)</span> vaut <span class="tt
 Vérifie que <span class="tt">collision(draft, 3, 1)</span> vaut <span class="tt">TileType::Wall</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelDraftPiecesTest.UneEmpriseQuiDebordeEstRefusee</b> (Mineur)<br  />
-<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:181</span></sub>  </td><td class="markdownTableBodyNone">Une emprise qui déborde est refusée.  </td><td class="markdownTableBodyNone">1. Poser l'étal 2 × 1 sur la dernière colonne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 3, .row = 0}, "stall", TileType::Wall)</span> est faux.<br  />
+<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:182</span></sub>  </td><td class="markdownTableBodyNone">Une emprise qui déborde est refusée.  </td><td class="markdownTableBodyNone">1. Poser l'étal 2 × 1 sur la dernière colonne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 3, .row = 0}, "stall", TileType::Wall)</span> est faux.<br  />
 Vérifie que <span class="tt">draft.canUndo()</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelDraftPiecesTest.LeRectanglePaveAuPasDeLEmprise</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:197</span></sub>  </td><td class="markdownTableBodyNone">Le rectangle pave au pas de l'emprise.  </td><td class="markdownTableBodyNone">1. Paver d'étals le rectangle (0, 0)–(2, 1).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePieceRegion(DECOR, {.column = 0, .row = 0}, {.column = 2, .row = 1}, "stall", TileType::Wall)</span> est vrai.<br  />
+<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:198</span></sub>  </td><td class="markdownTableBodyNone">Le rectangle pave au pas de l'emprise.  </td><td class="markdownTableBodyNone">1. Paver d'étals le rectangle (0, 0)–(2, 1).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePieceRegion(DECOR, {.column = 0, .row = 0}, {.column = 2, .row = 1}, "stall", TileType::Wall)</span> est vrai.<br  />
 Vérifie que <span class="tt">draft.layers()[DECOR].pieceAt(0, 0)</span> vaut <span class="tt">"stall"</span>.<br  />
 Vérifie que <span class="tt">draft.layers()[DECOR].pieceAt(0, 1)</span> vaut <span class="tt">"stall"</span>.<br  />
 Vérifie que <span class="tt">draft.layers()[DECOR].pieceAt(2, 0).empty()</span> est vrai.<br  />
@@ -2723,12 +2723,12 @@ Vérifie que <span class="tt">draft.undoDepth()</span> vaut <span class="tt">1U<
 Vérifie que <span class="tt">draft.placePieceRegion(DECOR, {.column = 0, .row = 0}, {.column = 2, .row = 1}, "stall", TileType::Wall)</span> est faux.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelDraftPiecesTest.UneFosseArreteLePasEtLEntreeResteLEntree</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:223</span></sub>  </td><td class="markdownTableBodyNone">Une fosse arrête le pas ; l'entrée reste l'entrée.  </td><td class="markdownTableBodyNone">1. Poser la fosse 1 × 2 en (0, 0), sur l'entrée.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 0, .row = 0}, "pit", TileType::Cliff)</span> est vrai.<br  />
+<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:224</span></sub>  </td><td class="markdownTableBodyNone">Une fosse arrête le pas ; l'entrée reste l'entrée.  </td><td class="markdownTableBodyNone">1. Poser la fosse 1 × 2 en (0, 0), sur l'entrée.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 0, .row = 0}, "pit", TileType::Cliff)</span> est vrai.<br  />
 Vérifie que <span class="tt">collision(draft, 0, 0)</span> vaut <span class="tt">TileType::Entry</span>.<br  />
 Vérifie que <span class="tt">collision(draft, 0, 1)</span> vaut <span class="tt">TileType::Cliff</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelDraftPiecesTest.UnTypePeintSurUneCoucheLaCollisionSuit</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:242</span></sub>  </td><td class="markdownTableBodyNone">Un type peint sur une couche : la collision suit.  </td><td class="markdownTableBodyNone">1. Poser un étal en (1, 1).<br  />
+<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:243</span></sub>  </td><td class="markdownTableBodyNone">Un type peint sur une couche : la collision suit.  </td><td class="markdownTableBodyNone">1. Poser un étal en (1, 1).<br  />
 2. Peindre <span class="tt">dirt</span> sur son ancre.<br  />
 3. Peindre <span class="tt">water</span> profonde sur le sol en (3, 2).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 1, .row = 1}, "stall", TileType::Wall)</span> est vrai.<br  />
 Vérifie que <span class="tt">draft.paintLayerTile(DECOR, 1, 1, TileType::Dirt)</span> est vrai.<br  />
@@ -2738,14 +2738,14 @@ Vérifie que <span class="tt">draft.paintLayerTile(SOL, 3, 2, TileType::DeepWate
 Vérifie que <span class="tt">collision(draft, 3, 2)</span> vaut <span class="tt">TileType::Cliff</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelDraftPiecesTest.PeindreLaCollisionForceOuLibereLaCase</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:265</span></sub>  </td><td class="markdownTableBodyNone">Peindre la collision force ou libère la case.  </td><td class="markdownTableBodyNone">1. Peindre un mur de collision en (2, 2).<br  />
+<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:266</span></sub>  </td><td class="markdownTableBodyNone">Peindre la collision force ou libère la case.  </td><td class="markdownTableBodyNone">1. Peindre un mur de collision en (2, 2).<br  />
 2. Y repeindre du vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.isCollisionForced(cell)</span> est vrai.<br  />
 Vérifie que <span class="tt">draft.forcedCollision().size()</span> vaut <span class="tt">1U</span>.<br  />
 Vérifie que <span class="tt">draft.isCollisionForced(cell)</span> est faux.<br  />
 Vérifie que <span class="tt">draft.forcedCollision().empty()</span> est vrai.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelDraftPiecesTest.UneCaseForceeTientPuisSeLibere</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:288</span></sub>  </td><td class="markdownTableBodyNone">Une case forcée tient, puis se libère.  </td><td class="markdownTableBodyNone">1. Forcer un mur de collision en (1, 1).<br  />
+<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:289</span></sub>  </td><td class="markdownTableBodyNone">Une case forcée tient, puis se libère.  </td><td class="markdownTableBodyNone">1. Forcer un mur de collision en (1, 1).<br  />
 2. Poser un étal en (0, 1).<br  />
 3. Libérer la case.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.isCollisionForced({.column = 1, .row = 1})</span> est vrai.<br  />
 Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 0, .row = 1}, "stall", TileType::Wall)</span> est vrai.<br  />
@@ -2758,11 +2758,52 @@ Vérifie que <span class="tt">collision(draft, 1, 1)</span> vaut <span class="tt
 Vérifie que <span class="tt">draft.unforceCollision({{.column = 1, .row = 1}})</span> est faux.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelDraftPiecesTest.UnGesteNeToucheQueSesCases</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:317</span></sub>  </td><td class="markdownTableBodyNone">Un geste ne touche que ses cases.  </td><td class="markdownTableBodyNone">1. Charger une carte dont la collision s'écarte de la déduction en (3, 0), sans la forcer.<br  />
+<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:318</span></sub>  </td><td class="markdownTableBodyNone">Un geste ne touche que ses cases.  </td><td class="markdownTableBodyNone">1. Charger une carte dont la collision s'écarte de la déduction en (3, 0), sans la forcer.<br  />
 2. Poser un pilier en (1, 2).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 1, .row = 2}, "pillar", TileType::Wall)</span> est vrai.<br  />
 Vérifie que <span class="tt">collision(draft, 1, 2)</span> vaut <span class="tt">TileType::Wall</span>.<br  />
 Vérifie que <span class="tt">collision(draft, 3, 0)</span> vaut <span class="tt">TileType::Wall</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LevelDraftPiecesTest.RemplacerUnePieceEnUnPasLaCollisionSuit</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:346</span></sub>  </td><td class="markdownTableBodyNone">Remplacer une pièce : un pas, la collision suit.  </td><td class="markdownTableBodyNone">1. Poser deux piliers.<br  />
+2. Remplacer <span class="tt">pillar</span> par <span class="tt">pit</span>, une fosse 1 × 2.<br  />
+ 3. Défaire.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 1, .row = 0}, "pillar", TileType::Wall)</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 3, .row = 0}, "pillar", TileType::Wall)</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.replacePieces({{"pillar", "pit"}})</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.layers()[DECOR].pieceAt(1, 0)</span> vaut <span class="tt">"pit"</span>.<br  />
+Vérifie que <span class="tt">draft.layers()[DECOR].pieceAt(3, 0)</span> vaut <span class="tt">"pit"</span>.<br  />
+Vérifie que <span class="tt">draft.layers()[DECOR].tiles.tile(1, 0)</span> vaut <span class="tt">TileType::Wall</span>.<br  />
+Vérifie que <span class="tt">collision(draft, 1, 0)</span> vaut <span class="tt">TileType::Cliff</span>.<br  />
+Vérifie que <span class="tt">collision(draft, 1, 1)</span> vaut <span class="tt">TileType::Cliff</span>.<br  />
+Vérifie que <span class="tt">draft.undoDepth()</span> vaut <span class="tt">depth + 1</span>.<br  />
+Vérifie que <span class="tt">draft.undo()</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.layers()[DECOR].pieceAt(1, 0)</span> vaut <span class="tt">"pillar"</span>.<br  />
+Vérifie que <span class="tt">collision(draft, 1, 1)</span> vaut <span class="tt">TileType::Empty</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>LevelDraftPiecesTest.UnRemplacementQuiDebordeEstRefuseEnEntier</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:378</span></sub>  </td><td class="markdownTableBodyNone">Un remplacement qui déborde est refusé en entier.  </td><td class="markdownTableBodyNone">1. Poser un pilier au milieu et un sur la dernière ligne.<br  />
+2. Remplacer <span class="tt">pillar</span> par <span class="tt">pit</span> (1 × 2).<br  />
+3. Remplacer une pièce que la carte ne pose pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 1, .row = 0}, "pillar", TileType::Wall)</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 2, .row = 2}, "pillar", TileType::Wall)</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.replacePieces({{"pillar", "pit"}})</span> est faux.<br  />
+Vérifie que <span class="tt">draft.replacePieces({{"stall", "pillar"}})</span> est faux.<br  />
+Vérifie que <span class="tt">draft.layers()[DECOR].pieceAt(1, 0)</span> vaut <span class="tt">"pillar"</span>.<br  />
+Vérifie que <span class="tt">draft.undoDepth()</span> vaut <span class="tt">depth</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LevelDraftPiecesTest.ChangerDePlancheTraduitLesPiecesEtRededuitLaCollision</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp</a>:402</span></sub>  </td><td class="markdownTableBodyNone">Changer de planche : lieu, pièces et collision en un pas.  </td><td class="markdownTableBodyNone">1. Poser un pilier en (2, 1).<br  />
+2. Passer à une planche où le pavé s'appelle <span class="tt">paving</span> et où le pilier, gardant son nom, se franchit.<br  />
+3. Défaire.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.placePiece(DECOR, {.column = 2, .row = 1}, "pillar", TileType::Wall)</span> est vrai.<br  />
+Vérifie que <span class="tt">collision(draft, 2, 1)</span> vaut <span class="tt">TileType::Wall</span>.<br  />
+Vérifie que <span class="tt">draft.changeScene("autre", manifest, {{"street", "paving"}})</span> est vrai.<br  />
+Vérifie que <span class="tt">std::get&lt;std::string&gt;(draft.layers()[SOL].properties.at("scene"))</span> vaut <span class="tt">"autre"</span>.<br  />
+Vérifie que <span class="tt">draft.layers()[SOL].pieceAt(3, 2)</span> vaut <span class="tt">"paving"</span>.<br  />
+Vérifie que <span class="tt">draft.layers()[DECOR].pieceAt(2, 1)</span> vaut <span class="tt">"pillar"</span>.<br  />
+Vérifie que <span class="tt">collision(draft, 2, 1)</span> vaut <span class="tt">TileType::Empty</span>.<br  />
+Vérifie que <span class="tt">draft.undo()</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.layers()[SOL].properties.count("scene")</span> vaut <span class="tt">0U</span>.<br  />
+Vérifie que <span class="tt">draft.layers()[SOL].pieceAt(3, 2)</span> vaut <span class="tt">"street"</span>.<br  />
+Vérifie que <span class="tt">collision(draft, 2, 1)</span> vaut <span class="tt">TileType::Wall</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">test_level_loader.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -4068,7 +4109,7 @@ Vérifie que <span class="tt">timestep.advance(0.0f)</span> vaut <span class="tt
 Vérifie que <span class="tt">timestep.advance(STEP)</span> vaut <span class="tt">1</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
-World (62)</h3>
+World (65)</h3>
 <p><b><span class="tt"><a class="el" href="test__atlas_8cpp.html" title="Tests de l&#39;atlas des régions (LOT-37) : les treize régions chargent, le graphe tient,...">test_atlas.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4171,7 +4212,7 @@ Vérifie que <span class="tt">somme</span> est inférieur ou égal à <span clas
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>CapitalMapTest.LaCarteLivreeSeCharge</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:148</span></sub>  </td><td class="markdownTableBodyNone">Chaque quartier livre se charge a sa taille, avec son lieu et une camera qui suit.  </td><td class="markdownTableBodyNone">1. Charger <span class="tt">Source/Elements/Levels/capital/&lt;quartier&gt;.json</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">carte.name()</span> vaut <span class="tt">quartier.nom</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:150</span></sub>  </td><td class="markdownTableBodyNone">Chaque quartier livre se charge a sa taille, avec son lieu et une camera qui suit.  </td><td class="markdownTableBodyNone">1. Charger <span class="tt">Source/Elements/Levels/capital/&lt;quartier&gt;.json</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">carte.name()</span> vaut <span class="tt">quartier.cleDuNom</span>.<br  />
 Vérifie que <span class="tt">carte.tileMap().width()</span> vaut <span class="tt">quartier.largeur</span>.<br  />
 Vérifie que <span class="tt">carte.tileMap().height()</span> vaut <span class="tt">quartier.hauteur</span>.<br  />
 Vérifie que <span class="tt">hmi::scenePlaceOf(carte)</span> vaut <span class="tt">quartier.lieu</span>.<br  />
@@ -4179,21 +4220,21 @@ Vérifie que <span class="tt">entreeDe(carte).column</span> diffère de <span cl
 Vérifie que <span class="tt"><a class="el" href="namespacecore.html#aff87ea49873961eace1706efc69c8a49" title="Relève ce qu&#39;une carte lue porte de fautif et que le graphe ne peut pas voir.">core::validateWorldMap</a>(quartier.carte, carte).empty()</span> est vrai.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>CapitalMapTest.ChaquePieceNommeeExisteSurLaPlanche</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:171</span></sub>  </td><td class="markdownTableBodyNone">Toute piece qu'un quartier demande existe dans Assets/Scene/\&lt;lieu\&gt;/.  </td><td class="markdownTableBodyNone">1. Tirer l'instantane du quartier avec la table d'apparence livree.<br  />
+<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:173</span></sub>  </td><td class="markdownTableBodyNone">Toute piece qu'un quartier demande existe dans Assets/Scene/\&lt;lieu\&gt;/.  </td><td class="markdownTableBodyNone">1. Tirer l'instantane du quartier avec la table d'apparence livree.<br  />
  2. Verifier que chaque chemin de texture demande existe sur le disque.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">chemins.size()</span> est strictement supérieur à <span class="tt">10U</span>.<br  />
 Vérifie que <span class="tt">std::filesystem::exists(ASSETS / chemin)</span> est vrai.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>CapitalMapTest.ToutLeQuartierSeParcourtDepuisSonEntree</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:192</span></sub>  </td><td class="markdownTableBodyNone">Chaque case franchissable d'un quartier est atteinte depuis son entree, et porte un sol.  </td><td class="markdownTableBodyNone">1. Remplir la carte depuis la tuile d'entree, en ne passant que par le franchissable.<br  />
+<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:194</span></sub>  </td><td class="markdownTableBodyNone">Chaque case franchissable d'un quartier est atteinte depuis son entree, et porte un sol.  </td><td class="markdownTableBodyNone">1. Remplir la carte depuis la tuile d'entree, en ne passant que par le franchissable.<br  />
  2. Comparer aux cases franchissables de la carte.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">vues.contains({colonne, ligne})</span> est vrai.<br  />
 Vérifie que <span class="tt">instantane.floorAt({colonne, ligne}).empty()</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>CapitalMapTest.ChaquePointDArriveeEstFranchissable</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:227</span></sub>  </td><td class="markdownTableBodyNone">Aucun point d'arrivee d'un quartier n'est dans un mur.  </td><td class="markdownTableBodyNone">1. Relever les entites <span class="tt">spawnPoint</span> de chaque quartier.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">carte.tileMap().isSolid(entite.position.column, entite.position.row)</span> est faux.<br  />
+<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:229</span></sub>  </td><td class="markdownTableBodyNone">Aucun point d'arrivee d'un quartier n'est dans un mur.  </td><td class="markdownTableBodyNone">1. Relever les entites <span class="tt">spawnPoint</span> de chaque quartier.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">carte.tileMap().isSolid(entite.position.column, entite.position.row)</span> est faux.<br  />
 Vérifie que <span class="tt">points</span> est strictement supérieur à <span class="tt">0</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>CapitalMapTest.LesIlotsSontDansLaCarteEtNommes</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:253</span></sub>  </td><td class="markdownTableBodyNone">Les ilots d'un quartier sont dans sa carte, et nommes en francais et en anglais.  </td><td class="markdownTableBodyNone">1. Lire les ilots de chaque quartier.<br  />
+<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:255</span></sub>  </td><td class="markdownTableBodyNone">Les ilots d'un quartier sont dans sa carte, et nommes en francais et en anglais.  </td><td class="markdownTableBodyNone">1. Lire les ilots de chaque quartier.<br  />
  2. Chercher <span class="tt">city_block.&lt;nom&gt;</span> dans <span class="tt">fr.lang</span> et <span class="tt">en.lang</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">ilots.size()</span> est supérieur ou égal à <span class="tt">3U</span>.<br  />
 Vérifie que <span class="tt">ilot.origin.column</span> est supérieur ou égal à <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt">ilot.origin.row</span> est supérieur ou égal à <span class="tt">0</span>.<br  />
@@ -4204,7 +4245,7 @@ Vérifie que <span class="tt">anglais.find(cle)</span> diffère de <span class="
 Vérifie que <span class="tt">std::ranges::any_of( ilots, [entree](const <a class="el" href="structcore_1_1CityBlock.html" title="Un îlot : un nom, et un rectangle de cases.">core::CityBlock</a>&amp; ilot) { return ilot.contains(entree); })</span> est vrai.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>CapitalTravelTest.MartpartArenareaMartpartRameneALaBonneCase</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:294</span></sub>  </td><td class="markdownTableBodyNone">L'avenue se parcourt aller et retour, par points d'arrivee nommes, et la carte quittee est conservee.  </td><td class="markdownTableBodyNone">1. Entrer a Martpart par le chargeur du jeu, sur le dossier des niveaux livre.<br  />
+<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:296</span></sub>  </td><td class="markdownTableBodyNone">L'avenue se parcourt aller et retour, par points d'arrivee nommes, et la carte quittee est conservee.  </td><td class="markdownTableBodyNone">1. Entrer a Martpart par le chargeur du jeu, sur le dossier des niveaux livre.<br  />
  2. Franchir le portail vers Arenarea, puis celui du retour.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">voyage.enter("capital/martpart", "")</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69" title="Le personnage est sur la carte demandée, à son point d&#39;arrivée.">core::TravelResult::Moved</a></span>.<br  />
 Vérifie que <span class="tt">martpart</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">aller.column</span> diffère de <span class="tt">-1</span>.<br  />
@@ -4220,7 +4261,7 @@ Vérifie que <span class="tt">voyage.currentMap()</span> vaut <span class="tt">m
 Vérifie que <span class="tt">voyage.loadedMapCount()</span> vaut <span class="tt">2U</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>CapitalGuardTest.ChaqueQuartierFermeASaSentinelle</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:332</span></sub>  </td><td class="markdownTableBodyNone">Les dix portes gardees ont chacune leur sentinelle Ironhand, qui ouvre un dialogue du catalogue.  </td><td class="markdownTableBodyNone">1. Lire la Capitale livree et le catalogue des dialogues.<br  />
+<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:334</span></sub>  </td><td class="markdownTableBodyNone">Les dix portes gardees ont chacune leur sentinelle Ironhand, qui ouvre un dialogue du catalogue.  </td><td class="markdownTableBodyNone">1. Lire la Capitale livree et le catalogue des dialogues.<br  />
  2. Pour chaque quartier ferme, relever les PNJ de sa carte de garde qui le gardent.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">ville.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">lu.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">dialogues.find(dialogue)</span> diffère de <span class="tt">nullptr</span>.<br  />
@@ -4286,7 +4327,7 @@ Vérifie que <span class="tt">absent.ok()</span> est faux.  </td></tr>
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ColiseumMapTest.LaCarteLivreeSeCharge</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:64</span></sub>  </td><td class="markdownTableBodyNone">coliseum.json se charge : 40 x 34 cases, un sol, un relief, et un lieu nomme.  </td><td class="markdownTableBodyNone">1. Charger <span class="tt">Source/Elements/Levels/coliseum.json</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">carte.name()</span> vaut <span class="tt">"Le Colisée"</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:64</span></sub>  </td><td class="markdownTableBodyNone">coliseum.json se charge : 40 x 34 cases, un sol, un relief, et un lieu nomme.  </td><td class="markdownTableBodyNone">1. Charger <span class="tt">Source/Elements/Levels/coliseum.json</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">carte.name()</span> vaut <span class="tt">"map.coliseum.name"</span>.<br  />
 Vérifie que <span class="tt">carte.tileMap().width()</span> vaut <span class="tt">40</span>.<br  />
 Vérifie que <span class="tt">carte.tileMap().height()</span> vaut <span class="tt">34</span>.<br  />
 Vérifie que <span class="tt">hmi::scenePlaceOf(carte)</span> vaut <span class="tt">"coliseum"</span>.<br  />
@@ -4295,13 +4336,13 @@ Vérifie que <span class="tt">relief</span> est vrai.<br  />
 Vérifie que <span class="tt">carte.tileMap().isSolid(colonne, ligne)</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ColiseumMapTest.LeGrapheLivreNePorteAucunDefaut</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:100</span></sub>  </td><td class="markdownTableBodyNone">Aucun portail orphelin, aucun point d'arrivee en double dans les cartes livrees.  </td><td class="markdownTableBodyNone">1. Lire le graphe du dossier des niveaux livre.<br  />
+<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:102</span></sub>  </td><td class="markdownTableBodyNone">Aucun portail orphelin, aucun point d'arrivee en double dans les cartes livrees.  </td><td class="markdownTableBodyNone">1. Lire le graphe du dossier des niveaux livre.<br  />
  2. Le valider, puis valider la carte du Colisee elle-meme.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacecore.html#aff87ea49873961eace1706efc69c8a49" title="Relève ce qu&#39;une carte lue porte de fautif et que le graphe ne peut pas voir.">core::validateWorldMap</a>("coliseum", colisee()).empty()</span> est vrai.<br  />
 Vérifie que <span class="tt">noeud</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">noeud-&gt;arrivalPoints</span> vaut <span class="tt">(std::vector&lt;std::string&gt;{"porte", "sable"})</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ColiseumMapTest.ChaquePnjNommeUnDialogueEtUneFigurineQuiExistent</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:127</span></sub>  </td><td class="markdownTableBodyNone">Les cinq PNJ du Colisee ont un dialogue du catalogue et une figurine de l'atelier.  </td><td class="markdownTableBodyNone">1. Relever les entites <span class="tt">npc</span> de la carte.<br  />
+<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:130</span></sub>  </td><td class="markdownTableBodyNone">Les cinq PNJ du Colisee ont un dialogue du catalogue et une figurine de l'atelier.  </td><td class="markdownTableBodyNone">1. Relever les entites <span class="tt">npc</span> de la carte.<br  />
  2. Verifier chaque dialogue contre le catalogue, chaque figurine contre <span class="tt">Assets/Npc/</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalogue.errors.empty()</span> est vrai.<br  />
 Vérifie que <span class="tt">catalogue.find(dialogue)</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">figurine.empty()</span> est faux.<br  />
@@ -4310,20 +4351,20 @@ Vérifie que <span class="tt">carte.tileMap().isSolid(entite.position.column, en
 Vérifie que <span class="tt">pnj</span> vaut <span class="tt">5</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ColiseumMapTest.ChaquePieceNommeeExisteSurLaPlanche</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:161</span></sub>  </td><td class="markdownTableBodyNone">Toute piece assignee a une case existe dans Assets/Scene/coliseum/.  </td><td class="markdownTableBodyNone">1. Tirer l'instantane du Colisee avec la table d'apparence livree.<br  />
+<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:164</span></sub>  </td><td class="markdownTableBodyNone">Toute piece assignee a une case existe dans Assets/Scene/coliseum/.  </td><td class="markdownTableBodyNone">1. Tirer l'instantane du Colisee avec la table d'apparence livree.<br  />
  2. Verifier que chaque chemin de texture qu'il demande existe sur le disque.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">table.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">table.appearance.place()</span> vaut <span class="tt">"coliseum"</span>.<br  />
 Vérifie que <span class="tt">chemins.size()</span> est strictement supérieur à <span class="tt">20U</span>.<br  />
 Vérifie que <span class="tt">std::filesystem::exists(ASSETS / chemin)</span> est vrai.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ColiseumMapTest.ToutLeColiseeSeParcourtDepuisSaPorte</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:188</span></sub>  </td><td class="markdownTableBodyNone">Depuis la porte, on atteint le sable, les deux vestiaires, les tribunes et la loge.  </td><td class="markdownTableBodyNone">1. Remplir la carte depuis la case d'entree, en ne passant que par le franchissable.<br  />
+<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:191</span></sub>  </td><td class="markdownTableBodyNone">Depuis la porte, on atteint le sable, les deux vestiaires, les tribunes et la loge.  </td><td class="markdownTableBodyNone">1. Remplir la carte depuis la case d'entree, en ne passant que par le franchissable.<br  />
  2. Verifier qu'une case de chaque lieu est atteinte, et qu'aucune case atteinte n'est hors du batiment.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">vues.contains({colonne, ligne})</span> est vrai.<br  />
 Vérifie que <span class="tt">table.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">instantane.floorAt({colonne, ligne}).empty()</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ColiseumMapTest.LesPointsDEntreeDesDeuxCampsSontDansLeSable</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:248</span></sub>  </td><td class="markdownTableBodyNone">Les huit points d'entree d'arene sont sur le sable, quatre par camp.  </td><td class="markdownTableBodyNone">1. Relever les entites <span class="tt">arenaEntry</span> de la carte.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">entite.position.column</span> est supérieur ou égal à <span class="tt">10</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:252</span></sub>  </td><td class="markdownTableBodyNone">Les huit points d'entree d'arene sont sur le sable, quatre par camp.  </td><td class="markdownTableBodyNone">1. Relever les entites <span class="tt">arenaEntry</span> de la carte.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">entite.position.column</span> est supérieur ou égal à <span class="tt">10</span>.<br  />
 Vérifie que <span class="tt">entite.position.column</span> est inférieur ou égal à <span class="tt">29</span>.<br  />
 Vérifie que <span class="tt">entite.position.row</span> est supérieur ou égal à <span class="tt">10</span>.<br  />
 Vérifie que <span class="tt">entite.position.row</span> est inférieur ou égal à <span class="tt">23</span>.<br  />
@@ -4436,6 +4477,29 @@ Vérifie que <span class="tt">kind.find(kind.figureProperty)-&gt;source</span> v
  3. Les memes, references connues.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">codes(core::validateMapEntities(bounded, references))</span> vaut <span class="tt">(std::vector&lt;<a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035e" title="Ce qui ne va pas dans une entité.">core::EntityIssueCode</a>&gt;{<a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea365b2699d38b61ef4b4c8a1066c8468f" title="Un entier hors de ses bornes. key et value.">core::EntityIssueCode::OutOfRange</a>, <a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea365b2699d38b61ef4b4c8a1066c8468f" title="Un entier hors de ses bornes. key et value.">core::EntityIssueCode::OutOfRange</a>})</span>.<br  />
 Vérifie que <span class="tt">codes(core::validateMapEntities(referenced, references))</span> vaut <span class="tt">(std::vector&lt;<a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035e" title="Ce qui ne va pas dans une entité.">core::EntityIssueCode</a>&gt;{<a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035eaba7196008331e807c37fa89af564f28a" title="La figurine nommée n&#39;est dans aucun atelier. value.">core::EntityIssueCode::UnknownFigure</a>, <a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035eacebd93e10fdff9ab8b4a4a84352cdfb4" title="La fiche de lieu nommée n&#39;est pas dans l&#39;atlas. value.">core::EntityIssueCode::UnknownLocation</a>, <a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea21ee9ca42970897cbcacc79f34e6cb4e" title="Aucun dialogue ne pose ce drapeau. value.">core::EntityIssueCode::UnsetFlag</a>})</span>.<br  />
 Vérifie que <span class="tt">core::validateMapEntities(referenced, references).empty()</span> est vrai.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__exploration__reach_8cpp.html" title="Tests des cases qu&#39;un héros en exploration atteint (LOT-EDITOR-07) : la règle de marche du jeu,...">test_exploration_reach.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ExplorationReachTest.UnCouloirSePasseUnMurLeFerme</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__exploration__reach_8cpp.html" title="Tests des cases qu&#39;un héros en exploration atteint (LOT-EDITOR-07) : la règle de marche du jeu,...">Source/Test/Unit/Core/World/test_exploration_reach.cpp</a>:40</span></sub>  </td><td class="markdownTableBodyNone">Le héros suit un couloir d'une case, jusqu'au mur.  </td><td class="markdownTableBodyNone">1. Une salle, un couloir d'une case, une salle derrière un mur.<br  />
+2. Parcourir depuis la première salle.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">atteinte.reaches({.column = 5, .row = 3})</span> est vrai.<br  />
+Vérifie que <span class="tt">atteinte.reaches({.column = 3, .row = 2})</span> est vrai.<br  />
+Vérifie que <span class="tt">atteinte.reaches({.column = 0, .row = 4})</span> est faux.<br  />
+Vérifie que <span class="tt">atteinte.reaches({.column = 2, .row = 0})</span> est faux.<br  />
+Vérifie que <span class="tt">atteinte.reaches({.column = 9, .row = 9})</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ExplorationReachTest.DeuxMursEnDiagonaleFermentLePassage</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__exploration__reach_8cpp.html" title="Tests des cases qu&#39;un héros en exploration atteint (LOT-EDITOR-07) : la règle de marche du jeu,...">Source/Test/Unit/Core/World/test_exploration_reach.cpp</a>:67</span></sub>  </td><td class="markdownTableBodyNone">On ne passe pas entre deux murs en diagonale.  </td><td class="markdownTableBodyNone">1. Deux cases libres qui ne se touchent que par un coin, entre deux murs.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">atteinte.reaches({.column = 0, .row = 0})</span> est vrai.<br  />
+Vérifie que <span class="tt">atteinte.reaches({.column = 1, .row = 1})</span> est faux.<br  />
+Vérifie que <span class="tt">atteinte.count()</span> vaut <span class="tt">1U</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ExplorationReachTest.UnDepartMureNAtteintRien</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__exploration__reach_8cpp.html" title="Tests des cases qu&#39;un héros en exploration atteint (LOT-EDITOR-07) : la règle de marche du jeu,...">Source/Test/Unit/Core/World/test_exploration_reach.cpp</a>:88</span></sub>  </td><td class="markdownTableBodyNone">Un départ muré n'atteint rien.  </td><td class="markdownTableBodyNone">1. Partir d'un mur, puis de hors de la carte, puis des deux côtés d'un mur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="classcore_1_1ExplorationReach.html" title="Les cases atteintes depuis des départs, sur une grille de collision.">core::ExplorationReach</a>(carte, {{.column = 1, .row = 0}}).count()</span> vaut <span class="tt">0U</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="classcore_1_1ExplorationReach.html" title="Les cases atteintes depuis des départs, sur une grille de collision.">core::ExplorationReach</a>(carte, {{.column = -1, .row = 0}}).count()</span> vaut <span class="tt">0U</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="classcore_1_1ExplorationReach.html" title="Les cases atteintes depuis des départs, sur une grille de collision.">core::ExplorationReach</a>(carte, {{.column = 0, .row = 0}, {.column = 2, .row = 0}}).count()</span> vaut <span class="tt">2U</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__exploration__session_8cpp.html" title="Tests de la session d&#39;exploration du jeu (LOT-09) : marcher, buter sur un mur, franchir un portail,...">test_exploration_session.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -4833,6 +4897,52 @@ Vérifie que <span class="tt">view.display(0U, true).dimmed</span> est faux.  </
 <sub><span class="tt"><a class="el" href="test__canvas__scene_8cpp.html" title="Ce que le canevas iso montre (LOT-EDITOR-02) : la même liste de primitives que le jeu sur Martpart,...">Source/Test/Unit/Editor/test_canvas_scene.cpp</a>:222</span></sub>  </td><td class="markdownTableBodyNone">Les pieces d'une case se lisent dans la barre d'etat.  </td><td class="markdownTableBodyNone">1. Un instantane dont une case a un sol et un relief, une autre un sol seul.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a271254d23a253fefeed273ecba888f0c" title="Les pièces d&#39;une case, pour la barre d&#39;état : street · wall-left, street, ou rien.">hmi::cellPieces</a>(snapshot, {.column = 0, .row = 0})</span> vaut <span class="tt">"street · wall-left"</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a271254d23a253fefeed273ecba888f0c" title="Les pièces d&#39;une case, pour la barre d&#39;état : street · wall-left, street, ou rien.">hmi::cellPieces</a>(snapshot, {.column = 1, .row = 0})</span> vaut <span class="tt">"square"</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a271254d23a253fefeed273ecba888f0c" title="Les pièces d&#39;une case, pour la barre d&#39;état : street · wall-left, street, ou rien.">hmi::cellPieces</a>(snapshot, {.column = 5, .row = 0})</span> vaut <span class="tt">""</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__content__check_8cpp.html" title="Tests du contrôle du contenu (LOT-EDITOR-07) : ce qu&#39;une carte promet au joueur et ne tient pas,...">test_content_check.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ContentCheckTest.ChaqueDefautDeContenuSort</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__content__check_8cpp.html" title="Tests du contrôle du contenu (LOT-EDITOR-07) : ce qu&#39;une carte promet au joueur et ne tient pas,...">Source/Test/Unit/Editor/test_content_check.cpp</a>:142</span></sub>  </td><td class="markdownTableBodyNone">Chaque défaut de contenu sort, et la CI échoue.  </td><td class="markdownTableBodyNone">1. Un projet de trois cartes et une variante : une carte fautive (nom qui n'est pas une clé, îlot sans clé, dialogue inconnu, drapeau que rien ne pose, famille inconnue, rencontre dont un loup tombe hors de la carte, PNJ muré, coffre dans un mur, zone hors d'atteinte, portail sans retour, point d'arrivée orphelin), sa cible, et la variante d'une base dont un mur est tombé sur son PNJ.<br  />
+2. Lancer <span class="tt">--check</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">signale(constats, MapCheckSeverity::Error, "fautive", "map name \\"fautive\\\\" is not a translation key of en.lang, fr.lang \" \"(expected map.fautive.name)\")&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;signale(constats, MapCheckSeverity::Error, \"fautive\", \"key city_block.ilot-sans-cle is missing\")&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;signale(constats, MapCheckSeverity::Error, \"nuit\", \"map name \\\\"map.nuit.name\\\\" is not a translation key of en.lang\")&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;signale(constats, MapCheckSeverity::Error, \"fautive\", \"dialogue \\\\"inconnu\\\\"\")&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;signale(constats, MapCheckSeverity::Error, \"fautive\", \"no dialogue sets flag \\\\"jamais\")&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;signale(constats, MapCheckSeverity::Warning, \"fautive\", \"\\\\"mystere\\\\" is unknown\")&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;signale(constats, MapCheckSeverity::Error, \"fautive\", \"Encounter \\\\"colisee-fauves\\\\": \\\\"wolf\\\\" would stand off the map\")&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;signale(constats, MapCheckSeverity::Error, \"fautive\", \"npc e2 cannot be reached from the entry or an arrival point\")&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;signale(constats, MapCheckSeverity::Error, \"fautive\", \"chest e3 stands on a blocked cell\")&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;signale(constats, MapCheckSeverity::Error, \"fautive\", \"zone e8: no cell of it can be reached\")&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;signale(constats, MapCheckSeverity::Error, \"fautive\", \"npc e1 cannot be reached\")&lt;/tt&gt; est faux.&lt;br/&gt;Vérifie que &lt;tt&gt;signale(constats, MapCheckSeverity::Warning, \"fautive\", \"portal e4 (autre) has no way back\")&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;signale(constats, MapCheckSeverity::Warning, \"fautive\", \"spawnPoint e5 (orpheline) is named by no portal and no city start\")&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;signale(constats, MapCheckSeverity::Warning, \"autre\", \"quai\")&lt;/tt&gt; est faux.&lt;br/&gt;Vérifie que &lt;tt&gt;signale(constats, MapCheckSeverity::Error, \"nuit\", \"npc e1 stands on a blocked cell\")&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;mure&lt;/tt&gt; diffère de &lt;tt&gt;constats.end()&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;mure-\&gt;entityId&lt;/tt&gt; vaut &lt;tt&gt;\"e2\"&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;mure-\&gt;cell&lt;/tt&gt; vaut &lt;tt&gt;(core::GridPosition{.column = 6, .row = 2})&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;hmi::runMapCommand({\"--check\", \"--data\", projet.racine().string()}, {}, sortie)</span> vaut <span class="tt">1</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ContentCheckTest.UnSeulDefautFaitEchouerLaCi</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__content__check_8cpp.html" title="Tests du contrôle du contenu (LOT-EDITOR-07) : ce qu&#39;une carte promet au joueur et ne tient pas,...">Source/Test/Unit/Editor/test_content_check.cpp</a>:223</span></sub>  </td><td class="markdownTableBodyNone">Un PNJ muré fait échouer la CI.  </td><td class="markdownTableBodyNone">1. Une carte canonique, au nom traduit, dont le seul défaut est un PNJ muré.<br  />
+ 2. Lancer <span class="tt">--check</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a75e0715b710f1ffbe1d6392719cb07c2" title="L&#39;entrée sans fenêtre de l&#39;éditeur (décision D9) : --check, --migrate et --apply (--render,...">hmi::runMapCommand</a>({"--check", "--data", projet.racine().string()}, {}, sortie)</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">sortie.find("seule (2, 0): error: npc e1 cannot be reached")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">sortie.find("1 errors")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ContentCheckTest.UnPointDArriveeNommeEstUnDepart</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__content__check_8cpp.html" title="Tests du contrôle du contenu (LOT-EDITOR-07) : ce qu&#39;une carte promet au joueur et ne tient pas,...">Source/Test/Unit/Editor/test_content_check.cpp</a>:248</span></sub>  </td><td class="markdownTableBodyNone">On atteint une carte par ses points d'arrivée.  </td><td class="markdownTableBodyNone">1. Une carte coupée en deux : l'entrée d'un côté, un point d'arrivée nommé par le portail d'une autre carte de l'autre, et un PNJ près de lui.<br  />
+2. Contrôler.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bilan.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">bilan.count(MapCheckSeverity::Warning)</span> vaut <span class="tt">0U</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ContentCheckTest.LesCataloguesSeCompletentSansRienPerdre</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__content__check_8cpp.html" title="Tests du contrôle du contenu (LOT-EDITOR-07) : ce qu&#39;une carte promet au joueur et ne tient pas,...">Source/Test/Unit/Editor/test_content_check.cpp</a>:279</span></sub>  </td><td class="markdownTableBodyNone">Une clé ajoutée garde les traductions qu'elle reprend.  </td><td class="markdownTableBodyNone">1. Former la clé de <span class="tt">capital/martpart</span>.<br  />
+2. Ajouter une clé nouvelle, puis une clé qui reprend une clé existante, à deux catalogues dont l'un n'a pas de fin de ligne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a4ad11ae6ed49c312276185ea81e4f3da">hmi::mapNameKey</a>("capital/martpart")</span> vaut <span class="tt">"map.capital.martpart.name"</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a4ad11ae6ed49c312276185ea81e4f3da">hmi::mapNameKey</a>("coliseum")</span> vaut <span class="tt">"map.coliseum.name"</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a074c259298bf074bde017244902797da" title="Ajoute key = … à la fin de chaque catalogue de directory qui n&#39;a pas key.">hmi::addTranslation</a>(dossier, "map.b.name", "b")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a074c259298bf074bde017244902797da" title="Ajoute key = … à la fin de chaque catalogue de directory qui n&#39;a pas key.">hmi::addTranslation</a>(dossier, "map.c.name", "c", "map.a.name")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a074c259298bf074bde017244902797da" title="Ajoute key = … à la fin de chaque catalogue de directory qui n&#39;a pas key.">hmi::addTranslation</a>(dossier, "map.a.name", "a")</span> est vrai.<br  />
+Vérifie que <span class="tt">lire(dossier / "fr.lang")</span> vaut <span class="tt">"# Catalogue\\nmap.a.name = Ancienne\\nmap.b.name = b\\nmap.c.name = Ancienne\\n"</span>.<br  />
+Vérifie que <span class="tt">lire(dossier / "en.lang")</span> vaut <span class="tt">"map.a.name = Old\\nmap.b.name = b\\nmap.c.name = Old\\n"</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1bf4f828e030488522fc38306267bd38">hmi::languagesMissing</a>(catalogues, "map.c.name").empty()</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1bf4f828e030488522fc38306267bd38">hmi::languagesMissing</a>(catalogues, "map.z.name")</span> vaut <span class="tt">(std::vector&lt;std::string&gt;{"en", "fr"})</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ContentCheckTest.UneCarteNeuveASonNomDansChaqueCatalogue</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__content__check_8cpp.html" title="Tests du contrôle du contenu (LOT-EDITOR-07) : ce qu&#39;une carte promet au joueur et ne tient pas,...">Source/Test/Unit/Editor/test_content_check.cpp</a>:313</span></sub>  </td><td class="markdownTableBodyNone">Une carte neuve a son nom dans chaque catalogue.  </td><td class="markdownTableBodyNone">1. Créer « Echoppe » au lieu <span class="tt">martpart</span> dans un projet à deux catalogues.<br  />
+ 2. La contrôler ; la renommer « Etal », la dupliquer.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">cree.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">lue.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">lue.level-&gt;name()</span> vaut <span class="tt">"map.Echoppe.name"</span>.<br  />
+Vérifie que <span class="tt">bilan.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">renomme.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html#a49dba279ed545b7230ceeb8752e63543" title="Charge un niveau depuis un fichier.">core::LevelLoader::loadFromFile</a>(renomme.path).level-&gt;name()</span> vaut <span class="tt">"map.Etal.name"</span>.<br  />
+Vérifie que <span class="tt">catalogues.at("en").at("map.Etal.name")</span> vaut <span class="tt">"The stall"</span>.<br  />
+Vérifie que <span class="tt">catalogues.at("fr").at("map.Etal.name")</span> vaut <span class="tt">"Echoppe"</span>.<br  />
+Vérifie que <span class="tt">copie.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html#a49dba279ed545b7230ceeb8752e63543" title="Charge un niveau depuis un fichier.">core::LevelLoader::loadFromFile</a>(copie.path).level-&gt;name()</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a4ad11ae6ed49c312276185ea81e4f3da">hmi::mapNameKey</a>(copie.path.stem().string())</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a6e21da09e85978f4e71f38116267e04a" title="Contrôle toutes les cartes de &lt;dataRoot&gt;/Levels, sous-dossiers compris, puis les références entre ell...">hmi::checkAllMaps</a>(projet.racine()).ok()</span> est vrai.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__disk__guard_8cpp.html">test_disk_guard.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -5258,54 +5368,53 @@ Vérifie que <span class="tt">lire(hmi::sidecarPath(sortie))</span> vaut <span c
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelFileOps.CreeUnNiveauValide</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:44</span></sub>  </td><td class="markdownTableBodyNone">Créer un niveau écrit un fichier valide, immédiatement listé.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:48</span></sub>  </td><td class="markdownTableBodyNone">Créer un niveau écrit un fichier valide, immédiatement listé.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">std::filesystem::exists(result.path)</span> est vrai.<br  />
 Vérifie que <span class="tt">ops.list().size()</span> vaut <span class="tt">1U</span>.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LevelFileOps.UneCarteCreeeAvecUnLieuPasseLeControle</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:62</span></sub>  </td><td class="markdownTableBodyNone">Une carte creee avec un lieu passe le controle.  </td><td class="markdownTableBodyNone">1. Créer une carte 12 × 8 au lieu <span class="tt">martpart</span>.<br  />
-2. La relire, puis la contrôler avec les planches livrées.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
+<td class="markdownTableBodyNone"><b>LevelFileOps.UneCarteCreeeAvecUnLieuASesDeuxCouches</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:67</span></sub>  </td><td class="markdownTableBodyNone">Une carte creee avec un lieu a ses deux couches.  </td><td class="markdownTableBodyNone">1. Créer une carte 12 × 8 au lieu <span class="tt">martpart</span>.<br  />
+2. La relire.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">lu.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#abbf2a2d38ba582981388654fde028bae">hmi::scenePlaceOf</a>(*lu.level)</span> vaut <span class="tt">"martpart"</span>.<br  />
 Vérifie que <span class="tt">sols</span> vaut <span class="tt">1</span>.<br  />
-Vérifie que <span class="tt">decors</span> vaut <span class="tt">1</span>.<br  />
-Vérifie que <span class="tt">constat.severity</span> diffère de <span class="tt"><a class="el" href="namespacehmi.html#a89e7b964e1125a35414c9694fad4fd64a902b0d55fddef6f8d651fe1035b7d4bd">hmi::MapCheckSeverity::Error</a></span>.  </td></tr>
+Vérifie que <span class="tt">decors</span> vaut <span class="tt">1</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ScenePlacesTest.LesLieuxProposesOntUnManifeste</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:96</span></sub>  </td><td class="markdownTableBodyNone">Les lieux proposes ont un manifeste.  </td><td class="markdownTableBodyNone">1. Lister les lieux de <span class="tt">Source/Elements</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">std::ranges::is_sorted(lieux)</span> est vrai.<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:94</span></sub>  </td><td class="markdownTableBodyNone">Les lieux proposes ont un manifeste.  </td><td class="markdownTableBodyNone">1. Lister les lieux de <span class="tt">Source/Elements</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">std::ranges::is_sorted(lieux)</span> est vrai.<br  />
 Vérifie que <span class="tt">std::ranges::find(lieux, "coliseum")</span> diffère de <span class="tt">lieux.end()</span>.<br  />
 Vérifie que <span class="tt">std::ranges::find(lieux, "martpart")</span> diffère de <span class="tt">lieux.end()</span>.<br  />
 Vérifie que <span class="tt">std::filesystem::is_regular_file(donnees / "Assets" / "Scene" / lieu / "manifest.json")</span> est vrai.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelFileOps.LaPlusPetiteCarteFaitUneCase</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:118</span></sub>  </td><td class="markdownTableBodyNone">La plus petite carte créable est 1×1.  </td><td class="markdownTableBodyNone">1. Créer une carte 1×1.<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:116</span></sub>  </td><td class="markdownTableBodyNone">La plus petite carte créable est 1×1.  </td><td class="markdownTableBodyNone">1. Créer une carte 1×1.<br  />
 2. Tenter une carte de largeur nulle, puis de hauteur nulle.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">single.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">ops.create("Vide", 0, 1).ok()</span> est faux.<br  />
 Vérifie que <span class="tt">ops.create("Plate", 1, 0).ok()</span> est faux.<br  />
 Vérifie que <span class="tt">ops.list().size()</span> vaut <span class="tt">1U</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelFileOps.FichierDeSequenceExcluDeLaListe</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:139</span></sub>  </td><td class="markdownTableBodyNone">Un fichier de séquence n'apparaît jamais dans la liste des niveaux.  </td><td class="markdownTableBodyNone">1. Créer un niveau valide, puis écrire à côté un fichier <span class="tt">sequence-demo.json</span> quelconque.<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:137</span></sub>  </td><td class="markdownTableBodyNone">Un fichier de séquence n'apparaît jamais dans la liste des niveaux.  </td><td class="markdownTableBodyNone">1. Créer un niveau valide, puis écrire à côté un fichier <span class="tt">sequence-demo.json</span> quelconque.<br  />
 2. Lister le dossier.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">ops.create("MonNiveau", 10, 6).ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">listed.size()</span> vaut <span class="tt">1U</span>.<br  />
 Vérifie que <span class="tt">listed.front().filename().string()</span> vaut <span class="tt">"MonNiveau.json"</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelFileOps.RefuseNomInvalideEtCollision</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:163</span></sub>  </td><td class="markdownTableBodyNone">Un nom invalide ou déjà pris est refusé, sans écraser le niveau existant.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:161</span></sub>  </td><td class="markdownTableBodyNone">Un nom invalide ou déjà pris est refusé, sans écraser le niveau existant.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">ops.create("a/b", 10, 6).ok()</span> est faux.<br  />
 Vérifie que <span class="tt">ops.create("Niveau", 10, 6).ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">ops.create("Niveau", 10, 6).ok()</span> est faux.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelFileOps.RenommeEtDeplaceLeFichier</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:180</span></sub>  </td><td class="markdownTableBodyNone">Renommer déplace le fichier : l'ancien chemin disparaît, le nouveau existe.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:178</span></sub>  </td><td class="markdownTableBodyNone">Renommer déplace le fichier : l'ancien chemin disparaît, le nouveau existe.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">created.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">renamed.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">std::filesystem::exists(created.path)</span> est faux.<br  />
 Vérifie que <span class="tt">std::filesystem::exists(renamed.path)</span> est vrai.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelFileOps.DupliqueSousUnNomUnique</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:200</span></sub>  </td><td class="markdownTableBodyNone">Dupliquer deux fois le même niveau produit deux copies distinctes.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:198</span></sub>  </td><td class="markdownTableBodyNone">Dupliquer deux fois le même niveau produit deux copies distinctes.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">base.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">first.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">second.ok()</span> est vrai.<br  />
@@ -5313,7 +5422,7 @@ Vérifie que <span class="tt">first.path</span> diffère de <span class="tt">sec
 Vérifie que <span class="tt">ops.list().size()</span> vaut <span class="tt">3U</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelFileOps.SupprimeLeFichier</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:222</span></sub>  </td><td class="markdownTableBodyNone">Supprimer retire effectivement le fichier du disque.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a>:220</span></sub>  </td><td class="markdownTableBodyNone">Supprimer retire effectivement le fichier du disque.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">created.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">ops.remove(created.path).ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">std::filesystem::exists(created.path)</span> est faux.  </td></tr>
@@ -5358,7 +5467,7 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#acb440eec2a1
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>MapFormatTest.LaMigrationNeChangePasCeQueLeJeuJoue</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">Source/Test/Unit/Editor/test_map_format.cpp</a>:153</span></sub>  </td><td class="markdownTableBodyNone">La migration ne change pas ce que le jeu joue.  </td><td class="markdownTableBodyNone">1. Migrer <span class="tt">format-v3.json</span> avec la planche de Martpart.<br  />
+<sub><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">Source/Test/Unit/Editor/test_map_format.cpp</a>:157</span></sub>  </td><td class="markdownTableBodyNone">La migration ne change pas ce que le jeu joue.  </td><td class="markdownTableBodyNone">1. Migrer <span class="tt">format-v3.json</span> avec la planche de Martpart.<br  />
 2. Relire la v4.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">migration.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">instantane(v4)</span> vaut <span class="tt">instantane(v3)</span>.<br  />
 Vérifie que <span class="tt">memeGrilleTactique(v4, v3)</span> est vrai.<br  />
@@ -5370,16 +5479,16 @@ Vérifie que <span class="tt">v4.nextEntityId()</span> vaut <span class="tt">3</
 Vérifie que <span class="tt">migration.newForcedCells</span> vaut <span class="tt">7U</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>MapFormatTest.LaMigrationEstIdempotente</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">Source/Test/Unit/Editor/test_map_format.cpp</a>:181</span></sub>  </td><td class="markdownTableBodyNone">La migration est idempotente.  </td><td class="markdownTableBodyNone">1. Migrer <span class="tt">format-v3.json</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">Source/Test/Unit/Editor/test_map_format.cpp</a>:185</span></sub>  </td><td class="markdownTableBodyNone">La migration est idempotente.  </td><td class="markdownTableBodyNone">1. Migrer <span class="tt">format-v3.json</span>.<br  />
 2. Relire et migrer encore.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">seconde.text</span> vaut <span class="tt">premiere.text</span>.<br  />
 Vérifie que <span class="tt">seconde.namedPieces + seconde.newIds + seconde.newForcedCells</span> vaut <span class="tt">0U</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>MapFormatTest.LesCartesLivreesPassentLeControle</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">Source/Test/Unit/Editor/test_map_format.cpp</a>:200</span></sub>  </td><td class="markdownTableBodyNone">Les cartes livrées passent le contrôle.  </td><td class="markdownTableBodyNone">1. Contrôler <span class="tt">Source/Elements/Levels</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bilan.maps</span> est supérieur ou égal à <span class="tt">3U</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">Source/Test/Unit/Editor/test_map_format.cpp</a>:204</span></sub>  </td><td class="markdownTableBodyNone">Les cartes livrées passent le contrôle.  </td><td class="markdownTableBodyNone">1. Contrôler <span class="tt">Source/Elements/Levels</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bilan.maps</span> est supérieur ou égal à <span class="tt">3U</span>.<br  />
 Vérifie que <span class="tt">constat.severity</span> diffère de <span class="tt">MapCheckSeverity::Error</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>MapFormatTest.ChaqueDefautSortEtLeControleEchoue</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">Source/Test/Unit/Editor/test_map_format.cpp</a>:218</span></sub>  </td><td class="markdownTableBodyNone">Chaque défaut sort, et le contrôle échoue.  </td><td class="markdownTableBodyNone">1. Écrire une v4 non canonique, sans id, à pièce absente, à collision écartée, avec une hauteur et un portail vers nulle part.<br  />
+<sub><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">Source/Test/Unit/Editor/test_map_format.cpp</a>:222</span></sub>  </td><td class="markdownTableBodyNone">Chaque défaut sort, et le contrôle échoue.  </td><td class="markdownTableBodyNone">1. Écrire une v4 non canonique, sans id, à pièce absente, à collision écartée, avec une hauteur et un portail vers nulle part.<br  />
 2. Lancer <span class="tt">--check</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">signale(constats, MapCheckSeverity::Error, "not canonical")</span> est vrai.<br  />
 Vérifie que <span class="tt">signale(constats, MapCheckSeverity::Error, "has no id")</span> est vrai.<br  />
 Vérifie que <span class="tt">signale(constats, MapCheckSeverity::Error, "piece missing")</span> est vrai.<br  />
@@ -5390,20 +5499,115 @@ Vérifie que <span class="tt">*code</span> vaut <span class="tt">1</span>.<br  /
 Vérifie que <span class="tt">sortie.find("does not exist")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>MapFormatTest.MigrerRendUneCarteQueLeControleAccepte</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">Source/Test/Unit/Editor/test_map_format.cpp</a>:257</span></sub>  </td><td class="markdownTableBodyNone">&ndash;migrate rend une carte que &ndash;check accepte.  </td><td class="markdownTableBodyNone">1. Copier <span class="tt">format-v3.json</span> dans un dossier de données.<br  />
+<sub><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">Source/Test/Unit/Editor/test_map_format.cpp</a>:261</span></sub>  </td><td class="markdownTableBodyNone">&ndash;migrate rend une carte que &ndash;check accepte.  </td><td class="markdownTableBodyNone">1. Copier <span class="tt">format-v3.json</span> dans un dossier de données.<br  />
 2. <span class="tt">--migrate</span> puis <span class="tt">--check</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a75e0715b710f1ffbe1d6392719cb07c2" title="L&#39;entrée sans fenêtre de l&#39;éditeur (décision D9) : --check, --migrate et --apply (--render,...">hmi::runMapCommand</a>({"--migrate", "rue", "--data", donnees.racine().string()}, {}, sortie)</span> vaut <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a75e0715b710f1ffbe1d6392719cb07c2" title="L&#39;entrée sans fenêtre de l&#39;éditeur (décision D9) : --check, --migrate et --apply (--render,...">hmi::runMapCommand</a>({"--check", "--data", donnees.racine().string()}, {}, sortie)</span> vaut <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt">texte.find("\\"version\\\\": 4\")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>MapFormatTest.SansCommandeLEditeurOuvreSaFenetre</b> (Mineur)<br  />
-<sub><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">Source/Test/Unit/Editor/test_map_format.cpp</a>:284</span></sub>  </td><td class="markdownTableBodyNone">Sans commande, l'éditeur ouvre sa fenêtre.  </td><td class="markdownTableBodyNone">1. Passer <span class="tt">--crash-test</span> seul.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a75e0715b710f1ffbe1d6392719cb07c2" title="L&#39;entrée sans fenêtre de l&#39;éditeur (décision D9) : --check, --migrate et --apply (--render,...">hmi::runMapCommand</a>({"--crash-test"}, {}, sortie).has_value()</span> est faux.<br  />
+<sub><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">Source/Test/Unit/Editor/test_map_format.cpp</a>:288</span></sub>  </td><td class="markdownTableBodyNone">Sans commande, l'éditeur ouvre sa fenêtre.  </td><td class="markdownTableBodyNone">1. Passer <span class="tt">--crash-test</span> seul.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a75e0715b710f1ffbe1d6392719cb07c2" title="L&#39;entrée sans fenêtre de l&#39;éditeur (décision D9) : --check, --migrate et --apply (--render,...">hmi::runMapCommand</a>({"--crash-test"}, {}, sortie).has_value()</span> est faux.<br  />
 Vérifie que <span class="tt">sortie.empty()</span> est vrai.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>MapFormatTest.LesTroisCartesMigreesSeJouentALIdentique</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">Source/Test/Unit/Editor/test_map_format.cpp</a>:300</span></sub>  </td><td class="markdownTableBodyNone">Les trois cartes migrées se jouent à l'identique.  </td><td class="markdownTableBodyNone">1. Extraire les v3 : <span class="tt">git show 376c541da:Source/Elements/Levels/…</span> (le dernier commit de main avant ce lot).<br  />
+<sub><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">Source/Test/Unit/Editor/test_map_format.cpp</a>:304</span></sub>  </td><td class="markdownTableBodyNone">Les trois cartes migrées se jouent à l'identique.  </td><td class="markdownTableBodyNone">1. Extraire les v3 : <span class="tt">git show 376c541da:Source/Elements/Levels/…</span> (le dernier commit de main avant ce lot).<br  />
  2. <span class="tt">JADG_V3_MAPS_DIR=&lt;dossier&gt;</span> puis lancer ce test.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">instantane(v4)</span> vaut <span class="tt">instantane(v3)</span>.<br  />
 Vérifie que <span class="tt">memeGrilleTactique(v4, v3)</span> est vrai.<br  />
 Vérifie que <span class="tt">v4.entry()</span> vaut <span class="tt">v3.entry()</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__map__refactor_8cpp.html" title="Tests de « renommer et remplacer » (LOT-EDITOR-14) : sur une copie des données livrées,...">test_map_refactor.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Donnees.RenommerMartpartLaisseLeControleVert</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__map__refactor_8cpp.html" title="Tests de « renommer et remplacer » (LOT-EDITOR-14) : sur une copie des données livrées,...">Source/Test/Unit/Editor/test_map_refactor.cpp</a>:126</span></sub>  </td><td class="markdownTableBodyNone">Renommer Martpart laisse le contrôle vert.  </td><td class="markdownTableBodyNone">1. Copier les données livrées.<br  />
+2. Renommer <span class="tt">capital/martpart</span> en <span class="tt">capital/marche</span>.<br  />
+3. Contrôler toutes les cartes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">avant.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">apres.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">apres.count(hmi::MapCheckSeverity::Warning)</span> vaut <span class="tt">avant.count(hmi::MapCheckSeverity::Warning)</span>.<br  />
+Vérifie que <span class="tt">std::filesystem::exists(carte("capital/martpart"))</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html#a49dba279ed545b7230ceeb8752e63543" title="Charge un niveau depuis un fichier.">core::LevelLoader::loadFromFile</a>(carte("capital/marche")).level-&gt;name()</span> vaut <span class="tt">"map.capital.marche.name"</span>.<br  />
+Vérifie que <span class="tt">lire(carte("capital/arenarea")).find(R"("targetMap": "capital/marche")")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">ville.find("capital/martpart")</span> vaut <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">ville.find(R"("map": "capital/marche")")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">fr.find("map.capital.marche.name = Martpart")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">fr.find("map.capital.martpart.name")</span> vaut <span class="tt">std::string::npos</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>Donnees.UneCarteChangeDeDossierSonAnnexeLaSuit</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__map__refactor_8cpp.html" title="Tests de « renommer et remplacer » (LOT-EDITOR-14) : sur une copie des données livrées,...">Source/Test/Unit/Editor/test_map_refactor.cpp</a>:161</span></sub>  </td><td class="markdownTableBodyNone">Une carte change de dossier, son annexe la suit.  </td><td class="markdownTableBodyNone">1. Donner une note d'auteur au Colisée.<br  />
+2. Le renommer <span class="tt">arenes/coliseum</span>, puis de nouveau <span class="tt">coliseum</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a3c12284190bee7405686941fa445fff7" title="Écrit la note de cell ; un texte vide (ou fait d&#39;espaces) la retire.">hmi::setNote</a>(notes, {.column = 3, .row = 4}, "loge")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a868dcb3f5bae6a1191118bfb6aeea1c8" title="Écrit l&#39;annexe dans path, ou retire le fichier si elle est vide.">hmi::writeSidecar</a>(<a class="el" href="namespacehmi.html#a28a348b8119969df025bff7cb050234b">hmi::sidecarPath</a>(carte("coliseum")), notes)</span> est vrai.<br  />
+Vérifie que <span class="tt">std::filesystem::exists(<a class="el" href="namespacehmi.html#a28a348b8119969df025bff7cb050234b">hmi::sidecarPath</a>(carte("coliseum")))</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a55dd038af95137b5be885aade862d10e">hmi::noteAt</a>(lues.sidecar, {.column = 3, .row = 4})</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">hmi::checkAllMaps(racine).ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">std::filesystem::exists(<a class="el" href="namespacehmi.html#a28a348b8119969df025bff7cb050234b">hmi::sidecarPath</a>(carte("coliseum")))</span> est vrai.<br  />
+Vérifie que <span class="tt">std::filesystem::exists(racine / "Levels" / "arenes")</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Donnees.UnRenommageImpossibleNEcritRien</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__map__refactor_8cpp.html" title="Tests de « renommer et remplacer » (LOT-EDITOR-14) : sur une copie des données livrées,...">Source/Test/Unit/Editor/test_map_refactor.cpp</a>:190</span></sub>  </td><td class="markdownTableBodyNone">Un renommage impossible n'écrit rien.  </td><td class="markdownTableBodyNone">1. Renommer Martpart en Arenarea, puis en <span class="tt">a:b</span>.<br  />
+2. Ajouter une carte illisible et renommer Martpart.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">pris.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">pris.edits.empty()</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a43197e19f5f5d84456fbc0ec9a7d9c86" title="Renomme la carte oldId en newId — un autre dossier est permis (coliseum → capital/coliseum).">hmi::planRenameMap</a>(racine, "capital/martpart", "a:b").ok()</span> est faux.<br  />
+Vérifie que <span class="tt">illisible.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">illisible.error.find("cassee")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">illisible.edits.empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>Donnees.RenommerUnPointDArriveeSuitPortailsEtVille</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__map__refactor_8cpp.html" title="Tests de « renommer et remplacer » (LOT-EDITOR-14) : sur une copie des données livrées,...">Source/Test/Unit/Editor/test_map_refactor.cpp</a>:216</span></sub>  </td><td class="markdownTableBodyNone">Renommer un point d'arrivée suit portails et ville.  </td><td class="markdownTableBodyNone">1. Renommer le point <span class="tt">porte-est</span> de Martpart, départ de la Capitale.<br  />
+2. Renommer son point <span class="tt">arenarea</span>, où mène le portail d'Arenarea.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lire(racine / "World" / "cities" / "capital.json").find(R"("arrival": "porte-orientale")")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">portails.size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">portails.front().mapId</span> vaut <span class="tt">"capital/arenarea"</span>.<br  />
+Vérifie que <span class="tt">lire(carte("capital/arenarea")).find(R"("arrival": "vers-arenarea")")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5f73dc68dbcc5745914ce5e95a78bb2b" title="Renomme le point d&#39;arrivée oldName de mapId, et ce qui le cite.">hmi::planRenameArrival</a>(racine, "capital/martpart", "vers-arenarea", "porte-orientale") .ok()</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::checkAllMaps(racine).ok()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Donnees.RenommerUnIdentifiantDEntite</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__map__refactor_8cpp.html" title="Tests de « renommer et remplacer » (LOT-EDITOR-14) : sur une copie des données livrées,...">Source/Test/Unit/Editor/test_map_refactor.cpp</a>:247</span></sub>  </td><td class="markdownTableBodyNone">Renommer un identifiant d'entité, et ses refus.  </td><td class="markdownTableBodyNone">1. Renommer <span class="tt">e6</span> de Martpart en <span class="tt">e1</span>, <span class="tt">e999</span>, <span class="tt">a#b</span>.<br  />
+2. Le renommer <span class="tt">depart-est</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab822e7d58bc19bd2b2d86e8f5cf5575f" title="Renomme l&#39;entité mapId#oldId en newId, et ce qui la cite.">hmi::planRenameEntityId</a>(racine, "capital/martpart", "e6", "e1").ok()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab822e7d58bc19bd2b2d86e8f5cf5575f" title="Renomme l&#39;entité mapId#oldId en newId, et ce qui la cite.">hmi::planRenameEntityId</a>(racine, "capital/martpart", "e6", "e999").ok()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab822e7d58bc19bd2b2d86e8f5cf5575f" title="Renomme l&#39;entité mapId#oldId en newId, et ce qui la cite.">hmi::planRenameEntityId</a>(racine, "capital/martpart", "e6", "a#b").ok()</span> est faux.<br  />
+Vérifie que <span class="tt">lue.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">std::ranges::any_of(lue.level-&gt;entities(), [](const auto&amp; entity) { return entity.id == "depart-est"; })</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::checkAllMaps(racine).ok()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>Donnees.QuiCiteUneCarteQuiPoseUnePiece</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__map__refactor_8cpp.html" title="Tests de « renommer et remplacer » (LOT-EDITOR-14) : sur une copie des données livrées,...">Source/Test/Unit/Editor/test_map_refactor.cpp</a>:271</span></sub>  </td><td class="markdownTableBodyNone">Qui cite une carte, qui pose une pièce.  </td><td class="markdownTableBodyNone">1. Demander qui cite Martpart.<br  />
+2. Demander qui pose <span class="tt">wall-corner</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">cite(carteCitee, "portal e2: targetMap")</span> est vrai.<br  />
+Vérifie que <span class="tt">cite(carteCitee, "district central-empire-the-capital-city-martpart: map")</span> est vrai.<br  />
+Vérifie que <span class="tt">cite(carteCitee, "guard map")</span> est vrai.<br  />
+Vérifie que <span class="tt">cite(carteCitee, "map.capital.martpart.name")</span> est vrai.<br  />
+Vérifie que <span class="tt">std::ranges::any_of(piece, [id](const <a class="el" href="structhmi_1_1Citation.html" title="Un endroit où une chose est nommée : « qui cite ceci ? ».">hmi::Citation</a>&amp; c) { return c.mapId == id; })</span> est vrai.<br  />
+Vérifie que <span class="tt">std::filesystem::exists(carte("capital/martpart"))</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Donnees.RemplacerUnePieceSurToutesLesCartes</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__map__refactor_8cpp.html" title="Tests de « renommer et remplacer » (LOT-EDITOR-14) : sur une copie des données livrées,...">Source/Test/Unit/Editor/test_map_refactor.cpp</a>:298</span></sub>  </td><td class="markdownTableBodyNone">Remplacer une pièce sur toutes les cartes.  </td><td class="markdownTableBodyNone">1. Remplacer <span class="tt">street</span> par <span class="tt">wall-left</span>, puis par <span class="tt">nope</span>.<br  />
+2. Remplacer <span class="tt">street-2</span> par <span class="tt">street-3</span> partout.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#abfd98fd3827a2fc0a88db80648a18b59" title="Remplace la pièce from par to, sur les cartes maps (toutes celles qui la posent si la liste est vide)...">hmi::planReplacePiece</a>(racine, "street", "wall-left", {}).ok()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#abfd98fd3827a2fc0a88db80648a18b59" title="Remplace la pièce from par to, sur les cartes maps (toutes celles qui la posent si la liste est vide)...">hmi::planReplacePiece</a>(racine, "street", "nope", {}).ok()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ad8039f7a46143bef6da7de82c1a2b706">hmi::citationsOfPiece</a>(racine, "street-2").empty()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ad8039f7a46143bef6da7de82c1a2b706">hmi::citationsOfPiece</a>(racine, "street-2").empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::checkAllMaps(racine).ok()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>Donnees.ArenareaChangeDePlancheSansEtreRepeinte</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__map__refactor_8cpp.html" title="Tests de « renommer et remplacer » (LOT-EDITOR-14) : sur une copie des données livrées,...">Source/Test/Unit/Editor/test_map_refactor.cpp</a>:323</span></sub>  </td><td class="markdownTableBodyNone">Arenarea change de planche sans être repeinte.  </td><td class="markdownTableBodyNone">1. Installer une planche <span class="tt">arenarea</span>, copie de celle de Martpart où <span class="tt">street-2</span> devient <span class="tt">paving-2</span> et <span class="tt">street-3</span> devient <span class="tt">cobbles</span> (ancien nom <span class="tt">street-3</span>).<br  />
+2. Changer de planche sans table, puis avec la table <span class="tt">street-2 → paving-2</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">at</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">sansTable.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">sansTable.error.find("street-2")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">sansTable.error.find("street-3")</span> vaut <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">lue.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">apres.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#abbf2a2d38ba582981388654fde028bae">hmi::scenePlaceOf</a>(apres.level-&gt;layers())</span> vaut <span class="tt">"arenarea"</span>.<br  />
+Vérifie que <span class="tt">apres.level-&gt;tileMap().tile(column, row)</span> vaut <span class="tt">avant.tile(column, row)</span>.<br  />
+Vérifie que <span class="tt">apparence.find(R"("place": "arenarea")")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">apparence.find("paving-2")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ad8039f7a46143bef6da7de82c1a2b706">hmi::citationsOfPiece</a>(racine, "street-2").size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ad8039f7a46143bef6da7de82c1a2b706">hmi::citationsOfPiece</a>(racine, "paving-2").empty()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ad8039f7a46143bef6da7de82c1a2b706">hmi::citationsOfPiece</a>(racine, "cobbles").empty()</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::checkAllMaps(racine).ok()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Donnees.UneTableMalFormeeEstRefusee</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__map__refactor_8cpp.html" title="Tests de « renommer et remplacer » (LOT-EDITOR-14) : sur une copie des données livrées,...">Source/Test/Unit/Editor/test_map_refactor.cpp</a>:383</span></sub>  </td><td class="markdownTableBodyNone">Une table de correspondance mal formée est refusée.  </td><td class="markdownTableBodyNone">1. Lire une table sans <span class="tt">format</span>, puis une pièce sans remplaçante.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::readPieceTable(table).ok()</span> est faux.<br  />
+Vérifie que <span class="tt">vide.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">vide.error.find("table.json")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__map__render_8cpp.html" title="Tests de LevelEditor --render (LOT-EDITOR-13) : une carte livrée rendue hors écran,...">test_map_render.cpp</a></span></b></p>
 <table class="markdownTable">

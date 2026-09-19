@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-08.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 927/927, lint d'exigences, cahier de test, Doxygen et <span class="tt">clang-format</span> verts). Prérequis : <a class="el" href="lot-04.html" title="LOT-04 — Format de carte `version: 3`, multi-couches">LOT-04</a> (les couches donnent leur sens aux types). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md353"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md355"></a>
 Objectif</h1>
 <p>Donner à la palette les types de terrain d'un RPG en vue de dessus, là où le <span class="tt">LOT-01</span> a laissé le strict minimum hérité (11 types).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md354"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md356"></a>
 Périmètre</h1>
 <p>Types à ajouter dans <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;une carte (EX-LVL-002).">core::TileType</a></span>, à peu près : <span class="tt">Grass</span>, <span class="tt">Dirt</span>, <span class="tt">Sand</span>, <span class="tt">Water</span>, <span class="tt">DeepWater</span>, <span class="tt">Wall</span>, <span class="tt">Cliff</span>, <span class="tt">Bridge</span>, <span class="tt">Stairs</span>. La liste exacte se décide au contact du level design, pas d'avance.</p>
 <p>Pour <b>chaque</b> type ajouté, la chaîne complète — c'est la leçon la plus chère de l'héritage, où ajouter un type touchait « exactement la même chaîne de huit fichiers » :</p>
@@ -113,20 +113,20 @@ Périmètre</h1>
 <li><span class="tt">TileSilhouette</span> si sa matière n'occupe pas toute la case (falaises, bords d'eau, ponts) — le <span class="tt">LOT-01</span> a <b>conservé ce mécanisme vidé</b> précisément pour ce lot ;</li>
 <li>test d'aller-retour chargeur/écrivain.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md355"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md357"></a>
 Note de conception</h1>
 <p>Le <span class="tt">LOT-01</span> a supprimé les 25 types de plateforme mais gardé les 11 génériques (<span class="tt">Empty</span>, <span class="tt">Solid</span>, <span class="tt">Danger</span>, <span class="tt">Entry</span>, <span class="tt">Exit</span>, <span class="tt">Switch</span>, <span class="tt">Door</span>, <span class="tt">PressurePlate</span>, <span class="tt">Block</span>, <span class="tt">Key</span>, <span class="tt">LockedDoor</span>) : le vocabulaire de puzzle sert tel quel au RPG. Ce lot <b>ajoute</b>, il ne remplace pas.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md356"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md358"></a>
 Exigences couvertes</h1>
 <p><span class="tt">EX-EXP-*</span>, <span class="tt">EX-EDIT-*</span>, <span class="tt">EX-REN-*</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md357"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md359"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Chaque nouveau type a : un libellé fr/en, une classe de palette, un rendu procédural de repli, et un test d'aller-retour.</li>
 <li>Le jeu se lance et affiche une carte <b>sans aucun fichier d'image</b> présent.</li>
 <li><span class="tt">TILE_TYPE_COUNT</span> reste dérivé du dernier énumérateur — aucune borne recopiée à la main.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md358"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md360"></a>
 Ce que la réalisation a tranché</h1>
 <p><b>La liste retenue est exactement celle que le périmètre proposait</b> — <span class="tt">Grass</span>, <span class="tt">Dirt</span>, <span class="tt">Sand</span>, <span class="tt">Water</span>, <span class="tt">DeepWater</span>, <span class="tt">Wall</span>, <span class="tt">Cliff</span>, <span class="tt">Bridge</span>, <span class="tt">Stairs</span> — faute de level design à consulter pour en dévier. Elle couvre les trois questions qu'un auteur de carte se pose devant sa palette : ce qui se marche, ce qui arrête, ce qui fait franchir. C'est aussi le découpage de catégories retenu, à trois entrées, plutôt qu'une seule rubrique « Terrain » où l'on chercherait le pont parmi les sols.</p>
 <p><b>L'eau profonde arrête.</b> Ce n'est pas de la matière, mais rien ne permet encore de la franchir. Le mettre dans <span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span> plutôt que dans un test à part garantit que le jour où une règle de nage existera, il n'y aura <b>qu'un</b> endroit à changer — l'alternative, des « sauf si c'est de l'eau » disséminés, est exactement la dette que ce lot cherche à ne pas créer.</p>

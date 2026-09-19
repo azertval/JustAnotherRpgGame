@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>MapTexts.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/MapTexts.h"
+
+#include &lt;algorithm&gt;
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+#include &lt;system_error&gt;
+
+#include "HMI/Localization/Localization.h"
+
+namespace hmi {
+
+namespace {
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string readText(const std::filesystem::path&amp; path) {
+    std::ifstream file(path, std::ios::binary);
+    std::ostringstream buffer;
+    buffer &lt;&lt; file.rdbuf();
+    return buffer.str();
+}</span>
+
+// Les fichiers `&lt;langue&gt;.lang` du dossier, tries.
+[[nodiscard]] std::vector&lt;std::filesystem::path&gt; catalogFiles(
+<span style = "background-color:#dfd">    const std::filesystem::path&amp; directory) {
+    std::vector&lt;std::filesystem::path&gt; files;
+    std::error_code error;
+    for (auto it = std::filesystem::directory_iterator(directory, error);
+         !error &amp;&amp; it != std::filesystem::directory_iterator(); it.increment(error)) {
+        if (it-&gt;is_regular_file(error) &amp;&amp; it-&gt;path().extension() == ".lang") {
+            files.push_back(it-&gt;path());
+        }
+    }
+    std::ranges::sort(files);
+    return files;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::string mapNameKey(std::string_view mapId) {
+    std::string key = "map.";
+    key += mapId;
+    std::ranges::replace(key, '/', '.');
+    return key + ".name";
+}</span>
+
+<span style = "background-color:#dfd">std::filesystem::path localizationDirectory(const std::filesystem::path&amp; dataRoot) {
+    return dataRoot / "Localization";
+}</span>
+
+<span style = "background-color:#dfd">TranslationCatalogs loadTranslationCatalogs(const std::filesystem::path&amp; directory) {
+    TranslationCatalogs catalogs;
+    for (const std::filesystem::path&amp; file : catalogFiles(directory)) {
+        catalogs.emplace(file.stem().string(), Localization::parseCatalog(readText(file)));
+    }
+    return catalogs;
+}</span>
+
+std::vector&lt;std::string&gt; languagesMissing(const TranslationCatalogs&amp; catalogs,
+<span style = "background-color:#dfd">                                          std::string_view key) {
+    std::vector&lt;std::string&gt; missing;
+    for (const auto&amp; [language, strings] : catalogs) {
+        if (!strings.contains(std::string{key})) {
+            missing.push_back(language);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return missing;
+}</span>
+
+bool addTranslation(const std::filesystem::path&amp; directory, std::string_view key,
+<span style = "background-color:#dfd">                    std::string_view text, std::string_view copyFrom) {
+    bool written = true;
+    for (const std::filesystem::path&amp; file : catalogFiles(directory)) {
+        const std::string content = readText(file);
+        const std::unordered_map&lt;std::string, std::string&gt; strings =</span>
+            Localization::parseCatalog(content);
+<span style = "background-color:#dfd">        if (strings.contains(std::string{key})) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const auto previous =</span>
+            copyFrom.empty() ? strings.end() : strings.find(std::string{copyFrom});
+<span style = "background-color:#dfd">        std::ofstream stream(file, std::ios::binary | std::ios::app);
+        if (!content.empty() &amp;&amp; content.back() != '\n') {
+            stream &lt;&lt; '\n';</span>
+        }
+<span style = "background-color:#dfd">        stream &lt;&lt; key &lt;&lt; " = " &lt;&lt; (previous != strings.end() ? previous-&gt;second : std::string{text})</span>
+               &lt;&lt; '\n';
+<span style = "background-color:#dfd">        written = written &amp;&amp; stream.good();
+    }
+    return written;
+}</span>
+
+std::string nameMapInCatalogs(const std::filesystem::path&amp; dataRoot, std::string_view mapId,
+<span style = "background-color:#fdd">                              std::string_view text, std::string_view copyFrom) {
+    std::string key = mapNameKey(mapId);
+    return addTranslation(localizationDirectory(dataRoot), key, text, copyFrom) ? key</span>
+                                                                                : std::string{};
+<span style = "background-color:#fdd">}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

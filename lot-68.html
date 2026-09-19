@@ -97,11 +97,11 @@ $(function(){initNavTree('lot-68.html','',''); });
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 1014/1014, <span class="tt">clang-format</span>, les sept lints, cahier de test et Doxygen verts ; vérification manuelle : les huit écrans ouverts et parcourus dans l'application). Prérequis : <a class="el" href="lot-66.html" title="LOT-66 — Charte visuelle : sortir de l&#39;identité pixel art">LOT-66</a> (charte visuelle), <a class="el" href="lot-76.html" title="LOT-76 — Habillage d&#39;interface extrait des livres">LOT-76</a> (ornements tracés), <a class="el" href="lot-67.html" title="LOT-67 — Menus et vocabulaire d&#39;un RPG">LOT-67</a> (menus et vocabulaire).</p>
 <p>Exigences <b>ajoutées</b> : <a class="el" href="spec-interface-ihm.html#EX-IHM-090" title="EX-IHM-090"><span class="tt">EX-IHM-090</span></a> (châssis commun, ossature en données), <a class="el" href="spec-interface-ihm.html#EX-IHM-091" title="EX-IHM-091"><span class="tt">EX-IHM-091</span></a> (règle de superposition). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md610"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md612"></a>
 Objectif</h1>
 <p>Huit écrans manquaient au jeu, et aucun n'existait même en ébauche : fiche de personnage, inventaire et équipement, journal de quêtes, carte du monde, dialogue, marchand, tableau de la Guilde, affichage tête haute de combat.</p>
 <p>Ce lot ne les <b>remplit</b> pas — c'est le travail du <span class="tt">LOT-38</span> pour la fiche, du <span class="tt">LOT-42</span> pour la carte, du <span class="tt">LOT-45</span> pour la guilde, du <a class="el" href="lot-24.html" title="LOT-24 — IHM de combat">LOT-24</a> pour le combat. Il livre ce qu'ils ont en commun et qu'aucun ne doit réinventer : le <b>cadre</b>, la <b>navigation</b>, le <b>parcours de focus</b>, la <b>règle de superposition</b>, et l'<b>ossature</b> de chacun.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md611"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md613"></a>
 Ce que le joueur voit</h1>
 <p>« Nouvelle partie » ouvre la fiche de personnage. Le pied de page porte trois entrées permanentes — <b>Fermer</b>, <b>Écran précédent</b>, <b>Écran suivant</b> — et les rappels de touches correspondants : <span class="tt">LB/RB</span> change d'écran, <span class="tt">A</span> valide, <span class="tt">ÉCHAP</span> revient. Huit clics sur « Écran suivant » font le tour et ramènent à la fiche.</p>
 <p>Les huit écrans sont <b>vides</b>, et le montrent : chaque valeur affichée est un tiret cadratin. Ce n'est pas un oubli, c'est le périmètre — une valeur d'exemple posée dans une fiche se lirait comme un état du jeu et mentirait à la première lecture (<span class="tt">EX-IHM-072</span>).</p>
@@ -126,22 +126,22 @@ Ce que le joueur voit</h1>
 <td class="markdownTableBodyNone">Combat  </td><td class="markdownTableBodyNone">Ordre d'initiative, cible, barre d'actions  </td></tr>
 </table>
 <p>Ces champs ne sont pas inventés : ils sont <b>relevés sur les modèles déjà livrés</b> — <span class="tt"><a class="el" href="structcore_1_1CharacterSheet.html" title="La fiche d&#39;une créature jouable ou non : héros, PNJ, ennemi.">core::CharacterSheet</a></span> (<a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a>), <span class="tt"><a class="el" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1" title="Une des six caractéristiques d&#39;un personnage ou d&#39;une créature (EX-REG-010).">core::Ability</a></span> (<a class="el" href="lot-12.html" title="LOT-12 — Dés, caractéristiques, jets">LOT-12</a>), <span class="tt">core::Equipment</span> (<a class="el" href="lot-34.html" title="LOT-34 — Équipement, monnaie, objets magiques">LOT-34</a>). Une ossature qui annonce des champs que le modèle ne porte pas promet ce que le jeu ne pourra pas tenir.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md612"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md614"></a>
 L'ossature est une table, et c'est tout le lot</h1>
 <p>Le critère d'acceptation de la feuille de route disait : <em>ajouter un neuvième écran ne demande de toucher à aucun des huit</em>. Il ne se tient pas avec huit fichiers d'interface, fussent-ils bien écrits — le premier pied de page à corriger le serait huit fois, et neuf au lot suivant.</p>
 <p>L'ossature vit donc dans <span class="tt"><a class="el" href="namespacehmi.html#a74752c1a9d7b1d3e8da19eec82c397be">hmi::rpgScreens()</a></span> : une <b>table de données pures</b>, sans Qt, testable seule. Elle nomme pour chaque écran son identifiant d'objet, sa clé de titre, sa règle de superposition, et la liste de ses blocs — chacun d'un des <b>sept genres</b> que le châssis sait peindre (champs, grille, liste, prose, portrait, piste, barre d'actions). <span class="tt">hmi::RpgScreenFrame</span> ne connaît <b>aucun</b> écran par son nom : il peint ce que la table décrit.</p>
 <p>C'est une entorse assumée à la convention « la mise en page hors code », qui veut un <span class="tt">.ui</span> par écran. La mise en page reste pourtant déclarative : elle a seulement changé de format, de XML à table C++, parce que ce que ces huit écrans partagent pèse plus lourd que ce qui les distingue.</p>
 <p><b>Même règle pour la feuille de style</b> : les blocs sont habillés par <b>rôle</b> (propriété dynamique <span class="tt">rpgRole</span>), jamais par nom d'objet. Tenir dans <span class="tt">theme-identity.qss</span> la liste des blocs décrits par la table les ferait diverger au premier écran ajouté — la leçon des sections de l'écran de crédits (<a class="el" href="lot-66.html" title="LOT-66 — Charte visuelle : sortir de l&#39;identité pixel art">LOT-66</a>), et elle pèse plus lourd ici.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md613"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md615"></a>
 La règle de superposition, portée par l'écran et non par l'appelant</h1>
 <p><span class="tt">EX-IHM-091</span> : chaque écran déclare s'il <b>suspend</b> la simulation ou s'il se consulte <b>en marchant</b>. La carte et l'ATH de combat ne suspendent pas — on ouvre une carte pour savoir où l'on va sans s'arrêter, et l'ATH de combat <em>est</em> le jeu pendant un combat. Les six autres suspendent.</p>
 <p>La règle appartient à la description de l'écran parce qu'un même écran s'ouvrira depuis la pause, depuis le jeu et depuis une touche : décidée au point d'appel, elle se contredirait d'un appel à l'autre sans que rien ne le signale. <span class="tt">MainWindow</span> l'applique, il ne la redécide pas — y compris au <b>passage</b> d'un écran à l'autre, où elle peut changer.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md614"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md616"></a>
 « Nouvelle partie » : un échafaudage, et il est écrit</h1>
 <p>Cette entrée devrait ouvrir une carte. Elle n'en a aucune : le <a class="el" href="lot-01.html" title="LOT-01 — Fork, purge et remise à nu">LOT-01</a> a purgé les niveaux du jeu de plateforme, <span class="tt">demo-deplacement.json</span> n'existe pas, et le <a class="el" href="lot-67.html" title="LOT-67 — Menus et vocabulaire d&#39;un RPG">LOT-67</a> avait écrit ce constat plutôt que de le laisser découvrir. Elle chargeait donc un fichier absent.</p>
 <p>Elle ouvre désormais le <b>châssis</b>, sur la fiche de personnage. Ce n'est pas un pis-aller : huit écrans qu'aucun chemin n'atteint ne se relisent pas, ne se naviguent pas et ne se valident pas — et c'est justement pour les valider que ce lot existe. La ligne à remplacer le jour où il y aura une carte à charger est <b>une seule</b>, dans <span class="tt">MainWindow::newGame</span>, et elle le dit.</p>
 <p>Conséquence à assumer : <span class="tt">ScreenId::Game</span> et l'écran de <b>pause</b> ne sont plus atteignables depuis le menu tant que cette ligne n'est pas rendue à son usage. Ils ne sont ni retirés ni modifiés, et la table de transitions déclare déjà — et teste — l'ouverture d'un écran du RPG <b>depuis le jeu</b> et <b>depuis la pause</b>, avec le retour vers l'écran d'origine. Les entrées RPG de l'écran de pause que le <span class="tt">LOT-67</span> annonçait s'y brancheront sans rien réécrire d'autre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md615"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md617"></a>
 Trois défauts d'agencement, trouvés en regardant l'écran</h1>
 <p>Aucun n'était visible dans le code, et aucun ne l'aurait été sans ouvrir l'application :</p>
 <ul>
@@ -149,12 +149,12 @@ Trois défauts d'agencement, trouvés en regardant l'écran</h1>
 <li><b>Le bandeau de titre débordait de la fenêtre.</b> À la taille des titres d'écran, « Inventaire et équipement » et ses deux ailes réclamaient à eux seuls plus de 1280 pixels — et comme un écran ne contraint pas la fenêtre, c'est la colonne de droite qui sortait du cadre, sans qu'aucune erreur ne soit levée. Ces titres prennent la taille des titres de <b>section</b> ; les autres écrans du jeu tiennent en un ou deux mots, ceux-ci en comptent jusqu'à trois.</li>
 <li><b>Les rappels de touches imposaient leur largeur.</b> Ils l'ont perdue : une aide ne décide pas de la largeur d'une fenêtre, elle s'efface quand la place manque.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md616"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md618"></a>
 Ce que le lot ne fait pas</h1>
 <p><b>Il ne remplit aucun écran</b> — c'est le périmètre, et les quatre lots consommateurs sont nommés ci-dessus.</p>
 <p><b>Il ne peint pas la scène derrière les écrans qui se consultent en marchant.</b> Ils sont, comme Options et Crédits, des <b>pages</b> de la pile d'écrans. Le recouvrement leur reviendra quand il y aura une scène à laisser voir derrière eux : aujourd'hui, il se peindrait sur du vide.</p>
 <p><b>Il ne livre pas de planche de maquette.</b> La matière de conception de la fiche appartient au <span class="tt">LOT-38</span>, qui porte explicitement « maquette et interface » ; les sept autres écrans suivront leur lot. Ce qui est livré ici est le châssis, et il se regarde dans l'application.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md617"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md619"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Les huit écrans existent</b> et s'ouvrent, même vides. ✔</li>

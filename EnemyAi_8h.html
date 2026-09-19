@@ -171,7 +171,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>L'IA tactique : des heuristiques pondérées, déterministes, qui jouent dans les mêmes actions que le joueur (<span class="tt">LOT-23</span>, <span class="tt">EX-CBT-050</span>). </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1115"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1132"></a>
 Ce que le <em>Guide du Maître</em> en dit</h2>
 <p>Le chapitre 8, « Le combat » (PDF p. 247-255), ne donne pas de tactique aux monstres : il dit au MD <b>ce qu'il sait</b> et <b>comment il compte</b>. Ce fichier en tire ses règles, et nomme ce qu'il décide au-delà.</p>
 <ul>
@@ -181,14 +181,14 @@ Ce que le <em>Guide du Maître</em> en dit</h2>
 <li><b>La prise en tenaille</b>, règle optionnelle, donne l'avantage au corps à corps (<span class="tt"><a class="el" href="namespacecore.html#a26d6a0a3082a3c9ce76ab6958711ac13" title="Vrai si attacker, ancré en attackerAnchor, prend target en tenaille avec au moins un allié debout.">core::isFlankedFrom</a></span>) : une IA dans une arène qui la joue cherche la case d'en face.</li>
 <li><b>Le temps de réaction</b> : l'attaque d'opportunité interrompt son déclencheur ; la décision de la prendre est ici (<span class="tt"><a class="el" href="namespacecore.html#ac58007f3f78da7cfddceb7509d3f5bbc" title="Vrai si reactor, joué par profile, prend l&#39;attaque d&#39;opportunité sur mover : sa première attaque au c...">core::shouldTakeOpportunity</a></span>).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1116"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1133"></a>
 Ce que ce fichier décide, et que le Guide ne dit pas</h2>
 <p>Les <b>poids</b> : combien pèse une cible ensanglantée, une menace subie, une case à parcourir. Ce sont des données (<span class="tt">Source/Elements/Rpg/rules/behaviors.json</span>, <span class="tt">EX-VIS-007</span>), pas des constantes. Et deux garde-fous, qui sont des règles de l'IA et non des poids :</p>
 <ul>
 <li><b>Le suicide.</b> Une IA ne finit pas son tour au contact de plus d'ennemis que son profil n'en tolère (<span class="tt">toleratedThreats</span>) quand une case qui en tolère moins existait : la comparaison est <b>lexicographique</b>, l'excès d'abord, le score ensuite. Seules les attaques <b>de contact</b> comptent : un tireur couvre toute l'arène, et le compter interdirait d'approcher.</li>
 <li><b>Le blocage.</b> Une IA qui peut attaquer attaque ; une IA qui ne le peut pas <b>avance</b> vers sa cible — c'est une clé de la comparaison, avant le score, sans quoi la menace d'un round entier la tiendrait hors de portée à jamais —, en se précipitant si le chemin est long. Le prudent choisit <b>d'où</b> frapper, et <b>recule</b> après, à menace égale le moins loin possible : il ne se cache pas indéfiniment.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1117"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1134"></a>
 Déterministe, en entiers</h2>
 <p>Aucun flottant : une chance de toucher est un nombre de quatre-centièmes (le carré d'un vingtième, pour l'avantage), des dégâts moyens un nombre de demi-points, un poids un pourcentage. Les cases se parcourent par indice croissant, les cibles par identifiant croissant, et une égalité garde le premier candidat. Deux exécutions, deux compilateurs, deux modes de construction donnent le même tour. </p>
 </div></div><!-- contents -->

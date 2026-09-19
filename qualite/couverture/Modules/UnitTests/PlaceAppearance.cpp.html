@@ -31,12 +31,12 @@ constexpr std::string_view FIELD_PLACE = "place";
 constexpr std::string_view FIELD_FLOORS = "floors";
 constexpr std::string_view FIELD_RELIEF = "relief";
 
-<span style = "background-color:#fdd">[[nodiscard]] PlaceAppearanceError mapError(core::JsonReadError error) {
+<span style = "background-color:#dfd">[[nodiscard]] PlaceAppearanceError mapError(core::JsonReadError error) {
     switch (error) {</span>
         case core::JsonReadError::None:
 <span style = "background-color:#fdd">            return PlaceAppearanceError::None;</span>
         case core::JsonReadError::FileNotFound:
-<span style = "background-color:#fdd">            return PlaceAppearanceError::FileNotFound;</span>
+<span style = "background-color:#dfd">            return PlaceAppearanceError::FileNotFound;</span>
         case core::JsonReadError::ParseError:
 <span style = "background-color:#fdd">            return PlaceAppearanceError::ParseError;</span>
         case core::JsonReadError::UnsupportedVersion:
@@ -44,10 +44,10 @@ constexpr std::string_view FIELD_RELIEF = "relief";
         case core::JsonReadError::MalformedStructure:
 <span style = "background-color:#fdd">            return PlaceAppearanceError::MalformedStructure;</span>
     }
-<span style = "background-color:#fdd">    return PlaceAppearanceError::MalformedStructure;
-}</span>
+<span style = "background-color:#fdd">    return PlaceAppearanceError::MalformedStructure;</span>
+<span style = "background-color:#dfd">}</span>
 
-<span style = "background-color:#fdd">[[nodiscard]] PlaceAppearanceResult failure(std::string message, PlaceAppearanceError error) {
+<span style = "background-color:#dfd">[[nodiscard]] PlaceAppearanceResult failure(std::string message, PlaceAppearanceError error) {
     return PlaceAppearanceResult{.appearance = {}, .error = error, .message = std::move(message)};
 }</span>
 
@@ -153,8 +153,8 @@ constexpr std::string_view FIELD_RELIEF = "relief";
 }</span>
 
 <span style = "background-color:#dfd">PlaceAppearanceResult PlaceAppearance::fromDocument(const core::JsonDocument&amp; document) {
-    if (!document.ok()) {</span>
-<span style = "background-color:#fdd">        return failure(document.message, mapError(document.error));</span>
+    if (!document.ok()) {
+        return failure(document.message, mapError(document.error));</span>
     }
 <span style = "background-color:#dfd">    PlaceAppearance appearance;
     const auto place = document.root.find(FIELD_PLACE);

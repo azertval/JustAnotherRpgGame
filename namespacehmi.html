@@ -107,6 +107,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un rectangle de cases, bornes <b>incluses</b> ; vide si <span class="tt"><a class="el" href="structhmi_1_1CellRange.html#abfadb34d360c1d2d238889c8981cee88" title="Dernière colonne couverte, incluse.">lastColumn</a> &lt; <a class="el" href="structhmi_1_1CellRange.html#a99e14bcb9085456e9a2c6e60f73cb06b" title="Première colonne couverte.">firstColumn</a></span>.  <a href="structhmi_1_1CellRange.html#details">More...</a><br /></td></tr>
 <tr class="memitem:IsoBandOpacity" id="r_IsoBandOpacity"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1IsoBandOpacity.html">IsoBandOpacity</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'opacité de chaque bande de la scène iso ; 0 : la bande n'est pas peinte.  <a href="structhmi_1_1IsoBandOpacity.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ContentContext" id="r_ContentContext"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ContentContext.html">ContentContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce contre quoi toutes les cartes se contrôlent : lu une fois, pour toutes.  <a href="structhmi_1_1ContentContext.html#details">More...</a><br /></td></tr>
 <tr class="memitem:FileFingerprint" id="r_FileFingerprint"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FileFingerprint.html">FileFingerprint</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empreinte d'un fichier : existence, taille et condensé du contenu.  <a href="structhmi_1_1FileFingerprint.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EditContextTarget" id="r_EditContextTarget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a></td></tr>
@@ -171,6 +173,14 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le bilan du contrôle de toutes les cartes.  <a href="structhmi_1_1MapCheckReport.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MapMigration" id="r_MapMigration"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapMigration.html">MapMigration</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la migration d'une carte a produit.  <a href="structhmi_1_1MapMigration.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ProjectEdit" id="r_ProjectEdit"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ProjectEdit.html">ProjectEdit</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une écriture d'un plan : le texte d'un fichier, ou son retrait.  <a href="structhmi_1_1ProjectEdit.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Citation" id="r_Citation"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1Citation.html">Citation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un endroit où une chose est nommée : « qui cite ceci ? ».  <a href="structhmi_1_1Citation.html#details">More...</a><br /></td></tr>
+<tr class="memitem:RefactorPlan" id="r_RefactorPlan"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une opération récrira, calculé sans rien écrire.  <a href="structhmi_1_1RefactorPlan.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PieceTableResult" id="r_PieceTableResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PieceTableResult.html">PieceTableResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une table de correspondance lue d'un fichier.  <a href="structhmi_1_1PieceTableResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MirrorAxis" id="r_MirrorAxis"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MirrorAxis.html">MirrorAxis</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'axe du miroir : la diagonale <span class="tt">colonne − ligne = <a class="el" href="structhmi_1_1MirrorAxis.html#abdc1e7a5ac5c4383eac8d5545f55b132">offset</a></span>, verticale à l'écran iso.  <a href="structhmi_1_1MirrorAxis.html#details">More...</a><br /></td></tr>
 <tr class="memitem:StrokeContext" id="r_StrokeContext"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1StrokeContext.html">StrokeContext</a></td></tr>
@@ -223,6 +233,12 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La mini-carte : l'image de la carte, le cadre de la vue, et le clic qui la déplace.  <a href="classhmi_1_1MiniMap.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PalettePanel" id="r_PalettePanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PalettePanel.html">PalettePanel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La palette : <b>la planche du lieu</b> d'abord, les types en repli (<span class="tt">LOT-EDITOR-03</span>).  <a href="classhmi_1_1PalettePanel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ProblemsPanel" id="r_ProblemsPanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ProblemsPanel.html">ProblemsPanel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La liste des constats de <span class="tt"><a class="el" href="#a6e21da09e85978f4e71f38116267e04a" title="Contrôle toutes les cartes de &lt;dataRoot&gt;/Levels, sous-dossiers compris, puis les références entre ell...">hmi::checkAllMaps</a></span> — ceux que <span class="tt">LevelEditor --check</span> écrit en CI — et le chemin vers chacun.  <a href="classhmi_1_1ProblemsPanel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PieceReplacementChoice" id="r_PieceReplacementChoice"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PieceReplacementChoice.html">PieceReplacementChoice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que « Replace piece » a choisi.  <a href="structhmi_1_1PieceReplacementChoice.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SceneChangeChoice" id="r_SceneChangeChoice"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneChangeChoice.html">SceneChangeChoice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que « Change sheet » a choisi : le lieu, et la table de correspondance.  <a href="structhmi_1_1SceneChangeChoice.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SceneImages" id="r_SceneImages"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SceneImages.html">SceneImages</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cache des images du canevas : ce que <span class="tt"><a class="el" href="#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="#a634bad2a915ba6f49caae2a158329bb3" title="Compose le lieu dans un tampon réutilisé.">hmi::composeWorldScene</a></span> adresse par chemin.  <a href="classhmi_1_1SceneImages.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldGraphView" id="r_WorldGraphView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldGraphView.html">WorldGraphView</a></td></tr>
@@ -447,6 +463,8 @@ Classes</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:ad45953c7acf96290259f1333570fda4d" id="r_ad45953c7acf96290259f1333570fda4d"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ad45953c7acf96290259f1333570fda4d">LayerSlot</a> = std::optional&lt;std::size_t&gt;</td></tr>
 <tr class="memdesc:ad45953c7acf96290259f1333570fda4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désignation d'une couche dans l'éditeur : un rang de <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a6532974328bb6e474d5b91d93f34c373">core::LevelDraft::layers()</a></span>, ou <span class="tt">std::nullopt</span> pour la grille racine — la collision, ou la grille unique d'une carte sans couche visuelle.  <br /></td></tr>
+<tr class="memitem:a0769b06e818f591ce4d215f139e55d0b" id="r_a0769b06e818f591ce4d215f139e55d0b"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a0769b06e818f591ce4d215f139e55d0b">TranslationCatalogs</a></td></tr>
+<tr class="memdesc:a0769b06e818f591ce4d215f139e55d0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les catalogues d'un dossier : langue (nom du fichier sans <span class="tt">.lang</span>) → clé → texte.  <br /></td></tr>
 <tr class="memitem:ad39e4163a49fc5ba81aab9827d83118e" id="r_ad39e4163a49fc5ba81aab9827d83118e"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ad39e4163a49fc5ba81aab9827d83118e">QuadOpacity</a> = std::function&lt;float(const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a>&amp;)&gt;</td></tr>
 <tr class="memdesc:ad39e4163a49fc5ba81aab9827d83118e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opacité supplémentaire d'une primitive, décidée par l'appelant (calques masqués, grisés, reliefs en transparence) ; 0 ou moins : la primitive n'est pas peinte.  <br /></td></tr>
 <tr class="memitem:a979f7ffd7c87877cb1f65f0d08e4419d" id="r_a979f7ffd7c87877cb1f65f0d08e4419d"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> = void*</td></tr>
@@ -844,6 +862,9 @@ Functions</h2></td></tr>
 <tr class="memdesc:a191e62e067f4684ef2f0d66f57a397ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines de la formation d'une rencontre (<span class="tt">LOT-EDITOR-05</span>) : chaque combattant sur sa case, par la figurine de l'atelier des monstres qui porte l'identifiant de sa créature (<span class="tt">Monsters/&lt;créature&gt;</span>, <span class="tt">LOT-93</span>, <span class="tt">EX-EDIT-071</span>).  <br /></td></tr>
 <tr class="memitem:a271254d23a253fefeed273ecba888f0c" id="r_a271254d23a253fefeed273ecba888f0c"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a271254d23a253fefeed273ecba888f0c">cellPieces</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell)</td></tr>
 <tr class="memdesc:a271254d23a253fefeed273ecba888f0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pièces d'une case, pour la barre d'état : <span class="tt">street · wall-left</span>, <span class="tt">street</span>, ou rien.  <br /></td></tr>
+<tr class="memitem:aa5077b41d16fae5444bba01296af35c2" id="r_aa5077b41d16fae5444bba01296af35c2"><td class="memItemLeft"><a class="el" href="structhmi_1_1ContentContext.html">ContentContext</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa5077b41d16fae5444bba01296af35c2">loadContentContext</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
+<tr class="memitem:a57bbb524f453684c3c946474ef6a3ea9" id="r_a57bbb524f453684c3c946474ef6a3ea9"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a57bbb524f453684c3c946474ef6a3ea9">checkMapContent</a> (std::string_view mapId, const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const <a class="el" href="structhmi_1_1ContentContext.html">ContentContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a57bbb524f453684c3c946474ef6a3ea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contrôle le contenu d'une carte lue.  <br /></td></tr>
 <tr class="memitem:aef264a6aa52e500e958603c000aaf053" id="r_aef264a6aa52e500e958603c000aaf053"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#aef264a6aa52e500e958603c000aaf053">resolveDataRoot</a> (const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;<a class="el" href="#a18648161d8a6c752202b6034613a947b">executableDirectory</a>, const std::filesystem::path &amp;sourceData)</td></tr>
 <tr class="memdesc:aef264a6aa52e500e958603c000aaf053"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit la racine des données.  <br /></td></tr>
 <tr class="memitem:afd2e3832814f32d1a4298bb2a32b6586" id="r_afd2e3832814f32d1a4298bb2a32b6586"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afd2e3832814f32d1a4298bb2a32b6586">setEditorDataRoot</a> (std::filesystem::path root)</td></tr>
@@ -932,7 +953,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a35165b3b99c6aacab4c7d7c907983f15" id="r_a35165b3b99c6aacab4c7d7c907983f15"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a35165b3b99c6aacab4c7d7c907983f15">scenePlaces</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
 <tr class="memitem:ae7b3f6f5d7f2751645dc12ed67e74af8" id="r_ae7b3f6f5d7f2751645dc12ed67e74af8"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ae7b3f6f5d7f2751645dc12ed67e74af8">formatFinding</a> (const <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &amp;finding)</td></tr>
 <tr class="memitem:a42fc6546d215eea2d52d55f917655fd4" id="r_a42fc6546d215eea2d52d55f917655fd4"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a42fc6546d215eea2d52d55f917655fd4">checkMapFile</a> (std::string_view mapId, const std::filesystem::path &amp;file, const std::filesystem::path &amp;dataRoot)</td></tr>
-<tr class="memdesc:a42fc6546d215eea2d52d55f917655fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contrôle une carte, lue depuis son fichier.  <br /></td></tr>
+<tr class="memdesc:a42fc6546d215eea2d52d55f917655fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comme ci-dessus, le contexte étant lu sous <code class="param">dataRoot</code> pour cette seule carte.  <br /></td></tr>
+<tr class="memitem:ac584a0ea44e14690221c7e410a253862" id="r_ac584a0ea44e14690221c7e410a253862"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac584a0ea44e14690221c7e410a253862">checkMapFile</a> (std::string_view mapId, const std::filesystem::path &amp;file, const std::filesystem::path &amp;dataRoot, const <a class="el" href="structhmi_1_1ContentContext.html">ContentContext</a> &amp;context)</td></tr>
+<tr class="memdesc:ac584a0ea44e14690221c7e410a253862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contrôle une carte, lue depuis son fichier : son format, puis son contenu.  <br /></td></tr>
 <tr class="memitem:a6e21da09e85978f4e71f38116267e04a" id="r_a6e21da09e85978f4e71f38116267e04a"><td class="memItemLeft"><a class="el" href="structhmi_1_1MapCheckReport.html">MapCheckReport</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6e21da09e85978f4e71f38116267e04a">checkAllMaps</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
 <tr class="memdesc:a6e21da09e85978f4e71f38116267e04a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contrôle toutes les cartes de <span class="tt">&lt;dataRoot&gt;/Levels</span>, sous-dossiers compris, puis les références entre elles.  <br /></td></tr>
 <tr class="memitem:a1644ea52edad99de10786aa95605fb5b" id="r_a1644ea52edad99de10786aa95605fb5b"><td class="memItemLeft"><a class="el" href="structhmi_1_1MapMigration.html">MapMigration</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1644ea52edad99de10786aa95605fb5b">migrateLevel</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const <a class="el" href="structhmi_1_1PlaceAssets.html">PlaceAssets</a> &amp;assets)</td></tr>
@@ -941,6 +964,19 @@ Functions</h2></td></tr>
 <tr class="memdesc:a856d281d19a2bb61819bed1b54cd3eb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit <code class="param">file</code> et le migre, le lieu étant cherché sous <code class="param">dataRoot</code>.  <br /></td></tr>
 <tr class="memitem:a75e0715b710f1ffbe1d6392719cb07c2" id="r_a75e0715b710f1ffbe1d6392719cb07c2"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a75e0715b710f1ffbe1d6392719cb07c2">runMapCommand</a> (const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;defaultDataRoot, std::string &amp;output)</td></tr>
 <tr class="memdesc:a75e0715b710f1ffbe1d6392719cb07c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'entrée sans fenêtre de l'éditeur (décision D9) : <span class="tt">--check</span>, <span class="tt">--migrate</span> et <span class="tt">--apply</span> (<span class="tt">--render</span>, qui peint, vit du côté de l'IHM : <span class="tt"><a class="el" href="#ad551059312355ed10cda2f2300d1a6b9" title="L&#39;entrée --render de l&#39;éditeur, avant toute construction de fenêtre.">hmi::runRenderCommand</a></span>).  <br /></td></tr>
+<tr class="memitem:a74586cd412a390e18f084267c8de1d1e" id="r_a74586cd412a390e18f084267c8de1d1e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a74586cd412a390e18f084267c8de1d1e">formatCitation</a> (const <a class="el" href="structhmi_1_1Citation.html">Citation</a> &amp;citation, const std::filesystem::path &amp;dataRoot)</td></tr>
+<tr class="memitem:a883391e9cf300c6d9ac2eeb7e694f54e" id="r_a883391e9cf300c6d9ac2eeb7e694f54e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a883391e9cf300c6d9ac2eeb7e694f54e">applyRefactorPlan</a> (const <a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> &amp;plan, std::string &amp;error)</td></tr>
+<tr class="memdesc:a883391e9cf300c6d9ac2eeb7e694f54e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit le plan : les textes d'abord (dossiers créés au besoin), les retraits ensuite ; un dossier de cartes vidé par un déplacement est retiré.  <br /></td></tr>
+<tr class="memitem:aa0495229fd9a33ac476720e70af9b973" id="r_aa0495229fd9a33ac476720e70af9b973"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa0495229fd9a33ac476720e70af9b973">runRefactorCommand</a> (const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;dataRoot, std::string &amp;output)</td></tr>
+<tr class="memdesc:aa0495229fd9a33ac476720e70af9b973"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'entrée sans fenêtre (décision D9) :  <br /></td></tr>
+<tr class="memitem:a4ad11ae6ed49c312276185ea81e4f3da" id="r_a4ad11ae6ed49c312276185ea81e4f3da"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a4ad11ae6ed49c312276185ea81e4f3da">mapNameKey</a> (std::string_view mapId)</td></tr>
+<tr class="memitem:a5b9f2de86068618da8115de956d81bfa" id="r_a5b9f2de86068618da8115de956d81bfa"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a5b9f2de86068618da8115de956d81bfa">localizationDirectory</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
+<tr class="memitem:a900f71ec83ddb4e2dc75af7f6beaece1" id="r_a900f71ec83ddb4e2dc75af7f6beaece1"><td class="memItemLeft"><a class="el" href="#a0769b06e818f591ce4d215f139e55d0b">TranslationCatalogs</a>&#160;</td><td class="memItemRight"><a class="el" href="#a900f71ec83ddb4e2dc75af7f6beaece1">loadTranslationCatalogs</a> (const std::filesystem::path &amp;directory)</td></tr>
+<tr class="memitem:a1bf4f828e030488522fc38306267bd38" id="r_a1bf4f828e030488522fc38306267bd38"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1bf4f828e030488522fc38306267bd38">languagesMissing</a> (const <a class="el" href="#a0769b06e818f591ce4d215f139e55d0b">TranslationCatalogs</a> &amp;catalogs, std::string_view key)</td></tr>
+<tr class="memitem:a074c259298bf074bde017244902797da" id="r_a074c259298bf074bde017244902797da"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a074c259298bf074bde017244902797da">addTranslation</a> (const std::filesystem::path &amp;directory, std::string_view key, std::string_view text, std::string_view copyFrom={})</td></tr>
+<tr class="memdesc:a074c259298bf074bde017244902797da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute <span class="tt">key = …</span> à la fin de chaque catalogue de <code class="param">directory</code> qui n'a pas <code class="param">key</code>.  <br /></td></tr>
+<tr class="memitem:a2035652c191518aad1101b4f75f9bda1" id="r_a2035652c191518aad1101b4f75f9bda1"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a2035652c191518aad1101b4f75f9bda1">nameMapInCatalogs</a> (const std::filesystem::path &amp;dataRoot, std::string_view mapId, std::string_view text, std::string_view copyFrom={})</td></tr>
+<tr class="memdesc:a2035652c191518aad1101b4f75f9bda1"><td class="mdescLeft">&#160;</td><td class="mdescRight">La clé du nom de la carte <code class="param">mapId</code>, ajoutée aux catalogues de <code class="param">dataRoot</code>.  <br /></td></tr>
 <tr class="memitem:a13d0948bf5c40088ff4dc6eb01fd319c" id="r_a13d0948bf5c40088ff4dc6eb01fd319c"><td class="memItemLeft"><a class="el" href="structhmi_1_1MirrorAxis.html">MirrorAxis</a>&#160;</td><td class="memItemRight"><a class="el" href="#a13d0948bf5c40088ff4dc6eb01fd319c">mirrorAxisThrough</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell) noexcept</td></tr>
 <tr class="memitem:ac0ae9e678bcf9c742436127d81b94b40" id="r_ac0ae9e678bcf9c742436127d81b94b40"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac0ae9e678bcf9c742436127d81b94b40">mirrorCell</a> (const <a class="el" href="structhmi_1_1MirrorAxis.html">MirrorAxis</a> &amp;axis, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell) noexcept</td></tr>
 <tr class="memitem:aa976a1e8cdd376c6e1142fad5214e286" id="r_aa976a1e8cdd376c6e1142fad5214e286"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aa976a1e8cdd376c6e1142fad5214e286">mirrorPieceName</a> (const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> *manifest, std::string_view piece)</td></tr>
@@ -992,6 +1028,13 @@ Functions</h2></td></tr>
 <tr class="memdesc:ad9167a1055ccb957be12eecf083c3054"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">level</code> en isométrie, hors écran.  <br /></td></tr>
 <tr class="memitem:ad551059312355ed10cda2f2300d1a6b9" id="r_ad551059312355ed10cda2f2300d1a6b9"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad551059312355ed10cda2f2300d1a6b9">runRenderCommand</a> (const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;defaultDataRoot, std::string &amp;output)</td></tr>
 <tr class="memdesc:ad551059312355ed10cda2f2300d1a6b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'entrée <span class="tt">--render</span> de l'éditeur, avant toute construction de fenêtre.  <br /></td></tr>
+<tr class="memitem:a5457af8d03379837aef8543c9fa07b7c" id="r_a5457af8d03379837aef8543c9fa07b7c"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5457af8d03379837aef8543c9fa07b7c">showCitations</a> (QWidget *parent, const QString &amp;title, const std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt; &amp;citations, const std::filesystem::path &amp;dataRoot)</td></tr>
+<tr class="memdesc:a5457af8d03379837aef8543c9fa07b7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Montre les citations de <code class="param">citations</code>.  <br /></td></tr>
+<tr class="memitem:a1c3e414e3b19cf19f193307c40e5b8f6" id="r_a1c3e414e3b19cf19f193307c40e5b8f6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1c3e414e3b19cf19f193307c40e5b8f6">confirmPlan</a> (QWidget *parent, const QString &amp;title, const <a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> &amp;plan, const std::filesystem::path &amp;dataRoot)</td></tr>
+<tr class="memitem:ae292dc37cec7c5ad714f84072475fd18" id="r_ae292dc37cec7c5ad714f84072475fd18"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1PieceReplacementChoice.html">PieceReplacementChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae292dc37cec7c5ad714f84072475fd18">askPieceReplacement</a> (QWidget *parent, const std::vector&lt; std::string &gt; &amp;cited, const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> &amp;sheet)</td></tr>
+<tr class="memdesc:ae292dc37cec7c5ad714f84072475fd18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande quelle pièce remplacer, et par laquelle.  <br /></td></tr>
+<tr class="memitem:a9340f6e1b3f43febd69dcc101434fb1d" id="r_a9340f6e1b3f43febd69dcc101434fb1d"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1SceneChangeChoice.html">SceneChangeChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9340f6e1b3f43febd69dcc101434fb1d">askSceneChange</a> (QWidget *parent, const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers, const std::filesystem::path &amp;dataRoot, const std::string &amp;currentPlace)</td></tr>
+<tr class="memdesc:a9340f6e1b3f43febd69dcc101434fb1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande la nouvelle planche, et pour chaque pièce que la carte pose, celle qui la remplace : la table proposée (<span class="tt"><a class="el" href="#a2e091b55877d7aecd5436fad2ee8f474" title="La table que l&#39;éditeur propose pour passer layers à la planche target : chaque pièce citée va à la pi...">hmi::proposedPieceTable</a></span>) d'abord, qu'on corrige.  <br /></td></tr>
 <tr class="memitem:ab7a286078c3b760b7c7bcd400c3efc93" id="r_ab7a286078c3b760b7c7bcd400c3efc93"><td class="memItemLeft">const QImage *&#160;</td><td class="memItemRight"><a class="el" href="#ab7a286078c3b760b7c7bcd400c3efc93">sceneImageOf</a> (<a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> handle) noexcept</td></tr>
 <tr class="memitem:a13d39d2941050cdcde712bd03062a037" id="r_a13d39d2941050cdcde712bd03062a037"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a13d39d2941050cdcde712bd03062a037">paintComposedScene</a> (QPainter &amp;painter, const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const std::optional&lt; <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &gt; &amp;visible=std::nullopt, const <a class="el" href="#ad39e4163a49fc5ba81aab9827d83118e">QuadOpacity</a> &amp;opacity={})</td></tr>
 <tr class="memdesc:a13d39d2941050cdcde712bd03062a037"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint <code class="param">scene</code> dans <code class="param">painter</code>, dont la transformation porte déjà le cadrage (unités monde vers pixels).  <br /></td></tr>
@@ -1156,6 +1199,28 @@ Functions</h2></td></tr>
 <tr class="memitem:ab6cae0930fa7f6fecf4d383e6b80ed39" id="r_ab6cae0930fa7f6fecf4d383e6b80ed39"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab6cae0930fa7f6fecf4d383e6b80ed39">ruleLabel</a> (std::string_view key, const std::string &amp;language)</td></tr>
 <tr class="memdesc:ab6cae0930fa7f6fecf4d383e6b80ed39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition.  <br /></td></tr>
 <tr class="memitem:a7d20e45b3534ac88b3b7a1ad870ddfeb" id="r_a7d20e45b3534ac88b3b7a1ad870ddfeb"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a7d20e45b3534ac88b3b7a1ad870ddfeb">activeLanguage</a> ()</td></tr>
+<tr id="func-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Qui cite ceci ?</div></td></tr>
+<tr class="memitem:a9e883d27c858a688f03fb82107cbb826" id="r_a9e883d27c858a688f03fb82107cbb826"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9e883d27c858a688f03fb82107cbb826">citationsOfMap</a> (const std::filesystem::path &amp;dataRoot, std::string_view mapId)</td></tr>
+<tr class="memitem:abab76a12c8660bff3eeba4f44e7f488f" id="r_abab76a12c8660bff3eeba4f44e7f488f"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abab76a12c8660bff3eeba4f44e7f488f">citationsOfArrival</a> (const std::filesystem::path &amp;dataRoot, std::string_view mapId, std::string_view arrival)</td></tr>
+<tr class="memitem:a6433401a8bdd2dfa3b1209c92df3f776" id="r_a6433401a8bdd2dfa3b1209c92df3f776"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6433401a8bdd2dfa3b1209c92df3f776">citationsOfEntity</a> (const std::filesystem::path &amp;dataRoot, std::string_view mapId, std::string_view entityId)</td></tr>
+<tr class="memitem:ad8039f7a46143bef6da7de82c1a2b706" id="r_ad8039f7a46143bef6da7de82c1a2b706"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad8039f7a46143bef6da7de82c1a2b706">citationsOfPiece</a> (const std::filesystem::path &amp;dataRoot, std::string_view piece)</td></tr>
+<tr id="func-members-1" class="groupHeader"><td colspan="2"><div class="groupHeader">Renommer</div></td></tr>
+<tr class="memitem:a43197e19f5f5d84456fbc0ec9a7d9c86" id="r_a43197e19f5f5d84456fbc0ec9a7d9c86"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="#a43197e19f5f5d84456fbc0ec9a7d9c86">planRenameMap</a> (const std::filesystem::path &amp;dataRoot, std::string_view oldId, std::string_view newId)</td></tr>
+<tr class="memdesc:a43197e19f5f5d84456fbc0ec9a7d9c86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme la carte <code class="param">oldId</code> en <code class="param">newId</code> — un autre dossier est permis (<span class="tt">coliseum</span> → <span class="tt">capital/coliseum</span>).  <br /></td></tr>
+<tr class="memitem:a5f73dc68dbcc5745914ce5e95a78bb2b" id="r_a5f73dc68dbcc5745914ce5e95a78bb2b"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5f73dc68dbcc5745914ce5e95a78bb2b">planRenameArrival</a> (const std::filesystem::path &amp;dataRoot, std::string_view mapId, std::string_view oldName, std::string_view newName)</td></tr>
+<tr class="memdesc:a5f73dc68dbcc5745914ce5e95a78bb2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme le point d'arrivée <code class="param">oldName</code> de <code class="param">mapId</code>, et ce qui le cite.  <br /></td></tr>
+<tr class="memitem:ab822e7d58bc19bd2b2d86e8f5cf5575f" id="r_ab822e7d58bc19bd2b2d86e8f5cf5575f"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab822e7d58bc19bd2b2d86e8f5cf5575f">planRenameEntityId</a> (const std::filesystem::path &amp;dataRoot, std::string_view mapId, std::string_view oldId, std::string_view newId)</td></tr>
+<tr class="memdesc:ab822e7d58bc19bd2b2d86e8f5cf5575f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme l'entité <span class="tt">mapId#oldId</span> en <code class="param">newId</code>, et ce qui la cite.  <br /></td></tr>
+<tr id="func-members-2" class="groupHeader"><td colspan="2"><div class="groupHeader">Remplacer, changer de planche</div></td></tr>
+<tr class="memitem:abfd98fd3827a2fc0a88db80648a18b59" id="r_abfd98fd3827a2fc0a88db80648a18b59"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="#abfd98fd3827a2fc0a88db80648a18b59">planReplacePiece</a> (const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps)</td></tr>
+<tr class="memdesc:abfd98fd3827a2fc0a88db80648a18b59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplace la pièce <code class="param">from</code> par <code class="param">to</code>, sur les cartes <code class="param">maps</code> (toutes celles qui la posent si la liste est vide), par <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#afe371b92fcdac56ae41550ee9eef6c45" title="Renomme, sur toutes les couches visuelles, chaque pièce que renaming nomme (LOT-EDITOR-14,...">core::LevelDraft::replacePieces</a></span>.  <br /></td></tr>
+<tr class="memitem:a2e091b55877d7aecd5436fad2ee8f474" id="r_a2e091b55877d7aecd5436fad2ee8f474"><td class="memItemLeft"><a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2e091b55877d7aecd5436fad2ee8f474">proposedPieceTable</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers, const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> &amp;target)</td></tr>
+<tr class="memdesc:a2e091b55877d7aecd5436fad2ee8f474"><td class="mdescLeft">&#160;</td><td class="mdescRight">La table que l'éditeur propose pour passer <code class="param">layers</code> à la planche <code class="param">target</code> : chaque pièce citée va à la pièce de même nom — ou dont elle est un ancien nom (<span class="tt">aliases</span>), sous son nom courant.  <br /></td></tr>
+<tr class="memitem:a0377bf0efd1edea1d227241afc05856a" id="r_a0377bf0efd1edea1d227241afc05856a"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0377bf0efd1edea1d227241afc05856a">piecesMissingFrom</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers, const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a> &amp;table, const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> &amp;target)</td></tr>
+<tr class="memitem:abd8448903deb381b104ac15a93c940d5" id="r_abd8448903deb381b104ac15a93c940d5"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="#abd8448903deb381b104ac15a93c940d5">planChangeScene</a> (const std::filesystem::path &amp;dataRoot, std::string_view mapId, std::string_view place, const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a> &amp;table)</td></tr>
+<tr class="memdesc:abd8448903deb381b104ac15a93c940d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait passer la carte <code class="param">mapId</code> à la planche du lieu <code class="param">place</code>, par <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#aacc7771e216fb566455fff8e416eef9c" title="Fait passer la carte à la planche du lieu place (LOT-EDITOR-14), en un pas : la propriété scene des c...">core::LevelDraft::changeScene</a></span> : la table proposée, que <code class="param">table</code> complète ou corrige.  <br /></td></tr>
+<tr class="memitem:ad88f7ff4876e7912263fe9021f6c6e89" id="r_ad88f7ff4876e7912263fe9021f6c6e89"><td class="memItemLeft"><a class="el" href="structhmi_1_1PieceTableResult.html">PieceTableResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad88f7ff4876e7912263fe9021f6c6e89">readPieceTable</a> (const std::filesystem::path &amp;file)</td></tr>
+<tr class="memdesc:ad88f7ff4876e7912263fe9021f6c6e89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit une table de correspondance : <span class="tt">{"format": "jadg-piece-table", "version": 1, "pieces": {"ancien": "nouveau"}}</span>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -1181,6 +1246,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:a444bc34d9bb51def7585ca8f530bf2b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opacité par défaut de la collision <b>par-dessus</b> des couches visuelles : assez pour voir où l'on bute, assez peu pour voir le sol dessous.  <br /></td></tr>
 <tr class="memitem:a9d005a8117089b54f18763e2b17e08f6" id="r_a9d005a8117089b54f18763e2b17e08f6"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a9d005a8117089b54f18763e2b17e08f6">DIMMED_LAYER_OPACITY</a> = 0.3F</td></tr>
 <tr class="memdesc:a9d005a8117089b54f18763e2b17e08f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opacité d'une couche <b>grisée</b> : assez pour s'y repérer, assez peu pour ne pas la confondre avec celle qu'on peint (<span class="tt">LOT-EDITOR-02</span>, phase 3).  <br /></td></tr>
+<tr class="memitem:a1135a39f5fbbc5c19b881d5f0f981453" id="r_a1135a39f5fbbc5c19b881d5f0f981453"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a1135a39f5fbbc5c19b881d5f0f981453">CITY_BLOCK_KEY_PREFIX</a> = &quot;city_block.&quot;</td></tr>
+<tr class="memdesc:a1135a39f5fbbc5c19b881d5f0f981453"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le préfixe de clé du nom d'un îlot, suivi de son nom (<span class="tt">city_block.parvis</span>).  <br /></td></tr>
 <tr class="memitem:af5e60955bb4306a6795b8f4d69ab310b" id="r_af5e60955bb4306a6795b8f4d69ab310b"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af5e60955bb4306a6795b8f4d69ab310b">FEET_PER_CELL</a> = 5</td></tr>
 <tr class="memdesc:af5e60955bb4306a6795b8f4d69ab310b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de pieds par case : la règle du Manuel des Joueurs (« Jouer sur un quadrillage »).  <br /></td></tr>
 <tr class="memitem:af04ce56b73b71704b41ee6d8cfe4e2e2" id="r_af04ce56b73b71704b41ee6d8cfe4e2e2"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#af04ce56b73b71704b41ee6d8cfe4e2e2">PANEL_COUNT</a> = 4</td></tr>
@@ -1333,6 +1400,24 @@ Variables</h2></td></tr>
 
 <p>Identité <b>opaque</b> d'une texture liée, du point de vue de la composition. </p>
 <p>La composition du rendu ne fait que <b>comparer</b> et <b>regrouper</b> des textures ; elle n'a jamais besoin d'en connaître le type Direct3D. Ce typage volontairement opaque permet de la garder libre de toute dépendance GPU (et donc testable sans carte, <span class="tt">EX-NFR-004</span>) : côté soumission, <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence et échantillonnage nearest (pixel ar...">hmi::SpriteBatch</a></span> reconvertit la valeur en <span class="tt">QRhiTexture*</span>, seule couche qui en connaisse le type réel. Une valeur nulle désigne « aucune texture liée ». </p>
+
+</div>
+</div>
+<a id="a0769b06e818f591ce4d215f139e55d0b" name="a0769b06e818f591ce4d215f139e55d0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0769b06e818f591ce4d215f139e55d0b">&#9670;&#160;</a></span>TranslationCatalogs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a0769b06e818f591ce4d215f139e55d0b">hmi::TranslationCatalogs</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"> </div>
+<div class="line">std::map&lt;std::string, std::unordered_map&lt;std::string, std::string&gt;, std::less&lt;&gt;&gt;</div>
+</div><!-- fragment -->
+<p>Les catalogues d'un dossier : langue (nom du fichier sans <span class="tt">.lang</span>) → clé → texte. </p>
 
 </div>
 </div>
@@ -2532,6 +2617,49 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a074c259298bf074bde017244902797da" name="a074c259298bf074bde017244902797da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a074c259298bf074bde017244902797da">&#9670;&#160;</a></span>addTranslation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::addTranslation </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>directory</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>key</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>text</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>copyFrom</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ajoute <span class="tt">key = …</span> à la fin de chaque catalogue de <code class="param">directory</code> qui n'a pas <code class="param">key</code>. </p>
+<p>Chaque catalogue reçoit son texte de <code class="param">copyFrom</code> s'il a cette clé — une carte renommée garde ses traductions —, sinon <code class="param">text</code>, le même dans toutes les langues : c'est un nom propre que l'auteur traduira ensuite. Un catalogue qui a déjà la clé n'est pas touché ; l'ancienne clé reste.</p>
+<dl class="section return"><dt>Returns</dt><dd>Faux si un catalogue n'a pas pu s'écrire. </dd></dl>
+
+</div>
+</div>
 <a id="adc16b2d32ccdf3518ee030c1dc65efc3" name="adc16b2d32ccdf3518ee030c1dc65efc3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adc16b2d32ccdf3518ee030c1dc65efc3">&#9670;&#160;</a></span>advanceArenaAnimation()</h2>
 
@@ -2839,6 +2967,38 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a883391e9cf300c6d9ac2eeb7e694f54e" name="a883391e9cf300c6d9ac2eeb7e694f54e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a883391e9cf300c6d9ac2eeb7e694f54e">&#9670;&#160;</a></span>applyRefactorPlan()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::applyRefactorPlan </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>plan</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>error</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écrit le plan : les textes d'abord (dossiers créés au besoin), les retraits ensuite ; un dossier de cartes vidé par un déplacement est retiré. </p>
+<dl class="section return"><dt>Returns</dt><dd>Faux, avec <code class="param">error</code>, si un fichier n'a pas pu s'écrire. </dd></dl>
+
+</div>
+</div>
 <a id="ac28181ffcc60f1a3a3d72a1d1d4001be" name="ac28181ffcc60f1a3a3d72a1d1d4001be"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac28181ffcc60f1a3a3d72a1d1d4001be">&#9670;&#160;</a></span>applyStroke()</h2>
 
@@ -3000,6 +3160,92 @@ Variables</h2></td></tr>
 
 <p>Tous les chemins de texture que la composition peut demander pour <code class="param">catalog</code> : sols, pièces d'enceinte, dalles claires, bandes des figurines. </p>
 <p>Tenue ici, à côté des chemins que la composition écrit, pour que le rendu charge exactement ce qu'elle résout — ni une pièce oubliée (qui tomberait sur le damier), ni une de trop. </p>
+
+</div>
+</div>
+<a id="ae292dc37cec7c5ad714f84072475fd18" name="ae292dc37cec7c5ad714f84072475fd18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae292dc37cec7c5ad714f84072475fd18">&#9670;&#160;</a></span>askPieceReplacement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1PieceReplacementChoice.html">PieceReplacementChoice</a> &gt; hmi::askPieceReplacement </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>cited</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>sheet</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Demande quelle pièce remplacer, et par laquelle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>La fenêtre du dialogue. </td></tr>
+    <tr><td class="paramname">cited</td><td>Les pièces que la carte ouverte pose. </td></tr>
+    <tr><td class="paramname">sheet</td><td>La planche de la carte : on ne propose que des pièces de même classe (sol, ou pièce debout). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9340f6e1b3f43febd69dcc101434fb1d" name="a9340f6e1b3f43febd69dcc101434fb1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9340f6e1b3f43febd69dcc101434fb1d">&#9670;&#160;</a></span>askSceneChange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1SceneChangeChoice.html">SceneChangeChoice</a> &gt; hmi::askSceneChange </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>layers</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>currentPlace</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Demande la nouvelle planche, et pour chaque pièce que la carte pose, celle qui la remplace : la table proposée (<span class="tt"><a class="el" href="#a2e091b55877d7aecd5436fad2ee8f474" title="La table que l&#39;éditeur propose pour passer layers à la planche target : chaque pièce citée va à la pi...">hmi::proposedPieceTable</a></span>) d'abord, qu'on corrige. </p>
+<p>On ne valide qu'une table sans trou. </p>
 
 </div>
 </div>
@@ -3516,8 +3762,53 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a57bbb524f453684c3c946474ef6a3ea9" name="a57bbb524f453684c3c946474ef6a3ea9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57bbb524f453684c3c946474ef6a3ea9">&#9670;&#160;</a></span>checkMapContent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &gt; hmi::checkMapContent </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>level</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ContentContext.html">ContentContext</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>context</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Contrôle le contenu d'une carte lue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mapId</td><td>Son identifiant (<span class="tt">capital/martpart</span>). </td></tr>
+    <tr><td class="paramname">level</td><td>La carte, telle que le jeu la charge (une variante porte les cases de sa base). </td></tr>
+    <tr><td class="paramname">context</td><td>Le contexte de toutes les cartes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les constats, dans l'ordre : textes, références, terrain, atteignabilité, graphe. </dd></dl>
+
+</div>
+</div>
 <a id="a42fc6546d215eea2d52d55f917655fd4" name="a42fc6546d215eea2d52d55f917655fd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42fc6546d215eea2d52d55f917655fd4">&#9670;&#160;</a></span>checkMapFile()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a42fc6546d215eea2d52d55f917655fd4">&#9670;&#160;</a></span>checkMapFile() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3548,15 +3839,187 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Contrôle une carte, lue depuis son fichier. </p>
+<p>Comme ci-dessus, le contexte étant lu sous <code class="param">dataRoot</code> pour cette seule carte. </p>
+
+</div>
+</div>
+<a id="ac584a0ea44e14690221c7e410a253862" name="ac584a0ea44e14690221c7e410a253862"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac584a0ea44e14690221c7e410a253862">&#9670;&#160;</a></span>checkMapFile() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &gt; hmi::checkMapFile </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>file</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ContentContext.html">ContentContext</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>context</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Contrôle une carte, lue depuis son fichier : son format, puis son contenu. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mapId</td><td>Son identifiant (<span class="tt">capital/martpart</span>), pour les messages. </td></tr>
     <tr><td class="paramname">file</td><td>Son fichier. </td></tr>
     <tr><td class="paramname">dataRoot</td><td>La racine des données (<span class="tt">Source/Elements</span>), où vivent les planches. </td></tr>
+    <tr><td class="paramname">context</td><td>Ce contre quoi le contenu se contrôle (<span class="tt"><a class="el" href="#aa5077b41d16fae5444bba01296af35c2">hmi::loadContentContext</a></span>). </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="abab76a12c8660bff3eeba4f44e7f488f" name="abab76a12c8660bff3eeba4f44e7f488f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abab76a12c8660bff3eeba4f44e7f488f">&#9670;&#160;</a></span>citationsOfArrival()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt; hmi::citationsOfArrival </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>arrival</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Ce qui nomme le point d'arrivée <code class="param">arrival</code> de <code class="param">mapId</code> : portails, départ d'une ville. </dd></dl>
+
+</div>
+</div>
+<a id="a6433401a8bdd2dfa3b1209c92df3f776" name="a6433401a8bdd2dfa3b1209c92df3f776"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6433401a8bdd2dfa3b1209c92df3f776">&#9670;&#160;</a></span>citationsOfEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt; hmi::citationsOfEntity </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>entityId</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Ce qui nomme l'entité <span class="tt">mapId#entityId</span>. </dd></dl>
+
+</div>
+</div>
+<a id="a9e883d27c858a688f03fb82107cbb826" name="a9e883d27c858a688f03fb82107cbb826"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e883d27c858a688f03fb82107cbb826">&#9670;&#160;</a></span>citationsOfMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt; hmi::citationsOfMap </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Ce qui nomme la carte <code class="param">mapId</code> : portails, variantes, villes, clé de son nom. </dd></dl>
+
+</div>
+</div>
+<a id="ad8039f7a46143bef6da7de82c1a2b706" name="ad8039f7a46143bef6da7de82c1a2b706"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8039f7a46143bef6da7de82c1a2b706">&#9670;&#160;</a></span>citationsOfPiece()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt; hmi::citationsOfPiece </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>piece</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les couches qui posent <code class="param">piece</code>, une citation par carte et par couche, sur la première case ; <code class="param">what</code> dit combien de cases. </dd></dl>
 
 </div>
 </div>
@@ -3943,6 +4406,46 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Compose le lieu dans une scène neuve, <b>triée</b> — commodité des tests et des captures. </p>
+
+</div>
+</div>
+<a id="a1c3e414e3b19cf19f193307c40e5b8f6" name="a1c3e414e3b19cf19f193307c40e5b8f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c3e414e3b19cf19f193307c40e5b8f6">&#9670;&#160;</a></span>confirmPlan()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::confirmPlan </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>title</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>plan</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai si l'auteur accepte ce que <code class="param">plan</code> va récrire, qu'on lui montre. </dd></dl>
 
 </div>
 </div>
@@ -5107,6 +5610,36 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a74586cd412a390e18f084267c8de1d1e" name="a74586cd412a390e18f084267c8de1d1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74586cd412a390e18f084267c8de1d1e">&#9670;&#160;</a></span>formatCitation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::formatCitation </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1Citation.html">Citation</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>citation</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La citation en une ligne : <span class="tt">capital/arenarea (47, 35): portal e2: targetMap</span>, ou <span class="tt">World/cities/capital.json: district …: map</span>. </dd></dl>
+
+</div>
+</div>
 <a id="ae7b3f6f5d7f2751645dc12ed67e74af8" name="ae7b3f6f5d7f2751645dc12ed67e74af8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae7b3f6f5d7f2751645dc12ed67e74af8">&#9670;&#160;</a></span>formatFinding()</h2>
 
@@ -5755,6 +6288,36 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a1bf4f828e030488522fc38306267bd38" name="a1bf4f828e030488522fc38306267bd38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bf4f828e030488522fc38306267bd38">&#9670;&#160;</a></span>languagesMissing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; hmi::languagesMissing </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a0769b06e818f591ce4d215f139e55d0b">TranslationCatalogs</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>catalogs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>key</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les langues de <code class="param">catalogs</code> qui n'ont pas <code class="param">key</code>, triées. </dd></dl>
+
+</div>
+</div>
 <a id="a5513925544b8628185e12eae822a83e8" name="a5513925544b8628185e12eae822a83e8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5513925544b8628185e12eae822a83e8">&#9670;&#160;</a></span>layerRows()</h2>
 
@@ -5939,6 +6502,32 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="aa5077b41d16fae5444bba01296af35c2" name="aa5077b41d16fae5444bba01296af35c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5077b41d16fae5444bba01296af35c2">&#9670;&#160;</a></span>loadContentContext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1ContentContext.html">ContentContext</a> hmi::loadContentContext </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le contexte de contrôle des cartes de <code class="param">dataRoot</code>. </dd></dl>
+
+</div>
+</div>
 <a id="aaf18529e7061f72c5c481ea2f30b6909" name="aaf18529e7061f72c5c481ea2f30b6909"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaf18529e7061f72c5c481ea2f30b6909">&#9670;&#160;</a></span>loadDemonstrationState()</h2>
 
@@ -6093,6 +6682,58 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a900f71ec83ddb4e2dc75af7f6beaece1" name="a900f71ec83ddb4e2dc75af7f6beaece1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a900f71ec83ddb4e2dc75af7f6beaece1">&#9670;&#160;</a></span>loadTranslationCatalogs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a0769b06e818f591ce4d215f139e55d0b">TranslationCatalogs</a> hmi::loadTranslationCatalogs </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>directory</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les catalogues <span class="tt">&lt;langue&gt;.lang</span> de <code class="param">directory</code> ; vide si le dossier n'en a pas. </dd></dl>
+
+</div>
+</div>
+<a id="a5b9f2de86068618da8115de956d81bfa" name="a5b9f2de86068618da8115de956d81bfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b9f2de86068618da8115de956d81bfa">&#9670;&#160;</a></span>localizationDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::localizationDirectory </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le dossier des catalogues de traduction de <code class="param">dataRoot</code>. </dd></dl>
+
+</div>
+</div>
 <a id="a1d87e7deb27801e9b0fbb99ecbac3bcd" name="a1d87e7deb27801e9b0fbb99ecbac3bcd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1d87e7deb27801e9b0fbb99ecbac3bcd">&#9670;&#160;</a></span>mapFiles()</h2>
 
@@ -6116,6 +6757,32 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Les fichiers de carte de <span class="tt">&lt;dataRoot&gt;/Levels</span>, sous-dossiers compris, triés — sans les séquences ni les annexes de l'éditeur. </dd></dl>
+
+</div>
+</div>
+<a id="a4ad11ae6ed49c312276185ea81e4f3da" name="a4ad11ae6ed49c312276185ea81e4f3da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ad11ae6ed49c312276185ea81e4f3da">&#9670;&#160;</a></span>mapNameKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::mapNameKey </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La clé du nom de la carte <code class="param">mapId</code> : <span class="tt">map.capital.martpart.name</span>. </dd></dl>
 
 </div>
 </div>
@@ -6389,6 +7056,57 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le message d'avertissement, en français. </dd></dl>
+
+</div>
+</div>
+<a id="a2035652c191518aad1101b4f75f9bda1" name="a2035652c191518aad1101b4f75f9bda1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2035652c191518aad1101b4f75f9bda1">&#9670;&#160;</a></span>nameMapInCatalogs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::nameMapInCatalogs </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>text</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>copyFrom</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La clé du nom de la carte <code class="param">mapId</code>, ajoutée aux catalogues de <code class="param">dataRoot</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dataRoot</td><td>La racine des données, dont les catalogues de traduction s'écrivent. </td></tr>
+    <tr><td class="paramname">mapId</td><td>L'identifiant de la carte, qui forme la clé <span class="tt">map.&lt;id&gt;.name</span>. </td></tr>
+    <tr><td class="paramname">text</td><td>Le texte des catalogues qui n'ont ni la clé, ni <code class="param">copyFrom</code>. </td></tr>
+    <tr><td class="paramname">copyFrom</td><td>L'ancien nom de la carte, dont les traductions se reprennent. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La clé ; vide si un catalogue n'a pas pu s'écrire. </dd></dl>
 
 </div>
 </div>
@@ -7187,6 +7905,41 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a0377bf0efd1edea1d227241afc05856a" name="a0377bf0efd1edea1d227241afc05856a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0377bf0efd1edea1d227241afc05856a">&#9670;&#160;</a></span>piecesMissingFrom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; hmi::piecesMissingFrom </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>layers</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>table</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>target</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les pièces citées par <code class="param">layers</code> qui, renommées par <code class="param">table</code>, manquent à <code class="param">target</code> — triées, sans doublon. </dd></dl>
+
+</div>
+</div>
 <a id="aabb6d90483bf13d7b93dc031ac1cdfb0" name="aabb6d90483bf13d7b93dc031ac1cdfb0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aabb6d90483bf13d7b93dc031ac1cdfb0">&#9670;&#160;</a></span>pieceTargetLayer()</h2>
 
@@ -7246,6 +7999,211 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="abd8448903deb381b104ac15a93c940d5" name="abd8448903deb381b104ac15a93c940d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd8448903deb381b104ac15a93c940d5">&#9670;&#160;</a></span>planChangeScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> hmi::planChangeScene </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>table</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fait passer la carte <code class="param">mapId</code> à la planche du lieu <code class="param">place</code>, par <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#aacc7771e216fb566455fff8e416eef9c" title="Fait passer la carte à la planche du lieu place (LOT-EDITOR-14), en un pas : la propriété scene des c...">core::LevelDraft::changeScene</a></span> : la table proposée, que <code class="param">table</code> complète ou corrige. </p>
+<p>Refusé si une pièce citée n'a pas de correspondant sur la nouvelle planche : la carte ne se repeint pas, elle se traduit. Une variante ne change que sa propre planche (<span class="tt">scene</span>), et ce sont les pièces de sa base qui doivent exister sur la nouvelle.</p>
+<p>Un lieu dont l'atelier vient d'installer la planche n'a pas encore de table d'apparence (<span class="tt">appearance.json</span>, que lisent le rendu des îlots et les cases sans pièce) : le plan la crée depuis celle de l'ancien lieu, pièces traduites par la même table. </p>
+
+</div>
+</div>
+<a id="a5f73dc68dbcc5745914ce5e95a78bb2b" name="a5f73dc68dbcc5745914ce5e95a78bb2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f73dc68dbcc5745914ce5e95a78bb2b">&#9670;&#160;</a></span>planRenameArrival()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> hmi::planRenameArrival </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>oldName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>newName</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Renomme le point d'arrivée <code class="param">oldName</code> de <code class="param">mapId</code>, et ce qui le cite. </p>
+
+</div>
+</div>
+<a id="ab822e7d58bc19bd2b2d86e8f5cf5575f" name="ab822e7d58bc19bd2b2d86e8f5cf5575f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab822e7d58bc19bd2b2d86e8f5cf5575f">&#9670;&#160;</a></span>planRenameEntityId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> hmi::planRenameEntityId </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>oldId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>newId</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Renomme l'entité <span class="tt">mapId#oldId</span> en <code class="param">newId</code>, et ce qui la cite. </p>
+<p>Refusé : un identifiant vide, pris, qui contient <span class="tt">#</span>, <span class="tt">/</span> ou une espace, ou de la forme <span class="tt">e&lt;n&gt;</span> avec <span class="tt">n</span> au moins <span class="tt">nextEntityId</span> — l'éditeur pourrait le redonner (décision D8). </p>
+
+</div>
+</div>
+<a id="a43197e19f5f5d84456fbc0ec9a7d9c86" name="a43197e19f5f5d84456fbc0ec9a7d9c86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43197e19f5f5d84456fbc0ec9a7d9c86">&#9670;&#160;</a></span>planRenameMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> hmi::planRenameMap </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>oldId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>newId</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Renomme la carte <code class="param">oldId</code> en <code class="param">newId</code> — un autre dossier est permis (<span class="tt">coliseum</span> → <span class="tt">capital/coliseum</span>). </p>
+<p>Le fichier et son annexe (<span class="tt">&lt;carte&gt;.editor.json</span>) changent de chemin ; son nom suit s'il est la clé de l'ancien identifiant, et la clé change dans chaque catalogue, texte gardé ; portails, variantes et villes citent le nouvel identifiant. </p>
+
+</div>
+</div>
+<a id="abfd98fd3827a2fc0a88db80648a18b59" name="abfd98fd3827a2fc0a88db80648a18b59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfd98fd3827a2fc0a88db80648a18b59">&#9670;&#160;</a></span>planReplacePiece()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> hmi::planReplacePiece </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>from</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>to</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>maps</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remplace la pièce <code class="param">from</code> par <code class="param">to</code>, sur les cartes <code class="param">maps</code> (toutes celles qui la posent si la liste est vide), par <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#afe371b92fcdac56ae41550ee9eef6c45" title="Renomme, sur toutes les couches visuelles, chaque pièce que renaming nomme (LOT-EDITOR-14,...">core::LevelDraft::replacePieces</a></span>. </p>
+<p>Refusé si <code class="param">to</code> n'est pas sur la planche d'une de ces cartes, si l'une est un sol et l'autre non, ou si une nouvelle emprise déborde. </p>
+
+</div>
+</div>
 <a id="ad41bb1dd00388cd216ed0adc326d0e5e" name="ad41bb1dd00388cd216ed0adc326d0e5e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad41bb1dd00388cd216ed0adc326d0e5e">&#9670;&#160;</a></span>previousRpgScreen()</h2>
 
@@ -7269,6 +8227,38 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>L'écran précédent dans le cycle ; du premier on revient au dernier. </dd></dl>
+
+</div>
+</div>
+<a id="a2e091b55877d7aecd5436fad2ee8f474" name="a2e091b55877d7aecd5436fad2ee8f474"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e091b55877d7aecd5436fad2ee8f474">&#9670;&#160;</a></span>proposedPieceTable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a> hmi::proposedPieceTable </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>layers</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>target</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La table que l'éditeur propose pour passer <code class="param">layers</code> à la planche <code class="param">target</code> : chaque pièce citée va à la pièce de même nom — ou dont elle est un ancien nom (<span class="tt">aliases</span>), sous son nom courant. </p>
+<p>Une pièce sans correspondant n'est pas dans la table. </p>
 
 </div>
 </div>
@@ -7368,6 +8358,33 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ad88f7ff4876e7912263fe9021f6c6e89" name="ad88f7ff4876e7912263fe9021f6c6e89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad88f7ff4876e7912263fe9021f6c6e89">&#9670;&#160;</a></span>readPieceTable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PieceTableResult.html">PieceTableResult</a> hmi::readPieceTable </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>file</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit une table de correspondance : <span class="tt">{"format": "jadg-piece-table", "version": 1, "pieces": {"ancien": "nouveau"}}</span>. </p>
 
 </div>
 </div>
@@ -8053,7 +9070,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1196"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1214"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
 <p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>
@@ -8108,6 +9125,50 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <li><span class="tt">--apply &lt;gestes.json&gt; [carte]</span> : rejoue les gestes du fichier sur la carte (celle que nomme le fichier, à défaut) et l'écrit en place, ou dans <span class="tt">--output</span> ; un geste refusé n'écrit rien et sort en 1 (<span class="tt"><a class="el" href="#ab1145769bfcc581f39091b42c792705c" title="Lit le fichier de gestes scriptFile, charge la carte, rejoue les gestes et rend les textes à écrire —...">hmi::applyGestureFile</a></span>). Suivi de <span class="tt">--check</span>, il contrôle ensuite toutes les cartes.</li>
 </ul>
 <dl class="section return"><dt>Returns</dt><dd>Le code de sortie, ou <span class="tt">std::nullopt</span> si la ligne de commande ne demande aucune de ces commandes — l'éditeur ouvre alors sa fenêtre. </dd></dl>
+
+</div>
+</div>
+<a id="aa0495229fd9a33ac476720e70af9b973" name="aa0495229fd9a33ac476720e70af9b973"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0495229fd9a33ac476720e70af9b973">&#9670;&#160;</a></span>runRefactorCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; int &gt; hmi::runRefactorCommand </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>arguments</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>output</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'entrée sans fenêtre (décision D9) : </p>
+<ul>
+<li><span class="tt">--who-cites map &lt;carte&gt;</span>, <span class="tt">--who-cites arrival &lt;carte&gt; &lt;point&gt;</span>, <span class="tt">--who-cites entity &lt;carte&gt; &lt;id&gt;</span>, <span class="tt">--who-cites piece &lt;pièce&gt;</span> ;</li>
+<li><span class="tt">--rename-map &lt;ancien&gt; &lt;nouveau&gt;</span>, <span class="tt">--rename-arrival &lt;carte&gt; &lt;ancien&gt; &lt;nouveau&gt;</span>, <span class="tt">--rename-id &lt;carte&gt; &lt;ancien&gt; &lt;nouveau&gt;</span> ;</li>
+<li><span class="tt">--replace-piece &lt;ancienne&gt; &lt;nouvelle&gt; [carte…]</span> ;</li>
+<li><span class="tt">--change-scene &lt;carte&gt; &lt;lieu&gt; [--table &lt;table.json&gt;]</span>.</li>
+</ul>
+<p>Chaque commande écrit ce qu'elle change, et rien si elle est refusée (sortie 1). Suivie de <span class="tt">--check</span>, elle contrôle ensuite toutes les cartes.</p>
+<dl class="section return"><dt>Returns</dt><dd>Le code de sortie, ou <span class="tt">std::nullopt</span> si aucune de ces commandes n'est demandée. </dd></dl>
 
 </div>
 </div>
@@ -8368,6 +9429,48 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 
 <p>Écrit la note de <code class="param">cell</code> ; un texte vide (ou fait d'espaces) la retire. </p>
 <dl class="section return"><dt>Returns</dt><dd>Vrai si l'annexe a changé. </dd></dl>
+
+</div>
+</div>
+<a id="a5457af8d03379837aef8543c9fa07b7c" name="a5457af8d03379837aef8543c9fa07b7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5457af8d03379837aef8543c9fa07b7c">&#9670;&#160;</a></span>showCitations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt; hmi::showCitations </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>title</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>citations</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Montre les citations de <code class="param">citations</code>. </p>
+<dl class="section return"><dt>Returns</dt><dd>Celle qu'on double-clique — la fenêtre y va —, <span class="tt">std::nullopt</span> si on ferme. </dd></dl>
 
 </div>
 </div>
@@ -9758,6 +10861,30 @@ template&lt;class Map&gt; </div>
 </div><div class="memdoc">
 
 <p>Intervalle entre deux répétitions. </p>
+
+</div>
+</div>
+<a id="a1135a39f5fbbc5c19b881d5f0f981453" name="a1135a39f5fbbc5c19b881d5f0f981453"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1135a39f5fbbc5c19b881d5f0f981453">&#9670;&#160;</a></span>CITY_BLOCK_KEY_PREFIX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view hmi::CITY_BLOCK_KEY_PREFIX = &quot;city_block.&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le préfixe de clé du nom d'un îlot, suivi de son nom (<span class="tt">city_block.parvis</span>). </p>
 
 </div>
 </div>

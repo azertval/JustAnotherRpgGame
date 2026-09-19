@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>MapRefactor.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;filesystem&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/LevelDraft.h"
+#include "Core/Levels/TileLayer.h"
+#include "Core/Resources/ScenePieceManifest.h"
+
+/**
+ * @file Editor/Logic/MapRefactor.h
+ * @brief **Renommer et remplacer** d'un bout Ã  l'autre du projet (`LOT-EDITOR-14`, constat A7,
+ *        rÃ¨gle 3 de la feuille de route). Logique pure, sans fenÃªtre.
+ *
+ * L'identifiant d'une carte est son chemin (`capital/martpart`), et d'autres fichiers le citent :
+ * les portails des autres cartes, les variantes (`base`), les villes (`World/cities`), la clÃ© de
+ * son nom dans les catalogues (`map.capital.martpart.name`). Un point d'arrivÃ©e est citÃ© par les
+ * portails qui y mÃ¨nent et par la porte de dÃ©part d'une ville ; une entitÃ© par `carte#id`. Une
+ * piÃ¨ce, enfin, est citÃ©e case par case.
+ *
+ * Chaque opÃ©ration se fait en deux temps. Un **plan** lit tout le projet et calcule chaque fichier
+ * Ã  rÃ©crire, sans rien Ã©crire : une opÃ©ration refusÃ©e (nom pris, carte illisible, piÃ¨ce absente de
+ * la planche) ne touche aucun fichier. Puis `applyRefactorPlan` Ã©crit. La fenÃªtre et `LevelEditor
+ * --rename-map â¦` appellent les mÃªmes plans (rÃ¨gle 4).
+ *
+ * Ce qui cite quoi ne s'Ã©crit pas famille par famille : une propriÃ©tÃ© d'entitÃ© dont la source est
+ * `Maps`, `ArrivalPoints` ou `EntityRefs` dans `core::knownEntityKinds` est suivie sans code
+ * (rÃ¨gle 2). Les cartes se rÃ©crivent par l'Ã©crivain canonique, les villes en JSON indentÃ© de deux
+ * espaces, les catalogues ligne par ligne : un renommage donne un diff git lisible.
+ */
+
+namespace hmi {
+
+/// @brief Une Ã©criture d'un plan : le texte d'un fichier, ou son retrait.
+struct ProjectEdit {
+    std::filesystem::path file;
+    /// Le nouveau texte ; `std::nullopt` : le fichier est retirÃ©.
+    std::optional&lt;std::string&gt; text;
+};
+
+/// @brief Un endroit oÃ¹ une chose est nommÃ©e : Â« qui cite ceci ? Â».
+struct Citation {
+    /// Le fichier qui la nomme.
+    std::filesystem::path file;
+    /// La carte qui la nomme, vide hors carte (une ville, un catalogue).
+    std::string mapId;
+    /// L'entitÃ© qui la nomme, par son `id` ; vide sinon.
+    std::string entityId;
+    std::optional&lt;core::GridPosition&gt; cell;
+    /// Ce qui la nomme : `portal e2: targetMap`, `district â¦: map`, `map.capital.martpart.name`.
+    std::string what;
+
+    [[nodiscard]] bool operator==(const Citation&amp;) const = default;
+};
+
+/// @return La citation en une ligne : `capital/arenarea (47, 35): portal e2: targetMap`, ou
+///         `World/cities/capital.json: district â¦: map`.
+[[nodiscard]] std::string formatCitation(const Citation&amp; citation,
+                                         const std::filesystem::path&amp; dataRoot);
+
+/// @brief Ce qu'une opÃ©ration rÃ©crira, calculÃ© sans rien Ã©crire.
+struct RefactorPlan {
+    /// Le refus, vide si l'opÃ©ration est possible.
+    std::string error;
+    std::vector&lt;ProjectEdit&gt; edits;
+    /// Ce qui change, citation par citation.
+    std::vector&lt;Citation&gt; changes;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
+        return error.empty();
+    }</span>
+};
+
+/**
+ * @brief Ãcrit le plan : les textes d'abord (dossiers crÃ©Ã©s au besoin), les retraits ensuite ; un
+ *        dossier de cartes vidÃ© par un dÃ©placement est retirÃ©.
+ * @return Faux, avec @p error, si un fichier n'a pas pu s'Ã©crire.
+ */
+[[nodiscard]] bool applyRefactorPlan(const RefactorPlan&amp; plan, std::string&amp; error);
+
+/// @name Qui cite ceci ?
+/// @{
+
+/// @return Ce qui nomme la carte @p mapId : portails, variantes, villes, clÃ© de son nom.
+[[nodiscard]] std::vector&lt;Citation&gt; citationsOfMap(const std::filesystem::path&amp; dataRoot,
+                                                   std::string_view mapId);
+
+/// @return Ce qui nomme le point d'arrivÃ©e @p arrival de @p mapId : portails, dÃ©part d'une ville.
+[[nodiscard]] std::vector&lt;Citation&gt; citationsOfArrival(const std::filesystem::path&amp; dataRoot,
+                                                       std::string_view mapId,
+                                                       std::string_view arrival);
+
+/// @return Ce qui nomme l'entitÃ© `mapId#entityId`.
+[[nodiscard]] std::vector&lt;Citation&gt; citationsOfEntity(const std::filesystem::path&amp; dataRoot,
+                                                      std::string_view mapId,
+                                                      std::string_view entityId);
+
+/// @return Les couches qui posent @p piece, une citation par carte et par couche, sur la premiÃ¨re
+///         case ; @p what dit combien de cases.
+[[nodiscard]] std::vector&lt;Citation&gt; citationsOfPiece(const std::filesystem::path&amp; dataRoot,
+                                                     std::string_view piece);
+
+/// @}
+
+/// @name Renommer
+/// @{
+
+/**
+ * @brief Renomme la carte @p oldId en @p newId â un autre dossier est permis
+ *        (`coliseum` â `capital/coliseum`).
+ *
+ * Le fichier et son annexe (`&lt;carte&gt;.editor.json`) changent de chemin ; son nom suit s'il est la
+ * clÃ© de l'ancien identifiant, et la clÃ© change dans chaque catalogue, texte gardÃ© ; portails,
+ * variantes et villes citent le nouvel identifiant.
+ */
+[[nodiscard]] RefactorPlan planRenameMap(const std::filesystem::path&amp; dataRoot,
+                                         std::string_view oldId, std::string_view newId);
+
+/// @brief Renomme le point d'arrivÃ©e @p oldName de @p mapId, et ce qui le cite.
+[[nodiscard]] RefactorPlan planRenameArrival(const std::filesystem::path&amp; dataRoot,
+                                             std::string_view mapId, std::string_view oldName,
+                                             std::string_view newName);
+
+/**
+ * @brief Renomme l'entitÃ© `mapId#oldId` en @p newId, et ce qui la cite.
+ *
+ * RefusÃ© : un identifiant vide, pris, qui contient `#`, `/` ou une espace, ou de la forme
+ * `e&lt;n&gt;` avec `n` au moins `nextEntityId` â l'Ã©diteur pourrait le redonner (dÃ©cision D8).
+ */
+[[nodiscard]] RefactorPlan planRenameEntityId(const std::filesystem::path&amp; dataRoot,
+                                              std::string_view mapId, std::string_view oldId,
+                                              std::string_view newId);
+
+/// @}
+
+/// @name Remplacer, changer de planche
+/// @{
+
+/**
+ * @brief Remplace la piÃ¨ce @p from par @p to, sur les cartes @p maps (toutes celles qui la posent
+ *        si la liste est vide), par `core::LevelDraft::replacePieces`.
+ *
+ * RefusÃ© si @p to n'est pas sur la planche d'une de ces cartes, si l'une est un sol et l'autre
+ * non, ou si une nouvelle emprise dÃ©borde.
+ */
+[[nodiscard]] RefactorPlan planReplacePiece(const std::filesystem::path&amp; dataRoot,
+                                            std::string_view from, std::string_view to,
+                                            const std::vector&lt;std::string&gt;&amp; maps);
+
+/**
+ * @brief La table que l'Ã©diteur propose pour passer @p layers Ã  la planche @p target : chaque
+ *        piÃ¨ce citÃ©e va Ã  la piÃ¨ce de mÃªme nom â ou dont elle est un ancien nom (`aliases`),
+ *        sous son nom courant. Une piÃ¨ce sans correspondant n'est pas dans la table.
+ */
+[[nodiscard]] core::PieceRenaming proposedPieceTable(const std::vector&lt;core::TileLayer&gt;&amp; layers,
+                                                     const core::ScenePieceManifest&amp; target);
+
+/// @return Les piÃ¨ces citÃ©es par @p layers qui, renommÃ©es par @p table, manquent Ã  @p target â
+///          triÃ©es, sans doublon.
+[[nodiscard]] std::vector&lt;std::string&gt; piecesMissingFrom(const std::vector&lt;core::TileLayer&gt;&amp; layers,
+                                                         const core::PieceRenaming&amp; table,
+                                                         const core::ScenePieceManifest&amp; target);
+
+/**
+ * @brief Fait passer la carte @p mapId Ã  la planche du lieu @p place, par
+ *        `core::LevelDraft::changeScene` : la table proposÃ©e, que @p table complÃ¨te ou corrige.
+ *
+ * RefusÃ© si une piÃ¨ce citÃ©e n'a pas de correspondant sur la nouvelle planche : la carte ne se
+ * repeint pas, elle se traduit. Une variante ne change que sa propre planche (`scene`), et ce sont
+ * les piÃ¨ces de sa base qui doivent exister sur la nouvelle.
+ *
+ * Un lieu dont l'atelier vient d'installer la planche n'a pas encore de table d'apparence
+ * (`appearance.json`, que lisent le rendu des Ã®lots et les cases sans piÃ¨ce) : le plan la crÃ©e
+ * depuis celle de l'ancien lieu, piÃ¨ces traduites par la mÃªme table.
+ */
+[[nodiscard]] RefactorPlan planChangeScene(const std::filesystem::path&amp; dataRoot,
+                                           std::string_view mapId, std::string_view place,
+                                           const core::PieceRenaming&amp; table);
+
+/// @brief Une table de correspondance lue d'un fichier.
+struct PieceTableResult {
+    core::PieceRenaming table;
+    std::string error;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
+        return error.empty();
+    }</span>
+};
+
+/**
+ * @brief Lit une table de correspondance :
+ *        `{"format": "jadg-piece-table", "version": 1, "pieces": {"ancien": "nouveau"}}`.
+ */
+[[nodiscard]] PieceTableResult readPieceTable(const std::filesystem::path&amp; file);
+
+/// @}
+
+/**
+ * @brief L'entrÃ©e sans fenÃªtre (dÃ©cision D9) :
+ *
+ * - `--who-cites map &lt;carte&gt;`, `--who-cites arrival &lt;carte&gt; &lt;point&gt;`,
+ *   `--who-cites entity &lt;carte&gt; &lt;id&gt;`, `--who-cites piece &lt;piÃ¨ce&gt;` ;
+ * - `--rename-map &lt;ancien&gt; &lt;nouveau&gt;`, `--rename-arrival &lt;carte&gt; &lt;ancien&gt; &lt;nouveau&gt;`,
+ *   `--rename-id &lt;carte&gt; &lt;ancien&gt; &lt;nouveau&gt;` ;
+ * - `--replace-piece &lt;ancienne&gt; &lt;nouvelle&gt; [carteâ¦]` ;
+ * - `--change-scene &lt;carte&gt; &lt;lieu&gt; [--table &lt;table.json&gt;]`.
+ *
+ * Chaque commande Ã©crit ce qu'elle change, et rien si elle est refusÃ©e (sortie 1). Suivie de
+ * `--check`, elle contrÃ´le ensuite toutes les cartes.
+ *
+ * @return Le code de sortie, ou `std::nullopt` si aucune de ces commandes n'est demandÃ©e.
+ */
+[[nodiscard]] std::optional&lt;int&gt; runRefactorCommand(const std::vector&lt;std::string&gt;&amp; arguments,
+                                                    const std::filesystem::path&amp; dataRoot,
+                                                    std::string&amp; output);
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

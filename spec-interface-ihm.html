@@ -98,7 +98,7 @@ $(function(){initNavTree('spec-interface-ihm.html','',''); });
 <p><b>Révisée au <span class="tt">LOT-EDITOR-01</span></b> (décision D7 de la [feuille de route de l'éditeur](<a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">Feuille de route de l'éditeur de cartes</a>)). L'éditeur est un <b>outil interne</b> : style Fusion de Qt, textes anglais écrits dans le code, widgets construits en code, sans charte ni thème. Les exigences qui ne visaient que son habillage et l'agencement de ses panneaux sont retirées ; son agencement se décide lot par lot dans sa feuille de route. Ce qui reste ici de l'éditeur : un binaire Qt Widgets à part (<span class="tt">EX-IHM-041</span>), une disposition persistée (<span class="tt">EX-IHM-011</span>), la gestion des cartes sans perte (<span class="tt">EX-IHM-021</span>) et l'unicité des commandes (<span class="tt">EX-IHM-062</span>). Dépend de <a class="el" href="spec-rendu-technique.html#md_Specification_2rendu-technique" title="Specification/rendu-technique.md"><span class="tt">rendu-technique.md</span></a> et <a class="el" href="spec-editeur.html#md_Specification_2editeur-niveaux" title="Specification/editeur-niveaux.md"><span class="tt">editeur-niveaux.md</span></a>. </p>
 </blockquote>
 <p>L'<b>interface</b> — écrans du jeu, éditeur de cartes — est distincte de la <b>scène</b> : celle-ci est dessinée sur QRhi (<span class="tt">EX-REN-002</span>) ; l'interface, elle, repose sur <b>Qt</b>, pour une application maintenable, à fenêtres réglables. <span class="tt">Core</span> demeure indépendant de la présentation (<span class="tt">EX-NFR-010</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md252"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md254"></a>
 1. Socle applicatif</h1>
 <ul>
 <li><a class="anchor" id="EX-IHM-001"></a><b>EX-IHM-001</b> — Toute l'<b>interface</b> (écrans du jeu, éditeur) doit reposer sur le framework <b>Qt</b> ; seule la <b>scène</b> se dessine par le pipeline 2D du projet, sur QRhi.</li>
@@ -111,23 +111,23 @@ $(function(){initNavTree('spec-interface-ihm.html','',''); });
 </blockquote>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md253"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md255"></a>
 2. Éditeur</h1>
 <ul>
 <li><a class="anchor" id="EX-IHM-011"></a><b>EX-IHM-011</b> — La <b>disposition</b> des panneaux de l'éditeur doit être <b>persistée</b> (sauvegardée et restaurée entre deux sessions), et réinitialisable à une disposition par défaut.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md254"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md256"></a>
 3. Gestion des cartes</h1>
 <ul>
 <li><a class="anchor" id="EX-IHM-021"></a><b>EX-IHM-021</b> — L'éditeur doit permettre de <b>créer, renommer, dupliquer et supprimer</b> une carte, avec <b>validation de nom</b> (<span class="tt">EX-EDIT-006</span>) et <b>confirmation</b> des actions destructrices ; aucune modification non enregistrée ne doit être perdue silencieusement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md255"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md257"></a>
 4. Menus, options, unification</h1>
 <ul>
 <li><a class="anchor" id="EX-IHM-040"></a><b>EX-IHM-040</b> — Le <b>menu principal</b> et l'écran <b>Options</b> (plein écran, volume, langue <span class="tt">EX-REN-033</span>) doivent être fournis en Qt Quick, navigables au clavier, à la souris et à la manette.</li>
 <li><a class="anchor" id="EX-IHM-041"></a><b>EX-IHM-041</b> — Chaque exécutable doit reposer sur <b>une seule technologie d'UI</b> — Qt Quick pour le jeu, Qt Widgets pour l'éditeur — et aucun écran ne se dessine à la main au <span class="tt">SpriteBatch</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md256"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md258"></a>
 5. Système de design et habillage</h1>
 <p>La première interface Qt était <b>fonctionnelle</b>, sans jamais traiter son apparence pour elle-même. L'application n'a jamais choisi de style Qt : elle s'exécute donc sur le style <b>natif</b> de la plate-forme, qui dessine la plupart des contrôles hors du contrôle de l'application et ignore une large part de toute feuille de style posée par-dessus. C'est la raison pour laquelle le thème existant a dû être <b>restreint</b> au menu principal et à la page Options (portée par <span class="tt">objectName</span>) au lieu d'être étendu : l'étendre ne produisait pas un résultat homogène. Il en résulte deux apparences dans la même fenêtre — écrans thématisés d'un côté, panneaux de l'éditeur au rendu natif de l'autre — et des grandeurs d'habillage (couleurs, marges, tailles de vignettes, largeurs) éparpillées entre la feuille de style, les fichiers de description d'interface et des constantes locales à chaque widget.</p>
 <ul>
@@ -142,13 +142,13 @@ $(function(){initNavTree('spec-interface-ihm.html','',''); });
 </blockquote>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md257"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md259"></a>
 6. Architecture de l'information</h1>
 <p>Depuis le <span class="tt">LOT-EDITOR-01</span>, l'agencement de l'éditeur (panneaux, barre d'état, barre d'outils) se décide dans sa <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">feuille de route</a> ; une seule règle reste commune.</p>
 <ul>
 <li><a class="anchor" id="EX-IHM-062"></a><b>EX-IHM-062</b> — Un même <b>état</b> ou une même <b>commande</b> ne doit être exposé qu'à <b>un seul endroit</b> de l'interface, <b>raccourci clavier compris</b> : deux contrôles pilotant la même valeur peuvent diverger et obligent l'utilisateur à deviner lequel fait autorité. Un raccourci clavier reste un second chemin <b>légitime</b> vers une commande, à condition d'être affiché par la commande elle-même plutôt que dupliqué en contrôle distinct.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md258"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md260"></a>
 7. Identité visuelle des écrans du jeu</h1>
 <p>Le système de design a donné à l'interface un habillage cohérent, mais <b>générique</b> : la portée identité et le châssis d'édition partagent la même police et la même échelle typographique, si bien que rien, à l'écran, ne distingue le menu d'un jeu du panneau d'un outil de travail. Les titres sont fixés à 32 pt et les entrées de menu à 16 pt quelle que soit la taille de la fenêtre, ce qui donne une interface visiblement petite dès qu'on dépasse la définition d'un ordinateur portable. Et le focus n'est signalé que par un changement de teinte — suffisant à la souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en est.</p>
 <ul>
@@ -183,7 +183,7 @@ $(function(){initNavTree('spec-interface-ihm.html','',''); });
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md259"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md261"></a>
 8. Taille, réactivité et réglages effectifs</h1>
 <p>Les sections précédentes ont donné à l'interface son châssis, son habillage et sa répartition de l'information. Aucune n'a jamais dit <b>qui décide de la taille de la fenêtre</b>. La réponse, de fait, était : le plus dense des écrans. <span class="tt">QStackedWidget::minimumSizeHint</span> valant le maximum sur <em>toutes</em> ses pages — y compris celles qu'on ne regarde pas — un seul écran chargé fixait le plancher de la fenêtre entière ; et ce plancher était multiplié par le facteur d'agrandissement d'<span class="tt">EX-IHM-070</span>, lui-même dérivé de la hauteur de la fenêtre. La boucle se refermait sur elle-même, sans que rien ne la borne : la fenêtre grandissait, le facteur montait, le plancher montait, la fenêtre grandissait. Windows finissait par refuser la géométrie, et l'interface débordait sous la barre des tâches en rognant son contenu, sans rien dire. Le défaut s'est produit trois fois, et a été corrigé deux fois écran par écran.</p>
 <p>Symétriquement, une préoccupation vivait à une portée plus large que la sienne. Le facteur d'agrandissement, qui ne concerne que les écrans du jeu, était substitué dans la feuille de style de l'<b>application</b> : en changer repolissait ses 862 widgets, cinq secondes durant en configuration Debug. Et un écran exposait des réglages que rien ne transmettait au moteur.</p>
@@ -195,7 +195,7 @@ $(function(){initNavTree('spec-interface-ihm.html','',''); });
 -<a class="anchor" id="EX-IHM-082"></a><b>EX-IHM-082</b> — Une préoccupation limitée à une <b>portée</b> ne doit jamais provoquer un rejeu de style d'une portée <b>plus large</b> : un habillage s'applique là où il porte, et nulle part ailleurs. (Le châssis d'édition, seconde portée d'<span class="tt">EX-IHM-050</span>, n'a plus de feuille depuis le <span class="tt">LOT-EDITOR-01</span>.) Le coût d'un changement d'habillage doit rester proportionnel à ce qui change réellement.</li>
 <li><a class="anchor" id="EX-IHM-083"></a><b>EX-IHM-083</b> — Tout <b>réglage exposé</b> par un écran doit <b>atteindre</b> le moteur, ou ne pas être exposé ; et l'écran doit <b>ouvrir sur les valeurs par défaut du moteur</b>, jamais sur une seconde liste de valeurs inscrite dans sa description. Un réglage inerte est pire qu'un réglage absent : il se règle, il s'enregistre, et il ment.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md260"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md262"></a>
 9. Le châssis des écrans du RPG (LOT-68)</h1>
 <p>Huit écrans manquent au jeu — fiche de personnage, inventaire et équipement, journal de quêtes, carte du monde, dialogue, marchand, tableau de la Guilde, affichage tête haute de combat — et quatre lots à venir les remplissent chacun de leur côté (<span class="tt">LOT-38</span>, <span class="tt">LOT-42</span>, <span class="tt">LOT-45</span>, <span class="tt">LOT-24</span>). Sans règle commune, ces quatre lots produiraient quatre écrans qui s'ouvrent différemment, se ferment différemment et se naviguent différemment : le défaut ne se voit sur aucun d'eux pris isolément, et sur les quatre ensemble il n'est plus rattrapable sans les refaire.</p>
 <ul>
@@ -207,12 +207,12 @@ $(function(){initNavTree('spec-interface-ihm.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>en cours</b> (<span class="tt">LOT-86</span>). Cette section remplace, pour les écrans du <b>jeu</b>, ce que la section 9 confiait à une description en données. Le châssis d'édition (sections 5, 6 et 8) n'est pas concerné : il reste en Qt Widgets, dans son propre binaire. </p>
 </blockquote>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md261"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md263"></a>
 Ce qui a changé, et pourquoi</h2>
 <p>Les écrans du jeu étaient en Qt Widgets, décrits par une table C++ (<span class="tt">EX-IHM-090</span>). Une tentative de les porter sur des fichiers Qt Designer a été menée puis <b>abandonnée</b> : elle demandait 1 268 lignes d'outillage — plugin de widgets promus, résolveur de feuille de style, générateur de <span class="tt">.ui</span> — dont l'unique fonction était de rendre ces fichiers visualisables dans le designer. Les deux formes partageaient le même défaut : <b>la mise en page vivait du côté du code</b>. Une retouche d'apparence demandait un développeur, une compilation, et une relecture — pour déplacer un bloc de huit pixels.</p>
 <p>Le prix s'est vu deux fois. Le défaut du plancher de taille des écrans s'est produit <b>trois fois</b> avant qu'<span class="tt">EX-IHM-080</span> ne le déplace sur un chemin commun. Et la palette d'identité a été écrite <b>deux fois</b> — en CSS dans les maquettes, en C++ dans les jetons — tenue par un contrôle dont le commentaire disait qu'auparavant <em>« rien ne les reliait »</em>.</p>
 <p>Les écrans du jeu passent donc à <b>Qt Quick</b>, et leur mise en page à des fichiers que Qt Design Studio ouvre, modifie et réenregistre. Ce n'est pas un changement de bibliothèque : c'est un déplacement de la frontière entre deux métiers.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md262"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md264"></a>
 La frontière, telle qu'elle est tenue</h2>
 <ul>
 <li><a class="anchor" id="EX-IHM-100"></a><b>EX-IHM-100</b> — Une modification <b>purement visuelle</b> d'un écran du jeu — mise en page, couleurs, typographie, ornements, animations, textes — doit être réalisable <b>sans modifier ni recompiler une ligne de C++</b>, depuis Qt Design Studio ouvrant <span class="tt">Source/Ui/JadgUi.qmlproject</span>. Ce projet ne décrit que <span class="tt">Source/Ui</span>, les jumeaux de câblage et les assets : ni CMake, ni <span class="tt">Source/HMI</span>, ni code. La frontière n'est pas une consigne de relecture, c'est le périmètre d'un fichier. Depuis le <span class="tt">LOT-87</span>, <span class="tt">Source/Ui</span> est un module QML <b>sans C++</b> (<span class="tt">Jadg.Ui</span>) : c'est ce qui le rend résolvable par l'atelier, dont le marionnettiste ne charge aucun plugin du projet ; les types C++ forment un module à part (<span class="tt">Jadg.Runtime</span>) que seuls les jumeaux importent, et que l'atelier remplace par des doublures QML (<span class="tt">Source/Ui/Mocks</span>).</li>
@@ -222,7 +222,7 @@ La frontière, telle qu'elle est tenue</h2>
 <li><a class="anchor" id="EX-IHM-104"></a><b>EX-IHM-104</b> — Un formulaire n'importe que des modules connus <b>à la fois</b> de l'installation Qt et de Qt Design Studio. Le designer livre les siens (<span class="tt">QtQuick.Studio.*</span>), absents d'une installation ordinaire : un formulaire qui en importerait s'ouvrirait parfaitement chez la conception et casserait le jeu — le pire des deux mondes, découvert le plus tard possible.</li>
 <li><a class="anchor" id="EX-IHM-105"></a><b>EX-IHM-105</b> — Aucune couleur, famille de police ni taille de texte n'est écrite en dur hors de <span class="tt">Source/Ui/Theme</span>. C'est ce qui donne son sens aux jetons : une valeur écrite dans un écran survit à un changement de palette, ne suit plus rien, et personne ne remarque qu'un seul écran a cessé de ressembler aux autres (<span class="tt">EX-IHM-051</span>).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md263"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md265"></a>
 Les ornements restent tracés, et <span class="tt">EX-IHM-075</span> avec eux</h2>
 <blockquote class="doxtable">
 <p>Section du <span class="tt">LOT-86</span>, conservée telle quelle : elle décrit la v1. Au <span class="tt">LOT-87</span>, <span class="tt">EX-IHM-075</span> est refondue — les ornements de la charte v2 sont des images produites, sous trois conditions. </p>
@@ -231,11 +231,11 @@ Les ornements restent tracés, et <span class="tt">EX-IHM-075</span> avec eux</h
 <p><b>C'est faux, et l'erreur méritait d'être corrigée plutôt que suivie.</b> Les trois raisons que cette exigence invoque tiennent toujours : une image ne s'étire pas honnêtement (un cabochon posé sur un panneau bas s'ovalise), elle fige ses couleurs hors des jetons (<span class="tt">EX-IHM-051</span>), et elle ne suit pas le facteur d'agrandissement entier (<span class="tt">EX-IHM-081</span>) — nette à un seul facteur, floue aux deux autres.</p>
 <p>Or <b>Qt Quick Shapes</b> honore les trois : une forme s'y redessine à la taille demandée, prend ses couleurs de <span class="tt">Tokens.qml</span>, et reste nette à tous les facteurs. Et une <span class="tt">Shape</span> déclarative s'édite dans Qt Design Studio comme le reste.</p>
 <p>Ce qui change n'est donc pas « tracé par du code » mais « tracé par du <b>C++</b> ». La géométrie pure relevée sur le corpus (<span class="tt">hmi::parchmentFrameStrokes</span>, <span class="tt">hmi::cabochonShapes</span>, <span class="tt">hmi::titleBannerShapes</span>) reste la <b>source</b> de ce portage, et n'est pas jetée en attendant : la redessiner plus tard, sans se souvenir de ce qui avait été relevé, coûterait bien plus que de la conserver.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md264"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md266"></a>
 Ce qui rend ces exigences autre chose que des intentions</h2>
 <p><span class="tt">scripts/check_ui_layers.py</span> les vérifie toutes à chaque <em>Pull Request</em>, et vérifie en outre qu'<span class="tt">EX-ARCH-001</span> et <span class="tt">EX-NFR-010</span> restent vraies — <span class="tt">Core</span> sans un seul en-tête Qt. Il ne <b>crée</b> pas cette dernière règle, il la <b>verrouille</b> : elle est tenue depuis le <span class="tt">LOT-01</span>, et un seul <span class="tt">QString</span> suffirait à la rendre fausse sans que rien d'autre ne le signale.</p>
 <p>Le contrôle s'auto-vérifie contre la vacuité : un relevé vide est un <b>échec</b>, jamais un succès. C'est la panne du <span class="tt">LOT-78</span>, où un contrôle vert ne lisait rien.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md265"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md267"></a>
 Ce que la conception ne peut pas faire seule</h2>
 <p>Aucune chaîne ne met la totalité d'une interface entre les mains d'un artiste, et le prétendre serait un mensonge utile à personne. Exposer une <b>donnée</b> que le jeu ne calculait pas, ajouter une <b>interaction</b> qui change l'état du jeu, écrire une <b>règle de navigation</b> ou faire exister un <b>écran</b> demandent un développeur : ce sont des notions de jeu, pas d'apparence. La conception dispose librement de tout ce que le jeu sait déjà dire. C'est la même frontière que dans les moteurs du commerce, et c'est la bonne.</p>
 <h1 class="doxsection"><a class="anchor" id="ihm-carte"></a>
@@ -263,7 +263,7 @@ Exigences retirées</h1>
 <li><a class="anchor" id="EX-IHM-061"></a><b>EX-IHM-061</b> <em>(retirée au <span class="tt">LOT-EDITOR-01</span>)</em> — panneaux groupés et mis en avant selon l'outil actif.</li>
 <li><a class="anchor" id="EX-IHM-074"></a><b>EX-IHM-074</b> <em>(retirée au <span class="tt">LOT-EDITOR-01</span>)</em> — hiérarchie des surfaces de commande de l'éditeur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md266"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md268"></a>
 Traçabilité</h1>
 <p>Tout ceci relève de <span class="tt">Source/HMI</span> — les types que voient les écrans du jeu (<span class="tt">Runtime/</span>) — de <span class="tt">Source/Editor</span> pour l'éditeur (<span class="tt">LevelEditor</span>, Qt Widgets, <span class="tt">LOT-EDITOR-01</span>), et de <span class="tt">Source/Ui</span>, <span class="tt">Source/App</span> pour les formulaires et le câblage QML du jeu ; les assets Qt déclaratifs vivent dans <span class="tt">Source/Elements</span>. La logique testable (édition, validation, présentation) reste découplée de l'UI et couverte par des tests (<span class="tt">EX-NFR-010</span>, <span class="tt">EX-NFR-020</span>). Séquencement : <span class="tt">LOT-66</span> et <span class="tt">LOT-87</span> pour la charte (section 7) ; <span class="tt">LOT-68</span> (section 9) pour le châssis des écrans du RPG ; <span class="tt">LOT-86</span> (section 10) pour la séparation de la conception et du code — les écrans du <b>jeu</b> passent à Qt Quick dans un binaire propre, l'<b>éditeur</b> reste en Qt Widgets dans le sien ; <span class="tt">LOT-94</span> pour <span class="tt">EX-IHM-076</span> — une illustration est produite, jamais extraite — et (section 11) pour l'écran « Carte » à trois niveaux, sur les cartes peintes par l'auteur. </p>
 </div></div><!-- contents -->

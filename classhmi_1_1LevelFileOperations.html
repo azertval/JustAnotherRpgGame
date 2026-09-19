@@ -100,14 +100,14 @@ $(function(){initNavTree('classhmi_1_1LevelFileOperations.html','','classhmi_1_1
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aecfe75969fdd39f9feb5419e13427312" id="r_aecfe75969fdd39f9feb5419e13427312"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aecfe75969fdd39f9feb5419e13427312">LevelFileOperations</a> (std::filesystem::path levelsDir)</td></tr>
+<tr class="memitem:a2e34e94f00788eefba7056c5cac47bb1" id="r_a2e34e94f00788eefba7056c5cac47bb1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2e34e94f00788eefba7056c5cac47bb1">LevelFileOperations</a> (std::filesystem::path levelsDir, std::filesystem::path levelsRoot={})</td></tr>
 <tr class="memitem:a0f2a3f81e7b378c50c4448c292ec2499" id="r_a0f2a3f81e7b378c50c4448c292ec2499"><td class="memItemLeft">std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0f2a3f81e7b378c50c4448c292ec2499">list</a> () const</td></tr>
 <tr class="memitem:a0e173c0978bb5aa257a96ffae66dd135" id="r_a0e173c0978bb5aa257a96ffae66dd135"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0e173c0978bb5aa257a96ffae66dd135">create</a> (const std::string &amp;name, int width, int height, const std::string &amp;place={}) const</td></tr>
 <tr class="memdesc:a0e173c0978bb5aa257a96ffae66dd135"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée un niveau minimal valide nommé <code class="param">name</code>, d'une case au moins, entrée au coin bas gauche.  <br /></td></tr>
 <tr class="memitem:a75d94a9afbfd01776b721f58729ae0b8" id="r_a75d94a9afbfd01776b721f58729ae0b8"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a75d94a9afbfd01776b721f58729ae0b8">rename</a> (const std::filesystem::path &amp;source, const std::string &amp;newName) const</td></tr>
-<tr class="memdesc:a75d94a9afbfd01776b721f58729ae0b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme le niveau <code class="param">source</code> en <code class="param">newName</code> (met à jour le nom interne).  <br /></td></tr>
+<tr class="memdesc:a75d94a9afbfd01776b721f58729ae0b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme le niveau <code class="param">source</code> en <code class="param">newName</code>, dans son dossier, par le renommage propagé (<span class="tt"><a class="el" href="namespacehmi.html#a43197e19f5f5d84456fbc0ec9a7d9c86" title="Renomme la carte oldId en newId — un autre dossier est permis (coliseum → capital/coliseum).">hmi::planRenameMap</a></span>, <span class="tt">LOT-EDITOR-14</span>) : portails, variantes, villes et clé du nom suivent, et les catalogues gardent leurs traductions sous la nouvelle clé.  <br /></td></tr>
 <tr class="memitem:a551c21f123f010c79dc0092566523968" id="r_a551c21f123f010c79dc0092566523968"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a551c21f123f010c79dc0092566523968">duplicate</a> (const std::filesystem::path &amp;source) const</td></tr>
-<tr class="memdesc:a551c21f123f010c79dc0092566523968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Duplique le niveau <code class="param">source</code> sous un nom unique (« … (copie) », « … (copie 2) », …).  <br /></td></tr>
+<tr class="memdesc:a551c21f123f010c79dc0092566523968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Duplique le niveau <code class="param">source</code> sous un nom unique (« … (copie) », « … (copie 2) », …) ; le nom de la copie est sa propre clé, aux traductions de l'original.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -118,17 +118,21 @@ Static Public Member Functions</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:ac2182b7cb9a24433e256c3ae04b1aa83" id="r_ac2182b7cb9a24433e256c3ae04b1aa83"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#ac2182b7cb9a24433e256c3ae04b1aa83">pathForName</a> (const std::string &amp;name) const</td></tr>
 <tr class="memdesc:ac2182b7cb9a24433e256c3ae04b1aa83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chemin du fichier <span class="tt">.json</span> correspondant à un nom de niveau, dans le dossier géré.  <br /></td></tr>
+<tr class="memitem:ab11903ab615cd82453aa9c59f6df1aec" id="r_ab11903ab615cd82453aa9c59f6df1aec"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab11903ab615cd82453aa9c59f6df1aec">nameKeyFor</a> (const std::filesystem::path &amp;file) const</td></tr>
+<tr class="memitem:af5bbcef7d8f0d48a8dd8e63b6618aa2d" id="r_af5bbcef7d8f0d48a8dd8e63b6618aa2d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af5bbcef7d8f0d48a8dd8e63b6618aa2d">addNameTranslation</a> (const std::filesystem::path &amp;file, const std::string &amp;text, const std::string &amp;copyFrom={}) const</td></tr>
+<tr class="memdesc:af5bbcef7d8f0d48a8dd8e63b6618aa2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute aux catalogues la clé du nom de <code class="param">file</code> (voir <span class="tt"><a class="el" href="namespacehmi.html#a074c259298bf074bde017244902797da" title="Ajoute key = … à la fin de chaque catalogue de directory qui n&#39;a pas key.">hmi::addTranslation</a></span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ab5f286256893df1118ca24d9321f26c4" id="r_ab5f286256893df1118ca24d9321f26c4"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#ab5f286256893df1118ca24d9321f26c4">_dir</a></td></tr>
+<tr class="memitem:a1eab3a712138ea5885285e25152b948e" id="r_a1eab3a712138ea5885285e25152b948e"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a1eab3a712138ea5885285e25152b948e">_root</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Opérations sur les fichiers de niveaux d'un dossier, <b>sans dépendance Qt/GPU</b>. </p>
 <p>Logique pure et testable (<span class="tt">EX-NFR-010</span>, <span class="tt">EX-IHM-021</span>) : réutilise <span class="tt"><a class="el" href="namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e" title="Indique si name peut servir de nom de niveau (donc de nom de fichier Windows).">hmi::isValidLevelName</a></span> (validation de nom, <span class="tt">EX-EDIT-009</span>), <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></span>/<span class="tt">LevelWriter</span> (format) et <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Carte mutable en cours d&#39;édition, distincte de Level (immuable).">core::LevelDraft</a></span> (aucune règle de niveau dupliquée, <span class="tt">EX-EDIT-010</span>). Chaque opération renvoie un <span class="tt"><a class="el" href="structhmi_1_1FileOperationResult.html" title="Succès (avec le chemin résultant) ou échec (avec un message lisible).">FileOperationResult</a></span> — jamais d'exception vers l'appelant (<span class="tt">EX-NFR-040</span>). </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aecfe75969fdd39f9feb5419e13427312" name="aecfe75969fdd39f9feb5419e13427312"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecfe75969fdd39f9feb5419e13427312">&#9670;&#160;</a></span>LevelFileOperations()</h2>
+<a id="a2e34e94f00788eefba7056c5cac47bb1" name="a2e34e94f00788eefba7056c5cac47bb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e34e94f00788eefba7056c5cac47bb1">&#9670;&#160;</a></span>LevelFileOperations()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -139,8 +143,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">hmi::LevelFileOperations::LevelFileOperations </td>
           <td>(</td>
-          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>levelsDir</em></span></td><td>)</td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>levelsDir</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>levelsRoot</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -149,10 +157,53 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">levelsDir</td><td>Le dossier des cartes qu'on gère (<span class="tt">Levels</span>, ou un sous-dossier). </td></tr>
+    <tr><td class="paramname">levelsRoot</td><td>Le dossier <span class="tt">Levels</span> lui-même, d'où se tirent les identifiants de carte (<span class="tt">capital/martpart</span>) ; à défaut, <code class="param">levelsDir</code>. Les catalogues de traduction sont à côté de lui, dans <span class="tt"><a class="el" href="classhmi_1_1Localization.html" title="Catalogue de traduction (i18n) : associe des clés stables à des chaînes selon la langue active,...">Localization</a></span>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="af5bbcef7d8f0d48a8dd8e63b6618aa2d" name="af5bbcef7d8f0d48a8dd8e63b6618aa2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5bbcef7d8f0d48a8dd8e63b6618aa2d">&#9670;&#160;</a></span>addNameTranslation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::LevelFileOperations::addNameTranslation </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>file</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>text</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>copyFrom</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ajoute aux catalogues la clé du nom de <code class="param">file</code> (voir <span class="tt"><a class="el" href="namespacehmi.html#a074c259298bf074bde017244902797da" title="Ajoute key = … à la fin de chaque catalogue de directory qui n&#39;a pas key.">hmi::addTranslation</a></span>). </p>
+
+</div>
+</div>
 <a id="a0e173c0978bb5aa257a96ffae66dd135" name="a0e173c0978bb5aa257a96ffae66dd135"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0e173c0978bb5aa257a96ffae66dd135">&#9670;&#160;</a></span>create()</h2>
 
@@ -191,7 +242,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Crée un niveau minimal valide nommé <code class="param">name</code>, d'une case au moins, entrée au coin bas gauche. </p>
-<p>Sans lieu, la carte est une grille unique vide. Avec un lieu (<span class="tt">LOT-EDITOR-06</span>), elle naît comme les cartes livrées : une couche de sol <span class="tt">sol</span> qui prend ses pièces dans la planche de <code class="param">place</code> (propriété <span class="tt">scene</span>), une couche de décor <span class="tt">relief</span> au-dessus, et la collision déduite — tout est vide, donc tout arrête la vue, sauf la case d'entrée, qui reçoit un sol. </p>
+<p>Sans lieu, la carte est une grille unique vide. Avec un lieu (<span class="tt">LOT-EDITOR-06</span>), elle naît comme les cartes livrées : une couche de sol <span class="tt">sol</span> qui prend ses pièces dans la planche de <code class="param">place</code> (propriété <span class="tt">scene</span>), une couche de décor <span class="tt">relief</span> au-dessus, et la collision déduite — tout est vide, donc tout arrête la vue, sauf la case d'entrée, qui reçoit un sol.</p>
+<p>Son nom est la clé <span class="tt">map.&lt;identifiant&gt;.name</span> (<span class="tt">LOT-EDITOR-07</span>), que chaque catalogue de traduction reçoit avec <code class="param">name</code> pour texte : la carte passe le contrôle telle quelle. </p>
 
 </div>
 </div>
@@ -218,7 +270,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Duplique le niveau <code class="param">source</code> sous un nom unique (« … (copie) », « … (copie 2) », …). </p>
+<p>Duplique le niveau <code class="param">source</code> sous un nom unique (« … (copie) », « … (copie 2) », …) ; le nom de la copie est sa propre clé, aux traductions de l'original. </p>
 
 </div>
 </div>
@@ -245,6 +297,32 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Les fichiers <span class="tt">.json</span> du dossier, triés par nom (vide si le dossier n'existe pas). </dd></dl>
+
+</div>
+</div>
+<a id="ab11903ab615cd82453aa9c59f6df1aec" name="ab11903ab615cd82453aa9c59f6df1aec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab11903ab615cd82453aa9c59f6df1aec">&#9670;&#160;</a></span>nameKeyFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::LevelFileOperations::nameKeyFor </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>file</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La clé du nom de la carte écrite en <code class="param">file</code>. </dd></dl>
 
 </div>
 </div>
@@ -329,7 +407,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Renomme le niveau <code class="param">source</code> en <code class="param">newName</code> (met à jour le nom interne). </p>
+<p>Renomme le niveau <code class="param">source</code> en <code class="param">newName</code>, dans son dossier, par le renommage propagé (<span class="tt"><a class="el" href="namespacehmi.html#a43197e19f5f5d84456fbc0ec9a7d9c86" title="Renomme la carte oldId en newId — un autre dossier est permis (coliseum → capital/coliseum).">hmi::planRenameMap</a></span>, <span class="tt">LOT-EDITOR-14</span>) : portails, variantes, villes et clé du nom suivent, et les catalogues gardent leurs traductions sous la nouvelle clé. </p>
+<p>Refusé sans rien écrire si une carte du projet est illisible ou si le nom est pris. </p>
 
 </div>
 </div>
@@ -345,6 +424,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::filesystem::path hmi::LevelFileOperations::_dir</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1eab3a712138ea5885285e25152b948e" name="a1eab3a712138ea5885285e25152b948e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1eab3a712138ea5885285e25152b948e">&#9670;&#160;</a></span>_root</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::LevelFileOperations::_root</td>
         </tr>
       </table>
   </td>

@@ -1,0 +1,18 @@
+var MapRefactor_8cpp =
+[
+    [ "hmi::applyRefactorPlan", "namespacehmi.html#a883391e9cf300c6d9ac2eeb7e694f54e", null ],
+    [ "hmi::citationsOfArrival", "namespacehmi.html#abab76a12c8660bff3eeba4f44e7f488f", null ],
+    [ "hmi::citationsOfEntity", "namespacehmi.html#a6433401a8bdd2dfa3b1209c92df3f776", null ],
+    [ "hmi::citationsOfMap", "namespacehmi.html#a9e883d27c858a688f03fb82107cbb826", null ],
+    [ "hmi::citationsOfPiece", "namespacehmi.html#ad8039f7a46143bef6da7de82c1a2b706", null ],
+    [ "hmi::formatCitation", "namespacehmi.html#a74586cd412a390e18f084267c8de1d1e", null ],
+    [ "hmi::piecesMissingFrom", "namespacehmi.html#a0377bf0efd1edea1d227241afc05856a", null ],
+    [ "hmi::planChangeScene", "namespacehmi.html#abd8448903deb381b104ac15a93c940d5", null ],
+    [ "hmi::planRenameArrival", "namespacehmi.html#a5f73dc68dbcc5745914ce5e95a78bb2b", null ],
+    [ "hmi::planRenameEntityId", "namespacehmi.html#ab822e7d58bc19bd2b2d86e8f5cf5575f", null ],
+    [ "hmi::planRenameMap", "namespacehmi.html#a43197e19f5f5d84456fbc0ec9a7d9c86", null ],
+    [ "hmi::planReplacePiece", "namespacehmi.html#abfd98fd3827a2fc0a88db80648a18b59", null ],
+    [ "hmi::proposedPieceTable", "namespacehmi.html#a2e091b55877d7aecd5436fad2ee8f474", null ],
+    [ "hmi::readPieceTable", "namespacehmi.html#ad88f7ff4876e7912263fe9021f6c6e89", null ],
+    [ "hmi::runRefactorCommand", "namespacehmi.html#aa0495229fd9a33ac476720e70af9b973", null ]
+];

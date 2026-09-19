@@ -233,9 +233,9 @@ std::vector&lt;WorldFigureSnapshot&gt; npcFigures(const std::vector&lt;core::Map
             nom != nullptr &amp;&amp; !nom-&gt;empty()) {
             return *nom;</span>
         }
-<span style = "background-color:#fdd">    }
-    return {};</span>
-<span style = "background-color:#dfd">}</span>
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    return {};
+}</span>
 
 WorldSceneSnapshot snapshotWorldScene(const core::Level&amp; level, const PlaceAppearance&amp; appearance,
 <span style = "background-color:#dfd">                                      std::vector&lt;WorldFigureSnapshot&gt; figures) {

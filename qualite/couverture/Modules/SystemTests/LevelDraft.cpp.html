@@ -18,6 +18,7 @@
 #include &lt;utility&gt;
 
 #include "Core/Levels/CollisionDerivation.h"
+#include "Core/Levels/LevelVariant.h"
 #include "Core/Levels/LevelWriter.h"
 
 namespace core {
@@ -565,6 +566,125 @@ bool LevelDraft::placePieceRegion(std::size_t index, GridPosition first, GridPos
         return std::ranges::find(released, cell) != released.end();
     });
     followCollision(released);
+    return true;
+}</span>
+
+// --- Remplacer, changer de planche (LOT-EDITOR-14) ---
+
+namespace {
+
+// L'emprise de @p piece selon @p manifest, 1 x 1 si elle y est inconnue.
+[[nodiscard]] PieceFootprint footprintIn(const ScenePieceManifest* manifest,
+<span style = "background-color:#dfd">                                         std::string_view piece) noexcept {
+    const ScenePiece* const found =</span>
+        piece.empty() || manifest == nullptr ? nullptr : manifest-&gt;find(piece);
+<span style = "background-color:#dfd">    return found != nullptr ? found-&gt;footprint() : PieceFootprint{};
+}</span>
+
+// Renomme dans @p layers les pieces que @p renaming nomme ; @p touched recoit les cases des
+// anciennes emprises (lues par @p before) et des nouvelles (lues par @p after). Faux si une
+// nouvelle emprise deborde de la carte : @p layers est alors a jeter.
+[[nodiscard]] bool renamePieces(std::vector&lt;TileLayer&gt;&amp; layers, const PieceRenaming&amp; renaming,
+                                const ScenePieceManifest* before, const ScenePieceManifest* after,
+<span style = "background-color:#dfd">                                std::vector&lt;GridPosition&gt;&amp; touched, std::size_t&amp; renamed) {
+    for (TileLayer&amp; layer : layers) {
+        if (!isVisualLayerKind(layer.kind) || !layer.hasPieces()) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (int row = 0; row &lt; layer.tiles.height(); ++row) {
+            for (int column = 0; column &lt; layer.tiles.width(); ++column) {
+                const auto found = renaming.find(layer.pieceAt(column, row));
+                if (found == renaming.end() || found-&gt;second == found-&gt;first) {
+                    continue;</span>
+                }
+<span style = "background-color:#dfd">                const GridPosition anchor{.column = column, .row = row};
+                const PieceFootprint next = footprintIn(after, found-&gt;second);
+                if (!layer.tiles.inBounds(column + next.columns - 1, row + next.rows - 1)) {
+                    return false;</span>
+                }
+<span style = "background-color:#dfd">                const std::vector&lt;GridPosition&gt; old =</span>
+                    footprintCells(anchor, footprintIn(before, found-&gt;first));
+<span style = "background-color:#dfd">                const std::vector&lt;GridPosition&gt; covered = footprintCells(anchor, next);
+                touched.insert(touched.end(), old.begin(), old.end());
+                touched.insert(touched.end(), covered.begin(), covered.end());
+                layer.setPiece(column, row, found-&gt;second);
+                ++renamed;
+            }
+        }
+    }
+    return true;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">bool LevelDraft::replacePieces(const PieceRenaming&amp; renaming) {
+    std::vector&lt;TileLayer&gt; layers = _layers;
+    std::vector&lt;GridPosition&gt; touched;
+    std::size_t renamed = 0;
+    if (!renamePieces(layers, renaming, _manifest.get(), _manifest.get(), touched, renamed) ||</span>
+        renamed == 0) {
+<span style = "background-color:#dfd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    pushUndo();
+    _layers = std::move(layers);
+    followCollision(touched);
+    return true;
+}</span>
+
+bool LevelDraft::changeScene(const std::string&amp; place,
+                             std::shared_ptr&lt;const ScenePieceManifest&gt; manifest,
+<span style = "background-color:#dfd">                             const PieceRenaming&amp; renaming) {
+    if (!derivesCollision() || place.empty()) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    std::vector&lt;TileLayer&gt; layers = _layers;
+    std::vector&lt;GridPosition&gt; touched;
+    std::size_t renamed = 0;
+    if (!renamePieces(layers, renaming, _manifest.get(), manifest.get(), touched, renamed)) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+    // La planche se dit sur les couches qui la nomment ; a defaut, sur la premiere couche de sol.
+<span style = "background-color:#dfd">    const std::string key{SCENE_LAYER_PROPERTY};
+    bool named = false;
+    bool changed = renamed &gt; 0;
+    for (TileLayer&amp; layer : layers) {
+        const auto found = layer.properties.find(key);
+        if (found == layer.properties.end()) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        named = true;
+        if (found-&gt;second != PropertyValue{place}) {
+            found-&gt;second = place;
+            changed = true;</span>
+        }
+<span style = "background-color:#dfd">    }
+    if (!named) {
+        auto target = std::ranges::find_if(
+            layers, [](const TileLayer&amp; layer) { return layer.kind == LayerKind::Ground; });
+        if (target == layers.end()) {</span>
+            // derivesCollision() : la carte a une couche visuelle, donc un decor.
+<span style = "background-color:#fdd">            target = std::ranges::find_if(
+                layers, [](const TileLayer&amp; layer) { return isVisualLayerKind(layer.kind); });</span>
+        }
+<span style = "background-color:#dfd">        target-&gt;properties[key] = place;
+        changed = true;
+    }
+    if (!changed) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    pushUndo();
+    _layers = std::move(layers);
+    _manifest = std::move(manifest);</span>
+    // Une piece qui garde son nom peut changer d'emprise ou de type tactique : tout se rededuit.
+<span style = "background-color:#dfd">    std::vector&lt;GridPosition&gt; all;
+    all.reserve(static_cast&lt;std::size_t&gt;(_tileMap.width()) *</span>
+                static_cast&lt;std::size_t&gt;(_tileMap.height()));
+<span style = "background-color:#dfd">    for (int row = 0; row &lt; _tileMap.height(); ++row) {
+        for (int column = 0; column &lt; _tileMap.width(); ++column) {
+            all.push_back({.column = column, .row = row});
+        }
+    }
+    followCollision(all);
     return true;
 }</span>
 

@@ -193,7 +193,7 @@ $(function(){initNavTree('roadmap.html','',''); });
 <li><b>en attente</b> — il attend au moins un lot non livré.</li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md909"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md911"></a>
 1. Le corpus n'est pas versionné</h1>
 <p><span class="tt">Documentation/SourceBook/</span> est exclu <b>en entier</b> par le <span class="tt">.gitignore</span>. La raison est désormais la taille : <b>785 Mo</b> de binaires, dont deux images de plus de 100 Mo, que git versionne mal — chaque clone les traîne, et aucune de leurs révisions ne se compresse. (280 Mo jusqu'au 7 septembre 2026 ; les neuf ressources de table virtuelle du §2 ont presque triplé le volume, ce qui ne change pas la règle mais en renforce le motif.)</p>
 <blockquote class="doxtable">
@@ -205,7 +205,7 @@ $(function(){initNavTree('roadmap.html','',''); });
 <li>Le corpus texte intermédiaire produit par l'extraction n'est pas versionné non plus. Il se régénère à la demande depuis les PDF locaux ; ce sont les <b>données finales</b>, elles, qui entrent dans le dépôt.</li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md911"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md913"></a>
 2. Inventaire du corpus</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -227,7 +227,7 @@ $(function(){initNavTree('roadmap.html','',''); });
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><span class="tt">Character_Sheets_Tanares.pdf</span>  </td><td class="markdownTableBodyNone">Feuilles de personnage  </td><td class="markdownTableBodyNone">5  </td><td class="markdownTableBodyNone">EN  </td><td class="markdownTableBodyNone"><b>aucun</b> (vectoriel)  </td><td class="markdownTableBodyNone">6, jusqu'à 2 668 × 3 418  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md912"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md914"></a>
 Les ressources de table virtuelle (ajoutées le 7 septembre 2026)</h2>
 <p>Neuf ressources se sont ajoutées au corpus <b>après</b> les huit PDF ci-dessus. Elles ne viennent pas d'un autre livre : ce sont les fichiers distribués avec Tanares pour <b>jouer sur table virtuelle</b>. Leur intérêt tient exactement à ce que les PDF de règles n'ont pas — des cartes vues <b>de dessus</b>, des jetons <b>déjà détourés</b>, une carte du monde sans double page ni filigrane, et une feuille de personnage <b>vierge</b>, c'est-à-dire une maquette et non un exemple rempli.</p>
 <table class="markdownTable">
@@ -259,7 +259,7 @@ Les ressources de table virtuelle (ajoutées le 7 septembre 2026)</h2>
 <li><b>Les jetons épargnent un détourage.</b> 172 portraits ronds à fond transparent, prêts à poser dans une fiche, une réplique de dialogue ou une piste d'initiative — un travail d'image que le projet n'aurait pas fait à la main.</li>
 </ul>
 <p>Comme les huit premiers, ces fichiers <b>ne sont pas versionnés</b> (§1) : ils sont déclarés dans <span class="tt">scripts/sourcebook/corpus.toml</span>, avec leur empreinte, et c'est ce manifeste qui est versionné. Il sait depuis leur arrivée décrire autre chose qu'un PDF — une <b>planche</b> seule, ou une <b>collection</b> de fichiers, dont l'empreinte porte sur la liste triée de ses membres : un jeton retiré, ajouté ou retouché la change, et 172 lignes de manifeste n'ont pas eu à être écrites pour un jeu qu'on prend ou qu'on laisse entier.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md913"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md915"></a>
 Ce que chaque document apporte, chiffré</h2>
 <ul>
 <li><b><span class="tt">Animaux.pdf</span></b> — <b>94 blocs de statistiques</b> complets (CA, PV, vitesse, six caractéristiques, compétences, sens, langues, facteur de puissance, traits, actions), au format le plus régulier de tout le corpus. C'est le gisement le plus rentable : traduction française déjà faite, mise en page mécanique. Aucune illustration de créature à en tirer en revanche — ses 38 images sont les fonds de parchemin des pages.</li>
@@ -272,7 +272,7 @@ Ce que chaque document apporte, chiffré</h2>
 <li><b><span class="tt">Character_Sheets_Tanares.pdf</span></b> — 5 feuilles, <b>zéro caractère de texte</b> hors filigrane. Les planches sont en revanche disponibles en image à 2 668 × 3 418, soit environ 300 ppp : de quoi servir de maquette précise pour l'écran de fiche — ce que le <a class="el" href="lot-38.html" title="LOT-38 — Fiche de personnage : maquette et interface">LOT-38</a> a fait, avant que la charte v2 du <a class="el" href="lot-87.html" title="LOT-87 — Charte v2 et intégration des maquettes">LOT-87</a> ne lui substitue la maquette 03 du pack UI.</li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md915"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md917"></a>
 3. Licences : contrainte en sommeil</h1>
 <p>Le projet est <b>privé, sans diffusion ni acte commercial</b>, et le dépôt est passé en privé. Les licences du corpus ne contraignent donc <b>pas</b> l'usage : noms propres, textes, blocs de statistiques et illustrations sont utilisables tels quels dans le jeu.</p>
 <p>Ce paragraphe existe quand même, parce que la contrainte n'est pas supprimée mais <b>endormie</b> : elle se réveille intégralement le jour où le projet serait publié, diffusé ou vendu. Autant savoir dès maintenant ce qu'il faudrait alors reprendre, plutôt que de le découvrir à ce moment-là.</p>
@@ -289,7 +289,7 @@ Ce que chaque document apporte, chiffré</h2>
 <p>En pratique, cela suggère une seule discipline, peu coûteuse et qui garde la porte ouverte : <b>tracer la provenance</b>. Chaque donnée produite porte un champ <span class="tt">"source"</span> (<span class="tt">srd</span>, <span class="tt">tanares</span>, <span class="tt">phb-fr</span>, <span class="tt">original</span>). Un jour de publication, la question « qu'est-ce qui doit sauter ? » se répond par une requête plutôt que par une relecture de tout le catalogue — et le <span class="tt">LOT-32</span> peut l'imposer par schéma sans effort supplémentaire.</p>
 <p>Cela ne change rien au cadrage acté avant le <a class="el" href="lot-01.html" title="LOT-01 — Fork, purge et remise à nu">LOT-01</a> — <b>règles d20 maison, compatibles SRD dans leur structure, sans en dépendre</b> : le moteur reste indépendant du SRD, ce sont les <em>données</em> qui viennent du corpus.</p>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md917"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md919"></a>
 4. Ce que l'extraction a appris</h1>
 <p>Six constats techniques, tous vérifiés sur le corpus, qui déterminent la faisabilité des lots.</p>
 <p><b>PyMuPDF fait tout, et mieux que l'outillage en ligne de commande.</b> Le poste dispose de <span class="tt">pdftotext</span> version Xpdf 4.00, mais ni <span class="tt">pdfimages</span> ni <span class="tt">pdftoppm</span>. <b>PyMuPDF 1.28.2</b> (installable par <span class="tt">pip</span>, testé) couvre en une seule bibliothèque le texte, les coordonnées de mots, les images et le rendu de page — c'est la dépendance à retenir pour le <span class="tt">LOT-30</span>, plutôt qu'un assemblage d'exécutables partiellement présents.</p>
@@ -327,7 +327,7 @@ Ce que chaque document apporte, chiffré</h2>
 <p>Conclusion : le <span class="tt">Manuel-Des-Joueurs.pdf</span> est <b>exploitable</b> avec le bon outil et une passe de contrôle — et il est indispensable, puisqu'il est la seule source française des 5 races et 8 classes absentes des <em>Basic Rules</em>. Le <span class="tt">Manuel-Des-Monstres.pdf</span> reste hors périmètre, non par impossibilité mais par arbitrage (§8) : 416 blocs à contrôler pour un bestiaire déjà suffisant.</p>
 <p><b>L'extraction du flux brut des images est corrompue ; il faut passer par le rendu.</b> Tirer un objet image par son <span class="tt">xref</span> produit sur ce corpus des zones de bruit vert et cyan — décodage raté d'un flux JPX ou d'un masque alpha. En revanche, <b>rendre la page</b> (ou une région clippée de la page) donne un résultat parfait, parce que le rendu passe par la composition complète. Avec une réserve qui compte : rendre une région composite <b>tout ce qui y est dessiné, texte compris</b>. Sur ces livres où l'art court sous les colonnes, l'extraction d'illustrations propres est donc <b>semi-automatique</b> — l'outil propose les régions candidates, l'humain garde et recadre. Les éléments d'habillage autonomes (panneaux de parchemin, cadres, bordures) sortent en revanche parfaitement seuls, et ce sont eux qui ont alimenté l'interface au <a class="el" href="lot-76.html" title="LOT-76 — Habillage d&#39;interface extrait des livres">LOT-76</a> — jusqu'à ce que la charte v2 du <a class="el" href="lot-87.html" title="LOT-87 — Charte v2 et intégration des maquettes">LOT-87</a> remplace ces relevés par des images <b>produites</b> depuis un cahier des assets, le corpus ne servant plus que de référence de cotes et de couleurs.</p>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md919"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md921"></a>
 4bis. Ce que les deux livres imposent au moteur — relecture du 14 septembre 2026</h1>
 <p>Les entrants réels du projet ne sont pas les spécifications : ce sont le <em>Player's Guide to Tanares</em> et le <em>Tanares Sourcebook</em>. Ils ont été relus <b>en entier</b> (2,65 millions de caractères, neuf lecteurs en parallèle) avant de démarrer les lots de mécanique de cœur, pour que le <a class="el" href="lot-19.html" title="LOT-19 — Grille tactique et déplacement">LOT-19</a> et ses suivants ne construisent pas un moteur que le contenu de Tanares ne saura pas traverser. Le résultat tient dans une règle et une matrice.</p>
 <p><b>La règle.</b> Le moteur ne cherche pas à implémenter chaque capacité des livres — il y en a plusieurs centaines, et une bonne part est arbitrée par un maître de jeu. Il doit en revanche <b>offrir les crochets</b> que ces capacités composent (<span class="tt">EX-RPG-050</span>), et laisser la donnée déclarer ce qu'elle exige (<span class="tt">EX-CNT-030</span>) pour que le moteur refuse en le disant ce qu'il ne sait pas honorer (<span class="tt">EX-CNT-031</span>). Un crochet manquant au socle se paie en refonte de tous les lots de classe ; un crochet posé tôt ne coûte qu'une interface. La matrice ci-dessous dit, domaine par domaine, ce que le socle doit <b>prévoir</b> (une interface, un champ, un événement) et ce qu'il peut <b>ignorer</b>.</p>
@@ -370,7 +370,7 @@ Ce que chaque document apporte, chiffré</h2>
 <p><b>Ce que la relecture écarte, et pourquoi</b> — inscrit au §8 pour ne pas être redécouvert : les montures volantes et leurs <em>Flying Points</em> (n'agissent que monté contre monté, sans sens vu de dessus) ; le combat naval ; les deux fiches alternées du cirrus (une seule face, choisie à la création) ; les tests « liés aux dragons » ou « mathématiques » (étiquetage sémantique des tests) ; les sorts arbitrés par le maître de jeu et ceux qui <b>rejouent un tour</b> ou <b>réécrivent un PNJ</b> (déclarés narratifs, <span class="tt">EX-RPG-051</span>) ; les zones <b>mobiles</b> (oasis migrante, Deep Freeze qui s'étend) ; les plans autres que le pénombral (Éthéré, Astral, Yrthak, Elemental Grounds) ; la Malédiction malrokienne comme compteur global.</p>
 <p><b>Ce que la relecture a compté, et qui corrige la page</b> : 13 régions et non 10 ; 82 blocs de créatures confirmés (66 + 16), plus <b>Etoraax</b> (FP 29), 30 formes pénombrales, 5 gardiens-plantes, 3 invocations, 3 montures, 12 employés, 13 créatures orientales de Yama et 3 blocs de Sindile — soit une soixantaine de blocs <b>hors</b> des 82 ; 7 historiques (les 13 du <span class="tt">LOT-36</span> les incluent) ; <b>20 dons de Tanares</b> absents des 42 dons livrés au <span class="tt">LOT-43</span> ; 76 sorts du <em>Player's Guide</em> et <b>191 sorts d'élémentaliste</b>, chacun avec un second effet (<em>Elemental Flux</em>) ; 46 pouvoirs draconiques, 48 mutations, 16 pouvoirs de mort, 50 bénédictions, 6 postures ; 29 objets magiques ; 15 sous-classes de Tanares pour les classes du SRD, plus l'Amazone ; les 4 classes simplifiées sont bien les 4 provisoires du <span class="tt">LOT-36</span>.</p>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md921"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md923"></a>
 5. Programme de lots proposé — la filière contenu</h1>
 <p>Les lots <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a> (fiche de personnage), <a class="el" href="lot-14.html" title="LOT-14 — Inventaire et équipement">LOT-14</a> (inventaire), <a class="el" href="#lot-25" title="LOT-25 — Sorts et capacités de classe">LOT-25</a> (sorts) et <a class="el" href="#lot-26" title="LOT-26 — Butin, marchands, économie">LOT-26</a> (économie) exigent tous un « catalogue en <b>JSON</b> », conformément à <a class="el" href="spec-vision.html#EX-VIS-007" title="EX-VIS-007"><span class="tt">EX-VIS-007</span></a>. Aucun ne disait <b>d'où sortent ces JSON</b>. C'est exactement le trou que ce corpus comble, et c'est le périmètre de cette filière — les deux premiers sont livrés depuis, sur les catalogues qu'elle a produits.</p>
 <p>Trente-cinq lots, <span class="tt">LOT-35</span> à <span class="tt">LOT-96</span>, restent à livrer dans cette filière — la plage court jusqu'au <a class="el" href="lot-96.html" title="LOT-96 — Martpart et Arenarea se parcourent : le graphe des quartiers">LOT-96</a>, la ville scindée du <span class="tt">LOT-09</span>, livré le 18 septembre 2026 — dont deux ajoutés par la relecture des livres (§4bis) : <span class="tt">LOT-89</span>, <span class="tt">LOT-90</span> — le troisième, <a class="el" href="lot-88.html" title="LOT-88 — Retrait de l&#39;héritage : code, assets et spécifications">LOT-88</a>, est livré. Des cinq nés de la relecture du plan d'intégration de la Capitale, le 16 septembre 2026 (§8), aucun ne reste : le <a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a>, le <a class="el" href="lot-93.html" title="LOT-93 — Atelier des monstres : les figurines du bestiaire, depuis le texte seul">LOT-93</a> (l'atelier des monstres), le <a class="el" href="lot-94.html" title="LOT-94 — Les images du corpus quittent le dépôt ; l&#39;écran « Carte » revient sur les cartes de l&#39;auteur : monde, région, ville">LOT-94</a> et le <a class="el" href="lot-96.html" title="LOT-96 — Martpart et Arenarea se parcourent : le graphe des quartiers">LOT-96</a> sont livrés, et le <span class="tt">LOT-95</span> a été absorbé par le <a class="el" href="lot-94.html" title="LOT-94 — Les images du corpus quittent le dépôt ; l&#39;écran « Carte » revient sur les cartes de l&#39;auteur : monde, région, ville">LOT-94</a>. Sept numéros ont été <b>retirés</b> (<span class="tt">LOT-31</span>, <span class="tt">LOT-48</span>, <span class="tt">LOT-69</span>, <span class="tt">LOT-71</span>, <span class="tt">LOT-73</span>, <span class="tt">LOT-95</span> par fusion, <span class="tt">LOT-85</span> par abandon : voir l'encart en fin de section), et vingt et un lots de la même plage sont <b>livrés</b> — les trois préconditions <a class="el" href="lot-77.html" title="LOT-77 — La moitié RPG de la spécification">LOT-77</a>, <a class="el" href="lot-78.html" title="LOT-78 — Désambiguïsation des numéros de lots hérités">LOT-78</a> et <a class="el" href="lot-79.html" title="LOT-79 — Socle de chargement de données">LOT-79</a>, puis <span class="tt">LOT-30</span>, <span class="tt">LOT-32</span> à <span class="tt">LOT-34</span>, <span class="tt">LOT-36</span> à <span class="tt">LOT-39</span>, <span class="tt">LOT-43</span>, <span class="tt">LOT-66</span> à <span class="tt">LOT-68</span>, <span class="tt">LOT-76</span>, <a class="el" href="lot-88.html" title="LOT-88 — Retrait de l&#39;héritage : code, assets et spécifications">LOT-88</a>, <a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a>, <a class="el" href="lot-93.html" title="LOT-93 — Atelier des monstres : les figurines du bestiaire, depuis le texte seul">LOT-93</a>, <a class="el" href="lot-94.html" title="LOT-94 — Les images du corpus quittent le dépôt ; l&#39;écran « Carte » revient sur les cartes de l&#39;auteur : monde, région, ville">LOT-94</a> et <a class="el" href="lot-96.html" title="LOT-96 — Martpart et Arenarea se parcourent : le graphe des quartiers">LOT-96</a> — qui ont donc quitté cette page pour leur dossier, comme tout lot livré. Les numéros sont, comme toujours, des identifiants stables : ils viennent après <a class="el" href="#lot-29" title="LOT-29 — Groupe de quatre personnages">LOT-29</a> dans la numérotation, mais plusieurs s'exécutent <b>avant</b> les lots qui les consomment (voir §6). La famille d'exigences <span class="tt">EX-CNT-*</span> les couvre, dans <span class="tt"><a class="el" href="contenu_8md.html">Documentation/Specification/contenu.md</a></span> (<a class="el" href="lot-77.html" title="LOT-77 — La moitié RPG de la spécification">LOT-77</a>).</p>
@@ -380,7 +380,7 @@ Ce que chaque document apporte, chiffré</h2>
 <p><b>Second audit, le 14 septembre 2026</b> (§9.6) : trente et un lots livrés, dont deux refontes d'interface (<span class="tt">LOT-86</span>, <span class="tt">LOT-87</span>) décidées hors de cette page. Il a corrigé ce qui avait dérivé — un <span class="tt">LOT-27</span> que le lint croyait prêt, des sections de lots qui décrivaient des classes retirées, une charte remplacée — sans changer un seul périmètre. </p>
 </blockquote>
 <p>Trois formes de sortie, et le choix entre elles n'est pas cosmétique. <b>JSON</b> pour tout ce qui est structuré et imbriqué — une créature a des actions, une classe a une progression par niveau — et parce que le projet lit déjà du JSON (<span class="tt">skins.json</span>, <span class="tt">sounds.json</span>, <span class="tt">palettes.json</span>). <b>CSV</b> pour la seule donnée réellement tabulaire et plate du corpus, le lexique du <span class="tt">LOT-30</span> : 1 200 lignes de trois colonnes, qu'on veut pouvoir trier, comparer et corriger dans un tableur sans passer par un éditeur de code. <b>PNG</b> enfin, pour les images de l'interface — non plus des textures <b>extraites</b> du corpus, comme le <span class="tt">LOT-39</span> le prévoyait, mais des images <b>produites</b> à 1080p depuis le cahier des assets du <a class="el" href="lot-87.html" title="LOT-87 — Charte v2 et intégration des maquettes">LOT-87</a> ; le <span class="tt">LOT-39</span> a livré la plomberie des clés et le marqueur généré qui tient lieu de toute image absente.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md922"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md924"></a>
 Importer tout, honorer progressivement</h2>
 <p>Le périmètre est <b>le monde complet</b> : les 13 régions et leurs lieux, les 13 espèces, les 8 classes et leurs sous-classes, les historiques, les factions, le panthéon, le bestiaire entier. Pas de socle réduit, pas de tri préalable.</p>
 <p>C'est le bon choix, et il est peu coûteux : extraire treize régions ne demande pas dix fois le travail d'en extraire une, puisque c'est le <b>parseur</b> qui coûte, pas les données qu'il avale. Mais il introduit un écart qu'il faut nommer tout de suite, sous peine de le découvrir en jeu :</p>
@@ -389,7 +389,7 @@ Importer tout, honorer progressivement</h2>
 </blockquote>
 <p>La règle qui évite le piège est celle que le <a class="el" href="#lot-25" title="LOT-25 — Sorts et capacités de classe">LOT-25</a> pose déjà pour les sorts, étendue à toute la filière : <b>chaque donnée déclare les mécanismes dont elle a besoin</b>, et le moteur <b>refuse en le disant</b> ce qu'il ne sait pas honorer. Une classe dont le moteur ignore la ressource propre se signale au chargement, elle ne se joue pas en silence comme une classe ordinaire amputée de ce qui la définit.</p>
 <p>Ainsi le catalogue peut être complet longtemps avant le moteur, sans jamais mentir sur ce qui est jouable — et l'écart entre les deux devient une liste consultable plutôt qu'une surprise.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md923"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md925"></a>
 La cible : un bac à sable dans l'univers entier</h2>
 <p>Le jeu visé dans un premier temps est un <b>bac à sable</b> — le personnage parcourt les treize régions librement, sans intrigue directrice. Ce cadrage n'ajoute pas une contrainte à la filière, il en change la nature, et pour le mieux.</p>
 <p>Un bac à sable se nourrit de contenu <b>systémique</b> : les rencontres naissent d'une table et d'un lieu, pas d'un script ; le stock d'un marchand se déduit de sa région ; une quête se compose à partir des objectifs d'une faction et de l'état du monde. Rien de tout cela ne s'écrit à la main région par région — et c'est précisément ce que le corpus permet d'éviter, parce que les <b><span class="tt">Regional Statistics</span> sont déjà des réglages de bac à sable</b>. <span class="tt">Monster Presence</span>, <span class="tt">Magic Access</span>, <span class="tt">Economic Prosperity</span>, <span class="tt">Crime and Violence</span> : quatre axes notés, treize régions, et le monde se différencie mécaniquement sans qu'une seule valeur soit inventée.</p>
@@ -684,11 +684,11 @@ La cible : un bac à sable dans l'univers entier</h2>
 <p>Le <span class="tt">LOT-31</span> (lexique bilingue) a lui aussi été retiré par fusion, dans le <a class="el" href="lot-30.html" title="LOT-30 — Chaîne d&#39;extraction du corpus et lexique bilingue">LOT-30</a> — mais ce dernier étant livré, la plage de cette page commence désormais au <span class="tt">LOT-32</span>, et le numéro <span class="tt">LOT-31</span> n'y manque plus. Son sort est écrit dans l'epic du <span class="tt">LOT-30</span>. </p>
 </blockquote>
 <hr  />
- <h1 class="doxsection"><a class="anchor" id="autotoc_md926"></a>
+ <h1 class="doxsection"><a class="anchor" id="autotoc_md928"></a>
 6. Ordre d'exécution</h1>
 <p><b>Les numéros ne sont pas un ordre.</b> Ils datent de l'écriture de cette page, où la filière contenu a été numérotée après les lots de moteur. Les suivre tels quels construirait le graphe de cartes du <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a> avant l'atlas du <span class="tt">LOT-37</span> qui lui donne de vrais nœuds à relier, et la fiche de personnage du <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a> avant les espèces qu'elle affiche. Mais les ignorer ne vaut pas mieux : l'ordre retombe alors sur un arbitrage, et un arbitrage se refait à chaque lot — sans jamais donner deux fois la même réponse.</p>
 <p>Cette section donne donc <b>une suite unique</b>, et la règle qui la produit.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md927"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md929"></a>
 La règle</h2>
 <blockquote class="doxtable">
 <p><b>À chaque pas, on prend, parmi les lots dont tous les prérequis sont faits, celui du jalon de version le plus proche ; à jalon égal, celui qui en débloque le plus.</b> À égalité, le plus petit numéro. </p>
@@ -704,11 +704,11 @@ La règle</h2>
 <li>elle <b>ne promet pas d'être optimale</b>. Elle ne raccourcit pas le programme et ne minimise aucune durée — rien ici ne mesure la durée d'un lot. Elle maximise, à chaque pas, le nombre de lots qui deviennent démarrables : elle repousse le plus tard possible le moment où il ne reste qu'un seul chemin.</li>
 </ul>
 <p>Un lien se déclare <b>des deux côtés</b> : soit un lot cite ce qu'il attend, soit un lot amont déclare ce qu'il alimente. Les deux comptent. C'est ce qui place le <a class="el" href="#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a> au rang 20, et non parmi les tout premiers : il ne déclare <b>aucun</b> prérequis — son texte est repris tel quel de son epic d'origine, qui ignorait la filière — alors que cinq lots de contenu déclarent l'alimenter. Le <em>vertical slice</em> se jouerait sinon sur des catalogues vides.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md928"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md930"></a>
 Où lire la suite</h2>
 <p>La suite calculée par cette règle est le <b>tableau d'avancement en tête de page</b> (<a class="el" href="#roadmap-avancement" title="État d&#39;avancement">État d'avancement</a>) : c'est la première chose qu'on lit en ouvrant ce document, et c'est là qu'elle sert. Elle n'est pas recopiée ici — deux tableaux décrivant le même ordre divergeraient, et cette page a déjà payé ce prix une fois.</p>
 <p>Ce qui reste dans cette section explique <b>pourquoi</b> la suite est celle-là : le regroupement d'intention dont elle est issue, ce que le calcul a révélé, le chemin critique qu'il faut tenir court, et le graphe dont tout est tiré.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md929"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md931"></a>
 Le regroupement d'intention</h2>
 <p>Le tableau ci-dessous <b>ne donne pas l'ordre</b> — celui d'en-tête le donne. Il donne la <em>raison</em> de chaque placement, et c'est la seule chose qu'un calcul ne saura jamais produire : un graphe dit qu'un lot en attend un autre, il ne dit pas pourquoi on a voulu ce lien. Les deux tableaux ne se contredisent donc pas, ils ne répondent pas à la même question — et chacun a son garde-fou : le lint vérifie qu'aucun lot de la filière ne manque à celui-ci (règle 6), comme il vérifie que celui d'en-tête est bien la suite calculée (règle 13).</p>
 <p>Ces trente-cinq lots ne forment <b>pas une phase</b> qui suivrait le <a class="el" href="#lot-29" title="LOT-29 — Groupe de quatre personnages">LOT-29</a> : ils s'entrelacent avec les phases B à E, parce que chacun sert un lot existant qui, sans lui, se construirait sur un catalogue fictif — et un catalogue fictif finit toujours par se figer en valeurs codées en dur, exactement ce que <a class="el" href="spec-vision.html#EX-VIS-007" title="EX-VIS-007"><span class="tt">EX-VIS-007</span></a> interdit. D'où « filière » plutôt que « phase ».</p>
@@ -750,14 +750,14 @@ Le regroupement d'intention</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Après <a class="el" href="#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>  </td><td class="markdownTableBodyNone"><span class="tt">LOT-41</span>, <span class="tt">LOT-82</span>, <span class="tt">LOT-42</span>, <span class="tt">LOT-45</span>, <span class="tt">LOT-83</span>, <span class="tt">LOT-75</span>  </td><td class="markdownTableBodyNone">Le bac à sable généralise une boucle ; elle se valide une fois avant d'être appliquée cent fois  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md930"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md932"></a>
 Ce que l'ordre a révélé</h2>
 <p>Quatre points méritent qu'on s'y arrête.</p>
 <p><b>Ce que les deux premiers calculs avaient montré, en septembre 2026.</b> Le <span class="tt">LOT-09</span>, plus petit numéro de la page, tombait au rang 33 parce que l'atlas du <span class="tt">LOT-37</span> déclarait l'alimenter — un graphe de cartes sans régions relierait des nœuds inventés. Et le <span class="tt">LOT-30</span> sortait premier, pour une raison chiffrée : il débloquait quarante-neuf des soixante-neuf lots restants, une fois les trois préconditions livrées (<a class="el" href="lot-77.html" title="LOT-77 — La moitié RPG de la spécification">LOT-77</a> : les cinq familles <span class="tt">EX-*</span> ; [LOT-78](<a class="el" href="lot-78.html" title="LOT-78 — Désambiguïsation des numéros de lots hérités">LOT-78 — Désambiguïsation des numéros de lots hérités</a>) : 201 renvois de spécification désambiguïsés ; <a class="el" href="lot-79.html" title="LOT-79 — Socle de chargement de données">LOT-79</a> : six lecteurs JSON factorisés). Les deux sont livrés ; la trace reste ici parce qu'elle dit pourquoi les numéros ne sont pas un ordre.</p>
 <p><b>Le <span class="tt">LOT-27</span> passait pour prêt, et il ne l'était pas.</b> Sa ligne « Prérequis : phases B, C et D complètes » ne nommait aucun lot. Le lint n'y lisait rien, et le calcul plaçait le <em>vertical slice</em> au rang 5, <b>prêt</b>, alors qu'il attend encore le combat entier, les dialogues, les quêtes, la sauvegarde, l'éditeur et le graphe de cartes. L'audit du 14 septembre 2026 a écrit ces onze lots en numéros ; le slice retombe à sa place réelle — voir le tableau d'avancement — et le <b>chemin critique</b> ci-dessous en est la conséquence directe. Une dépendance que seul un humain sait lire n'existe pas pour la règle qui calcule l'ordre.</p>
 <p><b>Les lots du bac à sable restent résolument après le <a class="el" href="#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>.</b> Peupler treize régions revient à appliquer cent fois la même recette ; si la recette est mauvaise — rencontres mal dosées, marchands inutiles, quêtes vides — on la découvre cent fois. Le <span class="tt">LOT-27</span> coûte deux quartiers et un bas-fond de la Capitale, et c'est le prix pour ne pas payer cette erreur au centuple. Leur ordre interne compte aussi, et la règle le produit sans qu'on ait à l'imposer : <span class="tt">LOT-44</span> (les noms) avant <span class="tt">LOT-41</span> (le peuplement), sinon on peuple avec des « Villageois 1 » ; <span class="tt">LOT-45</span> (la Guilde) après le <span class="tt">LOT-82</span>, parce qu'elle a besoin de quêtes à afficher.</p>
 <p><b>Le volume d'images n'est plus un lot.</b> 6 000 images ne se traitent pas d'un bloc, et rien n'y oblige — le <a class="el" href="lot-39.html" title="LOT-39 — Plomberie des clés d&#39;assets">LOT-39</a> affiche un marqueur pour tout ce qui n'a pas encore d'image, et chaque illustration livrée en remplace un. Ce travail était le <span class="tt">LOT-48</span>, « volume long, sans jalon » ; il est désormais <b>réparti dans chaque lot de catalogue</b>, qui livre ses propres illustrations. Un lot sans date de fin est un lot qu'on ne finit pas — et en garder un pendant qu'on écrit cette phrase était le plus visible des angles morts de cette page. Le <a class="el" href="lot-87.html" title="LOT-87 — Charte v2 et intégration des maquettes">LOT-87</a> a appliqué la même règle à l'interface : ses <b>214 images</b> de cadres, plaques et fonds sont décrites dans un cahier des assets, aucune n'est produite, et chaque brique dessine un aplat de repli en attendant — le jeu tourne complet sans elles.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md931"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md933"></a>
 Le chemin critique jusqu'au <em>vertical slice</em></h2>
 <p>C'est la contrainte que cette feuille de route a le plus de mal à tenir, parce qu'elle se dégrade sans que personne ne décide rien : chaque lot qu'on déclare « avant le <a class="el" href="#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a> » repousse d'autant le seul jalon qui prouve que le jeu <b>est un jeu</b>.</p>
 <p>Le premier audit avait trouvé le <span class="tt">LOT-69</span> placé « avec <span class="tt">LOT-50</span>, avant le <span class="tt">LOT-27</span> » — soit les seize classes, le Colisée et le mode édition <b>devant</b> le slice — et l'avait réduit à une suppression. Puis le chemin passait par les catalogues : <span class="tt">LOT-30</span> → <span class="tt">LOT-32</span> → <span class="tt">LOT-43</span> → <span class="tt">LOT-36</span> → <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a> → <a class="el" href="lot-38.html" title="LOT-38 — Fiche de personnage : maquette et interface">LOT-38</a> → <span class="tt">LOT-39</span> → <a class="el" href="#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>, huit lots, dont la fiche de personnage et sa maquette. <b>Ces sept-là sont livrés.</b></p>
@@ -794,7 +794,7 @@ Le plan d'intégration : la Capitale, lot après lot</h2>
 </table>
 <p>Un chantier court <b>à côté</b> de la chaîne, sans l'attendre : les <b>figurines</b> de la série « Capitale » à l'atelier du <span class="tt">LOT-91</span> (Myr et Galender au <em>Character Compendium</em>, huit rôles rédigés depuis la prose). Les <b>planches de textures</b>, qui étaient l'autre chantier, sont devenues un lot, le <a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a>, parce que le style qu'elles fixent précède la première carte ; leur production continue ensuite au fil de l'eau, lieu par lieu, et les monstres suivent la même règle (<span class="tt">LOT-93</span>). Lancer les figurines avec le <a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a> fait que le <span class="tt">LOT-27</span> habille au lieu de dessiner.</p>
 <p><b>Ce chemin portait une décision, pas seulement du code, et elle est prise.</b> Le contenu du slice « se produit dans l'éditeur », et le <a class="el" href="lot-86.html" title="LOT-86 — Refonte de l&#39;IHM sur Qt Quick">LOT-86</a> avait fait de l'éditeur un second exécutable en Qt Widgets, là où le §10 voulait l'édition <b>dans la scène</b> depuis le jeu. L'auteur a tranché le 16 septembre 2026 : retarger <span class="tt">LevelEditor</span>, ce que le <a class="el" href="lot-11.html" title="LOT-11 — Éditeur multi-couches et placement d&#39;entités">LOT-11</a> a livré.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md932"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md934"></a>
 Le graphe des dépendances</h2>
 <p>Les liens ci-dessous sont ceux que déclarent les lignes « Prérequis » de la section 5. Ils sont <b>vérifiés en CI</b> par <span class="tt">scripts/lint_lots.py</span>, qui refuse un cycle, un lien déclaré d'un seul côté, un lot absent du tableau d'ordre ci-dessus ou une section de lot sans ancre Doxygen.</p>
 <p>Le graphe ci-dessous est donné en <b>source Graphviz</b>, et non en diagramme rendu : la chaîne Doxygen du projet tourne sans <span class="tt">HAVE_DOT</span>, et ajouter Graphviz au runner pour une seule illustration coûterait plus que de coller ces vingt lignes dans un visualiseur.</p>
@@ -844,7 +844,7 @@ Le graphe des dépendances</h2>
 <div class="line">  L96 -&gt; L16; L96 -&gt; L17; L96 -&gt; L27;</div>
 <div class="line">  L93 -&gt; L27; L94 -&gt; L28; L27 -&gt; L28; L94 -&gt; L42;</div>
 <div class="line">}</div>
-</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md933"></a>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md935"></a>
 Récapitulatif : qui dépend de qui</h2>
 <p>Ce tableau est <b>généré depuis les lignes « Prérequis » ci-dessus</b> et vérifié en CI par <span class="tt">scripts/lint_lots.py</span> : s'il diverge du texte, c'est le lint qui échoue, pas le lecteur qui s'en aperçoit trois lots plus tard. La colonne « Alimente » est l'inverse calculé de la colonne « Prérequis », augmentée des dépendances que les lots livrés et absorbés ne peuvent pas déclarer eux-mêmes.</p>
 <table class="markdownTable">
@@ -894,7 +894,7 @@ Récapitulatif : qui dépend de qui</h2>
 <td class="markdownTableBodyNone"><span class="tt">LOT-90</span>  </td><td class="markdownTableBodyNone">Le plan pénombral  </td><td class="markdownTableBodyNone"><span class="tt">LOT-41</span>, <span class="tt">LOT-42</span>, <span class="tt">LOT-46</span>  </td><td class="markdownTableBodyNone">—  </td></tr>
 </table>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md935"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md937"></a>
 7. Arborescence cible</h1>
 <div class="fragment"><div class="line">Documentation/SourceBook/   ← les PDF et les ressources VTT, exclus du dépôt (taille)</div>
 <div class="line"> </div>
@@ -966,9 +966,9 @@ Récapitulatif : qui dépend de qui</h2>
 <div class="line">Documentation/Lot/LOT-87-charte-v2/</div>
 <div class="line">  assets-brief.{md,json}, references/   ← le cahier des 214 images et les dix maquettes (LOT-87)</div>
 </div><!-- fragment --><hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md937"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md939"></a>
 8. Décisions prises et questions restantes</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md938"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md940"></a>
 Tranché</h2>
 <ul>
 <li><b>Périmètre : l'univers complet.</b> Les 13 régions et leurs lieux, les 13 espèces, les 8 classes et leurs sous-classes, les historiques, les factions, le panthéon, le bestiaire entier. Pas de socle réduit.</li>
@@ -998,7 +998,7 @@ Tranché</h2>
 <li><b>Deux identités visuelles, une par couche.</b> La <b>scène</b> — figurines, monstres, textures — est en pixel art, style fixé par la maquette du <a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a> sur les figurines du <span class="tt">LOT-91</span> ; l'<b>interface</b> reste à la charte v2 du <span class="tt">LOT-87</span>. Le <span class="tt">LOT-66</span> avait retiré le pixel art de l'interface, pas du jeu ; les deux décisions tiennent ensemble.</li>
 <li><b>Les ateliers d'assets sont des lots quand le slice attend leur méthode</b> : textures (<a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a>) et monstres (<span class="tt">LOT-93</span>) entrent dans la feuille de route avec un critère d'acceptation — la méthode et les premières pièces ; leur production continue ensuite au fil de l'eau, comme celle du <span class="tt">LOT-91</span>, qui reste hors page parce qu'il n'a pas de fin.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md939"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md941"></a>
 Écarté à la relecture des livres</h2>
 <ul>
 <li><b>Montures volantes et *Flying Points*** : n'agissent que monté contre monté, sans sens sur une grille vue de dessus. Les montures restent une ligne de la table de voyage (<span class="tt">LOT-42</span>).</b></li>
@@ -1015,7 +1015,7 @@ Tranché</h2>
 <li><b>Le découpage suit une règle unique : le code d'un côté, la donnée de l'autre.</b> C'est ce qui a scindé <span class="tt">LOT-37</span>/<span class="tt">LOT-80</span>, <span class="tt">LOT-40</span>/<span class="tt">LOT-81</span>, <span class="tt">LOT-41</span>/<span class="tt">LOT-82</span>, <span class="tt">LOT-45</span>/<span class="tt">LOT-83</span> et <span class="tt">LOT-47</span>/<span class="tt">LOT-84</span>. Les deux moitiés n'ont ni le même métier, ni le même critère d'acceptation, ni le même moment.</li>
 <li><b>Le <span class="tt">LOT-69</span> n'était plus une refonte de l'éditeur</b>, seulement le retrait de l'atelier pixel art — fait au <a class="el" href="lot-88.html" title="LOT-88 — Retrait de l&#39;héritage : code, assets et spécifications">LOT-88</a>. Ce qu'il portait de refonte — le placement libre depuis le jeu — est l'arène du <span class="tt">LOT-50</span>.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md940"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md942"></a>
 À trancher</h2>
 <ul>
 <li><b>Le plan pénombral, quand.</b> Le <span class="tt">LOT-90</span> est écrit et placé après le voyage ; il peut être différé au-delà de la première version du bac à sable sans rien casser. La décision est une décision de périmètre, pas d'architecture — les crochets qu'il exige (règles de zone, routes typées, horloge) sont pris par les lots qui le précèdent.</li>
@@ -1024,20 +1024,20 @@ Tranché</h2>
 <li><b>Profondeur du bac à sable.</b> Le <span class="tt">LOT-41</span> compose des quêtes par gabarit et le <span class="tt">LOT-45</span> les distribue par rang. Faut-il en rester à ce contenu déduit, ou écrire par-dessus quelques quêtes à la main dans les lieux notables ? La réponse change le poids du <a class="el" href="#lot-16" title="LOT-16 — Les affaires de la Capitale : quêtes et drapeaux de monde">LOT-16</a>, pas l'architecture. <em>(Le sort du *Manuel des Monstres</em> est tranché : voir ci-dessus.)*</li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md942"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md944"></a>
 9. Ce que l'audit a révélé sur l'état du dépôt</h1>
 <p>Cette page a été confrontée à l'état réel du code et des spécifications. Cinq constats la dépassent et conditionnent son exécution.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md943"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md945"></a>
 9.1 Cinq familles d'exigences sont fantômes — le lint le dit désormais</h2>
 <p>Le dépôt compte <b>13 familles réelles pour 269 exigences</b> (<span class="tt">EX-ARCH</span>, <span class="tt">EX-BUILD</span>, <span class="tt">EX-CTRL</span>, <span class="tt">EX-DEC</span>, <span class="tt">EX-EDIT</span>, <span class="tt">EX-EXP</span>, <span class="tt">EX-GP</span>, <span class="tt">EX-IA</span>, <span class="tt">EX-IHM</span>, <span class="tt">EX-LVL</span>, <span class="tt">EX-NFR</span>, <span class="tt">EX-REN</span>, <span class="tt">EX-VIS</span>). Cinq autres sont référencées par une vingtaine d'epics et <b>n'existent pas</b> : <span class="tt">EX-REG-*</span>, <span class="tt">EX-RPG-*</span>, <span class="tt">EX-INV-*</span>, <span class="tt">EX-CBT-*</span> et <span class="tt">EX-CNT-*</span>. Les documents censés les porter — <span class="tt"><a class="el" href="regles-d20_8md.html">regles-d20.md</a></span>, <span class="tt"><a class="el" href="combat_8md.html">combat.md</a></span>, <span class="tt"><a class="el" href="rpg_8md.html">rpg.md</a></span>, <span class="tt"><a class="el" href="contenu_8md.html">contenu.md</a></span> — sont absents.</p>
 <p><b>Le garde-fou, lui, est réparé.</b> Il ne l'était pas : <span class="tt">scripts/lint_exigences.py</span> ne filtrait que sur <span class="tt">EX-[A-Z]+-[0-9]+</span>, si bien qu'un <span class="tt">EX-REG-*</span> n'était <b>ni</b> une déclaration <b>ni</b> une référence, et que la CI passait au vert sur cinq familles inexistantes. Une seconde expression, <span class="tt">FAMILY_REF_RE = re.compile(r'EX-([A-Z]+)-\*')</span>, capte désormais les références de famille entière et le lint <b>échoue</b> sur les cinq.</p>
 <p>Cet échec était <b>voulu</b>, et c'était le seul mécanisme empêchant la dette de grossir en silence. Il est <b>éteint</b> : le <a class="el" href="lot-77.html" title="LOT-77 — La moitié RPG de la spécification">LOT-77</a> a écrit <span class="tt"><a class="el" href="regles-d20_8md.html">regles-d20.md</a></span>, <span class="tt"><a class="el" href="rpg_8md.html">rpg.md</a></span>, <span class="tt"><a class="el" href="combat_8md.html">combat.md</a></span>, <span class="tt"><a class="el" href="inventaire_8md.html">inventaire.md</a></span> et <span class="tt"><a class="el" href="contenu_8md.html">contenu.md</a></span>, soit <b>69 exigences</b> qui portent les cinq familles, et a posé la rubrique « Exigences couvertes » sur les 25 lots qui les implémentent. Le lint comptait alors <b>339 exigences déclarées et 339 référencées</b>, sans aucune entrée ajoutée à la liste des exceptions ; il en compte 352 le 14 septembre 2026, les <span class="tt">LOT-86</span> et <span class="tt">LOT-87</span> ayant ajouté les leurs (<span class="tt">EX-IHM-100</span> à <span class="tt">EX-IHM-105</span>, la charte v2).</p>
 <p>Écrire la moitié RPG de la spécification était le vrai chantier de fond, celui dont dépendait tout le reste — d'où un lot dédié plutôt qu'une ligne dans « à trancher ».</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md944"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md946"></a>
 9.2 Six mécaniques étaient consommées sans être produites</h2>
 <p>Le repos était <b>invoqué par six lots et livré par aucun</b>. Le temps de jeu et le campement n'existaient nulle part. Les conditions, l'agonie et l'expérience étaient mentionnées dans un périmètre sans être ni spécifiées ni testées — et <b>aucune source d'expérience</b> n'était définie, alors que trois lots en consomment.</p>
 <p>D'où les <span class="tt">LOT-70</span> à <span class="tt">LOT-75</span>. Les rattacher au périmètre de lots existants aurait reproduit exactement la cause du trou.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md945"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md947"></a>
 9.3 L'allègement est le geste à plus fort levier du programme</h2>
 <p>Les décisions prises rendent mort un volume de code supérieur à ce que les cinq lots suivants ajouteront :</p>
 <table class="markdownTable">
@@ -1059,7 +1059,7 @@ Tranché</h2>
 <td class="markdownTableBodyNone">Runtime de l'ancien jeu, mécanismes, habillage de l'éditeur, assets et bruitages, archive <span class="tt">Documentation/Heritage/</span>  </td><td class="markdownTableBodyNone">~48 000 lignes  </td><td class="markdownTableBodyNone"><a class="el" href="lot-88.html" title="LOT-88 — Retrait de l&#39;héritage : code, assets et spécifications">LOT-88</a> ✔  </td></tr>
 </table>
 <p>Le premier audit comptait <b>plus de 4 200 lignes</b> ; les deux refontes d'interface en ont retiré davantage encore. Chaque suppression est portée par le lot qui la rend possible, <b>jamais reportée</b> à un lot de ménage : du code mort qu'on garde « pour plus tard » se remet à coûter dès la première refactorisation qui le traverse. Le <a class="el" href="lot-88.html" title="LOT-88 — Retrait de l&#39;héritage : code, assets et spécifications">LOT-88</a> a retiré le reste.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md946"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md948"></a>
 9.4 Le socle technique tient, mais trois préconditions manquent</h2>
 <p>Ce qui est sain : <b>927 tests verts</b> sur 129 fichiers au premier audit — <b>1 046 sur 140</b> le 14 septembre 2026 —, une CI durcie (<span class="tt">/W4 /WX</span>, <span class="tt">clang-tidy</span> et Doxygen épinglés), un cœur déjà purgé de 63 000 lignes au <a class="el" href="lot-01.html" title="LOT-01 — Fork, purge et remise à nu">LOT-01</a> et déjà réorienté vers le RPG top-down par les <span class="tt">LOT-06</span>, <span class="tt">LOT-07</span> et <span class="tt">LOT-08</span>. Le format v3 <b>porte déjà les entités</b> (<span class="tt">MapEntity</span>), et <span class="tt">GridDistanceField</span> — un parcours en largeur sur la grille — a été explicitement sauvé de la purge comme « le calcul de portée de déplacement du futur combat tactique ».</p>
 <p>Ce qui manque avant d'ajouter des dizaines de catalogues :</p>
@@ -1070,7 +1070,7 @@ Tranché</h2>
 </li>
 <li><b><span class="tt">Source/Elements/Levels/</span> est vide.</b> Le jeu n'a aucune carte à charger ; <span class="tt">loadDeliveredLevel</span> (<span class="tt">test_render_budget.cpp</span>) est du code mort et la fixture <span class="tt">rejeu-test-deplacement.json</span> est orpheline depuis la purge. <b>Vrai jusqu'au 14 septembre 2026</b> — le <a class="el" href="lot-50.html" title="LOT-50 — Le Colisée : bac à sable de combat">LOT-50</a> y a posé la première carte, celle de l'arène, que son écran dessine lui-même : le <a class="el" href="lot-86.html" title="LOT-86 — Refonte de l&#39;IHM sur Qt Quick">LOT-86</a> l'a reconstaté — le viewport n'affiche aucune scène, « Nouvelle partie » ouvre la fiche — et les treize écrans se vérifient par un sélecteur de développement faute d'un niveau pour y mener. La première carte d'<b>exploration</b> — Martpart, un quartier de la Capitale — arrive avec le <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a>, qui donne au jeu Qt Quick sa scène ; la ville habillée avec le <a class="el" href="#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md947"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md949"></a>
 9.5 La collision de numéros est bloquante, et bien plus large qu'estimé</h2>
 <p>Le programme hérité allait jusqu'à <span class="tt">LOT-74</span>. En atteignant <span class="tt">LOT-84</span>, la filière <b>recouvre entièrement</b> cette plage. Or les spécifications citent encore des lots hérités dans le corps de leurs exigences — <span class="tt"><a class="el" href="gameplay_8md.html">gameplay.md</a></span> (« Complété en <span class="tt">LOT-65</span> »), <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span> (« <span class="tt">LOT-25</span>, étendu en <span class="tt">LOT-65</span> »), <span class="tt"><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></span> (« <span class="tt">LOT-54</span> introduit un éditeur de texture »), les titres de sections d'<span class="tt"><a class="el" href="interface-ihm_8md.html">interface-ihm.md</a></span>, et jusqu'à <span class="tt"><a class="el" href="architecture_8md.html">architecture.md</a></span> (« Concrétisé en <span class="tt">LOT-33</span> »).</p>
 <p><b>Le décompte a été fait, et il corrige l'estimation initiale.</b> Les spécifications portent <b>222 renvois <span class="tt">LOT-NN</span>, dont 208 ambigus</b> — tout numéro au-delà de <span class="tt">LOT-07</span>, puisque seuls les sept premiers désignent à coup sûr un lot livré de ce dépôt. Ils se répartissent sur <b>douze fichiers</b>, et non quatre :</p>
@@ -1104,7 +1104,7 @@ Tranché</h2>
 </table>
 <p>Ces renvois étaient <b>ambigus sans être cassés</b> : ni le lint ni Doxygen ne les signalaient. Et ce n'était pas « une recherche-remplacement dans six specs » comme l'estimait le §10 : chaque référence devait être <b>classée</b> — lot hérité ou lot courant — avant d'être préfixée ou laissée telle quelle. D'où un lot à part entière.</p>
 <p><b>C'est fait</b> : le <a class="el" href="lot-78.html" title="LOT-78 — Désambiguïsation des numéros de lots hérités">LOT-78</a> a préfixé <b>201 renvois</b> dans dix fichiers, laissé les 49 qui désignent de vrais lots courants, écrit la convention en tête de <span class="tt"><a class="el" href="specifications_8md.html">specifications.md</a></span>, et ajouté à <span class="tt">scripts/lint_lots.py</span> la <b>règle 12</b>, qui refuse tout <span class="tt">LOT-NN</span> de spécification ne désignant pas un lot existant de ce programme. La classification s'est faite par couple (fichier, numéro) et non par fichier. Le <a class="el" href="lot-88.html" title="LOT-88 — Retrait de l&#39;héritage : code, assets et spécifications">LOT-88</a> a depuis retiré ces renvois avec le programme qu'ils désignaient, et la règle 12 refuse l'ancienne notation.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md948"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md950"></a>
 9.6 Second audit, 14 septembre 2026 : ce qui avait dérivé en dix jours</h2>
 <p>Cette page a été relue contre <span class="tt">origin/main</span> après la livraison du <a class="el" href="lot-87.html" title="LOT-87 — Charte v2 et intégration des maquettes">LOT-87</a>. Le lint était vert ; il ne l'aurait pas été si cette dérive lui avait été visible, et c'est ce qui vaut d'être consigné : ce qu'il ne vérifie pas vieillit en silence.</p>
 <ul>
@@ -1127,7 +1127,7 @@ Tranché</h2>
 <li>sept exigences sans lot rattachées (<span class="tt">EX-VIS-002/003/004</span>, <span class="tt">EX-REG-031/050</span>, <span class="tt">EX-IHM-003</span>, <span class="tt">EX-RPG-042</span>), et <span class="tt">EX-INV-030</span> (la monnaie) rendue au <span class="tt">LOT-26</span>.</li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md950"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md952"></a>
 10. Ce qu'il faut anticiper, tant que rien n'est construit</h1>
 <p><b>Trente et un lots sont livrés sur les quatre-vingt-dix que compte le programme</b> (huit au premier audit). La fiche de personnage, l'inventaire, la bascule de combat et tous les écrans existent désormais ; le combat lui-même, l'éditeur multi-couches, les dialogues et le graphe de cartes, non. L'avantage était <b>temporaire</b>, et le tableau ci-dessous le montre : chaque décision prise à temps a coûté une écriture ; celle qui ne l'a pas été coûte maintenant une rétro-adaptation.</p>
 <p>Huit choses méritaient d'être décidées avant, et non après ; voici où chacune en est.</p>
@@ -1156,7 +1156,7 @@ Tranché</h2>
 <p><strike><b><span class="tt">MapEntity</span> existe déjà et n'alimente rien.</b></strike> Le format v3 portait <span class="tt">{ type, position,
 properties }</span> sans consommateur hors des tests. <b>Fait au <a class="el" href="lot-10.html" title="LOT-10 — Entités de carte et interaction">LOT-10</a></b> : <span class="tt">core::MapEntitySpawner</span> en fait des entités, <span class="tt"><a class="el" href="classcore_1_1WorldFlags.html" title="L&#39;ensemble des faits acquis d&#39;une partie : coffres ouverts, quêtes franchies, portes déverrouillées.">core::WorldFlags</a></span> retient ce qui leur est arrivé, et les PNJ du <a class="el" href="lot-15.html" title="LOT-15 — PNJ et dialogues">LOT-15</a> s'y sont ajoutés ainsi (famille <span class="tt">npc</span>, qui nomme son dialogue), et les portails du <span class="tt">LOT-09</span> feront de même plutôt que d'inventer un second conteneur.</p>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md952"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md954"></a>
 11. Les lots <span class="tt">LOT-09</span> à <span class="tt">LOT-29</span></h1>
 <p>Ces vingt et un lots avaient chacun leur dossier <span class="tt">LOT-NN-nom/</span>. Ils sont absorbés ici pour que la feuille de route ait <b>une seule source de vérité</b> : deux documents décrivant le même programme divergent, et l'audit a montré qu'ils avaient déjà commencé à le faire.</p>
 <blockquote class="doxtable">
@@ -1174,10 +1174,10 @@ LOT-16 — Les affaires de la Capitale : quêtes et drapeaux de monde</h2>
 <blockquote class="doxtable">
 <p><b>Réécrit le 16 septembre 2026.</b> La version précédente demandait « une quête à trois étapes » sans dire laquelle, ni où, ni avec qui. Ce lot écrit <b>la</b> quête du slice, tirée du livre, et l'appuie sur la ville du <span class="tt">LOT-96</span> : on la vérifie en parlant à Myr sur la place du marché, et le journal la suit à l'écran. </p>
 </blockquote>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md953"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md955"></a>
 Objectif</h3>
 <p>Suivre l'avancement du joueur par des <b>drapeaux persistants</b>, en donner une lecture dans le journal de quêtes, et le prouver sur une quête réelle de la Capitale : <b>« Les enfants de Martpart »</b>.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md954"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md956"></a>
 La quête, telle que le livre la tend</h3>
 <p>Trois pages du Sourcebook s'emboîtent sans qu'on ait rien à inventer. Page 98 : « les disparitions inexpliquées d'enfants, surtout dans les quartiers hors les murs, inquiètent la population ; les autorités n'ont rien trouvé ». Page 101 : <b>Myr</b>, cheffe des Marchands de Mort, ancienne orpheline, « enquête sur les enlèvements d'enfants qu'elle soupçonne liés aux mages impériaux » et « emploie discrètement des mercenaires et des aventuriers ». Page 100 : les Tigres Jumeaux ont été « trouvés sur le terrain d'expérimentation du haut mage impérial Thidexius ». Et page 91 : les conflits sans coupable avéré « se règlent dans l'arène ».</p>
 <p>D'où la quête, en six étapes :</p>
@@ -1198,7 +1198,7 @@ La quête, telle que le livre la tend</h3>
 <td class="markdownTableBodyNone">6  </td><td class="markdownTableBodyNone">Le verdict  </td><td class="markdownTableBodyNone">l'Arène du Destin  </td><td class="markdownTableBodyNone">la fin du combat d'arène (<span class="tt">LOT-27</span>) pose le drapeau ; provisoire jusque-là  </td></tr>
 </table>
 <p>La récompense est déclarée en JSON — un objet d'inventaire (<a class="el" href="lot-14.html" title="LOT-14 — Inventaire et équipement">LOT-14</a>) et un drapeau ; l'or attend la monnaie du <a class="el" href="#lot-26" title="LOT-26 — Butin, marchands, économie">LOT-26</a>, l'expérience le <a class="el" href="#lot-74" title="&lt;tt&gt;LOT-74&lt;/tt&gt; — Expérience et progression">LOT-74</a>. La piste vers Thidexius reste ouverte : c'est le bac à sable qui la reprendra (<span class="tt">LOT-82</span>).</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md955"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md957"></a>
 Périmètre</h3>
 <ul>
 <li><em>État au 14 septembre 2026.</em> <span class="tt"><a class="el" href="classcore_1_1WorldFlags.html" title="L&#39;ensemble des faits acquis d&#39;une partie : coffres ouverts, quêtes franchies, portes déverrouillées.">core::WorldFlags</a></span> (<span class="tt">Source/Core/Gameplay/</span>) <b>existe depuis le <a class="el" href="lot-10.html" title="LOT-10 — Entités de carte et interaction">LOT-10</a></b> : ensemble de drapeaux nommés, à clés libres précisément pour que ce lot y écrive les siens sans toucher au fichier. Le coffre ouvert (<span class="tt">LOT-10</span>) et l'ennemi vaincu (<a class="el" href="lot-18.html" title="LOT-18 — Bascule exploration ↔ combat">LOT-18</a>) y sont déjà. Ce lot n'a pas de substrat à créer.</li>
@@ -1209,13 +1209,13 @@ Périmètre</h3>
 <li>Journal de quêtes : <b>l'écran existe</b> (<span class="tt">JournalForm.ui.qml</span>, <a class="el" href="lot-87.html" title="LOT-87 — Charte v2 et intégration des maquettes">LOT-87</a>) sur <span class="tt">PendingData</span> ; ce lot lui donne sa vue-modèle — quêtes en cours, étape courante et son texte, quêtes terminées.</li>
 <li>L'état d'une quête est <b>sérialisable</b> ; le <a class="el" href="#lot-17" title="LOT-17 — Reprendre sa partie dans la Capitale : sauvegarde riche">LOT-17</a> le persiste.</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md956"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md958"></a>
 Note de conception</h3>
 <p>Les drapeaux de monde et les quêtes sont deux niveaux du même mécanisme : une quête <b>lit</b> des drapeaux pour décider de son avancement, elle n'a pas d'état propre au-delà de son étape courante. Cette séparation évite le piège classique où l'état du monde existe en double — une fois dans les entités, une fois dans les quêtes — et diverge. Les deux étapes que le combat pose (4 et 6) le montrent : le jour où le <a class="el" href="#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a> remplace le dialogue provisoire par une fin de combat, la quête ne change pas d'une ligne.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md957"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md959"></a>
 Exigences couvertes</h3>
 <p><span class="tt">EX-VIS-003</span> (dialogue à choix, avec un jet de compétence), <span class="tt">EX-RPG-*</span> (quêtes, drapeaux).</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md958"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md960"></a>
 Critères d'acceptation</h3>
 <ul>
 <li><b>À l'écran</b> : on parle à Myr sur Martpart, la quête apparaît au journal ; la porte d'Arenarea, fermée avant, s'ouvre ; chaque étape franchie se lit au journal.</li>
@@ -1231,13 +1231,13 @@ LOT-17 — Reprendre sa partie dans la Capitale : sauvegarde riche</h2>
 <blockquote class="doxtable">
 <p><b>Réécrit le 16 septembre 2026.</b> Le périmètre ne change pas — un état de partie complet et versionné — mais il a maintenant un état à sauvegarder : un quartier, une case, une quête à une étape, une porte ouverte. Les critères le disent en gestes de joueur, pas seulement en aller-retour de fichier. </p>
 </blockquote>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md959"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md961"></a>
 Objectif</h3>
 <p>Donner au jeu un état de partie complet et versionné, qu'on sauvegarde et qu'on reprend : quitter Arenarea au milieu de « Les enfants de Martpart », relancer le jeu, appuyer sur « Continuer », et se retrouver à la même case, avec le même journal.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md960"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md962"></a>
 Le problème</h3>
 <p><em>État au 14 septembre 2026.</em> La progression héritée (<span class="tt">hmi::Progression</span>, un tableau atteint) a été retirée par le <a class="el" href="lot-67.html" title="LOT-67 — Menus et vocabulaire d&#39;un RPG">LOT-67</a> avec l'entrée « Continuer » du menu, qui n'avait plus rien à reprendre. <b>Rien ne persiste</b> aujourd'hui hors les options ; le menu du <a class="el" href="lot-87.html" title="LOT-87 — Charte v2 et intégration des maquettes">LOT-87</a> réserve à ce lot ses entrées « Continuer » et « Charger », grisées jusqu'à lui.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md961"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md963"></a>
 Périmètre</h3>
 <p><span class="tt">Source/Core/Rpg/SaveGame.{h,cpp}</span> : JSON <b>versionné</b>, portant</p>
 <ul>
@@ -1255,13 +1255,13 @@ Périmètre</h3>
 <li><b>Pas de sauvegarde pendant un combat</b> : la session de combat ne se sérialise pas dans ce lot ; l'entrée est grisée tant qu'un combat est engagé, et le dire vaut mieux qu'un format qui promettrait de le faire.</li>
 <li>Emplacement : le dossier de données utilisateur de la plateforme (<span class="tt">QStandardPaths</span>), un fichier par emplacement.</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md962"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md964"></a>
 Règles de format</h3>
 <p>Mêmes règles que le format de carte, pour les mêmes raisons : <b>versionné</b>, <b>tolérant aux champs inconnus</b>, migration ascendante. Une sauvegarde est la donnée que le joueur ne peut pas reconstruire — un format qui casse lui fait perdre sa partie.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md963"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md965"></a>
 Exigences couvertes</h3>
 <p><span class="tt">EX-RPG-*</span> (sauvegarde, chargement, versionnement, tolérance).</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md964"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md966"></a>
 Critères d'acceptation</h3>
 <ul>
 <li><b>À l'écran</b> : sauvegarder sur Arenarea à l'étape 5 de la quête, quitter, « Continuer » — même quartier, même case, même journal, porte d'Arenarea toujours ouverte.</li>
@@ -1275,10 +1275,10 @@ LOT-25 — Sorts et capacités de classe</h2>
 <blockquote class="doxtable">
 <p>Statut : <b>à faire</b>. Prérequis : <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a>, <a class="el" href="lot-21.html" title="LOT-21 — Attaques, dégâts et états">LOT-21</a>, <a class="el" href="lot-22.html" title="LOT-22 — Portée, ligne de vue et zones d&#39;effet">LOT-22</a>. </p>
 </blockquote>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md965"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md967"></a>
 Objectif</h3>
 <p>Ajouter les sorts — emplacements, incantation, concentration — et les capacités propres aux classes.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md966"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md968"></a>
 Périmètre</h3>
 <ul>
 <li><span class="tt">Source/Core/Rpg/Spell.{h,cpp}</span> : école, niveau, portée, durée, composantes, effet.</li>
@@ -1289,13 +1289,13 @@ Périmètre</h3>
 <li>Branchement sur les gabarits d'effet de zone du <a class="el" href="lot-22.html" title="LOT-22 — Portée, ligne de vue et zones d&#39;effet">LOT-22</a> — aucune géométrie nouvelle : <span class="tt"><a class="el" href="structcore_1_1AreaOfEffect.html" title="Une zone posée sur la grille.">core::AreaOfEffect</a></span> et ses cinq formes, <span class="tt"><a class="el" href="namespacecore.html#a12fd31b453634d9f7241976e779f9d84" title="Une taille de zone du corpus, en cases : 6 m font 4 cases, 4,50 m en font 3.">core::areaTilesFromMeters</a></span> pour les tailles du catalogue, <span class="tt"><a class="el" href="namespacecore.html#a4dfe01f34b52d84d20c9c6785eb464aa" title="Les combattants dont une case au moins est atteinte, par identifiant croissant.">core::combatantsInArea</a></span> pour les cibles. L'abri contre l'origine de la zone s'ajoute aux sauvegardes de Dextérité (<span class="tt"><a class="el" href="namespacecore.html#aebf827caa223eb1215f8613ffab5263e" title="L&#39;abri de target contre un effet qui part d&#39;un point — l&#39;origine d&#39;une zone.">core::coverFromPoint</a></span>, <span class="tt"><a class="el" href="namespacecore.html#aac10188449066631157dad14349a01eb" title="Le bonus d&#39;un abri à la CA et aux sauvegardes de Dextérité : 0, +2, +5 ; 0 pour l&#39;abri total,...">core::coverBonus</a></span>), et « l'origine derrière un obstacle qu'on ne voit pas » reste à écrire ici.</li>
 <li>Effets <b>hors combat</b> aussi : un sort d'utilité en exploration passe par le même catalogue.</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md967"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md969"></a>
 Note de conception</h3>
 <p>C'est le lot où la tentation d'écrire des règles en dur est la plus forte, parce que chaque sort a sa particularité. Y céder rend l'équilibrage impossible : un sort qui se règle en recompilant ne se règle pas. Un sort est une <b>donnée</b> ; le C++ ne porte que les <em>mécanismes</em> qu'elle compose (dégâts de zone, jet de sauvegarde, condition appliquée, durée).</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md968"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md970"></a>
 Exigences couvertes</h3>
 <p><span class="tt">EX-REG-*</span>.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md969"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md971"></a>
 Critères d'acceptation</h3>
 <ul>
 <li>Un emplacement consommé est indisponible jusqu'au repos.</li>
@@ -1308,10 +1308,10 @@ LOT-26 — Butin, marchands, économie</h2>
 <blockquote class="doxtable">
 <p>Statut : <b>à faire</b>. Prérequis : <a class="el" href="lot-14.html" title="LOT-14 — Inventaire et équipement">LOT-14</a>, <a class="el" href="lot-15.html" title="LOT-15 — PNJ et dialogues">LOT-15</a>. Exigences couvertes : <span class="tt">EX-INV-040</span>, <span class="tt">EX-INV-030</span> (la monnaie, à taux fixes, sans perte par arrondi — le peuplement civil ne fait ensuite que la moduler par région). </p>
 </blockquote>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md970"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md972"></a>
 Objectif</h3>
 <p>Boucler la boucle économique : gagner du butin, le vendre, acheter mieux.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md971"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md973"></a>
 Périmètre</h3>
 <ul>
 <li><span class="tt">Source/Core/Rpg/LootTable.{h,cpp}</span> : tables de butin en <b>JSON</b>, tirées avec le hasard déterministe du <span class="tt">LOT-12</span> — un coffre rouvert après rechargement de sauvegarde doit donner le <b>même</b> contenu, sinon le joueur peut relancer jusqu'au bon tirage.</li>
@@ -1319,13 +1319,13 @@ Périmètre</h3>
 <li><span class="tt">Shop.{h,cpp}</span> : achat, vente, marge du marchand, stock.</li>
 <li><em>État au 14 septembre 2026.</em> <b>L'écran existe</b> : <span class="tt">MerchantForm.ui.qml</span> (<a class="el" href="lot-68.html" title="LOT-68 — Le châssis des écrans du RPG">LOT-68</a>, restylé au <a class="el" href="lot-87.html" title="LOT-87 — Charte v2 et intégration des maquettes">LOT-87</a>) sur <span class="tt">PendingData</span> ; ce lot lui donne sa vue-modèle.</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md972"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md974"></a>
 Le piège du tirage</h3>
 <p>Un butin tiré au moment de l'ouverture, avec une graine liée à l'instant, se re-tire différemment à chaque chargement de sauvegarde. La graine doit dériver de l'<b>identité du coffre</b> et de l'état de la partie, pas de l'horloge — <span class="tt">deriveSeed(baseSeed, step, entityId)</span> existe pour cela.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md973"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md975"></a>
 Exigences couvertes</h3>
 <p><span class="tt">EX-RPG-*</span>, <span class="tt">EX-INV-*</span>.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md974"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md976"></a>
 Critères d'acceptation</h3>
 <ul>
 <li>Un coffre donne le <b>même</b> butin après sauvegarde et rechargement.</li>
@@ -1343,12 +1343,12 @@ LOT-27 — La Capitale : contenu du <em>vertical slice</em></h2>
 <blockquote class="doxtable">
 <p><b>Hérité du <a class="el" href="lot-24.html" title="LOT-24 — IHM de combat">LOT-24</a>, le 15 septembre 2026.</b> L'IHM de combat a été livrée sur le Colisée, parce que le jeu Qt Quick n'avait ni exploration ni combat hors de l'arène. Le <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a> donne l'exploration ; reste ici ce que personne d'autre ne porte : la rencontre engagée (<span class="tt"><a class="el" href="namespacecore.html#a8ae810130a331e928f30b4c78f4c5768" title="Engage encounter au point trigger, en mettant exploration de côté.">core::beginEncounter</a></span>) monte une session de combat sur la carte <b>gelée</b>, et <span class="tt">CombatHudForm</span> lit la vue-modèle et la prévisualisation du <span class="tt">LOT-24</span> (<span class="tt"><a class="el" href="namespacecore.html#a331ece5830ae73d553faf88ddecc116c" title="L&#39;attaque attackIndex du combattant actif contre target, telle qu&#39;elle serait jetée maintenant.">core::previewAttack</a></span>, <span class="tt"><a class="el" href="namespacecore.html#ac10191346bb1e11cc0c720ea9f4a5c79" title="Le déplacement du combattant actif jusqu&#39;à destination.">core::previewMove</a></span>, les gestes du curseur) au lieu de <span class="tt">PendingData</span>. </p>
 </blockquote>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md975"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md977"></a>
 Objectif</h3>
 <p>Produire le contenu jouable qui démontre la boucle entière : <em>« un personnage explore Martpart, parle à Myr, suit la piste des enfants disparus, libère le repaire dans un combat tactique sur la carte, et gagne le verdict de l'Arène du Destin »</em> — dans une ville qui ressemble à la Capitale.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md976"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md978"></a>
 Périmètre</h3>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md977"></a>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md979"></a>
 Les cartes — quatre, tracées depuis le plan</h4>
 <p>Dessinées dans l'éditeur (<a class="el" href="lot-11.html" title="LOT-11 — Éditeur multi-couches et placement d&#39;entités">LOT-11</a>), pas en JSON à la main : c'est le test grandeur nature de l'outil, et la preuve qu'un non-développeur pourrait le faire (<span class="tt">EX-VIS-006</span>). L'éditeur en question est celui que refait la <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">feuille de route de l'éditeur</a> : ses lots <span class="tt">LOT-EDITOR-01</span> à <span class="tt">LOT-EDITOR-06</span> passent <b>avant</b> ces cartes — un ordre, pas un prérequis déclaré, puisque l'éditeur a sa piste à part — et le repaire ne reçoit pas de script d'atelier. La source est le <b>plan de la Capitale peint par l'auteur</b> (<a class="el" href="lot-94.html" title="LOT-94 — Les images du corpus quittent le dépôt ; l&#39;écran « Carte » revient sur les cartes de l&#39;auteur : monde, région, ville">LOT-94</a>), ses douze quartiers placés d'après l'atlas ; le plan du corpus n'est qu'une référence lue sur le poste (§8).</p>
 <table class="markdownTable">
@@ -1364,11 +1364,11 @@ Les cartes — quatre, tracées depuis le plan</h4>
 <td class="markdownTableBodyNone"><b>L'Arène du Destin</b>  </td><td class="markdownTableBodyNone">le verdict : un combat d'arène à composition fixée  </td><td class="markdownTableBodyNone">la carte du Colisée du <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a>, sa zone de combat et une variante de planche (loge impériale, bannières) ; <span class="tt">arena-of-fate.json</span> entre au catalogue des arènes, à Marque Héroïque — personne n'y meurt  </td></tr>
 </table>
 <p>Martpart et Arenarea sont les cartes du <span class="tt">LOT-96</span>, <b>habillées</b> ; le repaire est nouveau. Les dix autres quartiers gardent leur sentinelle : ils s'ouvriront avec le peuplement civil du <span class="tt">LOT-82</span>, un par un.</p>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md978"></a>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md980"></a>
 Les habitants — les figurines de l'atelier</h4>
 <p>Les personnages sont des figurines 48 × 64 de l'atelier du <span class="tt">LOT-91</span>, série <b>« Capitale »</b>, produites par la méthode du PoC ; elle n'attend rien du moteur et <b>démarre en parallèle du <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a></b>. Deux ont leur fiche au <em>Character Compendium</em> : <b>Myr</b> (page 91) et <b>Galender, le maître d'armes</b> (page 48), mentor à l'Arène du Destin, qui « respecte le courage des aventuriers et les forme ». Les autres se rédigent depuis la prose du Sourcebook, sans fiche : la sentinelle et la patrouille Ironhand, le spadassin et l'archer du Troisième Œil, le marchand du marché, le parent d'un enfant disparu, un enfant, le héraut de l'Arène, le noble des Blood Bound. Dix figurines ; le marqueur du <a class="el" href="lot-39.html" title="LOT-39 — Plomberie des clés d&#39;assets">LOT-39</a> remplace chacune tant qu'elle n'est pas livrée, et le contenu se joue sans attendre l'art. La sentinelle et la patrouille Ironhand sont <b>déjà dessinées</b> : c'est le soldat Ironhand de l'atelier des monstres (<a class="el" href="lot-93.html" title="LOT-93 — Atelier des monstres : les figurines du bestiaire, depuis le texte seul">LOT-93</a>), que portent les sentinelles de Martpart et d'Arenarea. Les <b>champions loués</b> du noble ne sont pas des PNJ mais des blocs du bestiaire, dessinés par le même atelier.</p>
 <p>Le <b>marchand</b> parle, il ne vend pas : la boutique est au <a class="el" href="#lot-26" title="LOT-26 — Butin, marchands, économie">LOT-26</a> (<span class="tt">0.0.2</span>), et <span class="tt">MerchantForm</span> attend sa vue-modèle. Le slice ne le cache pas.</p>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md979"></a>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md981"></a>
 Les textures — trois jeux, une planche chacun</h4>
 <p>Par l'atelier du <a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a> : une <b>planche de production</b> par lieu, commandée depuis le descriptif d'atlas du lieu (bloc B), découpée par le script de l'atelier depuis sa disposition JSON, chaque cellule au cahier des assets (<span class="tt">check_assets_brief.py</span>).</p>
 <table class="markdownTable">
@@ -1382,17 +1382,17 @@ Les textures — trois jeux, une planche chacun</h4>
 <td class="markdownTableBodyNone"><b>Bas-fond</b>  </td><td class="markdownTableBodyNone">le repaire  </td><td class="markdownTableBodyNone">caves : pierre, poutres, cages, paillasses, le coffre  </td></tr>
 </table>
 <p>L'Arène du Destin reprend la planche du Colisée (<a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a>) ; ses gradins nobles sont une variante.</p>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md980"></a>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md982"></a>
 Le combat sur la carte</h4>
 <ul>
 <li>Les deux rencontres du repaire : <span class="tt"><a class="el" href="namespacecore.html#a8ae810130a331e928f30b4c78f4c5768" title="Engage encounter au point trigger, en mettant exploration de côté.">core::beginEncounter</a></span> gèle la carte, monte <span class="tt"><a class="el" href="classcore_1_1CombatState.html" title="Un combat, du montage de la rencontre à sa fin.">core::CombatState</a></span> dessus, et <span class="tt">CombatHudForm</span> joue sur la vue-modèle du <a class="el" href="lot-24.html" title="LOT-24 — IHM de combat">LOT-24</a>. La fin de combat pose le drapeau de l'étape 4 (<a class="el" href="#lot-16" title="LOT-16 — Les affaires de la Capitale : quêtes et drapeaux de monde">LOT-16</a>) et retire le dialogue provisoire.</li>
 <li>Deux types d'<b>ennemis</b> avec deux des cinq profils d'IA du <a class="el" href="lot-23.html" title="LOT-23 — IA tactique ennemie">LOT-23</a> : le spadassin (mêlée agressive), l'archer (distance prudente).</li>
 <li><b>Le défi d'arène depuis la ville</b> : le dialogue du héraut monte une <span class="tt"><a class="el" href="classcore_1_1ArenaSession.html" title="Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.">core::ArenaSession</a></span> (<a class="el" href="lot-50.html" title="LOT-50 — Le Colisée : bac à sable de combat">LOT-50</a>) à composition fixée — le personnage contre les champions loués du noble — et sa fin pose le drapeau du verdict. C'est le geste du <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a>, le héraut du Colisée qui lance le combat sur la zone déclarée, rejoué sur l'Arène du Destin ; le voyage reste au <span class="tt">LOT-42</span>.</li>
 </ul>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md981"></a>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md983"></a>
 Retraits</h4>
 <p>Les personnages et rencontres de démonstration sont partis avec le <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a> ; restent ici les deux dialogues provisoires des étapes 4 et 6, qui disparaissent, et le dernier marqueur du chemin de la quête.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md982"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md984"></a>
 Outillage</h3>
 <p><span class="tt">scripts/check_world_graph.py</span> remplace le <span class="tt">check_demo_sequence.py</span> hérité, retiré au <span class="tt">LOT-01</span>. Il valide, en CI :</p>
 <ul>
@@ -1401,10 +1401,10 @@ Outillage</h3>
 <li>que chaque zone de rencontre est un <b>terrain tactique valide</b> (contrainte du <span class="tt">LOT-11</span>, née de la décision « combat sur la carte ») ;</li>
 <li>que <b>le chemin de la quête n'affiche aucun marqueur</b> de clé d'asset manquante (<a class="el" href="lot-39.html" title="LOT-39 — Plomberie des clés d&#39;assets">LOT-39</a>) : les textures et figurines du slice sont livrées, pas promises.</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md983"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md985"></a>
 Exigences couvertes</h3>
 <p><span class="tt">EX-RPG-*</span>, <span class="tt">EX-LVL-*</span>, et concrétisation de <span class="tt">EX-VIS-001</span> à <span class="tt">EX-VIS-005</span>.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md984"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md986"></a>
 Critères d'acceptation</h3>
 <ul>
 <li>La boucle complète se joue de bout en bout, de la porte de Martpart au verdict.</li>
@@ -1418,12 +1418,12 @@ LOT-28 — Audio, effets et version <span class="tt">0.0.1</span></h2>
 <blockquote class="doxtable">
 <p>Statut : <b>à faire</b>. Prérequis : <a class="el" href="#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>, <a class="el" href="lot-94.html" title="LOT-94 — Les images du corpus quittent le dépôt ; l&#39;écran « Carte » revient sur les cartes de l&#39;auteur : monde, région, ville">LOT-94</a> (aucune image du corpus dans une version). </p>
 </blockquote>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md985"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md987"></a>
 Objectif</h3>
 <p>Donner au jeu son identité sonore et ses retours d'impact, puis clore le programme du <em>vertical slice</em> par une version publiable.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md986"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md988"></a>
 Périmètre</h3>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md987"></a>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md989"></a>
 Audio</h4>
 <p><span class="tt"><a class="el" href="classhmi_1_1AudioEngine.html" title="Lecture d&#39;échantillons courts à faible latence, avec volume global et repli muet.">hmi::AudioEngine</a></span> et <span class="tt">SoundCatalog</span> sont hérités et fonctionnels — ce lot les <b>alimente</b>, il ne les réécrit pas :</p>
 <ul>
@@ -1431,13 +1431,13 @@ Audio</h4>
 <li>bruitages : pas, interaction, ouverture de coffre, jet de dé, coup porté, coup critique, échec, fin de combat, navigation de menu.</li>
 </ul>
 <p>La règle héritée tient : <b>le jeu reste pleinement jouable en silence</b>, sans périphérique audio, et le volume est réglable et persisté.</p>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md988"></a>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md990"></a>
 Effets</h4>
 <p><span class="tt">ParticleRenderer</span> et la secousse d'écran sont hérités : particules à l'impact, secousse <b>sur critique uniquement</b> (une secousse à chaque coup rendrait un combat tour par tour épuisant).</p>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md989"></a>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md991"></a>
 Équilibrage</h4>
 <p>Passe de réglage sur les données du slice : PV, CA, dégâts, seuils d'expérience, prix. Tout est en JSON depuis la phase C — aucune recompilation.</p>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md990"></a>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md992"></a>
 Clôture</h4>
 <ul>
 <li>Régénération du <b>cahier de test</b> (<span class="tt">scripts/generate_cahier_test.py</span>).</li>
@@ -1445,13 +1445,13 @@ Clôture</h4>
 <li>Mise en cohérence documentaire globale : specs, guides, manuel.</li>
 <li><span class="tt">project(VERSION 0.0.1)</span> dans le <span class="tt">CMakeLists.txt</span> racine — <b>seul endroit</b> où la version s'écrit — puis tag <span class="tt">v0.0.1</span>. Dans ce programme, <span class="tt">0.1.0</span> est le bac à sable complet, et le slice est son premier <span class="tt">0.0.x</span>.</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md991"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md993"></a>
 Note de méthode</h3>
 <p>La documentation de chaque domaine est mise à jour <b>par le lot qui le livre</b>, pas ici. Ce lot ne fait que la cohérence d'ensemble et la régénération. Un lot fourre-tout de fin de programme n'est jamais fini : c'est le risque à éviter.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md992"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md994"></a>
 Exigences couvertes</h3>
 <p><span class="tt">EX-REN-*</span> audio et effets, <span class="tt">EX-NFR-*</span> (budget de rendu mesuré, patron hérité).</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md993"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md995"></a>
 Critères d'acceptation</h3>
 <ul>
 <li>Le jeu est pleinement jouable <b>sans périphérique audio</b>.</li>
@@ -1464,10 +1464,10 @@ LOT-29 — Groupe de quatre personnages</h2>
 <blockquote class="doxtable">
 <p>Statut : <b>à faire</b>. Prérequis : <a class="el" href="#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>. Vient <b>après</b> le <em>vertical slice</em>, délibérément. </p>
 </blockquote>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md994"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md996"></a>
 Objectif</h3>
 <p>Passer d'un héros seul à un groupe de quatre — recrutement, compagnons suiveurs en exploration, combat tactique à quatre alliés.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md995"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md997"></a>
 Pourquoi ce lot est un lot d'<b>ajout</b>, pas une refonte</h3>
 <p>C'est la décision de cadrage n° 4, et tout le programme la prépare : <b>rien ne doit supposer l'unicité du personnage</b>. Concrètement, au moment d'aborder ce lot, ces précautions doivent déjà être en place :</p>
 <ul>
@@ -1477,7 +1477,7 @@ Pourquoi ce lot est un lot d'<b>ajout</b>, pas une refonte</h3>
 <li>les écrans de fiche et d'inventaire sont conçus pour un <b>sélecteur de personnage</b>, même quand ils n'en affichent qu'un — et <span class="tt">CompanyForm.ui.qml</span> (<a class="el" href="lot-87.html" title="LOT-87 — Charte v2 et intégration des maquettes">LOT-87</a>) montre déjà six places d'équipe, dont une seule occupée.</li>
 </ul>
 <p>Si l'un de ces points a dérivé en chemin, ce lot redevient une refonte — c'est le signal d'alarme à surveiller pendant les phases C et D.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md996"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md998"></a>
 Périmètre</h3>
 <ul>
 <li><b>Recrutement</b> de compagnons (dialogue, quête).</li>
@@ -1487,13 +1487,13 @@ Périmètre</h3>
 <li>Répartition de l'expérience et du butin.</li>
 <li><em>Contraintes du corpus (§4bis).</em> Le groupe n'est pas seul sur la carte : gardien-plante du druide, morts-vivants du Chevalier de la Mort (jusqu'à vingt), invocations paramétriques, montures. Ce sont des combattants <b>hors quota</b> dans l'initiative, qui suivent, obéissent ou non, et que la sauvegarde du <span class="tt">LOT-17</span> retient ; la compagnie du <span class="tt">LOT-83</span> en fait des recrues.</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md997"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md999"></a>
 Le point délicat</h3>
 <p>Le combat à quatre alliés multiplie les tours et allonge la boucle : l'IHM du <span class="tt">LOT-24</span> doit rester lisible avec huit combattants au bandeau d'initiative. C'est le seul endroit où ce lot peut exiger un vrai travail d'interface plutôt qu'un simple ajout.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md998"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md1000"></a>
 Exigences couvertes</h3>
 <p><span class="tt">EX-RPG-*</span>, <span class="tt">EX-CBT-*</span>, <span class="tt">EX-IHM-*</span>.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md999"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md1001"></a>
 Critères d'acceptation</h3>
 <ul>
 <li>Un combat à <b>4 alliés contre 4 ennemis</b> se déroule en headless jusqu'à une condition de fin.</li>

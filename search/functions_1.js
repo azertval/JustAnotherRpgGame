@@ -39,7 +39,8 @@ var searchData=
   ['buildmodel_36',['buildModel',['../classhmi_1_1PalettePanel.html#af1898fdecf86e9004f65845f4f96f364',1,'hmi::PalettePanel']]],
   ['buildpiecemodel_37',['buildPieceModel',['../classhmi_1_1PalettePanel.html#a7fdb92fcf95438fa75044ab0363e8d92',1,'hmi::PalettePanel']]],
   ['buildproceduralatlasimage_38',['buildProceduralAtlasImage',['../namespacehmi.html#a0fa1fc503abd25e16f2e3d52f6c8d540',1,'hmi']]],
-  ['buildstatusbar_39',['buildStatusBar',['../classhmi_1_1MainWindow.html#a871837448750fb40e380fe52af2f666f',1,'hmi::MainWindow']]],
-  ['buildui_40',['buildUi',['../classhmi_1_1MainWindow.html#a2be2a6b71ee9770ab402e16bf8d61666',1,'hmi::MainWindow']]],
-  ['buildworldgraph_41',['buildWorldGraph',['../namespacecore.html#a613ed3cc48dbcdf1ed1533b2bb6c9f9c',1,'core']]]
+  ['buildrefactormenu_39',['buildRefactorMenu',['../classhmi_1_1MainWindow.html#a55eeec10938e3d14aa60d0af1e6ccbc6',1,'hmi::MainWindow']]],
+  ['buildstatusbar_40',['buildStatusBar',['../classhmi_1_1MainWindow.html#a871837448750fb40e380fe52af2f666f',1,'hmi::MainWindow']]],
+  ['buildui_41',['buildUi',['../classhmi_1_1MainWindow.html#a2be2a6b71ee9770ab402e16bf8d61666',1,'hmi::MainWindow']]],
+  ['buildworldgraph_42',['buildWorldGraph',['../namespacecore.html#a613ed3cc48dbcdf1ed1533b2bb6c9f9c',1,'core']]]
 ];

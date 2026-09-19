@@ -27,6 +27,8 @@
 #include "Core/World/WorldGraph.h"
 #include "Editor/Logic/EditorSidecar.h"
 #include "Editor/Logic/LevelNameValidation.h"
+#include "Editor/Logic/MapRefactor.h"
+#include "Editor/Logic/MapTexts.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace hmi {
@@ -34,15 +36,18 @@ namespace hmi {
 namespace {
 
 // Charge un niveau, en fait un brouillon renommÃ©, valide, Ã©crit Ã  `target`. Facteur commun Ã 
-// rename/duplicate. Renvoie un FileOperationResult (jamais d'exception).
+// rename/duplicate. Renvoie un FileOperationResult (jamais d'exception) ; @p previousName reÃ§oit le
+// nom qu'avait la carte.
 [[nodiscard]] FileOperationResult writeRenamed(const std::filesystem::path&amp; source,
                                                const std::string&amp; newName,
-<span style = "background-color:#dfd">                                               const std::filesystem::path&amp; target) {
+                                               const std::filesystem::path&amp; target,
+<span style = "background-color:#dfd">                                               std::string&amp; previousName) {
     core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(source);
     if (!loaded.ok()) {</span>
 <span style = "background-color:#fdd">        return FileOperationResult::failure("Niveau source illisible : " + loaded.error);</span>
     }
-<span style = "background-color:#dfd">    core::LevelDraft draft = core::LevelDraft::fromLevel(*loaded.level);
+<span style = "background-color:#dfd">    previousName = loaded.level-&gt;name();
+    core::LevelDraft draft = core::LevelDraft::fromLevel(*loaded.level);
     draft.setName(newName);
     core::LevelLoadResult validated = draft.toLevel();
     if (!validated.ok()) {</span>
@@ -56,8 +61,21 @@ namespace {
 
 }  // namespace
 
-LevelFileOperations::LevelFileOperations(std::filesystem::path levelsDir)
-<span style = "background-color:#dfd">    : _dir(std::move(levelsDir)) {}</span>
+LevelFileOperations::LevelFileOperations(std::filesystem::path levelsDir,
+                                         std::filesystem::path levelsRoot)
+<span style = "background-color:#dfd">    : _dir(std::move(levelsDir)), _root(levelsRoot.empty() ? _dir : std::move(levelsRoot)) {}</span>
+
+<span style = "background-color:#dfd">std::string LevelFileOperations::nameKeyFor(const std::filesystem::path&amp; file) const {
+    return mapNameKey(core::mapIdOf(_root, file));
+}</span>
+
+void LevelFileOperations::addNameTranslation(const std::filesystem::path&amp; file,
+                                             const std::string&amp; text,
+<span style = "background-color:#dfd">                                             const std::string&amp; copyFrom) const {</span>
+    // Un catalogue qui ne s'Ã©crit pas n'empÃªche pas la carte d'exister : le contrÃ´le le dira.
+<span style = "background-color:#dfd">    static_cast&lt;void&gt;(addTranslation(localizationDirectory(_root.parent_path()), nameKeyFor(file),</span>
+                                     text, copyFrom));
+<span style = "background-color:#dfd">}</span>
 
 <span style = "background-color:#dfd">std::filesystem::path LevelFileOperations::pathForName(const std::string&amp; name) const {
     return _dir / (name + ".json");
@@ -104,7 +122,7 @@ FileOperationResult LevelFileOperations::create(const std::string&amp; name, int
         return FileOperationResult::failure("Un niveau porte dÃ©jÃ  ce nom.");</span>
     }
     // Niveau minimal valide : grille vide + une entrÃ©e (coin bas gauche).
-<span style = "background-color:#dfd">    core::LevelDraft draft = core::LevelDraft::empty(trimmed, width, height);
+<span style = "background-color:#dfd">    core::LevelDraft draft = core::LevelDraft::empty(nameKeyFor(target), width, height);
     if (!place.empty()) {</span>
         // Les couches des cartes livrÃ©es. Le sol nomme le lieu ; la collision est celle que la
         // dÃ©duction donne Ã  une carte vide : le vide arrÃªte la vue (dÃ©cision D10).
@@ -128,7 +146,8 @@ FileOperationResult LevelFileOperations::create(const std::string&amp; name, int
 <span style = "background-color:#dfd">    if (!core::LevelWriter::saveToFile(*validated.level, target)) {</span>
 <span style = "background-color:#fdd">        return FileOperationResult::failure("Ãchec de l'Ã©criture du fichier.");</span>
     }
-<span style = "background-color:#dfd">    return FileOperationResult::success(target);
+<span style = "background-color:#dfd">    addNameTranslation(target, trimmed);
+    return FileOperationResult::success(target);
 }</span>
 
 FileOperationResult LevelFileOperations::rename(const std::filesystem::path&amp; source,
@@ -141,19 +160,24 @@ FileOperationResult LevelFileOperations::rename(const std::filesystem::path&amp;
     if (!hmi::isValidLevelName(newName)) {</span>
 <span style = "background-color:#fdd">        return FileOperationResult::failure("Nom de niveau invalide.");</span>
     }
-<span style = "background-color:#dfd">    const std::filesystem::path target = pathForName(trimmed);
-    if (target != source &amp;&amp; std::filesystem::exists(target, error)) {</span>
-<span style = "background-color:#fdd">        return FileOperationResult::failure("Un niveau porte dÃ©jÃ  ce nom.");</span>
+<span style = "background-color:#dfd">    const std::filesystem::path target = source.parent_path() / (trimmed + ".json");
+    const std::string oldId = core::mapIdOf(_root, source);
+    const std::string newId = core::mapIdOf(_root, target);
+    if (oldId == newId) {</span>
+<span style = "background-color:#fdd">        return FileOperationResult::success(source);</span>
     }
-<span style = "background-color:#dfd">    const FileOperationResult written = writeRenamed(source, trimmed, target);
-    if (written.ok() &amp;&amp; target != source) {
-        std::filesystem::remove(source, error);  // retire l'ancien fichier (Ã©chec non bloquant).</span>
-        // Les notes d'auteur suivent leur carte (LOT-EDITOR-04), Ã©chec non bloquant.
-<span style = "background-color:#dfd">        if (std::filesystem::exists(sidecarPath(source), error)) {</span>
-<span style = "background-color:#fdd">            std::filesystem::rename(sidecarPath(source), sidecarPath(target), error);</span>
-        }
+    // Le renommage propagÃ© (LOT-EDITOR-14) : portails, villes, clÃ© du nom, annexe.
+<span style = "background-color:#dfd">    const RefactorPlan plan = planRenameMap(_root.parent_path(), oldId, newId);
+    if (!plan.ok()) {</span>
+<span style = "background-color:#fdd">        return FileOperationResult::failure(plan.error);</span>
     }
-<span style = "background-color:#dfd">    return written;
+<span style = "background-color:#dfd">    std::string written;
+    if (!applyRefactorPlan(plan, written)) {</span>
+<span style = "background-color:#fdd">        return FileOperationResult::failure(written);</span>
+    }
+    // Un catalogue qui n'avait pas l'ancienne clÃ© reÃ§oit la nouvelle, le nom tapÃ© pour texte.
+<span style = "background-color:#dfd">    addNameTranslation(target, trimmed);
+    return FileOperationResult::success(target);
 }</span>
 
 <span style = "background-color:#dfd">FileOperationResult LevelFileOperations::duplicate(const std::filesystem::path&amp; source) const {
@@ -167,8 +191,13 @@ FileOperationResult LevelFileOperations::rename(const std::filesystem::path&amp;
     for (int index = 2; std::filesystem::exists(pathForName(candidate), error); ++index) {
         candidate = base + " (copie " + std::to_string(index) + ")";
     }
-    const FileOperationResult written = writeRenamed(source, candidate, pathForName(candidate));
-    if (written.ok() &amp;&amp; std::filesystem::exists(sidecarPath(source), error)) {</span>
+    std::string previousName;
+    const FileOperationResult written = writeRenamed(source, nameKeyFor(pathForName(candidate)),</span>
+                                                     pathForName(candidate), previousName);
+<span style = "background-color:#dfd">    if (written.ok()) {
+        addNameTranslation(pathForName(candidate), candidate, previousName);</span>
+    }
+<span style = "background-color:#dfd">    if (written.ok() &amp;&amp; std::filesystem::exists(sidecarPath(source), error)) {</span>
 <span style = "background-color:#fdd">        std::filesystem::copy_file(sidecarPath(source), sidecarPath(pathForName(candidate)),</span>
                                    error);  // la copie garde les notes, Ã©chec non bloquant.
     }

@@ -96,17 +96,17 @@ $(function(){initNavTree('lot-editor-13.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 19 septembre 2026</b> (ouvert le même jour), sur la branche <span class="tt">lot-editor-13-sans-fenetre</span>. Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, tests unitaires verts (848, dont deux ignorés comme avant), acceptation sur Martpart, rendu des trois cartes livrées relu à l'œil. <b>Vérification à la souris due</b> sur les gestes d'entité et la copie (voir plus bas) ; <b>étape CI de rendu éprouvée à la première PR</b> qui change une carte. Prérequis : <span class="tt">LOT-EDITOR-04</span>. Feuille de route : <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">éditeur</a>. Alimente : <span class="tt">LOT-EDITOR-06</span> (fin des scripts), <span class="tt">LOT-EDITOR-09</span> (monde). Exigences : <span class="tt">EX-EDIT-074</span> à <span class="tt">EX-EDIT-076</span> (nouvelles). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1070"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1081"></a>
 Objectif</h1>
 <p>Ce que les scripts des cartes apportaient — l'édition en masse, rejouable, relue en diff (constat A11) —, sans les scripts (décision D9). <span class="tt">LevelEditor --apply gestes.json</span> rejoue des gestes par les fonctions mêmes des outils ; <span class="tt">LevelEditor --render</span> rend une carte en PNG ; la CI montre dans la PR les cartes qu'elle change.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1071"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1082"></a>
 Ce que le dépôt contenait à l'ouverture (19 septembre 2026)</h1>
 <ul>
 <li><b>Deux commandes sans fenêtre</b>, <span class="tt">--check</span> et <span class="tt">--migrate</span> (<span class="tt">LOT-EDITOR-12</span>), dans <span class="tt"><a class="el" href="namespacehmi.html#a75e0715b710f1ffbe1d6392719cb07c2" title="L&#39;entrée sans fenêtre de l&#39;éditeur (décision D9) : --check, --migrate et --apply (--render,...">hmi::runMapCommand</a></span>, appelée par <span class="tt">Main.cpp</span> avant toute construction Qt.</li>
 <li><b>Des outils purs, mais pas tous.</b> Les outils du peintre étaient des fonctions pures (<span class="tt">applyStroke</span>, <span class="tt">applyRectangleStroke</span>, <span class="tt">applyBucket</span>, <span class="tt">pickBrush</span>, <span class="tt">paintTypeBlock</span>), comme la résolution et l'aperçu des gestes d'entité (<span class="tt">resolveEntityPress</span>, <span class="tt">dragEntities</span>). Mais le canevas écrivait lui-même, en ligne, l'entité posée, le résultat d'un glisser, le retrait d'un groupe, la copie d'une sélection et le pinceau d'une pièce : un exécuteur sans fenêtre aurait dû les recopier.</li>
 <li><b>Le peintre hors écran existait</b> (<span class="tt"><a class="el" href="namespacehmi.html#a7e2e49094a1e633ea842459409c9c13b" title="Rend scene hors écran, cadrée par camera, sur un fond clear — l&#39;image que le jeu dessinerait avec la ...">hmi::renderComposedScene</a></span>, <span class="tt">LOT-EDITOR-02</span>), cadré par une caméra du jeu ; rien ne rendait une carte entière.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1072"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1083"></a>
 Décisions</h1>
 <ul>
 <li><b>Un geste est ce que fait la main.</b> Un fichier de gestes ne décrit pas des modifications de carte, mais la main dans la fenêtre : un outil, un appui (<span class="tt">at</span>), un glisser (<span class="tt">path</span>, ou <span class="tt">from</span> et <span class="tt">to</span>), un relâchement, et ce qu'on arme entre deux gestes — pièce ou type (la palette), couche active et verrous (le panneau des couches), miroir, famille d'entité, sélection d'entités. Ce qui est armé le reste, comme dans la fenêtre (<span class="tt"><a class="el" href="structhmi_1_1GestureState.html" title="Ce que la fenêtre garde d&#39;un geste à l&#39;autre : le pinceau, la couche active, le miroir,...">hmi::GestureState</a></span>). C'est ce qui rend un geste rejoué égal au geste à la souris : <b>les mêmes fonctions, dans le même ordre</b>. Un format de modifications abstraites (« poser telle pièce en telle case ») aurait été plus court à écrire, et aurait eu son propre chemin de code.</li>
@@ -123,7 +123,7 @@ Décisions</h1>
 <li><b>La CI rend les cartes que la PR ajoute ou change</b> (<span class="tt">git diff HEAD^1 HEAD</span>, d'où un checkout à deux commits), à demi-échelle, et les publie dans l'artefact <span class="tt">map-renders</span>, listées dans le résumé du job. Les annexes et les séquences n'en sont pas.</li>
 <li><b>Les scénarios sont les tests d'IHM</b> (règle 4) : un par outil, rejoué sur une carte-témoin de 12 × 10 cases sur la planche de Martpart (<span class="tt">Source/Test/Fixtures/Gestures/terrain.json</span>), comparé octet pour octet à <span class="tt">&lt;outil&gt;.attendu.json</span>. Un changement voulu se régénère par <span class="tt">LevelEditor --apply … --output &lt;outil&gt;.attendu.json</span>, puis se relit en diff.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1073"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1084"></a>
 Livraison</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -143,7 +143,7 @@ Livraison</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Documentation  </td><td class="markdownTableBodyNone"><span class="tt"><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></span> §14 ; README du module (commandes sans fenêtre) et de <span class="tt">Ui/</span>  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1074"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1085"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Refaire par <span class="tt">--apply</span> une rue de Martpart rend le même fichier que le geste à la souris.</b> ✔ <span class="tt">GestureScriptTest.UneRueDeMartpartRefaiteRendLaCarteLivree</span> : la rue d'Arenarea (lignes 2 à 5, colonnes 0 à 16) est gommée couche par couche, puis retracée en dix gestes — un rectangle de pavés, un trait par variante de pavé et pour les seuils, une ligne de façade, un trait de fenêtres, de portes et de lanternes. Le fichier rendu égale <span class="tt">martpart.json</span> <b>octet pour octet</b> : les outils posent la pièce, le type de sa case et la collision comme la carte livrée les porte. Que ce soit aussi le fichier du geste à la souris tient à la construction : la souris et <span class="tt">--apply</span> appellent les mêmes fonctions, dans le même ordre. La main de l'auteur ne se simule pas (les clics postés n'atteignent pas Qt, voir le <span class="tt">LOT-EDITOR-04</span>).</li>
@@ -152,7 +152,7 @@ Critères d'acceptation</h1>
 <li><b>La CI publie le rendu PNG des cartes qu'une PR change.</b> Étape écrite, commande éprouvée au poste (<span class="tt">--render Source/Elements/Levels/capital/martpart.json</span> rend <span class="tt">capital-martpart.png</span>) ; <b>à voir tourner à la première PR qui touche une carte</b> — celle-ci n'en touche aucune.</li>
 </ul>
 <p><b>Vérification à la souris, due</b> : les gestes que le canevas écrivait en ligne passent maintenant par les fonctions descendues. Sur Martpart : outil Entité, poser un coffre, le glisser, tirer une zone de combat, <span class="tt">Maj</span> + clic sur une deuxième entité et déplacer le groupe, <span class="tt">Suppr</span> ; outil Sélection, <span class="tt">Ctrl+C</span> puis <span class="tt">Ctrl+V</span> sur la collision ; choisir une pièce dans la palette (la couche active suit). Chaque geste se défait d'un <span class="tt">Ctrl+Z</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1075"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1086"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Enregistrer ses gestes à la souris</b> dans un fichier <span class="tt">--apply</span> (une macro) : utile pour les tampons (<span class="tt">LOT-EDITOR-08</span>), pas demandé ici.</li>

@@ -95,6 +95,7 @@ $(function(){initNavTree('MapFormat_8cpp.html','',''); });
 <div class="textblock"><code>#include &quot;<a class="el" href="MapFormat_8h_source.html">Editor/Logic/MapFormat.h</a>&quot;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;iterator&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
 <code>#include &lt;set&gt;</code><br />
 <code>#include &lt;sstream&gt;</code><br />
@@ -109,6 +110,7 @@ $(function(){initNavTree('MapFormat_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="TileTypeName_8h_source.html">Core/Levels/TileTypeName.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldGraph_8h_source.html">Core/World/WorldGraph.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldTravel_8h_source.html">Core/World/WorldTravel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ContentCheck_8h_source.html">Editor/Logic/ContentCheck.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="EditorSidecar_8h_source.html">Editor/Logic/EditorSidecar.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GestureScript_8h_source.html">Editor/Logic/GestureScript.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
@@ -124,7 +126,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a35165b3b99c6aacab4c7d7c907983f15" id="r_a35165b3b99c6aacab4c7d7c907983f15"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a35165b3b99c6aacab4c7d7c907983f15">hmi::scenePlaces</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
 <tr class="memitem:ae7b3f6f5d7f2751645dc12ed67e74af8" id="r_ae7b3f6f5d7f2751645dc12ed67e74af8"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ae7b3f6f5d7f2751645dc12ed67e74af8">hmi::formatFinding</a> (const <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &amp;finding)</td></tr>
 <tr class="memitem:a42fc6546d215eea2d52d55f917655fd4" id="r_a42fc6546d215eea2d52d55f917655fd4"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a42fc6546d215eea2d52d55f917655fd4">hmi::checkMapFile</a> (std::string_view mapId, const std::filesystem::path &amp;file, const std::filesystem::path &amp;dataRoot)</td></tr>
-<tr class="memdesc:a42fc6546d215eea2d52d55f917655fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contrôle une carte, lue depuis son fichier.  <br /></td></tr>
+<tr class="memdesc:a42fc6546d215eea2d52d55f917655fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comme ci-dessus, le contexte étant lu sous <code class="param">dataRoot</code> pour cette seule carte.  <br /></td></tr>
+<tr class="memitem:ac584a0ea44e14690221c7e410a253862" id="r_ac584a0ea44e14690221c7e410a253862"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ac584a0ea44e14690221c7e410a253862">hmi::checkMapFile</a> (std::string_view mapId, const std::filesystem::path &amp;file, const std::filesystem::path &amp;dataRoot, const <a class="el" href="structhmi_1_1ContentContext.html">ContentContext</a> &amp;context)</td></tr>
+<tr class="memdesc:ac584a0ea44e14690221c7e410a253862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contrôle une carte, lue depuis son fichier : son format, puis son contenu.  <br /></td></tr>
 <tr class="memitem:a6e21da09e85978f4e71f38116267e04a" id="r_a6e21da09e85978f4e71f38116267e04a"><td class="memItemLeft"><a class="el" href="structhmi_1_1MapCheckReport.html">MapCheckReport</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a6e21da09e85978f4e71f38116267e04a">hmi::checkAllMaps</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
 <tr class="memdesc:a6e21da09e85978f4e71f38116267e04a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contrôle toutes les cartes de <span class="tt">&lt;dataRoot&gt;/Levels</span>, sous-dossiers compris, puis les références entre elles.  <br /></td></tr>
 <tr class="memitem:a1644ea52edad99de10786aa95605fb5b" id="r_a1644ea52edad99de10786aa95605fb5b"><td class="memItemLeft"><a class="el" href="structhmi_1_1MapMigration.html">MapMigration</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a1644ea52edad99de10786aa95605fb5b">hmi::migrateLevel</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const <a class="el" href="structhmi_1_1PlaceAssets.html">PlaceAssets</a> &amp;assets)</td></tr>

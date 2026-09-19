@@ -158,7 +158,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a0073d59a00c4168cb00a153431166224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre <code class="param">path</code> comme brouillon ; sort d'un éventuel essai.  <br /></td></tr>
 <tr class="memitem:ac74e119e93cc45dc4bf95ffc87f20873" id="r_ac74e119e93cc45dc4bf95ffc87f20873"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ac74e119e93cc45dc4bf95ffc87f20873">isDirty</a> () const noexcept</td></tr>
 <tr class="memdesc:ac74e119e93cc45dc4bf95ffc87f20873"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le brouillon porte des modifications : sa révision n'est plus celle de la dernière ouverture ou du dernier enregistrement (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#ae1dc7f0a73b888edbcc04e114116fefe" title="Identifie l&#39;état du contenu : change à chaque mutation, et revient à sa valeur d&#39;avant quand undo() d...">core::LevelDraft::revision</a></span>).  <br /></td></tr>
-<tr class="memitem:a1d50d436d753be4c03781d0454c21c7f" id="r_a1d50d436d753be4c03781d0454c21c7f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1d50d436d753be4c03781d0454c21c7f">renameOpenLevel</a> (const std::string &amp;newName)</td></tr>
+<tr class="memitem:a7a36fd2f80e18da0782e75694b2c76cd" id="r_a7a36fd2f80e18da0782e75694b2c76cd"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7a36fd2f80e18da0782e75694b2c76cd">replacePieces</a> (const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a> &amp;renaming)</td></tr>
+<tr class="memdesc:a7a36fd2f80e18da0782e75694b2c76cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme des pièces de la carte ouverte, en un pas d'annulation (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#afe371b92fcdac56ae41550ee9eef6c45" title="Renomme, sur toutes les couches visuelles, chaque pièce que renaming nomme (LOT-EDITOR-14,...">core::LevelDraft::replacePieces</a></span>, <span class="tt">LOT-EDITOR-14</span>).  <br /></td></tr>
+<tr class="memitem:a0caaf177a260fdb146d9016ded603d94" id="r_a0caaf177a260fdb146d9016ded603d94"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0caaf177a260fdb146d9016ded603d94">changeScene</a> (const std::string &amp;place, const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a> &amp;table)</td></tr>
+<tr class="memdesc:a0caaf177a260fdb146d9016ded603d94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait passer la carte ouverte à la planche du lieu <code class="param">place</code>, pièces traduites par <code class="param">table</code>, en un pas d'annulation (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#aacc7771e216fb566455fff8e416eef9c" title="Fait passer la carte à la planche du lieu place (LOT-EDITOR-14), en un pas : la propriété scene des c...">core::LevelDraft::changeScene</a></span>, <span class="tt">LOT-EDITOR-14</span>).  <br /></td></tr>
 <tr class="memitem:aeb239786658a9aa66cfa6770f061361a" id="r_aeb239786658a9aa66cfa6770f061361a"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aeb239786658a9aa66cfa6770f061361a">mapId</a> () const noexcept</td></tr>
 <tr class="memitem:afcb850859f73d7a4f2a70ad8a7ff5830" id="r_afcb850859f73d7a4f2a70ad8a7ff5830"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#afcb850859f73d7a4f2a70ad8a7ff5830">levelPath</a> () const</td></tr>
 <tr class="memitem:a4decd31ed28cf70d9fe3ea73826780a2" id="r_a4decd31ed28cf70d9fe3ea73826780a2"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a4decd31ed28cf70d9fe3ea73826780a2">draftJson</a> () const</td></tr>
@@ -199,6 +202,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9c3b4a504fd1490457985123fad6215d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les quatre coins de la partie visible, en coordonnées de grille continues (colonne, ligne) : un rectangle à plat, un losange en iso.  <br /></td></tr>
 <tr class="memitem:add3e89ff02ae07c97ec97cce8be5fbe4" id="r_add3e89ff02ae07c97ec97cce8be5fbe4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#add3e89ff02ae07c97ec97cce8be5fbe4">centerOnGridPoint</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> gridPoint)</td></tr>
 <tr class="memdesc:add3e89ff02ae07c97ec97cce8be5fbe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centre la vue sur un point de grille continu (colonne, ligne).  <br /></td></tr>
+<tr class="memitem:a9ead4403c48f80fe66824bba17f646be" id="r_a9ead4403c48f80fe66824bba17f646be"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9ead4403c48f80fe66824bba17f646be">revealCell</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell)</td></tr>
+<tr class="memdesc:a9ead4403c48f80fe66824bba17f646be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centre la vue sur <code class="param">cell</code> et la cerne, jusqu'à la carte suivante ou au prochain appel : la case d'un constat du panneau « Problems » (<span class="tt">LOT-EDITOR-07</span>).  <br /></td></tr>
 <tr class="memitem:a4e8559f25d681fcdc6519d090064f424" id="r_a4e8559f25d681fcdc6519d090064f424"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4e8559f25d681fcdc6519d090064f424">resizeLevel</a> (int width, int height)</td></tr>
 <tr class="memitem:a4a40e4b1d4c457f3f96ce5907eefffbf" id="r_a4a40e4b1d4c457f3f96ce5907eefffbf"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4a40e4b1d4c457f3f96ce5907eefffbf">wouldResizeDrop</a> (int width, int height) const</td></tr>
 <tr class="memitem:aebe8341755b466b762401450fefdcf73" id="r_aebe8341755b466b762401450fefdcf73"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aebe8341755b466b762401450fefdcf73">levelWidth</a> () const</td></tr>
@@ -363,6 +368,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a0a26711d0ec5890b074aa9297c2b100c" id="r_a0a26711d0ec5890b074aa9297c2b100c"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0a26711d0ec5890b074aa9297c2b100c">_dragStart</a> {}</td></tr>
 <tr class="memitem:a6df225a7eaba5236562d4c7d2406b2f6" id="r_a6df225a7eaba5236562d4c7d2406b2f6"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6df225a7eaba5236562d4c7d2406b2f6">_dragCurrent</a> {}</td></tr>
 <tr class="memitem:abea15c3a5ee4ed4eef39c9ffc75f7846" id="r_abea15c3a5ee4ed4eef39c9ffc75f7846"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abea15c3a5ee4ed4eef39c9ffc75f7846">_hoverCell</a></td></tr>
+<tr class="memitem:a0b0cc9a60b7798d1327c81a4037cc5aa" id="r_a0b0cc9a60b7798d1327c81a4037cc5aa"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0b0cc9a60b7798d1327c81a4037cc5aa">_revealedCell</a></td></tr>
+<tr class="memdesc:a0b0cc9a60b7798d1327c81a4037cc5aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case d'un constat, cernée (<span class="tt"><a class="el" href="#a9ead4403c48f80fe66824bba17f646be" title="Centre la vue sur cell et la cerne, jusqu&#39;à la carte suivante ou au prochain appel : la case d&#39;un con...">revealCell</a></span>).  <br /></td></tr>
 <tr class="memitem:acc37bbc95209ab6c94cbca516c15afea" id="r_acc37bbc95209ab6c94cbca516c15afea"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#acc37bbc95209ab6c94cbca516c15afea">_lastEmittedZoom</a> = 0.0F</td></tr>
 <tr class="memitem:a9b83a7e57f64afc19e8473970e0d886d" id="r_a9b83a7e57f64afc19e8473970e0d886d"><td class="memItemLeft">std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9b83a7e57f64afc19e8473970e0d886d">_selection</a></td></tr>
 <tr class="memitem:acfeab99e642c5139f06a24ef07c4c1f2" id="r_acfeab99e642c5139f06a24ef07c4c1f2"><td class="memItemLeft">std::vector&lt; std::vector&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acfeab99e642c5139f06a24ef07c4c1f2">_clipboard</a></td></tr>
@@ -958,6 +965,29 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Centre la vue sur un point de grille continu (colonne, ligne). </p>
+
+</div>
+</div>
+<a id="a0caaf177a260fdb146d9016ded603d94" name="a0caaf177a260fdb146d9016ded603d94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0caaf177a260fdb146d9016ded603d94">&#9670;&#160;</a></span>changeScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::EditorViewport::changeScene </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>place</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>table</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fait passer la carte ouverte à la planche du lieu <code class="param">place</code>, pièces traduites par <code class="param">table</code>, en un pas d'annulation (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#aacc7771e216fb566455fff8e416eef9c" title="Fait passer la carte à la planche du lieu place (LOT-EDITOR-14), en un pas : la propriété scene des c...">core::LevelDraft::changeScene</a></span>, <span class="tt">LOT-EDITOR-14</span>). </p>
 
 </div>
 </div>
@@ -3090,20 +3120,22 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a1d50d436d753be4c03781d0454c21c7f" name="a1d50d436d753be4c03781d0454c21c7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d50d436d753be4c03781d0454c21c7f">&#9670;&#160;</a></span>renameOpenLevel()</h2>
+<a id="a7a36fd2f80e18da0782e75694b2c76cd" name="a7a36fd2f80e18da0782e75694b2c76cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a36fd2f80e18da0782e75694b2c76cd">&#9670;&#160;</a></span>replacePieces()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool hmi::EditorViewport::renameOpenLevel </td>
+          <td class="memname">bool hmi::EditorViewport::replacePieces </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>newName</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>renaming</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Renomme des pièces de la carte ouverte, en un pas d'annulation (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#afe371b92fcdac56ae41550ee9eef6c45" title="Renomme, sur toutes les couches visuelles, chaque pièce que renaming nomme (LOT-EDITOR-14,...">core::LevelDraft::replacePieces</a></span>, <span class="tt">LOT-EDITOR-14</span>). </p>
 
 </div>
 </div>
@@ -3220,6 +3252,25 @@ Private Attributes</h2></td></tr>
 
 <p>Reprend un brouillon sauvegardé automatiquement : il remplace le brouillon courant et reste marqué modifié, jusqu'à ce qu'on l'enregistre. </p>
 <dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si le brouillon ne se relit pas (incomplet, format inconnu) : rien n'a changé, et le fichier de reprise reste en place. </dd></dl>
+
+</div>
+</div>
+<a id="a9ead4403c48f80fe66824bba17f646be" name="a9ead4403c48f80fe66824bba17f646be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ead4403c48f80fe66824bba17f646be">&#9670;&#160;</a></span>revealCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EditorViewport::revealCell </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Centre la vue sur <code class="param">cell</code> et la cerne, jusqu'à la carte suivante ou au prochain appel : la case d'un constat du panneau « Problems » (<span class="tt">LOT-EDITOR-07</span>). </p>
 
 </div>
 </div>
@@ -5204,6 +5255,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0b0cc9a60b7798d1327c81a4037cc5aa" name="a0b0cc9a60b7798d1327c81a4037cc5aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b0cc9a60b7798d1327c81a4037cc5aa">&#9670;&#160;</a></span>_revealedCell</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&gt; hmi::EditorViewport::_revealedCell</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La case d'un constat, cernée (<span class="tt"><a class="el" href="#a9ead4403c48f80fe66824bba17f646be" title="Centre la vue sur cell et la cerne, jusqu&#39;à la carte suivante ou au prochain appel : la case d&#39;un con...">revealCell</a></span>). </p>
 
 </div>
 </div>

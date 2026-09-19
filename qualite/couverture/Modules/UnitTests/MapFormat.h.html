@@ -55,6 +55,9 @@
  * manifeste, collision Ã©gale Ã  la dÃ©duction hors des cases forcÃ©es, identifiants d'entitÃ©. Les
  * avertissements ne font pas Ã©chouer : rÃ©serve de hauteur non nulle, piÃ¨ce citÃ©e par un ancien nom,
  * gÃªne et abri pas encore jouÃ©s, case forcÃ©e inutile, piÃ¨ces larges qui se recouvrent.
+ *
+ * Puis le **contenu** (`LOT-EDITOR-07`, `ContentCheck.h`) : rÃ©fÃ©rences des entitÃ©s, terrain des
+ * rencontres, atteignabilitÃ©, portails sans retour, points d'arrivÃ©e orphelins, clÃ©s de traduction.
  */
 
 namespace hmi {
@@ -89,6 +92,9 @@ struct MapCheckFinding {
     std::string mapId;
     std::optional&lt;core::GridPosition&gt; cell;
     std::string message;
+    /// L'entitÃ© en cause, par son `id`, vide si le constat n'en vise aucune : le panneau
+    /// Â« Problems Â» la sÃ©lectionne (`LOT-EDITOR-07`).
+    std::string entityId;
 
     [[nodiscard]] bool operator==(const MapCheckFinding&amp;) const = default;
 };
@@ -96,12 +102,21 @@ struct MapCheckFinding {
 /// @return Le constat en une ligne : `capital/martpart (12, 3): error: â¦`.
 [[nodiscard]] std::string formatFinding(const MapCheckFinding&amp; finding);
 
+struct ContentContext;
+
 /**
- * @brief ContrÃ´le une carte, lue depuis son fichier.
+ * @brief ContrÃ´le une carte, lue depuis son fichier : son format, puis son contenu.
  * @param mapId    Son identifiant (`capital/martpart`), pour les messages.
  * @param file     Son fichier.
  * @param dataRoot La racine des donnÃ©es (`Source/Elements`), oÃ¹ vivent les planches.
+ * @param context  Ce contre quoi le contenu se contrÃ´le (`hmi::loadContentContext`).
  */
+[[nodiscard]] std::vector&lt;MapCheckFinding&gt; checkMapFile(std::string_view mapId,
+                                                        const std::filesystem::path&amp; file,
+                                                        const std::filesystem::path&amp; dataRoot,
+                                                        const ContentContext&amp; context);
+
+/// @brief Comme ci-dessus, le contexte Ã©tant lu sous @p dataRoot pour cette seule carte.
 [[nodiscard]] std::vector&lt;MapCheckFinding&gt; checkMapFile(std::string_view mapId,
                                                         const std::filesystem::path&amp; file,
                                                         const std::filesystem::path&amp; dataRoot);

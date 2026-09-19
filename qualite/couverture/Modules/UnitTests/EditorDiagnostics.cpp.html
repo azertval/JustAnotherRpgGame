@@ -37,7 +37,7 @@ namespace {
 <span style = "background-color:#dfd">const char* entityIssueTemplate(core::EntityIssueCode code) noexcept {
     switch (code) {</span>
         case core::EntityIssueCode::UnknownType:
-<span style = "background-color:#fdd">            return "Entity kind \"%1\" is unknown to the editor.";</span>
+<span style = "background-color:#dfd">            return "Entity kind \"%1\" is unknown to the editor.";</span>
         case core::EntityIssueCode::MissingProperty:
 <span style = "background-color:#fdd">            return "%1: property \"%2\" must be filled in.";</span>
         case core::EntityIssueCode::WrongValueType:
@@ -59,7 +59,7 @@ namespace {
         case core::EntityIssueCode::UnknownFigure:
 <span style = "background-color:#fdd">            return "%1: figure \"%3\" is in no workshop.";</span>
         case core::EntityIssueCode::UnsetFlag:
-<span style = "background-color:#fdd">            return "%1: no dialogue sets flag \"%3\".";</span>
+<span style = "background-color:#dfd">            return "%1: no dialogue sets flag \"%3\".";</span>
         case core::EntityIssueCode::UnknownLocation:
 <span style = "background-color:#fdd">            return "%1: location \"%3\" is not in the atlas.";</span>
         case core::EntityIssueCode::UnknownItem:
@@ -73,11 +73,11 @@ namespace {
 <span style = "background-color:#dfd">const char* tacticalIssueTemplate(core::TacticalIssueCode code) noexcept {
     switch (code) {</span>
         case core::TacticalIssueCode::CombatantOutOfBounds:
-<span style = "background-color:#fdd">            return "Encounter \"%1\": \"%2\" would stand off the map.";</span>
+<span style = "background-color:#dfd">            return "Encounter \"%1\": \"%2\" would stand off the map.";</span>
         case core::TacticalIssueCode::CombatantObstructed:
 <span style = "background-color:#dfd">            return "Encounter \"%1\": \"%2\" would stand on an obstacle.";</span>
         case core::TacticalIssueCode::CombatantsOverlap:
-<span style = "background-color:#fdd">            return "Encounter \"%1\": \"%2\" would overlap another combatant.";</span>
+<span style = "background-color:#dfd">            return "Encounter \"%1\": \"%2\" would overlap another combatant.";</span>
         case core::TacticalIssueCode::AreaTooNarrow:
 <span style = "background-color:#dfd">            return "Encounter \"%1\": area too narrow to fight in (%2 free cells, %3 required).";</span>
     }

@@ -196,6 +196,7 @@ var namespacecore =
     [ "EntityKind", "structcore_1_1EntityKind.html", "structcore_1_1EntityKind" ],
     [ "EntityReferenceContext", "structcore_1_1EntityReferenceContext.html", "structcore_1_1EntityReferenceContext" ],
     [ "EntityIssue", "structcore_1_1EntityIssue.html", "structcore_1_1EntityIssue" ],
+    [ "ExplorationReach", "classcore_1_1ExplorationReach.html", "classcore_1_1ExplorationReach" ],
     [ "CellPoint", "structcore_1_1CellPoint.html", "structcore_1_1CellPoint" ],
     [ "ExplorationIntent", "structcore_1_1ExplorationIntent.html", "structcore_1_1ExplorationIntent" ],
     [ "ExplorationEvent", "structcore_1_1ExplorationEvent.html", "structcore_1_1ExplorationEvent" ],
@@ -213,6 +214,7 @@ var namespacecore =
     [ "DamageFlags", "namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159", null ],
     [ "DamageListener", "namespacecore.html#a3590dffd7f4abb831e517aafa42647d6", null ],
     [ "OpportunityPolicy", "namespacecore.html#a838239698e3440af150c5de8127b830e", null ],
+    [ "PieceRenaming", "namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f", null ],
     [ "PropertyMap", "namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731", null ],
     [ "PropertyValue", "namespacecore.html#a9f79b235a73b6264aa3a97d51267919d", null ],
     [ "Ability", "namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1", [

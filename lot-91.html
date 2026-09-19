@@ -100,10 +100,10 @@ $(function(){initNavTree('lot-91.html','',''); });
 <ul>
 <li><a class="el" href="lot-91-poc.html" title="LOT-91 — Preuve de concept : cinq planches à la main">LOT-91 — Preuve de concept : cinq planches à la main</a> — la preuve de concept, son journal et son verdict.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md711"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md713"></a>
 Objectif</h1>
 <p>Donner une <b>figurine animée au style du jeu</b> aux 160 fiches nommées du <em>Character Compendium</em> (<span class="tt">Documentation/SourceBook/VTT/Character Compendium - High.pdf</span>, pages 4 à 163), une par une, par la même méthode. Le PoC a montré que la méthode produit un modèle fidèle pour un PNJ donné, mais qu'on ne code pas une chaîne automatique là où chaque PNJ demande encore quelques choix (arme, main, marche, effet). <b>La suite fait confiance à la méthode</b> : un modèle qui passe ses contrôles est intégré, sans essai en jeu de chaque PNJ.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md712"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md714"></a>
 Les décisions</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -123,7 +123,7 @@ Les décisions</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>Références</b>  </td><td class="markdownTableBodyNone">Versionnées dans <span class="tt">atelier/</span> (ci-dessous), sauf les rendus du corpus, reproductibles depuis le numéro de page.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md713"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md715"></a>
 Le jeu d'animations</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -141,7 +141,7 @@ Le jeu d'animations</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><span class="tt">cast</span>  </td><td class="markdownTableBodyNone">8  </td><td class="markdownTableBodyNone">96 × 64  </td><td class="markdownTableBodyNone">0,10 s  </td><td class="markdownTableBodyNone">non  </td><td class="markdownTableBodyNone">Concentre 1-4, libère vers la droite 5-6, retour 7-8.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md714"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md716"></a>
 L'atelier</h1>
 <p>Tout ce qu'il faut pour produire un PNJ est rangé dans ce dossier de lot, sous <span class="tt">atelier/</span> :</p>
 <table class="markdownTable">
@@ -160,7 +160,7 @@ L'atelier</h1>
 </table>
 <p>Le <b>dossier de travail</b>, hors dépôt (variable <span class="tt">NPC_ATELIER</span>, par défaut <span class="tt">D:\JustAnotherDnDGame-npc-poc</span>), reçoit les rendus du corpus (<span class="tt">&lt;slug&gt;\ref\</span>), les envois préparés (<span class="tt">chatgpt\</span>), les images générées et leurs normalisations (<span class="tt">&lt;slug&gt;\token\</span>, <span class="tt">&lt;slug&gt;\tourK\</span>, <span class="tt">&lt;slug&gt;\final\</span>). Rien n'en sort vers le dépôt sauf par <span class="tt">palette.py</span> et <span class="tt">integre.py</span>.</p>
 <p>Les scripts se lancent depuis <span class="tt">atelier/scripts/</span>, avec <span class="tt">py -3.13</span> (<span class="tt">numpy</span>, <span class="tt">Pillow</span>, <span class="tt">pymupdf</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md715"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md717"></a>
 La méthode, pour un PNJ</h1>
 <p>Les PNJ d'une série passent <b>ensemble, étape par étape</b> : on prépare les envois de tous, on les génère à la main, on reçoit tout, puis on passe à l'étape suivante.</p>
 <table class="markdownTable">
@@ -181,7 +181,7 @@ La méthode, pour un PNJ</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>I — Intégration</b>  </td><td class="markdownTableBodyNone"><span class="tt">integre.py &lt;slug&gt;</span> : bandes, <span class="tt">.anim.json</span> et <span class="tt">portrait.png</span> dans <span class="tt">Assets/Npc/&lt;slug&gt;/</span>, slug au manifeste, <b>case cochée ci-dessous</b>.  </td><td class="markdownTableBodyNone">—  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md716"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md718"></a>
 Les règles</h2>
 <ol type="1">
 <li><b>On corrige le prompt, jamais l'image.</b> Un défaut commun à plusieurs PNJ corrige la disposition (nouvelle version, l'ancienne gardée) ; un défaut propre au PNJ corrige son bloc B. Chaque tour est une génération complète.</li>
@@ -190,7 +190,7 @@ Les règles</h2>
 <li><b>Un code 0 ne dispense pas de la revue</b> : le dédoublement d'une arme ne se voit qu'à l'œil.</li>
 <li><b>Pas de vérification en jeu</b> par PNJ : un modèle qui passe A est intégré.</li>
 </ol>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md717"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md719"></a>
 La revue (neuf « oui »)</h2>
 <ol type="1">
 <li>Visage, coiffure et couleurs du portrait.</li>
@@ -203,7 +203,7 @@ La revue (neuf « oui »)</h2>
 <li>Les effets restent dans leur cellule et dans la palette.</li>
 <li>Aucun texte, cadre, ombre au sol, décor.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md718"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md720"></a>
 Les PNJ</h1>
 <p>Cochés par <span class="tt">integre.py</span> quand le modèle est intégré. Nom et page de la fiche du Compendium ; le slug nomme les dossiers <span class="tt">atelier/pnj/&lt;slug&gt;/</span> et <span class="tt">Assets/Npc/&lt;slug&gt;/</span>.</p>
 <ul class="check">
@@ -676,7 +676,7 @@ Les PNJ</h1>
 <ul class="check">
 <li class="unchecked">Zund, the Illusionist — p. 163 — <span class="tt">zund</span></li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md719"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md721"></a>
 Hors du lot, nommément</h1>
 <ul>
 <li>Les <b>héros du Colisée</b> (Kaelith, Elira, Darin, Bram) : sans fiche au Compendium, leur reproduction au style commun demandera leurs propres références. Aujourd'hui, <span class="tt">Npc/manifest.json</span> (<span class="tt">replaces</span>) fait jouer Anariel, Jade, Xorius et Nakral à leur place au Colisée.</li>
@@ -685,7 +685,7 @@ Hors du lot, nommément</h1>
 <li>Les <b>PNJ génériques</b> (<span class="tt">LOT-82</span>) et le <b>bestiaire</b> (<span class="tt">LOT-46</span>) : ils pourront réemployer la méthode, pas ce lot.</li>
 <li>L'<b>automatisation</b> de la boucle (génération par l'API, revue par vision) : le PoC a montré qu'elle demanderait encore trop de choix au cas par cas ; les scripts restent des outils manuels.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md720"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md722"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Chaque PNJ coché a, dans <span class="tt">Source/Elements/Assets/Npc/&lt;slug&gt;/</span>, ses six bandes aux dimensions du jeu d'animations, leurs <span class="tt">.anim.json</span> et <span class="tt">portrait.png</span>, et figure dans <span class="tt">Npc/manifest.json</span>.</li>

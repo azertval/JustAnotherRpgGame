@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-19.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 1065/1065 en Debug et en Release, <span class="tt">clang-format</span>, <span class="tt">clang-tidy</span> <span class="tt">bugprone-*</span> sur les deux fichiers ajoutés, les lints, cahier de test et Doxygen verts). Prérequis : <a class="el" href="lot-18.html" title="LOT-18 — Bascule exploration ↔ combat">LOT-18</a> (la bascule), et en amont <a class="el" href="lot-04.html" title="LOT-04 — Format de carte `version: 3`, multi-couches">LOT-04</a> (la grille de collision), <a class="el" href="lot-12.html" title="LOT-12 — Dés, caractéristiques, jets">LOT-12</a> (l'échelle de 1,5 m), <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a> (la vitesse de la fiche). Exigences couvertes : <span class="tt">EX-CBT-020</span>, <span class="tt">EX-REG-051</span>. Aucune exigence ajoutée. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md435"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md437"></a>
 Objectif</h1>
 <p>Poser la grille de combat, l'occupation des cases, et le calcul du déplacement par budget.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md436"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md438"></a>
 Ce que ce lot livre, et ce qu'il ne livre pas</h1>
 <p>Il livre deux briques de <span class="tt">Core</span>, pures et vérifiables sans fenêtre :</p>
 <ul>
@@ -107,7 +107,7 @@ Ce que ce lot livre, et ce qu'il ne livre pas</h1>
 <li><span class="tt"><a class="el" href="classcore_1_1ReachableArea.html" title="Les cases qu&#39;un combattant peut atteindre ce tour-ci, et par où.">core::ReachableArea</a></span> et <span class="tt"><a class="el" href="namespacecore.html#ad018fcc5c0c0bcabf187d6ae09568067" title="Le meilleur chemin de mover jusqu&#39;à destination, sans limite de budget.">core::findPath</a></span> (<span class="tt">Source/Core/Combat/Pathfinding.{h,cpp}</span>) — le budget de déplacement, les cases où finir son mouvement, et le chemin pour s'y rendre.</li>
 </ul>
 <p>Il ne livre ni tour, ni camp, ni affichage. C'est le <a class="el" href="lot-20.html" title="LOT-20 — Initiative et tour par tour">LOT-20</a> qui attribuera les identifiants de combattants, posera sur la grille les placements que <span class="tt"><a class="el" href="namespacecore.html#a8ae810130a331e928f30b4c78f4c5768" title="Engage encounter au point trigger, en mettant exploration de côté.">core::beginEncounter</a></span> calcule déjà, et demandera au joueur où aller ; c'est le <a class="el" href="lot-24.html" title="LOT-24 — IHM de combat">LOT-24</a> qui surlignera <span class="tt">ReachableArea::destinations()</span>. La moitié « montrées avant que le joueur ne s'engage » d'<span class="tt">EX-CBT-020</span> a donc ici sa <b>donnée</b>, et son dessin au <span class="tt">LOT-24</span>. <span class="tt">hmi::CombatMode</span> n'est pas touché, sinon dans deux commentaires qui renvoyaient au <span class="tt">LOT-19</span> ce que le <span class="tt">LOT-20</span> fera.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md437"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md439"></a>
 Ce que la feuille de route supposait, et qui n'a pas tenu</h1>
 <p>La section du lot disait de ne pas réécrire <span class="tt">core::GridDistanceField</span>, sauvé de la purge par le <a class="el" href="lot-01.html" title="LOT-01 — Fork, purge et remise à nu">LOT-01</a> « pour ce lot précis » : ce serait « exactement le calcul » des cases atteignables. <b>Il ne l'est pas</b>, et le corpus le dit en une demi-page.</p>
 <p>Le Manuel des Joueurs, « Variante : jouer sur un quadrillage » (PDF p. 194) :</p>
@@ -117,13 +117,13 @@ Ce que la feuille de route supposait, et qui n'a pas tenu</h1>
 <li>on ne passe pas en diagonale par le <b>coin</b> d'une case que remplit un élément du terrain.</li>
 </ul>
 <p><span class="tt">GridDistanceField</span> est un parcours en largeur à <b>quatre voisins</b> et à coût <b>uniforme</b>. Il ne sait ni les diagonales, ni le double coût, ni les coins. Le détourner aurait donné un combat où l'on ne se déplace qu'en croix et où la boue ne ralentit personne — ou bien un champ réécrit qui aurait cessé de servir la récompense de progression (<span class="tt">EX-IA-023</span>) pour laquelle il existe. Il reste donc intact, à sa place, et le déplacement est un Dijkstra sur huit voisins aux coûts 1 et 2.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md438"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md440"></a>
 Le départage est une règle, et elle ne dépend pas de l'algorithme</h1>
 <p>Deux chemins de même coût existent presque toujours. Le critère du lot demandait que le départage soit une règle explicite ; il en fallait une qui tienne <b>deux</b> algorithmes d'accord : <span class="tt">ReachableArea</span> (Dijkstra borné par le budget, pour le tour du joueur) et <span class="tt">findPath</span> (A*, sans budget, pour l'IA du <a class="el" href="lot-23.html" title="LOT-23 — IA tactique ennemie">LOT-23</a> qui marche vers une cible lointaine).</p>
 <p>La règle : <b>parmi les prédécesseurs qui atteignent une case à son meilleur coût, on retient le plus proche de la droite qui joint le départ à l'arrivée</b>, et à égalité celui d'indice de case le plus petit (ligne, puis colonne). Elle se définit sur le graphe, pas sur l'ordre d'exploration : l'ordre des voisins, celui de la file, l'algorithme lui-même n'y changent rien. L'exploration retient donc <b>tous</b> les prédécesseurs au meilleur coût (un masque de huit bits par case), et c'est la remontée, qui connaît l'arrivée, qui choisit.</p>
 <p><em>Corrigé après livraison</em> : la première règle ne retenait que le plus petit indice, indépendamment de l'arrivée. Vers une case en haut à droite, le chemin montait d'abord (la rangée la plus haute gagne toujours) puis redescendait — la prévisualisation du déplacement (<span class="tt">LOT-24</span>) dessinait un triangle là où le joueur attendait une ligne. La droite départ→arrivée est le seul critère qui ne dépende ni de l'orientation ni de la position sur la carte.</p>
 <p>Encore faut-il que l'A* voie tous ces prédécesseurs. Arrêté à la première sortie de la destination, il rend un chemin <b>juste</b>, mais pas toujours <b>le</b> chemin : un prédécesseur de même coût et d'indice plus petit peut rester en file, à estimation égale. <span class="tt">findPath</span> vide donc la file tant qu'elle porte une estimation qui ne dépasse pas le coût trouvé. Ce n'est pas une précaution théorique : le test qui compare les deux algorithmes sur deux cents cartes tirées d'une graine fixe <b>échoue</b> quand on rétablit l'arrêt à la première sortie — vérifié en réintroduisant le défaut.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md439"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md441"></a>
 L'altitude est un attribut, jamais une géométrie</h1>
 <p>C'était la décision que le §4bis demandait d'écrire ici « avant la première créature volante ». La grille n'a pas de hauteur ; le vol est une <b>manière de la traverser</b> (<span class="tt"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff" title="Comment un combattant se déplace : au sol, ou en vol.">core::Locomotion</a></span>) :</p>
 <table class="markdownTable">
@@ -140,26 +140,26 @@ L'altitude est un attribut, jamais une géométrie</h1>
 </table>
 <p>Le §4bis écrivait qu'un volant « ignore la couche collision au sol ». La formule a été <b>resserrée</b> : la grille de collision ne distingue pas un muret d'un rempart, et un volant qui traverserait tous les pleins traverserait les murs d'un donjon jusqu'à la voûte. Ce qui se survole se nomme donc dans <span class="tt">BattleGrid</span>, type de tuile par type de tuile (<span class="tt">DeepWater</span>, <span class="tt">Cliff</span>), et nulle part ailleurs. Qu'un volant reste ciblable à portée découle de la même décision, et c'est le <a class="el" href="lot-22.html" title="LOT-22 — Portée, ligne de vue et zones d&#39;effet">LOT-22</a> qui la lira.</p>
 <p>Le coin d'un mur se juge, lui, <b>comme en vol</b> : seule la matière qui « remplit l'espace » l'interdit. Longer une mare en diagonale est permis ; couper l'angle d'un mur ne l'est pas.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md440"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md442"></a>
 Deux créatures ne partagent jamais une case</h1>
 <p>L'occupation se tient par <b>emprise</b> : <span class="tt">footprintSide</span> traduit la table « Catégories de tailles » du Manuel (PDF p. 193) — M et moins, une case ; G, 2 × 2 ; TG, 3 × 3 ; Gig, 4 × 4. Le bestiaire du <a class="el" href="lot-33.html" title="LOT-33 — Bestiaire de base">LOT-33</a> compte des bêtes de grande taille, et une grille qui n'aurait su que des pions d'une case aurait menti au premier ours.</p>
 <p>Un écart assumé : une créature <b>très petite</b> occupe une case entière, là où le livre en tolère quatre dans la même. C'est le critère du lot, et un contenu qui voudrait la règle du livre la rouvrira par une exception nommée plutôt que par un partage silencieux.</p>
 <p><span class="tt">place</span> et <span class="tt">moveTo</span> <b>refusent</b> plutôt que de corriger, et disent pourquoi (<span class="tt">PlacementResult</span>) : une case voulue qui tombe dans un mur est une information pour le montage de la rencontre, et la déplacer d'office cacherait une formation mal écrite. <span class="tt">moveTo</span> ne vérifie ni chemin ni budget — la grille tient l'occupation, <span class="tt">ReachableArea</span> a validé le trajet —, mais une créature de 2 × 2 qui avance d'une case recouvre la moitié de son emprise, et ne s'y gêne pas elle-même.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md441"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md443"></a>
 Traverser n'est pas s'arrêter</h2>
 <p>Le Manuel permet de traverser l'espace d'une créature non hostile, jamais d'y finir. La grille ne connaît pas les camps : la requête le lui dit (<span class="tt">Mover::canPassThrough</span>), et le tour par tour du <span class="tt">LOT-20</span> le remplira. Vide, <b>personne</b> ne se traverse — le parti prudent, qui ne fait jamais passer à travers un ennemi faute d'avoir renseigné un camp. Une case traversée a un coût (<span class="tt">costTo</span>) et n'est pas une destination (<span class="tt">canEndAt</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md442"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md444"></a>
 Le budget s'arrondit à la case inférieure</h1>
 <p><span class="tt">movementBudget</span> divise la vitesse par 1,5 (<span class="tt"><a class="el" href="namespacecore.html#a511d502baab5befb28a3742b65ee1e61" title="Côté d&#39;une case de la grille tactique, en mètres.">core::METERS_PER_TILE</a></span>, figée au <a class="el" href="lot-12.html" title="LOT-12 — Dés, caractéristiques, jets">LOT-12</a>) et <b>tronque</b> : le livre dépense la vitesse « par segments de 1,50 mètre », et un segment entamé n'en est pas un. Arrondir au plus proche ferait gagner une case à qui porte trop — 10 m après un malus d'encombrement valent six cases, pas sept. Une tolérance d'un millième empêche l'inverse : qu'une soustraction de flottants fasse perdre une case à 5,9999.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md443"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md445"></a>
 Les propriétés de zone : un crochet, et une seule lecture</h1>
 <p>Une couche de la carte qui porte des propriétés libres (<span class="tt">EX-LVL-018</span>) déclare une <b>zone</b> : ses cases non vides. La grille les relève sans les interpréter (<span class="tt">zonesAt</span>), à une exception près — <span class="tt">difficultTerrain: true</span>. Combat interdit, aucun soin, type de dégâts aléatoire : les règles de zone du Sourcebook sont lues par le <a class="el" href="lot-50.html" title="LOT-50 — Le Colisée : bac à sable de combat">LOT-50</a> et le <a class="el" href="roadmap.html#lot-81" title="&lt;tt&gt;LOT-81&lt;/tt&gt; — Descripteurs de terrain et règles de zone des treize régions">LOT-81</a>, et ce lot n'en invente aucune.</p>
 <p><span class="tt">difficultTerrain</span> n'est vrai que pour le <b>booléen</b> <span class="tt">true</span>. Un <span class="tt">1</span> ou un <span class="tt">"oui"</span> est une faute de saisie, et le lire comme vrai ferait d'une coquille une règle — un test le vérifie.</p>
 <p>Le terrain difficile peut aussi <b>naître en combat</b> (<span class="tt">setDifficult</span> : un séisme) et un objet posé sur une case a des <b>points de vie</b> (<span class="tt">GridObject</span>, <span class="tt">damageObject</span> : les toiles du Sourcebook) ; il bloque tant qu'il tient, ou ne bloque pas du tout, comme une toile qu'on traverse et dont l'état qu'elle inflige est l'affaire du <a class="el" href="lot-21.html" title="LOT-21 — Attaques, dégâts et états">LOT-21</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md444"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md446"></a>
 Une seule source de vérité pour « peut-on se tenir ici »</h1>
 <p>Les obstacles viennent de la grille de collision de la carte, jamais d'un masque de combat (<span class="tt">EX-CBT-001</span>) : <span class="tt">Level::tileMap()</span> pour la solidité statique, ou <span class="tt">MechanismController::collisionMap()</span> pour que les portes fermées en soient. La grille la <b>recopie</b> : le combat gèle les mécanismes (<a class="el" href="lot-18.html" title="LOT-18 — Bascule exploration ↔ combat">LOT-18</a>), et une copie ne change pas sous un tour en cours.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md445"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md447"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Se faufiler</b> dans un espace d'une taille plus petite (le Manuel le permet à coût double) : aucun contenu du <em>vertical slice</em> ne le demande. Une créature trop grande pour un passage ne le franchit pas.</li>
@@ -167,7 +167,7 @@ Ce qui reste hors du lot, nommément</h1>
 <li>La <b>ligne de vue</b>, les portées et la couverture : <a class="el" href="lot-22.html" title="LOT-22 — Portée, ligne de vue et zones d&#39;effet">LOT-22</a>, sur cette grille.</li>
 <li>La traversée d'un <b>ennemi</b> plus grand ou plus petit de deux tailles : elle suppose les camps du <a class="el" href="lot-20.html" title="LOT-20 — Initiative et tour par tour">LOT-20</a>, qui la déclarera par <span class="tt">canPassThrough</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md446"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md448"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Même entrée → même chemin, systématiquement.</b> ✔ Cent requêtes identiques rendent le même chemin ; la règle de départage est vérifiée sur deux cas écrits à la main ; <span class="tt">findPath</span> et <span class="tt">pathTo</span> s'accordent sur toute destination de deux cents cartes aléatoires à graine fixe.</li>
@@ -176,7 +176,7 @@ Critères d'acceptation</h1>
 <li><b>Le terrain difficile double le coût, et la portée s'en trouve réduite en conséquence.</b> ✔ La boue partout ramène 80 destinations à 24, et une case difficile à un pas du bout du budget reste hors de portée.</li>
 <li><span class="tt">ctest</span> : <b>1065/1065</b> (1046 avant, plus les dix-neuf cas de ce lot). ✔</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md447"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md449"></a>
 Relevé en chemin</h1>
 <p>Huit cas de test de <span class="tt"><a class="el" href="test__encounter_8cpp.html" title="Tests de l&#39;aller-retour exploration ↔ combat (LOT-18, EX-CBT-001).">test_encounter.cpp</a></span> (<a class="el" href="lot-18.html" title="LOT-18 — Bascule exploration ↔ combat">LOT-18</a>), <span class="tt">test_game_mode.cpp</span>, <span class="tt"><a class="el" href="test__rpg__screens_8cpp.html" title="Tests unitaires du catalogue des écrans du RPG et de leur ossature (LOT-68, EX-IHM-090,...">test_rpg_screens.cpp</a></span>, <span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (EX-GP-041).">test_screen_flow.cpp</a></span> et <span class="tt"><a class="el" href="test__character__sheet__values_8cpp.html" title="Tests unitaires des valeurs affichées par l&#39;écran de fiche (LOT-38).">test_character_sheet_values.cpp</a></span> portaient leurs balises <span class="tt">\tcat</span>, <span class="tt">\tcrit</span>, <span class="tt">\tetapes</span> et <span class="tt">\tattendu</span> écrites avec une <b>tabulation</b> à la place du <span class="tt">\t</span> — un échappement interprété au passage par un script d'écriture. Le générateur les lisait comme du texte : le cahier de test les affichait sans criticité (« (?) ») et sans étapes. Corrigé ; ce sont les trente-deux lignes du même défaut. </p>
 </div></div><!-- contents -->

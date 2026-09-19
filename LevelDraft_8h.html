@@ -97,6 +97,8 @@ $(function(){initNavTree('LevelDraft_8h.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
@@ -127,6 +129,11 @@ Classes</h2></td></tr>
 Namespaces</h2></td></tr>
 <tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
 <tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a7f09e06e2155fbe84001ac24b8bf762f" id="r_a7f09e06e2155fbe84001ac24b8bf762f"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a> = std::map&lt;std::string, std::string, std::less&lt;&gt;&gt;</td></tr>
+<tr class="memdesc:a7f09e06e2155fbe84001ac24b8bf762f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ancien nom de pièce → nouveau : un remplacement, ou la table de correspondance d'un changement de planche (<span class="tt">LOT-EDITOR-14</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Représentation mutable d'un niveau en cours d'édition. </p>

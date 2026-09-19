@@ -139,10 +139,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La manette pour un écran Qt Quick : chaque appui devient un signal nommé (<span class="tt">LOT-24</span>). </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1186"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1204"></a>
 Pourquoi il fallait l'écrire</h2>
 <p>Le jeu Qt Quick du <span class="tt">LOT-86</span> liait <span class="tt">xinput</span> sans jamais le lire : le sondage de la manette (<span class="tt"><a class="el" href="classhmi_1_1GamepadPoller.html" title="Sonde la manette (XInput, joueur 0) et fusionne son état dans un InputState.">hmi::GamepadPoller</a></span>) n'était compilé que dans l'éditeur. Qt 6 n'a plus de module manette. Un écran de combat qui doit se jouer <b>entièrement à la manette</b> avait donc besoin de ce pont.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1187"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1205"></a>
 Ce qu'il fait, et ce qu'il ne fait pas</h2>
 <p>Tant qu'il est <span class="tt"><a class="el" href="#acd34e9981b8874642ce40919f9ca70e1" title="Vrai pendant que l&#39;écran écoute la manette.">active</a></span>, il sonde la manette soixante fois par seconde et émet <span class="tt"><a class="el" href="#a606a19adffd393d7be494d83735dc533" title="Un appui, ou une répétition de la croix tenue.">pressed</a></span> avec le nom du bouton : <span class="tt">up</span>, <span class="tt">down</span>, <span class="tt">left</span>, <span class="tt">right</span>, <span class="tt">a</span>, <span class="tt">b</span>, <span class="tt">x</span>, <span class="tt">y</span>, <span class="tt">lb</span>, <span class="tt">rb</span>. La croix et le stick se répètent quand on les tient (<span class="tt"><a class="el" href="classhmi_1_1ButtonRepeat.html">hmi::ButtonRepeat</a></span>) ; les autres boutons n'émettent qu'à l'appui. Il ne sait rien de ce que l'écran en fait : le jumeau de câblage traduit un nom en geste, comme il traduit une touche. Inactif, il ne sonde pas — un écran qui n'écoute pas la manette ne la paie pas. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>

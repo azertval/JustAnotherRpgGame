@@ -133,6 +133,24 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a77025d20fbce06f8f0fd55455cc6eca8" id="r_a77025d20fbce06f8f0fd55455cc6eca8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a77025d20fbce06f8f0fd55455cc6eca8">showTransientStatusMessage</a> (const QString &amp;message, int timeoutMs)</td></tr>
 <tr class="memitem:a79a0a32f6374cffe570e60650baadca4" id="r_a79a0a32f6374cffe570e60650baadca4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a79a0a32f6374cffe570e60650baadca4">applyPanelFocus</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool)</td></tr>
 <tr class="memitem:ab07d84d5a7c24ef8bef666a1cdaa0bb0" id="r_ab07d84d5a7c24ef8bef666a1cdaa0bb0"><td class="memItemLeft">QDockWidget *&#160;</td><td class="memItemRight"><a class="el" href="#ab07d84d5a7c24ef8bef666a1cdaa0bb0">dockFor</a> (<a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726">PanelId</a> panel) const</td></tr>
+<tr class="memitem:ab5fd27ff6544e711305b36ae6e9f2653" id="r_ab5fd27ff6544e711305b36ae6e9f2653"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab5fd27ff6544e711305b36ae6e9f2653">runContentCheck</a> ()</td></tr>
+<tr class="memdesc:ab5fd27ff6544e711305b36ae6e9f2653"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contrôle toutes les cartes enregistrées et montre le bilan dans « Problems ».  <br /></td></tr>
+<tr class="memitem:aa8690f8dc7dcf1406906c04a54d10553" id="r_aa8690f8dc7dcf1406906c04a54d10553"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa8690f8dc7dcf1406906c04a54d10553">goToFinding</a> (const <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &amp;finding)</td></tr>
+<tr class="memdesc:aa8690f8dc7dcf1406906c04a54d10553"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la carte du constat (garde-fou des modifications d'abord), sélectionne son entité et cerne sa case.  <br /></td></tr>
+<tr class="memitem:a6eef550a9435bf33c218a95c8002e762" id="r_a6eef550a9435bf33c218a95c8002e762"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6eef550a9435bf33c218a95c8002e762">openLevelGuarded</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:a6eef550a9435bf33c218a95c8002e762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre <code class="param">path</code>, après avoir demandé quoi faire des modifications non enregistrées.  <br /></td></tr>
+<tr class="memitem:a8e89b7b63ff072e8df9217d8b32df8a0" id="r_a8e89b7b63ff072e8df9217d8b32df8a0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8e89b7b63ff072e8df9217d8b32df8a0">saveMap</a> ()</td></tr>
+<tr class="memdesc:a8e89b7b63ff072e8df9217d8b32df8a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre la carte ouverte (garde du fichier modifié sur disque d'abord), puis relit ce qui en dépend : références, graphe du monde, contrôle.  <br /></td></tr>
+<tr class="memitem:a55eeec10938e3d14aa60d0af1e6ccbc6" id="r_a55eeec10938e3d14aa60d0af1e6ccbc6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a55eeec10938e3d14aa60d0af1e6ccbc6">buildRefactorMenu</a> (QMenu *mapMenu)</td></tr>
+<tr class="memdesc:a55eeec10938e3d14aa60d0af1e6ccbc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les commandes du menu <em>Map</em> : qui cite ceci, renommer une entité ou un point d'arrivée, remplacer une pièce, changer de planche.  <br /></td></tr>
+<tr class="memitem:ac0fb121162107685e64c7420bbd0486b" id="r_ac0fb121162107685e64c7420bbd0486b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac0fb121162107685e64c7420bbd0486b">renameMap</a> (const std::string &amp;mapId)</td></tr>
+<tr class="memdesc:ac0fb121162107685e64c7420bbd0486b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme la carte <code class="param">mapId</code> par le renommage propagé ; la carte ouverte suit.  <br /></td></tr>
+<tr class="memitem:a89d530c9e3bc3d028b3c95c724450cfd" id="r_a89d530c9e3bc3d028b3c95c724450cfd"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a89d530c9e3bc3d028b3c95c724450cfd">saveBeforeRefactor</a> ()</td></tr>
+<tr class="memdesc:a89d530c9e3bc3d028b3c95c724450cfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un renommage récrit des fichiers : la carte ouverte doit être enregistrée.  <br /></td></tr>
+<tr class="memitem:a0e9db16d3234c41b92c18b4f718c67a6" id="r_a0e9db16d3234c41b92c18b4f718c67a6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0e9db16d3234c41b92c18b4f718c67a6">carryOutPlan</a> (const <a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> &amp;plan, const QString &amp;title, const std::string &amp;openAfter)</td></tr>
+<tr class="memdesc:a0e9db16d3234c41b92c18b4f718c67a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Montre ce que <code class="param">plan</code> récrit, l'écrit si l'auteur accepte, puis rouvre <code class="param">openAfter</code>.  <br /></td></tr>
+<tr class="memitem:aa6c58df46de1f9b8770f7c6e9962d5d5" id="r_aa6c58df46de1f9b8770f7c6e9962d5d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa6c58df46de1f9b8770f7c6e9962d5d5">goToCitation</a> (const <a class="el" href="structhmi_1_1Citation.html">Citation</a> &amp;citation)</td></tr>
+<tr class="memdesc:aa6c58df46de1f9b8770f7c6e9962d5d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la carte de la citation et y va, comme pour un constat du contrôle.  <br /></td></tr>
 <tr class="memitem:aabc40d107e8dd41fdb72302e572ee8fd" id="r_aabc40d107e8dd41fdb72302e572ee8fd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aabc40d107e8dd41fdb72302e572ee8fd">setUpSafetyNet</a> ()</td></tr>
 <tr class="memitem:a97a8207d2eb4159bbee889424348eed9" id="r_a97a8207d2eb4159bbee889424348eed9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a97a8207d2eb4159bbee889424348eed9">scheduleAutosave</a> ()</td></tr>
 <tr class="memdesc:a97a8207d2eb4159bbee889424348eed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relance le délai de sauvegarde automatique : une rafale de gestes n'écrit qu'une fois.  <br /></td></tr>
@@ -161,6 +179,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a23e247e0ca80892f27be7348daacf566" id="r_a23e247e0ca80892f27be7348daacf566"><td class="memItemLeft"><a class="el" href="classhmi_1_1MiniMap.html">MiniMap</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a23e247e0ca80892f27be7348daacf566">_miniMap</a> = nullptr</td></tr>
 <tr class="memdesc:a23e247e0ca80892f27be7348daacf566"><td class="mdescLeft">&#160;</td><td class="mdescRight">La mini-carte (LOT-EDITOR-02) : un dock hors de la mise en avant par outil.  <br /></td></tr>
 <tr class="memitem:a0fd82b847d227e46f98f3f83d622f435" id="r_a0fd82b847d227e46f98f3f83d622f435"><td class="memItemLeft">QDockWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a0fd82b847d227e46f98f3f83d622f435">_miniMapDock</a> = nullptr</td></tr>
+<tr class="memitem:ac168947bff7ada078291cf00431e2afe" id="r_ac168947bff7ada078291cf00431e2afe"><td class="memItemLeft"><a class="el" href="classhmi_1_1ProblemsPanel.html">ProblemsPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac168947bff7ada078291cf00431e2afe">_problems</a> = nullptr</td></tr>
+<tr class="memdesc:ac168947bff7ada078291cf00431e2afe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les constats du contrôle, sur toutes les cartes (LOT-EDITOR-07) : hors de la mise en avant.  <br /></td></tr>
+<tr class="memitem:aa6858ebf7e3b92fd1500bf0a92bcd9d4" id="r_aa6858ebf7e3b92fd1500bf0a92bcd9d4"><td class="memItemLeft">QDockWidget *&#160;</td><td class="memItemRight"><a class="el" href="#aa6858ebf7e3b92fd1500bf0a92bcd9d4">_problemsDock</a> = nullptr</td></tr>
 <tr class="memitem:a1740570708e810c8d14a9f85988296fb" id="r_a1740570708e810c8d14a9f85988296fb"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="structhmi_1_1EditorReferences.html">EditorReferences</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1740570708e810c8d14a9f85988296fb">_references</a></td></tr>
 <tr class="memitem:aa11ea4bf8bdc5815fc36bee49cd1c0ed" id="r_aa11ea4bf8bdc5815fc36bee49cd1c0ed"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorActions.html">EditorActions</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa11ea4bf8bdc5815fc36bee49cd1c0ed">_actions</a> = nullptr</td></tr>
 <tr class="memitem:ab33c6cdb6968b9fb8550383780597a57" id="r_ab33c6cdb6968b9fb8550383780597a57"><td class="memItemLeft">QToolBar *&#160;</td><td class="memItemRight"><a class="el" href="#ab33c6cdb6968b9fb8550383780597a57">_toolBar</a> = nullptr</td></tr>
@@ -361,6 +382,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a55eeec10938e3d14aa60d0af1e6ccbc6" name="a55eeec10938e3d14aa60d0af1e6ccbc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55eeec10938e3d14aa60d0af1e6ccbc6">&#9670;&#160;</a></span>buildRefactorMenu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::buildRefactorMenu </td>
+          <td>(</td>
+          <td class="paramtype">QMenu *</td>          <td class="paramname"><span class="paramname"><em>mapMenu</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les commandes du menu <em>Map</em> : qui cite ceci, renommer une entité ou un point d'arrivée, remplacer une pièce, changer de planche. </p>
+
+</div>
+</div>
 <a id="a871837448750fb40e380fe52af2f666f" name="a871837448750fb40e380fe52af2f666f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a871837448750fb40e380fe52af2f666f">&#9670;&#160;</a></span>buildStatusBar()</h2>
 
@@ -408,6 +456,42 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0e9db16d3234c41b92c18b4f718c67a6" name="a0e9db16d3234c41b92c18b4f718c67a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e9db16d3234c41b92c18b4f718c67a6">&#9670;&#160;</a></span>carryOutPlan()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::carryOutPlan </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>plan</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>title</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>openAfter</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Montre ce que <code class="param">plan</code> récrit, l'écrit si l'auteur accepte, puis rouvre <code class="param">openAfter</code>. </p>
 
 </div>
 </div>
@@ -564,6 +648,60 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aa6c58df46de1f9b8770f7c6e9962d5d5" name="aa6c58df46de1f9b8770f7c6e9962d5d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6c58df46de1f9b8770f7c6e9962d5d5">&#9670;&#160;</a></span>goToCitation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::goToCitation </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1Citation.html">Citation</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>citation</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ouvre la carte de la citation et y va, comme pour un constat du contrôle. </p>
+
+</div>
+</div>
+<a id="aa8690f8dc7dcf1406906c04a54d10553" name="aa8690f8dc7dcf1406906c04a54d10553"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8690f8dc7dcf1406906c04a54d10553">&#9670;&#160;</a></span>goToFinding()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::goToFinding </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>finding</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ouvre la carte du constat (garde-fou des modifications d'abord), sélectionne son entité et cerne sa case. </p>
+
+</div>
+</div>
 <a id="a5e2887cd1592ff97d25ae5f65861b7a0" name="a5e2887cd1592ff97d25ae5f65861b7a0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5e2887cd1592ff97d25ae5f65861b7a0">&#9670;&#160;</a></span>keepAside()</h2>
 
@@ -620,6 +758,34 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Au démarrage : propose de reprendre les brouillons laissés par une session interrompue. </p>
+
+</div>
+</div>
+<a id="a6eef550a9435bf33c218a95c8002e762" name="a6eef550a9435bf33c218a95c8002e762"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eef550a9435bf33c218a95c8002e762">&#9670;&#160;</a></span>openLevelGuarded()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MainWindow::openLevelGuarded </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ouvre <code class="param">path</code>, après avoir demandé quoi faire des modifications non enregistrées. </p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si l'auteur a renoncé ou si la carte ne s'ouvre pas. </dd></dl>
 
 </div>
 </div>
@@ -748,6 +914,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ac0fb121162107685e64c7420bbd0486b" name="ac0fb121162107685e64c7420bbd0486b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0fb121162107685e64c7420bbd0486b">&#9670;&#160;</a></span>renameMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::renameMap </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Renomme la carte <code class="param">mapId</code> par le renommage propagé ; la carte ouverte suit. </p>
+
+</div>
+</div>
 <a id="aef77702f265c861ebec3ef8c62c9cbf9" name="aef77702f265c861ebec3ef8c62c9cbf9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aef77702f265c861ebec3ef8c62c9cbf9">&#9670;&#160;</a></span>restoreLayout()</h2>
 
@@ -773,6 +966,61 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ab5fd27ff6544e711305b36ae6e9f2653" name="ab5fd27ff6544e711305b36ae6e9f2653"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5fd27ff6544e711305b36ae6e9f2653">&#9670;&#160;</a></span>runContentCheck()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::runContentCheck </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Contrôle toutes les cartes enregistrées et montre le bilan dans « Problems ». </p>
+
+</div>
+</div>
+<a id="a89d530c9e3bc3d028b3c95c724450cfd" name="a89d530c9e3bc3d028b3c95c724450cfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89d530c9e3bc3d028b3c95c724450cfd">&#9670;&#160;</a></span>saveBeforeRefactor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MainWindow::saveBeforeRefactor </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Un renommage récrit des fichiers : la carte ouverte doit être enregistrée. </p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si l'auteur renonce. </dd></dl>
+
+</div>
+</div>
 <a id="a3b35aad4874b9a25e9c680e44945fec4" name="a3b35aad4874b9a25e9c680e44945fec4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3b35aad4874b9a25e9c680e44945fec4">&#9670;&#160;</a></span>saveLayout()</h2>
 
@@ -795,6 +1043,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8e89b7b63ff072e8df9217d8b32df8a0" name="a8e89b7b63ff072e8df9217d8b32df8a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e89b7b63ff072e8df9217d8b32df8a0">&#9670;&#160;</a></span>saveMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MainWindow::saveMap </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enregistre la carte ouverte (garde du fichier modifié sur disque d'abord), puis relit ce qui en dépend : références, graphe du monde, contrôle. </p>
 
 </div>
 </div>
@@ -1309,6 +1584,52 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classhmi_1_1PalettePanel.html">PalettePanel</a>* hmi::MainWindow::_palette = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac168947bff7ada078291cf00431e2afe" name="ac168947bff7ada078291cf00431e2afe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac168947bff7ada078291cf00431e2afe">&#9670;&#160;</a></span>_problems</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1ProblemsPanel.html">ProblemsPanel</a>* hmi::MainWindow::_problems = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les constats du contrôle, sur toutes les cartes (LOT-EDITOR-07) : hors de la mise en avant. </p>
+
+</div>
+</div>
+<a id="aa6858ebf7e3b92fd1500bf0a92bcd9d4" name="aa6858ebf7e3b92fd1500bf0a92bcd9d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6858ebf7e3b92fd1500bf0a92bcd9d4">&#9670;&#160;</a></span>_problemsDock</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDockWidget* hmi::MainWindow::_problemsDock = nullptr</td>
         </tr>
       </table>
   </td>

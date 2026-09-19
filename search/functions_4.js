@@ -79,5 +79,6 @@ var searchData=
   ['expecteddamage_76',['expectedDamage',['../namespacecore.html#acbf44083989292fcedfb7dfaad861317',1,'core']]],
   ['experience_77',['experience',['../classhmi_1_1CharacterSheetModel.html#ae5f45d402e6d8a3013560a0130cd3e30',1,'hmi::CharacterSheetModel']]],
   ['expire_78',['expire',['../classcore_1_1ImmunityLedger.html#a68c8f142c23f19a002dca193a5e2154c',1,'core::ImmunityLedger']]],
-  ['explorationsession_79',['ExplorationSession',['../classcore_1_1ExplorationSession.html#a9bed0fda73221f828073712709a93691',1,'core::ExplorationSession']]]
+  ['explorationreach_79',['ExplorationReach',['../classcore_1_1ExplorationReach.html#a8f6297abe82afb0fa3a73e7db824197c',1,'core::ExplorationReach']]],
+  ['explorationsession_80',['ExplorationSession',['../classcore_1_1ExplorationSession.html#a9bed0fda73221f828073712709a93691',1,'core::ExplorationSession']]]
 ];

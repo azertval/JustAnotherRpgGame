@@ -97,16 +97,16 @@ $(function(){initNavTree('lot-36.html','',''); });
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 983/983, <span class="tt">clang-format</span>, les six lints, cahier de test et Doxygen verts). Prérequis : <a class="el" href="lot-32.html" title="LOT-32 — Schémas de données RPG"><span class="tt">LOT-32</span></a>, <a class="el" href="lot-43.html" title="LOT-43 — Options de personnage : dons, multiclassage, compétences, langues"><span class="tt">LOT-43</span></a>. Alimente <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a>, <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>.</p>
 <p>Exigences couvertes : <a class="el" href="spec-contenu.html#EX-CNT-030" title="EX-CNT-030"><span class="tt">EX-CNT-030</span></a>, <a class="el" href="spec-contenu.html#EX-CNT-031" title="EX-CNT-031"><span class="tt">EX-CNT-031</span></a>, <a class="el" href="spec-rpg.html#EX-RPG-010" title="EX-RPG-010"><span class="tt">EX-RPG-010</span></a>, <a class="el" href="spec-rpg.html#EX-RPG-011" title="EX-RPG-011"><span class="tt">EX-RPG-011</span></a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md529"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md531"></a>
 Objectif</h1>
 <p>De quoi construire un personnage jouable au plus tôt : <b>22 espèces</b>, <b>13 historiques</b> et les <b>4 classes simplifiées</b> qui serviront de socle au premier modèle de combat. Le <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a> suppose ces trois catalogues sans dire d'où ils viennent ; ils viennent d'ici.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md530"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md532"></a>
 Ce que le lot livre</h1>
 <p><b>39 fichiers de données</b> sous <span class="tt">Source/Elements/Rpg/</span> — <span class="tt">species/</span> (22), <span class="tt">backgrounds/</span> (13), <span class="tt">classes/</span> (4, avec leurs 80 lignes de progression).</p>
 <p><b><span class="tt">scripts/sourcebook/personnage.py</span></b> et la sous-commande <span class="tt">python scripts/sourcebook personnage</span>.</p>
 <p><b>Trois modules partagés</b> extraits de ce que le <span class="tt">LOT-33</span> avait écrit pour lui seul : <span class="tt">mise_en_page.py</span> (la grille à deux colonnes, mesurée une fois), <span class="tt">catalogues.py</span> (relire les catalogues déjà livrés) et la déduplication des lignes surimprimées dans <span class="tt">extraction.py</span>. Le bestiaire est reposé dessus, et produit une sortie <b>identique à l'octet près</b>.</p>
 <p><b><span class="tt"><a class="el" href="namespacecore.html#a36cbf1bb7067b2cd672cfc8de2727737" title="Charge les trois catalogues depuis leurs dossiers.">core::loadCharacterOptions</a></span></b> (<span class="tt">Source/Core/Rpg/CharacterOptions.{h,cpp}</span>) et <b>neuf tests</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md531"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md533"></a>
 Trois documents, deux langues — et c'est là qu'est la difficulté</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -124,7 +124,7 @@ Trois documents, deux langues — et c'est là qu'est la difficulté</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">4 classes simplifiées  </td><td class="markdownTableBodyNone"><em>Player's Guide</em> p. 192-207  </td><td class="markdownTableBodyNone">socle <b>provisoire</b> du premier combat  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md532"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md534"></a>
 Le <em>Manuel des Joueurs</em> est un scan, et sa graisse ment</h1>
 <p>La méthode du <a class="el" href="lot-33.html" title="LOT-33 — Bestiaire de base">LOT-33</a> — la graisse porte la structure — <b>ne s'applique pas</b> au <em>Manuel</em>. Son OCR attribue les polices au hasard : sur le bloc du tieffelin, « Vitesse. » ne porte aucune graisse, « Âge. » en porte sur deux fragments non contigus, et les titres eux-mêmes sont mutilés — <span class="tt">TaiJJe</span> pour « Taille », <span class="tt">Vision dans Je noir</span>, <span class="tt">tliaumaturgie</span>, <span class="tt">d'wie</span>. Un détecteur de titres n'y a rien à détecter.</p>
 <p>Deux parades, et aucune n'est une relecture :</p>
@@ -134,39 +134,39 @@ Le <em>Manuel des Joueurs</em> est un scan, et sa graisse ment</h1>
 </ol>
 <p><b>Et les augmentations sont recoupées.</b> Elles figurent deux fois dans le <em>Manuel</em> : dans le bloc de la race, et dans la table « Augmentations raciales » de la page 12, dont l'ordonnée rattache chaque race à sa caractéristique. Les deux doivent coïncider, sinon la génération s'arrête.</p>
 <p><b>Le recoupement a servi dès la première exécution.</b> L'OCR a <b>entièrement effacé</b> la ligne d'augmentation du demi-elfe — et son « Âge. » avec —, si bien que son bloc commence au milieu d'une phrase. La table de la page 12, elle, porte « Demi-elfe (+2) » sous Charisme, et c'est elle qui restitue la valeur. La règle est celle du <span class="tt">LOT-43</span>, et elle distingue deux cas que rien ne distingue à l'œil : une valeur <b>présente des deux côtés et différente</b> arrête la génération ; une valeur <b>présente d'un seul côté</b> est une ligne escamotée, rapportée et non fatale.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md533"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md535"></a>
 Quatre corruptions d'OCR déclarées, une par une</h2>
 <p><span class="tt">!'ore</span> pour « l'orc » — le <span class="tt">l</span> bas de casse ressort en point d'exclamation, le <span class="tt">c</span> en <span class="tt">e</span> ; <span class="tt">commwi</span> pour « commun » ; <span class="tt">(+l)</span> pour <span class="tt">(+1)</span> sur <b>toute</b> la table des augmentations. Sans les deux premières, le demi-orc sort ne parlant que le commun et le tieffelin sans le commun du tout. Chacune est écrite dans une table avec ce que le scan a fait : une substitution non déclarée serait indiscernable d'une règle du jeu.</p>
 <p><b>Le <em>Manuel</em> appelle le drakéide « Sangdragon ».</b> Le lexique fait autorité et dit « drakéide » ; la graphie du livre est déclarée comme alias, exactement comme le <span class="tt">LOT-43</span> l'avait fait pour les douze dons que les deux sources françaises traduisent différemment.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md534"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md536"></a>
 Sa gouttière bouge d'une page à l'autre</h2>
 <p>Les documents aidedd ont une gouttière fixe — <span class="tt">[287, 309]</span> — que le <span class="tt">LOT-33</span> avait mesurée. Le <em>Manuel</em> n'en a pas : <span class="tt">[288, 309]</span> page 41, <span class="tt">[272, 296]</span> page 42, rien du tout page 44. Un blanc figé y couperait tantôt dans une colonne, tantôt dans l'autre, et le texte des deux se mêlerait au milieu d'une phrase. <span class="tt">mise_en_page.colonnes_de_page()</span> <b>mesure</b> donc le blanc qui contient le milieu de la page, et rend une seule colonne quand il n'y en a pas.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md535"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md537"></a>
 Le <em>Player's Guide</em> dessine ses titres deux fois</h1>
 <p>Ses titres sont composés en double, à la coordonnée exacte, à la police exacte, au texte exact — un titre contourné, dont le remplissage et le trait forment deux passes de dessin. La superposition est invisible à l'écran et <b>double tout ce qui se compte</b> : les douze espèces du chapitre 1 s'y relèvent vingt-quatre fois. <span class="tt">Extracteur.lignes()</span> écarte désormais une ligne rendue deux fois au même endroit ; le critère est volontairement strict — même ordonnée, même abscisse, même police, même texte —, aucun document ne posant deux fois la même chaîne au même point pour deux raisons différentes.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md536"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md538"></a>
 Ce que le corpus dit, et que la feuille de route disait autrement</h1>
 <p><b>Douze espèces de Tanares, pas treize.</b> Le sommaire du <em>Player's Guide</em> (p. 4) en porte douze : nain, elfe, halfelin, humain, drakéide, gnome, orc, tieffelin, cirrus, gloomfolk, soulborn, taii'maku — plus les quatre sous-espèces elfiques, comptées à part. Le chiffre est relevé, pas estimé.</p>
 <p><b>Tanares ne porte aucune mécanique pour les huit espèces classiques.</b> Ses chapitres leur donnent de l'histoire, du peuplement, des variantes optionnelles — jamais un bloc de traits. « La version de Tanares fait foi sur le fond » se lit donc comme le corpus le permet : le <b>fond narratif</b> vient de Tanares, la <b>mécanique</b> des livres français. L'<b>orc</b> est le seul nom que ceux-là n'ont pas — ils ont le demi-orc — et il reste hors du catalogue faute de mécanique.</p>
 <p><b>Le livre annonce six historiques et en porte sept.</b> Son paragraphe d'ouverture énumère cartographe, meneur, survivant pénombral, chasseur de dragons, occultiste et agent infiltré, et oublie l'<em>imperial servant</em> que son propre sommaire liste p. 266. C'est le sommaire qui fait foi : il indexe ce que le livre contient, la prose décrit ce que l'auteur avait en tête.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md537"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md539"></a>
 Ce que le schéma ne peut pas dire</h1>
 <p><b>Une augmentation « au choix du joueur ».</b> Presque toutes les espèces de Tanares accordent une augmentation fixe <em>et</em> une au choix — « one other ability score of your choice increases by 1 » —, et le cirrus n'accorde <b>que</b> du choix. Le schéma porte une table, qui ne sait pas dire « au choix » ; en choisir une figerait la règle, et toutes les espèces de Tanares augmenteraient la même. La partie fixe entre dans la table, le mécanisme <span class="tt">augmentation-de-caracteristique-au-choix</span> est déclaré (<span class="tt">EX-CNT-030</span>), et <span class="tt"><a class="el" href="structcore_1_1CharacterOptions.html#a16bbc94de1a6157fd6ff0f4c6bdb02d4" title="Les mécanismes que ces données exigent et que personne n&#39;a encore honorés (EX-CNT-031).">core::CharacterOptions::requiredMechanisms()</a></span> le liste au chargement (<span class="tt">EX-CNT-031</span>).</p>
 <p><b>Une espèce sans taille ni vitesse.</b> Le <em>soulborn</em> est le cas d'espèce au sens propre : le livre écrit « Your size is equivalent to your birth parents » et « Your base walking speed matches that of your birth parents ». Ce n'est pas une extraction incomplète, c'est la règle — et <span class="tt">species.schema.json</span> exige une taille et une vitesse, ce qu'il avait toutes les raisons de faire. Lui en inventer une le rendrait jouable et faux. <b>L'espèce est écartée du catalogue, et la génération le dit à chaque exécution</b> : la décision revient à un lot qui saura modéliser l'héritage.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md538"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md540"></a>
 Les quatre classes sont provisoires, et le déclarent</h1>
 <p>Brawler, mage, priest et scoundrel font tourner attaques, dégâts et tours sans exiger d'abord le système complet de ressources de classe. Elles seront retirées au profit des seize classes complètes du <span class="tt">LOT-47</span> et des <span class="tt">LOT-51</span> à <span class="tt">LOT-65</span>, et portent donc <span class="tt">status.provisoire</span> avec son critère de retrait <b>écrit d'avance</b> (<span class="tt">EX-CNT-032</span>), à un seul endroit : quatre copies d'un critère divergent, et celle qu'on lirait ne serait pas celle qui vaut.</p>
 <p>Un test donne son sens au critère : il balaie <b>tout</b> <span class="tt">Source/Elements/Rpg/</span> et vérifie qu'aucune donnée définitive ne cite <span class="tt">brawler</span>, <span class="tt">mage</span>, <span class="tt">priest</span> ni <span class="tt">scoundrel</span>. Le jour du retrait, supprimer ces quatre fichiers ne cassera rien.</p>
 <p><b>Deux colonnes de la table des classes ne sont pas extraites</b>, et c'est délibéré. La <em>description</em> et les <em>maîtrises d'armes et d'armures</em> courent sur trois lignes chacune et s'entrelacent avec leurs voisines ; on en tire « A crafty rogue specialized in coordinat- » et « Light and medium armor, shields, Constitution simple and martial weapons » — une phrase coupée au milieu d'un mot, et un mélange de deux colonnes qu'aucun schéma ne refuserait. Les maîtrises relèvent de toute façon du <span class="tt">LOT-34</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md539"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md541"></a>
 Un seuil de corps se pose sous la valeur, jamais dessus</h1>
 <p>Le corps rendu par un PDF est un <b>flottant</b> : 16 s'y lit parfois 15,999998, et 9,5 se lit 9,4599. Un seuil posé à l'égalité laissait passer le titre de chapitre « RACES » et ratait les quatre races — sans erreur, sans message, avec un catalogue à une entrée. Les seuils sont donc posés <b>sous</b> la valeur mesurée, et la tolérance de comparaison (0,25 pt) reste sous le plus petit écart qui sépare deux niveaux de titre du corpus : le demi-point entre le 9,5 d'un titre de capacité et le 9,0 de son texte.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md540"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md542"></a>
 Ce que le lot ne fait pas</h1>
 <p><b>Il ne livre ni équipement ni maîtrises d'outils.</b> Les deux catalogues les référencent par identifiant d'objet, et les objets sont le <span class="tt">LOT-34</span>. Forger ces identifiants maintenant créerait des références pendantes que rien ne contrôlerait avant que le <span class="tt">LOT-34</span> ne les renomme.</p>
 <p><b>Il ne livre pas les seize classes complètes</b>, ni leurs 31 tables de progression : ce sont le <span class="tt">LOT-47</span>, les <span class="tt">LOT-51</span> à <span class="tt">LOT-65</span> et le <span class="tt">LOT-84</span>.</p>
 <p><b>Il n'implémente aucune capacité.</b> Traits d'espèce et capacités d'historique sont du texte nommé ; les jouer viendra avec les mécanismes qui les portent.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md541"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md543"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Trois classes chargent et donnent les bons modificateurs</b> — les quatre le font : dé de vie, caractéristique principale et les <b>deux</b> jets de sauvegarde, comparés à la table de la page 57 recopiée à la main. ✔</li>

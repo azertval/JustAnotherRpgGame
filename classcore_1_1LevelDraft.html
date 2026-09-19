@@ -176,6 +176,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1767532eba0797c7fa153bcb7a6c56a9" id="r_a1767532eba0797c7fa153bcb7a6c56a9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1767532eba0797c7fa153bcb7a6c56a9">unforceCollision</a> (const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; &amp;cells)</td></tr>
 <tr class="memdesc:a1767532eba0797c7fa153bcb7a6c56a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend les cases forcées de <code class="param">cells</code> à la déduction (<span class="tt">EX-EDIT-065</span>), en un pas.  <br /></td></tr>
 <tr class="memitem:a47350de07ad6d579644756c3843fdfcf" id="r_a47350de07ad6d579644756c3843fdfcf"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a47350de07ad6d579644756c3843fdfcf">isCollisionForced</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) const noexcept</td></tr>
+<tr class="memitem:afe371b92fcdac56ae41550ee9eef6c45" id="r_afe371b92fcdac56ae41550ee9eef6c45"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afe371b92fcdac56ae41550ee9eef6c45">replacePieces</a> (const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">PieceRenaming</a> &amp;renaming)</td></tr>
+<tr class="memdesc:afe371b92fcdac56ae41550ee9eef6c45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme, sur toutes les couches visuelles, chaque pièce que <code class="param">renaming</code> nomme (<span class="tt">LOT-EDITOR-14</span>, <span class="tt">EX-EDIT-083</span>), en <b>un</b> pas d'annulation.  <br /></td></tr>
+<tr class="memitem:aacc7771e216fb566455fff8e416eef9c" id="r_aacc7771e216fb566455fff8e416eef9c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aacc7771e216fb566455fff8e416eef9c">changeScene</a> (const std::string &amp;place, std::shared_ptr&lt; const <a class="el" href="classcore_1_1ScenePieceManifest.html">ScenePieceManifest</a> &gt; manifest, const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">PieceRenaming</a> &amp;renaming)</td></tr>
+<tr class="memdesc:aacc7771e216fb566455fff8e416eef9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait passer la carte à la planche du lieu <code class="param">place</code> (<span class="tt">LOT-EDITOR-14</span>), en <b>un</b> pas : la propriété <span class="tt">scene</span> des couches qui la portent (la première couche de sol, si aucune ne la porte), le manifeste <code class="param">manifest</code>, et les pièces renommées par <code class="param">renaming</code>.  <br /></td></tr>
 <tr id="pub-methods-2" class="groupHeader"><td colspan="2"><div class="groupHeader">Entités de carte (&lt;tt&gt;LOT-04&lt;/tt&gt;, &lt;tt&gt;LOT-11&lt;/tt&gt;)</div></td></tr>
 <tr><td colspan="2" class="ititle"><div class="groupText"><p>Un rang désigne une entrée de <span class="tt"><a class="el" href="#a74e03f07db273bcdd42544044ac78e8f">entities()</a></span>.</p>
 <p>Plusieurs entités peuvent partager une case ; <span class="tt"><a class="el" href="#abb842bc0b3cfa387d1f5c20c7eb5bb3a">entityAt</a></span> rend la <b>dernière</b> posée, celle qu'on voit au-dessus. Chaque mutateur empile un pas d'annulation, sauf s'il est refusé ou sans effet. </p>
@@ -276,7 +280,7 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><p>Carte <b>mutable</b> en cours d'édition, distincte de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">Level</a></span> (immuable). </p>
 <p><span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Carte mutable en cours d&#39;édition, distincte de Level (immuable).">LevelDraft</a></span> porte toute la mutabilité nécessaire à l'éditeur (<span class="tt">EX-EDIT-002</span> à <span class="tt">EX-EDIT-005</span>) : peindre une tuile, déplacer l'entrée, éditer les couches et les entités, redimensionner la grille. Il ne duplique <b>aucune règle de validation</b> : <span class="tt"><a class="el" href="#a0017cadc8caea0b43ba08b120ce76bb0" title="Convertit le brouillon en Level validé (EX-EDIT-007), en repassant par la même validation que LevelLo...">toLevel()</a></span> reconstruit le niveau en repassant par <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html#a4bcca95728207d0743b18a6c34a57cc8" title="Charge un niveau depuis une chaîne JSON.">LevelLoader::loadFromString</a></span> (même chemin que le chargement d'un fichier), garantissant que le niveau produit satisfait exactement les mêmes règles (<span class="tt">EX-LVL-004</span>, <span class="tt">EX-EDIT-010</span>).</p>
 <p>Invariant maintenu par tous les mutateurs : la grille de tuiles reste la <b>source de vérité</b> de la position d'entrée (comme pour <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">Level</a></span>) ; <span class="tt"><a class="el" href="#a7614f7f0cdaea145907831e56781182b">entry()</a></span> n'est qu'un accès en cache, toujours synchronisé avec le contenu de <span class="tt"><a class="el" href="#acc48e2f45fb3db53de09e30f60f75845">tileMap()</a></span>.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1132"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1149"></a>
 La collision suit les gestes (<span class="tt">LOT-EDITOR-03</span>, <span class="tt">EX-EDIT-064</span>, <span class="tt">EX-EDIT-065</span>)</h2>
 <p>Dès qu'une carte a une couche visuelle, sa collision se <b>déduit</b> de ce qu'elle montre (<span class="tt"><a class="el" href="namespacecore.html#a3322a01062af04e9242df68f744c142f" title="Déduit la grille de collision d&#39;une carte.">core::deriveCollision</a></span>, décision D10) et s'écrit, hors des cases <b>forcées</b> à la main. Le brouillon tient cet accord geste par geste, sans rien toucher d'autre :</p>
 <ul>
@@ -425,6 +429,35 @@ La collision suit les gestes (<span class="tt">LOT-EDITOR-03</span>, <span class
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si <span class="tt"><a class="el" href="#adec82624786f4ad3a83502eccc8712af" title="Annule la dernière mutation (EX-EDIT-005).">undo()</a></span> aurait un effet. </dd></dl>
+
+</div>
+</div>
+<a id="aacc7771e216fb566455fff8e416eef9c" name="aacc7771e216fb566455fff8e416eef9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacc7771e216fb566455fff8e416eef9c">&#9670;&#160;</a></span>changeScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::changeScene </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>place</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; const <a class="el" href="classcore_1_1ScenePieceManifest.html">ScenePieceManifest</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>manifest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">PieceRenaming</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>renaming</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fait passer la carte à la planche du lieu <code class="param">place</code> (<span class="tt">LOT-EDITOR-14</span>), en <b>un</b> pas : la propriété <span class="tt">scene</span> des couches qui la portent (la première couche de sol, si aucune ne la porte), le manifeste <code class="param">manifest</code>, et les pièces renommées par <code class="param">renaming</code>. </p>
+<p>Une pièce que <code class="param">renaming</code> ne nomme pas garde son nom. Toute la collision est redéduite par le nouveau manifeste, hors cases forcées et hors entrée. </p><dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si rien ne change, si la carte n'a pas de couche visuelle, ou si une emprise déborderait de la carte. </dd></dl>
 
 </div>
 </div>
@@ -1605,6 +1638,26 @@ La collision suit les gestes (<span class="tt">LOT-EDITOR-03</span>, <span class
 
 <p>Remplace l'entité <code class="param">index</code> par <code class="param">entity</code> : sa case, sa forme (<span class="tt">cells</span>), ses propriétés, en un pas (<span class="tt">LOT-EDITOR-05</span>). </p>
 <p>Le type et l'identifiant restent ceux de l'entité en place : ceux de <code class="param">entity</code> sont ignorés. Un identifiant ne change jamais (décision D8), et changer de famille n'est pas un geste de l'éditeur. Refusé si la case ou une case de <span class="tt">cells</span> sort de la grille ; sans effet si rien ne change. </p>
+
+</div>
+</div>
+<a id="afe371b92fcdac56ae41550ee9eef6c45" name="afe371b92fcdac56ae41550ee9eef6c45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe371b92fcdac56ae41550ee9eef6c45">&#9670;&#160;</a></span>replacePieces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::replacePieces </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">PieceRenaming</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>renaming</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renomme, sur toutes les couches visuelles, chaque pièce que <code class="param">renaming</code> nomme (<span class="tt">LOT-EDITOR-14</span>, <span class="tt">EX-EDIT-083</span>), en <b>un</b> pas d'annulation. </p>
+<p>La pièce garde sa case d'ancrage et son type (décision D3) ; la collision des cases que couvrent l'ancienne et la nouvelle emprise suit. </p><dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> (rien d'empilé) si rien ne change, ou si une nouvelle emprise déborderait de la carte. </dd></dl>
 
 </div>
 </div>

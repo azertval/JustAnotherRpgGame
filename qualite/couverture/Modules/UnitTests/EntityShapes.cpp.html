@@ -41,12 +41,12 @@ namespace {
 }</span>
 
 <span style = "background-color:#dfd">[[nodiscard]] std::string textOf(const core::MapEntity&amp; entity, std::string_view key) {
-    if (key.empty()) {</span>
-<span style = "background-color:#fdd">        return {};</span>
+    if (key.empty()) {
+        return {};</span>
     }
 <span style = "background-color:#dfd">    const auto found = entity.properties.find(std::string{key});
-    if (found == entity.properties.end()) {</span>
-<span style = "background-color:#fdd">        return {};</span>
+    if (found == entity.properties.end()) {
+        return {};</span>
     }
 <span style = "background-color:#dfd">    const auto* const text = std::get_if&lt;std::string&gt;(&amp;found-&gt;second);
     return text != nullptr ? *text : std::string{};

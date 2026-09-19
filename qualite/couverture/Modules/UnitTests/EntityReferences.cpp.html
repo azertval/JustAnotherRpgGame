@@ -40,8 +40,8 @@ namespace {
 // signale a l'entite qui la nomme, pas au chargement de l'editeur.
 <span style = "background-color:#dfd">[[nodiscard]] nlohmann::json readManifest(const std::filesystem::path&amp; path) {
     std::ifstream file(path);
-    if (!file) {</span>
-<span style = "background-color:#fdd">        return nullptr;</span>
+    if (!file) {
+        return nullptr;</span>
     }
 <span style = "background-color:#dfd">    return nlohmann::json::parse(file, nullptr, /*allow_exceptions=*/false);
 }</span>

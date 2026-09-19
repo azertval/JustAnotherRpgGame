@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>ContentCheck.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/ContentCheck.h"
+
+#include &lt;algorithm&gt;
+#include &lt;optional&gt;
+#include &lt;system_error&gt;
+#include &lt;variant&gt;
+
+#include "Core/Combat/CombatTransition.h"
+#include "Core/Combat/TacticalTerrain.h"
+#include "Core/Gameplay/MapEntitySpawner.h"
+#include "Core/World/CityBlock.h"
+#include "Core/World/CityPlan.h"
+#include "Core/World/CombatZone.h"
+#include "Core/World/EntityKinds.h"
+#include "Core/World/ExplorationReach.h"
+#include "Editor/Logic/EditorDiagnostics.h"
+#include "Editor/Logic/EntityShapes.h"
+
+namespace hmi {
+
+namespace {
+
+// Accumule les constats d'une carte.
+class ContentFindings {
+public:
+<span style = "background-color:#dfd">    explicit ContentFindings(std::string_view mapId) : _mapId(mapId) {}</span>
+
+    void add(MapCheckSeverity severity, std::string message,
+<span style = "background-color:#dfd">             std::optional&lt;core::GridPosition&gt; cell = std::nullopt, std::string entityId = {}) {
+        _findings.push_back(MapCheckFinding{.severity = severity,</span>
+                                            .mapId = _mapId,
+                                            .cell = cell,
+                                            .message = std::move(message),
+                                            .entityId = std::move(entityId)});
+<span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] std::vector&lt;MapCheckFinding&gt; take() {
+        return std::move(_findings);
+    }</span>
+
+private:
+    std::string _mapId;
+    std::vector&lt;MapCheckFinding&gt; _findings;
+};
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string joined(const std::vector&lt;std::string&gt;&amp; words) {
+    std::string text;
+    for (const std::string&amp; word : words) {
+        text += (text.empty() ? "" : ", ") + word + ".lang";
+    }
+    return text;
+}</span>
+
+// `npc e3 (sentinelle-ironhand)` : de quoi retrouver l'entite dans la liste.
+<span style = "background-color:#dfd">[[nodiscard]] std::string describe(const core::MapEntity&amp; entity) {
+    std::string text = entity.type;
+    if (!entity.id.empty()) {
+        text += " " + entity.id;</span>
+    }
+<span style = "background-color:#dfd">    if (const std::string label = entityLabel(entity); !label.empty()) {
+        text += " (" + label + ")";
+    }
+    return text;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string textOf(const core::MapEntity&amp; entity, std::string_view key) {
+    const auto found = entity.properties.find(std::string{key});
+    if (found == entity.properties.end()) {</span>
+<span style = "background-color:#fdd">        return {};</span>
+    }
+<span style = "background-color:#dfd">    const std::string* const text = std::get_if&lt;std::string&gt;(&amp;found-&gt;second);
+    return text != nullptr ? *text : std::string{};
+}</span>
+
+// --- Textes ----------------------------------------------------------------------------------
+
+void checkTexts(std::string_view mapId, const core::Level&amp; level, const ContentContext&amp; context,
+<span style = "background-color:#dfd">                ContentFindings&amp; findings) {
+    if (context.translations.empty()) {
+        findings.add(MapCheckSeverity::Warning,</span>
+                     "no translation catalog under Localization/: map texts not checked");
+<span style = "background-color:#dfd">        return;</span>
+    }
+<span style = "background-color:#dfd">    if (const std::vector&lt;std::string&gt; missing =</span>
+            languagesMissing(context.translations, level.name());
+<span style = "background-color:#dfd">        !missing.empty()) {
+        findings.add(MapCheckSeverity::Error,</span>
+                     "map name \"" + level.name() + "\" is not a translation key of " +
+                         joined(missing) + " (expected " + mapNameKey(mapId) + ")");
+<span style = "background-color:#dfd">    }
+    for (const core::MapEntity&amp; entity : level.entities()) {
+        if (entity.type != core::CITY_BLOCK_ENTITY_TYPE) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::string key =</span>
+            std::string{CITY_BLOCK_KEY_PREFIX} + textOf(entity, core::CITY_BLOCK_NAME_PROPERTY);
+<span style = "background-color:#dfd">        if (const std::vector&lt;std::string&gt; missing = languagesMissing(context.translations, key);
+            !missing.empty()) {
+            findings.add(MapCheckSeverity::Error,</span>
+                         describe(entity) + ": key " + key + " is missing from " + joined(missing),
+                         entity.position, entity.id);
+<span style = "background-color:#dfd">        }
+    }
+}</span>
+
+// --- RÃ©fÃ©rences et terrain -------------------------------------------------------------------
+
+// Dit une fois ailleurs : par le graphe du monde (portails) et par la carte (points en double).
+<span style = "background-color:#dfd">[[nodiscard]] bool saidByTheFormatCheck(core::EntityIssueCode code) {
+    return code == core::EntityIssueCode::UnknownTargetMap ||</span>
+           code == core::EntityIssueCode::UnknownArrivalPoint ||
+           code == core::EntityIssueCode::DuplicateArrivalPoint;
+<span style = "background-color:#dfd">}</span>
+
+void addDiagnostics(const std::vector&lt;EditorDiagnostic&gt;&amp; diagnostics,
+                    const std::vector&lt;core::MapEntity&gt;&amp; entities, MapCheckSeverity severity,
+<span style = "background-color:#dfd">                    ContentFindings&amp; findings) {
+    for (const EditorDiagnostic&amp; diagnostic : diagnostics) {
+        const std::string id =</span>
+            diagnostic.entityIndex &lt; entities.size() ? entities[diagnostic.entityIndex].id : "";
+<span style = "background-color:#dfd">        findings.add(severity, diagnostic.message, diagnostic.cell, id);
+    }
+}</span>
+
+void checkEntities(std::string_view mapId, const core::Level&amp; level, const ContentContext&amp; context,
+<span style = "background-color:#dfd">                   ContentFindings&amp; findings) {
+    const std::vector&lt;core::MapEntity&gt;&amp; entities = level.entities();
+    const EditorReferences&amp; references = context.references;
+    std::vector&lt;core::EntityIssue&gt; errors;
+    std::vector&lt;core::EntityIssue&gt; unknownKinds;
+    for (core::EntityIssue&amp; issue :
+         core::validateMapEntities(entities, referenceContext(references, mapId, entities))) {
+        if (issue.code == core::EntityIssueCode::UnknownType) {
+            unknownKinds.push_back(std::move(issue));  // legal, transporte : une information.
+        } else if (!saidByTheFormatCheck(issue.code)) {
+            errors.push_back(std::move(issue));
+        }
+    }
+    addDiagnostics(editorDiagnostics(entities, errors, {}), entities, MapCheckSeverity::Error,</span>
+                   findings);
+<span style = "background-color:#dfd">    addDiagnostics(editorDiagnostics(entities, unknownKinds, {}), entities,</span>
+                   MapCheckSeverity::Warning, findings);
+<span style = "background-color:#dfd">    addDiagnostics(editorDiagnostics(</span>
+                       entities, {},
+                       core::analyzeEncounterTerrain(level.tileMap(), entities,
+                                                     references.encounters, &amp;references.bestiary)),
+                   entities, MapCheckSeverity::Error, findings);
+    // Les zones fautives sont dites par le controle du format ; reste l'entree d'arene qu'aucune
+    // zone ne voit.
+<span style = "background-color:#dfd">    std::vector&lt;core::CombatZoneTerrain&gt; zones =</span>
+        core::analyzeCombatZones(level.tileMap(), entities);
+<span style = "background-color:#dfd">    for (core::CombatZoneTerrain&amp; zone : zones) {
+        zone.issue.reset();
+    }
+    addDiagnostics(editorDiagnostics(entities, {}, {}, zones), entities, MapCheckSeverity::Warning,</span>
+                   findings);
+<span style = "background-color:#dfd">}</span>
+
+// --- AtteignabilitÃ© --------------------------------------------------------------------------
+
+// Les familles qu'on aborde sur leur case : le heros y marche (portail, arrivee, rencontre) ou
+// l'y vise (coffre, panneau, PNJ), ce qui revient au meme (`ExplorationReach.h`).
+<span style = "background-color:#dfd">[[nodiscard]] bool standsOnItsCell(std::string_view type) {
+    return type == core::PORTAL_ENTITY_TYPE || type == core::SPAWN_POINT_ENTITY_TYPE ||</span>
+           type == core::ENCOUNTER_ENTITY_TYPE ||
+           std::ranges::find(core::knownInteractableKinds(), type, &amp;core::InteractableKind::type) !=
+               core::knownInteractableKinds().end();
+<span style = "background-color:#dfd">}</span>
+
+// Les zones : il suffit d'une case atteinte pour y entrer.
+<span style = "background-color:#dfd">[[nodiscard]] bool isZone(std::string_view type) {
+    return type == core::COMBAT_ZONE_ENTITY_TYPE || type == core::ZONE_ENTITY_TYPE;
+}</span>
+
+void checkReach(std::string_view mapId, const core::Level&amp; level, const ContentContext&amp; context,
+<span style = "background-color:#dfd">                ContentFindings&amp; findings) {
+    const core::TileMap&amp; collision = level.tileMap();
+    std::vector&lt;core::GridPosition&gt; starts = {level.entry()};
+    for (const core::MapEntity&amp; entity : level.entities()) {
+        if (entity.type != core::SPAWN_POINT_ENTITY_TYPE ||</span>
+            !context.namedArrivals.contains(std::pair&lt;std::string, std::string&gt;{
+                mapId, textOf(entity, core::SPAWN_POINT_NAME_PROPERTY)})) {
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        starts.push_back(entity.position);
+    }
+    const core::ExplorationReach reach(collision, starts);
+    for (const core::MapEntity&amp; entity : level.entities()) {
+        if (standsOnItsCell(entity.type)) {
+            const core::GridPosition cell = entity.position;
+            if (collision.inBounds(cell.column, cell.row) &amp;&amp;</span>
+                collision.isSolid(cell.column, cell.row)) {
+<span style = "background-color:#dfd">                findings.add(MapCheckSeverity::Error,</span>
+                             describe(entity) + " stands on a blocked cell", cell, entity.id);
+<span style = "background-color:#dfd">            } else if (!reach.reaches(cell)) {
+                findings.add(</span>
+                    MapCheckSeverity::Error,
+                    describe(entity) + " cannot be reached from the entry or an arrival point",
+                    cell, entity.id);
+<span style = "background-color:#dfd">            }
+        } else if (isZone(entity.type)) {
+            const std::vector&lt;core::GridPosition&gt; cells = entityCells(entity);
+            if (!cells.empty() &amp;&amp; std::ranges::none_of(cells, [&amp;reach](core::GridPosition cell) {
+                    return reach.reaches(cell);
+                })) {
+                findings.add(</span>
+                    MapCheckSeverity::Error,
+                    describe(entity) +
+                        ": no cell of it can be reached from the entry or an arrival point",
+                    entity.position, entity.id);
+            }
+<span style = "background-color:#dfd">        }
+    }
+}</span>
+
+// --- Graphe ----------------------------------------------------------------------------------
+
+void checkGraph(std::string_view mapId, const core::Level&amp; level, const ContentContext&amp; context,
+<span style = "background-color:#dfd">                ContentFindings&amp; findings) {
+    const core::WorldGraph&amp; world = context.references.world;
+    for (const core::MapEntity&amp; entity : level.entities()) {
+        if (entity.type == core::SPAWN_POINT_ENTITY_TYPE) {
+            const std::string name = textOf(entity, core::SPAWN_POINT_NAME_PROPERTY);
+            if (!name.empty() &amp;&amp;</span>
+                !context.namedArrivals.contains(std::pair&lt;std::string, std::string&gt;{mapId, name})) {
+<span style = "background-color:#dfd">                findings.add(MapCheckSeverity::Warning,</span>
+                             describe(entity) + " is named by no portal and no city start",
+                             entity.position, entity.id);
+            }
+<span style = "background-color:#dfd">        } else if (entity.type == core::PORTAL_ENTITY_TYPE) {
+            const std::string target = textOf(entity, core::PORTAL_TARGET_MAP_PROPERTY);
+            if (target.empty() || target == mapId || world.find(target) == nullptr) {
+                continue;  // pas de cible, ou cible inconnue : dit par le controle du format.</span>
+            }
+<span style = "background-color:#dfd">            const std::vector&lt;const core::WorldPortalLink*&gt; back = world.portalsFrom(target);
+            if (std::ranges::none_of(back, [mapId](const core::WorldPortalLink* link) {
+                    return link-&gt;toMap == mapId;
+                })) {
+                findings.add(MapCheckSeverity::Warning,</span>
+                             describe(entity) + " has no way back: no portal of \"" + target +
+                                 "\" leads here",
+                             entity.position, entity.id);
+            }
+<span style = "background-color:#dfd">        }
+    }
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">ContentContext loadContentContext(const std::filesystem::path&amp; dataRoot) {
+    ContentContext context{.references = loadEditorReferences(dataRoot),
+                           .translations = loadTranslationCatalogs(localizationDirectory(dataRoot)),
+                           .namedArrivals = {}};
+    for (const core::WorldPortalLink&amp; link : context.references.world.portals) {
+        if (!link.toMap.empty() &amp;&amp; !link.arrival.empty()) {
+            context.namedArrivals.emplace(link.toMap, link.arrival);</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+    // Â« Nouvelle partie Â» entre par la porte de depart d'une ville.
+<span style = "background-color:#dfd">    std::error_code error;
+    for (auto it = std::filesystem::directory_iterator(dataRoot / "World" / "cities", error);
+         !error &amp;&amp; it != std::filesystem::directory_iterator(); it.increment(error)) {
+        if (it-&gt;path().extension() != ".json") {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const core::CityPlanResult city = core::loadCityPlan(it-&gt;path());
+        if (city.ok() &amp;&amp; !city.plan.startMap().empty()) {
+            context.namedArrivals.emplace(city.plan.startMap(), city.plan.startArrival);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return context;
+}</span>
+
+std::vector&lt;MapCheckFinding&gt; checkMapContent(std::string_view mapId, const core::Level&amp; level,
+<span style = "background-color:#dfd">                                             const ContentContext&amp; context) {
+    ContentFindings findings(mapId);
+    checkTexts(mapId, level, context, findings);
+    checkEntities(mapId, level, context, findings);
+    checkReach(mapId, level, context, findings);
+    checkGraph(mapId, level, context, findings);
+    return findings.take();
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>
