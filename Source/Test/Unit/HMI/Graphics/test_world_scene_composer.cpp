@@ -25,10 +25,95 @@
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/RenderLayer.h"
+#include "HMI/Graphics/ScenePiecePlacement.h"
 #include "HMI/Graphics/ScenePieces.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace {
+
+/**
+ * @brief Le placement historique reste inchangé.
+ * \castest{<b>Le placement historique reste inchangé.</b><br/>
+ * \tcat Unitaire · Rendu du Colisée<br/>
+ * \tcrit Critique<br/>
+ * \tetapes Lire un manifeste sans placementVersion et composer une pièce.<br/>
+ * \tattendu Aucune ancre explicite et coordonnées historiques conservées.
+ * }
+ */
+TEST(ScenePiecePlacement, PreservesLegacyPlacementWithoutOptIn) {
+    const nlohmann::json manifest = {
+        {"textures", {{"wall", {{"file", "wall.png"}, {"anchor", {128, 162.5}}}}}}};
+    EXPECT_FALSE(hmi::scenePieceAnchor(manifest, "wall.png"));
+    const hmi::SceneTexture texture{.width = 256, .height = 256};
+    const auto quad = hmi::standingPieceQuad(texture, {100, 200}, 2);
+    EXPECT_FLOAT_EQ(quad.x, 32);
+    EXPECT_FLOAT_EQ(quad.y, -228);
+}
+
+/**
+ * @brief Une ancre fractionnaire aligne la pièce.
+ * \castest{<b>Une ancre fractionnaire aligne la pièce.</b><br/>
+ * \tcat Unitaire · Rendu du Colisée<br/>
+ * \tcrit Critique<br/>
+ * \tetapes Lire une origine fractionnaire puis composer la pièce.<br/>
+ * \tattendu Ancrage exact et dimensions inchangées.
+ * }
+ */
+TEST(ScenePiecePlacement, AlignsFractionalOriginWithoutChangingDimensions) {
+    const nlohmann::json manifest = {
+        {"placementVersion", 1},
+        {"textures", {{"corner", {{"file", "corner.png"}, {"anchor", {128, 162.5}}}}}}};
+    const auto anchor = hmi::scenePieceAnchor(manifest, "corner.png");
+    ASSERT_TRUE(anchor);
+    const hmi::SceneTexture texture{.width = 256, .height = 256, .anchor = anchor};
+    const auto quad = hmi::standingPieceQuad(texture, {100, 200}, 2);
+    EXPECT_FLOAT_EQ(quad.x + anchor->x * 2, 100);
+    EXPECT_FLOAT_EQ(quad.y + anchor->y * 2, 200);
+    EXPECT_FLOAT_EQ(quad.width, 512);
+    EXPECT_FLOAT_EQ(quad.height, 512);
+    EXPECT_FALSE(hmi::scenePieceAnchor(manifest, "unknown.png"));
+}
+
+/**
+ * @brief Une ancre invalide est ignorée.
+ * \castest{<b>Une ancre invalide est ignorée.</b><br/>
+ * \tcat Unitaire · Rendu du Colisée<br/>
+ * \tcrit Critique<br/>
+ * \tetapes Lire une ancre contenant une chaîne à la place d’un nombre.<br/>
+ * \tattendu Aucune ancre retenue.
+ * }
+ */
+TEST(ScenePiecePlacement, RejectsMalformedAnchor) {
+    const nlohmann::json manifest = {
+        {"placementVersion", 1},
+        {"textures", {{"wall", {{"file", "wall.png"}, {"anchor", {"128", 162}}}}}}};
+    EXPECT_FALSE(hmi::scenePieceAnchor(manifest, "wall.png"));
+}
+
+/**
+ * @brief La projection explicite est contrôlée.
+ * \castest{<b>La projection explicite est contrôlée.</b><br/>
+ * \tcat Unitaire · Rendu du Colisée<br/>
+ * \tcrit Critique<br/>
+ * \tetapes Lire les tables sans ratio, avec ratio valide et avec ratios invalides.<br/>
+ * \tattendu Ancienne projection par défaut, rapport 42/68 accepté et valeurs invalides refusées.
+ * }
+ */
+TEST(ScenePiecePlacement, ProjectionIsOptInAndRejectsInvalidRatios) {
+    auto normal = hmi::PlaceAppearance::loadFromString(R"({"version":1,"place":"old"})");
+    ASSERT_TRUE(normal.ok());
+    EXPECT_FLOAT_EQ(normal.appearance.diamondRatio(), core::ARENA_DIAMOND_RATIO);
+    auto modular = hmi::PlaceAppearance::loadFromString(
+        R"({"version":1,"place":"new","diamondRatio":0.6176470588235294})");
+    ASSERT_TRUE(modular.ok());
+    EXPECT_FLOAT_EQ(modular.appearance.diamondRatio(), 42.0F / 68.0F);
+    EXPECT_FALSE(
+        hmi::PlaceAppearance::loadFromString(R"({"version":1,"place":"bad","diamondRatio":0})")
+            .ok());
+    EXPECT_FALSE(hmi::PlaceAppearance::loadFromString(
+                     R"({"version":1,"place":"bad","diamondRatio":"wrong"})")
+                     .ok());
+}
 
 // Trois pieces de sol pour le sable, une dalle pour la pierre, un mur pour le relief.
 constexpr const char* TABLE_JSON = R"({
@@ -314,4 +399,23 @@ TEST(WorldSceneComposerTest, UnePieceLargeSeTrieAuPiedDeSonEmprise) {
         return plusEnArriere;
     };
     EXPECT_GT(ordreDuRelief(large), ordreDuRelief(simple));
+}
+
+/**
+ * @brief La profondeur exige un manifeste de placement valide.
+ * \castest{<b>La profondeur exige un manifeste de placement valide.</b><br/>
+ * \tcat Unitaire · Rendu du Colisée<br/>
+ * \tcrit Critique<br/>
+ * \tetapes Lire une pièce valide, une inconnue et un manifeste historique.<br/>
+ * \tattendu Profondeur présente uniquement pour la pièce valide.
+ * }
+ */
+TEST(ScenePiecePlacement, DepthRequiresOptInAndValidAnchor) {
+    const auto manifest = nlohmann::json::parse(R"({"placementVersion":1,"textures":{
+        "bad":{"file":3},"gate":{"file":"gate.png","anchor":[12,96],"depthOffset":4.5}}})");
+    EXPECT_EQ(hmi::scenePieceDepthOffset(manifest, "gate.png"), 4.5F);
+    EXPECT_FALSE(hmi::scenePieceDepthOffset(manifest, "unknown.png"));
+    auto legacy = manifest;
+    legacy.erase("placementVersion");
+    EXPECT_FALSE(hmi::scenePieceDepthOffset(legacy, "gate.png"));
 }

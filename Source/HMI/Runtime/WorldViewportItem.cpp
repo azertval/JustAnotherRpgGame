@@ -96,8 +96,10 @@ WorldViewportItem::WorldViewportItem(QQuickItem* parent) : QQuickRhiItem(parent)
 
 WorldViewportItem::Framing WorldViewportItem::framing() const {
     const WorldModel* const model = _model.data();
-    core::IsoProjection projection(model != nullptr ? model->columns() : 0,
-                                   model != nullptr ? model->rows() : 0);
+    core::IsoProjection projection(
+        model != nullptr ? model->columns() : 0, model != nullptr ? model->rows() : 0,
+        core::ARENA_TILE_WIDTH_UNITS,
+        model != nullptr ? model->diamondRatio() : core::ARENA_DIAMOND_RATIO);
     QSize pixels = effectiveColorBufferSize();
     if (pixels.isEmpty()) {
         const qreal ratio = window() != nullptr ? window()->effectiveDevicePixelRatio() : 1.0;

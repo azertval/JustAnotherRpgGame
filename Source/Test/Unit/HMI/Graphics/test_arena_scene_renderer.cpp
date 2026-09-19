@@ -27,7 +27,9 @@
 
 #include "Core/Combat/Arena.h"
 #include "Core/Levels/Level.h"
+#include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/TileMap.h"
+#include "Core/World/CombatZone.h"
 #include "HMI/Graphics/ArenaSceneComposer.h"
 #include "HMI/Graphics/ArenaSceneRenderer.h"
 
@@ -120,10 +122,8 @@ core::Level piste() {
         carte.setTile(4, y, core::TileType::Wall);
     }
     carte.setTile(0, 2, core::TileType::Empty);
-    return core::Level(core::LevelData{.name = "piste",
-                                       .tileMap = std::move(carte),
-                                       .entities = {},
-                                       .entry = {1, 1}});
+    return core::Level(core::LevelData{
+        .name = "piste", .tileMap = std::move(carte), .entities = {}, .entry = {1, 1}});
 }
 
 core::ArenaContestant concurrent(const std::string& nom, CombatSide camp, int colonne, int ligne) {
@@ -363,7 +363,8 @@ TEST(ArenaSceneRendererTest, CaptureDeLArenePourRelecture) {
             snapshot.obstructed.push_back(border && !gate);
         }
     }
-    const auto figure = [](std::uint32_t id, const char* name, CombatSide side, int column, int row) {
+    const auto figure = [](std::uint32_t id, const char* name, CombatSide side, int column,
+                           int row) {
         return hmi::ArenaFigureSnapshot{.id = core::CombatantId{id},
                                         .name = name,
                                         .side = side,
@@ -371,13 +372,63 @@ TEST(ArenaSceneRendererTest, CaptureDeLArenePourRelecture) {
                                         .anchor = {.column = column, .row = row},
                                         .footprint = 1};
     };
-    snapshot.figures = {figure(1, "Bram", CombatSide::Allies, 8, 6),
-                        figure(2, "Eve", CombatSide::Allies, 9, 8),
-                        figure(3, "Orc", CombatSide::Enemies, 11, 6),
-                        figure(4, "Rat", CombatSide::Enemies, 12, 7)};
+    snapshot.figures = {
+        figure(1, "Bram", CombatSide::Allies, 8, 6), figure(2, "Eve", CombatSide::Allies, 9, 8),
+        figure(3, "Orc", CombatSide::Enemies, 11, 6), figure(4, "Rat", CombatSide::Enemies, 12, 7)};
     renderer.setSnapshot(std::move(snapshot));
 
     const QImage image = renderFrame(*rhi, renderer, target);
     ASSERT_FALSE(image.isNull());
     EXPECT_TRUE(image.save(destination)) << destination.toStdString();
+}
+
+/**
+ * @brief Le combat utilise le décor et les départs de la nouvelle arène.
+ * \castest{<b>Le combat utilise le décor et les départs de la nouvelle arène.</b><br/>
+ * \tcat Unitaire · Rendu du Colisée<br/>
+ * \tcrit Critique<br/>
+ * \tetapes Charger la zone sable, monter deux concurrents et rendre la scène.<br/>
+ * \tattendu Zone 20 × 14, départs conservés et décor du nouveau kit sans texture manquante.
+ * }
+ */
+TEST(ArenaSceneRendererTest, ProductionBattleUsesArenaOfBraveMapAndEntries) {
+    const auto loaded = core::LevelLoader::loadFromFile(std::filesystem::path(JADG_LEVELS_DIR) /
+                                                        "capital/arena-of-brave.json");
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+    const auto zones = core::combatZonesOf(*loaded.level);
+    const auto* zone = core::findCombatZone(zones, "sable");
+    ASSERT_NE(zone, nullptr);
+    ASSERT_EQ(zone->columns, 20);
+    ASSERT_EQ(zone->rows, 14);
+    EXPECT_TRUE(core::validateCombatZones("capital/arena-of-brave", *loaded.level).empty());
+    core::ArenaSession session(core::cropLevelToZone(*loaded.level, *zone));
+    core::ArenaBout bout{.seed = 7, .lethal = false, .heroicMark = false};
+    auto ally = concurrent("Bram", CombatSide::Allies, 1, 5);
+    auto enemy = concurrent("Orc", CombatSide::Enemies, 18, 5);
+    ally.position.reset();
+    enemy.position.reset();
+    bout.contestants = {ally, enemy};
+    const auto mounted = session.mount(bout);
+    ASSERT_TRUE(mounted.refusals.empty());
+    const auto snapshot = hmi::snapshotArenaScene(session);
+    ASSERT_EQ(snapshot.figures.size(), 2U);
+    EXPECT_EQ(snapshot.figures[0].anchor.column, 1);
+    EXPECT_EQ(snapshot.figures[1].anchor.column, 18);
+    const auto rhi = createOffscreenRhi();
+    ASSERT_NE(rhi, nullptr);
+    hmi::ArenaSceneRenderer renderer(coliseum(), true);
+    renderer.setSnapshot(snapshot);
+    ASSERT_TRUE(renderer.ensureResources(rhi.get()));
+    OffscreenTarget target(*rhi, QSize(1600, 1000));
+    const auto image = renderFrame(*rhi, renderer, target);
+    EXPECT_GT(renderer.composed().quads().size(), 7700U);
+    for (const auto& quad : renderer.composed().quads()) {
+        EXPECT_NE(quad.texture, renderer.textures().missing.texture);
+        for (const auto& [path, texture] : renderer.textures().byPath) {
+            if (path.starts_with("../Scene/coliseum/"))
+                EXPECT_NE(quad.texture, texture.texture);
+        }
+    }
+    EXPECT_TRUE(image.save("arena-of-brave-combat.png"));
+    EXPECT_TRUE(session.start());
 }

@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 
 #pragma once
-
 #include <cstdint>
 #include <map>
 #include <string>
 #include <string_view>
 #include <vector>
 
+#include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/PieceFootprint.h"
 #include "Core/Math/Vector2.h"
@@ -98,6 +98,7 @@ struct WorldFigureSnapshot {
  * relief plus grandes qu'une case : la composition les trie au pied de leur emprise.
  */
 struct WorldSceneSnapshot {
+    float diamondRatio = core::ARENA_DIAMOND_RATIO;
     int columns = 0;
     int rows = 0;
     /// Le lieu, qui nomme le dossier de planches : `Assets/Scene/<place>/`.

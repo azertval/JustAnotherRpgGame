@@ -315,7 +315,8 @@ ArenaSceneSnapshot snapshotArenaScene(const core::ArenaSession& session) {
 
 void composeArenaScene(ComposedScene& scene, const ArenaSceneSnapshot& snapshot,
                        const ArenaAppearanceCatalog& catalog, const ArenaAnimationState& animation,
-                       const core::IsoProjection& projection, const ArenaSceneTextures& textures) {
+                       const core::IsoProjection& projection, const ArenaSceneTextures& textures,
+                       bool scenery) {
     const Composer composer{
         .scene = scene,
         .projection = projection,
@@ -326,7 +327,7 @@ void composeArenaScene(ComposedScene& scene, const ArenaSceneSnapshot& snapshot,
     // Un seul tampon de chemin pour toute la scene : apres la premiere image, plus d'allocation.
     std::string path;
 
-    for (int row = 0; row < snapshot.rows; ++row) {
+    for (int row = 0; scenery && row < snapshot.rows; ++row) {
         for (int column = 0; column < snapshot.columns; ++column) {
             composeTile(composer, catalog, snapshot, {.column = column, .row = row}, path);
         }

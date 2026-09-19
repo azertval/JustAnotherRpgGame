@@ -20,8 +20,10 @@
 
 #include <QApplication>
 #include <QCoreApplication>
+#include <QPixmap>
 #include <QString>
 #include <QStyleFactory>
+#include <QTimer>
 #include <algorithm>
 #include <filesystem>
 #include <iostream>
@@ -33,6 +35,7 @@
 #include "Editor/Logic/DataRoot.h"
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/MapRefactor.h"
+#include "Editor/Ui/EditorViewport.h"
 #include "Editor/Ui/MainWindow.h"
 #include "Editor/Ui/MapRender.h"
 #include "HMI/HmiLog.h"
@@ -89,6 +92,20 @@ int main(int argc, char** argv) {
     QCoreApplication::setApplicationName(QStringLiteral("Editor"));
 
     hmi::MainWindow window(crashAfterAutosave);
+    const auto map = app::commandLineOption(argc, argv, "--map=");
+    if (map) {
+        auto* viewport = window.findChild<hmi::EditorViewport*>();
+        if (!viewport ||
+            !viewport->openLevel(hmi::editorDataRoot() / "Levels" / (std::string{*map} + ".json")))
+            return 2;
+    }
+    const auto screenshot = app::commandLineOption(argc, argv, "--screenshot=");
+    if (screenshot) {
+        window.resize(1600, 1000);
+        QTimer::singleShot(1800, &window, [&window, screenshot] {
+            QApplication::exit(window.grab().save(QString::fromUtf8(*screenshot)) ? 0 : 3);
+        });
+    }
     window.show();
 
     const int code = QApplication::exec();

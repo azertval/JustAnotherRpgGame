@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <functional>
 #include <map>
+#include <optional>
 #include <string>
 #include <string_view>
 
@@ -52,6 +53,10 @@ struct SceneTexture {
     int height = 0;
     /// Largeur d'une image si la texture est une bande d'animation ; 0 sinon.
     int frameWidth = 0;
+    /// Origine explicite des pieces modulaires, en pixels d'art du PNG.
+    std::optional<core::Vector2> anchor;
+    /// Somme des coordonnees locales du pied utilise pour le tri, en cases.
+    std::optional<float> depthOffset;
 };
 
 /**
@@ -87,10 +92,11 @@ struct ScenePieceTextures {
                                                   float unitsPerScenePixel) {
     SpriteQuad quad;
     const auto height = static_cast<float>(texture.height);
-    quad.x =
-        topVertex.x - (static_cast<float>(SCENE_HALF_TILE_WIDTH_PIXELS) * unitsPerScenePixel);
-    quad.y = topVertex.y -
-             ((height - static_cast<float>(SCENE_TILE_HEIGHT_PIXELS)) * unitsPerScenePixel);
+    const core::Vector2 anchor = texture.anchor.value_or(
+        core::Vector2{static_cast<float>(SCENE_HALF_TILE_WIDTH_PIXELS),
+                      height - static_cast<float>(SCENE_TILE_HEIGHT_PIXELS)});
+    quad.x = topVertex.x - anchor.x * unitsPerScenePixel;
+    quad.y = topVertex.y - anchor.y * unitsPerScenePixel;
     quad.width = static_cast<float>(texture.width) * unitsPerScenePixel;
     quad.height = height * unitsPerScenePixel;
     return quad;

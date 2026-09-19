@@ -76,7 +76,7 @@ constexpr int PLAYTEST_FRAME_MS = 16;
 }
 
 /// Carte ouverte au lancement : la première carte du jeu.
-constexpr const char* START_MAP_ID = "coliseum";
+constexpr const char* START_MAP_ID = "capital/arena-of-brave";
 
 // Révision « jamais enregistrée » : celle d'un brouillon repris, qui reste modifié quoi qu'on
 // fasse jusqu'à son enregistrement. Aucune révision réelle ne l'atteint.
@@ -302,12 +302,14 @@ void EditorViewport::setTool(hmi::EditorTool tool) {
 // --------------------------------------------------------------------------------------
 
 core::IsoProjection EditorViewport::projection() const {
-    return {_draft.tileMap().width(), _draft.tileMap().height()};
+    return {_draft.tileMap().width(), _draft.tileMap().height(), core::ARENA_TILE_WIDTH_UNITS,
+            _appearance.diamondRatio()};
 }
 
 QRectF EditorViewport::contentBounds() const {
     if (_play) {
-        const core::IsoProjection played(_playSnapshot.columns, _playSnapshot.rows);
+        const core::IsoProjection played(_playSnapshot.columns, _playSnapshot.rows,
+                                         core::ARENA_TILE_WIDTH_UNITS, _playSnapshot.diamondRatio);
         const core::Vector2 size = played.sceneSize();
         const double margin = played.tileWidth();
         return {-margin, -margin, size.x + (2 * margin), size.y + (2 * margin)};
@@ -472,7 +474,9 @@ void EditorViewport::ensureIsoScene() {
     }
     _images->ensure(worldTexturePaths(_snapshot));
     _isoScene.clear();
-    composeWorldScene(_isoScene, _snapshot, core::IsoProjection(_snapshot.columns, _snapshot.rows),
+    composeWorldScene(_isoScene, _snapshot,
+                      core::IsoProjection(_snapshot.columns, _snapshot.rows,
+                                          core::ARENA_TILE_WIDTH_UNITS, _snapshot.diamondRatio),
                       _images->textures());
     _isoScene.sort();
     _isoSceneDirty = false;
@@ -1069,7 +1073,8 @@ void EditorViewport::stepPlaytest() {
     const int previousRows = _playSnapshot.rows;
     _playSnapshot = _play->snapshot();
     _images->ensure(worldTexturePaths(_playSnapshot));
-    const core::IsoProjection played(_playSnapshot.columns, _playSnapshot.rows);
+    const core::IsoProjection played(_playSnapshot.columns, _playSnapshot.rows,
+                                     core::ARENA_TILE_WIDTH_UNITS, _playSnapshot.diamondRatio);
     _playScene.clear();
     composeWorldScene(_playScene, _playSnapshot, played, _images->textures());
     _playScene.sort();

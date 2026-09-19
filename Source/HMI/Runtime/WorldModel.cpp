@@ -57,7 +57,8 @@ void WorldModel::setStartOverride(const QString& mapId, const QString& arrival) 
 }
 
 bool WorldModel::enterMap(const QString& mapId, const QString& arrival) {
-    const std::string carte = mapId.toStdString();
+    const std::string carte =
+        mapId == QStringLiteral("coliseum") ? "capital/arena-of-brave" : mapId.toStdString();
     if (!_play->enter(carte, arrival.toStdString())) {
         // Un échec de chargement est récupérable (`EX-NFR-040`) : l'écran le dit et reste debout.
         _status = tr("La carte « %1 » ne s'ouvre pas.").arg(mapId);
@@ -209,6 +210,10 @@ void WorldModel::setFrozen(bool frozen) {
 
 WorldSceneSnapshot WorldModel::snapshot() const {
     return _play->snapshot();
+}
+
+float WorldModel::diamondRatio() const {
+    return _play->diamondRatio();
 }
 
 }  // namespace hmi

@@ -139,6 +139,7 @@ public:
 
     /// @return L'instantané que la surface de rendu dessine : des **valeurs**, sans pointeur.
     [[nodiscard]] WorldSceneSnapshot snapshot() const;
+    [[nodiscard]] float diamondRatio() const;
 
     /// @return Le numéro de la scène : il avance à chaque pas qui change ce qui se dessine.
     [[nodiscard]] quint64 sceneRevision() const noexcept {

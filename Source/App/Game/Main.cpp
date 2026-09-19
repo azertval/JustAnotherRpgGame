@@ -60,9 +60,9 @@ namespace {
  */
 void registerIdentityFonts() {
     const std::filesystem::path fonts = hmi::executableDirectory() / "Assets" / "Fonts";
-    for (const char* file : {"Cinzel-Regular.ttf", "Cinzel-SemiBold.ttf", "Cinzel-Bold.ttf",
-                             "IMFellEnglish-Regular.ttf", "IMFellEnglish-Italic.ttf",
-                             "PinyonScript-Regular.ttf"}) {
+    for (const char* file :
+         {"Cinzel-Regular.ttf", "Cinzel-SemiBold.ttf", "Cinzel-Bold.ttf",
+          "IMFellEnglish-Regular.ttf", "IMFellEnglish-Italic.ttf", "PinyonScript-Regular.ttf"}) {
         const std::filesystem::path path = fonts / file;
         const int id = QFontDatabase::addApplicationFont(QString::fromStdString(path.string()));
         if (id < 0) {
@@ -277,8 +277,7 @@ void applyStartMap(int argc, char** argv, QQmlApplicationEngine& engine) {
     // `if constexpr` avec sa branche `else` : un retour anticipe laisserait en Release un code
     // inatteignable, que /W4 /WX refuse (C4702).
     if constexpr (core::DEVELOPER_BUILD) {
-        const std::optional<std::string_view> option =
-            app::commandLineOption(argc, argv, "--map=");
+        const std::optional<std::string_view> option = app::commandLineOption(argc, argv, "--map=");
         if (!option) {
             return;
         }
@@ -292,6 +291,10 @@ void applyStartMap(int argc, char** argv, QQmlApplicationEngine& engine) {
             QString::fromUtf8(option->data(), static_cast<qsizetype>(option->size()))
                 .split(QLatin1Char('@'));
         world->setStartOverride(parts.value(0), parts.value(1));
+        if (const auto figure = app::commandLineOption(argc, argv, "--hero-figure=")) {
+            world->setHeroFigure(
+                QString::fromUtf8(figure->data(), static_cast<qsizetype>(figure->size())));
+        }
         HMI_LOG_INFO("Carte d'ouverture imposee : " + parts.value(0).toStdString());
     } else {
         static_cast<void>(argc);
@@ -364,7 +367,8 @@ int main(int argc, char** argv) {
         HMI_LOG_INFO("Interface lue depuis les sources : " JADG_QML_DEV_IMPORT_PATH);
     }
     connectEngineDiagnostics(engine, application);
-    // Les ilots du plan (LOT-96) : dessines a la demande, le moteur prend possession du fournisseur.
+    // Les ilots du plan (LOT-96) : dessines a la demande, le moteur prend possession du
+    // fournisseur.
     engine.addImageProvider(QStringLiteral("cityblock"),
                             new hmi::CityBlockImageProvider(hmi::executableDirectory()));
     armScreenshot(argc, argv, engine, application);
