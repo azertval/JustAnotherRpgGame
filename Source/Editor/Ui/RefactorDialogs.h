@@ -49,6 +49,7 @@ struct PieceReplacementChoice {
 
 /**
  * @brief Demande quelle pièce remplacer, et par laquelle.
+ * @param parent La fenêtre du dialogue.
  * @param cited Les pièces que la carte ouverte pose.
  * @param sheet La planche de la carte : on ne propose que des pièces de même classe (sol, ou
  *              pièce debout).
