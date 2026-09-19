@@ -17,9 +17,9 @@ var searchData=
   ['84_20—_20les_2031_20tables_20de_20progression_20de_20classe_14',['&lt;span class=&quot;tt&quot;&gt;LOT-84&lt;/span&gt; — Les 31 tables de progression de classe',['../roadmap.html#lot-84',1,'']]],
   ['86_15',['10. La conception séparée du code (LOT-86)',['../spec-interface-ihm.html#ihm-conception',1,'']]],
   ['86_20—_20refonte_20de_20l_20ihm_20sur_20qt_20quick_16',['LOT-86 — Refonte de l&apos;IHM sur Qt Quick',['../lot-86.html',1,'lots']]],
-  ['867_17',['Tests unitaires (867)',['../cahiertest.html#autotoc_md4',1,'']]],
-  ['87_20—_20cahier_20des_20assets_20de_20la_20charte_20v2_18',['LOT-87 — Cahier des assets de la charte v2',['../lot-87-cahier-assets.html',1,'lot-87']]],
-  ['87_20—_20charte_20v2_20et_20intégration_20des_20maquettes_19',['LOT-87 — Charte v2 et intégration des maquettes',['../lot-87.html',1,'lots']]],
+  ['87_20—_20cahier_20des_20assets_20de_20la_20charte_20v2_17',['LOT-87 — Cahier des assets de la charte v2',['../lot-87-cahier-assets.html',1,'lot-87']]],
+  ['87_20—_20charte_20v2_20et_20intégration_20des_20maquettes_18',['LOT-87 — Charte v2 et intégration des maquettes',['../lot-87.html',1,'lots']]],
+  ['875_19',['Tests unitaires (875)',['../cahiertest.html#autotoc_md4',1,'']]],
   ['88_20—_20retrait_20de_20l_20héritage_20_3a_20code_20assets_20et_20spécifications_20',['LOT-88 — Retrait de l&apos;héritage : code, assets et spécifications',['../lot-88.html',1,'lots']]],
   ['89_20—_20dons_20objets_20magiques_20et_20consommables_20de_20tanares_21',['&lt;span class=&quot;tt&quot;&gt;LOT-89&lt;/span&gt; — Dons, objets magiques et consommables de Tanares',['../roadmap.html#lot-89',1,'']]]
 ];

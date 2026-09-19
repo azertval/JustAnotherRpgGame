@@ -60,7 +60,7 @@ var searchData=
   ['13_20—_20l_20éditeur_20sans_20fenêtre_57',['13 — L éditeur sans fenêtre',['../lot-editor-13.html',1,'LOT-EDITOR-13 — L&apos;éditeur sans fenêtre'],['../roadmap-editeur.html#autotoc_md1014',1,'LOT-EDITOR-13 — L&apos;éditeur sans fenêtre']]],
   ['13_20entités_20et_20zones_20sur_20le_20canevas_20lot_20editor_2005_58',['13. Entités et zones sur le canevas (&lt;span class=&quot;tt&quot;&gt;LOT-EDITOR-05&lt;/span&gt;)',['../spec-editeur.html#autotoc_md234',1,'']]],
   ['13_20septembre_202026_59',['Où en est la phase 2 — vérifié le 13 septembre 2026',['../lot-87.html#autotoc_md681',1,'']]],
-  ['130_60',['Graphics (130)',['../cahiertest.html#autotoc_md20',1,'']]],
+  ['138_60',['Graphics (138)',['../cahiertest.html#autotoc_md20',1,'']]],
   ['14_61',['17. Renommer et remplacer (&lt;span class=&quot;tt&quot;&gt;LOT-EDITOR-14&lt;/span&gt;)',['../spec-editeur.html#autotoc_md238',1,'']]],
   ['14_20—_20inventaire_20et_20équipement_62',['LOT-14 — Inventaire et équipement',['../lot-14.html',1,'lots']]],
   ['14_20—_20renommer_20et_20remplacer_63',['14 — Renommer et remplacer',['../lot-editor-14.html',1,'LOT-EDITOR-14 — Renommer et remplacer'],['../roadmap-editeur.html#autotoc_md1017',1,'LOT-EDITOR-14 — Renommer et remplacer']]],

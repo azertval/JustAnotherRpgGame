@@ -21,9 +21,13 @@
 #include &lt;rhi/qrhi.h&gt;
 
 #include "Core/Combat/IsoProjection.h"
+#include "Core/Levels/LevelLoader.h"
+#include "Core/World/CombatZone.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/MissingTexture.h"
+#include "HMI/Graphics/PlaceAppearance.h"
+#include "HMI/Graphics/ScenePiecePlacement.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 
@@ -48,8 +52,10 @@ constexpr float FRAMING_MARGIN = 0.95F;
 <span style = "background-color:#dfd">    return camera;
 }</span>
 
-ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory)
-<span style = "background-color:#dfd">    : _directory(std::move(coliseumDirectory)) {</span>
+ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, bool productionMap)
+<span style = "background-color:#dfd">    : _directory(std::move(coliseumDirectory)) {
+    if (productionMap)
+        loadBattlefield();</span>
     // Lectures de fichiers, une fois : ni le catalogue ni les clips ne touchent au GPU, et une
     // recrÃ©ation des ressources n'a pas Ã  les relire.
 <span style = "background-color:#dfd">    ArenaAppearanceCatalogResult catalog =</span>
@@ -86,6 +92,36 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory)
     for (const std::string&amp; gladiator : _catalog.gladiators()) {
         declare(gladiator, core::CombatSide::Enemies);
     }
+}</span>
+
+<span style = "background-color:#dfd">void ArenaSceneRenderer::loadBattlefield() {
+    const auto data = _directory.parent_path().parent_path();
+    const auto definition =</span>
+        core::readJsonObjectFromFile(data / "World/arena/arena-of-the-future.json", 1);
+<span style = "background-color:#dfd">    if (!definition.ok()) {</span>
+<span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Arena battlefield definition: " + definition.message);
+        return;</span>
+    }
+<span style = "background-color:#dfd">    const auto level = core::LevelLoader::loadFromFile(data / "Levels" /</span>
+                                                       definition.root.value("map", std::string{}));
+<span style = "background-color:#dfd">    if (!level.ok()) {</span>
+<span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Arena battlefield: " + level.error);
+        return;</span>
+    }
+<span style = "background-color:#dfd">    const auto zones = core::combatZonesOf(*level.level);
+    const auto* zone = core::findCombatZone(zones, definition.root.value("zone", std::string{}));
+    if (zone == nullptr) {</span>
+<span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Arena battlefield: unknown combat zone");
+        return;</span>
+    }
+<span style = "background-color:#dfd">    const auto appearance = PlaceAppearance::loadFromFile(_directory.parent_path() /</span>
+                                                          "Scene/arena-of-brave/appearance.json");
+<span style = "background-color:#dfd">    if (!appearance.ok()) {</span>
+<span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Arena battlefield appearance: " + appearance.message);
+        return;</span>
+    }
+<span style = "background-color:#dfd">    _battlefield = snapshotWorldScene(*level.level, appearance.appearance, {});
+    _battlefieldOrigin = zone-&gt;origin;
 }</span>
 
 <span style = "background-color:#dfd">ArenaSceneRenderer::~ArenaSceneRenderer() {
@@ -140,12 +176,43 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory)
                          .frameWidth = band != _bandFrameWidths.end() ? band-&gt;second : 0};
 <span style = "background-color:#dfd">        _loaded.push_back(std::move(*texture));
     }
-}</span>
+    if (_battlefield) {
+        for (const auto&amp; path : worldTexturePaths(*_battlefield)) {
+            const auto file = _directory.parent_path() / path;
+            auto texture = loadTextureFromFile(context, file);
+            if (!texture) {</span>
+<span style = "background-color:#fdd">                GRAPHICS_LOG_WARNING(missingTextureWarning(path));
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            SceneTexture descriptor{
+                .texture = texture-&gt;handle(), .width = texture-&gt;width, .height = texture-&gt;height};
+            const auto manifest =</span>
+                core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
+<span style = "background-color:#dfd">            if (manifest.ok()) {
+                descriptor.anchor = scenePieceAnchor(manifest.root, file.filename().string());
+                descriptor.depthOffset =</span>
+                    scenePieceDepthOffset(manifest.root, file.filename().string());
+            }
+<span style = "background-color:#dfd">            _battlefieldTextures.byPath[path] = descriptor;
+            _loaded.push_back(std::move(*texture));
+        }
+        _battlefieldTextures.missing = {</span>
+            .texture = _missing.handle(), .width = _missing.width, .height = _missing.height};
+<span style = "background-color:#dfd">        composeWorldScene(</span>
+            _battlefieldScene, *_battlefield,
+            core::IsoProjection(_battlefield-&gt;columns, _battlefield-&gt;rows,
+                                core::ARENA_TILE_WIDTH_UNITS, _battlefield-&gt;diamondRatio),
+            _battlefieldTextures);
+    }
+<span style = "background-color:#dfd">}</span>
 
 <span style = "background-color:#dfd">void ArenaSceneRenderer::release() noexcept {</span>
     // L'ordre : ce qui dÃ©signe une texture, puis les textures, puis la grappe qui porte le
     // pipeline. Le lot de crÃ©ation jamais soumis est rendu Ã  QRhi, qui en garde un nombre bornÃ©.
 <span style = "background-color:#dfd">    _composed.clear();
+    _battlefieldScene.clear();
+    _battlefieldTextures.byPath.clear();
+    _battlefieldTextures.missing = {};
     _textures.byPath.clear();
     _textures.missing = ArenaTexture{};
     _loaded.clear();
@@ -193,11 +260,33 @@ void ArenaSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarg
 
 <span style = "background-color:#dfd">    _animation.advance(std::max(0.0F, realDeltaSeconds));
     const ArenaAnimationState animation = _animation.snapshot();
-    const core::IsoProjection projection(_snapshot.columns, _snapshot.rows);</span>
+    const core::IsoProjection projection(</span>
+        _snapshot.columns, _snapshot.rows, core::ARENA_TILE_WIDTH_UNITS,
+        _battlefield ? _battlefield-&gt;diamondRatio : core::ARENA_DIAMOND_RATIO);
 
 <span style = "background-color:#dfd">    _composed.clear();
-    composeArenaScene(_composed, _snapshot, _catalog, animation, projection, _textures);
-    _composed.sort();</span>
+    if (_battlefield) {
+        const core::IsoProjection full(_battlefield-&gt;columns, _battlefield-&gt;rows,</span>
+                                       projection.tileWidth(), _battlefield-&gt;diamondRatio);
+<span style = "background-color:#dfd">        const auto origin = full.gridToWorld({static_cast&lt;float&gt;(_battlefieldOrigin.column),</span>
+                                              static_cast&lt;float&gt;(_battlefieldOrigin.row)});
+<span style = "background-color:#dfd">        const auto local = projection.gridToWorld({0, 0});
+        const core::Vector2 delta{local.x - origin.x, local.y - origin.y};
+        for (const auto&amp; quad : _battlefieldScene.quads()) {
+            auto sprite = quad.sprite;
+            sprite.x += delta.x;
+            sprite.y += delta.y;
+            const auto order =</span>
+                quad.layer == RenderLayer::Object
+                    ? ((quad.sortOrder / WORLD_DEPTH_SLOTS) + depthSortOrder(delta.y)) *
+                          ARENA_DEPTH_SLOTS
+                    : quad.sortOrder;
+<span style = "background-color:#dfd">            _composed.addSprite(quad.layer, quad.texture, order, sprite);
+        }</span>
+    }
+<span style = "background-color:#dfd">    composeArenaScene(_composed, _snapshot, _catalog, animation, projection, _textures,</span>
+                      !_battlefield);
+<span style = "background-color:#dfd">    _composed.sort();</span>
 
     // Cadrage : la scÃ¨ne entiÃ¨re, centrÃ©e. La projection isomÃ©trique a dÃ©jÃ  placÃ© les piÃ¨ces en
     // unitÃ©s monde ; la camÃ©ra ne fait que dÃ©placer et agrandir, en aval.

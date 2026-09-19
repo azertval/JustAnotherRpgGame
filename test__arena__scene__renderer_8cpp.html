@@ -108,7 +108,9 @@ $(function(){initNavTree('test__arena__scene__renderer_8cpp.html','',''); });
 <code>#include &lt;rhi/qrhi.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="Arena_8h_source.html">Core/Combat/Arena.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CombatZone_8h_source.html">Core/World/CombatZone.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ArenaSceneComposer_8h_source.html">HMI/Graphics/ArenaSceneComposer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ArenaSceneRenderer_8h_source.html">HMI/Graphics/ArenaSceneRenderer.h</a>&quot;</code><br />
 </div><table class="memberdecls">
@@ -124,13 +126,15 @@ Functions</h2></td></tr>
 <tr class="memdesc:a1d1e199350bae91f3015d2cea3326666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cadrage du rendu ramène chaque case à elle-même : le pointeur tombe sur la case dessinée.  <br /></td></tr>
 <tr class="memitem:a81e781957ca6a1b515b8db60521c1da3" id="r_a81e781957ca6a1b515b8db60521c1da3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a81e781957ca6a1b515b8db60521c1da3">TEST</a> (ArenaSceneRendererTest, CaptureDeLArenePourRelecture)</td></tr>
 <tr class="memdesc:a81e781957ca6a1b515b8db60521c1da3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outil de revue, pas un contrôle : une arène de 20 × 14 cases ceinte de murs, rendue hors écran et enregistrée sous le chemin de <span class="tt">JADG_ARENA_CAPTURE</span> (sauté sans la variable).  <br /></td></tr>
+<tr class="memitem:ae438a082a46c057017b46b342ca82aaa" id="r_ae438a082a46c057017b46b342ca82aaa"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae438a082a46c057017b46b342ca82aaa">TEST</a> (ArenaSceneRendererTest, ProductionBattleUsesArenaOfBraveMapAndEntries)</td></tr>
+<tr class="memdesc:ae438a082a46c057017b46b342ca82aaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le combat utilise le décor et les départs de la nouvelle arène.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le rendu QRhi de la scène du Colisée (<span class="tt">LOT-86</span> Phase 5), <b>hors écran</b> : cycle de vie des ressources et une vraie image de la scène composée. </p>
 <p><span class="tt"><a class="el" href="classhmi_1_1ArenaViewportItem.html" title="Surface QRhi de la scène de combat du Colisée : la grille, l&#39;enceinte et les figurines,...">hmi::ArenaViewportItem</a></span> n'est qu'un hôte Qt Quick ; ce qui peut fuir ou planter — créer, libérer, recréer sur une autre interface QRhi — vit dans <span class="tt"><a class="el" href="classhmi_1_1ArenaSceneRenderer.html" title="Ce qui dessine le Colisée : ressources GPU, textures de la planche, animation des figurines,...">hmi::ArenaSceneRenderer</a></span>, que ce test fait tourner sur un <span class="tt">QRhi</span> Direct3D 11 sans fenêtre, avec les pièces <b>livrées</b> de la planche. Se saute proprement si la machine n'offre aucune interface QRhi (<span class="tt">EX-NFR-004</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a81e781957ca6a1b515b8db60521c1da3" name="a81e781957ca6a1b515b8db60521c1da3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81e781957ca6a1b515b8db60521c1da3">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a81e781957ca6a1b515b8db60521c1da3">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -160,7 +164,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="acb25b0dcd66a83d9c6690557afa911be" name="acb25b0dcd66a83d9c6690557afa911be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb25b0dcd66a83d9c6690557afa911be">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acb25b0dcd66a83d9c6690557afa911be">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -194,7 +198,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1d1e199350bae91f3015d2cea3326666" name="a1d1e199350bae91f3015d2cea3326666"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d1e199350bae91f3015d2cea3326666">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d1e199350bae91f3015d2cea3326666">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,8 +228,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae438a082a46c057017b46b342ca82aaa" name="ae438a082a46c057017b46b342ca82aaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae438a082a46c057017b46b342ca82aaa">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ArenaSceneRendererTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ProductionBattleUsesArenaOfBraveMapAndEntries</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le combat utilise le décor et les départs de la nouvelle arène. </p>
+<p><b>Cas de test :</b> <b>Le combat utilise le décor et les départs de la nouvelle arène.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu du Colisée<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ Charger la zone sable, monter deux concurrents et rendre la scène.<br  />
+ <b>Resultat attendu :</b> Zone 20 × 14, départs conservés et décor du nouveau kit sans texture manquante. </p>
+
+</div>
+</div>
 <a id="a3f9ddbcb8461476fcc77bc6def80939b" name="a3f9ddbcb8461476fcc77bc6def80939b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f9ddbcb8461476fcc77bc6def80939b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f9ddbcb8461476fcc77bc6def80939b">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -255,7 +288,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa8fbbe669c3e7626536d64c7cc091e76" name="aa8fbbe669c3e7626536d64c7cc091e76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8fbbe669c3e7626536d64c7cc091e76">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8fbbe669c3e7626536d64c7cc091e76">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

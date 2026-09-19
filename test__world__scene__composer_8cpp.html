@@ -111,6 +111,7 @@ $(function(){initNavTree('test__world__scene__composer_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RenderLayer_8h_source.html">HMI/Graphics/RenderLayer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ScenePiecePlacement_8h_source.html">HMI/Graphics/ScenePiecePlacement.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ScenePieces_8h_source.html">HMI/Graphics/ScenePieces.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
 </div><table class="memberdecls">
@@ -130,12 +131,43 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7556eaa6accbc6c4a13f5424eb93cc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce nommée sur une case de <b>sol</b> l'emporte sur la table ; un ancien nom se montre sous le nom courant (format v4, <span class="tt">LOT-EDITOR-12</span>).  <br /></td></tr>
 <tr class="memitem:a635e2755bc4cfa9ee321162ebe959f1f" id="r_a635e2755bc4cfa9ee321162ebe959f1f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a635e2755bc4cfa9ee321162ebe959f1f">TEST</a> (WorldSceneComposerTest, UnePieceLargeSeTrieAuPiedDeSonEmprise)</td></tr>
 <tr class="memdesc:a635e2755bc4cfa9ee321162ebe959f1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce <b>large</b> se trie au pied de son emprise, pas de sa case d'ancrage (constat A4).  <br /></td></tr>
+<tr class="memitem:a610cdd2b87be5c70fd4813b5b94580fa" id="r_a610cdd2b87be5c70fd4813b5b94580fa"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a610cdd2b87be5c70fd4813b5b94580fa">TEST</a> (ScenePiecePlacement, DepthRequiresOptInAndValidAnchor)</td></tr>
+<tr class="memdesc:a610cdd2b87be5c70fd4813b5b94580fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">La profondeur exige un manifeste de placement valide.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests de la composition d'un lieu parcouru (LOT-09) : le sol vient du type de tuile, le relief de la piece nommee a la case, et la figurine se pose au pied de sa case. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a610cdd2b87be5c70fd4813b5b94580fa" name="a610cdd2b87be5c70fd4813b5b94580fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a610cdd2b87be5c70fd4813b5b94580fa">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ScenePiecePlacement</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DepthRequiresOptInAndValidAnchor</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La profondeur exige un manifeste de placement valide. </p>
+<p><b>Cas de test :</b> <b>La profondeur exige un manifeste de placement valide.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu du Colisée<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ Lire une pièce valide, une inconnue et un manifeste historique.<br  />
+ <b>Resultat attendu :</b> Profondeur présente uniquement pour la pièce valide. </p>
+
+</div>
+</div>
 <a id="a5ee72efc0163defc5a481d004b6b43c3" name="a5ee72efc0163defc5a481d004b6b43c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ee72efc0163defc5a481d004b6b43c3">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ee72efc0163defc5a481d004b6b43c3">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -164,7 +196,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7556eaa6accbc6c4a13f5424eb93cc77" name="a7556eaa6accbc6c4a13f5424eb93cc77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7556eaa6accbc6c4a13f5424eb93cc77">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7556eaa6accbc6c4a13f5424eb93cc77">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -194,7 +226,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aadbe4639439ea45a431150c3697e021b" name="aadbe4639439ea45a431150c3697e021b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadbe4639439ea45a431150c3697e021b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aadbe4639439ea45a431150c3697e021b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -226,7 +258,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad2ad8454eec9aafefe119b74cc7788e5" name="ad2ad8454eec9aafefe119b74cc7788e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2ad8454eec9aafefe119b74cc7788e5">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2ad8454eec9aafefe119b74cc7788e5">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,7 +290,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab30cbd95fc4caaa26ca67d77523819db" name="ab30cbd95fc4caaa26ca67d77523819db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab30cbd95fc4caaa26ca67d77523819db">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab30cbd95fc4caaa26ca67d77523819db">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -287,7 +319,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1700c5de254e103b6545603cbbfcaeb5" name="a1700c5de254e103b6545603cbbfcaeb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1700c5de254e103b6545603cbbfcaeb5">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1700c5de254e103b6545603cbbfcaeb5">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -316,7 +348,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a635e2755bc4cfa9ee321162ebe959f1f" name="a635e2755bc4cfa9ee321162ebe959f1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a635e2755bc4cfa9ee321162ebe959f1f">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a635e2755bc4cfa9ee321162ebe959f1f">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

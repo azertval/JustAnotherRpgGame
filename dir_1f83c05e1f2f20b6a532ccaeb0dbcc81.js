@@ -37,6 +37,7 @@ var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
     [ "QuadRecorder.h", "QuadRecorder_8h.html", "QuadRecorder_8h" ],
     [ "RenderLayer.h", "RenderLayer_8h.html", "RenderLayer_8h" ],
     [ "RhiContext.h", "RhiContext_8h.html", "RhiContext_8h" ],
+    [ "ScenePiecePlacement.h", "ScenePiecePlacement_8h.html", "ScenePiecePlacement_8h" ],
     [ "ScenePieces.h", "ScenePieces_8h.html", "ScenePieces_8h" ],
     [ "SceneResources.cpp", "SceneResources_8cpp.html", null ],
     [ "SceneResources.h", "SceneResources_8h.html", "SceneResources_8h" ],

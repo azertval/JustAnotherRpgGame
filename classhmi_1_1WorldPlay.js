@@ -1,6 +1,7 @@
 var classhmi_1_1WorldPlay =
 [
     [ "WorldPlay", "classhmi_1_1WorldPlay.html#af2211f66356d410034a5eec68fd1701c", null ],
+    [ "diamondRatio", "classhmi_1_1WorldPlay.html#a8285cae2cd0e6313ffe80a56f0669620", null ],
     [ "enter", "classhmi_1_1WorldPlay.html#aae480e9184ffe18278e36114c5762925", null ],
     [ "figures", "classhmi_1_1WorldPlay.html#acbef06d44780edb3de38785805e3a10c", null ],
     [ "heroFigure", "classhmi_1_1WorldPlay.html#a9ae5c3165df10c8f1f3624b613ecc40e", null ],

@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>870 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>878 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (867)</h1>
+Tests unitaires (875)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -6031,7 +6031,7 @@ Vérifie que <span class="tt">engine.volume()</span> vaut <span class="tt">0.42f
 <sub><span class="tt"><a class="el" href="test__audio__engine_8cpp.html" title="Tests unitaires du moteur audio (EX-REN-047, EX-NFR-040).">Source/Test/Unit/HMI/Audio/test_audio_engine.cpp</a>:61</span></sub>  </td><td class="markdownTableBodyNone">Le volume par defaut du moteur audio est au maximum.  </td><td class="markdownTableBodyNone">1. Construire un AudioEngine sans regler de volume.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">engine.volume()</span> vaut <span class="tt">1.0f</span> (comparaison flottante).  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
-Graphics (130)</h3>
+Graphics (138)</h3>
 <p><b><span class="tt"><a class="el" href="test__animation__catalog_8cpp.html" title="Tests unitaires du format nom-asset.anim.json (hmi::AnimationCatalog) : lecture, validation,...">test_animation_catalog.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -6463,6 +6463,24 @@ Vérifie que <span class="tt">projection.worldToTile(camera.screenToWorld({0.0f,
 2. Ouvrir l'image.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
 Vérifie que <span class="tt">image.isNull()</span> est faux.<br  />
 Vérifie que <span class="tt">image.save(destination)</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ArenaSceneRendererTest.ProductionBattleUsesArenaOfBraveMapAndEntries</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp</a>:387</span></sub>  </td><td class="markdownTableBodyNone">Le combat utilise le décor et les départs de la nouvelle arène.  </td><td class="markdownTableBodyNone">Charger la zone sable, monter deux concurrents et rendre la scène.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">zone</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">zone-&gt;columns</span> vaut <span class="tt">20</span>.<br  />
+Vérifie que <span class="tt">zone-&gt;rows</span> vaut <span class="tt">14</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacecore.html#a2f8f6aa025b66709486f9e1e585ac334" title="Relève ce qui empêche une zone d&#39;être une grille tactique (EX-NFR-040).">core::validateCombatZones</a>("capital/arena-of-brave", *loaded.level).empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">mounted.refusals.empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">snapshot.figures.size()</span> vaut <span class="tt">2U</span>.<br  />
+Vérifie que <span class="tt">snapshot.figures[0].anchor.column</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">snapshot.figures[1].anchor.column</span> vaut <span class="tt">18</span>.<br  />
+Vérifie que <span class="tt">rhi</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
+Vérifie que <span class="tt">renderer.composed().quads().size()</span> est strictement supérieur à <span class="tt">7700U</span>.<br  />
+Vérifie que <span class="tt">quad.texture</span> diffère de <span class="tt">renderer.textures().missing.texture</span>.<br  />
+Vérifie que <span class="tt">quad.texture</span> diffère de <span class="tt">texture.texture</span>.<br  />
+Vérifie que <span class="tt">image.save("arena-of-brave-combat.png")</span> est vrai.<br  />
+Vérifie que <span class="tt">session.start()</span> est vrai.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__asset__gallery_8cpp.html" title="Tests unitaires de la galerie des assets (outil de débug) : forme des blocs, disposition,...">test_asset_gallery.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -7038,8 +7056,32 @@ Vérifie que <span class="tt">secondRow.height</span> vaut <span class="tt"><a c
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ScenePiecePlacement.PreservesLegacyPlacementWithoutOptIn</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:36</span></sub>  </td><td class="markdownTableBodyNone">Le placement historique reste inchangé.  </td><td class="markdownTableBodyNone">Lire un manifeste sans placementVersion et composer une pièce.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a6187ab6b560ce90d2d348e8bf85605ed" title="Opt-in : les manifestes historiques ne modifient pas le placement des cartes livrees.">hmi::scenePieceAnchor</a>(manifest, "wall.png")</span> est faux.<br  />
+Vérifie que <span class="tt">quad.x</span> vaut <span class="tt">32</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.y</span> vaut <span class="tt">-228</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ScenePiecePlacement.AlignsFractionalOriginWithoutChangingDimensions</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:55</span></sub>  </td><td class="markdownTableBodyNone">Une ancre fractionnaire aligne la pièce.  </td><td class="markdownTableBodyNone">Lire une origine fractionnaire puis composer la pièce.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">anchor</span> est vrai.<br  />
+Vérifie que <span class="tt">quad.x + anchor-&gt;x * 2</span> vaut <span class="tt">100</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.y + anchor-&gt;y * 2</span> vaut <span class="tt">200</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.width</span> vaut <span class="tt">512</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.height</span> vaut <span class="tt">512</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a6187ab6b560ce90d2d348e8bf85605ed" title="Opt-in : les manifestes historiques ne modifient pas le placement des cartes livrees.">hmi::scenePieceAnchor</a>(manifest, "unknown.png")</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ScenePiecePlacement.RejectsMalformedAnchor</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:79</span></sub>  </td><td class="markdownTableBodyNone">Une ancre invalide est ignorée.  </td><td class="markdownTableBodyNone">Lire une ancre contenant une chaîne à la place d’un nombre.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a6187ab6b560ce90d2d348e8bf85605ed" title="Opt-in : les manifestes historiques ne modifient pas le placement des cartes livrees.">hmi::scenePieceAnchor</a>(manifest, "wall.png")</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ScenePiecePlacement.ProjectionIsOptInAndRejectsInvalidRatios</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:95</span></sub>  </td><td class="markdownTableBodyNone">La projection explicite est contrôlée.  </td><td class="markdownTableBodyNone">Lire les tables sans ratio, avec ratio valide et avec ratios invalides.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">normal.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">normal.appearance.diamondRatio()</span> vaut <span class="tt"><a class="el" href="namespacecore.html#af799f9a001af9c8b79f0bcba667414f9" title="Rapport hauteur / largeur du losange : celui des tuiles de la planche du Colisée.">core::ARENA_DIAMOND_RATIO</a></span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">modular.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">modular.appearance.diamondRatio()</span> vaut <span class="tt">42.0F / 68.0F</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#a64f242c50874e2bfffee39c50d567b2e">hmi::PlaceAppearance::loadFromString</a>(R"({"version":1,"place":"bad","diamondRatio":0})") .ok()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#a64f242c50874e2bfffee39c50d567b2e">hmi::PlaceAppearance::loadFromString</a>( R"({"version":1,"place":"bad","diamondRatio":"wrong"})") .ok()</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>WorldSceneComposerTest.LInstantaneTireLeSolDuTypeEtLeReliefDeLaCase</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:97</span></sub>  </td><td class="markdownTableBodyNone">Le sol vient du type de tuile, le relief de la piece nommee a la case.  </td><td class="markdownTableBodyNone">1. Batir une carte de sable avec une case de pierre, un mur de decor et une piece nommee a une case du decor.<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:182</span></sub>  </td><td class="markdownTableBodyNone">Le sol vient du type de tuile, le relief de la piece nommee a la case.  </td><td class="markdownTableBodyNone">1. Batir une carte de sable avec une case de pierre, un mur de decor et une piece nommee a une case du decor.<br  />
  2. En tirer l'instantane.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">instantane.columns</span> vaut <span class="tt">4</span>.<br  />
 Vérifie que <span class="tt">instantane.rows</span> vaut <span class="tt">3</span>.<br  />
 Vérifie que <span class="tt">instantane.place</span> vaut <span class="tt">"coliseum"</span>.<br  />
@@ -7054,7 +7096,7 @@ Vérifie que <span class="tt">instantane.reliefAt({1, 1}).empty()</span> est vra
 Vérifie que <span class="tt">instantane.floorAt({9, 9}).empty()</span> est vrai.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>WorldSceneComposerTest.LesCheminsCouvrentLeLieuEtLesFigurines</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:130</span></sub>  </td><td class="markdownTableBodyNone">La liste des textures a charger couvre exactement ce que la composition resout.  </td><td class="markdownTableBodyNone">1. Tirer l'instantane d'une carte avec une figurine.<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:215</span></sub>  </td><td class="markdownTableBodyNone">La liste des textures a charger couvre exactement ce que la composition resout.  </td><td class="markdownTableBodyNone">1. Tirer l'instantane d'une carte avec une figurine.<br  />
  2. Lister les chemins de texture.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">std::ranges::is_sorted(chemins)</span> est vrai.<br  />
 Vérifie que <span class="tt">std::ranges::find(chemins, "Scene/coliseum/sand.png")</span> diffère de <span class="tt">chemins.end()</span>.<br  />
 Vérifie que <span class="tt">std::ranges::find(chemins, "Scene/coliseum/stone-slab.png")</span> diffère de <span class="tt">chemins.end()</span>.<br  />
@@ -7065,13 +7107,13 @@ Vérifie que <span class="tt">std::ranges::find(chemins, "Npc/anariel/walk.png")
 Vérifie que <span class="tt">std::ranges::count(chemins, "Scene/coliseum/sand.png")</span> vaut <span class="tt">1</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>WorldSceneComposerTest.LaCompositionPoseChaquePieceSurSonCalque</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:159</span></sub>  </td><td class="markdownTableBodyNone">Sol, relief et figurine tombent sur les calques Tile, Object et Player.  </td><td class="markdownTableBodyNone">1. Composer une carte de douze cases avec un mur, une torche et une figurine.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">sols</span> vaut <span class="tt">12</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:244</span></sub>  </td><td class="markdownTableBodyNone">Sol, relief et figurine tombent sur les calques Tile, Object et Player.  </td><td class="markdownTableBodyNone">1. Composer une carte de douze cases avec un mur, une torche et une figurine.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">sols</span> vaut <span class="tt">12</span>.<br  />
 Vérifie que <span class="tt">reliefs</span> vaut <span class="tt">2</span>.<br  />
 Vérifie que <span class="tt">figurines</span> vaut <span class="tt">1</span>.<br  />
 Vérifie que <span class="tt">quad.sprite.y + quad.sprite.height</span> est strictement inférieur à <span class="tt">piedDeLaCase</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>WorldSceneComposerTest.UneFigurineSansImageAUneCleDeMarqueur</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:209</span></sub>  </td><td class="markdownTableBodyNone">La cle du marqueur d'une figurine se tire de son chemin de bande.  </td><td class="markdownTableBodyNone">1. Demander la cle de marqueur de chemins de figurine, de piece et de chemins malformes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1c839cebf18adf167ae9ac5452d179b6" title="La clé du marqueur d&#39;une figurine qui n&#39;a pas d&#39;image (LOT-39, LOT-96).">hmi::figureMarkerKey</a>("Npc/sentinelle-ironhand/idle.png")</span> vaut <span class="tt">"npc/sentinelle-ironhand"</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:294</span></sub>  </td><td class="markdownTableBodyNone">La cle du marqueur d'une figurine se tire de son chemin de bande.  </td><td class="markdownTableBodyNone">1. Demander la cle de marqueur de chemins de figurine, de piece et de chemins malformes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1c839cebf18adf167ae9ac5452d179b6" title="La clé du marqueur d&#39;une figurine qui n&#39;a pas d&#39;image (LOT-39, LOT-96).">hmi::figureMarkerKey</a>("Npc/sentinelle-ironhand/idle.png")</span> vaut <span class="tt">"npc/sentinelle-ironhand"</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1c839cebf18adf167ae9ac5452d179b6" title="La clé du marqueur d&#39;une figurine qui n&#39;a pas d&#39;image (LOT-39, LOT-96).">hmi::figureMarkerKey</a>("Npc/sentinelle-ironhand/walk.png")</span> vaut <span class="tt">"npc/sentinelle-ironhand"</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1c839cebf18adf167ae9ac5452d179b6" title="La clé du marqueur d&#39;une figurine qui n&#39;a pas d&#39;image (LOT-39, LOT-96).">hmi::figureMarkerKey</a>("Scene/martpart/street.png")</span> vaut <span class="tt">""</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1c839cebf18adf167ae9ac5452d179b6" title="La clé du marqueur d&#39;une figurine qui n&#39;a pas d&#39;image (LOT-39, LOT-96).">hmi::figureMarkerKey</a>("Npc/")</span> vaut <span class="tt">""</span>.<br  />
@@ -7080,21 +7122,26 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1c839cebf18
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1c839cebf18adf167ae9ac5452d179b6" title="La clé du marqueur d&#39;une figurine qui n&#39;a pas d&#39;image (LOT-39, LOT-96).">hmi::figureMarkerKey</a>("Monsters/ironhand-soldier/idle.png")</span> vaut <span class="tt">"monsters/ironhand-soldier"</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>WorldSceneComposerTest.UneFigurineSeNommeParSlugOuParDossier</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:232</span></sub>  </td><td class="markdownTableBodyNone">Le soldat Ironhand se lit dans les monstres, Anariel dans les PNJ.  </td><td class="markdownTableBodyNone">1. Demander la bande idle d'« anariel », puis celle de « Monsters/ironhand-soldier ».  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab7381540071701283f2f87b282a68eb5" title="Le chemin d&#39;une bande de figurine, relatif au dossier des assets.">hmi::figureStripPath</a>("anariel", "idle")</span> vaut <span class="tt">"Npc/anariel/idle.png"</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:317</span></sub>  </td><td class="markdownTableBodyNone">Le soldat Ironhand se lit dans les monstres, Anariel dans les PNJ.  </td><td class="markdownTableBodyNone">1. Demander la bande idle d'« anariel », puis celle de « Monsters/ironhand-soldier ».  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab7381540071701283f2f87b282a68eb5" title="Le chemin d&#39;une bande de figurine, relatif au dossier des assets.">hmi::figureStripPath</a>("anariel", "idle")</span> vaut <span class="tt">"Npc/anariel/idle.png"</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab7381540071701283f2f87b282a68eb5" title="Le chemin d&#39;une bande de figurine, relatif au dossier des assets.">hmi::figureStripPath</a>("anariel", "")</span> vaut <span class="tt">"Npc/anariel/idle.png"</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab7381540071701283f2f87b282a68eb5" title="Le chemin d&#39;une bande de figurine, relatif au dossier des assets.">hmi::figureStripPath</a>("Monsters/ironhand-soldier", "walk")</span> vaut <span class="tt">"Monsters/ironhand-soldier/walk.png"</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>WorldSceneComposerTest.LaPieceNommeeLEmporteSousSonNomCourant</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:251</span></sub>  </td><td class="markdownTableBodyNone">La pièce nommée l'emporte, sous son nom courant.  </td><td class="markdownTableBodyNone">1. Nommer <span class="tt">stone-slab</span> sur une case de sable, et <span class="tt">old-torch</span>, ancien nom de <span class="tt">torch-left</span>, sur le décor.<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:336</span></sub>  </td><td class="markdownTableBodyNone">La pièce nommée l'emporte, sous son nom courant.  </td><td class="markdownTableBodyNone">1. Nommer <span class="tt">stone-slab</span> sur une case de sable, et <span class="tt">old-torch</span>, ancien nom de <span class="tt">torch-left</span>, sur le décor.<br  />
 2. Tirer l'instantané avec le manifeste des alias.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">manifeste.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">instantane.floorAt({0, 1})</span> vaut <span class="tt">"stone-slab"</span>.<br  />
 Vérifie que <span class="tt">instantane.reliefAt({2, 2})</span> vaut <span class="tt">"torch-left"</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>WorldSceneComposerTest.UnePieceLargeSeTrieAuPiedDeSonEmprise</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:280</span></sub>  </td><td class="markdownTableBodyNone">Une pièce large se trie au pied de son emprise.  </td><td class="markdownTableBodyNone">1. Poser un étal 2 × 1 et un mur 1 × 1 sur la même case d'ancrage de deux cartes.<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:365</span></sub>  </td><td class="markdownTableBodyNone">Une pièce large se trie au pied de son emprise.  </td><td class="markdownTableBodyNone">1. Poser un étal 2 × 1 et un mur 1 × 1 sur la même case d'ancrage de deux cartes.<br  />
  2. Composer les deux.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">manifeste.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">large.footprints.at("stall")</span> vaut <span class="tt">(<a class="el" href="structcore_1_1PieceFootprint.html" title="Emprise d&#39;une pièce, en cases : colonnes, puis lignes. Au moins 1 × 1.">core::PieceFootprint</a>{.columns = 2, .rows = 1})</span>.<br  />
 Vérifie que <span class="tt">ordreDuRelief(large)</span> est strictement supérieur à <span class="tt">ordreDuRelief(simple)</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ScenePiecePlacement.DepthRequiresOptInAndValidAnchor</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__composer_8cpp.html" title="Tests de la composition d&#39;un lieu parcouru (LOT-09) : le sol vient du type de tuile,...">Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp</a>:406</span></sub>  </td><td class="markdownTableBodyNone">La profondeur exige un manifeste de placement valide.  </td><td class="markdownTableBodyNone">Lire une pièce valide, une inconnue et un manifeste historique.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#af0d1719f81afaef4f0523f60d0f48cbd">hmi::scenePieceDepthOffset</a>(manifest, "gate.png")</span> vaut <span class="tt">4.5F</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#af0d1719f81afaef4f0523f60d0f48cbd">hmi::scenePieceDepthOffset</a>(manifest, "unknown.png")</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#af0d1719f81afaef4f0523f60d0f48cbd">hmi::scenePieceDepthOffset</a>(legacy, "gate.png")</span> est faux.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">test_world_scene_renderer.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -7102,7 +7149,7 @@ Vérifie que <span class="tt">ordreDuRelief(large)</span> est strictement supér
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>WorldSceneRendererTest.CreationLiberationRecreation</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:130</span></sub>  </td><td class="markdownTableBodyNone">Le cycle de vie des ressources QRhi d'un lieu est sur.  </td><td class="markdownTableBodyNone">1. Creer les ressources hors ecran, sans dessiner.<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:134</span></sub>  </td><td class="markdownTableBodyNone">Le cycle de vie des ressources QRhi d'un lieu est sur.  </td><td class="markdownTableBodyNone">1. Creer les ressources hors ecran, sans dessiner.<br  />
  2. Liberer, puis liberer encore.<br  />
  3. Recreer, dessiner une image du Colisee livre, detruire le rendu avant l'interface.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">renderer.ensureResources(nullptr)</span> est faux.<br  />
 Vérifie que <span class="tt">renderer.created()</span> est faux.<br  />
@@ -7123,7 +7170,7 @@ Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vra
 Vérifie que <span class="tt">image.size()</span> vaut <span class="tt">QSize(TARGET_SIZE, TARGET_SIZE)</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>WorldSceneRendererTest.LeColiseeLivreDevientDesPixels</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:190</span></sub>  </td><td class="markdownTableBodyNone">Le Colisee livre se dessine, sans une seule piece manquante.  </td><td class="markdownTableBodyNone">1. Charger <span class="tt">coliseum.json</span> et la table d'apparence du lieu.<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:194</span></sub>  </td><td class="markdownTableBodyNone">Le Colisee livre se dessine, sans une seule piece manquante.  </td><td class="markdownTableBodyNone">1. Charger <span class="tt">coliseum.json</span> et la table d'apparence du lieu.<br  />
  2. Dessiner une image hors ecran, cadree sur le heros a la porte.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
 Vérifie que <span class="tt">image.size()</span> vaut <span class="tt">QSize(TARGET_SIZE, TARGET_SIZE)</span>.<br  />
 Vérifie que <span class="tt">renderer.composed().size()</span> est strictement supérieur à <span class="tt">700U</span>.<br  />
@@ -7134,7 +7181,7 @@ Vérifie que <span class="tt">renderer.composed().size()</span> vaut <span class
 Vérifie que <span class="tt">paintedPixels(empty)</span> vaut <span class="tt">0U</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>WorldSceneRendererTest.LaCameraSuitLeHerosSansSortirDeLaCarte</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:232</span></sub>  </td><td class="markdownTableBodyNone">Le cadrage d'un lieu suit le heros, borne a la scene, a un agrandissement entier.  </td><td class="markdownTableBodyNone">1. Cadrer une grande carte sur son centre, puis sur un coin.<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:236</span></sub>  </td><td class="markdownTableBodyNone">Le cadrage d'un lieu suit le heros, borne a la scene, a un agrandissement entier.  </td><td class="markdownTableBodyNone">1. Cadrer une grande carte sur son centre, puis sur un coin.<br  />
  2. Cadrer une carte plus petite que la vue.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">suivie.zoom()</span> vaut <span class="tt">1.0F</span> (comparaison flottante).<br  />
 Vérifie que <span class="tt">suivie.center().x</span> vaut <span class="tt">centre.x</span>, à <span class="tt">0.001F</span> près.<br  />
 Vérifie que <span class="tt">suivie.center().y</span> vaut <span class="tt">centre.y</span>, à <span class="tt">0.001F</span> près.<br  />
@@ -7146,7 +7193,7 @@ Vérifie que <span class="tt">petiteVue.center().x</span> vaut <span class="tt">
 Vérifie que <span class="tt">petiteVue.center().y</span> vaut <span class="tt">petite.sceneSize().y / 2.0F</span>, à <span class="tt">0.001F</span> près.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>WorldSceneRendererTest.LesQuartiersLivresDeviennentDesPixels</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:272</span></sub>  </td><td class="markdownTableBodyNone">Les deux quartiers livres se dessinent sans une piece sur le damier, et la sentinelle sous les traits du soldat Ironhand.  </td><td class="markdownTableBodyNone">1. Charger <span class="tt">capital/martpart.json</span> et <span class="tt">capital/arenarea.json</span>, et la table de Martpart.<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:276</span></sub>  </td><td class="markdownTableBodyNone">Les deux quartiers livres se dessinent sans une piece sur le damier, et la sentinelle sous les traits du soldat Ironhand.  </td><td class="markdownTableBodyNone">1. Charger <span class="tt">capital/martpart.json</span> et <span class="tt">capital/arenarea.json</span>, et la table de Martpart.<br  />
  2. Dessiner chacun hors ecran, cadre sur une porte gardee, le heros a cote.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">table.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">carte.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">figurines.empty()</span> est faux.<br  />
@@ -7156,6 +7203,29 @@ Vérifie que <span class="tt">soldat</span> diffère de <span class="tt">rendere
 Vérifie que <span class="tt">soldat-&gt;second.texture</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">soldat-&gt;second.texture</span> diffère de <span class="tt">renderer.textures().missing.texture</span>.<br  />
 Vérifie que <span class="tt">paintedPixels(image)</span> est strictement supérieur à <span class="tt">static_cast&lt;std::size_t&gt;(TARGET_SIZE * TARGET_SIZE / 4)</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>WorldSceneRendererTest.ArenaOfBraveMapsRoundTripAndRenderWithInstalledKit</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:344</span></sub>  </td><td class="markdownTableBodyNone">Les trois cartes se sauvegardent et se rendent avec le kit livré.  </td><td class="markdownTableBodyNone">Charger et enregistrer chaque carte ; comparer les textures du jeu et de l’éditeur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">rhi</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">table.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">saved.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">saved.level-&gt;layers().size()</span> vaut <span class="tt">loaded.level-&gt;layers().size()</span>.<br  />
+Vérifie que <span class="tt">saved.level-&gt;entities().size()</span> vaut <span class="tt">loaded.level-&gt;entities().size()</span>.<br  />
+Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
+Vérifie que <span class="tt">paintedPixels(image)</span> est strictement supérieur à <span class="tt">static_cast&lt;std::size_t&gt;(TARGET_SIZE * TARGET_SIZE / 4)</span>.<br  />
+Vérifie que <span class="tt">quad.texture</span> diffère de <span class="tt">renderer.textures().missing.texture</span>.<br  />
+Vérifie que <span class="tt">editor.depthOffset</span> vaut <span class="tt">gpu.depthOffset</span>.<br  />
+Vérifie que <span class="tt">editor.anchor.has_value()</span> vaut <span class="tt">gpu.anchor.has_value()</span>.<br  />
+Vérifie que <span class="tt">editor.anchor-&gt;x</span> vaut <span class="tt">gpu.anchor-&gt;x</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">editor.anchor-&gt;y</span> vaut <span class="tt">gpu.anchor-&gt;y</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">image.save(QString::fromStdString(name + "-renderer.png"))</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>WorldSceneRendererTest.ArenaOfBravePortalsUseRealWorldTravel</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:397</span></sub>  </td><td class="markdownTableBodyNone">Tous les portails de l’arène se traversent.  </td><td class="markdownTableBodyNone">Entrer dans chaque carte et traverser chaque portail avec WorldTravel.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">travel.enter(id, {})</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69" title="Le personnage est sur la carte demandée, à son point d&#39;arrivée.">core::TravelResult::Moved</a></span>.<br  />
+Vérifie que <span class="tt">travel.enter(id, {})</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69" title="Le personnage est sur la carte demandée, à son point d&#39;arrivée.">core::TravelResult::Moved</a></span>.<br  />
+Vérifie que <span class="tt">travel.cross(entity.position, flags)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69" title="Le personnage est sur la carte demandée, à son point d&#39;arrivée.">core::TravelResult::Moved</a></span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a>(travel.currentMap()-&gt;tileMap().tile(pos.column, pos.row))</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacecore.html#aa92b467992651f41252bd07e5c5f79d0">core::portalAt</a>(*travel.currentMap(), pos).has_value()</span> est faux.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
 Input (25)</h3>

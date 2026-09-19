@@ -17,6 +17,7 @@
 #include &lt;cstdint&gt;
 #include &lt;functional&gt;
 #include &lt;map&gt;
+#include &lt;optional&gt;
 #include &lt;string&gt;
 #include &lt;string_view&gt;
 
@@ -58,11 +59,15 @@ inline constexpr float FIGURE_SCALE = 1.25F;
 
 /// @brief Une texture liable et ses dimensions en pixels (pour normaliser les UV).
 struct SceneTexture {
-    TextureHandle texture = nullptr;
+<span style = "background-color:#dfd">    TextureHandle texture = nullptr;</span>
     int width = 0;
     int height = 0;
     /// Largeur d'une image si la texture est une bande d'animation ; 0 sinon.
-    int frameWidth = 0;
+<span style = "background-color:#dfd">    int frameWidth = 0;</span>
+    /// Origine explicite des pieces modulaires, en pixels d'art du PNG.
+    std::optional&lt;core::Vector2&gt; anchor;
+    /// Somme des coordonnees locales du pied utilise pour le tri, en cases.
+    std::optional&lt;float&gt; depthOffset;
 };
 
 /**
@@ -98,11 +103,12 @@ struct ScenePieceTextures {
 <span style = "background-color:#dfd">                                                  float unitsPerScenePixel) {
     SpriteQuad quad;
     const auto height = static_cast&lt;float&gt;(texture.height);
-    quad.x =</span>
-        topVertex.x - (static_cast&lt;float&gt;(SCENE_HALF_TILE_WIDTH_PIXELS) * unitsPerScenePixel);
-<span style = "background-color:#dfd">    quad.y = topVertex.y -</span>
-             ((height - static_cast&lt;float&gt;(SCENE_TILE_HEIGHT_PIXELS)) * unitsPerScenePixel);
-<span style = "background-color:#dfd">    quad.width = static_cast&lt;float&gt;(texture.width) * unitsPerScenePixel;
+    const core::Vector2 anchor = texture.anchor.value_or(</span>
+        core::Vector2{static_cast&lt;float&gt;(SCENE_HALF_TILE_WIDTH_PIXELS),
+                      height - static_cast&lt;float&gt;(SCENE_TILE_HEIGHT_PIXELS)});
+<span style = "background-color:#dfd">    quad.x = topVertex.x - anchor.x * unitsPerScenePixel;
+    quad.y = topVertex.y - anchor.y * unitsPerScenePixel;
+    quad.width = static_cast&lt;float&gt;(texture.width) * unitsPerScenePixel;
     quad.height = height * unitsPerScenePixel;
     return quad;
 }</span>

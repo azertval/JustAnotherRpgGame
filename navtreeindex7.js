@@ -1,5 +1,7 @@
 var NAVTREEINDEX7 =
 {
+"classcore_1_1ScenePieceManifest.html#a6395b628d5e55a75bd2a62bff6421a05":[44,0,0,124,4],
+"classcore_1_1ScenePieceManifest.html#a6979cb457d32c2be9d8a6587068d7f22":[43,0,1,124,2],
 "classcore_1_1ScenePieceManifest.html#a6979cb457d32c2be9d8a6587068d7f22":[44,0,0,124,2],
 "classcore_1_1ScenePieceManifest.html#a6ea382802f3c340421cc2acebf28da0c":[43,0,1,124,5],
 "classcore_1_1ScenePieceManifest.html#a6ea382802f3c340421cc2acebf28da0c":[44,0,0,124,5],
@@ -247,7 +249,5 @@ var NAVTREEINDEX7 =
 "classhmi_1_1ArenaAppearanceCatalog.html#a5a65215a2c570bee2905e867fe6e565f":[43,0,2,88,4],
 "classhmi_1_1ArenaAppearanceCatalog.html#a5a65215a2c570bee2905e867fe6e565f":[44,0,1,88,4],
 "classhmi_1_1ArenaAppearanceCatalog.html#a631755e2317768443b91fc6f6eec2f75":[43,0,2,88,16],
-"classhmi_1_1ArenaAppearanceCatalog.html#a631755e2317768443b91fc6f6eec2f75":[44,0,1,88,16],
-"classhmi_1_1ArenaAppearanceCatalog.html#a812c8e53901ec0f3616e180ebb923a60":[43,0,2,88,2],
-"classhmi_1_1ArenaAppearanceCatalog.html#a812c8e53901ec0f3616e180ebb923a60":[44,0,1,88,2]
+"classhmi_1_1ArenaAppearanceCatalog.html#a631755e2317768443b91fc6f6eec2f75":[44,0,1,88,16]
 };

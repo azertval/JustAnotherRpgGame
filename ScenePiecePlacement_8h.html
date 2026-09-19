@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/ArenaAnimationState.h File Reference</title>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/ScenePiecePlacement.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('ArenaAnimationState_8h.html','',''); });
+$(function(){initNavTree('ScenePiecePlacement_8h.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -89,32 +89,28 @@ $(function(){initNavTree('ArenaAnimationState_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">ArenaAnimationState.h File Reference</div></div>
+  <div class="headertitle"><div class="title">ScenePiecePlacement.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>L'image courante de chaque figurine du Colisée, telle que <span class="tt"><a class="el" href="namespacehmi.html#aa5e3c79f66ed2e7f47977044cb6d51ba" title="Compose la scène de combat dans un tampon réutilisé, depuis un instantané.">hmi::composeArenaScene</a></span> la lit.  
-<a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;map&gt;</code><br />
-<code>#include &quot;<a class="el" href="BattleGrid_8h_source.html">Core/Combat/BattleGrid.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &quot;<a class="el" href="JsonDocument_8h_source.html">Core/Data/JsonDocument.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Vector2_8h_source.html">Core/Math/Vector2.h</a>&quot;</code><br />
 </div>
-<p><a href="ArenaAnimationState_8h_source.html">Go to the source code of this file.</a></p>
+<p><a href="ScenePiecePlacement_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:hmi_3A_3AArenaFigureAnimation" id="r_hmi_3A_3AArenaFigureAnimation"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ArenaFigureAnimation.html">hmi::ArenaFigureAnimation</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'animation d'une figurine : l'indice de l'image courante dans sa bande.  <a href="structhmi_1_1ArenaFigureAnimation.html#details">More...</a><br /></td></tr>
-<tr class="memitem:hmi_3A_3AArenaAnimationState" id="r_hmi_3A_3AArenaAnimationState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ArenaAnimationState.html">hmi::ArenaAnimationState</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'état d'animation des figurines, par combattant.  <a href="structhmi_1_1ArenaAnimationState.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6187ab6b560ce90d2d348e8bf85605ed" id="r_a6187ab6b560ce90d2d348e8bf85605ed"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a6187ab6b560ce90d2d348e8bf85605ed">hmi::scenePieceAnchor</a> (const nlohmann::json &amp;root, std::string_view filename)</td></tr>
+<tr class="memdesc:a6187ab6b560ce90d2d348e8bf85605ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opt-in : les manifestes historiques ne modifient pas le placement des cartes livrees.  <br /></td></tr>
+<tr class="memitem:af0d1719f81afaef4f0523f60d0f48cbd" id="r_af0d1719f81afaef4f0523f60d0f48cbd"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#af0d1719f81afaef4f0523f60d0f48cbd">hmi::scenePieceDepthOffset</a> (const nlohmann::json &amp;root, std::string_view filename)</td></tr>
 </table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>L'image courante de chaque figurine du Colisée, telle que <span class="tt"><a class="el" href="namespacehmi.html#aa5e3c79f66ed2e7f47977044cb6d51ba" title="Compose la scène de combat dans un tampon réutilisé, depuis un instantané.">hmi::composeArenaScene</a></span> la lit. </p>
-<p>Donnée seule : ce qui la fait avancer au temps réel du rendu (<span class="tt">ArenaAnimationDriver</span>) est une phase distincte. La composition n'en lit que l'indice d'image, et ne le fait jamais avancer — composer deux fois la même scène donne deux fois les mêmes quads. </p>
-</div></div><!-- contents -->
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -127,7 +123,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="ArenaAnimationState_8h.html">ArenaAnimationState.h</a></li>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="ScenePiecePlacement_8h.html">ScenePiecePlacement.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

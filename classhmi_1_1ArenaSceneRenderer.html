@@ -100,10 +100,10 @@ $(function(){initNavTree('classhmi_1_1ArenaSceneRenderer.html','','classhmi_1_1A
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa650470c4ac7e8b733cf4c49ba0d7c54" id="r_aa650470c4ac7e8b733cf4c49ba0d7c54"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa650470c4ac7e8b733cf4c49ba0d7c54">ArenaSceneRenderer</a> (std::filesystem::path coliseumDirectory)</td></tr>
+<tr class="memitem:a56dea0d48315beb28f1a6d777d21cc96" id="r_a56dea0d48315beb28f1a6d777d21cc96"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a56dea0d48315beb28f1a6d777d21cc96">ArenaSceneRenderer</a> (std::filesystem::path coliseumDirectory, bool productionMap=false)</td></tr>
 <tr class="memitem:a5ff7db5698888e27afea03d5bb2d58e4" id="r_a5ff7db5698888e27afea03d5bb2d58e4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5ff7db5698888e27afea03d5bb2d58e4">~ArenaSceneRenderer</a> ()</td></tr>
 <tr class="memitem:aec6d88d49c765f99720f4595c9f50ffb" id="r_aec6d88d49c765f99720f4595c9f50ffb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aec6d88d49c765f99720f4595c9f50ffb">ArenaSceneRenderer</a> (const ArenaSceneRenderer &amp;)=delete</td></tr>
-<tr class="memitem:a67931499a02511e00d24b33edc32aec8" id="r_a67931499a02511e00d24b33edc32aec8"><td class="memItemLeft"><a class="el" href="#aa650470c4ac7e8b733cf4c49ba0d7c54">ArenaSceneRenderer</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a67931499a02511e00d24b33edc32aec8">operator=</a> (const <a class="el" href="#aa650470c4ac7e8b733cf4c49ba0d7c54">ArenaSceneRenderer</a> &amp;)=delete</td></tr>
+<tr class="memitem:a67931499a02511e00d24b33edc32aec8" id="r_a67931499a02511e00d24b33edc32aec8"><td class="memItemLeft"><a class="el" href="#a56dea0d48315beb28f1a6d777d21cc96">ArenaSceneRenderer</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a67931499a02511e00d24b33edc32aec8">operator=</a> (const <a class="el" href="#a56dea0d48315beb28f1a6d777d21cc96">ArenaSceneRenderer</a> &amp;)=delete</td></tr>
 <tr class="memitem:ae85fe8c7d406e9e9e5690838bf26a2c4" id="r_ae85fe8c7d406e9e9e5690838bf26a2c4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae85fe8c7d406e9e9e5690838bf26a2c4">ensureResources</a> (QRhi *<a class="el" href="#a0aa7fd703d2d54de7b460083dca8df41">rhi</a>)</td></tr>
 <tr class="memdesc:ae85fe8c7d406e9e9e5690838bf26a2c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garantit que les ressources existent sur <code class="param">rhi</code>.  <br /></td></tr>
 <tr class="memitem:ae6d35aab7141037ba8112d047f5e85f6" id="r_ae6d35aab7141037ba8112d047f5e85f6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae6d35aab7141037ba8112d047f5e85f6">release</a> () noexcept</td></tr>
@@ -123,9 +123,14 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a3bfbdd2a46aa772f05af8202cad69c2a" id="r_a3bfbdd2a46aa772f05af8202cad69c2a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3bfbdd2a46aa772f05af8202cad69c2a">loadTextures</a> ()</td></tr>
+<tr class="memitem:ade033f3bf3a3a4ae86ce509c2183b8bc" id="r_ade033f3bf3a3a4ae86ce509c2183b8bc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ade033f3bf3a3a4ae86ce509c2183b8bc">loadBattlefield</a> ()</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:ad348c5d761e754762db1206bb29de223" id="r_ad348c5d761e754762db1206bb29de223"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad348c5d761e754762db1206bb29de223">_battlefield</a></td></tr>
+<tr class="memitem:a7d6bdc1e0facfa06e0263608ce5de88b" id="r_a7d6bdc1e0facfa06e0263608ce5de88b"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7d6bdc1e0facfa06e0263608ce5de88b">_battlefieldOrigin</a> {}</td></tr>
+<tr class="memitem:a80b3484ed7157afb91007cdc00eb37e4" id="r_a80b3484ed7157afb91007cdc00eb37e4"><td class="memItemLeft"><a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a>&#160;</td><td class="memItemRight"><a class="el" href="#a80b3484ed7157afb91007cdc00eb37e4">_battlefieldTextures</a></td></tr>
+<tr class="memitem:a634d660e77b8cd0745b0b6c88b45c7fc" id="r_a634d660e77b8cd0745b0b6c88b45c7fc"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#a634d660e77b8cd0745b0b6c88b45c7fc">_battlefieldScene</a></td></tr>
 <tr class="memitem:aacf9fd0d70e452b3a64c103d384e06b1" id="r_aacf9fd0d70e452b3a64c103d384e06b1"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#aacf9fd0d70e452b3a64c103d384e06b1">_directory</a></td></tr>
 <tr class="memitem:acfac35e49caa17bba11a806637edb2ee" id="r_acfac35e49caa17bba11a806637edb2ee"><td class="memItemLeft"><a class="el" href="classhmi_1_1ArenaAppearanceCatalog.html">ArenaAppearanceCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="#acfac35e49caa17bba11a806637edb2ee">_catalog</a></td></tr>
 <tr class="memitem:a6406f3e3ea4543f45cfc85f7faadfe30" id="r_a6406f3e3ea4543f45cfc85f7faadfe30"><td class="memItemLeft">std::map&lt; std::string, int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6406f3e3ea4543f45cfc85f7faadfe30">_bandFrameWidths</a></td></tr>
@@ -161,8 +166,8 @@ Les trois temps, et les deux fils</h2>
 L'ordre de libération</h2>
 <p>Les textures de la planche et le damier meurent <b>avant</b> <span class="tt"><a class="el" href="classhmi_1_1SceneResources.html" title="Lot de sprites, atlas et registre de textures — créés ensemble, libérés ensemble, dans le bon ordre.">hmi::SceneResources</a></span>, qui libère ensuite sa propre grappe dans l'ordre qu'elle fixe (le lot de sprites, qui porte le pipeline, en dernier). Le lot de téléversements de création, s'il n'a jamais été soumis, est rendu à QRhi. Le destructeur fait la même chose : le renderer de Qt Quick est détruit sur le fil de rendu, son <span class="tt">QRhi</span> encore vivant. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa650470c4ac7e8b733cf4c49ba0d7c54" name="aa650470c4ac7e8b733cf4c49ba0d7c54"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa650470c4ac7e8b733cf4c49ba0d7c54">&#9670;&#160;</a></span>ArenaSceneRenderer() <span class="overload">[1/2]</span></h2>
+<a id="a56dea0d48315beb28f1a6d777d21cc96" name="a56dea0d48315beb28f1a6d777d21cc96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56dea0d48315beb28f1a6d777d21cc96">&#9670;&#160;</a></span>ArenaSceneRenderer() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -173,8 +178,12 @@ L'ordre de libération</h2>
         <tr>
           <td class="memname">hmi::ArenaSceneRenderer::ArenaSceneRenderer </td>
           <td>(</td>
-          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>coliseumDirectory</em></span></td><td>)</td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>coliseumDirectory</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>productionMap</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -186,6 +195,7 @@ L'ordre de libération</h2>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">coliseumDirectory</td><td>Dossier de la planche du Colisée (<span class="tt">Assets/Coliseum</span>) : manifeste, pièces et <span class="tt">.anim.json</span>. Absent ou illisible : catalogue vide, rien à dessiner que le fond — jamais une erreur bloquante (<span class="tt">EX-NFR-040</span>). À côté de lui, <span class="tt">Assets/Npc/manifest.json</span> (l'atelier des PNJ, LOT-91) peut mettre un PNJ à la place d'un héros (<span class="tt"><a class="el" href="classhmi_1_1ArenaAppearanceCatalog.html#a9dc3132538268945af654cd544ab813f" title="Applique les remplacements déclarés par le manifeste des PNJ (Source/Elements/Assets/Npc/manifest....">ArenaAppearanceCatalog::applyNpcManifest</a></span>) ; absent : rien. </td></tr>
+    <tr><td class="paramname">productionMap</td><td>Utiliser la carte du catalogue comme décor de combat. </td></tr>
   </table>
   </dd>
 </dl>
@@ -359,6 +369,31 @@ L'ordre de libération</h2>
 
 </div>
 </div>
+<a id="ade033f3bf3a3a4ae86ce509c2183b8bc" name="ade033f3bf3a3a4ae86ce509c2183b8bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade033f3bf3a3a4ae86ce509c2183b8bc">&#9670;&#160;</a></span>loadBattlefield()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::ArenaSceneRenderer::loadBattlefield </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3bfbdd2a46aa772f05af8202cad69c2a" name="a3bfbdd2a46aa772f05af8202cad69c2a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3bfbdd2a46aa772f05af8202cad69c2a">&#9670;&#160;</a></span>loadTextures()</h2>
 
@@ -394,9 +429,9 @@ L'ordre de libération</h2>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#aa650470c4ac7e8b733cf4c49ba0d7c54">ArenaSceneRenderer</a> &amp; hmi::ArenaSceneRenderer::operator= </td>
+          <td class="memname"><a class="el" href="#a56dea0d48315beb28f1a6d777d21cc96">ArenaSceneRenderer</a> &amp; hmi::ArenaSceneRenderer::operator= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="#aa650470c4ac7e8b733cf4c49ba0d7c54">ArenaSceneRenderer</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="#a56dea0d48315beb28f1a6d777d21cc96">ArenaSceneRenderer</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -644,6 +679,94 @@ L'ordre de libération</h2>
 </div><div class="memdoc">
 
 <p>Largeur d'image des bandes dessinées (<span class="tt">idle.png</span>, <span class="tt">death.png</span>), par chemin sous <span class="tt"><a class="el" href="#aacf9fd0d70e452b3a64c103d384e06b1">_directory</a></span>, lue avec leurs clips : <span class="tt"><a class="el" href="structhmi_1_1ArenaTexture.html#a54b06c2d1e41c3fdeba90bcdbdcbae1f" title="Largeur d&#39;une image si la texture est une bande d&#39;animation (frameWidth de son .anim....">ArenaTexture::frameWidth</a></span> à la création des textures. </p>
+
+</div>
+</div>
+<a id="ad348c5d761e754762db1206bb29de223" name="ad348c5d761e754762db1206bb29de223"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad348c5d761e754762db1206bb29de223">&#9670;&#160;</a></span>_battlefield</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&gt; hmi::ArenaSceneRenderer::_battlefield</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7d6bdc1e0facfa06e0263608ce5de88b" name="a7d6bdc1e0facfa06e0263608ce5de88b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d6bdc1e0facfa06e0263608ce5de88b">&#9670;&#160;</a></span>_battlefieldOrigin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> hmi::ArenaSceneRenderer::_battlefieldOrigin {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a634d660e77b8cd0745b0b6c88b45c7fc" name="a634d660e77b8cd0745b0b6c88b45c7fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a634d660e77b8cd0745b0b6c88b45c7fc">&#9670;&#160;</a></span>_battlefieldScene</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> hmi::ArenaSceneRenderer::_battlefieldScene</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a80b3484ed7157afb91007cdc00eb37e4" name="a80b3484ed7157afb91007cdc00eb37e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80b3484ed7157afb91007cdc00eb37e4">&#9670;&#160;</a></span>_battlefieldTextures</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> hmi::ArenaSceneRenderer::_battlefieldTextures</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

@@ -25,6 +25,7 @@
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/MissingTexture.h"
+#include "HMI/Graphics/ScenePiecePlacement.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 
@@ -126,9 +127,8 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
         return std::nullopt;</span>
     }
 <span style = "background-color:#fdd">    GRAPHICS_LOG_INFO("Lieu : la figurine " + cle + " n'a pas d'image, son marqueur la remplace.");
-    return createTexture(_resources.context(), image.width, image.height,</span>
-                         markerPixelsRgba8(image));
-<span style = "background-color:#fdd">}</span>
+    return createTexture(_resources.context(), image.width, image.height, markerPixelsRgba8(image));
+}</span>
 
 <span style = "background-color:#dfd">void WorldSceneRenderer::ensureTextures(const std::vector&lt;std::string&gt;&amp; paths) {
     for (const std::string&amp; path : paths) {</span>
@@ -157,7 +157,18 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
                                               .width = texture-&gt;width,
                                               .height = texture-&gt;height,
                                               .frameWidth = bandFrameWidth(path)};
-<span style = "background-color:#dfd">        _loaded.push_back(std::move(*texture));
+<span style = "background-color:#dfd">        if (path.starts_with("Scene/")) {
+            const auto file = _directory / path;
+            const auto document =</span>
+                core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
+<span style = "background-color:#dfd">            if (document.ok()) {
+                _textures.byPath[path].anchor =</span>
+                    scenePieceAnchor(document.root, file.filename().string());
+<span style = "background-color:#dfd">                _textures.byPath[path].depthOffset =</span>
+                    scenePieceDepthOffset(document.root, file.filename().string());
+            }
+<span style = "background-color:#dfd">        }
+        _loaded.push_back(std::move(*texture));
     }
 }</span>
 
@@ -197,8 +208,9 @@ void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarg
     // et ce sont ses pieces qui disent quoi charger.
 <span style = "background-color:#dfd">    ensureTextures(worldTexturePaths(_snapshot));</span>
 
-<span style = "background-color:#dfd">    const core::IsoProjection projection(_snapshot.columns, _snapshot.rows);
-    _composed.clear();
+<span style = "background-color:#dfd">    const core::IsoProjection projection(_snapshot.columns, _snapshot.rows,</span>
+                                         core::ARENA_TILE_WIDTH_UNITS, _snapshot.diamondRatio);
+<span style = "background-color:#dfd">    _composed.clear();
     composeWorldScene(_composed, _snapshot, projection, _textures);
     _composed.sort();</span>
 

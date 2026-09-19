@@ -15,6 +15,7 @@
 #include "HMI/Graphics/PlaceAppearance.h"
 
 #include &lt;algorithm&gt;
+#include &lt;cmath&gt;
 #include &lt;optional&gt;
 #include &lt;set&gt;
 #include &lt;utility&gt;
@@ -57,8 +58,8 @@ constexpr std::string_view FIELD_RELIEF = "relief";
                              std::map&lt;core::TileType, std::vector&lt;std::string&gt;&gt;&amp; table,
 <span style = "background-color:#dfd">                             std::string&amp; error) {
     const auto found = root.find(field);
-    if (found == root.end()) {</span>
-<span style = "background-color:#fdd">        return true;  // Une table sans sol, ou sans relief, est legitime.</span>
+    if (found == root.end()) {
+        return true;  // Une table sans sol, ou sans relief, est legitime.</span>
     }
 <span style = "background-color:#dfd">    if (!found-&gt;is_object()) {</span>
 <span style = "background-color:#fdd">        error = std::string{field} + " doit etre un objet";
@@ -161,7 +162,19 @@ constexpr std::string_view FIELD_RELIEF = "relief";
     if (place == document.root.end() || !place-&gt;is_string()) {</span>
 <span style = "background-color:#fdd">        return failure("place manquant ou non textuel", PlaceAppearanceError::MalformedStructure);</span>
     }
-<span style = "background-color:#dfd">    appearance._place = place-&gt;get&lt;std::string&gt;();</span>
+<span style = "background-color:#dfd">    appearance._place = place-&gt;get&lt;std::string&gt;();
+    if (document.root.contains("diamondRatio")) {
+        const auto&amp; ratio = document.root["diamondRatio"];
+        if (!ratio.is_number()) {
+            return failure("diamondRatio doit etre numerique",</span>
+                           PlaceAppearanceError::MalformedStructure);
+        }
+<span style = "background-color:#dfd">        const float value = ratio.get&lt;float&gt;();
+        if (!std::isfinite(value) || value &lt;= 0.0F || value &gt; 2.0F) {
+            return failure("diamondRatio hors limites", PlaceAppearanceError::MalformedStructure);</span>
+        }
+<span style = "background-color:#dfd">        appearance._diamondRatio = value;</span>
+    }
 
 <span style = "background-color:#dfd">    std::string error;
     if (!readTable(document.root, FIELD_FLOORS, appearance._floors, error) ||</span>

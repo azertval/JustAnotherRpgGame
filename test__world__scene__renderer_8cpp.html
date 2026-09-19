@@ -106,8 +106,12 @@ $(function(){initNavTree('test__world__scene__renderer_8cpp.html','',''); });
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &lt;rhi/qrhi.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldFlags_8h_source.html">Core/Gameplay/WorldFlags.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelDraft_8h_source.html">Core/Levels/LevelDraft.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldTravel_8h_source.html">Core/World/WorldTravel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="SceneImages_8h_source.html">Editor/Ui/SceneImages.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Camera2D_8h_source.html">HMI/Graphics/Camera2D.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
@@ -123,13 +127,75 @@ Functions</h2></td></tr>
 <tr class="memdesc:aaf6b2fe772ccf7d96339f77d895c1039"><td class="mdescLeft">&#160;</td><td class="mdescRight">La caméra suit le héros et ne sort pas de la carte.  <br /></td></tr>
 <tr class="memitem:a2dc9444d0099f06cc6d78cd87022bb99" id="r_a2dc9444d0099f06cc6d78cd87022bb99"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2dc9444d0099f06cc6d78cd87022bb99">TEST</a> (WorldSceneRendererTest, LesQuartiersLivresDeviennentDesPixels)</td></tr>
 <tr class="memdesc:a2dc9444d0099f06cc6d78cd87022bb99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Martpart et Arenarea livres deviennent des pixels, sentinelle comprise.  <br /></td></tr>
+<tr class="memitem:a7fde4eeb6dfb803c561d57c1c92eeadc" id="r_a7fde4eeb6dfb803c561d57c1c92eeadc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7fde4eeb6dfb803c561d57c1c92eeadc">TEST</a> (WorldSceneRendererTest, ArenaOfBraveMapsRoundTripAndRenderWithInstalledKit)</td></tr>
+<tr class="memdesc:a7fde4eeb6dfb803c561d57c1c92eeadc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les trois cartes se sauvegardent et se rendent avec le kit livré.  <br /></td></tr>
+<tr class="memitem:a1c30319e214b27bead7e94f83c52c4cc" id="r_a1c30319e214b27bead7e94f83c52c4cc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1c30319e214b27bead7e94f83c52c4cc">TEST</a> (WorldSceneRendererTest, ArenaOfBravePortalsUseRealWorldTravel)</td></tr>
+<tr class="memdesc:a1c30319e214b27bead7e94f83c52c4cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tous les portails de l’arène se traversent.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le rendu QRhi d'un <b>lieu qu'on parcourt</b> (<span class="tt">LOT-09</span>), hors écran : cycle de vie des ressources, cadrage qui suit le héros, et une vraie image de la carte <b>livrée</b>. </p>
 <p>Jumeau de <span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">test_arena_scene_renderer.cpp</a></span>, et pour la même raison : <span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante : le jumeau d&#39;hmi::ArenaViewportItem pour le monde.">hmi::WorldViewportItem</a></span> n'est qu'un hôte Qt Quick, et tout ce qui peut fuir ou planter vit dans <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>. Ce test le fait tourner sur un <span class="tt">QRhi</span> Direct3D 11 sans fenêtre, sur le Colisée tel qu'il est commité — c'est la <b>capture de référence</b> du lot : elle est écrite à côté des captures de l'arène, pour être relue à l'œil. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a7fde4eeb6dfb803c561d57c1c92eeadc" name="a7fde4eeb6dfb803c561d57c1c92eeadc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fde4eeb6dfb803c561d57c1c92eeadc">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneRendererTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ArenaOfBraveMapsRoundTripAndRenderWithInstalledKit</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les trois cartes se sauvegardent et se rendent avec le kit livré. </p>
+<p><b>Cas de test :</b> <b>Les trois cartes se sauvegardent et se rendent avec le kit livré.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu du Colisée<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ Charger et enregistrer chaque carte ; comparer les textures du jeu et de l’éditeur.<br  />
+ <b>Resultat attendu :</b> Entités et couches conservées, ancrages et profondeurs identiques, aucune texture manquante. </p>
+
+</div>
+</div>
+<a id="a1c30319e214b27bead7e94f83c52c4cc" name="a1c30319e214b27bead7e94f83c52c4cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c30319e214b27bead7e94f83c52c4cc">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneRendererTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ArenaOfBravePortalsUseRealWorldTravel</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tous les portails de l’arène se traversent. </p>
+<p><b>Cas de test :</b> <b>Tous les portails de l’arène se traversent.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu du Colisée<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ Entrer dans chaque carte et traverser chaque portail avec WorldTravel.<br  />
+ <b>Resultat attendu :</b> Arrivées sur une case libre, sans boucle de téléportation. </p>
+
+</div>
+</div>
 <a id="a131c4f464cb97cca92a1881bb3302081" name="a131c4f464cb97cca92a1881bb3302081"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a131c4f464cb97cca92a1881bb3302081">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a131c4f464cb97cca92a1881bb3302081">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -163,7 +229,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aaf6b2fe772ccf7d96339f77d895c1039" name="aaf6b2fe772ccf7d96339f77d895c1039"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf6b2fe772ccf7d96339f77d895c1039">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf6b2fe772ccf7d96339f77d895c1039">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,7 +261,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a72ccf2b5697e8d87826644f2a8d4f527" name="a72ccf2b5697e8d87826644f2a8d4f527"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72ccf2b5697e8d87826644f2a8d4f527">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a72ccf2b5697e8d87826644f2a8d4f527">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -227,7 +293,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2dc9444d0099f06cc6d78cd87022bb99" name="a2dc9444d0099f06cc6d78cd87022bb99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2dc9444d0099f06cc6d78cd87022bb99">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dc9444d0099f06cc6d78cd87022bb99">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

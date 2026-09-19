@@ -22,6 +22,7 @@
 #include &lt;string_view&gt;
 #include &lt;vector&gt;
 
+#include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/PieceFootprint.h"
 #include "Core/Levels/TileType.h"
@@ -103,6 +104,9 @@ public:
     /// @return L'identifiant du lieu (`coliseum`), vide pour une table vide.
 <span style = "background-color:#dfd">    [[nodiscard]] const std::string&amp; place() const noexcept {
         return _place;
+    }
+    [[nodiscard]] float diamondRatio() const noexcept {
+        return _diamondRatio;
     }</span>
 
     /**
@@ -143,6 +147,7 @@ private:
     [[nodiscard]] static PlaceAppearanceResult fromDocument(const core::JsonDocument&amp; document);
 
     std::string _place;
+    float _diamondRatio = core::ARENA_DIAMOND_RATIO;
     Table _floors;
     Table _relief;
     /// Ancien nom -&gt; nom courant (`aliases` du manifeste).

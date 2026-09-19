@@ -326,7 +326,8 @@ void composeFigure(const Composer&amp; composer, const ArenaAppearanceCatalog&am
 
 void composeArenaScene(ComposedScene&amp; scene, const ArenaSceneSnapshot&amp; snapshot,
                        const ArenaAppearanceCatalog&amp; catalog, const ArenaAnimationState&amp; animation,
-<span style = "background-color:#dfd">                       const core::IsoProjection&amp; projection, const ArenaSceneTextures&amp; textures) {
+                       const core::IsoProjection&amp; projection, const ArenaSceneTextures&amp; textures,
+<span style = "background-color:#dfd">                       bool scenery) {
     const Composer composer{</span>
         .scene = scene,
         .projection = projection,
@@ -337,7 +338,7 @@ void composeArenaScene(ComposedScene&amp; scene, const ArenaSceneSnapshot&amp; s
     // Un seul tampon de chemin pour toute la scene : apres la premiere image, plus d'allocation.
 <span style = "background-color:#dfd">    std::string path;</span>
 
-<span style = "background-color:#dfd">    for (int row = 0; row &lt; snapshot.rows; ++row) {
+<span style = "background-color:#dfd">    for (int row = 0; scenery &amp;&amp; row &lt; snapshot.rows; ++row) {
         for (int column = 0; column &lt; snapshot.columns; ++column) {
             composeTile(composer, catalog, snapshot, {.column = column, .row = row}, path);
         }

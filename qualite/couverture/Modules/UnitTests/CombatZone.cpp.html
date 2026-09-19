@@ -200,8 +200,8 @@ std::vector&lt;CombatZoneTerrain&gt; analyzeCombatZones(const TileMap&amp; colli
 <span style = "background-color:#dfd">    for (const TileLayer&amp; couche : level.layers()) {</span>
         // La grille racine est promue en tete des couches par le chargeur : la redecouper ici en
         // ferait une seconde copie, et la carte reduite porterait deux fois sa collision.
-<span style = "background-color:#dfd">        if (couche.kind == LayerKind::Collision || couche.kind == LayerKind::Legacy) {</span>
-<span style = "background-color:#fdd">            continue;</span>
+<span style = "background-color:#dfd">        if (couche.kind == LayerKind::Collision || couche.kind == LayerKind::Legacy) {
+            continue;</span>
         }
 <span style = "background-color:#dfd">        TileLayer decoupee{.name = couche.name,
                            .kind = couche.kind,
@@ -244,8 +244,8 @@ std::vector&lt;CombatZoneTerrain&gt; analyzeCombatZones(const TileMap&amp; colli
     // L'entree de la carte reduite : celle de la carte si elle est dans la zone, son coin sinon.
     // Une grille de combat ne s'en sert pas -- l'arene pose les combattants sur leurs points
     // d'entree --, mais un champ menteur finirait par etre lu.
-<span style = "background-color:#dfd">    if (zone.contains(level.entry())) {</span>
-<span style = "background-color:#fdd">        reduite.entry = GridPosition{.column = level.entry().column - zone.origin.column,</span>
+<span style = "background-color:#dfd">    if (zone.contains(level.entry())) {
+        reduite.entry = GridPosition{.column = level.entry().column - zone.origin.column,</span>
                                      .row = level.entry().row - zone.origin.row};
     }
 

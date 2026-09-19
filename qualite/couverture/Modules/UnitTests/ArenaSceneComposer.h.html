@@ -37,13 +37,14 @@
  *
  * | PiÃ¨ce | Calque | Tri |
  * |---|---|---|
- * | sol (sable et variantes, pierre, seuil) | `RenderLayer::Tile` | texture, puis profondeur de case |
- * | enceinte (pan, angle, pilier, banniÃ¨re, torche, arche) | `RenderLayer::Object` | pied de la case |
+ * | sol (sable et variantes, pierre, seuil) | `RenderLayer::Tile` | texture, puis profondeur de
+ * case | | enceinte (pan, angle, pilier, banniÃ¨re, torche, arche) | `RenderLayer::Object` | pied de
+ * la case |
  *
  * Le dÃ©cor vient de l'atelier des textures (`LOT-92`, `Assets/Scene/coliseum/`) : **une** piÃ¨ce par
- * case d'enceinte, qui porte son mur (une torche est un pan Ã  torche), dressÃ©e contre l'arÃªte du fond
- * parallÃ¨le au bord de la grille et posÃ©e par son ancre. Les figurines restent celles du ColisÃ©e.
- * | figurine d'un combattant | `RenderLayer::Player` | pied de son emprise |
+ * case d'enceinte, qui porte son mur (une torche est un pan Ã  torche), dressÃ©e contre l'arÃªte du
+ * fond parallÃ¨le au bord de la grille et posÃ©e par son ancre. Les figurines restent celles du
+ * ColisÃ©e. | figurine d'un combattant | `RenderLayer::Player` | pied de son emprise |
  *
  * `Object` et `Player` partagent la bande de profondeur (`hmi::sortsByDepth`) : un mur plus bas Ã 
  * l'Ã©cran passe devant une figurine, un mur plus haut derriÃ¨re â ce que faisait le `z: c + r` de la
@@ -233,10 +234,12 @@ struct ArenaSceneSnapshot {
  * @param animation  Image courante de chaque figurine.
  * @param projection Projection isomÃ©trique de la grille.
  * @param textures   Textures liables.
+ * @param scenery    Composer le dÃ©cor historique ; faux quand la carte fournit le dÃ©cor.
  */
 void composeArenaScene(ComposedScene&amp; scene, const ArenaSceneSnapshot&amp; snapshot,
                        const ArenaAppearanceCatalog&amp; catalog, const ArenaAnimationState&amp; animation,
-                       const core::IsoProjection&amp; projection, const ArenaSceneTextures&amp; textures);
+                       const core::IsoProjection&amp; projection, const ArenaSceneTextures&amp; textures,
+                       bool scenery = true);
 
 /**
  * @brief Compose la scÃ¨ne de combat dans un tampon rÃ©utilisÃ©.

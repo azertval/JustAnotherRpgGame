@@ -1,5 +1,17 @@
 var NAVTREEINDEX16 =
 {
+"classhmi_1_1MainWindow.html#a0fd82b847d227e46f98f3f83d622f435":[43,0,2,65,52],
+"classhmi_1_1MainWindow.html#a0fd82b847d227e46f98f3f83d622f435":[44,0,1,65,52],
+"classhmi_1_1MainWindow.html#a10ab1a96c0a996f8688f9b590a2f029b":[43,0,2,65,57],
+"classhmi_1_1MainWindow.html#a10ab1a96c0a996f8688f9b590a2f029b":[44,0,1,65,57],
+"classhmi_1_1MainWindow.html#a1740570708e810c8d14a9f85988296fb":[43,0,2,65,56],
+"classhmi_1_1MainWindow.html#a1740570708e810c8d14a9f85988296fb":[44,0,1,65,56],
+"classhmi_1_1MainWindow.html#a21acdde1725808677884e5337e5cb790":[43,0,2,65,10],
+"classhmi_1_1MainWindow.html#a21acdde1725808677884e5337e5cb790":[44,0,1,65,10],
+"classhmi_1_1MainWindow.html#a23e247e0ca80892f27be7348daacf566":[43,0,2,65,51],
+"classhmi_1_1MainWindow.html#a23e247e0ca80892f27be7348daacf566":[44,0,1,65,51],
+"classhmi_1_1MainWindow.html#a2be2a6b71ee9770ab402e16bf8d61666":[43,0,2,65,8],
+"classhmi_1_1MainWindow.html#a2be2a6b71ee9770ab402e16bf8d61666":[44,0,1,65,8],
 "classhmi_1_1MainWindow.html#a2ca20212f1ccc0c2df74dde270e8a6ff":[43,0,2,65,49],
 "classhmi_1_1MainWindow.html#a2ca20212f1ccc0c2df74dde270e8a6ff":[44,0,1,65,49],
 "classhmi_1_1MainWindow.html#a2d4fd479e6168cd919c7f22208347a5e":[43,0,2,65,59],
@@ -237,17 +249,5 @@ var NAVTREEINDEX16 =
 "classhmi_1_1PalettePanel.html#a409bfe339cd5a38a3257a492dc959538":[43,0,2,68,19],
 "classhmi_1_1PalettePanel.html#a409bfe339cd5a38a3257a492dc959538":[44,0,1,68,19],
 "classhmi_1_1PalettePanel.html#a41293567f5813d2d68819193c823e846":[43,0,2,68,13],
-"classhmi_1_1PalettePanel.html#a41293567f5813d2d68819193c823e846":[44,0,1,68,13],
-"classhmi_1_1PalettePanel.html#a6a63719ecec98fdc59f3728d58ff8ccd":[43,0,2,68,3],
-"classhmi_1_1PalettePanel.html#a6a63719ecec98fdc59f3728d58ff8ccd":[44,0,1,68,3],
-"classhmi_1_1PalettePanel.html#a6cacdc20ab7455f5b924685f5c02b8cc":[43,0,2,68,5],
-"classhmi_1_1PalettePanel.html#a6cacdc20ab7455f5b924685f5c02b8cc":[44,0,1,68,5],
-"classhmi_1_1PalettePanel.html#a7da613b972d98e7a045925d712ed7aad":[43,0,2,68,25],
-"classhmi_1_1PalettePanel.html#a7da613b972d98e7a045925d712ed7aad":[44,0,1,68,25],
-"classhmi_1_1PalettePanel.html#a7f429cc45ca73c48b62bc282f1a13418":[43,0,2,68,12],
-"classhmi_1_1PalettePanel.html#a7f429cc45ca73c48b62bc282f1a13418":[44,0,1,68,12],
-"classhmi_1_1PalettePanel.html#a7fdb92fcf95438fa75044ab0363e8d92":[43,0,2,68,2],
-"classhmi_1_1PalettePanel.html#a7fdb92fcf95438fa75044ab0363e8d92":[44,0,1,68,2],
-"classhmi_1_1PalettePanel.html#a8c439c34132f48eff4e01a8f4ce6680a":[43,0,2,68,24],
-"classhmi_1_1PalettePanel.html#a8c439c34132f48eff4e01a8f4ce6680a":[44,0,1,68,24]
+"classhmi_1_1PalettePanel.html#a41293567f5813d2d68819193c823e846":[44,0,1,68,13]
 };

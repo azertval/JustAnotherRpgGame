@@ -4,6 +4,7 @@ var structhmi_1_1WorldSceneSnapshot =
     [ "operator==", "structhmi_1_1WorldSceneSnapshot.html#a3f6c0391bfc11e05301d320ae3f0630a", null ],
     [ "reliefAt", "structhmi_1_1WorldSceneSnapshot.html#a3c086c039001eafcaab43b72e6aacf6d", null ],
     [ "columns", "structhmi_1_1WorldSceneSnapshot.html#a95e88a2e9b961547d3a734ccc985b626", null ],
+    [ "diamondRatio", "structhmi_1_1WorldSceneSnapshot.html#a2e70b069e4cd32d82c7c783cb530053e", null ],
     [ "figures", "structhmi_1_1WorldSceneSnapshot.html#a37330b8f96036726b4e3ea1030de098d", null ],
     [ "floors", "structhmi_1_1WorldSceneSnapshot.html#a07a1eb5f4f5b3137b943484975173f06", null ],
     [ "footprints", "structhmi_1_1WorldSceneSnapshot.html#ae4f535da56bbd58b7c4308f19566bf39", null ],

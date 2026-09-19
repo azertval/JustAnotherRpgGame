@@ -1,6 +1,6 @@
 var classhmi_1_1ArenaSceneRenderer =
 [
-    [ "ArenaSceneRenderer", "classhmi_1_1ArenaSceneRenderer.html#aa650470c4ac7e8b733cf4c49ba0d7c54", null ],
+    [ "ArenaSceneRenderer", "classhmi_1_1ArenaSceneRenderer.html#a56dea0d48315beb28f1a6d777d21cc96", null ],
     [ "~ArenaSceneRenderer", "classhmi_1_1ArenaSceneRenderer.html#a5ff7db5698888e27afea03d5bb2d58e4", null ],
     [ "ArenaSceneRenderer", "classhmi_1_1ArenaSceneRenderer.html#aec6d88d49c765f99720f4595c9f50ffb", null ],
     [ "animating", "classhmi_1_1ArenaSceneRenderer.html#a95037537400af6a16d4b5f404856bc5e", null ],
@@ -8,6 +8,7 @@ var classhmi_1_1ArenaSceneRenderer =
     [ "composed", "classhmi_1_1ArenaSceneRenderer.html#a7ca1a14a630b60586c92a232f1de702d", null ],
     [ "created", "classhmi_1_1ArenaSceneRenderer.html#a1b9f25cf12ab90353a6715b871374d11", null ],
     [ "ensureResources", "classhmi_1_1ArenaSceneRenderer.html#ae85fe8c7d406e9e9e5690838bf26a2c4", null ],
+    [ "loadBattlefield", "classhmi_1_1ArenaSceneRenderer.html#ade033f3bf3a3a4ae86ce509c2183b8bc", null ],
     [ "loadTextures", "classhmi_1_1ArenaSceneRenderer.html#a3bfbdd2a46aa772f05af8202cad69c2a", null ],
     [ "operator=", "classhmi_1_1ArenaSceneRenderer.html#a67931499a02511e00d24b33edc32aec8", null ],
     [ "release", "classhmi_1_1ArenaSceneRenderer.html#ae6d35aab7141037ba8112d047f5e85f6", null ],
@@ -19,6 +20,10 @@ var classhmi_1_1ArenaSceneRenderer =
     [ "_animated", "classhmi_1_1ArenaSceneRenderer.html#ab52ccbc75e892f4b0f515302b54c8b2b", null ],
     [ "_animation", "classhmi_1_1ArenaSceneRenderer.html#a7bff94596cf7d792501a8a1a40217dfd", null ],
     [ "_bandFrameWidths", "classhmi_1_1ArenaSceneRenderer.html#a6406f3e3ea4543f45cfc85f7faadfe30", null ],
+    [ "_battlefield", "classhmi_1_1ArenaSceneRenderer.html#ad348c5d761e754762db1206bb29de223", null ],
+    [ "_battlefieldOrigin", "classhmi_1_1ArenaSceneRenderer.html#a7d6bdc1e0facfa06e0263608ce5de88b", null ],
+    [ "_battlefieldScene", "classhmi_1_1ArenaSceneRenderer.html#a634d660e77b8cd0745b0b6c88b45c7fc", null ],
+    [ "_battlefieldTextures", "classhmi_1_1ArenaSceneRenderer.html#a80b3484ed7157afb91007cdc00eb37e4", null ],
     [ "_catalog", "classhmi_1_1ArenaSceneRenderer.html#acfac35e49caa17bba11a806637edb2ee", null ],
     [ "_composed", "classhmi_1_1ArenaSceneRenderer.html#a02dc2b80093547585c6b43efd8ced406", null ],
     [ "_directory", "classhmi_1_1ArenaSceneRenderer.html#aacf9fd0d70e452b3a64c103d384e06b1", null ],

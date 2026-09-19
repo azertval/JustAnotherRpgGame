@@ -1,5 +1,7 @@
 var NAVTREEINDEX6 =
 {
+"classcore_1_1LevelDraft.html#a1767532eba0797c7fa153bcb7a6c56a9":[44,0,0,105,65],
+"classcore_1_1LevelDraft.html#a2336f04e4049731a3d59181cd646d5ca":[43,0,1,105,38],
 "classcore_1_1LevelDraft.html#a2336f04e4049731a3d59181cd646d5ca":[44,0,0,105,38],
 "classcore_1_1LevelDraft.html#a2481967d25d79cb4911d718797accc44":[43,0,1,105,42],
 "classcore_1_1LevelDraft.html#a2481967d25d79cb4911d718797accc44":[44,0,0,105,42],
@@ -247,7 +249,5 @@ var NAVTREEINDEX6 =
 "classcore_1_1ScenePieceManifest.html#a1749193ae1b438c94d4fc80c2b5e6aba":[44,0,0,124,8],
 "classcore_1_1ScenePieceManifest.html#a55c7fea9b7513cf6c37b3def80e6a488":[43,0,1,124,7],
 "classcore_1_1ScenePieceManifest.html#a55c7fea9b7513cf6c37b3def80e6a488":[44,0,0,124,7],
-"classcore_1_1ScenePieceManifest.html#a6395b628d5e55a75bd2a62bff6421a05":[43,0,1,124,4],
-"classcore_1_1ScenePieceManifest.html#a6395b628d5e55a75bd2a62bff6421a05":[44,0,0,124,4],
-"classcore_1_1ScenePieceManifest.html#a6979cb457d32c2be9d8a6587068d7f22":[43,0,1,124,2]
+"classcore_1_1ScenePieceManifest.html#a6395b628d5e55a75bd2a62bff6421a05":[43,0,1,124,4]
 };

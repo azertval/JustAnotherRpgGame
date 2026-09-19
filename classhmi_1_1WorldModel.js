@@ -6,6 +6,7 @@ var classhmi_1_1WorldModel =
     [ "cityLocation", "classhmi_1_1WorldModel.html#a2a2d717ca339db7543fdc8c567838175", null ],
     [ "columns", "classhmi_1_1WorldModel.html#afbe18131b872b6160d85b4139f010f1d", null ],
     [ "dialogueRequested", "classhmi_1_1WorldModel.html#a6723bd1aa09199cdd31a4e74b7e901f4", null ],
+    [ "diamondRatio", "classhmi_1_1WorldModel.html#a8ace752c0cf112e49b79142b3c85290b", null ],
     [ "districtId", "classhmi_1_1WorldModel.html#a77833d510860ab3e8b0325ec5f8df4f8", null ],
     [ "encounterRequested", "classhmi_1_1WorldModel.html#a9f9e8526deca41240e2b15b0349c4421", null ],
     [ "enterMap", "classhmi_1_1WorldModel.html#a79da846c932bf38757c24119d977064c", null ],

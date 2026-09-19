@@ -114,7 +114,8 @@ QImage renderMap(const core::Level&amp; level, const std::filesystem::path&amp; 
         return assets.appearance ? std::move(*assets.appearance) : PlaceAppearance{};
     }();
     const WorldSceneSnapshot snapshot = canvasSnapshot(draft, appearance);
-    const core::IsoProjection projection(snapshot.columns, snapshot.rows);</span>
+    const core::IsoProjection projection(snapshot.columns, snapshot.rows,</span>
+                                         core::ARENA_TILE_WIDTH_UNITS, snapshot.diamondRatio);
 
 <span style = "background-color:#dfd">    SceneImages images(dataRoot / "Assets");
     images.ensure(worldTexturePaths(snapshot));

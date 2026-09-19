@@ -105,6 +105,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acbb59fa899535efdd3dfaae9e54caed7" id="r_acbb59fa899535efdd3dfaae9e54caed7"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#acbb59fa899535efdd3dfaae9e54caed7">canonicalPiece</a> (std::string_view name) const</td></tr>
 <tr class="memitem:a6af0c067714cc6a22c8370e1b819c1c4" id="r_a6af0c067714cc6a22c8370e1b819c1c4"><td class="memItemLeft"><a class="el" href="structcore_1_1PieceFootprint.html">core::PieceFootprint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6af0c067714cc6a22c8370e1b819c1c4">pieceFootprint</a> (std::string_view name) const</td></tr>
 <tr class="memitem:a0d4246e6bc7472127ffce2ffc6b73e05" id="r_a0d4246e6bc7472127ffce2ffc6b73e05"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0d4246e6bc7472127ffce2ffc6b73e05">place</a> () const noexcept</td></tr>
+<tr class="memitem:a9e95a464541a22fef06b33455773645f" id="r_a9e95a464541a22fef06b33455773645f"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a9e95a464541a22fef06b33455773645f">diamondRatio</a> () const noexcept</td></tr>
 <tr class="memitem:a7f3001880647e7cbd440a608f6c3ad67" id="r_a7f3001880647e7cbd440a608f6c3ad67"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a7f3001880647e7cbd440a608f6c3ad67">floorPiece</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell) const</td></tr>
 <tr class="memdesc:a7f3001880647e7cbd440a608f6c3ad67"><td class="mdescLeft">&#160;</td><td class="mdescRight">La pièce de sol d'une case.  <br /></td></tr>
 <tr class="memitem:a8ea131a78fabbf1a289ac197ea071344" id="r_a8ea131a78fabbf1a289ac197ea071344"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a8ea131a78fabbf1a289ac197ea071344">reliefPiece</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell) const</td></tr>
@@ -135,6 +136,7 @@ Static Private Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:af354a8991988a958ed0899d055c1666d" id="r_af354a8991988a958ed0899d055c1666d"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#af354a8991988a958ed0899d055c1666d">_place</a></td></tr>
+<tr class="memitem:af763c816e1e8954bfef164a0768f7406" id="r_af763c816e1e8954bfef164a0768f7406"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#af763c816e1e8954bfef164a0768f7406">_diamondRatio</a> = <a class="el" href="namespacecore.html#af799f9a001af9c8b79f0bcba667414f9">core::ARENA_DIAMOND_RATIO</a></td></tr>
 <tr class="memitem:a8f89950096f1d9f86881f0e2d92e8ff4" id="r_a8f89950096f1d9f86881f0e2d92e8ff4"><td class="memItemLeft"><a class="el" href="#ae39372602315857b3d4baac10da85cdf">Table</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8f89950096f1d9f86881f0e2d92e8ff4">_floors</a></td></tr>
 <tr class="memitem:ad226619598bfbc5692d7b6b80a6bb367" id="r_ad226619598bfbc5692d7b6b80a6bb367"><td class="memItemLeft"><a class="el" href="#ae39372602315857b3d4baac10da85cdf">Table</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad226619598bfbc5692d7b6b80a6bb367">_relief</a></td></tr>
 <tr class="memitem:ad1c91d434a1680b8129ec6aca5246cab" id="r_ad1c91d434a1680b8129ec6aca5246cab"><td class="memItemLeft">std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad1c91d434a1680b8129ec6aca5246cab">_aliases</a></td></tr>
@@ -212,6 +214,31 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le nom courant de la pièce <code class="param">name</code> : elle-même, ou la pièce dont c'est un ancien nom. </dd></dl>
+
+</div>
+</div>
+<a id="a9e95a464541a22fef06b33455773645f" name="a9e95a464541a22fef06b33455773645f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e95a464541a22fef06b33455773645f">&#9670;&#160;</a></span>diamondRatio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::PlaceAppearance::diamondRatio </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -513,6 +540,28 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Ancien nom -&gt; nom courant (<span class="tt">aliases</span> du manifeste). </p>
+
+</div>
+</div>
+<a id="af763c816e1e8954bfef164a0768f7406" name="af763c816e1e8954bfef164a0768f7406"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af763c816e1e8954bfef164a0768f7406">&#9670;&#160;</a></span>_diamondRatio</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::PlaceAppearance::_diamondRatio = <a class="el" href="namespacecore.html#af799f9a001af9c8b79f0bcba667414f9">core::ARENA_DIAMOND_RATIO</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
