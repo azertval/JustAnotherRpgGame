@@ -28,8 +28,8 @@ bas gauche, posée sur une case de terre. Double-cliquer la carte dans la liste 
 Sans lieu (« none »), on peint des types en couleurs sur une grille unique : c'est le repli des
 cartes générées, pas la façon de faire une carte du jeu.
 
-Une carte d'un quartier va dans un sous-dossier (`capital/…`) : la créer, puis déplacer son fichier
-dans `Source/Elements/Levels/capital/`. Le renommage propagé viendra au `LOT-EDITOR-14`.
+Une carte d'un quartier va dans un sous-dossier (`capital/…`) : la créer, puis la renommer
+`capital/echoppe` (**Rename**, ci-dessous) ; le fichier change de dossier.
 
 ## 2. Poser le sol
 
@@ -116,8 +116,27 @@ Les trois retouches du `LOT-EDITOR-06` en sont des exemples
 (`Documentation/Editeur/LOT-EDITOR-06-fin-des-scripts/retouches/`), le format est décrit dans
 `Source/Editor/Logic/GestureScript.h`.
 
+## Renommer, remplacer, changer de planche
+
+Un nom qui change ne casse rien (`LOT-EDITOR-14`) :
+
+- **Rename** (panneau *Maps* ou menu *File*) prend l'identifiant complet, dossier compris
+  (`capital/echoppe`). Portails, variantes, villes et la clé du nom dans chaque catalogue suivent,
+  l'annexe des notes aussi. Une boîte montre d'abord tout ce qui sera récrit.
+- Menu *Map* : **Who cites this map?**, **Who cites the selected entity?** listent les citations ;
+  un double-clic y mène. **Rename entity id…** et **Rename arrival point…** renomment l'entité
+  sélectionnée et ce qui la cite.
+- **Replace piece…** remplace une pièce par une autre de la planche, sur la carte ouverte (en un
+  pas, `Ctrl+Z` le défait) ou sur toutes les cartes qui la posent.
+- **Change sheet…** fait passer la carte à une autre planche : chaque pièce va à son homonyme, et
+  la table du dialogue donne les autres ; on ne valide qu'une table sans trou. Un pas, lui aussi.
+
+Tout ce qui récrit d'autres fichiers demande d'abord d'enregistrer la carte ouverte, et un refus
+(nom pris, carte illisible, pièce sans correspondant) n'écrit rien. Les mêmes commandes existent
+sans fenêtre : `--rename-map`, `--rename-arrival`, `--rename-id`, `--who-cites`,
+`--replace-piece`, `--change-scene` (voir `Source/Editor/README.md`).
+
 ## Ce qui ne se fait pas encore dans l'éditeur
 
-- Changer une carte de lieu (sa planche), renommer une carte citée par d'autres : `LOT-EDITOR-14`.
 - Copier un ensemble de pièces et d'entités comme un tampon : `LOT-EDITOR-08`.
 - Relier deux cartes depuis le graphe du monde : `LOT-EDITOR-09`.

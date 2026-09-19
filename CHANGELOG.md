@@ -6,6 +6,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Renommer et remplacer (LOT-EDITOR-14).**
+  - **Un renommage suit tout ce qui cite** : renommer une carte — dossier compris,
+    `coliseum` → `capital/coliseum` — récrit les portails, les variantes, les quartiers et portes
+    gardées des villes, la clé de son nom dans chaque catalogue, et déplace ses notes ; un point
+    d'arrivée ou un identifiant d'entité, de même. Rien n'est écrit si le renommage est impossible,
+    et la fenêtre montre d'abord ce qui sera récrit.
+  - **« Qui cite ceci ? »** pour une carte, une entité, un point d'arrivée ou une pièce ; un
+    double-clic mène à la citation.
+  - **Remplacer une pièce** par une autre, sur la carte ouverte (un `Ctrl+Z` le défait) ou sur
+    toutes les cartes qui la posent.
+  - **Changer une carte de planche sans la repeindre** : chaque pièce va à son homonyme, une table
+    de correspondance donne les autres, la collision se redéduit. La planche d'Arenarea se
+    commande à l'atelier des textures ; la carte y passera d'une commande.
+  - Les mêmes opérations sans fenêtre : `--who-cites`, `--rename-map`, `--rename-arrival`,
+    `--rename-id`, `--replace-piece`, `--change-scene`.
 - **Contrôle du contenu (LOT-EDITOR-07).**
   - **`--check` dit si une carte se joue**, sur toutes les cartes, et la CI échoue sinon :
     références des entités et drapeaux de monde, rencontres qui ne tiennent pas, PNJ, coffre,
