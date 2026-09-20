@@ -1,0 +1,342 @@
+# Catalogue des versions, dans l'ordre où elles se livrent. C'est ce fichier que lisent le lint
+# (`outils/lint_planning.py`) et le site (`outils/build_planning_site.py`).
+#
+#   nature = "detaillee"       la version a ses lots, ses livrables, ses maquettes
+#   nature = "previsionnelle"  la version a un périmètre, pas encore de lots : elle se détaille
+#                              quand la précédente approche de sa fin — pas avant
+#
+# `referentiel` regroupe les versions sous le jalon majeur qu'elles servent.
+
+# ------------------------------------------------------------------------------------------------
+# Référentiel 0.1.0 — l'Empire central
+# ------------------------------------------------------------------------------------------------
+
+[[version]]
+id = "0.0.1"
+titre = "Démo basique"
+nature = "detaillee"
+referentiel = "0.1.0"
+dossier = "v0.1.0/v0.0.1-demo"
+resume = "Trois quartiers de la Capitale en 2D HD, et une quête qui les traverse : du marché de Martpart au sable de l'Arena of Fate."
+objectifs = [
+  "Le **standard 2D HD** : un style écrit, une arborescence d'assets durable, et plus un seul asset pixel art dans le dépôt.",
+  "**Arena of Fate**, **Arenarea** et **Martpart** : assets HD, carte jouable et carte de l'onglet « Carte » pour chacun.",
+  "Les PNJ des trois quartiers : nommés, neutres, et les combattants de l'arène.",
+  "La quête **« Des pommes pour l'arène »**, jouable de bout en bout : dialogue, jet de Persuasion, combat seul contre un, deux fins.",
+]
+criteres_de_sortie = [
+  "Un joueur qui ne connaît pas le projet termine la démo par chacune de ses **trois issues** (persuasion réussie, victoire, mort) sans aide.",
+  "Aucun asset pixel art ne reste dans `Source/Elements/Assets/` ; la galerie de débug montre tous les assets HD.",
+  "Les trois cartes passent le contrôle de l'éditeur (`--check`) et se parcourent sans case inatteignable.",
+  "La CI est verte, l'installeur se lance sur un poste vierge, le tag `v0.0.1` est posé.",
+]
+sources = [
+  "Tanares Sourcebook — la Capitale et ses quartiers (chapitre Central Empire)",
+  "Character Compendium — PNJ de l'Empire central (index p. 166)",
+]
+
+[[version]]
+id = "0.0.2"
+titre = "Système de combat"
+nature = "detaillee"
+referentiel = "0.1.0"
+dossier = "v0.1.0/v0.0.2-combat"
+resume = "Les quatre classes de base, d'après leurs fiches préfabriquées, et le combat de groupe."
+objectifs = [
+  "Les **quatre classes de base** du *Player's Guide*, fidèles aux fiches préfabriquées (p. 195, 199, 203, 207) : compétences, capacités, assets.",
+  "Le **combat de groupe** : plusieurs personnages joués contre plusieurs adversaires.",
+  "Une **interface à jour** : les profils des personnages dans le combat, la fiche et le groupe.",
+]
+criteres_de_sortie = [
+  "Chacune des quatre fiches préfabriquées se recrée dans le jeu, valeur pour valeur.",
+  "Un combat à quatre contre quatre se joue de bout en bout dans l'Arena of Fate, au clavier comme à la manette.",
+  "Chaque capacité de classe des fiches a un effet en combat et une ligne dans le journal.",
+]
+sources = [
+  "Player's Guide to Tanares — classes simplifiées, p. 192-208 ; fiches préfabriquées p. 195, 199, 203, 207",
+]
+
+[[version]]
+id = "0.0.3"
+titre = "Zone — la Capitale dans ses murs"
+nature = "detaillee"
+referentiel = "0.1.0"
+dossier = "v0.1.0/v0.0.3-capitale-intra-muros"
+resume = "Les six autres quartiers intra-muros : Uptown, Artisansquare, Scholarnest, Dweomer, Downtown, Palacedomain."
+objectifs = [
+  "Les **six quartiers** intra-muros restants : assets HD, PNJ, carte jouable et carte de l'onglet.",
+  "Le **kit commun de la Capitale** : ce que les quartiers partagent cesse d'être refait à chaque zone.",
+  "La **sauvegarde** : le monde devient trop grand pour une séance.",
+]
+criteres_de_sortie = [
+  "On traverse la Capitale intra-muros par ses portails, sans quitter le jeu.",
+  "Les PNJ nommés de la cour, de la cathédrale et de Dweomer sont à leur place.",
+  "Une partie se sauvegarde et se reprend dans n'importe quel quartier.",
+]
+sources = ["Tanares Sourcebook, p. 96-99 ; plan VTT de la Capitale (référence seule)"]
+
+[[version]]
+id = "0.0.4"
+titre = "Zone — les faubourgs"
+nature = "detaillee"
+referentiel = "0.1.0"
+dossier = "v0.1.0/v0.0.4-faubourgs"
+resume = "Hors les murs : Sloghood, Oldtown, Neckoffoods, Bloomburgs, les docks — et les deux autres arènes."
+objectifs = [
+  "Les **faubourgs** : Sloghood, Oldtown, Neckoffoods, Bloomburgs, Docks District.",
+  "Les **trois arènes** de la Capitale en gradation : Braves Arena, Illu Die Arena, Arena of Fate.",
+]
+criteres_de_sortie = [
+  "Les six portes de la ville s'ouvrent sur leur faubourg.",
+  "On combat dans les trois arènes, de la plus modeste à la plus prestigieuse.",
+]
+sources = ["Tanares Sourcebook, p. 98-99"]
+
+[[version]]
+id = "0.0.5"
+titre = "Zone — les abords de la Capitale"
+nature = "detaillee"
+referentiel = "0.1.0"
+dossier = "v0.1.0/v0.0.5-abords-de-la-capitale"
+resume = "La campagne proche et le premier donjon : Phantom Fortress. Le voyage entre zones."
+objectifs = [
+  "**Phantom Fortress**, forteresse Ironhand et prison hantée : le premier donjon.",
+  "La **carte de région** et le **voyage** entre zones.",
+  "Les **animaux** des prairies et des routes.",
+]
+criteres_de_sortie = [
+  "On quitte la Capitale, on voyage, on entre dans la forteresse et on en ressort.",
+]
+sources = ["Tanares Sourcebook, p. 94"]
+
+[[version]]
+id = "0.0.6"
+titre = "Zone — la côte sud"
+nature = "detaillee"
+referentiel = "0.1.0"
+dossier = "v0.1.0/v0.0.6-cote-sud"
+resume = "Skybell City, la ville sainte ; le marais salant d'O'Myre ; le Cursed Ground et ses êtres fongiques."
+objectifs = [
+  "**Skybell City** et son pèlerinage.",
+  "**Cursed Ground** : trois factions, aucun animal.",
+  "Le **Cult of Shadow Wing**, premier adversaire organisé.",
+]
+criteres_de_sortie = [
+  "Le pèlerinage de Skybell se fait et donne ses bénédictions.",
+  "Le Cursed Ground se traverse, et l'on y choisit un camp.",
+]
+sources = ["Tanares Sourcebook, p. 92-95"]
+
+[[version]]
+id = "0.0.7"
+titre = "Zone — la forêt de Bak"
+nature = "detaillee"
+referentiel = "0.1.0"
+dossier = "v0.1.0/v0.0.7-foret-de-bak"
+resume = "La grande forêt protégée, ses étangs sacrés, les anciens heargs, la peste qui corrompt la faune."
+objectifs = [
+  "**The Great Forest of Bak**, est et ouest ; **The Sacred Ponds** ; **Ancient Heargs**.",
+  "Les **aberrations** de la peste et la faune de la forêt.",
+]
+criteres_de_sortie = [
+  "Un repos dans un étang sacré a l'effet que le livre lui donne.",
+  "Les druides confient une quête à un étranger.",
+]
+sources = ["Tanares Sourcebook, p. 93-94"]
+
+[[version]]
+id = "0.0.8"
+titre = "Zone — le nord"
+nature = "detaillee"
+referentiel = "0.1.0"
+dossier = "v0.1.0/v0.0.8-nord"
+resume = "Hajal City, la ville de la Banque, et les hautes terres froides."
+objectifs = [
+  "**Hajal City** : la hiérarchie sociale lisible au vêtement, la Bank of Hajal.",
+]
+criteres_de_sortie = [
+  "Tiwilade reçoit le joueur ; le rang social des passants se lit à l'écran.",
+]
+sources = ["Tanares Sourcebook, p. 93, 212-213"]
+
+[[version]]
+id = "0.0.9"
+titre = "Zone — l'ouest"
+nature = "detaillee"
+referentiel = "0.1.0"
+dossier = "v0.1.0/v0.0.9-ouest"
+resume = "Le monastère d'albâtre d'Odraz, au pied des monts Rainbow Dale."
+objectifs = [
+  "**Odraz Monastery** et son entraînement.",
+]
+criteres_de_sortie = [
+  "L'entraînement du monastère donne ses variantes de classe.",
+]
+sources = ["Tanares Sourcebook, p. 95"]
+
+[[version]]
+id = "0.1.0"
+titre = "L'Empire central"
+nature = "detaillee"
+referentiel = "0.1.0"
+dossier = "v0.1.0/v0.1.0-empire-central"
+resume = "La région entière, relue d'un bloc : toutes ses zones, ses PNJ nommés, ses peuples, ses animaux, ses monstres, les quatre classes."
+objectifs = [
+  "La **recette** de la région : équilibrage, cohérence, performances, sauvegarde.",
+  "La **version publiée** : installeur, notes de version, tag `v0.1.0`.",
+]
+criteres_de_sortie = [
+  "Toutes les zones de l'Empire central de l'atlas se visitent.",
+  "Tous les PNJ nommés de l'Empire central du compendium sont dans le jeu, avec leurs assets.",
+  "Une partie se sauvegarde et se reprend dans n'importe quelle zone.",
+]
+
+# ------------------------------------------------------------------------------------------------
+# Référentiels 0.2.0 et 0.3.0
+# ------------------------------------------------------------------------------------------------
+
+[[version]]
+id = "0.2.0"
+titre = "La compagnie"
+nature = "detaillee"
+referentiel = "0.2.0"
+dossier = "v0.2.0"
+resume = "La compagnie d'aventuriers et les dernières fonctionnalités du jeu : après elle, on n'ajoute plus que du contenu."
+objectifs = [
+  "La **compagnie** : recrutement, rangs de Guilde, contrats, quartier général.",
+  "Les **dernières fonctionnalités** : économie et marchands, expérience et progression, repos, calendrier, voyage.",
+]
+criteres_de_sortie = [
+  "La liste des fonctionnalités du jeu est **close** : tout ce qui suit la 0.2.0 est du contenu ou de la correction.",
+  "Une compagnie se fonde, prend un contrat, le remplit et monte en rang.",
+]
+
+[[version]]
+id = "0.3.0"
+titre = "Classes et espèces, pour de vrai"
+nature = "detaillee"
+referentiel = "0.3.0"
+dossier = "v0.3.0"
+resume = "La vraie complexité : toutes les espèces, les classes complètes et leurs sous-classes, les sorts."
+objectifs = [
+  "Toutes les **espèces** du *Player's Guide* et du *Manuel des Joueurs*, avec leurs assets.",
+  "Les **classes complètes** : progression par niveau, sous-classes, sorts.",
+  "La **création de personnage** complète.",
+]
+criteres_de_sortie = [
+  "Tout personnage que les livres permettent de créer se crée dans le jeu.",
+  "Chaque classe se joue du niveau 1 au niveau maximal retenu, capacités en main.",
+]
+sources = [
+  "Player's Guide to Tanares — espèces p. 11-56, classes p. 56-192, sous-classes p. 208-260",
+  "Manuel des Joueurs — races p. 17-45, classes p. 45-141",
+]
+
+# ------------------------------------------------------------------------------------------------
+# Prévisionnel — une version par région majeure, du voisinage de l'Empire vers les confins
+# ------------------------------------------------------------------------------------------------
+
+[[version]]
+id = "0.4.0"
+titre = "Imperial Benênet"
+nature = "previsionnelle"
+referentiel = "Régions"
+resume = "Voisine de l'Empire central. 7 lieux à l'atlas, 445 000 habitants."
+
+[[version]]
+id = "0.5.0"
+titre = "Seashores"
+nature = "previsionnelle"
+referentiel = "Régions"
+resume = "Voisine de l'Empire central, porte de la mer. 6 lieux, 617 000 habitants."
+
+[[version]]
+id = "0.6.0"
+titre = "Sindile Forest"
+nature = "previsionnelle"
+referentiel = "Régions"
+resume = "Voisine de l'Empire central. 7 lieux, 432 000 habitants."
+
+[[version]]
+id = "0.7.0"
+titre = "Theocracy of Kepesh"
+nature = "previsionnelle"
+referentiel = "Régions"
+resume = "Voisine de l'Empire central. 6 lieux, 695 000 habitants."
+
+[[version]]
+id = "0.8.0"
+titre = "Stravian Domains"
+nature = "previsionnelle"
+referentiel = "Régions"
+resume = "Voisine de l'Empire central. 6 lieux, 960 000 habitants."
+
+[[version]]
+id = "0.9.0"
+titre = "Tsvetan"
+nature = "previsionnelle"
+referentiel = "Régions"
+resume = "Voisine de l'Empire central. 6 lieux, 468 000 habitants."
+
+[[version]]
+id = "0.10.0"
+titre = "Republic of Freelands"
+nature = "previsionnelle"
+referentiel = "Régions"
+resume = "Second cercle. La plus vaste après l'Empire : 15 lieux, 1 700 000 habitants."
+
+[[version]]
+id = "0.11.0"
+titre = "Magocracy of Mage Tower"
+nature = "previsionnelle"
+referentiel = "Régions"
+resume = "Second cercle. 6 lieux, 867 000 habitants."
+
+[[version]]
+id = "0.12.0"
+titre = "Kingdom of Kolbjörn"
+nature = "previsionnelle"
+referentiel = "Régions"
+resume = "Second cercle. 6 lieux, 720 000 habitants."
+
+[[version]]
+id = "0.13.0"
+titre = "Taii-Maku City States"
+nature = "previsionnelle"
+referentiel = "Régions"
+resume = "Second cercle. 4 lieux, 698 000 habitants."
+
+[[version]]
+id = "0.14.0"
+titre = "Storm Islands"
+nature = "previsionnelle"
+referentiel = "Régions"
+resume = "Les confins. 6 lieux, 386 000 habitants."
+
+[[version]]
+id = "0.15.0"
+titre = "Yama"
+nature = "previsionnelle"
+referentiel = "Régions"
+resume = "Les confins : on n'y accède que par Seashores. 7 lieux, 793 000 habitants."
+
+[[version]]
+id = "0.16.0"
+titre = "Les autres régions"
+nature = "previsionnelle"
+referentiel = "Au-delà"
+resume = "Undertanares, Darkall, Mystical : ce qui n'est pas une région majeure."
+
+[[version]]
+id = "0.17.0"
+titre = "Le plan pénombral"
+nature = "previsionnelle"
+referentiel = "Au-delà"
+resume = "Le second monde du Sourcebook (p. 50-68)."
+
+[[version]]
+id = "1.0.0"
+titre = "Le monde complet"
+nature = "previsionnelle"
+referentiel = "1.0.0"
+resume = "Le bac à sable de Tanares, entier : toutes les régions, relues et équilibrées d'un bloc."

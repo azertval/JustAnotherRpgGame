@@ -25,7 +25,9 @@ Le détail de chaque lot (objectifs, tâches, avancement) est dans la rubrique
 - @subpage guide — **Guide du développeur** : comprendre tout le moteur (concepts, code, maths).
 - @subpage cahiertest — **Cahier de test** : tous les cas de test (catégorie, criticité, étapes).
 - @subpage specifications — besoins, contraintes et exigences (`EX-…`), conventions de code.
-- @subpage lots — plan de travail : un lot par incrément, découpé en tâches.
+- @subpage lots — les lots **livrés** (`LOT-01` à `LOT-96`) et l'ancienne feuille de route, figée.
+- **Planification** — les versions et les lots **à venir**, leur avancement et leurs maquettes :
+  <a href="planning/index.html">site de planification</a> (source : dossier `Planning/` du dépôt).
 - @subpage manuel — manuel utilisateur (télécharger et lancer le jeu).
 - **Référence de code** — classes, espaces de noms et fichiers de `Source/` : voir
   l'arbre de navigation (menu latéral) et les onglets *Namespaces* / *Classes*.

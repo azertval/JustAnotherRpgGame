@@ -692,6 +692,15 @@ jobs:
         if: ${{ !cancelled() }}
         run: python3 scripts/lint_lots.py
 
+      # La planification (Planning/) est la source des lots a venir depuis le 20 septembre 2026 ; la
+      # feuille de route ci-dessus est figee. Ce lint refuse une fiche de lot illisible, un prerequis
+      # inconnu ou cyclique, un lot qui attend une version ulterieure, un lot livre avant ses
+      # prerequis, une maquette ou un lien qui ne mene nulle part.
+      - name: Lint de la planification
+        id: planning
+        if: ${{ !cancelled() }}
+        run: python3 Planning/outils/lint_planning.py
+
       - name: Version de Qt coherente CMake / CI (EX-BUILD-010)
         id: qt_pin
         if: ${{ !cancelled() }}
@@ -850,6 +859,7 @@ jobs:
           OUTCOMES: |
             Identifiants d'exigences=${{ steps.exigences.outcome }}
             Graphe de lots=${{ steps.lots.outcome }}
+            Planification=${{ steps.planning.outcome }}
             Version de Qt CMake / CI=${{ steps.qt_pin.outcome }}
             Séparation conception / code=${{ steps.ui_layers.outcome }}
             Contrat Qt Design Studio=${{ steps.designer.outcome }}

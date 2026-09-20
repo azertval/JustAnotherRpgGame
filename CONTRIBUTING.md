@@ -134,7 +134,9 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
 - **Documentation et site qualité** (`docs.yml`) : à chaque merge, publie sur **`gh-pages`** la
   Doxygen (racine du site) et la page **qualité** (`/qualite/`) : couverture de `main` par domaine
   et son rapport détaillé, dernières mesures de performance de la nuit et leurs courbes. Republiée
-  chaque matin pour y faire entrer les mesures de la nuit.
+  chaque matin pour y faire entrer les mesures de la nuit. Le **site de planification**
+  (`/planning/`) est engendré au même moment depuis `Planning/`
+  (`python Planning/outils/build_planning_site.py --out build/planning-site` pour le voir en local).
 
 ## Avant d'ouvrir une PR
 0. `uv run scripts/check.py` est vert (contrôles du référentiel, tests des scripts et hooks).

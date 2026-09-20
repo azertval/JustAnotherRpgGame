@@ -1,5 +1,14 @@
 # Feuille de route — le bac à sable de Tanares {#roadmap}
 
+> **Page figée le 20 septembre 2026.** Elle n'est plus la source des lots à venir : la planification
+> vit désormais dans le dossier `Planning/` du dépôt, publié sur le
+> [site de planification](https://azertval.github.io/JustAnotherRpgGame/planning/). Le jeu quitte
+> le pixel art pour la 2D HD, le référentiel `0.1.0` devient l'Empire central seul, et la `0.0.1` une
+> démo basique. Les lots que cette page annonçait sont repris sous de nouveaux numéros, à partir de
+> `LOT-100` : la table de correspondance est dans `Planning/vision/correspondance-ancienne-roadmap.md`.
+> Cette page reste pour l'histoire des lots `LOT-01` à `LOT-96`, et parce que la documentation
+> renvoie à ses ancres ; son tableau d'avancement ne se met plus à jour.
+
 Le programme complet du jeu, et **l'unique source de vérité** des lots à venir : les lots `LOT-09`
 à `LOT-96`, ce que le corpus `Documentation/SourceBook/` permet d'en tirer, et les audits qui ont
 confronté le tout à l'état réel du dépôt et aux deux livres de Tanares.
