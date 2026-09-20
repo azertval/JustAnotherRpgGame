@@ -3,7 +3,7 @@ id = "LOT-101"
 titre = "Le standard 2D HD"
 version = "0.0.1"
 filiere = "standard"
-statut = "en-cours"
+statut = "livre"
 taille = "M"
 resume = "Le style qui remplace le pixel art est écrit, chiffré et éprouvé sur une maquette rendue dans le moteur."
 prerequis = ["LOT-100"]
@@ -123,3 +123,7 @@ ce qu'un lot ne fait pas et devait faire s'écrit dans un autre lot.
 
 Le détail des pièces, lui, se travaille dans les lots d'assets dédiés : ce standard dit le format,
 pas le dessin.
+
+---
+
+Livré le 20 septembre 2026 par la [PR #95](https://github.com/azertval/JustAnotherRpgGame/pull/95).
