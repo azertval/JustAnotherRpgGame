@@ -125,6 +125,12 @@ scène à l'écran :
   où la scène est plus petite que la vue, la caméra reste centrée, faute de quoi la carte collerait
   à un bord.
 
+> **Écart avec la spécification, ouvert depuis le `LOT-101`.** `EX-REN-013` ne demande plus
+> d'agrandissement entier : elle veut un facteur libre, déduit de la définition de la fenêtre (une
+> case = hauteur de la fenêtre / 10,8). Ce que décrit ce paragraphe est le code **d'aujourd'hui**,
+> hérité du pixel art ; c'est le `LOT-103` qui le met à l'exigence, en même temps qu'il donne à
+> `SpriteBatch` un échantillonneur bilinéaire avec mipmaps.
+
 L'élément Qt Quick publie ce cadrage à son calque d'interface QML et s'en sert pour traduire le
 pointeur en case : deux cadrages recalculés chacun de leur côté ne tombent jamais au même pixel.
 

@@ -24,9 +24,14 @@ Choix retenu : **ECS**, hébergé dans `Core`, pour les objets posés sur une ca
 - \anchor EX-ARCH-020 **EX-ARCH-020** — Unité monde = **1 tuile**, positions en **float**, origine **haut-gauche**, axe **Y vers le bas**.
 - \anchor EX-ARCH-021 **EX-ARCH-021** — Un facteur **pixels-par-unité** (16) régit la conversion monde → écran ; les conversions sont centralisées (pas de constantes éparpillées).
 - \anchor EX-ARCH-022 **EX-ARCH-022** — Rendu **fidèle à la nature de l'asset** : l'échantillonnage se choisit par asset — *nearest* pour une image dont les pixels sont signifiants (les pièces de scène), **interpolé** pour une illustration peinte, qui n'a pas de grille à préserver et que le plus proche voisin rendrait crénelée. Le zoom caméra n'est plus contraint aux facteurs entiers : cette contrainte n'a jamais servi qu'à ne pas casser la grille du pixel art.
-  > **Précisée au `LOT-92`.** Les textures de scène de l'atelier des textures sont des images
-  > dont les pixels sont signifiants (`EX-VIS-008`) : la scène les échantillonne au plus proche
-  > voisin, les images de la charte v2 restent interpolées (`EX-VIS-009`).
+  > **Précisée au `LOT-101`.** La scène est peinte, et non plus en pixel art : plus aucun asset du
+  > jeu n'a de pixels signifiants. L'art de scène s'échantillonne donc en **bilinéaire avec
+  > mipmaps**, alpha prémultiplié (`EX-VIS-008`) — le plus proche voisin le ferait scintiller dès
+  > qu'il est réduit, ce qu'il est toujours — et les images de la charte v2 restent interpolées
+  > (`EX-VIS-009`). Le zoom de la caméra devient libre (`EX-REN-013`). Le code, lui, échantillonne
+  > encore au plus proche voisin : c'est le `LOT-103` qui met l'exigence en œuvre.
+  > **Précisée au `LOT-92`** *(caduque)* — la scène y était du pixel art échantillonné au plus
+  > proche voisin.
   > **Refondue au `LOT-66`.** Elle imposait « rendu **pixel art** : *nearest-neighbor*, zoom de préférence en facteurs entiers », et c'est d'elle que **dix autres exigences** tenaient leur justification — la racine devait tomber la première, sans quoi chaque feuille aurait pu citer une règle abandonnée sans que rien ne le signale.
 
 ## 4. Frontière simulation ↔ rendu

@@ -39,36 +39,41 @@ explicite :
 
 ## Identités visuelles
 
-Le jeu a **deux identités**, une par couche de l'image, et aucune ne déborde sur l'autre. Le
-`LOT-66` avait écarté le pixel art parce qu'une police bitmap et une illustration peinte « ne
-cohabitent pas » ; la contradiction était de les mêler **dans la même couche**. Le `LOT-92` rend le
-pixel art à la scène et laisse l'interface à la charte v2 : chaque couche reste cohérente avec
-elle-même, et la frontière entre les deux est écrite, pas laissée à l'œil.
+Le jeu a **deux identités**, une par couche de l'image, et aucune ne déborde sur l'autre. Elles ne
+se distinguent plus par leur facture — depuis le `LOT-101`, les deux sont **peintes** — mais par
+leur **rôle** : la scène est du monde, et son échelle est celle du lieu ; l'interface renseigne le
+joueur, et son échelle est celle de la fenêtre. La frontière entre les deux est écrite, pas laissée
+à l'œil.
 
 - \anchor EX-VIS-008 **EX-VIS-008** — La **scène** — sols, murs, objets du monde et figurines —
-  doit être en **pixel art isométrique** : losange de **68 × 42 pixels d'art** (rapport 0,62,
-  celui d'`core::IsoProjection`), figurine de **45 px**, mur de **58 px** au-dessus de sa case.
-  Le style est **écrit** et non laissé au générateur : le bloc A de l'atelier des textures
-  (`LOT-92-atelier-textures/atelier/prompts/style.txt`), tiré de la **maquette approuvée par
-  l'auteur** (`atelier/ancres/maquette.png`), fixe le trait (contour d'un pixel, brun ou marine
-  profond, jamais noir), la lumière (soir, clé en haut à gauche, flaques de lanterne en aplats) et
-  les familles de matière relevées sur la maquette. Les textures se commandent **par lieu**, depuis
-  sa fiche d'atlas (`LOT-37`) et une **disposition** (`atelier/dispositions/`) ; elles
-  sont installées **en pixels d'art**, sur une **palette de 64 couleurs commune au lieu**, alpha
-  binaire, et échantillonnées au plus proche voisin (`EX-ARCH-022`). Les figurines de l'atelier
-  des PNJ (`LOT-91`) sont de la scène, au même pas de pixel que le sol.
-  > **Écart connu, non tranché.** Le cadrage de l'arène met une case à la largeur que la fenêtre
-  > lui laisse, et les figurines à 1,25 fois leur taille (`ARENA_FIGURE_SCALE`) : le facteur
-  > d'affichage n'est pas entier, et au plus proche voisin les pixels d'art n'ont pas tous la même
-  > taille à l'écran. L'exigence ne l'interdit pas encore ; la vue du monde du `LOT-09` la
-  > rencontrera.
+  doit être **peinte en isométrie haute définition** : losange de sol de **256 × 159 pixels d'art**
+  (rapport 0,62, celui d'`core::IsoProjection`), figurine humanoïde de **170 px** dans une cellule
+  de **192 × 256** dont la ligne de sol est à `y = 252` (cellule large **384 × 256** pour l'attaque
+  et le sort), grande créature en **384 × 384**. L'échelle de l'art est une **donnée du lieu** — le
+  champ `"tile"` de son manifeste de pièces — et non une constante du rendu : un lieu peut être
+  livré plus fin ou plus grossier sans toucher au code. Les images sont en sRGB, à **alpha continu**
+  prémultiplié au chargement, sans palette imposée par image, et échantillonnées en **bilinéaire
+  avec mipmaps** (`EX-ARCH-022`). Le style est **écrit** et non laissé au générateur : le standard
+  2D HD (`Planning/standards/style-2d-hd.md`) et la consigne du générateur
+  (`Planning/standards/consigne-2d-hd.md`), tirés de la **planche de référence approuvée par
+  l'auteur** (`Tools/AssetsHD/Arenarea/arenarea-planche-reference-v2.png`), fixent le trait (un
+  contour sombre et fin, bronze foncé, jamais noir pur), la lumière (clé douce en haut à gauche,
+  ombre propre peinte, **aucune ombre portée** dans la pièce), la projection orthographique, la
+  palette du lieu et les **dix familles de pièces** dont une zone fait l'inventaire. Une pièce
+  **tient seule** : fond transparent, pas de sol sous un mur, pas de décor autour d'un meuble.
+  Les figurines de l'atelier des PNJ (`LOT-91`) sont de la scène, à l'échelle de son sol.
+  > **Ce que l'exigence ne dit pas encore.** Le nombre d'images par animation reste ouvert : il se
+  > tranche sur l'essai de marche du `LOT-101`, et aucune figurine ne se produit en série avant.
 - \anchor EX-VIS-009 **EX-VIS-009** — L'**interface** — écrans, panneaux, HUD, et tout ce qui
   **renseigne le joueur par-dessus la scène** (curseur, chemin, portées, texte ancré) — doit porter
   la **charte v2** (`EX-IHM-070`) : images produites à 1080p et échantillonnées à tout facteur,
-  polices vectorielles embarquées (`EX-REN-032`). Aucun élément de l'interface n'est en pixel art
-  et aucun élément du monde ne porte la charte : pas de filet d'or ni de `Cinzel` dans la scène,
-  pas de police pixel ni de cadre crénelé dans les écrans. Le seul point de contact est le
-  **viewport** de la scène, qu'un écran de l'interface encadre sans le peindre.
+  polices vectorielles embarquées (`EX-REN-032`). Aucun élément de l'interface n'est de l'art de
+  scène et aucun élément du monde ne porte la charte : pas de filet d'or ni de `Cinzel` dans la
+  scène, pas de pièce isométrique ni de palette de lieu dans les écrans. Les deux couches se
+  **mesurent** différemment, et c'est là que la frontière se vérifie : une pièce de scène se met à
+  l'échelle du **lieu** (`EX-VIS-008`), une image d'interface à celle de la **fenêtre**. Le seul
+  point de contact est le **viewport** de la scène, qu'un écran de l'interface encadre sans le
+  peindre.
 
 ## Boucle de gameplay
 

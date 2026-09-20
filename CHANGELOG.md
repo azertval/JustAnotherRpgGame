@@ -6,6 +6,17 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Le standard 2D HD devient normatif (LOT-101).** Le style qui remplace le pixel art est chiffré
+  et éprouvé : une maquette de huit cases sur huit d'Arenarea, montée par `scripts/build_hd_mockup.py`
+  depuis la planche de référence et cadrée à 1080p et à 2160p, sert désormais de référence de
+  non-régression au rendu HD. Trois exigences sont réécrites — `EX-VIS-008` (la scène peinte,
+  losange de 256 × 159, figurine de 170 px, alpha continu, échelle de l'art donnée par le lieu),
+  `EX-VIS-009` (la frontière scène / interface, qui sépare désormais deux échelles et non deux
+  factures) et `EX-REN-013` (zoom libre, une case valant la hauteur de la fenêtre divisée par 10,8,
+  soit la même étendue de monde à toute définition). La consigne du générateur est réécrite en trois
+  blocs (`Planning/standards/consigne-2d-hd.md`). Le nombre d'images par animation reste ouvert,
+  en attente de l'essai de marche.
+
 - **Planification par versions (`Planning/`, LOT-100).** Le jeu quitte le pixel art pour la 2D HD,
   le référentiel `0.1.0` devient l'Empire central seul et la `0.0.1` une démo basique : trois
   quartiers de la Capitale et une quête. Le nouveau dossier `Planning/` porte la trajectoire
