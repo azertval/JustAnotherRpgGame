@@ -6,6 +6,10 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **`scripts/` de nouveau versionné.** Le dossier avait été supprimé (#92) alors que la CI, les
+  hooks pre-commit et les workflows de release en dépendent ; il est restauré et retiré du
+  `.gitignore`. `Tools/AssetFactory` et `editor-captures` restent supprimés.
+
 - **Alertes Code scanning (clang-tidy) corrigées.** Une centaine d’alertes de l’analyse de
   `main` : champs de structures initialisés par défaut, fonctions trop denses découpées
   (`BattleGrid`, `deriveCollision`, `MapRefactor`, `MainWindow`, `EditorViewport`…), méthodes

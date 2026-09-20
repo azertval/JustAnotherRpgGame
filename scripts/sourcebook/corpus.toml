@@ -1,0 +1,262 @@
+# Manifeste du corpus source de JustAnotherRpgGame (LOT-30).
+#
+# Ce fichier est VERSIONNÉ ; les PDF qu'il décrit ne le sont pas — `Documentation/SourceBook/`
+# est exclu en entier par le `.gitignore` (280 Mo de binaires, dont un fichier de 83 Mo). Le
+# manifeste vit donc ici, avec l'outil qui le lit, et non à côté des documents qu'il décrit.
+#
+# Il porte quatre informations par document, et chacune répond à une panne observée :
+#
+#   `sha256`     — l'extraction refuse de tourner sur un document qui n'est plus celui-ci
+#                  (EX-CNT-020). Sans cette empreinte, remplacer un PDF par une autre édition
+#                  décale toutes les pages sans qu'aucun message ne le dise.
+#   `pages`      — le nombre de pages PDF, second garde-fou, lisible par un humain.
+#   `pagination` / `decalage`
+#                — la correspondance « page imprimée → page PDF ». Les deux livres Tanares sont
+#                  paginés en DOUBLE PAGE : une page PDF en porte deux côte à côte, et un
+#                  sommaire qui annonce « p. 100 » désigne la page PDF 50. Ignorer ce facteur 2
+#                  vise systématiquement le mauvais chapitre.
+#   `type`       — `pdf` (par défaut), `image` (une planche seule) ou `collection` (un dossier de
+#                  fichiers de même nature). Les ressources de table virtuelle (VTT) ajoutées au
+#                  `LOT-38` ne sont pas toutes des PDF, et l'empreinte doit les couvrir aussi.
+#   `provenance` — reportée telle quelle dans le champ `source` de chaque donnée produite
+#                  (EX-CNT-001) : `srd`, `tanares`, `phb-fr`. Le jour d'une publication, la
+#                  question « qu'est-ce qui doit sauter ? » se répond par une requête.
+#
+# Les empreintes ont été relevées les 2026-09-05 (les huit premiers documents) et 2026-09-07 (les
+# neuf ressources VTT). Régénérer ce bloc :
+#     python scripts/sourcebook verifier --regenerer
+
+version = 1
+
+# ---------------------------------------------------------------------------------------------
+# Documents natifs, propres — le gisement le plus rentable du corpus.
+# ---------------------------------------------------------------------------------------------
+
+[documents.animaux]
+fichier = "Animaux.pdf"
+sha256 = "2a4593b66c85639e3e66f57b8210c267d10faece39ddf88a51835353b7176e7d"
+pages = 32
+pagination = "simple"
+decalage = -1            # page PDF 5 (0-indexée) porte la page imprimée 4
+provenance = "srd"
+langue = "fr"
+ocr = false
+resume = "94 blocs de statistiques de bêtes du SRD, traduits, au gabarit le plus régulier du corpus"
+
+[documents.basic-rules]
+fichier = "Basic-Rules-FR.pdf"
+sha256 = "c9c7d46db293f7486ba82b1d2e5cacdc6c71f01b2271e8f08f2d6d37811b853b"
+pages = 137
+pagination = "simple"
+decalage = -1
+provenance = "srd"
+langue = "fr"
+ocr = false
+resume = "socle jouable : 4 races, 4 classes, 6 historiques, tables d'équipement, sorts, états ; référence terminologique française du projet"
+
+[documents.glossaire]
+fichier = "Glossaire.pdf"
+sha256 = "063e84ecdbf59262ea2a41bd0b868adef7c74343bb4a95163669857526f3ca7f"
+pages = 22
+pagination = "simple"
+decalage = 1             # page PDF 0 porte la mention « Page 1 »
+provenance = "srd"
+langue = "en-fr"
+ocr = false
+resume = "table d'autorité de traduction anglais → français, catégorie comprise"
+
+# ---------------------------------------------------------------------------------------------
+# Livres Tanares — natifs, en anglais, paginés en DOUBLE PAGE.
+# ---------------------------------------------------------------------------------------------
+
+[documents.tanares-sourcebook]
+fichier = "Tanares_Sourcebook.pdf"
+sha256 = "ac13d88caa950561081fcad795cccbb37b3712b24d476ee15a0df3b1aa0e1d48"
+pages = 179
+pagination = "double"
+decalage = 0             # page PDF 50 porte les pages imprimées 100 et 101
+provenance = "tanares"
+langue = "en"
+ocr = false
+resume = "10 régions, 5 factions, 18 divinités, 11 organisations, 82 blocs de statistiques, objets magiques, 2 029 images"
+
+[documents.players-guide]
+fichier = "Players_Guide_to_Tanares_Version_20231218.pdf"
+sha256 = "8e987ede15d024ae0f022dbd45efaedd4e5b40f0d925f65c1c18d15aa0bc948c"
+pages = 165
+pagination = "double"
+decalage = 0
+provenance = "tanares"
+langue = "en"
+ocr = false
+resume = "13 espèces, 8 classes, 31 tables de progression, 7 historiques, dons, sorts, 1 710 images"
+
+# ---------------------------------------------------------------------------------------------
+# Manuels français — scans OCR. Bruités, exploitables avec le bon outil (§4 de la feuille de
+# route) : jamais de tableau en flux de texte, et une passe de contrôle sur les valeurs.
+# ---------------------------------------------------------------------------------------------
+
+[documents.manuel-des-joueurs]
+fichier = "Manuel-Des-Joueurs.pdf"
+sha256 = "5f079ea01702994b57619ed9f013f8b43006ea4d377087ccc31af55f9665e86a"
+pages = 320
+pagination = "simple"
+decalage = 1             # page PDF 10 ouvre le chapitre 1, imprimé page 11
+provenance = "phb-fr"
+langue = "fr"
+ocr = true
+resume = "seule source française des 5 races et 8 classes absentes des Basic Rules"
+
+[documents.manuel-des-monstres]
+fichier = "Manuel-Des-Monstres.pdf"
+sha256 = "97274255ca15027b130f487fa2f8a1938fc20f626952f5d2441ad3d741ac9daa"
+pages = 354
+pagination = "simple"
+decalage = 0             # page PDF 200 porte la page imprimée 200
+provenance = "phb-fr"
+langue = "fr"
+ocr = true
+hors_perimetre = true    # arbitrage §8 : 416 blocs à contrôler pour un bestiaire déjà suffisant
+resume = "416 blocs de statistiques en français ; hors périmètre, gardé disponible"
+
+# ---------------------------------------------------------------------------------------------
+# Planches vectorielles — zéro caractère de texte, uniquement du rendu d'image.
+# ---------------------------------------------------------------------------------------------
+
+[documents.character-sheets]
+fichier = "Character_Sheets_Tanares.pdf"
+sha256 = "d209ca8dfc85c5fbb953d7cd4c4399c312381a4d320b6985f5df333e574bf68c"
+pages = 5
+pagination = "aucune"
+decalage = 0
+provenance = "tanares"
+langue = "en"
+ocr = false
+resume = "5 feuilles de personnage, sans texte extractible ; maquette à ~300 ppp pour l'écran de fiche"
+
+# ---------------------------------------------------------------------------------------------
+# Ressources de table virtuelle (VTT) — ajoutées le 2026-09-07, avant le `LOT-38`.
+#
+# Elles ne viennent pas d'un autre livre : ce sont les fichiers de jeu distribués avec Tanares
+# pour jouer sur table virtuelle. Leur intérêt tient à ce que les PDF de règles n'ont pas — des
+# **cartes tactiques vues de dessus**, des **jetons ronds détourés**, une carte du monde à
+# 9 933 x 7 016, et une feuille de personnage **vierge**, c'est-à-dire une maquette et non un
+# exemple rempli.
+#
+# Ce qu'elles alimentent est écrit ici plutôt que découvert au lot suivant : c'est la seule façon
+# qu'un lot les trouve sans les redécouvrir, et la raison pour laquelle elles sont déclarées
+# AVANT d'être consommées.
+# ---------------------------------------------------------------------------------------------
+
+[documents.blank-sheets]
+fichier = "VTT/Blank Sheets RPG (1).pdf"
+sha256 = "86f51b45844031dcb9251d6df193a04e8ee14fa0a1fe4369b5376173f2667300"
+pages = 5
+pagination = "aucune"
+decalage = 0
+provenance = "tanares"
+langue = "en"
+ocr = false
+resume = "les 5 feuilles de personnage VIERGES, sans texte extractible : la maquette de l'écran de fiche du LOT-38, là où character-sheets porte les mêmes feuilles remplies"
+
+[documents.rpg-sheets-bw]
+fichier = "VTT/RPG Sheets - BW print (2).pdf"
+sha256 = "1ead29a8197fff130d88af8f2e5ecbe4eac3b2981130fa1c58db7f243b429a00"
+pages = 5
+pagination = "aucune"
+decalage = 0
+provenance = "tanares"
+langue = "en"
+ocr = false
+resume = "les mêmes feuilles en noir et blanc : lisibles à plat, elles donnent la STRUCTURE de la mise en page là où la version couleur donne l'habillage (LOT-38)"
+
+# Texte natif, propre, et en volume : 608 000 caractères sur 169 pages. Le plus gros gisement de
+# blocs de statistiques du corpus après le Manuel des Monstres — et lui, contrairement au manuel,
+# n'est pas un scan.
+#
+# ATTENTION à la pagination : la page PDF est une DOUBLE PAGE physique (1 224 x 792), mais elle
+# est numérotée comme UNE seule page. La pagination est donc `simple`, contrairement aux deux
+# livres Tanares qu'elle ressemble à s'y méprendre. S'y tromper vise une page sur deux.
+[documents.character-compendium]
+fichier = "VTT/Character Compendium - Low.pdf"
+sha256 = "754d73579ad581a94eef869c07a174a87f44e3b1efc21285006e6127b61276d6"
+pages = 169
+pagination = "simple"
+decalage = 1             # page PDF 40 porte la page imprimée 41
+provenance = "tanares"
+langue = "en"
+ocr = false
+resume = "PNJ et créatures de Tanares : blocs de statistiques complets et portrait pleine page, texte natif (LOT-46, LOT-82)"
+
+[documents.character-compendium-hd]
+fichier = "VTT/Character Compendium - High.pdf"
+sha256 = "7ad4d4fb152752a14a03e17c10858a7b38dac75dd6c074ef36b68ef37975df74"
+pages = 169
+pagination = "simple"
+decalage = 1
+provenance = "tanares"
+langue = "en"
+ocr = false
+resume = "le même compendium à haute définition (83 Mo contre 24) : à n'ouvrir que pour EXTRAIRE une illustration, jamais pour lire du texte — les deux portent exactement les mêmes 608 000 caractères"
+
+# Deux pages de couverture simples, puis treize doubles pages : d'où le décalage de -2. Les
+# vérifier a évité de viser une page sur deux dès la première extraction.
+[documents.aventure-azymor]
+fichier = "VTT/Adventure Hunt for Azymor.pdf"
+sha256 = "c3e85c7f4c444b596d0dde665b2af6d9cdafca1d4d26ff70f35723bea95452ac"
+pages = 15
+pagination = "double"
+decalage = -2            # page PDF 4 porte les pages imprimées 6 et 7
+provenance = "tanares"
+langue = "en"
+ocr = false
+resume = "module d'aventure complet : intrigue, PNJ nommés, lieux et rencontres, texte natif — matière du vertical slice (LOT-27) et de ses quêtes (LOT-16)"
+
+[documents.cartes-tactiques]
+fichier = "VTT/Adventure Map Grids.pdf"
+sha256 = "a82f3318fdf5a79741dadcb6c16a2e6e5f7aba3f0b45347337ee6b5c521b19a0"
+pages = 31
+pagination = "aucune"
+decalage = 0
+provenance = "tanares"
+langue = "en"
+ocr = false
+resume = "31 cartes tactiques peintes VUES DE DESSUS et alignées sur une grille : la seule matière du corpus qui montre le jeu sous l'angle où il se joue (LOT-19, LOT-27, LOT-40)"
+
+[documents.carte-monde-hd]
+fichier = "VTT/Map - World.jpg"
+type = "image"
+sha256 = "7754a3910b26f8c31a8b4281aa00edf6430f89d8e4bca68a4d0358a6987a81b6"
+pagination = "aucune"
+decalage = 0
+provenance = "tanares"
+langue = "en"
+ocr = false
+resume = "la carte du monde à 9 933 x 7 016, sans filigrane ni double page : la source de l'écran de carte du LOT-42, là où le fond de menu du LOT-67 se contente de 96 ppp"
+
+[documents.carte-capitale]
+fichier = "VTT/Map - Capital.jpg"
+type = "image"
+sha256 = "ecc90068b09b1dc00bdf94487232e17fed478f091cd4bd467b0a846968de83a9"
+pagination = "aucune"
+decalage = 0
+provenance = "tanares"
+langue = "en"
+ocr = false
+resume = "plan de la capitale à 9 933 x 7 016 : une ville entière, rue par rue (LOT-42, LOT-82)"
+
+# Un dossier, une ligne de manifeste. L'empreinte porte sur la liste triée « nom:empreinte » de
+# ses 172 fichiers : un jeton retiré, ajouté ou retouché la change. Déclarer 172 entrées pour un
+# jeu qu'on prend ou qu'on laisse entier aurait coûté 172 lignes pour une seule décision.
+[documents.jetons-vtt]
+fichier = "VTT/Tokens VTT PNG"
+type = "collection"
+motif = "*.png"
+nombre = 172
+sha256 = "d73820f2a3654078323ea5436f0212636c9b8460d39cb515545440369c48c124"
+pagination = "aucune"
+decalage = 0
+provenance = "tanares"
+langue = "en"
+ocr = false
+resume = "172 jetons ronds détourés (354 x 354, alpha) : PNJ, aventuriers et créatures, prêts à servir de portrait (LOT-38, LOT-15, LOT-24) sans aucun détourage à faire"

@@ -1,0 +1,14 @@
+{
+  "id": "longsword",
+  "name": "Epee longue",
+  "source": "srd",
+  "category": "martial",
+  "damage": "ld8",
+  "damageType": "slashing",
+  "versatileDamage": "1d10",
+  "properties": [
+    "versatile"
+  ],
+  "price": 1500,
+  "weightGrams": 1500
+}
