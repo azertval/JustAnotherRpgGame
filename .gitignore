@@ -107,5 +107,5 @@ __pycache__/
 
 # Fabrique : références envoyées au générateur, strictement locales.
 # Seuls leurs chemins et empreintes sont versionnés dans request.json.
-/Tools/AssetFactory/assets/Npc/*/tours/*/reference-*.png
-/Tools/AssetFactory/assets/Npc/*/tours/*/pose-reference.png
+/Tools/
+/scripts/
