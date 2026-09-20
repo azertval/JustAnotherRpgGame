@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789812853532,
+  "lastUpdate": 1789871928776,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -488,6 +488,70 @@ window.BENCHMARK_DATA = {
             "value": 462.54536324070654,
             "unit": "us/iter",
             "extra": "iterations: 2987\ncpu: 465.5590893873452 us\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "46a8b09a56ea4dccddd73856b3b0620471d3d7c8",
+          "message": "feat(arena): integrate Arena of Brave coliseum interface (#88)",
+          "timestamp": "2026-09-19T22:35:13Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/46a8b09a56ea4dccddd73856b3b0620471d3d7c8"
+        },
+        "date": 1789871925110,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "ReachableAreaDashing",
+            "value": 156224.73214285748,
+            "unit": "ns/iter",
+            "extra": "iterations: 8960\ncpu: 156947.54464285713 ns\nthreads: 1"
+          },
+          {
+            "name": "FindPathAcrossGrid",
+            "value": 211536.18750000547,
+            "unit": "ns/iter",
+            "extra": "iterations: 6400\ncpu: 209960.9375 ns\nthreads: 1"
+          },
+          {
+            "name": "LineOfSightAcrossGrid",
+            "value": 57044.248463175376,
+            "unit": "ns/iter",
+            "extra": "iterations: 24889\ncpu: 56500.86383542931 ns\nthreads: 1"
+          },
+          {
+            "name": "CoverFromWithInterposed",
+            "value": 161360.59151785937,
+            "unit": "ns/iter",
+            "extra": "iterations: 8960\ncpu: 160435.26785714287 ns\nthreads: 1"
+          },
+          {
+            "name": "PlanTurnFourVersusFour",
+            "value": 1105237.4218750051,
+            "unit": "ns/iter",
+            "extra": "iterations: 1280\ncpu: 1110839.84375 ns\nthreads: 1"
+          },
+          {
+            "name": "LoadShippedLevel",
+            "value": 2635781.9915254163,
+            "unit": "ns/iter",
+            "extra": "iterations: 472\ncpu: 2615201.2711864407 ns\nthreads: 1"
+          },
+          {
+            "name": "ComposeMartpart",
+            "value": 469.45196428570824,
+            "unit": "us/iter",
+            "extra": "iterations: 2800\ncpu: 468.75 us\nthreads: 1"
           }
         ]
       }
