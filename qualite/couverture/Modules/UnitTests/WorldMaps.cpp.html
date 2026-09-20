@@ -18,6 +18,7 @@
 #include &lt;cstddef&gt;
 #include &lt;set&gt;
 #include &lt;stdexcept&gt;
+#include &lt;string_view&gt;
 #include &lt;utility&gt;
 
 #include &lt;nlohmann/json.hpp&gt;
@@ -42,6 +43,13 @@ public:
 
 <span style = "background-color:#dfd">[[nodiscard]] bool isFraction(const nlohmann::json&amp; value) {
     return value.is_number() &amp;&amp; value.get&lt;double&gt;() &gt;= 0.0 &amp;&amp; value.get&lt;double&gt;() &lt;= 1.0;
+}</span>
+
+/// Chemin de lecture `where / part`, pour situer une erreur sans chaÃ®ner des concatÃ©nations.
+<span style = "background-color:#dfd">[[nodiscard]] std::string within(std::string where, std::string_view part) {
+    where += " / ";
+    where += part;
+    return where;
 }</span>
 
 <span style = "background-color:#dfd">[[nodiscard]] MapPoint readPoint(const nlohmann::json&amp; value, const std::string&amp; where) {
@@ -188,9 +196,9 @@ public:
     }
 <span style = "background-color:#dfd">    for (const auto&amp; [id, entry] : found-&gt;items()) {
         if (!entry.is_object() || !entry.contains("frame")) {</span>
-<span style = "background-color:#fdd">            throw failure(where + " / districts / " + id, "il faut un cadre (Â« frame Â»).");</span>
+<span style = "background-color:#fdd">            throw failure(within(within(where, "districts"), id), "il faut un cadre (Â« frame Â»).");</span>
         }
-<span style = "background-color:#dfd">        districts.emplace(id, MapDistrict{.frame = readFrame(entry["frame"], where + " / " + id),</span>
+<span style = "background-color:#dfd">        districts.emplace(id, MapDistrict{.frame = readFrame(entry["frame"], within(where, id)),</span>
                                           .image = readText(entry, "image", where, false)});
 <span style = "background-color:#dfd">    }
     return districts;
@@ -208,7 +216,8 @@ public:
     city.districts = readDistricts(object, where);
     for (const auto&amp; [id, district] : city.districts) {
         if (!city.places.contains(id)) {</span>
-<span style = "background-color:#fdd">            throw failure(where + " / districts / " + id, "ce quartier n'est pas placÃ© sur le plan.");</span>
+<span style = "background-color:#fdd">            throw failure(within(within(where, "districts"), id),</span>
+                          "ce quartier n'est pas placÃ© sur le plan.");
         }
 <span style = "background-color:#dfd">    }
     return city;
@@ -299,14 +308,14 @@ public:
             continue;</span>
         }
 <span style = "background-color:#dfd">        const auto district = map.districts.find(candidateId);
-        view.points.push_back(MapCityPointView{</span>
-            .id = candidate-&gt;id,
-            .number = ++number,
-            .name = candidate-&gt;name,
-            .description = candidate-&gt;description,
-            .at = position-&gt;second,
-            .district = district != map.districts.end() ? std::optional{district-&gt;second}
-                                                        : std::nullopt});
+        view.points.push_back(MapCityPointView{.id = candidate-&gt;id,</span>
+                                               .number = ++number,
+                                               .name = candidate-&gt;name,
+                                               .description = candidate-&gt;description,
+                                               .at = position-&gt;second,
+                                               .district = district != map.districts.end()
+                                                               ? std::optional{district-&gt;second}
+                                                               : std::nullopt});
 <span style = "background-color:#dfd">    }
     for (const auto&amp; [id, position] : map.places) {
         if (atlas.findLocation(id) == nullptr) {</span>

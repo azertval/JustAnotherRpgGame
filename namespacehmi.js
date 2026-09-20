@@ -659,6 +659,7 @@ var namespacehmi =
     [ "runMapCommand", "namespacehmi.html#a75e0715b710f1ffbe1d6392719cb07c2", null ],
     [ "runRefactorCommand", "namespacehmi.html#aa0495229fd9a33ac476720e70af9b973", null ],
     [ "runRenderCommand", "namespacehmi.html#ad551059312355ed10cda2f2300d1a6b9", null ],
+    [ "sceneImageHandle", "namespacehmi.html#a71762428929f463c938cf50568054832", null ],
     [ "sceneImageOf", "namespacehmi.html#ab7a286078c3b760b7c7bcd400c3efc93", null ],
     [ "scenePieceAnchor", "namespacehmi.html#a6187ab6b560ce90d2d348e8bf85605ed", null ],
     [ "scenePieceDepthOffset", "namespacehmi.html#af0d1719f81afaef4f0523f60d0f48cbd", null ],

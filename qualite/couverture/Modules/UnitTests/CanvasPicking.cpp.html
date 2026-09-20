@@ -15,6 +15,7 @@
 #include "Editor/Logic/CanvasPicking.h"
 
 #include &lt;algorithm&gt;
+#include &lt;array&gt;
 #include &lt;cmath&gt;
 #include &lt;limits&gt;
 
@@ -107,12 +108,12 @@ CellRange isoCellsCovering(const core::IsoProjection&amp; projection,
 <span style = "background-color:#dfd">                           const core::Rect&amp; world) noexcept {</span>
     // L'image d'un rectangle dans la grille est un parallÃ©logramme : sa boÃ®te englobante contient
     // toute case dont le losange coupe le rectangle.
-    const core::Vector2 corners[] = {
+    const std::array&lt;core::Vector2, 4&gt; corners = {{
 <span style = "background-color:#dfd">        projection.worldToGrid(world.position),
         projection.worldToGrid({world.position.x + world.size.x, world.position.y}),
         projection.worldToGrid({world.position.x, world.position.y + world.size.y}),
         projection.worldToGrid({world.position.x + world.size.x, world.position.y + world.size.y}),</span>
-    };
+    }};
 <span style = "background-color:#dfd">    float minColumn = corners[0].x;
     float maxColumn = corners[0].x;
     float minRow = corners[0].y;

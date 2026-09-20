@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789871928776,
+  "lastUpdate": 1789910271580,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -552,6 +552,70 @@ window.BENCHMARK_DATA = {
             "value": 469.45196428570824,
             "unit": "us/iter",
             "extra": "iterations: 2800\ncpu: 468.75 us\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "f6fbbbb2c7e08d3d2f5cfe822245597b804822fb",
+          "message": "fix(ci): restore scripts/ and stop ignoring it (#93)\n\n* fix(ci): restore scripts/ and stop ignoring it\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\n\n* fix(docs): drop Doxygen inputs and links to the removed Tools/AssetFactory\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude Sonnet 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-20T13:14:53Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/f6fbbbb2c7e08d3d2f5cfe822245597b804822fb"
+        },
+        "date": 1789910268716,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "ReachableAreaDashing",
+            "value": 155501.77455357125,
+            "unit": "ns/iter",
+            "extra": "iterations: 8960\ncpu: 155203.6830357143 ns\nthreads: 1"
+          },
+          {
+            "name": "FindPathAcrossGrid",
+            "value": 213549.53569355668,
+            "unit": "ns/iter",
+            "extra": "iterations: 6892\ncpu: 215376.52350551364 ns\nthreads: 1"
+          },
+          {
+            "name": "LineOfSightAcrossGrid",
+            "value": 57070.61754188496,
+            "unit": "ns/iter",
+            "extra": "iterations: 24889\ncpu: 57128.65121137852 ns\nthreads: 1"
+          },
+          {
+            "name": "CoverFromWithInterposed",
+            "value": 160636.72991070937,
+            "unit": "ns/iter",
+            "extra": "iterations: 8960\ncpu: 160435.26785714287 ns\nthreads: 1"
+          },
+          {
+            "name": "PlanTurnFourVersusFour",
+            "value": 1163730.9821428538,
+            "unit": "ns/iter",
+            "extra": "iterations: 1120\ncpu: 1157924.107142857 ns\nthreads: 1"
+          },
+          {
+            "name": "LoadShippedLevel",
+            "value": 2623663.5593220815,
+            "unit": "ns/iter",
+            "extra": "iterations: 472\ncpu: 2615201.2711864407 ns\nthreads: 1"
+          },
+          {
+            "name": "ComposeMartpart",
+            "value": 468.6737529293563,
+            "unit": "us/iter",
+            "extra": "iterations: 2987\ncpu: 470.79009039169733 us\nthreads: 1"
           }
         ]
       }

@@ -11,7 +11,7 @@ var searchData=
   ['nextrpgscreen_8',['nextRpgScreen',['../classhmi_1_1ScreenRouter.html#aba7714a748fe5539eb4c69e6b87dc169',1,'hmi::ScreenRouter::nextRpgScreen()'],['../namespacehmi.html#a9eed4f2ad079e39eb5f17daf66defe91',1,'hmi::nextRpgScreen()']]],
   ['nextuint32_9',['nextUInt32',['../classcore_1_1DeterministicRandom.html#ad1df942da4dba2bfcc231873164d7bd0',1,'core::DeterministicRandom']]],
   ['nodeat_10',['nodeAt',['../namespacehmi.html#a626ed35cec8a3a4b0bad705e85a87f4e',1,'hmi']]],
-  ['nodedetail_11',['nodeDetail',['../classhmi_1_1WorldGraphView.html#afc54f8156b306b508eabc5b84a1e93df',1,'hmi::WorldGraphView']]],
+  ['nodedetail_11',['nodeDetail',['../classhmi_1_1WorldGraphView.html#a9d37c5fc2a07d3b9ccc4547ee17dfb97',1,'hmi::WorldGraphView']]],
   ['nodelabel_12',['nodeLabel',['../classhmi_1_1WorldGraphView.html#ae9dde0b588fc25d7c59a5bf65dd338fb',1,'hmi::WorldGraphView']]],
   ['nodetooltip_13',['nodeToolTip',['../classhmi_1_1WorldGraphView.html#a9f90d85faf73f76eeffa42a7cb169c6a',1,'hmi::WorldGraphView']]],
   ['normalized_14',['normalized',['../structcore_1_1Vector2.html#af3240f0ac96a586d8990e385f180fb60',1,'core::Vector2']]],

@@ -54,8 +54,9 @@ constexpr float FRAMING_MARGIN = 0.95F;
 
 ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, bool productionMap)
 <span style = "background-color:#dfd">    : _directory(std::move(coliseumDirectory)) {
-    if (productionMap)
+    if (productionMap) {
         loadBattlefield();</span>
+    }
     // Lectures de fichiers, une fois : ni le catalogue ni les clips ne touchent au GPU, et une
     // recrÃ©ation des ressources n'a pas Ã  les relire.
 <span style = "background-color:#dfd">    ArenaAppearanceCatalogResult catalog =</span>
@@ -177,33 +178,34 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, 
 <span style = "background-color:#dfd">        _loaded.push_back(std::move(*texture));
     }
     if (_battlefield) {
-        for (const auto&amp; path : worldTexturePaths(*_battlefield)) {
-            const auto file = _directory.parent_path() / path;
-            auto texture = loadTextureFromFile(context, file);
-            if (!texture) {</span>
-<span style = "background-color:#fdd">                GRAPHICS_LOG_WARNING(missingTextureWarning(path));
-                continue;</span>
-            }
-<span style = "background-color:#dfd">            SceneTexture descriptor{
-                .texture = texture-&gt;handle(), .width = texture-&gt;width, .height = texture-&gt;height};
-            const auto manifest =</span>
-                core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
-<span style = "background-color:#dfd">            if (manifest.ok()) {
-                descriptor.anchor = scenePieceAnchor(manifest.root, file.filename().string());
-                descriptor.depthOffset =</span>
-                    scenePieceDepthOffset(manifest.root, file.filename().string());
-            }
-<span style = "background-color:#dfd">            _battlefieldTextures.byPath[path] = descriptor;
-            _loaded.push_back(std::move(*texture));
-        }
-        _battlefieldTextures.missing = {</span>
-            .texture = _missing.handle(), .width = _missing.width, .height = _missing.height};
-<span style = "background-color:#dfd">        composeWorldScene(</span>
-            _battlefieldScene, *_battlefield,
-            core::IsoProjection(_battlefield-&gt;columns, _battlefield-&gt;rows,
-                                core::ARENA_TILE_WIDTH_UNITS, _battlefield-&gt;diamondRatio),
-            _battlefieldTextures);
+        loadBattlefieldTextures(context);</span>
     }
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">void ArenaSceneRenderer::loadBattlefieldTextures(const RhiContext&amp; context) {
+    for (const auto&amp; path : worldTexturePaths(*_battlefield)) {
+        const auto file = _directory.parent_path() / path;
+        auto texture = loadTextureFromFile(context, file);
+        if (!texture) {</span>
+<span style = "background-color:#fdd">            GRAPHICS_LOG_WARNING(missingTextureWarning(path));
+            continue;</span>
+        }
+        SceneTexture descriptor{
+<span style = "background-color:#dfd">            .texture = texture-&gt;handle(), .width = texture-&gt;width, .height = texture-&gt;height};
+        const auto manifest = core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
+        if (manifest.ok()) {
+            descriptor.anchor = scenePieceAnchor(manifest.root, file.filename().string());
+            descriptor.depthOffset = scenePieceDepthOffset(manifest.root, file.filename().string());</span>
+        }
+<span style = "background-color:#dfd">        _battlefieldTextures.byPath[path] = descriptor;
+        _loaded.push_back(std::move(*texture));
+    }
+    _battlefieldTextures.missing = {</span>
+        .texture = _missing.handle(), .width = _missing.width, .height = _missing.height};
+<span style = "background-color:#dfd">    composeWorldScene(_battlefieldScene, *_battlefield,</span>
+                      core::IsoProjection(_battlefield-&gt;columns, _battlefield-&gt;rows,
+                                          core::ARENA_TILE_WIDTH_UNITS, _battlefield-&gt;diamondRatio),
+                      _battlefieldTextures);
 <span style = "background-color:#dfd">}</span>
 
 <span style = "background-color:#dfd">void ArenaSceneRenderer::release() noexcept {</span>

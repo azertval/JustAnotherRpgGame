@@ -46,10 +46,10 @@ struct MapEntity {
     /// Type de l'entitÃ©, libre : `"npc"`, `"chest"`, `"sign"`, `"portal"`, `"encounter"`â¦
     std::string type;
     /// Case occupÃ©e par l'entitÃ© â pour une zone peinte, sa case de rÃ©fÃ©rence.
-    GridPosition position;
+    GridPosition position{};
     /// PropriÃ©tÃ©s libres (`core::PropertyMap`), y compris les clÃ©s que le chargeur n'a pas
     /// reconnues â elles sont rÃ©Ã©mises telles quelles Ã  l'Ã©criture.
-    PropertyMap properties;
+<span style = "background-color:#dfd">    PropertyMap properties{};</span>
     // Les champs du format v4 viennent APRES les trois d'origine : une initialisation positionnelle
     // `{type, position, properties}` garde son sens. Un champ ajoutÃ© en tÃªte la dÃ©calerait sans
     // erreur de compilation â un type `"chest"` deviendrait un identifiant.
@@ -57,12 +57,12 @@ struct MapEntity {
     /// (format v4, dÃ©cision D8, `EX-LVL-021`). QuÃªtes, drapeaux et sauvegardes citent l'entitÃ© par
     /// `carte#id` : dÃ©placer un coffre ne casse plus rien. Vide pour une entitÃ© lue d'une carte
     /// antÃ©rieure Ã  la v4, jusqu'Ã  sa migration.
-    std::string id;
+<span style = "background-color:#dfd">    std::string id{};</span>
     /// Hauteur de l'entitÃ©. **RÃ©servÃ©e** (dÃ©cision D11) : lue, gardÃ©e, rÃ©Ã©crite, jamais jouÃ©e.
 <span style = "background-color:#dfd">    int elevation = 0;</span>
     /// Forme **peinte** d'une zone (dÃ©cision D13) : les cases qu'elle couvre. Vide pour une entitÃ©
     /// ponctuelle ou une zone rectangle (propriÃ©tÃ©s `width` et `height`).
-    std::vector&lt;GridPosition&gt; cells;
+<span style = "background-color:#dfd">    std::vector&lt;GridPosition&gt; cells{};</span>
 };
 
 /// @return L'identifiant que l'Ã©diteur donne Ã  la @p number-iÃ¨me entitÃ© d'une carte : `e&lt;number&gt;`.

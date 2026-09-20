@@ -146,7 +146,7 @@ inline constexpr int LAYER_KIND_COUNT = static_cast&lt;int&gt;(LayerKind::Legacy
  */
 struct TileLayer {
     /// Nom de la couche, libre et affichÃ© par l'Ã©diteur (Â« sol Â», Â« dÃ©cor Â», Â« collision Â»â¦).
-    std::string name;
+    std::string name{};
     /// RÃ´le de la couche.
     LayerKind kind = LayerKind::Ground;
     /// Grille de tuiles de cette couche. Sans dÃ©faut : `core::TileMap` n'est pas constructible par
@@ -154,15 +154,15 @@ struct TileLayer {
     TileMap tiles;
     /// PropriÃ©tÃ©s libres (`core::PropertyMap`), y compris les clÃ©s que le chargeur n'a pas
     /// reconnues â elles sont rÃ©Ã©mises telles quelles Ã  l'Ã©criture.
-    PropertyMap properties;
+    PropertyMap properties{};
     /// Ãtage de la couche. **RÃ©servÃ©** (dÃ©cision D11, `EX-LVL-024`) : lu, gardÃ© et rÃ©Ã©crit, mais ni
     /// le jeu ni l'Ã©diteur ne s'en servent ; toute valeur non nulle est signalÃ©e par `LevelEditor
     /// --check`.
     int floor = 0;
     /// PiÃ¨ce nommÃ©e par case, ligne par ligne ; vide si aucune case n'en nomme.
-    std::vector&lt;std::string&gt; pieces;
+<span style = "background-color:#dfd">    std::vector&lt;std::string&gt; pieces{};</span>
     /// Hauteur par case, ligne par ligne ; vide si toutes valent 0. **RÃ©servÃ©e** comme `floor`.
-    std::vector&lt;int&gt; elevations;
+<span style = "background-color:#dfd">    std::vector&lt;int&gt; elevations{};</span>
 
     /// @return La piÃ¨ce nommÃ©e en (@p column, @p row), vide hors grille ou sans piÃ¨ce.
     [[nodiscard]] std::string_view pieceAt(int column, int row) const noexcept;

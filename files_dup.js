@@ -5,6 +5,5 @@ var files_dup =
     [ "Lot", "dir_7c7356e692772728ab91d19f773c60c4.html", "dir_7c7356e692772728ab91d19f773c60c4" ],
     [ "Manuel", "dir_cc30779d5d81fe7054f94b15ca2d5b93.html", null ],
     [ "Source", "dir_74389ed8173ad57b461b9d623a1f3867.html", "dir_74389ed8173ad57b461b9d623a1f3867" ],
-    [ "Specification", "dir_395040ea022356f7c8f4822a56c61752.html", null ],
-    [ "Tools", "dir_7e461070e7b716e896e0d97cd6a82321.html", "dir_7e461070e7b716e896e0d97cd6a82321" ]
+    [ "Specification", "dir_395040ea022356f7c8f4822a56c61752.html", null ]
 ];

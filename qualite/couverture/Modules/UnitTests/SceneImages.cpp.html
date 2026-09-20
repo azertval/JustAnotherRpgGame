@@ -62,7 +62,7 @@ namespace {
 }</span>
 
 <span style = "background-color:#dfd">[[nodiscard]] SceneTexture textureOf(const QImage&amp; image, int frameWidth) {
-    return SceneTexture{.texture = const_cast&lt;QImage*&gt;(&amp;image),  // identitÃ© opaque, jamais Ã©crite</span>
+    return SceneTexture{.texture = sceneImageHandle(&amp;image),</span>
                         .width = image.width(),
                         .height = image.height(),
                         .frameWidth = frameWidth};
@@ -79,8 +79,8 @@ SceneImages::SceneImages(std::filesystem::path assetsDirectory)
     _atlas = fromRgba8(atlas.width, atlas.height, atlas.pixels);
 }</span>
 
-<span style = "background-color:#fdd">TextureHandle SceneImages::solid() const noexcept {
-    return const_cast&lt;QImage*&gt;(&amp;solidImage());
+<span style = "background-color:#fdd">TextureHandle SceneImages::solid() noexcept {
+    return sceneImageHandle(&amp;solidImage());
 }</span>
 
 <span style = "background-color:#fdd">QColor SceneImages::tileColor(core::TileType type) const {

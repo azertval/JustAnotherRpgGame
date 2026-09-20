@@ -154,7 +154,7 @@ std::optional&lt;std::filesystem::path&gt; AutosaveStore::keepAside(std::string_
     name += '.';
     name += stamp;
     name += ".json";
-    const std::filesystem::path path = _directory / CONFLICTS / name;
+    std::filesystem::path path = _directory / CONFLICTS / name;
     if (!writeReplacing(path, content)) {</span>
 <span style = "background-color:#fdd">        return std::nullopt;</span>
     }

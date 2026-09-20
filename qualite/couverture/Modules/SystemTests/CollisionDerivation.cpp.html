@@ -16,6 +16,8 @@
 
 #include &lt;cstddef&gt;
 #include &lt;optional&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
 
 #include "Core/Levels/PieceFootprint.h"
 
@@ -64,66 +66,108 @@ namespace {
 <span style = "background-color:#fdd">    return PieceTactical::Open;</span>
 <span style = "background-color:#dfd">}</span>
 
-CollisionDerivation deriveCollision(const std::vector&lt;TileLayer&gt;&amp; layers, int width, int height,
-<span style = "background-color:#dfd">                                    const ScenePieceManifest* manifest) {
-    const auto cellCount = static_cast&lt;std::size_t&gt;(width) * static_cast&lt;std::size_t&gt;(height);</span>
-    // Contribution la plus forte par case ; std::nullopt tant que rien ne couvre la case (vide).
-<span style = "background-color:#dfd">    std::vector&lt;std::optional&lt;PieceTactical&gt;&gt; contributions(cellCount);
-    std::vector&lt;bool&gt; unknown(cellCount, false);
-    TileMap bounds(width, height);
-    const auto indexOf = [width](int column, int row) {
-        return (static_cast&lt;std::size_t&gt;(row) * static_cast&lt;std::size_t&gt;(width)) +</span>
+namespace {
+
+// Ce que les couches apportent, case par case : la contribution la plus forte, et les cases dont
+// la piÃ¨ce est inconnue.
+class Contributions {
+public:
+    Contributions(int width, int height, const ScenePieceManifest* manifest)
+<span style = "background-color:#dfd">        : _width(width),
+          _height(height),
+          _manifest(manifest),
+          _cells(static_cast&lt;std::size_t&gt;(width) * static_cast&lt;std::size_t&gt;(height)),
+          _unknown(_cells.size(), false),
+          _bounds(width, height) {}</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] std::size_t indexOf(int column, int row) const {
+        return (static_cast&lt;std::size_t&gt;(row) * static_cast&lt;std::size_t&gt;(_width)) +</span>
                static_cast&lt;std::size_t&gt;(column);
-<span style = "background-color:#dfd">    };
-    const auto contribute = [&amp;](int column, int row, PieceTactical tactical) {
-        if (!bounds.inBounds(column, row)) {</span>
+<span style = "background-color:#dfd">    }</span>
+
+    // Ajoute ce que la couche @p layer apporte, si elle est visuelle et de la taille de la carte.
+<span style = "background-color:#dfd">    void addLayer(const TileLayer&amp; layer) {
+        if (!isVisualLayerKind(layer.kind) || layer.tiles.width() != _width ||</span>
+            layer.tiles.height() != _height) {
+<span style = "background-color:#dfd">            return;</span>
+        }
+<span style = "background-color:#dfd">        for (int row = 0; row &lt; _height; ++row) {
+            for (int column = 0; column &lt; _width; ++column) {
+                addCell(layer, column, row);
+            }
+        }
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] PieceTactical tacticalAt(std::size_t index) const {
+        return _cells[index].value_or(PieceTactical::Solid);
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool isUnknown(std::size_t index) const {
+        return _unknown[index];
+    }</span>
+
+private:
+<span style = "background-color:#dfd">    void contribute(int column, int row, PieceTactical tactical) {
+        if (!_bounds.inBounds(column, row)) {</span>
 <span style = "background-color:#fdd">            return;  // une emprise qui dÃ©borde de la carte n'y occupe que ce qui y tient</span>
         }
-<span style = "background-color:#dfd">        std::optional&lt;PieceTactical&gt;&amp; cell = contributions[indexOf(column, row)];
+<span style = "background-color:#dfd">        std::optional&lt;PieceTactical&gt;&amp; cell = _cells[indexOf(column, row)];
         cell = cell ? strongest(*cell, tactical) : tactical;
-    };</span>
+    }</span>
 
-<span style = "background-color:#dfd">    for (const TileLayer&amp; layer : layers) {
-        if (!isVisualLayerKind(layer.kind) || layer.tiles.width() != width ||</span>
-            layer.tiles.height() != height) {
-<span style = "background-color:#dfd">            continue;</span>
+    // Ce que la case (column, row) apporte : l'emprise de sa piÃ¨ce si elle est connue, sinon son
+    // type ; une piÃ¨ce inconnue est relevÃ©e et couvre au moins Â« ouvert Â».
+<span style = "background-color:#dfd">    void addCell(const TileLayer&amp; layer, int column, int row) {
+        const std::string_view name = layer.pieceAt(column, row);
+        const ScenePiece* piece =</span>
+            name.empty() || _manifest == nullptr ? nullptr : _manifest-&gt;find(name);
+<span style = "background-color:#dfd">        if (piece != nullptr) {</span>
+            for (const GridPosition cell :
+<span style = "background-color:#dfd">                 footprintCells(GridPosition{.column = column, .row = row}, piece-&gt;footprint())) {
+                contribute(cell.column, cell.row, piece-&gt;tactical);
+            }
+            return;</span>
         }
-<span style = "background-color:#dfd">        for (int row = 0; row &lt; height; ++row) {
-            for (int column = 0; column &lt; width; ++column) {
-                const std::string_view name = layer.pieceAt(column, row);
-                const ScenePiece* piece =</span>
-                    name.empty() || manifest == nullptr ? nullptr : manifest-&gt;find(name);
-<span style = "background-color:#dfd">                if (piece != nullptr) {
-                    for (const GridPosition cell : footprintCells(
-                             GridPosition{.column = column, .row = row}, piece-&gt;footprint())) {
-                        contribute(cell.column, cell.row, piece-&gt;tactical);
-                    }
-                    continue;</span>
-                }
-<span style = "background-color:#dfd">                if (!name.empty()) {
-                    unknown[indexOf(column, row)] = true;</span>
-                }
-<span style = "background-color:#dfd">                const TileType type = layer.tiles.tile(column, row);
-                if (type != TileType::Empty) {
-                    contribute(column, row, tacticalOfTileType(type));
-                } else if (!name.empty()) {</span>
-<span style = "background-color:#fdd">                    contribute(column, row, PieceTactical::Open);  // une piÃ¨ce inconnue couvre</span>
-                }
-<span style = "background-color:#dfd">            }
+<span style = "background-color:#dfd">        if (!name.empty()) {
+            _unknown[indexOf(column, row)] = true;</span>
         }
+<span style = "background-color:#dfd">        const TileType type = layer.tiles.tile(column, row);
+        if (type != TileType::Empty) {
+            contribute(column, row, tacticalOfTileType(type));
+        } else if (!name.empty()) {</span>
+<span style = "background-color:#fdd">            contribute(column, row, PieceTactical::Open);  // une piÃ¨ce inconnue couvre</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    int _width;
+    int _height;
+    const ScenePieceManifest* _manifest;
+    // std::nullopt tant que rien ne couvre la case (vide).
+    std::vector&lt;std::optional&lt;PieceTactical&gt;&gt; _cells;
+    std::vector&lt;bool&gt; _unknown;
+    TileMap _bounds;
+};
+
+}  // namespace
+
+CollisionDerivation deriveCollision(const std::vector&lt;TileLayer&gt;&amp; layers, int width, int height,
+<span style = "background-color:#dfd">                                    const ScenePieceManifest* manifest) {
+    Contributions contributions(width, height, manifest);
+    for (const TileLayer&amp; layer : layers) {
+        contributions.addLayer(layer);
     }</span>
 
 <span style = "background-color:#dfd">    CollisionDerivation derivation{.collision = TileMap(width, height)};
     for (int row = 0; row &lt; height; ++row) {
         for (int column = 0; column &lt; width; ++column) {
-            const std::size_t index = indexOf(column, row);
-            const PieceTactical tactical = contributions[index].value_or(PieceTactical::Solid);
+            const std::size_t index = contributions.indexOf(column, row);
+            const PieceTactical tactical = contributions.tacticalAt(index);
             derivation.collision.setTile(column, row, collisionTileOf(tactical));
             const GridPosition cell{.column = column, .row = row};
             if (tactical == PieceTactical::Difficult || tactical == PieceTactical::Cover) {
                 derivation.unplayed.push_back(cell);</span>
             }
-<span style = "background-color:#dfd">            if (unknown[index]) {
+<span style = "background-color:#dfd">            if (contributions.isUnknown(index)) {
                 derivation.unknownPieces.push_back(cell);</span>
             }
 <span style = "background-color:#dfd">        }

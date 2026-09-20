@@ -89,12 +89,12 @@ enum class MapCheckSeverity {
 /// @brief Un constat du contrÃ´le, sur une carte, et parfois sur une case.
 struct MapCheckFinding {
     MapCheckSeverity severity = MapCheckSeverity::Error;
-    std::string mapId;
-    std::optional&lt;core::GridPosition&gt; cell;
-    std::string message;
+    std::string mapId{};
+    std::optional&lt;core::GridPosition&gt; cell{};
+    std::string message{};
     /// L'entitÃ© en cause, par son `id`, vide si le constat n'en vise aucune : le panneau
     /// Â« Problems Â» la sÃ©lectionne (`LOT-EDITOR-07`).
-    std::string entityId;
+    std::string entityId{};
 
     [[nodiscard]] bool operator==(const MapCheckFinding&amp;) const = default;
 };

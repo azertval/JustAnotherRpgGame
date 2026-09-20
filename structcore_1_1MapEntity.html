@@ -102,15 +102,15 @@ $(function(){initNavTree('structcore_1_1MapEntity.html','','structcore_1_1MapEnt
 Public Attributes</h2></td></tr>
 <tr class="memitem:a0585fa6522c09d42c879ed8bd9c32550" id="r_a0585fa6522c09d42c879ed8bd9c32550"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a0585fa6522c09d42c879ed8bd9c32550">type</a></td></tr>
 <tr class="memdesc:a0585fa6522c09d42c879ed8bd9c32550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type de l'entité, libre : <span class="tt">"npc"</span>, <span class="tt">"chest"</span>, <span class="tt">"sign"</span>, <span class="tt">"portal"</span>, <span class="tt">"encounter"</span>…  <br /></td></tr>
-<tr class="memitem:a3e295d3994994b3a15733b8377a25695" id="r_a3e295d3994994b3a15733b8377a25695"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3e295d3994994b3a15733b8377a25695">position</a></td></tr>
+<tr class="memitem:a3e295d3994994b3a15733b8377a25695" id="r_a3e295d3994994b3a15733b8377a25695"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3e295d3994994b3a15733b8377a25695">position</a> {}</td></tr>
 <tr class="memdesc:a3e295d3994994b3a15733b8377a25695"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case occupée par l'entité — pour une zone peinte, sa case de référence.  <br /></td></tr>
-<tr class="memitem:a8e85ab253ba2e9b4e70fcdce5e1bff0f" id="r_a8e85ab253ba2e9b4e70fcdce5e1bff0f"><td class="memItemLeft"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8e85ab253ba2e9b4e70fcdce5e1bff0f">properties</a></td></tr>
+<tr class="memitem:a8e85ab253ba2e9b4e70fcdce5e1bff0f" id="r_a8e85ab253ba2e9b4e70fcdce5e1bff0f"><td class="memItemLeft"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8e85ab253ba2e9b4e70fcdce5e1bff0f">properties</a> {}</td></tr>
 <tr class="memdesc:a8e85ab253ba2e9b4e70fcdce5e1bff0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriétés libres (<span class="tt"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731" title="Propriétés libres, indexées par nom.">core::PropertyMap</a></span>), y compris les clés que le chargeur n'a pas reconnues — elles sont réémises telles quelles à l'écriture.  <br /></td></tr>
-<tr class="memitem:afa63cbd6027812c62b6945e5202bade3" id="r_afa63cbd6027812c62b6945e5202bade3"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#afa63cbd6027812c62b6945e5202bade3">id</a></td></tr>
+<tr class="memitem:afa63cbd6027812c62b6945e5202bade3" id="r_afa63cbd6027812c62b6945e5202bade3"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#afa63cbd6027812c62b6945e5202bade3">id</a> {}</td></tr>
 <tr class="memdesc:afa63cbd6027812c62b6945e5202bade3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifiant court, unique dans la carte, donné par l'éditeur et <b>jamais réemployé</b> (format v4, décision D8, <span class="tt">EX-LVL-021</span>).  <br /></td></tr>
 <tr class="memitem:a7142eabb809cffbf76fb1c6f29b229c7" id="r_a7142eabb809cffbf76fb1c6f29b229c7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a7142eabb809cffbf76fb1c6f29b229c7">elevation</a> = 0</td></tr>
 <tr class="memdesc:a7142eabb809cffbf76fb1c6f29b229c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur de l'entité. <b>Réservée</b> (décision D11) : lue, gardée, réécrite, jamais jouée.  <br /></td></tr>
-<tr class="memitem:a7852db46b5652c07b44fe5fd9bc198f3" id="r_a7852db46b5652c07b44fe5fd9bc198f3"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7852db46b5652c07b44fe5fd9bc198f3">cells</a></td></tr>
+<tr class="memitem:a7852db46b5652c07b44fe5fd9bc198f3" id="r_a7852db46b5652c07b44fe5fd9bc198f3"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7852db46b5652c07b44fe5fd9bc198f3">cells</a> {}</td></tr>
 <tr class="memdesc:a7852db46b5652c07b44fe5fd9bc198f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forme <b>peinte</b> d'une zone (décision D13) : les cases qu'elle couvre.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
@@ -125,7 +125,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&gt; core::MapEntity::cells</td>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&gt; core::MapEntity::cells {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -158,7 +158,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string core::MapEntity::id</td>
+          <td class="memname">std::string core::MapEntity::id {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -175,7 +175,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> core::MapEntity::position</td>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> core::MapEntity::position {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -191,7 +191,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a> core::MapEntity::properties</td>
+          <td class="memname"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a> core::MapEntity::properties {}</td>
         </tr>
       </table>
 </div><div class="memdoc">

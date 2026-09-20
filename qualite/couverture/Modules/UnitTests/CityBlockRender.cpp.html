@@ -15,6 +15,7 @@
 #include "HMI/Graphics/CityBlockRender.h"
 
 #include &lt;algorithm&gt;
+#include &lt;array&gt;
 #include &lt;cmath&gt;
 #include &lt;memory&gt;
 
@@ -36,7 +37,7 @@ namespace {
 constexpr float PLUS_HAUTE_ELEVATION_PIXELS = 135.0F - static_cast&lt;float&gt;(SCENE_TILE_HEIGHT_PIXELS);
 
 // Fond de l'image : celui de l'ecran de jeu, que le dehors d'une carte laisse voir.
-constexpr float FOND[4] = {0.043F, 0.043F, 0.043F, 1.0F};
+constexpr std::array&lt;float, 4&gt; FOND = {0.043F, 0.043F, 0.043F, 1.0F};
 
 <span style = "background-color:#dfd">std::unique_ptr&lt;QRhi&gt; interfaceHorsEcran() {</span>
 #ifdef Q_OS_WIN
@@ -55,11 +56,10 @@ CityBlockFraming cityBlockFraming(const core::IsoProjection&amp; projection,
     const auto gauche = static_cast&lt;float&gt;(block.origin.column);
     const auto haut = static_cast&lt;float&gt;(block.origin.row);
     const float droite = gauche + static_cast&lt;float&gt;(block.columns);
-    const float bas = haut + static_cast&lt;float&gt;(block.rows);
-    const core::Vector2 coins[4] = {projection.gridToWorld({gauche, haut}),
-                                    projection.gridToWorld({droite, haut}),
-                                    projection.gridToWorld({gauche, bas}),
-                                    projection.gridToWorld({droite, bas})};
+    const float bas = haut + static_cast&lt;float&gt;(block.rows);</span>
+    const std::array&lt;core::Vector2, 4&gt; coins = {
+<span style = "background-color:#dfd">        projection.gridToWorld({gauche, haut}), projection.gridToWorld({droite, haut}),
+        projection.gridToWorld({gauche, bas}), projection.gridToWorld({droite, bas})};
     float minX = coins[0].x;
     float maxX = coins[0].x;
     float minY = coins[0].y;
@@ -92,9 +92,9 @@ QImage renderCityBlock(const std::filesystem::path&amp; assetsDirectory,
     const CityBlockFraming cadrage = cityBlockFraming(projection, block);
     const QSize taille(std::max(1, cadrage.pixelWidth), std::max(1, cadrage.pixelHeight));</span>
 
-<span style = "background-color:#dfd">    const std::unique_ptr&lt;QRhiTexture&gt; texture(rhi-&gt;newTexture(</span>
-        QRhiTexture::RGBA8, taille, 1,
-        QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
+<span style = "background-color:#dfd">    const std::unique_ptr&lt;QRhiTexture&gt; texture(</span>
+        rhi-&gt;newTexture(QRhiTexture::RGBA8, taille, 1,
+                        QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
 <span style = "background-color:#dfd">    if (!texture-&gt;create()) {</span>
 <span style = "background-color:#fdd">        return {};</span>
     }
@@ -122,7 +122,7 @@ QImage renderCityBlock(const std::filesystem::path&amp; assetsDirectory,
         if (rhi-&gt;beginOffscreenFrame(&amp;commandes) != QRhi::FrameOpSuccess) {</span>
 <span style = "background-color:#fdd">            return {};</span>
         }
-<span style = "background-color:#dfd">        rendu.render(commandes, cible.get(), FOND);
+<span style = "background-color:#dfd">        rendu.render(commandes, cible.get(), FOND.data());
         QRhiReadbackResult relecture;
         QRhiResourceUpdateBatch* const lot = rhi-&gt;nextResourceUpdateBatch();
         lot-&gt;readBackTexture({texture.get()}, &amp;relecture);
@@ -130,6 +130,7 @@ QImage renderCityBlock(const std::filesystem::path&amp; assetsDirectory,
         if (rhi-&gt;endOffscreenFrame() != QRhi::FrameOpSuccess) {</span>
 <span style = "background-color:#fdd">            return {};</span>
         }
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast): QImage lit des `uchar`.
 <span style = "background-color:#dfd">        image = QImage(reinterpret_cast&lt;const uchar*&gt;(relecture.data.constData()),</span>
                        relecture.pixelSize.width(), relecture.pixelSize.height(),
                        QImage::Format_RGBA8888)

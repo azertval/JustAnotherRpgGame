@@ -51,6 +51,13 @@ namespace hmi {
     return static_cast&lt;const QImage*&gt;(handle);
 }</span>
 
+/// @return L'identitÃ© de texture de @p image, l'inverse de `sceneImageOf`. L'identitÃ© est opaque
+///         (`void*`) et personne n'Ã©crit Ã  travers : le retrait du `const` est sans effet.
+<span style = "background-color:#dfd">[[nodiscard]] inline TextureHandle sceneImageHandle(const QImage* image) noexcept {</span>
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast): identitÃ© opaque, jamais Ã©crite.
+<span style = "background-color:#dfd">    return const_cast&lt;QImage*&gt;(image);
+}</span>
+
 /**
  * @brief Le cache des images du canevas : ce que `hmi::paintComposedScene` peint, et ce que
  *        `hmi::composeWorldScene` adresse par chemin.
@@ -73,7 +80,7 @@ public:
     }</span>
 
     /// @return L'identitÃ© d'une teinte unie : un quad qui la porte se peint en aplat de sa teinte.
-    [[nodiscard]] TextureHandle solid() const noexcept;
+    [[nodiscard]] static TextureHandle solid() noexcept;
 
     /// @return L'atlas procÃ©dural des types de tuile (la vue Ã  plat).
     [[nodiscard]] const QImage&amp; atlas() const noexcept {

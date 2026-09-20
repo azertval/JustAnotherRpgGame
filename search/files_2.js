@@ -56,7 +56,7 @@ var searchData=
   ['corelog_2eh_53',['CoreLog.h',['../CoreLog_8h.html',1,'']]],
   ['crashdump_2ecpp_54',['CrashDump.cpp',['../CrashDump_8cpp.html',1,'']]],
   ['crashdump_2eh_55',['CrashDump.h',['../CrashDump_8h.html',1,'']]],
-  ['credits_2emd_56',['CREDITS.md',['../Source_2Elements_2Assets_2CREDITS_8md.html',1,'(Global Namespace)'],['../Tools_2AssetFactory_2CREDITS_8md.html',1,'(Global Namespace)']]],
+  ['credits_2emd_56',['CREDITS.md',['../CREDITS_8md.html',1,'']]],
   ['creditscatalog_2ecpp_57',['CreditsCatalog.cpp',['../CreditsCatalog_8cpp.html',1,'']]],
   ['creditscatalog_2eh_58',['CreditsCatalog.h',['../CreditsCatalog_8h.html',1,'']]],
   ['creditsmodel_2ecpp_59',['CreditsModel.cpp',['../CreditsModel_8cpp.html',1,'']]],

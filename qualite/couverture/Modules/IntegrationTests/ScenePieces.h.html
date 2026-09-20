@@ -65,9 +65,9 @@ struct SceneTexture {
     /// Largeur d'une image si la texture est une bande d'animation ; 0 sinon.
 <span style = "background-color:#dfd">    int frameWidth = 0;</span>
     /// Origine explicite des pieces modulaires, en pixels d'art du PNG.
-    std::optional&lt;core::Vector2&gt; anchor;
+<span style = "background-color:#dfd">    std::optional&lt;core::Vector2&gt; anchor{};</span>
     /// Somme des coordonnees locales du pied utilise pour le tri, en cases.
-    std::optional&lt;float&gt; depthOffset;
+<span style = "background-color:#dfd">    std::optional&lt;float&gt; depthOffset{};</span>
 };
 
 /**

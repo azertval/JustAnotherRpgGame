@@ -76,6 +76,13 @@ BattleGrid::BattleGrid(const TileMap&amp; collision)
 <span style = "background-color:#dfd">BattleGrid::BattleGrid(const Level&amp; level) : BattleGrid(level, level.tileMap()) {}</span>
 
 <span style = "background-color:#dfd">void BattleGrid::addZones(const Level&amp; level) {
+    addLayerZones(level);</span>
+    // Les zones posees comme entites (decision D13) : un rectangle ou des cases peintes, apres les
+    // couches -- `zonesAt` les rend dans l'ordre des couches, puis des entites.
+<span style = "background-color:#dfd">    addEntityZones(level);
+}</span>
+
+<span style = "background-color:#dfd">void BattleGrid::addLayerZones(const Level&amp; level) {
     for (const TileLayer&amp; layer : level.layers()) {
         if (layer.properties.empty() || layer.tiles.width() != _width ||</span>
             layer.tiles.height() != _height) {
@@ -97,10 +104,11 @@ BattleGrid::BattleGrid(const TileMap&amp; collision)
 <span style = "background-color:#dfd">            }
         }
         _zones.push_back(std::move(zone));
-    }</span>
-    // Les zones posees comme entites (decision D13) : un rectangle ou des cases peintes, apres les
-    // couches -- `zonesAt` les rend dans l'ordre des couches, puis des entites.
-<span style = "background-color:#dfd">    for (const MapEntity&amp; entity : level.entities()) {
+    }
+}</span>
+
+<span style = "background-color:#dfd">void BattleGrid::addEntityZones(const Level&amp; level) {
+    for (const MapEntity&amp; entity : level.entities()) {
         if (entity.type != ZONE_ENTITY_TYPE) {
             continue;</span>
         }

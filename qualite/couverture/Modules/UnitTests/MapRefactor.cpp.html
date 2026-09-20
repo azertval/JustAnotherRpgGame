@@ -408,7 +408,7 @@ void forEachCityMap(nlohmann::ordered_json&amp; city,
         if (!json.contains(section) || !json[section].is_object()) {</span>
 <span style = "background-color:#fdd">            continue;</span>
         }
-<span style = "background-color:#dfd">        for (auto&amp; entry : json[section].items()) {
+<span style = "background-color:#dfd">        for (const auto&amp; entry : json[section].items()) {
             nlohmann::ordered_json&amp; pieces = entry.value();
             if (!pieces.is_array()) {</span>
 <span style = "background-color:#fdd">                continue;</span>
@@ -486,61 +486,72 @@ std::vector&lt;Citation&gt; citationsOfEntity(const std::filesystem::path&amp; d
     return planRenameEntityId(dataRoot, mapId, entityId, "").changes;
 }</span>
 
+namespace {
+
+// Une citation par couche visuelle de @p map qui place @p piece.
+<span style = "background-color:#dfd">std::vector&lt;Citation&gt; pieceCitationsIn(const ProjectMap&amp; map, std::string_view piece) {
+    std::vector&lt;Citation&gt; citations;
+    for (const core::TileLayer&amp; layer : map.data.layers) {
+        if (!core::isVisualLayerKind(layer.kind) || !layer.hasPieces()) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::vector&lt;core::GridPosition&gt; cells = cellsOf(layer, piece);
+        if (!cells.empty()) {
+            citations.push_back(Citation{.file = map.file,</span>
+                                         .mapId = map.id,
+                                         .cell = cells.front(),
+                                         .what = "layer " + layer.name + ": " +
+                                                 std::to_string(cells.size()) +
+                                                 (cells.size() == 1 ? " cell" : " cells")});
+        }
+<span style = "background-color:#dfd">    }
+    return citations;
+}</span>
+
+}  // namespace
+
 std::vector&lt;Citation&gt; citationsOfPiece(const std::filesystem::path&amp; dataRoot,
 <span style = "background-color:#dfd">                                       std::string_view piece) {
     std::vector&lt;Citation&gt; citations;
     Project project = loadProject(dataRoot);
     for (const ProjectMap&amp; map : project.maps) {
-        for (const core::TileLayer&amp; layer : map.data.layers) {
-            if (!core::isVisualLayerKind(layer.kind) || !layer.hasPieces()) {
-                continue;</span>
-            }
-<span style = "background-color:#dfd">            const std::vector&lt;core::GridPosition&gt; cells = cellsOf(layer, piece);
-            if (!cells.empty()) {
-                citations.push_back(Citation{.file = map.file,</span>
-                                             .mapId = map.id,
-                                             .cell = cells.front(),
-                                             .what = "layer " + layer.name + ": " +
-                                                     std::to_string(cells.size()) +
-                                                     (cells.size() == 1 ? " cell" : " cells")});
-            }
-<span style = "background-color:#dfd">        }
-    }
+        std::vector&lt;Citation&gt; found = pieceCitationsIn(map, piece);
+        citations.insert(citations.end(), std::make_move_iterator(found.begin()),</span>
+                         std::make_move_iterator(found.end()));
+<span style = "background-color:#dfd">    }
     return citations;
 }</span>
 
 // --- Renommer ------------------------------------------------------------------------------------
 
-// Un nom vide ne renomme pas : il ne fait que recenser ce qui cite (Â« qui cite ceci ? Â»).
-RefactorPlan planRenameMap(const std::filesystem::path&amp; dataRoot, std::string_view oldId,
-<span style = "background-color:#dfd">                           std::string_view newId) {
-    const bool renaming = !newId.empty();
-    if (renaming &amp;&amp; !isValidMapId(newId)) {
-        return refused("\"" + std::string{newId} + "\" is not a valid map id");</span>
-    }
-<span style = "background-color:#dfd">    if (oldId == newId) {</span>
-<span style = "background-color:#fdd">        return refused("the map is already named \"" + std::string{newId} + "\"");</span>
-    }
-<span style = "background-color:#dfd">    Project project = loadProject(dataRoot);
+namespace {
+
+// Pourquoi la carte @p oldId ne se renomme pas en @p newId (projet illisible, carte inconnue, nom
+// pris) ; std::nullopt si rien ne s'y oppose.
+std::optional&lt;std::string&gt; mapRenameRefusal(Project&amp; project, const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                                            std::string_view oldId, std::string_view newId) {
     if (!project.error.empty()) {
-        return refused(project.error);</span>
+        return project.error;</span>
     }
-<span style = "background-color:#dfd">    ProjectMap* renamed = project.find(oldId);
-    if (renamed == nullptr) {</span>
-<span style = "background-color:#fdd">        return refused("no map \"" + std::string{oldId} + "\"");</span>
+<span style = "background-color:#dfd">    if (project.find(oldId) == nullptr) {</span>
+<span style = "background-color:#fdd">        return "no map \"" + std::string{oldId} + "\"";</span>
     }
-<span style = "background-color:#dfd">    if (renaming) {
+<span style = "background-color:#dfd">    if (!newId.empty()) {
         std::error_code error;
         if (project.find(newId) != nullptr ||</span>
             std::filesystem::exists(mapFileOf(dataRoot, newId), error)) {
-<span style = "background-color:#dfd">            return refused("a map \"" + std::string{newId} + "\" already exists");</span>
+<span style = "background-color:#dfd">            return "a map \"" + std::string{newId} + "\" already exists";</span>
         }
     }
-<span style = "background-color:#dfd">    RefactorPlan plan;
-    std::set&lt;std::string&gt; changed;
-    const std::string entityPrefix = std::string{oldId} + "#";</span>
+<span style = "background-color:#dfd">    return std::nullopt;
+}</span>
 
-<span style = "background-color:#dfd">    for (ProjectMap&amp; map : project.maps) {
+// RÃ©Ã©crit, dans les cartes du projet, ce qui cite @p oldId (rÃ©fÃ©rence de carte, d'entitÃ©, base de
+// variante) vers @p newId, et range les citations et les cartes touchÃ©es.
+void renameMapInMaps(Project&amp; project, std::string_view oldId, std::string_view newId,
+<span style = "background-color:#dfd">                     RefactorPlan&amp; plan, std::set&lt;std::string&gt;&amp; changed) {
+    const std::string entityPrefix = std::string{oldId} + "#";
+    for (ProjectMap&amp; map : project.maps) {
         forEachReference(map.data.entities, core::EntityChoiceSource::Maps,
                          [&amp;](core::MapEntity&amp; entity, std::string_view key, std::string&amp; value) {
                              if (value == oldId) {
@@ -563,9 +574,13 @@ RefactorPlan planRenameMap(const std::filesystem::path&amp; dataRoot, std::strin
 <span style = "background-color:#fdd">            map.data.base = std::string{newId};
             changed.insert(map.id);</span>
         }
-<span style = "background-color:#dfd">    }</span>
+<span style = "background-color:#dfd">    }
+}</span>
 
-<span style = "background-color:#dfd">    for (CityFile&amp; city : loadCities(dataRoot)) {
+// Idem pour les plans de ville (`start.map`, quartiersâ¦).
+void renameMapInCities(const std::filesystem::path&amp; dataRoot, std::string_view oldId,
+<span style = "background-color:#dfd">                       std::string_view newId, RefactorPlan&amp; plan) {
+    for (CityFile&amp; city : loadCities(dataRoot)) {
         bool cityChanged = false;
         forEachCityMap(city.json, [&amp;](nlohmann::ordered_json&amp; field, std::string what) {
             if (field.get&lt;std::string&gt;() == oldId) {
@@ -577,31 +592,70 @@ RefactorPlan planRenameMap(const std::filesystem::path&amp; dataRoot, std::strin
         if (cityChanged) {
             plan.edits.push_back(ProjectEdit{.file = city.file, .text = jsonText(city.json)});
         }
-    }</span>
+    }
+}</span>
 
-    // La clÃ© du nom : la carte la cite si son nom est la clÃ© de son identifiant (LOT-EDITOR-07).
-<span style = "background-color:#dfd">    const std::string oldKey = mapNameKey(oldId);
+// La clÃ© du nom : la carte la cite si son nom est la clÃ© de son identifiant (LOT-EDITOR-07).
+// @return Le refus, si un catalogue a dÃ©jÃ  la nouvelle clÃ© ; std::nullopt sinon.
+std::optional&lt;std::string&gt; renameMapNameKey(const std::filesystem::path&amp; dataRoot,
+                                            std::string_view oldId, std::string_view newId,
+<span style = "background-color:#dfd">                                            RefactorPlan&amp; plan) {
+    const bool renaming = !newId.empty();
+    const std::string oldKey = mapNameKey(oldId);
     const std::string newKey = mapNameKey(newId);
     for (const std::filesystem::path&amp; catalog : catalogFiles(dataRoot)) {
         const std::string text = readText(catalog);
-        if (renaming) {
-            if (const std::optional&lt;std::string&gt; renamedText =</span>
-                    renameCatalogKey(text, oldKey, newKey)) {
-<span style = "background-color:#dfd">                if (hasCatalogKey(text, newKey)) {</span>
-<span style = "background-color:#fdd">                    return refused(catalog.filename().string() + " already has \"" + newKey + "\"");</span>
-                }
-<span style = "background-color:#dfd">                plan.changes.push_back(Citation{.file = catalog, .what = oldKey});
-                plan.edits.push_back(ProjectEdit{.file = catalog, .text = *renamedText});
+        if (!renaming) {
+            if (hasCatalogKey(text, oldKey)) {
+                plan.changes.push_back(Citation{.file = catalog, .what = oldKey});</span>
             }
-        } else if (hasCatalogKey(text, oldKey)) {
-            plan.changes.push_back(Citation{.file = catalog, .what = oldKey});</span>
+<span style = "background-color:#dfd">            continue;</span>
         }
+<span style = "background-color:#dfd">        const std::optional&lt;std::string&gt; renamedText = renameCatalogKey(text, oldKey, newKey);
+        if (!renamedText) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (hasCatalogKey(text, newKey)) {</span>
+<span style = "background-color:#fdd">            return catalog.filename().string() + " already has \"" + newKey + "\"";</span>
+        }
+<span style = "background-color:#dfd">        plan.changes.push_back(Citation{.file = catalog, .what = oldKey});
+        plan.edits.push_back(ProjectEdit{.file = catalog, .text = *renamedText});
+    }
+    return std::nullopt;
+}</span>
+
+}  // namespace
+
+// Un nom vide ne renomme pas : il ne fait que recenser ce qui cite (Â« qui cite ceci ? Â»).
+RefactorPlan planRenameMap(const std::filesystem::path&amp; dataRoot, std::string_view oldId,
+<span style = "background-color:#dfd">                           std::string_view newId) {
+    const bool renaming = !newId.empty();
+    if (renaming &amp;&amp; !isValidMapId(newId)) {
+        return refused("\"" + std::string{newId} + "\" is not a valid map id");</span>
+    }
+<span style = "background-color:#dfd">    if (oldId == newId) {</span>
+<span style = "background-color:#fdd">        return refused("the map is already named \"" + std::string{newId} + "\"");</span>
+    }
+<span style = "background-color:#dfd">    Project project = loadProject(dataRoot);
+    if (const std::optional&lt;std::string&gt; refusal =</span>
+            mapRenameRefusal(project, dataRoot, oldId, newId)) {
+<span style = "background-color:#dfd">        return refused(*refusal);
+    }
+    ProjectMap* renamed = project.find(oldId);
+    RefactorPlan plan;
+    std::set&lt;std::string&gt; changed;
+    renameMapInMaps(project, oldId, newId, plan, changed);
+    renameMapInCities(dataRoot, oldId, newId, plan);
+    if (const std::optional&lt;std::string&gt; refusal = renameMapNameKey(dataRoot, oldId, newId, plan)) {</span>
+<span style = "background-color:#fdd">        return refused(*refusal);</span>
 <span style = "background-color:#dfd">    }</span>
 
 <span style = "background-color:#dfd">    if (!renaming) {
         return plan;</span>
     }
-<span style = "background-color:#dfd">    if (renamed-&gt;data.name == oldKey) {
+<span style = "background-color:#dfd">    const std::string oldKey = mapNameKey(oldId);
+    const std::string newKey = mapNameKey(newId);
+    if (renamed-&gt;data.name == oldKey) {
         renamed-&gt;data.name = newKey;</span>
     }
 <span style = "background-color:#dfd">    changed.erase(renamed-&gt;id);
@@ -641,8 +695,7 @@ RefactorPlan planRenameArrival(const std::filesystem::path&amp; dataRoot, std::s
 <span style = "background-color:#fdd">        return refused(std::string{mapId} + " has no arrival point \"" + std::string{oldName} +</span>
                        "\"");
     }
-<span style = "background-color:#dfd">    if (renaming &amp;&amp;
-        std::ranges::any_of(owner-&gt;data.entities, [newName](const auto&amp; entity) {
+<span style = "background-color:#dfd">    if (renaming &amp;&amp; std::ranges::any_of(owner-&gt;data.entities, [newName](const auto&amp; entity) {
             return isSpawnPoint(entity, newName);
         })) {
         return refused(std::string{mapId} + " already has an arrival point \"" +</span>
@@ -743,6 +796,43 @@ RefactorPlan planRenameEntityId(const std::filesystem::path&amp; dataRoot, std::
 
 // --- Remplacer, changer de planche -------------------------------------------------------------
 
+namespace {
+
+// Ajoute Ã  @p plan la rÃ©Ã©criture de @p map (@p from devient @p to), ou dit pourquoi elle est
+// refusÃ©e : std::nullopt si tout va bien.
+std::optional&lt;std::string&gt; replacePieceInMap(const std::filesystem::path&amp; dataRoot,
+                                             const ProjectMap&amp; map, std::string_view from,
+<span style = "background-color:#dfd">                                             std::string_view to, RefactorPlan&amp; plan) {
+    const PlaceAssets assets = placeOf(dataRoot, map.data);
+    const core::ScenePiece* next = assets.manifest ? assets.manifest-&gt;find(to) : nullptr;
+    if (next == nullptr) {
+        return "\"" + std::string{to} + "\" is not on the sheet of " + map.id;</span>
+    }
+<span style = "background-color:#dfd">    const core::ScenePiece* previous = assets.manifest-&gt;find(from);
+    if (previous != nullptr &amp;&amp; (previous-&gt;pieceClass == core::ScenePieceClass::Floor) !=</span>
+                                   (next-&gt;pieceClass == core::ScenePieceClass::Floor)) {
+<span style = "background-color:#dfd">        return "\"" + std::string{from} + "\" and \"" + std::string{to} +</span>
+               "\" are not both floors, or both standing pieces";
+    }
+<span style = "background-color:#dfd">    core::LevelDraft draft = draftOf(map.data, assets);
+    const core::PieceRenaming renaming{{std::string{from}, std::string{to}}};
+    if (!draft.replacePieces(renaming)) {</span>
+<span style = "background-color:#fdd">        return "\"" + std::string{to} + "\" would overflow " + map.id;</span>
+    }
+<span style = "background-color:#dfd">    const core::LevelLoadResult validated = draft.toLevel();
+    if (!validated.ok()) {</span>
+<span style = "background-color:#fdd">        return map.id + " would not be valid: " + validated.error;</span>
+    }
+<span style = "background-color:#dfd">    std::vector&lt;Citation&gt; cited = pieceCitationsIn(map, from);
+    plan.changes.insert(plan.changes.end(), std::make_move_iterator(cited.begin()),</span>
+                        std::make_move_iterator(cited.end()));
+<span style = "background-color:#dfd">    plan.edits.push_back(</span>
+        ProjectEdit{.file = map.file, .text = core::LevelWriter::toJsonString(*validated.level)});
+<span style = "background-color:#dfd">    return std::nullopt;
+}</span>
+
+}  // namespace
+
 RefactorPlan planReplacePiece(const std::filesystem::path&amp; dataRoot, std::string_view from,
 <span style = "background-color:#dfd">                              std::string_view to, const std::vector&lt;std::string&gt;&amp; maps) {
     if (from.empty() || to.empty()) {</span>
@@ -758,7 +848,6 @@ RefactorPlan planReplacePiece(const std::filesystem::path&amp; dataRoot, std::st
         }
 <span style = "background-color:#fdd">    }</span>
 <span style = "background-color:#dfd">    RefactorPlan plan;
-    const core::PieceRenaming renaming{{std::string{from}, std::string{to}}};
     for (const ProjectMap&amp; map : project.maps) {
         if (!maps.empty() &amp;&amp; std::ranges::find(maps, map.id) == maps.end()) {</span>
 <span style = "background-color:#fdd">            continue;</span>
@@ -766,41 +855,11 @@ RefactorPlan planReplacePiece(const std::filesystem::path&amp; dataRoot, std::st
 <span style = "background-color:#dfd">        if (!citedPieces(map.data.layers).contains(from)) {
             continue;</span>
         }
-<span style = "background-color:#dfd">        const PlaceAssets assets = placeOf(dataRoot, map.data);
-        const core::ScenePiece* next = assets.manifest ? assets.manifest-&gt;find(to) : nullptr;
-        if (next == nullptr) {
-            return refused("\"" + std::string{to} + "\" is not on the sheet of " + map.id);</span>
+<span style = "background-color:#dfd">        if (const std::optional&lt;std::string&gt; refusal =</span>
+                replacePieceInMap(dataRoot, map, from, to, plan)) {
+<span style = "background-color:#dfd">            return refused(*refusal);
         }
-<span style = "background-color:#dfd">        const core::ScenePiece* previous = assets.manifest-&gt;find(from);
-        if (previous != nullptr &amp;&amp; (previous-&gt;pieceClass == core::ScenePieceClass::Floor) !=</span>
-                                       (next-&gt;pieceClass == core::ScenePieceClass::Floor)) {
-<span style = "background-color:#dfd">            return refused("\"" + std::string{from} + "\" and \"" + std::string{to} +</span>
-                           "\" are not both floors, or both standing pieces");
-        }
-<span style = "background-color:#dfd">        core::LevelDraft draft = draftOf(map.data, assets);
-        if (!draft.replacePieces(renaming)) {</span>
-<span style = "background-color:#fdd">            return refused("\"" + std::string{to} + "\" would overflow " + map.id);</span>
-        }
-<span style = "background-color:#dfd">        const core::LevelLoadResult validated = draft.toLevel();
-        if (!validated.ok()) {</span>
-<span style = "background-color:#fdd">            return refused(map.id + " would not be valid: " + validated.error);</span>
-        }
-<span style = "background-color:#dfd">        for (const core::TileLayer&amp; layer : map.data.layers) {
-            if (core::isVisualLayerKind(layer.kind) &amp;&amp; layer.hasPieces()) {
-                const std::vector&lt;core::GridPosition&gt; cells = cellsOf(layer, from);
-                if (!cells.empty()) {
-                    plan.changes.push_back(Citation{</span>
-                        .file = map.file,
-                        .mapId = map.id,
-                        .cell = cells.front(),
-                        .what = "layer " + layer.name + ": " + std::to_string(cells.size()) +
-                                (cells.size() == 1 ? " cell" : " cells")});
-                }
-<span style = "background-color:#dfd">            }
-        }
-        plan.edits.push_back(ProjectEdit{</span>
-            .file = map.file, .text = core::LevelWriter::toJsonString(*validated.level)});
-<span style = "background-color:#dfd">    }
+    }
     if (plan.edits.empty()) {</span>
 <span style = "background-color:#fdd">        return refused("no map places \"" + std::string{from} + "\"");</span>
     }
@@ -832,6 +891,21 @@ std::vector&lt;std::string&gt; piecesMissingFrom(const std::vector&lt;core::Tile
     return missing;
 }</span>
 
+namespace {
+
+// Le refus quand la planche @p place n'a pas de piÃ¨ce pour @p missing.
+std::string missingPiecesRefusal(std::string_view place, const std::vector&lt;std::string&gt;&amp; missing,
+<span style = "background-color:#dfd">                                 bool variant) {
+    std::string list;
+    for (const std::string&amp; piece : missing) {
+        list += (list.empty() ? "" : ", ") + piece;
+    }
+    return "no match on the sheet \"" + std::string{place} + "\" for: " + list +</span>
+           (variant ? " (pieces of the base map)" : " (add them to the table)");
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
 RefactorPlan planChangeScene(const std::filesystem::path&amp; dataRoot, std::string_view mapId,
 <span style = "background-color:#dfd">                             std::string_view place, const core::PieceRenaming&amp; table) {
     Project project = loadProject(dataRoot);
@@ -856,12 +930,7 @@ RefactorPlan planChangeScene(const std::filesystem::path&amp; dataRoot, std::str
     const std::vector&lt;std::string&gt; missing = piecesMissingFrom(</span>
         map-&gt;data.layers, variant ? core::PieceRenaming{} : merged, *target.manifest);
 <span style = "background-color:#dfd">    if (!missing.empty()) {
-        std::string list;
-        for (const std::string&amp; piece : missing) {
-            list += (list.empty() ? "" : ", ") + piece;
-        }
-        return refused("no match on the sheet \"" + std::string{place} + "\" for: " + list +</span>
-                       (variant ? " (pieces of the base map)" : " (add them to the table)"));
+        return refused(missingPiecesRefusal(place, missing, variant));</span>
     }
 <span style = "background-color:#dfd">    RefactorPlan plan;
     std::string text;
@@ -886,8 +955,10 @@ RefactorPlan planChangeScene(const std::filesystem::path&amp; dataRoot, std::str
 <span style = "background-color:#dfd">        text = core::LevelWriter::toJsonString(*validated.level);
         for (const auto&amp; [from, to] : merged) {
             if (from != to) {
-                plan.changes.push_back(Citation{</span>
-                    .file = map-&gt;file, .mapId = map-&gt;id, .what = "piece " + from + " -&gt; " + to});
+                plan.changes.push_back(</span>
+                    Citation{.file = map-&gt;file,
+                             .mapId = map-&gt;id,
+                             .what = std::string{"piece "}.append(from).append(" -&gt; ").append(to)});
             }
 <span style = "background-color:#dfd">        }
     }
@@ -916,9 +987,11 @@ RefactorPlan planChangeScene(const std::filesystem::path&amp; dataRoot, std::str
         nlohmann::json::parse(readText(file), nullptr, /*allow_exceptions=*/false);
     if (!json.is_object() || json.value("format", std::string{}) != PIECE_TABLE_FORMAT ||
 <span style = "background-color:#dfd">        json.value("version", 0) != 1 || !json.contains("pieces") || !json["pieces"].is_object()) {
-        result.error = file.string() + ": not a piece table (format \"" +</span>
-                       std::string{PIECE_TABLE_FORMAT} + "\", version 1, \"pieces\")";
-<span style = "background-color:#dfd">        return result;</span>
+        result.error = file.string();
+        result.error += R"(: not a piece table (format ")";
+        result.error += PIECE_TABLE_FORMAT;
+        result.error += R"(", version 1, "pieces"))";
+        return result;</span>
     }
 <span style = "background-color:#dfd">    for (const auto&amp; [from, to] : json["pieces"].items()) {
         if (!to.is_string() || to.get&lt;std::string&gt;().empty()) {

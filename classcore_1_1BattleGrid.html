@@ -164,6 +164,10 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a0bd357bfbcd9d0c45f955b1cdfea96a6" id="r_a0bd357bfbcd9d0c45f955b1cdfea96a6"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a0bd357bfbcd9d0c45f955b1cdfea96a6">indexOf</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) const noexcept</td></tr>
 <tr class="memitem:a9c8889e9f69bff54e9562f1cf5263eaa" id="r_a9c8889e9f69bff54e9562f1cf5263eaa"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9c8889e9f69bff54e9562f1cf5263eaa">fill</a> (const <a class="el" href="structcore_1_1BattleGrid_1_1Placement.html">Placement</a> &amp;placement, std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt; occupant)</td></tr>
 <tr class="memitem:acfb41d95fe00ce6b35df57404320d9b8" id="r_acfb41d95fe00ce6b35df57404320d9b8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acfb41d95fe00ce6b35df57404320d9b8">addZones</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
+<tr class="memitem:ae894796313ad8ce47138ae3742934e2f" id="r_ae894796313ad8ce47138ae3742934e2f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae894796313ad8ce47138ae3742934e2f">addLayerZones</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
+<tr class="memdesc:ae894796313ad8ce47138ae3742934e2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une zone par couche qui porte des propriétés.  <br /></td></tr>
+<tr class="memitem:a6d4aaa5aa23c4c2b65dca09a5f04164e" id="r_a6d4aaa5aa23c4c2b65dca09a5f04164e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6d4aaa5aa23c4c2b65dca09a5f04164e">addEntityZones</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
+<tr class="memdesc:a6d4aaa5aa23c4c2b65dca09a5f04164e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une zone par entité de zone (décision D13), après celles des couches.  <br /></td></tr>
 <tr class="memitem:a8ab7ae1207fe1040f5f685e00c8250db" id="r_a8ab7ae1207fe1040f5f685e00c8250db"><td class="memItemLeft"><a class="el" href="namespacecore.html#a56ee2c3f69200e700ac0f1b65dc413b4">PlacementResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8ab7ae1207fe1040f5f685e00c8250db">check</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> anchor, int side, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> self, <a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a> locomotion) const</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
@@ -307,6 +311,72 @@ Ce qu'elle ne fait pas</h2>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a6d4aaa5aa23c4c2b65dca09a5f04164e" name="a6d4aaa5aa23c4c2b65dca09a5f04164e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d4aaa5aa23c4c2b65dca09a5f04164e">&#9670;&#160;</a></span>addEntityZones()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::BattleGrid::addEntityZones </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ajoute une zone par entité de zone (décision D13), après celles des couches. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>La carte dont on lit les entités. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae894796313ad8ce47138ae3742934e2f" name="ae894796313ad8ce47138ae3742934e2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae894796313ad8ce47138ae3742934e2f">&#9670;&#160;</a></span>addLayerZones()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::BattleGrid::addLayerZones </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ajoute une zone par couche qui porte des propriétés. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>La carte dont on lit les couches. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="acfb41d95fe00ce6b35df57404320d9b8" name="acfb41d95fe00ce6b35df57404320d9b8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acfb41d95fe00ce6b35df57404320d9b8">&#9670;&#160;</a></span>addZones()</h2>
 

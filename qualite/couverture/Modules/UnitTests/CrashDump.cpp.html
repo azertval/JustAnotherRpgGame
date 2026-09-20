@@ -122,17 +122,18 @@ BOOL CALLBACK skipUnreadableMemory(PVOID /*param*/, const PMINIDUMP_CALLBACK_INP
 <span style = "background-color:#fdd">        return FALSE;</span>
     }
 <span style = "background-color:#dfd">    switch (input-&gt;CallbackType) {</span>
-    case IncludeModuleCallback:
-    case IncludeThreadCallback:
-    case ModuleCallback:
-    case ThreadCallback:
-    case ThreadExCallback:
-<span style = "background-color:#dfd">        return TRUE;</span>
-    case ReadMemoryFailureCallback:
-<span style = "background-color:#fdd">        output-&gt;Status = S_OK;
-        return TRUE;</span>
-    default:
-<span style = "background-color:#dfd">        return FALSE;</span>
+        case IncludeModuleCallback:
+        case IncludeThreadCallback:
+        case ModuleCallback:
+        case ThreadCallback:
+        case ThreadExCallback:
+<span style = "background-color:#dfd">            return TRUE;</span>
+        case ReadMemoryFailureCallback:
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-union-access): union de l'API Win32.
+<span style = "background-color:#fdd">            output-&gt;Status = S_OK;
+            return TRUE;</span>
+        default:
+<span style = "background-color:#dfd">            return FALSE;</span>
     }
 <span style = "background-color:#dfd">}</span>
 

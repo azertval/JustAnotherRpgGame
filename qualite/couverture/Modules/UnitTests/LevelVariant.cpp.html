@@ -48,7 +48,7 @@ std::optional&lt;std::filesystem::path&gt; findVariantBase(const std::filesystem
     std::error_code error;
     std::filesystem::path directory = std::filesystem::absolute(variantPath, error).parent_path();
     while (!directory.empty()) {
-        const std::filesystem::path candidate = directory / relative;
+        std::filesystem::path candidate = directory / relative;
         if (std::filesystem::is_regular_file(candidate, error) &amp;&amp;</span>
             !std::filesystem::equivalent(candidate, variantPath, error)) {
 <span style = "background-color:#dfd">            return candidate;</span>

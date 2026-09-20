@@ -37,51 +37,51 @@ namespace {
 <span style = "background-color:#dfd">const char* entityIssueTemplate(core::EntityIssueCode code) noexcept {
     switch (code) {</span>
         case core::EntityIssueCode::UnknownType:
-<span style = "background-color:#dfd">            return "Entity kind \"%1\" is unknown to the editor.";</span>
+<span style = "background-color:#dfd">            return R"(Entity kind "%1" is unknown to the editor.)";</span>
         case core::EntityIssueCode::MissingProperty:
-<span style = "background-color:#fdd">            return "%1: property \"%2\" must be filled in.";</span>
+<span style = "background-color:#fdd">            return R"(%1: property "%2" must be filled in.)";</span>
         case core::EntityIssueCode::WrongValueType:
-<span style = "background-color:#fdd">            return "%1: property \"%2\" has the wrong value type.";</span>
+<span style = "background-color:#fdd">            return R"(%1: property "%2" has the wrong value type.)";</span>
         case core::EntityIssueCode::InvalidChoice:
-<span style = "background-color:#fdd">            return "%1: \"%3\" is not an allowed value for \"%2\".";</span>
+<span style = "background-color:#fdd">            return R"(%1: "%3" is not an allowed value for "%2".)";</span>
         case core::EntityIssueCode::UnknownDialogue:
-<span style = "background-color:#dfd">            return "%1: dialogue \"%3\" does not exist, or was rejected when loading.";</span>
+<span style = "background-color:#dfd">            return R"(%1: dialogue "%3" does not exist, or was rejected when loading.)";</span>
         case core::EntityIssueCode::UnknownEncounter:
-<span style = "background-color:#fdd">            return "%1: encounter \"%3\" does not exist.";</span>
+<span style = "background-color:#fdd">            return R"(%1: encounter "%3" does not exist.)";</span>
         case core::EntityIssueCode::UnknownTargetMap:
-<span style = "background-color:#fdd">            return "%1: map \"%3\" does not exist.";</span>
+<span style = "background-color:#fdd">            return R"(%1: map "%3" does not exist.)";</span>
         case core::EntityIssueCode::UnknownArrivalPoint:
-<span style = "background-color:#fdd">            return "%1: the target map has no arrival point \"%3\".";</span>
+<span style = "background-color:#fdd">            return R"(%1: the target map has no arrival point "%3".)";</span>
         case core::EntityIssueCode::DuplicateArrivalPoint:
-<span style = "background-color:#fdd">            return "Two arrival points are named \"%3\".";</span>
+<span style = "background-color:#fdd">            return R"(Two arrival points are named "%3".)";</span>
         case core::EntityIssueCode::OutOfRange:
-<span style = "background-color:#fdd">            return "%1: %3 is out of range for \"%2\".";</span>
+<span style = "background-color:#fdd">            return R"(%1: %3 is out of range for "%2".)";</span>
         case core::EntityIssueCode::UnknownFigure:
-<span style = "background-color:#fdd">            return "%1: figure \"%3\" is in no workshop.";</span>
+<span style = "background-color:#fdd">            return R"(%1: figure "%3" is in no workshop.)";</span>
         case core::EntityIssueCode::UnsetFlag:
-<span style = "background-color:#dfd">            return "%1: no dialogue sets flag \"%3\".";</span>
+<span style = "background-color:#dfd">            return R"(%1: no dialogue sets flag "%3".)";</span>
         case core::EntityIssueCode::UnknownLocation:
-<span style = "background-color:#fdd">            return "%1: location \"%3\" is not in the atlas.";</span>
+<span style = "background-color:#fdd">            return R"(%1: location "%3" is not in the atlas.)";</span>
         case core::EntityIssueCode::UnknownItem:
-<span style = "background-color:#fdd">            return "%1: item \"%3\" does not exist.";</span>
+<span style = "background-color:#fdd">            return R"(%1: item "%3" does not exist.)";</span>
         case core::EntityIssueCode::UnknownEntityRef:
-<span style = "background-color:#fdd">            return "%1: no map has an entity \"%3\".";</span>
+<span style = "background-color:#fdd">            return R"(%1: no map has an entity "%3".)";</span>
     }
-<span style = "background-color:#fdd">    return "Entity kind \"%1\" is unknown to the editor.";</span>
+<span style = "background-color:#fdd">    return R"(Entity kind "%1" is unknown to the editor.)";</span>
 <span style = "background-color:#dfd">}</span>
 
 <span style = "background-color:#dfd">const char* tacticalIssueTemplate(core::TacticalIssueCode code) noexcept {
     switch (code) {</span>
         case core::TacticalIssueCode::CombatantOutOfBounds:
-<span style = "background-color:#dfd">            return "Encounter \"%1\": \"%2\" would stand off the map.";</span>
+<span style = "background-color:#dfd">            return R"(Encounter "%1": "%2" would stand off the map.)";</span>
         case core::TacticalIssueCode::CombatantObstructed:
-<span style = "background-color:#dfd">            return "Encounter \"%1\": \"%2\" would stand on an obstacle.";</span>
+<span style = "background-color:#dfd">            return R"(Encounter "%1": "%2" would stand on an obstacle.)";</span>
         case core::TacticalIssueCode::CombatantsOverlap:
-<span style = "background-color:#dfd">            return "Encounter \"%1\": \"%2\" would overlap another combatant.";</span>
+<span style = "background-color:#dfd">            return R"(Encounter "%1": "%2" would overlap another combatant.)";</span>
         case core::TacticalIssueCode::AreaTooNarrow:
-<span style = "background-color:#dfd">            return "Encounter \"%1\": area too narrow to fight in (%2 free cells, %3 required).";</span>
+<span style = "background-color:#dfd">            return R"(Encounter "%1": area too narrow to fight in (%2 free cells, %3 required).)";</span>
     }
-<span style = "background-color:#fdd">    return "Encounter \"%1\": area too narrow to fight in (%2 free cells, %3 required).";</span>
+<span style = "background-color:#fdd">    return R"(Encounter "%1": area too narrow to fight in (%2 free cells, %3 required).)";</span>
 <span style = "background-color:#dfd">}</span>
 
 namespace {
@@ -89,11 +89,11 @@ namespace {
 <span style = "background-color:#fdd">[[nodiscard]] const char* combatZoneTemplate(core::WorldIssueCode code) noexcept {
     switch (code) {</span>
         case core::WorldIssueCode::CombatZoneDegenerate:
-<span style = "background-color:#fdd">            return "Combat zone \"%1\" has no width or no height.";</span>
+<span style = "background-color:#fdd">            return R"(Combat zone "%1" has no width or no height.)";</span>
         case core::WorldIssueCode::CombatZoneOutOfBounds:
-<span style = "background-color:#fdd">            return "Combat zone \"%1\" overflows the map.";</span>
+<span style = "background-color:#fdd">            return R"(Combat zone "%1" overflows the map.)";</span>
         case core::WorldIssueCode::CombatZoneBlocked:
-<span style = "background-color:#fdd">            return "Combat zone \"%1\" has no free cell: nobody can stand in it.";</span>
+<span style = "background-color:#fdd">            return R"(Combat zone "%1" has no free cell: nobody can stand in it.)";</span>
         case core::WorldIssueCode::UnreadableMap:
         case core::WorldIssueCode::MissingTargetMap:
         case core::WorldIssueCode::UnknownTargetMap:
@@ -103,7 +103,7 @@ namespace {
         case core::WorldIssueCode::DuplicateArrivalPoint:
             break;
     }
-<span style = "background-color:#fdd">    return "Combat zone \"%1\" cannot be played.";
+<span style = "background-color:#fdd">    return R"(Combat zone "%1" cannot be played.)";
 }</span>
 
 }  // namespace

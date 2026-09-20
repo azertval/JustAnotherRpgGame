@@ -123,7 +123,8 @@ namespace {
         references.locations = fileStems(locations);
     }
     if (const std::filesystem::path items = root / "Rpg" / "items"; isDirectory(items)) {
-        for (const core::Item&amp; item : core::loadItems(items).items) {
+        const auto loadedItems = core::loadItems(items);
+        for (const core::Item&amp; item : loadedItems.items) {
             references.items.push_back(item.id);
         }
         std::ranges::sort(references.items);

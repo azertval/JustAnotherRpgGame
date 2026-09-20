@@ -143,6 +143,17 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a8e89b7b63ff072e8df9217d8b32df8a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre la carte ouverte (garde du fichier modifié sur disque d'abord), puis relit ce qui en dépend : références, graphe du monde, contrôle.  <br /></td></tr>
 <tr class="memitem:a55eeec10938e3d14aa60d0af1e6ccbc6" id="r_a55eeec10938e3d14aa60d0af1e6ccbc6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a55eeec10938e3d14aa60d0af1e6ccbc6">buildRefactorMenu</a> (QMenu *mapMenu)</td></tr>
 <tr class="memdesc:a55eeec10938e3d14aa60d0af1e6ccbc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les commandes du menu <em>Map</em> : qui cite ceci, renommer une entité ou un point d'arrivée, remplacer une pièce, changer de planche.  <br /></td></tr>
+<tr class="memitem:a61fb4d39b00cf8f2a166603d254e1669" id="r_a61fb4d39b00cf8f2a166603d254e1669"><td class="memItemLeft">const <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a61fb4d39b00cf8f2a166603d254e1669">selectedMapEntity</a> () const</td></tr>
+<tr class="memitem:a96f5db19f3dee2028bfb258a380ccfa8" id="r_a96f5db19f3dee2028bfb258a380ccfa8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a96f5db19f3dee2028bfb258a380ccfa8">showCitationsOf</a> (const QString &amp;title, const std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt; &amp;citations)</td></tr>
+<tr class="memdesc:a96f5db19f3dee2028bfb258a380ccfa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Montre <code class="param">citations</code> sous <code class="param">title</code> et va à celle que l'auteur choisit.  <br /></td></tr>
+<tr class="memitem:a71bdd672e18f9d1b982cfd57150891aa" id="r_a71bdd672e18f9d1b982cfd57150891aa"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a71bdd672e18f9d1b982cfd57150891aa">citeSelectedEntity</a> ()</td></tr>
+<tr class="memdesc:a71bdd672e18f9d1b982cfd57150891aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Qui cite l'entité sélectionnée ? »  <br /></td></tr>
+<tr class="memitem:add63f35bd189a2936e8f2c36260ed487" id="r_add63f35bd189a2936e8f2c36260ed487"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#add63f35bd189a2936e8f2c36260ed487">renameSelectedEntityId</a> ()</td></tr>
+<tr class="memdesc:add63f35bd189a2936e8f2c36260ed487"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Renommer l'identifiant de l'entité sélectionnée. »  <br /></td></tr>
+<tr class="memitem:ab8b4e13592c690cd85a8f368f131d5e3" id="r_ab8b4e13592c690cd85a8f368f131d5e3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab8b4e13592c690cd85a8f368f131d5e3">renameSelectedArrival</a> ()</td></tr>
+<tr class="memdesc:ab8b4e13592c690cd85a8f368f131d5e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Renommer le point d'arrivée sélectionné. »  <br /></td></tr>
+<tr class="memitem:a651024fdf37254beedcecbd6c72ed467" id="r_a651024fdf37254beedcecbd6c72ed467"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a651024fdf37254beedcecbd6c72ed467">replacePieceOnMaps</a> ()</td></tr>
+<tr class="memdesc:a651024fdf37254beedcecbd6c72ed467"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Remplacer une pièce », sur cette carte ou sur toutes.  <br /></td></tr>
 <tr class="memitem:ac0fb121162107685e64c7420bbd0486b" id="r_ac0fb121162107685e64c7420bbd0486b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac0fb121162107685e64c7420bbd0486b">renameMap</a> (const std::string &amp;mapId)</td></tr>
 <tr class="memdesc:ac0fb121162107685e64c7420bbd0486b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme la carte <code class="param">mapId</code> par le renommage propagé ; la carte ouverte suit.  <br /></td></tr>
 <tr class="memitem:a89d530c9e3bc3d028b3c95c724450cfd" id="r_a89d530c9e3bc3d028b3c95c724450cfd"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a89d530c9e3bc3d028b3c95c724450cfd">saveBeforeRefactor</a> ()</td></tr>
@@ -169,7 +180,7 @@ Private Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ad74bf30c7bc994b07bfd93e4c39b5a93" id="r_ad74bf30c7bc994b07bfd93e4c39b5a93"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ad74bf30c7bc994b07bfd93e4c39b5a93">_viewport</a></td></tr>
 <tr class="memdesc:ad74bf30c7bc994b07bfd93e4c39b5a93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Canevas (possédé par la fenêtre, widget central).  <br /></td></tr>
-<tr class="memitem:acdb82ee8e5a56236705ceec1908982ff" id="r_acdb82ee8e5a56236705ceec1908982ff"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a> *&#160;</td><td class="memItemRight"><a class="el" href="#acdb82ee8e5a56236705ceec1908982ff">_editContext</a> = nullptr</td></tr>
+<tr class="memitem:acdb82ee8e5a56236705ceec1908982ff" id="r_acdb82ee8e5a56236705ceec1908982ff"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a> *&#160;</td><td class="memItemRight"><a class="el" href="#acdb82ee8e5a56236705ceec1908982ff">_editContext</a></td></tr>
 <tr class="memitem:af1127880bfad8cb9a4e49eb5c072ca08" id="r_af1127880bfad8cb9a4e49eb5c072ca08"><td class="memItemLeft"><a class="el" href="classhmi_1_1PalettePanel.html">PalettePanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af1127880bfad8cb9a4e49eb5c072ca08">_palette</a> = nullptr</td></tr>
 <tr class="memitem:aa3a6277e15086fc09f3ba9b42dfc86e2" id="r_aa3a6277e15086fc09f3ba9b42dfc86e2"><td class="memItemLeft"><a class="el" href="classhmi_1_1LevelBrowserPanel.html">LevelBrowserPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa3a6277e15086fc09f3ba9b42dfc86e2">_levels</a> = nullptr</td></tr>
 <tr class="memitem:a2ca20212f1ccc0c2df74dde270e8a6ff" id="r_a2ca20212f1ccc0c2df74dde270e8a6ff"><td class="memItemLeft"><a class="el" href="classhmi_1_1LayersPanel.html">LayersPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a2ca20212f1ccc0c2df74dde270e8a6ff">_layers</a> = nullptr</td></tr>
@@ -520,6 +531,33 @@ Private Attributes</h2></td></tr>
 
 <p>Compare la carte sur disque à celle que l'éditeur a lue ou écrite, et réagit. </p>
 <dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si le brouillon a été remplacé par la version du disque (un enregistrement en cours doit alors s'arrêter). </dd></dl>
+
+</div>
+</div>
+<a id="a71bdd672e18f9d1b982cfd57150891aa" name="a71bdd672e18f9d1b982cfd57150891aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71bdd672e18f9d1b982cfd57150891aa">&#9670;&#160;</a></span>citeSelectedEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::citeSelectedEntity </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>« Qui cite l'entité sélectionnée ? » </p>
 
 </div>
 </div>
@@ -941,6 +979,87 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ab8b4e13592c690cd85a8f368f131d5e3" name="ab8b4e13592c690cd85a8f368f131d5e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8b4e13592c690cd85a8f368f131d5e3">&#9670;&#160;</a></span>renameSelectedArrival()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::renameSelectedArrival </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>« Renommer le point d'arrivée sélectionné. » </p>
+
+</div>
+</div>
+<a id="add63f35bd189a2936e8f2c36260ed487" name="add63f35bd189a2936e8f2c36260ed487"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add63f35bd189a2936e8f2c36260ed487">&#9670;&#160;</a></span>renameSelectedEntityId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::renameSelectedEntityId </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>« Renommer l'identifiant de l'entité sélectionnée. » </p>
+
+</div>
+</div>
+<a id="a651024fdf37254beedcecbd6c72ed467" name="a651024fdf37254beedcecbd6c72ed467"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a651024fdf37254beedcecbd6c72ed467">&#9670;&#160;</a></span>replacePieceOnMaps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::replacePieceOnMaps </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>« Remplacer une pièce », sur cette carte ou sur toutes. </p>
+
+</div>
+</div>
 <a id="aef77702f265c861ebec3ef8c62c9cbf9" name="aef77702f265c861ebec3ef8c62c9cbf9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aef77702f265c861ebec3ef8c62c9cbf9">&#9670;&#160;</a></span>restoreLayout()</h2>
 
@@ -1100,6 +1219,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a61fb4d39b00cf8f2a166603d254e1669" name="a61fb4d39b00cf8f2a166603d254e1669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61fb4d39b00cf8f2a166603d254e1669">&#9670;&#160;</a></span>selectedMapEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> * hmi::MainWindow::selectedMapEntity </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'entité sélectionnée du brouillon, <span class="tt">nullptr</span> s'il n'y en a pas. </dd></dl>
+
+</div>
+</div>
 <a id="aabc40d107e8dd41fdb72302e572ee8fd" name="aabc40d107e8dd41fdb72302e572ee8fd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aabc40d107e8dd41fdb72302e572ee8fd">&#9670;&#160;</a></span>setUpSafetyNet()</h2>
 
@@ -1122,6 +1267,44 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a96f5db19f3dee2028bfb258a380ccfa8" name="a96f5db19f3dee2028bfb258a380ccfa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96f5db19f3dee2028bfb258a380ccfa8">&#9670;&#160;</a></span>showCitationsOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::showCitationsOf </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>title</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>citations</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Montre <code class="param">citations</code> sous <code class="param">title</code> et va à celle que l'auteur choisit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">title</td><td>Le titre de la fenêtre. </td></tr>
+    <tr><td class="paramname">citations</td><td>Ce qui cite. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1449,7 +1632,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a>* hmi::MainWindow::_editContext = nullptr</td>
+          <td class="memname"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a>* hmi::MainWindow::_editContext</td>
         </tr>
       </table>
   </td>

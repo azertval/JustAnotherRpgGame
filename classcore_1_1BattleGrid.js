@@ -10,6 +10,8 @@ var classcore_1_1BattleGrid =
     [ "BattleGrid", "classcore_1_1BattleGrid.html#a9a72b3f8bd2b12d3e81e55d12b2a6531", null ],
     [ "BattleGrid", "classcore_1_1BattleGrid.html#a48b304db624d384b40ae4a6f34dd532b", null ],
     [ "BattleGrid", "classcore_1_1BattleGrid.html#a60fcd046ff5926aab2911a8369bdc0bf", null ],
+    [ "addEntityZones", "classcore_1_1BattleGrid.html#a6d4aaa5aa23c4c2b65dca09a5f04164e", null ],
+    [ "addLayerZones", "classcore_1_1BattleGrid.html#ae894796313ad8ce47138ae3742934e2f", null ],
     [ "addZones", "classcore_1_1BattleGrid.html#acfb41d95fe00ce6b35df57404320d9b8", null ],
     [ "blocksSight", "classcore_1_1BattleGrid.html#abd943492bc2fc0b8ac1269bf46baaf0d", null ],
     [ "canStand", "classcore_1_1BattleGrid.html#ad541c35faece5fef76b23fe5cab9ca11", null ],

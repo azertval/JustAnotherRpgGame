@@ -47,7 +47,7 @@ constexpr std::uint64_t FNV_PRIME = 1099511628211ULL;
         return {};</span>
     }
 <span style = "background-color:#dfd">    FileFingerprint fingerprint{.exists = true, .size = 0, .hash = FNV_OFFSET};
-    std::array&lt;char, 64 * 1024&gt; buffer{};
+    std::array&lt;char, std::size_t{64} * 1024&gt; buffer{};
     while (file) {
         file.read(buffer.data(), static_cast&lt;std::streamsize&gt;(buffer.size()));
         const auto count = static_cast&lt;std::size_t&gt;(file.gcount());

@@ -154,7 +154,7 @@ void readFigures(const std::filesystem::path&amp; root, const std::string&amp; d
     std::ranges::sort(models);
     const std::vector&lt;std::string&gt; animations = stringList(document.root, "animations");
     for (const std::string&amp; model : models) {
-        const std::string folder = directory + "/" + model + "/";
+        const std::string folder = std::string{directory}.append("/").append(model).append("/");
         for (const std::string&amp; animation : animations) {
             AssetGalleryEntry entry{.family = family.title,
                                     .model = model,

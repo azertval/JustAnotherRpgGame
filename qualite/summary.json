@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-20 05:27 UTC",
-  "commit": "46a8b09a5",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/35491678588",
+  "generated": "2026-09-20 13:59 UTC",
+  "commit": "f6fbbbb2c",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/35512936931",
   "coverage": {
-    "percent": 91.36,
-    "covered": 24478,
-    "valid": 26794,
-    "files": 241,
+    "percent": 91.39,
+    "covered": 24603,
+    "valid": 26921,
+    "files": 242,
     "areas": [
       {
         "name": "Core",
@@ -16,9 +16,9 @@
       },
       {
         "name": "Core/Combat",
-        "covered": 3299,
-        "valid": 3487,
-        "percent": 94.61
+        "covered": 3305,
+        "valid": 3493,
+        "percent": 94.62
       },
       {
         "name": "Core/Data",
@@ -46,9 +46,9 @@
       },
       {
         "name": "Core/Levels",
-        "covered": 1520,
-        "valid": 1581,
-        "percent": 96.14
+        "covered": 1547,
+        "valid": 1608,
+        "percent": 96.21
       },
       {
         "name": "Core/Math",
@@ -82,15 +82,15 @@
       },
       {
         "name": "Editor/Logic",
-        "covered": 3244,
-        "valid": 3684,
-        "percent": 88.06
+        "covered": 3283,
+        "valid": 3725,
+        "percent": 88.13
       },
       {
         "name": "Editor/Ui",
-        "covered": 246,
-        "valid": 353,
-        "percent": 69.69
+        "covered": 249,
+        "valid": 356,
+        "percent": 69.94
       },
       {
         "name": "HMI/Audio",
@@ -106,9 +106,9 @@
       },
       {
         "name": "HMI/Graphics",
-        "covered": 2355,
-        "valid": 2651,
-        "percent": 88.83
+        "covered": 2357,
+        "valid": 2653,
+        "percent": 88.84
       },
       {
         "name": "HMI/Input",
@@ -130,59 +130,59 @@
       },
       {
         "name": "HMI/Presentation",
-        "covered": 588,
-        "valid": 642,
-        "percent": 91.59
+        "covered": 593,
+        "valid": 647,
+        "percent": 91.65
       }
     ]
   },
   "benchmarks": {
     "suite": "Combat et niveaux (Release, windows-2022)",
-    "runs": 9,
-    "date": "2026-09-20 02:38 UTC",
-    "commit": "46a8b09a5",
+    "runs": 10,
+    "date": "2026-09-20 13:17 UTC",
+    "commit": "f6fbbbb2c",
     "benches": [
       {
         "name": "ReachableAreaDashing",
-        "value": 156224.73214285748,
+        "value": 155501.77455357125,
         "unit": "ns/iter",
-        "change_percent": 0.1
+        "change_percent": -0.5
       },
       {
         "name": "FindPathAcrossGrid",
-        "value": 211536.18750000547,
+        "value": 213549.53569355668,
         "unit": "ns/iter",
-        "change_percent": -0.1
+        "change_percent": 1.0
       },
       {
         "name": "LineOfSightAcrossGrid",
-        "value": 57044.248463175376,
+        "value": 57070.61754188496,
         "unit": "ns/iter",
-        "change_percent": -1.1
+        "change_percent": 0.0
       },
       {
         "name": "CoverFromWithInterposed",
-        "value": 161360.59151785937,
+        "value": 160636.72991070937,
         "unit": "ns/iter",
-        "change_percent": -4.0
+        "change_percent": -0.4
       },
       {
         "name": "PlanTurnFourVersusFour",
-        "value": 1105237.4218750051,
+        "value": 1163730.9821428538,
         "unit": "ns/iter",
-        "change_percent": -2.5
+        "change_percent": 5.3
       },
       {
         "name": "LoadShippedLevel",
-        "value": 2635781.9915254163,
+        "value": 2623663.5593220815,
         "unit": "ns/iter",
-        "change_percent": 9.3
+        "change_percent": -0.5
       },
       {
         "name": "ComposeMartpart",
-        "value": 469.45196428570824,
+        "value": 468.6737529293563,
         "unit": "us/iter",
-        "change_percent": 1.5
+        "change_percent": -0.2
       }
     ]
   },

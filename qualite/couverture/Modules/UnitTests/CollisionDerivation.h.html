@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>CollisionDerivation.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;vector&gt;
+
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/TileLayer.h"
+#include "Core/Levels/TileMap.h"
+#include "Core/Levels/TileType.h"
+#include "Core/Resources/ScenePieceManifest.h"
+
+/**
+ * @file Core/Levels/CollisionDerivation.h
+ * @brief La collision d'une carte, **dÃ©duite** de ce qu'elle montre (`LOT-EDITOR-12`, dÃ©cision
+ *        D10, `EX-LVL-020`).
+ *
+ * Jusqu'Ã  la v3, la grille de collision se peignait Ã  part, et rien ne la tenait d'accord avec les
+ * piÃ¨ces posÃ©es : un mur dessinÃ© pouvait se traverser. En v4, elle se **dÃ©duit** des couches
+ * visuelles et du manifeste des piÃ¨ces, puis s'**Ã©crit** dans le fichier â le jeu la lit sans
+ * manifeste â avec la liste des cases que l'auteur a **forcÃ©es** Ã  la main. `LevelEditor --check`
+ * vÃ©rifie que le fichier Ã©gale la dÃ©duction, cases forcÃ©es mises Ã  part.
+ *
+ * ## La rÃ¨gle, case par case
+ *
+ * Chaque case reÃ§oit la contribution **la plus forte** (`core::PieceTactical`) de :
+ *
+ * 1. chaque piÃ¨ce nommÃ©e par une couche visuelle dont l'**emprise** la couvre
+ *    (`core::footprintCells`) : son type tactique au manifeste ;
+ * 2. chaque case de couche visuelle **sans piÃ¨ce** (ou dont la piÃ¨ce est absente du manifeste) mais
+ *    d'un type non vide : la rÃ¨gle du type â mur et matiÃ¨re pleine arrÃªtent la vue, eau profonde et
+ *    falaise arrÃªtent le pas, le reste passe ;
+ * 3. une case que **rien** ne couvre â ni type, ni piÃ¨ce, sur aucune couche â est du vide : elle
+ *    arrÃªte la vue. On ne se tient pas lÃ  oÃ¹ il n'y a pas de sol.
+ *
+ * La contribution s'Ã©crit dans le vocabulaire de la grille de collision que le jeu lit dÃ©jÃ  :
+ * `wall` (arrÃªte la vue), `cliff` (arrÃªte le pas), vide sinon. La gÃªne et l'abri se dÃ©duisent
+ * vides : aucune rÃ¨gle du jeu ne les joue encore depuis une piÃ¨ce, et la dÃ©duction les relÃ¨ve
+ * (`CollisionDerivation::unplayed`) pour que le contrÃ´le le dise.
+ *
+ * L'entrÃ©e n'est pas dÃ©duite : elle est un repÃ¨re posÃ© dans la grille, et l'appelant la replace.
+ */
+
+namespace core {
+
+/// @brief Ce que la dÃ©duction a produit, et ce qu'elle a relevÃ© en chemin.
+struct CollisionDerivation {
+    /// La grille de collision dÃ©duite, aux dimensions de la carte, sans entrÃ©e.
+    TileMap collision;
+    /// Cases dont la contribution la plus forte est une gÃªne ou un abri, dÃ©duits vides.
+<span style = "background-color:#dfd">    std::vector&lt;GridPosition&gt; unplayed{};</span>
+    /// Cases nommant une piÃ¨ce que le manifeste ne connaÃ®t pas (ni par son nom ni par un alias).
+<span style = "background-color:#dfd">    std::vector&lt;GridPosition&gt; unknownPieces{};</span>
+};
+
+/// @return La valeur de grille de collision d'un type tactique : `Wall`, `Cliff` ou `Empty`.
+[[nodiscard]] TileType collisionTileOf(PieceTactical tactical) noexcept;
+
+/// @return Le type tactique que la rÃ¨gle des types donne Ã  @p type (Ã©tape 2 ci-dessus).
+[[nodiscard]] PieceTactical tacticalOfTileType(TileType type) noexcept;
+
+/**
+ * @brief DÃ©duit la grille de collision d'une carte.
+ * @param layers   Les couches de la carte ; seules les couches visuelles comptent.
+ * @param width    Largeur de la carte, en cases.
+ * @param height   Hauteur de la carte, en cases.
+ * @param manifest Le manifeste des piÃ¨ces du lieu, ou `nullptr` : toute piÃ¨ce compte alors comme
+ *                 inconnue, et la case suit la rÃ¨gle de son type.
+ */
+[[nodiscard]] CollisionDerivation deriveCollision(const std::vector&lt;TileLayer&gt;&amp; layers, int width,
+                                                  int height, const ScenePieceManifest* manifest);
+
+/**
+ * @return La valeur canonique de collision de @p type : ce qu'il oppose, Ã©crit `wall`, `cliff` ou
+ *         vide. `dirt`, `entry` ou `bridge` y valent une case vide, `solid` un mur.
+ */
+[[nodiscard]] TileType canonicalCollisionTile(TileType type) noexcept;
+
+/**
+ * @brief Vrai si la grille de collision Ã©crite @p written s'accorde avec @p derived en
+ *        (@p column, @p row) : elles opposent la mÃªme chose (`canonicalCollisionTile`). Une case
+ *        `dirt` Ã©crite s'accorde avec une case vide dÃ©duite â la v3 Ã©crivait l'une pour l'autre â,
+ *        et l'entrÃ©e compte pour une case vide.
+ */
+[[nodiscard]] bool collisionAgrees(const TileMap&amp; written, const TileMap&amp; derived, int column,
+                                   int row);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

@@ -1036,6 +1036,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a9340f6e1b3f43febd69dcc101434fb1d" id="r_a9340f6e1b3f43febd69dcc101434fb1d"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1SceneChangeChoice.html">SceneChangeChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9340f6e1b3f43febd69dcc101434fb1d">askSceneChange</a> (QWidget *parent, const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers, const std::filesystem::path &amp;dataRoot, const std::string &amp;currentPlace)</td></tr>
 <tr class="memdesc:a9340f6e1b3f43febd69dcc101434fb1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande la nouvelle planche, et pour chaque pièce que la carte pose, celle qui la remplace : la table proposée (<span class="tt"><a class="el" href="#a2e091b55877d7aecd5436fad2ee8f474" title="La table que l&#39;éditeur propose pour passer layers à la planche target : chaque pièce citée va à la pi...">hmi::proposedPieceTable</a></span>) d'abord, qu'on corrige.  <br /></td></tr>
 <tr class="memitem:ab7a286078c3b760b7c7bcd400c3efc93" id="r_ab7a286078c3b760b7c7bcd400c3efc93"><td class="memItemLeft">const QImage *&#160;</td><td class="memItemRight"><a class="el" href="#ab7a286078c3b760b7c7bcd400c3efc93">sceneImageOf</a> (<a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> handle) noexcept</td></tr>
+<tr class="memitem:a71762428929f463c938cf50568054832" id="r_a71762428929f463c938cf50568054832"><td class="memItemLeft"><a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#a71762428929f463c938cf50568054832">sceneImageHandle</a> (const QImage *image) noexcept</td></tr>
 <tr class="memitem:a13d39d2941050cdcde712bd03062a037" id="r_a13d39d2941050cdcde712bd03062a037"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a13d39d2941050cdcde712bd03062a037">paintComposedScene</a> (QPainter &amp;painter, const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const std::optional&lt; <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &gt; &amp;visible=std::nullopt, const <a class="el" href="#ad39e4163a49fc5ba81aab9827d83118e">QuadOpacity</a> &amp;opacity={})</td></tr>
 <tr class="memdesc:a13d39d2941050cdcde712bd03062a037"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint <code class="param">scene</code> dans <code class="param">painter</code>, dont la transformation porte déjà le cadrage (unités monde vers pixels).  <br /></td></tr>
 <tr class="memitem:a69e74e4f140af19416ff4a8a7dbd49a8" id="r_a69e74e4f140af19416ff4a8a7dbd49a8"><td class="memItemLeft">QTransform&#160;</td><td class="memItemRight"><a class="el" href="#a69e74e4f140af19416ff4a8a7dbd49a8">cameraTransform</a> (const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera)</td></tr>
@@ -9222,6 +9223,32 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <li><span class="tt">--data &lt;racine&gt;</span> : la racine des données (défaut : <code class="param">defaultDataRoot</code>).</li>
 </ul>
 <dl class="section return"><dt>Returns</dt><dd>Le code de sortie (0, 1 si une carte ne se lit pas ou ne s'écrit pas, 2 si la ligne de commande est fausse), ou <span class="tt">std::nullopt</span> sans <span class="tt">--render</span>. </dd></dl>
+
+</div>
+</div>
+<a id="a71762428929f463c938cf50568054832" name="a71762428929f463c938cf50568054832"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71762428929f463c938cf50568054832">&#9670;&#160;</a></span>sceneImageHandle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> hmi::sceneImageHandle </td>
+          <td>(</td>
+          <td class="paramtype">const QImage *</td>          <td class="paramname"><span class="paramname"><em>image</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'identité de texture de <code class="param">image</code>, l'inverse de <span class="tt"><a class="el" href="#ab7a286078c3b760b7c7bcd400c3efc93">sceneImageOf</a></span>. L'identité est opaque (<span class="tt">void*</span>) et personne n'écrit à travers : le retrait du <span class="tt">const</span> est sans effet. </dd></dl>
 
 </div>
 </div>

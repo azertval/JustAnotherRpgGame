@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['…_0',['12. Identifiants d&apos;exigences (EX-…)',['../spec-conventions.html#autotoc_md220',1,'']]]
+  ['↔_20combat_0',['LOT-18 — Bascule exploration ↔ combat',['../lot-18.html',1,'lots']]],
+  ['↔_20rendu_1',['4. Frontière simulation ↔ rendu',['../spec-architecture.html#autotoc_md177',1,'']]]
 ];

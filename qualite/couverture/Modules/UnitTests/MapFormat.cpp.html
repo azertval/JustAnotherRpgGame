@@ -121,11 +121,42 @@ private:
 
 // --- PiÃ¨ces ----------------------------------------------------------------------------------
 
-void checkPieces(const core::Level&amp; level, const PlaceAssets&amp; assets, const std::string&amp; place,
-<span style = "background-color:#dfd">                 Findings&amp; findings) {
+// Ce que le parcours des piÃ¨ces d'une carte relÃ¨ve.
+struct PieceScan {
     std::vector&lt;core::GridPosition&gt; missing;
     std::map&lt;std::string, std::vector&lt;core::GridPosition&gt;&gt; aliased;
     std::vector&lt;core::GridPosition&gt; overlapping;
+};
+
+// Range la piÃ¨ce nommÃ©e en @p cell : absente du manifeste, citÃ©e par un alias, et son emprise dans
+// @p occupants (qui occupe chaque case de la couche).
+void scanPieceCell(const core::TileLayer&amp; layer, const PlaceAssets&amp; assets,
+                   const core::GridPosition cell, const std::string_view name,
+<span style = "background-color:#dfd">                   std::vector&lt;int&gt;&amp; occupants, PieceScan&amp; scan) {
+    const core::ScenePiece* piece = assets.manifest ? assets.manifest-&gt;find(name) : nullptr;
+    if (piece == nullptr) {
+        scan.missing.push_back(cell);
+        return;</span>
+    }
+<span style = "background-color:#dfd">    if (piece-&gt;name != name) {</span>
+<span style = "background-color:#fdd">        scan.aliased[std::string{name}].push_back(cell);</span>
+    }
+<span style = "background-color:#dfd">    for (const core::GridPosition covered : core::footprintCells(cell, piece-&gt;footprint())) {
+        if (!layer.tiles.inBounds(covered.column, covered.row)) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::size_t index = (static_cast&lt;std::size_t&gt;(covered.row) *</span>
+                                   static_cast&lt;std::size_t&gt;(layer.tiles.width())) +
+                                  static_cast&lt;std::size_t&gt;(covered.column);
+<span style = "background-color:#dfd">        if (++occupants[index] == 2) {</span>
+<span style = "background-color:#fdd">            scan.overlapping.push_back(covered);</span>
+<span style = "background-color:#dfd">        }
+    }
+}</span>
+
+void checkPieces(const core::Level&amp; level, const PlaceAssets&amp; assets, const std::string&amp; place,
+<span style = "background-color:#dfd">                 Findings&amp; findings) {
+    PieceScan scan;
     for (const core::TileLayer&amp; layer : level.layers()) {
         if (!core::isVisualLayerKind(layer.kind) || !layer.hasPieces()) {
             continue;</span>
@@ -136,34 +167,14 @@ void checkPieces(const core::Level&amp; level, const PlaceAssets&amp; assets, co
         for (int row = 0; row &lt; layer.tiles.height(); ++row) {
             for (int column = 0; column &lt; layer.tiles.width(); ++column) {
                 const std::string_view name = layer.pieceAt(column, row);
-                if (name.empty()) {
-                    continue;</span>
+                if (!name.empty()) {
+                    scanPieceCell(layer, assets, {.column = column, .row = row}, name, occupants,</span>
+                                  scan);
                 }
-<span style = "background-color:#dfd">                const core::GridPosition cell{.column = column, .row = row};
-                const core::ScenePiece* piece =</span>
-                    assets.manifest ? assets.manifest-&gt;find(name) : nullptr;
-<span style = "background-color:#dfd">                if (piece == nullptr) {
-                    missing.push_back(cell);
-                    continue;</span>
-                }
-<span style = "background-color:#dfd">                if (piece-&gt;name != name) {</span>
-<span style = "background-color:#fdd">                    aliased[std::string{name}].push_back(cell);</span>
-                }
-                for (const core::GridPosition covered :
-<span style = "background-color:#dfd">                     core::footprintCells(cell, piece-&gt;footprint())) {
-                    if (!layer.tiles.inBounds(covered.column, covered.row)) {</span>
-<span style = "background-color:#fdd">                        continue;</span>
-                    }
-<span style = "background-color:#dfd">                    const std::size_t index = (static_cast&lt;std::size_t&gt;(covered.row) *</span>
-                                               static_cast&lt;std::size_t&gt;(layer.tiles.width())) +
-                                              static_cast&lt;std::size_t&gt;(covered.column);
-<span style = "background-color:#dfd">                    if (++occupants[index] == 2) {</span>
-<span style = "background-color:#fdd">                        overlapping.push_back(covered);</span>
-<span style = "background-color:#dfd">                    }
-                }
-            }
+<span style = "background-color:#dfd">            }
         }
     }
+    const auto&amp; [missing, aliased, overlapping] = scan;
     const std::string manifestPath = place.empty() ? std::string{"(no scene declared)"}</span>
                                                    : "Assets/Scene/" + place + "/manifest.json";
 <span style = "background-color:#dfd">    findings.addCells(MapCheckSeverity::Error, missing,</span>

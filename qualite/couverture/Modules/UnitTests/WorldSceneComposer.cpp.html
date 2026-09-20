@@ -126,12 +126,13 @@ void composeRelief(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; snaps
 <span style = "background-color:#dfd">    const auto emprise = snapshot.footprints.find(piece);
     const core::GridPosition pied = core::footprintFootCorner(</span>
         cell, emprise == snapshot.footprints.end() ? core::PieceFootprint{} : emprise-&gt;second);
-<span style = "background-color:#dfd">    const float footY = texture.depthOffset</span>
-                            ? topVertex.y + *texture.depthOffset * projection.tileHeight() / 2.0F
-                            : projection
-                                  .gridToWorld(gridPoint(static_cast&lt;float&gt;(pied.column),
-                                                         static_cast&lt;float&gt;(pied.row)))
-                                  .y;
+<span style = "background-color:#dfd">    const float footY =</span>
+        texture.depthOffset
+            ? topVertex.y + ((*texture.depthOffset * projection.tileHeight()) / 2.0F)
+            : projection
+                  .gridToWorld(
+                      gridPoint(static_cast&lt;float&gt;(pied.column), static_cast&lt;float&gt;(pied.row)))
+                  .y;
 <span style = "background-color:#dfd">    const SpriteQuad quad = standingPieceQuad(texture, topVertex, unitsPerScenePixel);
     scene.addSprite(RenderLayer::Object, texture.texture,</span>
                     worldDepthSortOrder(footY, WorldDepthSlot::Relief), quad);

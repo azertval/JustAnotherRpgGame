@@ -58,31 +58,38 @@ constexpr std::array&lt;std::pair&lt;core::ScenePieceClass, std::string_view&gt;
 <span style = "background-color:#fdd">    return "other";</span>
 <span style = "background-color:#dfd">}</span>
 
+// Les groupes des piÃ¨ces du manifeste, une par classe ; un groupe vide n'est pas rendu.
+<span style = "background-color:#dfd">std::vector&lt;PieceCatalogGroup&gt; manifestGroups(const core::ScenePieceManifest&amp; manifest) {
+    std::vector&lt;PieceCatalogGroup&gt; groups;
+    for (const auto&amp; [pieceClass, label] : CLASS_GROUPS) {
+        PieceCatalogGroup group{.label = std::string{label}, .pieces = {}};
+        for (const core::ScenePiece&amp; piece : manifest.pieces()) {
+            if (piece.pieceClass != pieceClass) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            group.pieces.push_back(</span>
+                PieceCatalogEntry{.name = piece.name,
+                                  .file = piece.file,
+                                  .pieceClass = piece.pieceClass,
+                                  .footprint = piece.footprint(),
+                                  .tactical = piece.tactical,
+                                  .missing = false,
+                                  .floor = piece.pieceClass == core::ScenePieceClass::Floor});
+<span style = "background-color:#dfd">        }
+        if (!group.pieces.empty()) {
+            groups.push_back(std::move(group));</span>
+        }
+<span style = "background-color:#dfd">    }
+    return groups;
+}</span>
+
 }  // namespace
 
 std::vector&lt;PieceCatalogGroup&gt; pieceCatalog(const core::ScenePieceManifest* manifest,
 <span style = "background-color:#dfd">                                            const std::vector&lt;core::TileLayer&gt;&amp; layers) {
     std::vector&lt;PieceCatalogGroup&gt; catalog;
     if (manifest != nullptr) {
-        for (const auto&amp; [pieceClass, label] : CLASS_GROUPS) {
-            PieceCatalogGroup group{.label = std::string{label}, .pieces = {}};
-            for (const core::ScenePiece&amp; piece : manifest-&gt;pieces()) {
-                if (piece.pieceClass != pieceClass) {
-                    continue;</span>
-                }
-<span style = "background-color:#dfd">                group.pieces.push_back(</span>
-                    PieceCatalogEntry{.name = piece.name,
-                                      .file = piece.file,
-                                      .pieceClass = piece.pieceClass,
-                                      .footprint = piece.footprint(),
-                                      .tactical = piece.tactical,
-                                      .missing = false,
-                                      .floor = piece.pieceClass == core::ScenePieceClass::Floor});
-<span style = "background-color:#dfd">            }
-            if (!group.pieces.empty()) {
-                catalog.push_back(std::move(group));</span>
-            }
-<span style = "background-color:#dfd">        }</span>
+        catalog = manifestGroups(*manifest);</span>
     }
 
     // Les noms citÃ©s que le manifeste ignore ; un nom vu d'abord sur une couche de sol s'y repose.
