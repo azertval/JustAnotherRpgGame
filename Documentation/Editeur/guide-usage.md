@@ -19,11 +19,14 @@ construction suivante ne l'écrase pas. Le titre de la fenêtre dit quel dossier
 
 ## 1. Créer la carte, avec son lieu
 
-Panneau **Maps**, onglet *List*, bouton **New** : un nom (`echoppe`), une taille en cases, et un
-**lieu** — la planche dont la carte prendra ses pièces (`martpart`, `coliseum`…). La carte naît
-comme les cartes livrées : une couche de sol `sol` qui nomme le lieu, une couche de décor
-`relief`, et une collision déduite où tout, encore vide, arrête la vue — sauf l'entrée, au coin
-bas gauche, posée sur une case de terre. Double-cliquer la carte dans la liste l'ouvre.
+Panneau **Maps**, onglet *List*, bouton **New** : un nom (`echoppe`), une taille en cases, un
+**lieu** — la planche dont la carte prendra ses pièces (`martpart`, `coliseum`…) — et un
+**modèle**. Sans modèle, la carte naît comme les cartes livrées : une couche de sol `sol` qui
+nomme le lieu, une couche de décor `relief`, et une collision déduite où tout, encore vide,
+arrête la vue — sauf l'entrée, au coin bas gauche, posée sur une case de terre. Avec un modèle
+(`LOT-EDITOR-08`) — **Interior**, **Street**, **Arena** —, elle naît avec sa taille, ses murs et
+son entrée déjà posés ; choisir le modèle reprend sa taille, qu'on peut encore changer, et ce
+qu'il ne couvre pas reste plein. Double-cliquer la carte dans la liste l'ouvre.
 
 Sans lieu (« none »), on peint des types en couleurs sur une grille unique : c'est le repli des
 cartes générées, pas la façon de faire une carte du jeu.
@@ -116,6 +119,27 @@ Les trois retouches du `LOT-EDITOR-06` en sont des exemples
 (`Documentation/Editeur/LOT-EDITOR-06-fin-des-scripts/retouches/`), le format est décrit dans
 `Source/Editor/Logic/GestureScript.h`.
 
+## Répéter ce qu'on a composé : tampons et préfabriqués
+
+Une échoppe, un étal, une cour se composent une fois (`LOT-EDITOR-08`) :
+
+- Outil **Sélection** (`S`), tirer autour de ce qu'on veut reprendre, puis `Ctrl+C`. Le **tampon**
+  emporte tout : les types de chaque couche, les pièces qui y sont ancrées — entières, le
+  rectangle s'agrandissant jusqu'à leur emprise —, les entités et les cases de collision forcées.
+  La barre d'état dit ce qu'il porte (`3 × 2 · 2 pieces · 1 entity`).
+- `Ctrl+V` le pose, coin haut gauche sur la case survolée, **en un pas** : un `Ctrl+Z` défait tout.
+  Chaque entité posée reçoit un identifiant neuf ; l'entrée, elle, n'est jamais emportée.
+  `Ctrl+Maj+V` pose le **reflet** du tampon : il passe de w × h à h × w et chaque pièce prend sa
+  jumelle, comme le miroir du pinceau.
+- Un tampon **remplace** ce qu'il couvre, cases vides comprises : serrer la sélection.
+- `Ctrl+Maj+S` (*Edit* › *Save selection as prefab…*) l'enregistre comme **préfabriqué** du lieu,
+  sous un nom de minuscules, de chiffres, de tirets et de tirets bas. L'onglet **Prefabs** de la
+  palette montre alors la bibliothèque du lieu, chacun avec une vignette rendue de son propre
+  contenu ; le choisir arme le tampon, `Ctrl+V` le pose. Les préfabriqués sont des fichiers, dans
+  `Source/Elements/Editor/Prefabs/<lieu>/` : on les renomme et on les supprime à l'explorateur.
+- Sans fenêtre : `LevelEditor --list-prefabs` et
+  `LevelEditor --save-prefab capital/martpart etal --from 21,24 --to 21,24`.
+
 ## Renommer, remplacer, changer de planche
 
 Un nom qui change ne casse rien (`LOT-EDITOR-14`) :
@@ -138,5 +162,4 @@ sans fenêtre : `--rename-map`, `--rename-arrival`, `--rename-id`, `--who-cites`
 
 ## Ce qui ne se fait pas encore dans l'éditeur
 
-- Copier un ensemble de pièces et d'entités comme un tampon : `LOT-EDITOR-08`.
 - Relier deux cartes depuis le graphe du monde : `LOT-EDITOR-09`.

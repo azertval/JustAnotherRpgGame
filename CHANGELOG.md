@@ -6,6 +6,17 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Tampons et préfabriqués dans l'éditeur (LOT-EDITOR-08).** Une sélection se copie désormais
+  **entière** : les types de chaque couche, les pièces qui y sont ancrées (prises entières, le
+  rectangle s'agrandissant jusqu'à leur emprise), les entités et les cases de collision forcées.
+  Coller pose le tampon au curseur en **un pas d'annulation**, chaque entité recevant un
+  identifiant neuf ; `Ctrl+Maj+V` pose son reflet, pièces jumelles comprises. Un tampon
+  s'enregistre comme **préfabriqué** du lieu (`Editor/Prefabs/<lieu>/`), que la palette montre dans
+  un onglet avec une vignette générée de son propre contenu, et que `LevelEditor --list-prefabs` et
+  `--save-prefab` servent sans fenêtre. Une carte neuve part enfin d'un **modèle** —
+  intérieur, rue, arène —, qui donne ses couches, sa taille et son entrée sans nommer aucune pièce.
+  `--check` nomme tout fichier de la bibliothèque qu'il ne sait pas relire.
+
 - **Le standard 2D HD devient normatif (LOT-101).** Le style qui remplace le pixel art est chiffré
   et éprouvé : une maquette de huit cases sur huit d'Arenarea, montée par `scripts/build_hd_mockup.py`
   depuis la planche de référence et cadrée à 1080p et à 2160p, sert désormais de référence de

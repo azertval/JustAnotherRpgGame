@@ -18,7 +18,8 @@ textes anglais, aucun formulaire `.ui` (`LOT-EDITOR-01`).
 - `ScenePainter` — peint une `hmi::ComposedScene` par `QPainter`, comme le GPU la dessine
   (échantillonnage au plus proche, remplissage texturé) ; rend aussi hors écran.
 - `MapRender` — `LevelEditor --render` : une carte rendue en PNG, en isométrie et sans fenêtre, par
-  le même peintre ; bandes et échelle au choix (`EX-EDIT-075`).
+  le même peintre ; bandes et échelle au choix (`EX-EDIT-075`). `renderStamp` y rend la vignette
+  d'un préfabriqué, posé sur une carte jetable de sa taille (`EX-EDIT-086`).
 - `SceneImages` — les images des planches et des figurines, chargées à la demande selon les règles
   du rendu du jeu (marqueur d'une figurine absente, damier d'une pièce absente), l'atlas des types
   et les marqueurs d'entité.
@@ -27,7 +28,9 @@ textes anglais, aucun formulaire `.ui` (`LOT-EDITOR-01`).
   iso.
 - `MiniMap` — toute la carte, un pixel par case, et le cadre de la vue ; un clic y recentre la vue.
 - `PalettePanel` — la palette : l'onglet « Pieces » (la planche du lieu, `hmi::pieceCatalog`,
-  vignettes et recherche), l'onglet « Types » (`hmi::tileTaxonomy`) et la gomme.
+  vignettes et recherche), l'onglet « Types » (`hmi::tileTaxonomy`) et l'onglet « Prefabs » (la
+  bibliothèque du lieu, `LOT-EDITOR-08`, vignettes générées par `hmi::renderStamp`). Choisir un
+  préfabriqué arme le tampon du canevas.
 - `LevelBrowserPanel`, `WorldGraphView` — la liste des cartes et le graphe du monde.
 - `LayersPanel` — couche active, visibilité, opacité, grisé, verrou, ajout, retrait, ordre et
   nom.
