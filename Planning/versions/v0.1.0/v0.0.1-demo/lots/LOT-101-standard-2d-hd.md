@@ -12,12 +12,11 @@ livrables = [
   "[`standards/style-2d-hd.md`](../../../../standards/style-2d-hd.md) passé de « proposé » à « normatif », avec ce que la maquette a mesuré.",
   "Une **maquette de validation** : huit cases sur huit d'Arenarea (sol, deux façades, une colonnade, la fontaine, un lampadaire, un banc), montée à l'échelle du standard et cadrée à 1080p et à 2160p — [`maquettes/`](../maquettes/), montée par `scripts/build_hd_mockup.py`.",
   "`EX-VIS-008`, `EX-VIS-009` et `EX-REN-013` réécrites pour la 2D HD.",
-  "La consigne de style du générateur en trois blocs : [`standards/consigne-2d-hd.md`](../../../../standards/consigne-2d-hd.md), avec la planche de référence d'Arenarea pour ancre.",
-  "Le nombre d'images par animation, tranché sur un essai de marche en six et en huit images.",
+  "La consigne de style du générateur en trois blocs : [`standards/consigne-2d-hd.md`](../../../../standards/consigne-2d-hd.md), avec la planche de référence d'Arenarea pour ancre, et son cadrage de planche d'animation.",
 ]
 criteres = [
   "L'auteur approuve la maquette aux deux définitions : lisible à 1080p, nette à 2160p.",
-  "Aucune valeur du standard ne reste « à fixer ».",
+  "Le standard de la scène ne laisse aucune valeur ouverte ; ce que la figurine garde d'ouvert est nommément porté par un autre lot.",
   "`lint_exigences.py` est vert après la réécriture des trois exigences.",
 ]
 sources = [
@@ -51,6 +50,7 @@ dépend ni du LOT-102 ni du LOT-103. Elle est ensuite la **référence de non-r�
 - La facture « peinte » varie d'une génération à l'autre bien plus que le pixel art quantifié :
   la consigne doit être éprouvée sur au moins trois familles de pièces avant d'être figée.
 - Six ou huit images par animation : l'écart de coût est d'un quart sur **chaque** PNJ du jeu.
+  Ce risque part avec la question, au [LOT-112](LOT-112-heros-de-la-demo.md).
 
 ## Décisions de réalisation
 
@@ -105,31 +105,21 @@ trois variantes ([§4 du standard](../../../../standards/style-2d-hd.md)) ne suf
 — elle est désormais un **risque nommé et un critère** du [LOT-108](LOT-108-assets-hd-arenarea.md),
 qui produit les sols d'Arenarea : douze cases sur douze sans motif régulier.
 
-## L'essai en cours : six ou huit images
+## Ce que ce lot ne tranche pas : la cadence des figurines
 
-C'est la **seule valeur ouverte** du standard, et l'auteur a choisi de la trancher sur pièces plutôt
-que sur raisonnement. L'essai se commande au générateur avec le bloc A de
-[la consigne](../../../../standards/consigne-2d-hd.md) inchangé, le bloc B pris dans sa variante
-**planche d'animation**, et ce bloc C, envoyé **deux fois** — rien d'autre ne change que le nombre
-d'images :
+**D-101-8 — Le nombre d'images par animation part au [LOT-112](LOT-112-heros-de-la-demo.md).**
+La fiche prévoyait de le trancher ici, sur un essai de marche en six et en huit images. L'auteur en
+décide autrement le 20 septembre, et la raison tient : ce lot fige le standard de la **scène** — la
+géométrie, la facture, la palette, les familles de pièces — et la maquette le valide sur ce
+terrain-là. La cadence d'une marche ne se juge pas sur une place vide ; elle se juge sur la première
+figurine, à côté de son ancre et de son sol, et c'est le `LOT-112` qui la produit en fixant le
+**gabarit de toutes les autres**. La consigne emporte avec elle le nécessaire : son bloc B sait
+désormais commander une planche d'animation, et l'essai six / huit est écrit dans la fiche du
+`LOT-112`, prêt à envoyer.
 
-```
-PIECE: a walk cycle for a city guard of the Central Empire, seen from the
-south-east isometric direction: burgundy tabard over a mail shirt, old gold
-trim, a spear held upright in the right hand, no shield.
-FAMILY: figure — humanoid, 170 px tall, ground line at the bottom of each frame.
-PLACE: Arenarea, the arena quarter of the Capital; accent burgundy.
-VARIANTS: {SIX | EIGHT} frames — one full walk cycle that loops, the contact,
-down, passing and up poses evenly spread over the strip.
-```
+Le standard de la scène est donc complet. Le `§5` du standard renvoie nommément au `LOT-112` pour la
+seule valeur de figurine restée ouverte — c'est la règle de la [définition de « livré »](../../../../standards/definition-de-livre.md) :
+ce qu'un lot ne fait pas et devait faire s'écrit dans un autre lot.
 
-Ce qu'on regarde, dans cet ordre :
-
-1. la marche en six images **saccade-t-elle** à la cadence du jeu ? Si oui, la question est close.
-2. à huit, le générateur tient-il le **même personnage** d'une image à l'autre ? Deux images de plus,
-   c'est deux occasions de plus de dériver, et une dérive se repeint à la main.
-3. le quart de coût en plus — sur chaque PNJ, chaque animation, chaque orientation — l'auteur
-   l'accepte-t-il ?
-
-La valeur retenue s'écrit au [§5 du standard](../../../../standards/style-2d-hd.md), et le lot passe
-`livre`.
+Le détail des pièces, lui, se travaille dans les lots d'assets dédiés : ce standard dit le format,
+pas le dessin.

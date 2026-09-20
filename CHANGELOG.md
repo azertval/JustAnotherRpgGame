@@ -14,8 +14,10 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   `EX-VIS-009` (la frontière scène / interface, qui sépare désormais deux échelles et non deux
   factures) et `EX-REN-013` (zoom libre, une case valant la hauteur de la fenêtre divisée par 10,8,
   soit la même étendue de monde à toute définition). La consigne du générateur est réécrite en trois
-  blocs (`Planning/standards/consigne-2d-hd.md`). Le nombre d'images par animation reste ouvert,
-  en attente de l'essai de marche.
+  blocs (`Planning/standards/consigne-2d-hd.md`), et sait commander une planche d'animation. Le
+  standard de la scène est complet ; le nombre d'images par animation se fixe au `LOT-112`, sur la
+  première figurine, parce qu'une cadence se juge à côté d'une ancre et d'un sol, pas sur une place
+  vide.
 
 - **Planification par versions (`Planning/`, LOT-100).** Le jeu quitte le pixel art pour la 2D HD,
   le référentiel `0.1.0` devient l'Empire central seul et la `0.0.1` une démo basique : trois

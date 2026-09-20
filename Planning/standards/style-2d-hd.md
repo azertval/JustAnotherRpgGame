@@ -10,9 +10,9 @@ montée aux deux définitions où le jeu se joue, et en a réécrit les exigence
 `EX-VIS-009` et `EX-REN-013`. Ce que la maquette a mesuré est au [§7](#7-ce-que-la-maquette-a-mesuré) ;
 ce qu'elle a appris à la commande d'images est dans [la consigne du générateur](consigne-2d-hd.md).
 
-> **Une seule valeur reste ouverte** : le nombre d'images par animation (§5), qui se tranche sur un
-> essai de marche en six et en huit images. Tant qu'il n'est pas tranché, aucune figurine ne se
-> produit en série.
+> **Le standard de la scène est complet.** La seule valeur encore ouverte tient à la figurine — le
+> nombre d'images par animation (§5) — et elle se fixe au [LOT-112](../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md),
+> sur la première figurine produite. Tout ce qui concerne la scène se produit dès maintenant.
 
 ## 1. La géométrie — ce qui ne change pas
 
@@ -99,7 +99,7 @@ tout le champ. Les deux sols de la planche de référence sont des panneaux : il
 |---|---|
 | Orientations | **quatre** (les diagonales de l'isométrie), comme aujourd'hui |
 | Animations | repos, marche, attaque, sort, touché, mort |
-| Images par animation | **à trancher** — seule valeur ouverte du standard. L'essai est commandé au [LOT-101](../versions/v0.1.0/v0.0.1-demo/lots/LOT-101-standard-2d-hd.md) : la même marche en six et en huit images, même personnage, même consigne. L'écart de coût est d'un quart sur **chaque** PNJ du jeu |
+| Images par animation | **six ou huit**, fixé par le [LOT-112](../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md) sur la première figurine : la même marche commandée deux fois, même personnage, même consigne. Une cadence se juge à côté de son ancre et de son sol, pas sur une place vide. L'écart de coût est d'un quart sur **chaque** PNJ du jeu |
 | Portrait | 512 × 512, même facture, pour les dialogues et la fiche |
 | Jeton | 128 × 128, détouré en rond, pour la piste d'initiative |
 
