@@ -15,6 +15,7 @@ livrables = [
 criteres = [
   "Toutes les pièces de l'inventaire ci-dessous paraissent dans la galerie, à l'échelle du standard.",
   "Aucune pièce ne double une pièce du kit commun.",
+  "Le sol de la zone est posé sur douze cases sur douze sans qu'aucun motif régulier n'apparaisse.",
   "La zone pèse moins de 40 Mio.",
 ]
 sources = [
@@ -34,6 +35,16 @@ Le quartier des nobles : manoirs à colonnes de marbre, jardins de façade, font
 
 Le détail du quartier — texte du livre et lieux nommés sur le plan — est dans
 [le référentiel de la Capitale](../../../../referentiels/central-empire/capitale.md).
+
+## Le risque du sol
+
+La maquette du [LOT-101](LOT-101-standard-2d-hd.md) a montré le poste qui coûte : répétée sur tout
+l'écran, la dalle bordée de la planche de référence dessine un **treillis** sombre qui n'existe dans
+aucune ville. Le sol se produit donc en premier et se juge en premier — d'abord une dalle de fond
+sans bordure en trois variantes au moins (règle du [§4 du standard](../../../../standards/style-2d-hd.md)),
+les panneaux bordés seulement ensuite, pour border une place ou tracer une allée. Le critère
+ci-dessus se vérifie à l'œil, sur douze cases sur douze : c'est là que le moiré se voit, pas sur
+quatre.
 
 ## Périmètre
 

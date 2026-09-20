@@ -143,15 +143,15 @@ souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en
   plaques d'action — sont relevés sur les **maquettes de référence** du lot, par un relevé rejouable
   (`scripts/measure_mockup_palette.py`) qui nomme, pour chaque rôle, la maquette et la zone mesurée.
   Les grandeurs de l'habillage suivent un facteur d'agrandissement **réel**, rapport de la fenêtre à
-  la définition de conception de 1920 × 1080. Le facteur **entier** ne subsiste que pour le viewport
-  de la scène, où il protège encore des pixels de tuile.
+  la définition de conception de 1920 × 1080. Le viewport de la scène suit sa propre règle, lui
+  aussi à facteur réel (`EX-REN-013`).
   Cette identité est **bornée aux écrans du jeu** — le châssis d'édition conserve son apparence
   d'outil de travail, et ni parchemin ni panneau doré ne se
   répand dans ses tables et ses arbres denses.
-  > **Précisée au `LOT-92`.** Le pixel art écarté ici l'est **de l'interface** : la scène y
-  > revient (`EX-VIS-008`), et `EX-VIS-009` trace la frontière entre les deux identités — ce qui
-  > renseigne le joueur par-dessus la scène appartient à la charte v2, ce qui est du monde au pixel
-  > art.
+  > **Précisée au `LOT-101`.** La scène quitte le pixel art à son tour : elle est **peinte en haute
+  > définition** (`EX-VIS-008`). La frontière que trace `EX-VIS-009` ne sépare donc plus deux
+  > factures mais deux **échelles** — une pièce de scène se mesure au lieu, une image d'interface à
+  > la fenêtre — et le facteur **entier** du viewport disparaît avec le pixel art (`EX-REN-013`).
   >
   > **Refondue au `LOT-87`.** Elle décrivait le seul parchemin, en polices pixel (`Pixelify Sans`,
   > `Press Start 2P`), agrandi d'un facteur **entier** : à 1,5×, le trait et le filet d'un

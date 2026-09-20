@@ -23,8 +23,10 @@ Ce lint les refuse en CI. Il vérifie :
 9. aucune **exigence** n'est revendiquée en retrait par deux lots à la fois ;
 10. le **tableau récapitulatif** de la section 6 correspond au graphe déclaré ;
 11. toute arête du **diagramme** de la section 6 correspond à un lien déclaré ;
-12. tout ``LOT-NN`` cité dans une **spécification** désigne un lot **de ce programme**, et aucune
-    spécification n'emploie plus l'ancienne notation ``LOT-H-NN`` (retirée au ``LOT-88``) ;
+12. tout ``LOT-NN`` cité dans une **spécification** désigne un lot existant — de cette page, ou
+    d'une fiche de ``Planning/`` pour les numéros à trois chiffres (``LOT-100`` et au-delà, depuis
+    le ``LOT-100``) — et aucune spécification n'emploie plus l'ancienne notation ``LOT-H-NN``
+    (retirée au ``LOT-88``) ;
 13. le **tableau d'avancement** en tête de feuille de route est exactement la suite que produit la
     règle d'ordre — *à chaque pas, parmi les lots dont tous les prérequis sont faits, celui du
     jalon de version le plus proche ; à jalon égal, celui qui en débloque le plus* ;
@@ -56,6 +58,13 @@ SPECIFICATIONS = RACINE / 'Documentation' / 'Specification'
 # dépôt, n'a plus rien à désigner (LOT-88).
 RENVOI_SPEC_RE = re.compile(r'LOT-(\d+)')
 ANCIEN_RENVOI_RE = re.compile(r'LOT-H-\d+')
+
+# Depuis le LOT-100, les lots à venir se numérotent à partir de 100 et vivent dans `Planning/`, une
+# fiche par fichier ; cette page est figée et ne les porte pas. Une spécification qui en cite un ne
+# cite donc rien d'inexistant -- mais il faut que la fiche existe, sans quoi la règle 12 ne garderait
+# plus rien du jour où le premier renvoi à trois chiffres est apparu.
+PLANIFICATION = RACINE / 'Planning' / 'versions'
+FICHE_PLANIFICATION_RE = re.compile(r'^(LOT-\d+)-')
 
 PREMIER_LOT_FILIERE = 30
 
@@ -104,6 +113,16 @@ class Rapport:
 
 def numero(n) -> str:
     return 'LOT-%s' % n
+
+
+def lots_de_la_planification():
+    """Les lots déclarés par une fiche de ``Planning/`` : ceux que cette page ne porte plus."""
+    trouves = set()
+    for chemin in PLANIFICATION.rglob('LOT-*.md'):
+        trouve = FICHE_PLANIFICATION_RE.match(chemin.name)
+        if trouve:
+            trouves.add(trouve.group(1))
+    return trouves
 
 
 def lots_livres():
@@ -554,7 +573,7 @@ def main() -> int:
             r.erreur("le tableau des jalons cite %s, qui n'existe pas" % lot)
 
     # ---- 12 : les renvois des spécifications désignent un lot de ce programme ----
-    connus = set(sections) | livres
+    connus = set(sections) | livres | lots_de_la_planification()
     for chemin in sorted(SPECIFICATIONS.glob('*.md')):
         lignes = chemin.read_text(encoding='utf-8').splitlines()
         for numero_ligne, ligne in enumerate(lignes, 1):

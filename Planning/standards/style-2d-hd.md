@@ -2,10 +2,17 @@
 
 Le jeu quitte le pixel art le 20 septembre 2026. Ce document fixe ce qui le remplace : **une scène
 isométrique peinte, en haute définition**, dont la référence est la planche
-`Tools/AssetsHD/Arenarea/arenarea-planche-reference-v2.png`. Il est **proposé** ici et devient
-**normatif** à la livraison du
-[LOT-101](../versions/v0.1.0/v0.0.1-demo/lots/LOT-101-standard-2d-hd.md), qui le confronte à une
-maquette rendue dans le moteur et réécrit l'exigence `EX-VIS-008` en conséquence.
+`Tools/AssetsHD/Arenarea/arenarea-planche-reference-v2.png`.
+
+Il est **normatif** : le [LOT-101](../versions/v0.1.0/v0.0.1-demo/lots/LOT-101-standard-2d-hd.md)
+l'a confronté à une [maquette de huit cases sur huit](../versions/v0.1.0/v0.0.1-demo/maquettes/maquette-2d-hd-reperes.png),
+montée aux deux définitions où le jeu se joue, et en a réécrit les exigences `EX-VIS-008`,
+`EX-VIS-009` et `EX-REN-013`. Ce que la maquette a mesuré est au [§7](#7-ce-que-la-maquette-a-mesuré) ;
+ce qu'elle a appris à la commande d'images est dans [la consigne du générateur](consigne-2d-hd.md).
+
+> **Le standard de la scène est complet.** La seule valeur encore ouverte tient à la figurine — le
+> nombre d'images par animation (§5) — et elle se fixe au [LOT-112](../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md),
+> sur la première figurine produite. Tout ce qui concerne la scène se produit dès maintenant.
 
 ## 1. La géométrie — ce qui ne change pas
 
@@ -26,8 +33,9 @@ maquette rendue dans le moteur et réécrit l'exigence `EX-VIS-008` en conséque
 | Alpha | **continu** (8 bits), bords adoucis, **prémultiplié** au chargement | le détourage binaire est ce qui signe le pixel art |
 | Couleur | sRGB, 8 bits par canal, **pas de palette imposée** par image | la cohérence vient de la palette du lieu (§3), pas d'une quantification |
 | Filtrage | **bilinéaire + mipmaps** pour tout l'art de scène | c'est la révision du moteur que demande le [LOT-103](../versions/v0.1.0/v0.0.1-demo/lots/LOT-103-rendu-hd.md) |
-| Zoom | **libre** : la caméra cadre la scène à la fenêtre | l'agrandissement entier (`EX-REN-013`) n'a plus d'objet |
+| Zoom | **libre**, et fixé par la définition : une case occupe **100 px à 1080p, 200 px à 2160p** | les deux définitions cadrent la **même étendue de monde** (§7) : un écran plus fin ne montre pas plus de jeu, il montre le même jeu plus finement |
 | Fichier | PNG 32 bits ; une pièce = un fichier ; **5 Mio au plus** (contrôle existant) ; planche d'animation ≤ 4096 px de côté | |
+| Planche d'animation | **8 px de marge** entre deux images, et autour de la planche | sans elle, le niveau de mipmap d'une image déborde sur sa voisine et la marche bave (risque relevé par le [LOT-103](../versions/v0.1.0/v0.0.1-demo/lots/LOT-103-rendu-hd.md)) |
 
 L'échelle de l'art devient une **donnée du lieu** : le manifeste d'une scène déclare
 `"tile": [256, 159]`, et le moteur en déduit l'échelle de chaque pièce. Un lieu pourrait demain
@@ -79,12 +87,19 @@ et ce qu'il produit en **propre** (voir l'[arborescence](arborescence-assets.md)
 | 09 | Bâtiments | 3 × 2 et plus | boutique, maison, tour |
 | 10 | Seuils | 3 × 3 et plus | parvis, escalier, arche |
 
+**La famille 01 a une règle de plus**, que la maquette a imposée : une zone livre d'abord une
+**dalle de fond répétable** — sans bordure, aux joints neutres, en **trois variantes au moins** —
+et seulement ensuite ses panneaux décoratifs. Une dalle bordée répétée sur cinq cents cases dessine
+un treillis qui n'existe dans aucune ville, et une dalle unique répétée fait battre un moiré sur
+tout le champ. Les deux sols de la planche de référence sont des panneaux : ils ne sont pas un fond.
+
 ## 5. Les figurines
 
 | Règle | Valeur |
 |---|---|
 | Orientations | **quatre** (les diagonales de l'isométrie), comme aujourd'hui |
-| Animations | repos, marche, attaque, sort, touché, mort — le nombre d'images par animation se **fixe au LOT-101**, sur un essai : en peint, huit images coûtent cher et six suffisent peut-être |
+| Animations | repos, marche, attaque, sort, touché, mort |
+| Images par animation | **six ou huit**, fixé par le [LOT-112](../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md) sur la première figurine : la même marche commandée deux fois, même personnage, même consigne. Une cadence se juge à côté de son ancre et de son sol, pas sur une place vide. L'écart de coût est d'un quart sur **chaque** PNJ du jeu |
 | Portrait | 512 × 512, même facture, pour les dialogues et la fiche |
 | Jeton | 128 × 128, détouré en rond, pour la piste d'initiative |
 
@@ -94,3 +109,37 @@ et ce qu'il produit en **propre** (voir l'[arborescence](arborescence-assets.md)
   une référence de contenu, jamais une source d'images (règle du `LOT-94`, inchangée).
 - **Aucun asset pixel art** ne subsiste : pas de cohabitation des deux styles, même provisoire.
 - **Aucun agrandissement** : un asset trop petit se refait.
+
+## 7. Ce que la maquette a mesuré
+
+La maquette du `LOT-101` monte huit cases sur huit d'Arenarea — sol, deux façades, une colonnade, la
+fontaine, un lampadaire, un banc — à l'échelle du standard, et les cadre aux deux définitions. Elle
+se reconstruit par `python scripts/build_hd_mockup.py`, et vit dans
+[`maquettes/`](../versions/v0.1.0/v0.0.1-demo/maquettes/) :
+
+| Image | Ce qu'elle montre |
+|---|---|
+| `maquette-2d-hd-1080.png` | la scène entière en 1920 × 1080, à 100 px par case |
+| `maquette-2d-hd-2160.png` | une fenêtre au pixel près à la densité 2160p, à 200 px par case |
+| `maquette-2d-hd-reperes.png` | la même scène annotée : grille des cases, cellule de figurine, échelle |
+
+Les deux premières ne portent **aucun texte** : ce sont les références de non-régression que le
+rendu du `LOT-103` doit reproduire.
+
+**Quatre mesures**, et ce qu'elles décident :
+
+1. **Une case de 256 px tient.** À 100 px d'écran, la fontaine, la colonnade et le pan de mur se
+   lisent sans effort ; le lion d'une bannière et la frise d'un bassin ne se lisent plus. Produire
+   plus fin que **le double de la taille d'écran** est dépensé pour rien — c'est ce que dit la ligne
+   « lisibilité » de [la consigne](consigne-2d-hd.md).
+2. **La vue cadre 19,2 losanges de large et 17,4 de haut**, aux deux définitions. Une place de huit
+   cases sur huit n'occupe donc qu'**un cinquième de l'écran** : une zone jouable qui remplit la vue
+   fait au moins **vingt cases sur dix-sept**, et c'est ce chiffre, non le mètre carré, qui donne le
+   volume d'assets d'une zone.
+3. **Le sol est le poste le plus lourd.** Il couvre tout l'écran et il se répète : c'est de lui que
+   viennent le treillis et le moiré, d'où la règle des variantes au [§4](#4-les-familles-de-pièces-dun-lieu).
+4. **La planche de référence n'est pas une source de production.** Elle dessine un losange de
+   136 px là où le standard en demande 256 : la maquette l'agrandit d'un facteur 1,88, et à 2160p
+   cela se voit. Elle juge donc la composition, l'emprise et la lisibilité — **pas la finesse du
+   trait**. La finesse se juge sur un master de production (1254 px réduit à 256, facteur 0,20),
+   et c'est la règle « toujours réduit, jamais agrandi » qui la garantit.

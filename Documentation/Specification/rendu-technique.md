@@ -24,8 +24,12 @@
   (clip nommé, suite d'images, durée par image, bouclé ou joué une fois) et non codées en dur. Un
   asset sans description d'animation est affiché comme une **image fixe**.
 - \anchor EX-REN-013 **EX-REN-013** — La **caméra** du lieu doit suivre le héros, bornée à la scène
-  (un axe plus étroit que la vue est centré), à un agrandissement **entier** du pixel art
-  (`EX-ARCH-022`).
+  (un axe plus étroit que la vue est centré), à un facteur d'affichage **libre** — l'agrandissement
+  entier du pixel art n'a plus d'objet (`EX-ARCH-022`) — et **déduit de la définition de la
+  fenêtre** : la largeur d'une case à l'écran vaut la hauteur de la fenêtre divisée par **10,8**,
+  soit 100 px à 1080p et 200 px à 2160p. Toutes les définitions cadrent donc la **même étendue de
+  monde** — 19,2 losanges de large, 17,4 de haut — et un écran plus fin montre le même jeu plus
+  finement, jamais plus de jeu.
 - \anchor EX-REN-014 **EX-REN-014** — Le rendu doit gérer un ordre de dessin par **calques**,
   défini par un **ordonnancement unique et explicite** (`hmi::RenderLayer`) dont aucun calque
   concurrent ne peut s'écarter : sol, objets et figurines, puis interface et aides d'édition.
