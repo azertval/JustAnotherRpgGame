@@ -1,0 +1,47 @@
+{
+  "id": "wolf",
+  "name": "Loup",
+  "source": "wikipedia",
+  "size": "medium",
+  "creatureType": "bete",
+  "alignment": "sans alignement",
+  "armorClass": 13,
+  "hitPoints": 11,
+  "hitDice": "2d8+2",
+  "speed": {
+    "walk": 12
+  },
+  "abilities": {
+    "strength": 12,
+    "dexterity": 15,
+    "constitution": 12,
+    "intelligence": 3,
+    "wisdom": 12,
+    "charisma": 6
+  },
+  "challengeRating": 0.25,
+  "skills": {
+    "perception": 3,
+    "stealth": 4
+  },
+  "senses": [
+    "Perception passive 13"
+  ],
+  "languages": [],
+  "traits": [
+    {
+      "name": "Odorat et ouie aiguises",
+      "text": "Avantage aux jets de Sagesse (Perception) reposant sur l'odorat."
+    }
+  ],
+  "actions": [
+    {
+      "name": "Morsure",
+      "text": "Attaque au corps a corps avec une arme.",
+      "attackBonus": 4,
+      "reach": 1.5,
+      "damage": "2d4+2",
+      "damageType": "piercing"
+    }
+  ]
+}

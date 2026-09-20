@@ -1,0 +1,10 @@
+{
+  "id": "dazzled",
+  "name": "Empoisonne",
+  "source": "srd",
+  "text": "Une creature empoisonnee subit un desavantage aux jets d'attaque et de caracteristique.",
+  "effects": [
+    "Desavantage aux jets d'attaque.",
+    "Desavantage aux jets de caracteristique."
+  ]
+}

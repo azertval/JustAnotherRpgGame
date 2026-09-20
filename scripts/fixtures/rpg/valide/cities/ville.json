@@ -1,0 +1,22 @@
+{
+  "id": "ville",
+  "name": "Une ville",
+  "source": "original",
+  "location": "region-ville",
+  "start": {
+    "district": "region-ville-marche",
+    "arrival": "porte"
+  },
+  "districts": [
+    {
+      "id": "region-ville-marche",
+      "map": "ville/marche"
+    },
+    {
+      "id": "region-ville-port",
+      "guard": {
+        "map": "ville/marche"
+      }
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 > Statut : en cours, premier essai non validé. Famille : PNJ nommés. Série pilote de cinq unités métier, sous le plafond de dix ; calibration technique avant production régionale.
 > Contrat commun : [epic.md](epic.md). Exécution : chat local et outils intégrés.
-> 39 tours générés et reçus ; zéro PNJ autorisé à intégrer. [Bilan et corrections](../../../Tools/AssetFactory/bilan-poc.md), [rapport détaillé](../../../Tools/AssetFactory/rapport-poc.md).
+> 39 tours générés et reçus ; zéro PNJ autorisé à intégrer. Bilan et rapport détaillé : `Tools/AssetFactory/bilan-poc.md` et `rapport-poc.md` (hors dépôt).
 
 ## Assets
 

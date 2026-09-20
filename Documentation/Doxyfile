@@ -21,11 +21,7 @@ INPUT                  = index.md \
                          Lot \
                          Editeur \
                          Manuel \
-                         ../Source \
-                         ../Tools/AssetFactory/README.md \
-                         ../Tools/AssetFactory/CREDITS.md \
-                         ../Tools/AssetFactory/bilan-poc.md \
-                         ../Tools/AssetFactory/rapport-poc.md
+                         ../Source
 RECURSIVE              = YES
 FILE_PATTERNS          = *.cpp *.h *.hpp *.md
 # Exclusions : build, dépendances, sortie générée, et les README de modules de

@@ -108,4 +108,3 @@ __pycache__/
 # Fabrique : références envoyées au générateur, strictement locales.
 # Seuls leurs chemins et empreintes sont versionnés dans request.json.
 /Tools/
-/scripts/
