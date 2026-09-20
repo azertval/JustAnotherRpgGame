@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 640" font-family="Segoe UI, sans-serif" font-size="13">
+  <title>Déroulé de la quête de démonstration « Des pommes pour l'arène »</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c9a45c"/>
+    </marker>
+    <style>
+      .bg { fill: #10191b; }
+      .lane { fill: #16232a; stroke: #2f4247; }
+      .lane-title { fill: #d2ac62; font: 600 15px Georgia, serif; letter-spacing: 1px; }
+      .step rect { fill: #1c2d33; stroke: #6dc0c4; rx: 8; }
+      .choice rect { fill: #2a2418; stroke: #d2ac62; }
+      .roll rect { fill: #2d1a20; stroke: #d0566b; }
+      .end rect { fill: #1b2a1c; stroke: #86b56f; }
+      .fail rect { fill: #2d1a20; stroke: #d0566b; stroke-dasharray: 5 3; }
+      text { fill: #efe6d2; }
+      .small { fill: #a39a84; font-size: 11.5px; }
+      .edge { fill: none; stroke: #c9a45c; stroke-width: 1.6; marker-end: url(#arrow); }
+      .edge-label { fill: #d2ac62; font-size: 11.5px; }
+    </style>
+  </defs>
+  <rect class="bg" width="1180" height="640"/>
+
+  <rect class="lane" x="16" y="16" width="360" height="608" rx="10"/>
+  <text class="lane-title" x="36" y="46">MARTPART — le marché</text>
+  <rect class="lane" x="392" y="16" width="396" height="608" rx="10"/>
+  <text class="lane-title" x="412" y="46">ARENAREA — le parvis</text>
+  <rect class="lane" x="804" y="16" width="360" height="608" rx="10"/>
+  <text class="lane-title" x="824" y="46">ARENA OF FATE</text>
+
+  <g class="step"><rect x="46" y="70" width="300" height="62"/>
+    <text x="62" y="95">1 · Arrivée au marché</text>
+    <text class="small" x="62" y="115">Le joueur apparaît à l'entrée de Martpart.</text></g>
+  <g class="step"><rect x="46" y="166" width="300" height="78"/>
+    <text x="62" y="191">2 · La mère demande de l'aide</text>
+    <text class="small" x="62" y="211">Son fils a volé des pommes ; un garde</text>
+    <text class="small" x="62" y="227">l'emmène à l'arène. Quête acceptée.</text></g>
+  <path class="edge" d="M196,132 V164"/>
+
+  <g class="step"><rect x="426" y="166" width="328" height="62"/>
+    <text x="442" y="191">3 · Intercepter le garde</text>
+    <text class="small" x="442" y="211">Le garde et l'enfant traversent le parvis.</text></g>
+  <path class="edge" d="M346,205 H424"/>
+
+  <g class="choice"><rect x="426" y="262" width="328" height="58" rx="8"/>
+    <text x="442" y="286">4 · Le choix</text>
+    <text class="small" x="442" y="305">Convaincre le garde, ou endosser le crime.</text></g>
+  <path class="edge" d="M590,228 V260"/>
+
+  <g class="roll"><rect x="426" y="364" width="150" height="76" rx="8"/>
+    <text x="440" y="388">4a · Persuasion</text>
+    <text class="small" x="440" y="408">d20 + Charisme</text>
+    <text class="small" x="440" y="424">DD 18</text></g>
+  <path class="edge" d="M500,320 V362"/>
+  <text class="edge-label" x="492" y="346" text-anchor="end">« Laissez-le partir »</text>
+
+  <g class="step"><rect x="604" y="364" width="150" height="76"/>
+    <text x="618" y="388">4b · Endosser</text>
+    <text class="small" x="618" y="408">Le joueur prend le</text>
+    <text class="small" x="618" y="424">crime à sa charge.</text></g>
+  <path class="edge" d="M680,320 V362"/>
+  <text class="edge-label" x="690" y="346">« Prenez-moi »</text>
+
+  <path class="edge" d="M576,420 C592,420 588,402 602,402"/>
+  <text class="edge-label" x="540" y="458">échec : il refuse,</text>
+  <text class="edge-label" x="540" y="472">reste 4b</text>
+
+  <g class="step"><rect x="834" y="364" width="300" height="76"/>
+    <text x="850" y="388">5 · Vestiaire A</text>
+    <text class="small" x="850" y="408">Le joueur arrive au vestiaire. Parler au</text>
+    <text class="small" x="850" y="424">maître d'arène lance le combat.</text></g>
+  <path class="edge" d="M754,402 H832"/>
+
+  <g class="roll"><rect x="834" y="474" width="300" height="62" rx="8"/>
+    <text x="850" y="498">6 · Combat : seul face à un combattant</text>
+    <text class="small" x="850" y="518">Tour par tour, sur le sable de l'arène.</text></g>
+  <path class="edge" d="M984,440 V472"/>
+
+  <g class="fail"><rect x="1010" y="566" width="124" height="44" rx="8"/>
+    <text x="1024" y="593">Mort · fin</text></g>
+  <path class="edge" d="M1072,536 V564"/>
+  <text class="edge-label" x="1080" y="554">défaite</text>
+
+  <g class="step"><rect x="426" y="520" width="328" height="62"/>
+    <text x="442" y="545">7 · L'enfant est libéré</text>
+    <text class="small" x="442" y="565">Il court retrouver sa mère au marché.</text></g>
+  <path class="edge" d="M834,520 C800,520 800,551 756,551"/>
+  <text class="edge-label" x="770" y="512">victoire</text>
+  <path class="edge" d="M446,440 V518"/>
+  <text class="edge-label" x="392" y="490" transform="rotate(-90 408 490)">réussite</text>
+
+  <g class="end"><rect x="46" y="520" width="300" height="62" rx="8"/>
+    <text x="62" y="545">8 · Retrouver la mère</text>
+    <text class="small" x="62" y="565">Dialogue de fin · écran « Fin de la démo ».</text></g>
+  <path class="edge" d="M426,551 H348"/>
+</svg>

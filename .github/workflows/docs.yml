@@ -5,6 +5,7 @@ name: Documentation et site qualité
 #   /qualite/    la page qualité : couverture par domaine, dernières mesures de performance, liens
 #   /qualite/couverture/    le rapport HTML d'OpenCppCoverage
 #   /qualite/performances/  les courbes de github-action-benchmark (branche `benchmarks`)
+#   /planning/   le site de planification, engendré depuis Planning/
 #
 # gh-pages est remplacée en entier à chaque publication : tout ce qu'elle porte est reconstruit ici,
 # rien n'y survit par accident. C'est pourquoi les mesures nocturnes vivent dans leur propre branche
@@ -186,6 +187,21 @@ jobs:
           print('- Couverture : %s' % ('%.2f %%' % coverage['percent'] if coverage else 'absente'))
           benchmarks = summary['benchmarks']
           print('- Mesures de performance : %s' % (len(benchmarks['benches']) if benchmarks else 'aucune'))
+          EOF
+
+      # Le site de planification : engendre depuis Planning/, jamais commite. gh-pages etant remplacee
+      # en entier, il est reconstruit a chaque publication, comme le reste.
+      - name: Assembler le site de planification
+        env:
+          COMMIT: ${{ github.sha }}
+        run: |
+          python3 Planning/outils/build_planning_site.py --out site/planning --docs-url ../ \
+            --commit "$COMMIT"
+          python3 - >> "$GITHUB_STEP_SUMMARY" <<'EOF'
+          import json
+          summary = json.load(open('site/planning/summary.json', encoding='utf-8'))
+          print('### Site de planification\n')
+          print('- %d versions, %d lots' % (len(summary['versions']), len(summary['lots'])))
           EOF
 
       - name: Deploy to gh-pages

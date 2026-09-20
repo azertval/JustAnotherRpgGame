@@ -17,6 +17,7 @@ de Qt, qui retient **Direct3D 11** par défaut sous Windows.
 
 - 📖 **Documentation en ligne** : <https://azertval.github.io/JustAnotherRpgGame/>
 - 📊 **Qualité** (couverture, performances) : <https://azertval.github.io/JustAnotherRpgGame/qualite/>
+- 🗺️ **Planification** (versions, lots, avancement) : <https://azertval.github.io/JustAnotherRpgGame/planning/> — source : [`Planning/`](Planning/README.md)
 - ⬇️ **Télécharger la dernière version** : <https://github.com/azertval/JustAnotherRpgGame/releases/latest>
   (préversion roulante du dernier `main` : <https://github.com/azertval/JustAnotherRpgGame/releases/tag/debug-latest>)
 
@@ -41,8 +42,9 @@ Le *quoi* et le *pourquoi* sont décrits dans les
 
 ## Fonctionnalités (état actuel)
 
-> Le premier jalon, un *vertical slice* dans la Capitale impériale, est en cours : la
-> [feuille de route](Documentation/Lot/roadmap.md) dit ce qui reste.
+> Le jeu quitte le pixel art pour la **2D HD** et repart d'une démo basique (`0.0.1`) : la
+> [planification](Planning/README.md) dit ce qui reste. L'ancienne
+> [feuille de route](Documentation/Lot/roadmap.md) est figée.
 
 Le **jeu** :
 

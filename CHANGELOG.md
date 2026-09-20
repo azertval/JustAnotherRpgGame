@@ -6,6 +6,15 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Planification par versions (`Planning/`, LOT-100).** Le jeu quitte le pixel art pour la 2D HD,
+  le référentiel `0.1.0` devient l'Empire central seul et la `0.0.1` une démo basique : trois
+  quartiers de la Capitale et une quête. Le nouveau dossier `Planning/` porte la trajectoire
+  jusqu'à la `1.0.0`, 101 fiches de lots pour les versions `0.0.1` à `0.3.0` (livrables, critères,
+  maquettes), les référentiels de contenu tirés du corpus, le standard 2D HD, l'arborescence des
+  assets et l'audit du passage à la HD. Un lint (`Planning/outils/lint_planning.py`) le garde en
+  CI, et un site engendré depuis le dossier est publié sous `/planning/`. L'ancienne feuille de
+  route est figée.
+
 - **`scripts/` de nouveau versionné.** Le dossier avait été supprimé (#92) alors que la CI, les
   hooks pre-commit et les workflows de release en dépendent ; il est restauré et retiré du
   `.gitignore`. `Tools/AssetFactory` et `editor-captures` restent supprimés.

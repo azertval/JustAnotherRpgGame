@@ -37,8 +37,10 @@ CI = os.path.join('.github', 'workflows', 'ci.yml')
 JOB = 'lint-exigences'
 JOB_RE = re.compile(r'^  ([A-Za-z0-9_-]+):\s*$')
 NAME_RE = re.compile(r'^      - name:\s*(.+?)\s*$')
-# Un script du dépôt, ou pytest (les tests des scripts, phase 4).
-RUN_RE = re.compile(r'^        run:\s*python3\s+(scripts/\S+\.py|-m\s+pytest)(.*?)\s*$')
+# Un script du dépôt — de `scripts/` ou de l'outillage de `Planning/` —, ou pytest (les tests des
+# scripts, phase 4).
+RUN_RE = re.compile(
+    r'^        run:\s*python3\s+((?:scripts|Planning/outils)/\S+\.py|-m\s+pytest)(.*?)\s*$')
 ENV_RE = re.compile(r'^  ([A-Z0-9_]+):\s*[\'"]?([^\'"\s#]+)')
 
 
@@ -92,10 +94,10 @@ def auto_test(root):
               '        run: python3 scripts/x.py\n  %s:\n    steps:\n      - name: Premier\n'
               '        id: p\n        run: python3 scripts/a.py --all\n'
               '      - name: Pas python\n        run: pip install x\n'
-              '      - name: Second\n        run: python3 scripts/b.py\n'
+              '      - name: Second\n        run: python3 Planning/outils/b.py\n'
               '      - name: Tests\n        run: python3 -m pytest --junitxml=x.xml\n' % JOB)
     assert read_ci(sample) == ([('Premier', 'scripts/a.py', ['--all']),
-                                ('Second', 'scripts/b.py', []),
+                                ('Second', 'Planning/outils/b.py', []),
                                 ('Tests', '-m pytest', ['--junitxml=x.xml'])],
                                {'A_VERSION': '1.2'})
     print('OK : %d contrôle(s) lu(s) dans le job %s de %s.' % (len(checks), JOB, CI))
