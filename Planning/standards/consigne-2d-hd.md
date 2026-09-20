@@ -83,6 +83,24 @@ OUTPUT: square canvas, at least 1024 px, PNG with alpha.
 > « l'art est toujours réduit, jamais agrandi », et la maquette du `LOT-101` montre ce qu'il en coûte
 > de l'enfreindre.
 
+### Le cas d'une planche d'animation
+
+Une animation se commande en **une seule fois**, en planche : demander les images une par une, c'est
+garantir que le personnage dérive. La commande remplace alors les deux premières phrases du cadrage
+ci-dessus par celles-ci, et rien d'autre du bloc B ne bouge :
+
+```
+FRAMING (animation strip): ONE character, drawn once per frame, in a single
+horizontal strip on a FULLY TRANSPARENT background. Same figure, same colours,
+same proportions and same light in every frame; only the pose changes. Each
+frame is the same size, evenly spaced, with 8 px of margin between frames and
+around the strip. No shadow, no base plate, no separating line, no frame
+number.
+```
+
+La marge de 8 px est celle du [standard](style-2d-hd.md) : sans elle, le niveau de mipmap d'une
+image déborde sur sa voisine.
+
 ## Bloc C — la pièce
 
 Un gabarit, à remplir pour chaque commande. Une pièce par envoi.

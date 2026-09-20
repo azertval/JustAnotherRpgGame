@@ -97,19 +97,19 @@ voisine — et il se règle à la production, pas au rendu.
 ## L'essai en cours : six ou huit images
 
 C'est la **seule valeur ouverte** du standard, et l'auteur a choisi de la trancher sur pièces plutôt
-que sur raisonnement. L'essai se commande au générateur avec les blocs A et B de
-[la consigne](../../../../standards/consigne-2d-hd.md) inchangés, et ce bloc C, envoyé **deux fois**
-— rien d'autre ne change que le nombre d'images :
+que sur raisonnement. L'essai se commande au générateur avec le bloc A de
+[la consigne](../../../../standards/consigne-2d-hd.md) inchangé, le bloc B pris dans sa variante
+**planche d'animation**, et ce bloc C, envoyé **deux fois** — rien d'autre ne change que le nombre
+d'images :
 
 ```
 PIECE: a walk cycle for a city guard of the Central Empire, seen from the
 south-east isometric direction: burgundy tabard over a mail shirt, old gold
 trim, a spear held upright in the right hand, no shield.
-FAMILY: figure — humanoid, 170 px tall, ground line at the bottom of the cell.
+FAMILY: figure — humanoid, 170 px tall, ground line at the bottom of each frame.
 PLACE: Arenarea, the arena quarter of the Capital; accent burgundy.
-VARIANTS: a horizontal strip of {SIX | EIGHT} frames, evenly spaced, 8 px of
-margin between frames and around the strip, the same figure in each frame, a
-full walk cycle that loops.
+VARIANTS: {SIX | EIGHT} frames — one full walk cycle that loops, the contact,
+down, passing and up poses evenly spread over the strip.
 ```
 
 Ce qu'on regarde, dans cet ordre :
