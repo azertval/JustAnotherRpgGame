@@ -94,6 +94,17 @@ zone : le sol couvre tout l'écran et il se répète.
 c'est le risque que le `LOT-103` avait relevé — le niveau de mipmap d'une image déborde sur sa
 voisine — et il se règle à la production, pas au rendu.
 
+## Le verdict sur la maquette
+
+**Approuvée par l'auteur le 20 septembre 2026**, aux deux définitions et dans ce qu'elle juge : la
+composition se lit à 100 px de case, l'emprise est bonne, et la mollesse du trait à 2160p est celle
+de la planche agrandie, pas celle du standard (D-101-2).
+
+Une réserve, et elle est reportée : le sol répété dessine un treillis sur tout l'écran. La règle des
+trois variantes ([§4 du standard](../../../../standards/style-2d-hd.md)) ne suffisait pas à la porter
+— elle est désormais un **risque nommé et un critère** du [LOT-108](LOT-108-assets-hd-arenarea.md),
+qui produit les sols d'Arenarea : douze cases sur douze sans motif régulier.
+
 ## L'essai en cours : six ou huit images
 
 C'est la **seule valeur ouverte** du standard, et l'auteur a choisi de la trancher sur pièces plutôt
