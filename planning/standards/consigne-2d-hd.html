@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La consigne du générateur — 2D HD — Planification</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="../lots/index.html">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="index.html" class="active">Standards</a></nav>
+  <div class="links"><a class="external" href="../../">Documentation ↗</a><a class="external" href="../../qualite/">Qualité ↗</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Standards</h4><a class="depth-0" href="index.html">Standards</a><a class="depth-0" href="arborescence-assets.html">L&#x27;arborescence des assets</a><a class="depth-0" href="audit-passage-hd.html">Audit — quitter le pixel art : ce que ça casse, ce qu&#x27;il faut changer</a><a class="depth-0 active" href="consigne-2d-hd.html">La consigne du générateur — 2D HD</a><a class="depth-0" href="definition-de-livre.html">Ce que « livré » veut dire</a><a class="depth-0" href="gabarit-lot.html">Gabarit d&#x27;une fiche de lot</a><a class="depth-0" href="style-2d-hd.html">Le standard 2D HD</a></aside>
+<main>
+<article class="prose"><h1 id="la-consigne-du-générateur-2d-hd">La consigne du générateur — 2D HD</h1>
+<p>Le style de la scène est <strong>écrit</strong>, pas laissé au générateur : c'est ce que dit <a href="../../Documentation/Specification/vision.html"><code>EX-VIS-008</code></a>. Cette page est cette écriture. Elle remplace le bloc A de l'atelier des textures (<code>LOT-92</code>), qui décrivait du pixel art.</p>
+<p>Une commande d'image se compose de <strong>trois blocs</strong>, toujours dans cet ordre, toujours en anglais — c'est la langue où les générateurs sont les plus dociles :</p>
+<div class="table-wrap"><table><thead><tr><th>Bloc</th><th>Ce qu'il dit</th><th>Qui l'écrit</th></tr></thead><tbody><tr><td><strong>A — le style</strong></td><td>la facture, la lumière, les matières, la palette, les interdits</td><td>figé ici, jamais réécrit à la main</td></tr><tr><td><strong>B — la vue</strong></td><td>la projection, l'échelle, l'emprise, le fond, le cadrage</td><td>figé ici, ses trous se remplissent</td></tr><tr><td><strong>C — la pièce</strong></td><td>l'objet demandé, ses matières, ses variantes</td><td>écrit à chaque commande</td></tr></tbody></table></div>
+<p>La <strong>planche de référence</strong> <code>Tools/AssetsHD/Arenarea/arenarea-planche-reference-v2.png</code> est jointe à chaque envoi comme image de référence : elle vaut mieux que trois paragraphes de plus.</p>
+<blockquote><p><strong>Le générateur reste un outil manuel.</strong> Aucune génération ne tourne en CI, et Claude ne dessine pas : il écrit la commande, l'auteur l'envoie, la chaîne du <a href="../lots/lot-104.html">LOT-104</a> installe le résultat. Règle du <code>LOT-91</code>, inchangée.</p></blockquote>
+<h2 id="bloc-a-le-style">Bloc A — le style</h2>
+<p>Invariant pour tout l'Empire central. Une autre région change <strong>la palette et les matières</strong>, rien d'autre.</p>
+<pre><code>STYLE (match the attached reference sheet): hand-painted 2D game art for an
+isometric RPG. Painted, not pixel art: modelled flat colours, soft gradients,
+crisp edges, no visible pixel grid, no dithering, no photographic texture, no
+3D render look.
+
+LINE: one thin dark outline in deep bronze (#5c4a2a) around the silhouette,
+never pure black, never a uniform stroke — it thins where the light hits.
+
+LIGHT: a single soft key light from the TOP-LEFT, cool ambient fill. Shading is
+painted ON the object; the object casts NO shadow on the ground and carries no
+ground plane of its own.
+
+MATERIALS (measured on the reference sheet): ivory marble with subtle veining;
+warm limestone ashlar in regular courses; noble paving with a geometric border;
+patinated bronze, green-blue with gold edges; dark oiled timber; deep green
+foliage.
+
+PALETTE (Central Empire — keep to these, one accent per piece):
+ivory #efe6d2, sand #d9c7a3, warm grey #9c948a, deep bronze #5c4a2a,
+burgundy #8e2335 (the imperial accent), old gold #c9a45c, foliage #3f6b34,
+still water #2f7f86. Contained saturation, nothing neon.
+
+READABILITY: the piece will be seen at about 100 screen pixels per floor tile.
+Marble veining, stone coursing and bronze patina must read at that size; finer
+detail than that is lost, so do not spend it.
+
+FORBIDDEN: any text, letters, numbers, labels, captions, user interface,
+panels, borders, colour swatches, logo, watermark, grid lines, drop shadow,
+ground plane, perspective vanishing point, multiple pieces in one image.</code></pre>
+<h2 id="bloc-b-la-vue">Bloc B — la vue</h2>
+<p>Les accolades se remplissent depuis la commande. <code>{EMPRISE_L}</code> et <code>{EMPRISE_H}</code> sont l'emprise de la pièce en cases ; le reste s'en déduit et figure au <a href="style-2d-hd.html">standard</a>.</p>
+<pre><code>VIEW: fixed isometric camera, orthographic — no perspective, no vanishing
+point. The ground is a flat diamond {LOSANGE_L} pixels wide and {LOSANGE_H}
+tall (ratio 0.62). The piece stands on a footprint of {EMPRISE_L} by
+{EMPRISE_H} such diamonds; its faces run along the two diagonal directions of
+that grid.
+
+FRAMING: ONE piece, centred, alone, on a FULLY TRANSPARENT background. Nothing
+under it, nothing around it, no shadow, no base plate, no cropping — the whole
+piece is inside the image with a small margin. Draw it as large as the canvas
+allows: the piece is reduced when it is installed, never enlarged.
+
+OUTPUT: square canvas, at least 1024 px, PNG with alpha.</code></pre>
+<blockquote><p><strong>Pourquoi « dessine-la aussi grande que possible ».</strong> Le standard veut un losange de 256 px ; les générateurs rendent une pièce dans un canevas carré où l'art flotte. Une pièce dessinée grande puis <strong>réduite</strong> est nette ; une pièce dessinée petite puis agrandie ne l'est jamais. C'est la règle « l'art est toujours réduit, jamais agrandi », et la maquette du <code>LOT-101</code> montre ce qu'il en coûte de l'enfreindre.</p></blockquote>
+<h3 id="le-cas-dune-planche-danimation">Le cas d'une planche d'animation</h3>
+<p>Une animation se commande en <strong>une seule fois</strong>, en planche : demander les images une par une, c'est garantir que le personnage dérive. La commande remplace alors les deux premières phrases du cadrage ci-dessus par celles-ci, et rien d'autre du bloc B ne bouge :</p>
+<pre><code>FRAMING (animation strip): ONE character, drawn once per frame, in a single
+horizontal strip on a FULLY TRANSPARENT background. Same figure, same colours,
+same proportions and same light in every frame; only the pose changes. Each
+frame is the same size, evenly spaced, with 8 px of margin between frames and
+around the strip. No shadow, no base plate, no separating line, no frame
+number.</code></pre>
+<p>La marge de 8 px est celle du <a href="style-2d-hd.html">standard</a> : sans elle, le niveau de mipmap d'une image déborde sur sa voisine.</p>
+<h2 id="bloc-c-la-pièce">Bloc C — la pièce</h2>
+<p>Un gabarit, à remplir pour chaque commande. Une pièce par envoi.</p>
+<pre><code>PIECE: {objet, en une phrase : ce que c&#x27;est, en quoi c&#x27;est fait, ce qu&#x27;il porte}.
+FAMILY: {une des dix familles du standard}.
+PLACE: {le lieu, et sa couleur d&#x27;accent}.
+VARIANTS: {ce qui doit changer d&#x27;une variante à l&#x27;autre, ou &quot;none&quot;}.</code></pre>
+<p><strong>Exemple</strong>, la fontaine d'Arenarea :</p>
+<pre><code>PIECE: a three-tiered public fountain in ivory marble, octagonal basin with a
+carved frieze, still water, four low planters of white flowers at its corners,
+a thin band of patinated bronze at each tier.
+FAMILY: 06 — centrepiece, footprint 3 by 3.
+PLACE: Arenarea, the arena quarter of the Capital; accent burgundy.
+VARIANTS: none.</code></pre>
+<h2 id="ce-que-la-maquette-a-appris-à-la-consigne">Ce que la maquette a appris à la consigne</h2>
+<p>Trois règles ci-dessus ne viennent pas de la planche mais du montage de la maquette (<a href="../lots/lot-101.html">LOT-101</a>) :</p>
+<ol><li><strong>« une pièce par image »</strong> — la planche livre ses pièces par panneaux de trois ou quatre ; les séparer ensuite coûte un détourage par pièce et laisse des franges.</li><li><strong>« pas de plaque de sol sous la pièce »</strong> — les sols de la planche sont des dalles <strong>avec leur épaisseur</strong> : posées côte à côte, elles se marchent dessus.</li><li><strong>« dessine-la aussi grande que possible »</strong> — les pièces de la planche tiennent dans un losange de 136 px, soit la moitié de ce que le standard demande.</li></ol></article>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-20 · <code>ab39ebb86</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

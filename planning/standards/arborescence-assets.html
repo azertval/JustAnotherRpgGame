@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L&#x27;arborescence des assets — Planification</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="../lots/index.html">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="index.html" class="active">Standards</a></nav>
+  <div class="links"><a class="external" href="../../">Documentation ↗</a><a class="external" href="../../qualite/">Qualité ↗</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Standards</h4><a class="depth-0" href="index.html">Standards</a><a class="depth-0 active" href="arborescence-assets.html">L&#x27;arborescence des assets</a><a class="depth-0" href="audit-passage-hd.html">Audit — quitter le pixel art : ce que ça casse, ce qu&#x27;il faut changer</a><a class="depth-0" href="consigne-2d-hd.html">La consigne du générateur — 2D HD</a><a class="depth-0" href="definition-de-livre.html">Ce que « livré » veut dire</a><a class="depth-0" href="gabarit-lot.html">Gabarit d&#x27;une fiche de lot</a><a class="depth-0" href="style-2d-hd.html">Le standard 2D HD</a></aside>
+<main>
+<article class="prose"><h1 id="larborescence-des-assets">L'arborescence des assets</h1>
+<p>Treize régions, une centaine de zones, des centaines de PNJ : le volume d'assets sera gigantesque. L'arborescence doit répondre d'avance à une seule question — <em>cet asset, où va-t-il ?</em> — et la réponse ne doit jamais être « ça dépend ». Elle est <strong>proposée</strong> ici et mise en place par le <a href="../lots/lot-102.html">LOT-102</a>.</p>
+<h2 id="le-principe-du-commun-vers-le-propre">Le principe : du commun vers le propre</h2>
+<p>Un asset vit au niveau <strong>le plus bas qui couvre tous ses usages</strong>. Cinq niveaux, du plus partagé au plus particulier :</p>
+<div class="table-wrap"><table><thead><tr><th>Niveau</th><th>Dossier</th><th>Ce qui y vit</th></tr></thead><tbody><tr><td><strong>Monde</strong></td><td><code>Common/</code></td><td>ce qui existe partout : herbe, terre, eau, rochers, arbres, caisses, effets de sort, animaux, peuples génériques, héros</td></tr><tr><td><strong>Région</strong></td><td><code>Regions/&lt;région&gt;/Common/</code></td><td>ce qui fait l'identité d'une région : pierre calcaire et bourgogne de l'Empire, bannières au lion, soldats Ironhand</td></tr><tr><td><strong>Ville</strong></td><td><code>Regions/&lt;région&gt;/&lt;ville&gt;/Common/</code></td><td>ce que les quartiers d'une ville partagent : pavage de la Capitale, lampadaires, fontaines, citadins</td></tr><tr><td><strong>Zone</strong></td><td><code>Regions/&lt;région&gt;/&lt;ville&gt;/&lt;zone&gt;/</code></td><td>ce qu'on ne voit que là : la fontaine d'Arenarea, l'étal de la mère, un PNJ nommé</td></tr><tr><td><strong>Sous-zone</strong></td><td><code>…/&lt;zone&gt;/&lt;sous-zone&gt;/</code></td><td>un <strong>donjon</strong> : un lieu clos où l'on entre depuis la zone — l'Arena of Fate dans Arenarea, Phantom Fortress et ses étages</td></tr></tbody></table></div>
+<p>Une zone hors d'une ville (une forêt, une forteresse) se range directement sous sa région.</p>
+<h2 id="larbre">L'arbre</h2>
+<pre><code>Source/Elements/Assets/
+├── Common/
+│   ├── Terrain/                 sols naturels
+│   ├── Nature/                  arbres, rochers, buissons
+│   ├── Props/                   mobilier et objets génériques
+│   ├── Fx/                      effets de combat et de sort
+│   └── Characters/
+│       ├── Heroes/&lt;classe&gt;/     les personnages jouables
+│       ├── Peoples/&lt;espèce&gt;/&lt;archétype&gt;/    PNJ neutres génériques
+│       ├── Beasts/&lt;bête&gt;/       les animaux
+│       └── Monsters/&lt;monstre&gt;/  les monstres sans région
+├── Regions/
+│   └── central-empire/
+│       ├── region.json          palette, échelle d&#x27;art, crédits de la région
+│       ├── Common/
+│       │   ├── Scene/           kit impérial : architecture, mobilier, bannières
+│       │   └── Characters/      gardes, soldats Ironhand, fonctionnaires
+│       ├── capital/
+│       │   ├── Common/
+│       │   │   ├── Scene/       kit de la Capitale
+│       │   │   └── Characters/  citadins de la Capitale
+│       │   ├── arenarea/
+│       │   │   ├── Scene/       pièces propres + manifest.json + appearance.json
+│       │   │   ├── Characters/  PNJ nommés du quartier
+│       │   │   ├── Map/         l&#x27;image de la zone pour l&#x27;onglet « Carte »
+│       │   │   └── arena-of-fate/   sous-zone (donjon) : mêmes trois dossiers
+│       │   └── martpart/
+│       ├── skybell-city/
+│       └── great-forest-of-bak/
+├── Maps/                        les cartes peintes de l&#x27;onglet « Carte » — inchangées, déjà au standard
+├── UI/                          le HUD et l&#x27;interface (charte v2) — inchangés, déjà au standard
+├── Fonts/                       inchangé
+└── Entities/                    familles d&#x27;icônes RPG — inchangé</code></pre>
+<p>Les <strong>cartes jouables</strong> suivent le même découpage, dans <code>Source/Elements/Levels/</code> : <code>Levels/central-empire/capital/arenarea.json</code>.</p>
+<h2 id="les-règles">Les règles</h2>
+<ol><li><strong>Naître propre, monter par promotion.</strong> Un asset naît dans sa zone. Le jour où une deuxième zone en a besoin, il <strong>monte</strong> au premier niveau commun aux deux — il n'est <strong>jamais copié</strong>. Monter un asset est un renommage outillé (<code>LevelEditor --replace-piece</code>, livré au <code>LOT-EDITOR-14</code>, qui réécrit les cartes qui le citent), pas une retouche à la main.</li><li><strong>La résolution descend, puis remonte.</strong> Une scène déclare son lieu ; le moteur cherche une clé dans la sous-zone, puis la zone, la ville, la région, le monde. Une zone peut donc <strong>remplacer</strong> une pièce commune par la sienne, sous la même clé.</li><li><strong>Un dossier, un manifeste.</strong> Chaque dossier <code>Scene/</code> et <code>Characters/</code> porte un <code>manifest.json</code> qui liste ses pièces : clé, fichier, emprise, ancre, type tactique. Un fichier que le manifeste ne cite pas fait échouer la CI (<code>EX-CNT-042</code>, inchangée : tout asset livré paraît dans la galerie de débug).</li><li><strong>Les noms.</strong> Identifiants en anglais, minuscules, tirets : <code>arena-of-fate</code>, <code>wall-arcade-u</code>. Les noms de lieux sont ceux de l'atlas (<code>World/locations/</code>), sans leur préfixe de région. Une pièce se nomme <code>&lt;famille&gt;-&lt;objet&gt;[-&lt;variante&gt;]</code> : <code>floor-sand-01</code>, <code>wall-arcade-u</code>, <code>prop-lamppost</code>.</li><li><strong>Un PNJ, un dossier</strong> : <code>&lt;pnj&gt;/portrait.png</code>, <code>&lt;pnj&gt;/token.png</code>, une planche et un <code>.anim.json</code> par animation. Un PNJ <strong>nommé</strong> vit dans la zone où on le rencontre ; un archétype (citadin, marchande, garde) vit dans le commun de sa ville ou de sa région.</li><li><strong>Les sources ne sont pas versionnées.</strong> Les sorties brutes du générateur, les planches de référence et les masters en pleine définition vivent dans <code>Tools/AssetsHD/</code> (ignoré par git), sous <strong>le même arbre</strong>. Le dépôt ne reçoit que l'asset <strong>installé</strong> : détouré, réduit à l'échelle du standard, ancré, inscrit au manifeste.</li></ol>
+<h2 id="le-budget">Le budget</h2>
+<div class="table-wrap"><table><thead><tr><th>Garde-fou</th><th>Valeur</th><th>État</th></tr></thead><tbody><tr><td>Taille d'un fichier binaire</td><td>5 Mio</td><td>contrôlé (<code>check_binary_files.py</code>)</td></tr><tr><td>Poids d'une zone</td><td><strong>40 Mio</strong> visés</td><td>à contrôler — <a href="../lots/lot-104.html">LOT-104</a></td></tr><tr><td>Poids du dépôt</td><td>question ouverte au-delà de <strong>1 Gio</strong> : Git LFS, ou dépôt d'assets à part</td><td>à trancher avant la <code>0.1.0</code>, voir <a href="../vision/risques.html">les risques</a></td></tr></tbody></table></div>
+<p>À quarante mébioctets par zone, l'Empire central (vingt zones) pèse 800 Mio et le monde complet plusieurs gibioctets : la question du stockage <strong>se posera</strong>, et le découpage par région est ce qui permettra d'y répondre sans tout déplacer.</p></article>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-20 · <code>ab39ebb86</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

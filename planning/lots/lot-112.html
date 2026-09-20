@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOT-112 — Le héros de la démo — Planification</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="index.html" class="active">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="../standards/index.html">Standards</a></nav>
+  <div class="links"><a class="external" href="../../">Documentation ↗</a><a class="external" href="../../qualite/">Qualité ↗</a></div>
+</header>
+<div class="shell">
+
+<main>
+<p class="crumb"><a href="index.html">Lots</a> › <a href="../versions/v0-0-1.html">0.0.1 — Démo basique</a></p><h1><span class="vid">LOT-112</span> Le héros de la démo</h1><p class="lede">Le personnage que l'on joue : une fiche de niveau 1, une figurine HD animée, un portrait.</p><dl class="facts"><div><dt>État</dt><dd><span class="badge etat-en-attente">en attente</span></dd></div><div><dt>Filière</dt><dd><span class="filiere f-pnj">PNJ</span></dd></div><div><dt>Taille</dt><dd>M</dd></div><div><dt>Ordre calculé</dt><dd>6</dd></div><div><dt>Prérequis</dt><dd><a class="ref" href="lot-104.html">LOT-104</a></dd></div><div><dt>Débloque</dt><dd><a class="ref" href="lot-113.html">LOT-113</a> <a class="ref" href="lot-114.html">LOT-114</a> <a class="ref" href="lot-115.html">LOT-115</a></dd></div><div><dt>Reprend</dt><dd>—</dd></div></dl><section><h2>Livrables</h2><ul class=""><li><code>Common/Characters/Heroes/</code> : la figurine du héros (repos, marche, attaque, touché, mort ; quatre orientations), portrait, jeton.</li><li>Sa fiche de niveau 1, avec <strong>Persuasion</strong> maîtrisée et un Charisme qui donne +5 au jet.</li><li>Le gabarit de figurine HD, qui sert ensuite à tous les PNJ.</li><li>Le <strong>nombre d'images par animation</strong>, tranché sur un essai de marche en six et en huit images, puis écrit au <a href="../standards/style-2d-hd.html">§5 du standard</a> (déféré par le LOT-101, D-101-8).</li></ul></section><section><h2>Critères d'acceptation</h2><ul class="checks"><li>Le héros marche sur la maquette du LOT-101 sans glisser ni flotter : ancre et sol justes aux quatre orientations.</li><li>Avec sa fiche, la Persuasion à DD 18 réussit deux fois sur cinq.</li><li>Le §5 du standard ne dit plus « six ou huit » : il dit un nombre, et le héros l'applique.</li></ul></section><section class="prose"><h2 id="pourquoi">Pourquoi</h2>
+<p>La première figurine HD fixe le <strong>gabarit</strong> de toutes les autres : hauteur, ancre, cadence. Elle passe avant les PNJ.</p>
+<h2 id="périmètre">Périmètre</h2>
+<p>Un seul héros, <strong>préfabriqué</strong> : pas de création de personnage dans la démo. Les quatre classes arrivent en <code>0.0.2</code> ; ce héros est un combattant simple, que la fiche du Brawler remplacera.</p>
+<h2 id="lessai-six-ou-huit-images">L'essai : six ou huit images</h2>
+<p>Le <a href="lot-101.html">LOT-101</a> a figé le standard de la scène et laissé cette seule valeur ouverte : une cadence se juge sur une figurine, à côté de son ancre et de son sol, pas sur une place vide. L'écart de coût est d'<strong>un quart sur chaque PNJ du jeu</strong>, sur chaque animation et chaque orientation — d'où l'essai sur pièces plutôt que le raisonnement.</p>
+<p>La commande prend le bloc A de <a href="../standards/consigne-2d-hd.html">la consigne</a> inchangé, le bloc B dans sa variante <strong>planche d'animation</strong>, et ce bloc C envoyé <strong>deux fois</strong> — rien d'autre ne change que le nombre d'images :</p>
+<pre><code>PIECE: a walk cycle for a city guard of the Central Empire, seen from the
+south-east isometric direction: burgundy tabard over a mail shirt, old gold
+trim, a spear held upright in the right hand, no shield.
+FAMILY: figure — humanoid, 170 px tall, ground line at the bottom of each frame.
+PLACE: Arenarea, the arena quarter of the Capital; accent burgundy.
+VARIANTS: {SIX | EIGHT} frames — one full walk cycle that loops, the contact,
+down, passing and up poses evenly spread over the strip.</code></pre>
+<p>Ce qu'on regarde, dans cet ordre :</p>
+<ol><li>la marche en six images <strong>saccade-t-elle</strong> à la cadence du jeu ? Si oui, la question est close.</li><li>à huit, le générateur tient-il le <strong>même personnage</strong> d'une image à l'autre ? Deux images de plus, c'est deux occasions de plus de dériver, et une dérive se repeint à la main.</li><li>le quart de coût en plus, sur tout le jeu, l'auteur l'accepte-t-il ?</li></ol>
+<p>Le garde de l'essai n'est pas le héros : c'est volontaire. L'essai tranche une <strong>cadence</strong>, et un personnage secondaire suffit à la montrer ; le héros, lui, se dessine une fois la valeur connue.</p></section><p class="source">Source : <code>Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-20 · <code>ab39ebb86</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

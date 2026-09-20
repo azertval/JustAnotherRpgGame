@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ce que « livré » veut dire — Planification</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="../lots/index.html">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="index.html" class="active">Standards</a></nav>
+  <div class="links"><a class="external" href="../../">Documentation ↗</a><a class="external" href="../../qualite/">Qualité ↗</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Standards</h4><a class="depth-0" href="index.html">Standards</a><a class="depth-0" href="arborescence-assets.html">L&#x27;arborescence des assets</a><a class="depth-0" href="audit-passage-hd.html">Audit — quitter le pixel art : ce que ça casse, ce qu&#x27;il faut changer</a><a class="depth-0" href="consigne-2d-hd.html">La consigne du générateur — 2D HD</a><a class="depth-0 active" href="definition-de-livre.html">Ce que « livré » veut dire</a><a class="depth-0" href="gabarit-lot.html">Gabarit d&#x27;une fiche de lot</a><a class="depth-0" href="style-2d-hd.html">Le standard 2D HD</a></aside>
+<main>
+<article class="prose"><h1 id="ce-que-livré-veut-dire">Ce que « livré » veut dire</h1>
+<p>Un lot passe à <code>statut = &quot;livre&quot;</code> quand <strong>tous</strong> ses critères d'acceptation sont tenus <strong>et</strong> que les conditions de sa filière le sont. Un lot « presque fini » est <code>en-cours</code>.</p>
+<h2 id="pour-tout-lot">Pour tout lot</h2>
+<ul><li>La PR est fusionnée sur <code>main</code>, CI verte, entrée au <code>CHANGELOG.md</code>.</li><li><code>uv run scripts/check.py</code> et <code>scripts/build_docs.py</code> passent en local avant la PR.</li><li>La fiche porte le numéro de la PR et, s'il y en a, ses <strong>décisions de réalisation</strong>.</li><li>Ce que le lot n'a pas fait et devait faire est <strong>écrit</strong> : dans un autre lot, ou dans une question ouverte.</li></ul>
+<h2 id="par-filière">Par filière</h2>
+<div class="table-wrap"><table><thead><tr><th>Filière</th><th>Conditions</th></tr></thead><tbody><tr><td><strong>Assets HD</strong></td><td>chaque image est au <a href="style-2d-hd.html">standard</a>, citée par un manifeste, visible dans la galerie de débug ; aucune n'est une image du corpus ; la zone tient son budget de poids ; les sources sont rangées dans <code>Tools/AssetsHD/</code> sous le même arbre</td></tr><tr><td><strong>Cartes</strong></td><td>dessinée dans l'éditeur ; <code>LevelEditor --check</code> passe ; aucune case inatteignable ; le rendu de la carte est joint à la PR ; l'image de l'onglet « Carte » existe</td></tr><tr><td><strong>PNJ</strong></td><td>figurine, portrait et jeton ; une fiche quand le PNJ peut combattre ; placé sur sa carte ; ses textes en français et en anglais</td></tr><tr><td><strong>Quêtes et dialogues</strong></td><td>chaque issue se joue en test, sans fenêtre, à graine fixée ; aucun drapeau lu sans être posé ; textes dans les deux langues</td></tr><tr><td><strong>Moteur</strong></td><td>tests unitaires et d'intégration ; pas de régression des mesures de performance ; la spécification dit ce que le code fait</td></tr><tr><td><strong>Règles et données</strong></td><td>chaque valeur vient d'une page citée ; schéma validé ; un test recalcule les valeurs dérivées ; les écarts au livre sont écrits</td></tr><tr><td><strong>Interface</strong></td><td>à la charte v2 ; capture de référence QML ; jouable sans souris ; textes dans les deux langues</td></tr><tr><td><strong>Recette et version</strong></td><td>les critères de sortie de la version sont tenus ; installeur éprouvé sur un poste vierge ; tag posé ; <strong>bilan</strong> écrit dans le dossier de la version</td></tr></tbody></table></div>
+<h2 id="la-vérification-manuelle">La vérification manuelle</h2>
+<p>Plusieurs lots passés ont été livrés « vérification à la souris due ». La règle change : ce qui demande une main — un parcours à la manette, un contrôle visuel du scintillement, l'approbation d'une maquette — est un <strong>critère d'acceptation</strong>, et le lot reste <code>en-cours</code> tant qu'il n'est pas tenu.</p></article>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-20 · <code>ab39ebb86</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

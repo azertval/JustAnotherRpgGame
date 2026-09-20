@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOT-104 — La chaîne de production des assets HD — Planification</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="index.html" class="active">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="../standards/index.html">Standards</a></nav>
+  <div class="links"><a class="external" href="../../">Documentation ↗</a><a class="external" href="../../qualite/">Qualité ↗</a></div>
+</header>
+<div class="shell">
+
+<main>
+<p class="crumb"><a href="index.html">Lots</a> › <a href="../versions/v0-0-1.html">0.0.1 — Démo basique</a></p><h1><span class="vid">LOT-104</span> La chaîne de production des assets HD</h1><p class="lede">Du brut du générateur à l'asset installé, un chemin outillé : détourer, réduire, ancrer, inscrire au manifeste, contrôler, montrer dans la galerie.</p><dl class="facts"><div><dt>État</dt><dd><span class="badge etat-en-attente">en attente</span></dd></div><div><dt>Filière</dt><dd><span class="filiere f-standard">Standard et outillage</span></dd></div><div><dt>Taille</dt><dd>M</dd></div><div><dt>Ordre calculé</dt><dd>2</dd></div><div><dt>Prérequis</dt><dd><a class="ref" href="lot-101.html">LOT-101</a> <a class="ref" href="lot-102.html">LOT-102</a></dd></div><div><dt>Débloque</dt><dd><a class="ref" href="lot-105.html">LOT-105</a> <a class="ref" href="lot-112.html">LOT-112</a> <a class="ref" href="lot-113.html">LOT-113</a> <a class="ref" href="lot-114.html">LOT-114</a> <a class="ref" href="lot-115.html">LOT-115</a></dd></div><div><dt>Reprend</dt><dd>LOT-92 (atelier des textures), LOT-91 (atelier des PNJ), LOT-93 (atelier des monstres), LOT-CREATION-ASSETS</dd></div></dl><section><h2>Livrables</h2><ul class=""><li><code>scripts/install_hd_asset.py</code> : détourage (alpha continu, frange nettoyée), réduction à l'échelle du standard, mesure de l'ancre, écriture du manifeste.</li><li>Le contrôle en CI : tout fichier cité par un manifeste existe, tout fichier d'image est cité, dimensions et poids dans les bornes du standard, <strong>budget de 40 Mio par zone</strong>.</li><li>La galerie de débug (<code>--screen=AssetGallery</code>) qui lit la nouvelle arborescence (<code>EX-CNT-042</code> inchangée).</li><li>Le gabarit de <strong>commande d'une zone</strong> : les dix familles du standard, ce qui vient du commun, ce qui est propre — une page par zone dans <code>Tools/AssetsHD/</code>.</li><li>La palette de l'éditeur qui propose les pièces du lieu <strong>et</strong> de ses niveaux communs.</li></ul></section><section><h2>Critères d'acceptation</h2><ul class="checks"><li>Les pièces de <code>Tools/AssetsHD/Colisee/</code> (sols, murs, angles) s'installent par la commande, sans retouche manuelle, et paraissent dans la galerie.</li><li>Un fichier image non cité par un manifeste fait échouer la CI.</li><li>Le poids de chaque zone s'affiche dans le résumé du job.</li></ul></section><section class="prose"><h2 id="pourquoi">Pourquoi</h2>
+<p>Cent zones, des centaines de PNJ : ce qui se fait à la main une fois se fera mal la centième. La chaîne est le seul endroit où le standard est <strong>appliqué</strong> plutôt que rappelé.</p>
+<h2 id="conception">Conception</h2>
+<p>Les sources (sorties du générateur, masters à 1254 px et plus) restent dans <code>Tools/AssetsHD/</code>, hors du dépôt, sous le même arbre que les assets installés. La commande lit une source et un descripteur (famille, emprise, type tactique) ; elle écrit l'image réduite et l'entrée de manifeste.</p>
+<p>Le générateur d'images reste un outil <strong>manuel</strong> : Claude ne dessine pas, et aucune génération ne tourne en CI (règle du LOT-91, inchangée).</p>
+<h2 id="risques">Risques</h2>
+<ul><li>La mesure automatique de l'ancre sur un canevas carré où l'art flotte : prévoir une correction manuelle dans le descripteur.</li></ul></section><p class="source">Source : <code>Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-104-chaine-de-production-hd.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-20 · <code>ab39ebb86</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>
