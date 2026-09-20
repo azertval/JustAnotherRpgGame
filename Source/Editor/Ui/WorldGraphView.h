@@ -69,7 +69,7 @@ private:
     [[nodiscard]] qreal scale() const;
     /// @return Libellé court d'un nœud (nom, ou identifiant, ou « sans cible »).
     [[nodiscard]] QString nodeLabel(std::size_t node) const;
-    [[nodiscard]] QString statusText(core::PortalLinkStatus status) const;
+    [[nodiscard]] static QString statusText(core::PortalLinkStatus status);
     [[nodiscard]] QString nodeToolTip(std::size_t node) const;
     [[nodiscard]] QString edgeToolTip(std::size_t edge) const;
 
@@ -80,7 +80,7 @@ private:
      * @param node Nœud dessiné.
      * @return L'état d'une carte à problème, ou rien : le nœud porte déjà l'identifiant.
      */
-    [[nodiscard]] QString nodeDetail(const WorldGraphLayoutNode& node) const;
+    [[nodiscard]] static QString nodeDetail(const WorldGraphLayoutNode& node);
     void paintLegend(QPainter& painter) const;
 
     core::WorldGraph _graph;

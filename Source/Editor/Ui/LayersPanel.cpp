@@ -105,30 +105,8 @@ LayersPanel::LayersPanel(QWidget* parent) : QWidget(parent), _ui(std::make_uniqu
                 QMetaObject::invokeMethod(
                     this, [this, slot] { emit activeLayerRequested(slot); }, Qt::QueuedConnection);
             });
-    connect(_ui->layerList, &QListWidget::itemChanged, this, [this](QListWidgetItem* item) {
-        if (_rebuilding || item == nullptr) {
-            return;
-        }
-        const LayerSlot slot = slotOf(item);
-        const bool visible = item->checkState() == Qt::Checked;
-        const auto position = static_cast<std::size_t>(_ui->layerList->row(item));
-        if (position < _snapshot.displays.size() &&
-            _snapshot.displays[position].visible != visible) {
-            QMetaObject::invokeMethod(
-                this, [this, slot, visible] { emit visibilityRequested(slot, visible); },
-                Qt::QueuedConnection);
-            return;
-        }
-        // Sinon, c'est le nom qui a change (edition en place, couches visuelles seulement).
-        if (slot && position < _snapshot.rows.size() &&
-            item->text() != QString::fromStdString(_snapshot.rows[position].name)) {
-            const QString name = item->text().trimmed();
-            const std::size_t index = *slot;
-            QMetaObject::invokeMethod(
-                this, [this, index, name] { emit renameRequested(index, name); },
-                Qt::QueuedConnection);
-        }
-    });
+    connect(_ui->layerList, &QListWidget::itemChanged, this,
+            [this](QListWidgetItem* item) { onItemChanged(item); });
     connect(_ui->opacitySlider, &QSlider::valueChanged, this, [this](int value) {
         _ui->opacityValue->setText(QStringLiteral("%1 %").arg(value));
         if (_rebuilding || _ui->layerList->currentItem() == nullptr) {
@@ -255,7 +233,30 @@ void LayersPanel::updateButtons() {
     _rebuilding = previous;
 }
 
-QString LayersPanel::rowLabel(const LayerRow& row) const {
+void LayersPanel::onItemChanged(QListWidgetItem* item) {
+    if (_rebuilding || item == nullptr) {
+        return;
+    }
+    const LayerSlot slot = slotOf(item);
+    const bool visible = item->checkState() == Qt::Checked;
+    const auto position = static_cast<std::size_t>(_ui->layerList->row(item));
+    if (position < _snapshot.displays.size() && _snapshot.displays[position].visible != visible) {
+        QMetaObject::invokeMethod(
+            this, [this, slot, visible] { emit visibilityRequested(slot, visible); },
+            Qt::QueuedConnection);
+        return;
+    }
+    // Sinon, c'est le nom qui a change (edition en place, couches visuelles seulement).
+    if (slot && position < _snapshot.rows.size() &&
+        item->text() != QString::fromStdString(_snapshot.rows[position].name)) {
+        const QString name = item->text().trimmed();
+        const std::size_t index = *slot;
+        QMetaObject::invokeMethod(
+            this, [this, index, name] { emit renameRequested(index, name); }, Qt::QueuedConnection);
+    }
+}
+
+QString LayersPanel::rowLabel(const LayerRow& row) {
     switch (row.kind) {
         case core::LayerKind::Legacy:
             return QStringLiteral("Single grid (image and collision)");

@@ -236,14 +236,14 @@ EditorViewport::EditorViewport(QWidget* parent)
       _editorBindings(hmi::EditorKeyBindings::load(keybindingsPath())),
       _draft(core::LevelDraft::empty("New map", 24, 14)),
       _mapId(_draft.name()) {
-    _flat = std::make_unique<DraftRenderer>(DraftTextures{
-        .atlas = const_cast<QImage*>(&_images->atlas()),  // identité opaque, jamais écrite
-        .atlasWidth = _images->atlas().width(),
-        .atlasHeight = _images->atlas().height(),
-        .solid = _images->solid(),
-        .marker = [images = _images.get()](const std::string& key) -> TextureHandle {
-            return const_cast<QImage*>(images->marker(key));
-        }});
+    _flat = std::make_unique<DraftRenderer>(
+        DraftTextures{.atlas = sceneImageHandle(&_images->atlas()),
+                      .atlasWidth = _images->atlas().width(),
+                      .atlasHeight = _images->atlas().height(),
+                      .solid = SceneImages::solid(),
+                      .marker = [images = _images.get()](const std::string& key) -> TextureHandle {
+                          return sceneImageHandle(images->marker(key));
+                      }});
 
     _canvasScene->addItem(_item);
     setScene(_canvasScene);
@@ -383,8 +383,9 @@ void EditorViewport::setSeeThroughRelief(bool enabled) {
 
 std::array<core::Vector2, 4> EditorViewport::visibleGridCorners() const {
     const QRect pixels = viewport()->rect();
-    const QPointF corners[] = {mapToScene(pixels.topLeft()), mapToScene(pixels.topRight()),
-                               mapToScene(pixels.bottomRight()), mapToScene(pixels.bottomLeft())};
+    const std::array<QPointF, 4> corners = {
+        mapToScene(pixels.topLeft()), mapToScene(pixels.topRight()),
+        mapToScene(pixels.bottomRight()), mapToScene(pixels.bottomLeft())};
     std::array<core::Vector2, 4> grid{};
     const core::IsoProjection iso = projection();
     for (std::size_t index = 0; index < grid.size(); ++index) {
@@ -440,30 +441,34 @@ void EditorViewport::invalidateScene() {
     viewport()->update();
 }
 
+void EditorViewport::loadPlaceAssets(const std::string& place) {
+    _appearancePlace = place;
+    _appearance = PlaceAppearance{};
+    _manifest.reset();
+    if (place.empty()) {
+        return;
+    }
+    // Ce que --check lit, lu de la même façon : la table et le manifeste du lieu.
+    PlaceAssets assets = hmi::loadPlaceAssets(hmi::editorDataRoot(), place);
+    if (assets.appearance) {
+        _appearance = std::move(*assets.appearance);
+    } else {
+        HMI_LOG_WARNING("Editeur : table d'apparence du lieu " + place + " illisible.");
+    }
+    if (assets.manifest) {
+        _manifest = std::make_shared<const core::ScenePieceManifest>(std::move(*assets.manifest));
+    } else {
+        HMI_LOG_WARNING("Editeur : manifeste des pieces du lieu " + place + " illisible.");
+    }
+}
+
 void EditorViewport::ensureIsoScene() {
     if (!_isoSceneDirty) {
         return;
     }
     const std::string place = scenePlaceOf(_draft.layers());
     if (place != _appearancePlace) {
-        _appearancePlace = place;
-        _appearance = PlaceAppearance{};
-        _manifest.reset();
-        if (!place.empty()) {
-            // Ce que --check lit, lu de la même façon : la table et le manifeste du lieu.
-            PlaceAssets assets = loadPlaceAssets(hmi::editorDataRoot(), place);
-            if (assets.appearance) {
-                _appearance = std::move(*assets.appearance);
-            } else {
-                HMI_LOG_WARNING("Editeur : table d'apparence du lieu " + place + " illisible.");
-            }
-            if (assets.manifest) {
-                _manifest =
-                    std::make_shared<const core::ScenePieceManifest>(std::move(*assets.manifest));
-            } else {
-                HMI_LOG_WARNING("Editeur : manifeste des pieces du lieu " + place + " illisible.");
-            }
-        }
+        loadPlaceAssets(place);
     }
     // Un brouillon remplacé (ouverture, reprise) repart sans manifeste : on le lui redonne.
     _draft.setPieceManifest(_manifest);
@@ -596,37 +601,10 @@ void EditorViewport::paintIsoOverlays(QPainter& painter, const CellRange& cells,
     }
     // Masque de collision : une teinte par catégorie de règle, comme la vue à plat.
     if (bands.collision > 0.0F) {
-        painter.setPen(Qt::NoPen);
-        const core::TileMap& map = _draft.tileMap();
-        for (int row = cells.firstRow; row <= cells.lastRow; ++row) {
-            for (int column = cells.firstColumn; column <= cells.lastColumn; ++column) {
-                const core::TileType type = map.tile(column, row);
-                QColor tint;
-                if (core::isSolid(type)) {
-                    tint = QColor::fromRgbF(0.85F, 0.20F, 0.20F);
-                } else if (type == core::TileType::Entry) {
-                    tint = QColor::fromRgbF(0.20F, 0.85F, 0.30F);
-                } else {
-                    continue;
-                }
-                painter.setBrush(withAlpha(tint, bands.collision));
-                painter.drawPolygon(diamondOf(iso, {.column = column, .row = row}));
-            }
-        }
-        paintForcedMask(painter, cells, true);
+        paintIsoCollisionMask(painter, cells, bands.collision);
     }
-    // Quadrillage en losanges : les lignes de grille, du premier au dernier bord visible.
     if (_showGrid) {
-        painter.setPen(screenPen(QColor(255, 255, 255, 46), 1.0));
-        const auto at = [&](int column, int row) {
-            return toQt(iso.gridToWorld({static_cast<float>(column), static_cast<float>(row)}));
-        };
-        for (int column = cells.firstColumn; column <= cells.lastColumn + 1; ++column) {
-            painter.drawLine(at(column, cells.firstRow), at(column, cells.lastRow + 1));
-        }
-        for (int row = cells.firstRow; row <= cells.lastRow + 1; ++row) {
-            painter.drawLine(at(cells.firstColumn, row), at(cells.lastColumn + 1, row));
-        }
+        paintIsoGrid(painter, cells);
     }
     // Aperçu du rectangle ou de la sélection.
     if (const auto zone = highlight()) {
@@ -634,33 +612,9 @@ void EditorViewport::paintIsoOverlays(QPainter& painter, const CellRange& cells,
         painter.setBrush(QColor::fromRgbF(0.3F, 0.7F, 1.0F, 0.28F));
         painter.drawPolygon(isoRegion(iso, zone->first, zone->second));
     }
-    // Terrain de la rencontre sélectionnée (outil Entité) : zone, puis case de chaque combattant.
+    // Terrain de la rencontre sélectionnée (outil Entité).
     if (_tool == hmi::EditorTool::Entity && _selectedEntity) {
-        painter.setPen(Qt::NoPen);
-        for (const core::EncounterTerrain& terrain : _terrains) {
-            if (terrain.entityIndex != *_selectedEntity) {
-                continue;
-            }
-            const bool narrow =
-                std::ranges::any_of(terrain.issues, [](const core::TacticalIssue& issue) {
-                    return issue.code == core::TacticalIssueCode::AreaTooNarrow;
-                });
-            painter.setBrush(narrow ? QColor::fromRgbF(1.0F, 0.55F, 0.10F, 0.18F)
-                                    : QColor::fromRgbF(0.30F, 0.70F, 1.00F, 0.18F));
-            for (const core::GridPosition& cell : terrain.area) {
-                painter.drawPolygon(diamondOf(iso, cell));
-            }
-            for (const core::CombatantPlacement& placement : terrain.placements) {
-                const bool refused = std::ranges::any_of(
-                    terrain.issues, [&placement](const core::TacticalIssue& issue) {
-                        return issue.code != core::TacticalIssueCode::AreaTooNarrow &&
-                               issue.cell == placement.position;
-                    });
-                painter.setBrush(refused ? QColor::fromRgbF(0.95F, 0.20F, 0.20F, 0.55F)
-                                         : QColor::fromRgbF(0.25F, 0.85F, 0.35F, 0.55F));
-                painter.drawPolygon(diamondOf(iso, placement.position));
-            }
-        }
+        paintEncounterTerrain(painter);
     }
     paintZoneVerdict(painter, true);
     paintEntities(painter, cells, true);
@@ -678,6 +632,72 @@ void EditorViewport::paintIsoOverlays(QPainter& painter, const CellRange& cells,
         painter.setBrush(Qt::NoBrush);
         painter.setPen(screenPen(QColor(255, 70, 200), 3.0));
         painter.drawPolygon(diamondOf(iso, *_revealedCell));
+    }
+}
+
+void EditorViewport::paintIsoCollisionMask(QPainter& painter, const CellRange& cells,
+                                           float opacity) {
+    const core::IsoProjection iso = projection();
+    painter.setPen(Qt::NoPen);
+    const core::TileMap& map = _draft.tileMap();
+    for (int row = cells.firstRow; row <= cells.lastRow; ++row) {
+        for (int column = cells.firstColumn; column <= cells.lastColumn; ++column) {
+            const core::TileType type = map.tile(column, row);
+            QColor tint;
+            if (core::isSolid(type)) {
+                tint = QColor::fromRgbF(0.85F, 0.20F, 0.20F);
+            } else if (type == core::TileType::Entry) {
+                tint = QColor::fromRgbF(0.20F, 0.85F, 0.30F);
+            } else {
+                continue;
+            }
+            painter.setBrush(withAlpha(tint, opacity));
+            painter.drawPolygon(diamondOf(iso, {.column = column, .row = row}));
+        }
+    }
+    paintForcedMask(painter, cells, true);
+}
+
+void EditorViewport::paintIsoGrid(QPainter& painter, const CellRange& cells) {
+    const core::IsoProjection iso = projection();
+    painter.setPen(screenPen(QColor(255, 255, 255, 46), 1.0));
+    const auto at = [&](int column, int row) {
+        return toQt(iso.gridToWorld({static_cast<float>(column), static_cast<float>(row)}));
+    };
+    for (int column = cells.firstColumn; column <= cells.lastColumn + 1; ++column) {
+        painter.drawLine(at(column, cells.firstRow), at(column, cells.lastRow + 1));
+    }
+    for (int row = cells.firstRow; row <= cells.lastRow + 1; ++row) {
+        painter.drawLine(at(cells.firstColumn, row), at(cells.lastColumn + 1, row));
+    }
+}
+
+void EditorViewport::paintEncounterTerrain(QPainter& painter) {
+    const core::IsoProjection iso = projection();
+    painter.setPen(Qt::NoPen);
+    for (const core::EncounterTerrain& terrain : _terrains) {
+        if (terrain.entityIndex != *_selectedEntity) {
+            continue;
+        }
+        const bool narrow =
+            std::ranges::any_of(terrain.issues, [](const core::TacticalIssue& issue) {
+                return issue.code == core::TacticalIssueCode::AreaTooNarrow;
+            });
+        painter.setBrush(narrow ? QColor::fromRgbF(1.0F, 0.55F, 0.10F, 0.18F)
+                                : QColor::fromRgbF(0.30F, 0.70F, 1.00F, 0.18F));
+        for (const core::GridPosition& cell : terrain.area) {
+            painter.drawPolygon(diamondOf(iso, cell));
+        }
+        for (const core::CombatantPlacement& placement : terrain.placements) {
+            const bool refused =
+                std::ranges::any_of(terrain.issues, [&placement](const core::TacticalIssue& issue) {
+                    return issue.code != core::TacticalIssueCode::AreaTooNarrow &&
+                           issue.cell == placement.position;
+                });
+            painter.setBrush(refused ? QColor::fromRgbF(0.95F, 0.20F, 0.20F, 0.55F)
+                                     : QColor::fromRgbF(0.25F, 0.85F, 0.35F, 0.55F));
+            painter.drawPolygon(diamondOf(iso, placement.position));
+        }
     }
 }
 
@@ -1452,7 +1472,7 @@ bool EditorViewport::replacePieces(const core::PieceRenaming& renaming) {
 }
 
 bool EditorViewport::changeScene(const std::string& place, const core::PieceRenaming& table) {
-    PlaceAssets assets = loadPlaceAssets(hmi::editorDataRoot(), place);
+    PlaceAssets assets = hmi::loadPlaceAssets(hmi::editorDataRoot(), place);
     if (!assets.manifest) {
         return false;
     }

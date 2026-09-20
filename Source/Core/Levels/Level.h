@@ -36,7 +36,7 @@ namespace core {
  */
 struct LevelData {
     /// Nom de la carte.
-    std::string name;
+    std::string name{};
     /// Grille de tuiles typées. Sans défaut : voir la note ci-dessus.
     ///
     /// C'est la grille de **collision** de la carte — celle que consomment l'exploration et la
@@ -51,16 +51,16 @@ struct LevelData {
     /// plate `version: 2`, qui vaut alors décor **et** collision). Un consommateur boucle donc sur
     /// `layers` sans cas particulier. Vide seulement pour un `Level` construit **directement**,
     /// sans passer par le chargeur — le rendu retombe alors sur `tileMap`.
-    std::vector<TileLayer> layers;
+    std::vector<TileLayer> layers{};
     /// Entités placées sur la carte (`LOT-04`) : PNJ, coffres, panneaux, portails, déclencheurs.
-    std::vector<MapEntity> entities;
+    std::vector<MapEntity> entities{};
     /// Point d'arrivée par défaut (case `Entry`).
     GridPosition entry{};
     /// Cases de collision **forcées à la main** (format v4, décision D10) : là, la grille de
     /// collision peut s'écarter de ce que `core::deriveCollision` tire des pièces et des types.
     /// Partout ailleurs, `LevelEditor --check` exige que la grille égale la déduction. Triées
     /// (ligne, colonne), sans doublon.
-    std::vector<GridPosition> forcedCollision;
+    std::vector<GridPosition> forcedCollision{};
     /// Prochain identifiant d'entité à donner (décision D8) : un compteur écrit dans la carte, pour
     /// qu'un identifiant retiré ne soit **jamais** redonné à une autre entité. 1 par défaut.
     int nextEntityId = 1;
@@ -68,9 +68,9 @@ struct LevelData {
     /// (`coliseum`, `capital/martpart`) ; vide pour une carte ordinaire. Une variante ne porte ni
     /// case ni couche : elle reprend celles de sa base, change de planche (`scene`) et porte ses
     /// propres entités (`core::applyVariant`).
-    std::string base;
+    std::string base{};
     /// Planche que la variante substitue à celle de sa base ; vide pour la garder.
-    std::string scene;
+    std::string scene{};
 };
 
 /**

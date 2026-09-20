@@ -51,7 +51,7 @@ namespace {
 }
 
 [[nodiscard]] SceneTexture textureOf(const QImage& image, int frameWidth) {
-    return SceneTexture{.texture = const_cast<QImage*>(&image),  // identité opaque, jamais écrite
+    return SceneTexture{.texture = sceneImageHandle(&image),
                         .width = image.width(),
                         .height = image.height(),
                         .frameWidth = frameWidth};
@@ -68,8 +68,8 @@ SceneImages::SceneImages(std::filesystem::path assetsDirectory)
     _atlas = fromRgba8(atlas.width, atlas.height, atlas.pixels);
 }
 
-TextureHandle SceneImages::solid() const noexcept {
-    return const_cast<QImage*>(&solidImage());
+TextureHandle SceneImages::solid() noexcept {
+    return sceneImageHandle(&solidImage());
 }
 
 QColor SceneImages::tileColor(core::TileType type) const {

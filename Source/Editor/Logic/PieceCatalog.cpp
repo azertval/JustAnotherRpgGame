@@ -47,31 +47,38 @@ constexpr std::array<std::pair<core::ScenePieceClass, std::string_view>, 4> CLAS
     return "other";
 }
 
+// Les groupes des pièces du manifeste, une par classe ; un groupe vide n'est pas rendu.
+std::vector<PieceCatalogGroup> manifestGroups(const core::ScenePieceManifest& manifest) {
+    std::vector<PieceCatalogGroup> groups;
+    for (const auto& [pieceClass, label] : CLASS_GROUPS) {
+        PieceCatalogGroup group{.label = std::string{label}, .pieces = {}};
+        for (const core::ScenePiece& piece : manifest.pieces()) {
+            if (piece.pieceClass != pieceClass) {
+                continue;
+            }
+            group.pieces.push_back(
+                PieceCatalogEntry{.name = piece.name,
+                                  .file = piece.file,
+                                  .pieceClass = piece.pieceClass,
+                                  .footprint = piece.footprint(),
+                                  .tactical = piece.tactical,
+                                  .missing = false,
+                                  .floor = piece.pieceClass == core::ScenePieceClass::Floor});
+        }
+        if (!group.pieces.empty()) {
+            groups.push_back(std::move(group));
+        }
+    }
+    return groups;
+}
+
 }  // namespace
 
 std::vector<PieceCatalogGroup> pieceCatalog(const core::ScenePieceManifest* manifest,
                                             const std::vector<core::TileLayer>& layers) {
     std::vector<PieceCatalogGroup> catalog;
     if (manifest != nullptr) {
-        for (const auto& [pieceClass, label] : CLASS_GROUPS) {
-            PieceCatalogGroup group{.label = std::string{label}, .pieces = {}};
-            for (const core::ScenePiece& piece : manifest->pieces()) {
-                if (piece.pieceClass != pieceClass) {
-                    continue;
-                }
-                group.pieces.push_back(
-                    PieceCatalogEntry{.name = piece.name,
-                                      .file = piece.file,
-                                      .pieceClass = piece.pieceClass,
-                                      .footprint = piece.footprint(),
-                                      .tactical = piece.tactical,
-                                      .missing = false,
-                                      .floor = piece.pieceClass == core::ScenePieceClass::Floor});
-            }
-            if (!group.pieces.empty()) {
-                catalog.push_back(std::move(group));
-            }
-        }
+        catalog = manifestGroups(*manifest);
     }
 
     // Les noms cités que le manifeste ignore ; un nom vu d'abord sur une couche de sol s'y repose.

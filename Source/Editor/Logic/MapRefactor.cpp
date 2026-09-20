@@ -397,7 +397,7 @@ void writeMaps(RefactorPlan& plan, const Project& project, const std::set<std::s
         if (!json.contains(section) || !json[section].is_object()) {
             continue;
         }
-        for (auto& entry : json[section].items()) {
+        for (const auto& entry : json[section].items()) {
             nlohmann::ordered_json& pieces = entry.value();
             if (!pieces.is_array()) {
                 continue;
@@ -475,60 +475,71 @@ std::vector<Citation> citationsOfEntity(const std::filesystem::path& dataRoot,
     return planRenameEntityId(dataRoot, mapId, entityId, "").changes;
 }
 
+namespace {
+
+// Une citation par couche visuelle de @p map qui place @p piece.
+std::vector<Citation> pieceCitationsIn(const ProjectMap& map, std::string_view piece) {
+    std::vector<Citation> citations;
+    for (const core::TileLayer& layer : map.data.layers) {
+        if (!core::isVisualLayerKind(layer.kind) || !layer.hasPieces()) {
+            continue;
+        }
+        const std::vector<core::GridPosition> cells = cellsOf(layer, piece);
+        if (!cells.empty()) {
+            citations.push_back(Citation{.file = map.file,
+                                         .mapId = map.id,
+                                         .cell = cells.front(),
+                                         .what = "layer " + layer.name + ": " +
+                                                 std::to_string(cells.size()) +
+                                                 (cells.size() == 1 ? " cell" : " cells")});
+        }
+    }
+    return citations;
+}
+
+}  // namespace
+
 std::vector<Citation> citationsOfPiece(const std::filesystem::path& dataRoot,
                                        std::string_view piece) {
     std::vector<Citation> citations;
     Project project = loadProject(dataRoot);
     for (const ProjectMap& map : project.maps) {
-        for (const core::TileLayer& layer : map.data.layers) {
-            if (!core::isVisualLayerKind(layer.kind) || !layer.hasPieces()) {
-                continue;
-            }
-            const std::vector<core::GridPosition> cells = cellsOf(layer, piece);
-            if (!cells.empty()) {
-                citations.push_back(Citation{.file = map.file,
-                                             .mapId = map.id,
-                                             .cell = cells.front(),
-                                             .what = "layer " + layer.name + ": " +
-                                                     std::to_string(cells.size()) +
-                                                     (cells.size() == 1 ? " cell" : " cells")});
-            }
-        }
+        std::vector<Citation> found = pieceCitationsIn(map, piece);
+        citations.insert(citations.end(), std::make_move_iterator(found.begin()),
+                         std::make_move_iterator(found.end()));
     }
     return citations;
 }
 
 // --- Renommer ------------------------------------------------------------------------------------
 
-// Un nom vide ne renomme pas : il ne fait que recenser ce qui cite (« qui cite ceci ? »).
-RefactorPlan planRenameMap(const std::filesystem::path& dataRoot, std::string_view oldId,
-                           std::string_view newId) {
-    const bool renaming = !newId.empty();
-    if (renaming && !isValidMapId(newId)) {
-        return refused("\"" + std::string{newId} + "\" is not a valid map id");
-    }
-    if (oldId == newId) {
-        return refused("the map is already named \"" + std::string{newId} + "\"");
-    }
-    Project project = loadProject(dataRoot);
+namespace {
+
+// Pourquoi la carte @p oldId ne se renomme pas en @p newId (projet illisible, carte inconnue, nom
+// pris) ; std::nullopt si rien ne s'y oppose.
+std::optional<std::string> mapRenameRefusal(Project& project, const std::filesystem::path& dataRoot,
+                                            std::string_view oldId, std::string_view newId) {
     if (!project.error.empty()) {
-        return refused(project.error);
+        return project.error;
     }
-    ProjectMap* renamed = project.find(oldId);
-    if (renamed == nullptr) {
-        return refused("no map \"" + std::string{oldId} + "\"");
+    if (project.find(oldId) == nullptr) {
+        return "no map \"" + std::string{oldId} + "\"";
     }
-    if (renaming) {
+    if (!newId.empty()) {
         std::error_code error;
         if (project.find(newId) != nullptr ||
             std::filesystem::exists(mapFileOf(dataRoot, newId), error)) {
-            return refused("a map \"" + std::string{newId} + "\" already exists");
+            return "a map \"" + std::string{newId} + "\" already exists";
         }
     }
-    RefactorPlan plan;
-    std::set<std::string> changed;
-    const std::string entityPrefix = std::string{oldId} + "#";
+    return std::nullopt;
+}
 
+// Réécrit, dans les cartes du projet, ce qui cite @p oldId (référence de carte, d'entité, base de
+// variante) vers @p newId, et range les citations et les cartes touchées.
+void renameMapInMaps(Project& project, std::string_view oldId, std::string_view newId,
+                     RefactorPlan& plan, std::set<std::string>& changed) {
+    const std::string entityPrefix = std::string{oldId} + "#";
     for (ProjectMap& map : project.maps) {
         forEachReference(map.data.entities, core::EntityChoiceSource::Maps,
                          [&](core::MapEntity& entity, std::string_view key, std::string& value) {
@@ -553,7 +564,11 @@ RefactorPlan planRenameMap(const std::filesystem::path& dataRoot, std::string_vi
             changed.insert(map.id);
         }
     }
+}
 
+// Idem pour les plans de ville (`start.map`, quartiers…).
+void renameMapInCities(const std::filesystem::path& dataRoot, std::string_view oldId,
+                       std::string_view newId, RefactorPlan& plan) {
     for (CityFile& city : loadCities(dataRoot)) {
         bool cityChanged = false;
         forEachCityMap(city.json, [&](nlohmann::ordered_json& field, std::string what) {
@@ -567,29 +582,68 @@ RefactorPlan planRenameMap(const std::filesystem::path& dataRoot, std::string_vi
             plan.edits.push_back(ProjectEdit{.file = city.file, .text = jsonText(city.json)});
         }
     }
+}
 
-    // La clé du nom : la carte la cite si son nom est la clé de son identifiant (LOT-EDITOR-07).
+// La clé du nom : la carte la cite si son nom est la clé de son identifiant (LOT-EDITOR-07).
+// @return Le refus, si un catalogue a déjà la nouvelle clé ; std::nullopt sinon.
+std::optional<std::string> renameMapNameKey(const std::filesystem::path& dataRoot,
+                                            std::string_view oldId, std::string_view newId,
+                                            RefactorPlan& plan) {
+    const bool renaming = !newId.empty();
     const std::string oldKey = mapNameKey(oldId);
     const std::string newKey = mapNameKey(newId);
     for (const std::filesystem::path& catalog : catalogFiles(dataRoot)) {
         const std::string text = readText(catalog);
-        if (renaming) {
-            if (const std::optional<std::string> renamedText =
-                    renameCatalogKey(text, oldKey, newKey)) {
-                if (hasCatalogKey(text, newKey)) {
-                    return refused(catalog.filename().string() + " already has \"" + newKey + "\"");
-                }
+        if (!renaming) {
+            if (hasCatalogKey(text, oldKey)) {
                 plan.changes.push_back(Citation{.file = catalog, .what = oldKey});
-                plan.edits.push_back(ProjectEdit{.file = catalog, .text = *renamedText});
             }
-        } else if (hasCatalogKey(text, oldKey)) {
-            plan.changes.push_back(Citation{.file = catalog, .what = oldKey});
+            continue;
         }
+        const std::optional<std::string> renamedText = renameCatalogKey(text, oldKey, newKey);
+        if (!renamedText) {
+            continue;
+        }
+        if (hasCatalogKey(text, newKey)) {
+            return catalog.filename().string() + " already has \"" + newKey + "\"";
+        }
+        plan.changes.push_back(Citation{.file = catalog, .what = oldKey});
+        plan.edits.push_back(ProjectEdit{.file = catalog, .text = *renamedText});
+    }
+    return std::nullopt;
+}
+
+}  // namespace
+
+// Un nom vide ne renomme pas : il ne fait que recenser ce qui cite (« qui cite ceci ? »).
+RefactorPlan planRenameMap(const std::filesystem::path& dataRoot, std::string_view oldId,
+                           std::string_view newId) {
+    const bool renaming = !newId.empty();
+    if (renaming && !isValidMapId(newId)) {
+        return refused("\"" + std::string{newId} + "\" is not a valid map id");
+    }
+    if (oldId == newId) {
+        return refused("the map is already named \"" + std::string{newId} + "\"");
+    }
+    Project project = loadProject(dataRoot);
+    if (const std::optional<std::string> refusal =
+            mapRenameRefusal(project, dataRoot, oldId, newId)) {
+        return refused(*refusal);
+    }
+    ProjectMap* renamed = project.find(oldId);
+    RefactorPlan plan;
+    std::set<std::string> changed;
+    renameMapInMaps(project, oldId, newId, plan, changed);
+    renameMapInCities(dataRoot, oldId, newId, plan);
+    if (const std::optional<std::string> refusal = renameMapNameKey(dataRoot, oldId, newId, plan)) {
+        return refused(*refusal);
     }
 
     if (!renaming) {
         return plan;
     }
+    const std::string oldKey = mapNameKey(oldId);
+    const std::string newKey = mapNameKey(newId);
     if (renamed->data.name == oldKey) {
         renamed->data.name = newKey;
     }
@@ -630,8 +684,7 @@ RefactorPlan planRenameArrival(const std::filesystem::path& dataRoot, std::strin
         return refused(std::string{mapId} + " has no arrival point \"" + std::string{oldName} +
                        "\"");
     }
-    if (renaming &&
-        std::ranges::any_of(owner->data.entities, [newName](const auto& entity) {
+    if (renaming && std::ranges::any_of(owner->data.entities, [newName](const auto& entity) {
             return isSpawnPoint(entity, newName);
         })) {
         return refused(std::string{mapId} + " already has an arrival point \"" +
@@ -732,6 +785,43 @@ RefactorPlan planRenameEntityId(const std::filesystem::path& dataRoot, std::stri
 
 // --- Remplacer, changer de planche -------------------------------------------------------------
 
+namespace {
+
+// Ajoute à @p plan la réécriture de @p map (@p from devient @p to), ou dit pourquoi elle est
+// refusée : std::nullopt si tout va bien.
+std::optional<std::string> replacePieceInMap(const std::filesystem::path& dataRoot,
+                                             const ProjectMap& map, std::string_view from,
+                                             std::string_view to, RefactorPlan& plan) {
+    const PlaceAssets assets = placeOf(dataRoot, map.data);
+    const core::ScenePiece* next = assets.manifest ? assets.manifest->find(to) : nullptr;
+    if (next == nullptr) {
+        return "\"" + std::string{to} + "\" is not on the sheet of " + map.id;
+    }
+    const core::ScenePiece* previous = assets.manifest->find(from);
+    if (previous != nullptr && (previous->pieceClass == core::ScenePieceClass::Floor) !=
+                                   (next->pieceClass == core::ScenePieceClass::Floor)) {
+        return "\"" + std::string{from} + "\" and \"" + std::string{to} +
+               "\" are not both floors, or both standing pieces";
+    }
+    core::LevelDraft draft = draftOf(map.data, assets);
+    const core::PieceRenaming renaming{{std::string{from}, std::string{to}}};
+    if (!draft.replacePieces(renaming)) {
+        return "\"" + std::string{to} + "\" would overflow " + map.id;
+    }
+    const core::LevelLoadResult validated = draft.toLevel();
+    if (!validated.ok()) {
+        return map.id + " would not be valid: " + validated.error;
+    }
+    std::vector<Citation> cited = pieceCitationsIn(map, from);
+    plan.changes.insert(plan.changes.end(), std::make_move_iterator(cited.begin()),
+                        std::make_move_iterator(cited.end()));
+    plan.edits.push_back(
+        ProjectEdit{.file = map.file, .text = core::LevelWriter::toJsonString(*validated.level)});
+    return std::nullopt;
+}
+
+}  // namespace
+
 RefactorPlan planReplacePiece(const std::filesystem::path& dataRoot, std::string_view from,
                               std::string_view to, const std::vector<std::string>& maps) {
     if (from.empty() || to.empty()) {
@@ -747,7 +837,6 @@ RefactorPlan planReplacePiece(const std::filesystem::path& dataRoot, std::string
         }
     }
     RefactorPlan plan;
-    const core::PieceRenaming renaming{{std::string{from}, std::string{to}}};
     for (const ProjectMap& map : project.maps) {
         if (!maps.empty() && std::ranges::find(maps, map.id) == maps.end()) {
             continue;
@@ -755,40 +844,10 @@ RefactorPlan planReplacePiece(const std::filesystem::path& dataRoot, std::string
         if (!citedPieces(map.data.layers).contains(from)) {
             continue;
         }
-        const PlaceAssets assets = placeOf(dataRoot, map.data);
-        const core::ScenePiece* next = assets.manifest ? assets.manifest->find(to) : nullptr;
-        if (next == nullptr) {
-            return refused("\"" + std::string{to} + "\" is not on the sheet of " + map.id);
+        if (const std::optional<std::string> refusal =
+                replacePieceInMap(dataRoot, map, from, to, plan)) {
+            return refused(*refusal);
         }
-        const core::ScenePiece* previous = assets.manifest->find(from);
-        if (previous != nullptr && (previous->pieceClass == core::ScenePieceClass::Floor) !=
-                                       (next->pieceClass == core::ScenePieceClass::Floor)) {
-            return refused("\"" + std::string{from} + "\" and \"" + std::string{to} +
-                           "\" are not both floors, or both standing pieces");
-        }
-        core::LevelDraft draft = draftOf(map.data, assets);
-        if (!draft.replacePieces(renaming)) {
-            return refused("\"" + std::string{to} + "\" would overflow " + map.id);
-        }
-        const core::LevelLoadResult validated = draft.toLevel();
-        if (!validated.ok()) {
-            return refused(map.id + " would not be valid: " + validated.error);
-        }
-        for (const core::TileLayer& layer : map.data.layers) {
-            if (core::isVisualLayerKind(layer.kind) && layer.hasPieces()) {
-                const std::vector<core::GridPosition> cells = cellsOf(layer, from);
-                if (!cells.empty()) {
-                    plan.changes.push_back(Citation{
-                        .file = map.file,
-                        .mapId = map.id,
-                        .cell = cells.front(),
-                        .what = "layer " + layer.name + ": " + std::to_string(cells.size()) +
-                                (cells.size() == 1 ? " cell" : " cells")});
-                }
-            }
-        }
-        plan.edits.push_back(ProjectEdit{
-            .file = map.file, .text = core::LevelWriter::toJsonString(*validated.level)});
     }
     if (plan.edits.empty()) {
         return refused("no map places \"" + std::string{from} + "\"");
@@ -821,6 +880,21 @@ std::vector<std::string> piecesMissingFrom(const std::vector<core::TileLayer>& l
     return missing;
 }
 
+namespace {
+
+// Le refus quand la planche @p place n'a pas de pièce pour @p missing.
+std::string missingPiecesRefusal(std::string_view place, const std::vector<std::string>& missing,
+                                 bool variant) {
+    std::string list;
+    for (const std::string& piece : missing) {
+        list += (list.empty() ? "" : ", ") + piece;
+    }
+    return "no match on the sheet \"" + std::string{place} + "\" for: " + list +
+           (variant ? " (pieces of the base map)" : " (add them to the table)");
+}
+
+}  // namespace
+
 RefactorPlan planChangeScene(const std::filesystem::path& dataRoot, std::string_view mapId,
                              std::string_view place, const core::PieceRenaming& table) {
     Project project = loadProject(dataRoot);
@@ -845,12 +919,7 @@ RefactorPlan planChangeScene(const std::filesystem::path& dataRoot, std::string_
     const std::vector<std::string> missing = piecesMissingFrom(
         map->data.layers, variant ? core::PieceRenaming{} : merged, *target.manifest);
     if (!missing.empty()) {
-        std::string list;
-        for (const std::string& piece : missing) {
-            list += (list.empty() ? "" : ", ") + piece;
-        }
-        return refused("no match on the sheet \"" + std::string{place} + "\" for: " + list +
-                       (variant ? " (pieces of the base map)" : " (add them to the table)"));
+        return refused(missingPiecesRefusal(place, missing, variant));
     }
     RefactorPlan plan;
     std::string text;
@@ -875,8 +944,10 @@ RefactorPlan planChangeScene(const std::filesystem::path& dataRoot, std::string_
         text = core::LevelWriter::toJsonString(*validated.level);
         for (const auto& [from, to] : merged) {
             if (from != to) {
-                plan.changes.push_back(Citation{
-                    .file = map->file, .mapId = map->id, .what = "piece " + from + " -> " + to});
+                plan.changes.push_back(
+                    Citation{.file = map->file,
+                             .mapId = map->id,
+                             .what = std::string{"piece "}.append(from).append(" -> ").append(to)});
             }
         }
     }
@@ -905,8 +976,10 @@ PieceTableResult readPieceTable(const std::filesystem::path& file) {
         nlohmann::json::parse(readText(file), nullptr, /*allow_exceptions=*/false);
     if (!json.is_object() || json.value("format", std::string{}) != PIECE_TABLE_FORMAT ||
         json.value("version", 0) != 1 || !json.contains("pieces") || !json["pieces"].is_object()) {
-        result.error = file.string() + ": not a piece table (format \"" +
-                       std::string{PIECE_TABLE_FORMAT} + "\", version 1, \"pieces\")";
+        result.error = file.string();
+        result.error += R"(: not a piece table (format ")";
+        result.error += PIECE_TABLE_FORMAT;
+        result.error += R"(", version 1, "pieces"))";
         return result;
     }
     for (const auto& [from, to] : json["pieces"].items()) {

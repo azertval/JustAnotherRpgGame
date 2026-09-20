@@ -4,6 +4,7 @@
 #include "HMI/Graphics/CityBlockRender.h"
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <memory>
 
@@ -25,7 +26,7 @@ namespace {
 constexpr float PLUS_HAUTE_ELEVATION_PIXELS = 135.0F - static_cast<float>(SCENE_TILE_HEIGHT_PIXELS);
 
 // Fond de l'image : celui de l'ecran de jeu, que le dehors d'une carte laisse voir.
-constexpr float FOND[4] = {0.043F, 0.043F, 0.043F, 1.0F};
+constexpr std::array<float, 4> FOND = {0.043F, 0.043F, 0.043F, 1.0F};
 
 std::unique_ptr<QRhi> interfaceHorsEcran() {
 #ifdef Q_OS_WIN
@@ -45,10 +46,9 @@ CityBlockFraming cityBlockFraming(const core::IsoProjection& projection,
     const auto haut = static_cast<float>(block.origin.row);
     const float droite = gauche + static_cast<float>(block.columns);
     const float bas = haut + static_cast<float>(block.rows);
-    const core::Vector2 coins[4] = {projection.gridToWorld({gauche, haut}),
-                                    projection.gridToWorld({droite, haut}),
-                                    projection.gridToWorld({gauche, bas}),
-                                    projection.gridToWorld({droite, bas})};
+    const std::array<core::Vector2, 4> coins = {
+        projection.gridToWorld({gauche, haut}), projection.gridToWorld({droite, haut}),
+        projection.gridToWorld({gauche, bas}), projection.gridToWorld({droite, bas})};
     float minX = coins[0].x;
     float maxX = coins[0].x;
     float minY = coins[0].y;
@@ -81,9 +81,9 @@ QImage renderCityBlock(const std::filesystem::path& assetsDirectory,
     const CityBlockFraming cadrage = cityBlockFraming(projection, block);
     const QSize taille(std::max(1, cadrage.pixelWidth), std::max(1, cadrage.pixelHeight));
 
-    const std::unique_ptr<QRhiTexture> texture(rhi->newTexture(
-        QRhiTexture::RGBA8, taille, 1,
-        QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
+    const std::unique_ptr<QRhiTexture> texture(
+        rhi->newTexture(QRhiTexture::RGBA8, taille, 1,
+                        QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
     if (!texture->create()) {
         return {};
     }
@@ -111,7 +111,7 @@ QImage renderCityBlock(const std::filesystem::path& assetsDirectory,
         if (rhi->beginOffscreenFrame(&commandes) != QRhi::FrameOpSuccess) {
             return {};
         }
-        rendu.render(commandes, cible.get(), FOND);
+        rendu.render(commandes, cible.get(), FOND.data());
         QRhiReadbackResult relecture;
         QRhiResourceUpdateBatch* const lot = rhi->nextResourceUpdateBatch();
         lot->readBackTexture({texture.get()}, &relecture);
@@ -119,6 +119,7 @@ QImage renderCityBlock(const std::filesystem::path& assetsDirectory,
         if (rhi->endOffscreenFrame() != QRhi::FrameOpSuccess) {
             return {};
         }
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast): QImage lit des `uchar`.
         image = QImage(reinterpret_cast<const uchar*>(relecture.data.constData()),
                        relecture.pixelSize.width(), relecture.pixelSize.height(),
                        QImage::Format_RGBA8888)

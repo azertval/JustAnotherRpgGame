@@ -68,7 +68,10 @@ private:
 
     void rebuild();
     void updateButtons();
-    [[nodiscard]] QString rowLabel(const LayerRow& row) const;
+    [[nodiscard]] static QString rowLabel(const LayerRow& row);
+    /// Une case ou un nom de la liste a changé : demande la visibilité ou le renommage.
+    /// @param item La ligne modifiée.
+    void onItemChanged(QListWidgetItem* item);
     [[nodiscard]] static LayerSlot slotOf(const QListWidgetItem* item);
 
     /// Les widgets du panneau, construits en code (`LayersPanel.cpp`).

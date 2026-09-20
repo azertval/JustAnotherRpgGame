@@ -26,51 +26,51 @@ namespace {
 const char* entityIssueTemplate(core::EntityIssueCode code) noexcept {
     switch (code) {
         case core::EntityIssueCode::UnknownType:
-            return "Entity kind \"%1\" is unknown to the editor.";
+            return R"(Entity kind "%1" is unknown to the editor.)";
         case core::EntityIssueCode::MissingProperty:
-            return "%1: property \"%2\" must be filled in.";
+            return R"(%1: property "%2" must be filled in.)";
         case core::EntityIssueCode::WrongValueType:
-            return "%1: property \"%2\" has the wrong value type.";
+            return R"(%1: property "%2" has the wrong value type.)";
         case core::EntityIssueCode::InvalidChoice:
-            return "%1: \"%3\" is not an allowed value for \"%2\".";
+            return R"(%1: "%3" is not an allowed value for "%2".)";
         case core::EntityIssueCode::UnknownDialogue:
-            return "%1: dialogue \"%3\" does not exist, or was rejected when loading.";
+            return R"(%1: dialogue "%3" does not exist, or was rejected when loading.)";
         case core::EntityIssueCode::UnknownEncounter:
-            return "%1: encounter \"%3\" does not exist.";
+            return R"(%1: encounter "%3" does not exist.)";
         case core::EntityIssueCode::UnknownTargetMap:
-            return "%1: map \"%3\" does not exist.";
+            return R"(%1: map "%3" does not exist.)";
         case core::EntityIssueCode::UnknownArrivalPoint:
-            return "%1: the target map has no arrival point \"%3\".";
+            return R"(%1: the target map has no arrival point "%3".)";
         case core::EntityIssueCode::DuplicateArrivalPoint:
-            return "Two arrival points are named \"%3\".";
+            return R"(Two arrival points are named "%3".)";
         case core::EntityIssueCode::OutOfRange:
-            return "%1: %3 is out of range for \"%2\".";
+            return R"(%1: %3 is out of range for "%2".)";
         case core::EntityIssueCode::UnknownFigure:
-            return "%1: figure \"%3\" is in no workshop.";
+            return R"(%1: figure "%3" is in no workshop.)";
         case core::EntityIssueCode::UnsetFlag:
-            return "%1: no dialogue sets flag \"%3\".";
+            return R"(%1: no dialogue sets flag "%3".)";
         case core::EntityIssueCode::UnknownLocation:
-            return "%1: location \"%3\" is not in the atlas.";
+            return R"(%1: location "%3" is not in the atlas.)";
         case core::EntityIssueCode::UnknownItem:
-            return "%1: item \"%3\" does not exist.";
+            return R"(%1: item "%3" does not exist.)";
         case core::EntityIssueCode::UnknownEntityRef:
-            return "%1: no map has an entity \"%3\".";
+            return R"(%1: no map has an entity "%3".)";
     }
-    return "Entity kind \"%1\" is unknown to the editor.";
+    return R"(Entity kind "%1" is unknown to the editor.)";
 }
 
 const char* tacticalIssueTemplate(core::TacticalIssueCode code) noexcept {
     switch (code) {
         case core::TacticalIssueCode::CombatantOutOfBounds:
-            return "Encounter \"%1\": \"%2\" would stand off the map.";
+            return R"(Encounter "%1": "%2" would stand off the map.)";
         case core::TacticalIssueCode::CombatantObstructed:
-            return "Encounter \"%1\": \"%2\" would stand on an obstacle.";
+            return R"(Encounter "%1": "%2" would stand on an obstacle.)";
         case core::TacticalIssueCode::CombatantsOverlap:
-            return "Encounter \"%1\": \"%2\" would overlap another combatant.";
+            return R"(Encounter "%1": "%2" would overlap another combatant.)";
         case core::TacticalIssueCode::AreaTooNarrow:
-            return "Encounter \"%1\": area too narrow to fight in (%2 free cells, %3 required).";
+            return R"(Encounter "%1": area too narrow to fight in (%2 free cells, %3 required).)";
     }
-    return "Encounter \"%1\": area too narrow to fight in (%2 free cells, %3 required).";
+    return R"(Encounter "%1": area too narrow to fight in (%2 free cells, %3 required).)";
 }
 
 namespace {
@@ -78,11 +78,11 @@ namespace {
 [[nodiscard]] const char* combatZoneTemplate(core::WorldIssueCode code) noexcept {
     switch (code) {
         case core::WorldIssueCode::CombatZoneDegenerate:
-            return "Combat zone \"%1\" has no width or no height.";
+            return R"(Combat zone "%1" has no width or no height.)";
         case core::WorldIssueCode::CombatZoneOutOfBounds:
-            return "Combat zone \"%1\" overflows the map.";
+            return R"(Combat zone "%1" overflows the map.)";
         case core::WorldIssueCode::CombatZoneBlocked:
-            return "Combat zone \"%1\" has no free cell: nobody can stand in it.";
+            return R"(Combat zone "%1" has no free cell: nobody can stand in it.)";
         case core::WorldIssueCode::UnreadableMap:
         case core::WorldIssueCode::MissingTargetMap:
         case core::WorldIssueCode::UnknownTargetMap:
@@ -92,7 +92,7 @@ namespace {
         case core::WorldIssueCode::DuplicateArrivalPoint:
             break;
     }
-    return "Combat zone \"%1\" cannot be played.";
+    return R"(Combat zone "%1" cannot be played.)";
 }
 
 }  // namespace

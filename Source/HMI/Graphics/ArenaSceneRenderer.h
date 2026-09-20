@@ -164,6 +164,9 @@ public:
 
 private:
     void loadTextures();
+    /// Charge les pièces du champ de bataille et compose sa scène.
+    /// @param context Le contexte QRhi où créer les textures.
+    void loadBattlefieldTextures(const RhiContext& context);
     void loadBattlefield();
     std::optional<WorldSceneSnapshot> _battlefield;
     core::GridPosition _battlefieldOrigin{};

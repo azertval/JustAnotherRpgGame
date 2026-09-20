@@ -95,9 +95,10 @@ int main(int argc, char** argv) {
     const auto map = app::commandLineOption(argc, argv, "--map=");
     if (map) {
         auto* viewport = window.findChild<hmi::EditorViewport*>();
-        if (!viewport ||
-            !viewport->openLevel(hmi::editorDataRoot() / "Levels" / (std::string{*map} + ".json")))
+        if (viewport == nullptr || !viewport->openLevel(hmi::editorDataRoot() / "Levels" /
+                                                        (std::string{*map} + ".json"))) {
             return 2;
+        }
     }
     const auto screenshot = app::commandLineOption(argc, argv, "--screenshot=");
     if (screenshot) {

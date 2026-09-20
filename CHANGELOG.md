@@ -6,6 +6,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Alertes Code scanning (clang-tidy) corrigées.** Une centaine d’alertes de l’analyse de
+  `main` : champs de structures initialisés par défaut, fonctions trop denses découpées
+  (`BattleGrid`, `deriveCollision`, `MapRefactor`, `MainWindow`, `EditorViewport`…), méthodes
+  rendues statiques, `const_cast` confiné à un seul point, tableaux C remplacés par `std::array`.
+  Aucun changement de comportement.
+
 - **Nouvelle interface du Colisée : Arena of Brave.** Le parvis, la piste et les deux
   vestiaires remplacent l’ancienne carte en exploration et servent de décor au combat.
   Le kit de 366 pièces conserve ses ancrages, sa profondeur et sa projection dans le jeu

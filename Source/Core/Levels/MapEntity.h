@@ -35,10 +35,10 @@ struct MapEntity {
     /// Type de l'entité, libre : `"npc"`, `"chest"`, `"sign"`, `"portal"`, `"encounter"`…
     std::string type;
     /// Case occupée par l'entité — pour une zone peinte, sa case de référence.
-    GridPosition position;
+    GridPosition position{};
     /// Propriétés libres (`core::PropertyMap`), y compris les clés que le chargeur n'a pas
     /// reconnues — elles sont réémises telles quelles à l'écriture.
-    PropertyMap properties;
+    PropertyMap properties{};
     // Les champs du format v4 viennent APRES les trois d'origine : une initialisation positionnelle
     // `{type, position, properties}` garde son sens. Un champ ajouté en tête la décalerait sans
     // erreur de compilation — un type `"chest"` deviendrait un identifiant.
@@ -46,12 +46,12 @@ struct MapEntity {
     /// (format v4, décision D8, `EX-LVL-021`). Quêtes, drapeaux et sauvegardes citent l'entité par
     /// `carte#id` : déplacer un coffre ne casse plus rien. Vide pour une entité lue d'une carte
     /// antérieure à la v4, jusqu'à sa migration.
-    std::string id;
+    std::string id{};
     /// Hauteur de l'entité. **Réservée** (décision D11) : lue, gardée, réécrite, jamais jouée.
     int elevation = 0;
     /// Forme **peinte** d'une zone (décision D13) : les cases qu'elle couvre. Vide pour une entité
     /// ponctuelle ou une zone rectangle (propriétés `width` et `height`).
-    std::vector<GridPosition> cells;
+    std::vector<GridPosition> cells{};
 };
 
 /// @return L'identifiant que l'éditeur donne à la @p number-ième entité d'une carte : `e<number>`.

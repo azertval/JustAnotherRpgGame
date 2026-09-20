@@ -112,7 +112,8 @@ EditorReferences loadEditorReferences(const std::filesystem::path& root) {
         references.locations = fileStems(locations);
     }
     if (const std::filesystem::path items = root / "Rpg" / "items"; isDirectory(items)) {
-        for (const core::Item& item : core::loadItems(items).items) {
+        const auto loadedItems = core::loadItems(items);
+        for (const core::Item& item : loadedItems.items) {
             references.items.push_back(item.id);
         }
         std::ranges::sort(references.items);

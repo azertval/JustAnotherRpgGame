@@ -48,14 +48,14 @@ struct ProjectEdit {
 /// @brief Un endroit où une chose est nommée : « qui cite ceci ? ».
 struct Citation {
     /// Le fichier qui la nomme.
-    std::filesystem::path file;
+    std::filesystem::path file{};
     /// La carte qui la nomme, vide hors carte (une ville, un catalogue).
-    std::string mapId;
+    std::string mapId{};
     /// L'entité qui la nomme, par son `id` ; vide sinon.
-    std::string entityId;
-    std::optional<core::GridPosition> cell;
+    std::string entityId{};
+    std::optional<core::GridPosition> cell{};
     /// Ce qui la nomme : `portal e2: targetMap`, `district …: map`, `map.capital.martpart.name`.
-    std::string what;
+    std::string what{};
 
     [[nodiscard]] bool operator==(const Citation&) const = default;
 };

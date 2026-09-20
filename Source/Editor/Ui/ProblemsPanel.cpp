@@ -18,13 +18,11 @@ namespace hmi {
 namespace {
 
 // Les colonnes de la liste.
-enum Column : int {
-    SeverityColumn,
-    MapColumn,
-    CellColumn,
-    MessageColumn,
-    COLUMN_COUNT,
-};
+constexpr int SEVERITY_COLUMN = 0;
+constexpr int MAP_COLUMN = 1;
+constexpr int CELL_COLUMN = 2;
+constexpr int MESSAGE_COLUMN = 3;
+constexpr int COLUMN_COUNT = 4;
 
 // Le rang du constat dans le bilan, porté par sa ligne.
 constexpr int FINDING_ROLE = Qt::UserRole + 1;
@@ -49,7 +47,7 @@ ProblemsPanel::ProblemsPanel(QWidget* parent)
     _tree->setUniformRowHeights(true);
     _tree->setAlternatingRowColors(true);
     // Croissant : l'en-tête part d'un tri descendant, qui mettrait les avertissements devant.
-    _tree->sortByColumn(SeverityColumn, Qt::AscendingOrder);
+    _tree->sortByColumn(SEVERITY_COLUMN, Qt::AscendingOrder);
     _tree->setSortingEnabled(true);
     _tree->header()->setStretchLastSection(true);
     _tree->setToolTip(QStringLiteral("Double-click a problem to go to its cell."));
@@ -96,20 +94,20 @@ void ProblemsPanel::rebuild() {
         auto* const item = new QTreeWidgetItem(_tree);
         // « error » précède « warning » dans l'alphabet : le tri par gravité garde les erreurs
         // devant.
-        item->setIcon(SeverityColumn, error ? errorIcon : warningIcon);
-        item->setText(SeverityColumn, error ? QStringLiteral("error") : QStringLiteral("warning"));
-        item->setText(MapColumn, QString::fromStdString(finding.mapId));
+        item->setIcon(SEVERITY_COLUMN, error ? errorIcon : warningIcon);
+        item->setText(SEVERITY_COLUMN, error ? QStringLiteral("error") : QStringLiteral("warning"));
+        item->setText(MAP_COLUMN, QString::fromStdString(finding.mapId));
         if (finding.cell) {
             item->setText(
-                CellColumn,
+                CELL_COLUMN,
                 QStringLiteral("%1, %2").arg(finding.cell->column).arg(finding.cell->row));
         }
-        item->setText(MessageColumn, QString::fromStdString(finding.message));
-        item->setToolTip(MessageColumn, QString::fromStdString(finding.message));
-        item->setData(SeverityColumn, FINDING_ROLE, static_cast<qulonglong>(index));
+        item->setText(MESSAGE_COLUMN, QString::fromStdString(finding.message));
+        item->setToolTip(MESSAGE_COLUMN, QString::fromStdString(finding.message));
+        item->setData(SEVERITY_COLUMN, FINDING_ROLE, static_cast<qulonglong>(index));
     }
     _tree->setSortingEnabled(true);
-    for (int column = 0; column < MessageColumn; ++column) {
+    for (int column = 0; column < MESSAGE_COLUMN; ++column) {
         _tree->resizeColumnToContents(column);
     }
 }
@@ -119,7 +117,7 @@ void ProblemsPanel::onActivated(QTreeWidgetItem* item) {
         return;
     }
     const auto index =
-        static_cast<std::size_t>(item->data(SeverityColumn, FINDING_ROLE).toULongLong());
+        static_cast<std::size_t>(item->data(SEVERITY_COLUMN, FINDING_ROLE).toULongLong());
     if (index < _report.findings.size()) {
         emit findingActivated(_report.findings[index]);
     }

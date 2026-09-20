@@ -137,14 +137,14 @@ struct EntityPropertySpec {
 ///        de l'éditeur la montre.
 struct EntityKind {
     std::string_view type;
-    std::vector<EntityPropertySpec> properties;
+    std::vector<EntityPropertySpec> properties{};
     /// Sa forme sur la carte.
     EntityShape shape = EntityShape::Point;
     /// La propriété que le canevas écrit à côté d'elle (la carte cible d'un portail) ; vide : rien.
-    std::string_view labelProperty;
+    std::string_view labelProperty{};
     /// La propriété qui nomme sa figurine (source `Figures`) : le canevas dessine la figurine à la
     /// place du marqueur quand elle existe. Vide : la famille n'a pas de figurine.
-    std::string_view figureProperty;
+    std::string_view figureProperty{};
 
     [[nodiscard]] const EntityPropertySpec* find(std::string_view key) const;
 };
