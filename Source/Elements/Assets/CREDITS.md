@@ -1,7 +1,7 @@
 # Crédits graphiques
 
 Le premier essai de la Fabrique d’assets (19 septembre 2026) est conservé séparément dans
-[`Tools/AssetFactory`](../../../Tools/AssetFactory/CREDITS.md). Ses candidats ne sont pas
+`Tools/AssetFactory` (hors dépôt). Ses candidats ne sont pas
 validés ni intégrés ici ; la provenance des PNJ livrés reste celle de LOT-91.
 
 Aucune image de `Source/Elements/Assets/` ne provient d'un pack tiers : toutes sont propres au

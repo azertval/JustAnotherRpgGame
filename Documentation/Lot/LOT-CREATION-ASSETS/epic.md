@@ -1,6 +1,6 @@
 # LOT-CREATION-ASSETS — Produire selon les régions jouées
 
-> Pilote T00 en cours, 19 septembre 2026 : premier essai généré, aucune intégration autorisée. [Bilan](../../../Tools/AssetFactory/bilan-poc.md).
+> Pilote T00 en cours, 19 septembre 2026 : premier essai généré, aucune intégration autorisée. Bilan : `Tools/AssetFactory/bilan-poc.md` (hors dépôt).
 > Chantier autonome hors roadmap et numérotation gameplay ; remplace la proposition LOT-97 abandonnée.
 > Ce chat local orchestre l’outil de génération intégré. Aucune clé API, SDK payant, budget dollars ou réservation artificielle d’usage.
 
