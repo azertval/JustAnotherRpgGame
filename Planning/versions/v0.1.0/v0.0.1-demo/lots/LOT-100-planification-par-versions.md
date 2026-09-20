@@ -37,3 +37,7 @@ suppression des assets (LOT-102) ; la réécriture des spécifications (LOT-101,
 
 - Le lint de l'ancienne feuille de route se retire-t-il avec elle, ou la page reste-t-elle comme
   archive gardée ? Proposé : elle reste jusqu'à la `0.0.1`, puis part avec son lint.
+
+## Livraison
+
+PR #94.
