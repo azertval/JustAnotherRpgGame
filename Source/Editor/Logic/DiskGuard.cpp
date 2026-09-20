@@ -36,7 +36,7 @@ FileFingerprint fingerprintFile(const std::filesystem::path& path) {
         return {};
     }
     FileFingerprint fingerprint{.exists = true, .size = 0, .hash = FNV_OFFSET};
-    std::array<char, 64 * 1024> buffer{};
+    std::array<char, std::size_t{64} * 1024> buffer{};
     while (file) {
         file.read(buffer.data(), static_cast<std::streamsize>(buffer.size()));
         const auto count = static_cast<std::size_t>(file.gcount());

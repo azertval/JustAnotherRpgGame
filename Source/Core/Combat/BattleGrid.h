@@ -313,6 +313,12 @@ private:
     [[nodiscard]] std::size_t indexOf(GridPosition cell) const noexcept;
     void fill(const Placement& placement, std::optional<CombatantId> occupant);
     void addZones(const Level& level);
+    /// @brief Ajoute une zone par couche qui porte des propriétés.
+    /// @param level La carte dont on lit les couches.
+    void addLayerZones(const Level& level);
+    /// @brief Ajoute une zone par entité de zone (décision D13), après celles des couches.
+    /// @param level La carte dont on lit les entités.
+    void addEntityZones(const Level& level);
     [[nodiscard]] PlacementResult check(GridPosition anchor, int side, CombatantId self,
                                         Locomotion locomotion) const;
 

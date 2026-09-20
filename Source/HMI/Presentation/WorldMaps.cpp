@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <set>
 #include <stdexcept>
+#include <string_view>
 #include <utility>
 
 #include <nlohmann/json.hpp>
@@ -31,6 +32,13 @@ public:
 
 [[nodiscard]] bool isFraction(const nlohmann::json& value) {
     return value.is_number() && value.get<double>() >= 0.0 && value.get<double>() <= 1.0;
+}
+
+/// Chemin de lecture `where / part`, pour situer une erreur sans chaîner des concaténations.
+[[nodiscard]] std::string within(std::string where, std::string_view part) {
+    where += " / ";
+    where += part;
+    return where;
 }
 
 [[nodiscard]] MapPoint readPoint(const nlohmann::json& value, const std::string& where) {
@@ -177,9 +185,9 @@ public:
     }
     for (const auto& [id, entry] : found->items()) {
         if (!entry.is_object() || !entry.contains("frame")) {
-            throw failure(where + " / districts / " + id, "il faut un cadre (« frame »).");
+            throw failure(within(within(where, "districts"), id), "il faut un cadre (« frame »).");
         }
-        districts.emplace(id, MapDistrict{.frame = readFrame(entry["frame"], where + " / " + id),
+        districts.emplace(id, MapDistrict{.frame = readFrame(entry["frame"], within(where, id)),
                                           .image = readText(entry, "image", where, false)});
     }
     return districts;
@@ -197,7 +205,8 @@ public:
     city.districts = readDistricts(object, where);
     for (const auto& [id, district] : city.districts) {
         if (!city.places.contains(id)) {
-            throw failure(where + " / districts / " + id, "ce quartier n'est pas placé sur le plan.");
+            throw failure(within(within(where, "districts"), id),
+                          "ce quartier n'est pas placé sur le plan.");
         }
     }
     return city;
@@ -288,14 +297,14 @@ void readInto(WorldMaps& maps, const nlohmann::json& root) {
             continue;
         }
         const auto district = map.districts.find(candidateId);
-        view.points.push_back(MapCityPointView{
-            .id = candidate->id,
-            .number = ++number,
-            .name = candidate->name,
-            .description = candidate->description,
-            .at = position->second,
-            .district = district != map.districts.end() ? std::optional{district->second}
-                                                        : std::nullopt});
+        view.points.push_back(MapCityPointView{.id = candidate->id,
+                                               .number = ++number,
+                                               .name = candidate->name,
+                                               .description = candidate->description,
+                                               .at = position->second,
+                                               .district = district != map.districts.end()
+                                                               ? std::optional{district->second}
+                                                               : std::nullopt});
     }
     for (const auto& [id, position] : map.places) {
         if (atlas.findLocation(id) == nullptr) {

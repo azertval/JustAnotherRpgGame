@@ -22,15 +22,15 @@ namespace {
 
 /// Description d'une commande : de quoi construire son `QAction`.
 struct CommandSpec {
-    EditorCommand command;
-    const char* label;
+    EditorCommand command{};
+    const char* label = nullptr;
     /// Raccourci par défaut (`QKeySequence`), vide si aucun. Celui d'une commande remappable est
     /// remplacé par `applyShortcuts`.
-    const char* shortcut;
+    const char* shortcut = nullptr;
     /// Icône standard du style, ou `QStyle::SP_CustomBase` pour un simple libellé.
-    QStyle::StandardPixmap icon;
+    QStyle::StandardPixmap icon = QStyle::SP_CustomBase;
     /// Dans la barre d'outils (usage continu), ou au menu seul.
-    bool onToolBar;
+    bool onToolBar = false;
     /// Commande remappable qui la déclenche, s'il y en a une.
     std::optional<EditorAction> binding;
 };

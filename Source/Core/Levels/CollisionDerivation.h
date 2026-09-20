@@ -49,9 +49,9 @@ struct CollisionDerivation {
     /// La grille de collision déduite, aux dimensions de la carte, sans entrée.
     TileMap collision;
     /// Cases dont la contribution la plus forte est une gêne ou un abri, déduits vides.
-    std::vector<GridPosition> unplayed;
+    std::vector<GridPosition> unplayed{};
     /// Cases nommant une pièce que le manifeste ne connaît pas (ni par son nom ni par un alias).
-    std::vector<GridPosition> unknownPieces;
+    std::vector<GridPosition> unknownPieces{};
 };
 
 /// @return La valeur de grille de collision d'un type tactique : `Wall`, `Cliff` ou `Empty`.

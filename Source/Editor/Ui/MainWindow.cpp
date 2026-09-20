@@ -116,12 +116,13 @@ constexpr int REFACTOR_STATUS_TIMEOUT_MS = 5000;
 }  // namespace
 
 MainWindow::MainWindow(bool crashAfterAutosave)
-    : _viewport(new EditorViewport()), _crashAfterAutosave(crashAfterAutosave) {
+    : _viewport(new EditorViewport()),
+      _editContext(_viewport),
+      _crashAfterAutosave(crashAfterAutosave) {
     // Le dossier des données dans le titre : on sait où l'enregistrement écrit (LOT-EDITOR-06).
     setWindowTitle(QStringLiteral("Just Another RPG Game — Editor — %1")
                        .arg(QString::fromStdWString(hmi::editorDataRoot().wstring())));
     setDockNestingEnabled(true);
-    _editContext = _viewport;
 
     _viewport->setMinimumSize(320, 240);
     _viewport->setFocusPolicy(Qt::StrongFocus);
@@ -476,136 +477,158 @@ bool MainWindow::saveMap() {
 
 // --- Renommer et remplacer (LOT-EDITOR-14) ---------------------------------------------------
 
-void MainWindow::buildRefactorMenu(QMenu* mapMenu) {
-    const std::filesystem::path root = editorDataRoot();
-    const auto selected = [this]() -> const core::MapEntity* {
-        const std::optional<std::size_t> index = _viewport->selectedEntity();
-        const std::vector<core::MapEntity>& entities = _viewport->draft().entities();
-        return index && *index < entities.size() ? &entities[*index] : nullptr;
-    };
-    const auto arrivalName = [](const core::MapEntity& entity) -> std::string {
-        const auto found = entity.properties.find(std::string{core::SPAWN_POINT_NAME_PROPERTY});
-        const std::string* name =
-            found != entity.properties.end() ? std::get_if<std::string>(&found->second) : nullptr;
-        return entity.type == core::SPAWN_POINT_ENTITY_TYPE && name != nullptr ? *name
-                                                                               : std::string{};
-    };
-    const auto showAndGo = [this, root](const QString& title,
-                                        const std::vector<Citation>& citations) {
-        if (const std::optional<Citation> chosen = showCitations(this, title, citations, root)) {
-            goToCitation(*chosen);
-        }
-    };
+namespace {
 
-    QAction* const citesMap = mapMenu->addAction(QStringLiteral("Who cites this map?"));
-    connect(citesMap, &QAction::triggered, this, [this, root, showAndGo] {
-        showAndGo(QStringLiteral("Who cites %1").arg(QString::fromStdString(_viewport->mapId())),
-                  citationsOfMap(root, _viewport->mapId()));
-    });
-    QAction* const citesEntity =
-        mapMenu->addAction(QStringLiteral("Who cites the selected entity?"));
-    connect(citesEntity, &QAction::triggered, this, [this, root, selected, arrivalName, showAndGo] {
-        const core::MapEntity* entity = selected();
-        if (entity == nullptr) {
-            showTransientStatusMessage(QStringLiteral("Select an entity first."),
-                                       REFACTOR_STATUS_TIMEOUT_MS);
-            return;
+// Le nom du point d'arrivée que @p entity déclare ; vide si ce n'en est pas un.
+std::string arrivalNameOf(const core::MapEntity& entity) {
+    const auto found = entity.properties.find(std::string{core::SPAWN_POINT_NAME_PROPERTY});
+    const std::string* name =
+        found != entity.properties.end() ? std::get_if<std::string>(&found->second) : nullptr;
+    return entity.type == core::SPAWN_POINT_ENTITY_TYPE && name != nullptr ? *name : std::string{};
+}
+
+// Les pièces que la carte pose sur ses couches visuelles, sans doublon, triées.
+std::vector<std::string> citedPiecesOf(const std::vector<core::TileLayer>& layers) {
+    std::vector<std::string> cited;
+    for (const core::TileLayer& layer : layers) {
+        if (!core::isVisualLayerKind(layer.kind)) {
+            continue;
         }
-        // Un point d'arrivée est cité par son nom ; toute entité, par `carte#id`.
-        std::vector<Citation> citations = citationsOfEntity(root, _viewport->mapId(), entity->id);
-        if (const std::string name = arrivalName(*entity); !name.empty()) {
-            const std::vector<Citation> byName = citationsOfArrival(root, _viewport->mapId(), name);
-            citations.insert(citations.end(), byName.begin(), byName.end());
+        for (const std::string& piece : layer.pieces) {
+            if (!piece.empty() && std::ranges::find(cited, piece) == cited.end()) {
+                cited.push_back(piece);
+            }
         }
-        showAndGo(QStringLiteral("Who cites %1")
-                      .arg(QString::fromStdString(entityRef(_viewport->mapId(), entity->id))),
-                  citations);
-    });
-    QAction* const renameId = mapMenu->addAction(QStringLiteral("Rename entity id…"));
-    connect(renameId, &QAction::triggered, this, [this, root, selected] {
-        if (selected() == nullptr) {
-            showTransientStatusMessage(QStringLiteral("Select an entity first."),
-                                       REFACTOR_STATUS_TIMEOUT_MS);
-            return;
+    }
+    std::ranges::sort(cited);
+    return cited;
+}
+
+}  // namespace
+
+const core::MapEntity* MainWindow::selectedMapEntity() const {
+    const std::optional<std::size_t> index = _viewport->selectedEntity();
+    const std::vector<core::MapEntity>& entities = _viewport->draft().entities();
+    return index && *index < entities.size() ? &entities[*index] : nullptr;
+}
+
+void MainWindow::showCitationsOf(const QString& title, const std::vector<Citation>& citations) {
+    if (const std::optional<Citation> chosen =
+            showCitations(this, title, citations, editorDataRoot())) {
+        goToCitation(*chosen);
+    }
+}
+
+void MainWindow::citeSelectedEntity() {
+    const core::MapEntity* entity = selectedMapEntity();
+    if (entity == nullptr) {
+        showTransientStatusMessage(QStringLiteral("Select an entity first."),
+                                   REFACTOR_STATUS_TIMEOUT_MS);
+        return;
+    }
+    const std::filesystem::path& root = editorDataRoot();
+    // Un point d'arrivée est cité par son nom ; toute entité, par `carte#id`.
+    std::vector<Citation> citations = citationsOfEntity(root, _viewport->mapId(), entity->id);
+    if (const std::string name = arrivalNameOf(*entity); !name.empty()) {
+        const std::vector<Citation> byName = citationsOfArrival(root, _viewport->mapId(), name);
+        citations.insert(citations.end(), byName.begin(), byName.end());
+    }
+    showCitationsOf(QStringLiteral("Who cites %1")
+                        .arg(QString::fromStdString(entityRef(_viewport->mapId(), entity->id))),
+                    citations);
+}
+
+void MainWindow::renameSelectedEntityId() {
+    const core::MapEntity* entity = selectedMapEntity();
+    if (entity == nullptr) {
+        showTransientStatusMessage(QStringLiteral("Select an entity first."),
+                                   REFACTOR_STATUS_TIMEOUT_MS);
+        return;
+    }
+    const std::string oldId = entity->id;
+    if (!saveBeforeRefactor()) {
+        return;
+    }
+    bool accepted = false;
+    const QString newId =
+        QInputDialog::getText(this, QStringLiteral("Rename entity id"), QStringLiteral("New id:"),
+                              QLineEdit::Normal, QString::fromStdString(oldId), &accepted);
+    if (accepted && !newId.isEmpty()) {
+        carryOutPlan(
+            planRenameEntityId(editorDataRoot(), _viewport->mapId(), oldId, newId.toStdString()),
+            QStringLiteral("Rename entity id"), _viewport->mapId());
+    }
+}
+
+void MainWindow::renameSelectedArrival() {
+    const core::MapEntity* entity = selectedMapEntity();
+    const std::string oldName = entity != nullptr ? arrivalNameOf(*entity) : std::string{};
+    if (oldName.empty()) {
+        showTransientStatusMessage(QStringLiteral("Select an arrival point first."),
+                                   REFACTOR_STATUS_TIMEOUT_MS);
+        return;
+    }
+    if (!saveBeforeRefactor()) {
+        return;
+    }
+    bool accepted = false;
+    const QString newName = QInputDialog::getText(this, QStringLiteral("Rename arrival point"),
+                                                  QStringLiteral("New name:"), QLineEdit::Normal,
+                                                  QString::fromStdString(oldName), &accepted);
+    if (accepted && !newName.isEmpty()) {
+        carryOutPlan(
+            planRenameArrival(editorDataRoot(), _viewport->mapId(), oldName, newName.toStdString()),
+            QStringLiteral("Rename arrival point"), _viewport->mapId());
+    }
+}
+
+void MainWindow::replacePieceOnMaps() {
+    const core::ScenePieceManifest* sheet = _viewport->draft().pieceManifest();
+    if (sheet == nullptr) {
+        showTransientStatusMessage(QStringLiteral("This map has no sheet."),
+                                   REFACTOR_STATUS_TIMEOUT_MS);
+        return;
+    }
+    // Les pièces que la carte pose : celles de la palette, plus celles qui manquent.
+    const std::optional<PieceReplacementChoice> choice =
+        askPieceReplacement(this, citedPiecesOf(_viewport->draft().layers()), *sheet);
+    if (!choice) {
+        return;
+    }
+    if (!choice->allMaps) {
+        if (!_viewport->replacePieces({{choice->from, choice->to}})) {
+            showTransientStatusMessage(
+                QStringLiteral("Nothing replaced: the piece would overflow the map."),
+                REFACTOR_STATUS_TIMEOUT_MS);
         }
-        const std::string oldId = selected()->id;
-        if (!saveBeforeRefactor()) {
-            return;
-        }
-        bool accepted = false;
-        const QString newId = QInputDialog::getText(this, QStringLiteral("Rename entity id"),
-                                                    QStringLiteral("New id:"), QLineEdit::Normal,
-                                                    QString::fromStdString(oldId), &accepted);
-        if (accepted && !newId.isEmpty()) {
-            carryOutPlan(planRenameEntityId(root, _viewport->mapId(), oldId, newId.toStdString()),
-                         QStringLiteral("Rename entity id"), _viewport->mapId());
-        }
-    });
-    QAction* const renameArrival = mapMenu->addAction(QStringLiteral("Rename arrival point…"));
-    connect(renameArrival, &QAction::triggered, this, [this, root, selected, arrivalName] {
-        const core::MapEntity* entity = selected();
-        const std::string oldName = entity != nullptr ? arrivalName(*entity) : std::string{};
-        if (oldName.empty()) {
-            showTransientStatusMessage(QStringLiteral("Select an arrival point first."),
-                                       REFACTOR_STATUS_TIMEOUT_MS);
-            return;
-        }
-        if (!saveBeforeRefactor()) {
-            return;
-        }
-        bool accepted = false;
-        const QString newName = QInputDialog::getText(
-            this, QStringLiteral("Rename arrival point"), QStringLiteral("New name:"),
-            QLineEdit::Normal, QString::fromStdString(oldName), &accepted);
-        if (accepted && !newName.isEmpty()) {
-            carryOutPlan(
-                planRenameArrival(root, _viewport->mapId(), oldName, newName.toStdString()),
-                QStringLiteral("Rename arrival point"), _viewport->mapId());
-        }
-    });
+        return;
+    }
+    if (saveBeforeRefactor()) {
+        carryOutPlan(planReplacePiece(editorDataRoot(), choice->from, choice->to, {}),
+                     QStringLiteral("Replace piece"), _viewport->mapId());
+    }
+}
+
+void MainWindow::buildRefactorMenu(QMenu* mapMenu) {
+    connect(mapMenu->addAction(QStringLiteral("Who cites this map?")), &QAction::triggered, this,
+            [this] {
+                showCitationsOf(
+                    QStringLiteral("Who cites %1").arg(QString::fromStdString(_viewport->mapId())),
+                    citationsOfMap(editorDataRoot(), _viewport->mapId()));
+            });
+    connect(mapMenu->addAction(QStringLiteral("Who cites the selected entity?")),
+            &QAction::triggered, this, [this] { citeSelectedEntity(); });
+    connect(mapMenu->addAction(QStringLiteral("Rename entity id…")), &QAction::triggered, this,
+            [this] { renameSelectedEntityId(); });
+    connect(mapMenu->addAction(QStringLiteral("Rename arrival point…")), &QAction::triggered, this,
+            [this] { renameSelectedArrival(); });
     mapMenu->addSeparator();
-    QAction* const replacePiece = mapMenu->addAction(QStringLiteral("Replace piece…"));
-    connect(replacePiece, &QAction::triggered, this, [this, root] {
-        const core::ScenePieceManifest* sheet = _viewport->draft().pieceManifest();
-        if (sheet == nullptr) {
-            showTransientStatusMessage(QStringLiteral("This map has no sheet."),
-                                       REFACTOR_STATUS_TIMEOUT_MS);
-            return;
-        }
-        // Les pièces que la carte pose : celles de la palette, plus celles qui manquent.
-        std::vector<std::string> cited;
-        for (const core::TileLayer& layer : _viewport->draft().layers()) {
-            if (core::isVisualLayerKind(layer.kind)) {
-                for (const std::string& piece : layer.pieces) {
-                    if (!piece.empty() && std::ranges::find(cited, piece) == cited.end()) {
-                        cited.push_back(piece);
-                    }
-                }
-            }
-        }
-        std::ranges::sort(cited);
-        const std::optional<PieceReplacementChoice> choice =
-            askPieceReplacement(this, cited, *sheet);
-        if (!choice) {
-            return;
-        }
-        if (!choice->allMaps) {
-            if (!_viewport->replacePieces({{choice->from, choice->to}})) {
-                showTransientStatusMessage(
-                    QStringLiteral("Nothing replaced: the piece would overflow the map."),
-                    REFACTOR_STATUS_TIMEOUT_MS);
-            }
-            return;
-        }
-        if (saveBeforeRefactor()) {
-            carryOutPlan(planReplacePiece(root, choice->from, choice->to, {}),
-                         QStringLiteral("Replace piece"), _viewport->mapId());
-        }
-    });
-    QAction* const changeSheet = mapMenu->addAction(QStringLiteral("Change sheet…"));
-    connect(changeSheet, &QAction::triggered, this, [this, root] {
-        const std::optional<SceneChangeChoice> choice = askSceneChange(
-            this, _viewport->draft().layers(), root, scenePlaceOf(_viewport->draft().layers()));
+    connect(mapMenu->addAction(QStringLiteral("Replace piece…")), &QAction::triggered, this,
+            [this] { replacePieceOnMaps(); });
+    connect(mapMenu->addAction(QStringLiteral("Change sheet…")), &QAction::triggered, this, [this] {
+        const std::optional<SceneChangeChoice> choice =
+            askSceneChange(this, _viewport->draft().layers(), editorDataRoot(),
+                           scenePlaceOf(_viewport->draft().layers()));
         if (choice && !_viewport->changeScene(choice->place, choice->table)) {
             showTransientStatusMessage(
                 QStringLiteral("Sheet not changed (a variant changes it with --change-scene)."),
@@ -647,7 +670,7 @@ void MainWindow::renameMap(const std::string& mapId) {
 
 void MainWindow::carryOutPlan(const RefactorPlan& plan, const QString& title,
                               const std::string& openAfter) {
-    const std::filesystem::path root = editorDataRoot();
+    const std::filesystem::path& root = editorDataRoot();
     if (!plan.ok()) {
         QMessageBox::warning(this, title, QString::fromStdString(plan.error));
         return;

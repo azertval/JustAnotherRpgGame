@@ -372,6 +372,21 @@ private:
     /// Les types en couleurs, en losanges : une carte sans lieu (aucune planche à peindre).
     void paintIsoTypeColors(QPainter& painter, const CellRange& cells);
     void paintIsoOverlays(QPainter& painter, const CellRange& cells, const IsoBandOpacity& bands);
+    /// Le masque de collision en losanges : une teinte par catégorie de règle.
+    /// @param painter Le peintre du canevas.
+    /// @param cells   Les cases visibles.
+    /// @param opacity L'opacité de la bande de collision.
+    void paintIsoCollisionMask(QPainter& painter, const CellRange& cells, float opacity);
+    /// Le quadrillage en losanges, du premier au dernier bord visible.
+    /// @param painter Le peintre du canevas.
+    /// @param cells   Les cases visibles.
+    void paintIsoGrid(QPainter& painter, const CellRange& cells);
+    /// Le terrain de la rencontre sélectionnée : sa zone, puis la case de chaque combattant.
+    /// @param painter Le peintre du canevas.
+    void paintEncounterTerrain(QPainter& painter);
+    /// Relit la table d'apparence et le manifeste du lieu @p place.
+    /// @param place Le lieu que la carte nomme ; vide : rien à lire.
+    void loadPlaceAssets(const std::string& place);
     /// @return Le rectangle du monde qu'occupe le contenu de la vue courante, marge comprise.
     [[nodiscard]] QRectF contentBounds() const;
     /// Recalcule l'étendue de la scène (vue, taille de carte, essai) et redemande une peinture.

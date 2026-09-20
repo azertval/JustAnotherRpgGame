@@ -111,17 +111,18 @@ BOOL CALLBACK skipUnreadableMemory(PVOID /*param*/, const PMINIDUMP_CALLBACK_INP
         return FALSE;
     }
     switch (input->CallbackType) {
-    case IncludeModuleCallback:
-    case IncludeThreadCallback:
-    case ModuleCallback:
-    case ThreadCallback:
-    case ThreadExCallback:
-        return TRUE;
-    case ReadMemoryFailureCallback:
-        output->Status = S_OK;
-        return TRUE;
-    default:
-        return FALSE;
+        case IncludeModuleCallback:
+        case IncludeThreadCallback:
+        case ModuleCallback:
+        case ThreadCallback:
+        case ThreadExCallback:
+            return TRUE;
+        case ReadMemoryFailureCallback:
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-union-access): union de l'API Win32.
+            output->Status = S_OK;
+            return TRUE;
+        default:
+            return FALSE;
     }
 }
 

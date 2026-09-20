@@ -114,7 +114,7 @@ QString WorldGraphView::nodeLabel(std::size_t node) const {
     return QString::fromStdString(n.mapId);
 }
 
-QString WorldGraphView::statusText(core::PortalLinkStatus status) const {
+QString WorldGraphView::statusText(core::PortalLinkStatus status) {
     switch (status) {
         case core::PortalLinkStatus::Resolved:
             return QStringLiteral("linked");
@@ -344,7 +344,7 @@ void WorldGraphView::paintNodes(QPainter& painter) const {
     painter.setFont(baseFont);
 }
 
-QString WorldGraphView::nodeDetail(const WorldGraphLayoutNode& node) const {
+QString WorldGraphView::nodeDetail(const WorldGraphLayoutNode& node) {
     // L'état d'une carte à problème.
     if (node.unreadable) {
         return QStringLiteral("unreadable");

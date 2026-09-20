@@ -110,11 +110,42 @@ private:
 
 // --- Pièces ----------------------------------------------------------------------------------
 
-void checkPieces(const core::Level& level, const PlaceAssets& assets, const std::string& place,
-                 Findings& findings) {
+// Ce que le parcours des pièces d'une carte relève.
+struct PieceScan {
     std::vector<core::GridPosition> missing;
     std::map<std::string, std::vector<core::GridPosition>> aliased;
     std::vector<core::GridPosition> overlapping;
+};
+
+// Range la pièce nommée en @p cell : absente du manifeste, citée par un alias, et son emprise dans
+// @p occupants (qui occupe chaque case de la couche).
+void scanPieceCell(const core::TileLayer& layer, const PlaceAssets& assets,
+                   const core::GridPosition cell, const std::string_view name,
+                   std::vector<int>& occupants, PieceScan& scan) {
+    const core::ScenePiece* piece = assets.manifest ? assets.manifest->find(name) : nullptr;
+    if (piece == nullptr) {
+        scan.missing.push_back(cell);
+        return;
+    }
+    if (piece->name != name) {
+        scan.aliased[std::string{name}].push_back(cell);
+    }
+    for (const core::GridPosition covered : core::footprintCells(cell, piece->footprint())) {
+        if (!layer.tiles.inBounds(covered.column, covered.row)) {
+            continue;
+        }
+        const std::size_t index = (static_cast<std::size_t>(covered.row) *
+                                   static_cast<std::size_t>(layer.tiles.width())) +
+                                  static_cast<std::size_t>(covered.column);
+        if (++occupants[index] == 2) {
+            scan.overlapping.push_back(covered);
+        }
+    }
+}
+
+void checkPieces(const core::Level& level, const PlaceAssets& assets, const std::string& place,
+                 Findings& findings) {
+    PieceScan scan;
     for (const core::TileLayer& layer : level.layers()) {
         if (!core::isVisualLayerKind(layer.kind) || !layer.hasPieces()) {
             continue;
@@ -125,34 +156,14 @@ void checkPieces(const core::Level& level, const PlaceAssets& assets, const std:
         for (int row = 0; row < layer.tiles.height(); ++row) {
             for (int column = 0; column < layer.tiles.width(); ++column) {
                 const std::string_view name = layer.pieceAt(column, row);
-                if (name.empty()) {
-                    continue;
-                }
-                const core::GridPosition cell{.column = column, .row = row};
-                const core::ScenePiece* piece =
-                    assets.manifest ? assets.manifest->find(name) : nullptr;
-                if (piece == nullptr) {
-                    missing.push_back(cell);
-                    continue;
-                }
-                if (piece->name != name) {
-                    aliased[std::string{name}].push_back(cell);
-                }
-                for (const core::GridPosition covered :
-                     core::footprintCells(cell, piece->footprint())) {
-                    if (!layer.tiles.inBounds(covered.column, covered.row)) {
-                        continue;
-                    }
-                    const std::size_t index = (static_cast<std::size_t>(covered.row) *
-                                               static_cast<std::size_t>(layer.tiles.width())) +
-                                              static_cast<std::size_t>(covered.column);
-                    if (++occupants[index] == 2) {
-                        overlapping.push_back(covered);
-                    }
+                if (!name.empty()) {
+                    scanPieceCell(layer, assets, {.column = column, .row = row}, name, occupants,
+                                  scan);
                 }
             }
         }
     }
+    const auto& [missing, aliased, overlapping] = scan;
     const std::string manifestPath = place.empty() ? std::string{"(no scene declared)"}
                                                    : "Assets/Scene/" + place + "/manifest.json";
     findings.addCells(MapCheckSeverity::Error, missing,

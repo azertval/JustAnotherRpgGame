@@ -54,9 +54,9 @@ struct SceneTexture {
     /// Largeur d'une image si la texture est une bande d'animation ; 0 sinon.
     int frameWidth = 0;
     /// Origine explicite des pieces modulaires, en pixels d'art du PNG.
-    std::optional<core::Vector2> anchor;
+    std::optional<core::Vector2> anchor{};
     /// Somme des coordonnees locales du pied utilise pour le tri, en cases.
-    std::optional<float> depthOffset;
+    std::optional<float> depthOffset{};
 };
 
 /**

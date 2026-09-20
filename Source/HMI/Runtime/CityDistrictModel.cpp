@@ -27,6 +27,7 @@ namespace {
 
 CityDistrictModel::CityDistrictModel(QObject* parent) : QObject(parent) {}
 
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static): Q_INVOKABLE.
 QVariantMap CityDistrictModel::district(const QString& mapId) const {
     const core::LevelLoadResult lu = lireCarte(mapId);
     if (!lu.ok() || !lu.level.has_value()) {
@@ -56,25 +57,27 @@ QVariantMap CityDistrictModel::district(const QString& mapId) const {
                        {QStringLiteral("blocks"), ilots}};
 }
 
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static): Q_INVOKABLE.
 QString CityDistrictModel::blockImage(const QString& mapId, const QString& blockId,
                                       const QString& figure, qreal heroColumn,
                                       qreal heroRow) const {
     // L'identifiant que `CityBlockImageProvider` lit : champs separes par `|`, encodes pour qu'une
     // barre oblique de la carte (`capital/martpart`) ne se confonde pas avec un chemin.
-    const QString identifiant = QStringList{mapId, blockId, figure, QString::number(heroColumn),
-                                            QString::number(heroRow)}
-                                    .join(QLatin1Char('|'));
+    const QString identifiant =
+        QStringList{mapId, blockId, figure, QString::number(heroColumn), QString::number(heroRow)}
+            .join(QLatin1Char('|'));
     return QStringLiteral("image://cityblock/") +
            QString::fromLatin1(QUrl::toPercentEncoding(identifiant));
 }
 
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static): Q_INVOKABLE.
 QString CityDistrictModel::blockAt(const QString& mapId, int column, int row) const {
     const core::LevelLoadResult lu = lireCarte(mapId);
     if (!lu.ok() || !lu.level.has_value()) {
         return {};
     }
     for (const core::CityBlock& ilot : core::cityBlocksOf(*lu.level)) {
-        if (ilot.contains({column, row})) {
+        if (ilot.contains({.column = column, .row = row})) {
             return QString::fromStdString(ilot.name);
         }
     }

@@ -10,6 +10,7 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <vector>
 
 #include "Editor/Logic/EditContextTarget.h"
 #include "Editor/Logic/EditorTool.h"
@@ -28,6 +29,10 @@ class QToolBar;
  * @brief Fenêtre de l'éditeur de cartes (`LevelEditor`) : le canevas au centre, les panneaux
  *        d'édition en docks.
  */
+
+namespace core {
+struct MapEntity;
+}  // namespace core
 
 namespace hmi {
 
@@ -109,6 +114,20 @@ private:
     /// Les commandes du menu *Map* : qui cite ceci, renommer une entité ou un point d'arrivée,
     /// remplacer une pièce, changer de planche.
     void buildRefactorMenu(QMenu* mapMenu);
+    /// @return L'entité sélectionnée du brouillon, `nullptr` s'il n'y en a pas.
+    [[nodiscard]] const core::MapEntity* selectedMapEntity() const;
+    /// Montre @p citations sous @p title et va à celle que l'auteur choisit.
+    /// @param title     Le titre de la fenêtre.
+    /// @param citations Ce qui cite.
+    void showCitationsOf(const QString& title, const std::vector<Citation>& citations);
+    /// « Qui cite l'entité sélectionnée ? »
+    void citeSelectedEntity();
+    /// « Renommer l'identifiant de l'entité sélectionnée. »
+    void renameSelectedEntityId();
+    /// « Renommer le point d'arrivée sélectionné. »
+    void renameSelectedArrival();
+    /// « Remplacer une pièce », sur cette carte ou sur toutes.
+    void replacePieceOnMaps();
     /// Renomme la carte @p mapId par le renommage propagé ; la carte ouverte suit.
     void renameMap(const std::string& mapId);
     /// Un renommage récrit des fichiers : la carte ouverte doit être enregistrée. @return `false`
@@ -139,7 +158,7 @@ private:
     [[nodiscard]] QString keepAside(const char* label, const std::string& content);
 
     EditorViewport* _viewport;  ///< Canevas (possédé par la fenêtre, widget central).
-    EditContextTarget* _editContext = nullptr;
+    EditContextTarget* _editContext;
     PalettePanel* _palette = nullptr;
     LevelBrowserPanel* _levels = nullptr;
     LayersPanel* _layers = nullptr;

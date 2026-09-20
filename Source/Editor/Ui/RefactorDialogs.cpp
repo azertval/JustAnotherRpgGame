@@ -16,6 +16,7 @@
 #include <QVBoxLayout>
 #include <algorithm>
 #include <cstddef>
+#include <functional>
 
 #include "Editor/Logic/MapFormat.h"
 
@@ -133,6 +134,47 @@ std::optional<PieceReplacementChoice> askPieceReplacement(QWidget* parent,
                                   .allMaps = allMaps->isChecked()};
 }
 
+namespace {
+
+// Les pièces que la carte pose sur ses couches visuelles, sans doublon, triées.
+std::vector<std::string> citedPieceNames(const std::vector<core::TileLayer>& layers) {
+    std::vector<std::string> cited;
+    for (const core::TileLayer& layer : layers) {
+        if (!core::isVisualLayerKind(layer.kind)) {
+            continue;
+        }
+        for (const std::string& piece : layer.pieces) {
+            if (!piece.empty() && std::ranges::find(cited, piece) == cited.end()) {
+                cited.push_back(piece);
+            }
+        }
+    }
+    std::ranges::sort(cited);
+    return cited;
+}
+
+// Une ligne de la table : la pièce de la carte, et le choix de son équivalent sur la nouvelle
+// planche (celui que la table proposée donne, s'il y en a un).
+void addMatchRow(QTableWidget* table, int row, const std::string& piece,
+                 const core::ScenePieceManifest& manifest, const core::PieceRenaming& proposed,
+                 const std::function<void()>& onChanged) {
+    auto* const name = new QTableWidgetItem(QString::fromStdString(piece));
+    name->setFlags(Qt::ItemIsEnabled);
+    table->setItem(row, 0, name);
+    auto* const combo = new QComboBox(table);
+    combo->addItem(QString::fromLatin1(NO_MATCH));
+    for (const core::ScenePiece& candidate : manifest.pieces()) {
+        combo->addItem(QString::fromStdString(candidate.name));
+    }
+    if (const auto found = proposed.find(piece); found != proposed.end()) {
+        combo->setCurrentText(QString::fromStdString(found->second));
+    }
+    QObject::connect(combo, &QComboBox::currentIndexChanged, table, onChanged);
+    table->setCellWidget(row, 1, combo);
+}
+
+}  // namespace
+
 std::optional<SceneChangeChoice> askSceneChange(QWidget* parent,
                                                 const std::vector<core::TileLayer>& layers,
                                                 const std::filesystem::path& dataRoot,
@@ -158,17 +200,7 @@ std::optional<SceneChangeChoice> askSceneChange(QWidget* parent,
     QObject::connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
 
     // Les pièces que la carte pose, une ligne chacune.
-    std::vector<std::string> cited;
-    for (const core::TileLayer& layer : layers) {
-        if (core::isVisualLayerKind(layer.kind)) {
-            for (const std::string& piece : layer.pieces) {
-                if (!piece.empty() && std::ranges::find(cited, piece) == cited.end()) {
-                    cited.push_back(piece);
-                }
-            }
-        }
-    }
-    std::ranges::sort(cited);
+    const std::vector<std::string> cited = citedPieceNames(layers);
 
     const auto refreshOk = [&] {
         int holes = 0;
@@ -191,20 +223,8 @@ std::optional<SceneChangeChoice> askSceneChange(QWidget* parent,
         const core::PieceRenaming proposed = proposedPieceTable(layers, *assets.manifest);
         table->setRowCount(static_cast<int>(cited.size()));
         for (std::size_t index = 0; index < cited.size(); ++index) {
-            const int row = static_cast<int>(index);
-            auto* const name = new QTableWidgetItem(QString::fromStdString(cited[index]));
-            name->setFlags(Qt::ItemIsEnabled);
-            table->setItem(row, 0, name);
-            auto* const combo = new QComboBox(table);
-            combo->addItem(QString::fromLatin1(NO_MATCH));
-            for (const core::ScenePiece& piece : assets.manifest->pieces()) {
-                combo->addItem(QString::fromStdString(piece.name));
-            }
-            if (const auto found = proposed.find(cited[index]); found != proposed.end()) {
-                combo->setCurrentText(QString::fromStdString(found->second));
-            }
-            QObject::connect(combo, &QComboBox::currentIndexChanged, &dialog, refreshOk);
-            table->setCellWidget(row, 1, combo);
+            addMatchRow(table, static_cast<int>(index), cited[index], *assets.manifest, proposed,
+                        refreshOk);
         }
         refreshOk();
     };

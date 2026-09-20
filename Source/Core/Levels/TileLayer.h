@@ -135,7 +135,7 @@ inline constexpr int LAYER_KIND_COUNT = static_cast<int>(LayerKind::Legacy) + 1;
  */
 struct TileLayer {
     /// Nom de la couche, libre et affiché par l'éditeur (« sol », « décor », « collision »…).
-    std::string name;
+    std::string name{};
     /// Rôle de la couche.
     LayerKind kind = LayerKind::Ground;
     /// Grille de tuiles de cette couche. Sans défaut : `core::TileMap` n'est pas constructible par
@@ -143,15 +143,15 @@ struct TileLayer {
     TileMap tiles;
     /// Propriétés libres (`core::PropertyMap`), y compris les clés que le chargeur n'a pas
     /// reconnues — elles sont réémises telles quelles à l'écriture.
-    PropertyMap properties;
+    PropertyMap properties{};
     /// Étage de la couche. **Réservé** (décision D11, `EX-LVL-024`) : lu, gardé et réécrit, mais ni
     /// le jeu ni l'éditeur ne s'en servent ; toute valeur non nulle est signalée par `LevelEditor
     /// --check`.
     int floor = 0;
     /// Pièce nommée par case, ligne par ligne ; vide si aucune case n'en nomme.
-    std::vector<std::string> pieces;
+    std::vector<std::string> pieces{};
     /// Hauteur par case, ligne par ligne ; vide si toutes valent 0. **Réservée** comme `floor`.
-    std::vector<int> elevations;
+    std::vector<int> elevations{};
 
     /// @return La pièce nommée en (@p column, @p row), vide hors grille ou sans pièce.
     [[nodiscard]] std::string_view pieceAt(int column, int row) const noexcept;

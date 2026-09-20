@@ -143,7 +143,7 @@ std::optional<std::filesystem::path> AutosaveStore::keepAside(std::string_view m
     name += '.';
     name += stamp;
     name += ".json";
-    const std::filesystem::path path = _directory / CONFLICTS / name;
+    std::filesystem::path path = _directory / CONFLICTS / name;
     if (!writeReplacing(path, content)) {
         return std::nullopt;
     }

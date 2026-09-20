@@ -43,8 +43,9 @@ Camera2D arenaCamera(const core::IsoProjection& projection, int pixelWidth, int 
 
 ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, bool productionMap)
     : _directory(std::move(coliseumDirectory)) {
-    if (productionMap)
+    if (productionMap) {
         loadBattlefield();
+    }
     // Lectures de fichiers, une fois : ni le catalogue ni les clips ne touchent au GPU, et une
     // recréation des ressources n'a pas à les relire.
     ArenaAppearanceCatalogResult catalog =
@@ -166,33 +167,34 @@ void ArenaSceneRenderer::loadTextures() {
         _loaded.push_back(std::move(*texture));
     }
     if (_battlefield) {
-        for (const auto& path : worldTexturePaths(*_battlefield)) {
-            const auto file = _directory.parent_path() / path;
-            auto texture = loadTextureFromFile(context, file);
-            if (!texture) {
-                GRAPHICS_LOG_WARNING(missingTextureWarning(path));
-                continue;
-            }
-            SceneTexture descriptor{
-                .texture = texture->handle(), .width = texture->width, .height = texture->height};
-            const auto manifest =
-                core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
-            if (manifest.ok()) {
-                descriptor.anchor = scenePieceAnchor(manifest.root, file.filename().string());
-                descriptor.depthOffset =
-                    scenePieceDepthOffset(manifest.root, file.filename().string());
-            }
-            _battlefieldTextures.byPath[path] = descriptor;
-            _loaded.push_back(std::move(*texture));
-        }
-        _battlefieldTextures.missing = {
-            .texture = _missing.handle(), .width = _missing.width, .height = _missing.height};
-        composeWorldScene(
-            _battlefieldScene, *_battlefield,
-            core::IsoProjection(_battlefield->columns, _battlefield->rows,
-                                core::ARENA_TILE_WIDTH_UNITS, _battlefield->diamondRatio),
-            _battlefieldTextures);
+        loadBattlefieldTextures(context);
     }
+}
+
+void ArenaSceneRenderer::loadBattlefieldTextures(const RhiContext& context) {
+    for (const auto& path : worldTexturePaths(*_battlefield)) {
+        const auto file = _directory.parent_path() / path;
+        auto texture = loadTextureFromFile(context, file);
+        if (!texture) {
+            GRAPHICS_LOG_WARNING(missingTextureWarning(path));
+            continue;
+        }
+        SceneTexture descriptor{
+            .texture = texture->handle(), .width = texture->width, .height = texture->height};
+        const auto manifest = core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
+        if (manifest.ok()) {
+            descriptor.anchor = scenePieceAnchor(manifest.root, file.filename().string());
+            descriptor.depthOffset = scenePieceDepthOffset(manifest.root, file.filename().string());
+        }
+        _battlefieldTextures.byPath[path] = descriptor;
+        _loaded.push_back(std::move(*texture));
+    }
+    _battlefieldTextures.missing = {
+        .texture = _missing.handle(), .width = _missing.width, .height = _missing.height};
+    composeWorldScene(_battlefieldScene, *_battlefield,
+                      core::IsoProjection(_battlefield->columns, _battlefield->rows,
+                                          core::ARENA_TILE_WIDTH_UNITS, _battlefield->diamondRatio),
+                      _battlefieldTextures);
 }
 
 void ArenaSceneRenderer::release() noexcept {
