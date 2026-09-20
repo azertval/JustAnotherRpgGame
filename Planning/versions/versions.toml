@@ -17,16 +17,16 @@ titre = "Démo basique"
 nature = "detaillee"
 referentiel = "0.1.0"
 dossier = "v0.1.0/v0.0.1-demo"
-resume = "Trois quartiers de la Capitale en 2D HD, et une quête qui les traverse : du marché de Martpart au sable de l'Arena of Fate."
+resume = "Deux quartiers de la Capitale et un donjon en 2D HD, et une quête qui les traverse : du marché de Martpart au sable de l'Arena of Fate."
 objectifs = [
   "Le **standard 2D HD** : un style écrit, une arborescence d'assets durable, et plus un seul asset pixel art dans le dépôt.",
-  "**Arena of Fate**, **Arenarea** et **Martpart** : assets HD, carte jouable et carte de l'onglet « Carte » pour chacun.",
-  "Les PNJ des trois quartiers : nommés, neutres, et les combattants de l'arène.",
+  "**Martpart** et **Arenarea**, et dans Arenarea le donjon de l'**Arena of Fate** : assets HD, carte jouable et carte de l'onglet « Carte » pour chacun.",
+  "Les PNJ des trois cartes : nommés, neutres, et les combattants de l'arène.",
   "La quête **« Des pommes pour l'arène »**, jouable de bout en bout : dialogue, jet de Persuasion, combat seul contre un, deux fins.",
 ]
 criteres_de_sortie = [
   "Un joueur qui ne connaît pas le projet termine la démo par chacune de ses **trois issues** (persuasion réussie, victoire, mort) sans aide.",
-  "Aucun asset pixel art ne reste dans `Source/Elements/Assets/` ; la galerie de débug montre tous les assets HD.",
+  "Aucun asset pixel art ne reste dans `Source/Elements/Assets/` (les cartes peintes et le HUD, déjà au standard, sont gardés) ; la galerie de débug montre tous les assets HD.",
   "Les trois cartes passent le contrôle de l'éditeur (`--check`) et se parcourent sans case inatteignable.",
   "La CI est verte, l'installeur se lance sur un poste vierge, le tag `v0.0.1` est posé.",
 ]

@@ -11,7 +11,7 @@ livrables = [
   "Le kit de la Capitale enrichi ; les pièces de la démo qui resservent **promues** au commun.",
 ]
 criteres = [
-  "Aucune pièce des trois quartiers de la démo n'est copiée : celles qui resservent sont montées au commun par renommage outillé.",
+  "Aucune pièce des cartes de la démo n'est copiée : celles qui resservent sont montées au commun par renommage outillé.",
 ]
 +++
 

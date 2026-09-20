@@ -8,7 +8,7 @@ ne s'édite ailleurs.
 Trois choses ont changé le 20 septembre 2026, et ce dossier en découle :
 le jeu quitte le **pixel art** pour la **2D HD** ; le référentiel `0.1.0` n'est plus le monde entier
 mais **une seule région**, l'Empire central ; et la `0.0.1` n'est plus un *vertical slice* ambitieux
-mais une **démo basique** — trois quartiers, une quête. Le détail est dans
+mais une **démo basique** — deux quartiers et un donjon, une quête. Le détail est dans
 [les décisions](vision/decisions.md).
 
 ## S'y retrouver

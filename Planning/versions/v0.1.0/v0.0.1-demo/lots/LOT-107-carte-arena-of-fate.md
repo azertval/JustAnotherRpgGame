@@ -1,15 +1,15 @@
 +++
 id = "LOT-107"
-titre = "Carte — Arena of Fate"
+titre = "Carte — Arena of Fate (donjon d'Arenarea)"
 version = "0.0.1"
 filiere = "cartes"
 statut = "a-faire"
 taille = "M"
-resume = "Arena of Fate se parcourt, et figure dans l'onglet « Carte »."
+resume = "L'Arena of Fate se parcourt, et figure dans l'onglet « Carte » **à l'intérieur d'Arenarea**."
 prerequis = ["LOT-106", "LOT-103"]
 livrables = [
-  "`Levels/central-empire/capital/arena-of-fate.json`, dessinée **dans l'éditeur**.",
-  "`capital/arena-of-fate/Map/` : l'image de la zone pour l'onglet « Carte », et son entrée dans `world-maps.json`.",
+  "`Levels/central-empire/capital/arenarea/arena-of-fate.json`, dessinée **dans l'éditeur**.",
+  "`capital/arenarea/arena-of-fate/Map/` : l'image de la zone pour l'onglet « Carte », et son entrée dans `world-maps.json`.",
   "Portails, points d'apparition nommés, zones (combat, déclencheurs de quête).",
 ]
 criteres = [
@@ -19,6 +19,14 @@ criteres = [
 ]
 maquettes = ["../maquettes/plan-arena-of-fate.svg"]
 +++
+
+## Une sous-zone, pas un quartier
+
+L'Arena of Fate est un **donjon d'Arenarea** (décision D-16) : un lieu clos, à plusieurs salles —
+vestiaire A, vestiaire B, couloir, sable —, où l'on entre **depuis le quartier**, par la porte de
+l'arène au bout du parvis. Elle n'a pas d'entrée sur le plan de la Capitale : l'onglet « Carte »
+la montre **dans** Arenarea. Ses assets et sa carte se rangent sous `capital/arenarea/arena-of-fate/`,
+et elle puise d'abord dans le kit d'Arenarea, puis dans celui de la Capitale.
 
 ## Conception
 

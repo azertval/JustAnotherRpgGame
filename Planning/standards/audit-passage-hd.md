@@ -42,7 +42,7 @@ et `Assets/Coliseum` sans garde : une liste vide fait échouer CMake. `CopyGameD
 (`Source/HMI/CMakeLists.txt:138-159`) exige que `Levels/`, `Maps/`, `World/` et `Assets/` existent.
 
 **Dans les contrôles Python** (job `lint-exigences`) : `check_map_assets.py` lit
-`Assets/Maps/manifest.json` sans condition et exige une carte par région de l'atlas ;
+`Assets/Maps/manifest.json` sans condition — sans objet depuis la décision D-15, les cartes peintes restent ;
 `check_rpg_data.py` exige que chaque quartier de `World/cities/capital.json` pointe sur une carte
 de `Levels/` ; `check_asset_keys.py` exige `Assets/Entities/families.json` ; `generate_cahier_test.py
 --check` échoue tant que le cahier n'est pas régénéré ; deux tests pytest portent sur la carte
@@ -63,11 +63,11 @@ nouvelle arborescence.
 
 | À garder | Pourquoi |
 |---|---|
-| `Assets/UI/`, `Assets/Fonts/` | l'interface à la charte v2 n'est pas du pixel art |
+| `Assets/UI/`, `Assets/Fonts/` | le HUD et l'interface à la charte v2 sont **déjà au standard** (décision D-15) |
 | `Assets/Entities/families.json` | familles d'icônes RPG, sans rapport avec la scène ; `check_asset_keys.py` l'exige |
 | `World/regions/`, `World/locations/` | l'atlas : 13 régions, 107 fiches, lu par les tests et par cette planification |
 | `World/dialogues/`, `Rpg/`, `Localization/`, `Credits/` | règles et textes, indépendants du style |
-| `Assets/Maps/` et `Maps/world-maps.json` | **à trancher** : les seize cartes peintes par l'auteur ne sont pas du pixel art ; le LOT-102 propose de garder le monde et les régions, et de refaire les plans de ville avec leurs quartiers |
+| `Assets/Maps/` et `Maps/world-maps.json` | les seize cartes peintes par l'auteur sont **déjà au standard** : elles restent (décision D-15), avec l'écran « Carte » et ses contrôles |
 
 ## 4. Ce que `Tools/AssetsHD/` contient déjà
 

@@ -11,7 +11,7 @@ reprend = ["LOT-88 (retrait de l'héritage, même méthode)"]
 livrables = [
   "Suppression de `Assets/Scene/`, `Assets/Coliseum/`, `Assets/Npc/`, `Assets/Monsters/` (images), de `Levels/coliseum.json`, `Levels/capital/` et `World/arena/`.",
   "La [nouvelle arborescence](../../../../standards/arborescence-assets.md) créée, avec ses manifestes vides et un README par niveau.",
-  "Les gardes CMake (`Source/Ui/CMakeLists.txt`), `check_map_assets.py`, `check_rpg_data.py` et `World/cities/capital.json` adaptés à une base sans carte.",
+  "La garde CMake de `JadgUiColiseum` (`Source/Ui/CMakeLists.txt`), `check_rpg_data.py` et `World/cities/capital.json` adaptés à une base sans carte **jouable** ; les cartes peintes et le HUD ne sont pas touchés.",
   "Les tests qui nommaient un contenu livré : cinq supprimés, les autres rebranchés sur des **données de test** (`Source/Test/Fixtures/`).",
   "`Documentation/CahierTest.md` et les captures de référence QML régénérés.",
   "L'atelier pixel art retiré : `extract_texture_sheet.py`, `extract_coliseum_atlas.py`, les dispositions du LOT-92, le contrat de `LOT-CREATION-ASSETS`.",
@@ -36,13 +36,15 @@ avec sa PR et sa recette.
 **Part** : tout l'art de scène, toutes les figurines, toutes les cartes jouables, les arènes de
 `World/arena/`, l'atelier pixel art et ses scripts.
 
-**Reste** : `Assets/UI/` et `Assets/Fonts/` (l'interface à la charte v2 n'est pas du pixel art),
+**Reste** : `Assets/UI/` et `Assets/Fonts/` (le HUD et l'interface à la charte v2 sont au standard),
 `Assets/Entities/families.json`, l'atlas (`World/regions/`, `World/locations/`), les dialogues, les
 règles (`Rpg/`), les textes.
 
-**À trancher par l'auteur** : les seize cartes peintes de `Assets/Maps/`. Proposé : garder le
-monde et les treize régions, qui ne sont pas du pixel art et servent toutes les versions ; refaire
-les plans de ville avec leurs quartiers (lots de cartes).
+**Restent aussi, par décision de l'auteur (D-15)** : les seize cartes peintes de `Assets/Maps/`
+et `Maps/world-maps.json` (monde, régions, villes), et tout le HUD — ils sont **déjà au standard**.
+Conséquence heureuse : `check_map_assets.py`, `test_world_maps.cpp`, l'écran « Carte » et ses
+captures de référence n'ont pas à bouger, et la garde CMake de `JadgUiMaps` devient inutile. Seul
+`World/cities/capital.json` change : ses quartiers pointent sur des cartes jouables supprimées.
 
 ## Conception
 

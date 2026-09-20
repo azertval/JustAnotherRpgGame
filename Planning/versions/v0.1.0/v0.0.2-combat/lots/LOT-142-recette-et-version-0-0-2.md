@@ -21,4 +21,4 @@ criteres = [
 
 ## Périmètre
 
-Pas de nouvelle zone : la `0.0.2` se joue dans les trois quartiers de la démo.
+Pas de nouvelle zone : la `0.0.2` se joue sur les trois cartes de la démo.

@@ -12,7 +12,7 @@ jouable, détaillée à fond ; les suivantes esquissées ; rien au-delà n'est p
 
 | Version | Ce qu'elle rend jouable | Nature |
 |---|---|---|
-| `0.0.1` | **Démo basique** : Arena of Fate, Arenarea, Martpart en 2D HD ; une quête | détaillée, lot par lot |
+| `0.0.1` | **Démo basique** : Martpart, Arenarea et son donjon l'Arena of Fate, en 2D HD ; une quête | détaillée, lot par lot |
 | `0.0.2` | **Système de combat** : les quatre classes de base, le combat de groupe, l'interface | détaillée |
 | `0.0.3` → `0.0.9` | **Une sous-version par zone** de l'Empire central : la Capitale dans ses murs, les faubourgs, les abords, la côte sud, Bak, le nord, l'ouest | détaillée à la maille de la zone |
 | **`0.1.0`** | **L'Empire central**, relu d'un bloc : toutes ses zones, ses PNJ nommés, ses peuples, ses animaux, ses monstres, quatre classes | détaillée |
@@ -61,7 +61,7 @@ Le détail de chaque région est dans [le référentiel](../referentiels/monde/r
 ## Ce qu'on ne sait pas encore
 
 **Ce que coûte une zone.** Toute la trajectoire repose sur ce nombre, et il n'existe pas : aucune
-zone HD n'a été produite. La `0.0.1` le donnera pour trois quartiers, la `0.0.3` pour six de plus.
+zone HD n'a été produite. La `0.0.1` le donnera pour deux quartiers et un donjon, la `0.0.3` pour six de plus.
 D'ici là, aucune date n'est annoncée — ce serait une extrapolation, pas une prévision. À l'échelle :
 l'Empire central compte une vingtaine de zones ; le monde complet, une centaine, plus le plan
 pénombral.

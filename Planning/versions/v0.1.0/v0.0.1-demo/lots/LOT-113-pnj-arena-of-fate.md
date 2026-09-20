@@ -1,6 +1,6 @@
 +++
 id = "LOT-113"
-titre = "PNJ — Arena of Fate"
+titre = "PNJ — Arena of Fate (donjon d'Arenarea)"
 version = "0.0.1"
 filiere = "pnj"
 statut = "a-faire"
@@ -8,7 +8,7 @@ taille = "M"
 resume = "Les habitants de Arena of Fate : figurines HD, portraits, fiches, placements."
 prerequis = ["LOT-104", "LOT-112"]
 livrables = [
-  "`capital/arena-of-fate/Characters/` pour les PNJ propres ; les archétypes de citadins dans `capital/Common/Characters/`.",
+  "`capital/arenarea/arena-of-fate/Characters/` pour les PNJ propres ; les archétypes de citadins dans `capital/Common/Characters/`.",
   "Pour chaque PNJ : figurine animée, portrait, jeton, et sa fiche (`Rpg/`) quand il en a une.",
   "Les placements sur la carte (entités), et les répliques d'ambiance.",
 ]
@@ -30,6 +30,14 @@ sources = ["Référentiel : Arena of Fate dans `referentiels/central-empire/`"]
 Proportions de la foule (livre, p. 90) : sur cent passants, 84 humains, 5 gnomes, 3 elfes d'été,
 2 tieffelins, 2 nains, 2 soulborns. Voir [la population neutre](../../../../referentiels/central-empire/population-neutre.md)
 et [les PNJ nommés](../../../../referentiels/central-empire/pnj-nommes.md).
+
+## Une sous-zone, pas un quartier
+
+L'Arena of Fate est un **donjon d'Arenarea** (décision D-16) : un lieu clos, à plusieurs salles —
+vestiaire A, vestiaire B, couloir, sable —, où l'on entre **depuis le quartier**, par la porte de
+l'arène au bout du parvis. Elle n'a pas d'entrée sur le plan de la Capitale : l'onglet « Carte »
+la montre **dans** Arenarea. Ses assets et sa carte se rangent sous `capital/arenarea/arena-of-fate/`,
+et elle puise d'abord dans le kit d'Arenarea, puis dans celui de la Capitale.
 
 ## Périmètre
 

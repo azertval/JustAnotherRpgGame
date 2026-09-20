@@ -1,6 +1,7 @@
 # La quête de démonstration — « Des pommes pour l'arène »
 
-La `0.0.1` tient en **une quête**, jouée sur **trois cartes**. Elle sert de banc d'essai : tout ce
+La `0.0.1` tient en **une quête**, jouée sur **trois cartes** : deux quartiers, Martpart et Arenarea,
+et un donjon, l'Arena of Fate, qui est une **sous-zone d'Arenarea**. Elle sert de banc d'essai : tout ce
 qu'elle traverse — dialogue, jet de compétence, drapeaux de quête, changement de carte, combat,
 écran de fin — doit exister en version finale pour que la démo se termine. Rien de plus n'entre
 dans la version.

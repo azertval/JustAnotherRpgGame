@@ -1,14 +1,14 @@
 +++
 id = "LOT-106"
-titre = "Assets HD — Arena of Fate"
+titre = "Assets HD — Arena of Fate (donjon d'Arenarea)"
 version = "0.0.1"
 filiere = "assets"
 statut = "a-faire"
 taille = "L"
-resume = "Les pièces propres à Arena of Fate, produites au standard et installées dans `capital/arena-of-fate/Scene/`."
-prerequis = ["LOT-105"]
+resume = "Les pièces propres à Arena of Fate, produites au standard et installées dans `capital/arenarea/arena-of-fate/Scene/`."
+prerequis = ["LOT-105", "LOT-108"]
 livrables = [
-  "`Regions/central-empire/capital/arena-of-fate/Scene/` : pièces, `manifest.json`, `appearance.json`.",
+  "`Regions/central-empire/capital/arenarea/arena-of-fate/Scene/` : pièces, `manifest.json`, `appearance.json`.",
   "La commande de la zone (`Tools/AssetsHD/`) : les dix familles passées en revue, ce qui vient du kit, ce qui est propre.",
   "La page de galerie de la zone.",
 ]
@@ -36,6 +36,14 @@ L'amphithéâtre ovale en bord de baie : sable, enceinte à arcades, gradins rou
 
 Le détail du quartier — texte du livre et lieux nommés sur le plan — est dans
 [le référentiel de la Capitale](../../../../referentiels/central-empire/capitale.md).
+
+## Une sous-zone, pas un quartier
+
+L'Arena of Fate est un **donjon d'Arenarea** (décision D-16) : un lieu clos, à plusieurs salles —
+vestiaire A, vestiaire B, couloir, sable —, où l'on entre **depuis le quartier**, par la porte de
+l'arène au bout du parvis. Elle n'a pas d'entrée sur le plan de la Capitale : l'onglet « Carte »
+la montre **dans** Arenarea. Ses assets et sa carte se rangent sous `capital/arenarea/arena-of-fate/`,
+et elle puise d'abord dans le kit d'Arenarea, puis dans celui de la Capitale.
 
 ## Périmètre
 
