@@ -1,8 +1,0 @@
-CHARACTER: Anariel, the Swordmage - an autumn-elf queen (Medium humanoid).
-LOOK: long white hair with a thin golden
-circlet, pointed ears; ornate gold-and-crimson mithral plate armour with layered
-pauldrons; deep red cape; slim build, regal stance.
-WEAPON: a rapier held in the right hand, its blade wreathed in orange flame; a
-small flame hovering over the open left hand. Ranged attacks not needed.
-PALETTE (taken from the retained project portrait; use only these plus their darker/lighter tones): #D3AC93, #F7E7C9, #9D5A29, #581C20, #E89633, #F9DD6A, #F26823.
-ANIMATION SET: all eight rows.
