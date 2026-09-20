@@ -52,6 +52,10 @@ struct MapEntity {
     /// Forme **peinte** d'une zone (décision D13) : les cases qu'elle couvre. Vide pour une entité
     /// ponctuelle ou une zone rectangle (propriétés `width` et `height`).
     std::vector<GridPosition> cells{};
+
+    /// Deux entités sont égales si tout l'est, identifiant compris : ce que compare un tampon
+    /// relu (`LOT-EDITOR-08`) ou un test qui vérifie qu'une carte n'a pas bougé.
+    [[nodiscard]] bool operator==(const MapEntity&) const = default;
 };
 
 /// @return L'identifiant que l'éditeur donne à la @p number-ième entité d'une carte : `e<number>`.

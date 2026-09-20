@@ -20,6 +20,7 @@
 #include "Editor/Logic/LayerView.h"
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/PaintTools.h"
+#include "Editor/Logic/Stamps.h"
 
 namespace core {
 class LevelDraft;
@@ -61,7 +62,8 @@ class LevelDraft;
  * `mirror` (`[c, r]` : l'axe qui passe par cette case ; `false` : plus de miroir), `type` (un type
  * de tuile) ou `piece` (une pièce de la planche du lieu, `floor` la dit sol si la planche ne la
  * connaît pas), `kind` (la famille d'entité à poser ; `""` : l'outil ne fait que sélectionner),
- * `select` (des identifiants d'entité). Un geste sans `tool` ne fait qu'armer. Ce qui est armé le
+ * `select` (des identifiants d'entité), `prefab` (un préfabriqué de la bibliothèque du lieu, qui
+ * devient le tampon à poser). Un geste sans `tool` ne fait qu'armer. Ce qui est armé le
  * reste pour les gestes suivants, comme dans la fenêtre.
  *
  * | `tool` | champs | ce que fait la main |
@@ -72,7 +74,7 @@ class LevelDraft;
  * | `bucket` | `at` | un clic |
  * | `pipette` | `at` | un clic : le pinceau pris est armé |
  * | `selection` | `from`, `to`, `then` | tirer ; `then` : `copy` (`Ctrl+C`) ou `delete` (`Suppr`) |
- * | `paste` | `at` | `Ctrl+V` au-dessus de la case |
+ * | `paste` | `at`, `flip` | `Ctrl+V`, coin haut gauche sur la case ; `flip` : le tampon reflété |
  * | `entity` | `at`, `to`, `ctrl`, `shift`, `set`, `then` | appui, glisser jusqu'à `to` ; `set` :
  * propriétés de l'entité sélectionnée ; `then: "delete"` : `Suppr` | | `shape` | `path` ou `at`,
  * `to`, `ctrl` | l'outil Forme sur l'entité sélectionnée | | `measure` | `from`, `to` | la mesure,
@@ -110,8 +112,8 @@ struct GestureState {
     std::optional<std::size_t> selectedEntity;
     /// La région de l'outil Sélection, coins triés.
     std::optional<std::pair<core::GridPosition, core::GridPosition>> selection;
-    /// Ce que `Ctrl+C` a copié.
-    std::vector<std::vector<core::TileType>> clipboard;
+    /// Ce que `Ctrl+C` a copié, ou le préfabriqué armé (`LOT-EDITOR-08`).
+    Stamp clipboard;
 };
 
 /// @brief Ce qu'un fichier de gestes a fait.
@@ -144,11 +146,14 @@ struct GestureScriptResult {
  * @param draft   La carte à modifier.
  * @param sidecar Son annexe (les notes).
  * @param assets  Le manifeste et la table de son lieu.
+ * @param dataRoot La racine des données, où vit la bibliothèque de préfabriqués ; vide, un geste
+ *                 qui arme un `prefab` est refusé.
  */
 [[nodiscard]] GestureScriptResult applyGestureScript(const nlohmann::json& script,
                                                      core::LevelDraft& draft,
                                                      EditorSidecar& sidecar,
-                                                     const PlaceAssets& assets);
+                                                     const PlaceAssets& assets,
+                                                     const std::filesystem::path& dataRoot = {});
 
 /// @brief Ce que `--apply` a produit : le texte de la carte et celui de son annexe.
 struct GestureFileResult {

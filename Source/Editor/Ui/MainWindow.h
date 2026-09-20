@@ -5,8 +5,10 @@
 
 #include <QByteArray>
 #include <QMainWindow>
+#include <QPixmap>
 #include <array>
 #include <filesystem>
+#include <map>
 #include <memory>
 #include <optional>
 #include <string>
@@ -110,6 +112,16 @@ private:
     /// qui en dépend : références, graphe du monde, contrôle.
     bool saveMap();
 
+    // --- Tampons et préfabriqués (LOT-EDITOR-08) ---
+    /// Montre la bibliothèque du lieu ouvert dans la palette ; les vignettes déjà rendues sont
+    /// gardées. Le dossier n'est relu que si le lieu a changé, ou si @p force le demande (après
+    /// un enregistrement) : le brouillon change à chaque geste, pas la bibliothèque.
+    void refreshPrefabs(bool force = false);
+    /// « Save selection as prefab… » : demande un nom, écrit le tampon de la sélection.
+    void saveSelectionAsPrefab();
+    /// Arme le préfabriqué @p name du lieu ouvert comme tampon du canevas.
+    void armPrefab(const QString& name);
+
     // --- Renommer et remplacer (LOT-EDITOR-14) ---
     /// Les commandes du menu *Map* : qui cite ceci, renommer une entité ou un point d'arrivée,
     /// remplacer une pièce, changer de planche.
@@ -182,6 +194,11 @@ private:
     bool _suppressPanelFocusTracking = false;
     std::array<QLabel*, 5> _statusZones{};
     QTimer* _statusMessageTimer = nullptr;
+
+    /// La bibliothèque montrée : le lieu dont elle vient — relue quand il change — et les
+    /// vignettes déjà rendues, par `lieu/nom`.
+    std::string _prefabPlace;
+    std::map<std::string, QPixmap> _prefabThumbnails;
 
     std::unique_ptr<AutosaveStore> _autosave;
     QTimer* _autosaveTimer = nullptr;

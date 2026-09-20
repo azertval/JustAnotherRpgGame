@@ -51,11 +51,13 @@
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/MapRefactor.h"
 #include "Editor/Logic/PieceCatalog.h"
+#include "Editor/Logic/Stamps.h"
 #include "Editor/Ui/EditorActions.h"
 #include "Editor/Ui/EditorViewport.h"
 #include "Editor/Ui/EntityPanel.h"
 #include "Editor/Ui/LayersPanel.h"
 #include "Editor/Ui/LevelBrowserPanel.h"
+#include "Editor/Ui/MapRender.h"
 #include "Editor/Ui/MiniMap.h"
 #include "Editor/Ui/PalettePanel.h"
 #include "Editor/Ui/ProblemsPanel.h"
@@ -77,6 +79,8 @@ constexpr const char* GEOMETRY_KEY = "mainWindow/geometry";
 constexpr const char* STATE_KEY = "mainWindow/state";
 // Réglage de mise en avant automatique des panneaux.
 constexpr const char* FOLLOW_ACTIVE_TOOL_KEY = "panels/followActiveTool";
+// Cote de la vignette d'un prefabrique, en pixels : celle de la palette (LOT-EDITOR-08).
+constexpr int PREFAB_THUMBNAIL_SIDE = 72;
 
 // Taille maximale d'une carte dans la boîte « Resize ».
 constexpr int MAXIMUM_MAP_SIDE = 100;
@@ -165,7 +169,9 @@ MainWindow::MainWindow(bool crashAfterAutosave)
     // ait.
     const auto refreshPalette = [this] {
         _palette->setPieceCatalog(_viewport->pieceCatalog(), _viewport->placeDirectory());
+        refreshPrefabs();
     };
+    connect(_palette, &PalettePanel::prefabSelected, this, &MainWindow::armPrefab);
     connect(_viewport, &EditorViewport::draftChanged, this, refreshPalette);
     refreshPalette();
     // Le canevas change d'outil de lui-même (une famille d'entité choisie arme l'outil Entité) :
@@ -300,6 +306,9 @@ void MainWindow::buildMenus() {
     editMenu->addSeparator();
     editMenu->addAction(_actions->action(EditorCommand::Copy));
     editMenu->addAction(_actions->action(EditorCommand::Paste));
+    editMenu->addAction(_actions->action(EditorCommand::PasteMirrored));
+    editMenu->addSeparator();
+    editMenu->addAction(_actions->action(EditorCommand::SaveAsPrefab));
 
     QMenu* const toolsMenu = menuBar()->addMenu(QStringLiteral("&Tools"));
     for (QAction* const act : _actions->all()) {
@@ -711,6 +720,81 @@ void MainWindow::goToCitation(const Citation& citation) {
                                 .entityId = citation.entityId});
 }
 
+// --- Tampons et prefabriques (LOT-EDITOR-08)
+// -----------------------------------------------
+
+void MainWindow::refreshPrefabs(bool force) {
+    const std::filesystem::path root = editorDataRoot();
+    const std::string place = _viewport->place();
+    if (!force && place == _prefabPlace) {
+        return;  // le brouillon change a chaque geste, pas la bibliotheque.
+    }
+    _prefabPlace = place;
+    const std::vector<std::string> names = prefabNames(root, place);
+    std::vector<PalettePanel::PrefabItem> items;
+    for (const std::string& name : names) {
+        std::string error;
+        const std::optional<Stamp> stamp = readPrefab(root, place, name, error);
+        if (!stamp) {
+            HMI_LOG_WARNING("Prefabriques : " + error);
+            continue;
+        }
+        const std::string key = place + "/" + name;
+        const auto cached = _prefabThumbnails.find(key);
+        if (cached == _prefabThumbnails.end()) {
+            const QImage image = renderStamp(*stamp, root, place, PREFAB_THUMBNAIL_SIDE);
+            _prefabThumbnails[key] = QPixmap::fromImage(image);
+        }
+        items.push_back(
+            PalettePanel::PrefabItem{.name = QString::fromStdString(name),
+                                     .detail = QString::fromStdString(stampLabel(*stamp)),
+                                     .thumbnail = _prefabThumbnails[key]});
+    }
+    _palette->setPrefabs(std::move(items));
+}
+
+void MainWindow::saveSelectionAsPrefab() {
+    const Stamp stamp = _viewport->selectionStamp();
+    if (stamp.empty()) {
+        showTransientStatusMessage(
+            QStringLiteral("Nothing to save: select a region with the Selection tool first."),
+            5000);
+        return;
+    }
+    bool accepted = false;
+    const QString name =
+        QInputDialog::getText(this, QStringLiteral("Save selection as prefab"),
+                              QStringLiteral("Prefab name (lowercase letters, digits, - and _):"),
+                              QLineEdit::Normal, QString{}, &accepted);
+    if (!accepted || name.isEmpty()) {
+        return;
+    }
+    const std::filesystem::path root = editorDataRoot();
+    const std::string place = _viewport->place();
+    const std::string error = writePrefab(root, place, name.toStdString(), stamp);
+    if (!error.empty()) {
+        QMessageBox::warning(this, QStringLiteral("Save failed"), QString::fromStdString(error));
+        return;
+    }
+    // La vignette du nom repris est a refaire : le tampon a change.
+    _prefabThumbnails.erase(place + "/" + name.toStdString());
+    refreshPrefabs(true);
+    showTransientStatusMessage(QStringLiteral("Prefab \"%1\" saved (%2).")
+                                   .arg(name, QString::fromStdString(stampLabel(stamp))),
+                               5000);
+}
+
+void MainWindow::armPrefab(const QString& name) {
+    std::string error;
+    std::optional<Stamp> stamp =
+        readPrefab(editorDataRoot(), _viewport->place(), name.toStdString(), error);
+    if (!stamp) {
+        QMessageBox::warning(this, QStringLiteral("Prefab"), QString::fromStdString(error));
+        return;
+    }
+    _viewport->setClipboardStamp(std::move(*stamp));
+}
+
 void MainWindow::runContentCheck() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
     const MapCheckReport report = checkAllMaps(editorDataRoot());
@@ -779,6 +863,11 @@ void MainWindow::connectEditorCommands() {
             [this] { _editContext->copy(); });
     connect(_actions->action(EditorCommand::Paste), &QAction::triggered, this,
             [this] { _editContext->paste(); });
+    // Tampons et préfabriqués (LOT-EDITOR-08) : le reflet, et la bibliothèque du lieu.
+    connect(_actions->action(EditorCommand::PasteMirrored), &QAction::triggered, _viewport,
+            [this] { _viewport->pasteMirroredClipboard(); });
+    connect(_actions->action(EditorCommand::SaveAsPrefab), &QAction::triggered, this,
+            [this] { saveSelectionAsPrefab(); });
     connect(_actions->action(EditorCommand::ToggleGrid), &QAction::triggered, _viewport,
             [this] { _viewport->toggleGrid(); });
     connect(_actions->action(EditorCommand::ResetCamera), &QAction::triggered, _viewport,

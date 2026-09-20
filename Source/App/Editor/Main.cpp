@@ -13,7 +13,8 @@
  * automatique : c'est ce qui éprouve la reprise d'un brouillon après un plantage.
  *
  * `--check` et `--migrate` (`LOT-EDITOR-12`, décision D9), `--apply` et `--render`
- * (`LOT-EDITOR-13`), les renommages et remplacements (`LOT-EDITOR-14`) s'exécutent **sans fenêtre**
+ * (`LOT-EDITOR-13`), les renommages et remplacements (`LOT-EDITOR-14`), la bibliothèque de
+ * préfabriqués (`LOT-EDITOR-08`) s'exécutent **sans fenêtre**
  * et rendent la main aussitôt : ni `QApplication` ni affichage, ce qui les fait tourner en CI
  * (`hmi::runMapCommand`, `hmi::runRenderCommand`).
  */
@@ -35,6 +36,7 @@
 #include "Editor/Logic/DataRoot.h"
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/MapRefactor.h"
+#include "Editor/Logic/Stamps.h"
 #include "Editor/Ui/EditorViewport.h"
 #include "Editor/Ui/MainWindow.h"
 #include "Editor/Ui/MapRender.h"
@@ -69,6 +71,10 @@ int main(int argc, char** argv) {
         const std::optional<int> checked = hmi::runMapCommand(checkOnly, dataRoot, report);
         std::cout << report << std::flush;
         return checked.value_or(0);
+    }
+    if (const std::optional<int> code = hmi::runPrefabCommand(arguments, dataRoot, report)) {
+        std::cout << report << std::flush;
+        return *code;
     }
     if (const std::optional<int> code = hmi::runMapCommand(arguments, dataRoot, report)) {
         std::cout << report << std::flush;

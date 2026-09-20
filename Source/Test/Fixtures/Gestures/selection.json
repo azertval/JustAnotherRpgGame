@@ -1,10 +1,11 @@
 {
   "format": "jadg-editor-gestures",
   "version": 1,
-  "note": "La sélection : trois murs de la collision copiés puis collés plus bas, et la pièce large du décor retirée par Suppr.",
+  "note": "La sélection : trois pièces de mur copiées en tampon, reposées plus bas, puis reposées en miroir — le tampon 3 × 1 devient 1 × 3 et prend les jumelles —, et la pièce large du décor retirée par Suppr.",
   "gestures": [
-    {"layer": "collision", "tool": "selection", "from": [3, 0], "to": [5, 0], "then": "copy"},
+    {"tool": "selection", "from": [3, 0], "to": [5, 0], "then": "copy"},
     {"tool": "paste", "at": [3, 4]},
+    {"tool": "paste", "at": [9, 1], "flip": true},
     {"layer": "relief", "tool": "selection", "from": [7, 6], "to": [8, 6], "then": "delete"}
   ]
 }

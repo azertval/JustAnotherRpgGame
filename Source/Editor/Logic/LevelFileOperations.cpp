@@ -97,7 +97,8 @@ std::vector<std::filesystem::path> LevelFileOperations::list() const {
 }
 
 FileOperationResult LevelFileOperations::create(const std::string& name, int width, int height,
-                                                const std::string& place) const {
+                                                const std::string& place,
+                                                const MapTemplate* model) const {
     const std::string trimmed = hmi::trimLevelName(name);
     if (!hmi::isValidLevelName(name)) {
         return FileOperationResult::failure("Nom de niveau invalide.");
@@ -112,6 +113,39 @@ FileOperationResult LevelFileOperations::create(const std::string& name, int wid
     }
     // Niveau minimal valide : grille vide + une entrée (coin bas gauche).
     core::LevelDraft draft = core::LevelDraft::empty(nameKeyFor(target), width, height);
+    if (model != nullptr) {
+        // Le modèle (LOT-EDITOR-08) : ses couches, son tampon, son entrée. Il ne nomme aucune
+        // pièce ; seul le lieu, s'il y en a un, dit où les prendre.
+        for (const MapTemplateLayer& layer : model->layers) {
+            const std::optional<std::size_t> added = draft.addLayer(layer.kind, layer.name);
+            if (added && layer.scene && !place.empty()) {
+                draft.setLayerProperty(*added, std::string{SCENE_PLACE_PROPERTY}, place);
+            }
+        }
+        draft.paintRegion(0, 0,
+                          std::vector<std::vector<core::TileType>>(
+                              static_cast<std::size_t>(height),
+                              std::vector<core::TileType>(static_cast<std::size_t>(width),
+                                                          core::TileType::Wall)));
+        const LayerViewState libre;
+        const StampPasteResult pose =
+            pasteStamp(draft, model->stamp, core::GridPosition{.column = 0, .row = 0}, libre);
+        if (!pose.refusal.empty()) {
+            return FileOperationResult::failure("Modèle refusé : " + pose.refusal);
+        }
+        const core::GridPosition entry =
+            model->entry.value_or(core::GridPosition{.column = 0, .row = height - 1});
+        draft.setEntry(std::min(entry.column, width - 1), std::min(entry.row, height - 1));
+        core::LevelLoadResult fromTemplate = draft.toLevel();
+        if (!fromTemplate.ok()) {
+            return FileOperationResult::failure("Niveau invalide : " + fromTemplate.error);
+        }
+        if (!core::LevelWriter::saveToFile(*fromTemplate.level, target)) {
+            return FileOperationResult::failure("Échec de l'écriture du fichier.");
+        }
+        addNameTranslation(target, trimmed);
+        return FileOperationResult::success(target);
+    }
     if (!place.empty()) {
         // Les couches des cartes livrées. Le sol nomme le lieu ; la collision est celle que la
         // déduction donne à une carte vide : le vide arrête la vue (décision D10).

@@ -19,6 +19,7 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 #include <QVariant>
+#include <algorithm>
 #include <cstdint>
 #include <cstring>
 #include <string>
@@ -39,6 +40,8 @@ constexpr int TILE_TYPE_ROLE = Qt::UserRole + 1;
 // Rôles d'une feuille de pièce : son nom court, et si elle va sur la couche de sol.
 constexpr int PIECE_NAME_ROLE = Qt::UserRole + 2;
 constexpr int PIECE_FLOOR_ROLE = Qt::UserRole + 3;
+// Role d'une ligne de prefabrique : son nom (LOT-EDITOR-08).
+constexpr int PREFAB_NAME_ROLE = Qt::UserRole + 4;
 
 // Cote des vignettes de la palette, en pixels d'ecran : un multiple entier de la taille d'une case
 // (16) -- toute autre valeur reechantillonnerait le pixel art de travers, meme en plus proche
@@ -46,6 +49,8 @@ constexpr int PIECE_FLOOR_ROLE = Qt::UserRole + 3;
 constexpr int THUMBNAIL_SIZE = 32;
 // Cote des vignettes de pièce : une pièce debout est haute, elle se lit mal plus petite.
 constexpr int PIECE_THUMBNAIL_SIZE = 48;
+// Cote des vignettes de prefabrique : un morceau de carte se lit plus grand qu'une piece.
+constexpr int PREFAB_THUMBNAIL_SIZE = 72;
 
 // Crée une feuille sélectionnable portant son type de tuile.
 [[nodiscard]] QStandardItem* makeLeaf(const TileEntry& entry) {
@@ -94,7 +99,9 @@ PalettePanel::PalettePanel(QWidget* parent)
       _pieceTree(new QTreeView(this)),
       _pieceModel(new QStandardItemModel(this)),
       _tree(new QTreeView(this)),
-      _model(new QStandardItemModel(this)) {
+      _model(new QStandardItemModel(this)),
+      _prefabTree(new QTreeView(this)),
+      _prefabModel(new QStandardItemModel(this)) {
     auto* const layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
 
@@ -118,14 +125,26 @@ PalettePanel::PalettePanel(QWidget* parent)
     _tree->setModel(_model);
     _tree->setSelectionMode(QAbstractItemView::SingleSelection);
 
+    _prefabTree->setHeaderHidden(true);
+    _prefabTree->setModel(_prefabModel);
+    _prefabTree->setSelectionMode(QAbstractItemView::SingleSelection);
+    _prefabTree->setIconSize(QSize(PREFAB_THUMBNAIL_SIZE, PREFAB_THUMBNAIL_SIZE));
+    connect(_prefabTree, &QTreeView::clicked, this, &PalettePanel::onPrefabChosen);
+    connect(_prefabTree->selectionModel(), &QItemSelectionModel::currentChanged, this,
+            [this](const QModelIndex& current, const QModelIndex&) { onPrefabChosen(current); });
+
     _tabs->addTab(_piecesPage, QStringLiteral("Pieces"));
     _tabs->addTab(_tree, QStringLiteral("Types"));
+    // En dernier : les index 0 (pièces) et 1 (types) restent ceux que le repli sans lieu utilise.
+    _tabs->addTab(_prefabTree, QStringLiteral("Prefabs"));
     layout->addWidget(_tabs);
 
     buildModel();
     _tree->expandAll();
-    // Sans lieu, rien à poser : l'onglet des pièces s'éteint jusqu'au premier catalogue.
+    // Sans lieu, rien à poser : l'onglet des pièces s'éteint jusqu'au premier catalogue, et la
+    // bibliothèque reste vide tant qu'aucun préfabriqué n'a été enregistré.
     _tabs->setTabEnabled(0, false);
+    _tabs->setTabEnabled(2, false);
     _tabs->setCurrentIndex(1);
 
     connect(_tree->selectionModel(), &QItemSelectionModel::currentChanged, this,
@@ -168,6 +187,40 @@ void PalettePanel::setPieceCatalog(std::vector<PieceCatalogGroup> catalog,
     // Un lieu qui paraît ouvre ses pièces ; un lieu qui s'en va rend la main aux types (repli).
     if (hasPieces != hadPieces) {
         _tabs->setCurrentIndex(hasPieces ? 0 : 1);
+    }
+}
+
+void PalettePanel::setPrefabs(std::vector<PrefabItem> prefabs) {
+    if (prefabs.size() == _prefabs.size() &&
+        std::equal(prefabs.begin(), prefabs.end(), _prefabs.begin(),
+                   [](const PrefabItem& left, const PrefabItem& right) {
+                       return left.name == right.name && left.detail == right.detail;
+                   })) {
+        return;  // la bibliothèque n'a pas bougé : garder la sélection.
+    }
+    _prefabs = std::move(prefabs);
+    const QSignalBlocker blocker(_prefabTree->selectionModel());
+    _prefabModel->clear();
+    for (const PrefabItem& prefab : _prefabs) {
+        auto* const item = new QStandardItem(prefab.name + QStringLiteral("\n") + prefab.detail);
+        item->setEditable(false);
+        item->setData(prefab.name, PREFAB_NAME_ROLE);
+        item->setToolTip(prefab.name + QStringLiteral(" — ") + prefab.detail);
+        if (!prefab.thumbnail.isNull()) {
+            item->setIcon(QIcon(prefab.thumbnail));
+        }
+        _prefabModel->appendRow(item);
+    }
+    _tabs->setTabEnabled(2, !_prefabs.empty());
+}
+
+void PalettePanel::onPrefabChosen(const QModelIndex& current) {
+    if (!current.isValid()) {
+        return;
+    }
+    const QString name = current.data(PREFAB_NAME_ROLE).toString();
+    if (!name.isEmpty()) {
+        emit prefabSelected(name);
     }
 }
 

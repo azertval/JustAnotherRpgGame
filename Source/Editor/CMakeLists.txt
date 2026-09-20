@@ -50,6 +50,8 @@ add_library(EditorLogic STATIC
     # Le contrôle du contenu (LOT-EDITOR-07) : références, terrain, atteignabilité, textes.
     Logic/ContentCheck.cpp
     Logic/MapTexts.cpp
+    # Tampons et prefabriques (LOT-EDITOR-08) : decouper, reposer, garder dans la bibliotheque.
+    Logic/Stamps.cpp
     # Renommer et remplacer (LOT-EDITOR-14) : ce qui cite une carte, un point, une entité, une pièce.
     Logic/MapRefactor.cpp
 )
