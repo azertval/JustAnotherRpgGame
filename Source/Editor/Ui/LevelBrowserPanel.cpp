@@ -3,16 +3,19 @@
 
 #include "Editor/Ui/LevelBrowserPanel.h"
 
+#include <QCheckBox>
 #include <QComboBox>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QFormLayout>
 #include <QHBoxLayout>
+#include <QIcon>
 #include <QLineEdit>
 #include <QListView>
 #include <QMessageBox>
 #include <QModelIndex>
 #include <QPushButton>
+#include <QSignalBlocker>
 #include <QSortFilterProxyModel>
 #include <QSpinBox>
 #include <QStandardItem>
@@ -20,13 +23,20 @@
 #include <QTabWidget>
 #include <QVBoxLayout>
 #include <cstddef>
+#include <string>
+#include <system_error>
 #include <utility>
 #include <vector>
 
+#include "Core/Levels/LevelLoader.h"
 #include "Core/World/WorldGraph.h"
+#include "Editor/Logic/CityView.h"
+#include "Editor/Logic/EditorSidecar.h"
 #include "Editor/Logic/LevelFileOperations.h"
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/Stamps.h"
+#include "Editor/Ui/CityMapView.h"
+#include "Editor/Ui/MapRender.h"
 #include "Editor/Ui/WorldGraphView.h"
 #include "HMI/HmiLog.h"
 
@@ -36,6 +46,13 @@ namespace {
 
 // Rôle portant le chemin absolu du fichier d'un item de la liste.
 constexpr int PATH_ROLE = Qt::UserRole + 1;
+
+// Côté d'une vignette de carte, en pixels, et échelle de son rendu (LOT-EDITOR-09).
+constexpr int THUMBNAIL_SIDE = 112;
+constexpr double THUMBNAIL_SCALE = 0.25;
+
+// Le choix « tous les états » du filtre.
+constexpr const char* EVERY_STATE = "Any state";
 
 // Taille proposée pour une nouvelle carte, et son plafond (celui du redimensionnement).
 constexpr int NEW_MAP_WIDTH = 24;
@@ -58,39 +75,64 @@ void reportIfError(QWidget* parent, const QString& title, const FileOperationRes
 struct LevelBrowserPanel::Widgets {
     QTabWidget* viewTabs;
     QLineEdit* searchField;
+    QComboBox* stateFilter;
+    QCheckBox* thumbnails;
     QListView* levelList;
     QPushButton* newButton;
     QPushButton* renameButton;
     QPushButton* duplicateButton;
     QPushButton* deleteButton;
     WorldGraphView* worldGraph;
+    QComboBox* cityChooser;
+    CityMapView* city;
 
     explicit Widgets(QWidget* panel)
         : viewTabs(new QTabWidget(panel)),
           searchField(new QLineEdit),
+          stateFilter(new QComboBox),
+          thumbnails(new QCheckBox(QStringLiteral("Thumbnails"))),
           levelList(new QListView),
           newButton(new QPushButton(QStringLiteral("New"))),
           renameButton(new QPushButton(QStringLiteral("Rename"))),
           duplicateButton(new QPushButton(QStringLiteral("Duplicate"))),
           deleteButton(new QPushButton(QStringLiteral("Delete"))),
-          worldGraph(new WorldGraphView) {
+          worldGraph(new WorldGraphView),
+          cityChooser(new QComboBox),
+          city(new CityMapView) {
         searchField->setPlaceholderText(QStringLiteral("Search…"));
         searchField->setClearButtonEnabled(true);
+        // Où en est chaque carte (LOT-EDITOR-09) : le filtre du tableau de bord.
+        stateFilter->addItem(QString::fromLatin1(EVERY_STATE), -1);
+        for (const MapState state : knownMapStates()) {
+            stateFilter->addItem(QString::fromUtf8(mapStateLabel(state).data(),
+                                                   static_cast<int>(mapStateLabel(state).size())),
+                                 static_cast<int>(state));
+        }
+        stateFilter->addItem(QStringLiteral("Not stated"), static_cast<int>(MapState::Unset));
 
         auto* const listTab = new QWidget;
+        auto* const filterRow = new QHBoxLayout;
+        filterRow->addWidget(stateFilter);
+        filterRow->addWidget(thumbnails);
         auto* const buttonRow = new QHBoxLayout;
         for (QPushButton* const button : {newButton, renameButton, duplicateButton, deleteButton}) {
             buttonRow->addWidget(button);
         }
         auto* const listLayout = new QVBoxLayout(listTab);
         listLayout->addWidget(searchField);
+        listLayout->addLayout(filterRow);
         listLayout->addWidget(levelList);
         listLayout->addLayout(buttonRow);
         auto* const graphTab = new QWidget;
         auto* const graphLayout = new QVBoxLayout(graphTab);
         graphLayout->addWidget(worldGraph);
+        auto* const cityTab = new QWidget;
+        auto* const cityLayout = new QVBoxLayout(cityTab);
+        cityLayout->addWidget(cityChooser);
+        cityLayout->addWidget(city);
         viewTabs->addTab(listTab, QStringLiteral("List"));
         viewTabs->addTab(graphTab, QStringLiteral("Graph"));
+        viewTabs->addTab(cityTab, QStringLiteral("City"));
 
         auto* const layout = new QVBoxLayout(panel);
         layout->setContentsMargins(0, 0, 0, 0);
@@ -118,9 +160,23 @@ LevelBrowserPanel::LevelBrowserPanel(std::filesystem::path levelsDir, QWidget* p
     connect(_ui->renameButton, &QPushButton::clicked, this, &LevelBrowserPanel::onRename);
     connect(_ui->duplicateButton, &QPushButton::clicked, this, &LevelBrowserPanel::onDuplicate);
     connect(_ui->deleteButton, &QPushButton::clicked, this, &LevelBrowserPanel::onDelete);
-    // Le graphe ouvre une carte par le même signal que la liste : MainWindow n'a rien à brancher.
+    // Le graphe et la ville ouvrent une carte par le même signal que la liste : MainWindow n'a
+    // rien de plus à brancher.
     connect(_ui->worldGraph, &WorldGraphView::levelOpenRequested, this,
             &LevelBrowserPanel::levelOpenRequested);
+    connect(_ui->city, &CityMapView::levelOpenRequested, this,
+            &LevelBrowserPanel::levelOpenRequested);
+    // Tirer un lien entre deux cartes du graphe (LOT-EDITOR-09) : la fenêtre mène le plan.
+    connect(_ui->worldGraph, &WorldGraphView::linkRequested, this,
+            &LevelBrowserPanel::mapLinkRequested);
+    connect(_ui->stateFilter, &QComboBox::currentIndexChanged, this, [this](int) { refresh(); });
+    connect(_ui->thumbnails, &QCheckBox::toggled, this, [this](bool) {
+        applyThumbnailMode();
+        refresh();
+    });
+    connect(_ui->cityChooser, &QComboBox::currentIndexChanged, this,
+            [this](int) { refreshCity(); });
+    applyThumbnailMode();
 
     refresh();
 }
@@ -129,16 +185,91 @@ LevelBrowserPanel::~LevelBrowserPanel() = default;
 
 void LevelBrowserPanel::refresh() {
     _model->clear();
+    const int wantedState = _ui->stateFilter->currentData().toInt();
     const LevelFileOperations ops(_dir);
     for (const std::filesystem::path& path : ops.list()) {
         // L'identifiant de carte, sous-dossier compris : `capital/martpart` (`LOT-96`).
-        auto* const item = new QStandardItem(QString::fromStdString(core::mapIdOf(_dir, path)));
+        const std::string mapId = core::mapIdOf(_dir, path);
+        // Où en est la carte (LOT-EDITOR-09) : une note d'auteur, dans son annexe.
+        const MapState state = readSidecar(sidecarPath(path)).sidecar.state;
+        if (wantedState >= 0 && static_cast<int>(state) != wantedState) {
+            continue;
+        }
+        auto* const item = new QStandardItem(QString::fromStdString(mapId));
         item->setEditable(false);
         item->setData(QString::fromStdString(path.string()), PATH_ROLE);
+        item->setToolTip(
+            QStringLiteral("%1\nState: %2")
+                .arg(QString::fromStdString(mapId),
+                     QString::fromUtf8(mapStateLabel(state).data(),
+                                       static_cast<int>(mapStateLabel(state).size()))));
+        if (state != MapState::Unset) {
+            item->setText(QStringLiteral("%1 — %2").arg(
+                QString::fromStdString(mapId),
+                QString::fromUtf8(mapStateLabel(state).data(),
+                                  static_cast<int>(mapStateLabel(state).size()))));
+        }
+        if (_ui->thumbnails->isChecked()) {
+            item->setIcon(QIcon(thumbnailFor(path)));
+        }
         _model->appendRow(item);
     }
     _model->sort(0);
     refreshWorldGraph();
+    refreshCity();
+}
+
+void LevelBrowserPanel::applyThumbnailMode() {
+    const bool icons = _ui->thumbnails->isChecked();
+    _ui->levelList->setViewMode(icons ? QListView::IconMode : QListView::ListMode);
+    _ui->levelList->setIconSize(icons ? QSize(THUMBNAIL_SIDE, THUMBNAIL_SIDE) : QSize());
+    _ui->levelList->setGridSize(icons ? QSize(THUMBNAIL_SIDE + 24, THUMBNAIL_SIDE + 36) : QSize());
+    _ui->levelList->setResizeMode(QListView::Adjust);
+    _ui->levelList->setMovement(QListView::Static);
+    _ui->levelList->setWordWrap(icons);
+}
+
+QPixmap LevelBrowserPanel::thumbnailFor(const std::filesystem::path& path) {
+    // La clé porte l'horodatage du fichier : une carte récrite perd sa vignette, les autres la
+    // gardent (le rendu d'une grande carte coûte plus qu'un aller-retour au disque).
+    std::error_code error;
+    const auto written = std::filesystem::last_write_time(path, error);
+    const std::string key =
+        path.string() + "@" + std::to_string(error ? 0 : written.time_since_epoch().count());
+    if (const auto found = _thumbnails.find(key); found != _thumbnails.end()) {
+        return found->second;
+    }
+    QPixmap thumbnail;
+    const core::LevelLoadResult level = core::LevelLoader::loadFromFile(path);
+    if (level.ok()) {
+        const QImage rendered =
+            renderMap(*level.level, _dir.parent_path(), MapRenderOptions{.scale = THUMBNAIL_SCALE});
+        if (!rendered.isNull()) {
+            thumbnail = QPixmap::fromImage(rendered.scaled(
+                THUMBNAIL_SIDE, THUMBNAIL_SIDE, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        }
+    }
+    _thumbnails.emplace(key, thumbnail);
+    return thumbnail;
+}
+
+void LevelBrowserPanel::refreshCity() {
+    // Les villes jouables du projet : celle qu'on regarde est celle du choix, la première sinon.
+    const std::filesystem::path dataRoot = _dir.parent_path();
+    const std::vector<std::string> cities = cityIds(dataRoot);
+    if (_ui->cityChooser->count() != static_cast<int>(cities.size())) {
+        const QSignalBlocker blocker(_ui->cityChooser);
+        _ui->cityChooser->clear();
+        for (const std::string& city : cities) {
+            _ui->cityChooser->addItem(QString::fromStdString(city));
+        }
+    }
+    const int chosen = _ui->cityChooser->currentIndex();
+    if (chosen < 0 || chosen >= static_cast<int>(cities.size())) {
+        _ui->city->setCity(CityView{}, dataRoot);
+        return;
+    }
+    _ui->city->setCity(buildCityView(dataRoot, cities[static_cast<std::size_t>(chosen)]), dataRoot);
 }
 
 void LevelBrowserPanel::refreshWorldGraph() {

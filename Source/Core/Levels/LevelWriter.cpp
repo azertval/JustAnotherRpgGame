@@ -247,6 +247,19 @@ void appendValue(std::string& out, const Json& value, int depth, bool cellsInlin
     appendScalar(out, value);
 }
 
+// Les proprietes de la CARTE (LOT-EDITOR-09), a plat a la racine comme celles d'une couche. Une
+// propriete qui porte le nom d'un champ deja ecrit est ignoree : le format fait foi, et le
+// chargeur n'en range jamais de telle.
+void writeRootProperties(const PropertyMap& properties, Json& root) {
+    PropertyMap free;
+    for (const auto& [key, value] : properties) {
+        if (!root.contains(key)) {
+            free.emplace(key, value);
+        }
+    }
+    writeProperties(free, root);
+}
+
 [[nodiscard]] std::string canonicalText(const Json& root) {
     std::string out;
     appendValue(out, root, 0, false);
@@ -288,6 +301,7 @@ std::string LevelWriter::buildJson(const LevelData& data) {
         if (!data.entities.empty()) {
             root["entities"] = entitiesJson(data.entities);
         }
+        writeRootProperties(data.properties, root);
         return canonicalText(root);
     }
 
@@ -313,6 +327,7 @@ std::string LevelWriter::buildJson(const LevelData& data) {
     if (!data.entities.empty()) {
         root["entities"] = entitiesJson(data.entities);
     }
+    writeRootProperties(data.properties, root);
     return canonicalText(root);
 }
 

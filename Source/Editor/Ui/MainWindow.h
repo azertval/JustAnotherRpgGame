@@ -5,6 +5,7 @@
 
 #include <QByteArray>
 #include <QMainWindow>
+#include <QMetaObject>
 #include <QPixmap>
 #include <array>
 #include <filesystem>
@@ -23,6 +24,7 @@ class QDockWidget;
 class QFileSystemWatcher;
 class QLabel;
 class QMenu;
+class QTabWidget;
 class QTimer;
 class QToolBar;
 
@@ -47,6 +49,7 @@ class LayersPanel;
 class EntityPanel;
 class MiniMap;
 class ProblemsPanel;
+struct OpenDocument;
 struct EditorReferences;
 struct MapCheckFinding;
 struct Citation;
@@ -72,6 +75,19 @@ public:
     ///        automatique, pour éprouver la reprise.
     explicit MainWindow(bool crashAfterAutosave = false);
     ~MainWindow() override;
+
+    /**
+     * @brief Ouvre la carte @p path dans un onglet (`LOT-EDITOR-09`).
+     *
+     * Une carte déjà ouverte revient au premier plan ; sinon un onglet vierge la reçoit, à défaut
+     * un onglet neuf.
+     * @param path         Le fichier de la carte.
+     * @param reuseCurrent Vrai : l'onglet courant la reçoit s'il n'a rien de modifié — c'est le
+     *                     `--map=` du démarrage, qui remplace la carte de départ au lieu de
+     *                     s'ouvrir à côté d'elle.
+     * @return `false` si la carte ne s'ouvre pas.
+     */
+    bool openMap(const std::filesystem::path& path, bool reuseCurrent = false);
     MainWindow(const MainWindow&) = delete;
     MainWindow& operator=(const MainWindow&) = delete;
 
@@ -80,10 +96,45 @@ protected:
 
 private:
     void buildUi();
+
+    // --- Les cartes ouvertes en onglets (LOT-EDITOR-09) ---
+    /// Crée un onglet, son canevas, et le rend actif. @return le canevas créé.
+    EditorViewport* addDocument();
+    /// Branche le canevas @p view sur la fenêtre et ses panneaux ; l'ancien est débranché.
+    void bindViewport(EditorViewport* view);
+    /// Débranche le canevas actif : les liaisons prises par `bindViewport` sont défaites.
+    void unbindViewport();
+    /// Le canevas de l'onglet @p index, `nullptr` hors bornes.
+    [[nodiscard]] EditorViewport* documentAt(int index) const;
+    /// Les cartes ouvertes, dans l'ordre des onglets.
+    [[nodiscard]] std::vector<OpenDocument> openDocuments() const;
+    /// L'onglet @p index devient actif : la fenêtre s'y rebranche, les panneaux le montrent.
+    void activateDocument(int index);
+    /// Réécrit le titre de chaque onglet (nom court, étoile si modifié) et celui de la fenêtre.
+    void refreshDocumentLabels();
+    /**
+     * @brief Ferme l'onglet @p index, après avoir demandé quoi faire de ses modifications.
+     * @return `false` si l'auteur a renoncé.
+     */
+    bool closeDocument(int index);
+    /// Demande quoi faire des modifications de @p view. @return `false` si l'auteur renonce.
+    bool askAboutChanges(EditorViewport* view);
+
+    // --- Le monde : graphe, ville, propriétés (LOT-EDITOR-09) ---
+    /// Relie deux cartes depuis le graphe : le plan, montré, puis écrit (`hmi::planLinkMaps`).
+    void linkMaps(const std::string& fromMap, const std::string& toMap);
+    /// « Map properties… » : le lieu, la région et l'ambiance de la carte ouverte.
+    void openMapPropertiesDialog();
+    /// « Map properties… » écrit aussi où en est la carte : son état va dans l'annexe.
     [[nodiscard]] QDockWidget* addPanel(const QString& objectName, const QString& title,
                                         QWidget* content, Qt::DockWidgetArea area);
     void buildMenus();
     void connectMapPanels();
+    /// Les panneaux relisent le canevas actif : couches, entités, mini-carte, palette du lieu.
+    void refreshLayersPanel();
+    void refreshEntitiesPanel();
+    void refreshMiniMap();
+    void refreshPalettePanel();
     void connectToolActions();
     void connectEditorCommands();
     void buildStatusBar();
@@ -103,11 +154,6 @@ private:
     /// Ouvre la carte du constat (garde-fou des modifications d'abord), sélectionne son entité et
     /// cerne sa case.
     void goToFinding(const MapCheckFinding& finding);
-    /**
-     * @brief Ouvre @p path, après avoir demandé quoi faire des modifications non enregistrées.
-     * @return `false` si l'auteur a renoncé ou si la carte ne s'ouvre pas.
-     */
-    bool openLevelGuarded(const std::filesystem::path& path);
     /// Enregistre la carte ouverte (garde du fichier modifié sur disque d'abord), puis relit ce
     /// qui en dépend : références, graphe du monde, contrôle.
     bool saveMap();
@@ -142,11 +188,18 @@ private:
     void replacePieceOnMaps();
     /// Renomme la carte @p mapId par le renommage propagé ; la carte ouverte suit.
     void renameMap(const std::string& mapId);
-    /// Un renommage récrit des fichiers : la carte ouverte doit être enregistrée. @return `false`
-    /// si l'auteur renonce.
+    /// Un renommage récrit des fichiers : **toutes** les cartes ouvertes doivent être
+    /// enregistrées. @return `false` si l'auteur renonce.
     bool saveBeforeRefactor();
-    /// Montre ce que @p plan récrit, l'écrit si l'auteur accepte, puis rouvre @p openAfter.
-    void carryOutPlan(const RefactorPlan& plan, const QString& title, const std::string& openAfter);
+    /**
+     * @brief Montre ce que @p plan récrit, l'écrit si l'auteur accepte, puis relit chaque onglet.
+     * @param plan        Ce qui sera récrit.
+     * @param title       Le titre de la fenêtre de confirmation.
+     * @param renamedFrom La carte que le plan déplace, vide si aucune.
+     * @param renamedTo   Son nouvel identifiant : l'onglet qui la portait l'y suit.
+     */
+    void carryOutPlan(const RefactorPlan& plan, const QString& title,
+                      const std::string& renamedFrom = {}, const std::string& renamedTo = {});
     /// Ouvre la carte de la citation et y va, comme pour un constat du contrôle.
     void goToCitation(const Citation& citation);
 
@@ -158,7 +211,8 @@ private:
     void writeAutosave();
     /// Au démarrage : propose de reprendre les brouillons laissés par une session interrompue.
     void offerRecovery();
-    /// Surveille le fichier de la carte ouverte (à refaire après un remplacement du fichier).
+    /// Surveille les fichiers de **toutes** les cartes ouvertes (à refaire après un remplacement
+    /// de fichier, une ouverture ou un renommage).
     void watchLevelFile();
     /**
      * @brief Compare la carte sur disque à celle que l'éditeur a lue ou écrite, et réagit.
@@ -169,8 +223,12 @@ private:
     /// Met @p content de côté pour la carte ouverte ; @return le chemin écrit, vide en cas d'échec.
     [[nodiscard]] QString keepAside(const char* label, const std::string& content);
 
-    EditorViewport* _viewport;  ///< Canevas (possédé par la fenêtre, widget central).
-    EditContextTarget* _editContext;
+    /// Les onglets : un canevas par carte ouverte, le widget central (`LOT-EDITOR-09`).
+    QTabWidget* _tabs = nullptr;
+    EditorViewport* _viewport = nullptr;  ///< Canevas de l'onglet actif (jamais nul).
+    EditContextTarget* _editContext = nullptr;
+    /// Les liaisons prises sur le canevas actif, défaites quand il quitte la scène.
+    std::vector<QMetaObject::Connection> _viewportConnections;
     PalettePanel* _palette = nullptr;
     LevelBrowserPanel* _levels = nullptr;
     LayersPanel* _layers = nullptr;
@@ -202,8 +260,8 @@ private:
 
     std::unique_ptr<AutosaveStore> _autosave;
     QTimer* _autosaveTimer = nullptr;
-    /// Carte dont un fichier de reprise existe, écrit par cette session.
-    std::string _autosavedMapId;
+    /// Par canevas ouvert, la carte dont un fichier de reprise existe, écrit par cette session.
+    std::map<EditorViewport*, std::string> _autosavedMapIds;
     QFileSystemWatcher* _watcher = nullptr;
     QTimer* _diskCheckTimer = nullptr;
     /// Une question sur le disque est déjà posée : ne pas en ouvrir une seconde.

@@ -210,7 +210,9 @@ struct PieceTableResult {
  * - `--rename-map <ancien> <nouveau>`, `--rename-arrival <carte> <ancien> <nouveau>`,
  *   `--rename-id <carte> <ancien> <nouveau>` ;
  * - `--replace-piece <ancienne> <nouvelle> [carte…]` ;
- * - `--change-scene <carte> <lieu> [--table <table.json>]`.
+ * - `--change-scene <carte> <lieu> [--table <table.json>]` ;
+ * - `--link-maps <carte> <carte>` : la paire portail / point d'arrivée des deux côtés
+ *   (`LOT-EDITOR-09`, `hmi::planLinkMaps`).
  *
  * Chaque commande écrit ce qu'elle change, et rien si elle est refusée (sortie 1). Suivie de
  * `--check`, elle contrôle ensuite toutes les cartes.

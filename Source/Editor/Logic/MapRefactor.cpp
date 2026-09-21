@@ -27,6 +27,7 @@
 #include "Editor/Logic/LevelNameValidation.h"
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/MapTexts.h"
+#include "Editor/Logic/WorldLinks.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace hmi {
@@ -1070,6 +1071,13 @@ std::optional<int> runRefactorCommand(const std::vector<std::string>& arguments,
     };
     if (const auto values = valuesOf(arguments, "--who-cites")) {
         return whoCites(*values, dataRoot, output);
+    }
+    // Relier deux cartes sans fenetre (LOT-EDITOR-09) : le meme plan que le geste du graphe.
+    if (const auto link = valuesOf(arguments, "--link-maps")) {
+        if (link->size() != 2) {
+            return usage("--link-maps <from> <to>");
+        }
+        return carryOut(planLinkMaps(dataRoot, (*link)[0], (*link)[1]), dataRoot, output);
     }
     if (const auto map = valuesOf(arguments, "--rename-map")) {
         if (map->size() != 2) {

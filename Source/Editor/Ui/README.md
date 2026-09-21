@@ -3,11 +3,12 @@
 Les **widgets** de l'éditeur (`LevelEditor`, Qt Widgets), tous construits en code : style Fusion,
 textes anglais, aucun formulaire `.ui` (`LOT-EDITOR-01`).
 
-- `MainWindow` — la fenêtre : le canevas au centre, cinq docks (palette, cartes, couches,
-  entités, mini-carte) dont la disposition est persistée (`EX-IHM-011`), les menus et la barre
-  d'état. Elle
-  tient aussi le filet de sécurité : sauvegarde automatique et reprise, garde du fichier modifié sur
-  disque, question à la fermeture.
+- `MainWindow` — la fenêtre : les **onglets des cartes ouvertes** au centre (`LOT-EDITOR-09`, un
+  canevas par onglet, celui de l'onglet actif étant branché sur les panneaux), cinq docks
+  (palette, cartes, couches, entités, mini-carte) dont la disposition est persistée
+  (`EX-IHM-011`), les menus et la barre d'état. Elle tient aussi le filet de sécurité : sauvegarde
+  automatique et reprise **par onglet**, garde du fichier modifié sur disque, question à la
+  fermeture d'un onglet comme de la fenêtre.
 - `EditorActions` — les commandes comme `QAction` uniques, partagées par la barre d'outils, les
   menus et les raccourcis remappables.
 - `EditorViewport` — le canevas (`LOT-EDITOR-02`) : une `QGraphicsView` et un seul élément peint.
@@ -31,7 +32,14 @@ textes anglais, aucun formulaire `.ui` (`LOT-EDITOR-01`).
   vignettes et recherche), l'onglet « Types » (`hmi::tileTaxonomy`) et l'onglet « Prefabs » (la
   bibliothèque du lieu, `LOT-EDITOR-08`, vignettes générées par `hmi::renderStamp`). Choisir un
   préfabriqué arme le tampon du canevas.
-- `LevelBrowserPanel`, `WorldGraphView` — la liste des cartes et le graphe du monde.
+- `LevelBrowserPanel` — la liste des cartes (recherche, état de chaque carte, filtre par état,
+  vignettes), le graphe du monde et la vue de ville.
+- `WorldGraphView` — le graphe du monde : les cartes, leurs portails, et **tirer d'une carte à une
+  autre** pour les relier (`EX-EDIT-089`).
+- `CityMapView` — une ville jouable sur son plan : les cadres de ses quartiers, ce qu'ils ouvrent,
+  et ceux dont la carte manque (`EX-EDIT-090`).
+- `MapPropertiesDialog` — le lieu, la région, l'ambiance et l'état d'une carte (`EX-EDIT-091`,
+  `EX-EDIT-092`).
 - `LayersPanel` — couche active, visibilité, opacité, grisé, verrou, ajout, retrait, ordre et
   nom.
 - `EntityPanel` — famille à poser, liste filtrable des entités (identifiant, famille, étiquette,

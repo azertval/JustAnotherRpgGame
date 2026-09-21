@@ -54,6 +54,10 @@ add_library(EditorLogic STATIC
     Logic/Stamps.cpp
     # Renommer et remplacer (LOT-EDITOR-14) : ce qui cite une carte, un point, une entité, une pièce.
     Logic/MapRefactor.cpp
+    # Le monde (LOT-EDITOR-09) : les cartes ouvertes en onglets, les liens du graphe, la ville.
+    Logic/MapDocuments.cpp
+    Logic/WorldLinks.cpp
+    Logic/CityView.cpp
 )
 target_include_directories(EditorLogic PUBLIC ${PROJECT_SOURCE_DIR}/Source)
 target_link_libraries(EditorLogic
@@ -105,6 +109,9 @@ add_executable(LevelEditor
     Ui/LayersPanel.cpp
     Ui/EntityPanel.cpp
     Ui/WorldGraphView.cpp
+    # Le monde (LOT-EDITOR-09) : la vue de ville et les propriétés de carte.
+    Ui/CityMapView.cpp
+    Ui/MapPropertiesDialog.cpp
 )
 
 target_link_libraries(LevelEditor PRIVATE

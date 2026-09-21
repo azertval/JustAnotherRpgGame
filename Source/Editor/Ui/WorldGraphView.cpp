@@ -182,8 +182,55 @@ bool WorldGraphView::event(QEvent* event) {
     return QWidget::event(event);
 }
 
+namespace {
+
+/// Vrai si @p node est une carte qu'on peut relier : elle existe et se lit.
+[[nodiscard]] bool isLinkable(const WorldGraphLayout& layout, std::optional<std::size_t> node) {
+    if (!node || *node >= layout.nodes.size()) {
+        return false;
+    }
+    const WorldGraphLayoutNode& candidate = layout.nodes[*node];
+    return !candidate.ghost && !candidate.unreadable && !candidate.mapId.empty();
+}
+
+}  // namespace
+
+void WorldGraphView::mousePressEvent(QMouseEvent* event) {
+    // Tirer d'une carte à une autre crée le lien (LOT-EDITOR-09) ; un fantôme ne se relie pas.
+    const std::optional<std::size_t> node =
+        nodeAt(_layout, toLayout(event->position()), WORLD_GRAPH_NODE_RADIUS);
+    if (event->button() == Qt::LeftButton && isLinkable(_layout, node)) {
+        _linkFrom = node;
+        _linkPoint = _layout.nodes[*node].center;
+        update();
+        return;
+    }
+    QWidget::mousePressEvent(event);
+}
+
+void WorldGraphView::mouseReleaseEvent(QMouseEvent* event) {
+    if (!_linkFrom) {
+        QWidget::mouseReleaseEvent(event);
+        return;
+    }
+    const std::optional<std::size_t> from = _linkFrom;
+    _linkFrom.reset();
+    update();
+    const std::optional<std::size_t> to =
+        nodeAt(_layout, toLayout(event->position()), WORLD_GRAPH_NODE_RADIUS);
+    if (isLinkable(_layout, to) && *to != *from) {
+        emit linkRequested(QString::fromStdString(_layout.nodes[*from].mapId),
+                           QString::fromStdString(_layout.nodes[*to].mapId));
+    }
+    QWidget::mouseReleaseEvent(event);
+}
+
 void WorldGraphView::mouseMoveEvent(QMouseEvent* event) {
     const core::Vector2 point = toLayout(event->position());
+    if (_linkFrom) {
+        _linkPoint = point;
+        update();
+    }
     std::optional<std::size_t> node = nodeAt(_layout, point, WORLD_GRAPH_NODE_RADIUS);
     std::optional<std::size_t> edge;
     if (!node) {
@@ -203,6 +250,7 @@ void WorldGraphView::mouseMoveEvent(QMouseEvent* event) {
 void WorldGraphView::leaveEvent(QEvent* event) {
     _hoveredNode.reset();
     _hoveredEdge.reset();
+    _linkFrom.reset();  // un lien tiré hors de la vue n'aboutit pas
     update();
     QWidget::leaveEvent(event);
 }
@@ -238,6 +286,15 @@ void WorldGraphView::paintEvent(QPaintEvent* /*event*/) {
     painter.scale(scale(), scale());
     paintEdges(painter);
     paintNodes(painter);
+    if (_linkFrom && *_linkFrom < _layout.nodes.size()) {
+        // Le lien qu'on tire : un trait pointillé de la carte de départ au pointeur.
+        const core::Vector2 from = _layout.nodes[*_linkFrom].center;
+        QPen pen(colors.text);
+        pen.setStyle(Qt::DashLine);
+        pen.setWidthF(2.0);
+        painter.setPen(pen);
+        painter.drawLine(QPointF(from.x, from.y), QPointF(_linkPoint.x, _linkPoint.y));
+    }
     painter.restore();
 
     paintLegend(painter);

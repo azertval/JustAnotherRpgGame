@@ -4,10 +4,12 @@
 #pragma once
 
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
 #include "Core/Levels/GridPosition.h"
+#include "Core/Levels/LevelProperties.h"
 #include "Core/Levels/MapEntity.h"
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileMap.h"
@@ -71,7 +73,20 @@ struct LevelData {
     std::string base{};
     /// Planche que la variante substitue à celle de sa base ; vide pour la garder.
     std::string scene{};
+    /// Propriétés libres de la **carte entière** (`LOT-EDITOR-09`) : la région du monde où elle se
+    /// trouve (`core::MAP_REGION_PROPERTY`), son ambiance (`core::MAP_AMBIENCE_PROPERTY`), et
+    /// toute clé racine que le chargeur ne connaît pas — gardée telle quelle et réémise, comme
+    /// pour une couche ou une entité (`core::PropertyMap`).
+    PropertyMap properties{};
 };
+
+/// Clé de la **région** du monde où se trouve la carte, telle que `world-maps.json` la nomme
+/// (`central-empire`) : une propriété de carte, pas un champ du format (`LOT-EDITOR-09`).
+inline constexpr std::string_view MAP_REGION_PROPERTY = "region";
+
+/// Clé de l'**ambiance** de la carte — ce que le `LOT-28` jouera en fond, et ce que l'éditeur
+/// montre dans les propriétés de carte (`LOT-EDITOR-09`).
+inline constexpr std::string_view MAP_AMBIENCE_PROPERTY = "ambience";
 
 /**
  * @brief Carte complète en mémoire.
@@ -94,7 +109,8 @@ public:
           _forcedCollision(std::move(data.forcedCollision)),
           _nextEntityId(data.nextEntityId),
           _base(std::move(data.base)),
-          _scene(std::move(data.scene)) {}
+          _scene(std::move(data.scene)),
+          _properties(std::move(data.properties)) {}
 
     /// @return Le nom de la carte.
     [[nodiscard]] const std::string& name() const noexcept {
@@ -142,6 +158,11 @@ public:
         return _scene;
     }
 
+    /// @return Les propriétés libres de la carte (`LevelData::properties`, `LOT-EDITOR-09`).
+    [[nodiscard]] const PropertyMap& properties() const noexcept {
+        return _properties;
+    }
+
     /// @return Toutes les composantes de la carte, recopiées — ce que l'écrivain et le brouillon
     ///         reprennent sans en oublier une.
     [[nodiscard]] LevelData data() const {
@@ -153,7 +174,8 @@ public:
                          .forcedCollision = _forcedCollision,
                          .nextEntityId = _nextEntityId,
                          .base = _base,
-                         .scene = _scene};
+                         .scene = _scene,
+                         .properties = _properties};
     }
 
 private:
@@ -166,6 +188,7 @@ private:
     int _nextEntityId = 1;
     std::string _base;
     std::string _scene;
+    PropertyMap _properties;
 };
 
 }  // namespace core

@@ -8,11 +8,13 @@
 
 #include <filesystem>
 #include <string>
+#include <variant>
 #include <vector>
 
 #include <gtest/gtest.h>
 
 #include "Core/Levels/GridPosition.h"
+#include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelWriter.h"
 #include "Core/Levels/TileType.h"
@@ -108,4 +110,53 @@ TEST(LevelWriterTest, SaveToFileVersDossierInexistantEchoueProprement) {
 
     const std::filesystem::path path = "chemin/inexistant/pas_la/niveau.json";
     EXPECT_FALSE(core::LevelWriter::saveToFile(*loaded.level, path));
+}
+
+/**
+ * @brief Les propriétés de **carte** (`LOT-EDITOR-09`) : région et ambiance traversent l'écriture,
+ *        une clé racine inconnue est gardée, et le brouillon les défait comme le reste.
+ * \castest{<b>Une carte garde sa région, son ambiance et ses clés inconnues.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger une carte qui porte `region`, `ambience` et une clé inconnue.<br/>
+ * 2. L'écrire, la relire.<br/>3. Changer l'ambiance sur un brouillon, puis défaire.<br/>
+ * \tattendu Les trois clés sont là après le tour ; l'ambiance changée s'écrit, et `undo` la
+ * rend ; une chaîne vide retire la propriété.
+ * }
+ */
+TEST(LevelWriterTest, UneCarteGardeSaRegionSonAmbianceEtSesClesInconnues) {
+    const std::string source = R"({
+  "version": 4,
+  "name": "Tutoriel",
+  "region": "central-empire",
+  "ambience": "market",
+  "authoredBy": "valentin",
+  "width": 2,
+  "height": 1,
+  "tiles": [ { "x": 0, "y": 0, "type": "entry" }, { "x": 1, "y": 0, "type": "dirt" } ]
+})";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(source);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+    EXPECT_EQ(std::get<std::string>(
+                  loaded.level->properties().at(std::string{core::MAP_REGION_PROPERTY})),
+              "central-empire");
+
+    const core::LevelLoadResult reloaded =
+        core::LevelLoader::loadFromString(core::LevelWriter::toJsonString(*loaded.level));
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+    EXPECT_EQ(reloaded.level->properties(), loaded.level->properties());
+    EXPECT_EQ(std::get<std::string>(reloaded.level->properties().at("authoredBy")), "valentin");
+
+    core::LevelDraft draft = core::LevelDraft::fromLevel(*loaded.level);
+    EXPECT_TRUE(draft.setProperty(std::string{core::MAP_AMBIENCE_PROPERTY}, std::string{"night"}));
+    EXPECT_FALSE(draft.setProperty(std::string{core::MAP_AMBIENCE_PROPERTY}, std::string{"night"}));
+    EXPECT_NE(draft.toJson().find("\"ambience\": \"night\""), std::string::npos);
+    EXPECT_TRUE(draft.undo());
+    EXPECT_EQ(
+        std::get<std::string>(draft.properties().at(std::string{core::MAP_AMBIENCE_PROPERTY})),
+        "market");
+
+    EXPECT_TRUE(draft.setProperty(std::string{core::MAP_REGION_PROPERTY}, std::string{}));
+    EXPECT_FALSE(draft.properties().contains(std::string{core::MAP_REGION_PROPERTY}));
+    EXPECT_EQ(draft.toJson().find("\"region\""), std::string::npos);
 }

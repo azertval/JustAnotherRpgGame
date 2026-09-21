@@ -6,6 +6,20 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Le monde dans l'éditeur : onglets, liens, ville (LOT-EDITOR-09).** Les cartes s'ouvrent
+  désormais en **onglets** — chacun son brouillon, son historique, son cadrage et sa sauvegarde
+  automatique ; ouvrir une carte déjà ouverte y revient, ouvrir n'écrase plus rien, et c'est
+  **fermer** un onglet (ou la fenêtre) qui demande quoi faire d'un brouillon modifié. Sur le
+  **graphe du monde**, tirer d'une carte à une autre pose la paire **portail / point d'arrivée des
+  deux côtés**, au plus près de l'entrée et sur des cases atteignables : les deux cartes se
+  traversent aussitôt, dans les deux sens. Comme un renommage, c'est un plan montré avant d'être
+  écrit ; `LevelEditor --link-maps <carte> <carte>` le fait sans fenêtre. Un onglet **City** pose
+  les quartiers d'une ville jouable sur son plan peint et ouvre celui qu'on double-clique. Une
+  carte porte enfin sa **région** et son **ambiance** (des propriétés de la carte, que le jeu
+  pourra lire ; toute clé racine inconnue d'un fichier de carte est désormais gardée et réémise),
+  et son annexe dit **où elle en est** — générée, retouchée, finie —, que le navigateur affiche,
+  filtre, et illustre de **vignettes**.
+
 - **Tampons et préfabriqués dans l'éditeur (LOT-EDITOR-08).** Une sélection se copie désormais
   **entière** : les types de chaque couche, les pièces qui y sont ancrées (prises entières, le
   rectangle s'agrandissant jusqu'à leur emprise), les entités et les cases de collision forcées.

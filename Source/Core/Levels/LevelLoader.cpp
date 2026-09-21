@@ -86,6 +86,15 @@ void collectProperties(const nlohmann::json& object, const std::set<std::string>
     }
 }
 
+// Les cles racine que le chargeur connait : tout le reste devient une propriete de carte
+// (LOT-EDITOR-09), gardee telle quelle et reemise.
+[[nodiscard]] const std::set<std::string>& knownRootKeys() {
+    static const std::set<std::string> known{"version",      "name",   "width",    "height",
+                                             "tiles",        "layers", "entities", "forced",
+                                             "nextEntityId", "base",   "scene"};
+    return known;
+}
+
 // Une case {x, y} d'une liste de cases ("forced", "cells"), bornee a la carte.
 [[nodiscard]] std::optional<LevelLoadResult> parseCell(const nlohmann::json& cell,
                                                        const TileMap& map, const std::string& where,
@@ -413,13 +422,16 @@ void adoptLegacyTextures(std::vector<std::pair<GridPosition, std::string>>& text
             parseEntities(root, base.level->tileMap(), entities)) {
         return std::move(*error);
     }
+    PropertyMap variantProperties;
+    collectProperties(root, knownRootKeys(), variantProperties);
     return LevelLoadResult{
         .level = applyVariant(*base.level, LevelData{.name = root.value("name", std::string{}),
                                                      .tileMap = TileMap(1, 1),
                                                      .entities = std::move(entities),
                                                      .nextEntityId = parseNextEntityId(root),
                                                      .base = baseId,
-                                                     .scene = root.value("scene", std::string{})}),
+                                                     .scene = root.value("scene", std::string{}),
+                                                     .properties = variantProperties}),
         .error = {}};
 }
 
@@ -489,13 +501,19 @@ void adoptLegacyTextures(std::vector<std::pair<GridPosition, std::string>>& text
         layers.push_back(std::move(declared));
     }
 
+    // Toute cle racine inconnue est une propriete de la carte (LOT-EDITOR-09) : la region et
+    // l'ambiance en sont, et une cle ecrite par un editeur plus recent traverse celui-ci.
+    PropertyMap properties;
+    collectProperties(root, knownRootKeys(), properties);
+
     return LevelLoadResult{.level = Level(LevelData{.name = std::move(name),
                                                     .tileMap = std::move(map),
                                                     .layers = std::move(layers),
                                                     .entities = std::move(entities),
                                                     .entry = entry,
                                                     .forcedCollision = std::move(forced),
-                                                    .nextEntityId = parseNextEntityId(root)}),
+                                                    .nextEntityId = parseNextEntityId(root),
+                                                    .properties = std::move(properties)}),
                            .error = {}};
 }
 

@@ -93,7 +93,15 @@ class EditorViewport : public QGraphicsView, public EditContextTarget {
     Q_OBJECT
 
 public:
-    explicit EditorViewport(QWidget* parent = nullptr);
+    /// @brief Ce qu'un canevas neuf montre : la carte de départ, ou rien (`LOT-EDITOR-09`, un
+    ///        onglet qui va recevoir une carte nommée).
+    enum class StartContent {
+        StartMap,
+        Blank,
+    };
+
+    explicit EditorViewport(StartContent content = StartContent::StartMap,
+                            QWidget* parent = nullptr);
     ~EditorViewport() override;
     EditorViewport(const EditorViewport&) = delete;
     EditorViewport& operator=(const EditorViewport&) = delete;
@@ -197,6 +205,20 @@ public:
     }
     /// Écrit la note de @p cell, retirée si @p text est vide ; l'annexe s'écrit tout de suite.
     void setNote(core::GridPosition cell, const std::string& text);
+
+    // --- Propriétés de carte et état (LOT-EDITOR-09) ---
+    /**
+     * @brief Assigne la propriété de carte @p key — sa région, son ambiance (`EX-EDIT-091`).
+     *
+     * C'est un pas d'annulation, comme toute mutation du brouillon ; une chaîne vide retire la
+     * propriété.
+     */
+    void setMapProperty(const std::string& key, core::PropertyValue value);
+    /// Assigne plusieurs propriétés de carte en **un** pas d'annulation : ce que valide le
+    /// dialogue des propriétés.
+    void setMapProperties(const std::vector<std::pair<std::string, core::PropertyValue>>& values);
+    /// Écrit où en est la carte dans son annexe ; l'annexe s'écrit tout de suite, hors historique.
+    void setMapState(MapState state);
     /// @return La note de la case survolée, sur une ligne, vide sans note.
     [[nodiscard]] std::string hoveredNote() const;
     [[nodiscard]] bool playtesting() const noexcept {

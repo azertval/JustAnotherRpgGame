@@ -48,6 +48,13 @@ Faire une carte de bout en bout : le
   ancrées, entités, cases forcées —, se pose en un pas d'annulation avec des identifiants neufs,
   se reflète, et s'enregistre comme préfabriqué du lieu (`EX-EDIT-085`, `EX-EDIT-086`). Une carte
   neuve part d'un modèle (`EX-EDIT-087`).
+- **Plusieurs cartes à la fois** (`LOT-EDITOR-09`) : un onglet par carte, chacun avec son
+  brouillon, son historique, sa sauvegarde automatique et sa garde du fichier ; ouvrir n'écrase
+  rien, c'est **fermer** qui demande quoi faire d'un brouillon modifié (`EX-EDIT-088`).
+- **Le monde s'écrit au geste** : tirer d'une carte à une autre sur le graphe pose la paire
+  portail / point d'arrivée **des deux côtés**, par un plan montré avant d'être écrit
+  (`EX-EDIT-089`) ; la ville se voit par quartiers (`EX-EDIT-090`) ; une carte porte sa région et
+  son ambiance (`EX-EDIT-091`), et son annexe dit où elle en est (`EX-EDIT-092`).
 - **Deux façons d'éditer, un seul chemin.** La souris et `--apply` appellent les mêmes fonctions
   pures, dans le même ordre ; un scénario `--apply` par outil, comparé à un fichier attendu, tient
   lieu de test d'IHM (`EX-EDIT-074`, `EX-EDIT-076`).
@@ -72,6 +79,12 @@ Faire une carte de bout en bout : le
   dupliquer, supprimer une carte ; son nom est une clé, que les catalogues reçoivent (`EX-EDIT-081`).
 - `Stamps` — les **tampons** : découper un rectangle de carte entier, le reposer, le refléter, et
   la bibliothèque de préfabriqués et de modèles de carte du lieu (`EX-EDIT-085` à `EX-EDIT-087`).
+- `MapDocuments` — les cartes ouvertes en onglets : le libellé d'un onglet, celui qu'une
+  ouverture vise, celui qui revient après une fermeture (`EX-EDIT-088`).
+- `WorldLinks` — relier deux cartes : le nom du point d'arrivée, les cases où poser la paire, et le
+  plan des deux fichiers à récrire (`EX-EDIT-089`).
+- `CityView` — la vue de ville : les quartiers d'une ville jouable joints à leurs cadres et à
+  l'atlas, et celui que désigne un point du plan (`EX-EDIT-090`).
 - `MapRefactor` — renommer et remplacer d'un bout à l'autre du projet : qui cite une carte, un
   point d'arrivée, une entité, une pièce ; le plan de chaque fichier à récrire, calculé avant d'en
   écrire un (`EX-EDIT-082`, `EX-EDIT-083`, `EX-EDIT-084`).
@@ -118,6 +131,7 @@ de l'arbre qui l'a construit, et à défaut le dossier de l'exécutable (`hmi::r
 | `LevelEditor --render [carte…] [--output f.png\|dossier] [--layers floors,relief,figures,collision] [--scale s]` | Rend en PNG, en isométrie (`EX-EDIT-075`). |
 | `LevelEditor --list-prefabs [lieu…]` | Liste les préfabriqués d'un lieu, de tous les lieux à défaut (`EX-EDIT-086`). |
 | `LevelEditor --save-prefab <carte> <nom> --from <c,r> --to <c,r>` | Découpe le rectangle et l'écrit comme préfabriqué du lieu de la carte (`EX-EDIT-086`). |
+| `LevelEditor --link-maps <carte> <carte>` | Relie deux cartes : le portail et le point d'arrivée des deux côtés ; refusé, n'écrit rien (`EX-EDIT-089`). |
 | `LevelEditor --who-cites map <carte>` (ou `arrival <carte> <point>`, `entity <carte> <id>`, `piece <pièce>`) | Liste ce qui cite, sans rien écrire (`EX-EDIT-082`). |
 | `LevelEditor --rename-map <ancien> <nouveau>` | Renomme une carte, dossier compris, et tout ce qui la cite ; refusé, n'écrit rien (`EX-EDIT-082`). |
 | `LevelEditor --rename-arrival <carte> <ancien> <nouveau>`, `--rename-id <carte> <ancien> <nouveau>` | Renomme un point d'arrivée, un identifiant d'entité, et ce qui les cite (`EX-EDIT-082`). |
@@ -166,6 +180,7 @@ d'éprouver la reprise.
 | `P` · `Shift+P` | essai depuis l'entrée, depuis la case survolée |
 
 Pour ouvrir le nouveau Colisée, utiliser `scripts/open-arena-editor.ps1` ou
-`LevelEditor --data <Source/Elements> --map=capital/arena-of-brave`.
+`LevelEditor --data <Source/Elements> --map=capital/arena-of-brave` (`--map=` remplace la carte de
+départ dans l'onglet du démarrage).
 `--screenshot=<fichier.png>` capture la fenêtre puis quitte.
 Voir le [guide Arena of Brave](../../Documentation/arena-of-brave-map.md).

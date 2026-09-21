@@ -228,7 +228,7 @@ private:
     QRectF _bounds;
 };
 
-EditorViewport::EditorViewport(QWidget* parent)
+EditorViewport::EditorViewport(StartContent content, QWidget* parent)
     : QGraphicsView(parent),
       _canvasScene(new QGraphicsScene(this)),
       _item(new CanvasItem(*this)),
@@ -260,6 +260,9 @@ EditorViewport::EditorViewport(QWidget* parent)
     _playTimer.setInterval(PLAYTEST_FRAME_MS);
     connect(&_playTimer, &QTimer::timeout, this, [this] { stepPlaytest(); });
 
+    if (content == StartContent::Blank) {
+        return;  // un onglet neuf qui va recevoir une carte nommée (LOT-EDITOR-09).
+    }
     // La première carte du jeu, comme brouillon. Échec récupérable : on garde le brouillon vierge.
     const std::filesystem::path startPath =
         levelsDirectory() / (std::string{START_MAP_ID} + ".json");
@@ -877,6 +880,36 @@ void EditorViewport::setNote(core::GridPosition cell, const std::string& text) {
         emit statusMessage(QStringLiteral("Failed to write the author notes."));
     }
     viewport()->update();
+    emit toolStateChanged();
+}
+
+void EditorViewport::setMapProperty(const std::string& key, core::PropertyValue value) {
+    if (_draft.setProperty(key, std::move(value))) {
+        markDraftMutated();
+    }
+}
+
+void EditorViewport::setMapProperties(
+    const std::vector<std::pair<std::string, core::PropertyValue>>& values) {
+    const core::GestureScope gesture(_draft);
+    bool changed = false;
+    for (const auto& [key, value] : values) {
+        changed = _draft.setProperty(key, value) || changed;
+    }
+    if (changed) {
+        markDraftMutated();
+    }
+}
+
+void EditorViewport::setMapState(MapState state) {
+    if (_sidecar.state == state) {
+        return;
+    }
+    _sidecar.state = state;
+    if (!writeSidecar(sidecarPath(levelPath()), _sidecar)) {
+        HMI_LOG_ERROR("Editeur : echec d'ecriture de l'annexe de " + _mapId);
+        emit statusMessage(QStringLiteral("Failed to write the editor file."));
+    }
     emit toolStateChanged();
 }
 

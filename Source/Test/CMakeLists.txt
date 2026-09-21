@@ -132,6 +132,10 @@ add_executable(UnitTests
     Unit/Editor/test_entity_shapes.cpp
     Unit/Editor/test_gesture_script.cpp
     Unit/Editor/test_shipped_maps.cpp
+    # Le monde : onglets, liens du graphe, vue de ville (LOT-EDITOR-09).
+    Unit/Editor/test_map_documents.cpp
+    Unit/Editor/test_world_links.cpp
+    Unit/Editor/test_city_view.cpp
 )
 
 # Encodage/decodage d'image : QImage (Qt) lit et ecrit le PNG, mais aucun device

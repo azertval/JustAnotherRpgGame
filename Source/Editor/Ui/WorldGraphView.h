@@ -25,6 +25,11 @@ namespace hmi {
 /**
  * @brief Peint un `core::WorldGraph` disposé par `hmi::layoutWorldGraph`.
  *
+ * **Tirer d'une carte à une autre crée le lien** (`LOT-EDITOR-09`, `EX-EDIT-089`) : la paire
+ * portail / point d'arrivée des deux côtés, par `hmi::planLinkMaps` ; la vue ne fait qu'émettre le
+ * geste, `hmi::MainWindow` montre le plan et l'écrit. Un fantôme ne se relie pas : sa carte
+ * n'existe pas.
+ *
  * Une carte est un disque (nom et identifiant dessous) ; une carte illisible a un contour
  * pointillé de la couleur d'erreur ; une carte absente (fantôme) n'est qu'un contour tireté
  * atténué. Une flèche par paire ordonnée de cartes, tiretée en couleur d'erreur si un de ses
@@ -54,11 +59,15 @@ public:
 signals:
     /// Émis au double-clic sur une carte lisible (chemin absolu du fichier).
     void levelOpenRequested(const QString& path);
+    /// Émis quand un lien est tiré d'une carte à une autre (`LOT-EDITOR-09`), par identifiants.
+    void linkRequested(const QString& fromMap, const QString& toMap);
 
 protected:
     bool event(QEvent* event) override;
     void paintEvent(QPaintEvent* event) override;
+    void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
     void mouseDoubleClickEvent(QMouseEvent* event) override;
     void leaveEvent(QEvent* event) override;
 
@@ -88,6 +97,9 @@ private:
     std::filesystem::path _dir;
     std::optional<std::size_t> _hoveredNode;
     std::optional<std::size_t> _hoveredEdge;
+    /// La carte d'où part le lien qu'on tire, et le point où le trait s'arrête.
+    std::optional<std::size_t> _linkFrom;
+    core::Vector2 _linkPoint;
 };
 
 }  // namespace hmi

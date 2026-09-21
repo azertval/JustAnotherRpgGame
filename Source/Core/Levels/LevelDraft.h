@@ -420,6 +420,21 @@ public:
         return !_redoHistory.empty();
     }
 
+    /**
+     * @brief Assigne la propriété de **carte** @p key (`LOT-EDITOR-09`) — sa région
+     *        (`core::MAP_REGION_PROPERTY`), son ambiance (`core::MAP_AMBIENCE_PROPERTY`), ou toute
+     *        clé racine gardée du fichier.
+     *
+     * Une chaîne vide **retire** la propriété : une carte sans région n'en porte pas la clé.
+     * @return `false` (rien d'empilé) si la clé est vide, ou si la valeur est déjà celle-là.
+     */
+    bool setProperty(const std::string& key, PropertyValue value);
+
+    /// @return Les propriétés de la carte (`core::LevelData::properties`).
+    [[nodiscard]] const PropertyMap& properties() const noexcept {
+        return _properties;
+    }
+
     /// Renomme le niveau.
     void setName(std::string name) {
         _name = std::move(name);
@@ -507,6 +522,7 @@ private:
         std::vector<TileLayer> layers;
         std::vector<MapEntity> entities;
         std::vector<GridPosition> forcedCollision;
+        PropertyMap properties;
         std::uint64_t revision = 0;
     };
 
@@ -557,6 +573,9 @@ private:
     /// Base et planche d'une variante (décision D12) : ni peintes ni défaites, recopiées.
     std::string _base;
     std::string _scene;
+    /// Propriétés de la carte (`LOT-EDITOR-09`) : région, ambiance, clés gardées. Défaites avec
+    /// le reste — les changer est un pas d'annulation.
+    PropertyMap _properties;
     /// Manifeste des pièces du lieu, partagé : copier un brouillon ne le recopie pas.
     std::shared_ptr<const ScenePieceManifest> _manifest;
     std::vector<State> _undoHistory;

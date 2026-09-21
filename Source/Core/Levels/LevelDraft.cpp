@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <utility>
+#include <variant>
 
 #include "Core/Levels/CollisionDerivation.h"
 #include "Core/Levels/LevelVariant.h"
@@ -49,6 +50,7 @@ LevelDraft LevelDraft::fromLevel(const Level& level) {
     draft._nextEntityId = level.nextEntityId();
     draft._base = level.base();
     draft._scene = level.scene();
+    draft._properties = level.properties();
     return draft;
 }
 
@@ -882,6 +884,29 @@ bool LevelDraft::redo() {
     return true;
 }
 
+bool LevelDraft::setProperty(const std::string& key, PropertyValue value) {
+    if (key.empty()) {
+        return false;
+    }
+    const auto found = _properties.find(key);
+    const bool clearing =
+        std::holds_alternative<std::string>(value) && std::get<std::string>(value).empty();
+    if (clearing) {
+        if (found == _properties.end()) {
+            return false;  // rien a retirer : ni pas d'historique, ni revision neuve.
+        }
+        pushUndo();
+        _properties.erase(found);
+        return true;
+    }
+    if (found != _properties.end() && found->second == value) {
+        return false;
+    }
+    pushUndo();
+    _properties[key] = std::move(value);
+    return true;
+}
+
 LevelDraft::State LevelDraft::snapshot() const {
     return State{.name = _name,
                  .tileMap = _tileMap,
@@ -889,6 +914,7 @@ LevelDraft::State LevelDraft::snapshot() const {
                  .layers = _layers,
                  .entities = _entities,
                  .forcedCollision = _forcedCollision,
+                 .properties = _properties,
                  .revision = _revision};
 }
 
@@ -899,6 +925,7 @@ void LevelDraft::restore(State state) {
     _layers = std::move(state.layers);
     _entities = std::move(state.entities);
     _forcedCollision = std::move(state.forcedCollision);
+    _properties = std::move(state.properties);
     _revision = state.revision;
 }
 
@@ -954,7 +981,8 @@ std::string LevelDraft::toJson() const {
                                             .forcedCollision = _forcedCollision,
                                             .nextEntityId = _nextEntityId,
                                             .base = _base,
-                                            .scene = _scene});
+                                            .scene = _scene,
+                                            .properties = _properties});
 }
 
 LevelLoadResult LevelDraft::toLevel() const {

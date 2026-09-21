@@ -28,6 +28,49 @@ constexpr std::string_view SIDECAR_SUFFIX = ".editor.json";
 
 }  // namespace
 
+std::string_view mapStateKey(MapState state) noexcept {
+    switch (state) {
+        case MapState::Generated:
+            return "generated";
+        case MapState::Retouched:
+            return "retouched";
+        case MapState::Finished:
+            return "finished";
+        case MapState::Unset:
+            break;
+    }
+    return {};
+}
+
+MapState mapStateFromKey(std::string_view key) noexcept {
+    for (const MapState state : knownMapStates()) {
+        if (mapStateKey(state) == key) {
+            return state;
+        }
+    }
+    return MapState::Unset;
+}
+
+std::string_view mapStateLabel(MapState state) noexcept {
+    switch (state) {
+        case MapState::Generated:
+            return "Generated";
+        case MapState::Retouched:
+            return "Retouched";
+        case MapState::Finished:
+            return "Finished";
+        case MapState::Unset:
+            break;
+    }
+    return "not stated";
+}
+
+const std::vector<MapState>& knownMapStates() {
+    static const std::vector<MapState> states{MapState::Generated, MapState::Retouched,
+                                              MapState::Finished};
+    return states;
+}
+
 std::filesystem::path sidecarPath(const std::filesystem::path& levelPath) {
     std::filesystem::path path = levelPath;
     path.replace_extension();
@@ -48,6 +91,14 @@ SidecarReadResult parseSidecar(std::string_view json) {
     }
     for (const auto& [key, value] : root.items()) {
         if (key == "version") {
+            continue;
+        }
+        if (key == "state") {
+            // Un mot inconnu vaut « rien dit » : l'annexe d'un editeur plus recent ne fait pas
+            // echouer celui-ci, mais son mot n'est pas garde -- l'etat est une valeur, pas un
+            // texte libre.
+            result.sidecar.state =
+                value.is_string() ? mapStateFromKey(value.get<std::string>()) : MapState::Unset;
             continue;
         }
         if (key != "notes") {
@@ -96,6 +147,11 @@ std::string sidecarJson(const EditorSidecar& sidecar) {
             {{"column", note.cell.column}, {"row", note.cell.row}, {"text", note.text}});
     }
     root["notes"] = std::move(notes);
+    if (sidecar.state != MapState::Unset) {
+        root["state"] = std::string{mapStateKey(sidecar.state)};
+    } else {
+        root.erase("state");
+    }
     return root.dump(2) + "\n";
 }
 
