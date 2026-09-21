@@ -17,6 +17,7 @@ prerequis = [
   "LOT-117",
   "LOT-118",
   "LOT-119",
+  "LOT-126",
 ]
 livrables = [
   "La quête en données : un drapeau à cinq valeurs, huit étapes.",

@@ -6,7 +6,7 @@ filiere = "cartes"
 statut = "a-faire"
 taille = "M"
 resume = "L'Arena of Fate se parcourt, et figure dans l'onglet « Carte » **à l'intérieur d'Arenarea**."
-prerequis = ["LOT-106", "LOT-103"]
+prerequis = ["LOT-106", "LOT-103", "LOT-126", "LOT-127"]
 livrables = [
   "`Levels/central-empire/capital/arenarea/arena-of-fate.json`, dessinée **dans l'éditeur**.",
   "`capital/arenarea/arena-of-fate/Map/` : l'image de la zone pour l'onglet « Carte », et son entrée dans `world-maps.json`.",
@@ -71,7 +71,18 @@ atteignables.
 
 Au fond de la prison, l'**escalier des catacombes** descend au niveau −2. Il est posé sur la carte
 et **condamné** : c'est le crochet du `LOT-157`. Le contrôle de l'éditeur doit l'accepter comme
-porte sans arrivée — sinon la carte est marquée d'un portail mort.
+porte sans arrivée — sinon la carte est marquée d'un portail mort : c'est `portal.sealed`, au
+[LOT-126](LOT-126-ce-que-la-quete-demande-aux-cartes.md).
+
+### Question ouverte : un niveau sous les gradins
+
+Le niveau −1 est **sous** les gradins, qui occupent les mêmes cases en décor. Or ni le jeu ni l'éditeur ne
+jouent les étages : le format v4 en réserve la place (`floor`, `elevation`) sans s'en servir, et la règle
+de l'éditeur (sa décision D11) est qu'un sous-sol est **une carte à part**, reliée par portail. Proposé :
+deux cartes — `arena-of-fate.json` (le sable et ses anneaux) et `arena-of-fate/undercroft.json`
+(vestiaires et prison) —, l'escalier de la porte du triomphe étant le portail. La taille de 34 × 24 ne
+vaut alors que pour la première. À trancher au démarrage du lot ; jouer les étages serait un lot de
+moteur, que rien ne demande avant Phantom Fortress.
 
 ![Plan de principe](../maquettes/plan-arena-of-fate.svg)
 

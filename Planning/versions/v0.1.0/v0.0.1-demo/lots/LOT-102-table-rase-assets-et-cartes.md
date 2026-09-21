@@ -6,7 +6,7 @@ filiere = "standard"
 statut = "a-faire"
 taille = "L"
 resume = "Plus un seul asset pixel art ni une seule carte de l'ancien style dans le dépôt, la nouvelle arborescence en place, le jeu et la CI debout sur une base vide."
-prerequis = ["LOT-100"]
+prerequis = ["LOT-100", "LOT-123"]
 reprend = ["LOT-88 (retrait de l'héritage, même méthode)"]
 livrables = [
   "Suppression de `Assets/Scene/`, `Assets/Coliseum/`, `Assets/Npc/`, `Assets/Monsters/` (images), de `Levels/coliseum.json`, `Levels/capital/` et `World/arena/`.",
@@ -56,6 +56,13 @@ L'ordre qui garde la CI verte à chaque commit :
 4. créer la nouvelle arborescence et y rebrancher les chemins du moteur
    (`WorldPlay`, `ArenaSceneRenderer`, `AssetGallery`, `EntityReferences`, `MapFormat`) :
    recherche d'une clé dans la zone, puis la ville, la région, le monde.
+
+## L'éditeur
+
+Le critère « l'éditeur s'ouvre sur une carte vierge ; `LevelEditor --check` passe » est faux
+aujourd'hui : `--check` rend une erreur sans carte, et dix-huit tests de l'éditeur lisent les cartes
+livrées. Le [LOT-123](LOT-123-editeur-sur-une-base-vide.md) passe avant, et la nouvelle arborescence
+côté éditeur est au [LOT-124](LOT-124-editeur-et-arborescence-par-niveaux.md).
 
 ## Risques
 

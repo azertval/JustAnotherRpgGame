@@ -6,7 +6,7 @@ filiere = "version"
 statut = "a-faire"
 taille = "S"
 resume = "La Capitale intra-muros est jouée, corrigée et taguée."
-prerequis = ["LOT-155"]
+prerequis = ["LOT-155", "LOT-159"]
 livrables = [
   "Recette, corrections, installeur, tag `v0.0.3`, bilan — et la mesure du **poids du dépôt**.",
 ]

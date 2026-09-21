@@ -21,6 +21,7 @@ les conditions de sa filière le sont. Un lot « presque fini » est `en-cours`.
 | **Moteur** | tests unitaires et d'intégration ; pas de régression des mesures de performance ; la spécification dit ce que le code fait |
 | **Règles et données** | chaque valeur vient d'une page citée ; schéma validé ; un test recalcule les valeurs dérivées ; les écarts au livre sont écrits |
 | **Interface** | à la charte v2 ; capture de référence QML ; jouable sans souris ; textes dans les deux langues |
+| **Éditeur** | logique en fonctions pures testées ; un scénario `--apply` par outil, comparé à un fichier attendu ; une famille ou une propriété nouvelle passe par `EntityKinds`, sans code par famille ; le guide d'usage est à jour ; **le geste est fait à la main par l'auteur** ; textes en anglais, hors charte v2 |
 | **Recette et version** | les critères de sortie de la version sont tenus ; installeur éprouvé sur un poste vierge ; tag posé ; **bilan** écrit dans le dossier de la version |
 
 ## La vérification manuelle

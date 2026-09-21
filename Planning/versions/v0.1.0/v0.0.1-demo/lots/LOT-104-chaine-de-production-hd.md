@@ -18,7 +18,6 @@ livrables = [
   "Le contrôle en CI : tout fichier cité par un manifeste existe, tout fichier d'image est cité, dimensions et poids dans les bornes du standard, **budget de 40 Mio par zone**.",
   "La galerie de débug (`--screen=AssetGallery`) qui lit la nouvelle arborescence (`EX-CNT-042` inchangée).",
   "Le gabarit de **commande d'une zone** : les dix familles du standard, ce qui vient du commun, ce qui est propre — une page par zone dans `Tools/AssetsHD/`.",
-  "La palette de l'éditeur qui propose les pièces du lieu **et** de ses niveaux communs.",
 ]
 criteres = [
   "Les pièces de `Tools/AssetsHD/Colisee/` (sols, murs, angles) s'installent par la commande, sans retouche manuelle, et paraissent dans la galerie.",
@@ -40,6 +39,13 @@ du dépôt, sous le même arbre que les assets installés. La commande lit une s
 
 Le générateur d'images reste un outil **manuel** : Claude ne dessine pas, et aucune génération ne
 tourne en CI (règle du LOT-91, inchangée).
+
+## Périmètre
+
+La palette de l'éditeur qui propose les pièces du lieu **et** de ses niveaux communs était un livrable
+de ce lot. L'[audit de l'éditeur](../../../../standards/audit-editeur.md) a montré que ce n'est pas une
+palette mais tout ce qui, dans `Core` et l'éditeur, suppose un manifeste unique : c'est le
+[LOT-124](LOT-124-editeur-et-arborescence-par-niveaux.md).
 
 ## Risques
 

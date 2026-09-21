@@ -51,5 +51,6 @@ dont les dossiers gardent ce que leur réalisation a tranché. Les lots qu'elle 
 n'ont pas été livrés sont **repris** ici sous de nouveaux numéros, à partir de `LOT-100` ; chaque
 fiche dit ce qu'elle reprend (`reprend = [...]`), et la
 [table de correspondance](vision/correspondance-ancienne-roadmap.md) donne la vue d'ensemble.
-La feuille de route de l'**éditeur** (`Documentation/Editeur/`) n'est pas concernée : l'outil
-avance à part.
+La feuille de route de l'**éditeur** (`Documentation/Editeur/`) est **close** elle aussi : elle garde l'histoire
+des `LOT-EDITOR-01` à `14`. Ce que l'éditeur doit encore apprendre pour que les cartes de chaque version se
+dessinent est ici, dans la filière `editeur`, d'après [son audit](standards/audit-editeur.md).

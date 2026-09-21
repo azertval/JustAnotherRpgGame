@@ -35,7 +35,8 @@ sans ce lot une pièce HD s'affiche 3,8 fois trop grande, rognée et scintillant
 
 Le **rendu** seulement. Pas de changement du format de carte, de la grille tactique, de la
 projection (le rapport 0,62 est conservé) ni de l'éditeur, hormis ce qu'il partage avec le rendu du
-jeu (`SceneComposition`, vignettes de la palette).
+jeu (`SceneComposition`, vignettes de la palette). Ce qui est propre à l'éditeur — lissage du canevas,
+`--render`, cache d'images, mesure de peinture — est au [LOT-125](LOT-125-canevas-hd.md).
 
 ## Risques
 

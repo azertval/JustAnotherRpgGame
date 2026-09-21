@@ -6,7 +6,7 @@ filiere = "cartes"
 statut = "a-faire"
 taille = "XL"
 resume = "Dweomer et Scholarnest : assets HD, PNJ, carte jouable et carte de l'onglet."
-prerequis = ["LOT-151"]
+prerequis = ["LOT-151", "LOT-158"]
 livrables = [
   "Les assets HD propres à Dweomer et Scholarnest, et ce qu'elle verse au commun.",
   "Ses PNJ nommés, neutres et hostiles : figurines, portraits, fiches, placements.",

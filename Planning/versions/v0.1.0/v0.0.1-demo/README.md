@@ -1,14 +1,15 @@
 # Version 0.0.1 — démo basique
 
-## Trois filières en parallèle
+## Quatre filières en parallèle
 
-La démo se construit sur trois pistes qui ne se rejoignent qu'à la quête :
+La démo se construit sur quatre pistes qui ne se rejoignent qu'à la quête :
 
 | Piste | Lots | Ce qui la bloque |
 |---|---|---|
 | **Le standard et les assets** | LOT-101 → LOT-102, LOT-103 → LOT-104 → LOT-105 → assets des trois zones → cartes, PNJ | l'approbation de la maquette de style par l'auteur |
 | **Le moteur de la quête** | LOT-116 (drapeaux), LOT-117 (jet en dialogue), LOT-119 (écrans de fin) — prêts dès aujourd'hui | rien |
 | **Le combat sur la carte** | LOT-118 | le rendu HD (LOT-103) |
+| **L'éditeur** | LOT-123 → LOT-102 ; LOT-124, LOT-125 → LOT-127 ; LOT-126 | rien pour le LOT-123, prêt dès aujourd'hui ; il **précède** la table rase |
 
 Tant que les assets ne sont pas là, le moteur de la quête avance sur des **cartes de test** et des
 marqueurs : le jeu sait déjà afficher un damier et un jeton à la place d'un asset manquant.
