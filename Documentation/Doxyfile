@@ -12,15 +12,11 @@ PROJECT_BRIEF          = "Jeu de rôle tactique au d20, vue de dessus, en C++/Qt
 OUTPUT_DIRECTORY       = generated
 CREATE_SUBDIRS         = NO
 
-# Entrées : documentation Markdown (accueil, spécifications, lots) + code source.
+# Entrées : le code, et lui seul. Les pages (guide, spécifications, cahier de test) sont du Markdown nu
+# rendu par `outils/build_docs_site.py` ; Doxygen ne garde que la référence de code, publiée sous
+# `reference/` du site — l'annexe du guide. `reference.md` en est la page d'accueil.
 # Les chemins sont relatifs à ce dossier (Documentation/).
-INPUT                  = index.md \
-                         CahierTest.md \
-                         Guide \
-                         Specification \
-                         Lot \
-                         Editeur \
-                         Manuel \
+INPUT                  = reference.md \
                          ../Source
 RECURSIVE              = YES
 FILE_PATTERNS          = *.cpp *.h *.hpp *.md
@@ -28,8 +24,8 @@ FILE_PATTERNS          = *.cpp *.h *.hpp *.md
 # Source/ (notes internes, non voulues comme pages du site).
 EXCLUDE_PATTERNS       = */build/* */External/* */generated/* */Source/*README.md
 
-# Page d'accueil du site (mainpage) et arbre de navigation latéral.
-USE_MDFILE_AS_MAINPAGE = index.md
+# Page d'accueil de la référence (mainpage) et arbre de navigation latéral.
+USE_MDFILE_AS_MAINPAGE = reference.md
 GENERATE_TREEVIEW      = YES
 # Les onglets de Doxygen laissent la place à la barre commune du site (cf. HTML_HEADER) : deux
 # rangées de navigation qui ne disent pas la même chose, c'est une de trop. L'arbre latéral reste,
@@ -37,8 +33,8 @@ GENERATE_TREEVIEW      = YES
 DISABLE_INDEX          = YES
 
 # --- Habillage : la charte du site (Site/) ---
-# Le site publié a trois parties — cette référence de code à la racine, la planification sous
-# `planning/`, la page qualité sous `qualite/`. Elles partagent une palette, des fontes et une
+# Le site publié a quatre parties — la documentation à la racine, cette référence de code sous
+# `reference/`, la planification sous `planning/`, la page qualité sous `qualite/`. Elles partagent une palette, des fontes et une
 # barre d'en-tête, toutes trois tenues dans `Site/`, et aucune n'en redéfinit une seule valeur.
 # Ici : le gabarit d'en-tête qui porte la barre, puis les feuilles, dans l'ordre. Elles passent
 # après la `doxygen.css` engendrée, dont elles rebranchent les variables sur les jetons.
@@ -78,8 +74,8 @@ WARN_AS_ERROR          = FAIL_ON_WARNINGS
 # \castest{...} : UN seul argument (accolades) -> les virgules du contenu sont autorisees.
 # Formate le cas directement dans la doc du test (pas d'agregation via \xrefitem : la page
 # "Cahier de test" agregee sur un seul niveau, illisible au-dela de quelques dizaines de cas,
-# est desormais reconstruite - structuree par module - par scripts/generate_cahier_test.py
-# a partir de ces memes blocs, dans Documentation/CahierTest.md).
+# est desormais reconstruite - une page par domaine, un cas par fiche - par
+# scripts/generate_cahier_test.py a partir de ces memes blocs, dans Documentation/CahierTest/).
 # Sous-commandes pour structurer le contenu (categorie, criticite, etapes, resultat attendu).
 ALIASES += "castest{1}=<b>Cas de test :</b> \1"
 ALIASES += "tcat=<b>Categorie :</b> "

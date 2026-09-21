@@ -33,7 +33,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import mini_markdown  # noqa: E402
-from planning_model import FILIERES, LOT_FILE_RE, PlanningError, load_planning, progress  # noqa: E402
+from planning_model import (  # noqa: E402
+    FILIERES, LOT_FILE_RE, PlanningError, load_planning, lot_sort_key, progress,
+)
 
 PLANNING_ROOT = Path(__file__).resolve().parents[1]
 # La charte du site publié (palette, barre d'en-tête, feuilles) : partagée avec la référence de
@@ -76,6 +78,16 @@ class Site:
                 return target
             path, _, anchor = target.partition('#')
             resolved = posixpath.normpath(posixpath.join(source_dir, path))
+            if resolved.startswith('../Documentation/'):
+                # Une page du site de documentation, publié à `docs_url` : même chemin, en `.html`.
+                inner = resolved[len('../Documentation/'):]
+                if inner.endswith('.md'):
+                    inner = inner[:-3] + '.html'
+                    if posixpath.basename(inner) == 'README.html':
+                        inner = posixpath.join(posixpath.dirname(inner), 'index.html')
+                base = self.docs_url if '://' in self.docs_url else self.rel(
+                    page, posixpath.normpath(posixpath.join('.', self.docs_url)))
+                return posixpath.join(base, inner) + ('#' + anchor if anchor else '')
             name = posixpath.basename(resolved)
             match = LOT_FILE_RE.match(name)
             if match:
@@ -192,7 +204,7 @@ class Site:
         for lot in lots:
             depth_of(lot)
         columns = {}
-        for lot in sorted(lots, key=lambda item: (item.rang or 999, item.id)):
+        for lot in sorted(lots, key=lambda item: (item.rang or 999, lot_sort_key(item.id))):
             columns.setdefault(depth[lot.id], []).append(lot)
         box_w, box_h, gap_x, gap_y = 190, 46, 70, 16
         position = {}
@@ -287,7 +299,7 @@ class Site:
     def build_versions(self):
         for version in self.planning.versions:
             page = f'versions/{version.slug}.html'
-            lots = sorted(version.lots, key=lambda lot: (lot.rang == 0, lot.rang, lot.id))
+            lots = sorted(version.lots, key=lambda lot: (lot.rang == 0, lot.rang, lot_sort_key(lot.id)))
             parts = [f'<p class="crumb"><a href="{esc(self.rel(page, "index.html"))}">Trajectoire</a> › '
                      f'référentiel {esc(version.referentiel)}</p>'
                      f'<h1><span class="vid">{esc(version.id)}</span> {esc(version.titre)}</h1>'
@@ -330,7 +342,7 @@ class Site:
 
     def build_lots(self):
         page = 'lots/index.html'
-        lots = sorted(self.planning.lots.values(), key=lambda lot: (lot.rang == 0, lot.rang, lot.id))
+        lots = sorted(self.planning.lots.values(), key=lambda lot: (lot.rang == 0, lot.rang, lot_sort_key(lot.id)))
         versions = ''.join(f'<option>{esc(v.id)}</option>' for v in self.planning.versions if v.lots)
         filieres = ''.join(f'<option value="{esc(k)}">{esc(v)}</option>' for k, v in FILIERES.items())
         etats = ''.join(f'<option value="{esc(k)}">{esc(v)}</option>' for k, v in ETATS.items())
@@ -357,7 +369,8 @@ class Site:
             return ' '.join(f'<a class="ref" href="{esc(self.rel(page, f"lots/{i.lower()}.html"))}">{esc(i)}</a>'
                             for i in ids) or '—'
 
-        dependants = sorted(other.id for other in self.planning.lots.values() if lot.id in other.prerequis)
+        dependants = sorted((other.id for other in self.planning.lots.values() if lot.id in other.prerequis),
+                            key=lot_sort_key)
 
         def bullet(title, items, css=''):
             if not items:
@@ -470,7 +483,7 @@ class Site:
             'lots': [{
                 'id': lot.id, 'titre': lot.titre, 'version': lot.version, 'etat': lot.etat,
                 'rang': lot.rang, 'debloque': lot.debloque, 'prerequis': lot.prerequis,
-            } for lot in sorted(self.planning.lots.values(), key=lambda lot: lot.id)],
+            } for lot in sorted(self.planning.lots.values(), key=lambda lot: lot_sort_key(lot.id))],
         }
         self.write('summary.json', json.dumps(summary, ensure_ascii=False, indent=2) + '\n')
 

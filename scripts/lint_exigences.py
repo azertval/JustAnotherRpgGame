@@ -5,15 +5,15 @@
 """Lint des identifiants d'exigences (EX-...) de JustAnotherRpgGame.
 
 Vérifie que les identifiants d'exigences forment un référentiel cohérent :
-- chaque exigence est **déclarée exactement une fois** (ancre Doxygen
-  ``\\anchor EX-XXX-NNN`` dans les spécifications) ;
+- chaque exigence est **déclarée exactement une fois** : une puce de spécification qui s'ouvre sur
+  son identifiant en gras (``- **EX-XXX-NNN** — …``), que le site rend en ancre ;
 - toute **référence** à un ``EX-XXX-NNN`` (spécifications, lots, code,
   workflows) pointe vers une exigence déclarée (aucune référence orpheline) ;
 - toute exigence **déclarée** est référencée au moins une fois quelque part (spécification
   détaillée, lot, code) — sauf si elle est explicitement qualifiée d'**invariant transverse** ou de
   **post-MVP** dans le fichier de spécification qui la déclare, ou **retirée** :
   ce silence-là est documenté, pas orphelin ;
-- une exigence **retirée** (ligne d'ancre portant ``*(retirée``) n'est plus citée par le **code** :
+- une exigence **retirée** (ligne de déclaration portant ``*(retirée``) n'est plus citée par le **code** :
   le code qui la mettait en œuvre part avec elle (LOT-88). Les lots livrés, eux, peuvent la citer —
   c'est leur histoire ;
 - toute référence à une **famille entière** (``EX-XXX-*``) désigne une famille qui existe.
@@ -31,8 +31,11 @@ import re
 import sys
 
 ID_RE = re.compile(r'EX-[A-Z]+-[0-9]+')
-ANCHOR_RE = re.compile(r'\\anchor\s+(EX-[A-Z]+-[0-9]+)')
-# Marque d'une exigence retiree, sur sa ligne d'ancre : `\anchor EX-GP-003 **EX-GP-003** *(retirée…`.
+# Une declaration : la puce d'une specification qui s'ouvre sur l'identifiant en gras. Le meme motif
+# ailleurs que dans `Documentation/Specification/` (une fiche de lot qui enumere) n'est qu'une citation.
+DECLARATION_RE = re.compile(r'^\s*[-*]\s+\*\*(EX-[A-Z]+-[0-9]+)\*\*')
+SPECIFICATION_DIR = os.path.join('Documentation', 'Specification')
+# Marque d'une exigence retiree, sur sa ligne de declaration : `- **EX-GP-003** *(retirée…`.
 RETIRED_MARK = '*(retirée'
 # Le code ne cite pas une exigence retiree : ce qu'elle exigeait n'existe plus.
 CODE_EXTENSIONS = ('.h', '.hpp', '.cpp', '.yml', '.yaml')
@@ -85,7 +88,8 @@ def collect(root):
         except (UnicodeDecodeError, OSError):
             continue
         for number, line in enumerate(lines, start=1):
-            anchors_on_line = set(ANCHOR_RE.findall(line))
+            declared = DECLARATION_RE.match(line) if rel.startswith(SPECIFICATION_DIR) else None
+            anchors_on_line = {declared.group(1)} if declared else set()
             for rid in anchors_on_line:
                 declarations.setdefault(rid, []).append((rel, number))
                 if RETIRED_MARK in line:

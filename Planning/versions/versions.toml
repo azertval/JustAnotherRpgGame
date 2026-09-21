@@ -8,6 +8,28 @@
 # `referentiel` regroupe les versions sous le jalon majeur qu'elles servent.
 
 # ------------------------------------------------------------------------------------------------
+# Référentiel 0.0.0 — la fondation
+# ------------------------------------------------------------------------------------------------
+
+[[version]]
+id = "0.0.0"
+titre = "Fondation du moteur"
+nature = "detaillee"
+referentiel = "0.0.0"
+dossier = "v0.0.0/v0.0.0-fondation"
+resume = "Tout ce qui a été livré avant la refonte du 20 septembre 2026 : le moteur, les règles d20, le combat tactique, l'interface Qt Quick, la chaîne de données et l'éditeur de cartes."
+objectifs = [
+  "Un **moteur** C++20 / Qt QRhi debout : boucle, ECS, cartes multicouches, rendu isométrique trié, exploration et bascule vers le combat.",
+  "Les **règles d20** et le **combat tactique** complets : jets, fiche, inventaire, grille, initiative, attaques, portée et ligne de vue, IA, interface de combat.",
+  "La **chaîne de données** du corpus : extraction, schémas, bestiaire, équipement, espèces et classes, atlas des régions, clés d'assets.",
+  "L'**interface** Qt Quick à la charte v2 et l'**éditeur de cartes** (`LevelEditor`), du socle au format v4, jusqu'à l'essai dans le jeu.",
+]
+criteres_de_sortie = [
+  "Chaque lot de l'ancienne feuille de route du jeu (`LOT-01` à `LOT-96`) et de celle de l'éditeur (`LOT-EDITOR-01` à `LOT-EDITOR-14`) qui a été démarré a sa fiche ici, au format commun.",
+  "Les deux anciennes feuilles de route sont archivées sous `Planning/vision/archives/` : elles ne se lisent plus que pour l'histoire.",
+]
+
+# ------------------------------------------------------------------------------------------------
 # Référentiel 0.1.0 — l'Empire central
 # ------------------------------------------------------------------------------------------------
 
