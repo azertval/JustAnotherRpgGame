@@ -96,11 +96,11 @@ $(function(){initNavTree('lot-87-cahier-assets.html','',''); });
 <blockquote class="doxtable">
 <p>Tâche <b>T2.4</b> du <a class="el" href="lot-87.html" title="LOT-87 — Charte v2 et intégration des maquettes">LOT-87</a>. Source : <span class="tt">assets-brief.json</span>, son contrat <span class="tt">assets-brief.schema.json</span>, son garde-fou <span class="tt">scripts/check_assets_brief.py</span>. Exigences servies : <a class="el" href="spec-interface-ihm.html#EX-IHM-075" title="EX-IHM-075"><span class="tt">EX-IHM-075</span></a> (ornements produits, décrits par ce cahier), <a class="el" href="spec-interface-ihm.html#EX-IHM-076" title="EX-IHM-076"><span class="tt">EX-IHM-076</span></a> (provenance « produite »), <a class="el" href="spec-interface-ihm.html#EX-IHM-053" title="EX-IHM-053"><span class="tt">EX-IHM-053</span></a> (icônes, refondue par cette tâche). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md652"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md653"></a>
 À quoi sert ce cahier</h1>
 <p>Aucun modèle Claude ne dessine un cadre doré ni un fond peint. Ce cahier est ce qui part vers le générateur d'images ou l'illustrateur : <b>la liste exhaustive des pièces</b> que les écrans v2 consomment, et pour chacune ce qu'il faut pour la produire sans revenir poser une question — taille, marges, fond, états, description, prompt, et la zone de maquette qui la montre. Il est aussi ce que le T2.6 lira pour <b>réceptionner</b> les images : une image qui ne répond à aucune entrée est refusée, une entrée sans image reste « non livrée ».</p>
 <p>Le cahier vit en deux jumeaux. <span class="tt">assets-brief.json</span> est la <b>source</b> : le script le valide et en assemble les prompts. Cette page en est la <b>lecture</b> : les tables plus bas sont engendrées depuis le JSON (<span class="tt">--write</span>), et la CI échoue si elles ne le suivent plus. On corrige le JSON, jamais les tables.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md653"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md654"></a>
 Lire une entrée</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -122,7 +122,7 @@ Lire une entrée</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>Repli</b>  </td><td class="markdownTableBodyNone">Les jetons de l'aplat qui tient la place tant que la pièce n'est pas livrée (<span class="tt">EX-IHM-075</span>, <span class="tt">EX-NFR-040</span>) : aucun écran ne dépend d'une image pour s'afficher.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md654"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md655"></a>
 Les prompts</h1>
 <p>Un prompt n'est <b>pas recopié</b> dans le JSON : il est <b>assemblé</b> au moment de l'envoi, pour que la palette qu'il impose soit toujours celle de <span class="tt">Tokens.qml</span>.</p>
 <div class="fragment"><div class="line">python scripts/check_assets_brief.py --prompt ui/button/menu/hover   # une variante</div>
@@ -130,7 +130,7 @@ Les prompts</h1>
 <div class="line">python scripts/check_assets_brief.py --prompt all                    # le cahier entier</div>
 </div><!-- fragment --><p>L'assemblage met bout à bout, dans cet ordre : le <b>style</b> commun ; la <b>matière</b> de la pièce (<span class="tt">dark</span>, <span class="tt">parchment</span>, <span class="tt">scene</span>, <span class="tt">neutral</span>), dont chaque <span class="tt">{jeton}</span> est remplacé par sa valeur lue dans <span class="tt">Tokens.qml</span> ; l'<b>interdit des lettres</b>, qui nomme les familles <span class="tt">titleFamily</span> et <span class="tt">bodyFamily</span> ; le <b>prompt propre</b> à la pièce ; la phrase de sa <b>variante</b> ; la <b>toile</b> (taille exacte, fond) ; et la <b>règle d'étirement</b> (9-patch avec ses marges, tranche horizontale, pièce fixe, tuile, plein écran). La palette et les polices sont donc dans chaque prompt, comme le plan l'exige, sans qu'une seule valeur soit écrite deux fois. Changer un jeton change le prompt suivant.</p>
 <p>Les prompts sont en <b>anglais</b> : c'est la langue que les générateurs d'images suivent le mieux. Descriptions, libellés et documentation restent en français. Le prompt tel qu'envoyé, avec sa date, est ce que le manifeste retiendra de chaque image livrée (T2.5).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md655"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md656"></a>
 Ce que la lecture des maquettes a tranché</h1>
 <p>Le plan donnait une liste de familles ; la lecture écran par écran l'a complétée et, par endroits, contredite. Chaque écart ci-dessous est dans le JSON.</p>
 <ul>
@@ -143,7 +143,7 @@ Ce que la lecture des maquettes a tranché</h1>
 <li><b>Pièces sans maquette.</b> La liste ouverte d'un menu déroulant et les liserés de rareté ne sont montrés nulle part ; chacune déclare la pièce qu'elle prolonge (<span class="tt">derivedFrom</span>).</li>
 <li><b>Le panneau parchemin a deux états</b> : simple, et relié d'une bande de cuir grenat (maquette 03).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md656"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md657"></a>
 Produire, dans quel ordre</h1>
 <p>Le chemin critique du lot passe par ici : <b>aucun écran de la phase 3 ne commence avant que les fonds, cadres, plaques, boutons et contrôles soient livrés</b> (clôture du T2.6). L'ordre de production est donc celui des tables : fonds, cadres, plaques et onglets, boutons, contrôles d'abord ; médaillons, emplacements, jauges, ornements et icônes peuvent suivre pendant la phase 3.</p>
 <p>Pour chaque pièce :</p>
@@ -152,19 +152,19 @@ Produire, dans quel ordre</h1>
 <li>vérifier à l'œil ce que le script ne peut pas voir : aucune lettre, les ornements tenus dans les marges, un milieu uniforme ;</li>
 <li>nommer le fichier d'après la clé et le remettre au T2.6, qui contrôle dimensions, transparence et marges, puis l'installe et l'inscrit au manifeste avec le prompt et la date.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md657"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md658"></a>
 Vérifier le relevé</h1>
 <p>Les zones ont été relevées sur les maquettes puis contrôlées une à une en les dessinant dessus :</p>
 <div class="fragment"><div class="line">python scripts/check_assets_brief.py --annotate &lt;dossier&gt;</div>
 </div><!-- fragment --><p>Le script écrit dans <span class="tt">&lt;dossier&gt;</span> chaque maquette avec ses rectangles et le nom de la pièce ; c'est ainsi qu'une zone qui mordait sur un bord de carte a été corrigée. Sans option, il contrôle le cahier — schéma, jetons existants, clés uniques, marges qui laissent un milieu, zones dans leur maquette, pièces dérivées qui nomment une pièce réelle, chaque maquette lue, chaque écran servi, cette page à jour — et sort en erreur à la première faute.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md658"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md659"></a>
 Laissé ouvert, et à qui</h1>
 <ul>
 <li><b>La couleur des remplissages de jauge</b> (vie, expérience, poids) n'est pas encore un jeton : le repli nomme <span class="tt">gemLight</span> et <span class="tt">goldLight</span>. Le T3.4 la relève sur la maquette 03 avec <span class="tt">measure_mockup_palette.py</span> s'il faut des rôles dédiés.</li>
 <li><b>Le centre répété d'un panneau à grain</b> peut laisser voir sa trame. Le T2.6 le juge à la réception, sur un panneau posé à 1920 × 1080 ; si la trame se voit, la pièce repasse en <span class="tt">stretch</span>.</li>
 <li><b>Les écussons de classe</b> des membres de l'équipe (maquette 09) ne sont pas au cahier : ils dépendent des classes jouables, et le T3.7 les y ajoute avec leurs couleurs.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md659"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md660"></a>
 Le cahier</h1>
 <p>Le cahier compte <b>80 pièces</b>, qui engendrent <b>214 images</b> (une par état ou par membre).</p>
 <h2 class="doxsection"><a class="anchor" id="lot-87-cahier-background"></a>

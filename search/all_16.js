@@ -1,7 +1,7 @@
 var searchData=
 [
   ['keepaside_0',['keepAside',['../classhmi_1_1AutosaveStore.html#a8e11fda4abcaf70a6a42994c2ee1fe54',1,'hmi::AutosaveStore::keepAside()'],['../classhmi_1_1MainWindow.html#a5e2887cd1592ff97d25ae5f65861b7a0',1,'hmi::MainWindow::keepAside()']]],
-  ['kepesh_1',['Kepesh',['../md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html#autotoc_md870',1,'Première série proposée — Theocracy of Kepesh'],['../md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html',1,'Theocracy of Kepesh']]],
+  ['kepesh_1',['Kepesh',['../md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html#autotoc_md871',1,'Première série proposée — Theocracy of Kepesh'],['../md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html',1,'Theocracy of Kepesh']]],
   ['keptdie_2',['keptDie',['../structcore_1_1CheckResult.html#a95e31f441d5128742068fb841a5a3ce8',1,'core::CheckResult']]],
   ['key_3',['Key',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48',1,'hmi']]],
   ['key_4',['key',['../structcore_1_1ExpectedAssetKey.html#a2161ca9d95bf648eb7c5c455aac2e171',1,'core::ExpectedAssetKey::key'],['../structcore_1_1ScenePiece.html#a0baa3d1830021d1eedb0d067a05565bc',1,'core::ScenePiece::key'],['../structcore_1_1EntityPropertySpec.html#ae71038c40d19da3cf4ab9c8671d41058',1,'core::EntityPropertySpec::key'],['../structcore_1_1EntityIssue.html#a3c11b09fa197244738e55f995f98c309',1,'core::EntityIssue::key'],['../classhmi_1_1EditorKeyBindings.html#a2cc7f550f71dc0a6cdd7ae5282e5aa66',1,'hmi::EditorKeyBindings::key()']]],
@@ -17,11 +17,12 @@ var searchData=
   ['kindcombo_14',['kindCombo',['../structhmi_1_1EntityPanel_1_1Widgets.html#aeab865799fca71c9df455ed81bcc5b9e',1,'hmi::EntityPanel::Widgets']]],
   ['kindtoplace_15',['kindToPlace',['../structhmi_1_1GestureState.html#a4acb71abc881a5a5092b3cd0084c3267',1,'hmi::GestureState::kindToPlace'],['../classhmi_1_1EntityPanel.html#a3e09c0091086b69baf02c9d9c2e92c3a',1,'hmi::EntityPanel::kindToPlace() const']]],
   ['kindtoplacechanged_16',['kindToPlaceChanged',['../classhmi_1_1EntityPanel.html#a7e69f5cb14a7e3e569ea913dfdebb6b1',1,'hmi::EntityPanel']]],
-  ['kingdom_20of_20kolbjörn_17',['Kingdom of Kolbjörn',['../md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html',1,'Kingdom of Kolbjörn'],['../md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html#autotoc_md809',1,'Première série proposée — Kingdom of Kolbjörn']]],
+  ['kingdom_20of_20kolbjörn_17',['Kingdom of Kolbjörn',['../md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html',1,'Kingdom of Kolbjörn'],['../md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html#autotoc_md810',1,'Première série proposée — Kingdom of Kolbjörn']]],
   ['kminidumpattemptcount_18',['kMiniDumpAttemptCount',['../namespacehmi.html#a9df788d7b4dc601bd5e26a42a1517666',1,'hmi']]],
   ['knownentitykinds_19',['knownEntityKinds',['../namespacecore.html#a3c877363f8258fc1ba137c48aa283397',1,'core']]],
   ['knowninteractablekinds_20',['knownInteractableKinds',['../namespacecore.html#a07f40df9fbe2a910d1e99b9756220fea',1,'core']]],
-  ['kolbjörn_21',['Kolbjörn',['../md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html',1,'Kingdom of Kolbjörn'],['../md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html#autotoc_md809',1,'Première série proposée — Kingdom of Kolbjörn']]],
-  ['kregionaxiscount_22',['kRegionAxisCount',['../namespacecore.html#abc767d4db86670c1b2d325f75023ca6c',1,'core']]],
-  ['kregiongradecount_23',['kRegionGradeCount',['../namespacecore.html#a29a08c23095e20f5b90a5799fb05f24a',1,'core']]]
+  ['knownmapstates_21',['knownMapStates',['../namespacehmi.html#ae57583841fc02117460e1187182aefd0',1,'hmi']]],
+  ['kolbjörn_22',['Kolbjörn',['../md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html',1,'Kingdom of Kolbjörn'],['../md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html#autotoc_md810',1,'Première série proposée — Kingdom of Kolbjörn']]],
+  ['kregionaxiscount_23',['kRegionAxisCount',['../namespacecore.html#abc767d4db86670c1b2d325f75023ca6c',1,'core']]],
+  ['kregiongradecount_24',['kRegionGradeCount',['../namespacecore.html#a29a08c23095e20f5b90a5799fb05f24a',1,'core']]]
 ];

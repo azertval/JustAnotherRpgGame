@@ -96,14 +96,14 @@ $(function(){initNavTree('lot-11.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré, en attente de la vérification IHM manuelle</b> (vérification automatisée : build Debug <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à <b>1278/1278</b> (1145 au <span class="tt">LOT-24</span>), lints d'exigences et de lots verts, cahier de test régénéré ; captures de <span class="tt">LevelEditor</span> relues). Prérequis : <a class="el" href="lot-04.html" title="LOT-04 — Format de carte `version: 3`, multi-couches">LOT-04</a> (le format à couches et entités), <a class="el" href="lot-08.html" title="LOT-08 — Vocabulaire de tuiles RPG">LOT-08</a> (le vocabulaire de terrain), <a class="el" href="lot-10.html" title="LOT-10 — Entités de carte et interaction">LOT-10</a> (les entités de carte et l'interaction). Alimente <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a> (le contenu du slice se produit dans l'éditeur), <span class="tt">LOT-40</span> (le générateur écrit des cartes que l'éditeur ouvre) et <span class="tt">LOT-69</span> (retrait de l'atelier pixel art). Exigences couvertes : <span class="tt">EX-EDIT-030</span> et <span class="tt">EX-EDIT-031</span> (<b>refondues</b>) ; <span class="tt">EX-EDIT-048</span> (trois couches), <span class="tt">EX-EDIT-049</span> (visibilité et opacité), <span class="tt">EX-EDIT-050</span> (outil et panneau « Entités »), <span class="tt">EX-EDIT-051</span> (références proposées et averties), <span class="tt">EX-EDIT-052</span> (portails et points d'arrivée), <span class="tt">EX-EDIT-053</span> (graphe du monde), <span class="tt">EX-EDIT-054</span> (terrain tactique), <span class="tt">EX-EDIT-055</span> (essai avec entités) — <b>ajoutées</b>, <span class="tt"><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></span> §12 ; <span class="tt">EX-LVL-016</span>, <span class="tt">EX-LVL-017</span>, <span class="tt">EX-EDIT-011</span> (transport de ce que l'éditeur ne sait pas éditer). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md380"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md381"></a>
 Objectif</h1>
 <p>Rendre l'éditeur hérité capable d'éditer les <b>trois couches</b> et de poser des <b>entités</b> avec leurs propriétés — c'est-à-dire de produire le contenu du RPG sans écrire de JSON à la main.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md381"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md382"></a>
 La décision préalable, tranchée</h1>
 <p>La feuille de route interdisait de démarrer avant que le §8 ait tranché <b>où vit l'édition</b> : dans la scène, depuis le jeu (ce que voulait le §10), ou dans <span class="tt">LevelEditor</span>, l'exécutable Qt Widgets que le <a class="el" href="lot-86.html" title="LOT-86 — Refonte de l&#39;IHM sur Qt Quick">LOT-86</a> a séparé du jeu (la recommandation de l'audit).</p>
 <p><b>L'auteur a tranché le 16 septembre 2026 : retarger <span class="tt">LevelEditor</span>.</b> <span class="tt">EX-EDIT-030</span> est refondue en conséquence — l'outil d'auteur est un exécutable distinct, qui partage le code du jeu mais pas sa technologie d'interface, et le mode intégré au jeu est l'arène du <a class="el" href="lot-50.html" title="LOT-50 — Le Colisée : bac à sable de combat">LOT-50</a>, un bac à sable de débogage. <span class="tt">EX-EDIT-031</span> ne parle plus de Direct3D 11, que le rendu atteint depuis le <span class="tt">LOT-69</span> hérité au travers de QRhi. La boucle « poser → essayer » que l'édition dans la scène promettait reste servie par l'essai immédiat, que ce lot étend aux entités (<span class="tt">EX-EDIT-055</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md382"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md383"></a>
 Ce que la feuille de route supposait, et ce que le dépôt contenait</h1>
 <p>L'état des lieux fait au démarrage a trouvé six écarts. Ils décident de la forme de la livraison.</p>
 <ul>
@@ -114,9 +114,9 @@ Ce que la feuille de route supposait, et ce que le dépôt contenait</h1>
 <li><b>Le navigateur de cartes était une liste plate</b>, et aucun graphe de cartes n'existait : seul l'atlas des régions (<span class="tt"><a class="el" href="structcore_1_1Atlas.html" title="L&#39;atlas chargé, et ce qui n&#39;a pas pu l&#39;être.">core::Atlas</a></span>) relie des lieux.</li>
 <li><b><span class="tt">MainWindow</span> construisait tous ses panneaux deux fois.</b> Le bloc du constructeur qui appelle <span class="tt">buildUi()</span> et branche les panneaux y figurait deux fois, à l'identique : chaque signal était relié deux fois, et la barre d'outils montrait chaque outil en double (captures avant et après). Corrigé dans un commit à part (<span class="tt">fix(hmi)</span>), la seconde copie retirée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md383"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md384"></a>
 Ce que ce lot livre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md384"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md385"></a>
 Dans le <span class="tt">Core</span></h2>
 <ul>
 <li><b>Les mutateurs du brouillon</b> (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Carte mutable en cours d&#39;édition, distincte de Level (immuable).">core::LevelDraft</a></span>) : couches visuelles ajoutées, retirées, renommées, changées de rôle, réordonnées et peintes (case ou bloc) ; entités posées, déplacées, retirées, renseignées (<span class="tt">setEntityProperty</span>, <span class="tt">removeEntityProperty</span>), désignées par case (<span class="tt">entityAt</span>). <b>Tous annulables</b>, et aucun geste refusé ou sans effet n'empile un pas.</li>
@@ -125,7 +125,7 @@ Dans le <span class="tt">Core</span></h2>
 <li><b>Le terrain tactique</b> (<span class="tt">Core/Combat/TacticalTerrain.{h,cpp}</span>, <span class="tt"><a class="el" href="namespacecore.html#a0224a562daa9e9d9bc0358fb71a2a04d" title="Vérifie que chaque rencontre posée sur la carte tombe sur un terrain tactique valide.">core::analyzeEncounterTerrain</a></span>) : pour chaque rencontre posée, la formation placée par la règle même du montage, et la zone atteignable en un déplacement.</li>
 <li><b>Le graphe du monde</b> (<span class="tt">Core/World/WorldGraph.{h,cpp}</span>, <span class="tt"><a class="el" href="namespacecore.html#a3a51a927bbd51ec10f45120e41fcab27" title="Lit chaque *.json de levelsDir et de ses sous-dossiers (identifiant : core::mapIdOf) ; une carte illi...">core::loadWorldGraph</a></span>) : les cartes d'un dossier, leurs points d'arrivée, leurs portails et le statut de chacun ; <span class="tt">unreachableFrom</span>. La partie <b>statique</b> du fichier que le <span class="tt">LOT-09</span> prévoyait : il y ajoutera le chargement à chaud et la traversée.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md385"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md386"></a>
 Dans <span class="tt">LevelEditor</span></h2>
 <ul>
 <li><b>Le panneau « Couches »</b> : la grille racine en tête — « Grille unique (image et collision) » ou « Collision » —, puis les couches visuelles de la plus en avant à la plus en arrière ; couche active, case de visibilité, curseur d'opacité, ajout d'un sol ou d'un décor, retrait (confirmé, annulable), montée, descente, renommage en place.</li>
@@ -137,7 +137,7 @@ Dans <span class="tt">LevelEditor</span></h2>
 <li><b>L'essai immédiat avec entités</b> : les entités posées s'y voient et répondent à la touche d'interaction — coffre ouvert une fois, panneau lu, PNJ et son dialogue, portail et sa destination — par une ligne au HUD qui dit aussi ce que l'essai ne sait pas encore faire.</li>
 <li><b>Les catalogues</b> (<span class="tt"><a class="el" href="namespacehmi.html#a9a7176a33d5205537d912eb3dbcbf61c" title="Lit les catalogues sous root, la racine des éléments déployés à côté de l&#39;exécutable : World/dialogue...">hmi::loadEditorReferences</a></span>) : lus au démarrage, puis à chaque enregistrement de carte et à chaque rechargement des assets.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md386"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md387"></a>
 Les gestes</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -165,7 +165,7 @@ Les gestes</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><span class="tt">P</span>, puis la touche d'interaction face à une entité  </td><td class="markdownTableBodyNone">Essai immédiat, et compte rendu de l'interaction  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md387"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md388"></a>
 Décisions prises en route</h1>
 <ul>
 <li><b>La collision reste la grille racine</b>, la seule qui porte l'entrée, la sortie et les mécanismes ; une couche visuelle <b>refuse</b> ce qui porte une règle (entrée, sortie, mécanismes, danger, bloc) et le dit. Une porte peinte sur le décor serait une porte qu'aucun interrupteur n'ouvre, et rien ne le montrerait.</li>
@@ -181,7 +181,7 @@ Décisions prises en route</h1>
 <li><b>Un portail n'est interactif qu'en essai.</b> L'essai lui donne un <span class="tt"><a class="el" href="structcore_1_1Interactable.html" title="Marque une entité comme cible d&#39;interaction et porte de quoi la désigner.">core::Interactable</a></span> pour qu'on vérifie sa destination ; la table du jeu (<span class="tt">knownInteractableKinds</span>) n'est pas touchée, et le jeu ne gagne pas une interaction qui ne ferait rien. Le <span class="tt">LOT-09</span> l'y ajoutera.</li>
 <li><b>Les marqueurs de l'essai se dessinent au-dessus du personnage</b>, dans une scène à part triée par profondeur entre eux : les entrelacer avec le personnage demanderait un crochet dans <span class="tt">hmi::SpriteRenderer</span>, hors du périmètre. Une limite d'essai, sans effet sur le jeu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md388"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md389"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>La traversée des portails, le chargement à chaud, la validation au chargement</b> : le <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a>, sur le contrat et le graphe statique posés ici.</li>
@@ -190,7 +190,7 @@ Ce qui reste hors du lot, nommément</h1>
 <li><b>Le terrain difficile peint en zone</b> (<span class="tt">difficultTerrain</span> d'une couche) n'entre pas dans le calcul de la zone tactique, qui lit la grille de collision seule.</li>
 <li><b>« Modifié » affiché à l'ouverture de l'éditeur</b>, sans modification : observé sur la version d'avant le lot, donc hors de celui-ci.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md389"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md390"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Édition des trois couches avec undo/redo complet.</b> ✔ <span class="tt">EditionDeCarteTest</span> (douze tests : promotion, peinture, refus, bloc en un pas, ordre, retrait, nom et rôle, entités) et le parcours système, qui annule tout jusqu'à la carte vierge.</li>

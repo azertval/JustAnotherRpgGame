@@ -7,6 +7,7 @@ var structcore_1_1LevelData =
     [ "layers", "structcore_1_1LevelData.html#a346a7cadd4d3753fa7e86a323db66a1f", null ],
     [ "name", "structcore_1_1LevelData.html#a74f693819cc222aa9748bd56f697e7e6", null ],
     [ "nextEntityId", "structcore_1_1LevelData.html#af291e15302ce8b84dffc3b8b625b2ec5", null ],
+    [ "properties", "structcore_1_1LevelData.html#a62d8fc26f11eb3238b326422abca7cb4", null ],
     [ "scene", "structcore_1_1LevelData.html#aea7675282327908b0da89291a4634567", null ],
     [ "tileMap", "structcore_1_1LevelData.html#ae394a3e921bbab58997043053a45243a", null ]
 ];

@@ -258,6 +258,19 @@ using Json = nlohmann::ordered_json;
 <span style = "background-color:#dfd">    appendScalar(out, value);
 }</span>
 
+// Les proprietes de la CARTE (LOT-EDITOR-09), a plat a la racine comme celles d'une couche. Une
+// propriete qui porte le nom d'un champ deja ecrit est ignoree : le format fait foi, et le
+// chargeur n'en range jamais de telle.
+<span style = "background-color:#dfd">void writeRootProperties(const PropertyMap&amp; properties, Json&amp; root) {
+    PropertyMap free;
+    for (const auto&amp; [key, value] : properties) {
+        if (!root.contains(key)) {
+            free.emplace(key, value);</span>
+        }
+<span style = "background-color:#dfd">    }
+    writeProperties(free, root);
+}</span>
+
 <span style = "background-color:#dfd">[[nodiscard]] std::string canonicalText(const Json&amp; root) {
     std::string out;
     appendValue(out, root, 0, false);
@@ -299,7 +312,8 @@ using Json = nlohmann::ordered_json;
 <span style = "background-color:#dfd">        if (!data.entities.empty()) {
             root["entities"] = entitiesJson(data.entities);</span>
         }
-<span style = "background-color:#dfd">        return canonicalText(root);</span>
+<span style = "background-color:#dfd">        writeRootProperties(data.properties, root);
+        return canonicalText(root);</span>
     }
 
 <span style = "background-color:#dfd">    const TileMap&amp; tileMap = data.tileMap;
@@ -324,7 +338,8 @@ using Json = nlohmann::ordered_json;
 <span style = "background-color:#dfd">    if (!data.entities.empty()) {
         root["entities"] = entitiesJson(data.entities);</span>
     }
-<span style = "background-color:#dfd">    return canonicalText(root);
+<span style = "background-color:#dfd">    writeRootProperties(data.properties, root);
+    return canonicalText(root);
 }</span>
 
 }  // namespace core</pre>

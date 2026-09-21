@@ -96,28 +96,28 @@ $(function(){initNavTree('lot-03.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, 899 tests verts sans modification de l'intention d'un seul test, format et linters verts). Prérequis : <a class="el" href="lot-02.html" title="LOT-02 — Bibliothèque `HmiLib`">LOT-02</a> (confort d'outillage ; pas une dépendance stricte). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md323"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md324"></a>
 Objectif</h1>
 <p>Remplacer le constructeur positionnel de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">core::Level</a></span> par un agrégat nommé, <b>avant</b> que le RPG n'y ajoute ses propres champs.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md324"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md325"></a>
 Le problème</h1>
 <p>Le constructeur de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">core::Level</a></span> comptait <b>19 paramètres</b> ; le <span class="tt">LOT-01</span> l'a ramené à 11 en retirant le gameplay de plateforme, mais la dette de fond demeure — elle est actée dans l'en-tête lui-même (<span class="tt"><a class="el" href="Level_8h.html" title="Carte chargée : grille de collision, couches, entités, point d&#39;entrée, variante.">Source/Core/Levels/Level.h</a></span>). Le RPG va rajouter au moins six champs : couches de tuiles (<span class="tt">LOT-04</span>), entités placées, connexions de carte, zones de rencontre, points d'apparition, drapeaux. On repasserait au-dessus de 17 paramètres positionnels, où deux <span class="tt">std::optional&lt;std::string&gt;</span> voisins s'intervertissent sans que le compilateur bronche.</p>
 <p>Solder maintenant, alors que la liste est au plus court, coûte le minimum.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md325"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md326"></a>
 Périmètre</h1>
 <ul>
 <li><span class="tt">struct LevelData</span> : agrégat public portant les mêmes champs, dans <span class="tt"><a class="el" href="Level_8h.html" title="Carte chargée : grille de collision, couches, entités, point d&#39;entrée, variante.">Source/Core/Levels/Level.h</a></span>.</li>
 <li><span class="tt">Level</span> construit depuis un <span class="tt">LevelData&amp;&amp;</span>. Les <em>designated initializers</em> C++20 rendent chaque site de construction lisible (<span class="tt">.name = …, .tileMap = …</span>).</li>
 <li>Constructeur positionnel <b>retiré d'emblée</b>, sans passer par l'étape <span class="tt">[[deprecated]]</span> prévue : la purge du <span class="tt">LOT-01</span> avait déjà ramené la liste de 19 à 11 paramètres, et il ne restait que <b>dix sites de construction</b> (un dans <span class="tt">LevelLoader</span>, neuf dans les tests). Avec si peu d'appels, la béquille coûtait plus qu'elle ne rapportait — et le lot se termine sans API dépréciée à nettoyer plus tard.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md326"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md327"></a>
 La décision qui porte le lot</h1>
 <p><b><span class="tt">tileMap</span> n'a volontairement pas de valeur par défaut.</b> <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span> n'étant pas constructible par défaut, l'omettre dans l'agrégat est une <b>erreur de compilation</b>, jamais une grille vide silencieuse — exactement la propriété qu'on attend d'un champ obligatoire. Tous les autres champs ont un défaut utile, si bien qu'un site minimal tient en deux lignes :</p>
 <div class="fragment"><div class="line">core::Level level(core::LevelData{.name = &quot;village&quot;, .tileMap = std::move(map)});</div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md327"></a>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md328"></a>
 Exigences couvertes</h1>
 <p><span class="tt">EX-LVL-*</span> nouvelle (« un niveau se construit depuis un agrégat nommé »), <span class="tt">EX-ARCH-*</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md328"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md329"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Plus aucun appel au constructeur positionnel ; le constructeur <span class="tt">[[deprecated]]</span> a disparu.</li>

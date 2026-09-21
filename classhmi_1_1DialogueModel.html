@@ -163,10 +163,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'écran de dialogue : elle tient un <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html" title="La machine à états qui joue un dialogue.">core::DialogueRunner</a></span> et rien d'autre ne décide. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1214"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1223"></a>
 Ce qu'elle tient</h2>
 <p>Le catalogue des dialogues (<span class="tt">Source/Elements/World/dialogues</span>), l'échelle des degrés de difficulté, le personnage de démonstration comme interlocuteur (<span class="tt"><a class="el" href="classcore_1_1CharacterListener.html" title="Un personnage, sa fiche et son sac, comme interlocuteur d&#39;un PNJ.">core::CharacterListener</a></span>) et une conversation en cours. Chaque réponse cliquée devient <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html#aaafa292cb3538efff82c7aed7424de71" title="Donne la réponse choiceId, puis avance jusqu&#39;à la réplique suivante ou la fin.">core::DialogueRunner::choose</a></span>, et ce que l'écran affiche est relu par <span class="tt"><a class="el" href="namespacehmi.html#af12483a48d0fd35f0f44e94c201c3893" title="Traduit l&#39;état d&#39;un runner en valeurs affichables.">hmi::dialogueScreenValues</a></span> après chaque geste.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1215"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1224"></a>
 Ce qui est un échafaudage, et le dit</h2>
 <p>Il n'existe ni partie ni sauvegarde (<span class="tt">LOT-17</span>) : les <b>drapeaux de monde</b> de la conversation vivent donc le temps du processus, partagés par toutes les instances de ce modèle — rouvrir l'écran retrouve le héraut qui vous a déjà vu. L'interlocuteur est le personnage de démonstration, rechargé à chaque écran : un objet qu'un PNJ lui donne ne survit pas à la fermeture. Le jour où une partie fournira ses drapeaux et son groupe, c'est ce fichier qui change, pas le runner ni le formulaire. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>

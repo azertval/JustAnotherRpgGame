@@ -903,6 +903,8 @@ var namespacecore =
     [ "kRegionGradeCount", "namespacecore.html#a29a08c23095e20f5b90a5799fb05f24a", null ],
     [ "LAYER_KIND_COUNT", "namespacecore.html#a1639bde29cbf10d2ed8629a0fe495374", null ],
     [ "LEVEL_FORMAT_VERSION", "namespacecore.html#a29f56cd5e629fb74668126bbf151066e", null ],
+    [ "MAP_AMBIENCE_PROPERTY", "namespacecore.html#afa94966b4ac589f39c5ce6240f9bf3c2", null ],
+    [ "MAP_REGION_PROPERTY", "namespacecore.html#a47f6e001dc10a742e05ed01de586335f", null ],
     [ "METERS_PER_TILE", "namespacecore.html#a511d502baab5befb28a3742b65ee1e61", null ],
     [ "MOVEMENT_RESOURCE", "namespacecore.html#a7ab9475b62f44395c8e5f7e30a3f32f5", null ],
     [ "NPC_DIALOGUE_PROPERTY", "namespacecore.html#ae2e3fb1ff10ddbebb4cdf1b1636afb25", null ],

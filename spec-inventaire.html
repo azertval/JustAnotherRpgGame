@@ -97,7 +97,7 @@ $(function(){initNavTree('spec-inventaire.html','',''); });
 <p>Statut : <b>à faire</b> (<span class="tt">LOT-77</span> écrit ce document ; <span class="tt">LOT-14</span>, <span class="tt">LOT-26</span>, <span class="tt">LOT-34</span> et <span class="tt">LOT-82</span> l'implémentent). Dépend de <a class="el" href="spec-rpg.html" title="Personnage et progression"><span class="tt">rpg.md</span></a> (l'agrégat de fiche) et de <a class="el" href="spec-contenu.html" title="Contenu et données"><span class="tt">contenu.md</span></a> (le catalogue d'objets). </p>
 </blockquote>
 <p>Ce que le personnage porte, ce qu'il en fait, et ce que cela vaut. Le monde étant un bac à sable de treize régions, l'économie doit se <b>déduire des données de région</b> plutôt que d'être réglée marchand par marchand.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md270"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md271"></a>
 1. Porter</h1>
 <ul>
 <li><a class="anchor" id="EX-INV-001"></a><b>EX-INV-001</b> — L'inventaire est une liste d'<b>identifiants de catalogue</b> accompagnés d'une quantité et d'un état, jamais une copie des propriétés de l'objet. Corriger le prix d'une épée doit corriger toutes les épées du monde, y compris celles déjà ramassées et sauvegardées.</li>
@@ -105,13 +105,13 @@ $(function(){initNavTree('spec-inventaire.html','',''); });
 <li><a class="anchor" id="EX-INV-011"></a><b>EX-INV-011</b> — La <b>classe d'armure</b> est dérivée de l'équipement porté selon la formule déclarée par l'armure elle-même — base, part de Dextérité éventuellement plafonnée, bonus de bouclier — et recalculée à chaque changement (<span class="tt">EX-RPG-002</span>). L'armure déclare aussi son <b>exigence de Force</b> et son incidence sur la discrétion, faute de quoi les armures lourdes seraient strictement meilleures et le choix disparaîtrait.</li>
 <li><a class="anchor" id="EX-INV-020"></a><b>EX-INV-020</b> — L'<b>encombrement</b> est dérivé du poids total porté et de la Force. Il doit être visible avant d'être contraignant : un joueur qui découvre qu'il est surchargé au moment de fuir un combat subit une règle qu'il n'avait aucun moyen d'anticiper.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md271"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md272"></a>
 2. Échanger</h1>
 <ul>
 <li><a class="anchor" id="EX-INV-030"></a><b>EX-INV-030</b> — La <b>monnaie</b> est à taux fixes et déclarés. Toute somme est stockée dans l'unité la plus fine et présentée dans la plus lisible ; aucune conversion ne doit <b>perdre</b> de valeur par arrondi. Un joueur qui perd de l'argent en changeant de dénomination cesse de faire confiance à tout le reste du système.</li>
 <li><a class="anchor" id="EX-INV-031"></a><b>EX-INV-031</b> — Les prix d'<b>achat</b> et de <b>vente</b> sont distincts, et modulés par les statistiques de la région (<span class="tt">EX-CNT-030</span>) : prospérité économique pour le niveau des prix, accès à la magie pour la présence d'objets magiques à l'étal. C'est ce qui donne un intérêt mécanique au voyage, plutôt qu'un simple changement de décor.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md272"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md273"></a>
 3. Gagner</h1>
 <ul>
 <li><a class="anchor" id="EX-INV-040"></a><b>EX-INV-040</b> — Le <b>butin</b> est composé par table, et <b>reproductible à graine égale</b> : la graine dérive de l'identité du contenant, jamais de l'horloge. Un coffre qui se re-tire à chaque ouverture n'est pas un monde, et un rechargement de sauvegarde ne doit pas être une machine à sous.</li>

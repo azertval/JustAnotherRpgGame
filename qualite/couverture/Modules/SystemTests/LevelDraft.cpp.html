@@ -16,6 +16,7 @@
 
 #include &lt;algorithm&gt;
 #include &lt;utility&gt;
+#include &lt;variant&gt;
 
 #include "Core/Levels/CollisionDerivation.h"
 #include "Core/Levels/LevelVariant.h"
@@ -60,6 +61,7 @@ LevelDraft::LevelDraft(std::string name, TileMap tileMap)
     draft._nextEntityId = level.nextEntityId();
     draft._base = level.base();
     draft._scene = level.scene();
+    draft._properties = level.properties();
     return draft;
 }</span>
 
@@ -893,6 +895,29 @@ bool LevelDraft::changeScene(const std::string&amp; place,
     return true;
 }</span>
 
+<span style = "background-color:#dfd">bool LevelDraft::setProperty(const std::string&amp; key, PropertyValue value) {
+    if (key.empty()) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    const auto found = _properties.find(key);
+    const bool clearing =</span>
+        std::holds_alternative&lt;std::string&gt;(value) &amp;&amp; std::get&lt;std::string&gt;(value).empty();
+<span style = "background-color:#dfd">    if (clearing) {
+        if (found == _properties.end()) {</span>
+<span style = "background-color:#fdd">            return false;  // rien a retirer : ni pas d'historique, ni revision neuve.</span>
+        }
+<span style = "background-color:#dfd">        pushUndo();
+        _properties.erase(found);
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    if (found != _properties.end() &amp;&amp; found-&gt;second == value) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    pushUndo();
+    _properties[key] = std::move(value);
+    return true;
+}</span>
+
 <span style = "background-color:#dfd">LevelDraft::State LevelDraft::snapshot() const {
     return State{.name = _name,</span>
                  .tileMap = _tileMap,
@@ -900,6 +925,7 @@ bool LevelDraft::changeScene(const std::string&amp; place,
                  .layers = _layers,
                  .entities = _entities,
                  .forcedCollision = _forcedCollision,
+                 .properties = _properties,
                  .revision = _revision};
 <span style = "background-color:#dfd">}</span>
 
@@ -910,6 +936,7 @@ bool LevelDraft::changeScene(const std::string&amp; place,
     _layers = std::move(state.layers);
     _entities = std::move(state.entities);
     _forcedCollision = std::move(state.forcedCollision);
+    _properties = std::move(state.properties);
     _revision = state.revision;
 }</span>
 
@@ -965,7 +992,8 @@ bool LevelDraft::changeScene(const std::string&amp; place,
                                             .forcedCollision = _forcedCollision,
                                             .nextEntityId = _nextEntityId,
                                             .base = _base,
-                                            .scene = _scene});
+                                            .scene = _scene,
+                                            .properties = _properties});
 <span style = "background-color:#dfd">}</span>
 
 <span style = "background-color:#dfd">LevelLoadResult LevelDraft::toLevel() const {

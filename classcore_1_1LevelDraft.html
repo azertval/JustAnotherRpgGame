@@ -124,6 +124,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae1dc7f0a73b888edbcc04e114116fefe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifie l'état du contenu : change à chaque mutation, et revient à sa valeur d'avant quand <span class="tt"><a class="el" href="#adec82624786f4ad3a83502eccc8712af" title="Annule la dernière mutation (EX-EDIT-005).">undo()</a></span> défait la mutation (et inversement pour <span class="tt"><a class="el" href="#a4c48b964ac9310a3b90a3d364aae97aa" title="Refait la dernière mutation annulée.">redo()</a></span>, <span class="tt">EX-EDIT-058</span>).  <br /></td></tr>
 <tr class="memitem:ade4c8fce925ab627dc202c9dcb5fc030" id="r_ade4c8fce925ab627dc202c9dcb5fc030"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ade4c8fce925ab627dc202c9dcb5fc030">canUndo</a> () const noexcept</td></tr>
 <tr class="memitem:a78972ab0e9f816d4d2b036ca25dafe12" id="r_a78972ab0e9f816d4d2b036ca25dafe12"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a78972ab0e9f816d4d2b036ca25dafe12">canRedo</a> () const noexcept</td></tr>
+<tr class="memitem:a04e1bfa29175d6198da81f2f1a0b6618" id="r_a04e1bfa29175d6198da81f2f1a0b6618"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a04e1bfa29175d6198da81f2f1a0b6618">setProperty</a> (const std::string &amp;key, <a class="el" href="namespacecore.html#a9f79b235a73b6264aa3a97d51267919d">PropertyValue</a> value)</td></tr>
+<tr class="memdesc:a04e1bfa29175d6198da81f2f1a0b6618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne la propriété de <b>carte</b> <code class="param">key</code> (<span class="tt">LOT-EDITOR-09</span>) — sa région (<span class="tt"><a class="el" href="namespacecore.html#a47f6e001dc10a742e05ed01de586335f" title="Clé de la région du monde où se trouve la carte, telle que world-maps.json la nomme (central-empire) ...">core::MAP_REGION_PROPERTY</a></span>), son ambiance (<span class="tt"><a class="el" href="namespacecore.html#afa94966b4ac589f39c5ce6240f9bf3c2" title="Clé de l&#39;ambiance de la carte — ce que le LOT-28 jouera en fond, et ce que l&#39;éditeur montre dans les ...">core::MAP_AMBIENCE_PROPERTY</a></span>), ou toute clé racine gardée du fichier.  <br /></td></tr>
+<tr class="memitem:a6e5714026be69934835e1a80c9369cdc" id="r_a6e5714026be69934835e1a80c9369cdc"><td class="memItemLeft">const <a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a6e5714026be69934835e1a80c9369cdc">properties</a> () const noexcept</td></tr>
 <tr class="memitem:af06a5338ba049934b8b217c6e0345546" id="r_af06a5338ba049934b8b217c6e0345546"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af06a5338ba049934b8b217c6e0345546">setName</a> (std::string <a class="el" href="#a7ac47bce808a2ac8e8fce362411269cf">name</a>)</td></tr>
 <tr class="memdesc:af06a5338ba049934b8b217c6e0345546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme le niveau.  <br /></td></tr>
 <tr class="memitem:a7ac47bce808a2ac8e8fce362411269cf" id="r_a7ac47bce808a2ac8e8fce362411269cf"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a7ac47bce808a2ac8e8fce362411269cf">name</a> () const noexcept</td></tr>
@@ -264,6 +267,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a0c9cf50df582c84ead881028833651a2" id="r_a0c9cf50df582c84ead881028833651a2"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a0c9cf50df582c84ead881028833651a2">_base</a></td></tr>
 <tr class="memdesc:a0c9cf50df582c84ead881028833651a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base et planche d'une variante (décision D12) : ni peintes ni défaites, recopiées.  <br /></td></tr>
 <tr class="memitem:a0cf8062f8459248edfb0a12d3ae341cf" id="r_a0cf8062f8459248edfb0a12d3ae341cf"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a0cf8062f8459248edfb0a12d3ae341cf">_scene</a></td></tr>
+<tr class="memitem:aa3404e01583128d57e43db91c26fea2c" id="r_aa3404e01583128d57e43db91c26fea2c"><td class="memItemLeft"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa3404e01583128d57e43db91c26fea2c">_properties</a></td></tr>
+<tr class="memdesc:aa3404e01583128d57e43db91c26fea2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriétés de la carte (<span class="tt">LOT-EDITOR-09</span>) : région, ambiance, clés gardées.  <br /></td></tr>
 <tr class="memitem:a41d1ec75f4d09b0ad1d7998dc53bff08" id="r_a41d1ec75f4d09b0ad1d7998dc53bff08"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="classcore_1_1ScenePieceManifest.html">ScenePieceManifest</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a41d1ec75f4d09b0ad1d7998dc53bff08">_manifest</a></td></tr>
 <tr class="memdesc:a41d1ec75f4d09b0ad1d7998dc53bff08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manifeste des pièces du lieu, partagé : copier un brouillon ne le recopie pas.  <br /></td></tr>
 <tr class="memitem:a86779d05f96a388738e19979489d7a63" id="r_a86779d05f96a388738e19979489d7a63"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a86779d05f96a388738e19979489d7a63">_undoHistory</a></td></tr>
@@ -280,7 +285,7 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><p>Carte <b>mutable</b> en cours d'édition, distincte de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">Level</a></span> (immuable). </p>
 <p><span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Carte mutable en cours d&#39;édition, distincte de Level (immuable).">LevelDraft</a></span> porte toute la mutabilité nécessaire à l'éditeur (<span class="tt">EX-EDIT-002</span> à <span class="tt">EX-EDIT-005</span>) : peindre une tuile, déplacer l'entrée, éditer les couches et les entités, redimensionner la grille. Il ne duplique <b>aucune règle de validation</b> : <span class="tt"><a class="el" href="#a0017cadc8caea0b43ba08b120ce76bb0" title="Convertit le brouillon en Level validé (EX-EDIT-007), en repassant par la même validation que LevelLo...">toLevel()</a></span> reconstruit le niveau en repassant par <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html#a4bcca95728207d0743b18a6c34a57cc8" title="Charge un niveau depuis une chaîne JSON.">LevelLoader::loadFromString</a></span> (même chemin que le chargement d'un fichier), garantissant que le niveau produit satisfait exactement les mêmes règles (<span class="tt">EX-LVL-004</span>, <span class="tt">EX-EDIT-010</span>).</p>
 <p>Invariant maintenu par tous les mutateurs : la grille de tuiles reste la <b>source de vérité</b> de la position d'entrée (comme pour <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">Level</a></span>) ; <span class="tt"><a class="el" href="#a7614f7f0cdaea145907831e56781182b">entry()</a></span> n'est qu'un accès en cache, toujours synchronisé avec le contenu de <span class="tt"><a class="el" href="#acc48e2f45fb3db53de09e30f60f75845">tileMap()</a></span>.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1158"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1167"></a>
 La collision suit les gestes (<span class="tt">LOT-EDITOR-03</span>, <span class="tt">EX-EDIT-064</span>, <span class="tt">EX-EDIT-065</span>)</h2>
 <p>Dès qu'une carte a une couche visuelle, sa collision se <b>déduit</b> de ce qu'elle montre (<span class="tt"><a class="el" href="namespacecore.html#a3322a01062af04e9242df68f744c142f" title="Déduit la grille de collision d&#39;une carte.">core::deriveCollision</a></span>, décision D10) et s'écrit, hors des cases <b>forcées</b> à la main. Le brouillon tient cet accord geste par geste, sans rien toucher d'autre :</p>
 <ul>
@@ -1448,6 +1453,32 @@ La collision suit les gestes (<span class="tt">LOT-EDITOR-03</span>, <span class
 
 </div>
 </div>
+<a id="a6e5714026be69934835e1a80c9369cdc" name="a6e5714026be69934835e1a80c9369cdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e5714026be69934835e1a80c9369cdc">&#9670;&#160;</a></span>properties()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a> &amp; core::LevelDraft::properties </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les propriétés de la carte (<span class="tt"><a class="el" href="structcore_1_1LevelData.html#a62d8fc26f11eb3238b326422abca7cb4" title="Propriétés libres de la carte entière (LOT-EDITOR-09) : la région du monde où elle se trouve (core::M...">core::LevelData::properties</a></span>). </dd></dl>
+
+</div>
+</div>
 <a id="a949cfb0148244f0ba05257d4f523f51d" name="a949cfb0148244f0ba05257d4f523f51d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a949cfb0148244f0ba05257d4f523f51d">&#9670;&#160;</a></span>pushUndo()</h2>
 
@@ -1931,6 +1962,30 @@ La collision suit les gestes (<span class="tt">LOT-EDITOR-03</span>, <span class
 </div><div class="memdoc">
 
 <p>Le manifeste des pièces du lieu : emprises et types tactiques. Ni peint ni défait. </p>
+
+</div>
+</div>
+<a id="a04e1bfa29175d6198da81f2f1a0b6618" name="a04e1bfa29175d6198da81f2f1a0b6618"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04e1bfa29175d6198da81f2f1a0b6618">&#9670;&#160;</a></span>setProperty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::setProperty </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>key</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a9f79b235a73b6264aa3a97d51267919d">PropertyValue</a></td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assigne la propriété de <b>carte</b> <code class="param">key</code> (<span class="tt">LOT-EDITOR-09</span>) — sa région (<span class="tt"><a class="el" href="namespacecore.html#a47f6e001dc10a742e05ed01de586335f" title="Clé de la région du monde où se trouve la carte, telle que world-maps.json la nomme (central-empire) ...">core::MAP_REGION_PROPERTY</a></span>), son ambiance (<span class="tt"><a class="el" href="namespacecore.html#afa94966b4ac589f39c5ce6240f9bf3c2" title="Clé de l&#39;ambiance de la carte — ce que le LOT-28 jouera en fond, et ce que l&#39;éditeur montre dans les ...">core::MAP_AMBIENCE_PROPERTY</a></span>), ou toute clé racine gardée du fichier. </p>
+<p>Une chaîne vide <b>retire</b> la propriété : une carte sans région n'en porte pas la clé. </p><dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> (rien d'empilé) si la clé est vide, ou si la valeur est déjà celle-là. </dd></dl>
 
 </div>
 </div>
@@ -2427,6 +2482,31 @@ La collision suit les gestes (<span class="tt">LOT-EDITOR-03</span>, <span class
 </div><div class="memdoc">
 
 <p>Compteur d'identifiants : hors des instantanés, il ne recule jamais (décision D8). </p>
+
+</div>
+</div>
+<a id="aa3404e01583128d57e43db91c26fea2c" name="aa3404e01583128d57e43db91c26fea2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3404e01583128d57e43db91c26fea2c">&#9670;&#160;</a></span>_properties</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a> core::LevelDraft::_properties</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Propriétés de la carte (<span class="tt">LOT-EDITOR-09</span>) : région, ambiance, clés gardées. </p>
+<p>Défaites avec le reste — les changer est un pas d'annulation. </p>
 
 </div>
 </div>

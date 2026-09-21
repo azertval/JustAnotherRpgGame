@@ -97,13 +97,13 @@ $(function(){initNavTree('lot-18.html','',''); });
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 1047/1047, <span class="tt">clang-format</span>, les huit lints, cahier de test et Doxygen verts). Prérequis : <a class="el" href="lot-05.html" title="LOT-05 — Modes de jeu">LOT-05</a> (modes de jeu), <a class="el" href="lot-10.html" title="LOT-10 — Entités de carte et interaction">LOT-10</a> (déclencheurs et drapeaux de monde), <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a> (fiches des combattants).</p>
 <p>Aucune exigence ajoutée : <span class="tt">EX-CBT-001</span> couvre ce lot, et c'est son premier vrai emploi. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md427"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md428"></a>
 Objectif</h1>
 <p>Déclencher une rencontre depuis l'exploration, geler le monde, monter les combattants, et en revenir — <b>sans que le joueur perde quoi que ce soit au passage</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md428"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md429"></a>
 Ce que ce lot livre, et ce qu'il ne livre pas</h1>
 <p>Il livre la <b>bascule</b>, pas le combat. Ni initiative, ni tour actif, ni résolution d'action : ce sont les <a class="el" href="lot-19.html" title="LOT-19 — Grille tactique et déplacement">LOT-19</a> et <a class="el" href="lot-20.html" title="LOT-20 — Initiative et tour par tour">LOT-20</a>. Séparer les deux n'est pas un découpage administratif — un aller-retour qui perd la position du personnage est un défaut qu'on ne voit plus une fois qu'il y a des tours à jouer par-dessus, et qu'on n'aurait jamais isolé.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md429"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md430"></a>
 L'aller-retour est PUR, et c'est ce qui le rend vérifiable</h1>
 <p>Le critère d'acceptation demandait que le montage et le démontage d'une rencontre se testent <b>headless</b>. Ils le sont, parce que rien de ce qui décide n'est dans un widget :</p>
 <ul>
@@ -112,19 +112,19 @@ L'aller-retour est PUR, et c'est ce qui le rend vérifiable</h1>
 <li><span class="tt"><a class="el" href="namespacecore.html#a8ae810130a331e928f30b4c78f4c5768" title="Engage encounter au point trigger, en mettant exploration de côté.">core::beginEncounter</a></span> / <span class="tt"><a class="el" href="namespacecore.html#a468dc3da08cf6838100dc8e96eed0312" title="Termine run, et rend l&#39;état d&#39;exploration à restituer.">core::endEncounter</a></span> — deux fonctions, et toute la règle.</li>
 </ul>
 <p><span class="tt">hmi::CombatMode</span>, lui, ne fait qu'<b>ordonner des passes</b>. Il ne retient rien de la rencontre : la tentation était de lui faire porter l'état, et l'aller-retour serait alors devenu invérifiable sans fenêtre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md430"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md431"></a>
 Ce que l'instantané porte, et ce qu'il ne porte pas</h1>
 <p>Il porte la position du personnage, son <b>orientation</b> et la caméra. Sans mémoire, le personnage reviendrait de son combat ailleurs qu'il ne l'avait quitté — un pas de côté à chaque rencontre, invisible une fois, gênant au dixième — et regardant une direction par défaut (<span class="tt">EX-EXP-004</span>).</p>
 <p>Il ne porte <b>pas les points de vie</b>, et c'est délibéré. Le critère dit « restituer exactement l'état d'exploration, <em>aux PV près</em> » : les points de vie sont précisément ce que le combat a changé, et les remettre à leur valeur d'avant annulerait le combat. Les inclure « pour être complet » aurait été le bogue, pas la prudence.</p>
 <p>Il ne porte pas non plus les ennemis vaincus : cela ne se restitue pas, cela s'<b>acquiert</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md431"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md432"></a>
 Un ennemi vaincu est un drapeau de monde, pas un booléen</h1>
 <p>C'est le piège que le <a class="el" href="lot-10.html" title="LOT-10 — Entités de carte et interaction">LOT-10</a> avait déjà nommé pour les coffres, et il se pose identiquement ici : l'entité de l'ennemi est détruite et recréée depuis la couche <span class="tt">objects</span> au rechargement de la carte, et un booléen porté par elle disparaîtrait avec elle. L'ennemi réapparaîtrait à chaque passage — un défaut qui ne casse rien, ne lève aucune alerte, et se confond avec une carte peuplée.</p>
 <p><span class="tt"><a class="el" href="classcore_1_1WorldFlags.html" title="L&#39;ensemble des faits acquis d&#39;une partie : coffres ouverts, quêtes franchies, portes déverrouillées.">core::WorldFlags</a></span> porte donc le fait, sous une clé <b>fabriquée</b> par <span class="tt"><a class="el" href="namespacecore.html#a1a6b22027beb38aaf525b6dff5d3d2b8" title="La clé de drapeau d&#39;une entité de carte : &quot;&lt;carte&gt;/&lt;type&gt;@&lt;colonne&gt;,&lt;ligne&gt;&quot;.">core::keyForEntity</a></span> — jamais écrite à la main, sinon deux ennemis finiraient par la partager. Le test le vérifie dans les deux sens : deux cases d'une même carte, et la même case sur deux cartes.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md432"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md433"></a>
 Seule une victoire l'acquiert</h2>
 <p>Une fuite ramène à l'exploration <b>sans</b> marquer l'ennemi vaincu, et une défaite non plus. Poser le drapeau à la sortie, quelle qu'elle soit, aurait fait de la fuite un moyen de nettoyer une carte — et le défaut ne se serait pas vu : la carte se serait vidée, ce qui ressemble à une progression.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md433"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md434"></a>
 Deux natures de déclencheur, distinguées par la donnée</h1>
 <p>Une entité de type <span class="tt">encounter</span> nomme sa rencontre (<span class="tt">encounterId</span>). Ce qui la distingue n'est pas son type mais une propriété :</p>
 <ul>
@@ -132,11 +132,11 @@ Deux natures de déclencheur, distinguées par la donnée</h1>
 <li>une <b>zone</b> (<span class="tt">respawns: true</span>) — elle se redéclenche, et n'a donc pas de clé.</li>
 </ul>
 <p>Confondre les deux se paierait dans les deux sens : un ennemi sans clé réapparaîtrait à chaque passage, et une zone avec clé s'éteindrait au premier combat gagné. C'est pourquoi <span class="tt">encounterAlreadyCleared</span> répond <b>non</b> pour une clé vide : l'inverse aurait désactivé toutes les zones du jeu dès le premier combat.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md434"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md435"></a>
 Une rencontre dit QUI, jamais OÙ</h1>
 <p>Les positions des combattants sont <b>relatives au déclencheur</b>. Une rencontre est écrite une fois et jouée partout : trois rats « un pas devant » gardent leur formation quel que soit l'endroit, alors que des coordonnées absolues les feraient apparaître au même endroit à chaque fois — ou hors de la carte.</p>
 <p><span class="tt"><a class="el" href="namespacecore.html#a63e47d6c989b07bf0c2c7e0a568d1e02" title="Place les combattants d&#39;une rencontre autour de trigger.">core::placeCombatants</a></span> rend la liste des cases <b>voulues</b>, sans consulter ni carte ni collision : c'est au montage de refuser celles qui tombent dans un mur, et il ne peut le faire que s'il les reçoit toutes.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md435"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md436"></a>
 Ce que le mode combat gèle, et pourquoi</h1>
 <p>Trois passes de l'exploration disparaissent, chacune pour une raison précise :</p>
 <table class="markdownTable">
@@ -150,10 +150,10 @@ Ce que le mode combat gèle, et pourquoi</h1>
 <td class="markdownTableBodyNone"><span class="tt">evaluateOutcome</span>  </td><td class="markdownTableBodyNone">tomber à zéro point de vie est une issue du <b>combat</b>, pas du niveau ; l'évaluer ici rechargerait le niveau au lieu d'ouvrir l'agonie (<a class="el" href="roadmap.html#lot-72" title="&lt;tt&gt;LOT-72&lt;/tt&gt; — Conditions, agonie et mort">LOT-72</a>)  </td></tr>
 </table>
 <p>Ce qui reste tourne parce que le combat demeure une <b>scène</b> : particules et secousse d'écran finissent ce qu'elles ont commencé, les animations continuent — un combattant immobile respire — et la caméra suit. Un test compare la séquence réellement appelée à celle que le mode annonce, et vérifie qu'aucune passe gelée n'y figure.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md436"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md437"></a>
 Le personnage de démonstration</h1>
 <p><span class="tt">Rpg/encounters/nuee-de-rats.json</span> : trois bêtes du SRD (<a class="el" href="lot-33.html" title="LOT-33 — Bestiaire de base">LOT-33</a>), seules créatures livrées à ce jour. Déclarée <b>provisoire</b> avec son critère de retrait — elle disparaît quand le contenu du <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a> fournira ses propres rencontres.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md437"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md438"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Aller-retour exploration → combat → exploration restituant l'état, PV mis à jour.</b> ✔</li>

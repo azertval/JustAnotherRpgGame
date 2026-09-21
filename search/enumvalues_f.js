@@ -19,11 +19,12 @@ var searchData=
   ['resolved_16',['Resolved',['../namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfaf691f042a559b1c1a4f89826c6f75760',1,'core']]],
   ['restrained_17',['Restrained',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a55bd768b63443f1f2f930d8858799830',1,'core']]],
   ['resumepause_18',['ResumePause',['../namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a6fcb6d479b0eff2ecd8ae8ddb68ee698',1,'hmi']]],
-  ['right_19',['Right',['../namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a92b09c7c48c520c3c55e497875da437c',1,'hmi::Right'],['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c',1,'hmi::Right'],['../namespacehmi.html#a4180e6c308353c9965d695855746d982a92b09c7c48c520c3c55e497875da437c',1,'hmi::Right']]],
-  ['rightshoulder_20',['RightShoulder',['../namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a27a5390f2d1b44a43f74d57703f8d354',1,'hmi']]],
-  ['ringleft_21',['RingLeft',['../namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a40cfe9b834ee37afb1bb5543c11666c1',1,'core']]],
-  ['ringright_22',['RingRight',['../namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a2390e3a8317e0d192cdbaebaaa54a716',1,'core']]],
-  ['round_23',['Round',['../namespacecore.html#a9b42f3467a678d16bee619bc34ddf4e2ab7f41fc1412ad2ee75e9b2635d3b9d5c',1,'core']]],
-  ['roundstart_24',['RoundStart',['../namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840ae279ccaa0940305fd66b36348b823963',1,'core::RoundStart'],['../namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9ae279ccaa0940305fd66b36348b823963',1,'core::RoundStart']]],
-  ['rpgscreen_25',['RpgScreen',['../classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a74f7bb96f40b089d24eea4863b269139',1,'hmi::ScreenRouter::RpgScreen'],['../namespacehmi.html#a168b24f798c2e6d06beb9472a071528da74f7bb96f40b089d24eea4863b269139',1,'hmi::RpgScreen']]]
+  ['retouched_19',['Retouched',['../namespacehmi.html#a5329d365328d797b903f9f92f964d564ab128707466a11095d88ad0a3449c421f',1,'hmi']]],
+  ['right_20',['Right',['../namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a92b09c7c48c520c3c55e497875da437c',1,'hmi::Right'],['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c',1,'hmi::Right'],['../namespacehmi.html#a4180e6c308353c9965d695855746d982a92b09c7c48c520c3c55e497875da437c',1,'hmi::Right']]],
+  ['rightshoulder_21',['RightShoulder',['../namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a27a5390f2d1b44a43f74d57703f8d354',1,'hmi']]],
+  ['ringleft_22',['RingLeft',['../namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a40cfe9b834ee37afb1bb5543c11666c1',1,'core']]],
+  ['ringright_23',['RingRight',['../namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a2390e3a8317e0d192cdbaebaaa54a716',1,'core']]],
+  ['round_24',['Round',['../namespacecore.html#a9b42f3467a678d16bee619bc34ddf4e2ab7f41fc1412ad2ee75e9b2635d3b9d5c',1,'core']]],
+  ['roundstart_25',['RoundStart',['../namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840ae279ccaa0940305fd66b36348b823963',1,'core::RoundStart'],['../namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9ae279ccaa0940305fd66b36348b823963',1,'core::RoundStart']]],
+  ['rpgscreen_26',['RpgScreen',['../classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a74f7bb96f40b089d24eea4863b269139',1,'hmi::ScreenRouter::RpgScreen'],['../namespacehmi.html#a168b24f798c2e6d06beb9472a071528da74f7bb96f40b089d24eea4863b269139',1,'hmi::RpgScreen']]]
 ];

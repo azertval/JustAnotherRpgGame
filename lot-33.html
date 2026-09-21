@@ -96,11 +96,11 @@ $(function(){initNavTree('lot-33.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 974/974, <span class="tt">clang-format</span>, les six lints, cahier de test et Doxygen verts). Prérequis : <a class="el" href="lot-32.html" title="LOT-32 — Schémas de données RPG"><span class="tt">LOT-32</span></a>. Alimente <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a>, <a class="el" href="lot-21.html" title="LOT-21 — Attaques, dégâts et états">LOT-21</a>, <a class="el" href="lot-23.html" title="LOT-23 — IA tactique ennemie">LOT-23</a>, <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>, <span class="tt">LOT-46</span>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md513"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md514"></a>
 Objectif</h1>
 <p>Les <b>94 bêtes</b> d'<span class="tt">Animaux.pdf</span> vers <span class="tt">Source/Elements/Rpg/creatures/</span>. C'est le seul gisement du corpus qui ne demande <b>aucun jugement humain</b> — gabarit régulier, français, texte natif — et c'est pour cela qu'il était seul dans ce lot.</p>
 <p>Livrer les 94 d'abord fait tourner tout l'aval — attaques, IA, rencontres — sur des données réelles pendant que le reste arrive. Loup, ours, araignée géante et sanglier peuplent le donjon du <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a> sans attendre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md514"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md515"></a>
 Ce que le lot livre</h1>
 <p><b>94 fichiers de données</b> sous <span class="tt">Source/Elements/Rpg/creatures/</span> — 136 traits, 135 actions, dont 115 portent des dégâts typés ; 8 langues citées, 21 paragraphes d'ambiance.</p>
 <p><b><span class="tt">scripts/sourcebook/bestiaire.py</span></b> et la sous-commande <span class="tt">python scripts/sourcebook bestiaire</span>, qui les régénèrent depuis le corpus.</p>
@@ -108,7 +108,7 @@ Ce que le lot livre</h1>
 <p><b><span class="tt"><a class="el" href="namespacecore.html#a83d3373cdbf5d435e75c8d6a944e1e2b" title="Charge toutes les créatures d&#39;un dossier — un fichier JSON par créature.">core::loadBestiary</a></span></b> (<span class="tt">Source/Core/Rpg/Bestiary.{h,cpp}</span>), et l'énumération fermée <span class="tt"><a class="el" href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204" title="Catégorie de taille d&#39;une créature (EX-CNT-011).">core::CreatureSize</a></span>, sixième valeur comprise.</p>
 <p><b>Neuf tests</b> : six sur le bestiaire, trois cas ajoutés aux tests d'énumérations.</p>
 <p><b>Un champ <span class="tt">description</span></b> au <span class="tt">creature.schema.json</span>, et sa raison — voir plus bas.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md515"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md516"></a>
 L'extraction se fait sur la typographie, pas sur des expressions régulières</h1>
 <p>Un bloc de statistiques n'a <b>ni balise ni ponctuation</b> qui sépare le nom d'un trait de sa description : seule la graisse le fait — « <b>Vue aiguisée</b>. L'aigle a un avantage… ». Découper au premier point donne « Attaque au corps à corps avec une arme : +4 au toucher, allonge 1,50 m » comme nom d'action, et coupe « Toile d'araignée (Recharge 5-6) » en son milieu.</p>
 <p>Le mode texte ne peut donc pas suffire — et il fait pire : <b>il perd des espaces</b>. Les titres de traits en sortent collés (<span class="tt">Vueaiguisée</span>, <span class="tt">Sens dela toile</span>, <span class="tt">Tactiquedegroupe</span>), faute qu'aucun contrôle ne rattrape et qu'aucune relecture de la donnée produite ne signale, puisque la donnée produite <em>est</em> la faute. Le fragment de police, lui, porte le texte tel que le document l'écrit.</p>
@@ -132,18 +132,18 @@ L'extraction se fait sur la typographie, pas sur des expressions régulières</h
 <td class="markdownTableBodyNone">fin de paragraphe  </td><td class="markdownTableBodyNone">interligne : 11,2 pt dans un paragraphe, 15,2 pt et plus entre deux  </td></tr>
 </table>
 <p>Aucun de ces sept discriminants n'est une intuition : chacun a été mesuré sur les trente pages du document, et les deux qui sont des seuils — le corps du titre, l'interligne — tombent dans des vides nets. Le document ne porte <b>aucun</b> interligne entre 11,3 et 15,2 pt.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md516"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md517"></a>
 Deux contrôles qui arrêtent la génération</h1>
 <p><b>Le sommaire est le point d'attestation.</b> La page 2 porte 94 entrées, le corps 94 titres, et les deux listes doivent coïncider <b>nom pour nom, dans l'ordre</b>. C'est le seul contrôle qui détecte un bloc sauté par une coupe de colonne trop étroite — panne qui ne laisse aucune autre trace, parce qu'un catalogue de 93 créatures se charge, se valide et se joue exactement comme un de 94. Le sommaire donne en prime la <b>casse d'affichage</b> — « Aigle géant » — que les petites capitales du titre ont perdue.</p>
 <p><b>La gouttière est mesurée, puis re-vérifiée à chaque exécution.</b> Les pages sont à deux colonnes ; lire une page entière entrelace les deux et attribue une action à la créature voisine. Le blanc central occupe <span class="tt">[287, 309]</span> sur les trente pages, et la génération le recontrôle page par page : le jour où une édition le déplace, la coupe <b>échoue</b> au lieu de produire des blocs mélangés.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md517"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md518"></a>
 Ce que le schéma ne peut pas dire, et qui n'est pas perdu pour autant</h1>
 <p>Trois formulations du livre ne rentrent pas dans un champ typé. Aucune n'est jetée, aucune n'est <b>élargie en silence</b> :</p>
 <p><b>« Résistance aux dégâts contondants, perforants et tranchants provenant d'attaques non magiques ».</b> Mettre <span class="tt">bludgeoning</span> dans <span class="tt">damageResistances</span> rendrait le diablotin résistant à une masse d'armes ordinaire, ce que le livre ne dit pas. Le point-virgule du livre sépare l'inconditionnel du conditionnel : seule la première partie entre dans le champ typé, la clause qualifiée reste dans un trait, et la créature <b>déclare</b> le mécanisme <span class="tt">resistance-conditionnelle</span> (<span class="tt">EX-CNT-030</span>). Le moteur listera au chargement ce qu'il ne sait pas honorer (<span class="tt">EX-CNT-031</span>) plutôt que de le jouer de travers.</p>
 <p><b>« Comprend le commun mais ne peut pas le parler ».</b> <span class="tt">languages</span> porte les langues du catalogue citées ; la nuance reste dans un trait, avec le mécanisme <span class="tt">langue-comprise-non-parlee</span>. Sept créatures sur les huit qui parlent sont dans ce cas.</p>
 <p><b>« L'aérien »</b>, que l'aigle géant comprend, n'est <b>pas</b> au catalogue des seize langues du <span class="tt">LOT-43</span>, et la table des <em>Basic Rules</em> p. 38 ne le porte pas davantage. Le rapprocher du primordial serait un élargissement muet — défendable, invérifiable, et invisible une fois écrit. La génération le <b>signale</b> à chaque exécution et ne l'écrit pas.</p>
 <p><b>Le paragraphe d'ambiance a désormais un champ.</b> Vingt et un blocs se terminent par un paragraphe qui ne porte aucune règle et qui est pourtant ce que le bestiaire affichera — « Les araignées-loups géantes chassent en terrain découvert ou se cachent dans des terriers ». Il va dans <span class="tt">description</span>, ajouté au schéma par ce lot : <b>le premier remplissage d'une famille est le moment où le contrat rencontre la réalité</b>, et laisser tomber ce paragraphe obligerait à réextraire le document le jour où l'écran existe.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md518"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md519"></a>
 Cinq défauts du lexique que les 94 noms ont mis au jour</h1>
 <p>Les identifiants sont <b>anglais</b> — convention des catalogues (<span class="tt">acrobatics</span>, <span class="tt">dwarvish</span>) — et viennent du lexique du <span class="tt">LOT-30</span>, seule table d'autorité du projet. Les 94 noms français s'y retrouvent, à cinq conditions :</p>
 <ol type="1">
@@ -154,18 +154,18 @@ Cinq défauts du lexique que les 94 noms ont mis au jour</h1>
 <li><b>La langue des elfes s'y nomme « elfe »</b>, quand la table des <em>Basic Rules</em> p. 38 et les blocs de créature écrivent « <b>elfique</b> ». Le <span class="tt">LOT-43</span> avait déjà buté dessus et l'a tranché dans <span class="tt">options.ALIAS_DU_LIVRE</span> ; cette table est <b>réutilisée</b> plutôt que recopiée. Deux copies d'une correspondance divergent, et celle-ci ne se serait manifestée que par une chouette géante muette en elfique — ce qu'aucun contrôle ne signale.</li>
 </ol>
 <p>Les défauts 2, 3 et 4 sont déclarés dans une table d'alias du module plutôt que corrigés dans le lexique : <b>le lexique est généré</b>, et une correction à la main y serait effacée à la prochaine exécution. L'alias, lui, porte sa raison et se relit.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md519"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md520"></a>
 Le test lit le livre, pas la génération</h1>
 <p>L'acceptation du lot demande que dix créatures soient rejouées contre des valeurs <b>recopiées à la main du PDF</b>. La forme n'est pas négociable : un test qui comparerait la sortie de la génération à elle-même passerait quelle que soit la faute d'extraction — c'est exactement la panne qu'il doit exclure.</p>
 <p><span class="tt"><a class="el" href="test__bestiary_8cpp.html" title="Tests du bestiaire de base (LOT-33) : les 94 profils chargent, et dix sont rejoues contre des valeurs...">test_bestiary.cpp</a></span> porte donc <b>douze</b> profils — deux de plus que demandé, pour couvrir un facteur de puissance fractionnaire (1/4, 1/2), un mort-vivant, un des plus gros (mammouth, 126 PV) et un des plus petits (aigle, 3 PV) — chacun avec sa <b>page imprimée</b>, de sorte que toute ligne se revérifie en ouvrant le document.</p>
 <p>Le catalogue lu est celui <b>livré</b>, jamais une fixture : une copie cesse de prouver quoi que ce soit le jour où la génération change.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md520"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md521"></a>
 Ce que le lot ne fait pas</h1>
 <p><b>Il ne livre pas les 82 créatures de Tanares.</b> Mêmes gabarits, mais en anglais : c'est le <span class="tt">LOT-46</span>, et l'étape de traduction n'avait rien à faire ici.</p>
 <p><b>Il ne type qu'une clause de dégâts par action.</b> Une morsure qui inflige « 7 (1d10 + 2) dégâts perforants + 5 (1d10) dégâts de poison » en porte deux ; <span class="tt">damage</span> ne rend que la première, et le texte reste ce qui fait foi jusqu'à ce que le <a class="el" href="lot-21.html" title="LOT-21 — Attaques, dégâts et états">LOT-21</a> sache composer plusieurs clauses. Le champ n'est pas <em>faux</em>, il est <b>partiel</b>, et c'est écrit là où on le lit.</p>
 <p><b>Il ne porte aucune illustration.</b> Le champ <span class="tt">asset</span> existe au schéma, aucune créature ne le remplit : les clés d'assets sont le <span class="tt">LOT-39</span>.</p>
 <p><b>Il n'implémente aucun mécanisme de combat.</b> Les créatures sont des données ; les jouer est le <span class="tt">LOT-21</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md521"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md522"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Les <b>94 profils chargent</b>, sans une erreur, et leurs identifiants sont uniques. ✔</li>

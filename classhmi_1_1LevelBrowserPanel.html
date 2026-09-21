@@ -115,6 +115,8 @@ Signals</h2></td></tr>
 <tr class="memdesc:a69eb067948088996f047d0ad7582edab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur demande l'ouverture d'un niveau (chemin absolu du fichier).  <br /></td></tr>
 <tr class="memitem:a9dbd80c38c7388fee03d0ffbab541623" id="r_a9dbd80c38c7388fee03d0ffbab541623"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9dbd80c38c7388fee03d0ffbab541623">mapRenameRequested</a> (const QString &amp;mapId)</td></tr>
 <tr class="memdesc:a9dbd80c38c7388fee03d0ffbab541623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis par « Rename » : le renommage propagé (<span class="tt">LOT-EDITOR-14</span>) réécrit d'autres fichiers, et peut-être la carte ouverte ; c'est l'appelant (<span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;éditeur (Qt Widgets, style Fusion, textes anglais).">MainWindow</a></span>) qui le mène.  <br /></td></tr>
+<tr class="memitem:a0d300e0c302abc8eb902a6ca1be4c242" id="r_a0d300e0c302abc8eb902a6ca1be4c242"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0d300e0c302abc8eb902a6ca1be4c242">mapLinkRequested</a> (const QString &amp;fromMap, const QString &amp;toMap)</td></tr>
+<tr class="memdesc:a0d300e0c302abc8eb902a6ca1be4c242"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand un lien est tiré d'une carte à une autre sur le graphe (<span class="tt">LOT-EDITOR-09</span>) : le plan et son écriture sont menés par <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;éditeur (Qt Widgets, style Fusion, textes anglais).">MainWindow</a></span>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -132,6 +134,12 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a25b7284f27f1872d508ab86e847c63ae" id="r_a25b7284f27f1872d508ab86e847c63ae"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a25b7284f27f1872d508ab86e847c63ae">onDuplicate</a> ()</td></tr>
 <tr class="memitem:a5df8e9d86cd2cac721e90074d0db8fc3" id="r_a5df8e9d86cd2cac721e90074d0db8fc3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5df8e9d86cd2cac721e90074d0db8fc3">onDelete</a> ()</td></tr>
 <tr class="memitem:a50d72c90bbc6ba9c459fd280e4b65252" id="r_a50d72c90bbc6ba9c459fd280e4b65252"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a50d72c90bbc6ba9c459fd280e4b65252">onActivated</a> (const QModelIndex &amp;index)</td></tr>
+<tr class="memitem:a51f0aa09011460da076ffc6e352b07f8" id="r_a51f0aa09011460da076ffc6e352b07f8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a51f0aa09011460da076ffc6e352b07f8">refreshCity</a> ()</td></tr>
+<tr class="memdesc:a51f0aa09011460da076ffc6e352b07f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplit la vue de ville : celle que le choix désigne, avec ses quartiers.  <br /></td></tr>
+<tr class="memitem:a22d9b8938cee0c1d86cb71f23959a4cf" id="r_a22d9b8938cee0c1d86cb71f23959a4cf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a22d9b8938cee0c1d86cb71f23959a4cf">applyThumbnailMode</a> ()</td></tr>
+<tr class="memdesc:a22d9b8938cee0c1d86cb71f23959a4cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bascule la liste entre lignes et vignettes (<span class="tt">LOT-EDITOR-09</span>).  <br /></td></tr>
+<tr class="memitem:a339602e29b2520a7a84aa30fdac2d985" id="r_a339602e29b2520a7a84aa30fdac2d985"><td class="memItemLeft">QPixmap&#160;</td><td class="memItemRight"><a class="el" href="#a339602e29b2520a7a84aa30fdac2d985">thumbnailFor</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:a339602e29b2520a7a84aa30fdac2d985"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vignette de la carte <code class="param">path</code>, rendue par le peintre du canevas et gardée.  <br /></td></tr>
 <tr class="memitem:a5b1fc770c5e8e6dd08a5e857c8c07157" id="r_a5b1fc770c5e8e6dd08a5e857c8c07157"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a5b1fc770c5e8e6dd08a5e857c8c07157">selectedPath</a> () const</td></tr>
 <tr class="memdesc:a5b1fc770c5e8e6dd08a5e857c8c07157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chemin du niveau sélectionné, ou chemin vide si aucune sélection.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -143,11 +151,14 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a82f1f4da93c2c41ee4faae7b49047ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modèle source (données), rempli par <a class="el" href="#a49e0ac7e7ba510df508285d010500429" title="Recharge la liste depuis le dossier (après une opération ou un changement externe),...">refresh()</a>.  <br /></td></tr>
 <tr class="memitem:ad8ee64b6f05251adf8b27e7fae98297b" id="r_ad8ee64b6f05251adf8b27e7fae98297b"><td class="memItemLeft">QSortFilterProxyModel *&#160;</td><td class="memItemRight"><a class="el" href="#ad8ee64b6f05251adf8b27e7fae98297b">_proxy</a></td></tr>
 <tr class="memdesc:ad8ee64b6f05251adf8b27e7fae98297b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filtre de recherche au-dessus du modèle.  <br /></td></tr>
+<tr class="memitem:ab1991dc3bea97f6b664e602b05ee1e48" id="r_ab1991dc3bea97f6b664e602b05ee1e48"><td class="memItemLeft">std::map&lt; std::string, QPixmap &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab1991dc3bea97f6b664e602b05ee1e48">_thumbnails</a></td></tr>
+<tr class="memdesc:ab1991dc3bea97f6b664e602b05ee1e48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les vignettes déjà rendues, par carte et horodatage de son fichier : une carte récrite perd la sienne, les autres la gardent.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Panneau de gestion des niveaux : liste filtrable + créer/renommer/dupliquer/supprimer. </p>
 <p>Liste les fichiers <span class="tt">.json</span> d'un dossier, avec <b>recherche</b> incrémentale (<span class="tt">QSortFilterProxyModel</span>) pour rester lisible quel que soit leur nombre. Les opérations (<span class="tt">EX-IHM-021</span>) délèguent à <span class="tt"><a class="el" href="classhmi_1_1LevelFileOperations.html" title="Opérations sur les fichiers de niveaux d&#39;un dossier, sans dépendance Qt/GPU.">hmi::LevelFileOperations</a></span> (couche pure, validée/testée) ; les erreurs sont signalées à l'utilisateur, jamais silencieuses. Un double-clic (ou « Ouvrir ») émet <span class="tt"><a class="el" href="#a69eb067948088996f047d0ad7582edab" title="Émis quand l&#39;utilisateur demande l&#39;ouverture d&#39;un niveau (chemin absolu du fichier).">levelOpenRequested</a></span> — le garde-fou des modifications non enregistrées est appliqué par l'appelant (<span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;éditeur (Qt Widgets, style Fusion, textes anglais).">MainWindow</a></span>).</p>
-<p>Un second onglet montre le <b>graphe du monde</b> (<span class="tt">LOT-11</span>, <span class="tt"><a class="el" href="classhmi_1_1WorldGraphView.html" title="Peint un core::WorldGraph disposé par hmi::layoutWorldGraph.">hmi::WorldGraphView</a></span>) : les cartes du même dossier et leurs portails. Il est relu à chaque <span class="tt"><a class="el" href="#a49e0ac7e7ba510df508285d010500429" title="Recharge la liste depuis le dossier (après une opération ou un changement externe),...">refresh()</a></span> ; un double-clic sur une carte émet le même <span class="tt"><a class="el" href="#a69eb067948088996f047d0ad7582edab" title="Émis quand l&#39;utilisateur demande l&#39;ouverture d&#39;un niveau (chemin absolu du fichier).">levelOpenRequested</a></span> que la liste. </p>
+<p>Un second onglet montre le <b>graphe du monde</b> (<span class="tt">LOT-11</span>, <span class="tt"><a class="el" href="classhmi_1_1WorldGraphView.html" title="Peint un core::WorldGraph disposé par hmi::layoutWorldGraph.">hmi::WorldGraphView</a></span>) : les cartes du même dossier et leurs portails. Il est relu à chaque <span class="tt"><a class="el" href="#a49e0ac7e7ba510df508285d010500429" title="Recharge la liste depuis le dossier (après une opération ou un changement externe),...">refresh()</a></span> ; un double-clic sur une carte émet le même <span class="tt"><a class="el" href="#a69eb067948088996f047d0ad7582edab" title="Émis quand l&#39;utilisateur demande l&#39;ouverture d&#39;un niveau (chemin absolu du fichier).">levelOpenRequested</a></span> que la liste, et <b>tirer d'une carte à une autre</b> demande un lien (<span class="tt">LOT-EDITOR-09</span>).</p>
+<p>Un troisième montre la <b>ville</b> (<span class="tt"><a class="el" href="classhmi_1_1CityMapView.html" title="Peint une hmi::CityView sur le plan de sa ville.">hmi::CityMapView</a></span>) : les quartiers posés sur son plan, et la carte que chacun ouvre. La liste, elle, dit <b>où en est</b> chaque carte (<span class="tt"><a class="el" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564" title="Où en est une carte (LOT-EDITOR-09, EX-EDIT-092) : ce que le navigateur montre, et le tableau de bord...">hmi::MapState</a></span>), se filtre par état et se montre en <b>vignettes</b> — à cent cartes, c'est le tableau de bord du monde (<span class="tt">EX-EDIT-092</span>). </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1d943d1cd819db0b8fb913666e3f914a" name="a1d943d1cd819db0b8fb913666e3f914a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1d943d1cd819db0b8fb913666e3f914a">&#9670;&#160;</a></span>LevelBrowserPanel()</h2>
@@ -204,6 +215,33 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a22d9b8938cee0c1d86cb71f23959a4cf" name="a22d9b8938cee0c1d86cb71f23959a4cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22d9b8938cee0c1d86cb71f23959a4cf">&#9670;&#160;</a></span>applyThumbnailMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::LevelBrowserPanel::applyThumbnailMode </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bascule la liste entre lignes et vignettes (<span class="tt">LOT-EDITOR-09</span>). </p>
+
+</div>
+</div>
 <a id="a69eb067948088996f047d0ad7582edab" name="a69eb067948088996f047d0ad7582edab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a69eb067948088996f047d0ad7582edab">&#9670;&#160;</a></span>levelOpenRequested</h2>
 
@@ -228,6 +266,37 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Émis quand l'utilisateur demande l'ouverture d'un niveau (chemin absolu du fichier). </p>
+
+</div>
+</div>
+<a id="a0d300e0c302abc8eb902a6ca1be4c242" name="a0d300e0c302abc8eb902a6ca1be4c242"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d300e0c302abc8eb902a6ca1be4c242">&#9670;&#160;</a></span>mapLinkRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::LevelBrowserPanel::mapLinkRequested </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>fromMap</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>toMap</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand un lien est tiré d'une carte à une autre sur le graphe (<span class="tt">LOT-EDITOR-09</span>) : le plan et son écriture sont menés par <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;éditeur (Qt Widgets, style Fusion, textes anglais).">MainWindow</a></span>. </p>
 
 </div>
 </div>
@@ -402,6 +471,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a51f0aa09011460da076ffc6e352b07f8" name="a51f0aa09011460da076ffc6e352b07f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51f0aa09011460da076ffc6e352b07f8">&#9670;&#160;</a></span>refreshCity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::LevelBrowserPanel::refreshCity </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remplit la vue de ville : celle que le choix désigne, avec ses quartiers. </p>
+
+</div>
+</div>
 <a id="ab25b9ab3865c52753e08937b9b4488be" name="ab25b9ab3865c52753e08937b9b4488be"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab25b9ab3865c52753e08937b9b4488be">&#9670;&#160;</a></span>refreshWorldGraph()</h2>
 
@@ -445,6 +541,40 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Chemin du niveau sélectionné, ou chemin vide si aucune sélection. </p>
+
+</div>
+</div>
+<a id="a339602e29b2520a7a84aa30fdac2d985" name="a339602e29b2520a7a84aa30fdac2d985"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a339602e29b2520a7a84aa30fdac2d985">&#9670;&#160;</a></span>thumbnailFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QPixmap hmi::LevelBrowserPanel::thumbnailFor </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La vignette de la carte <code class="param">path</code>, rendue par le peintre du canevas et gardée. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Le fichier de la carte. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'image, nulle si la carte ne se lit pas. </dd></dl>
 
 </div>
 </div>
@@ -516,6 +646,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Filtre de recherche au-dessus du modèle. </p>
+
+</div>
+</div>
+<a id="ab1991dc3bea97f6b664e602b05ee1e48" name="ab1991dc3bea97f6b664e602b05ee1e48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1991dc3bea97f6b664e602b05ee1e48">&#9670;&#160;</a></span>_thumbnails</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, QPixmap&gt; hmi::LevelBrowserPanel::_thumbnails</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les vignettes déjà rendues, par carte et horodatage de son fichier : une carte récrite perd la sienne, les autres la gardent. </p>
 
 </div>
 </div>

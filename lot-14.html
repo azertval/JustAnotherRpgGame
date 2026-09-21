@@ -97,33 +97,33 @@ $(function(){initNavTree('lot-14.html','',''); });
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 1034/1034, <span class="tt">clang-format</span>, les huit lints, cahier de test et Doxygen verts ; vérification manuelle : l'inventaire ouvert, rempli et parcouru dans l'application). Prérequis : <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a> (fiche de personnage), <a class="el" href="lot-34.html" title="LOT-34 — Équipement, monnaie, objets magiques">LOT-34</a> (armes, armures et équipement).</p>
 <p>Aucune exigence ajoutée : <span class="tt">EX-INV-020</span> couvre ce lot. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md408"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md409"></a>
 Objectif</h1>
 <p>Porter, équiper et consommer des objets, avec un effet <b>mesurable</b> sur la fiche.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md409"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md410"></a>
 Le piège, et la façon dont il est écarté</h1>
 <p>Le critère d'acceptation le disait : <em>retirer un équipement doit annuler exactement son effet</em>. L'erreur classique est d'appliquer un bonus en l'ajoutant à la volée (<span class="tt">ca += 2</span>) et de le retrancher au retrait ; après trois équipements et deux retraits dans le désordre, la classe d'armure a <b>dérivé</b>, et rien ne le signale — le personnage est simplement devenu un peu plus, ou un peu moins, résistant.</p>
 <p>La parade n'est pas un test, c'est une <b>absence de champ</b>. <span class="tt"><a class="el" href="structcore_1_1Inventory.html" title="Ce qu&#39;un personnage porte : son sac, et ce qu&#39;il a sur lui.">core::Inventory</a></span> ne porte aucune statistique : ni classe d'armure, ni poids total, ni encombrement. Toutes sont des <b>fonctions</b> de ce qu'il contient (<span class="tt"><a class="el" href="namespacecore.html#a9a5cbcc72fe725bdada14f1b5a38e3d1" title="Calcule tout ce que l&#39;équipement porté produit, depuis la fiche et les catalogues.">core::derivedStatsFor</a></span>), recalculées à chaque lecture. Une valeur qu'on ne stocke pas ne peut pas dériver ; il n'y a rien à annuler, puisqu'il n'y a rien eu à appliquer.</p>
 <p>Le test <span class="tt">LaClasseDArmureNeDerivePasAvecLOrdre</span> joue quand même <b>six ordres</b> différents d'équipement et de retrait et vérifie qu'on retombe exactement sur la valeur de départ — non pour rattraper le défaut, mais pour que la propriété reste vraie le jour où quelqu'un ajoutera un champ « pour aller plus vite ».</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md410"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md411"></a>
 Ce que la règle dit, et où elle est écrite</h1>
 <p>La capacité de charge est <b>relevée sur le livre</b>, pas devinée : <span class="tt">rules/encumbrance.json</span> porte la capacité (7,5 kg par point de Force), les deux seuils d'encombrement (2,5 et 5 kg par point) et les pénalités de vitesse (3 et 6 mètres) — chacun avec la <b>phrase du corpus</b> qui l'atteste, page 68. <span class="tt">EX-VIS-007</span> interdit qu'un <span class="tt">7500</span> nu vive dans le C++ : il ne dirait pas ce qu'il représente, et l'ajuster demanderait une recompilation.</p>
 <p><b>Tout est en grammes.</b> Le livre écrit des kilogrammes ; les catalogues du <a class="el" href="lot-34.html" title="LOT-34 — Équipement, monnaie, objets magiques">LOT-34</a> donnent déjà des grammes entiers. Mêler les deux unités dans une somme donnerait un sac de cinq cents kilos pour une poignée de fléchettes, et l'unité unique supprime la question.</p>
 <p>Le <b>comportement au dépassement</b> est défini ici plutôt que laissé à chaque appelant : au-delà de la capacité, le personnage ne porte plus — la vitesse tombe à zéro. Entre les deux seuils, elle est diminuée de ce que le livre dit.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md411"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md412"></a>
 Ce que le lot n'invente pas</h1>
 <p><b>Aucune règle de compatibilité d'emplacement.</b> Ranger une armure à l'emplacement de tête est une question de donnée et d'interface, pas du noyau. Ce que <span class="tt">equip</span> garantit est plus étroit et plus utile : un emplacement ne porte jamais deux choses, et ce qui en sort est <b>rendu à l'appelant</b> plutôt que perdu.</p>
 <p><b>C'est la catégorie qui décide, pas l'emplacement.</b> Un bouclier rangé au torse compte comme un bouclier — il <em>ajoute</em> à la classe d'armure au lieu de la remplacer —, parce que c'est sa catégorie qui porte cette règle. Confondre les deux donnerait un personnage en bouclier seul avec une CA de 2.</p>
 <p><b>La finesse attend sa donnée.</b> La caractéristique d'attaque suit l'arme : Force au corps à corps, Dextérité à distance. Une arme de <em>finesse</em> laisse le choix, et la branche existe — mais aucune arme du catalogue ne déclare encore cette propriété autrement qu'en toutes lettres dans son texte français, et lire une règle dans de la prose est exactement ce que ce projet évite. <span class="tt">Weapon</span> lit désormais un tableau <span class="tt">properties</span> que le schéma prévoit déjà ; il se remplira au <a class="el" href="roadmap.html#lot-49" title="&lt;tt&gt;LOT-49&lt;/tt&gt; — Contrôle de cohérence du contenu">LOT-49</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md412"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md413"></a>
 L'écran</h1>
 <p>L'inventaire est l'un des neuf écrans du <a class="el" href="lot-68.html" title="LOT-68 — Le châssis des écrans du RPG">LOT-68</a>, et il garde son rendu générique : seize emplacements, la charge, la bourse, le sac. Ce lot ne change pas le châssis — il <b>remplit</b> son ossature, en câblant chaque champ sur un identifiant que <span class="tt"><a class="el" href="namespacehmi.html#a4810fe71383c48ab7f7c445521b954d4">hmi::inventoryValues</a></span> produit.</p>
 <p>Deux choses y sont des règles d'<b>affichage</b>, et vivent donc dans l'écran et non dans le modèle : la bourse, que le modèle compte en pièces de cuivre et que l'écran répartit en or, argent et cuivre comme la feuille du corpus le fait ; et les poids, comptés en grammes et lus en kilogrammes — un sac de 12 450 g ne se lit pas.</p>
 <p>La <b>classe d'armure de la fiche</b> vient désormais de l'équipement porté : elle est calculée à la construction, sans rien savoir de l'armure endossée depuis, et c'est la statistique dérivée qui la remplace quand on en fournit une. C'est ce qui rend le critère du lot visible à l'écran — le personnage de démonstration passe de 11 à 15 dès qu'il porte son cuir clouté et son bouclier.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md413"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md414"></a>
 Ce que le lot ne fait pas</h1>
 <p><b>Il n'édite rien.</b> L'inventaire se lit ; équiper et déséquiper depuis l'écran est un autre sujet. <b>Il ne consomme rien</b> : <span class="tt">removeFromBackpack</span> existe et est testé, mais aucun geste de jeu ne l'appelle encore. <b>Il n'applique pas le désavantage</b> de l'encombrement lourd : l'état est calculé et nommé, et c'est le système de jets qui l'appliquera.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md414"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md415"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Équiper une armure change la CA du montant attendu ; la retirer restitue exactement la valeur d'origine, quel que soit l'ordre des opérations.</b> ✔ (six ordres joués)</li>

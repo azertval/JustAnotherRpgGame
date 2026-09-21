@@ -11,5 +11,6 @@ var searchData=
   ['kindtoplace_8',['kindToPlace',['../classhmi_1_1EntityPanel.html#a3e09c0091086b69baf02c9d9c2e92c3a',1,'hmi::EntityPanel']]],
   ['kindtoplacechanged_9',['kindToPlaceChanged',['../classhmi_1_1EntityPanel.html#a7e69f5cb14a7e3e569ea913dfdebb6b1',1,'hmi::EntityPanel']]],
   ['knownentitykinds_10',['knownEntityKinds',['../namespacecore.html#a3c877363f8258fc1ba137c48aa283397',1,'core']]],
-  ['knowninteractablekinds_11',['knownInteractableKinds',['../namespacecore.html#a07f40df9fbe2a910d1e99b9756220fea',1,'core']]]
+  ['knowninteractablekinds_11',['knownInteractableKinds',['../namespacecore.html#a07f40df9fbe2a910d1e99b9756220fea',1,'core']]],
+  ['knownmapstates_12',['knownMapStates',['../namespacehmi.html#ae57583841fc02117460e1187182aefd0',1,'hmi']]]
 ];

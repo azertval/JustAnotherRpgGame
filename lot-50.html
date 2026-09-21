@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-50.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 1090/1090 en Debug et en Release, <span class="tt">clang-format</span>, les lints et le cahier de test verts). Prérequis : <a class="el" href="lot-19.html" title="LOT-19 — Grille tactique et déplacement">LOT-19</a> (la grille), <a class="el" href="lot-20.html" title="LOT-20 — Initiative et tour par tour">LOT-20</a> (le tour). Alimente <a class="el" href="lot-21.html" title="LOT-21 — Attaques, dégâts et états">LOT-21</a> — les attaques se vérifient à l'œil dans l'arène — et <span class="tt">LOT-51</span> à <span class="tt">LOT-65</span>. Exigences couvertes : la part « rejouable à graine fixée » d'<span class="tt">EX-NFR-002</span>, et le lieu où <span class="tt">EX-CBT-001</span> à <span class="tt">EX-CBT-020</span> se regardent. Aucune exigence ajoutée. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md582"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md583"></a>
 Objectif</h1>
 <p>Un lieu pour éprouver le combat, encore et encore, sans monter une partie complète à chaque essai — et qui ne soit <b>pas</b> un outil de développement déguisé : les Arènes de Tanares sont une institution du monde, et l'arène livrée ici est celle que le jeu final gardera.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md583"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md584"></a>
 Ce que ce lot livre, et ce qu'il ne livre pas</h1>
 <ul>
 <li><b>La première carte</b> de <span class="tt">Source/Elements/Levels/</span>, vide depuis le <span class="tt">LOT-01</span> : <span class="tt">arena-of-the-future.json</span>, une enceinte de murs et de gradins, du sable, deux portes, et douze points d'entrée — six par camp — écrits comme des entités <span class="tt">arenaEntry</span> de la carte, jamais en dur.</li>
@@ -108,38 +108,38 @@ Ce que ce lot livre, et ce qu'il ne livre pas</h1>
 <li><b>L'écran de mise en place et de jeu</b> : <span class="tt"><a class="el" href="classhmi_1_1ArenaModel.html" title="La vue-modèle de l&#39;arène : composer deux camps, lancer, jouer, rejouer.">hmi::ArenaModel</a></span> (<span class="tt">Source/HMI/Runtime/</span>), le formulaire <span class="tt">ArenaForm.ui.qml</span> et son jumeau <span class="tt">Arena.qml</span>, ouvert par « Nouvelle partie » depuis le menu principal, l'écran <span class="tt">Arena</span> de la table de navigation (<span class="tt"><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da6fa3f3daa9f9a6282d58c913b73b8dc4" title="Le Colisée (LOT-50) : la mise en place d&#39;un affrontement et sa grille.">hmi::ScreenId::Arena</a></span>, <span class="tt">OpenArena</span>/<span class="tt">CloseArena</span>).</li>
 </ul>
 <p>Il ne livre ni attaque, ni IA, ni IHM de combat sur la carte : le coup qui s'y joue est un <b>coup d'essai</b> (ci-dessous), et l'écran dessine la grille lui-même. Il ne livre pas non plus l'ouverture de l'arène <b>depuis le monde</b> comme une carte ordinaire : c'est le critère qui nomme le <span class="tt">LOT-42</span>, et le voyage n'existe pas encore.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md584"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md585"></a>
 Le premier lieu où le combat est tenu</h1>
 <p>Le <a class="el" href="lot-20.html" title="LOT-20 — Initiative et tour par tour">LOT-20</a> avait laissé <span class="tt"><a class="el" href="classcore_1_1CombatState.html" title="Un combat, du montage de la rencontre à sa fin.">core::CombatState</a></span> hors de tout : vérifié sans fenêtre, tenu par personne. <span class="tt"><a class="el" href="classcore_1_1ArenaSession.html" title="Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.">core::ArenaSession</a></span> est le premier objet du jeu qui le <b>tient</b> — la carte, la composition, la machine, la suite aléatoire, le journal —, et il le fait sans passer par <span class="tt">hmi::CombatMode</span> ni par <span class="tt">hmi::GameSession</span> : une arène est une carte à elle seule, rien n'y est à geler, et bâtir la session d'exploration autour d'un niveau que la surface de rendu Qt Quick ne sait pas encore afficher aurait produit du code que rien ne peut vérifier. Brancher la machine sur une carte d'exploration gelée reste l'affaire de l'IHM de combat (<span class="tt">LOT-24</span>), qui lira la même session par les mêmes appels.</p>
 <p>L'écran, lui, est ce que la feuille de route demandait : un <b>écran de développeur, en QML, sans charte</b>. Il dessine la grille depuis une liste de cases (<span class="tt">ArenaModel::cells</span>) plutôt que par la surface de rendu, parce que celle-ci n'affiche encore aucune scène ; les couleurs viennent des jetons de la charte v2 pour qu'il ne jure pas au milieu du jeu, sans prétendre à une maquette.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md585"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md586"></a>
 Rejouable à graine fixée : ce que cela achète</h1>
 <p>L'acceptation demandait qu'à graine et composition égales, deux exécutions donnent le même déroulé. La session le garantit par construction : <b>une seule</b> suite aléatoire (<span class="tt"><a class="el" href="classcore_1_1DeterministicRandom.html" title="Générateur pseudo-aléatoire léger (SplitMix64), à graine explicite.">core::DeterministicRandom</a></span>) sert l'initiative, les jets d'attaque et les dégâts, et <span class="tt">replay</span> remonte la même composition sur la même carte à la même graine. Un test joue une escarmouche à cinq jusqu'à son issue, la rejoue, et obtient le même journal — initiative, pas, coups, issue —, puis une autre graine et un autre journal.</p>
 <p>C'est ce qui fait de l'arène un banc d'essai : comparer deux versions d'une mécanique, c'est comparer deux journaux à la même graine.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md586"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md587"></a>
 Personne n'y meurt, et c'est la fiction qui l'explique</h1>
 <p>« Les Arènes opposent deux camps d'un conflit, représentés par leurs Héros, pour résoudre les impasses sans recourir à la guerre ni aux morts. » Le rituel de <b>Marque Héroïque</b> relève tout le monde à la fin du combat : <span class="tt">ArenaSession</span> s'abonne à <span class="tt">CombatHook::CombatEnded</span> et rend à chaque combattant ses points de vie — sauf dans une arène <b>létale</b>, qui est l'exception écrite dans la donnée (<span class="tt">lethal: true</span>, Feargus). Un test le vérifie dans les deux sens.</p>
 <p>Le rituel accorde aussi la <b>troisième économie d'action</b> du §4bis : chaque combattant d'une arène à Marque reçoit <span class="tt">heroicAction</span> par <span class="tt"><a class="el" href="classcore_1_1ActionEconomy.html#a2516894c23f6ab87d351e9b63e6c11f6" title="Déclare une ressource, ou change ce qu&#39;un tour en restaure, et la remplit.">core::ActionEconomy::declare</a></span>, le crochet posé au <a class="el" href="lot-20.html" title="LOT-20 — Initiative et tour par tour">LOT-20</a>. Aucune capacité ne la dépense encore — ce sera l'affaire des classes —, mais la ressource existe, se voit dans l'écran, et son absence dans une arène sans Marque est testée.</p>
 <p>Les <b>huit rôles</b> des Marques (Bruiser, Brute, Commander, Controller, Healer, Shooter, Tactician, Tank) sont une donnée de règle, et l'écran permet d'en revendiquer un par combattant : c'est l'étiquette contre laquelle les lots de classes vérifieront que chacune remplit le sien.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md587"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md588"></a>
 Le coup d'essai, provisoire et dit comme tel</h1>
 <p>Les attaques sont au <span class="tt">LOT-21</span>. Sans coup, un combat ne finit jamais, et un banc d'essai qui ne finit jamais ne vérifie rien. <span class="tt">ArenaSession::strike</span> porte donc un <b>coup d'essai</b> : l'attaque se déclare (<span class="tt">declareAttack</span>), l'action se dépense, un d20 plus le bonus se jette contre la classe d'armure, les dés de dégâts tombent, <span class="tt">applyDamage</span> finit le travail. Le kit (<span class="tt">core::StrikeKit</span>) se lit du bloc de bestiaire — la <b>première</b> action qui frappe — ou de la fiche — le <b>coup à mains nues</b> du SRD, maîtrise plus Force pour toucher, 1 plus Force en dégâts : la règle du livre, pas une valeur inventée. L'allonge est d'une case ; la portée est au <span class="tt">LOT-22</span>.</p>
 <p>Ce que le <span class="tt">LOT-21</span> remplacera est la <b>façon</b> de frapper ; ce qu'il gardera est le <b>lieu</b> : la session, la déclaration avant le jet, la suite aléatoire unique, le journal.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md588"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md589"></a>
 Ce que l'écran compose, et ce qu'il ne compose pas</h1>
 <p>Le roster est le bestiaire (<span class="tt">LOT-33</span>, 94 créatures) plus le personnage de démonstration (<span class="tt">LOT-38</span>), chargé par le même chemin que la fiche pour qu'il n'y ait qu'une vérité sur ce qu'il porte. Chaque camp se compose librement — un moine contre trois gobelins n'a pas besoin de prétexte, c'est la <em>Law of the Arena</em> —, une Marque se choisit par combattant, une graine se règle.</p>
 <p>La feuille de route parlait de choisir « leur niveau, leur équipement ». La fiche porte son niveau et son inventaire, et l'arène les prend <b>tels quels</b> : régler le niveau d'un personnage est une montée par l'expérience (<span class="tt"><a class="el" href="namespacecore.html#a7cfff9a8cfc89ebc9d4074d1db13eacd" title="Ajoute des points d&#39;expérience et applique la montée de niveau qui en découle.">core::gainExperience</a></span>), et lire l'arme équipée demande les propriétés d'arme du <span class="tt">LOT-21</span>. Le jour où le groupe (<span class="tt">LOT-29</span>) et les classes (<span class="tt">LOT-47</span>) existeront, c'est le roster qui s'élargira, pas l'écran.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md589"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md590"></a>
 Le montage nomme ses refus</h1>
 <p>Un combattant sans case demandée va au <b>prochain point d'entrée libre</b> de son camp, dans l'ordre des rangs ; un septième allié sur six entrées est refusé avec <span class="tt">OutOfBounds</span> — la carte n'a plus de place, et le dire vaut mieux que le poser dans un mur ; une case demandée dans un pilier est refusée <span class="tt">Obstructed</span>. Les refus remontent à l'écran avec leur raison. Un camp vide après montage ne lance rien.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md590"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md591"></a>
 Relevé en chemin</h1>
 <ul>
 <li><b>« Nouvelle partie » ouvre l'arène</b> (décision de l'auteur, le jour de la livraison). C'est la seule carte jouable du jeu tant que le <span class="tt">LOT-27</span> n'en livre pas d'autre, et l'arène est un mode du jeu, pas un outil de vérification : elle se trouve dans le menu, pas dans un sélecteur de développement. Le formulaire du menu garde ses six entrées de la maquette ; la vue de jeu reste atteignable par <span class="tt">--screen=GameView</span>, et c'est le seul appel du câblage qui changera le jour où une partie s'ouvrira sur le monde.</li>
 <li><b>Les commentaires qui disaient <span class="tt">Source/Elements/Levels/</span> vide</b> (<span class="tt"><a class="el" href="GameViewportItem_8h.html" title="La surface de rendu du jeu, en Qt Quick (LOT-86).">GameViewportItem.h</a></span>, <span class="tt">GameViewForm.ui.qml</span>, <span class="tt">ScreenProbe.qml</span>, le README du dossier) disent maintenant ce qu'il porte.</li>
 <li><b><span class="tt">check_rpg_data.py</span></b> connaît deux familles de plus : <span class="tt">arena</span> (sous <span class="tt">World/</span>) et la règle <span class="tt">heroic-marks</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md591"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md592"></a>
 Habillage de l'arène (14 septembre 2026, après livraison)</h1>
 <p>L'écran reste celui du développeur, mais sa grille devient la scène du Colisée. Demande de l'auteur : le vrai design du jeu, pas une esquisse — un tileset qui respecte la maquette.</p>
 <ul>
@@ -149,7 +149,7 @@ Habillage de l'arène (14 septembre 2026, après livraison)</h1>
 <li><b>Le cahier des assets du <span class="tt">LOT-87</span> n'est pas touché</b> : ces pièces ne sont pas produites par prompt, elles sont découpées d'une planche. Une première version de cet habillage y avait ajouté une famille <span class="tt">arena</span> de neuf images à générer ; elle est retirée.</li>
 <li><b>Hors périmètre</b> : le cadre de l'écran (panneaux, boutons, journal) garde ses contrôles Qt Quick nus ; les animations <span class="tt">walk</span>, <span class="tt">attack</span>, <span class="tt">hit</span> sont découpées mais pas encore jouées (le coup d'essai n'a pas de phase d'animation) ; l'IHM de combat (<span class="tt">LOT-24</span>) réemploiera la scène.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md592"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md593"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>L'ouverture depuis le monde</b> (<span class="tt">LOT-42</span>) : l'arène est aussi un lieu de l'atlas, et s'ouvrira comme une carte ordinaire quand le voyage existera. La carte a déjà ses deux portes.</li>
@@ -157,7 +157,7 @@ Ce qui reste hors du lot, nommément</h1>
 <li><b>La <em>Heroic Action</em> elle-même</b> : la ressource est déclarée ; aucune capacité ne la dépense avant les classes.</li>
 <li><b>Le dessin du combat sur la carte</b> et le jeu <b>à la manette</b> : l'IHM de combat (<span class="tt">LOT-24</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md593"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md594"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Un affrontement se met en place, se joue et se rejoue sans quitter le jeu.</b> ✔ Depuis le menu principal, « Nouvelle partie » ; composer, lancer, jouer case par case, rejouer, recomposer.</li>

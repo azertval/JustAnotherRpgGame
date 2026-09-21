@@ -97,6 +97,15 @@ void collectProperties(const nlohmann::json&amp; object, const std::set&lt;std::
     }
 }</span>
 
+// Les cles racine que le chargeur connait : tout le reste devient une propriete de carte
+// (LOT-EDITOR-09), gardee telle quelle et reemise.
+<span style = "background-color:#dfd">[[nodiscard]] const std::set&lt;std::string&gt;&amp; knownRootKeys() {
+    static const std::set&lt;std::string&gt; known{"version",      "name",   "width",    "height",</span>
+                                             "tiles",        "layers", "entities", "forced",
+                                             "nextEntityId", "base",   "scene"};
+<span style = "background-color:#dfd">    return known;
+}</span>
+
 // Une case {x, y} d'une liste de cases ("forced", "cells"), bornee a la carte.
 [[nodiscard]] std::optional&lt;LevelLoadResult&gt; parseCell(const nlohmann::json&amp; cell,
                                                        const TileMap&amp; map, const std::string&amp; where,
@@ -424,13 +433,16 @@ void adoptLegacyTextures(std::vector&lt;std::pair&lt;GridPosition, std::string&g
             parseEntities(root, base.level-&gt;tileMap(), entities)) {
 <span style = "background-color:#fdd">        return std::move(*error);</span>
 <span style = "background-color:#dfd">    }
+    PropertyMap variantProperties;
+    collectProperties(root, knownRootKeys(), variantProperties);
     return LevelLoadResult{</span>
         .level = applyVariant(*base.level, LevelData{.name = root.value("name", std::string{}),
                                                      .tileMap = TileMap(1, 1),
                                                      .entities = std::move(entities),
                                                      .nextEntityId = parseNextEntityId(root),
                                                      .base = baseId,
-                                                     .scene = root.value("scene", std::string{})}),
+                                                     .scene = root.value("scene", std::string{}),
+                                                     .properties = variantProperties}),
         .error = {}};
 <span style = "background-color:#dfd">}</span>
 
@@ -500,13 +512,19 @@ void adoptLegacyTextures(std::vector&lt;std::pair&lt;GridPosition, std::string&g
         layers.push_back(std::move(declared));
     }</span>
 
+    // Toute cle racine inconnue est une propriete de la carte (LOT-EDITOR-09) : la region et
+    // l'ambiance en sont, et une cle ecrite par un editeur plus recent traverse celui-ci.
+<span style = "background-color:#dfd">    PropertyMap properties;
+    collectProperties(root, knownRootKeys(), properties);</span>
+
 <span style = "background-color:#dfd">    return LevelLoadResult{.level = Level(LevelData{.name = std::move(name),</span>
                                                     .tileMap = std::move(map),
                                                     .layers = std::move(layers),
                                                     .entities = std::move(entities),
                                                     .entry = entry,
                                                     .forcedCollision = std::move(forced),
-                                                    .nextEntityId = parseNextEntityId(root)}),
+                                                    .nextEntityId = parseNextEntityId(root),
+                                                    .properties = std::move(properties)}),
                            .error = {}};
 <span style = "background-color:#dfd">}</span>
 

@@ -108,6 +108,8 @@ Inheritance diagram for hmi::WorldGraphView:</div>
 Signals</h2></td></tr>
 <tr class="memitem:ac13b54b5a3c70cb00c8f168141aca8e8" id="r_ac13b54b5a3c70cb00c8f168141aca8e8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac13b54b5a3c70cb00c8f168141aca8e8">levelOpenRequested</a> (const QString &amp;path)</td></tr>
 <tr class="memdesc:ac13b54b5a3c70cb00c8f168141aca8e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis au double-clic sur une carte lisible (chemin absolu du fichier).  <br /></td></tr>
+<tr class="memitem:a0be0a8292fa421e343f575297933aa23" id="r_a0be0a8292fa421e343f575297933aa23"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0be0a8292fa421e343f575297933aa23">linkRequested</a> (const QString &amp;fromMap, const QString &amp;toMap)</td></tr>
+<tr class="memdesc:a0be0a8292fa421e343f575297933aa23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand un lien est tiré d'une carte à une autre (<span class="tt">LOT-EDITOR-09</span>), par identifiants.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -121,7 +123,9 @@ Public Member Functions</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a32aa0408b7bce015c35800fe770b6c15" id="r_a32aa0408b7bce015c35800fe770b6c15"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a32aa0408b7bce015c35800fe770b6c15">event</a> (QEvent *event) override</td></tr>
 <tr class="memitem:a14bf3f0d12b65db7f8f628d41a95a600" id="r_a14bf3f0d12b65db7f8f628d41a95a600"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a14bf3f0d12b65db7f8f628d41a95a600">paintEvent</a> (QPaintEvent *<a class="el" href="#a32aa0408b7bce015c35800fe770b6c15">event</a>) override</td></tr>
+<tr class="memitem:a73c563d0bdee1b2e28e4590ef89e31f8" id="r_a73c563d0bdee1b2e28e4590ef89e31f8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a73c563d0bdee1b2e28e4590ef89e31f8">mousePressEvent</a> (QMouseEvent *<a class="el" href="#a32aa0408b7bce015c35800fe770b6c15">event</a>) override</td></tr>
 <tr class="memitem:ac4fc383fbc9ca4d6cb9a5f6cd5afe47e" id="r_ac4fc383fbc9ca4d6cb9a5f6cd5afe47e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac4fc383fbc9ca4d6cb9a5f6cd5afe47e">mouseMoveEvent</a> (QMouseEvent *<a class="el" href="#a32aa0408b7bce015c35800fe770b6c15">event</a>) override</td></tr>
+<tr class="memitem:a5b1b2e0a9d9f348abca9a47f7bdc3159" id="r_a5b1b2e0a9d9f348abca9a47f7bdc3159"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5b1b2e0a9d9f348abca9a47f7bdc3159">mouseReleaseEvent</a> (QMouseEvent *<a class="el" href="#a32aa0408b7bce015c35800fe770b6c15">event</a>) override</td></tr>
 <tr class="memitem:a6caae3cd45d950cdc09614c1b2571e74" id="r_a6caae3cd45d950cdc09614c1b2571e74"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6caae3cd45d950cdc09614c1b2571e74">mouseDoubleClickEvent</a> (QMouseEvent *<a class="el" href="#a32aa0408b7bce015c35800fe770b6c15">event</a>) override</td></tr>
 <tr class="memitem:af619ffc04825f844525711d406f8e3c7" id="r_af619ffc04825f844525711d406f8e3c7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af619ffc04825f844525711d406f8e3c7">leaveEvent</a> (QEvent *<a class="el" href="#a32aa0408b7bce015c35800fe770b6c15">event</a>) override</td></tr>
 </table><table class="memberdecls">
@@ -149,9 +153,13 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ae1d1f82efb2ca7456b830e9edd4983f8" id="r_ae1d1f82efb2ca7456b830e9edd4983f8"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#ae1d1f82efb2ca7456b830e9edd4983f8">_dir</a></td></tr>
 <tr class="memitem:a15721eb44283d54fe4e88b56a9afc2b0" id="r_a15721eb44283d54fe4e88b56a9afc2b0"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a15721eb44283d54fe4e88b56a9afc2b0">_hoveredNode</a></td></tr>
 <tr class="memitem:adced865a8a4d54b8e0c6c80dd85e8b69" id="r_adced865a8a4d54b8e0c6c80dd85e8b69"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adced865a8a4d54b8e0c6c80dd85e8b69">_hoveredEdge</a></td></tr>
+<tr class="memitem:a71708049f16d60dccc975214b06f3913" id="r_a71708049f16d60dccc975214b06f3913"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a71708049f16d60dccc975214b06f3913">_linkFrom</a></td></tr>
+<tr class="memdesc:a71708049f16d60dccc975214b06f3913"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte d'où part le lien qu'on tire, et le point où le trait s'arrête.  <br /></td></tr>
+<tr class="memitem:a4caecf2b3bb4bc6c7058d473fb3fe036" id="r_a4caecf2b3bb4bc6c7058d473fb3fe036"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4caecf2b3bb4bc6c7058d473fb3fe036">_linkPoint</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Peint un <span class="tt"><a class="el" href="structcore_1_1WorldGraph.html" title="Les cartes et leurs portails.">core::WorldGraph</a></span> disposé par <span class="tt"><a class="el" href="namespacehmi.html#a05055b81b0f1c8241eeef2c9e9d3a588" title="Dispose graph : nœuds sur un cercle, fantômes et flèches regroupées.">hmi::layoutWorldGraph</a></span>. </p>
+<p><b>Tirer d'une carte à une autre crée le lien</b> (<span class="tt">LOT-EDITOR-09</span>, <span class="tt">EX-EDIT-089</span>) : la paire portail / point d'arrivée des deux côtés, par <span class="tt"><a class="el" href="namespacehmi.html#a64455acf952fc368012a3ad74e8da8d4" title="Plan du lien fromMap ↔ toMap : le portail et le point d&#39;arrivée des deux côtés.">hmi::planLinkMaps</a></span> ; la vue ne fait qu'émettre le geste, <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;éditeur (Qt Widgets, style Fusion, textes anglais).">hmi::MainWindow</a></span> montre le plan et l'écrit. Un fantôme ne se relie pas : sa carte n'existe pas.</p>
 <p>Une carte est un disque (nom et identifiant dessous) ; une carte illisible a un contour pointillé de la couleur d'erreur ; une carte absente (fantôme) n'est qu'un contour tireté atténué. Une flèche par paire ordonnée de cartes, tiretée en couleur d'erreur si un de ses portails est cassé, avec une pastille de compte quand elle en regroupe plusieurs. Survoler une carte ou une flèche en donne le détail en infobulle ; double-cliquer une carte lisible émet <span class="tt"><a class="el" href="#ac13b54b5a3c70cb00c8f168141aca8e8" title="Émis au double-clic sur une carte lisible (chemin absolu du fichier).">levelOpenRequested</a></span>, le même signal que la liste du navigateur.</p>
 <p>Les couleurs sont celles de la palette du widget (style Fusion), relues à chaque peinture : la vue suit une bascule de thème à chaud. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -309,6 +317,37 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a0be0a8292fa421e343f575297933aa23" name="a0be0a8292fa421e343f575297933aa23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0be0a8292fa421e343f575297933aa23">&#9670;&#160;</a></span>linkRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::linkRequested </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>fromMap</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>toMap</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand un lien est tiré d'une carte à une autre (<span class="tt">LOT-EDITOR-09</span>), par identifiants. </p>
+
+</div>
+</div>
 <a id="a6caae3cd45d950cdc09614c1b2571e74" name="a6caae3cd45d950cdc09614c1b2571e74"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6caae3cd45d950cdc09614c1b2571e74">&#9670;&#160;</a></span>mouseDoubleClickEvent()</h2>
 
@@ -345,6 +384,56 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void hmi::WorldGraphView::mouseMoveEvent </td>
+          <td>(</td>
+          <td class="paramtype">QMouseEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a73c563d0bdee1b2e28e4590ef89e31f8" name="a73c563d0bdee1b2e28e4590ef89e31f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73c563d0bdee1b2e28e4590ef89e31f8">&#9670;&#160;</a></span>mousePressEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::mousePressEvent </td>
+          <td>(</td>
+          <td class="paramtype">QMouseEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5b1b2e0a9d9f348abca9a47f7bdc3159" name="a5b1b2e0a9d9f348abca9a47f7bdc3159"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b1b2e0a9d9f348abca9a47f7bdc3159">&#9670;&#160;</a></span>mouseReleaseEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::mouseReleaseEvent </td>
           <td>(</td>
           <td class="paramtype">QMouseEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
           <td></td>
@@ -769,6 +858,52 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structhmi_1_1WorldGraphLayout.html">WorldGraphLayout</a> hmi::WorldGraphView::_layout</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a71708049f16d60dccc975214b06f3913" name="a71708049f16d60dccc975214b06f3913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71708049f16d60dccc975214b06f3913">&#9670;&#160;</a></span>_linkFrom</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; hmi::WorldGraphView::_linkFrom</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La carte d'où part le lien qu'on tire, et le point où le trait s'arrête. </p>
+
+</div>
+</div>
+<a id="a4caecf2b3bb4bc6c7058d473fb3fe036" name="a4caecf2b3bb4bc6c7058d473fb3fe036"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4caecf2b3bb4bc6c7058d473fb3fe036">&#9670;&#160;</a></span>_linkPoint</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::WorldGraphView::_linkPoint</td>
         </tr>
       </table>
   </td>

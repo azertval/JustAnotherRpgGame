@@ -3,7 +3,9 @@ var classhmi_1_1LevelBrowserPanel =
     [ "Widgets", "structhmi_1_1LevelBrowserPanel_1_1Widgets.html", "structhmi_1_1LevelBrowserPanel_1_1Widgets" ],
     [ "LevelBrowserPanel", "classhmi_1_1LevelBrowserPanel.html#a1d943d1cd819db0b8fb913666e3f914a", null ],
     [ "~LevelBrowserPanel", "classhmi_1_1LevelBrowserPanel.html#adde81f1cab1c37e2a715cdb8641fd8ba", null ],
+    [ "applyThumbnailMode", "classhmi_1_1LevelBrowserPanel.html#a22d9b8938cee0c1d86cb71f23959a4cf", null ],
     [ "levelOpenRequested", "classhmi_1_1LevelBrowserPanel.html#a69eb067948088996f047d0ad7582edab", null ],
+    [ "mapLinkRequested", "classhmi_1_1LevelBrowserPanel.html#a0d300e0c302abc8eb902a6ca1be4c242", null ],
     [ "mapRenameRequested", "classhmi_1_1LevelBrowserPanel.html#a9dbd80c38c7388fee03d0ffbab541623", null ],
     [ "onActivated", "classhmi_1_1LevelBrowserPanel.html#a50d72c90bbc6ba9c459fd280e4b65252", null ],
     [ "onDelete", "classhmi_1_1LevelBrowserPanel.html#a5df8e9d86cd2cac721e90074d0db8fc3", null ],
@@ -11,10 +13,13 @@ var classhmi_1_1LevelBrowserPanel =
     [ "onNew", "classhmi_1_1LevelBrowserPanel.html#a50070be85b5ad8f3a6a54c87b288c4e2", null ],
     [ "onRename", "classhmi_1_1LevelBrowserPanel.html#af6be2772b308c62a472a234e35f00c2e", null ],
     [ "refresh", "classhmi_1_1LevelBrowserPanel.html#a49e0ac7e7ba510df508285d010500429", null ],
+    [ "refreshCity", "classhmi_1_1LevelBrowserPanel.html#a51f0aa09011460da076ffc6e352b07f8", null ],
     [ "refreshWorldGraph", "classhmi_1_1LevelBrowserPanel.html#ab25b9ab3865c52753e08937b9b4488be", null ],
     [ "selectedPath", "classhmi_1_1LevelBrowserPanel.html#a5b1fc770c5e8e6dd08a5e857c8c07157", null ],
+    [ "thumbnailFor", "classhmi_1_1LevelBrowserPanel.html#a339602e29b2520a7a84aa30fdac2d985", null ],
     [ "_dir", "classhmi_1_1LevelBrowserPanel.html#a3185bc4090e8ab36b6c79f479cb42267", null ],
     [ "_model", "classhmi_1_1LevelBrowserPanel.html#a82f1f4da93c2c41ee4faae7b49047ff0", null ],
     [ "_proxy", "classhmi_1_1LevelBrowserPanel.html#ad8ee64b6f05251adf8b27e7fae98297b", null ],
+    [ "_thumbnails", "classhmi_1_1LevelBrowserPanel.html#ab1991dc3bea97f6b664e602b05ee1e48", null ],
     [ "_ui", "classhmi_1_1LevelBrowserPanel.html#a212b9f460b67fded6cff36df0e2e3537", null ]
 ];

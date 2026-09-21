@@ -2,7 +2,11 @@ var classhmi_1_1EditorViewport =
 [
     [ "CanvasItem", "classhmi_1_1EditorViewport_1_1CanvasItem.html", "classhmi_1_1EditorViewport_1_1CanvasItem" ],
     [ "Clock", "classhmi_1_1EditorViewport.html#aca512f97c20d7a115f878d04d75a5b43", null ],
-    [ "EditorViewport", "classhmi_1_1EditorViewport.html#a25dfab2529859ea6134a9459e7d155ee", null ],
+    [ "StartContent", "classhmi_1_1EditorViewport.html#ac34150056be14016dd3afb032a281739", [
+      [ "StartMap", "classhmi_1_1EditorViewport.html#ac34150056be14016dd3afb032a281739a43a02013697f5209f29ef495026dda28", null ],
+      [ "Blank", "classhmi_1_1EditorViewport.html#ac34150056be14016dd3afb032a281739ae4ef81cce7e4e10033ebb10962dfdd5e", null ]
+    ] ],
+    [ "EditorViewport", "classhmi_1_1EditorViewport.html#acc70ccb133e78c37229a7d3d28f12251", null ],
     [ "~EditorViewport", "classhmi_1_1EditorViewport.html#ab3b21b9ba32e0dbe38b928c29796034c", null ],
     [ "EditorViewport", "classhmi_1_1EditorViewport.html#aca765328d041d38121a730fd7920e11b", null ],
     [ "acceptDiskVersion", "classhmi_1_1EditorViewport.html#acde2f77a3436465195e4f80a9ee5a09e", null ],
@@ -139,6 +143,9 @@ var classhmi_1_1EditorViewport =
     [ "setMapLayerLocked", "classhmi_1_1EditorViewport.html#aabad1329f68e1b4d59bdeb9f595a7674", null ],
     [ "setMapLayerOpacity", "classhmi_1_1EditorViewport.html#a5503c981c3e849756ef8a8db584d9858", null ],
     [ "setMapLayerVisible", "classhmi_1_1EditorViewport.html#a8aa3553dbee5c49f62538be9307b324b", null ],
+    [ "setMapProperties", "classhmi_1_1EditorViewport.html#a468436cd7e3e9aaca3465335ab183e5e", null ],
+    [ "setMapProperty", "classhmi_1_1EditorViewport.html#a651eb10dd3e080ebe3d447d0f2723a5e", null ],
+    [ "setMapState", "classhmi_1_1EditorViewport.html#a593fd6cd4946fa68d41eb652611ad352", null ],
     [ "setMirror", "classhmi_1_1EditorViewport.html#a09b32876e54292849826a1eb0a86978c", null ],
     [ "setNote", "classhmi_1_1EditorViewport.html#a97d46d6864c0f2b4c2781cf862dba0cc", null ],
     [ "setSeeThroughRelief", "classhmi_1_1EditorViewport.html#a5c389802e5ee41652f87a2c339599e14", null ],

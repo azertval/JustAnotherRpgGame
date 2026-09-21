@@ -30,14 +30,14 @@ var NAVTREE =
     [ "Navigation", "index.html#autotoc_md3", null ],
     [ "Guide du développeur", "guide.html", "guide" ],
     [ "Cahier de test", "cahiertest.html", [
-      [ "Tests unitaires (884)", "cahiertest.html#autotoc_md4", [
+      [ "Tests unitaires (896)", "cahiertest.html#autotoc_md4", [
         [ "Core", "cahiertest.html#autotoc_md5", [
           [ "Combat (112)", "cahiertest.html#autotoc_md6", null ],
           [ "Data (12)", "cahiertest.html#autotoc_md7", null ],
           [ "Diagnostics (22)", "cahiertest.html#autotoc_md8", null ],
           [ "Ecs (35)", "cahiertest.html#autotoc_md9", null ],
           [ "Gameplay (9)", "cahiertest.html#autotoc_md10", null ],
-          [ "Levels (116)", "cahiertest.html#autotoc_md11", null ],
+          [ "Levels (117)", "cahiertest.html#autotoc_md11", null ],
           [ "Math (26)", "cahiertest.html#autotoc_md12", null ],
           [ "Resources (12)", "cahiertest.html#autotoc_md13", null ],
           [ "Rpg (81)", "cahiertest.html#autotoc_md14", null ],
@@ -67,201 +67,201 @@ var NAVTREE =
     [ "Lots", "lots.html", "lots" ],
     [ "Manuel utilisateur", "manuel.html", "manuel" ],
     [ "LOT-11 — Éditeur multi-couches et placement d'entités", "lot-11.html", [
-      [ "Objectif", "lot-11.html#autotoc_md380", null ],
-      [ "La décision préalable, tranchée", "lot-11.html#autotoc_md381", null ],
-      [ "Ce que la feuille de route supposait, et ce que le dépôt contenait", "lot-11.html#autotoc_md382", null ],
-      [ "Ce que ce lot livre", "lot-11.html#autotoc_md383", [
-        [ "Dans le <span class=\"tt\">Core</span>", "lot-11.html#autotoc_md384", null ],
-        [ "Dans <span class=\"tt\">LevelEditor</span>", "lot-11.html#autotoc_md385", null ]
+      [ "Objectif", "lot-11.html#autotoc_md381", null ],
+      [ "La décision préalable, tranchée", "lot-11.html#autotoc_md382", null ],
+      [ "Ce que la feuille de route supposait, et ce que le dépôt contenait", "lot-11.html#autotoc_md383", null ],
+      [ "Ce que ce lot livre", "lot-11.html#autotoc_md384", [
+        [ "Dans le <span class=\"tt\">Core</span>", "lot-11.html#autotoc_md385", null ],
+        [ "Dans <span class=\"tt\">LevelEditor</span>", "lot-11.html#autotoc_md386", null ]
       ] ],
-      [ "Les gestes", "lot-11.html#autotoc_md386", null ],
-      [ "Décisions prises en route", "lot-11.html#autotoc_md387", null ],
-      [ "Ce qui reste hors du lot, nommément", "lot-11.html#autotoc_md388", null ],
-      [ "Critères d'acceptation", "lot-11.html#autotoc_md389", null ]
+      [ "Les gestes", "lot-11.html#autotoc_md387", null ],
+      [ "Décisions prises en route", "lot-11.html#autotoc_md388", null ],
+      [ "Ce qui reste hors du lot, nommément", "lot-11.html#autotoc_md389", null ],
+      [ "Critères d'acceptation", "lot-11.html#autotoc_md390", null ]
     ] ],
     [ "LOT-23 — IA tactique ennemie", "lot-23.html", [
-      [ "Objectif", "lot-23.html#autotoc_md483", null ],
-      [ "Ce que ce lot livre, et ce qu'il ne livre pas", "lot-23.html#autotoc_md484", null ],
-      [ "Les règles du Guide, et où chacune vit", "lot-23.html#autotoc_md485", null ],
-      [ "Comment l'IA décide", "lot-23.html#autotoc_md486", null ],
-      [ "Les deux défauts à prévenir, et comment", "lot-23.html#autotoc_md487", null ],
-      [ "Déterministe, en entiers", "lot-23.html#autotoc_md488", null ],
-      [ "Décisions prises en route", "lot-23.html#autotoc_md489", null ],
-      [ "Ce qui reste hors du lot, nommément", "lot-23.html#autotoc_md490", null ],
-      [ "Critères d'acceptation", "lot-23.html#autotoc_md491", null ]
+      [ "Objectif", "lot-23.html#autotoc_md484", null ],
+      [ "Ce que ce lot livre, et ce qu'il ne livre pas", "lot-23.html#autotoc_md485", null ],
+      [ "Les règles du Guide, et où chacune vit", "lot-23.html#autotoc_md486", null ],
+      [ "Comment l'IA décide", "lot-23.html#autotoc_md487", null ],
+      [ "Les deux défauts à prévenir, et comment", "lot-23.html#autotoc_md488", null ],
+      [ "Déterministe, en entiers", "lot-23.html#autotoc_md489", null ],
+      [ "Décisions prises en route", "lot-23.html#autotoc_md490", null ],
+      [ "Ce qui reste hors du lot, nommément", "lot-23.html#autotoc_md491", null ],
+      [ "Critères d'acceptation", "lot-23.html#autotoc_md492", null ]
     ] ],
     [ "LOT-24 — IHM de combat", "lot-24.html", [
-      [ "Objectif", "lot-24.html#autotoc_md492", null ],
-      [ "Ce que la feuille de route supposait, et ce que le dépôt contenait", "lot-24.html#autotoc_md493", null ],
-      [ "Ce que ce lot livre", "lot-24.html#autotoc_md494", null ],
-      [ "Les commandes", "lot-24.html#autotoc_md495", null ],
-      [ "Décisions prises en route", "lot-24.html#autotoc_md496", null ],
-      [ "Ce qui reste hors du lot, nommément", "lot-24.html#autotoc_md497", null ],
-      [ "Critères d'acceptation", "lot-24.html#autotoc_md498", null ]
+      [ "Objectif", "lot-24.html#autotoc_md493", null ],
+      [ "Ce que la feuille de route supposait, et ce que le dépôt contenait", "lot-24.html#autotoc_md494", null ],
+      [ "Ce que ce lot livre", "lot-24.html#autotoc_md495", null ],
+      [ "Les commandes", "lot-24.html#autotoc_md496", null ],
+      [ "Décisions prises en route", "lot-24.html#autotoc_md497", null ],
+      [ "Ce qui reste hors du lot, nommément", "lot-24.html#autotoc_md498", null ],
+      [ "Critères d'acceptation", "lot-24.html#autotoc_md499", null ]
     ] ],
     [ "LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu", "lot-92.html", [
-      [ "Objectif", "lot-92.html#autotoc_md737", null ],
-      [ "Ce que ce lot livre", "lot-92.html#autotoc_md738", null ],
-      [ "Ce qui reste hors du lot, nommément", "lot-92.html#autotoc_md739", null ],
-      [ "Les décisions", "lot-92.html#autotoc_md740", [
-        [ "Risque : l'angle 0,62 en pixel art", "lot-92.html#autotoc_md741", null ]
+      [ "Objectif", "lot-92.html#autotoc_md738", null ],
+      [ "Ce que ce lot livre", "lot-92.html#autotoc_md739", null ],
+      [ "Ce qui reste hors du lot, nommément", "lot-92.html#autotoc_md740", null ],
+      [ "Les décisions", "lot-92.html#autotoc_md741", [
+        [ "Risque : l'angle 0,62 en pixel art", "lot-92.html#autotoc_md742", null ]
       ] ],
-      [ "Les tâches", "lot-92.html#autotoc_md742", null ],
-      [ "Exigences couvertes", "lot-92.html#autotoc_md743", null ],
-      [ "Journal", "lot-92.html#autotoc_md744", null ]
+      [ "Les tâches", "lot-92.html#autotoc_md743", null ],
+      [ "Exigences couvertes", "lot-92.html#autotoc_md744", null ],
+      [ "Journal", "lot-92.html#autotoc_md745", null ]
     ] ],
     [ "LOT-CREATION-ASSETS — Produire selon les régions jouées", "md_Lot_2LOT-CREATION-ASSETS_2epic.html", [
-      [ "Progression et tâches", "md_Lot_2LOT-CREATION-ASSETS_2epic.html#autotoc_md777", null ],
-      [ "Cycle de travail et mémoire", "md_Lot_2LOT-CREATION-ASSETS_2epic.html#autotoc_md778", null ],
-      [ "Contrat de qualité PNJ", "md_Lot_2LOT-CREATION-ASSETS_2epic.html#autotoc_md779", null ],
-      [ "Capacités, branches et validation", "md_Lot_2LOT-CREATION-ASSETS_2epic.html#autotoc_md780", null ]
+      [ "Progression et tâches", "md_Lot_2LOT-CREATION-ASSETS_2epic.html#autotoc_md778", null ],
+      [ "Cycle de travail et mémoire", "md_Lot_2LOT-CREATION-ASSETS_2epic.html#autotoc_md779", null ],
+      [ "Contrat de qualité PNJ", "md_Lot_2LOT-CREATION-ASSETS_2epic.html#autotoc_md780", null ],
+      [ "Capacités, branches et validation", "md_Lot_2LOT-CREATION-ASSETS_2epic.html#autotoc_md781", null ]
     ] ],
     [ "Références communes et préparation régionale", "md_Lot_2LOT-CREATION-ASSETS_2preparation-regionale.html", [
-      [ "Corpus et localisateurs", "md_Lot_2LOT-CREATION-ASSETS_2preparation-regionale.html#autotoc_md782", null ],
-      [ "Références visuelles hors Git et mémoire versionnée", "md_Lot_2LOT-CREATION-ASSETS_2preparation-regionale.html#autotoc_md783", null ],
-      [ "Pouvoirs, factions et organisations", "md_Lot_2LOT-CREATION-ASSETS_2preparation-regionale.html#autotoc_md784", null ],
-      [ "Panthéon et expressions matérielles", "md_Lot_2LOT-CREATION-ASSETS_2preparation-regionale.html#autotoc_md785", null ],
-      [ "Réemploi, histoire et contrôle de couverture", "md_Lot_2LOT-CREATION-ASSETS_2preparation-regionale.html#autotoc_md786", null ]
+      [ "Corpus et localisateurs", "md_Lot_2LOT-CREATION-ASSETS_2preparation-regionale.html#autotoc_md783", null ],
+      [ "Références visuelles hors Git et mémoire versionnée", "md_Lot_2LOT-CREATION-ASSETS_2preparation-regionale.html#autotoc_md784", null ],
+      [ "Pouvoirs, factions et organisations", "md_Lot_2LOT-CREATION-ASSETS_2preparation-regionale.html#autotoc_md785", null ],
+      [ "Panthéon et expressions matérielles", "md_Lot_2LOT-CREATION-ASSETS_2preparation-regionale.html#autotoc_md786", null ],
+      [ "Réemploi, histoire et contrôle de couverture", "md_Lot_2LOT-CREATION-ASSETS_2preparation-regionale.html#autotoc_md787", null ]
     ] ],
     [ "Central Empire", "md_Lot_2LOT-CREATION-ASSETS_2regions_2central-empire_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2central-empire_2preparation.html#autotoc_md788", null ],
-      [ "Références visuelles inspectées", "md_Lot_2LOT-CREATION-ASSETS_2regions_2central-empire_2preparation.html#autotoc_md789", null ],
-      [ "Première série proposée — Central Empire", "md_Lot_2LOT-CREATION-ASSETS_2regions_2central-empire_2preparation.html#autotoc_md790", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2central-empire_2preparation.html#autotoc_md791", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2central-empire_2preparation.html#autotoc_md792", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2central-empire_2preparation.html#autotoc_md789", null ],
+      [ "Références visuelles inspectées", "md_Lot_2LOT-CREATION-ASSETS_2regions_2central-empire_2preparation.html#autotoc_md790", null ],
+      [ "Première série proposée — Central Empire", "md_Lot_2LOT-CREATION-ASSETS_2regions_2central-empire_2preparation.html#autotoc_md791", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2central-empire_2preparation.html#autotoc_md792", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2central-empire_2preparation.html#autotoc_md793", null ]
     ] ],
     [ "Darkall", "md_Lot_2LOT-CREATION-ASSETS_2regions_2darkall_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2darkall_2preparation.html#autotoc_md794", null ],
-      [ "Références visuelles inspectées", "md_Lot_2LOT-CREATION-ASSETS_2regions_2darkall_2preparation.html#autotoc_md795", null ],
-      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2darkall_2preparation.html#autotoc_md796", null ],
-      [ "Première série proposée — Darkall", "md_Lot_2LOT-CREATION-ASSETS_2regions_2darkall_2preparation.html#autotoc_md797", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2darkall_2preparation.html#autotoc_md798", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2darkall_2preparation.html#autotoc_md799", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2darkall_2preparation.html#autotoc_md795", null ],
+      [ "Références visuelles inspectées", "md_Lot_2LOT-CREATION-ASSETS_2regions_2darkall_2preparation.html#autotoc_md796", null ],
+      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2darkall_2preparation.html#autotoc_md797", null ],
+      [ "Première série proposée — Darkall", "md_Lot_2LOT-CREATION-ASSETS_2regions_2darkall_2preparation.html#autotoc_md798", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2darkall_2preparation.html#autotoc_md799", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2darkall_2preparation.html#autotoc_md800", null ]
     ] ],
     [ "Imperial Ben’net", "md_Lot_2LOT-CREATION-ASSETS_2regions_2imperial-benenet_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2imperial-benenet_2preparation.html#autotoc_md801", null ],
-      [ "Références visuelles inspectées", "md_Lot_2LOT-CREATION-ASSETS_2regions_2imperial-benenet_2preparation.html#autotoc_md802", null ],
-      [ "Première série proposée — Imperial Ben’net", "md_Lot_2LOT-CREATION-ASSETS_2regions_2imperial-benenet_2preparation.html#autotoc_md803", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2imperial-benenet_2preparation.html#autotoc_md804", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2imperial-benenet_2preparation.html#autotoc_md805", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2imperial-benenet_2preparation.html#autotoc_md802", null ],
+      [ "Références visuelles inspectées", "md_Lot_2LOT-CREATION-ASSETS_2regions_2imperial-benenet_2preparation.html#autotoc_md803", null ],
+      [ "Première série proposée — Imperial Ben’net", "md_Lot_2LOT-CREATION-ASSETS_2regions_2imperial-benenet_2preparation.html#autotoc_md804", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2imperial-benenet_2preparation.html#autotoc_md805", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2imperial-benenet_2preparation.html#autotoc_md806", null ]
     ] ],
     [ "Kingdom of Kolbjörn", "md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html#autotoc_md807", null ],
-      [ "Références visuelles inspectées", "md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html#autotoc_md808", null ],
-      [ "Première série proposée — Kingdom of Kolbjörn", "md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html#autotoc_md809", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html#autotoc_md810", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html#autotoc_md811", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html#autotoc_md808", null ],
+      [ "Références visuelles inspectées", "md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html#autotoc_md809", null ],
+      [ "Première série proposée — Kingdom of Kolbjörn", "md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html#autotoc_md810", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html#autotoc_md811", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2kingdom-of-kolbjorn_2preparation.html#autotoc_md812", null ]
     ] ],
     [ "Magocracy of Mage Tower", "md_Lot_2LOT-CREATION-ASSETS_2regions_2magocracy-of-mage-tower_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2magocracy-of-mage-tower_2preparation.html#autotoc_md813", null ],
-      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2magocracy-of-mage-tower_2preparation.html#autotoc_md814", null ],
-      [ "Première série proposée — Magocracy of Mage Tower", "md_Lot_2LOT-CREATION-ASSETS_2regions_2magocracy-of-mage-tower_2preparation.html#autotoc_md815", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2magocracy-of-mage-tower_2preparation.html#autotoc_md816", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2magocracy-of-mage-tower_2preparation.html#autotoc_md817", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2magocracy-of-mage-tower_2preparation.html#autotoc_md814", null ],
+      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2magocracy-of-mage-tower_2preparation.html#autotoc_md815", null ],
+      [ "Première série proposée — Magocracy of Mage Tower", "md_Lot_2LOT-CREATION-ASSETS_2regions_2magocracy-of-mage-tower_2preparation.html#autotoc_md816", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2magocracy-of-mage-tower_2preparation.html#autotoc_md817", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2magocracy-of-mage-tower_2preparation.html#autotoc_md818", null ]
     ] ],
     [ "Mystical / Wasteland", "md_Lot_2LOT-CREATION-ASSETS_2regions_2mystical-wasteland_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2mystical-wasteland_2preparation.html#autotoc_md819", null ],
-      [ "Références visuelles inspectées", "md_Lot_2LOT-CREATION-ASSETS_2regions_2mystical-wasteland_2preparation.html#autotoc_md820", null ],
-      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2mystical-wasteland_2preparation.html#autotoc_md821", null ],
-      [ "Première série proposée — Mystical / Wasteland", "md_Lot_2LOT-CREATION-ASSETS_2regions_2mystical-wasteland_2preparation.html#autotoc_md822", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2mystical-wasteland_2preparation.html#autotoc_md823", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2mystical-wasteland_2preparation.html#autotoc_md824", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2mystical-wasteland_2preparation.html#autotoc_md820", null ],
+      [ "Références visuelles inspectées", "md_Lot_2LOT-CREATION-ASSETS_2regions_2mystical-wasteland_2preparation.html#autotoc_md821", null ],
+      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2mystical-wasteland_2preparation.html#autotoc_md822", null ],
+      [ "Première série proposée — Mystical / Wasteland", "md_Lot_2LOT-CREATION-ASSETS_2regions_2mystical-wasteland_2preparation.html#autotoc_md823", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2mystical-wasteland_2preparation.html#autotoc_md824", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2mystical-wasteland_2preparation.html#autotoc_md825", null ]
     ] ],
     [ "Pénombre", "md_Lot_2LOT-CREATION-ASSETS_2regions_2penumbra_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2penumbra_2preparation.html#autotoc_md826", null ],
-      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2penumbra_2preparation.html#autotoc_md827", null ],
-      [ "Première série proposée — Pénombre", "md_Lot_2LOT-CREATION-ASSETS_2regions_2penumbra_2preparation.html#autotoc_md828", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2penumbra_2preparation.html#autotoc_md829", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2penumbra_2preparation.html#autotoc_md830", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2penumbra_2preparation.html#autotoc_md827", null ],
+      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2penumbra_2preparation.html#autotoc_md828", null ],
+      [ "Première série proposée — Pénombre", "md_Lot_2LOT-CREATION-ASSETS_2regions_2penumbra_2preparation.html#autotoc_md829", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2penumbra_2preparation.html#autotoc_md830", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2penumbra_2preparation.html#autotoc_md831", null ]
     ] ],
     [ "Republic of Freelands", "md_Lot_2LOT-CREATION-ASSETS_2regions_2republic-of-freelands_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2republic-of-freelands_2preparation.html#autotoc_md832", null ],
-      [ "Références visuelles inspectées", "md_Lot_2LOT-CREATION-ASSETS_2regions_2republic-of-freelands_2preparation.html#autotoc_md833", null ],
-      [ "Première série proposée — Republic of Freelands", "md_Lot_2LOT-CREATION-ASSETS_2regions_2republic-of-freelands_2preparation.html#autotoc_md834", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2republic-of-freelands_2preparation.html#autotoc_md835", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2republic-of-freelands_2preparation.html#autotoc_md836", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2republic-of-freelands_2preparation.html#autotoc_md833", null ],
+      [ "Références visuelles inspectées", "md_Lot_2LOT-CREATION-ASSETS_2regions_2republic-of-freelands_2preparation.html#autotoc_md834", null ],
+      [ "Première série proposée — Republic of Freelands", "md_Lot_2LOT-CREATION-ASSETS_2regions_2republic-of-freelands_2preparation.html#autotoc_md835", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2republic-of-freelands_2preparation.html#autotoc_md836", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2republic-of-freelands_2preparation.html#autotoc_md837", null ]
     ] ],
     [ "Seashores", "md_Lot_2LOT-CREATION-ASSETS_2regions_2seashores_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2seashores_2preparation.html#autotoc_md838", null ],
-      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2seashores_2preparation.html#autotoc_md839", null ],
-      [ "Première série proposée — Seashores", "md_Lot_2LOT-CREATION-ASSETS_2regions_2seashores_2preparation.html#autotoc_md840", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2seashores_2preparation.html#autotoc_md841", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2seashores_2preparation.html#autotoc_md842", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2seashores_2preparation.html#autotoc_md839", null ],
+      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2seashores_2preparation.html#autotoc_md840", null ],
+      [ "Première série proposée — Seashores", "md_Lot_2LOT-CREATION-ASSETS_2regions_2seashores_2preparation.html#autotoc_md841", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2seashores_2preparation.html#autotoc_md842", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2seashores_2preparation.html#autotoc_md843", null ]
     ] ],
     [ "Sindile Forest", "md_Lot_2LOT-CREATION-ASSETS_2regions_2sindile-forest_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2sindile-forest_2preparation.html#autotoc_md844", null ],
-      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2sindile-forest_2preparation.html#autotoc_md845", null ],
-      [ "Première série proposée — Sindile Forest", "md_Lot_2LOT-CREATION-ASSETS_2regions_2sindile-forest_2preparation.html#autotoc_md846", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2sindile-forest_2preparation.html#autotoc_md847", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2sindile-forest_2preparation.html#autotoc_md848", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2sindile-forest_2preparation.html#autotoc_md845", null ],
+      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2sindile-forest_2preparation.html#autotoc_md846", null ],
+      [ "Première série proposée — Sindile Forest", "md_Lot_2LOT-CREATION-ASSETS_2regions_2sindile-forest_2preparation.html#autotoc_md847", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2sindile-forest_2preparation.html#autotoc_md848", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2sindile-forest_2preparation.html#autotoc_md849", null ]
     ] ],
     [ "Storm Islands", "md_Lot_2LOT-CREATION-ASSETS_2regions_2storm-islands_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2storm-islands_2preparation.html#autotoc_md850", null ],
-      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2storm-islands_2preparation.html#autotoc_md851", null ],
-      [ "Première série proposée — Storm Islands", "md_Lot_2LOT-CREATION-ASSETS_2regions_2storm-islands_2preparation.html#autotoc_md852", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2storm-islands_2preparation.html#autotoc_md853", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2storm-islands_2preparation.html#autotoc_md854", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2storm-islands_2preparation.html#autotoc_md851", null ],
+      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2storm-islands_2preparation.html#autotoc_md852", null ],
+      [ "Première série proposée — Storm Islands", "md_Lot_2LOT-CREATION-ASSETS_2regions_2storm-islands_2preparation.html#autotoc_md853", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2storm-islands_2preparation.html#autotoc_md854", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2storm-islands_2preparation.html#autotoc_md855", null ]
     ] ],
     [ "Stravian Domains", "md_Lot_2LOT-CREATION-ASSETS_2regions_2stravian-domains_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2stravian-domains_2preparation.html#autotoc_md856", null ],
-      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2stravian-domains_2preparation.html#autotoc_md857", null ],
-      [ "Première série proposée — Stravian Domains", "md_Lot_2LOT-CREATION-ASSETS_2regions_2stravian-domains_2preparation.html#autotoc_md858", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2stravian-domains_2preparation.html#autotoc_md859", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2stravian-domains_2preparation.html#autotoc_md860", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2stravian-domains_2preparation.html#autotoc_md857", null ],
+      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2stravian-domains_2preparation.html#autotoc_md858", null ],
+      [ "Première série proposée — Stravian Domains", "md_Lot_2LOT-CREATION-ASSETS_2regions_2stravian-domains_2preparation.html#autotoc_md859", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2stravian-domains_2preparation.html#autotoc_md860", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2stravian-domains_2preparation.html#autotoc_md861", null ]
     ] ],
     [ "Taii’Maku", "md_Lot_2LOT-CREATION-ASSETS_2regions_2taii-maku-city-states_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2taii-maku-city-states_2preparation.html#autotoc_md862", null ],
-      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2taii-maku-city-states_2preparation.html#autotoc_md863", null ],
-      [ "Première série proposée — Taii’Maku", "md_Lot_2LOT-CREATION-ASSETS_2regions_2taii-maku-city-states_2preparation.html#autotoc_md864", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2taii-maku-city-states_2preparation.html#autotoc_md865", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2taii-maku-city-states_2preparation.html#autotoc_md866", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2taii-maku-city-states_2preparation.html#autotoc_md863", null ],
+      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2taii-maku-city-states_2preparation.html#autotoc_md864", null ],
+      [ "Première série proposée — Taii’Maku", "md_Lot_2LOT-CREATION-ASSETS_2regions_2taii-maku-city-states_2preparation.html#autotoc_md865", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2taii-maku-city-states_2preparation.html#autotoc_md866", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2taii-maku-city-states_2preparation.html#autotoc_md867", null ]
     ] ],
     [ "Theocracy of Kepesh", "md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html#autotoc_md868", null ],
-      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html#autotoc_md869", null ],
-      [ "Première série proposée — Theocracy of Kepesh", "md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html#autotoc_md870", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html#autotoc_md871", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html#autotoc_md872", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html#autotoc_md869", null ],
+      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html#autotoc_md870", null ],
+      [ "Première série proposée — Theocracy of Kepesh", "md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html#autotoc_md871", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html#autotoc_md872", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html#autotoc_md873", null ]
     ] ],
     [ "Tsvetan", "md_Lot_2LOT-CREATION-ASSETS_2regions_2tsvetan_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2tsvetan_2preparation.html#autotoc_md874", null ],
-      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2tsvetan_2preparation.html#autotoc_md875", null ],
-      [ "Première série proposée — Tsvetan", "md_Lot_2LOT-CREATION-ASSETS_2regions_2tsvetan_2preparation.html#autotoc_md876", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2tsvetan_2preparation.html#autotoc_md877", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2tsvetan_2preparation.html#autotoc_md878", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2tsvetan_2preparation.html#autotoc_md875", null ],
+      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2tsvetan_2preparation.html#autotoc_md876", null ],
+      [ "Première série proposée — Tsvetan", "md_Lot_2LOT-CREATION-ASSETS_2regions_2tsvetan_2preparation.html#autotoc_md877", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2tsvetan_2preparation.html#autotoc_md878", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2tsvetan_2preparation.html#autotoc_md879", null ]
     ] ],
     [ "Undertanares", "md_Lot_2LOT-CREATION-ASSETS_2regions_2undertanares_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2undertanares_2preparation.html#autotoc_md880", null ],
-      [ "Références visuelles inspectées", "md_Lot_2LOT-CREATION-ASSETS_2regions_2undertanares_2preparation.html#autotoc_md881", null ],
-      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2undertanares_2preparation.html#autotoc_md882", null ],
-      [ "Première série proposée — Undertanares", "md_Lot_2LOT-CREATION-ASSETS_2regions_2undertanares_2preparation.html#autotoc_md883", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2undertanares_2preparation.html#autotoc_md884", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2undertanares_2preparation.html#autotoc_md885", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2undertanares_2preparation.html#autotoc_md881", null ],
+      [ "Références visuelles inspectées", "md_Lot_2LOT-CREATION-ASSETS_2regions_2undertanares_2preparation.html#autotoc_md882", null ],
+      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2undertanares_2preparation.html#autotoc_md883", null ],
+      [ "Première série proposée — Undertanares", "md_Lot_2LOT-CREATION-ASSETS_2regions_2undertanares_2preparation.html#autotoc_md884", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2undertanares_2preparation.html#autotoc_md885", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2undertanares_2preparation.html#autotoc_md886", null ]
     ] ],
     [ "Yama", "md_Lot_2LOT-CREATION-ASSETS_2regions_2yama_2preparation.html", [
-      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2yama_2preparation.html#autotoc_md887", null ],
-      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2yama_2preparation.html#autotoc_md888", null ],
-      [ "Première série proposée — Yama", "md_Lot_2LOT-CREATION-ASSETS_2regions_2yama_2preparation.html#autotoc_md889", null ],
-      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2yama_2preparation.html#autotoc_md890", null ],
-      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2yama_2preparation.html#autotoc_md891", null ]
+      [ "Lieux, cultures, pouvoirs et menaces documentés", "md_Lot_2LOT-CREATION-ASSETS_2regions_2yama_2preparation.html#autotoc_md888", null ],
+      [ "PNJ — localisateurs, pas liste de production", "md_Lot_2LOT-CREATION-ASSETS_2regions_2yama_2preparation.html#autotoc_md889", null ],
+      [ "Première série proposée — Yama", "md_Lot_2LOT-CREATION-ASSETS_2regions_2yama_2preparation.html#autotoc_md890", null ],
+      [ "Réemploi et reste différé", "md_Lot_2LOT-CREATION-ASSETS_2regions_2yama_2preparation.html#autotoc_md891", null ],
+      [ "Limites de la préparation", "md_Lot_2LOT-CREATION-ASSETS_2regions_2yama_2preparation.html#autotoc_md892", null ]
     ] ],
     [ "T00 — Socle et reprise des cinq PNJ du PoC", "md_Lot_2LOT-CREATION-ASSETS_2tache-00-socle-pilote-pnj.html", [
-      [ "Assets", "md_Lot_2LOT-CREATION-ASSETS_2tache-00-socle-pilote-pnj.html#autotoc_md893", null ],
-      [ "Étapes du socle", "md_Lot_2LOT-CREATION-ASSETS_2tache-00-socle-pilote-pnj.html#autotoc_md894", null ],
-      [ "Production et acceptation", "md_Lot_2LOT-CREATION-ASSETS_2tache-00-socle-pilote-pnj.html#autotoc_md895", null ]
+      [ "Assets", "md_Lot_2LOT-CREATION-ASSETS_2tache-00-socle-pilote-pnj.html#autotoc_md894", null ],
+      [ "Étapes du socle", "md_Lot_2LOT-CREATION-ASSETS_2tache-00-socle-pilote-pnj.html#autotoc_md895", null ],
+      [ "Production et acceptation", "md_Lot_2LOT-CREATION-ASSETS_2tache-00-socle-pilote-pnj.html#autotoc_md896", null ]
     ] ],
     [ "T01 — Carte de test des textures dans le jeu", "md_Lot_2LOT-CREATION-ASSETS_2tache-01-carte-test-textures.html", [
-      [ "Verdict bloquant", "md_Lot_2LOT-CREATION-ASSETS_2tache-01-carte-test-textures.html#autotoc_md897", null ],
-      [ "Intégration technique prévue", "md_Lot_2LOT-CREATION-ASSETS_2tache-01-carte-test-textures.html#autotoc_md898", null ]
+      [ "Verdict bloquant", "md_Lot_2LOT-CREATION-ASSETS_2tache-01-carte-test-textures.html#autotoc_md898", null ],
+      [ "Intégration technique prévue", "md_Lot_2LOT-CREATION-ASSETS_2tache-01-carte-test-textures.html#autotoc_md899", null ]
     ] ],
     [ "CE-01 — Martpart, Myr et la piste du repaire", "md_Lot_2LOT-CREATION-ASSETS_2tache-ce-01-martpart-myr.html", [
-      [ "Préparation, production et acceptation", "md_Lot_2LOT-CREATION-ASSETS_2tache-ce-01-martpart-myr.html#autotoc_md900", null ]
+      [ "Préparation, production et acceptation", "md_Lot_2LOT-CREATION-ASSETS_2tache-ce-01-martpart-myr.html#autotoc_md901", null ]
     ] ],
     [ "CE-02 — Arenarea, Galender et l’Arène du Destin", "md_Lot_2LOT-CREATION-ASSETS_2tache-ce-02-arenarea-galender.html", [
-      [ "Préparation, production et acceptation", "md_Lot_2LOT-CREATION-ASSETS_2tache-ce-02-arenarea-galender.html#autotoc_md902", null ]
+      [ "Préparation, production et acceptation", "md_Lot_2LOT-CREATION-ASSETS_2tache-ce-02-arenarea-galender.html#autotoc_md903", null ]
     ] ],
     [ "CE-R01 — Reprise intégrale de Martpart, Arenarea et du Colisée", "md_Lot_2LOT-CREATION-ASSETS_2tache-ce-r01-reprise-trois-sites.html", [
-      [ "Inventaire et séries de dix maximum", "md_Lot_2LOT-CREATION-ASSETS_2tache-ce-r01-reprise-trois-sites.html#autotoc_md904", null ]
+      [ "Inventaire et séries de dix maximum", "md_Lot_2LOT-CREATION-ASSETS_2tache-ce-r01-reprise-trois-sites.html#autotoc_md905", null ]
     ] ],
     [ "CE-R02 — Refaire le soldat Ironhand", "md_Lot_2LOT-CREATION-ASSETS_2tache-ce-r02-refonte-ironhand.html", null ],
     [ "Draconic Council — organisation transversale", "md_Lot_2LOT-CREATION-ASSETS_2transversal_2draconic-council_2preparation.html", null ],
@@ -306,56 +306,57 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "Ability_8cpp.html",
-"EntityGesture_8h_source.html",
-"RhiContext_8h.html",
-"classcore_1_1ArenaSession.html#a63ea433e5165843c03cbce0d9f42d7fc",
-"classcore_1_1CombatState.html#a60abc195d90cdbaf8f966905338a5006",
-"classcore_1_1EntityManager.html#ad9feb93ceee916b183731570b9d49b10",
-"classcore_1_1LevelDraft.html#a10582098171a1944915fbe6031715a67",
-"classcore_1_1ScenePieceManifest.html#a013a5f6873b566b52e89b960cb0c81c9",
-"classhmi_1_1ArenaAppearanceCatalog.html#a4b484538e997620e36be580223a9d94f",
-"classhmi_1_1ArenaSceneRenderer.html#a2181ba95ba6e072456572eabbb56f47d",
-"classhmi_1_1AssetGalleryItem.html#aa0d902cf5d710ce9f90afe56e861ace0",
-"classhmi_1_1CharacterSheetModel.html#a09cbaea3005c41db0e17924cff5eaeec",
-"classhmi_1_1DraftRenderer.html#a7554680f7bc39bcab06149aac6aaf1c2",
-"classhmi_1_1EditorViewport.html#a67c35916a9387bec4072d4df7d2f345b",
-"classhmi_1_1EditorViewport.html#aeefd7c699659903d17c8b02ab38ae187",
-"classhmi_1_1InventoryModel.html#a08d8f9a3f29349b23ad6e3f93a9e0eda",
-"classhmi_1_1Localization.html#a74443598fef691b1c7c278bcf364bcb2",
-"classhmi_1_1OptionsModel.html#a7a71606593c8eeaa040cdaa4176c4945",
-"classhmi_1_1SceneResources.html",
-"classhmi_1_1TextureCache.html#a508d91906a89b66a515a7f85ac071ff2",
-"classhmi_1_1WorldPlay.html#ade46c5a042fb26bca54746333c47a98b",
-"dir_de25d93b7b4ef75f45504127491f58b5.html",
-"guide-journalisation.html#autotoc_md127",
-"lot-21.html#autotoc_md468",
-"lot-87.html#autotoc_md683",
-"md_Lot_2LOT-CREATION-ASSETS_2regions_2mystical-wasteland_2preparation.html#autotoc_md822",
-"namespacecore.html#a4f1692682e25dadb017d37ca0a42e9aa",
-"namespacecore.html#aae82873d6c7bd0b4db085354c50e1493aeb8ab7d98634514cc61c2b0a0c8d93a2",
-"namespacecore.html#af799f9a001af9c8b79f0bcba667414f9",
-"namespacehmi.html#a78257412917b7881b3766489df80d4c4",
-"namespacehmi.html#ac6386008eafd49b088cdd36ffd4f3c19a601560b94fbb188919dd1d36c8ab70a4",
-"roadmap.html#lot-41",
-"structcore_1_1ArenaBout.html",
-"structcore_1_1Background.html#a8fa9cd13e72c44ccc70f86ac6ee58d18",
-"structcore_1_1CollisionDerivation.html#a4fe700650cf67169627f7693cf119d75",
-"structcore_1_1DamageRequest.html#a1c34ec2760c59f2a9b0c5adb0d395c49",
-"structcore_1_1EncounterTerrain.html#a64f0614a716067a9ee0ca62779e350b1",
-"structcore_1_1HitPointReserve.html#a0dd701d0804acd159e4fff3cbad5c96e",
-"structcore_1_1MarkerColor.html#a57c1d1c2ffb0fe738b1dcc2d374e85b1",
-"structcore_1_1ScenePiece.html#af94e3b5b0fabf10f5afc596e42d521c6",
-"structcore_1_1WorldMapNode.html#a7137b026e2cad25d08e36b1ed6cd0e61",
-"structhmi_1_1AssetGalleryDrawnBloc.html#ad6272b5c97a15ae03c66e82e6cd3f8f9",
-"structhmi_1_1CreditSection.html#ab1fe95b3c703036d8338ffca7987ba78",
-"structhmi_1_1EntityPick.html#a227c2d185803e8a950d5ac74da53e1a3",
-"structhmi_1_1LibraryFinding.html#a992ca32e49953e43d01eb959ec3e6ba6",
-"structhmi_1_1PanelFocusEntry.html",
-"structhmi_1_1SpriteBatch_1_1Vertex.html#ac96d6f9185d4fe301b8fb0c9cee4e2e3",
-"test__action__economy_8cpp.html",
-"test__combat__zone_8cpp.html#a095d5e34f6cd2f84e0b7f08d75ea834d",
-"test__image__encode_8cpp.html#a380a6fafabc63f7c3bfdd27e0498fa7d",
-"test__paint__tools_8cpp.html#a918e070a4c3a9bca8b1f95a555d18a15"
+"Encounter_8h.html",
+"QuadRecorder_8cpp.html",
+"classcore_1_1ArenaSession.html#a3ce3b41cfdf4361ae9a289d74c9818b9",
+"classcore_1_1CombatState.html#a52af7bc3bd2bb2916b131a8214ab57d8",
+"classcore_1_1EntityManager.html",
+"classcore_1_1Level.html#ae6faff5815b1f2b4b2c8434b76b6b40e",
+"classcore_1_1ReachableArea.html#a472812fb78167fc27cc884f358dc75ce",
+"classhmi_1_1AnimationCatalog.html#acaa3b6c738038d1eac95c8267c0e8979",
+"classhmi_1_1ArenaModel.html#ae9ad672eaaac8997cc570c318ae443d3",
+"classhmi_1_1AssetGalleryItem.html#a743976d8b8b3701206c6dcc40b1c586a",
+"classhmi_1_1Camera2D.html#a4da54e9f03ed445992a57e1a64cdaada",
+"classhmi_1_1DialogueModel.html#a3cb792a72e33b34e9d8f3271d83f8f62",
+"classhmi_1_1EditorViewport.html#a429870503228f40a8030484d1ac1be96",
+"classhmi_1_1EditorViewport.html#ac330bacd2588604a86286261702ab3e1",
+"classhmi_1_1InputState.html#a50a35b2416ee847e1f772dbb9fea9b9c",
+"classhmi_1_1LayersPanel.html#ae3b5648168f33c5fdf7e7772db0cc91b",
+"classhmi_1_1MainWindow.html#abb2b5a4ae54723c485af101667fc2f23",
+"classhmi_1_1PlaceAppearance.html#a8ea131a78fabbf1a289ac197ea071344",
+"classhmi_1_1SheetRowModel.html",
+"classhmi_1_1WorldModel.html#a2ed37cbcb0f13d16f308389049fe97d7",
+"classhmi_1_1WorldViewportItem.html#aeedf43417922577358d8680023747ca3",
+"globals_b.html",
+"lot-07.html",
+"lot-43.html#autotoc_md576",
+"lot-editor-03.html#autotoc_md1051",
+"namespacecore.html#a0809421c57413530edb434f979be6c91",
+"namespacecore.html#a8825ea64ff05621b7c2c8a073d27577ca1f5c647d9066bc9e350b70aa2d16aec4",
+"namespacecore.html#acb09396acc95973b3ca488c497bbddb2ab89d6bd44fd0021f05a1f829a425f0c9",
+"namespacehmi.html#a2d195c639fb5e48fce2944f545a0392b",
+"namespacehmi.html#a8cb11ddb4f6f0829572c5af78aec6f4b",
+"namespacemembers_enum.html",
+"spec-editeur.html#autotoc_md233",
+"structcore_1_1AssetFamilyTable.html#a79efa43256483f01a9a8fff0b0d09455",
+"structcore_1_1CellPoint.html",
+"structcore_1_1CombatantPlacement.html#a3a66f7f7bba4f852f870ad96fe903f4d",
+"structcore_1_1DialogueChoice.html#a8a3e5c521871b317326d89b6ba3ca064",
+"structcore_1_1EntityPropertySpec.html#a38c35cc67c171e934eae3275b94fb488",
+"structcore_1_1InventoryEntry.html#a718b8ea11349a9de0c522cfd35b321ee",
+"structcore_1_1PieceFootprint.html#a3fbf5f69344aebb17f2109faf2c1e766",
+"structcore_1_1TextPosition.html#ad5334b2ba9eec9ef6492eeb6d6ce65ac",
+"structhmi_1_1ArenaFigureAnimationSet.html",
+"structhmi_1_1AssetGalleryView.html#a3dd4f7256286afa21aba7d538bfb22ef",
+"structhmi_1_1DemonstrationState.html#aff8ddb1576e401a19e48a74a4457f95d",
+"structhmi_1_1GestureFileResult.html#a28b3ee9eeea35c669d496d94422d4848",
+"structhmi_1_1LoadedTexture.html#abc3c97ef24fe096e5429fcdb7b5e3d5e",
+"structhmi_1_1PanelFocusEntry.html#ac00480fe8ec2557681ad7fd897bbaa80",
+"structhmi_1_1SpriteBatch_1_1Vertex.html#ad0468112a8605e4ea04c7796474a2e0c",
+"test__action__economy_8cpp.html#aace7d695d15930f6e694ce4f8d41204f",
+"test__combat__state_8cpp.html#af5a1a459214b2e55713e397ad9a04300",
+"test__identity__scale_8cpp.html#af3169daaf24f80f81891d4a1752f8e00",
+"test__multiclassing_8cpp.html#a70809059d7ed0a9a3a2417e1a32afd68"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

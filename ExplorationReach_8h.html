@@ -114,7 +114,7 @@ Namespaces</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Les cases qu'un héros <b>en exploration</b> peut atteindre depuis un point de départ (<span class="tt">LOT-EDITOR-07</span>). </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1169"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1178"></a>
 La règle, et pourquoi c'est celle du jeu</h2>
 <p><span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html" title="Le héros sur la carte courante : marche, interaction, portails.">core::ExplorationSession</a></span> déplace le héros <b>axe par axe</b>, et refuse un pas si l'un des quatre coins de son gabarit (une demi-largeur de <span class="tt">HERO_HALF_SIZE_CELLS</span>) tombe hors de la carte ou sur une case solide (<span class="tt"><a class="el" href="classcore_1_1TileMap.html#acc50d7a0a8bdb26db3694ddacd37f457" title="Indique si la tuile à une case est statiquement solide.">core::TileMap::isSolid</a></span>). Ce gabarit est plus petit qu'une case : le héros passe donc sur <b>toute case non solide</b>, et il ne passe d'une case à l'autre que par un côté, jamais par un coin — deux murs en diagonale ferment le passage. D'où la règle d'ici : les cases non solides reliées <b>en quatre voisins</b> à un départ.</p>
 <p>Ce n'est pas la <span class="tt"><a class="el" href="classcore_1_1ReachableArea.html" title="Les cases qu&#39;un combattant peut atteindre ce tour-ci, et par où.">core::ReachableArea</a></span> du combat (<span class="tt">LOT-19</span>) : en combat, on coupe les diagonales libres et le terrain difficile coûte double. Les deux règles répondent à deux questions.</p>

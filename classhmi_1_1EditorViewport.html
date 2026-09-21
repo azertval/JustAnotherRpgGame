@@ -112,6 +112,13 @@ Classes</h2></td></tr>
 <tr class="memitem:CanvasItem" id="r_CanvasItem"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EditorViewport_1_1CanvasItem.html">CanvasItem</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'élément unique de la scène : il délègue sa peinture au canevas (décision D2).  <a href="classhmi_1_1EditorViewport_1_1CanvasItem.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-types" class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ac34150056be14016dd3afb032a281739" id="r_ac34150056be14016dd3afb032a281739"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac34150056be14016dd3afb032a281739">StartContent</a> { <a class="el" href="#ac34150056be14016dd3afb032a281739a43a02013697f5209f29ef495026dda28">StartMap</a>
+, <a class="el" href="#ac34150056be14016dd3afb032a281739ae4ef81cce7e4e10033ebb10962dfdd5e">Blank</a>
+ }</td></tr>
+<tr class="memdesc:ac34150056be14016dd3afb032a281739"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un canevas neuf montre : la carte de départ, ou rien (<span class="tt">LOT-EDITOR-09</span>, un onglet qui va recevoir une carte nommée).  <a href="#ac34150056be14016dd3afb032a281739">More...</a><br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:a800e3996af85a07a3163b32f6215234f" id="r_a800e3996af85a07a3163b32f6215234f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a800e3996af85a07a3163b32f6215234f">activeLayerChanged</a> (<a class="el" href="namespacehmi.html#ad45953c7acf96290259f1333570fda4d">hmi::LayerSlot</a> slot)</td></tr>
@@ -134,10 +141,10 @@ Signals</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a25dfab2529859ea6134a9459e7d155ee" id="r_a25dfab2529859ea6134a9459e7d155ee"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a25dfab2529859ea6134a9459e7d155ee">EditorViewport</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="memitem:acc70ccb133e78c37229a7d3d28f12251" id="r_acc70ccb133e78c37229a7d3d28f12251"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#acc70ccb133e78c37229a7d3d28f12251">EditorViewport</a> (<a class="el" href="#ac34150056be14016dd3afb032a281739">StartContent</a> content=<a class="el" href="#ac34150056be14016dd3afb032a281739a43a02013697f5209f29ef495026dda28">StartContent::StartMap</a>, QWidget *parent=nullptr)</td></tr>
 <tr class="memitem:ab3b21b9ba32e0dbe38b928c29796034c" id="r_ab3b21b9ba32e0dbe38b928c29796034c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab3b21b9ba32e0dbe38b928c29796034c">~EditorViewport</a> () override</td></tr>
 <tr class="memitem:aca765328d041d38121a730fd7920e11b" id="r_aca765328d041d38121a730fd7920e11b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aca765328d041d38121a730fd7920e11b">EditorViewport</a> (const EditorViewport &amp;)=delete</td></tr>
-<tr class="memitem:ac30f349493d1bf8e23989810815b59be" id="r_ac30f349493d1bf8e23989810815b59be"><td class="memItemLeft"><a class="el" href="#a25dfab2529859ea6134a9459e7d155ee">EditorViewport</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac30f349493d1bf8e23989810815b59be">operator=</a> (const <a class="el" href="#a25dfab2529859ea6134a9459e7d155ee">EditorViewport</a> &amp;)=delete</td></tr>
+<tr class="memitem:ac30f349493d1bf8e23989810815b59be" id="r_ac30f349493d1bf8e23989810815b59be"><td class="memItemLeft"><a class="el" href="#acc70ccb133e78c37229a7d3d28f12251">EditorViewport</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac30f349493d1bf8e23989810815b59be">operator=</a> (const <a class="el" href="#acc70ccb133e78c37229a7d3d28f12251">EditorViewport</a> &amp;)=delete</td></tr>
 <tr class="memitem:af352a355f15f2844e6c2755cf5da4452" id="r_af352a355f15f2844e6c2755cf5da4452"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af352a355f15f2844e6c2755cf5da4452">setActiveTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
 <tr class="memdesc:af352a355f15f2844e6c2755cf5da4452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arme le pinceau d'un type de tuile (palette des types) : il peint la couche active.  <br /></td></tr>
 <tr class="memitem:a25a54d0ec31cb6f2b1bd4fe3a6524fdb" id="r_a25a54d0ec31cb6f2b1bd4fe3a6524fdb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a25a54d0ec31cb6f2b1bd4fe3a6524fdb">setActivePiece</a> (const std::string &amp;piece, bool floor)</td></tr>
@@ -178,6 +185,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a67c35916a9387bec4072d4df7d2f345b" id="r_a67c35916a9387bec4072d4df7d2f345b"><td class="memItemLeft">const <a class="el" href="structhmi_1_1EditorSidecar.html">EditorSidecar</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a67c35916a9387bec4072d4df7d2f345b">sidecar</a> () const noexcept</td></tr>
 <tr class="memitem:a97d46d6864c0f2b4c2781cf862dba0cc" id="r_a97d46d6864c0f2b4c2781cf862dba0cc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a97d46d6864c0f2b4c2781cf862dba0cc">setNote</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell, const std::string &amp;text)</td></tr>
 <tr class="memdesc:a97d46d6864c0f2b4c2781cf862dba0cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit la note de <code class="param">cell</code>, retirée si <code class="param">text</code> est vide ; l'annexe s'écrit tout de suite.  <br /></td></tr>
+<tr class="memitem:a651eb10dd3e080ebe3d447d0f2723a5e" id="r_a651eb10dd3e080ebe3d447d0f2723a5e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a651eb10dd3e080ebe3d447d0f2723a5e">setMapProperty</a> (const std::string &amp;key, <a class="el" href="namespacecore.html#a9f79b235a73b6264aa3a97d51267919d">core::PropertyValue</a> value)</td></tr>
+<tr class="memdesc:a651eb10dd3e080ebe3d447d0f2723a5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne la propriété de carte <code class="param">key</code> — sa région, son ambiance (<span class="tt">EX-EDIT-091</span>).  <br /></td></tr>
+<tr class="memitem:a468436cd7e3e9aaca3465335ab183e5e" id="r_a468436cd7e3e9aaca3465335ab183e5e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a468436cd7e3e9aaca3465335ab183e5e">setMapProperties</a> (const std::vector&lt; std::pair&lt; std::string, <a class="el" href="namespacecore.html#a9f79b235a73b6264aa3a97d51267919d">core::PropertyValue</a> &gt; &gt; &amp;values)</td></tr>
+<tr class="memdesc:a468436cd7e3e9aaca3465335ab183e5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne plusieurs propriétés de carte en <b>un</b> pas d'annulation : ce que valide le dialogue des propriétés.  <br /></td></tr>
+<tr class="memitem:a593fd6cd4946fa68d41eb652611ad352" id="r_a593fd6cd4946fa68d41eb652611ad352"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a593fd6cd4946fa68d41eb652611ad352">setMapState</a> (<a class="el" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564">MapState</a> state)</td></tr>
+<tr class="memdesc:a593fd6cd4946fa68d41eb652611ad352"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit où en est la carte dans son annexe ; l'annexe s'écrit tout de suite, hors historique.  <br /></td></tr>
 <tr class="memitem:adef0e96de6460676435f9e635f375d4d" id="r_adef0e96de6460676435f9e635f375d4d"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#adef0e96de6460676435f9e635f375d4d">hoveredNote</a> () const</td></tr>
 <tr class="memitem:a5ef8175f20eead2a5e702ad74df8b858" id="r_a5ef8175f20eead2a5e702ad74df8b858"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5ef8175f20eead2a5e702ad74df8b858">playtesting</a> () const noexcept</td></tr>
 <tr class="memitem:a41f7e0c2f21b648fb2a7f4963d87ab0e" id="r_a41f7e0c2f21b648fb2a7f4963d87ab0e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a41f7e0c2f21b648fb2a7f4963d87ab0e">undo</a> () override</td></tr>
@@ -457,9 +470,38 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
+<a id="ac34150056be14016dd3afb032a281739" name="ac34150056be14016dd3afb032a281739"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac34150056be14016dd3afb032a281739">&#9670;&#160;</a></span>StartContent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ac34150056be14016dd3afb032a281739">hmi::EditorViewport::StartContent</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qu'un canevas neuf montre : la carte de départ, ou rien (<span class="tt">LOT-EDITOR-09</span>, un onglet qui va recevoir une carte nommée). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac34150056be14016dd3afb032a281739a43a02013697f5209f29ef495026dda28" name="ac34150056be14016dd3afb032a281739a43a02013697f5209f29ef495026dda28"></a>StartMap&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac34150056be14016dd3afb032a281739ae4ef81cce7e4e10033ebb10962dfdd5e" name="ac34150056be14016dd3afb032a281739ae4ef81cce7e4e10033ebb10962dfdd5e"></a>Blank&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a25dfab2529859ea6134a9459e7d155ee" name="a25dfab2529859ea6134a9459e7d155ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25dfab2529859ea6134a9459e7d155ee">&#9670;&#160;</a></span>EditorViewport() <span class="overload">[1/2]</span></h2>
+<a id="acc70ccb133e78c37229a7d3d28f12251" name="acc70ccb133e78c37229a7d3d28f12251"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc70ccb133e78c37229a7d3d28f12251">&#9670;&#160;</a></span>EditorViewport() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -470,8 +512,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">hmi::EditorViewport::EditorViewport </td>
           <td>(</td>
-          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="#ac34150056be14016dd3afb032a281739">StartContent</a></td>          <td class="paramname"><span class="paramname"><em>content</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#ac34150056be14016dd3afb032a281739a43a02013697f5209f29ef495026dda28">StartContent::StartMap</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -2326,9 +2372,9 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a25dfab2529859ea6134a9459e7d155ee">EditorViewport</a> &amp; hmi::EditorViewport::operator= </td>
+          <td class="memname"><a class="el" href="#acc70ccb133e78c37229a7d3d28f12251">EditorViewport</a> &amp; hmi::EditorViewport::operator= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="#a25dfab2529859ea6134a9459e7d155ee">EditorViewport</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="#acc70ccb133e78c37229a7d3d28f12251">EditorViewport</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -3961,6 +4007,68 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a468436cd7e3e9aaca3465335ab183e5e" name="a468436cd7e3e9aaca3465335ab183e5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a468436cd7e3e9aaca3465335ab183e5e">&#9670;&#160;</a></span>setMapProperties()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EditorViewport::setMapProperties </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::pair&lt; std::string, <a class="el" href="namespacecore.html#a9f79b235a73b6264aa3a97d51267919d">core::PropertyValue</a> &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>values</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assigne plusieurs propriétés de carte en <b>un</b> pas d'annulation : ce que valide le dialogue des propriétés. </p>
+
+</div>
+</div>
+<a id="a651eb10dd3e080ebe3d447d0f2723a5e" name="a651eb10dd3e080ebe3d447d0f2723a5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a651eb10dd3e080ebe3d447d0f2723a5e">&#9670;&#160;</a></span>setMapProperty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EditorViewport::setMapProperty </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>key</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a9f79b235a73b6264aa3a97d51267919d">core::PropertyValue</a></td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assigne la propriété de carte <code class="param">key</code> — sa région, son ambiance (<span class="tt">EX-EDIT-091</span>). </p>
+<p>C'est un pas d'annulation, comme toute mutation du brouillon ; une chaîne vide retire la propriété. </p>
+
+</div>
+</div>
+<a id="a593fd6cd4946fa68d41eb652611ad352" name="a593fd6cd4946fa68d41eb652611ad352"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a593fd6cd4946fa68d41eb652611ad352">&#9670;&#160;</a></span>setMapState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EditorViewport::setMapState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564">MapState</a></td>          <td class="paramname"><span class="paramname"><em>state</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Écrit où en est la carte dans son annexe ; l'annexe s'écrit tout de suite, hors historique. </p>
 
 </div>
 </div>

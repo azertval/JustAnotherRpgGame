@@ -40,6 +40,36 @@
 
 namespace hmi {
 
+/**
+ * @brief OÃ¹ en est une carte (`LOT-EDITOR-09`, `EX-EDIT-092`) : ce que le navigateur montre, et le
+ *        tableau de bord du monde le jour oÃ¹ il y aura cent cartes.
+ *
+ * L'Ã©tat est une note d'auteur, pas une donnÃ©e de jeu : il vit dans l'annexe, jamais dans la carte.
+ */
+enum class MapState {
+    /// Rien n'est dit : une carte qu'on vient de crÃ©er.
+    Unset,
+    /// Sortie du gÃ©nÃ©rateur, ou posÃ©e par un modÃ¨le : personne ne l'a encore regardÃ©e.
+    Generated,
+    /// RetouchÃ©e Ã  la main, mais pas terminÃ©e.
+    Retouched,
+    /// Finie : elle se joue telle quelle.
+    Finished,
+};
+
+/// @return Le mot que l'annexe Ã©crit pour @p state (`generated`) ; vide pour `Unset`.
+[[nodiscard]] std::string_view mapStateKey(MapState state) noexcept;
+
+/// @return L'Ã©tat que nomme @p key ; `MapState::Unset` pour un mot inconnu.
+[[nodiscard]] MapState mapStateFromKey(std::string_view key) noexcept;
+
+/// @return Le libellÃ© anglais de @p state, tel que la fenÃªtre l'affiche (`Generated`) ;
+///         `not stated` pour `Unset`.
+[[nodiscard]] std::string_view mapStateLabel(MapState state) noexcept;
+
+/// Les Ã©tats, dans l'ordre d'avancement : ce que les menus et les filtres listent.
+[[nodiscard]] const std::vector&lt;MapState&gt;&amp; knownMapStates();
+
 /// @brief Une note d'auteur, Ã©pinglÃ©e Ã  une case.
 struct AuthorNote {
     core::GridPosition cell;
@@ -55,6 +85,8 @@ struct EditorSidecar {
 
     /// Les notes, une au plus par case, triÃ©es ligne par ligne.
     std::vector&lt;AuthorNote&gt; notes;
+    /// OÃ¹ en est la carte (`LOT-EDITOR-09`) : `MapState::Unset` tant que l'auteur ne l'a pas dit.
+<span style = "background-color:#dfd">    MapState state = MapState::Unset;</span>
     /// Les clÃ©s que ce lecteur ne connaÃ®t pas, gardÃ©es pour la rÃ©Ã©criture.
 <span style = "background-color:#dfd">    nlohmann::json unknown = nlohmann::json::object();</span>
 
@@ -62,7 +94,7 @@ struct EditorSidecar {
 
     /// @return Vrai si l'annexe n'a rien Ã  garder : son fichier n'a pas lieu d'Ãªtre.
 <span style = "background-color:#dfd">    [[nodiscard]] bool empty() const noexcept {
-        return notes.empty() &amp;&amp; unknown.empty();
+        return notes.empty() &amp;&amp; unknown.empty() &amp;&amp; state == MapState::Unset;
     }</span>
 };
 

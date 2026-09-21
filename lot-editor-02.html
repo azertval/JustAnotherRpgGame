@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-editor-02.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 18 septembre 2026</b> (ouvert le même jour), sur la branche <span class="tt">lot-editor-02-canevas-iso</span>, en trois commits : la composition hors de <span class="tt">HmiLib</span> et le manifeste dans <span class="tt">Core</span> (phase 1), le canevas iso avec ses calques et sa mini-carte (phases 2 et 3), puis la documentation. Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> vert, image du canevas comparée au rendu GPU du jeu sur quatre cadrages. Relu à l'écran : <span class="tt">LevelEditor</span> lancé et capturé (vue iso, zoom, vue à plat, reliefs en transparence, essai). Reste la vérification des gestes à la souris (voir les critères d'acceptation). Prérequis : <span class="tt">LOT-EDITOR-01</span>. Feuille de route : <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">éditeur</a>. Alimente : <span class="tt">LOT-EDITOR-03</span>, <span class="tt">LOT-EDITOR-05</span>. Exigences : <span class="tt">EX-EDIT-059</span>, <span class="tt">EX-EDIT-060</span>, <span class="tt">EX-EDIT-061</span> (nouvelles). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1040"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1043"></a>
 Objectif</h1>
 <p>On édite sur le lieu rendu en isométrie comme dans le jeu, avec une bascule vers la vue à plat (décisions D1 et D2 de la feuille de route). Le pointage est juste partout, y compris sous un mur haut, et prend la hauteur en paramètre (D11).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1041"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1044"></a>
 Ce que le dépôt contenait à l'ouverture (18 septembre 2026)</h1>
 <ul>
 <li><b>Le canevas était un <span class="tt">QRhiWidget</span></b> qui dessinait le brouillon <b>à plat</b> — une couleur par type de tuile — par <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence et échantillonnage nearest (pixel ar...">hmi::SpriteBatch</a></span>. Le lieu ne se voyait que pendant l'essai, par <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span> : on éditait des couleurs et on vérifiait en jouant.</li>
@@ -107,7 +107,7 @@ Ce que le dépôt contenait à l'ouverture (18 septembre 2026)</h1>
 <li><b>Le manifeste des pièces n'était lu que par la galerie des assets</b>, dans <span class="tt">HMI</span> (A9) ; l'emprise d'une pièce n'était connue d'aucune règle.</li>
 <li><b>La composition ne lisait qu'une <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">core::Level</a></span> validée</b> ; le brouillon de l'éditeur, souvent invalide en cours de tracé, ne pouvait pas être composé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1042"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1045"></a>
 Décisions</h1>
 <ul>
 <li><b>La composition sort de <span class="tt">HmiLib</span> par la cible, pas par les chemins.</b> <span class="tt">SceneComposition</span> compile <span class="tt">ComposedScene</span>, <span class="tt">PlaceAppearance</span> et <span class="tt">WorldSceneComposer</span> sans Qt ni GPU ; <span class="tt">HmiLib</span> la lie en <span class="tt">PUBLIC</span>, le jeu ne change pas. Les fichiers restent sous <span class="tt">HMI/Graphics</span>, dans l'espace de noms <span class="tt"><a class="el" href="namespacehmi.html">hmi</a></span> : déplacer quarante inclusions n'aurait rien apporté au lot (même parti que l'espace de noms au <span class="tt">LOT-EDITOR-01</span>).</li>
@@ -125,7 +125,7 @@ Décisions</h1>
 <li><b>Raccourcis</b> : <span class="tt">F9</span> bascule iso / à plat, <span class="tt">F8</span> les reliefs en transparence. Le canevas prend le clavier au lancement : sans cela, la recherche au clavier de la palette avalait <span class="tt">P</span>.</li>
 <li><b>Agrandissement continu</b> par crans de 1,25 à la molette, ancré sous le pointeur, de la carte entière jusqu'à 8 × ; le bouton droit déplace la vue. La barre d'état montre les pièces de la case survolée (<span class="tt">street · wall-left</span>) et la vue.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1043"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1046"></a>
 Livraison</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -137,7 +137,7 @@ Livraison</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">3 — documentation  </td><td class="markdownTableBodyNone">ce dossier, la feuille de route, <span class="tt"><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></span>, les guides et les README  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1044"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1047"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Martpart ouverte dans l'éditeur produit la même liste de primitives que dans le jeu.</b> ✔ <span class="tt">CanvasSceneTest.MartpartSeComposeCommeDansLeJeu</span> : mêmes instantanés, héros mis à part ; mêmes primitives, dans le même ordre.</li>
@@ -146,7 +146,7 @@ Critères d'acceptation</h1>
 <li><b>Les gestes et l'essai du <span class="tt">LOT-11</span> marchent en iso.</b> ✔ à l'écran pour l'essai (lancé depuis le canevas iso : héros à la porte du Colisée, caméra qui suit) ; ✔ en automatique pour ce que les gestes lisent (pointage, bandes, verrou). <b>À vérifier à la main</b>, les clics simulés n'atteignant pas Qt sur ce poste : peindre, rectangle, sélection, copier/coller, poser et déplacer une entité en vue iso, puis la même chose en vue à plat ; peindre une couche verrouillée (refus) ; cliquer la mini-carte.</li>
 </ul>
 <p><b>Mesure</b> (<span class="tt"><a class="el" href="bench__canvas_8cpp.html" title="Mesure de la composition d&#39;un lieu : ce que le canevas de l&#39;éditeur refait à chaque geste et le jeu à...">Source/Benchmark/bench_canvas.cpp</a></span>, Release) : instantané et composition triée de Martpart, 1 172 primitives, <b>0,5 ms</b> — ce que le canevas refait après chaque geste.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1045"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1048"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Les entités comme éléments de la scène</b>, leurs poignées et leurs liens : <span class="tt">LOT-EDITOR-05</span>.</li>

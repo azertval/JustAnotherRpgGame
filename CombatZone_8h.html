@@ -143,7 +143,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La <b>zone de combat</b> d'une carte : le rectangle nommé où l'on se bat, et lui seul (<span class="tt">EX-LVL-018</span>, <span class="tt">LOT-09</span>). </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1168"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1177"></a>
 Pourquoi une zone, et non la carte entière</h2>
 <p>Le Colisée est un lieu : on y marche dans le hall, les couloirs, les vestiaires et les tribunes, et l'on ne s'y bat pas — le livre ne fait combattre que sur le sable. Prendre la carte entière pour grille tactique donnerait un affrontement de mille trois cent soixante cases dont mille seraient des gradins.</p>
 <p>La zone est donc <b>déclarée sur la carte</b>, comme une entité que l'éditeur pose (<span class="tt"><a class="el" href="namespacecore.html#ac54b7733dd98dce5d1fc0339a653a90d" title="Type d&#39;entité d&#39;une zone de combat : le rectangle où l&#39;on se bat.">core::COMBAT_ZONE_ENTITY_TYPE</a></span>) : sa case est le coin haut-gauche, ses propriétés donnent son nom et sa taille. <span class="tt"><a class="el" href="classcore_1_1ArenaSession.html" title="Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.">core::ArenaSession</a></span> ne joue que dessus, et les cases hors zone lui sont <b>inconnues</b> : c'est ce que <span class="tt">cropLevelToZone</span> garantit, en lui donnant une carte qui n'est que la zone. </p>

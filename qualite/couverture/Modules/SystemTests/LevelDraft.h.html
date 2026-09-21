@@ -431,6 +431,21 @@ public:
         return !_redoHistory.empty();
     }</span>
 
+    /**
+     * @brief Assigne la propriÃ©tÃ© de **carte** @p key (`LOT-EDITOR-09`) â sa rÃ©gion
+     *        (`core::MAP_REGION_PROPERTY`), son ambiance (`core::MAP_AMBIENCE_PROPERTY`), ou toute
+     *        clÃ© racine gardÃ©e du fichier.
+     *
+     * Une chaÃ®ne vide **retire** la propriÃ©tÃ© : une carte sans rÃ©gion n'en porte pas la clÃ©.
+     * @return `false` (rien d'empilÃ©) si la clÃ© est vide, ou si la valeur est dÃ©jÃ  celle-lÃ .
+     */
+    bool setProperty(const std::string&amp; key, PropertyValue value);
+
+    /// @return Les propriÃ©tÃ©s de la carte (`core::LevelData::properties`).
+<span style = "background-color:#dfd">    [[nodiscard]] const PropertyMap&amp; properties() const noexcept {
+        return _properties;
+    }</span>
+
     /// Renomme le niveau.
 <span style = "background-color:#dfd">    void setName(std::string name) {
         _name = std::move(name);
@@ -518,6 +533,7 @@ private:
         std::vector&lt;TileLayer&gt; layers;
         std::vector&lt;MapEntity&gt; entities;
         std::vector&lt;GridPosition&gt; forcedCollision;
+        PropertyMap properties;
         std::uint64_t revision = 0;
     };
 
@@ -568,6 +584,9 @@ private:
     /// Base et planche d'une variante (dÃ©cision D12) : ni peintes ni dÃ©faites, recopiÃ©es.
     std::string _base;
     std::string _scene;
+    /// PropriÃ©tÃ©s de la carte (`LOT-EDITOR-09`) : rÃ©gion, ambiance, clÃ©s gardÃ©es. DÃ©faites avec
+    /// le reste â les changer est un pas d'annulation.
+    PropertyMap _properties;
     /// Manifeste des piÃ¨ces du lieu, partagÃ© : copier un brouillon ne le recopie pas.
     std::shared_ptr&lt;const ScenePieceManifest&gt; _manifest;
     std::vector&lt;State&gt; _undoHistory;

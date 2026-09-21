@@ -97,10 +97,10 @@ $(function(){initNavTree('lot-12.html','',''); });
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 968/968, <span class="tt">clang-format</span>, les six lints, cahier de test et Doxygen verts). Prérequis : <b>aucun</b>. Pur <span class="tt">Core</span>, zéro dépendance.</p>
 <p>Exigences couvertes : <a class="el" href="spec-regles-d20.html#EX-REG-002" title="EX-REG-002"><span class="tt">EX-REG-002</span></a>, <a class="el" href="spec-regles-d20.html#EX-REG-003" title="EX-REG-003"><span class="tt">EX-REG-003</span></a>, <a class="el" href="spec-regles-d20.html#EX-REG-021" title="EX-REG-021"><span class="tt">EX-REG-021</span></a>, <a class="el" href="spec-exigences.html#EX-NFR-002" title="EX-NFR-002"><span class="tt">EX-NFR-002</span></a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md390"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md391"></a>
 Objectif</h1>
 <p>Le cœur chiffré du système : dés déterministes, six caractéristiques, modificateurs, et le jet de d20 avec avantage et désavantage contre un seuil. Du calcul pur, dans <span class="tt">Core</span>, testable sans fenêtre ni GPU.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md391"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md392"></a>
 Ce que le lot livre</h1>
 <ul>
 <li><b><span class="tt">Core/Rpg/Dice.{h,cpp}</span></b> — la notation <span class="tt">NdF±M</span>, son analyse et son évaluation.</li>
@@ -111,7 +111,7 @@ Ce que le lot livre</h1>
 <li><b><span class="tt">Source/Elements/Rpg/rules/difficulty.json</span></b> — les six degrés de difficulté, en <b>donnée</b>.</li>
 <li>14 tests.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md392"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md393"></a>
 Le défaut que les tests ont trouvé, et que la relecture n'aurait pas vu</h1>
 <p><span class="tt">nextInt</span> rejette la queue de l'intervalle pour éviter le biais modulo. La formulation naturelle est de rejeter la queue <b>haute</b> — « au-delà du dernier multiple complet de <span class="tt">n</span> ». Elle est fausse :</p>
 <div class="fragment"><div class="line"><span class="keyword">const</span> std::uint32_t limite = 0 - (0 - etendue) % etendue;   <span class="comment">// vaut 0 si etendue divise 2^32</span></div>
@@ -119,29 +119,29 @@ Le défaut que les tests ont trouvé, et que la relecture n'aurait pas vu</h1>
 </div><!-- fragment --><p>Quand <span class="tt">etendue</span> divise exactement 2³² — c'est-à-dire pour <b>toute puissance de deux</b> — le reste vaut 0, le seuil devrait valoir 2³², il ne tient pas dans un <span class="tt">std::uint32_t</span> et retombe à 0. La boucle ne se termine jamais.</p>
 <p><b>Le défaut ne se voit que sur les puissances de deux.</b> Un d6, un d20, un d10 passent ; un d4, un d8, un d16 bloquent. Les premiers tests écrits employaient un d6 et un d20 ; c'est le test de rejouabilité, écrit sur <b>3d8</b>, qui a gelé la suite. Aucune relecture du code n'aurait attrapé cela : la formule <em>a l'air</em> juste, et son cas dégénéré est précisément celui qu'on ne pense pas à essayer.</p>
 <p>La version retenue rejette la queue <b>basse</b>, <span class="tt">[0, 2³² mod n[</span>, qui est vide quand <span class="tt">n</span> divise 2³² — donc aucun rejet, et aucun débordement à écrire.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md393"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md394"></a>
 Deux arrondis qui ne se voient pas</h1>
 <p><b>Le modificateur de caractéristique.</b> <span class="tt">(score - 10) / 2</span> tronque <b>vers zéro</b> en C++ : un score de 7 donne <span class="tt">-1</span> au lieu de <span class="tt">-2</span>. Le personnage serait moins pénalisé qu'il ne doit l'être, sur chacun de ses jets, pendant toute la partie — et la formule <em>a l'air</em> juste. Le cas de test qui distingue les deux arrondis est explicitement écrit : <span class="tt">abilityModifier(7) == -2</span>.</p>
 <p><b>L'annulation de l'avantage.</b> Deux sources d'avantage contre une de désavantage donnent <b>normal</b>, pas avantage : la règle annule, elle ne compte pas (<span class="tt">EX-REG-002</span>). C'est contre-intuitif la première fois, et c'est pourquoi la décision vit dans une seule fonction — <span class="tt">rollStance</span> — plutôt que chez chaque appelant, qui aurait à arbitrer sa pile de bonus contre toutes les autres à chaque capacité ajoutée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md394"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md395"></a>
 Un 20 naturel n'est pas un total de 20</h1>
 <p><span class="tt">isNaturalTwenty()</span> regarde le <b>dé retenu</b>, jamais le total. Un 20 naturel déclenche le coup critique ; un total de 20 obtenu avec un 8 et douze points de bonus n'est qu'un total. Les confondre rendrait critique un jet sur deux à haut niveau, et le défaut passerait pour un équilibrage.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md395"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md396"></a>
 La restitution n'est pas un journal, c'est une exigence</h1>
 <p><span class="tt">EX-REG-003</span> demande que tout jet soit reconstituable : le dé, les modificateurs <b>avec leur origine</b>, le seuil et l'issue. <span class="tt">CheckResult</span> conserve donc les <b>deux</b> dés en cas d'avantage — pas seulement celui qui a été retenu — et chaque modificateur porte sa source.</p>
 <blockquote class="doxtable">
 <p><span class="tt">d20 (avantage : 7, 14) = 14 + 3 (Dexterite) + 2 (maitrise) = 19 &gt;= 15 : reussite</span> </p>
 </blockquote>
 <p>« Vous échouez » n'apprend rien. Un jeu de rôle au dé dont le joueur ne peut pas reconstituer pourquoi il a échoué se joue comme une machine à sous — et c'est aussi le seul outil de diagnostic praticable quand une capacité ne s'applique pas.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md396"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md397"></a>
 Ce qui est figé ailleurs qu'en dur</h1>
 <p><b>Les degrés de difficulté sont une donnée</b> (<span class="tt">EX-REG-021</span>), extraits de la table « Tâche / DD » des <em>Basic Rules</em> p. 64 : six paliers, de 5 à 30. Aucun nombre de difficulté n'apparaît littéralement dans le code — régler l'équilibre du jeu ne doit pas demander de recompiler, et une valeur nue dans un <span class="tt">if</span> ne dit pas ce qu'elle représente. Le test lui-même lit le seuil dans le fichier plutôt que d'écrire <span class="tt">15</span>.</p>
 <p><b>L'échelle du monde est une constante nommée.</b> Une case vaut 1,5 m. Toutes les portées du corpus sont en mètres — « allonge 1,50 m », « portée 6 m/18 m » — et la grille compte en cases : la conversion existe forcément quelque part, et le seul choix ouvert était <em>à un endroit, ou à trente</em>. À trente, il suffit qu'un seul emploie 1,52 (les cinq pieds d'origine) pour qu'une portée de six cases en devienne cinq ailleurs dans le jeu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md397"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md398"></a>
 Ce que le lot ne fait pas</h1>
 <p><b>Il ne connaît ni personnage ni créature.</b> <span class="tt">rollCheck</span> prend un seuil et des modificateurs ; d'où ils viennent est l'affaire du <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a>. <span class="tt">Core/Rpg/</span> ne dépend ni de l'ECS, ni de Qt, ni du rendu.</p>
 <p><b>Il n'applique aucune règle de critique.</b> <span class="tt">isNaturalTwenty()</span> le <em>signale</em> ; ce qu'un critique fait aux dégâts appartient au <a class="el" href="lot-21.html" title="LOT-21 — Attaques, dégâts et états">LOT-21</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md398"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md399"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Distribution vérifiée sur <b>100 000 tirages</b> à graine fixe : les vingt faces sortent, aucune ne s'écarte de plus de 10 % de la moyenne. ✔</li>

@@ -15,10 +15,12 @@
 #pragma once
 
 #include &lt;string&gt;
+#include &lt;string_view&gt;
 #include &lt;utility&gt;
 #include &lt;vector&gt;
 
 #include "Core/Levels/GridPosition.h"
+#include "Core/Levels/LevelProperties.h"
 #include "Core/Levels/MapEntity.h"
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileMap.h"
@@ -82,7 +84,20 @@ struct LevelData {
 <span style = "background-color:#dfd">    std::string base{};</span>
     /// Planche que la variante substitue Ã  celle de sa base ; vide pour la garder.
 <span style = "background-color:#dfd">    std::string scene{};</span>
+    /// PropriÃ©tÃ©s libres de la **carte entiÃ¨re** (`LOT-EDITOR-09`) : la rÃ©gion du monde oÃ¹ elle se
+    /// trouve (`core::MAP_REGION_PROPERTY`), son ambiance (`core::MAP_AMBIENCE_PROPERTY`), et
+    /// toute clÃ© racine que le chargeur ne connaÃ®t pas â gardÃ©e telle quelle et rÃ©Ã©mise, comme
+    /// pour une couche ou une entitÃ© (`core::PropertyMap`).
+<span style = "background-color:#dfd">    PropertyMap properties{};</span>
 };
+
+/// ClÃ© de la **rÃ©gion** du monde oÃ¹ se trouve la carte, telle que `world-maps.json` la nomme
+/// (`central-empire`) : une propriÃ©tÃ© de carte, pas un champ du format (`LOT-EDITOR-09`).
+inline constexpr std::string_view MAP_REGION_PROPERTY = "region";
+
+/// ClÃ© de l'**ambiance** de la carte â ce que le `LOT-28` jouera en fond, et ce que l'Ã©diteur
+/// montre dans les propriÃ©tÃ©s de carte (`LOT-EDITOR-09`).
+inline constexpr std::string_view MAP_AMBIENCE_PROPERTY = "ambience";
 
 /**
  * @brief Carte complÃ¨te en mÃ©moire.
@@ -105,7 +120,8 @@ public:
           _forcedCollision(std::move(data.forcedCollision)),
           _nextEntityId(data.nextEntityId),
           _base(std::move(data.base)),
-          _scene(std::move(data.scene)) {}</span>
+          _scene(std::move(data.scene)),
+          _properties(std::move(data.properties)) {}</span>
 
     /// @return Le nom de la carte.
 <span style = "background-color:#dfd">    [[nodiscard]] const std::string&amp; name() const noexcept {
@@ -153,6 +169,11 @@ public:
         return _scene;
     }</span>
 
+    /// @return Les propriÃ©tÃ©s libres de la carte (`LevelData::properties`, `LOT-EDITOR-09`).
+<span style = "background-color:#dfd">    [[nodiscard]] const PropertyMap&amp; properties() const noexcept {
+        return _properties;
+    }</span>
+
     /// @return Toutes les composantes de la carte, recopiÃ©es â ce que l'Ã©crivain et le brouillon
     ///         reprennent sans en oublier une.
 <span style = "background-color:#dfd">    [[nodiscard]] LevelData data() const {
@@ -164,7 +185,8 @@ public:
                          .forcedCollision = _forcedCollision,
                          .nextEntityId = _nextEntityId,
                          .base = _base,
-                         .scene = _scene};
+                         .scene = _scene,
+                         .properties = _properties};
 <span style = "background-color:#dfd">    }</span>
 
 private:
@@ -177,6 +199,7 @@ private:
     int _nextEntityId = 1;
     std::string _base;
     std::string _scene;
+    PropertyMap _properties;
 };
 
 }  // namespace core</pre>

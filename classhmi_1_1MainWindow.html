@@ -108,6 +108,8 @@ Inheritance diagram for hmi::MainWindow:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad5314276368d312f8f32bc9e3bed3db2" id="r_ad5314276368d312f8f32bc9e3bed3db2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad5314276368d312f8f32bc9e3bed3db2">MainWindow</a> (bool crashAfterAutosave=false)</td></tr>
 <tr class="memitem:a9217cc93491089761355a98056939638" id="r_a9217cc93491089761355a98056939638"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9217cc93491089761355a98056939638">~MainWindow</a> () override</td></tr>
+<tr class="memitem:afce00287835527ce6456eee989ff9901" id="r_afce00287835527ce6456eee989ff9901"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afce00287835527ce6456eee989ff9901">openMap</a> (const std::filesystem::path &amp;path, bool reuseCurrent=false)</td></tr>
+<tr class="memdesc:afce00287835527ce6456eee989ff9901"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la carte <code class="param">path</code> dans un onglet (<span class="tt">LOT-EDITOR-09</span>).  <br /></td></tr>
 <tr class="memitem:ab4c8e259baea81d2f887f07b47582e19" id="r_ab4c8e259baea81d2f887f07b47582e19"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab4c8e259baea81d2f887f07b47582e19">MainWindow</a> (const MainWindow &amp;)=delete</td></tr>
 <tr class="memitem:ab6940837dc62d495d934ae0d0e4e4284" id="r_ab6940837dc62d495d934ae0d0e4e4284"><td class="memItemLeft"><a class="el" href="#ad5314276368d312f8f32bc9e3bed3db2">MainWindow</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab6940837dc62d495d934ae0d0e4e4284">operator=</a> (const <a class="el" href="#ad5314276368d312f8f32bc9e3bed3db2">MainWindow</a> &amp;)=delete</td></tr>
 </table><table class="memberdecls">
@@ -118,9 +120,37 @@ Protected Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a2be2a6b71ee9770ab402e16bf8d61666" id="r_a2be2a6b71ee9770ab402e16bf8d61666"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2be2a6b71ee9770ab402e16bf8d61666">buildUi</a> ()</td></tr>
+<tr class="memitem:a5073f797660b2847fb7c40177d155143" id="r_a5073f797660b2847fb7c40177d155143"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a5073f797660b2847fb7c40177d155143">addDocument</a> ()</td></tr>
+<tr class="memdesc:a5073f797660b2847fb7c40177d155143"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée un onglet, son canevas, et le rend actif.  <br /></td></tr>
+<tr class="memitem:a13acc5faca0ec3cf618dcd09432812ee" id="r_a13acc5faca0ec3cf618dcd09432812ee"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a13acc5faca0ec3cf618dcd09432812ee">bindViewport</a> (<a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a> *view)</td></tr>
+<tr class="memdesc:a13acc5faca0ec3cf618dcd09432812ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Branche le canevas <code class="param">view</code> sur la fenêtre et ses panneaux ; l'ancien est débranché.  <br /></td></tr>
+<tr class="memitem:ac276ccaa7f6264ed84bd2ce183a2edc6" id="r_ac276ccaa7f6264ed84bd2ce183a2edc6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac276ccaa7f6264ed84bd2ce183a2edc6">unbindViewport</a> ()</td></tr>
+<tr class="memdesc:ac276ccaa7f6264ed84bd2ce183a2edc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Débranche le canevas actif : les liaisons prises par <span class="tt"><a class="el" href="#a13acc5faca0ec3cf618dcd09432812ee" title="Branche le canevas view sur la fenêtre et ses panneaux ; l&#39;ancien est débranché.">bindViewport</a></span> sont défaites.  <br /></td></tr>
+<tr class="memitem:a2692ea3f2dede39d77a910d43df9648b" id="r_a2692ea3f2dede39d77a910d43df9648b"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a2692ea3f2dede39d77a910d43df9648b">documentAt</a> (int index) const</td></tr>
+<tr class="memdesc:a2692ea3f2dede39d77a910d43df9648b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le canevas de l'onglet <code class="param">index</code>, <span class="tt">nullptr</span> hors bornes.  <br /></td></tr>
+<tr class="memitem:a4831bf2cadbae48e5eea255e4d96a2c2" id="r_a4831bf2cadbae48e5eea255e4d96a2c2"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1OpenDocument.html">OpenDocument</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4831bf2cadbae48e5eea255e4d96a2c2">openDocuments</a> () const</td></tr>
+<tr class="memdesc:a4831bf2cadbae48e5eea255e4d96a2c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les cartes ouvertes, dans l'ordre des onglets.  <br /></td></tr>
+<tr class="memitem:a075d57df1b0a727aff356278a8ae100a" id="r_a075d57df1b0a727aff356278a8ae100a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a075d57df1b0a727aff356278a8ae100a">activateDocument</a> (int index)</td></tr>
+<tr class="memdesc:a075d57df1b0a727aff356278a8ae100a"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'onglet <code class="param">index</code> devient actif : la fenêtre s'y rebranche, les panneaux le montrent.  <br /></td></tr>
+<tr class="memitem:aa5446f2537408e5ced7e8f2930d9d02c" id="r_aa5446f2537408e5ced7e8f2930d9d02c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa5446f2537408e5ced7e8f2930d9d02c">refreshDocumentLabels</a> ()</td></tr>
+<tr class="memdesc:aa5446f2537408e5ced7e8f2930d9d02c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réécrit le titre de chaque onglet (nom court, étoile si modifié) et celui de la fenêtre.  <br /></td></tr>
+<tr class="memitem:a777ce73cc84fc4c702a30f1d933e0b8f" id="r_a777ce73cc84fc4c702a30f1d933e0b8f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a777ce73cc84fc4c702a30f1d933e0b8f">closeDocument</a> (int index)</td></tr>
+<tr class="memdesc:a777ce73cc84fc4c702a30f1d933e0b8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ferme l'onglet <code class="param">index</code>, après avoir demandé quoi faire de ses modifications.  <br /></td></tr>
+<tr class="memitem:ae7f95e584a2f597e11715e365203611d" id="r_ae7f95e584a2f597e11715e365203611d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae7f95e584a2f597e11715e365203611d">askAboutChanges</a> (<a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a> *view)</td></tr>
+<tr class="memdesc:ae7f95e584a2f597e11715e365203611d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande quoi faire des modifications de <code class="param">view</code>.  <br /></td></tr>
+<tr class="memitem:a30829a0bd77305efc186112fb943e9bf" id="r_a30829a0bd77305efc186112fb943e9bf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a30829a0bd77305efc186112fb943e9bf">linkMaps</a> (const std::string &amp;fromMap, const std::string &amp;toMap)</td></tr>
+<tr class="memdesc:a30829a0bd77305efc186112fb943e9bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relie deux cartes depuis le graphe : le plan, montré, puis écrit (<span class="tt"><a class="el" href="namespacehmi.html#a64455acf952fc368012a3ad74e8da8d4" title="Plan du lien fromMap ↔ toMap : le portail et le point d&#39;arrivée des deux côtés.">hmi::planLinkMaps</a></span>).  <br /></td></tr>
+<tr class="memitem:aa67430d76b05a861aa300ab23965578d" id="r_aa67430d76b05a861aa300ab23965578d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa67430d76b05a861aa300ab23965578d">openMapPropertiesDialog</a> ()</td></tr>
+<tr class="memdesc:aa67430d76b05a861aa300ab23965578d"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Map properties… » : le lieu, la région et l'ambiance de la carte ouverte.  <br /></td></tr>
 <tr class="memitem:aaf41d39eebe208a17270f29165afda4f" id="r_aaf41d39eebe208a17270f29165afda4f"><td class="memItemLeft">QDockWidget *&#160;</td><td class="memItemRight"><a class="el" href="#aaf41d39eebe208a17270f29165afda4f">addPanel</a> (const QString &amp;objectName, const QString &amp;title, QWidget *content, Qt::DockWidgetArea area)</td></tr>
+<tr class="memdesc:aaf41d39eebe208a17270f29165afda4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Map properties… » écrit aussi où en est la carte : son état va dans l'annexe.  <br /></td></tr>
 <tr class="memitem:a883821ec347ce1cbbfaab426f2f1cd4d" id="r_a883821ec347ce1cbbfaab426f2f1cd4d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a883821ec347ce1cbbfaab426f2f1cd4d">buildMenus</a> ()</td></tr>
 <tr class="memitem:aeee6162d90a0c35a8a805ddab8ac92e0" id="r_aeee6162d90a0c35a8a805ddab8ac92e0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aeee6162d90a0c35a8a805ddab8ac92e0">connectMapPanels</a> ()</td></tr>
+<tr class="memitem:a327ffb86ee9c5c1f18f283370ccdb0c1" id="r_a327ffb86ee9c5c1f18f283370ccdb0c1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a327ffb86ee9c5c1f18f283370ccdb0c1">refreshLayersPanel</a> ()</td></tr>
+<tr class="memdesc:a327ffb86ee9c5c1f18f283370ccdb0c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les panneaux relisent le canevas actif : couches, entités, mini-carte, palette du lieu.  <br /></td></tr>
+<tr class="memitem:aac19ecd96e7a82c8abcd73556ec39cc8" id="r_aac19ecd96e7a82c8abcd73556ec39cc8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aac19ecd96e7a82c8abcd73556ec39cc8">refreshEntitiesPanel</a> ()</td></tr>
+<tr class="memitem:a413d1f0d5bb00f8523bfd588e1ad26c2" id="r_a413d1f0d5bb00f8523bfd588e1ad26c2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a413d1f0d5bb00f8523bfd588e1ad26c2">refreshMiniMap</a> ()</td></tr>
+<tr class="memitem:a45ae41b582437f553c67d5a717a56ee8" id="r_a45ae41b582437f553c67d5a717a56ee8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a45ae41b582437f553c67d5a717a56ee8">refreshPalettePanel</a> ()</td></tr>
 <tr class="memitem:afc4b819c2eae833e1e44a701397724f7" id="r_afc4b819c2eae833e1e44a701397724f7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afc4b819c2eae833e1e44a701397724f7">connectToolActions</a> ()</td></tr>
 <tr class="memitem:a37e95ca3d6986d05acf01204beec6c7e" id="r_a37e95ca3d6986d05acf01204beec6c7e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a37e95ca3d6986d05acf01204beec6c7e">connectEditorCommands</a> ()</td></tr>
 <tr class="memitem:a871837448750fb40e380fe52af2f666f" id="r_a871837448750fb40e380fe52af2f666f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a871837448750fb40e380fe52af2f666f">buildStatusBar</a> ()</td></tr>
@@ -137,8 +167,6 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:ab5fd27ff6544e711305b36ae6e9f2653"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contrôle toutes les cartes enregistrées et montre le bilan dans « Problems ».  <br /></td></tr>
 <tr class="memitem:aa8690f8dc7dcf1406906c04a54d10553" id="r_aa8690f8dc7dcf1406906c04a54d10553"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa8690f8dc7dcf1406906c04a54d10553">goToFinding</a> (const <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &amp;finding)</td></tr>
 <tr class="memdesc:aa8690f8dc7dcf1406906c04a54d10553"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la carte du constat (garde-fou des modifications d'abord), sélectionne son entité et cerne sa case.  <br /></td></tr>
-<tr class="memitem:a6eef550a9435bf33c218a95c8002e762" id="r_a6eef550a9435bf33c218a95c8002e762"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6eef550a9435bf33c218a95c8002e762">openLevelGuarded</a> (const std::filesystem::path &amp;path)</td></tr>
-<tr class="memdesc:a6eef550a9435bf33c218a95c8002e762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre <code class="param">path</code>, après avoir demandé quoi faire des modifications non enregistrées.  <br /></td></tr>
 <tr class="memitem:a8e89b7b63ff072e8df9217d8b32df8a0" id="r_a8e89b7b63ff072e8df9217d8b32df8a0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8e89b7b63ff072e8df9217d8b32df8a0">saveMap</a> ()</td></tr>
 <tr class="memdesc:a8e89b7b63ff072e8df9217d8b32df8a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre la carte ouverte (garde du fichier modifié sur disque d'abord), puis relit ce qui en dépend : références, graphe du monde, contrôle.  <br /></td></tr>
 <tr class="memitem:a6f29e531da9bb4f99696c64ff27b867f" id="r_a6f29e531da9bb4f99696c64ff27b867f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6f29e531da9bb4f99696c64ff27b867f">refreshPrefabs</a> (bool force=false)</td></tr>
@@ -163,9 +191,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:ac0fb121162107685e64c7420bbd0486b" id="r_ac0fb121162107685e64c7420bbd0486b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac0fb121162107685e64c7420bbd0486b">renameMap</a> (const std::string &amp;mapId)</td></tr>
 <tr class="memdesc:ac0fb121162107685e64c7420bbd0486b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme la carte <code class="param">mapId</code> par le renommage propagé ; la carte ouverte suit.  <br /></td></tr>
 <tr class="memitem:a89d530c9e3bc3d028b3c95c724450cfd" id="r_a89d530c9e3bc3d028b3c95c724450cfd"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a89d530c9e3bc3d028b3c95c724450cfd">saveBeforeRefactor</a> ()</td></tr>
-<tr class="memdesc:a89d530c9e3bc3d028b3c95c724450cfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un renommage récrit des fichiers : la carte ouverte doit être enregistrée.  <br /></td></tr>
-<tr class="memitem:a0e9db16d3234c41b92c18b4f718c67a6" id="r_a0e9db16d3234c41b92c18b4f718c67a6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0e9db16d3234c41b92c18b4f718c67a6">carryOutPlan</a> (const <a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> &amp;plan, const QString &amp;title, const std::string &amp;openAfter)</td></tr>
-<tr class="memdesc:a0e9db16d3234c41b92c18b4f718c67a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Montre ce que <code class="param">plan</code> récrit, l'écrit si l'auteur accepte, puis rouvre <code class="param">openAfter</code>.  <br /></td></tr>
+<tr class="memdesc:a89d530c9e3bc3d028b3c95c724450cfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un renommage récrit des fichiers : <b>toutes</b> les cartes ouvertes doivent être enregistrées.  <br /></td></tr>
+<tr class="memitem:a30d196b73adb355d9d18c93951831e3a" id="r_a30d196b73adb355d9d18c93951831e3a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a30d196b73adb355d9d18c93951831e3a">carryOutPlan</a> (const <a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> &amp;plan, const QString &amp;title, const std::string &amp;renamedFrom={}, const std::string &amp;renamedTo={})</td></tr>
+<tr class="memdesc:a30d196b73adb355d9d18c93951831e3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Montre ce que <code class="param">plan</code> récrit, l'écrit si l'auteur accepte, puis relit chaque onglet.  <br /></td></tr>
 <tr class="memitem:aa6c58df46de1f9b8770f7c6e9962d5d5" id="r_aa6c58df46de1f9b8770f7c6e9962d5d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa6c58df46de1f9b8770f7c6e9962d5d5">goToCitation</a> (const <a class="el" href="structhmi_1_1Citation.html">Citation</a> &amp;citation)</td></tr>
 <tr class="memdesc:aa6c58df46de1f9b8770f7c6e9962d5d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la carte de la citation et y va, comme pour un constat du contrôle.  <br /></td></tr>
 <tr class="memitem:aabc40d107e8dd41fdb72302e572ee8fd" id="r_aabc40d107e8dd41fdb72302e572ee8fd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aabc40d107e8dd41fdb72302e572ee8fd">setUpSafetyNet</a> ()</td></tr>
@@ -176,7 +204,7 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:aa28e8e28e6d9ee14ea3bd4c76700090a" id="r_aa28e8e28e6d9ee14ea3bd4c76700090a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa28e8e28e6d9ee14ea3bd4c76700090a">offerRecovery</a> ()</td></tr>
 <tr class="memdesc:aa28e8e28e6d9ee14ea3bd4c76700090a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Au démarrage : propose de reprendre les brouillons laissés par une session interrompue.  <br /></td></tr>
 <tr class="memitem:ac0d739fb55c5d22f269ca98284ef5a00" id="r_ac0d739fb55c5d22f269ca98284ef5a00"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac0d739fb55c5d22f269ca98284ef5a00">watchLevelFile</a> ()</td></tr>
-<tr class="memdesc:ac0d739fb55c5d22f269ca98284ef5a00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surveille le fichier de la carte ouverte (à refaire après un remplacement du fichier).  <br /></td></tr>
+<tr class="memdesc:ac0d739fb55c5d22f269ca98284ef5a00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surveille les fichiers de <b>toutes</b> les cartes ouvertes (à refaire après un remplacement de fichier, une ouverture ou un renommage).  <br /></td></tr>
 <tr class="memitem:a21acdde1725808677884e5337e5cb790" id="r_a21acdde1725808677884e5337e5cb790"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a21acdde1725808677884e5337e5cb790">checkDiskChange</a> ()</td></tr>
 <tr class="memdesc:a21acdde1725808677884e5337e5cb790"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare la carte sur disque à celle que l'éditeur a lue ou écrite, et réagit.  <br /></td></tr>
 <tr class="memitem:a5e2887cd1592ff97d25ae5f65861b7a0" id="r_a5e2887cd1592ff97d25ae5f65861b7a0"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5e2887cd1592ff97d25ae5f65861b7a0">keepAside</a> (const char *label, const std::string &amp;content)</td></tr>
@@ -184,9 +212,13 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:ad74bf30c7bc994b07bfd93e4c39b5a93" id="r_ad74bf30c7bc994b07bfd93e4c39b5a93"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ad74bf30c7bc994b07bfd93e4c39b5a93">_viewport</a></td></tr>
-<tr class="memdesc:ad74bf30c7bc994b07bfd93e4c39b5a93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Canevas (possédé par la fenêtre, widget central).  <br /></td></tr>
-<tr class="memitem:acdb82ee8e5a56236705ceec1908982ff" id="r_acdb82ee8e5a56236705ceec1908982ff"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a> *&#160;</td><td class="memItemRight"><a class="el" href="#acdb82ee8e5a56236705ceec1908982ff">_editContext</a></td></tr>
+<tr class="memitem:a8223135134d8080af2d2b3226477f9d9" id="r_a8223135134d8080af2d2b3226477f9d9"><td class="memItemLeft">QTabWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a8223135134d8080af2d2b3226477f9d9">_tabs</a> = nullptr</td></tr>
+<tr class="memdesc:a8223135134d8080af2d2b3226477f9d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les onglets : un canevas par carte ouverte, le widget central (<span class="tt">LOT-EDITOR-09</span>).  <br /></td></tr>
+<tr class="memitem:ad74bf30c7bc994b07bfd93e4c39b5a93" id="r_ad74bf30c7bc994b07bfd93e4c39b5a93"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ad74bf30c7bc994b07bfd93e4c39b5a93">_viewport</a> = nullptr</td></tr>
+<tr class="memdesc:ad74bf30c7bc994b07bfd93e4c39b5a93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Canevas de l'onglet actif (jamais nul).  <br /></td></tr>
+<tr class="memitem:acdb82ee8e5a56236705ceec1908982ff" id="r_acdb82ee8e5a56236705ceec1908982ff"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a> *&#160;</td><td class="memItemRight"><a class="el" href="#acdb82ee8e5a56236705ceec1908982ff">_editContext</a> = nullptr</td></tr>
+<tr class="memitem:ac7119a7a009ff4857fd2b800b080ed7d" id="r_ac7119a7a009ff4857fd2b800b080ed7d"><td class="memItemLeft">std::vector&lt; QMetaObject::Connection &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac7119a7a009ff4857fd2b800b080ed7d">_viewportConnections</a></td></tr>
+<tr class="memdesc:ac7119a7a009ff4857fd2b800b080ed7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les liaisons prises sur le canevas actif, défaites quand il quitte la scène.  <br /></td></tr>
 <tr class="memitem:af1127880bfad8cb9a4e49eb5c072ca08" id="r_af1127880bfad8cb9a4e49eb5c072ca08"><td class="memItemLeft"><a class="el" href="classhmi_1_1PalettePanel.html">PalettePanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af1127880bfad8cb9a4e49eb5c072ca08">_palette</a> = nullptr</td></tr>
 <tr class="memitem:aa3a6277e15086fc09f3ba9b42dfc86e2" id="r_aa3a6277e15086fc09f3ba9b42dfc86e2"><td class="memItemLeft"><a class="el" href="classhmi_1_1LevelBrowserPanel.html">LevelBrowserPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa3a6277e15086fc09f3ba9b42dfc86e2">_levels</a> = nullptr</td></tr>
 <tr class="memitem:a2ca20212f1ccc0c2df74dde270e8a6ff" id="r_a2ca20212f1ccc0c2df74dde270e8a6ff"><td class="memItemLeft"><a class="el" href="classhmi_1_1LayersPanel.html">LayersPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a2ca20212f1ccc0c2df74dde270e8a6ff">_layers</a> = nullptr</td></tr>
@@ -218,8 +250,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aaf3fd467aa48568de39975fe72cfe8de" id="r_aaf3fd467aa48568de39975fe72cfe8de"><td class="memItemLeft">std::map&lt; std::string, QPixmap &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aaf3fd467aa48568de39975fe72cfe8de">_prefabThumbnails</a></td></tr>
 <tr class="memitem:a9070cc10b7ea209e15e5c2ff9e623f50" id="r_a9070cc10b7ea209e15e5c2ff9e623f50"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1AutosaveStore.html">AutosaveStore</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9070cc10b7ea209e15e5c2ff9e623f50">_autosave</a></td></tr>
 <tr class="memitem:a053f67d2426ca6b7644aa68c43bbc285" id="r_a053f67d2426ca6b7644aa68c43bbc285"><td class="memItemLeft">QTimer *&#160;</td><td class="memItemRight"><a class="el" href="#a053f67d2426ca6b7644aa68c43bbc285">_autosaveTimer</a> = nullptr</td></tr>
-<tr class="memitem:a4f7623d30d858e783ebd7646baa3a5a3" id="r_a4f7623d30d858e783ebd7646baa3a5a3"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a4f7623d30d858e783ebd7646baa3a5a3">_autosavedMapId</a></td></tr>
-<tr class="memdesc:a4f7623d30d858e783ebd7646baa3a5a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carte dont un fichier de reprise existe, écrit par cette session.  <br /></td></tr>
+<tr class="memitem:a0238ff13db5d523b1872d7a9797be0d6" id="r_a0238ff13db5d523b1872d7a9797be0d6"><td class="memItemLeft">std::map&lt; <a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a> *, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0238ff13db5d523b1872d7a9797be0d6">_autosavedMapIds</a></td></tr>
+<tr class="memdesc:a0238ff13db5d523b1872d7a9797be0d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Par canevas ouvert, la carte dont un fichier de reprise existe, écrit par cette session.  <br /></td></tr>
 <tr class="memitem:a9e89ff49e801603f1e390c30071d2f4a" id="r_a9e89ff49e801603f1e390c30071d2f4a"><td class="memItemLeft">QFileSystemWatcher *&#160;</td><td class="memItemRight"><a class="el" href="#a9e89ff49e801603f1e390c30071d2f4a">_watcher</a> = nullptr</td></tr>
 <tr class="memitem:acc7e6a98234c88f4bdddf8260de14ecd" id="r_acc7e6a98234c88f4bdddf8260de14ecd"><td class="memItemLeft">QTimer *&#160;</td><td class="memItemRight"><a class="el" href="#acc7e6a98234c88f4bdddf8260de14ecd">_diskCheckTimer</a> = nullptr</td></tr>
 <tr class="memitem:acbc4e79845e870642b054bc0c2bcfb13" id="r_acbc4e79845e870642b054bc0c2bcfb13"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#acbc4e79845e870642b054bc0c2bcfb13">_checkingDisk</a> = false</td></tr>
@@ -313,6 +345,61 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a075d57df1b0a727aff356278a8ae100a" name="a075d57df1b0a727aff356278a8ae100a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a075d57df1b0a727aff356278a8ae100a">&#9670;&#160;</a></span>activateDocument()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::activateDocument </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'onglet <code class="param">index</code> devient actif : la fenêtre s'y rebranche, les panneaux le montrent. </p>
+
+</div>
+</div>
+<a id="a5073f797660b2847fb7c40177d155143" name="a5073f797660b2847fb7c40177d155143"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5073f797660b2847fb7c40177d155143">&#9670;&#160;</a></span>addDocument()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a> * hmi::MainWindow::addDocument </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crée un onglet, son canevas, et le rend actif. </p>
+<dl class="section return"><dt>Returns</dt><dd>le canevas créé. </dd></dl>
+
+</div>
+</div>
 <a id="aaf41d39eebe208a17270f29165afda4f" name="aaf41d39eebe208a17270f29165afda4f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaf41d39eebe208a17270f29165afda4f">&#9670;&#160;</a></span>addPanel()</h2>
 
@@ -349,6 +436,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>« Map properties… » écrit aussi où en est la carte : son état va dans l'annexe. </p>
 
 </div>
 </div>
@@ -401,6 +490,61 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Arme le préfabriqué <code class="param">name</code> du lieu ouvert comme tampon du canevas. </p>
+
+</div>
+</div>
+<a id="ae7f95e584a2f597e11715e365203611d" name="ae7f95e584a2f597e11715e365203611d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7f95e584a2f597e11715e365203611d">&#9670;&#160;</a></span>askAboutChanges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MainWindow::askAboutChanges </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a> *</td>          <td class="paramname"><span class="paramname"><em>view</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Demande quoi faire des modifications de <code class="param">view</code>. </p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si l'auteur renonce. </dd></dl>
+
+</div>
+</div>
+<a id="a13acc5faca0ec3cf618dcd09432812ee" name="a13acc5faca0ec3cf618dcd09432812ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13acc5faca0ec3cf618dcd09432812ee">&#9670;&#160;</a></span>bindViewport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::bindViewport </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a> *</td>          <td class="paramname"><span class="paramname"><em>view</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Branche le canevas <code class="param">view</code> sur la fenêtre et ses panneaux ; l'ancien est débranché. </p>
 
 </div>
 </div>
@@ -506,8 +650,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a0e9db16d3234c41b92c18b4f718c67a6" name="a0e9db16d3234c41b92c18b4f718c67a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e9db16d3234c41b92c18b4f718c67a6">&#9670;&#160;</a></span>carryOutPlan()</h2>
+<a id="a30d196b73adb355d9d18c93951831e3a" name="a30d196b73adb355d9d18c93951831e3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30d196b73adb355d9d18c93951831e3a">&#9670;&#160;</a></span>carryOutPlan()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -528,7 +672,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>openAfter</em></span>&#160;)</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>renamedFrom</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>renamedTo</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -538,7 +687,16 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Montre ce que <code class="param">plan</code> récrit, l'écrit si l'auteur accepte, puis rouvre <code class="param">openAfter</code>. </p>
+<p>Montre ce que <code class="param">plan</code> récrit, l'écrit si l'auteur accepte, puis relit chaque onglet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">plan</td><td>Ce qui sera récrit. </td></tr>
+    <tr><td class="paramname">title</td><td>Le titre de la fenêtre de confirmation. </td></tr>
+    <tr><td class="paramname">renamedFrom</td><td>La carte que le plan déplace, vide si aucune. </td></tr>
+    <tr><td class="paramname">renamedTo</td><td>Son nouvel identifiant : l'onglet qui la portait l'y suit. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -594,6 +752,34 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>« Qui cite l'entité sélectionnée ? » </p>
+
+</div>
+</div>
+<a id="a777ce73cc84fc4c702a30f1d933e0b8f" name="a777ce73cc84fc4c702a30f1d933e0b8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a777ce73cc84fc4c702a30f1d933e0b8f">&#9670;&#160;</a></span>closeDocument()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MainWindow::closeDocument </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ferme l'onglet <code class="param">index</code>, après avoir demandé quoi faire de ses modifications. </p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si l'auteur a renoncé. </dd></dl>
 
 </div>
 </div>
@@ -722,6 +908,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a2692ea3f2dede39d77a910d43df9648b" name="a2692ea3f2dede39d77a910d43df9648b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2692ea3f2dede39d77a910d43df9648b">&#9670;&#160;</a></span>documentAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a> * hmi::MainWindow::documentAt </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le canevas de l'onglet <code class="param">index</code>, <span class="tt">nullptr</span> hors bornes. </p>
+
+</div>
+</div>
 <a id="aa6c58df46de1f9b8770f7c6e9962d5d5" name="aa6c58df46de1f9b8770f7c6e9962d5d5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa6c58df46de1f9b8770f7c6e9962d5d5">&#9670;&#160;</a></span>goToCitation()</h2>
 
@@ -808,6 +1021,37 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a30829a0bd77305efc186112fb943e9bf" name="a30829a0bd77305efc186112fb943e9bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30829a0bd77305efc186112fb943e9bf">&#9670;&#160;</a></span>linkMaps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::linkMaps </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>fromMap</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>toMap</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Relie deux cartes depuis le graphe : le plan, montré, puis écrit (<span class="tt"><a class="el" href="namespacehmi.html#a64455acf952fc368012a3ad74e8da8d4" title="Plan du lien fromMap ↔ toMap : le portail et le point d&#39;arrivée des deux côtés.">hmi::planLinkMaps</a></span>). </p>
+
+</div>
+</div>
 <a id="aa28e8e28e6d9ee14ea3bd4c76700090a" name="aa28e8e28e6d9ee14ea3bd4c76700090a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa28e8e28e6d9ee14ea3bd4c76700090a">&#9670;&#160;</a></span>offerRecovery()</h2>
 
@@ -835,8 +1079,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6eef550a9435bf33c218a95c8002e762" name="a6eef550a9435bf33c218a95c8002e762"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6eef550a9435bf33c218a95c8002e762">&#9670;&#160;</a></span>openLevelGuarded()</h2>
+<a id="a4831bf2cadbae48e5eea255e4d96a2c2" name="a4831bf2cadbae48e5eea255e4d96a2c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4831bf2cadbae48e5eea255e4d96a2c2">&#9670;&#160;</a></span>openDocuments()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -845,9 +1089,67 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool hmi::MainWindow::openLevelGuarded </td>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1OpenDocument.html">OpenDocument</a> &gt; hmi::MainWindow::openDocuments </td>
           <td>(</td>
-          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les cartes ouvertes, dans l'ordre des onglets. </p>
+
+</div>
+</div>
+<a id="afce00287835527ce6456eee989ff9901" name="afce00287835527ce6456eee989ff9901"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afce00287835527ce6456eee989ff9901">&#9670;&#160;</a></span>openMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MainWindow::openMap </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>reuseCurrent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ouvre la carte <code class="param">path</code> dans un onglet (<span class="tt">LOT-EDITOR-09</span>). </p>
+<p>Une carte déjà ouverte revient au premier plan ; sinon un onglet vierge la reçoit, à défaut un onglet neuf. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Le fichier de la carte. </td></tr>
+    <tr><td class="paramname">reuseCurrent</td><td>Vrai : l'onglet courant la reçoit s'il n'a rien de modifié — c'est le <span class="tt">--map=</span> du démarrage, qui remplace la carte de départ au lieu de s'ouvrir à côté d'elle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si la carte ne s'ouvre pas. </dd></dl>
+
+</div>
+</div>
+<a id="aa67430d76b05a861aa300ab23965578d" name="aa67430d76b05a861aa300ab23965578d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa67430d76b05a861aa300ab23965578d">&#9670;&#160;</a></span>openMapPropertiesDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::openMapPropertiesDialog </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -858,8 +1160,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Ouvre <code class="param">path</code>, après avoir demandé quoi faire des modifications non enregistrées. </p>
-<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si l'auteur a renoncé ou si la carte ne s'ouvre pas. </dd></dl>
+<p>« Map properties… » : le lieu, la région et l'ambiance de la carte ouverte. </p>
 
 </div>
 </div>
@@ -932,6 +1233,135 @@ Private Attributes</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa5446f2537408e5ced7e8f2930d9d02c" name="aa5446f2537408e5ced7e8f2930d9d02c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5446f2537408e5ced7e8f2930d9d02c">&#9670;&#160;</a></span>refreshDocumentLabels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::refreshDocumentLabels </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Réécrit le titre de chaque onglet (nom court, étoile si modifié) et celui de la fenêtre. </p>
+
+</div>
+</div>
+<a id="aac19ecd96e7a82c8abcd73556ec39cc8" name="aac19ecd96e7a82c8abcd73556ec39cc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac19ecd96e7a82c8abcd73556ec39cc8">&#9670;&#160;</a></span>refreshEntitiesPanel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::refreshEntitiesPanel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a327ffb86ee9c5c1f18f283370ccdb0c1" name="a327ffb86ee9c5c1f18f283370ccdb0c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a327ffb86ee9c5c1f18f283370ccdb0c1">&#9670;&#160;</a></span>refreshLayersPanel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::refreshLayersPanel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les panneaux relisent le canevas actif : couches, entités, mini-carte, palette du lieu. </p>
+
+</div>
+</div>
+<a id="a413d1f0d5bb00f8523bfd588e1ad26c2" name="a413d1f0d5bb00f8523bfd588e1ad26c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a413d1f0d5bb00f8523bfd588e1ad26c2">&#9670;&#160;</a></span>refreshMiniMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::refreshMiniMap </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a45ae41b582437f553c67d5a717a56ee8" name="a45ae41b582437f553c67d5a717a56ee8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45ae41b582437f553c67d5a717a56ee8">&#9670;&#160;</a></span>refreshPalettePanel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::refreshPalettePanel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1199,7 +1629,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Un renommage récrit des fichiers : la carte ouverte doit être enregistrée. </p>
+<p>Un renommage récrit des fichiers : <b>toutes</b> les cartes ouvertes doivent être enregistrées. </p>
 <dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si l'auteur renonce. </dd></dl>
 
 </div>
@@ -1428,6 +1858,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ac276ccaa7f6264ed84bd2ce183a2edc6" name="ac276ccaa7f6264ed84bd2ce183a2edc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac276ccaa7f6264ed84bd2ce183a2edc6">&#9670;&#160;</a></span>unbindViewport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::unbindViewport </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Débranche le canevas actif : les liaisons prises par <span class="tt"><a class="el" href="#a13acc5faca0ec3cf618dcd09432812ee" title="Branche le canevas view sur la fenêtre et ses panneaux ; l&#39;ancien est débranché.">bindViewport</a></span> sont défaites. </p>
+
+</div>
+</div>
 <a id="ac0d739fb55c5d22f269ca98284ef5a00" name="ac0d739fb55c5d22f269ca98284ef5a00"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac0d739fb55c5d22f269ca98284ef5a00">&#9670;&#160;</a></span>watchLevelFile()</h2>
 
@@ -1451,7 +1908,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Surveille le fichier de la carte ouverte (à refaire après un remplacement du fichier). </p>
+<p>Surveille les fichiers de <b>toutes</b> les cartes ouvertes (à refaire après un remplacement de fichier, une ouverture ou un renommage). </p>
 
 </div>
 </div>
@@ -1551,8 +2008,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a4f7623d30d858e783ebd7646baa3a5a3" name="a4f7623d30d858e783ebd7646baa3a5a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f7623d30d858e783ebd7646baa3a5a3">&#9670;&#160;</a></span>_autosavedMapId</h2>
+<a id="a0238ff13db5d523b1872d7a9797be0d6" name="a0238ff13db5d523b1872d7a9797be0d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0238ff13db5d523b1872d7a9797be0d6">&#9670;&#160;</a></span>_autosavedMapIds</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1561,7 +2018,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string hmi::MainWindow::_autosavedMapId</td>
+          <td class="memname">std::map&lt;<a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a>*, std::string&gt; hmi::MainWindow::_autosavedMapIds</td>
         </tr>
       </table>
   </td>
@@ -1571,7 +2028,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Carte dont un fichier de reprise existe, écrit par cette session. </p>
+<p>Par canevas ouvert, la carte dont un fichier de reprise existe, écrit par cette session. </p>
 
 </div>
 </div>
@@ -1723,7 +2180,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a>* hmi::MainWindow::_editContext</td>
+          <td class="memname"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a>* hmi::MainWindow::_editContext = nullptr</td>
         </tr>
       </table>
   </td>
@@ -2093,6 +2550,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a8223135134d8080af2d2b3226477f9d9" name="a8223135134d8080af2d2b3226477f9d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8223135134d8080af2d2b3226477f9d9">&#9670;&#160;</a></span>_tabs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QTabWidget* hmi::MainWindow::_tabs = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les onglets : un canevas par carte ouverte, le widget central (<span class="tt">LOT-EDITOR-09</span>). </p>
+
+</div>
+</div>
 <a id="ab33c6cdb6968b9fb8550383780597a57" name="ab33c6cdb6968b9fb8550383780597a57"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab33c6cdb6968b9fb8550383780597a57">&#9670;&#160;</a></span>_toolBar</h2>
 
@@ -2149,7 +2630,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a>* hmi::MainWindow::_viewport</td>
+          <td class="memname"><a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a>* hmi::MainWindow::_viewport = nullptr</td>
         </tr>
       </table>
   </td>
@@ -2159,7 +2640,31 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Canevas (possédé par la fenêtre, widget central). </p>
+<p>Canevas de l'onglet actif (jamais nul). </p>
+
+</div>
+</div>
+<a id="ac7119a7a009ff4857fd2b800b080ed7d" name="ac7119a7a009ff4857fd2b800b080ed7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7119a7a009ff4857fd2b800b080ed7d">&#9670;&#160;</a></span>_viewportConnections</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;QMetaObject::Connection&gt; hmi::MainWindow::_viewportConnections</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les liaisons prises sur le canevas actif, défaites quand il quitte la scène. </p>
 
 </div>
 </div>

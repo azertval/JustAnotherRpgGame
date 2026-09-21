@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>WorldLinks.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/WorldLinks.h"
+
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;optional&gt;
+#include &lt;set&gt;
+#include &lt;string&gt;
+#include &lt;utility&gt;
+#include &lt;variant&gt;
+#include &lt;vector&gt;
+
+#include "Core/Levels/LevelDraft.h"
+#include "Core/Levels/LevelLoader.h"
+#include "Core/Levels/MapEntity.h"
+#include "Core/World/EntityKinds.h"
+#include "Core/World/ExplorationReach.h"
+
+namespace hmi {
+
+namespace {
+
+/// Le fichier de la carte @p mapId sous @p dataRoot.
+[[nodiscard]] std::filesystem::path mapFileOf(const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                                              std::string_view mapId) {
+    return dataRoot / "Levels" / (std::string{mapId} + ".json");
+}</span>
+
+/// Le dernier segment d'un identifiant de carte : `capital/martpart` -&gt; `martpart`.
+<span style = "background-color:#dfd">[[nodiscard]] std::string lastSegment(std::string_view mapId) {
+    const std::size_t slash = mapId.rfind('/');
+    return std::string{slash == std::string_view::npos ? mapId : mapId.substr(slash + 1)};
+}</span>
+
+/// Les noms des points d'arrivee de @p level.
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string&gt; arrivalNames(const core::Level&amp; level) {
+    std::vector&lt;std::string&gt; names;
+    for (const core::MapEntity&amp; entity : level.entities()) {
+        if (entity.type != core::SPAWN_POINT_ENTITY_TYPE) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const auto found = entity.properties.find(std::string{core::SPAWN_POINT_NAME_PROPERTY});
+        if (found == entity.properties.end()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (const auto* const text = std::get_if&lt;std::string&gt;(&amp;found-&gt;second)) {
+            names.push_back(*text);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return names;
+}</span>
+
+/// Un portail vers @p targetMap, au point d'arrivee @p arrival.
+[[nodiscard]] core::MapEntity portalEntity(core::GridPosition cell, std::string_view targetMap,
+<span style = "background-color:#dfd">                                           std::string_view arrival) {
+    return core::MapEntity{</span>
+        .type = std::string{core::PORTAL_ENTITY_TYPE},
+        .position = cell,
+        .properties = {{std::string{core::PORTAL_TARGET_MAP_PROPERTY}, std::string{targetMap}},
+                       {std::string{core::PORTAL_ARRIVAL_PROPERTY}, std::string{arrival}}}};
+<span style = "background-color:#dfd">}</span>
+
+/// Un point d'arrivee nomme @p name.
+<span style = "background-color:#dfd">[[nodiscard]] core::MapEntity arrivalEntity(core::GridPosition cell, std::string_view name) {
+    return core::MapEntity{</span>
+        .type = std::string{core::SPAWN_POINT_ENTITY_TYPE},
+        .position = cell,
+        .properties = {{std::string{core::SPAWN_POINT_NAME_PROPERTY}, std::string{name}}}};
+<span style = "background-color:#dfd">}</span>
+
+/// Le carre de la distance de @p cell a @p entry : ce qui ordonne les cases candidates.
+<span style = "background-color:#dfd">[[nodiscard]] long long distanceSquared(core::GridPosition cell, core::GridPosition entry) {
+    const long long dc = cell.column - entry.column;
+    const long long dr = cell.row - entry.row;
+    return (dc * dc) + (dr * dr);
+}</span>
+
+/// Une carte lue, prete a recevoir les deux entites d'un bout de lien.
+struct LinkedMap {
+    std::filesystem::path file;
+    core::LevelDraft draft;
+    core::GridPosition portalCell;
+    core::GridPosition arrivalCell;
+    std::vector&lt;std::string&gt; arrivals;
+};
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::string arrivalNameFrom(std::string_view fromMap, const std::vector&lt;std::string&gt;&amp; taken) {
+    const std::string base = "from-" + lastSegment(fromMap);
+    std::string name = base;
+    int suffix = 1;
+    while (std::ranges::find(taken, name) != taken.end()) {
+        ++suffix;
+        name = base + "-" + std::to_string(suffix);
+    }
+    return name;
+}</span>
+
+bool linkCells(const core::Level&amp; level, core::GridPosition&amp; portalCell,
+<span style = "background-color:#dfd">               core::GridPosition&amp; arrivalCell) {
+    const core::TileMap&amp; collision = level.tileMap();
+    const core::ExplorationReach reach(collision, {level.entry()});
+    std::set&lt;std::pair&lt;int, int&gt;&gt; occupied{{level.entry().column, level.entry().row}};
+    for (const core::MapEntity&amp; entity : level.entities()) {
+        occupied.emplace(entity.position.column, entity.position.row);
+        for (const core::GridPosition cell : entity.cells) {</span>
+<span style = "background-color:#fdd">            occupied.emplace(cell.column, cell.row);
+        }</span>
+<span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    std::vector&lt;core::GridPosition&gt; candidates;
+    for (int row = 0; row &lt; collision.height(); ++row) {
+        for (int column = 0; column &lt; collision.width(); ++column) {
+            const core::GridPosition cell{.column = column, .row = row};
+            if (collision.isSolid(column, row) || occupied.contains({column, row}) ||</span>
+                !reach.reaches(cell)) {
+<span style = "background-color:#dfd">                continue;</span>
+            }
+<span style = "background-color:#dfd">            candidates.push_back(cell);
+        }
+    }
+    if (candidates.size() &lt; 2) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+    // Au plus pres de l'entree ; a distance egale, l'ordre de lecture de la carte (ligne, colonne),
+    // deja celui de `candidates` -- un tri stable le garde.
+<span style = "background-color:#dfd">    const core::GridPosition entry = level.entry();
+    std::ranges::stable_sort(candidates, [entry](core::GridPosition lhs, core::GridPosition rhs) {
+        return distanceSquared(lhs, entry) &lt; distanceSquared(rhs, entry);
+    });
+    portalCell = candidates[0];
+    arrivalCell = candidates[1];
+    return true;
+}</span>
+
+RefactorPlan planLinkMaps(const std::filesystem::path&amp; dataRoot, std::string_view fromMap,
+<span style = "background-color:#dfd">                          std::string_view toMap, MapLink* link) {
+    RefactorPlan plan;
+    if (fromMap.empty() || toMap.empty()) {</span>
+<span style = "background-color:#fdd">        plan.error = "A link needs two maps.";
+        return plan;</span>
+    }
+<span style = "background-color:#dfd">    if (fromMap == toMap) {
+        plan.error = "A map cannot be linked to itself: the graph would gain nothing.";
+        return plan;</span>
+    }
+
+<span style = "background-color:#dfd">    std::vector&lt;LinkedMap&gt; ends;
+    for (const std::string_view mapId : {fromMap, toMap}) {
+        const std::filesystem::path file = mapFileOf(dataRoot, mapId);
+        core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(file);
+        if (!loaded.ok()) {
+            plan.error = std::string{mapId} + " cannot be read: " + loaded.error;
+            return plan;</span>
+        }
+<span style = "background-color:#dfd">        core::GridPosition portalCell;
+        core::GridPosition arrivalCell;
+        if (!linkCells(*loaded.level, portalCell, arrivalCell)) {</span>
+<span style = "background-color:#fdd">            plan.error =</span>
+                std::string{mapId} +
+                " has no two free cells reachable from its entry: place the portal by hand.";
+<span style = "background-color:#fdd">            return plan;</span>
+        }
+<span style = "background-color:#dfd">        ends.push_back(LinkedMap{.file = file,</span>
+                                 .draft = core::LevelDraft::fromLevel(*loaded.level),
+                                 .portalCell = portalCell,
+                                 .arrivalCell = arrivalCell,
+                                 .arrivals = arrivalNames(*loaded.level)});
+<span style = "background-color:#dfd">    }</span>
+
+    // Le nom du point d'arrivee de chaque carte dit d'ou l'on vient : c'est ce que cite le portail
+    // d'en face.
+<span style = "background-color:#dfd">    const std::array&lt;std::string_view, 2&gt; ids{fromMap, toMap};
+    const std::array&lt;std::string_view, 2&gt; others{toMap, fromMap};
+    const std::array&lt;std::string, 2&gt; arrivalsHere{arrivalNameFrom(toMap, ends[0].arrivals),
+                                                  arrivalNameFrom(fromMap, ends[1].arrivals)};
+    const std::array&lt;std::string, 2&gt; arrivalsThere{arrivalsHere[1], arrivalsHere[0]};</span>
+
+<span style = "background-color:#dfd">    MapLink built;
+    const std::array&lt;MapLinkEnd*, 2&gt; sides{&amp;built.from, &amp;built.to};
+    for (std::size_t side = 0; side &lt; ends.size(); ++side) {
+        LinkedMap&amp; end = ends[side];</span>
+        const std::optional&lt;std::size_t&gt; portal =
+<span style = "background-color:#dfd">            end.draft.placeEntity(portalEntity(end.portalCell, others[side], arrivalsThere[side]));</span>
+        const std::optional&lt;std::size_t&gt; arrival =
+<span style = "background-color:#dfd">            end.draft.placeEntity(arrivalEntity(end.arrivalCell, arrivalsHere[side]));
+        if (!portal || !arrival) {</span>
+<span style = "background-color:#fdd">            plan.error = std::string{ids[side]} + ": the chosen cells are out of the map.";
+            return plan;</span>
+        }
+<span style = "background-color:#dfd">        *sides[side] = MapLinkEnd{.mapId = std::string{ids[side]},</span>
+                                  .portalCell = end.portalCell,
+                                  .arrivalCell = end.arrivalCell,
+                                  .arrivalName = arrivalsHere[side],
+                                  .portalId = end.draft.entities()[*portal].id,
+                                  .arrivalId = end.draft.entities()[*arrival].id};
+<span style = "background-color:#dfd">        plan.edits.push_back(ProjectEdit{.file = end.file, .text = end.draft.toJson()});
+        plan.changes.push_back(Citation{.file = end.file,</span>
+                                        .mapId = std::string{ids[side]},
+                                        .entityId = sides[side]-&gt;portalId,
+                                        .cell = end.portalCell,
+                                        .what = "portal " + sides[side]-&gt;portalId + " -&gt; " +
+                                                std::string{others[side]} + " (" +
+                                                arrivalsThere[side] + ")"});
+<span style = "background-color:#dfd">        plan.changes.push_back(Citation{.file = end.file,</span>
+                                        .mapId = std::string{ids[side]},
+                                        .entityId = sides[side]-&gt;arrivalId,
+                                        .cell = end.arrivalCell,
+                                        .what = "arrival point " + arrivalsHere[side]});
+<span style = "background-color:#dfd">    }
+    if (link != nullptr) {
+        *link = built;</span>
+    }
+<span style = "background-color:#dfd">    return plan;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

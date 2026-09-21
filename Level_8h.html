@@ -96,9 +96,11 @@ $(function(){initNavTree('Level_8h.html','',''); });
 <p>Carte chargée : grille de collision, couches, entités, point d'entrée, variante.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelProperties_8h_source.html">Core/Levels/LevelProperties.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MapEntity_8h_source.html">Core/Levels/MapEntity.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileLayer_8h_source.html">Core/Levels/TileLayer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
@@ -116,6 +118,13 @@ Classes</h2></td></tr>
 Namespaces</h2></td></tr>
 <tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
 <tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a47f6e001dc10a742e05ed01de586335f" id="r_a47f6e001dc10a742e05ed01de586335f"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a47f6e001dc10a742e05ed01de586335f">core::MAP_REGION_PROPERTY</a> = &quot;region&quot;</td></tr>
+<tr class="memdesc:a47f6e001dc10a742e05ed01de586335f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clé de la <b>région</b> du monde où se trouve la carte, telle que <span class="tt">world-maps.json</span> la nomme (<span class="tt">central-empire</span>) : une propriété de carte, pas un champ du format (<span class="tt">LOT-EDITOR-09</span>).  <br /></td></tr>
+<tr class="memitem:afa94966b4ac589f39c5ce6240f9bf3c2" id="r_afa94966b4ac589f39c5ce6240f9bf3c2"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#afa94966b4ac589f39c5ce6240f9bf3c2">core::MAP_AMBIENCE_PROPERTY</a> = &quot;ambience&quot;</td></tr>
+<tr class="memdesc:afa94966b4ac589f39c5ce6240f9bf3c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clé de l'<b>ambiance</b> de la carte — ce que le <span class="tt">LOT-28</span> jouera en fond, et ce que l'éditeur montre dans les propriétés de carte (<span class="tt">LOT-EDITOR-09</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Carte chargée : grille de collision, couches, entités, point d'entrée, variante. </p>

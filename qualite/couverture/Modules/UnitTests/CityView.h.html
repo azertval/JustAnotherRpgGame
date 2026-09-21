@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>CityView.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;filesystem&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include "HMI/Presentation/WorldMaps.h"
+
+/**
+ * @file Editor/Logic/CityView.h
+ * @brief La **vue de ville** du navigateur de cartes (`LOT-EDITOR-09`, `EX-EDIT-090`) : les
+ *        quartiers d'une ville jouable posÃ©s sur son plan, et la carte que chacun ouvre. Logique
+ *        pure, sans Qt.
+ *
+ * Rien n'est redit ici : la ville vient de `Source/Elements/World/cities/&lt;ville&gt;.json`
+ * (`core::CityPlan`), les cadres de ses quartiers de `Maps/world-maps.json`
+ * (`hmi::readWorldMaps`), leurs noms de l'atlas (`core::loadAtlas`). La vue les **joint**, dit
+ * lesquels ont une carte, et laquelle manque â c'est le tableau de bord d'une ville en cours de
+ * construction.
+ *
+ * L'Ã©diteur ne rÃ©crit ni la ville ni `world-maps.json` : la vue se regarde, et ouvre un quartier
+ * d'un clic (dÃ©cision de l'auteur, 21 septembre 2026).
+ */
+
+namespace hmi {
+
+/// @brief Un quartier, tel que la vue de ville le montre.
+struct CityDistrictView {
+    /// La fiche d'atlas du quartier (`central-empire-the-capital-city-martpart`).
+    std::string id;
+    /// Son nom, tel que l'atlas le donne ; Ã  dÃ©faut, son identifiant.
+    std::string name;
+    /// Son cadre sur le plan de la ville, en fractions ; vide si `world-maps.json` n'en a pas.
+    MapFrame frame;
+    /// Vrai si le plan pose un cadre pour ce quartier.
+    bool framed = false;
+    /// La carte oÃ¹ l'on marche, vide pour un quartier fermÃ© par une porte gardÃ©e.
+    std::string mapId;
+    /// La carte oÃ¹ se tient cette porte gardÃ©e, vide si le quartier a la sienne.
+    std::string guardMapId;
+    /// Vrai si le fichier de `mapId` existe : un quartier promis dont la carte reste Ã  faire se
+    /// voit comme tel.
+    bool mapExists = false;
+};
+
+/// @brief Une ville jouable, prÃªte Ã  peindre.
+struct CityView {
+    /// L'identifiant de la ville (`capital`).
+    std::string id;
+    /// Son nom (`La Capitale`).
+    std::string name;
+    /// La fiche d'atlas de la ville, clÃ© de son plan dans `world-maps.json`.
+    std::string location;
+    /// L'image du plan, telle que `world-maps.json` la nomme
+    /// (`city-central-empire-the-capital-city.jpg`, dans `Assets/Maps/`).
+    std::string image;
+    /// Les quartiers, dans l'ordre de la ville ; ceux qui ont une carte d'abord.
+    std::vector&lt;CityDistrictView&gt; districts;
+    /// Ce qui a empÃªchÃ© la lecture, vide si la vue est complÃ¨te.
+    std::string error;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
+        return error.empty();
+    }</span>
+};
+
+/// @return Les rÃ©gions du monde que `world-maps.json` nomme, triÃ©es : ce que le dialogue des
+///         propriÃ©tÃ©s de carte propose (`LOT-EDITOR-09`).
+[[nodiscard]] std::vector&lt;std::string&gt; worldRegionIds(const std::filesystem::path&amp; dataRoot);
+
+/// @return Les villes jouables de `&lt;dataRoot&gt;/World/cities`, par identifiant, triÃ©es.
+[[nodiscard]] std::vector&lt;std::string&gt; cityIds(const std::filesystem::path&amp; dataRoot);
+
+/**
+ * @brief Joint la ville @p cityId Ã  son plan et Ã  l'atlas.
+ * @param dataRoot Racine des donnÃ©es (`Source/Elements`).
+ * @param cityId   L'identifiant de la ville (`capital`).
+ *
+ * Une ville illisible, ou dont le plan manque, rend une vue en erreur ; un quartier sans cadre
+ * reste dans la liste, sans cadre (`framed` faux) : il se voit manquant au lieu de disparaÃ®tre.
+ */
+[[nodiscard]] CityView buildCityView(const std::filesystem::path&amp; dataRoot,
+                                     std::string_view cityId);
+
+/// @return La ville dont @p mapId est la carte d'un quartier, vide si aucune ne la porte.
+[[nodiscard]] std::string cityOfMap(const std::filesystem::path&amp; dataRoot, std::string_view mapId);
+
+/**
+ * @brief Le quartier sous @p point, en fractions du plan.
+ * @return Le rang du **plus petit** cadre qui contient le point (un quartier posÃ© sur un autre se
+ *         prend quand mÃªme) ; `std::nullopt` si aucun ne le contient.
+ */
+[[nodiscard]] std::optional&lt;std::size_t&gt; districtAt(const CityView&amp; city, MapPoint point);
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

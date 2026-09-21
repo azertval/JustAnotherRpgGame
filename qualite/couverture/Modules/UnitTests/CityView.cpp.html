@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>CityView.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/CityView.h"
+
+#include &lt;algorithm&gt;
+#include &lt;fstream&gt;
+#include &lt;iterator&gt;
+#include &lt;system_error&gt;
+
+#include "Core/World/Atlas.h"
+#include "Core/World/CityPlan.h"
+
+namespace hmi {
+
+namespace {
+
+/// Le dossier des villes jouables.
+<span style = "background-color:#dfd">[[nodiscard]] std::filesystem::path citiesDirectory(const std::filesystem::path&amp; dataRoot) {
+    return dataRoot / "World" / "cities";
+}</span>
+
+/// Le texte de @p path, vide s'il ne se lit pas (aucune lecture ne leve, `EX-NFR-040`).
+<span style = "background-color:#dfd">[[nodiscard]] std::string readText(const std::filesystem::path&amp; path) {
+    std::ifstream file(path, std::ios::binary);
+    if (!file) {</span>
+<span style = "background-color:#fdd">        return {};</span>
+    }
+<span style = "background-color:#dfd">    return std::string{std::istreambuf_iterator&lt;char&gt;(file), std::istreambuf_iterator&lt;char&gt;()};
+}</span>
+
+/// L'aire d'un cadre : ce qui departage deux quartiers qui se recouvrent.
+<span style = "background-color:#fdd">[[nodiscard]] double area(const MapFrame&amp; frame) {
+    return frame.width * frame.height;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#fdd">std::vector&lt;std::string&gt; worldRegionIds(const std::filesystem::path&amp; dataRoot) {
+    std::vector&lt;std::string&gt; ids;
+    const WorldMaps maps = readWorldMaps(readText(dataRoot / "Maps" / "world-maps.json"));
+    for (const auto&amp; [id, region] : maps.regions) {
+        ids.push_back(id);
+    }
+    std::ranges::sort(ids);
+    return ids;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;std::string&gt; cityIds(const std::filesystem::path&amp; dataRoot) {
+    std::vector&lt;std::string&gt; ids;
+    std::error_code error;
+    for (const std::filesystem::directory_entry&amp; entry :
+         std::filesystem::directory_iterator(citiesDirectory(dataRoot), error)) {
+        if (entry.is_regular_file(error) &amp;&amp; entry.path().extension() == ".json") {
+            ids.push_back(entry.path().stem().string());
+        }
+    }
+    std::ranges::sort(ids);
+    return ids;
+}</span>
+
+<span style = "background-color:#dfd">CityView buildCityView(const std::filesystem::path&amp; dataRoot, std::string_view cityId) {
+    CityView view;
+    view.id = std::string{cityId};</span>
+
+<span style = "background-color:#dfd">    const core::CityPlanResult plan =</span>
+        core::loadCityPlan(citiesDirectory(dataRoot) / (std::string{cityId} + ".json"));
+<span style = "background-color:#dfd">    if (!plan.ok()) {
+        view.error = "City " + view.id + " cannot be read: " + plan.error;
+        return view;</span>
+    }
+<span style = "background-color:#dfd">    view.name = plan.plan.name;
+    view.location = plan.plan.location;</span>
+
+<span style = "background-color:#dfd">    const WorldMaps maps = readWorldMaps(readText(dataRoot / "Maps" / "world-maps.json"));
+    if (!maps.ok()) {</span>
+<span style = "background-color:#fdd">        view.error = "world-maps.json cannot be read: " + maps.error;
+        return view;</span>
+    }
+<span style = "background-color:#dfd">    const auto city = maps.cities.find(plan.plan.location);
+    if (city == maps.cities.end()) {</span>
+<span style = "background-color:#fdd">        view.error = "world-maps.json has no plan for " + plan.plan.location + ".";
+        return view;</span>
+    }
+<span style = "background-color:#dfd">    view.image = city-&gt;second.image;</span>
+
+    // L'atlas ne sert qu'aux noms : une fiche absente laisse l'identifiant, elle n'empeche rien.
+<span style = "background-color:#dfd">    const core::Atlas atlas = core::loadAtlas(dataRoot / "World");
+    for (const core::CityDistrict&amp; district : plan.plan.districts) {
+        CityDistrictView entry{.id = district.id,
+                               .name = district.id,</span>
+                               .frame = {},
+<span style = "background-color:#dfd">                               .framed = false,
+                               .mapId = district.map,
+                               .guardMapId = district.guardMap,
+                               .mapExists = false};
+        if (const core::Location* const location = atlas.findLocation(district.id)) {
+            entry.name = location-&gt;name;</span>
+        }
+<span style = "background-color:#dfd">        if (const auto framed = city-&gt;second.districts.find(district.id);
+            framed != city-&gt;second.districts.end()) {
+            entry.frame = framed-&gt;second.frame;
+            entry.framed = true;
+        }
+        if (!district.map.empty()) {
+            std::error_code error;
+            entry.mapExists =</span>
+                std::filesystem::exists(dataRoot / "Levels" / (district.map + ".json"), error);
+        }
+<span style = "background-color:#dfd">        view.districts.push_back(std::move(entry));
+    }</span>
+    // Les quartiers ou l'on marche d'abord : ce sont ceux qu'on ouvre. L'ordre de la ville est
+    // garde a l'interieur de chaque groupe.
+<span style = "background-color:#dfd">    std::ranges::stable_partition(
+        view.districts, [](const CityDistrictView&amp; district) { return !district.mapId.empty(); });
+    return view;
+}</span>
+
+<span style = "background-color:#dfd">std::string cityOfMap(const std::filesystem::path&amp; dataRoot, std::string_view mapId) {
+    for (const std::string&amp; id : cityIds(dataRoot)) {
+        const core::CityPlanResult plan =</span>
+            core::loadCityPlan(citiesDirectory(dataRoot) / (id + ".json"));
+<span style = "background-color:#dfd">        if (plan.ok() &amp;&amp; plan.plan.districtOfMap(mapId) != nullptr) {
+            return id;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return {};
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;std::size_t&gt; districtAt(const CityView&amp; city, MapPoint point) {
+    std::optional&lt;std::size_t&gt; best;
+    for (std::size_t index = 0; index &lt; city.districts.size(); ++index) {
+        const CityDistrictView&amp; district = city.districts[index];
+        if (!district.framed) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const MapFrame&amp; frame = district.frame;
+        const bool inside = point.x &gt;= frame.x &amp;&amp; point.x &lt;= frame.x + frame.width &amp;&amp;</span>
+                            point.y &gt;= frame.y &amp;&amp; point.y &lt;= frame.y + frame.height;
+<span style = "background-color:#dfd">        if (!inside) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (!best || area(frame) &lt; area(city.districts[*best].frame)) {
+            best = index;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return best;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

@@ -4,6 +4,7 @@ var dir_72f94039b203173a88806b7e5cad74af =
     [ "test_brush_gesture.cpp", "test__brush__gesture_8cpp.html", "test__brush__gesture_8cpp" ],
     [ "test_canvas_picking.cpp", "test__canvas__picking_8cpp.html", "test__canvas__picking_8cpp" ],
     [ "test_canvas_scene.cpp", "test__canvas__scene_8cpp.html", "test__canvas__scene_8cpp" ],
+    [ "test_city_view.cpp", "test__city__view_8cpp.html", "test__city__view_8cpp" ],
     [ "test_content_check.cpp", "test__content__check_8cpp.html", "test__content__check_8cpp" ],
     [ "test_disk_guard.cpp", "test__disk__guard_8cpp.html", "test__disk__guard_8cpp" ],
     [ "test_editor_key_bindings.cpp", "test__editor__key__bindings_8cpp.html", "test__editor__key__bindings_8cpp" ],
@@ -14,6 +15,7 @@ var dir_72f94039b203173a88806b7e5cad74af =
     [ "test_gesture_script.cpp", "test__gesture__script_8cpp.html", "test__gesture__script_8cpp" ],
     [ "test_level_file_operations.cpp", "test__level__file__operations_8cpp.html", "test__level__file__operations_8cpp" ],
     [ "test_level_name_validation.cpp", "test__level__name__validation_8cpp.html", "test__level__name__validation_8cpp" ],
+    [ "test_map_documents.cpp", "test__map__documents_8cpp.html", "test__map__documents_8cpp" ],
     [ "test_map_format.cpp", "test__map__format_8cpp.html", "test__map__format_8cpp" ],
     [ "test_map_refactor.cpp", "test__map__refactor_8cpp.html", "test__map__refactor_8cpp" ],
     [ "test_map_render.cpp", "test__map__render_8cpp.html", "test__map__render_8cpp" ],
@@ -25,5 +27,6 @@ var dir_72f94039b203173a88806b7e5cad74af =
     [ "test_stamps.cpp", "test__stamps_8cpp.html", "test__stamps_8cpp" ],
     [ "test_thumbnail_geometry.cpp", "test__thumbnail__geometry_8cpp.html", "test__thumbnail__geometry_8cpp" ],
     [ "test_tile_taxonomy.cpp", "test__tile__taxonomy_8cpp.html", "test__tile__taxonomy_8cpp" ],
-    [ "test_world_graph_layout.cpp", "test__world__graph__layout_8cpp.html", "test__world__graph__layout_8cpp" ]
+    [ "test_world_graph_layout.cpp", "test__world__graph__layout_8cpp.html", "test__world__graph__layout_8cpp" ],
+    [ "test_world_links.cpp", "test__world__links_8cpp.html", "test__world__links_8cpp" ]
 ];

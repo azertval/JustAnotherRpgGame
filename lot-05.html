@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-05.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 919/919, lint d'exigences, cahier de test, Doxygen et <span class="tt">clang-format</span> verts). Prérequis : <a class="el" href="lot-02.html" title="LOT-02 — Bibliothèque `HmiLib`">LOT-02</a>, <a class="el" href="lot-04.html" title="LOT-04 — Format de carte `version: 3`, multi-couches">LOT-04</a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md336"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md337"></a>
 Objectif</h1>
 <p>Sortir de <span class="tt">hmi::GameSession</span> l'ordre <b>codé en dur</b> des passes du pas fixe, derrière une interface <span class="tt">hmi::IGameMode</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md337"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md338"></a>
 Le problème</h1>
 <p><span class="tt">Source/HMI/Game/GameSession.cpp</span> mêle deux rôles : <b>orchestrateur</b> du pas fixe (monde ECS, caméra, événements, HUD, <span class="tt">FixedTimestep</span>, interpolation de rendu) et <b>mode de jeu</b> (l'ordre des passes lui-même). Tant qu'il n'y avait qu'un genre, la confusion ne coûtait rien.</p>
 <p>Le RPG a besoin d'au moins <b>trois</b> ordres différents :</p>
@@ -109,28 +109,28 @@ Le problème</h1>
 <li><b>combat</b> : initiative, tour actif, résolution d'action — l'exploration ne tourne plus du tout.</li>
 </ul>
 <p>Sans cette séparation, les trois s'entasseraient en <span class="tt">if</span> dans une fonction déjà longue.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md338"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md339"></a>
 Périmètre</h1>
 <ul>
 <li><span class="tt">hmi::IGameMode</span> : interface à cinq méthodes environ — <span class="tt">onLoad(World&amp;, const Level&amp;)</span>, <span class="tt">step(World&amp;, const PlayerInput&amp;, float) -&gt; LevelOutcome</span>, <span class="tt">onUnload()</span>, plus de quoi décrire l'ordre des passes pour les diagnostics.</li>
 <li><span class="tt">GameSession</span> conserve : monde ECS, caméra et cadrage, événements, HUD, particules, secousse d'écran, <span class="tt">FixedTimestep</span>, interpolation. Il <b>délègue</b> l'ordre des passes.</li>
 <li><span class="tt">ExplorationMode</span> : premier mode, extrait du corps actuel de <span class="tt">GameSession::update</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md339"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md340"></a>
 Le critère qui compte</h1>
 <p>Ce lot est un refactoring <b>à comportement constant</b>, et c'est le plus risqué du programme : tout ce qui suit en dépend. Il doit être validé par un <b>test de rejeu déterministe</b> — mêmes entrées, mêmes positions au flottant près sur 600 pas, avant et après extraction.</p>
 <p><b>N'y ajouter aucune fonctionnalité.</b> Le mode dialogue et le mode combat arrivent aux <span class="tt">LOT-15</span> et <span class="tt">LOT-18</span> ; les écrire ici mélangerait un refactoring et une nouveauté, et on ne saurait plus lequel des deux a cassé quoi.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md340"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md341"></a>
 Exigences couvertes</h1>
 <p><span class="tt">EX-ARCH-*</span> : « l'ordre des passes du pas fixe est une donnée du mode de jeu, jamais de l'orchestrateur ».</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md341"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md342"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Extraction à comportement <b>identique</b>, prouvée par le test de rejeu déterministe.</li>
 <li>Les tests de <span class="tt">GameSession</span> passent <b>sans modification de leur corps</b>.</li>
 <li>Aucun <span class="tt">if (mode == …)</span> résiduel dans <span class="tt">GameSession</span> : la sélection se fait par polymorphisme.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md342"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md343"></a>
 Ce que la réalisation a tranché</h1>
 <p><b>Les passes sont une interface, pas des paramètres.</b> L'epic esquissait <span class="tt">step(World&amp;, const PlayerInput&amp;, float)</span>. Un <span class="tt">World</span> ne suffit pas : les passes touchent la caméra, les particules, la secousse d'écran, les mécanismes, la détection d'événements — tout ce que l'orchestrateur <b>garde</b>, par décision du périmètre. Le mode reçoit donc <span class="tt">IGameModePasses</span>, que <span class="tt">GameSession</span> implémente par héritage <b>privé</b> : les passes sont offertes au mode, jamais à l'appelant de la session, dont l'API publique ne bouge pas d'une ligne.</p>
 <p><b>Le test de rejeu déterministe porte sur la séquence des passes, pas sur des positions.</b> Le critère de l'epic demandait « mêmes entrées, mêmes positions au flottant près sur 600 pas ». Deux obstacles : <span class="tt">GameSession</span> exige un atlas, un lot de sprites et une police — impossible à instancier sans fenêtre, et aucun test ne l'instancie aujourd'hui ; et le personnage <b>ne se déplace pas encore</b> (le contrôleur top-down arrive au <span class="tt">LOT-06</span>), si bien que des positions constantes ne prouveraient rien. Ce que l'extraction doit garantir, c'est que l'ordre des passes n'a pas changé — et c'est vérifiable exactement, sur 600 pas, contre des passes qui enregistrent leurs appels. Le mode annonce son ordre (<span class="tt">passOrder()</span>, pour les diagnostics) et un test le compare à la séquence réellement appelée : la documentation ne peut plus diverger du code sans faire échouer la CI.</p>

@@ -9,6 +9,7 @@ var classcore_1_1Level =
     [ "layers", "classcore_1_1Level.html#a00c7679d0d7ddd76bee15ac497bc0cce", null ],
     [ "name", "classcore_1_1Level.html#a5980749eacb886074a65f8e06f51fb59", null ],
     [ "nextEntityId", "classcore_1_1Level.html#a30a30bd09625a2019b07148164fce5eb", null ],
+    [ "properties", "classcore_1_1Level.html#aee9b7a56e28c3185ead06c35bbcb77de", null ],
     [ "scene", "classcore_1_1Level.html#a84dc92ff487b184e8da96770a8bccf13", null ],
     [ "tileMap", "classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef", null ],
     [ "_base", "classcore_1_1Level.html#a2edacd6c26d0a83a83e18b792f68e570", null ],
@@ -18,6 +19,7 @@ var classcore_1_1Level =
     [ "_layers", "classcore_1_1Level.html#ad698492beb5b5b6d8c3ed65a36dcc844", null ],
     [ "_name", "classcore_1_1Level.html#a7783acfe25a83f5df8e60c257ece69d9", null ],
     [ "_nextEntityId", "classcore_1_1Level.html#a58f3adb176cc10da855c302bdf28a6f6", null ],
+    [ "_properties", "classcore_1_1Level.html#acc8bfe2ec16a5dc689378b98ca957871", null ],
     [ "_scene", "classcore_1_1Level.html#a60da166feefff2cfefe6a2b2ca8cd838", null ],
     [ "_tileMap", "classcore_1_1Level.html#a39c02aac063492852131eca383eb1e1a", null ]
 ];

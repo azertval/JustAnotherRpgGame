@@ -96,17 +96,17 @@ $(function(){initNavTree('lot-editor-04.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 19 septembre 2026</b> (ouvert le même jour), sur la branche <span class="tt">lot-editor-04-outils</span>. Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, tests unitaires verts (826, dont deux ignorés comme avant), acceptation sur Martpart ; capture de la fenêtre (barre d'outils à dix outils et miroir, menu Tools). <b>Vérification au clavier et à la souris due</b> : les touches et les clics postés n'atteignent pas Qt (voir plus bas). Prérequis : <span class="tt">LOT-EDITOR-03</span>. Feuille de route : <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">éditeur</a>. Alimente : <span class="tt">LOT-EDITOR-13</span> (sans fenêtre), <span class="tt">LOT-EDITOR-08</span> (tampons). Exigences : <span class="tt">EX-EDIT-066</span> à <span class="tt">EX-EDIT-069</span> (nouvelles) ; <span class="tt">EX-EDIT-014</span> révisée. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1053"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1056"></a>
 Objectif</h1>
 <p>Tracer vite : seau, ligne, pipette, gomme et miroir, plus la mesure en cases et en pieds, les notes d'auteur et l'essai lancé à la case survolée. Chaque outil est une fonction pure, avec un test ; un geste est un pas d'annulation.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1054"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1057"></a>
 Ce que le dépôt contenait à l'ouverture (19 septembre 2026)</h1>
 <ul>
 <li><b>Quatre outils</b> : pinceau, rectangle, sélection, entité, sans touche propre ; la gomme était un bouton de la palette (<span class="tt">LOT-EDITOR-03</span>).</li>
 <li><b>Un glisser du pinceau empilait un pas par case</b> : <span class="tt">applyBrush</span> pousse un pas à chaque appel, et le canevas l'appelait à chaque case survolée. Défaire un trait de vingt cases demandait vingt <span class="tt">Ctrl+Z</span>.</li>
 <li><b>Le fichier annexe <span class="tt">&lt;carte&gt;.editor.json</span></b> était prévu par la feuille de route et déjà écarté par <span class="tt">LevelEditor --check</span> ; le navigateur de cartes et le graphe du monde l'auraient pris pour une carte.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1055"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1058"></a>
 Décisions</h1>
 <ul>
 <li><b>Un geste du brouillon.</b> <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Carte mutable en cours d&#39;édition, distincte de Level (immuable).">core::LevelDraft</a></span> gagne <span class="tt">beginGesture</span> / <span class="tt">endGesture</span> (et <span class="tt"><a class="el" href="classcore_1_1GestureScope.html" title="Un geste ouvert le temps d&#39;une portée (LevelDraft::beginGesture).">core::GestureScope</a></span>) : entre les deux, seule la première mutation qui change la carte empile un pas, un geste sans effet n'en empile aucun, la révision change à chaque mutation comme avant. Du clic au relâchement, un trait du pinceau ou de la gomme est un geste ; la ligne, le seau, le rectangle et leur reflet aussi.</li>
@@ -122,7 +122,7 @@ Décisions</h1>
 <li><b>Une touche par outil</b> : <span class="tt">B</span> pinceau, <span class="tt">R</span> rectangle, <span class="tt">L</span> ligne, <span class="tt">G</span> seau (l'usage des logiciels de dessin), <span class="tt">E</span> gomme, <span class="tt">I</span> pipette, <span class="tt">S</span> sélection, <span class="tt">O</span> entité (objets), <span class="tt">D</span> mesure (distance), <span class="tt">N</span> note ; <span class="tt">M</span> miroir. Les touches ne sont pas remappables : elles sont des raccourcis de <span class="tt">QAction</span>, et un champ de texte les garde pour lui.</li>
 <li><b>Choisir dans la palette, c'est vouloir peindre</b> : depuis la gomme, la pipette, la mesure, la note, la sélection ou l'entité, un choix de la palette rend la main à l'outil du peintre d'avant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1056"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1059"></a>
 Livraison</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -136,7 +136,7 @@ Livraison</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Tests  </td><td class="markdownTableBodyNone"><span class="tt"><a class="el" href="test__paint__tools_8cpp.html" title="Tests des outils du peintre — ligne, seau, pipette, miroir, mesure — et de l&#39;acceptation du LOT-EDITO...">test_paint_tools.cpp</a></span> (7), <span class="tt"><a class="el" href="test__editor__sidecar_8cpp.html" title="Tests du fichier annexe d&#39;une carte, &lt;carte&gt;.editor.json, et de ses notes d&#39;auteur (LOT-EDITOR-04,...">test_editor_sidecar.cpp</a></span> (3), <span class="tt"><a class="el" href="test__level__draft__editing_8cpp.html" title="Tests unitaires de l&#39;édition des couches et des entités d&#39;un brouillon (LOT-11) : création,...">test_level_draft_editing.cpp</a></span> (+1), <span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur Fonction pure,...">test_editor_status.cpp</a></span> (+1) ; <span class="tt">test_level_schema.py</span> ignore les annexes  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1057"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1060"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Tracer une maison de Martpart (sol, murs, porte, seuil) prend moins de dix gestes, sans ouvrir la couche collision ni un formulaire.</b> ✔ <span class="tt">PaintToolsTest.UneMaisonDeMartpartEnMoinsDeDixGestes</span> : sur un terrain vide, le décor actif et le miroir par l'angle, cinq gestes — un rectangle de rue, une ligne de <span class="tt">wall-right</span>, l'angle, une porte, un seuil — posent deux façades, deux portes et deux seuils ; cinq pas d'annulation, la collision égale la déduction, aucune case forcée.</li>
@@ -144,7 +144,7 @@ Critères d'acceptation</h1>
 <li><b>Notes d'auteur dans <span class="tt">&lt;carte&gt;.editor.json</span>.</b> ✔ <span class="tt">EditorSidecarTest</span> : nom de l'annexe, écriture canonique relue à l'identique, clé inconnue gardée, annexe ignorée par le navigateur.</li>
 </ul>
 <p><b>Vérification au clavier et à la souris, due</b> : sur Martpart, <span class="tt">M</span> au-dessus d'un angle de rue, <span class="tt">L</span> et une ligne de mur (le reflet paraît) ; <span class="tt">Alt</span> + clic sur une façade (la palette la montre) ; <span class="tt">G</span> sur la place avec <span class="tt">street-3</span>, puis un seul <span class="tt">Ctrl+Z</span> ; <span class="tt">D</span> entre deux lanternes ; <span class="tt">N</span> sur une case, puis rouvrir la carte (la pastille revient) ; <span class="tt">Shift+P</span> sur une rue. Les touches et les clics postés à la fenêtre n'atteignent pas Qt : même <span class="tt">F9</span>, qui marchait au <span class="tt">LOT-EDITOR-02</span>, n'a rien fait dans la capture. Cette vérification ne se fait pas sans la main de l'auteur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1058"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1061"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Refléter selon une ligne de la grille</b> : aucune planche n'a la jumelle d'un mur dans cette direction. Le miroir des tampons est au <span class="tt">LOT-EDITOR-08</span>.</li>

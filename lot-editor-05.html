@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-editor-05.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 19 septembre 2026</b> (ouvert le même jour), sur la branche <span class="tt">lot-editor-05-entites-zones</span>. Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, tests unitaires verts (838, dont deux ignorés comme avant), acceptation sur le Colisée. <b>Vérification à la souris due</b> (voir plus bas). Prérequis : <span class="tt">LOT-EDITOR-02</span>, <span class="tt">LOT-EDITOR-12</span>. Feuille de route : <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">éditeur</a>. Alimente : <span class="tt">LOT-EDITOR-06</span> (fin des scripts), <span class="tt">LOT-EDITOR-09</span> (monde). Exigences : <span class="tt">EX-EDIT-070</span> à <span class="tt">EX-EDIT-073</span> (nouvelles) ; <span class="tt">EX-EDIT-050</span> révisée. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1059"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1062"></a>
 Objectif</h1>
 <p>Les zones se tirent à la souris, les entités montrent leur figurine et leurs liens. Aucune famille n'a de code propre dans le canevas : tout vient de la table des familles, <span class="tt"><a class="el" href="namespacecore.html#a3c877363f8258fc1ba137c48aa283397" title="Les familles que l&#39;éditeur sait poser, dans l&#39;ordre de sa liste.">core::knownEntityKinds</a></span>, qui devient un <b>schéma typé</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1060"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1063"></a>
 Ce que le dépôt contenait à l'ouverture (19 septembre 2026)</h1>
 <ul>
 <li><b>Des entités ponctuelles seulement.</b> Le canevas dessinait le marqueur de chaque entité à sa case ; une zone de combat ou un îlot n'était qu'un coin, sa taille deux nombres dans l'inspecteur. Déplacer une zone peinte ne déplaçait que sa case, pas ses cases.</li>
@@ -107,7 +107,7 @@ Ce que le dépôt contenait à l'ouverture (19 septembre 2026)</h1>
 <li><b>Un inspecteur à trois sources de choix</b> (dialogues, rencontres, cartes) ; la figurine d'un PNJ et le quartier d'une sentinelle se tapaient à la main, sans contrôle ; aucun entier n'était borné.</li>
 <li><b>Une sélection d'une entité</b>, une liste non filtrable sans identifiant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1061"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1064"></a>
 Décisions</h1>
 <ul>
 <li><b>La forme, pas le type.</b> <span class="tt"><a class="el" href="structcore_1_1EntityKind.html" title="Une famille d&#39;entités : son type, les propriétés qu&#39;elle déclare, et comment le canevas de l&#39;éditeur ...">core::EntityKind</a></span> gagne <span class="tt">shape</span> (<span class="tt">Point</span>, <span class="tt">Rectangle</span>, <span class="tt">Area</span>, <span class="tt">Path</span>), <span class="tt">labelProperty</span> et <span class="tt">figureProperty</span>. Le canevas, les poignées, le déplacement et l'inspecteur ne lisent que ça : ajouter une famille à la table suffit (§5, règle 2).</li>
@@ -128,7 +128,7 @@ Décisions</h1>
 <li><b>Le contrat d'extension a son test bloquant</b> : il relève dans les sources du jeu (<span class="tt">Core</span>, <span class="tt">HMI</span>, <span class="tt">App</span>) chaque constante <span class="tt">*_ENTITY_TYPE</span>, les familles interactives et les types des cartes livrées, et exige chacune dans la table. Il a trouvé <span class="tt">zone</span>.</li>
 <li><b>Les entités restent peintes</b> dans l'élément unique du canevas, avec les autres aides d'édition, plutôt qu'en <span class="tt">QGraphicsItem</span> : le pointage est pur (<span class="tt"><a class="el" href="namespacehmi.html#a8ca9869a786abe6bb5c913fa9436563c" title="L&#39;entité sous cell.">hmi::pickEntity</a></span>), la même peinture sert les deux vues, et la décision D2 n'imposait les éléments qu'aux besoins.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1062"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1065"></a>
 Livraison</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -142,7 +142,7 @@ Livraison</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Tests  </td><td class="markdownTableBodyNone"><span class="tt"><a class="el" href="test__entity__shapes_8cpp.html" title="Tests unitaires des entités à forme sur le canevas (LOT-EDITOR-05) : rectangles et poignées,...">test_entity_shapes.cpp</a></span> (11, dont l'acceptation), <span class="tt"><a class="el" href="test__entity__kinds_8cpp.html" title="Tests unitaires des familles d&#39;entités de carte et de la validation de leurs références (LOT-11).">test_entity_kinds.cpp</a></span> (+3, dont le test bloquant), <span class="tt"><a class="el" href="test__entity__editing_8cpp.html" title="Tests unitaires de la logique d&#39;édition des couches et des entités de l&#39;éditeur (LOT-11) : lignes du ...">test_entity_editing.cpp</a></span> (gestes refaits, trois cartes livrées sans avertissement)  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1063"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1066"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Redimensionner la zone de combat du Colisée à la souris met à jour son verdict tactique.</b> ✔ <span class="tt">EntitesAFormeTest.AcceptationRedimensionnerLaZoneDuColisee</span> : la zone « sable » (20 × 14, huit entrées dedans) sélectionnée, l'appui sur sa poignée est la prend ; tirée de la colonne 29 à la colonne 20, elle s'écrit en un pas (11 × 14) ; son verdict compte alors quatre entrées dehors et quatre avertissements ; <span class="tt">Ctrl+Z</span> la rend.</li>
@@ -150,7 +150,7 @@ Critères d'acceptation</h1>
 <li><b>Un test bloque toute famille lue par le jeu et absente de <span class="tt">EntityKinds</span>.</b> ✔ <span class="tt">FamillesDEntitesTest.ToutFamilleLueParLeJeuEstDansLaTable</span>.</li>
 </ul>
 <p><b>Vérification à la souris, due</b> : sur le Colisée, outil Entité (<span class="tt">O</span>), cliquer dans le sable puis tirer la poignée est de la zone vers l'ouest (le verdict passe au rouge sur les entrées ennemies), <span class="tt">Ctrl+Z</span> ; <span class="tt">Maj</span> + clic sur deux entrées d'arène puis les glisser ensemble ; choisir « zone » dans la liste des familles, tirer un rectangle, puis <span class="tt">Z</span> et peindre quelques cases, <span class="tt">Ctrl</span> + glisser pour en gommer ; choisir « route », tirer un segment, puis <span class="tt">Z</span> et cliquer pour le prolonger ; taper « portal » dans le filtre de la liste. Sur Martpart, les étiquettes des îlots et du portail paraissent, et les PNJ se voient par leur figurine sans marqueur par-dessus. Les clics postés à la fenêtre n'atteignent pas Qt (<span class="tt">LOT-EDITOR-04</span>) : cette vérification demande la main de l'auteur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1064"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1067"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Les horaires d'un trajet</b> et la ronde dessinée fermée : avec l'horloge du <span class="tt">LOT-70</span>.</li>

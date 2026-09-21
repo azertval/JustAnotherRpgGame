@@ -140,7 +140,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Les zones d'effet sur la grille tactique (<span class="tt">LOT-22</span>) : cône, cube, cylindre, ligne, sphère. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1120"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1129"></a>
 Ce que dit le Manuel</h2>
 <p>Chapitre 10, « Zones d'effet » : chaque zone a un <b>point d'origine</b>, et l'effet « s'étend en lignes droites » depuis ce point — un emplacement qu'aucune ligne droite ne relie à l'origine n'est pas dans la zone, et seul un abri total bloque ces lignes. Puis les cinq formes :</p>
 <ul>
@@ -150,14 +150,14 @@ Ce que dit le Manuel</h2>
 <li><b>ligne</b> — une longueur et une largeur ; l'origine n'est pas incluse ;</li>
 <li><b>sphère</b> — un rayon depuis l'origine ; incluse.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1121"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1130"></a>
 Sur la grille : la moitié d'une case</h2>
 <p>Le Manuel ne dit pas quelles cases une forme couvre. Une case est <b>dans la zone si la forme en couvre au moins la moitié</b> — la règle du <em>Guide du Maître</em> pour les zones circulaires, étendue aux autres formes plutôt que d'en inventer une par forme. La surface se calcule exactement : un cône, un cube et une ligne sont des polygones découpés par la case ; un disque s'intègre.</p>
 <p>Le point d'origine est un <span class="tt"><a class="el" href="structcore_1_1GridPoint.html" title="Un point de la grille, en demi-cases : la case (c, r) va de (2c, 2r) à (2c+2, 2r+2).">core::GridPoint</a></span>, en demi-cases : un coin de case pour une boule de feu lancée sur une intersection, le milieu de l'arête d'une créature pour un souffle en ligne, son centre pour une aura. « L'origine n'est pas incluse » tombe alors de la géométrie : un cône qui part du bord d'une créature ne couvre rien de sa case.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1122"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1131"></a>
 L'altitude</h2>
 <p>Le jeu n'a pas de hauteur (<span class="tt"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff" title="Comment un combattant se déplace : au sol, ou en vol.">core::Locomotion</a></span>) : un cylindre est son disque, une sphère le sien. Les deux formes restent distinctes parce que le Manuel les distingue, et qu'un sort les nomme.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1123"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1132"></a>
 Hors de ce fichier</h2>
 <p>Le déplacement de l'origine derrière un obstacle quand l'incantateur vise un point qu'il ne voit pas, et les sorts qui emploient ces zones : avec les classes, qui les apportent. </p>
 </div></div><!-- contents -->

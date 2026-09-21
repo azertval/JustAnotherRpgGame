@@ -107,6 +107,8 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:aac086eb4b9d3d8a7e675f090b04abc1d" id="r_aac086eb4b9d3d8a7e675f090b04abc1d"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1AuthorNote.html">AuthorNote</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aac086eb4b9d3d8a7e675f090b04abc1d">notes</a></td></tr>
 <tr class="memdesc:aac086eb4b9d3d8a7e675f090b04abc1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les notes, une au plus par case, triées ligne par ligne.  <br /></td></tr>
+<tr class="memitem:ad88f5ccfd30037bd7b5b432410cdfc31" id="r_ad88f5ccfd30037bd7b5b432410cdfc31"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564">MapState</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad88f5ccfd30037bd7b5b432410cdfc31">state</a> = <a class="el" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564ac9f88e098f6fe4e4e112eeb05ccb9671">MapState::Unset</a></td></tr>
+<tr class="memdesc:ad88f5ccfd30037bd7b5b432410cdfc31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où en est la carte (<span class="tt">LOT-EDITOR-09</span>) : <span class="tt"><a class="el" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564ac9f88e098f6fe4e4e112eeb05ccb9671" title="Rien n&#39;est dit : une carte qu&#39;on vient de créer.">MapState::Unset</a></span> tant que l'auteur ne l'a pas dit.  <br /></td></tr>
 <tr class="memitem:afdfab3902fd2d0b0cfb8b2d27c67925b" id="r_afdfab3902fd2d0b0cfb8b2d27c67925b"><td class="memItemLeft">nlohmann::json&#160;</td><td class="memItemRight"><a class="el" href="#afdfab3902fd2d0b0cfb8b2d27c67925b">unknown</a> = nlohmann::json::object()</td></tr>
 <tr class="memdesc:afdfab3902fd2d0b0cfb8b2d27c67925b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les clés que ce lecteur ne connaît pas, gardées pour la réécriture.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -207,6 +209,22 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les notes, une au plus par case, triées ligne par ligne. </p>
+
+</div>
+</div>
+<a id="ad88f5ccfd30037bd7b5b432410cdfc31" name="ad88f5ccfd30037bd7b5b432410cdfc31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad88f5ccfd30037bd7b5b432410cdfc31">&#9670;&#160;</a></span>state</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564">MapState</a> hmi::EditorSidecar::state = <a class="el" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564ac9f88e098f6fe4e4e112eeb05ccb9671">MapState::Unset</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Où en est la carte (<span class="tt">LOT-EDITOR-09</span>) : <span class="tt"><a class="el" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564ac9f88e098f6fe4e4e112eeb05ccb9671" title="Rien n&#39;est dit : une carte qu&#39;on vient de créer.">MapState::Unset</a></span> tant que l'auteur ne l'a pas dit. </p>
 
 </div>
 </div>

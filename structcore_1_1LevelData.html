@@ -118,14 +118,16 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a5871ca36b16a3d283d1b8b121e9f51f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carte dont celle-ci est une <b>variante</b> (décision D12), par son identifiant (<span class="tt">coliseum</span>, <span class="tt">capital/martpart</span>) ; vide pour une carte ordinaire.  <br /></td></tr>
 <tr class="memitem:aea7675282327908b0da89291a4634567" id="r_aea7675282327908b0da89291a4634567"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aea7675282327908b0da89291a4634567">scene</a> {}</td></tr>
 <tr class="memdesc:aea7675282327908b0da89291a4634567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Planche que la variante substitue à celle de sa base ; vide pour la garder.  <br /></td></tr>
+<tr class="memitem:a62d8fc26f11eb3238b326422abca7cb4" id="r_a62d8fc26f11eb3238b326422abca7cb4"><td class="memItemLeft"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a>&#160;</td><td class="memItemRight"><a class="el" href="#a62d8fc26f11eb3238b326422abca7cb4">properties</a> {}</td></tr>
+<tr class="memdesc:a62d8fc26f11eb3238b326422abca7cb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriétés libres de la <b>carte entière</b> (<span class="tt">LOT-EDITOR-09</span>) : la région du monde où elle se trouve (<span class="tt"><a class="el" href="namespacecore.html#a47f6e001dc10a742e05ed01de586335f" title="Clé de la région du monde où se trouve la carte, telle que world-maps.json la nomme (central-empire) ...">core::MAP_REGION_PROPERTY</a></span>), son ambiance (<span class="tt"><a class="el" href="namespacecore.html#afa94966b4ac589f39c5ce6240f9bf3c2" title="Clé de l&#39;ambiance de la carte — ce que le LOT-28 jouera en fond, et ce que l&#39;éditeur montre dans les ...">core::MAP_AMBIENCE_PROPERTY</a></span>), et toute clé racine que le chargeur ne connaît pas — gardée telle quelle et réémise, comme pour une couche ou une entité (<span class="tt"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731" title="Propriétés libres, indexées par nom.">core::PropertyMap</a></span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Composantes d'une carte, nommées — agrégat de construction de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">core::Level</a></span> (<span class="tt">LOT-03</span>). </p>
 <p>S'écrit avec les <em>designated initializers</em> de C++20, qui rendent chaque site de construction lisible sans commentaire : </p><div class="fragment"><div class="line"><a class="code hl_class" href="classcore_1_1Level.html">core::Level</a> level(<a class="code hl_struct" href="structcore_1_1LevelData.html">core::LevelData</a>{.name = <span class="stringliteral">&quot;village&quot;</span>,</div>
 <div class="line">                                  .tileMap = std::move(map),</div>
 <div class="line">                                  .entry = entryPosition});</div>
-<div class="ttc" id="aclasscore_1_1Level_html"><div class="ttname"><a href="classcore_1_1Level.html">core::Level</a></div><div class="ttdoc">Carte complète en mémoire.</div><div class="ttdef"><b>Definition</b> Level.h:82</div></div>
-<div class="ttc" id="astructcore_1_1LevelData_html"><div class="ttname"><a href="structcore_1_1LevelData.html">core::LevelData</a></div><div class="ttdoc">Composantes d&#39;une carte, nommées — agrégat de construction de core::Level (LOT-03).</div><div class="ttdef"><b>Definition</b> Level.h:37</div></div>
+<div class="ttc" id="aclasscore_1_1Level_html"><div class="ttname"><a href="classcore_1_1Level.html">core::Level</a></div><div class="ttdoc">Carte complète en mémoire.</div><div class="ttdef"><b>Definition</b> Level.h:97</div></div>
+<div class="ttc" id="astructcore_1_1LevelData_html"><div class="ttname"><a href="structcore_1_1LevelData.html">core::LevelData</a></div><div class="ttdoc">Composantes d&#39;une carte, nommées — agrégat de construction de core::Level (LOT-03).</div><div class="ttdef"><b>Definition</b> Level.h:39</div></div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd><span class="tt"><a class="el" href="#ae394a3e921bbab58997043053a45243a" title="Grille de tuiles typées.">tileMap</a></span> n'a <b>volontairement</b> pas de valeur par défaut : <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span> n'est pas constructible par défaut, si bien que l'omettre est une <b>erreur de compilation</b> et non une grille vide silencieuse. Tous les autres champs ont un défaut utile. </dd></dl>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a5871ca36b16a3d283d1b8b121e9f51f7" name="a5871ca36b16a3d283d1b8b121e9f51f7"></a>
@@ -241,6 +243,22 @@ Public Attributes</h2></td></tr>
 
 <p>Prochain identifiant d'entité à donner (décision D8) : un compteur écrit dans la carte, pour qu'un identifiant retiré ne soit <b>jamais</b> redonné à une autre entité. </p>
 <p>1 par défaut. </p>
+
+</div>
+</div>
+<a id="a62d8fc26f11eb3238b326422abca7cb4" name="a62d8fc26f11eb3238b326422abca7cb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62d8fc26f11eb3238b326422abca7cb4">&#9670;&#160;</a></span>properties</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a> core::LevelData::properties {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Propriétés libres de la <b>carte entière</b> (<span class="tt">LOT-EDITOR-09</span>) : la région du monde où elle se trouve (<span class="tt"><a class="el" href="namespacecore.html#a47f6e001dc10a742e05ed01de586335f" title="Clé de la région du monde où se trouve la carte, telle que world-maps.json la nomme (central-empire) ...">core::MAP_REGION_PROPERTY</a></span>), son ambiance (<span class="tt"><a class="el" href="namespacecore.html#afa94966b4ac589f39c5ce6240f9bf3c2" title="Clé de l&#39;ambiance de la carte — ce que le LOT-28 jouera en fond, et ce que l&#39;éditeur montre dans les ...">core::MAP_AMBIENCE_PROPERTY</a></span>), et toute clé racine que le chargeur ne connaît pas — gardée telle quelle et réémise, comme pour une couche ou une entité (<span class="tt"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731" title="Propriétés libres, indexées par nom.">core::PropertyMap</a></span>). </p>
 
 </div>
 </div>

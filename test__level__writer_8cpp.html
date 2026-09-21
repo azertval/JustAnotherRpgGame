@@ -97,9 +97,11 @@ $(function(){initNavTree('test__level__writer_8cpp.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;variant&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelDraft_8h_source.html">Core/Levels/LevelDraft.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelWriter_8h_source.html">Core/Levels/LevelWriter.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
@@ -112,12 +114,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:a73cdc6e0f8e5beee55ad9dce966ec9e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">saveToFile écrit un fichier qui se recharge à l'identique (round-trip disque).  <br /></td></tr>
 <tr class="memitem:adc9dc018aeddfbd32ced5b9eee36b083" id="r_adc9dc018aeddfbd32ced5b9eee36b083"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adc9dc018aeddfbd32ced5b9eee36b083">TEST</a> (LevelWriterTest, SaveToFileVersDossierInexistantEchoueProprement)</td></tr>
 <tr class="memdesc:adc9dc018aeddfbd32ced5b9eee36b083"><td class="mdescLeft">&#160;</td><td class="mdescRight">saveToFile vers un dossier inexistant échoue proprement (récupérable, EX-NFR-040).  <br /></td></tr>
+<tr class="memitem:aae124e84ba809d47c980c125155d80ca" id="r_aae124e84ba809d47c980c125155d80ca"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aae124e84ba809d47c980c125155d80ca">TEST</a> (LevelWriterTest, UneCarteGardeSaRegionSonAmbianceEtSesClesInconnues)</td></tr>
+<tr class="memdesc:aae124e84ba809d47c980c125155d80ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les propriétés de <b>carte</b> (<span class="tt">LOT-EDITOR-09</span>) : région et ambiance traversent l'écriture, une clé racine inconnue est gardée, et le brouillon les défait comme le reste.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="abc4d0efaa944710e7f65f197fca12421" name="abc4d0efaa944710e7f65f197fca12421"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc4d0efaa944710e7f65f197fca12421">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abc4d0efaa944710e7f65f197fca12421">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -147,7 +151,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a73cdc6e0f8e5beee55ad9dce966ec9e0" name="a73cdc6e0f8e5beee55ad9dce966ec9e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73cdc6e0f8e5beee55ad9dce966ec9e0">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a73cdc6e0f8e5beee55ad9dce966ec9e0">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -177,7 +181,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="adc9dc018aeddfbd32ced5b9eee36b083" name="adc9dc018aeddfbd32ced5b9eee36b083"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc9dc018aeddfbd32ced5b9eee36b083">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adc9dc018aeddfbd32ced5b9eee36b083">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,6 +207,39 @@ Functions</h2></td></tr>
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
  <b>Resultat attendu :</b> saveToFile vers un dossier inexistant échoue proprement (récupérable, EX-NFR-040). </p>
+
+</div>
+</div>
+<a id="aae124e84ba809d47c980c125155d80ca" name="aae124e84ba809d47c980c125155d80ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae124e84ba809d47c980c125155d80ca">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelWriterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneCarteGardeSaRegionSonAmbianceEtSesClesInconnues</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les propriétés de <b>carte</b> (<span class="tt">LOT-EDITOR-09</span>) : région et ambiance traversent l'écriture, une clé racine inconnue est gardée, et le brouillon les défait comme le reste. </p>
+<p><b>Cas de test :</b> <b>Une carte garde sa région, son ambiance et ses clés inconnues.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Writer<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger une carte qui porte <span class="tt">region</span>, <span class="tt">ambience</span> et une clé inconnue.<br  />
+</p><ol type="1">
+<li>L'écrire, la relire.<br  />
+3. Changer l'ambiance sur un brouillon, puis défaire.<br  />
+ <b>Resultat attendu :</b> Les trois clés sont là après le tour ; l'ambiance changée s'écrit, et <span class="tt">undo</span> la rend ; une chaîne vide retire la propriété. </li>
+</ol>
 
 </div>
 </div>

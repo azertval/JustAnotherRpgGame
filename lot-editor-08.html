@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-editor-08.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 20 septembre 2026</b> (ouvert le même jour), sur la branche <span class="tt">lot-editor-08-tampons-prefabriques</span>, sur <span class="tt"><a class="el" href="Editor_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> après le <span class="tt">LOT-EDITOR-14</span>. Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, tests unitaires du module verts, les deux critères d'acceptation éprouvés sur les données livrées. <b>Reste due</b> : la vérification à la souris. Prérequis : <span class="tt">LOT-EDITOR-04</span>. Feuille de route : <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">éditeur</a>. Exigences : <span class="tt">EX-EDIT-085</span>, <span class="tt">EX-EDIT-086</span>, <span class="tt">EX-EDIT-087</span> (nouvelles). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1077"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1080"></a>
 Objectif</h1>
 <p>Une maison de Martpart demande une dizaine de gestes (<span class="tt">LOT-EDITOR-04</span>) ; la deuxième en demandait autant. Ce lot fait qu'un morceau de carte composé une fois <b>se repose</b> ailleurs, <b>se garde</b> dans la bibliothèque de son lieu, et qu'une carte neuve <b>part d'un modèle</b> plutôt que du vide.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1078"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1081"></a>
 Ce que le dépôt contenait à l'ouverture (20 septembre 2026)</h1>
 <ul>
 <li><b><span class="tt">Ctrl+C</span> ne copiait que des types</b>, sur la <b>couche active</b> : <span class="tt">hmi::copyTypeBlock</span> rendait un bloc de <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;une carte (EX-LVL-002).">core::TileType</a></span> que <span class="tt"><a class="el" href="namespacehmi.html#a0e0956e7e96a74928e44f3f75a32061b" title="Peint un bloc de types ([ligne][colonne]) à partir de origin sur la couche active,...">hmi::paintTypeBlock</a></span> repeignait. Les pièces — c'est-à-dire tout ce qu'on voit depuis le <span class="tt">LOT-EDITOR-03</span> — et les entités restaient sur place. Copier l'étal du marché rendait deux cases de type <span class="tt">wall</span>, sans l'étal.</li>
@@ -107,7 +107,7 @@ Ce que le dépôt contenait à l'ouverture (20 septembre 2026)</h1>
 <li><b>Une carte neuve naissait vide</b> (<span class="tt">LevelFileOperations::create</span>, <span class="tt">LOT-EDITOR-06</span>) : deux couches en dur nommées <span class="tt">sol</span> et <span class="tt">relief</span>, toute la grille pleine, une case de terre sous l'entrée.</li>
 <li>Le miroir existait déjà, mais <b>pour un geste</b>, pas pour un morceau : <span class="tt"><a class="el" href="namespacehmi.html#aa976a1e8cdd376c6e1142fad5214e286">hmi::mirrorPieceName</a></span> et la diagonale <span class="tt">colonne − ligne = k</span> du <span class="tt">LOT-EDITOR-04</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1079"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1082"></a>
 Décisions</h1>
 <ul>
 <li><b>Le tampon est un rectangle de carte complet</b> (<span class="tt"><a class="el" href="structhmi_1_1Stamp.html" title="Un morceau de carte : le rectangle, ses couches, ses entités, ses cases forcées.">hmi::Stamp</a></span>) : les types de <b>chaque</b> couche visuelle, les pièces qui y sont ancrées, les entités qui s'y tiennent, les cases dont la collision est forcée. Pas « ce qu'il y a sur la couche active » : un étal est un sol, un décor et un marchand à la fois, et n'en prendre qu'une bande ne servirait personne.</li>
@@ -125,7 +125,7 @@ Décisions</h1>
 <li><b><span class="tt">copyTypeBlock</span> est retirée</b> : le tampon la remplace partout, et une fonction que plus rien n'appelle est une fausse piste.</li>
 <li><b><span class="tt"><a class="el" href="structcore_1_1MapEntity.html" title="Une entité de carte — ce qui n&#39;est pas une tuile.">core::MapEntity</a></span> reçoit son <span class="tt">operator==</span></b> : un tampon relu se compare à celui qu'on a écrit.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1080"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1083"></a>
 Livraison</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -143,14 +143,14 @@ Livraison</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Tests  </td><td class="markdownTableBodyNone"><span class="tt"><a class="el" href="test__stamps_8cpp.html" title="Tests des tampons et des préfabriqués (LOT-EDITOR-08) : ce que le découpage prend,...">test_stamps.cpp</a></span> (9) ; <span class="tt">selection.json</span> refait (tampon, reflet)  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1081"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1084"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Un étal de Martpart se repose ailleurs avec son marchand.</b> ✔ <span class="tt">DonneesPrefabriques.UnEtalDeMartpartSeReposeAvecSonMarchand</span> : un marchand posé sur l'étal du marché (<span class="tt">feature-1</span>, 2 × 1, ancré en (21, 24)), la case d'ancrage seule sélectionnée, le tampon fait 2 × 1 et emporte l'étal entier, son sol et le marchand ; enregistré, relu, il se pose sur <b>Arenarea</b> — qui prend ses pièces de la planche de Martpart (<span class="tt">LOT-96</span>) —, le marchand y reçoit l'identifiant libre suivant, et <b>un seul <span class="tt">Ctrl+Z</span></b> rend la carte. Au compteur d'identifiants près, qui ne recule pas : un identifiant donné n'est jamais réemployé (décision D8), et c'est la seule différence que le test laisse passer.</li>
 <li><b>Les modèles livrés se lisent, et la bibliothèque livrée ne laisse aucun constat.</b> ✔ <span class="tt">DonneesPrefabriques.LesModelesLivresSeLisent</span> : intérieur, rue, arène, chacun avec ses couches et sa couche qui nomme le lieu ; <span class="tt"><a class="el" href="namespacehmi.html#adf9e3c71ee8b149a0affc39de3cb2d0e">hmi::checkEditorLibrary</a></span> ne rend rien sur les données livrées.</li>
 </ul>
 <p><b>Vérification à la souris, due</b> : ouvrir Martpart, outil <b>Sélection</b> (<span class="tt">S</span>), tirer autour de l'étal du marché ; <span class="tt">Ctrl+C</span> — la barre d'état dit <span class="tt">2 × 1 · 1 piece</span>. Survoler une rue vide, <span class="tt">Ctrl+V</span> : l'étal est là, un <span class="tt">Ctrl+Z</span> le retire. <span class="tt">Ctrl+Maj+V</span> : il est posé dans l'autre sens. <em>Edit</em> › <em>Save selection as prefab…</em>, le nommer <span class="tt">etal-du-marche</span> : l'onglet <b>Prefabs</b> de la palette s'allume et montre sa vignette. Ouvrir Arenarea, cliquer le préfabriqué, <span class="tt">Ctrl+V</span>. <em>File</em> › <em>New map</em>, choisir le modèle <b>Interior</b> : la taille suit, la carte naît avec ses quatre murs et sa porte, et le dock « Problems » reste à 0 erreur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1082"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1085"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Les références entre entités d'un même tampon</b> (<span class="tt">carte#id</span>) ne sont pas réécrites à la pose : aucune famille ne déclare encore de propriété de source <span class="tt">EntityRefs</span> (<span class="tt">LOT-EDITOR-14</span>) ; les quêtes du <a class="el" href="roadmap.html#lot-16" title="LOT-16 — Les affaires de la Capitale : quêtes et drapeaux de monde">LOT-16</a> en seront, et c'est là que la question se posera.</li>

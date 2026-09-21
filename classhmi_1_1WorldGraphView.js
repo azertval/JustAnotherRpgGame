@@ -6,8 +6,11 @@ var classhmi_1_1WorldGraphView =
     [ "graphLayout", "classhmi_1_1WorldGraphView.html#af52c4b259a16a7a6988ecfb7e8db6b87", null ],
     [ "leaveEvent", "classhmi_1_1WorldGraphView.html#af619ffc04825f844525711d406f8e3c7", null ],
     [ "levelOpenRequested", "classhmi_1_1WorldGraphView.html#ac13b54b5a3c70cb00c8f168141aca8e8", null ],
+    [ "linkRequested", "classhmi_1_1WorldGraphView.html#a0be0a8292fa421e343f575297933aa23", null ],
     [ "mouseDoubleClickEvent", "classhmi_1_1WorldGraphView.html#a6caae3cd45d950cdc09614c1b2571e74", null ],
     [ "mouseMoveEvent", "classhmi_1_1WorldGraphView.html#ac4fc383fbc9ca4d6cb9a5f6cd5afe47e", null ],
+    [ "mousePressEvent", "classhmi_1_1WorldGraphView.html#a73c563d0bdee1b2e28e4590ef89e31f8", null ],
+    [ "mouseReleaseEvent", "classhmi_1_1WorldGraphView.html#a5b1b2e0a9d9f348abca9a47f7bdc3159", null ],
     [ "nodeDetail", "classhmi_1_1WorldGraphView.html#a9d37c5fc2a07d3b9ccc4547ee17dfb97", null ],
     [ "nodeLabel", "classhmi_1_1WorldGraphView.html#ae9dde0b588fc25d7c59a5bf65dd338fb", null ],
     [ "nodeToolTip", "classhmi_1_1WorldGraphView.html#a9f90d85faf73f76eeffa42a7cb169c6a", null ],
@@ -24,5 +27,7 @@ var classhmi_1_1WorldGraphView =
     [ "_graph", "classhmi_1_1WorldGraphView.html#ab52350abc952eabccd47d5b4eeb882d2", null ],
     [ "_hoveredEdge", "classhmi_1_1WorldGraphView.html#adced865a8a4d54b8e0c6c80dd85e8b69", null ],
     [ "_hoveredNode", "classhmi_1_1WorldGraphView.html#a15721eb44283d54fe4e88b56a9afc2b0", null ],
-    [ "_layout", "classhmi_1_1WorldGraphView.html#a90c3e97b1b88ac595b6b42d4218049ed", null ]
+    [ "_layout", "classhmi_1_1WorldGraphView.html#a90c3e97b1b88ac595b6b42d4218049ed", null ],
+    [ "_linkFrom", "classhmi_1_1WorldGraphView.html#a71708049f16d60dccc975214b06f3913", null ],
+    [ "_linkPoint", "classhmi_1_1WorldGraphView.html#a4caecf2b3bb4bc6c7058d473fb3fe036", null ]
 ];

@@ -96,7 +96,7 @@ $(function(){initNavTree('spec-gameplay.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>socle</b>. Cette page fixe ce que toute carte et tout écran du jeu supposent : un monde en tuiles que le héros ne traverse pas, et des états de jeu explicites. Le gameplay du RPG lui-même est décrit ailleurs — l'exploration dans <a class="el" href="spec-exploration.html#md_Specification_2exploration" title="Specification/exploration.md"><span class="tt">exploration.md</span></a>, les règles dans <a class="el" href="spec-regles-d20.html#md_Specification_2regles-d20" title="Specification/regles-d20.md"><span class="tt">regles-d20.md</span></a>, le personnage dans <a class="el" href="spec-rpg.html#md_Specification_2rpg" title="Specification/rpg.md"><span class="tt">rpg.md</span></a>, le combat dans <a class="el" href="spec-combat.html#md_Specification_2combat" title="Specification/combat.md"><span class="tt">combat.md</span></a>. Dépend de <a class="el" href="spec-vision.html#md_Specification_2vision" title="Specification/vision.md"><span class="tt">vision.md</span></a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md252"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md253"></a>
 1. Monde en tuiles</h1>
 <p>Une carte est une <b>grille de tuiles</b> ; chaque case porte un type (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;une carte (EX-LVL-002).">core::TileType</a></span>) : le vide, la matière pleine, l'entrée, et le vocabulaire de terrain du RPG (<span class="tt">EX-EXP-005</span>). Le format qui la décrit est dans <a class="el" href="spec-niveaux.html#md_Specification_2niveaux" title="Specification/niveaux.md"><span class="tt">niveaux.md</span></a>.</p>
 <ul>
@@ -105,7 +105,7 @@ $(function(){initNavTree('spec-gameplay.html','',''); });
 <li><a class="anchor" id="EX-GP-014"></a><b>EX-GP-014</b> — Les collisions du héros avec les tuiles solides doivent être résolues sur les deux axes, sans traversée à vitesse élevée ni blocage contre un coin (<span class="tt">EX-EXP-002</span>, <span class="tt">EX-EXP-003</span>).</li>
 </ul>
 <p>Chaque règle est déterministe : à état d'entrée identique, comportement identique (<span class="tt">EX-NFR-002</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md253"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md254"></a>
 2. États de jeu</h1>
 <ul>
 <li><a class="anchor" id="EX-GP-040"></a><b>EX-GP-040</b> — Le jeu doit gérer des états distincts — menu, exploration, pause, options, crédits et écrans du RPG — portés par <span class="tt">hmi::ScreenFlow</span>, avec des transitions explicites et unidirectionnelles (<span class="tt">EX-GP-041</span>). Détaillé côté interface par <span class="tt">EX-IHM-090</span>.</li>
@@ -156,7 +156,7 @@ Exigences retirées</h1>
 <li><a class="anchor" id="EX-GP-060"></a><b>EX-GP-060</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — ruée suivant les pentes.</li>
 <li><a class="anchor" id="EX-GP-061"></a><b>EX-GP-061</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — enchaînement ruée et saut.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md254"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md255"></a>
 Traçabilité</h1>
 <p>Exploration : <a class="el" href="spec-exploration.html#md_Specification_2exploration" title="Specification/exploration.md"><span class="tt">exploration.md</span></a>. Format des cartes : <a class="el" href="spec-niveaux.html#md_Specification_2niveaux" title="Specification/niveaux.md"><span class="tt">niveaux.md</span></a>. Contrôles : <a class="el" href="spec-controles.html#md_Specification_2controles" title="Specification/controles.md"><span class="tt">controles.md</span></a>. </p>
 </div></div><!-- contents -->

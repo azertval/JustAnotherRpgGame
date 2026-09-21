@@ -97,29 +97,29 @@ $(function(){initNavTree('lot-34.html','',''); });
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 1008/1008, <span class="tt">clang-format</span>, les six lints, cahier de test et Doxygen verts). Prérequis : <a class="el" href="lot-32.html" title="LOT-32 — Schémas de données RPG"><span class="tt">LOT-32</span></a>. Alimente <a class="el" href="lot-14.html" title="LOT-14 — Inventaire et équipement">LOT-14</a>, <a class="el" href="roadmap.html#lot-26" title="LOT-26 — Butin, marchands, économie">LOT-26</a>, <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>.</p>
 <p>Exigences couvertes : <a class="el" href="spec-inventaire.html#EX-INV-001" title="EX-INV-001"><span class="tt">EX-INV-001</span></a>, <a class="el" href="spec-inventaire.html#EX-INV-010" title="EX-INV-010"><span class="tt">EX-INV-010</span></a>, <a class="el" href="spec-inventaire.html#EX-INV-011" title="EX-INV-011"><span class="tt">EX-INV-011</span></a>, <a class="el" href="spec-inventaire.html#EX-INV-041" title="EX-INV-041"><span class="tt">EX-INV-041</span></a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md522"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md523"></a>
 Objectif</h1>
 <p>Les tables d'équipement des <em>Basic Rules</em> vers <span class="tt">Source/Elements/Rpg/</span> : <b>37 armes</b>, <b>13 armures</b> et <b>125 objets</b> — matériel d'aventurier, outils, montures et véhicules — avec leurs dégâts, leur classe d'armure, leur poids, leur prix et leurs propriétés.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md523"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md524"></a>
 Ce que le lot livre</h1>
 <p><b>175 fichiers de données</b> — <span class="tt">weapons/</span> (37), <span class="tt">armors/</span> (13), <span class="tt">items/</span> (125 : 96 de matériel, 16 outils, 13 montures et véhicules).</p>
 <p><b><span class="tt">scripts/sourcebook/equipement.py</span></b> et la sous-commande <span class="tt">python scripts/sourcebook equipement</span>.</p>
 <p><b><span class="tt"><a class="el" href="namespacecore.html#a06839f5ee0eea764bdcd5f6b865f194c" title="Charge les armes et les armures depuis leurs dossiers.">core::loadEquipment</a></span> et <span class="tt"><a class="el" href="namespacecore.html#aec44b80878262388830e480b169c6b70" title="La classe d&#39;armure d&#39;un personnage, armure et bouclier compris.">core::armorClassFor</a></span></b> (<span class="tt">Source/Core/Rpg/Equipment.{h,cpp}</span>), et <b>sept tests</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md524"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md525"></a>
 C'est le lot où le §4 se paie</h1>
 <p>« Un tableau ne s'extrait pas en flux de texte » (<span class="tt">EX-CNT-021</span>) est une règle que le corpus impose depuis le <span class="tt">LOT-30</span>. Nulle part sa conséquence n'est aussi silencieuse qu'ici : <b>une valeur de prix décalée d'une ligne ne casse rien, ne lève aucune alerte, et déséquilibre l'économie sans que personne ne comprenne pourquoi</b>. Les deux tables sont donc lues par coordonnée — les rangées par ordonnée, les cellules par abscisse.</p>
 <p>Ces tables sont <b>pleine largeur</b>, contrairement au reste du livre : elles traversent la gouttière que le <span class="tt">LOT-33</span> avait mesurée, et les découper en colonnes couperait chaque rangée en deux au milieu d'un prix. Leur région est donc déclarée — page et bande d'ordonnées — et le module contrôle le nombre de rangées qu'il en tire.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md525"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md526"></a>
 Le groupe d'une arme n'est pas dans sa rangée</h1>
 <p>Le livre range ses armes sous quatre intertitres — « Armes courantes de corps à corps », « Armes de guerre à distance »… — et ses armures sous quatre autres. <b>Ce sont ces intertitres, et eux seuls, qui disent qu'une arme est courante ou de guerre</b> ; la rangée ne porte rien de tel.</p>
 <p>Une extraction qui ne lirait que les rangées produirait trente-sept armes sans catégorie — et <span class="tt">category</span> est requis au schéma, mais <b>rien ne dit qu'il est juste</b>. Les intertitres sont reconnus à leur rangée à <b>une seule cellule</b> : une table à cinq colonnes n'en produit pas d'autre.</p>
 <p>Le défaut s'est manifesté à la première exécution, et c'est le contrôle de cardinal qui l'a dit : la bande d'ordonnées commençait <b>après</b> le premier intertitre, si bien que les dix premières armes sortaient sans catégorie et étaient silencieusement écartées. 27 armes au lieu de 37 — sans le contrôle, un catalogue amputé de dix armes se serait chargé et validé sans un mot.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md526"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md527"></a>
 Trois cas que le livre écrit et qu'un schéma refusait</h1>
 <p><b>Le filet n'inflige aucun dégât.</b> Sa rangée a une cellule de moins que les autres, et le schéma du <span class="tt">LOT-32</span> exigeait <span class="tt">damage</span> et <span class="tt">damageType</span>. Lui inventer des dés en ferait une arme qui touche pour rien, ce qui est faux : le filet <b>entrave</b>. Les deux champs sont devenus facultatifs, avec la raison écrite dans le schéma — et l'alignement des colonnes se fait sur la première cellule qui <em>ressemble</em> à des dégâts, jamais sur un indice fixe : un décalage mettrait le poids dans la colonne des dégâts, ce que rien ne refuserait.</p>
 <p><b>La fronde n'a pas de poids.</b> Sa colonne porte un tiret. Le tiret vaut <b>absent</b>, jamais zéro — une case que le livre n'a pas remplie n'est pas une valeur nulle. Le cas est rapporté à chaque génération plutôt que masqué.</p>
 <p><b>Le bouclier n'est pas une armure.</b> Il est dans la même table, et le livre l'y met ; mais il <b>ajoute</b> à la classe d'armure au lieu de la remplacer. Le traiter comme une armure donnerait une CA de 2 à un personnage en bouclier seul. La table porte donc treize rangées — douze armures et le bouclier — et c'est le chiffre que la feuille de route annonce.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md527"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md528"></a>
 Les trois formes de la colonne CA disent trois règles</h1>
 <p>C'est la faute qui ne se voit pas :</p>
 <table class="markdownTable">
@@ -134,20 +134,20 @@ Les trois formes de la colonne CA disent trois règles</h1>
 </table>
 <p>Réduire les trois à leur premier nombre appliquerait la Dextérité au harnois — ce qui rend le personnage <b>plus</b> résistant, jamais moins, ne provoque aucune erreur, et passe pour de l'équilibrage.</p>
 <p>Le test choisit une Dextérité de 18 (modificateur +4) précisément pour révéler la faute : avec +1, un harnois à 19 au lieu de 18 se lit mal ; avec +4, il donne 22, et le plafond des intermédiaires se distingue nettement du sans-plafond des légères.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md528"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md529"></a>
 Deux unités, converties une seule fois</h1>
 <p>Le livre écrit des prix en pièces (po, pa, pc) et des poids en kilogrammes <b>et</b> en grammes dans la même table — « 6,5 kg », « 500 g ». Les schémas veulent des <b>pièces de cuivre</b> et des <b>grammes</b>. La conversion se fait à l'extraction : mélanger deux unités dans un total donnerait un sac de cinq cents kilos pour une poignée de fléchettes, et une masse d'armes moins chère qu'une dague.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md529"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md530"></a>
 La table du matériel est composée en deux sous-tables côte à côte</h1>
 <p>Une rangée y porte <b>six</b> cellules, donc deux objets. Les lire d'un bloc donnerait un objet nommé « Acide (fiole) » coûtant « 25 po » et pesant « 500 g Billes de fronde (20) » — une valeur qui n'est pas un poids, et qu'aucun schéma ne refuserait puisque le champ serait simplement absent. La forme est déclarée table par table, et le découpage se fait par triplets.</p>
 <p>Une ligne dont le prix n'est pas lisible <b>n'est pas un objet</b> : c'est un intertitre — « Barde ×4 ×2 » — ou une ligne de continuation. L'écrire produirait un objet gratuit portant un nom de section.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md530"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md531"></a>
 Ce que le lot ne fait pas</h1>
 <p><b>Il ne livre pas les objets magiques.</b> Le chapitre 10 du <em>Sourcebook</em> est en anglais et demande une étape de traduction ; il alimente le <a class="el" href="roadmap.html#lot-26" title="LOT-26 — Butin, marchands, économie">LOT-26</a>, qui ne l'attend pas pour exister.</p>
 <p><b>Il ne livre ni les marchandises ni les services.</b> Leurs deux tables, pages 57 et 58, sont noyées dans du texte courant et ne se relèvent pas comme des tables : elles restent à extraire, et rien de ce que le lot doit prouver n'en dépend.</p>
 <p><b>Quatre selles portent le nom que le livre leur donne dans sa sous-rubrique</b> — « D'équitation », « De bât », « Exotique », « Militaire » — parce que le mot « Selle » est un intertitre de la table des montures et non une cellule de leur rangée. C'est le nom du livre, pas une faute d'extraction ; le rendre lisible demanderait de propager l'intertitre comme le fait la table des armes, ce que cette table-là ne justifie pas pour quatre lignes.</p>
 <p><b>Il ne gère pas l'inventaire.</b> <span class="tt">totalWeightGrams</span> calcule un poids ; porter, équiper et encombrer sont le <a class="el" href="lot-14.html" title="LOT-14 — Inventaire et équipement">LOT-14</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md531"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md532"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>La CA calculée par le moteur pour chacune des 13 armures égale la colonne CA de la table</b>, vérifié par un test dont les valeurs sont recopiées à la main du livre. ✔</li>

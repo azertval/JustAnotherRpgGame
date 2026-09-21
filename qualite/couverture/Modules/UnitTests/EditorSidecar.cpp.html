@@ -39,6 +39,49 @@ constexpr std::string_view SIDECAR_SUFFIX = ".editor.json";
 
 }  // namespace
 
+<span style = "background-color:#dfd">std::string_view mapStateKey(MapState state) noexcept {
+    switch (state) {</span>
+        case MapState::Generated:
+<span style = "background-color:#dfd">            return "generated";</span>
+        case MapState::Retouched:
+<span style = "background-color:#dfd">            return "retouched";</span>
+        case MapState::Finished:
+<span style = "background-color:#dfd">            return "finished";</span>
+        case MapState::Unset:
+            break;
+    }
+<span style = "background-color:#fdd">    return {};</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">MapState mapStateFromKey(std::string_view key) noexcept {
+    for (const MapState state : knownMapStates()) {
+        if (mapStateKey(state) == key) {
+            return state;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return MapState::Unset;
+}</span>
+
+<span style = "background-color:#dfd">std::string_view mapStateLabel(MapState state) noexcept {
+    switch (state) {</span>
+        case MapState::Generated:
+<span style = "background-color:#fdd">            return "Generated";</span>
+        case MapState::Retouched:
+<span style = "background-color:#fdd">            return "Retouched";</span>
+        case MapState::Finished:
+<span style = "background-color:#fdd">            return "Finished";</span>
+        case MapState::Unset:
+            break;
+    }
+<span style = "background-color:#dfd">    return "not stated";
+}</span>
+
+<span style = "background-color:#dfd">const std::vector&lt;MapState&gt;&amp; knownMapStates() {
+    static const std::vector&lt;MapState&gt; states{MapState::Generated, MapState::Retouched,</span>
+                                              MapState::Finished};
+<span style = "background-color:#dfd">    return states;
+}</span>
+
 <span style = "background-color:#dfd">std::filesystem::path sidecarPath(const std::filesystem::path&amp; levelPath) {
     std::filesystem::path path = levelPath;
     path.replace_extension();
@@ -60,6 +103,14 @@ constexpr std::string_view SIDECAR_SUFFIX = ".editor.json";
 <span style = "background-color:#dfd">    for (const auto&amp; [key, value] : root.items()) {
         if (key == "version") {
             continue;</span>
+        }
+<span style = "background-color:#dfd">        if (key == "state") {</span>
+            // Un mot inconnu vaut Â« rien dit Â» : l'annexe d'un editeur plus recent ne fait pas
+            // echouer celui-ci, mais son mot n'est pas garde -- l'etat est une valeur, pas un
+            // texte libre.
+<span style = "background-color:#dfd">            result.sidecar.state =</span>
+                value.is_string() ? mapStateFromKey(value.get&lt;std::string&gt;()) : MapState::Unset;
+<span style = "background-color:#dfd">            continue;</span>
         }
 <span style = "background-color:#dfd">        if (key != "notes") {
             result.sidecar.unknown[key] = value;
@@ -107,7 +158,12 @@ constexpr std::string_view SIDECAR_SUFFIX = ".editor.json";
             {{"column", note.cell.column}, {"row", note.cell.row}, {"text", note.text}});
 <span style = "background-color:#dfd">    }
     root["notes"] = std::move(notes);
-    return root.dump(2) + "\n";
+    if (sidecar.state != MapState::Unset) {
+        root["state"] = std::string{mapStateKey(sidecar.state)};
+    } else {
+        root.erase("state");</span>
+    }
+<span style = "background-color:#dfd">    return root.dump(2) + "\n";
 }</span>
 
 <span style = "background-color:#dfd">bool writeSidecar(const std::filesystem::path&amp; path, const EditorSidecar&amp; sidecar) {

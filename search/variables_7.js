@@ -13,5 +13,6 @@ var searchData=
   ['grade_10',['grade',['../structcore_1_1RegionAppraisal.html#a9cea16e7edc28da4c20902d603d19cf6',1,'core::RegionAppraisal']]],
   ['grades_11',['grades',['../structhmi_1_1MapRegionView.html#a100fef56ec6baba5b096607def9533e5',1,'hmi::MapRegionView']]],
   ['graph_12',['graph',['../structcore_1_1DialogueLoad.html#a2d0bdba2a17ecccc54ad3d9dcfb20a36',1,'core::DialogueLoad::graph'],['../structhmi_1_1DialogueModel_1_1Session.html#a06d4e0952d1b0a59c408725a795b88e2',1,'hmi::DialogueModel::Session::graph']]],
-  ['guardmap_13',['guardMap',['../structcore_1_1CityDistrict.html#a9923745226857a2e0df0cfc283a67548',1,'core::CityDistrict']]]
+  ['guardmap_13',['guardMap',['../structcore_1_1CityDistrict.html#a9923745226857a2e0df0cfc283a67548',1,'core::CityDistrict']]],
+  ['guardmapid_14',['guardMapId',['../structhmi_1_1CityDistrictView.html#ac2f2cdd09e4ea0fdf37c492d5d3036a2',1,'hmi::CityDistrictView']]]
 ];

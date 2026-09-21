@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>887 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>899 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (884)</h1>
+Tests unitaires (896)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -2104,7 +2104,7 @@ Vérifie que <span class="tt">drapeaux.isSet("donjon/chest@1,1")</span> est faux
 Vérifie que <span class="tt">drapeaux.size()</span> vaut <span class="tt">2U</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
-Levels (116)</h3>
+Levels (117)</h3>
 <p><b><span class="tt"><a class="el" href="test__format__v4_8cpp.html" title="Tests unitaires du format de carte v4 (LOT-EDITOR-12) : versions passées, écriture canonique,...">test_format_v4.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2847,12 +2847,12 @@ Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a c
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelWriterTest.LeJsonProduitPorteLaVersionEtAucuneCleRetiree</b> (Mineur)<br  />
-<sub><span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:40</span></sub>  </td><td class="markdownTableBodyNone">Le JSON produit porte la version et aucune clé retirée du format.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:42</span></sub>  </td><td class="markdownTableBodyNone">Le JSON produit porte la version et aucune clé retirée du format.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">json.find("\\"background\\\\"\")&lt;/tt&gt; vaut &lt;tt&gt;std::string::npos&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;json.find(\"\\\\"skinSet\\\\"\")&lt;/tt&gt; vaut &lt;tt&gt;std::string::npos&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;json.find(\"\\\\"cameraFraming\\\\"\")&lt;/tt&gt; vaut &lt;tt&gt;std::string::npos&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;json.find(\"\\\\"version\\\\"\")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelWriterTest.SaveToFileEcritUnFichierRechargeable</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:63</span></sub>  </td><td class="markdownTableBodyNone">saveToFile écrit un fichier qui se recharge à l'identique (round-trip disque).  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:65</span></sub>  </td><td class="markdownTableBodyNone">saveToFile écrit un fichier qui se recharge à l'identique (round-trip disque).  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt"><a class="el" href="classcore_1_1LevelWriter.html#a388600fd0af9ddeed6675704125ce6f6" title="Écrit un niveau au format JSON dans un fichier (EX-EDIT-006).">core::LevelWriter::saveToFile</a>(*loaded.level, path)</span> est vrai.<br  />
 Vérifie que <span class="tt">reloaded.ok()</span> est vrai.<br  />
@@ -2861,9 +2861,21 @@ Vérifie que <span class="tt">reloaded.level-&gt;entry()</span> vaut <span class
 Vérifie que <span class="tt">reloaded.level-&gt;tileMap().tile(column, row)</span> vaut <span class="tt">loaded.level-&gt;tileMap().tile(column, row)</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelWriterTest.SaveToFileVersDossierInexistantEchoueProprement</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:96</span></sub>  </td><td class="markdownTableBodyNone">saveToFile vers un dossier inexistant échoue proprement (récupérable, EX-NFR-040).  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:98</span></sub>  </td><td class="markdownTableBodyNone">saveToFile vers un dossier inexistant échoue proprement (récupérable, EX-NFR-040).  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt"><a class="el" href="classcore_1_1LevelWriter.html#a388600fd0af9ddeed6675704125ce6f6" title="Écrit un niveau au format JSON dans un fichier (EX-EDIT-006).">core::LevelWriter::saveToFile</a>(*loaded.level, path)</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LevelWriterTest.UneCarteGardeSaRegionSonAmbianceEtSesClesInconnues</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:118</span></sub>  </td><td class="markdownTableBodyNone">Une carte garde sa région, son ambiance et ses clés inconnues.  </td><td class="markdownTableBodyNone">1. Charger une carte qui porte <span class="tt">region</span>, <span class="tt">ambience</span> et une clé inconnue.<br  />
+ 2. L'écrire, la relire.<br  />
+3. Changer l'ambiance sur un brouillon, puis défaire.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">std::get&lt;std::string&gt;( loaded.level-&gt;properties().at(std::string{<a class="el" href="namespacecore.html#a47f6e001dc10a742e05ed01de586335f" title="Clé de la région du monde où se trouve la carte, telle que world-maps.json la nomme (central-empire) ...">core::MAP_REGION_PROPERTY</a>}))</span> vaut <span class="tt">"central-empire"</span>.<br  />
+Vérifie que <span class="tt">reloaded.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">reloaded.level-&gt;properties()</span> vaut <span class="tt">loaded.level-&gt;properties()</span>.<br  />
+Vérifie que <span class="tt">std::get&lt;std::string&gt;(reloaded.level-&gt;properties().at("authoredBy"))</span> vaut <span class="tt">"valentin"</span>.<br  />
+Vérifie que <span class="tt">draft.setProperty(std::string{<a class="el" href="namespacecore.html#afa94966b4ac589f39c5ce6240f9bf3c2" title="Clé de l&#39;ambiance de la carte — ce que le LOT-28 jouera en fond, et ce que l&#39;éditeur montre dans les ...">core::MAP_AMBIENCE_PROPERTY</a>}, std::string{"night"})</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.setProperty(std::string{<a class="el" href="namespacecore.html#afa94966b4ac589f39c5ce6240f9bf3c2" title="Clé de l&#39;ambiance de la carte — ce que le LOT-28 jouera en fond, et ce que l&#39;éditeur montre dans les ...">core::MAP_AMBIENCE_PROPERTY</a>}, std::string{"night"})</span> est faux.<br  />
+Vérifie que <span class="tt">draft.toJson().find("\\"ambience\\\\": \\\\"night\\\\"\")&lt;/tt&gt; diffère de &lt;tt&gt;std::string::npos&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;draft.undo()&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;std::get\&lt;std::string\&gt;(draft.properties().at(std::string{core::MAP_AMBIENCE_PROPERTY}))&lt;/tt&gt; vaut &lt;tt&gt;\"market\"&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;draft.setProperty(std::string{core::MAP_REGION_PROPERTY}, std::string{})&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;draft.properties().contains(std::string{core::MAP_REGION_PROPERTY})&lt;/tt&gt; est faux.&lt;br/&gt;Vérifie que &lt;tt&gt;draft.toJson().find(\"\\\\"region\\\\"\")</span> vaut <span class="tt">std::string::npos</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__map__layers_8cpp.html" title="Tests unitaires du format de carte version: 3 : couches typées, entités, propriétés libres et migrati...">test_map_layers.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -4898,6 +4910,42 @@ Vérifie que <span class="tt">view.display(0U, true).dimmed</span> est faux.  </
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a271254d23a253fefeed273ecba888f0c" title="Les pièces d&#39;une case, pour la barre d&#39;état : street · wall-left, street, ou rien.">hmi::cellPieces</a>(snapshot, {.column = 1, .row = 0})</span> vaut <span class="tt">"square"</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a271254d23a253fefeed273ecba888f0c" title="Les pièces d&#39;une case, pour la barre d&#39;état : street · wall-left, street, ou rien.">hmi::cellPieces</a>(snapshot, {.column = 5, .row = 0})</span> vaut <span class="tt">""</span>.  </td></tr>
 </table>
+<p><b><span class="tt"><a class="el" href="test__city__view_8cpp.html" title="Tests de la vue de ville (LOT-EDITOR-09, EX-EDIT-090) : les quartiers de la Capitale,...">test_city_view.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>VueDeVille.LaCapitaleSeVoitParQuartiers</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__city__view_8cpp.html" title="Tests de la vue de ville (LOT-EDITOR-09, EX-EDIT-090) : les quartiers de la Capitale,...">Source/Test/Unit/Editor/test_city_view.cpp</a>:36</span></sub>  </td><td class="markdownTableBodyNone">La Capitale se voit par quartiers.  </td><td class="markdownTableBodyNone">1. Bâtir la vue de la ville <span class="tt">capital</span> sur les données livrées.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">ville.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">ville.location</span> vaut <span class="tt">"central-empire-the-capital-city"</span>.<br  />
+Vérifie que <span class="tt">ville.image</span> vaut <span class="tt">"city-central-empire-the-capital-city.jpg"</span>.<br  />
+Vérifie que <span class="tt">ville.districts.size()</span> est supérieur ou égal à <span class="tt">2U</span>.<br  />
+Vérifie que <span class="tt">martpart</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">martpart-&gt;mapId</span> vaut <span class="tt">"capital/martpart"</span>.<br  />
+Vérifie que <span class="tt">martpart-&gt;mapExists</span> est vrai.<br  />
+Vérifie que <span class="tt">martpart-&gt;framed</span> est vrai.<br  />
+Vérifie que <span class="tt">martpart-&gt;name.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">martpart-&gt;name</span> diffère de <span class="tt">martpart-&gt;id</span>.<br  />
+Vérifie que <span class="tt">dweomer</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">dweomer-&gt;mapId.empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">dweomer-&gt;guardMapId</span> vaut <span class="tt">"capital/martpart"</span>.<br  />
+Vérifie que <span class="tt">dweomer-&gt;mapExists</span> est faux.<br  />
+Vérifie que <span class="tt">std::all_of(sansCarte, ville.districts.end(), [](const <a class="el" href="structhmi_1_1CityDistrictView.html" title="Un quartier, tel que la vue de ville le montre.">hmi::CityDistrictView</a>&amp; d) { return d.mapId.empty(); })</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>VueDeVille.UnClicSurLePlanDesigneUnQuartier</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__city__view_8cpp.html" title="Tests de la vue de ville (LOT-EDITOR-09, EX-EDIT-090) : les quartiers de la Capitale,...">Source/Test/Unit/Editor/test_city_view.cpp</a>:76</span></sub>  </td><td class="markdownTableBodyNone">Un clic sur le plan désigne un quartier.  </td><td class="markdownTableBodyNone">1. Pointer le centre du cadre de Martpart, puis un coin du plan.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">ville.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">vise.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">ville.districts[*vise].id</span> vaut <span class="tt">"central-empire-the-capital-city-martpart"</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a25ed7ce59e32cd9289acb17671ae5960" title="Le quartier sous point, en fractions du plan.">hmi::districtAt</a>(ville, <a class="el" href="structhmi_1_1MapPoint.html" title="Position sur une carte, en fraction de sa largeur et de sa hauteur (0 à 1).">hmi::MapPoint</a>{.x = 0.01, .y = 0.99}).has_value()</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>VueDeVille.UneVilleInconnueLeDit</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__city__view_8cpp.html" title="Tests de la vue de ville (LOT-EDITOR-09, EX-EDIT-090) : les quartiers de la Capitale,...">Source/Test/Unit/Editor/test_city_view.cpp</a>:98</span></sub>  </td><td class="markdownTableBodyNone">Une ville inconnue le dit.  </td><td class="markdownTableBodyNone">1. Bâtir la vue d'une ville qui n'existe pas.<br  />
+2. Demander la ville de <span class="tt">capital/martpart</span>, puis celle du Colisée.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">aucune.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">aucune.error.find("atlantide")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a0fa92eeb5b347621019b7bb7cf8b650c">hmi::cityOfMap</a>(elements(), "capital/martpart")</span> vaut <span class="tt">"capital"</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a0fa92eeb5b347621019b7bb7cf8b650c">hmi::cityOfMap</a>(elements(), "coliseum")</span> vaut <span class="tt">""</span>.<br  />
+Vérifie que <span class="tt">hmi::cityIds(elements()).empty()</span> est faux.  </td></tr>
+</table>
 <p><b><span class="tt"><a class="el" href="test__content__check_8cpp.html" title="Tests du contrôle du contenu (LOT-EDITOR-07) : ce qu&#39;une carte promet au joueur et ne tient pas,...">test_content_check.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -5064,6 +5112,12 @@ Vérifie que <span class="tt">illisible.warning.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">illisible.sidecar.empty()</span> est vrai.<br  />
 Vérifie que <span class="tt">absente.warning.empty()</span> est vrai.<br  />
 Vérifie que <span class="tt">absente.sidecar.empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>EditorSidecarTest.LAnnexeGardeOuEnEstLaCarte</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__sidecar_8cpp.html" title="Tests du fichier annexe d&#39;une carte, &lt;carte&gt;.editor.json, et de ses notes d&#39;auteur (LOT-EDITOR-04,...">Source/Test/Unit/Editor/test_editor_sidecar.cpp</a>:167</span></sub>  </td><td class="markdownTableBodyNone">L'annexe garde où en est la carte.  </td><td class="markdownTableBodyNone">1. Écrire une annexe sans état, puis avec « finished ».<br  />
+2. Relire une annexe dont l'état est un mot inconnu.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">annexe.empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::sidecarJson(annexe).find("\\"state\\\\"\")&lt;/tt&gt; vaut &lt;tt&gt;std::string::npos&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;annexe.empty()&lt;/tt&gt; est faux.&lt;br/&gt;Vérifie que &lt;tt&gt;relue.warning.empty()&lt;/tt&gt; est vrai.&lt;br/&gt;Vérifie que &lt;tt&gt;relue.sidecar.state&lt;/tt&gt; vaut &lt;tt&gt;hmi::MapState::Finished&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;hmi::parseSidecar(R\"({\"state\": \"polished\", \"version\": 1})\").sidecar.state&lt;/tt&gt; vaut &lt;tt&gt;hmi::MapState::Unset&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;hmi::mapStateKey(hmi::MapState::Generated)&lt;/tt&gt; vaut &lt;tt&gt;\"generated\"&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;hmi::mapStateFromKey(\"retouched\")&lt;/tt&gt; vaut &lt;tt&gt;hmi::MapState::Retouched&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;hmi::mapStateLabel(hmi::MapState::Unset)&lt;/tt&gt; vaut &lt;tt&gt;\"not stated\"</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ae57583841fc02117460e1187182aefd0" title="Les états, dans l&#39;ordre d&#39;avancement : ce que les menus et les filtres listent.">hmi::knownMapStates()</a>.size()</span> vaut <span class="tt">3U</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur Fonction pure,...">test_editor_status.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -5460,6 +5514,30 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#abf93f3d263f
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e" title="Retire les espaces de bord de name (le nom réellement utilisé une fois confirmé).">hmi::trimLevelName</a>(" Niveau 1 ")</span> vaut <span class="tt">"Niveau 1"</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e" title="Retire les espaces de bord de name (le nom réellement utilisé une fois confirmé).">hmi::trimLevelName</a>("Niveau 1")</span> vaut <span class="tt">"Niveau 1"</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e" title="Retire les espaces de bord de name (le nom réellement utilisé une fois confirmé).">hmi::trimLevelName</a>(" ")</span> vaut <span class="tt">""</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__map__documents_8cpp.html" title="Tests des cartes ouvertes en onglets (LOT-EDITOR-09, EX-EDIT-088) : le libellé d&#39;un onglet,...">test_map_documents.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>CartesEnOnglets.UnOngletDitSaCarteEtSesModifications</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__map__documents_8cpp.html" title="Tests des cartes ouvertes en onglets (LOT-EDITOR-09, EX-EDIT-088) : le libellé d&#39;un onglet,...">Source/Test/Unit/Editor/test_map_documents.cpp</a>:16</span></sub>  </td><td class="markdownTableBodyNone">Un onglet dit sa carte et ses modifications.  </td><td class="markdownTableBodyNone">1. Demander le libellé d'une carte de sous-dossier, propre puis modifiée.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a18854397d7ff3f1251f3bf5ad5627385" title="Le libellé d&#39;un onglet : le dernier segment de l&#39;identifiant, suivi d&#39;une étoile si le brouillon est ...">hmi::documentLabel</a>("capital/martpart", false)</span> vaut <span class="tt">"martpart"</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a18854397d7ff3f1251f3bf5ad5627385" title="Le libellé d&#39;un onglet : le dernier segment de l&#39;identifiant, suivi d&#39;une étoile si le brouillon est ...">hmi::documentLabel</a>("capital/martpart", true)</span> vaut <span class="tt">"martpart *"</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a18854397d7ff3f1251f3bf5ad5627385" title="Le libellé d&#39;un onglet : le dernier segment de l&#39;identifiant, suivi d&#39;une étoile si le brouillon est ...">hmi::documentLabel</a>("coliseum", false)</span> vaut <span class="tt">"coliseum"</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a18854397d7ff3f1251f3bf5ad5627385" title="Le libellé d&#39;un onglet : le dernier segment de l&#39;identifiant, suivi d&#39;une étoile si le brouillon est ...">hmi::documentLabel</a>("", true)</span> vaut <span class="tt">"untitled *"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>CartesEnOnglets.UneCarteDejaOuverteNeSouvrePasDeuxFois</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__map__documents_8cpp.html" title="Tests des cartes ouvertes en onglets (LOT-EDITOR-09, EX-EDIT-088) : le libellé d&#39;un onglet,...">Source/Test/Unit/Editor/test_map_documents.cpp</a>:32</span></sub>  </td><td class="markdownTableBodyNone">Une carte déjà ouverte ne s'ouvre pas deux fois.  </td><td class="markdownTableBodyNone">1. Chercher une carte ouverte, une carte absente, puis une carte sans identifiant.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a56480f3a0638df3bda23d06746130dd4">hmi::documentOf</a>(ouvertes, "capital/martpart")</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a56480f3a0638df3bda23d06746130dd4">hmi::documentOf</a>(ouvertes, "capital/arenarea").has_value()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a56480f3a0638df3bda23d06746130dd4">hmi::documentOf</a>(ouvertes, "").has_value()</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::dirtyDocuments(ouvertes)</span> vaut <span class="tt">(std::vector&lt;std::string&gt;{"capital/martpart", ""})</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>CartesEnOnglets.FermerUnOngletDonneLaMainAuVoisin</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__map__documents_8cpp.html" title="Tests des cartes ouvertes en onglets (LOT-EDITOR-09, EX-EDIT-088) : le libellé d&#39;un onglet,...">Source/Test/Unit/Editor/test_map_documents.cpp</a>:53</span></sub>  </td><td class="markdownTableBodyNone">Fermer un onglet donne la main au voisin.  </td><td class="markdownTableBodyNone">1. Fermer le premier, puis le dernier, puis le seul onglet de trois, trois, un.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::documentAfterClose(3, 0)</span> vaut <span class="tt">0U</span>.<br  />
+Vérifie que <span class="tt">hmi::documentAfterClose(3, 1)</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">hmi::documentAfterClose(3, 2)</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">hmi::documentAfterClose(1, 0).has_value()</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::documentAfterClose(3, 7).has_value()</span> est faux.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__map__format_8cpp.html" title="Tests de la garde du format v4 (LOT-EDITOR-12) : migration d&#39;une carte, contrôle de toutes,...">test_map_format.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -6094,6 +6172,49 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a626ed35cec8
 <sub><span class="tt"><a class="el" href="test__world__graph__layout_8cpp.html" title="Tests de la disposition du graphe du monde (LOT-11) : cercle, fantomes, fleches regroupees,...">Source/Test/Unit/Editor/test_world_graph_layout.cpp</a>:389</span></sub>  </td><td class="markdownTableBodyNone">Le pointeur designe une fleche ou une boucle.  </td><td class="markdownTableBodyNone">1. Designer la pastille d'une fleche, celle d'une boucle, puis un point lointain.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8f058cebbeb2de49915110ec3f501b2a" title="La flèche sous point : distance au trait (ou au cercle d&#39;une boucle) au plus tolerance.">hmi::edgeAt</a>(disposition, fleche.badge, 4.0f)</span> vaut <span class="tt">std::optional&lt;std::size_t&gt;(0)</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8f058cebbeb2de49915110ec3f501b2a" title="La flèche sous point : distance au trait (ou au cercle d&#39;une boucle) au plus tolerance.">hmi::edgeAt</a>(disposition, boucle.badge, 4.0f)</span> vaut <span class="tt">std::optional&lt;std::size_t&gt;(1)</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8f058cebbeb2de49915110ec3f501b2a" title="La flèche sous point : distance au trait (ou au cercle d&#39;une boucle) au plus tolerance.">hmi::edgeAt</a>(disposition, <a class="el" href="structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float).">core::Vector2</a>(500.0f, 500.0f), 4.0f)</span> vaut <span class="tt">std::nullopt</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__world__links_8cpp.html" title="Tests des liens du graphe du monde (LOT-EDITOR-09, EX-EDIT-089) : tirer un lien entre deux cartes pos...">test_world_links.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DonneesLiens.RelierDeuxCartesSeTraverseDansLesDeuxSens</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__world__links_8cpp.html" title="Tests des liens du graphe du monde (LOT-EDITOR-09, EX-EDIT-089) : tirer un lien entre deux cartes pos...">Source/Test/Unit/Editor/test_world_links.cpp</a>:145</span></sub>  </td><td class="markdownTableBodyNone">Relier deux cartes se traverse dans les deux sens.  </td><td class="markdownTableBodyNone">1. Copier les données livrées.<br  />
+2. Relier <span class="tt">capital/martpart</span> et <span class="tt">coliseum</span>.<br  />
+ 3. Relire le graphe du monde et contrôler toutes les cartes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">avant.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">lien.from.arrivalName</span> vaut <span class="tt">"from-coliseum"</span>.<br  />
+Vérifie que <span class="tt">lien.to.arrivalName</span> vaut <span class="tt">"from-martpart"</span>.<br  />
+Vérifie que <span class="tt">aller</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">retour</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">aller-&gt;status</span> vaut <span class="tt"><a class="el" href="namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfaf691f042a559b1c1a4f89826c6f75760" title="La carte cible et son point d&#39;arrivée existent.">core::PortalLinkStatus::Resolved</a></span>.<br  />
+Vérifie que <span class="tt">retour-&gt;status</span> vaut <span class="tt"><a class="el" href="namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfaf691f042a559b1c1a4f89826c6f75760" title="La carte cible et son point d&#39;arrivée existent.">core::PortalLinkStatus::Resolved</a></span>.<br  />
+Vérifie que <span class="tt">aller-&gt;arrival</span> vaut <span class="tt">"from-martpart"</span>.<br  />
+Vérifie que <span class="tt">retour-&gt;arrival</span> vaut <span class="tt">"from-coliseum"</span>.<br  />
+Vérifie que <span class="tt">surLeColisee.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">surMartpart.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">atteignable(carte("coliseum"), *surLeColisee)</span> est vrai.<br  />
+Vérifie que <span class="tt">atteignable(carte("capital/martpart"), *surMartpart)</span> est vrai.<br  />
+Vérifie que <span class="tt">apres.count(hmi::MapCheckSeverity::Error)</span> vaut <span class="tt">0U</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DonneesLiens.UnLienImpossibleNecritRien</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__world__links_8cpp.html" title="Tests des liens du graphe du monde (LOT-EDITOR-09, EX-EDIT-089) : tirer un lien entre deux cartes pos...">Source/Test/Unit/Editor/test_world_links.cpp</a>:190</span></sub>  </td><td class="markdownTableBodyNone">Un lien impossible n'écrit rien.  </td><td class="markdownTableBodyNone">1. Relier une carte à elle-même.<br  />
+2. Relier une carte inconnue.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">memeCarte.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">memeCarte.edits.empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">memeCarte.error.find("itself")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">inconnue.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">inconnue.edits.empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">inconnue.error.find("cannot be read")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DonneesLiens.DeuxLiensEntreLesMemesCartesSeDistinguent</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__world__links_8cpp.html" title="Tests des liens du graphe du monde (LOT-EDITOR-09, EX-EDIT-089) : tirer un lien entre deux cartes pos...">Source/Test/Unit/Editor/test_world_links.cpp</a>:212</span></sub>  </td><td class="markdownTableBodyNone">Deux liens entre les mêmes cartes se distinguent.  </td><td class="markdownTableBodyNone">1. Relier deux fois <span class="tt">capital/martpart</span> et <span class="tt">coliseum</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">second.from.arrivalName</span> vaut <span class="tt">"from-coliseum-2"</span>.<br  />
+Vérifie que <span class="tt">second.to.arrivalName</span> vaut <span class="tt">"from-martpart-2"</span>.<br  />
+Vérifie que <span class="tt">resolus("capital/martpart", "coliseum")</span> vaut <span class="tt">2</span>.<br  />
+Vérifie que <span class="tt">resolus("coliseum", "capital/martpart")</span> vaut <span class="tt">2</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LiensDuMonde.UnPointDarriveeDitDouLonVient</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__world__links_8cpp.html" title="Tests des liens du graphe du monde (LOT-EDITOR-09, EX-EDIT-089) : tirer un lien entre deux cartes pos...">Source/Test/Unit/Editor/test_world_links.cpp</a>:241</span></sub>  </td><td class="markdownTableBodyNone">Un point d'arrivée dit d'où l'on vient.  </td><td class="markdownTableBodyNone">1. Demander le nom pour <span class="tt">capital/martpart</span> sans rien de pris, puis avec.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#adc0d3b3f9c55c33a2b82f9ea9561e2fa" title="Le nom d&#39;un point d&#39;arrivée qui accueille ceux qui viennent de fromMap : from-&lt;dernier segment&gt; (capi...">hmi::arrivalNameFrom</a>("capital/martpart", {})</span> vaut <span class="tt">"from-martpart"</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#adc0d3b3f9c55c33a2b82f9ea9561e2fa" title="Le nom d&#39;un point d&#39;arrivée qui accueille ceux qui viennent de fromMap : from-&lt;dernier segment&gt; (capi...">hmi::arrivalNameFrom</a>("capital/martpart", {"from-martpart"})</span> vaut <span class="tt">"from-martpart-2"</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#adc0d3b3f9c55c33a2b82f9ea9561e2fa" title="Le nom d&#39;un point d&#39;arrivée qui accueille ceux qui viennent de fromMap : from-&lt;dernier segment&gt; (capi...">hmi::arrivalNameFrom</a>("coliseum", {"from-coliseum", "from-coliseum-2"})</span> vaut <span class="tt">"from-coliseum-3"</span>.  </td></tr>
 </table>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
 HMI</h2>

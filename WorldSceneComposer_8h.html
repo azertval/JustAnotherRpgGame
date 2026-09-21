@@ -169,7 +169,7 @@ Variables</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un <b>lieu qu'on parcourt</b> composé en primitives, sans GPU : le jumeau d'<span class="tt">hmi::ArenaSceneComposer</span> pour la carte du jeu (<span class="tt">LOT-09</span>). </p>
 <p>Le lieu et l'arène se dessinent par le <b>même</b> code : même projection isométrique (<span class="tt"><a class="el" href="classcore_1_1IsoProjection.html" title="La projection isométrique d&#39;une grille de combat de columns × rows cases.">core::IsoProjection</a></span>), mêmes planches de l'atelier des textures (<span class="tt">LOT-92</span>, <span class="tt"><a class="el" href="ScenePieces_8h.html" title="La géométrie des pièces de l&#39;atelier des textures (LOT-92), commune au Colisée en combat et aux lieux...">ScenePieces.h</a></span>), même tri par profondeur. Ce qui change est la <b>source</b> : l'arène lit une grille de combat, le lieu lit une carte (<span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">core::Level</a></span>) — ses couches, les pièces qu'elles nomment, ses entités.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1200"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1209"></a>
 Ce qui va où</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -178,7 +178,7 @@ Ce qui va où</h2>
 <td class="markdownTableBodyNone">sol (type de tuile de la couche « sol » → table du lieu)  </td><td class="markdownTableBodyNone"><span class="tt">RenderLayer::Tile</span>  </td><td class="markdownTableBodyNone">profondeur de  </td></tr>
 </table>
 <p>case | | relief (pièce nommée à la case, ou type de la couche « décor ») | <span class="tt">RenderLayer::Object</span> | pied de la case | | figurine (héros, PNJ) | <span class="tt">RenderLayer::Player</span> | pied de sa case |</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1201"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1210"></a>
 Par instantané, comme l'arène</h2>
 <p>La composition ne lit qu'un <span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html" title="Le lieu en valeurs : ce que la composition lit, et rien d&#39;autre.">hmi::WorldSceneSnapshot</a></span> — des <b>valeurs</b>, aucun pointeur vers la carte ni vers la session. C'est ce qui lui permet de tourner sur le fil de rendu de Qt Quick, l'instantané étant pris dans <span class="tt">synchronize()</span> pendant que le fil graphique est bloqué. </p>
 </div></div><!-- contents -->

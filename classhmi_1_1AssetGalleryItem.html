@@ -241,7 +241,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Surface QRhi qui dispose tous les assets livrés en blocs (emprise + une case de marge), joue toutes leurs animations, et ne garde en mémoire que ce qui est à l'écran. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1210"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1219"></a>
 Qui décide quoi</h2>
 <p>L'item, sur le fil graphique, tient la caméra (<span class="tt"><a class="el" href="#a6c4e4bbfa297175d7d999f8defc69a87" title="Unités d&#39;élément par pixel d&#39;art.">zoom</a></span>, <span class="tt"><a class="el" href="#a3f9286c75e5c886ecf730eca4026854a" title="Position, en unités d&#39;élément, du coin haut-gauche de la galerie.">offsetX</a></span>, <span class="tt"><a class="el" href="#a18039e59167d4c1e316d806bca421526">offsetY</a></span>), la disposition et l'horloge d'animation ; il classe chaque bloc (dessiné, préchargé, déchargé) et publie au QML ce que le calque d'étiquettes, la minicarte et l'inspecteur lisent. Le peintre, sur le fil de rendu, reçoit dans <span class="tt">synchronize()</span> une <span class="tt"><a class="el" href="structhmi_1_1AssetGalleryFrame.html" title="Ce que le fil graphique remet au rendu pour une image : des valeurs.">hmi::AssetGalleryFrame</a></span> <b>en valeurs</b> et relaie <span class="tt"><a class="el" href="classhmi_1_1AssetGalleryRenderer.html" title="Dessine la galerie, et ne garde en mémoire que les textures voulues.">hmi::AssetGalleryRenderer</a></span>.</p>
 <p>Les positions publiées sont en unités d'élément : le calque QML tombe sur les blocs dessinés sans rien recalculer. </p>
