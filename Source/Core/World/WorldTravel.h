@@ -57,8 +57,7 @@ struct PortalTarget {
 
 /// @return La case du point d'arrivée nommé @p name, s'il existe. Deux points de même nom sont un
 ///         défaut du graphe : le **premier** dans l'ordre des entités l'emporte ici.
-[[nodiscard]] std::optional<GridPosition> arrivalPointAt(const Level& level,
-                                                         std::string_view name);
+[[nodiscard]] std::optional<GridPosition> arrivalPointAt(const Level& level, std::string_view name);
 
 /// @brief Ce qui empêche une carte d'être jouée. `Core` n'écrit pas de texte : l'IHM traduit.
 enum class WorldIssueCode {
@@ -145,6 +144,19 @@ public:
 
     /// @brief Le chargeur du jeu : `<levelsDir>/<mapId>.json`.
     [[nodiscard]] static MapLoader directoryLoader(std::filesystem::path levelsDir);
+
+    /**
+     * @brief Le chargeur qui cherche une carte dans @p levelsDirs, **dans l'ordre donné**.
+     *
+     * L'essai complet de l'éditeur (`LOT-EDITOR-10`) écrit les brouillons ouverts dans un dossier
+     * temporaire et le place devant les cartes du binaire : on joue ce qu'on a sous les yeux,
+     * et toute carte qu'on n'édite pas vient de son fichier, comme en jeu.
+     *
+     * Une carte absente d'un dossier est cherchée dans le suivant ; une carte **présente mais
+     * illisible** arrête la recherche et rend son erreur — passer au dossier suivant ferait jouer
+     * en silence une version périmée de la carte qu'on vient de casser.
+     */
+    [[nodiscard]] static MapLoader directoriesLoader(std::vector<std::filesystem::path> levelsDirs);
 
     explicit WorldTravel(MapLoader loader);
 

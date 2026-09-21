@@ -41,6 +41,12 @@ enum class EditorCommand {
     Playtest,
     /// L'essai qui part de la case survolée (LOT-EDITOR-04).
     PlaytestHere,
+    /// L'essai **complet** : le vrai jeu, sur les brouillons ouverts (LOT-EDITOR-10).
+    RunInGame,
+    /// L'essai complet qui part de la case survolée (LOT-EDITOR-10).
+    RunInGameHere,
+    /// L'essai complet après avoir choisi la case et les drapeaux (LOT-EDITOR-10).
+    RunInGameOptions,
     Undo,
     Redo,
     ToggleGrid,
@@ -62,7 +68,7 @@ enum class EditorCommand {
 };
 
 /// Nombre de commandes, déclaré au plus près de l'énumération qu'il compte.
-inline constexpr std::size_t EDITOR_COMMAND_COUNT = 27;
+inline constexpr std::size_t EDITOR_COMMAND_COUNT = 30;
 
 /**
  * @brief Construit et possède les `QAction` de l'éditeur : chaque outil et chaque commande

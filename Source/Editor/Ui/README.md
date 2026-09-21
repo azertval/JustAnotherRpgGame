@@ -40,6 +40,8 @@ textes anglais, aucun formulaire `.ui` (`LOT-EDITOR-01`).
   et ceux dont la carte manque (`EX-EDIT-090`).
 - `MapPropertiesDialog` — le lieu, la région, l'ambiance et l'état d'une carte (`EX-EDIT-091`,
   `EX-EDIT-092`).
+- `RunInGameDialog` — l'essai complet : d'où l'on part, et les drapeaux de monde posés avant le
+  premier pas (`EX-EDIT-094`).
 - `LayersPanel` — couche active, visibilité, opacité, grisé, verrou, ajout, retrait, ordre et
   nom.
 - `EntityPanel` — famille à poser, liste filtrable des entités (identifiant, famille, étiquette,

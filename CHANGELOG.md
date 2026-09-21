@@ -6,6 +6,19 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **L'essai complet dans le jeu (LOT-EDITOR-10).** *Map* › *Run in game* (**F5**) lance
+  `JustAnotherRpgGame` sur la carte ouverte dans l'éditeur : le jeu s'ouvre **directement sur
+  elle**, sans passer par ses menus, avec ses dialogues, ses écrans et son rendu. **Maj+F5** part
+  de la case survolée, **Ctrl+F5** demande d'abord la case de départ et les **drapeaux de monde** à
+  poser — la même carte avant et après une quête. Ce qui est joué, ce sont les **brouillons** de
+  tous les onglets ouverts, écrits dans un dossier temporaire hors du dépôt que le jeu sert avant
+  ses propres cartes : la retouche qu'on vient de faire se voit sans enregistrer, et la carte d'à
+  côté aussi quand on passe son portail. Côté jeu, rien d'autre n'a changé que sa ligne de commande
+  — `--at=<colonne>,<ligne>`, `--flags=`, `--levels=`, en build de développement seulement.
+  L'essai immédiat du canevas (**P**) reste ce qu'il est : la marche et les portails, sans quitter
+  la fenêtre. Une rencontre, elle, ne se déclenche toujours pas depuis une carte d'exploration :
+  c'est le LOT-27.
+
 - **Une assertion Debug ne bloque plus un programme sans fenêtre.** Une assertion de la CRT ou de
   la bibliothèque standard ouvrait une boîte « Microsoft Visual C++ Runtime Library » et attendait
   un clic : `LevelEditor --check`, la fenêtre de l'éditeur au démarrage et `UnitTests.exe`

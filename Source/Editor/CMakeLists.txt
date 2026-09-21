@@ -58,6 +58,8 @@ add_library(EditorLogic STATIC
     Logic/MapDocuments.cpp
     Logic/WorldLinks.cpp
     Logic/CityView.cpp
+    # L'essai complet dans le jeu (LOT-EDITOR-10) : le dossier des brouillons joués, et le jeu.
+    Logic/GameLaunch.cpp
 )
 target_include_directories(EditorLogic PUBLIC ${PROJECT_SOURCE_DIR}/Source)
 target_link_libraries(EditorLogic
@@ -112,6 +114,8 @@ add_executable(LevelEditor
     # Le monde (LOT-EDITOR-09) : la vue de ville et les propriétés de carte.
     Ui/CityMapView.cpp
     Ui/MapPropertiesDialog.cpp
+    # L'essai complet (LOT-EDITOR-10) : où partir, et avec quels drapeaux.
+    Ui/RunInGameDialog.cpp
 )
 
 target_link_libraries(LevelEditor PRIVATE

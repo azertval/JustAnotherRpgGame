@@ -415,6 +415,27 @@ Plusieurs cartes à la fois, un graphe qu'on écrit au geste, et de quoi savoir 
   cartes en **vignettes** rendues par le peintre du canevas (`EX-EDIT-059`), gardées tant que le
   fichier ne change pas. L'état est une note d'auteur : il ne va jamais dans la carte.
 
+## 20. L'essai complet dans le jeu (`LOT-EDITOR-10`)
+Le vrai jeu, sur la carte ouverte, là où on veut et dans l'état qu'on veut
+([LOT-EDITOR-10](@ref lot-editor-10)).
+
+- \anchor EX-EDIT-093 **EX-EDIT-093** — Une commande de l'éditeur lance **le jeu** sur la carte
+  ouverte, sans passer par ses menus : le jeu s'ouvre directement dans la vue de jeu, sur la carte
+  demandée (`--map=`), au besoin sur une **case** précise (`--at=`) — l'entrée de la carte sinon,
+  et une case hors de la carte n'empêche pas le lancement. Une carte jamais enregistrée, ou un
+  brouillon qui ne se convertit pas en niveau, est refusé avec sa raison, en barre d'état. Un seul
+  essai vit à la fois : le suivant remplace le précédent.
+- \anchor EX-EDIT-094 **EX-EDIT-094** — L'essai se lance dans un **état de partie** choisi : les
+  drapeaux de monde cochés (`--flags=`) sont acquis avant le premier pas, ce qui montre la même
+  carte avant et après une quête. La liste propose les drapeaux que les dialogues du jeu posent, et
+  accepte les autres à la main ; le choix sert aux essais suivants de la session.
+- \anchor EX-EDIT-095 **EX-EDIT-095** — Le jeu joue les **brouillons**, pas les fichiers : les
+  cartes de **tous** les onglets sont écrites dans un dossier temporaire, hors du dépôt, que le jeu
+  cherche avant ses propres cartes (`--levels=`, `core::WorldTravel::directoriesLoader`). Le
+  dossier est vidé à chaque essai ; une carte qu'aucun onglet ne porte reste celle du dépôt ; une
+  carte présente mais illisible fait échouer l'ouverture au lieu de retomber sur la version d'à
+  côté. Un essai n'enregistre rien.
+
 ## Exigences retirées {#edit-retirees}
 
 > Ancres conservées, jamais renumérotées : les lots livrés s'y réfèrent. Chacune servait un

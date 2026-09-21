@@ -198,13 +198,13 @@ sont des noms, pas un ordre : l'ordre vient des prérequis.
 | `LOT-EDITOR-14` | Renommer et remplacer — **livré** | 06 | M |
 | `LOT-EDITOR-08` | Tampons et préfabriqués (livré) | 04 | S |
 | `LOT-EDITOR-09` | Le monde : onglets, portails, ville — **livré** | 05, 13 | M |
-| `LOT-EDITOR-10` | Essai complet dans le jeu | 01 | S |
+| `LOT-EDITOR-10` | Essai complet dans le jeu — **livré** | 01 | S |
 | `LOT-EDITOR-11` | Génération assistée | 07 et [LOT-40](@ref lot-40) | M |
 
 Tailles relatives : S tient en une séance, M en quelques-unes, L demande un découpage en phases.
 
-Le jalon est atteint : 01, 02, 12, 03, 04, 05, 13 et 06 sont livrés, et 07, 14, 08 et 09 après
-lui. Le graphe est donné en source
+Le jalon est atteint : 01, 02, 12, 03, 04, 05, 13 et 06 sont livrés, et 07, 14, 08, 09 et 10
+après lui. Le graphe est donné en source
 Graphviz, comme celui du jeu (la chaîne Doxygen tourne sans `HAVE_DOT`).
 
 ```dot
@@ -223,7 +223,7 @@ digraph editeur {
   E14 [label="14\nrenommer, remplacer\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E08 [label="08\ntampons\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E09 [label="09\nmonde\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
-  E10 [label="10\nessai complet"];
+  E10 [label="10\nessai complet\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E11 [label="11\ngénération"];
   L40 [label="LOT-40\n(jeu)", style="rounded,dashed"];
   E01 -> E02; E01 -> E12; E01 -> E10;
@@ -390,19 +390,21 @@ son plan (`EX-EDIT-090`). Une carte porte sa région et son ambiance (`EX-EDIT-0
 dit où elle en est — générée, retouchée, finie —, que le navigateur montre, filtre et illustre
 d'une vignette (`EX-EDIT-092`).
 
-### LOT-EDITOR-10 — Essai complet dans le jeu {#lot-editor-10}
+### LOT-EDITOR-10 — Essai complet dans le jeu
 
-> Statut : **à faire**. Prérequis : 01.
+> Statut : **livré le 21 septembre 2026**. Le lot a quitté cette page pour son dossier :
+> @subpage lot-editor-10.
 
-Un bouton lance le vrai jeu sur la carte en cours, à la case voulue, avec dialogues et combats.
+Un bouton lance le **vrai jeu** sur la carte ouverte, à la case voulue et dans l'état de partie
+voulu (`EX-EDIT-093`, `EX-EDIT-094`) : les brouillons de tous les onglets sont posés dans un
+dossier temporaire, que le jeu sert **avant** ses propres cartes (`EX-EDIT-095`). Côté jeu, rien
+d'autre n'a changé que sa ligne de commande — `--at=`, `--flags=`, `--levels=`, et l'entrée
+directe dans la vue de jeu. L'essai immédiat du canevas reste ce qu'il est : la marche et les
+portails, sans quitter la fenêtre.
 
-- `JustAnotherRpgGame --map=<id> --at=x,y`, qui charge le brouillon enregistré dans un dossier
-  temporaire ; `--flags=…` pose un jeu de drapeaux, pour voir la carte avant et après une quête.
-  Ce sont les seuls changements côté jeu.
-- L'essai immédiat reste pour la marche et les portails.
-
-*Acceptation* — depuis l'éditeur, parler à Myr puis engager une rencontre sur Martpart sans passer
-par les menus du jeu.
+Le critère d'acceptation du module n'est atteint qu'à moitié, et c'est dit : le dialogue s'ouvre,
+la **rencontre** attend le [LOT-27](@ref lot-27), qui branchera le combat depuis une carte
+d'exploration.
 
 ### LOT-EDITOR-11 — Génération assistée {#lot-editor-11}
 

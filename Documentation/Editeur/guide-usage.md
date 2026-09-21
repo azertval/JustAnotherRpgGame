@@ -84,8 +84,21 @@ paires d'un geste. À la main, poser un portail et un point d'arrivée de chaque
 
 ## 6. Essayer
 
-**P** lance l'essai depuis l'entrée, **Shift+P** depuis la case survolée : on marche, on passe
-les portails. Pour le vrai jeu, dialogues et combats compris, il faudra le `LOT-EDITOR-10`.
+**P** lance l'essai immédiat depuis l'entrée, **Shift+P** depuis la case survolée : on marche, on
+passe les portails, sans quitter la fenêtre. C'est l'outil de la marche et des portails.
+
+Pour le **vrai jeu**, *Map* › *Run in game* (**F5**) lance `JustAnotherRpgGame` sur la carte
+ouverte : il s'ouvre directement dessus, sans passer par ses menus, avec ses dialogues, ses écrans
+et son rendu. **Maj+F5** part de la case survolée ; **Ctrl+F5** ouvre d'abord un dialogue où l'on
+choisit la case de départ et les **drapeaux de monde** à poser — la même carte avant et après une
+quête.
+
+Ce qui est joué, ce sont les **brouillons** de tous les onglets ouverts, écrits dans un dossier
+temporaire hors du dépôt : la retouche qu'on vient de faire se voit sans enregistrer, et la carte
+d'à côté aussi quand on passe son portail. Deux choses restent celles de la dernière
+construction : les **catalogues** du jeu (dialogues, rencontres, figurines, villes, assets) et son
+propre `Levels/` pour les cartes qu'aucun onglet ne porte. Un essai n'enregistre rien, et fermer
+l'éditeur ferme le jeu.
 
 ## 7. Enregistrer, contrôler, publier
 
@@ -187,5 +200,7 @@ sans fenêtre : `--rename-map`, `--rename-arrival`, `--rename-id`, `--who-cites`
 
 ## Ce qui ne se fait pas encore dans l'éditeur
 
-- Jouer la carte dans le vrai jeu, dialogues et combats compris : `LOT-EDITOR-10`.
+- Engager un **combat** depuis une carte d'exploration : le jeu ne le branche pas encore
+  ([LOT-27](@ref lot-27)). *Run in game* ouvre bien les dialogues ; une rencontre ne
+  déclenche rien.
 - Générer une carte et la régénérer sans perdre les retouches : `LOT-EDITOR-11`.

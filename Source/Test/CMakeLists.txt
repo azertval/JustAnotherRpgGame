@@ -111,6 +111,8 @@ add_executable(UnitTests
     Unit/HMI/Interface/test_character_sheet_values.cpp
     Unit/HMI/Interface/test_dialogue_screen.cpp
     Unit/HMI/Interface/test_identity_scale.cpp
+    # L'essai complet (LOT-EDITOR-10) : la ligne de commande que l'editeur ecrit, le jeu la relit.
+    Unit/HMI/Game/test_launch_options.cpp
     Unit/Editor/test_thumbnail_geometry.cpp
     Unit/Editor/test_level_name_validation.cpp
     Unit/Editor/test_tile_taxonomy.cpp
@@ -139,6 +141,8 @@ add_executable(UnitTests
     Unit/Editor/test_map_documents.cpp
     Unit/Editor/test_world_links.cpp
     Unit/Editor/test_city_view.cpp
+    # L'essai complet dans le jeu (LOT-EDITOR-10) : les brouillons poses dans un dossier a eux.
+    Unit/Editor/test_game_launch.cpp
 )
 
 # Encodage/decodage d'image : QImage (Qt) lit et ecrit le PNG, mais aucun device

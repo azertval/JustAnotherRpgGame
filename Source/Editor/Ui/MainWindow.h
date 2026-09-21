@@ -15,15 +15,18 @@
 #include <string>
 #include <vector>
 
+#include "Core/Levels/GridPosition.h"
 #include "Editor/Logic/EditContextTarget.h"
 #include "Editor/Logic/EditorTool.h"
 #include "Editor/Logic/PanelFocus.h"
+#include "Editor/Ui/RunInGameDialog.h"
 
 class QAction;
 class QDockWidget;
 class QFileSystemWatcher;
 class QLabel;
 class QMenu;
+class QProcess;
 class QTabWidget;
 class QTimer;
 class QToolBar;
@@ -148,6 +151,21 @@ private:
     void applyPanelFocus(hmi::EditorTool tool);
     [[nodiscard]] QDockWidget* dockFor(PanelId panel) const;
 
+    // --- L'essai complet dans le jeu (LOT-EDITOR-10) ---
+    /**
+     * @brief Lance `JustAnotherRpgGame` sur la carte ouverte, au départ de @p at
+     *        (`EX-EDIT-093`, `EX-EDIT-095`).
+     *
+     * Les brouillons de **tous** les onglets sont écrits dans le dossier d'essai, et le jeu les
+     * sert avant ses propres cartes : on joue ce qu'on a sous les yeux, portails compris. Rien
+     * n'est enregistré dans le dépôt.
+     */
+    void runInGame(std::optional<core::GridPosition> at);
+    /// « Run in game… » : la case de départ et les drapeaux de monde, puis l'essai.
+    void openRunInGameDialog();
+    /// Arrête l'essai en cours, s'il y en a un (un second essai remplace le premier).
+    void stopRunningGame();
+
     // --- Contrôle du contenu (LOT-EDITOR-07) ---
     /// Contrôle toutes les cartes enregistrées et montre le bilan dans « Problems ».
     void runContentCheck();
@@ -257,6 +275,11 @@ private:
     /// vignettes déjà rendues, par `lieu/nom`.
     std::string _prefabPlace;
     std::map<std::string, QPixmap> _prefabThumbnails;
+
+    /// L'essai complet en cours, s'il y en a un (`LOT-EDITOR-10`) : un seul à la fois.
+    QProcess* _game = nullptr;
+    /// Ce que le dernier « Run in game… » a choisi : repris tel quel par les essais suivants.
+    RunInGameChoice _runChoice;
 
     std::unique_ptr<AutosaveStore> _autosave;
     QTimer* _autosaveTimer = nullptr;
