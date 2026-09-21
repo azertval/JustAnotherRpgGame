@@ -16,7 +16,7 @@ marqueurs : le jeu sait déjà afficher un damier et un jeton à la place d'un a
 
 ## Ce que la démo contient
 
-Trois cartes — deux quartiers et un donjon, l'Arena of Fate, sous-zone d'Arenarea —, cinq PNJ à rôle, une foule, un adversaire, quatre dialogues, un drapeau de quête,
+Trois lieux — deux quartiers et un donjon, l'Arena of Fate, sous-zone d'Arenarea, qui tient en deux cartes (décision D-21 : un niveau est une carte) —, cinq PNJ à rôle, une foule, un adversaire, quatre dialogues, un drapeau de quête,
 deux écrans de fin. Le détail est dans [la fiche de la quête](quete-demo.md).
 
 ### Martpart

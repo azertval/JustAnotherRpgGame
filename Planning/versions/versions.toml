@@ -27,7 +27,7 @@ objectifs = [
 criteres_de_sortie = [
   "Un joueur qui ne connaît pas le projet termine la démo par chacune de ses **trois issues** (persuasion réussie, victoire, mort) sans aide.",
   "Aucun asset pixel art ne reste dans `Source/Elements/Assets/` (les cartes peintes et le HUD, déjà au standard, sont gardés) ; la galerie de débug montre tous les assets HD.",
-  "Les trois cartes passent le contrôle de l'éditeur (`--check`) et se parcourent sans case inatteignable.",
+  "Toutes les cartes de la démo — l'Arena of Fate en compte deux, un niveau étant une carte — passent le contrôle de l'éditeur (`--check`) et se parcourent sans case inatteignable.",
   "La CI est verte, l'installeur se lance sur un poste vierge, le tag `v0.0.1` est posé.",
 ]
 sources = [

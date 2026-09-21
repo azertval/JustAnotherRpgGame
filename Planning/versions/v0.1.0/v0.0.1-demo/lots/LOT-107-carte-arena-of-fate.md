@@ -8,7 +8,7 @@ taille = "M"
 resume = "L'Arena of Fate se parcourt, et figure dans l'onglet « Carte » **à l'intérieur d'Arenarea**."
 prerequis = ["LOT-106", "LOT-103", "LOT-126", "LOT-127"]
 livrables = [
-  "`Levels/central-empire/capital/arenarea/arena-of-fate.json`, dessinée **dans l'éditeur**.",
+  "`Levels/central-empire/capital/arenarea/arena-of-fate.json` (le sable et ses anneaux) et `arena-of-fate/undercroft.json` (le niveau −1 : vestiaires et prison), dessinées **dans l'éditeur** et reliées par l'escalier de la porte du triomphe (décision D-21).",
   "`capital/arenarea/arena-of-fate/Map/` : l'image de la zone pour l'onglet « Carte », et son entrée dans `world-maps.json`.",
   "Portails, points d'apparition nommés, zones (combat, déclencheurs de quête).",
 ]
@@ -74,15 +74,15 @@ et **condamné** : c'est le crochet du `LOT-157`. Le contrôle de l'éditeur doi
 porte sans arrivée — sinon la carte est marquée d'un portail mort : c'est `portal.sealed`, au
 [LOT-126](LOT-126-ce-que-la-quete-demande-aux-cartes.md).
 
-### Question ouverte : un niveau sous les gradins
+### Deux cartes, pas deux étages
 
-Le niveau −1 est **sous** les gradins, qui occupent les mêmes cases en décor. Or ni le jeu ni l'éditeur ne
-jouent les étages : le format v4 en réserve la place (`floor`, `elevation`) sans s'en servir, et la règle
-de l'éditeur (sa décision D11) est qu'un sous-sol est **une carte à part**, reliée par portail. Proposé :
-deux cartes — `arena-of-fate.json` (le sable et ses anneaux) et `arena-of-fate/undercroft.json`
-(vestiaires et prison) —, l'escalier de la porte du triomphe étant le portail. La taille de 34 × 24 ne
-vaut alors que pour la première. À trancher au démarrage du lot ; jouer les étages serait un lot de
-moteur, que rien ne demande avant Phantom Fortress.
+Le niveau −1 est **sous** les gradins, qui occupent les mêmes cases en décor. Un niveau est une carte
+(décision D-21) : le lot livre **deux cartes** — `arena-of-fate.json`, le sable et ses anneaux, et
+`arena-of-fate/undercroft.json`, les vestiaires et la prison. L'**escalier de la porte du triomphe** est le
+portail entre elles ; la **porte des morts** en est un second. Le portail vers le parvis d'Arenarea et
+l'escalier condamné des catacombes sont sur la carte du sous-sol. La taille de 34 × 24 ne vaut que
+pour la carte du sable ; celle du sous-sol se fixe au tracé. L'onglet « Carte » montre les deux sous la
+même sous-zone.
 
 ![Plan de principe](../maquettes/plan-arena-of-fate.svg)
 

@@ -90,7 +90,7 @@ canevas (déjà libre), la mini-carte, les vignettes de pièces (déjà lissées
 | `0.0.1` | l'escalier des catacombes, **posé et condamné** (LOT-107) | un portail sans arrivée est une erreur du contrôle | LOT-126 |
 | `0.0.1` | déclencheurs de quête, transfert scénarisé vers le vestiaire A | `zone` n'a pas de propriété de déclenchement | LOT-126 |
 | `0.0.1` | un dialogue **déclenche** une rencontre (LOT-118) | rien à faire : l'entité `encounter` et la zone de combat existent | — |
-| `0.0.1` | le niveau −1 de l'arène **sous** les gradins (LOT-107) | pas d'étages (décision D11 de l'éditeur : un sous-sol est une carte à part) | note au LOT-107 |
+| `0.0.1` | le niveau −1 de l'arène **sous** les gradins (LOT-107) | pas d'étages, et c'est voulu : **un niveau est une carte** (décision D-21) — le LOT-107 livre deux cartes reliées | — |
 | `0.0.2` | combat à **quatre contre plusieurs**, budget de difficulté (LOT-139) | le verdict d'une zone de combat ne compte ni le groupe ni le budget | LOT-143 |
 | `0.0.3` | six quartiers peuplés aux **proportions du livre** ; des dizaines de PNJ par carte | une entité à la fois : ni édition à plusieurs, ni lasso, ni foule | LOT-158 |
 | `0.0.3` | une **image d'onglet « Carte »** et une entrée de `world-maps.json` par zone ; sous-zones | cadres de quartier non éditables, région non contrôlée contre l'atlas, `locations` sans distinction quartier / ville | LOT-159 |
