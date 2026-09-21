@@ -95,14 +95,14 @@ $(function(){initNavTree('spec-conventions.html','',''); });
 <div class="textblock"><p><a class="anchor" id="md_Specification_2conventions"></a></p>
 <p>Règles à respecter dès la première ligne, pour garder un code cohérent et une documentation Doxygen exploitable. Le squelette existant (<span class="tt">Source/Core</span>, <span class="tt">Source/HMI</span>) suit déjà ces règles.</p>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md202"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md203"></a>
 1. Langage &amp; standard</h1>
 <ul>
 <li><b>C++20</b> (fixé dans <span class="tt">CMakeLists.txt</span>, extensions compilateur désactivées).</li>
 <li>Préférer la bibliothèque standard aux API brutes quand c'est possible.</li>
 <li>Pas de <span class="tt">using namespace</span> en portée de fichier d'en-tête.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md203"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md204"></a>
 2. Nommage</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -129,7 +129,7 @@ $(function(){initNavTree('spec-conventions.html','',''); });
 <li>Noms en <b>anglais</b> pour le code (identifiants), commentaires et documentation <b>en français</b>.</li>
 <li><b>Aucune abréviation</b> dans les noms de variables et de fonctions : le nom est écrit en toutes lettres (<span class="tt">deltaTime</span> et non <span class="tt">dt</span>, <span class="tt">position</span> et non <span class="tt">pos</span>, <span class="tt">updatePhysics</span> et non <span class="tt">updPhys</span>). Seuls les prénoms d'itérateurs conventionnels (<span class="tt">i</span>, <span class="tt">j</span>) et les termes standard du domaine restent tolérés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md204"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md205"></a>
 3. Mise en forme</h1>
 <ul>
 <li>Indentation : <b>4 espaces</b>, jamais de tabulation.</li>
@@ -141,9 +141,9 @@ $(function(){initNavTree('spec-conventions.html','',''); });
 <li>Longueur de ligne indicative : <b>100 colonnes</b>.</li>
 <li>Include guard : <b><span class="tt">#pragma once</span></b> (pas de macros de garde manuelles).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md205"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md206"></a>
 4. Inclusions (#include)</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md206"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md207"></a>
 Chemins complets depuis Source/</h2>
 <p>Les en-têtes du projet s'incluent par leur <b>chemin complet depuis la racine <span class="tt">Source/</span></b>, jamais par nom seul :</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="Core_8h.html">Core/Core.h</a>&quot;</span>                    <span class="comment">// ✅ chemin complet</span></div>
@@ -155,7 +155,7 @@ Chemins complets depuis Source/</h2>
 <li>La racine d'inclusion <span class="tt">Source/</span> est fournie par CMake (<span class="tt">target_include_directories(... ${PROJECT_SOURCE_DIR}/Source)</span>).</li>
 <li>Bénéfice : les dépendances sont explicites et un déplacement de fichier lors d'une refonte d'architecture se repère et se corrige par simple recherche du chemin.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md207"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md208"></a>
 Ordre des groupes</h2>
 <p>Dans un <span class="tt">.cpp</span>, du plus proche au plus général, chaque groupe trié et séparé par une ligne vide :</p><ol type="1">
 <li>L'en-tête correspondant au fichier (<span class="tt">#include "<a class="el" href="Core_8h.html" title="Interface publique de la bibliothèque Core (moteur / logique de jeu).">Core/Core.h</a>"</span> en premier dans <span class="tt"><a class="el" href="Core_8cpp.html">Core.cpp</a></span>).</li>
@@ -163,7 +163,7 @@ Ordre des groupes</h2>
 <li>En-têtes tiers (<span class="tt">&lt;gtest/gtest.h&gt;</span>, DirectX…).</li>
 <li>En-têtes du projet, chemin complet (<span class="tt">"Core/..."</span>, <span class="tt">"HMI/..."</span>).</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md208"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md209"></a>
 5. Architecture (dépendances entre modules)</h1>
 <ul>
 <li><b><span class="tt">Core</span></b> : logique/moteur, <b>indépendant</b> de la présentation. Ne connaît ni DirectX ni la fenêtre.</li>
@@ -171,20 +171,20 @@ Ordre des groupes</h2>
 <li><b><span class="tt">Elements</span></b> : données/assets statiques, aucun code exécutable — dont les <b>assets Qt déclaratifs</b> (<span class="tt">.ui</span>, <span class="tt">.qrc</span>, thèmes <span class="tt">.qss</span>).</li>
 <li>Aucune dépendance cyclique. <span class="tt">Core</span> reste testable sans fenêtre ni GPU.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md209"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md210"></a>
 IHM Qt : la mise en page hors code pour le jeu, en code pour l'éditeur</h2>
 <ul>
 <li><b>Les écrans du jeu</b> sont des formulaires <span class="tt">.ui.qml</span> (<span class="tt">Source/Ui</span>), dessinés dans Qt Design Studio ; leurs textes passent par <span class="tt">qsTr</span> (<span class="tt">EX-REN-033</span>, <span class="tt">EX-IHM-103</span>).</li>
 <li><b>L'éditeur</b> est un outil interne (<span class="tt">LOT-EDITOR-01</span>) : ses widgets sont <b>construits en code</b>, chaque panneau gardant les siens dans une <span class="tt">struct Widgets</span> privée ; ses textes sont en <b>anglais, écrits dans le code</b>, sans clé de traduction ; son style est Fusion, sans feuille de style.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md210"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md211"></a>
 Classes plutôt que fonctions libres</h2>
 <ul>
 <li><b>Privilégier une classe</b> (avec état encapsulé et membres privés) à un ensemble de fonctions libres dans un espace de noms. Une classe se dérive et se spécialise : elle permet d'étendre les comportements sans réécrire les appelants.</li>
 <li>Réserver les fonctions libres dans un <span class="tt">namespace</span> aux utilitaires purs, sans état.</li>
 <li>Exposer le minimum : membres et méthodes internes en <span class="tt">private</span> par défaut, <span class="tt">public</span> seulement pour l'interface réellement nécessaire.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md211"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md212"></a>
 RAII obligatoire</h2>
 <ul>
 <li><b>Toute classe respecte le RAII</b> : une ressource (mémoire, handle DirectX, fichier…) est acquise dans le constructeur et libérée dans le destructeur. Aucune méthode <span class="tt">init()</span> / <span class="tt">cleanup()</span> manuelle à appeler séparément.</li>
@@ -192,10 +192,10 @@ RAII obligatoire</h2>
 <li>Bénéfice recherché : <b>traçage des bugs et tests facilités</b> — la durée de vie d'une ressource est celle de l'objet, sans état intermédiaire à moitié initialisé.</li>
 <li>Gérer la copie/déplacement explicitement (règle des 0/3/5) ; préférer <span class="tt">= default</span> ou <span class="tt">= delete</span> à une implémentation manuelle quand c'est possible.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md212"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md213"></a>
 6. Documentation Doxygen</h1>
 <p>Tout élément public (fichier, type, fonction) est documenté <b>en français</b>. <span class="tt">JAVADOC_AUTOBRIEF</span> est actif : la première phrase sert de description courte.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md213"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md214"></a>
 Doxygen dans le header, commentaires simples // dans le .cpp</h2>
 <p>La documentation Doxygen (exportée vers le site) vit <b>uniquement dans les en-têtes</b> (<span class="tt">.h</span>) :</p><ul>
 <li>Dans le <b><span class="tt">.h</span></b> : le bloc Doxygen <span class="tt">/** … */</span> complet — contrat de la fonction (rôle, <span class="tt">@param</span>, <span class="tt">@return</span>), lu par les appelants et exporté sur le site. C'est la <b>source unique</b>.</li>
@@ -229,7 +229,7 @@ Doxygen dans le header, commentaires simples // dans le .cpp</h2>
 </div><!-- fragment --><blockquote class="doxtable">
 <p>Une méthode qui <b>redéfinit</b> (<span class="tt">override</span>) une fonction déjà documentée dans un header (par ex. une interface) n'a pas besoin d'être redocumentée : Doxygen hérite de la doc de base. Les fonctions <b>internes</b> au <span class="tt">.cpp</span> (espace de noms anonyme) se contentent aussi de <span class="tt">//</span>. </p>
 </blockquote>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md214"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md215"></a>
 Documentation du corps (.cpp)</h2>
 <p>Dans les définitions, commenter en français avec des <span class="tt">//</span> :</p><ul>
 <li>Le rôle de chaque <b>branche <span class="tt">if</span>/<span class="tt">else</span></b> non triviale (pourquoi cette condition).</li>
@@ -250,7 +250,7 @@ Documentation du corps (.cpp)</h2>
 <div class="line">    Info,   </div>
 <div class="line">};</div>
 </div><!-- fragment --><p>Ne <b>jamais</b> utiliser un <span class="tt">///</span> de fin de ligne (sans <span class="tt">&lt;</span>) : il se rattacherait à la déclaration <em>suivante</em>, pas à celle qu'on croit documenter.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md215"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md216"></a>
 7. Bonnes pratiques</h1>
 <ul>
 <li><span class="tt">const</span> par défaut ; <span class="tt">constexpr</span> quand c'est possible.</li>
@@ -263,14 +263,14 @@ Documentation du corps (.cpp)</h2>
 <li><b><span class="tt">enum class</span></b> plutôt qu'<span class="tt">enum</span> nu (typage fort, pas de conversion implicite).</li>
 <li><b><span class="tt">override</span></b> / <b><span class="tt">final</span></b> explicites sur les méthodes virtuelles redéfinies.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md216"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md217"></a>
 8. Tests</h1>
 <ul>
 <li>Un test = un comportement, nommé <span class="tt">TEST(SuiteName, ComportementTeste)</span>.</li>
 <li>Fichiers de test : <span class="tt">test_&lt;cible&gt;.cpp</span> dans <span class="tt">Source/Test/{Unit,Integration,Systeme}/</span>.</li>
 <li>Toute logique de <span class="tt">Core</span> livrée s'accompagne de tests unitaires.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md217"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md218"></a>
 9. Gestion des erreurs</h1>
 <p>Politique par catégorie d'erreur (à respecter dans tout le code) :</p>
 <table class="markdownTable">
@@ -291,13 +291,13 @@ Documentation du corps (.cpp)</h2>
 <blockquote class="doxtable">
 <p>Note : <span class="tt">std::expected</span> (C++23) remplacera avantageusement <span class="tt">Result&lt;T&gt;</span> lorsque le projet passera à C++23. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md218"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md219"></a>
 10. Assertions &amp; journalisation</h1>
 <ul>
 <li><b>Assertions</b> : vérifier les préconditions et invariants avec une macro projet <span class="tt"><a class="el" href="Assert_8h.html#a2811f3d423b22f1a90179b4ed095f054" title="Vérifie une précondition.">JADG_ASSERT(condition, message)</a></span> (basée sur <span class="tt">assert</span>, active en Debug, retirée en Release). Une assertion signale un <b>bug</b>, pas une erreur d'exécution normale.</li>
 <li><b>Journalisation</b> : passer par le module de log du projet (<span class="tt">Core/Diagnostics</span>, dont le journal de fichier tient <span class="tt">EX-NFR-042</span>), <b>jamais</b> <span class="tt">std::cout</span>/<span class="tt">printf</span> directement dans le code de production. Niveaux : <span class="tt">trace</span>, <span class="tt">info</span>, <span class="tt">warning</span>, <span class="tt">error</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md219"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md220"></a>
 11. Outillage qualité (automatisé)</h1>
 <p>Ces règles — le guide lui-même est la référence d'<span class="tt">EX-NFR-012</span> — sont appliquées par des outils, pas seulement par relecture ; la construction passe exclusivement par CMake (<span class="tt">EX-NFR-030</span>) :</p>
 <table class="markdownTable">
@@ -315,7 +315,7 @@ Documentation du corps (.cpp)</h2>
 <td class="markdownTableBodyNone"><b>AddressSanitizer</b>  </td><td class="markdownTableBodyNone">option <span class="tt">ENABLE_ASAN</span>  </td><td class="markdownTableBodyNone">Détection à l'exécution des débordements et usages après libération (<span class="tt">EX-NFR-003</span>). Activable en Debug : <span class="tt">cmake --preset ninja -DENABLE_ASAN=ON</span>.  </td><td class="markdownTableBodyNone">Job <span class="tt">sanitize</span> de <span class="tt">ci.yml</span>, sur les trois exécutables de test, à chaque PR — bloquant.  </td></tr>
 </table>
 <p>Le code livré compile <b>sans aucun avertissement</b>. Un avertissement légitime et inévitable est neutralisé localement et commenté (jamais désactivé globalement).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md220"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md221"></a>
 12. Identifiants d'exigences (EX-…)</h1>
 <p>Les exigences sont identifiées par un code <span class="tt">EX-&lt;CAT&gt;-&lt;NNN&gt;</span> (ex. <span class="tt">EX-ARCH-011</span>), déclaré dans les <a class="el" href="specifications.html" title="Spécifications">spécifications</a> et référencé depuis les lots <b>et</b> le code. Ces identifiants sont <b>stables</b> : ils servent de handles permanents.</p>
 <p>Règles :</p><ul>

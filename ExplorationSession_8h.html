@@ -144,11 +144,11 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>L'exploration du jeu : un héros qui marche sur une carte, parle à ce qu'il regarde, et passe d'une carte à l'autre (<span class="tt">LOT-09</span>). </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1179"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1190"></a>
 Pourquoi une session à part</h2>
 <p>Le jeu dessine ses lieux comme l'arène, en projection isométrique et avec les planches de l'atelier des textures (<span class="tt">LOT-92</span>). Cette session est donc la <b>jumelle de <span class="tt"><a class="el" href="classcore_1_1ArenaSession.html" title="Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.">core::ArenaSession</a></span></b> : de la simulation pure, sans GPU ni Qt (<span class="tt">EX-NFR-004</span>), qu'un rendu quelconque met à l'écran — le jeu comme l'essai de l'éditeur.</p>
 <p><em>Décision de l'auteur, 17 septembre 2026</em> : un lieu et une arène se dessinent par le <b>même</b> code ; ils se simulent par deux sessions.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1180"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1191"></a>
 Le repère</h2>
 <p>La position du héros est <b>continue, en cases</b> : <span class="tt">{1.5, 2.5}</span> est le centre de la case (1, 2). Le pas de simulation ne connaît donc ni pixels ni projection — c'est le rendu qui projette. La collision se lit sur la grille racine de la carte, la seule qui porte le masque (<span class="tt"><a class="el" href="structcore_1_1LevelData.html#ae394a3e921bbab58997043053a45243a" title="Grille de tuiles typées.">core::LevelData::tileMap</a></span>) : il n'existe jamais deux grilles à tenir d'accord. </p>
 </div></div><!-- contents -->

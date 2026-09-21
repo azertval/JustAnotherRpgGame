@@ -131,6 +131,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a79da846c932bf38757c24119d977064c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entre sur <code class="param">mapId</code> au point d'arrivée <code class="param">arrival</code> (vide : l'entrée de la carte).  <br /></td></tr>
 <tr class="memitem:a003fba20061dd2037731373390a8962d" id="r_a003fba20061dd2037731373390a8962d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a003fba20061dd2037731373390a8962d">setStartOverride</a> (const QString &amp;<a class="el" href="#ab5652e80c0a82a34c055391a09bf9383">mapId</a>, const QString &amp;arrival)</td></tr>
 <tr class="memdesc:a003fba20061dd2037731373390a8962d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplace la carte où « Nouvelle partie » ouvre le jeu — outil de développement (<span class="tt">--map=&lt;carte&gt;[@&lt;arrivée&gt;]</span>, <span class="tt">LOT-96</span>) : ouvrir Arenarea sans marcher depuis Martpart, pour la voir ou la capturer.  <br /></td></tr>
+<tr class="memitem:a9759d84f0662c6fb79b308769f496c10" id="r_a9759d84f0662c6fb79b308769f496c10"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9759d84f0662c6fb79b308769f496c10">setLevelDirectories</a> (const std::vector&lt; std::filesystem::path &gt; &amp;directories)</td></tr>
+<tr class="memdesc:a9759d84f0662c6fb79b308769f496c10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose les cartes du brouillon <b>devant</b> celles du binaire — l'essai complet de l'éditeur (<span class="tt">--levels=</span>, <span class="tt">LOT-EDITOR-10</span>).  <br /></td></tr>
+<tr class="memitem:aa8471ce16a773ad1d77e3fa3873e0089" id="r_aa8471ce16a773ad1d77e3fa3873e0089"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa8471ce16a773ad1d77e3fa3873e0089">setStartCell</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell)</td></tr>
+<tr class="memdesc:aa8471ce16a773ad1d77e3fa3873e0089"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case où « Nouvelle partie » pose le héros, à la place de l'entrée de la carte (<span class="tt">--at=</span>, <span class="tt">LOT-EDITOR-10</span>) : l'endroit de la carte qu'on veut voir, tout de suite.  <br /></td></tr>
+<tr class="memitem:aa6c9dd581496acd75d2c0ecb94b5aa44" id="r_aa6c9dd581496acd75d2c0ecb94b5aa44"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa6c9dd581496acd75d2c0ecb94b5aa44">setStartFlags</a> (const QStringList &amp;flags)</td></tr>
+<tr class="memdesc:aa6c9dd581496acd75d2c0ecb94b5aa44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux de monde acquis avant le premier pas (<span class="tt">--flags=</span>, <span class="tt">LOT-EDITOR-10</span>) : la carte telle qu'elle est <b>après</b> une quête, sans avoir à la jouer.  <br /></td></tr>
 <tr class="memitem:ab0f15d4cca95ae49757560bf0b30b3d7" id="r_ab0f15d4cca95ae49757560bf0b30b3d7"><td class="memItemLeft">Q_INVOKABLE QString&#160;</td><td class="memItemRight"><a class="el" href="#ab0f15d4cca95ae49757560bf0b30b3d7">mapOfDistrict</a> (const QString &amp;<a class="el" href="#a7aff4f8e9deb81cb1dd60d9747307a08">districtId</a>) const</td></tr>
 <tr class="memitem:a5c5d079b8d494c9ce9eb02cb7bb0e94d" id="r_a5c5d079b8d494c9ce9eb02cb7bb0e94d"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a5c5d079b8d494c9ce9eb02cb7bb0e94d">setMove</a> (qreal x, qreal y)</td></tr>
 <tr class="memdesc:a5c5d079b8d494c9ce9eb02cb7bb0e94d"><td class="mdescLeft">&#160;</td><td class="mdescRight">La direction que le joueur demande, de longueur au plus 1.  <br /></td></tr>
@@ -192,6 +198,8 @@ Properties</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a3abef1c2c71454c345db59ef5dd3c892" id="r_a3abef1c2c71454c345db59ef5dd3c892"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3abef1c2c71454c345db59ef5dd3c892">step</a> ()</td></tr>
 <tr class="memdesc:a3abef1c2c71454c345db59ef5dd3c892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un pas fixe : avance la session, joue ses événements, publie ce qui a changé.  <br /></td></tr>
+<tr class="memitem:a4bcec9f85851d4fae27e2ca6d0cbcf28" id="r_a4bcec9f85851d4fae27e2ca6d0cbcf28"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4bcec9f85851d4fae27e2ca6d0cbcf28">placeHeroAtStartCell</a> ()</td></tr>
+<tr class="memdesc:a4bcec9f85851d4fae27e2ca6d0cbcf28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose le héros sur la case de <span class="tt">--at=</span>, si elle est sur la carte (<span class="tt">LOT-EDITOR-10</span>).  <br /></td></tr>
 <tr class="memitem:adc66b2547875ba03914fe3186cd9e7c4" id="r_adc66b2547875ba03914fe3186cd9e7c4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adc66b2547875ba03914fe3186cd9e7c4">noteDistrictVisit</a> ()</td></tr>
 <tr class="memdesc:adc66b2547875ba03914fe3186cd9e7c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retient le quartier de la carte courante parmi les quartiers visités.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -207,13 +215,15 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a391bfea5a79e9637b0084a985e653707" id="r_a391bfea5a79e9637b0084a985e653707"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a391bfea5a79e9637b0084a985e653707">_startMapOverride</a></td></tr>
 <tr class="memdesc:a391bfea5a79e9637b0084a985e653707"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte et l'arrivée imposées par <span class="tt">--map=</span>, vides sinon.  <br /></td></tr>
 <tr class="memitem:aa23f8ac54fa6c1029f8ba9fd4e3def64" id="r_aa23f8ac54fa6c1029f8ba9fd4e3def64"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aa23f8ac54fa6c1029f8ba9fd4e3def64">_startArrivalOverride</a></td></tr>
+<tr class="memitem:a3b20618e566086e6244452a635e050db" id="r_a3b20618e566086e6244452a635e050db"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3b20618e566086e6244452a635e050db">_startCell</a></td></tr>
+<tr class="memdesc:a3b20618e566086e6244452a635e050db"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case imposée par <span class="tt">--at=</span>, absente sinon (<span class="tt">LOT-EDITOR-10</span>).  <br /></td></tr>
 <tr class="memitem:abebba2b18b07805157fe133092ef526b" id="r_abebba2b18b07805157fe133092ef526b"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#abebba2b18b07805157fe133092ef526b">_move</a> {}</td></tr>
 <tr class="memitem:a933009a644601ba3b075e17f89c9d1bf" id="r_a933009a644601ba3b075e17f89c9d1bf"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a933009a644601ba3b075e17f89c9d1bf">_interact</a> = false</td></tr>
 <tr class="memitem:aa9a833a6634a208feed602de1352ea34" id="r_aa9a833a6634a208feed602de1352ea34"><td class="memItemLeft">quint64&#160;</td><td class="memItemRight"><a class="el" href="#aa9a833a6634a208feed602de1352ea34">_sceneRevision</a> = 1</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'exploration — <b>la partie en cours</b> : entrer sur une carte, marcher, parler, franchir. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1238"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1249"></a>
 Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 <p>Elle tient une <span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html" title="Le héros sur la carte courante : marche, interaction, portails.">core::ExplorationSession</a></span> et fait tourner son <b>pas fixe</b> ; chaque geste de l'écran devient une intention passée à la session, et ce que l'écran montre est relu d'elle. Elle ne décide rien du monde : ni la collision, ni la traversée, ni ce qu'un PNJ répond.</p>
 <p>Même partage que l'arène (<span class="tt"><a class="el" href="classhmi_1_1ArenaModel.html" title="La vue-modèle de l&#39;arène : composer deux camps, lancer, jouer, rejouer.">hmi::ArenaModel</a></span>) : la surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante : le jumeau d&#39;hmi::ArenaViewportItem pour le monde.">hmi::WorldViewportItem</a></span>) prend un <b>instantané en valeurs</b> (<span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html" title="Le lieu en valeurs : ce que la composition lit, et rien d&#39;autre.">hmi::WorldSceneSnapshot</a></span>) dans <span class="tt">synchronize()</span>, pendant que le fil graphique est bloqué. Le modèle ne lui passe jamais la session. </p>
@@ -774,6 +784,33 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="a4bcec9f85851d4fae27e2ca6d0cbcf28" name="a4bcec9f85851d4fae27e2ca6d0cbcf28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bcec9f85851d4fae27e2ca6d0cbcf28">&#9670;&#160;</a></span>placeHeroAtStartCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::placeHeroAtStartCell </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pose le héros sur la case de <span class="tt">--at=</span>, si elle est sur la carte (<span class="tt">LOT-EDITOR-10</span>). </p>
+
+</div>
+</div>
 <a id="aa3ef96cd7fd6a36d234a4e633abce224" name="aa3ef96cd7fd6a36d234a4e633abce224"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa3ef96cd7fd6a36d234a4e633abce224">&#9670;&#160;</a></span>portalBroken</h2>
 
@@ -913,6 +950,26 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="a9759d84f0662c6fb79b308769f496c10" name="a9759d84f0662c6fb79b308769f496c10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9759d84f0662c6fb79b308769f496c10">&#9670;&#160;</a></span>setLevelDirectories()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::setLevelDirectories </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::filesystem::path &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>directories</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pose les cartes du brouillon <b>devant</b> celles du binaire — l'essai complet de l'éditeur (<span class="tt">--levels=</span>, <span class="tt">LOT-EDITOR-10</span>). </p>
+<p>Les dossiers sont cherchés dans l'ordre, puis vient toujours le <span class="tt">Levels/</span> de l'exécutable : on joue les cartes qu'on a sous les yeux, et celles qu'on n'édite pas restent celles du jeu. À appeler <b>avant</b> la première entrée : la session est refaite. </p>
+
+</div>
+</div>
 <a id="a5c5d079b8d494c9ce9eb02cb7bb0e94d" name="a5c5d079b8d494c9ce9eb02cb7bb0e94d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c5d079b8d494c9ce9eb02cb7bb0e94d">&#9670;&#160;</a></span>setMove()</h2>
 
@@ -934,6 +991,44 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 <p>La direction que le joueur demande, de longueur au plus 1. </p>
 <p>Tenue jusqu'au prochain appel : c'est l'état d'une touche enfoncée, pas un pas. </p>
+
+</div>
+</div>
+<a id="aa8471ce16a773ad1d77e3fa3873e0089" name="aa8471ce16a773ad1d77e3fa3873e0089"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8471ce16a773ad1d77e3fa3873e0089">&#9670;&#160;</a></span>setStartCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::setStartCell </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La case où « Nouvelle partie » pose le héros, à la place de l'entrée de la carte (<span class="tt">--at=</span>, <span class="tt">LOT-EDITOR-10</span>) : l'endroit de la carte qu'on veut voir, tout de suite. </p>
+
+</div>
+</div>
+<a id="aa6c9dd581496acd75d2c0ecb94b5aa44" name="aa6c9dd581496acd75d2c0ecb94b5aa44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6c9dd581496acd75d2c0ecb94b5aa44">&#9670;&#160;</a></span>setStartFlags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::setStartFlags </td>
+          <td>(</td>
+          <td class="paramtype">const QStringList &amp;</td>          <td class="paramname"><span class="paramname"><em>flags</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les drapeaux de monde acquis avant le premier pas (<span class="tt">--flags=</span>, <span class="tt">LOT-EDITOR-10</span>) : la carte telle qu'elle est <b>après</b> une quête, sans avoir à la jouer. </p>
 
 </div>
 </div>
@@ -1239,6 +1334,30 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3b20618e566086e6244452a635e050db" name="a3b20618e566086e6244452a635e050db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b20618e566086e6244452a635e050db">&#9670;&#160;</a></span>_startCell</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&gt; hmi::WorldModel::_startCell</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La case imposée par <span class="tt">--at=</span>, absente sinon (<span class="tt">LOT-EDITOR-10</span>). </p>
 
 </div>
 </div>

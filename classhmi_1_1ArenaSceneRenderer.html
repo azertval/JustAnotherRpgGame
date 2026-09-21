@@ -154,17 +154,17 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ce qui dessine le Colisée : ressources GPU, textures de la planche, animation des figurines, et la passe qui soumet la scène composée. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1203"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1214"></a>
 Pourquoi pas directement dans l'item Qt Quick</h2>
 <p><span class="tt"><a class="el" href="classhmi_1_1ArenaViewportItem.html" title="Surface QRhi de la scène de combat du Colisée : la grille, l&#39;enceinte et les figurines,...">hmi::ArenaViewportItem</a></span> n'est qu'un hôte : un <span class="tt">QQuickRhiItemRenderer</span> ne s'exécute que dans une fenêtre Qt Quick, et ses accesseurs (<span class="tt"><a class="el" href="#a0aa7fd703d2d54de7b460083dca8df41">rhi()</a></span>, <span class="tt">renderTarget()</span>) n'existent pas hors d'elle. Tout ce qui peut casser — l'ordre de création, l'ordre de libération, la recréation sur une autre interface QRhi — vit donc ici, où un test hors écran le fait tourner sur un vrai <span class="tt">QRhi</span> Direct3D 11 sans fenêtre (<span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">test_arena_scene_renderer.cpp</a></span>). L'item se contente de relayer ses trois appels.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1204"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1215"></a>
 Les trois temps, et les deux fils</h2>
 <ol type="1">
 <li><span class="tt">ensureResources(rhi)</span> — <b>fil de rendu</b>, depuis <span class="tt">initialize()</span>. Crée les ressources si elles n'existent pas, ou les <b>libère puis recrée</b> si l'interface QRhi a changé (fenêtre changée, graphe de scène reconstruit) : une ressource de l'ancienne interface ne doit plus servir.</li>
 <li><span class="tt">setSnapshot(snapshot)</span> — depuis <span class="tt">synchronize()</span>, <b>fil graphique bloqué</b>. Reçoit la scène <b>en valeurs</b> (<span class="tt"><a class="el" href="structhmi_1_1ArenaSceneSnapshot.html" title="La scène de combat en valeurs : ce que la composition lit, et rien d&#39;autre.">hmi::ArenaSceneSnapshot</a></span>) : aucun pointeur vers la session ne franchit la frontière entre les fils.</li>
 <li><span class="tt">render(...)</span> — <b>fil de rendu</b>. Avance l'animation, compose, trie, soumet.</li>
 </ol>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1205"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1216"></a>
 L'ordre de libération</h2>
 <p>Les textures de la planche et le damier meurent <b>avant</b> <span class="tt"><a class="el" href="classhmi_1_1SceneResources.html" title="Lot de sprites, atlas et registre de textures — créés ensemble, libérés ensemble, dans le bon ordre.">hmi::SceneResources</a></span>, qui libère ensuite sa propre grappe dans l'ordre qu'elle fixe (le lot de sprites, qui porte le pipeline, en dernier). Le lot de téléversements de création, s'il n'a jamais été soumis, est rendu à QRhi. Le destructeur fait la même chose : le renderer de Qt Quick est détruit sur le fil de rendu, son <span class="tt">QRhi</span> encore vivant. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>

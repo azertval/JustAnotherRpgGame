@@ -28,6 +28,8 @@ var dir_81129cf20409270d9237df2d6b07b076 =
     [ "ProblemsPanel.h", "ProblemsPanel_8h.html", "ProblemsPanel_8h" ],
     [ "RefactorDialogs.cpp", "RefactorDialogs_8cpp.html", "RefactorDialogs_8cpp" ],
     [ "RefactorDialogs.h", "RefactorDialogs_8h.html", "RefactorDialogs_8h" ],
+    [ "RunInGameDialog.cpp", "RunInGameDialog_8cpp.html", "RunInGameDialog_8cpp" ],
+    [ "RunInGameDialog.h", "RunInGameDialog_8h.html", "RunInGameDialog_8h" ],
     [ "SceneImages.cpp", "SceneImages_8cpp.html", null ],
     [ "SceneImages.h", "SceneImages_8h.html", "SceneImages_8h" ],
     [ "ScenePainter.cpp", "ScenePainter_8cpp.html", "ScenePainter_8cpp" ],

@@ -96,10 +96,12 @@ $(function(){initNavTree('test__world__travel_8cpp.html','',''); });
 <p>Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme, garder la carte quittee, et refuser au chargement ce qui ne mene nulle part.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;system_error&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
@@ -107,6 +109,7 @@ $(function(){initNavTree('test__world__travel_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelWriter_8h_source.html">Core/Levels/LevelWriter.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MapEntity_8h_source.html">Core/Levels/MapEntity.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
@@ -128,12 +131,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:a15dc8e4f69e678988013397b6d20b989"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un point d'arrivee en double est releve sur la carte.  <br /></td></tr>
 <tr class="memitem:a6cd9611dfc19f225ae3286833b20e320" id="r_a6cd9611dfc19f225ae3286833b20e320"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6cd9611dfc19f225ae3286833b20e320">TEST</a> (WorldTravelTest, UneArriveeInconnueRefuseLEntree)</td></tr>
 <tr class="memdesc:a6cd9611dfc19f225ae3286833b20e320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une arrivee inconnue refuse l'entree et nomme ce qui manque.  <br /></td></tr>
+<tr class="memitem:a8fede39060843d0a9eaa07f35176ccfe" id="r_a8fede39060843d0a9eaa07f35176ccfe"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8fede39060843d0a9eaa07f35176ccfe">TEST</a> (WorldTravelTest, LesCartesDuPremierDossierPassentDevant)</td></tr>
+<tr class="memdesc:a8fede39060843d0a9eaa07f35176ccfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chargeur a plusieurs dossiers sert le premier qui porte la carte, et n'invente rien.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme, garder la carte quittee, et refuser au chargement ce qui ne mene nulle part. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="aae5e05b6e3f40f7cf27a2236dfea9a10" name="aae5e05b6e3f40f7cf27a2236dfea9a10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae5e05b6e3f40f7cf27a2236dfea9a10">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aae5e05b6e3f40f7cf27a2236dfea9a10">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -164,8 +169,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a8fede39060843d0a9eaa07f35176ccfe" name="a8fede39060843d0a9eaa07f35176ccfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fede39060843d0a9eaa07f35176ccfe">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldTravelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesCartesDuPremierDossierPassentDevant</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le chargeur a plusieurs dossiers sert le premier qui porte la carte, et n'invente rien. </p>
+<p><b>Cas de test :</b> <b>Les cartes du brouillon passent devant celles du jeu.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde parcouru<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser deux dossiers, la meme carte dans les deux sous un nom different, et une seconde carte dans le dernier seulement.<br  />
+ <b>Resultat attendu :</b> La carte commune vient du PREMIER dossier ; celle qui n'est que dans le second en vient ; une carte absente des deux echoue. </p>
+
+</div>
+</div>
 <a id="a6cd9611dfc19f225ae3286833b20e320" name="a6cd9611dfc19f225ae3286833b20e320"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cd9611dfc19f225ae3286833b20e320">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cd9611dfc19f225ae3286833b20e320">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -194,7 +228,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8dbfe84a9355ecce5d8bc7a6d262b656" name="a8dbfe84a9355ecce5d8bc7a6d262b656"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8dbfe84a9355ecce5d8bc7a6d262b656">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dbfe84a9355ecce5d8bc7a6d262b656">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -223,7 +257,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a15dc8e4f69e678988013397b6d20b989" name="a15dc8e4f69e678988013397b6d20b989"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15dc8e4f69e678988013397b6d20b989">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a15dc8e4f69e678988013397b6d20b989">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -255,7 +289,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a800e30018ec6da541dc418fc777b49b3" name="a800e30018ec6da541dc418fc777b49b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a800e30018ec6da541dc418fc777b49b3">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a800e30018ec6da541dc418fc777b49b3">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -287,7 +321,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a0eb991d2ee4cc0f2666930b2c4530eeb" name="a0eb991d2ee4cc0f2666930b2c4530eeb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0eb991d2ee4cc0f2666930b2c4530eeb">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0eb991d2ee4cc0f2666930b2c4530eeb">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

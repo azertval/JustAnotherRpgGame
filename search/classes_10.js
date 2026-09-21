@@ -15,5 +15,6 @@ var searchData=
   ['rpgcontentblock_12',['RpgContentBlock',['../structhmi_1_1RpgContentBlock.html',1,'hmi']]],
   ['rpgfield_13',['RpgField',['../structhmi_1_1RpgField.html',1,'hmi']]],
   ['rpgscreendescriptor_14',['RpgScreenDescriptor',['../structhmi_1_1RpgScreenDescriptor.html',1,'hmi']]],
-  ['rpgscreenlayout_15',['RpgScreenLayout',['../structhmi_1_1RpgScreenLayout.html',1,'hmi']]]
+  ['rpgscreenlayout_15',['RpgScreenLayout',['../structhmi_1_1RpgScreenLayout.html',1,'hmi']]],
+  ['runingamechoice_16',['RunInGameChoice',['../structhmi_1_1RunInGameChoice.html',1,'hmi']]]
 ];

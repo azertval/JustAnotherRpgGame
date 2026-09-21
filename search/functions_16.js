@@ -38,7 +38,8 @@ var searchData=
   ['wouldresizedropcontent_35',['wouldResizeDropContent',['../classcore_1_1LevelDraft.html#a7bb1c529de03797c0e158a1f13b39084',1,'core::LevelDraft']]],
   ['write_36',['write',['../classcore_1_1ConsoleLogSink.html#a832f603dba5ba9ecaa75b1314ed6b84d',1,'core::ConsoleLogSink::write()'],['../classcore_1_1FileLogSink.html#a5edba3663d5a45d0e7de1ddf5a9caf03',1,'core::FileLogSink::write()'],['../classcore_1_1ILogSink.html#ab0e09a7994cb3ee96744c6ebb1755585',1,'core::ILogSink::write()'],['../classcore_1_1MemoryLogSink.html#a7e1c23f28325a73a36c7b837759c0c05',1,'core::MemoryLogSink::write()'],['../classhmi_1_1AutosaveStore.html#ab18fe0793c98cb9b55a013a5d5fe7a7a',1,'hmi::AutosaveStore::write()']]],
   ['writeautosave_37',['writeAutosave',['../classhmi_1_1MainWindow.html#af7619309516080cce3bbd5faa4d5020a',1,'hmi::MainWindow']]],
-  ['writeminidump_38',['writeMiniDump',['../namespacehmi.html#a1acfbf8f1ffce943900246a61f336bf7',1,'hmi']]],
-  ['writeprefab_39',['writePrefab',['../namespacehmi.html#a61e52f75a8d6b8bcf684423612d33961',1,'hmi']]],
-  ['writesidecar_40',['writeSidecar',['../namespacehmi.html#a868dcb3f5bae6a1191118bfb6aeea1c8',1,'hmi']]]
+  ['writedraftmaps_38',['writeDraftMaps',['../namespacehmi.html#ad05eb30edadbbf1334bc6c0057c0cbb2',1,'hmi']]],
+  ['writeminidump_39',['writeMiniDump',['../namespacehmi.html#a1acfbf8f1ffce943900246a61f336bf7',1,'hmi']]],
+  ['writeprefab_40',['writePrefab',['../namespacehmi.html#a61e52f75a8d6b8bcf684423612d33961',1,'hmi']]],
+  ['writesidecar_41',['writeSidecar',['../namespacehmi.html#a868dcb3f5bae6a1191118bfb6aeea1c8',1,'hmi']]]
 ];

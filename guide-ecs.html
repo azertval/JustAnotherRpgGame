@@ -94,7 +94,7 @@ $(function(){initNavTree('guide-ecs.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Guide_2guide-ecs"></a></p>
 <p>Cette page explique le patron d'architecture <b>Entity-Component-System</b> (<a href="https://en.wikipedia.org/wiki/Entity_component_system">ECS</a> ⧉) depuis ses principes, puis détaille l'implémentation maison de <span class="tt">Source/Core/Ecs</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md75"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md76"></a>
 Le problème que l'ECS résout</h1>
 <p>Dans un moteur orienté objet « classique », on modéliserait naturellement un personnage par une classe <span class="tt">Character</span> héritant de <span class="tt">GameObject</span>, avec des méthodes comme <span class="tt">update()</span>, <span class="tt">render()</span>, <span class="tt">takeDamage()</span>. Très vite, ce modèle par héritage devient un obstacle dans un jeu :</p>
 <ul>
@@ -109,7 +109,7 @@ Le problème que l'ECS résout</h1>
 <li><b>Système</b> : la <b>logique</b>, qui parcourt toutes les entités possédant un certain ensemble de composants et les fait évoluer — par exemple une logique qui désigne, parmi les entités <span class="tt">Interactable</span>, celle que le personnage vise.</li>
 </ul>
 <p>Un PNJ n'est alors qu'une entité qui <b>possède</b> les composants <span class="tt">Transform</span>, <span class="tt">Sprite</span>, <span class="tt">Interactable</span> et <span class="tt">RpgActor</span> — une <b>combinaison</b> de données, pas une classe dédiée. Un coffre est une entité avec <span class="tt">Transform</span>, <span class="tt">Sprite</span> et <span class="tt">Interactable</span>, mais sans <span class="tt">RpgActor</span>. Ajouter un comportement à un sous-ensemble d'entités revient à écrire un nouveau système qui parcourt les composants pertinents, sans toucher au reste. La règle d'or à retenir : <b>les données vivent dans les composants, la logique vit dans les systèmes</b> ; un composant ne contient jamais de comportement, un système ne stocke jamais d'état de jeu à demeure (il le lit/écrit dans les composants, qui restent la seule source de vérité).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md76"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md77"></a>
 L'entité : <a class="el" href="structcore_1_1Entity.html" title="core::Entity">core::Entity</a></h1>
 <p>Une entité (<span class="tt"><a class="el" href="structcore_1_1Entity.html" title="Handle générationnel identifiant une entité de l&#39;ECS.">core::Entity</a></span>) est un <b>handle générationnel</b> : une paire <span class="tt">{index, generation}</span>.</p>
 <ul>
@@ -117,7 +117,7 @@ L'entité : <a class="el" href="structcore_1_1Entity.html" title="core::Entity">
 <li><span class="tt">generation</span> est un compteur qui protège contre un piège classique : quand une entité est détruite, son <span class="tt">index</span> est <b>recyclé</b> (réutilisé pour une future entité, plutôt que de croître indéfiniment). Sans précaution, un ancien handle vers l'entité détruite désignerait alors, par accident, la <b>nouvelle</b> entité qui a récupéré le même <span class="tt">index</span> — un bug silencieux et difficile à diagnostiquer, où du code croit encore manipuler l'ancien personnage. En incrémentant <span class="tt">generation</span> à chaque recyclage d'<span class="tt">index</span>, un handle périmé (ancienne génération) ne correspond <b>plus</b> à l'entité courante (nouvelle génération) : la comparaison <span class="tt">operator==</span> compare les deux champs, donc <span class="tt">has()</span>/<span class="tt">getComponent()</span> rejettent proprement un handle obsolète au lieu de renvoyer les données d'une entité sans rapport.</li>
 </ul>
 <p>Une entité, à elle seule, ne « fait » rien : elle ne devient un personnage, un décor ou un coffre que par les composants qu'on lui attache.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md77"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md78"></a>
 Le <a class="el" href="classcore_1_1World.html" title="core::World">World</a></h1>
 <p><span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></span> est le point d'entrée unique de la simulation : il possède les entités, les composants et les systèmes. API essentielle :</p>
 <ul>
@@ -126,7 +126,7 @@ Le <a class="el" href="classcore_1_1World.html" title="core::World">World</a></h
 <li><span class="tt">view&lt;A, B, …&gt;()</span> — une <b>vue</b> sur les entités possédant <b>tous</b> les composants listés (détail ci-dessous).</li>
 </ul>
 <p>Chaque type de composant obtient sa propre pool, créée <b>à la demande</b> au premier <span class="tt">addComponent&lt;T&gt;</span> : le <span class="tt">World</span> ne connaît pas à l'avance la liste des types de composants qui existeront, il les découvre à l'usage (via <span class="tt">std::type_index</span> comme clé).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md78"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md79"></a>
 Le stockage : sparse set (core::ComponentPool&lt;T&gt;)</h1>
 <p>Le besoin est double et a priori contradictoire :</p>
 <ul>
@@ -139,7 +139,7 @@ Le stockage : sparse set (core::ComponentPool&lt;T&gt;)</h1>
 <li>un tableau <b>creux</b> (<span class="tt">_sparse</span>), indexé directement par <span class="tt">Entity::index</span> : pour chaque entité potentielle, il donne la <b>position</b> de son composant dans le tableau dense (ou une valeur sentinelle <span class="tt">INVALID_POSITION</span> si elle n'a pas ce composant). Ce tableau peut avoir des trous — peu importe, on n'itère jamais dessus, on ne fait que le lire à un index précis.</li>
 </ul>
 <p><span class="tt">has(entity)</span> et <span class="tt">get(entity)</span> passent donc par le tableau creux (accès en <b>O(1)</b>, temps constant) ; l'itération complète passe par le tableau dense (<b>cache-friendly</b>, aucune entité absente à sauter).</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md79"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md80"></a>
 Ajout et suppression : <em>swap-and-pop</em></h2>
 <p><span class="tt">add(entity, component)</span> ajoute simplement en fin de tableau dense et enregistre sa position dans le tableau creux — coût <b>O(1)</b>.</p>
 <p><span class="tt">remove(entity)</span> est plus subtil : retirer un élément <b>au milieu</b> d'un tableau dense en décalant tout ce qui suit coûterait <b>O(n)</b>. La technique du <em><b>swap-and-pop</b></em> l'évite :</p>
@@ -151,7 +151,7 @@ Ajout et suppression : <em>swap-and-pop</em></h2>
 <li>on retranche le dernier élément (<span class="tt">pop_back</span>) — devenu un doublon.</li>
 </ol>
 <p>Résultat : le tableau dense reste <b>sans trou</b> en coût <b>O(1)</b>, au prix de changer l'<b>ordre</b> d'itération (l'élément déplacé change de position). Comme les systèmes ne dépendent jamais de cet ordre, ce n'est jamais un problème.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md80"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md81"></a>
 Exemple pas à pas</h2>
 <p>Imaginons trois entités <span class="tt">A</span>, <span class="tt">B</span>, <span class="tt">C</span> ayant chacune un composant <span class="tt">Interactable</span>, dans cet ordre d'insertion : dense = <span class="tt">[Ia, Ib, Ic]</span>, entités = <span class="tt">[A, B, C]</span>. On retire le composant de <span class="tt">B</span> (position 1) :</p>
 <ol type="1">
@@ -164,7 +164,7 @@ Exemple pas à pas</h2>
 <blockquote class="doxtable">
 <p>⚠️ Conséquence pour qui écrit un système : une référence obtenue par <span class="tt">get()</span> (ou dans une vue) est invalidée par tout <span class="tt">add()</span> ou <span class="tt">remove()</span> <b>ultérieur sur la même pool</b> (le tableau dense peut réallouer ou déplacer ses éléments). Ne jamais conserver une telle référence au-delà de telles opérations. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md81"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md82"></a>
 Les vues : core::View&lt;Components...&gt;</h1>
 <p>Un système a typiquement besoin d'itérer sur « toutes les entités qui ont <b>à la fois</b> tel et tel composant » (par exemple <span class="tt">Transform</span> <b>et</b> <span class="tt">Interactable</span> pour les objets sollicitables posés sur la carte). <span class="tt">World::view&lt;A,
 B, …&gt;()</span> construit une <span class="tt"><a class="el" href="classcore_1_1View.html" title="Sélection en lecture-écriture des entités possédant tous les composants demandés.">core::View</a></span> qui <b>joint</b> les pools demandées et n'expose que l'<b>intersection</b> — les entités présentes dans <b>toutes</b>.</p>
@@ -185,11 +185,11 @@ B, …&gt;()</span> construit une <span class="tt"><a class="el" href="classcore
 <blockquote class="doxtable">
 <p>⚠️ Contrat d'itération : à l'intérieur d'un <span class="tt">each</span> ou d'une boucle sur une vue, on ne modifie que la <b>valeur</b> des composants obtenus. Ajouter/retirer un composant ou détruire une entité <b>pendant</b> l'itération invaliderait la vue (les pools sous-jacentes peuvent bouger, cf. <em>swap-and-pop</em> ci-dessus) — ce type de modification structurelle doit être différé après l'itération. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md82"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md83"></a>
 Les systèmes et l'ordre d'exécution</h1>
 <p><span class="tt">World::addSystem(std::unique_ptr&lt;ISystem&gt;)</span> enregistre un système ; <span class="tt">World::update(fixedDelta)</span> exécute <b>tous</b> les systèmes enregistrés, <b>dans l'ordre d'enregistrement</b>, une fois par pas de temps fixe (<a class="el" href="guide-boucle.html" title="Boucle de jeu et pas de temps fixe">Boucle de jeu et pas de temps fixe</a>). Cet ordre est significatif et fait partie du contrat de déterminisme (<span class="tt">EX-NFR-002</span>) : deux systèmes qui lisent et écrivent les mêmes composants doivent s'exécuter dans un ordre stable pour produire toujours le même résultat.</p>
 <p>Aucun système n'est enregistré aujourd'hui : le mécanisme est en place, mais la logique qui existe n'en a pas eu besoin. Le monde se peuple par <span class="tt"><a class="el" href="namespacecore.html#adb2706947c6f0111c0cdd008fde5779e" title="Peuple un World d&#39;une entité par objet de la couche objects.">core::spawnMapEntities</a></span>, qui crée <b>une entité par objet</b> de la couche <span class="tt">objects</span> d'une carte — un <span class="tt">Transform</span> à sa case, et un <span class="tt">Interactable</span> si son type figure dans <span class="tt"><a class="el" href="namespacecore.html#a07f40df9fbe2a910d1e99b9756220fea" title="Les familles connues : coffre, panneau (LOT-10), PNJ (LOT-15).">core::knownInteractableKinds</a></span> (coffre, panneau, PNJ…). Une logique qui a besoin de données que l'<span class="tt">ISystem</span> générique ne transporte pas (la grille de la carte, l'orientation du personnage, les drapeaux de monde) prend alors la forme d'une <b>fonction libre</b> à signature dédiée, comme <span class="tt"><a class="el" href="namespacecore.html#a9d8c1764c03821f2f58f75d0e5795e7a" title="Désigne la cible d&#39;interaction d&#39;un personnage.">core::findInteractionTarget</a></span>. Le principe reste identique : la logique lit des composants et n'en garde aucun état.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md83"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md84"></a>
 Voir aussi</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></span>, <span class="tt"><a class="el" href="structcore_1_1Entity.html" title="Handle générationnel identifiant une entité de l&#39;ECS.">core::Entity</a></span>, <span class="tt"><a class="el" href="classcore_1_1EntityManager.html" title="Crée, détruit et valide les entités de l&#39;ECS.">core::EntityManager</a></span>, <span class="tt"><a class="el" href="classcore_1_1ComponentPool.html" title="Stockage dense des composants d&#39;un type T, indexé par entité (sparse set).">core::ComponentPool</a></span>, <span class="tt"><a class="el" href="classcore_1_1View.html" title="Sélection en lecture-écriture des entités possédant tous les composants demandés.">core::View</a></span>.</li>

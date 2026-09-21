@@ -12,6 +12,7 @@ var dir_72f94039b203173a88806b7e5cad74af =
     [ "test_editor_status.cpp", "test__editor__status_8cpp.html", "test__editor__status_8cpp" ],
     [ "test_entity_editing.cpp", "test__entity__editing_8cpp.html", "test__entity__editing_8cpp" ],
     [ "test_entity_shapes.cpp", "test__entity__shapes_8cpp.html", "test__entity__shapes_8cpp" ],
+    [ "test_game_launch.cpp", "test__game__launch_8cpp.html", null ],
     [ "test_gesture_script.cpp", "test__gesture__script_8cpp.html", "test__gesture__script_8cpp" ],
     [ "test_level_file_operations.cpp", "test__level__file__operations_8cpp.html", "test__level__file__operations_8cpp" ],
     [ "test_level_name_validation.cpp", "test__level__name__validation_8cpp.html", "test__level__name__validation_8cpp" ],

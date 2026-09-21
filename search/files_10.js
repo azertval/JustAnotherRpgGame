@@ -17,5 +17,7 @@ var searchData=
   ['rpgscreens_2ecpp_14',['RpgScreens.cpp',['../RpgScreens_8cpp.html',1,'']]],
   ['rpgscreens_2eh_15',['RpgScreens.h',['../RpgScreens_8h.html',1,'']]],
   ['rulelabels_2ecpp_16',['RuleLabels.cpp',['../RuleLabels_8cpp.html',1,'']]],
-  ['rulelabels_2eh_17',['RuleLabels.h',['../RuleLabels_8h.html',1,'']]]
+  ['rulelabels_2eh_17',['RuleLabels.h',['../RuleLabels_8h.html',1,'']]],
+  ['runingamedialog_2ecpp_18',['RunInGameDialog.cpp',['../RunInGameDialog_8cpp.html',1,'']]],
+  ['runingamedialog_2eh_19',['RunInGameDialog.h',['../RunInGameDialog_8h.html',1,'']]]
 ];

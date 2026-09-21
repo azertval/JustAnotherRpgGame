@@ -122,6 +122,8 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ac8ff38e0ae318f2072f42a18e64c1b09" id="r_ac8ff38e0ae318f2072f42a18e64c1b09"><td class="memItemLeft">static <a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e">MapLoader</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac8ff38e0ae318f2072f42a18e64c1b09">directoryLoader</a> (std::filesystem::path levelsDir)</td></tr>
 <tr class="memdesc:ac8ff38e0ae318f2072f42a18e64c1b09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chargeur du jeu : <span class="tt">&lt;levelsDir&gt;/&lt;mapId&gt;.json</span>.  <br /></td></tr>
+<tr class="memitem:a424d0def362d872b0f498f08673f2615" id="r_a424d0def362d872b0f498f08673f2615"><td class="memItemLeft">static <a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e">MapLoader</a>&#160;</td><td class="memItemRight"><a class="el" href="#a424d0def362d872b0f498f08673f2615">directoriesLoader</a> (std::vector&lt; std::filesystem::path &gt; levelsDirs)</td></tr>
+<tr class="memdesc:a424d0def362d872b0f498f08673f2615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chargeur qui cherche une carte dans <code class="param">levelsDirs</code>, <b>dans l'ordre donné</b>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -255,6 +257,35 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>L'identifiant de la carte courante, vide avant la première entrée. </dd></dl>
+
+</div>
+</div>
+<a id="a424d0def362d872b0f498f08673f2615" name="a424d0def362d872b0f498f08673f2615"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a424d0def362d872b0f498f08673f2615">&#9670;&#160;</a></span>directoriesLoader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e">WorldTravel::MapLoader</a> core::WorldTravel::directoriesLoader </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::filesystem::path &gt;</td>          <td class="paramname"><span class="paramname"><em>levelsDirs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le chargeur qui cherche une carte dans <code class="param">levelsDirs</code>, <b>dans l'ordre donné</b>. </p>
+<p>L'essai complet de l'éditeur (<span class="tt">LOT-EDITOR-10</span>) écrit les brouillons ouverts dans un dossier temporaire et le place devant les cartes du binaire : on joue ce qu'on a sous les yeux, et toute carte qu'on n'édite pas vient de son fichier, comme en jeu.</p>
+<p>Une carte absente d'un dossier est cherchée dans le suivant ; une carte <b>présente mais illisible</b> arrête la recherche et rend son erreur — passer au dossier suivant ferait jouer en silence une version périmée de la carte qu'on vient de casser. </p>
 
 </div>
 </div>

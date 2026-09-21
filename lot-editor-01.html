@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-editor-01.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 18 septembre 2026</b> (ouvert le même jour), sur la branche <span class="tt">worktree-lot-editor-01-socle</span>, en quatre commits : le déménagement à l'identique, la sortie de la charte et de la traduction, la sauvegarde automatique et les gardes, puis la documentation. Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> vert à chaque commit. Relu à l'écran : <span class="tt">LevelEditor</span> lancé et capturé (style Fusion, textes anglais, docks, Colisée ouvert, non modifié). Reste la vérification manuelle des scénarios d'acceptation à la souris (voir la dernière section). Prérequis : aucun. Feuille de route : <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">éditeur</a>. Alimente : <span class="tt">LOT-EDITOR-02</span>, <span class="tt">LOT-EDITOR-12</span>, <span class="tt">LOT-EDITOR-10</span>. Exigences : <span class="tt">EX-EDIT-056</span>, <span class="tt">EX-EDIT-057</span>, <span class="tt">EX-EDIT-058</span> (nouvelles) ; <span class="tt">EX-IHM-010</span>, <span class="tt">020</span>, <span class="tt">054</span>, <span class="tt">055</span>, <span class="tt">060</span>, <span class="tt">061</span>, <span class="tt">074</span> retirées (décision D7) ; <span class="tt">EX-IHM-050</span> à <span class="tt">053</span> et <span class="tt">082</span> précisées. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1037"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1040"></a>
 Objectif</h1>
 <p>L'éditeur sort dans son propre module, débarrassé de la charte, et gagne de quoi travailler longtemps sans risque : un brouillon ne se perd plus sur un plantage, une carte changée sur disque n'est plus écrasée en silence, et l'historique d'annulation a un plafond.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1038"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1041"></a>
 Ce que le dépôt contenait à l'ouverture (18 septembre 2026)</h1>
 <ul>
 <li><b>L'éditeur vivait dans <span class="tt">HMI</span></b> : <span class="tt">Source/HMI/Editor</span> (canevas, panneaux, logique pure), <span class="tt">Source/HMI/Interface</span> (fenêtre, actions, jetons, thème, icônes tracées), <span class="tt">Source/Ui/Editor</span> (sept formulaires <span class="tt">.ui</span> et une ressource), la feuille <span class="tt">Source/Elements/Themes/theme-editor.qss</span>. La logique pure de l'éditeur était compilée dans <span class="tt">HmiLib</span>, la bibliothèque que le jeu lie.</li>
@@ -109,7 +109,7 @@ Ce que le dépôt contenait à l'ouverture (18 septembre 2026)</h1>
 <li><b>L'historique d'annulation n'avait pas de plafond</b> (constat A10) : un instantané complet par pas, et un pas par case survolée pendant un coup de pinceau, même sur une case déjà du bon type.</li>
 <li><b>Aucune sauvegarde automatique, aucune garde du fichier</b> ; fermer la fenêtre avec des modifications les perdait sans rien demander.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1039"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1042"></a>
 Décisions</h1>
 <ul>
 <li><b>Tests dans <span class="tt">UnitTests</span>, sources dans <span class="tt">Source/Test/Unit/Editor</span>.</b> La décision D5 veut des tests « à lui » ; ils le sont par leur dossier et par la bibliothèque qu'ils lient (<span class="tt">EditorLogic</span>), pas par un exécutable de plus : la CI, la couverture, ASan et la nuit lancent <span class="tt">UnitTests.exe</span> par son nom, et un quatrième exécutable aurait demandé de retoucher les quatre.</li>
@@ -125,7 +125,7 @@ Décisions</h1>
 <li><b>Garde du fichier par empreinte de contenu</b> (taille et FNV-1a 64 bits), comparée quand le fichier est signalé changé (<span class="tt">QFileSystemWatcher</span>), quand la fenêtre reprend la main, et avant chaque enregistrement. Brouillon intact : relu en silence. Brouillon modifié : « Reload from disk » ou « Keep my version », et la version écartée va dans <span class="tt">autosave\conflicts\</span> avant tout. Fichier supprimé : le brouillon reste, l'enregistrement le recrée.</li>
 <li><b>Fermer avec des modifications demande</b> « Save », « Discard » ou « Cancel ».</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1040"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1043"></a>
 Livraison</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -139,7 +139,7 @@ Livraison</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">4 — documentation  </td><td class="markdownTableBodyNone">ce dossier, la feuille de route, <span class="tt"><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></span>, <span class="tt"><a class="el" href="interface-ihm_8md.html">interface-ihm.md</a></span>, les guides et les README  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1041"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1044"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Les fonctions actuelles marchent à l'identique.</b> ✔ en automatique pour la logique (tests de l'éditeur inchangés hormis les textes) ; ✔ à l'écran pour l'ouverture (capture du lancement). <b>À vérifier à la main</b> : peindre, rectangle, sélection, copier/coller, couches, entités, essai <span class="tt">P</span>, renommer, redimensionner, raccourcis remappés.</li>
@@ -148,7 +148,7 @@ Critères d'acceptation</h1>
 <li><b>Modifier le JSON d'une carte ouverte et modifiée fait proposer « recharger » ou « garder », sans rien perdre de l'un ni de l'autre.</b> ✔ pour la mécanique (<span class="tt">DiskGuardTest</span>, <span class="tt">AutosaveTest.UneVersionEcarteeEstGardeeDeCote</span>) ; <b>à vérifier à la main</b> : ouvrir Martpart, peindre, modifier <span class="tt">martpart.json</span> dans un éditeur de texte, revenir à la fenêtre, essayer les deux réponses et retrouver l'autre version sous <span class="tt">autosave\conflicts\</span>.</li>
 <li><b>Historique plafonné.</b> ✔ <span class="tt">LevelDraftTest.LHistoriqueEstPlafonne</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1042"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1045"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Deux éditeurs ouverts en même temps</b> se verraient chacun proposer la reprise des brouillons de l'autre au démarrage (le dossier de reprise est par poste, pas par processus). Rare pour un outil à un seul auteur ; un verrou de session le réglerait.</li>

@@ -33,6 +33,7 @@ var searchData=
   ['difficultyscale_30',['DifficultyScale',['../structcore_1_1DifficultyScale.html',1,'core']]],
   ['difficultytier_31',['DifficultyTier',['../structcore_1_1DifficultyTier.html',1,'core']]],
   ['draftentityoverlay_32',['DraftEntityOverlay',['../structhmi_1_1DraftEntityOverlay.html',1,'hmi']]],
-  ['draftrenderer_33',['DraftRenderer',['../classhmi_1_1DraftRenderer.html',1,'hmi']]],
-  ['drafttextures_34',['DraftTextures',['../structhmi_1_1DraftTextures.html',1,'hmi']]]
+  ['draftmap_33',['DraftMap',['../structhmi_1_1DraftMap.html',1,'hmi']]],
+  ['draftrenderer_34',['DraftRenderer',['../classhmi_1_1DraftRenderer.html',1,'hmi']]],
+  ['drafttextures_35',['DraftTextures',['../structhmi_1_1DraftTextures.html',1,'hmi']]]
 ];

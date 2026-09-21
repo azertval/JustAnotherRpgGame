@@ -1,5 +1,15 @@
 var NAVTREEINDEX4 =
 {
+"classcore_1_1CombatState.html#a42ce988bb498483d064a799c2a8ae62c":[40,0,1,33,9],
+"classcore_1_1CombatState.html#a42ce988bb498483d064a799c2a8ae62c":[41,0,0,33,9],
+"classcore_1_1CombatState.html#a49abb9a15d8de91f995425ea70356280":[40,0,1,33,8],
+"classcore_1_1CombatState.html#a49abb9a15d8de91f995425ea70356280":[41,0,0,33,8],
+"classcore_1_1CombatState.html#a49d96286a0822ad235828403c81393e1":[40,0,1,33,63],
+"classcore_1_1CombatState.html#a49d96286a0822ad235828403c81393e1":[41,0,0,33,63],
+"classcore_1_1CombatState.html#a4a9785aabe219b6fc2eaf4c51864ce87":[40,0,1,33,68],
+"classcore_1_1CombatState.html#a4a9785aabe219b6fc2eaf4c51864ce87":[41,0,0,33,68],
+"classcore_1_1CombatState.html#a50b0d58335080428272acee52ca4e17d":[40,0,1,33,27],
+"classcore_1_1CombatState.html#a50b0d58335080428272acee52ca4e17d":[41,0,0,33,27],
 "classcore_1_1CombatState.html#a52af7bc3bd2bb2916b131a8214ab57d8":[40,0,1,33,48],
 "classcore_1_1CombatState.html#a52af7bc3bd2bb2916b131a8214ab57d8":[41,0,0,33,48],
 "classcore_1_1CombatState.html#a5557696fbddc8315807720401570adea":[40,0,1,33,59],
@@ -239,15 +249,5 @@ var NAVTREEINDEX4 =
 "classcore_1_1DialogueRunner.html#ab18c44815f77580ff723702f176e8013":[40,0,1,161,16],
 "classcore_1_1DialogueRunner.html#ab18c44815f77580ff723702f176e8013":[41,0,0,161,16],
 "classcore_1_1DialogueRunner.html#adbc23326c5ceec9cf8c8e6974474b8c6":[40,0,1,161,20],
-"classcore_1_1DialogueRunner.html#adbc23326c5ceec9cf8c8e6974474b8c6":[41,0,0,161,20],
-"classcore_1_1DialogueRunner.html#ae28422ced2a95c2d7e90a5ae3ced2d34":[40,0,1,161,10],
-"classcore_1_1DialogueRunner.html#ae28422ced2a95c2d7e90a5ae3ced2d34":[41,0,0,161,10],
-"classcore_1_1DialogueRunner.html#aea5dc443d69bbec1bbac6eb79997d23e":[40,0,1,161,4],
-"classcore_1_1DialogueRunner.html#aea5dc443d69bbec1bbac6eb79997d23e":[41,0,0,161,4],
-"classcore_1_1DialogueRunner.html#afaf1834cab4eecd1fc9952886d014236":[40,0,1,161,22],
-"classcore_1_1DialogueRunner.html#afaf1834cab4eecd1fc9952886d014236":[41,0,0,161,22],
-"classcore_1_1Engine.html":[40,0,1,71],
-"classcore_1_1Engine.html":[41,0,0,71],
-"classcore_1_1Engine.html#a80c1e60da14c218b7846ff3201a325a6":[40,0,1,71,0],
-"classcore_1_1Engine.html#a80c1e60da14c218b7846ff3201a325a6":[41,0,0,71,0]
+"classcore_1_1DialogueRunner.html#adbc23326c5ceec9cf8c8e6974474b8c6":[41,0,0,161,20]
 };

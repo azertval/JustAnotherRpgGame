@@ -5,6 +5,7 @@ var classcore_1_1WorldTravel =
     [ "cross", "classcore_1_1WorldTravel.html#a87c821cd8fb610fcaa258cb00ed034b7", null ],
     [ "currentMap", "classcore_1_1WorldTravel.html#ac8ed4d65d15159284e9084c776afcd82", null ],
     [ "currentMapId", "classcore_1_1WorldTravel.html#af8cd2cbe092939797af493608fd7354a", null ],
+    [ "directoriesLoader", "classcore_1_1WorldTravel.html#a424d0def362d872b0f498f08673f2615", null ],
     [ "directoryLoader", "classcore_1_1WorldTravel.html#ac8ff38e0ae318f2072f42a18e64c1b09", null ],
     [ "enter", "classcore_1_1WorldTravel.html#a0088132438f7a0b93d5cb2490bb839d5", null ],
     [ "lastIssue", "classcore_1_1WorldTravel.html#ad2153acaf26afed67cce83ab66cd8459", null ],

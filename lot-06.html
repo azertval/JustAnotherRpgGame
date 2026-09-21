@@ -96,11 +96,11 @@ $(function(){initNavTree('lot-06.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 911/911, lint d'exigences, cahier de test, Doxygen et <span class="tt">clang-format</span> verts). Prérequis : <a class="el" href="lot-04.html" title="LOT-04 — Format de carte `version: 3`, multi-couches">LOT-04</a> (couche de collision), <a class="el" href="lot-05.html" title="LOT-05 — Modes de jeu">LOT-05</a> (mode d'exploration où brancher le système). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md344"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md346"></a>
 Objectif</h1>
 <p>Rendre le jeu <b>jouable à nouveau</b> : un personnage qui se déplace librement en 8 directions sur une carte en vue de dessus, sans gravité.</p>
 <p>C'est le lot qui referme la parenthèse ouverte par le <span class="tt">LOT-01</span>, où la physique de plateforme a été retirée sans remplaçant.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md345"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md347"></a>
 Ce qui existe déjà, et qu'il ne faut pas réécrire</h1>
 <ul>
 <li><b><span class="tt">core::sweepAabb</span></b> (<span class="tt">Source/Core/Physics/SweptCollision.h</span>) : balayage continu axe par axe contre la grille, <b>sans gravité ni axe privilégié</b>, avec glissement le long des murs et aucune traversée à vitesse élevée. C'est exactement la primitive d'un déplacement top-down. Le <span class="tt">LOT-01</span> l'a débarrassée du suivi de pente ; elle est redevenue un pur balayage de grille.</li>
@@ -109,7 +109,7 @@ Ce qui existe déjà, et qu'il ne faut pas réécrire</h1>
 <li>La convention de monde est la bonne (<span class="tt">EX-ARCH-020</span>) : 1 unité = 1 tuile, origine haut-gauche, Y vers le bas, 16 px/unité.</li>
 </ul>
 <p>Ce lot est donc essentiellement de l'<b>assemblage</b>, pas de l'invention.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md346"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md348"></a>
 Périmètre</h1>
 <ul>
 <li><span class="tt">Source/Core/Ecs/Systems/TopDownMovementSystem.{h,cpp}</span> (~150 lignes attendues) : intention → vitesse → <span class="tt">sweepAabb</span> → position.</li>
@@ -117,13 +117,13 @@ Périmètre</h1>
 <li><span class="tt">Source/Core/Physics/TopDownConfig.h</span> : vitesse, accélération, friction — donnée pure, à côté de <span class="tt">PhysicsConfig</span> dont les champs de saut disparaissent.</li>
 <li>Branchement dans <span class="tt">ExplorationMode</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md347"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md349"></a>
 Le piège classique</h1>
 <p><b>La diagonale ne doit pas être plus rapide.</b> Sans normalisation, aller en diagonale donne <span class="tt">√2 ≈ 1,41</span> fois la vitesse cardinale — le défaut le plus courant du genre, et le plus visible en jeu. C'est un critère d'acceptation, pas un détail de finition.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md348"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md350"></a>
 Exigences couvertes</h1>
 <p>Catégorie <span class="tt">EX-EXP-*</span>, déclarée par ce lot dans <span class="tt"><a class="el" href="exploration_8md.html">Documentation/Specification/exploration.md</a></span> : déplacement isotrope normalisé, glissement le long des murs, absence de gravité, orientation conservée à l'arrêt.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md349"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md351"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Le personnage ne traverse <b>aucun</b> mur, même à vitesse élevée (le balayage continu s'en charge).</li>
@@ -132,7 +132,7 @@ Critères d'acceptation</h1>
 <li>Déterminisme : mêmes entrées → mêmes positions au rejeu (<span class="tt">EX-NFR-002</span>).</li>
 <li>Testable <b>headless</b>, sans fenêtre ni GPU (<span class="tt">EX-ARCH-001</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md350"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md352"></a>
 Ce que la réalisation a tranché</h1>
 <p><b>Retirer <span class="tt">core::Player</span> coûte plus que l'écrire.</b> Le composant n'était pas seulement inerte : il était <b>lu</b> par l'animation (clip choisi d'après <span class="tt">grounded</span>, <span class="tt">dashTimer</span>, <span class="tt">wallDirection</span>), par le HUD (budgets de sauts et de dashs), par la détection d'événements (saut, atterrissage, glissade murale) et par un harnais de tests système qui rejouait vingt-six tableaux de plateforme supprimés au <span class="tt">LOT-01</span>. Le lot a donc dû trancher, pour chacun :</p>
 <ul>

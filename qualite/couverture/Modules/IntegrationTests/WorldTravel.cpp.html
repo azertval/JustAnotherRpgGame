@@ -162,6 +162,26 @@ namespace {
     };
 }</span>
 
+WorldTravel::MapLoader WorldTravel::directoriesLoader(
+<span style = "background-color:#dfd">    std::vector&lt;std::filesystem::path&gt; levelsDirs) {
+    return [dossiers = std::move(levelsDirs)](std::string_view mapId) {</span>
+        // Valeur de depart : ce que rend une liste vide, et ce qui reste si aucun dossier ne
+        // porte la carte.
+<span style = "background-color:#dfd">        LevelLoadResult dernier;
+        dernier.error = "Carte introuvable : " + std::string{mapId};
+        dernier.errorCode = LevelValidationError::FileNotFound;
+        for (const std::filesystem::path&amp; dossier : dossiers) {
+            dernier = LevelLoader::loadFromFile(dossier / (std::string{mapId} + ".json"));</span>
+            // Seule l'ABSENCE fait passer au dossier suivant : une carte presente mais illisible
+            // est l'erreur qu'il faut montrer, pas une raison de jouer la version d'a cote.
+<span style = "background-color:#dfd">            if (dernier.ok() || dernier.errorCode != LevelValidationError::FileNotFound) {
+                return dernier;</span>
+            }
+        }
+<span style = "background-color:#dfd">        return dernier;
+    };
+}</span>
+
 <span style = "background-color:#dfd">WorldTravel::WorldTravel(MapLoader loader) : _loader(std::move(loader)) {}</span>
 
 <span style = "background-color:#dfd">const Level* WorldTravel::currentMap() const {

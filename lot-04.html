@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-04.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 914/914, lint d'exigences, cahier de test, Doxygen et <span class="tt">clang-format</span> verts). Prérequis : <a class="el" href="lot-03.html" title="LOT-03 — Agrégat `LevelData`">LOT-03</a> (<span class="tt">LevelData</span> accueille les nouveaux champs sans repasser à 17 paramètres positionnels). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md330"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md332"></a>
 Objectif</h1>
 <p>Passer le format de carte d'une <b>grille plate unique</b> à <b>N couches typées</b>, plus une liste d'entités — la seule évolution de format structurante du programme.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md331"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md333"></a>
 Pourquoi maintenant, et pas plus tard</h1>
 <p>Un RPG en vue de dessus a besoin d'au moins trois couches là où un platformer se contentait d'une :</p>
 <ul>
@@ -109,7 +109,7 @@ Pourquoi maintenant, et pas plus tard</h1>
 </ul>
 <p>Plus une couche <b><span class="tt">objects</span></b> qui n'est pas une grille mais une <b>liste</b> : PNJ, coffres, panneaux, portails, déclencheurs de rencontre.</p>
 <p>Ce lot doit précéder toute production de carte. Une carte dessinée sur le format plat serait à refaire — et c'est le genre de dette qu'on ne repaie jamais.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md332"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md334"></a>
 Périmètre</h1>
 <ul>
 <li><span class="tt">struct TileLayer { std::string name; LayerKind kind; TileMap tiles; PropertyMap properties; }</span> ; <span class="tt">Level</span> porte un <span class="tt">std::vector&lt;TileLayer&gt;</span>. <b>Pas de champ <span class="tt">renderLayer</span></b> : le rang de la couche dans le vecteur <em>est</em> son ordre de superposition, un second ordre l'aurait contredit.</li>
@@ -119,13 +119,13 @@ Périmètre</h1>
 <li><span class="tt">LevelScene::buildLevelScene</span> boucle sur les couches.</li>
 <li>La grille de <b>collision</b> devient la source de vérité du balayage AABB — et, au <span class="tt">LOT-19</span>, de la grille de combat tactique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md333"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md335"></a>
 Le point à ne pas rater</h1>
 <p><b>Prévoir dès maintenant un dictionnaire de propriétés libres</b> par couche et par entité, et la <b>tolérance aux champs inconnus</b>. Sans cela, les besoins du combat (terrain difficile, couverture, hauteur — découverts en phase D) imposeraient un <span class="tt">version: 4</span> en plein milieu du programme, avec migration de tout le contenu déjà produit. C'est le risque numéro un de ce lot.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md334"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md336"></a>
 Exigences couvertes</h1>
 <p><span class="tt">EX-LVL-*</span> (multi-couches, migration ascendante, tolérance aux champs inconnus), extension <span class="tt">EX-EDIT-*</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md335"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md337"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Aller-retour chargement → écriture → rechargement <b>à l'identique</b> sur une carte à trois couches et une liste d'entités.</li>
@@ -133,7 +133,7 @@ Critères d'acceptation</h1>
 <li>Une <span class="tt">version: 4</span> est refusée avec un message explicite (<span class="tt">EX-NFR-040</span>).</li>
 <li>Un champ inconnu dans une couche ou une entité est <b>ignoré sans erreur</b>, et <b>préservé</b> à la réécriture.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md336"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md338"></a>
 Ce que la réalisation a tranché</h1>
 <p><b>La collision n'est pas une couche du tableau <span class="tt">layers</span> : c'est le tableau racine <span class="tt">tiles</span>.</b> Le périmètre initial la voyait comme l'une des trois couches déclarées, à égalité avec le sol et le décor. Elle ne peut pas l'être : la grille racine porte déjà l'entrée, la sortie et les cases de mécanismes, que la validation exige et qu'aucune couche ne réplique. Une carte à deux grilles se serait désynchronisée dès le premier aller-retour d'éditeur — l'écriture repart de la grille du niveau, qui aurait alors perdu son entrée. Une couche <span class="tt">collision</span> déclarée est donc <b>refusée</b>, avec un message qui renvoie à la racine ; le chargeur promeut la grille racine en couche de tête pour que les consommateurs bouclent quand même sans cas particulier.</p>
 <p><b>Le brouillon d'édition transporte ce qu'il ne sait pas éditer.</b> L'éditeur multi-couches est le <span class="tt">LOT-11</span>, mais <span class="tt">LevelDraft</span> porte dès maintenant couches, entités et propriétés : sans cela, ouvrir puis enregistrer une carte <span class="tt">version: 3</span> l'aurait vidée en silence. Le redimensionnement emporte toutes les couches et abandonne les entités sorties de la grille, faute de quoi le niveau devenait irrécupérable à l'enregistrement.</p>

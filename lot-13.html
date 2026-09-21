@@ -97,21 +97,21 @@ $(function(){initNavTree('lot-13.html','',''); });
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 992/992, <span class="tt">clang-format</span>, les six lints, cahier de test et Doxygen verts). Prérequis : <a class="el" href="lot-12.html" title="LOT-12 — Dés, caractéristiques, jets"><span class="tt">LOT-12</span></a>. Alimente <a class="el" href="lot-14.html" title="LOT-14 — Inventaire et équipement">LOT-14</a>, <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>, <a class="el" href="lot-38.html" title="LOT-38 — Fiche de personnage : maquette et interface">LOT-38</a>, <a class="el" href="roadmap.html#lot-74" title="&lt;tt&gt;LOT-74&lt;/tt&gt; — Expérience et progression">LOT-74</a>.</p>
 <p>Exigences couvertes : <a class="el" href="spec-regles-d20.html#EX-REG-010" title="EX-REG-010"><span class="tt">EX-REG-010</span></a>, <a class="el" href="spec-regles-d20.html#EX-REG-011" title="EX-REG-011"><span class="tt">EX-REG-011</span></a>, <a class="el" href="spec-rpg.html#EX-RPG-001" title="EX-RPG-001"><span class="tt">EX-RPG-001</span></a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md400"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md402"></a>
 Objectif</h1>
 <p>Donner à toute créature — héros, PNJ, ennemi — une fiche complète : caractéristiques, points de vie, classe d'armure, niveau, bonus de maîtrise, jets de sauvegarde, compétences, vitesse. Et la faire <b>monter de niveau</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md401"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md403"></a>
 Ce que le lot livre</h1>
 <p><b><span class="tt"><a class="el" href="structcore_1_1CharacterSheet.html" title="La fiche d&#39;une créature jouable ou non : héros, PNJ, ennemi.">core::CharacterSheet</a></span></b> (<span class="tt">Source/Core/Rpg/CharacterSheet.{h,cpp}</span>) : la fiche, sa construction depuis une espèce, une classe et un historique, les modificateurs de sauvegarde et de compétence, le gain d'expérience et la montée de niveau.</p>
 <p><b><span class="tt"><a class="el" href="structcore_1_1SkillCatalog.html" title="Les compétences chargées, et ce qui n&#39;a pas pu l&#39;être.">core::SkillCatalog</a></span></b> (<span class="tt">Source/Core/Rpg/Skill.{h,cpp}</span>) : les dix-huit compétences du <span class="tt">LOT-43</span> et la caractéristique de chacune.</p>
 <p><b>Deux tables de règles extraites du corpus</b> — <span class="tt">rules/experience.json</span> (vingt niveaux, leurs seuils et leurs bonus de maîtrise) et <span class="tt">rules/character-creation.json</span> (la classe d'armure sans armure et le plafond d'une valeur de caractéristique) — avec leurs deux schémas.</p>
 <p><b>Le composant ECS <span class="tt"><a class="el" href="structcore_1_1RpgActor.html" title="Marque une entité comme acteur de jeu de rôle et la relie à sa fiche.">core::RpgActor</a></span></b> (<span class="tt"><a class="el" href="RpgActor_8h.html" title="Composant reliant une entité de la carte à sa fiche de personnage (données pures).">Source/Core/Ecs/Components/RpgActor.h</a></span>).</p>
 <p><b>Neuf tests</b>, un par phrase de l'acceptation.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md402"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md404"></a>
 Le lot n'a pas écrit de <span class="tt">ClassDefinition</span> : elle existait déjà</h1>
 <p>Le périmètre annonçait un <span class="tt">ClassDefinition.{h,cpp}</span> « piloté par JSON, jamais codé en dur : dé de vie, maîtrises, progression par niveau ». C'est exactement <span class="tt"><a class="el" href="structcore_1_1PlayableClass.html" title="Une classe jouable et sa table de progression.">core::PlayableClass</a></span>, que le <a class="el" href="lot-36.html" title="LOT-36 — Espèces, historiques et classes provisoires">LOT-36</a> a livré en chargeant <span class="tt">Source/Elements/Rpg/classes/</span> — dé de vie, caractéristique principale, jets de sauvegarde et vingt lignes de progression.</p>
 <p>Écrire un second type pour la même chose aurait créé deux vérités sur ce qu'est une classe, et la divergence se serait vue le jour où l'une des deux aurait appris quelque chose que l'autre ignore. La fiche <b>consomme</b> <span class="tt">PlayableClass</span> ; le lot n'a rien réécrit.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md403"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md405"></a>
 « Aucune valeur de règle dans le C++ » se vérifie sur le diff, pas sur l'intention</h1>
 <p>C'est le critère d'acceptation le plus facile à croire tenu, et le plus facile à trahir : une valeur de règle a l'air d'une constante d'implémentation, et rien ne les distingue une fois écrites. Ce lot en a trouvé <b>trois</b>, dont une qu'il avait lui-même introduite au lot précédent.</p>
 <p><b>La table d'expérience</b> — vingt seuils et vingt bonus de maîtrise — tiendrait en trois lignes de C++, et c'est ce qui la rend dangereuse. Elle est extraite de la table des <em>Basic Rules</em> p. 11, lue <b>par coordonnée</b> (<span class="tt">EX-CNT-021</span>) : ses trois colonnes n'ont ni filet ni séparateur, et un mode en flux y mêlerait les seuils aux numéros de niveau. Deux contrôles arrêtent la génération — les vingt niveaux doivent être présents <b>et dans l'ordre</b>, les seuils <b>strictement croissants</b>. Deux seuils inversés rendraient une montée de niveau infranchissable, ou franchissable deux fois.</p>
@@ -123,26 +123,26 @@ Le lot n'a pas écrit de <span class="tt">ClassDefinition</span> : elle existait
 <p>C'est ce qui distingue une constante extraite d'une constante tapée de mémoire : la seconde a l'air de la première, et rien ne les sépare une fois écrites.</p>
 <p><b>Le <span class="tt">20</span> que le <span class="tt">LOT-36</span> avait codé en dur.</b> <span class="tt">abilityScoreWith()</span> bornait une augmentation d'espèce à un <span class="tt">constexpr int VALEUR_MAXIMALE = 20</span>. Le plafond est désormais un <b>paramètre</b>, lu dans la donnée — et le test du <span class="tt">LOT-36</span> a été repris pour le lire au même endroit que le moteur, au lieu de vérifier sa propre copie de la règle.</p>
 <p><b>Une fiche se construit, elle ne se déclare pas.</b> Tous les champs chiffrés de <span class="tt">CharacterSheet</span> partent de zéro, et aucun ne porte de valeur « raisonnable » par défaut : un <span class="tt">armorClass = 10</span> dans la structure serait la règle du livre écrite en C++, et une fiche à demi construite passerait pour une fiche jouable.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md404"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md406"></a>
 <span class="tt">CharacterSheet</span> est un objet autonome, jamais un singleton joueur</h1>
 <p>La décision de cadrage est « un héros au départ, quatre à terme » : le passage au groupe (<a class="el" href="roadmap.html#lot-29" title="LOT-29 — Groupe de quatre personnages">LOT-29</a>) ne doit <b>rien</b> changer à ce type. Aucune fonction du fichier ne prend « le personnage » implicitement — toutes reçoivent la fiche sur laquelle elles travaillent.</p>
 <p>Le test <span class="tt">QuatreFichesIndependantes</span> est ce qui rend la règle exécutoire : il construit quatre fiches, en blesse une, en fait monter une autre de deux niveaux, et vérifie que les deux dernières n'ont pas bougé. Si <span class="tt">CharacterSheet</span> devenait un singleton, ce cas serait le premier à tomber.</p>
 <p><b>Le bonus de maîtrise n'est pas dans la fiche.</b> Il se lit dans la table d'expérience au niveau courant. Le stocker le figerait au moment de la construction, et une montée de niveau laisserait un personnage avec le bonus de l'ancien — un défaut qui se joue et ne se voit pas.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md405"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md407"></a>
 Le composant ECS ne porte pas la fiche, il la désigne</h1>
 <p><span class="tt">RpgActor</span> porte un <b>indice</b>, pas une <span class="tt">CharacterSheet</span>. La raison de taille est secondaire ; la vraie est qu'<b>une fiche n'appartient pas à une entité</b>. Un personnage du groupe garde la sienne quand il change de carte et que son entité est détruite puis recréée (<a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a>) : une fiche survit à l'entité qui la représente. Loger la fiche dans le composant lierait la vie de l'une à celle de l'autre, et le <span class="tt">LOT-29</span> devrait défaire ce lien.</p>
 <p><span class="tt">INDICE_ABSENT</span> distingue une entité <b>sans fiche</b> — un décor animé, un projectile — d'une entité dont la fiche serait la première du registre. Les confondre ferait attaquer un tonneau avec les caractéristiques du héros.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md406"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md408"></a>
 Trois décisions de règle, écrites là où on les lit</h1>
 <p><b>Les points de vie sont déterministes.</b> Le livre laisse le choix entre lancer le dé de vie et prendre « la valeur fixe indiquée dans la description de votre classe, qui se trouve être la valeur moyenne (arrondie au supérieur) du dé » (p. 11). Le moteur prend la seconde : des points de vie tirés au dé rendraient une partie irrejouable, ce qu'<span class="tt">EX-NFR-002</span> interdit. Le niveau 1 reçoit le <b>maximum</b> du dé — c'est la règle, et la raison pour laquelle un mage de niveau 1 n'a pas trois points de vie.</p>
 <p><b>Monter de niveau n'est pas un soin.</b> Les points de vie courants montent du <b>gain</b>, pas jusqu'au maximum : rendre toute sa vie à un personnage blessé ferait de la montée de niveau une potion gratuite.</p>
 <p><b>Perdre de l'expérience n'est pas une règle de ce jeu.</b> Un gain négatif est ignoré. L'accepter en silence ferait <em>descendre</em> un personnage de niveau, et le défaut passerait pour de l'équilibrage.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md407"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md409"></a>
 Ce que le lot ne fait pas</h1>
 <p><b>Il ne calcule pas la classe d'armure d'une armure portée.</b> Une fiche sans équipement a la CA que le livre lui donne ; les armures sont le <a class="el" href="lot-34.html" title="LOT-34 — Équipement, monnaie, objets magiques">LOT-34</a>, et l'inventaire le <a class="el" href="lot-14.html" title="LOT-14 — Inventaire et équipement">LOT-14</a>.</p>
 <p><b>Il n'attribue pas les capacités de classe.</b> La progression porte leurs identifiants, niveau par niveau ; les jouer viendra avec les mécanismes qui les portent.</p>
 <p><b>Il n'a pas d'interface.</b> La fiche est un objet du <span class="tt">Core</span>, sans fenêtre : sa maquette et son écran sont le <a class="el" href="lot-38.html" title="LOT-38 — Fiche de personnage : maquette et interface">LOT-38</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md408"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md410"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Trois classes définies en JSON se chargent et donnent les bons modificateurs</b> — brawler (d12), mage (d6) et priest (d8) : points de vie, jets de sauvegarde maîtrisés <b>et</b> non maîtrisés. ✔</li>

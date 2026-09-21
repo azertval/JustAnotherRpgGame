@@ -26,5 +26,8 @@ var searchData=
   ['ringright_23',['RingRight',['../namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a2390e3a8317e0d192cdbaebaaa54a716',1,'core']]],
   ['round_24',['Round',['../namespacecore.html#a9b42f3467a678d16bee619bc34ddf4e2ab7f41fc1412ad2ee75e9b2635d3b9d5c',1,'core']]],
   ['roundstart_25',['RoundStart',['../namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840ae279ccaa0940305fd66b36348b823963',1,'core::RoundStart'],['../namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9ae279ccaa0940305fd66b36348b823963',1,'core::RoundStart']]],
-  ['rpgscreen_26',['RpgScreen',['../classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a74f7bb96f40b089d24eea4863b269139',1,'hmi::ScreenRouter::RpgScreen'],['../namespacehmi.html#a168b24f798c2e6d06beb9472a071528da74f7bb96f40b089d24eea4863b269139',1,'hmi::RpgScreen']]]
+  ['rpgscreen_26',['RpgScreen',['../classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a74f7bb96f40b089d24eea4863b269139',1,'hmi::ScreenRouter::RpgScreen'],['../namespacehmi.html#a168b24f798c2e6d06beb9472a071528da74f7bb96f40b089d24eea4863b269139',1,'hmi::RpgScreen']]],
+  ['runingame_27',['RunInGame',['../namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a5d0f2b7a44ba7eab9a517ad0879a7013',1,'hmi']]],
+  ['runingamehere_28',['RunInGameHere',['../namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a',1,'hmi']]],
+  ['runingameoptions_29',['RunInGameOptions',['../namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793',1,'hmi']]]
 ];

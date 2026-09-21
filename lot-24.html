@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-24.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré, en attente de la vérification IHM manuelle</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 1145/1145 en Debug, <span class="tt">check_ui_layers</span>, <span class="tt">check_qml_designer_compat</span>, les lints et le contrôle des données RPG verts ; captures de l'écran en combat relues). Prérequis : <a class="el" href="lot-21.html" title="LOT-21 — Attaques, dégâts et états">LOT-21</a> (l'attaque et son journal), <a class="el" href="lot-23.html" title="LOT-23 — IA tactique ennemie">LOT-23</a> (l'IA qui joue l'adversaire). Alimente <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>. Exigences couvertes : <span class="tt">EX-IHM-003</span> (l'affichage dit ce dont le joueur a besoin pour décider), <span class="tt">EX-CBT-020</span> (les cases atteignables et le chemin <b>montrés avant</b> que le joueur ne s'engage). Aucune exigence ajoutée. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md493"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md495"></a>
 Objectif</h1>
 <p>Rendre le combat <b>lisible et jouable</b> : ordre d'initiative, portées surlignées, curseur de ciblage, prévisualisations, journal — et le jouer <b>entièrement au clavier et entièrement à la manette</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md494"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md496"></a>
 Ce que la feuille de route supposait, et ce que le dépôt contenait</h1>
 <p>L'état des lieux fait au démarrage a trouvé quatre écarts entre la section de ce lot et le code. Ils décident de la forme de la livraison, et il vaut mieux les écrire que les laisser redécouvrir.</p>
 <ul>
@@ -109,7 +109,7 @@ Ce que la feuille de route supposait, et ce que le dépôt contenait</h1>
 <li><b><span class="tt">hmi::GameHud</span> n'avait plus de budgets de sauts et de dashs</b> (retirés au <span class="tt">LOT-06</span>) : seuls une fonction morte et deux commentaires en parlaient encore. <b><span class="tt">EditorOverlay</span></b> n'est pas un calque réemployable mais une couche de rendu de l'éditeur, et la grille du jeu est du QML.</li>
 </ul>
 <p>La section du lot le disait elle-même : « l'arène tient la machine dans <span class="tt"><a class="el" href="classcore_1_1ArenaSession.html" title="Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.">core::ArenaSession</a></span>, et c'est ce que cet écran lira ». Le lot livre donc l'IHM de combat <b>sur l'écran du Colisée</b>, le seul combat jouable ; la même vue-modèle et la même prévisualisation serviront le combat sur la carte quand elle existera.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md495"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md497"></a>
 Ce que ce lot livre</h1>
 <ul>
 <li><b>La prévisualisation</b> (<span class="tt">Source/Core/Combat/CombatPreview.{h,cpp}</span>) : l'attaque telle qu'elle serait jetée (<span class="tt"><a class="el" href="namespacecore.html#a331ece5830ae73d553faf88ddecc116c" title="L&#39;attaque attackIndex du combattant actif contre target, telle qu&#39;elle serait jetée maintenant.">core::previewAttack</a></span> — ciblage, CA abri compris, jet requis, chance de toucher, sources d'avantage et de désavantage, espérance de dégâts), la première attaque qui porte (<span class="tt"><a class="el" href="namespacecore.html#aa16398d9f2424d88762163aa2bfe850e" title="La première attaque du combattant actif qui peut viser target — celle que le geste « attaquer » chois...">core::firstValidAttack</a></span>), et le déplacement tel qu'il serait joué (<span class="tt"><a class="el" href="namespacecore.html#ac10191346bb1e11cc0c720ea9f4a5c79" title="Le déplacement du combattant actif jusqu&#39;à destination.">core::previewMove</a></span> — chemin, déplacement restant, qui frappera en chemin).</li>
@@ -120,7 +120,7 @@ Ce que ce lot livre</h1>
 <li><b>La traduction</b> : les textes de l'écran du Colisée, que le catalogue anglais n'avait jamais extraits depuis le <span class="tt">LOT-50</span>, et les <span class="tt">tr()</span> des vues-modèles, désormais extraits (<span class="tt">JadgRuntime</span> dans <span class="tt">qt_add_translations</span>) — cinquante-huit entrées traduites, aucune en suspens.</li>
 <li>Le ménage de <span class="tt">hmi::GameHud</span> : la fonction morte et les commentaires qui parlaient encore de budgets.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md496"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md498"></a>
 Les commandes</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -139,7 +139,7 @@ Les commandes</h1>
 <td class="markdownTableBodyNone">Fin du tour  </td><td class="markdownTableBodyNone">Espace  </td><td class="markdownTableBodyNone">Y  </td></tr>
 </table>
 <p>Les flèches suivent les <b>axes de la grille</b>, pas l'écran : sur la vue isométrique, « haut » monte vers la droite. Un curseur qui monterait droit à l'écran avancerait en diagonale sur la grille et ne visiterait qu'une case sur deux.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md497"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md499"></a>
 Décisions prises en route</h1>
 <ul>
 <li><b>Une prévisualisation qui ne ment pas</b> passe par les fonctions du jet réel, et un test compare la prévisualisation au jet que la session jette ensuite — même CA, même abri, même posture, mêmes sources — sur une tenaille, puis sur un tir à longue portée, à travers un allié, contre une cible qui esquive.</li>
@@ -151,7 +151,7 @@ Décisions prises en route</h1>
 <li><b>La composition</b> (le roster, les camps, la graine) reste un écran de mise en place, à la souris ou au clavier par les contrôles Qt (Tab, Espace) ; la manette lance, rejoue et revient à la composition.</li>
 <li><b>Les vues-modèles ont un exécutable de test</b>, <span class="tt">RuntimeTests</span>, dans le <span class="tt">bin</span> du jeu : elles lisent leurs catalogues à côté de l'exécutable, comme le jeu. C'est le premier test d'une vue-modèle Qt Quick du dépôt.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md498"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md500"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Le combat sur la carte d'exploration gelée</b>, et le HUD de combat (<span class="tt">CombatHudForm</span>) qui s'y superpose : ils attendent que le jeu Qt Quick ait une exploration (<span class="tt">LOT-09</span>, <span class="tt">LOT-27</span>). La vue-modèle et la prévisualisation de ce lot sont celles qu'ils liront.</li>
@@ -160,7 +160,7 @@ Ce qui reste hors du lot, nommément</h1>
 <li><b>Le journal traduit</b> : ses lignes viennent du <span class="tt">Core</span>, en français, sans Qt ; les traduire passe par les clés du catalogue <span class="tt">.lang</span>, pas par ce lot.</li>
 <li><b>Le remappage</b> des commandes du combat : les touches et les boutons sont ceux du tableau.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md499"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md501"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Un combat complet se joue entièrement au clavier et entièrement à la manette.</b> ✔ en automatique pour les gestes (<span class="tt">ArenaModelTest.UnCombatSeJoueParLesSeulsGestes</span> : un combat du Colisée mené à son issue par cible suivante, curseur, confirmer et fin du tour, l'ennemi joué par l'IA) ; la traduction des touches et des boutons en gestes est dans le jumeau, <b>à vérifier à la main</b>.</li>

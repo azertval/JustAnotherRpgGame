@@ -98,21 +98,21 @@ $(function(){initNavTree('spec-contenu.html','',''); });
 </blockquote>
 <p>Le jeu visé est un <b>bac à sable dans un univers complet</b> : treize régions, seize classes, treize espèces, cent-soixante-seize créatures. Aucune de ces valeurs ne peut vivre dans du C++ — ni en constante, ni en <span class="tt">switch</span>, ni en table codée en dur. Ce document porte les exigences de la <b>filière données</b> : d'où vient une donnée, ce qu'elle promet, et comment le moteur se comporte quand elle promet plus qu'il ne sait tenir.</p>
 <p>Il ne dit pas <em>ce que</em> contiennent les catalogues — c'est l'objet de [<span class="tt"><a class="el" href="regles-d20_8md.html">regles-d20.md</a></span>](<a class="el" href="spec-regles-d20.html" title="Règles d20">Règles d20</a>), <a class="el" href="spec-rpg.html" title="Personnage et progression"><span class="tt">rpg.md</span></a>, <a class="el" href="spec-combat.html" title="Combat tactique"><span class="tt">combat.md</span></a> et <a class="el" href="spec-inventaire.html" title="Inventaire et économie"><span class="tt">inventaire.md</span></a>. Il dit <em>comment</em> ils sont produits, validés et honorés.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md190"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md191"></a>
 1. Provenance</h1>
 <p>Le projet est privé et sans diffusion : les licences du corpus ne contraignent pas l'usage. Mais elles ne sont pas supprimées, elles sont <b>endormies</b> — elles se réveillent le jour d'une publication. La discipline qui garde cette porte ouverte tient en un champ.</p>
 <ul>
 <li><a class="anchor" id="EX-CNT-001"></a><b>EX-CNT-001</b> — Toute donnée produite doit porter un champ <b><span class="tt">source</span></b> parmi <span class="tt">srd</span>, <span class="tt">tanares</span>, <span class="tt">phb-fr</span> et <span class="tt">original</span>. Le jour où la question « qu'est-ce qui devrait sauter en cas de publication ? » se pose, elle se répond par une <b>requête</b> et non par une relecture de tout le catalogue. Le coût est d'une ligne par fichier, payée d'avance ; la relecture, elle, se paierait sur des milliers d'entrées et se tromperait.</li>
 <li><a class="anchor" id="EX-CNT-002"></a><b>EX-CNT-002</b> — Le champ <span class="tt">source</span> est <b>obligatoire au schéma</b>, pas recommandé par convention : une donnée qui ne le porte pas fait échouer la validation. Une discipline facultative n'est pas tenue sur cinq mille fichiers.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md191"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md192"></a>
 2. Contrats avant données</h1>
 <ul>
 <li><a class="anchor" id="EX-CNT-010"></a><b>EX-CNT-010</b> — Chaque famille de données (créature, objet, arme, armure, sort, espèce, classe, historique, état, type de dégâts) doit être décrite par un <b>JSON Schema</b>, et toute donnée livrée doit être <b>validée en intégration continue</b>. Un échec doit nommer le <b>fichier et la ligne</b> fautifs : un message qui dit seulement « donnée invalide » sur un catalogue de mille entrées ne sert à rien.</li>
 <li><a class="anchor" id="EX-CNT-011"></a><b>EX-CNT-011</b> — Les <b>énumérations partagées</b> entre le C++ et les schémas (types de dégâts, conditions, écoles de magie…) doivent être vérifiées <b>identiques</b> par un test. C'est le point exact où une donnée et un moteur divergent en silence : le JSON déclare <span class="tt">psychique</span>, le C++ ne connaît que <span class="tt">Psychic</span>, la valeur tombe dans le cas par défaut, et le sort cesse de faire des dégâts sans que rien ne l'annonce. Ajouter une valeur d'un seul côté doit faire <b>échouer</b> la compilation ou un test, jamais produire un jeu silencieusement faux.</li>
 <li><a class="anchor" id="EX-CNT-012"></a><b>EX-CNT-012</b> — Le chargement d'un catalogue doit passer par une <b>brique de lecture unique</b> — ouverture, parsage, validation par schéma, report d'erreur situé, conversion vers un agrégat typé. Aucun catalogue ne porte sa propre routine de lecture ni sa propre validation écrite à la main. Le dépôt en comptait six variantes avant que la filière n'existe ; en ajouter une par catalogue serait multiplier par vingt un défaut déjà identifié.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md192"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md193"></a>
 3. Extraction du corpus</h1>
 <p>Les données proviennent de PDF, par une chaîne d'extraction outillée. Cette chaîne n'est pas un script jetable : elle est rejouée à chaque correction du corpus.</p>
 <ul>
@@ -121,7 +121,7 @@ $(function(){initNavTree('spec-contenu.html','',''); });
 <li><a class="anchor" id="EX-CNT-022"></a><b>EX-CNT-022</b> — Une <b>image</b> doit être obtenue par <b>rendu d'une région de page</b>, jamais par extraction de l'objet image brut : sur ce corpus, le flux brut produit des zones de bruit vert et cyan, quand le rendu passe par la composition complète et donne un résultat exact. Corollaire assumé : le rendu embarque <b>tout ce qui est dessiné dans la région</b>, texte compris, ce qui rend l'extraction d'illustrations <b>semi-automatique</b> — l'outil propose, l'humain recadre.</li>
 <li><a class="anchor" id="EX-CNT-023"></a><b>EX-CNT-023</b> — Le corpus source et le texte intermédiaire produit par l'extraction ne sont <b>pas versionnés</b> ; les <b>données finales</b> le sont. Le corpus pèse des centaines de mégaoctets de binaires que le gestionnaire de versions compresse mal et que chaque clone traînerait. L'intermédiaire, lui, se régénère à la demande — le versionner reviendrait à versionner un cache.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md193"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md194"></a>
 4. Ce qu'une donnée promet</h1>
 <p>C'est le cœur de ce document. Le catalogue sera complet <b>longtemps avant</b> le moteur : importer une classe prend une après-midi, faire que le moteur la joue correctement est un programme entier. L'écart doit être <b>déclaré et consultable</b>, jamais découvert en jeu.</p>
 <ul>
@@ -129,20 +129,20 @@ $(function(){initNavTree('spec-contenu.html','',''); });
 <li><a class="anchor" id="EX-CNT-031"></a><b>EX-CNT-031</b> — Le moteur doit <b>refuser en le disant</b> ce qu'il ne sait pas honorer : toute donnée exigeant un mécanisme absent est <b>listée au chargement</b> et n'est <b>jamais jouée en silence</b>. Une classe dont la ressource propre n'existe pas dans le moteur ne doit pas se présenter comme une classe ordinaire amputée de ce qui la définit — c'est ainsi qu'on livre un jeu qui ment sur ce qu'il sait faire. La liste des mécanismes manquants est un <b>état d'avancement consultable</b>, pas une erreur fatale.</li>
 <li><a class="anchor" id="EX-CNT-032"></a><b>EX-CNT-032</b> — Une donnée <b>provisoire</b> doit porter un champ de statut le déclarant, l'intégration continue doit <b>énumérer</b> ce qui le porte, et son <b>critère de retrait</b> doit être écrit d'avance. Une donnée provisoire non marquée devient permanente par accident : c'est la façon la plus banale dont un échafaudage finit en mur porteur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md194"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md195"></a>
 5. Assets</h1>
 <ul>
 <li><a class="anchor" id="EX-CNT-040"></a><b>EX-CNT-040</b> — Une donnée doit désigner son illustration par une <b>clé d'asset</b>, jamais par un chemin de fichier. Un chemin dans une donnée de règle lie le catalogue à l'arborescence du disque : tout déplacement de dossier casse alors des créatures.</li>
 <li><a class="anchor" id="EX-CNT-041"></a><b>EX-CNT-041</b> — Toute clé d'asset sans image doit obtenir un <b>marqueur généré</b>, de sorte que le jeu tourne <b>complet</b> avant qu'aucune illustration ne soit produite. L'intégration continue <b>liste</b> les clés encore servies par un marqueur <b>sans échouer</b> : c'est un état d'avancement, pas un défaut. La production graphique devient un remplacement progressif, jamais un préalable bloquant.</li>
 <li><a class="anchor" id="EX-CNT-042"></a><b>EX-CNT-042</b> — Tout asset graphique livré doit paraître dans la <b>galerie des assets</b>, l'écran de débug <span class="tt">--screen=AssetGallery</span> : un modèle ajouté y montre toutes ses formes et toutes ses animations, disposées dans leur emprise, <b>sans rien câbler d'autre</b> que ses fichiers et son manifeste. Une famille d'assets nouvelle, que la galerie ne sait pas encore lire, s'y ajoute <b>dans le même changement</b> que ses premiers fichiers. Seules les images qui ne sont pas des assets à montrer en sont exclues, par une règle <b>nommée</b> dans le code (planches sources des ateliers, atlas procédural, interface, polices) ; l'intégration continue <b>échoue</b> sur toute autre image absente de la galerie. Vérifier un asset dans une scène de jeu (le Colisée) ne montre que ce que la scène utilise, dans la pose où elle l'utilise : à mesure que les ateliers produisent, c'est la galerie qui dit ce qui existe.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md195"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md196"></a>
 6. Contrôle de plausibilité</h1>
 <p>La validation par schéma dit qu'un fichier est <b>bien formé</b>. Elle ne dit rien de sa <b>plausibilité</b> : un loup à classe d'armure 47, une épée à trois pièces d'or au lieu de trente, une créature de facteur ⅛ avec quatre-vingt-dix points de vie franchissent un schéma sans broncher.</p>
 <ul>
 <li><a class="anchor" id="EX-CNT-050"></a><b>EX-CNT-050</b> — Les catalogues doivent être soumis à un contrôle <b>statistique</b> de plausibilité : bornes attendues d'une valeur au regard des autres champs de la même entrée. Ce qui sort des bornes est <b>signalé, pas rejeté</b> — une créature volontairement hors norme existe, une extraction ratée aussi, et seul un humain les distingue. Une anomalie <b>acceptée</b> est enregistrée <b>dans la donnée</b> pour ne pas être re-signalée à chaque exécution : un avertissement qu'on réapprend à ignorer ne protège plus de rien.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md196"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md197"></a>
 7. Atlas du monde</h1>
 <p>Les catalogues précédents décrivent des <b>choses</b> — une créature, une arme, un don. L'atlas décrit un <b>espace</b>, et un espace a une propriété qu'aucune liste n'a : on peut s'y perdre, ou plutôt, un morceau peut devenir inaccessible sans que rien ne le dise.</p>
 <ul>

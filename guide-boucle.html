@@ -94,7 +94,7 @@ $(function(){initNavTree('guide-boucle.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Guide_2guide-boucle"></a></p>
 <p>Cette page part de zéro : elle explique ce qu'est une boucle de jeu pour qui n'en a jamais écrit, puis détaille comment ce moteur la construit.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md36"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md37"></a>
 Qu'est-ce qu'une boucle de jeu ?</h1>
 <p>Une application classique (un formulaire, un outil en ligne de commande) est <b>passive</b> : elle attend un événement (clic, entrée clavier, requête réseau) puis réagit, et ne fait rien entre deux événements. Un jeu vidéo, lui, doit donner l'illusion d'un monde <b>vivant</b> en continu : un personnage continue de marcher tant que la touche reste enfoncée, sans nouvel événement. Il faut donc une boucle qui tourne <b>en permanence</b>, tant que le jeu est ouvert, et qui à chaque tour :</p>
 <ol type="1">
@@ -108,7 +108,7 @@ Qu'est-ce qu'une boucle de jeu ?</h1>
 <li>dans le <b>jeu</b>, <span class="tt"><a class="el" href="classhmi_1_1WorldModel.html" title="La vue-modèle de l&#39;exploration — la partie en cours : entrer sur une carte, marcher,...">hmi::WorldModel</a></span> avance l'exploration sur un <span class="tt">QTimer</span> de précision (<span class="tt">WorldModel::STEP_MILLISECONDS</span>, 16 ms), et la surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante : le jumeau d&#39;hmi::ArenaViewportItem pour le monde.">hmi::WorldViewportItem</a></span>) redessine quand la scène a changé ;</li>
 <li>dans l'<b>essai immédiat</b> de l'éditeur, <span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon peint en iso ou à plat, les gestes des outils, l&#39;essai.">hmi::EditorViewport</a></span> avance sur un <span class="tt">QTimer</span> de 16 ms ; chaque tir mesure le temps écoulé, avance la simulation par pas fixes, puis recompose et peint.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md37"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md38"></a>
 Le piège du framerate variable</h1>
 <p>La difficulté est que la durée réelle d'une frame <b>varie</b> : selon la machine, la charge du système, ou une fenêtre minimisée un instant, une frame peut durer 16 ms ou 200 ms. Une écriture naïve de la mise à jour ressemblerait à :</p>
 <div class="fragment"><div class="line"><span class="keywordflow">while</span> (running) {</div>
@@ -122,11 +122,11 @@ Le piège du framerate variable</h1>
 <li><b>le ressenti change avec la machine</b> : le héros ne s'arrête pas au même endroit contre un mur, et un grand pas peut sauter par-dessus un obstacle fin quand <span class="tt">deltaTime</span> grandit.</li>
 </ul>
 <p>C'est ce défaut que le <b>pas de temps fixe</b> élimine.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md38"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md39"></a>
 Le principe du pas de temps fixe</h1>
 <p>Idée : au lieu de faire avancer la logique de la durée réelle (variable) de la frame, on la fait avancer par <b>incréments constants</b>, par exemple toujours 1/60 s. Le nombre d'incréments à exécuter à chaque frame dépend du temps réel écoulé, mais <b>chaque incrément individuel</b> voit toujours exactement la même durée. La logique de jeu (l'exploration) ne connaît donc <b>jamais</b> de <span class="tt">deltaTime</span> variable — seulement des pas identiques et répétés — ce qui garantit le <b>déterminisme</b> : mêmes entrées → <b>exactement</b> la même trajectoire, quelle que soit la vitesse de la machine (<span class="tt">EX-NFR-002</span>, <span class="tt">EX-ARCH-030</span>). C'est indispensable pour des tests reproductibles et pour un ressenti de jeu stable.</p>
 <p>Le rendu, lui, n'a pas besoin de cette contrainte : dessiner une fois de plus ou de moins par seconde ne casse aucun invariant logique. Il reste donc cadencé sur le temps réel, une fois par frame — c'est le <b>découplage</b> entre logique (fixe) et rendu (variable).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md39"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md40"></a>
 L'accumulateur : <a class="el" href="classcore_1_1FixedTimestep.html" title="core::FixedTimestep">core::FixedTimestep</a></h1>
 <p>Le mécanisme qui convertit un temps réel variable en un nombre entier de pas fixes s'appelle un <b>accumulateur</b>. Principe :</p>
 <ol type="1">
@@ -145,7 +145,7 @@ L'accumulateur : <a class="el" href="classcore_1_1FixedTimestep.html" title="cor
 <div class="ttc" id="aclasscore_1_1FixedTimestep_html_a356438d57f1d49a6cbe12358a5c41cc0"><div class="ttname"><a href="classcore_1_1FixedTimestep.html#a356438d57f1d49a6cbe12358a5c41cc0">core::FixedTimestep::fixedDeltaSeconds</a></div><div class="ttdeci">float fixedDeltaSeconds() const</div><div class="ttdoc">Durée d&#39;un pas de simulation.</div><div class="ttdef"><b>Definition</b> FixedTimestep.cpp:50</div></div>
 <div class="ttc" id="aclasscore_1_1FixedTimestep_html_af793433cb70af5284492ca1eca34d797"><div class="ttname"><a href="classcore_1_1FixedTimestep.html#af793433cb70af5284492ca1eca34d797">core::FixedTimestep::advance</a></div><div class="ttdeci">int advance(float elapsedSeconds)</div><div class="ttdoc">Accumule le temps écoulé et renvoie le nombre de pas fixes à exécuter.</div><div class="ttdef"><b>Definition</b> FixedTimestep.cpp:23</div></div>
 </div><!-- fragment --><p>C'est, à peu de chose près, <span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html#a8fe8c39e18ed07df8f21b6fa5210b932" title="Avance l&#39;essai des pas fixes dus, puis recompose sa scène.">hmi::EditorViewport::stepPlaytest</a></span> : l'essai immédiat fait avancer un <span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html">hmi::WorldPlay</a></span> (la même exploration que le jeu) de <span class="tt">steps</span> pas, puis dessine. Le jeu, lui, se passe d'accumulateur : son <span class="tt">QTimer</span> tire déjà à intervalle fixe, et chaque tir est un pas de <span class="tt">STEP_MILLISECONDS</span> — un retard du minuteur décale le pas dans le temps réel, jamais sa durée simulée.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md40"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md41"></a>
 Exemple chiffré</h2>
 <p>Avec un pas fixe de 1/60 s (≈ 0,01667 s) :</p>
 <table class="markdownTable">
@@ -159,19 +159,19 @@ Exemple chiffré</h2>
 <td class="markdownTableBodyNone">3  </td><td class="markdownTableBodyNone">0,040 s  </td><td class="markdownTableBodyNone">0,001 s  </td><td class="markdownTableBodyNone">0,041 s → 0,008 s  </td><td class="markdownTableBodyNone">2  </td></tr>
 </table>
 <p>À la frame 3, le temps réel écoulé (0,040 s) dépasse deux pas fixes (2 × 1/60 ≈ 0,033 s) : la boucle exécute <b>deux</b> mises à jour logiques avant de rendre une seule image. C'est normal et voulu — le rendu peut « sauter » plusieurs pas de simulation sans jamais désynchroniser la logique.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md41"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md42"></a>
 La « spirale de la mort »</h2>
 <p>Si une frame est anormalement longue (fenêtre déplacée, point d'arrêt du débogueur, machine gelée un instant), le temps écoulé peut représenter des <b>dizaines</b> de pas fixes d'un coup. Exécuter tous ces pas d'affilée prend du temps réel, ce qui retarde la frame suivante, qui devra à son tour rattraper encore plus de pas — un cercle vicieux appelé la <b>spirale de la mort</b> (<em>spiral of death</em>), qui peut figer le jeu indéfiniment. <span class="tt">FixedTimestep</span> s'en protège avec <span class="tt">maximumStepsPerCall</span> : le nombre de pas renvoyé par <span class="tt">advance()</span> est <b>plafonné</b> (5 par défaut), quitte à ce que la simulation « perde » du temps réel dans un cas extrême plutôt que de bloquer.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md42"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md43"></a>
 <a class="el" href="classcore_1_1FixedTimestep.html#ab7f7f880eef11df91ab7bc647e19bf56" title="core::FixedTimestep::interpolationAlpha">interpolationAlpha</a></h2>
 <p>Après avoir consommé tous les pas fixes disponibles, il peut rester une fraction de pas dans l'accumulateur (entre 0 et 1 pas). <span class="tt">interpolationAlpha()</span> l'expose comme un facteur dans <span class="tt">[0, 1[</span>, qui permettrait au rendu d'<b>interpoler</b> entre la position du pas précédent et celle du pas courant. Aucun rendu ne s'en sert aujourd'hui : l'image montre la dernière position simulée.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md43"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
 Les frames sans pas de simulation et les entrées</h2>
 <p>Quand le rendu dépasse 60 Hz, certaines frames réelles n'exécutent <b>aucun</b> pas fixe (<span class="tt">steps == 0</span>) — l'accumulateur n'a pas encore atteint un pas complet. Ces frames dessinent quand même (le rendu est découplé). Elles imposent en revanche une précaution sur les <b>entrées</b> : un appui capturé sur une telle frame doit <b>survivre</b> jusqu'à ce qu'un pas de simulation le lise, au lieu d'être effacé par la frame suivante. C'est pourquoi l'essai immédiat note la demande d'interaction (<span class="tt">E</span>/Espace) dans un drapeau que <b>le premier pas consommé</b> remet à zéro, et non la frame de rendu — voir <a class="el" href="guide-entrees.html" title="Entrées et actions logiques">Entrées et actions logiques</a>. Sans cette précaution, à 144 Hz environ deux appuis sur trois seraient perdus.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
 Conséquence pratique pour tout le code de simulation</h1>
 <p><b>Toute</b> la logique de jeu (<span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html#af22834cdd0f0305a39eea299e837fcc3" title="Avance d&#39;un pas de seconds.">core::ExplorationSession::update</a></span>, appelée par <span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html#afa2ea16ef64baed70a86b50000d7e9a0" title="Avance d&#39;un pas de seconds avec l&#39;intention intent.">hmi::WorldPlay::step</a></span>) reçoit un pas constant et <b>jamais</b> le temps réel. C'est pour cela que les tests peuvent appeler <span class="tt">update(..., 1.0f/60.0f)</span> en boucle, sans horloge ni minuteur : c'est <b>exactement</b> ce que fait le jeu en exécution normale, pas une approximation. Un système qui lirait le temps réel directement romprait cette garantie et deviendrait, par construction, non déterministe et difficile à tester.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md46"></a>
 Voir aussi</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.">core::FixedTimestep</a></span>.</li>

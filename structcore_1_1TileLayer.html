@@ -129,7 +129,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une couche de tuiles : son rôle, sa grille, ses pièces, et ses propriétés libres. </p>
 <p>Toutes les couches d'une carte partagent ses dimensions — le chargeur le vérifie, une couche décalée d'une case rendrait la collision incohérente avec ce qui est affiché.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1170"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1181"></a>
 Une case = un type et une pièce (format v4, <span class="tt">LOT-EDITOR-12</span>, <span class="tt">EX-LVL-019</span>)</h2>
 <p>Le <b>type</b> d'une case ne garde qu'un sens : celui des règles et du générateur (décision D3 de la feuille de route de l'éditeur). Ce qu'on <b>voit</b> est la <b>pièce</b> de la planche du lieu que la case nomme (<span class="tt">wall-left</span>, <span class="tt">street-2</span>) ; sans pièce, la table d'apparence du lieu la déduit du type, ce qui est le cas des cartes générées. Une pièce large est ancrée sur une case et occupe son emprise (<span class="tt"><a class="el" href="namespacecore.html#ae5ef43ac4990d56ddac5719dd23eb279">core::footprintCells</a></span>).</p>
 <p>Pièces et hauteurs sont rangées <b>denses</b>, ligne par ligne, et <b>vides</b> tant qu'aucune case n'en porte : une carte sans pièce ne paie rien. </p>

@@ -155,6 +155,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le curseur désigne : une entité, et la poignée tenue s'il y en a une.  <a href="structhmi_1_1EntityPick.html#details">More...</a><br /></td></tr>
 <tr class="memitem:FileOperationResult" id="r_FileOperationResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Succès (avec le chemin résultant) ou échec (avec un message lisible).  <a href="structhmi_1_1FileOperationResult.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DraftMap" id="r_DraftMap"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DraftMap.html">DraftMap</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte ouverte, telle que l'essai la jouera : son identifiant et son brouillon.  <a href="structhmi_1_1DraftMap.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GestureState" id="r_GestureState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1GestureState.html">GestureState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la fenêtre garde d'un geste à l'autre : le pinceau, la couche active, le miroir, la sélection… — l'état de l'éditeur que les gestes arment.  <a href="structhmi_1_1GestureState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GestureScriptResult" id="r_GestureScriptResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1GestureScriptResult.html">GestureScriptResult</a></td></tr>
@@ -269,12 +271,16 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que « Replace piece » a choisi.  <a href="structhmi_1_1PieceReplacementChoice.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SceneChangeChoice" id="r_SceneChangeChoice"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneChangeChoice.html">SceneChangeChoice</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que « Change sheet » a choisi : le lieu, et la table de correspondance.  <a href="structhmi_1_1SceneChangeChoice.html#details">More...</a><br /></td></tr>
+<tr class="memitem:RunInGameChoice" id="r_RunInGameChoice"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'auteur a choisi pour l'essai.  <a href="structhmi_1_1RunInGameChoice.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SceneImages" id="r_SceneImages"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SceneImages.html">SceneImages</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cache des images du canevas : ce que <span class="tt"><a class="el" href="#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="#a634bad2a915ba6f49caae2a158329bb3" title="Compose le lieu dans un tampon réutilisé.">hmi::composeWorldScene</a></span> adresse par chemin.  <a href="classhmi_1_1SceneImages.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldGraphView" id="r_WorldGraphView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldGraphView.html">WorldGraphView</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint un <span class="tt"><a class="el" href="structcore_1_1WorldGraph.html" title="Les cartes et leurs portails.">core::WorldGraph</a></span> disposé par <span class="tt"><a class="el" href="#a05055b81b0f1c8241eeef2c9e9d3a588" title="Dispose graph : nœuds sur un cercle, fantômes et flèches regroupées.">hmi::layoutWorldGraph</a></span>.  <a href="classhmi_1_1WorldGraphView.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AudioEngine" id="r_AudioEngine"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AudioEngine.html">AudioEngine</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lecture d'échantillons courts à faible latence, avec volume global et repli muet.  <a href="classhmi_1_1AudioEngine.html#details">More...</a><br /></td></tr>
+<tr class="memitem:GameLaunchOptions" id="r_GameLaunchOptions"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1GameLaunchOptions.html">GameLaunchOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'essai complet demandé : la carte, l'endroit, l'état de la partie, et d'où les cartes se lisent.  <a href="structhmi_1_1GameLaunchOptions.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldPlayStep" id="r_WorldPlayStep"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldPlayStep.html">WorldPlayStep</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un pas a changé à l'image, en plus des événements de la session.  <a href="structhmi_1_1WorldPlayStep.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldPlay" id="r_WorldPlay"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldPlay.html">WorldPlay</a></td></tr>
@@ -631,21 +637,25 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18ab13fc91e5d02ea9e1f1a538504213bea">Playtest</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a972ad795980977b92664790916b3f242">PlaytestHere</a>
+, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a5d0f2b7a44ba7eab9a517ad0879a7013">RunInGame</a>
+, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a">RunInGameHere</a>
+, <br />
+&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793">RunInGameOptions</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a1cdc076b28f70afac5fcedadf99fa119">Undo</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a5afeaba074ef570dc720caaa855d49f6">Redo</a>
+, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a77bfa926518159e75c2c4b508a81f19e">ToggleGrid</a>
 , <br />
-&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a77bfa926518159e75c2c4b508a81f19e">ToggleGrid</a>
-, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a34e806c94d1cf43980bb179a0376e173">ResetCamera</a>
+&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a34e806c94d1cf43980bb179a0376e173">ResetCamera</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18ae8de0394e2f02256b2ef89c94a67f84f">IsoView</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a8799d4aba313f9fd9ec6f21f7f908b36">SeeThroughRelief</a>
+, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a2403def5083f02105e7802b3b315681e">Mirror</a>
 , <br />
-&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a2403def5083f02105e7802b3b315681e">Mirror</a>
-, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a5fb63579fc981698f97d55bfecb213ea">Copy</a>
+&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a5fb63579fc981698f97d55bfecb213ea">Copy</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a36bb6559696dc9124986ae120515984f">Paste</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a7d8393a85811c22a219169498a94ea91">PasteMirrored</a>
+, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a28274ec234daec25053e4d9346c695b5">SaveAsPrefab</a>
 , <br />
-&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a28274ec234daec25053e4d9346c695b5">SaveAsPrefab</a>
-, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a904a8304056d77e4547744781b7ceb50">Rename</a>
+&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a904a8304056d77e4547744781b7ceb50">Rename</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a2583b92d245a881127917f19531ccf3b">ShortcutsOverview</a>
 <br />
  }</td></tr>
@@ -987,6 +997,11 @@ Functions</h2></td></tr>
 <tr class="memitem:aa9bc383870e52d4d94f97981c63c4a62" id="r_aa9bc383870e52d4d94f97981c63c4a62"><td class="memItemLeft">std::vector&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa9bc383870e52d4d94f97981c63c4a62">filterEntities</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, std::string_view filter)</td></tr>
 <tr class="memdesc:aa9bc383870e52d4d94f97981c63c4a62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les rangs des entités que <code class="param">filter</code> désigne, dans l'ordre de la carte.  <br /></td></tr>
 <tr class="memitem:ab5d9a77ac353caf145404f16a59ab39b" id="r_ab5d9a77ac353caf145404f16a59ab39b"><td class="memItemLeft">std::vector&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab5d9a77ac353caf145404f16a59ab39b">toggledSelection</a> (std::vector&lt; std::size_t &gt; selection, std::size_t index)</td></tr>
+<tr class="memitem:a972ee7f157e264cf55a982955c2d0882" id="r_a972ee7f157e264cf55a982955c2d0882"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a972ee7f157e264cf55a982955c2d0882">playtestDirectory</a> ()</td></tr>
+<tr class="memitem:ad05eb30edadbbf1334bc6c0057c0cbb2" id="r_ad05eb30edadbbf1334bc6c0057c0cbb2"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ad05eb30edadbbf1334bc6c0057c0cbb2">writeDraftMaps</a> (const std::filesystem::path &amp;directory, const std::vector&lt; <a class="el" href="structhmi_1_1DraftMap.html">DraftMap</a> &gt; &amp;drafts)</td></tr>
+<tr class="memdesc:ad05eb30edadbbf1334bc6c0057c0cbb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit <code class="param">drafts</code> sous <code class="param">directory</code>, un fichier par carte (<span class="tt">&lt;mapId&gt;.json</span>).  <br /></td></tr>
+<tr class="memitem:afd2abcbc7b9e193b4d4e200d8a27a9de" id="r_afd2abcbc7b9e193b4d4e200d8a27a9de"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#afd2abcbc7b9e193b4d4e200d8a27a9de">gameExecutable</a> (const std::filesystem::path &amp;editorDirectory)</td></tr>
+<tr class="memdesc:afd2abcbc7b9e193b4d4e200d8a27a9de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le jeu, cherché <b>à côté de l'éditeur</b> : les deux binaires sortent du même <span class="tt">bin/</span>.  <br /></td></tr>
 <tr class="memitem:ac51afb66cf0175a7664c655c56674293" id="r_ac51afb66cf0175a7664c655c56674293"><td class="memItemLeft"><a class="el" href="structhmi_1_1GestureScriptResult.html">GestureScriptResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac51afb66cf0175a7664c655c56674293">applyGestureScript</a> (const nlohmann::json &amp;script, <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, <a class="el" href="structhmi_1_1EditorSidecar.html">EditorSidecar</a> &amp;sidecar, const <a class="el" href="structhmi_1_1PlaceAssets.html">PlaceAssets</a> &amp;assets, const std::filesystem::path &amp;dataRoot={})</td></tr>
 <tr class="memdesc:ac51afb66cf0175a7664c655c56674293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue les gestes de <code class="param">script</code> sur <code class="param">draft</code>.  <br /></td></tr>
 <tr class="memitem:ab1145769bfcc581f39091b42c792705c" id="r_ab1145769bfcc581f39091b42c792705c"><td class="memItemLeft"><a class="el" href="structhmi_1_1GestureFileResult.html">GestureFileResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab1145769bfcc581f39091b42c792705c">applyGestureFile</a> (const std::filesystem::path &amp;scriptFile, std::string_view map, const std::filesystem::path &amp;dataRoot, std::filesystem::path &amp;mapFile)</td></tr>
@@ -1121,6 +1136,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:ae292dc37cec7c5ad714f84072475fd18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande quelle pièce remplacer, et par laquelle.  <br /></td></tr>
 <tr class="memitem:a9340f6e1b3f43febd69dcc101434fb1d" id="r_a9340f6e1b3f43febd69dcc101434fb1d"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1SceneChangeChoice.html">SceneChangeChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9340f6e1b3f43febd69dcc101434fb1d">askSceneChange</a> (QWidget *parent, const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers, const std::filesystem::path &amp;dataRoot, const std::string &amp;currentPlace)</td></tr>
 <tr class="memdesc:a9340f6e1b3f43febd69dcc101434fb1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande la nouvelle planche, et pour chaque pièce que la carte pose, celle qui la remplace : la table proposée (<span class="tt"><a class="el" href="#a2e091b55877d7aecd5436fad2ee8f474" title="La table que l&#39;éditeur propose pour passer layers à la planche target : chaque pièce citée va à la pi...">hmi::proposedPieceTable</a></span>) d'abord, qu'on corrige.  <br /></td></tr>
+<tr class="memitem:a3fd89c262750f06eba4c24704e2d6573" id="r_a3fd89c262750f06eba4c24704e2d6573"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3fd89c262750f06eba4c24704e2d6573">askRunInGame</a> (QWidget *parent, const QString &amp;mapId, const std::vector&lt; std::string &gt; &amp;knownFlags, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> bounds, const <a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> &amp;current)</td></tr>
+<tr class="memdesc:a3fd89c262750f06eba4c24704e2d6573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande où partir et quels drapeaux poser, puis rend le choix.  <br /></td></tr>
 <tr class="memitem:ab7a286078c3b760b7c7bcd400c3efc93" id="r_ab7a286078c3b760b7c7bcd400c3efc93"><td class="memItemLeft">const QImage *&#160;</td><td class="memItemRight"><a class="el" href="#ab7a286078c3b760b7c7bcd400c3efc93">sceneImageOf</a> (<a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> handle) noexcept</td></tr>
 <tr class="memitem:a71762428929f463c938cf50568054832" id="r_a71762428929f463c938cf50568054832"><td class="memItemLeft"><a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#a71762428929f463c938cf50568054832">sceneImageHandle</a> (const QImage *image) noexcept</td></tr>
 <tr class="memitem:a13d39d2941050cdcde712bd03062a037" id="r_a13d39d2941050cdcde712bd03062a037"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a13d39d2941050cdcde712bd03062a037">paintComposedScene</a> (QPainter &amp;painter, const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const std::optional&lt; <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &gt; &amp;visible=std::nullopt, const <a class="el" href="#ad39e4163a49fc5ba81aab9827d83118e">QuadOpacity</a> &amp;opacity={})</td></tr>
@@ -1128,6 +1145,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a69e74e4f140af19416ff4a8a7dbd49a8" id="r_a69e74e4f140af19416ff4a8a7dbd49a8"><td class="memItemLeft">QTransform&#160;</td><td class="memItemRight"><a class="el" href="#a69e74e4f140af19416ff4a8a7dbd49a8">cameraTransform</a> (const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera)</td></tr>
 <tr class="memitem:a7e2e49094a1e633ea842459409c9c13b" id="r_a7e2e49094a1e633ea842459409c9c13b"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="#a7e2e49094a1e633ea842459409c9c13b">renderComposedScene</a> (const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, int width, int height, const QColor &amp;clear)</td></tr>
 <tr class="memdesc:a7e2e49094a1e633ea842459409c9c13b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">scene</code> hors écran, cadrée par <code class="param">camera</code>, sur un fond <code class="param">clear</code> — l'image que le jeu dessinerait avec la même caméra.  <br /></td></tr>
+<tr class="memitem:a9db9f6ee72f5136140540bc9b58f08d4" id="r_a9db9f6ee72f5136140540bc9b58f08d4"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9db9f6ee72f5136140540bc9b58f08d4">gameLaunchArguments</a> (const <a class="el" href="structhmi_1_1GameLaunchOptions.html">GameLaunchOptions</a> &amp;options)</td></tr>
+<tr class="memdesc:a9db9f6ee72f5136140540bc9b58f08d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">La ligne de commande du jeu pour <code class="param">options</code>, sans le programme.  <br /></td></tr>
+<tr class="memitem:aef0942e7c48316d72395a273318becd2" id="r_aef0942e7c48316d72395a273318becd2"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aef0942e7c48316d72395a273318becd2">parseStartCell</a> (std::string_view value)</td></tr>
+<tr class="memitem:a387d159bebe6f50a4f2e6a376161f2cf" id="r_a387d159bebe6f50a4f2e6a376161f2cf"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a387d159bebe6f50a4f2e6a376161f2cf">parseWorldFlags</a> (std::string_view value)</td></tr>
+<tr class="memitem:a613a6276c7f598e007ab8fc0863e299f" id="r_a613a6276c7f598e007ab8fc0863e299f"><td class="memItemLeft">std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a613a6276c7f598e007ab8fc0863e299f">parseLevelDirectories</a> (std::string_view value)</td></tr>
 <tr class="memitem:ac88b5c42864d2a0910bf9831321e47a0" id="r_ac88b5c42864d2a0910bf9831321e47a0"><td class="memItemLeft"><a class="el" href="structhmi_1_1ArenaFigureAnimationLoad.html">ArenaFigureAnimationLoad</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac88b5c42864d2a0910bf9831321e47a0">loadArenaFigureAnimations</a> (const std::filesystem::path &amp;sheetDirectory)</td></tr>
 <tr class="memdesc:ac88b5c42864d2a0910bf9831321e47a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit le jeu de clips d'une figurine depuis les <span class="tt">.anim.json</span> de son dossier de planche.  <br /></td></tr>
 <tr class="memitem:adc16b2d32ccdf3518ee030c1dc65efc3" id="r_adc16b2d32ccdf3518ee030c1dc65efc3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adc16b2d32ccdf3518ee030c1dc65efc3">advanceArenaAnimation</a> (<a class="el" href="structhmi_1_1ArenaCombatantAnimation.html">ArenaCombatantAnimation</a> &amp;state, float realDeltaSeconds)</td></tr>
@@ -1364,8 +1386,12 @@ Variables</h2></td></tr>
 <tr class="memdesc:a1ef72f4a347aa932d445d92e2cd5b2de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance minimale entre les centres de deux cartes voisines sur le cercle : la largeur d'une étiquette (nom et identifiant, posés sous le disque) plus une marge.  <br /></td></tr>
 <tr class="memitem:aa58aa4e76a3cdd2fcbd55c22d52a4bd6" id="r_aa58aa4e76a3cdd2fcbd55c22d52a4bd6"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#aa58aa4e76a3cdd2fcbd55c22d52a4bd6">WORLD_GRAPH_MIN_CIRCLE_RADIUS</a> = 120.0f</td></tr>
 <tr class="memdesc:aa58aa4e76a3cdd2fcbd55c22d52a4bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rayon plancher du cercle dès qu'il porte deux cartes ou plus.  <br /></td></tr>
-<tr class="memitem:a8419e0bc52afdaf288a539da747b1577" id="r_a8419e0bc52afdaf288a539da747b1577"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a8419e0bc52afdaf288a539da747b1577">EDITOR_COMMAND_COUNT</a> = 27</td></tr>
+<tr class="memitem:a8419e0bc52afdaf288a539da747b1577" id="r_a8419e0bc52afdaf288a539da747b1577"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a8419e0bc52afdaf288a539da747b1577">EDITOR_COMMAND_COUNT</a> = 30</td></tr>
 <tr class="memdesc:a8419e0bc52afdaf288a539da747b1577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de commandes, déclaré au plus près de l'énumération qu'il compte.  <br /></td></tr>
+<tr class="memitem:a61e621d3e0a60687c0d09c07971eda7f" id="r_a61e621d3e0a60687c0d09c07971eda7f"><td class="memItemLeft">constexpr char&#160;</td><td class="memItemRight"><a class="el" href="#a61e621d3e0a60687c0d09c07971eda7f">LAUNCH_LIST_SEPARATOR</a> = ','</td></tr>
+<tr class="memdesc:a61e621d3e0a60687c0d09c07971eda7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Séparateur des drapeaux de <span class="tt">--flags=</span>, et des coordonnées de <span class="tt">--at=</span>.  <br /></td></tr>
+<tr class="memitem:a67fe9f0437e8a901912c4e2cfaf2a4fe" id="r_a67fe9f0437e8a901912c4e2cfaf2a4fe"><td class="memItemLeft">constexpr char&#160;</td><td class="memItemRight"><a class="el" href="#a67fe9f0437e8a901912c4e2cfaf2a4fe">LAUNCH_PATH_SEPARATOR</a> = ';'</td></tr>
+<tr class="memdesc:a67fe9f0437e8a901912c4e2cfaf2a4fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Séparateur des dossiers de <span class="tt">--levels=</span> : une virgule couperait un chemin qui en porte une, et le deux-points est pris par la lettre de lecteur sous Windows.  <br /></td></tr>
 <tr class="memitem:a65b2c16b6aab8dd5aa2fa49fd1cb872b" id="r_a65b2c16b6aab8dd5aa2fa49fd1cb872b"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a65b2c16b6aab8dd5aa2fa49fd1cb872b">ARENA_FIGURE_FRAME_WIDTH_PIXELS</a> = <a class="el" href="#a46b9654e0a27fbe317b1b281d1560182">FIGURE_FRAME_WIDTH_PIXELS</a></td></tr>
 <tr class="memdesc:a65b2c16b6aab8dd5aa2fa49fd1cb872b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur d'une image des bandes d'animation de la planche, en pixels (<span class="tt">manifest.json</span>, <span class="tt">frame</span>), quand la bande n'en déclare pas d'autre (<span class="tt"><a class="el" href="structhmi_1_1ArenaTexture.html#a54b06c2d1e41c3fdeba90bcdbdcbae1f" title="Largeur d&#39;une image si la texture est une bande d&#39;animation (frameWidth de son .anim....">ArenaTexture::frameWidth</a></span>).  <br /></td></tr>
 <tr class="memitem:a0752b5fe488b44093f9b2b6bc67f66fb" id="r_a0752b5fe488b44093f9b2b6bc67f66fb"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a0752b5fe488b44093f9b2b6bc67f66fb">ARENA_FIGURE_FRAME_HEIGHT_PIXELS</a> = <a class="el" href="#a55c481d635af0b56829a8ccc530af04d">FIGURE_FRAME_HEIGHT_PIXELS</a></td></tr>
@@ -1914,6 +1940,12 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18ac9cc8cce247e49bae79f15173ce97354" name="a576cb29b1af75dc6bda8abb048330f18ac9cc8cce247e49bae79f15173ce97354"></a>Save&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18ab13fc91e5d02ea9e1f1a538504213bea" name="a576cb29b1af75dc6bda8abb048330f18ab13fc91e5d02ea9e1f1a538504213bea"></a>Playtest&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a972ad795980977b92664790916b3f242" name="a576cb29b1af75dc6bda8abb048330f18a972ad795980977b92664790916b3f242"></a>PlaytestHere&#160;</td><td class="fielddoc"><p>L'essai qui part de la case survolée (LOT-EDITOR-04). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a5d0f2b7a44ba7eab9a517ad0879a7013" name="a576cb29b1af75dc6bda8abb048330f18a5d0f2b7a44ba7eab9a517ad0879a7013"></a>RunInGame&#160;</td><td class="fielddoc"><p>L'essai <b>complet</b> : le vrai jeu, sur les brouillons ouverts (LOT-EDITOR-10). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a" name="a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a"></a>RunInGameHere&#160;</td><td class="fielddoc"><p>L'essai complet qui part de la case survolée (LOT-EDITOR-10). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793" name="a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793"></a>RunInGameOptions&#160;</td><td class="fielddoc"><p>L'essai complet après avoir choisi la case et les drapeaux (LOT-EDITOR-10). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a1cdc076b28f70afac5fcedadf99fa119" name="a576cb29b1af75dc6bda8abb048330f18a1cdc076b28f70afac5fcedadf99fa119"></a>Undo&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a5afeaba074ef570dc720caaa855d49f6" name="a576cb29b1af75dc6bda8abb048330f18a5afeaba074ef570dc720caaa855d49f6"></a>Redo&#160;</td><td class="fielddoc"></td></tr>
@@ -3449,6 +3481,63 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a3fd89c262750f06eba4c24704e2d6573" name="a3fd89c262750f06eba4c24704e2d6573"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fd89c262750f06eba4c24704e2d6573">&#9670;&#160;</a></span>askRunInGame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> &gt; hmi::askRunInGame </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>knownFlags</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>bounds</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>current</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Demande où partir et quels drapeaux poser, puis rend le choix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>Fenêtre parente. </td></tr>
+    <tr><td class="paramname">mapId</td><td>L'identifiant de la carte qui sera jouée, affiché. </td></tr>
+    <tr><td class="paramname">knownFlags</td><td>Les drapeaux que les dialogues du jeu posent (<span class="tt"><a class="el" href="structhmi_1_1EditorReferences.html#adfce73beec39e6122b2a340b5bb6ec41" title="Les drapeaux qu&#39;un dialogue accepté pose (SetFlag, et le drapeau d&#39;une quête démarrée),...">EditorReferences::flags</a></span>) : la liste à cocher. Un drapeau hors liste se saisit à la main — une quête peut précéder son dialogue. </td></tr>
+    <tr><td class="paramname">bounds</td><td>La taille de la carte : la case se borne à elle. </td></tr>
+    <tr><td class="paramname">current</td><td>Le choix de départ, celui du dernier essai. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le choix, ou <span class="tt">std::nullopt</span> si l'auteur a renoncé. </dd></dl>
 
 </div>
 </div>
@@ -6263,6 +6352,62 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="afd2abcbc7b9e193b4d4e200d8a27a9de" name="afd2abcbc7b9e193b4d4e200d8a27a9de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd2abcbc7b9e193b4d4e200d8a27a9de">&#9670;&#160;</a></span>gameExecutable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::gameExecutable </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>editorDirectory</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le jeu, cherché <b>à côté de l'éditeur</b> : les deux binaires sortent du même <span class="tt">bin/</span>. </p>
+<dl class="section return"><dt>Returns</dt><dd>Son chemin, vide s'il n'y est pas — un éditeur peut vivre sans jeu construit. </dd></dl>
+
+</div>
+</div>
+<a id="a9db9f6ee72f5136140540bc9b58f08d4" name="a9db9f6ee72f5136140540bc9b58f08d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9db9f6ee72f5136140540bc9b58f08d4">&#9670;&#160;</a></span>gameLaunchArguments()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; hmi::gameLaunchArguments </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1GameLaunchOptions.html">GameLaunchOptions</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>options</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La ligne de commande du jeu pour <code class="param">options</code>, sans le programme. </p>
+<p>Seul ce qui est renseigné paraît : une carte sans case ne produit pas de <span class="tt">--at=</span> vide, que le jeu aurait à distinguer d'une absence. </p>
+
+</div>
+</div>
 <a id="aa68d5419b15fd65eb0cbe477f135f642" name="aa68d5419b15fd65eb0cbe477f135f642"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa68d5419b15fd65eb0cbe477f135f642">&#9670;&#160;</a></span>gamepadProbeDue()</h2>
 
@@ -8318,6 +8463,32 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a613a6276c7f598e007ab8fc0863e299f" name="a613a6276c7f598e007ab8fc0863e299f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a613a6276c7f598e007ab8fc0863e299f">&#9670;&#160;</a></span>parseLevelDirectories()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::filesystem::path &gt; hmi::parseLevelDirectories </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les dossiers de <span class="tt">--levels=&lt;dossier&gt;;&lt;dossier&gt;</span>, dans l'ordre, sans les vides. </dd></dl>
+
+</div>
+</div>
 <a id="aea9d8742fc17bfd6135f669a67430cd7" name="aea9d8742fc17bfd6135f669a67430cd7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aea9d8742fc17bfd6135f669a67430cd7">&#9670;&#160;</a></span>parseRenderLayers()</h2>
 
@@ -8371,6 +8542,58 @@ Variables</h2></td></tr>
 
 <p>Lit l'annexe depuis son texte JSON. </p>
 <p>Tolérant : une note mal formée est ignorée, les autres restent ; un texte qui n'est pas un objet JSON rend une annexe vide et un avertissement. Jamais d'exception (<span class="tt">EX-NFR-040</span>). </p>
+
+</div>
+</div>
+<a id="aef0942e7c48316d72395a273318becd2" name="aef0942e7c48316d72395a273318becd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef0942e7c48316d72395a273318becd2">&#9670;&#160;</a></span>parseStartCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; hmi::parseStartCell </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La case de <span class="tt">--at=&lt;colonne&gt;,&lt;ligne&gt;</span>, ou <span class="tt">std::nullopt</span> si la valeur n'est pas deux entiers positifs séparés par une virgule (<span class="tt">EX-NFR-040</span> : le jeu s'ouvre quand même). </dd></dl>
+
+</div>
+</div>
+<a id="a387d159bebe6f50a4f2e6a376161f2cf" name="a387d159bebe6f50a4f2e6a376161f2cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a387d159bebe6f50a4f2e6a376161f2cf">&#9670;&#160;</a></span>parseWorldFlags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; hmi::parseWorldFlags </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les drapeaux de <span class="tt">--flags=a,b,c</span>, dans l'ordre, sans les vides ni les doublons. </dd></dl>
 
 </div>
 </div>
@@ -9109,6 +9332,32 @@ Variables</h2></td></tr>
 
 <p>Remplace la pièce <code class="param">from</code> par <code class="param">to</code>, sur les cartes <code class="param">maps</code> (toutes celles qui la posent si la liste est vide), par <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#afe371b92fcdac56ae41550ee9eef6c45" title="Renomme, sur toutes les couches visuelles, chaque pièce que renaming nomme (LOT-EDITOR-14,...">core::LevelDraft::replacePieces</a></span>. </p>
 <p>Refusé si <code class="param">to</code> n'est pas sur la planche d'une de ces cartes, si l'une est un sol et l'autre non, ou si une nouvelle emprise déborde. </p>
+
+</div>
+</div>
+<a id="a972ee7f157e264cf55a982955c2d0882" name="a972ee7f157e264cf55a982955c2d0882"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a972ee7f157e264cf55a982955c2d0882">&#9670;&#160;</a></span>playtestDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::playtestDirectory </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le dossier temporaire de l'essai complet : <span class="tt">&lt;temp&gt;/JustAnotherRpgGame-playtest</span>. </dd></dl>
 
 </div>
 </div>
@@ -10161,7 +10410,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1235"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1246"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
 <p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>
@@ -11803,6 +12052,39 @@ template&lt;class Map&gt; </div>
 
 </div>
 </div>
+<a id="ad05eb30edadbbf1334bc6c0057c0cbb2" name="ad05eb30edadbbf1334bc6c0057c0cbb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad05eb30edadbbf1334bc6c0057c0cbb2">&#9670;&#160;</a></span>writeDraftMaps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::writeDraftMaps </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>directory</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structhmi_1_1DraftMap.html">DraftMap</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>drafts</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écrit <code class="param">drafts</code> sous <code class="param">directory</code>, un fichier par carte (<span class="tt">&lt;mapId&gt;.json</span>). </p>
+<p>Le dossier est <b>vidé</b> d'abord : une carte fermée depuis le dernier essai n'a pas à rester devant celle du jeu, où elle serait jouée sans que rien ne le dise.</p>
+<dl class="section return"><dt>Returns</dt><dd>Ce qui a empêché l'écriture, vide si tout est écrit (<span class="tt">EX-NFR-040</span> : la fenêtre le dit, elle ne plante pas). </dd></dl>
+
+</div>
+</div>
 <a id="a1acfbf8f1ffce943900246a61f336bf7" name="a1acfbf8f1ffce943900246a61f336bf7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1acfbf8f1ffce943900246a61f336bf7">&#9670;&#160;</a></span>writeMiniDump()</h2>
 
@@ -12422,7 +12704,7 @@ template&lt;class Map&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t hmi::EDITOR_COMMAND_COUNT = 27</td>
+          <td class="memname">std::size_t hmi::EDITOR_COMMAND_COUNT = 30</td>
         </tr>
       </table>
   </td>
@@ -12868,6 +13150,54 @@ template&lt;class Map&gt; </div>
 </div><div class="memdoc">
 
 <p>Nombre de tentatives d'écriture d'un minidump, de la plus riche à la plus réduite (writeMiniDump). </p>
+
+</div>
+</div>
+<a id="a61e621d3e0a60687c0d09c07971eda7f" name="a61e621d3e0a60687c0d09c07971eda7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61e621d3e0a60687c0d09c07971eda7f">&#9670;&#160;</a></span>LAUNCH_LIST_SEPARATOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char hmi::LAUNCH_LIST_SEPARATOR = ','</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Séparateur des drapeaux de <span class="tt">--flags=</span>, et des coordonnées de <span class="tt">--at=</span>. </p>
+
+</div>
+</div>
+<a id="a67fe9f0437e8a901912c4e2cfaf2a4fe" name="a67fe9f0437e8a901912c4e2cfaf2a4fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67fe9f0437e8a901912c4e2cfaf2a4fe">&#9670;&#160;</a></span>LAUNCH_PATH_SEPARATOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char hmi::LAUNCH_PATH_SEPARATOR = ';'</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Séparateur des dossiers de <span class="tt">--levels=</span> : une virgule couperait un chemin qui en porte une, et le deux-points est pris par la lettre de lecteur sous Windows. </p>
 
 </div>
 </div>

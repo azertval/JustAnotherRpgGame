@@ -68,8 +68,7 @@ struct PortalTarget {
 
 /// @return La case du point d'arrivÃ©e nommÃ© @p name, s'il existe. Deux points de mÃªme nom sont un
 ///         dÃ©faut du graphe : le **premier** dans l'ordre des entitÃ©s l'emporte ici.
-[[nodiscard]] std::optional&lt;GridPosition&gt; arrivalPointAt(const Level&amp; level,
-                                                         std::string_view name);
+[[nodiscard]] std::optional&lt;GridPosition&gt; arrivalPointAt(const Level&amp; level, std::string_view name);
 
 /// @brief Ce qui empÃªche une carte d'Ãªtre jouÃ©e. `Core` n'Ã©crit pas de texte : l'IHM traduit.
 enum class WorldIssueCode {
@@ -156,6 +155,19 @@ public:
 
     /// @brief Le chargeur du jeu : `&lt;levelsDir&gt;/&lt;mapId&gt;.json`.
     [[nodiscard]] static MapLoader directoryLoader(std::filesystem::path levelsDir);
+
+    /**
+     * @brief Le chargeur qui cherche une carte dans @p levelsDirs, **dans l'ordre donnÃ©**.
+     *
+     * L'essai complet de l'Ã©diteur (`LOT-EDITOR-10`) Ã©crit les brouillons ouverts dans un dossier
+     * temporaire et le place devant les cartes du binaire : on joue ce qu'on a sous les yeux,
+     * et toute carte qu'on n'Ã©dite pas vient de son fichier, comme en jeu.
+     *
+     * Une carte absente d'un dossier est cherchÃ©e dans le suivant ; une carte **prÃ©sente mais
+     * illisible** arrÃªte la recherche et rend son erreur â passer au dossier suivant ferait jouer
+     * en silence une version pÃ©rimÃ©e de la carte qu'on vient de casser.
+     */
+    [[nodiscard]] static MapLoader directoriesLoader(std::vector&lt;std::filesystem::path&gt; levelsDirs);
 
     explicit WorldTravel(MapLoader loader);
 

@@ -97,14 +97,14 @@ $(function(){initNavTree('lot-30.html','',''); });
 <p>Statut : <b>fait</b> (vérification automatisée : <span class="tt">check_glossary</span>, <span class="tt">lint_lots</span>, <span class="tt">lint_exigences</span>, <span class="tt">check_qt_version_pin</span>, <span class="tt">check_design_tokens</span>, cahier de test et Doxygen verts ; deux exécutions successives de l'extraction produisent un fichier identique). Prérequis : <span class="tt">LOT-77</span>. Prérequis de tous les autres lots de la filière contenu.</p>
 <p>Exigences couvertes : <a class="el" href="spec-contenu.html#EX-CNT-020" title="EX-CNT-020"><span class="tt">EX-CNT-020</span></a>, <a class="el" href="spec-contenu.html#EX-CNT-021" title="EX-CNT-021"><span class="tt">EX-CNT-021</span></a>, <a class="el" href="spec-contenu.html#EX-CNT-022" title="EX-CNT-022"><span class="tt">EX-CNT-022</span></a>, <a class="el" href="spec-contenu.html#EX-CNT-023" title="EX-CNT-023"><span class="tt">EX-CNT-023</span></a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md500"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md502"></a>
 Objectif</h1>
 <p>Outiller l'extraction des huit PDF de <span class="tt">Documentation/SourceBook/</span> — environ 1 200 pages, 280 Mo — puis <b>éprouver cet outillage</b> sur son gisement le plus simple, le glossaire de traduction.</p>
 <p>Ce lot ne produit presque pas de données de jeu. Il produit ce qui les produira, et une seule sortie : la table d'autorité des termes de règle. C'est délibéré — un outil d'extraction dont on n'a rien extrait est un outil dont on ne sait rien.</p>
 <blockquote class="doxtable">
 <p><b>Fusionné à l'audit.</b> Ce lot a absorbé l'ancien <span class="tt">LOT-31</span> (lexique bilingue), qui livrait deux fichiers, soit un ordre de grandeur sous l'étalon. Le numéro <span class="tt">LOT-31</span> est retiré. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md501"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md503"></a>
 Ce que le lot livre</h1>
 <p><b><span class="tt">scripts/sourcebook/corpus.toml</span></b> — le manifeste des huit documents : empreinte SHA-256, nombre de pages, pagination, décalage, provenance (<span class="tt">srd</span>, <span class="tt">tanares</span>, <span class="tt">phb-fr</span>). Il est versionné ; les PDF qu'il décrit ne le sont pas (<span class="tt">EX-CNT-023</span>), d'où sa place à côté de l'outil et non à côté d'eux.</p>
 <p><b><span class="tt">scripts/sourcebook/corpus.py</span></b> — la lecture du manifeste, le refus d'un document dont l'empreinte ne correspond plus, et la correspondance page imprimée ↔ index PDF.</p>
@@ -112,7 +112,7 @@ Ce que le lot livre</h1>
 <p><b><span class="tt">scripts/sourcebook/glossaire.py</span></b> et <b><span class="tt">Source/Elements/Localization/rpg.glossary.csv</span></b> — le lexique, <span class="tt">anglais;français;catégorie</span>, <b>2 084 entrées</b>.</p>
 <p><b><span class="tt">scripts/sourcebook/__main__.py</span></b> — la ligne de commande : <span class="tt">info</span>, <span class="tt">verifier</span>, <span class="tt">texte</span>, <span class="tt">tableau</span>, <span class="tt">image</span>, <span class="tt">regions</span>, <span class="tt">stats</span>, <span class="tt">glossaire</span>.</p>
 <p><b><span class="tt">scripts/check_glossary.py</span></b>, exécuté en CI.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md502"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md504"></a>
 Ce que la réalisation a vérifié, et ce qu'elle a démenti</h1>
 <p><b>La double page est confirmée, chiffre à l'appui.</b> La page PDF 50 du <span class="tt">Tanares_Sourcebook</span> porte les pages imprimées 100 et 101 ; celle du <span class="tt">Players_Guide</span> aussi. Les décalages des six autres documents ont été relevés un par un, et deux ne valent pas zéro : le <span class="tt">Glossaire</span> imprime « Page 1 » sur sa page PDF 0, les <em>Basic Rules</em> et <span class="tt">Animaux</span> sont décalés de −1. Le <span class="tt">Manuel-Des-Joueurs</span> a demandé un relevé statistique — son OCR est trop bruité pour qu'un numéro de page se lise à coup sûr — recoupé sur deux repères de structure : le chapitre 1 et le début du barde.</p>
 <p><b>Le tableau par coordonnée tient, y compris sur un scan.</b> La table des armes des <em>Basic Rules</em> sort en cinq colonnes alignées, chaque valeur en face de son arme. Surtout, la table de progression du barbare du <span class="tt">Manuel-Des-Joueurs</span> — un OCR — donne bien « Attaque supplémentaire » au <b>niveau 5</b>, là où un rendu en flux de texte décale toute la colonne d'un cran. C'était l'affirmation la plus risquée de l'analyse du corpus ; elle est vérifiée.</p>
@@ -120,7 +120,7 @@ Ce que la réalisation a vérifié, et ce qu'elle a démenti</h1>
 <p><b>Le glossaire porte 2 084 entrées, pas « environ 1 200 ».</b> La feuille de route annonçait ce dernier chiffre depuis l'analyse du corpus ; il était sous-évalué de 74 %. La page est corrigée.</p>
 <p><b>Le glossaire porte de vrais homonymes</b>, et c'est ce qui a fait changer la clé d'unicité. <span class="tt">light</span> vaut « légère » comme propriété d'arme et « Lumière » comme sort ; <span class="tt">bane</span> vaut « Fléau / Imprécation » comme sort et « Baine » comme divinité ; <span class="tt">piercer</span> a deux acceptions. Dédupliquer sur l'anglais seul en écrasait un des deux <b>en silence</b> — et pour <span class="tt">light</span>, faisait traduire un sort par un adjectif d'arme. La clé est donc le couple <b>(anglais, catégorie)</b>, et deux entrées de même couple qui divergeraient font échouer la construction.</p>
 <p><b>Cent cinquante-trois lignes sur 2 231 sont des continuations.</b> Le PDF coupe à la largeur de colonne ; une ligne sans <span class="tt">=</span> prolonge la précédente. Les ignorer aurait amputé autant de catégories sans rien signaler. Cinq entrées étaient en outre coupées <b>après un trait d'union</b> — « demi- orc », « outre- monde », « anti- détection » — et se recollent sans espace.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md503"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md505"></a>
 Le complément des <em>Basic Rules</em> est attesté, pas saisi</h1>
 <p>Trois manques du glossaire portent sur des ensembles <b>fermés</b> que le moteur énumérera :</p>
 <ul>
@@ -130,17 +130,17 @@ Le complément des <em>Basic Rules</em> est attesté, pas saisi</h1>
 </ul>
 <p>Chaque complément <b>déclare la page où il est attesté</b>, et le module vérifie que le terme français s'y trouve avant de l'écrire — page 32 pour les écoles, 49 pour <span class="tt">spéciale</span>, 134 pour <span class="tt">épuisement</span>. Un complément saisi de mémoire est une donnée inventée qui a l'apparence d'une donnée extraite ; c'est ce que le projet refuse, et une assertion vérifiable coûte moins cher qu'une relecture.</p>
 <p>Le lexique fige au passage un faux ami que rien d'autre n'aurait attrapé : l'école <span class="tt">conjuration</span> se dit <b>« invocation »</b> en français, pas « conjuration ».</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md504"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md506"></a>
 Ce que le contrôle vérifie, et pourquoi il s'auto-teste</h1>
 <p><span class="tt">scripts/check_glossary.py</span> vérifie que le lexique est bien formé — pas de doublon de couple (anglais, catégorie), pas de terme vide, et les trois ensembles fermés au complet : 8 écoles, 15 conditions, 13 types de dégâts. Ces nombres sont fixés par les règles du jeu, pas par le corpus ; s'ils bougent, c'est l'extraction qui a régressé.</p>
 <p>Il vérifie ensuite que toute <b>clé de règle</b> de <span class="tt">fr.lang</span> / <span class="tt">en.lang</span> — celles des espaces de noms <span class="tt">condition.</span>, <span class="tt">damage.</span>, <span class="tt">school.</span>, <span class="tt">weapon_property.</span>, <span class="tt">ability.</span>, <span class="tt">skill.</span> — porte un terme du lexique, traduit comme le lexique le dit. La comparaison ignore la casse mais <b>pas les accents</b> : une table d'autorité française qui accepte « etourdi » pour « étourdi » n'impose plus rien.</p>
 <p><b>Aucune clé de règle n'existe encore</b> : les lots qui les créeront ne sont pas faits. Le contrôle serait donc vert par vacuité, et personne ne saurait s'il fonctionne — c'est exactement la panne du <a class="el" href="lot-78.html" title="LOT-78 — Désambiguïsation des numéros de lots hérités">LOT-78</a>, où une règle de lint contenait un caractère invisible qui l'empêchait de jamais correspondre. Il s'<b>auto-teste</b> donc à chaque appel, sur six catalogues fictifs (deux conformes, quatre fautifs) qu'il doit classer correctement avant d'avoir le droit de se prononcer sur les vrais. Si l'auto-test échoue, le script s'arrête sans rendre de verdict.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md505"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md507"></a>
 Ce que le lot ne fait pas</h1>
 <p><b>Il n'extrait aucune donnée de jeu.</b> Ni créature, ni objet, ni sort : ils attendent les schémas du <span class="tt">LOT-32</span>, qui est le contrat que ces données devront honorer. Extraire avant le contrat produirait des JSON à reprendre entièrement.</p>
 <p><b>Il n'extrait aucune illustration.</b> L'outil sait proposer des régions candidates et rendre celles qu'on lui désigne ; le tri est humain, par construction (<span class="tt">EX-CNT-022</span>), et chaque lot de catalogue livrera ses propres images.</p>
 <p><b>Rien de tout cela ne tourne en CI.</b> Les PDF ne sont pas sur le runner et n'y seront pas (<span class="tt">EX-CNT-023</span>). Seul le lexique produit, qui est versionné, y est contrôlé.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md506"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md508"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Deux exécutions successives produisent un fichier <b>identique</b> (<span class="tt">EX-CNT-020</span>). ✔</li>

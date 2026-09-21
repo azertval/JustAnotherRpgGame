@@ -97,7 +97,7 @@ $(function(){initNavTree('guide-design-ihm.html','',''); });
 <p>Statut : <b>refondu au <span class="tt">LOT-EDITOR-01</span></b>. Cette page décrivait le système de design du châssis d'édition — jetons, thème clair/sombre, feuille de style, icônes tracées, catalogue d'actions. L'éditeur est devenu un <b>outil interne</b> : tout cela en est sorti. Restent ici la répartition de l'information dans l'éditeur et la règle d'échelle des écrans du jeu.</p>
 <p>Les jetons du <b>jeu</b> vivent dans <span class="tt">Source/Ui/Theme/Tokens.qml</span>, écrits à la main et possédés par la conception — voir <a class="el" href="guide-conception-qds.html" title="Concevoir les écrans dans Qt Design Studio">Concevoir les écrans dans Qt Design Studio</a>. Le socle applicatif est en <a class="el" href="guide-ihm-qt.html" title="IHM Qt — deux applications, deux technologies">IHM Qt — deux applications, deux technologies</a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md60"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md61"></a>
 L'éditeur : un outil, pas un produit</h1>
 <p>Un système de design coûte : chaque widget ajouté doit y entrer, chaque jeton tenir dans deux thèmes, chaque icône être tracée. L'éditeur ne sert qu'à l'auteur, et on le juge sur une seule question — une carte se fait-elle vite et juste ? Depuis le <a class="el" href="lot-editor-01.html" title="LOT-EDITOR-01 — Le socle du module">LOT-EDITOR-01</a> :</p>
 <ul>
@@ -107,30 +107,30 @@ L'éditeur : un outil, pas un produit</h1>
 <li><b>Widgets construits en code</b>, sans formulaire <span class="tt">.ui</span> : chaque panneau garde ses widgets dans une <span class="tt">struct Widgets</span> privée, construite dans son <span class="tt">.cpp</span>.</li>
 <li><b>Une commande, une <span class="tt">QAction</span></b> (<span class="tt"><a class="el" href="classhmi_1_1EditorActions.html" title="Construit et possède les QAction de l&#39;éditeur : chaque outil et chaque commande n&#39;existe qu&#39;une fois,...">hmi::EditorActions</a></span>) : la même dans la barre d'outils, le menu et son raccourci remappable. La barre ne porte que les outils et les commandes d'usage continu (enregistrer, essayer, annuler, refaire) ; le reste vit au menu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md61"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md62"></a>
 Architecture de l'information : ce qui informe reste, ce qui commande est unique</h1>
 <p>Ces choix ne sont plus des exigences (<span class="tt">EX-IHM-060</span> et <span class="tt">061</span> sont retirées au <span class="tt">LOT-EDITOR-01</span> : l'agencement de l'éditeur se décide dans sa feuille de route), mais ils restent en place.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md62"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md63"></a>
 Une barre d'état structurée</h2>
 <p><a class="el" href="namespacehmi.html#a48574aff7b1b874d7883afab5ebf208c" title="hmi::editorStatusLines">editorStatusLines</a> (<span class="tt"><a class="el" href="EditorStatus_8h.html" title="Choix du contenu de la barre d&#39;état de l&#39;éditeur : zones permanentes et aide contextuelle à l&#39;outil a...">Editor/Logic/EditorStatus.h</a></span>) est une <b>fonction pure</b> qui décide du contenu de cinq zones <b>permanentes</b> : carte ouverte, modifications non enregistrées, outil actif, case survolée, zoom. Ces zones sont ajoutées par <span class="tt">addPermanentWidget</span> : un message transitoire ne peut donc pas les recouvrir. L'aide contextuelle à l'outil actif se restaure automatiquement à l'expiration du message (<span class="tt">MainWindow::refreshStatusHelp</span>, minuteur unique).</p>
 <p>La zone « Modified » suit le <b>contenu</b> (<span class="tt">EX-EDIT-058</span>) : elle compare la révision du brouillon (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#ae1dc7f0a73b888edbcc04e114116fefe" title="Identifie l&#39;état du contenu : change à chaque mutation, et revient à sa valeur d&#39;avant quand undo() d...">core::LevelDraft::revision</a></span>) à celle de la dernière ouverture ou du dernier enregistrement. Défaire jusqu'à l'état enregistré l'éteint.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md63"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md64"></a>
 Des panneaux groupés, et qui suivent l'outil</h2>
 <p>Les panneaux sont regroupés en onglets par défaut (<span class="tt">tabifyDockWidget</span>), chacun restant individuellement déplaçable, détachable et refermable. <a class="el" href="namespacehmi.html#a581615846aad015aff0e0a17e4f997c4" title="hmi::panelForTool">panelForTool</a> est une table pure qui dit quel panneau mettre en avant pour un outil donné.</p>
 <p>La mise en avant <b>n'est jamais un masquage</b>, et elle <b>cède dès que l'utilisateur a imposé son choix</b> (onglet sélectionné à la main, panneau déplacé). La disposition est persistée et <b>versionnée</b> (<span class="tt">LAYOUT_VERSION</span>, <span class="tt">EX-IHM-011</span>) : une redistribution des docks incrémente la version, ce qui invalide les dispositions antérieures.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md64"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md65"></a>
 Un état, un contrôle</h2>
 <p><span class="tt">EX-IHM-062</span> interdit qu'un même état ou une même commande soit exposé à deux endroits. Le menu View porte en tête les seules commandes de <b>vue</b> (recadrer, grille), et chaque panneau n'y a qu'une entrée, sa bascule de visibilité ; Undo/Redo/Copy/Paste dispatchent via <a class="el" href="classhmi_1_1EditContextTarget.html" title="hmi::EditContextTarget">EditContextTarget</a>, interface qu'implémente <span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon peint en iso ou à plat, les gestes des outils, l&#39;essai.">hmi::EditorViewport</a></span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md65"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md66"></a>
 Deux identités, deux règles d'échelle (LOT-66)</h1>
 <p>La règle tient en une phrase : <b>l'éditeur suit les réglages du système, les écrans du jeu sont une image agrandie d'un facteur entier.</b></p>
 <p><a class="el" href="namespacehmi.html#a680c72595996170b489d85e44e9fbc5c" title="hmi::identityScaleFor">identityScaleFor</a> décide de ce facteur depuis la hauteur <b>logique</b> de la fenêtre — jamais la hauteur réelle : Qt applique la mise à l'échelle du système par-dessus, et multiplier une seconde fois donnerait une interface deux fois trop grande sur un écran réglé à 200 %. La division est entière et non arrondie : une fenêtre de 700 px passerait sinon à l'échelle 2, pour laquelle il manque 20 px, et la dernière entrée du menu disparaîtrait sous le bord.</p>
 <p>Les grandeurs des écrans du jeu (<span class="tt">Source/Ui/Theme/Tokens.qml</span>) s'écrivent <b>en pixels à l'échelle 1</b>. En pixels et non en points : un point vaut une fraction variable de pixel selon l'écran, et le facteur entier n'aurait alors plus rien d'entier.</p>
 <p><b>Et le facteur se borne à l'écran, pas à la fenêtre</b> (<span class="tt">EX-IHM-081</span>, <a class="el" href="namespacehmi.html#a749862bc7ec43967d584189840299747" title="hmi::identityScaleForDisplay">identityScaleForDisplay</a>). Dériver le facteur de la seule hauteur de fenêtre en faisait une boucle sans point fixe : le facteur grossit les grandeurs d'habillage, qui grossissent la taille minimale des écrans, qui grossit la fenêtre — laquelle relance le calcul un cran plus haut, sans que rien ne redescende jamais. La zone d'affichage disponible, elle, ne dépend d'aucune décision de l'application : c'est ce qui ferme la boucle.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md66"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md67"></a>
 Pourquoi le facteur reste entier après la sortie du pixel art</h2>
 <p>Le <span class="tt">LOT-68</span> l'exigeait parce que le filtrage au plus proche voisin ne sait pas rendre une bordure d'un pixel et demi. Cette raison a disparu avec la charte parchemin, qui peint anticrénelé. Le facteur reste pourtant entier, pour une <b>seconde</b> raison, elle intacte : les longueurs de l'habillage sont des <b>entiers de pixels</b>. À 1,5×, le trait d'une unité et le filet d'une unité s'arrondissent tous deux à 2 px — la réserve de parchemin qui les sépare disparaît, et l'encadrement se lit comme une bordure épaisse. Une échelle fractionnaire ne serait donc pas <em>floue</em> : elle serait <b>fausse</b>, et silencieuse.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md67"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md68"></a>
 Voir aussi</h1>
 <ul>
 <li><a class="el" href="guide-ihm-qt.html" title="IHM Qt — deux applications, deux technologies">IHM Qt — deux applications, deux technologies</a> — le socle applicatif Qt, les surfaces de rendu QRhi, la boucle et les entrées.</li>

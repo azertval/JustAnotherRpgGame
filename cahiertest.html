@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>899 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>912 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (896)</h1>
+Tests unitaires (909)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -4121,7 +4121,7 @@ Vérifie que <span class="tt">timestep.advance(0.0f)</span> vaut <span class="tt
 Vérifie que <span class="tt">timestep.advance(STEP)</span> vaut <span class="tt">1</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
-World (65)</h3>
+World (66)</h3>
 <p><b><span class="tt"><a class="el" href="test__atlas_8cpp.html" title="Tests de l&#39;atlas des régions (LOT-37) : les treize régions chargent, le graphe tient,...">test_atlas.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4656,7 +4656,7 @@ Vérifie que <span class="tt">graphe.portals.empty()</span> est vrai.  </td></tr
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>WorldTravelTest.CinqCartesSeParcourentDansLesDeuxSens</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__world__travel_8cpp.html" title="Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme,...">Source/Test/Unit/Core/World/test_world_travel.cpp</a>:138</span></sub>  </td><td class="markdownTableBodyNone">Un parcours de cinq cartes, aller et retour, par points d'arrivee nommes.  </td><td class="markdownTableBodyNone">1. Entrer sur la premiere carte, puis franchir quatre portails a la file.<br  />
+<sub><span class="tt"><a class="el" href="test__world__travel_8cpp.html" title="Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme,...">Source/Test/Unit/Core/World/test_world_travel.cpp</a>:140</span></sub>  </td><td class="markdownTableBodyNone">Un parcours de cinq cartes, aller et retour, par points d'arrivee nommes.  </td><td class="markdownTableBodyNone">1. Entrer sur la premiere carte, puis franchir quatre portails a la file.<br  />
  2. Revenir par les portails de retour jusqu'a la premiere carte.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">voyage.enter("un", "")</span> vaut <span class="tt">TravelResult::Moved</span>.<br  />
 Vérifie que <span class="tt">voyage.position()</span> vaut <span class="tt">(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{1, 1})</span>.<br  />
 Vérifie que <span class="tt">voyage.cross({6, 2}, drapeaux)</span> vaut <span class="tt">TravelResult::Moved</span>.<br  />
@@ -4669,13 +4669,13 @@ Vérifie que <span class="tt">voyage.loadedMapCount()</span> vaut <span class="t
 Vérifie que <span class="tt">dossier.lectures(nom)</span> vaut <span class="tt">1</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>WorldTravelTest.UneCaseSansPortailNEstPasUneTraversee</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__world__travel_8cpp.html" title="Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme,...">Source/Test/Unit/Core/World/test_world_travel.cpp</a>:178</span></sub>  </td><td class="markdownTableBodyNone">Une case ordinaire ne declenche aucune traversee.  </td><td class="markdownTableBodyNone">1. Entrer sur une carte, puis tenter de franchir une case vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">voyage.enter("un", "")</span> vaut <span class="tt">TravelResult::Moved</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__world__travel_8cpp.html" title="Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme,...">Source/Test/Unit/Core/World/test_world_travel.cpp</a>:180</span></sub>  </td><td class="markdownTableBodyNone">Une case ordinaire ne declenche aucune traversee.  </td><td class="markdownTableBodyNone">1. Entrer sur une carte, puis tenter de franchir une case vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">voyage.enter("un", "")</span> vaut <span class="tt">TravelResult::Moved</span>.<br  />
 Vérifie que <span class="tt">voyage.cross({4, 4}, drapeaux)</span> vaut <span class="tt">TravelResult::NoPortal</span>.<br  />
 Vérifie que <span class="tt">voyage.currentMapId()</span> vaut <span class="tt">"un"</span>.<br  />
 Vérifie que <span class="tt">voyage.position()</span> vaut <span class="tt">(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{1, 1})</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>WorldTravelTest.UnPortailADrapeauResteFermeSansLeDrapeau</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__world__travel_8cpp.html" title="Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme,...">Source/Test/Unit/Core/World/test_world_travel.cpp</a>:198</span></sub>  </td><td class="markdownTableBodyNone">Un portail exigeant un drapeau ne s'ouvre qu'une fois le drapeau pose.  </td><td class="markdownTableBodyNone">1. Franchir un portail qui exige un drapeau absent.<br  />
+<sub><span class="tt"><a class="el" href="test__world__travel_8cpp.html" title="Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme,...">Source/Test/Unit/Core/World/test_world_travel.cpp</a>:200</span></sub>  </td><td class="markdownTableBodyNone">Un portail exigeant un drapeau ne s'ouvre qu'une fois le drapeau pose.  </td><td class="markdownTableBodyNone">1. Franchir un portail qui exige un drapeau absent.<br  />
  2. Poser le drapeau, puis franchir le meme portail.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">voyage.enter("place", "")</span> vaut <span class="tt">TravelResult::Moved</span>.<br  />
 Vérifie que <span class="tt">voyage.cross({5, 5}, drapeaux)</span> vaut <span class="tt">TravelResult::Locked</span>.<br  />
 Vérifie que <span class="tt">voyage.currentMapId()</span> vaut <span class="tt">"place"</span>.<br  />
@@ -4684,7 +4684,7 @@ Vérifie que <span class="tt">voyage.currentMapId()</span> vaut <span class="tt"
 Vérifie que <span class="tt">voyage.position()</span> vaut <span class="tt">(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{1, 4})</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>WorldTravelTest.UnPortailOrphelinEstRefuseAuChargement</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__world__travel_8cpp.html" title="Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme,...">Source/Test/Unit/Core/World/test_world_travel.cpp</a>:227</span></sub>  </td><td class="markdownTableBodyNone">Chaque defaut de portail devient un code exploitable au chargement.  </td><td class="markdownTableBodyNone">1. Batir un dossier ou un portail vise une carte absente et un autre un point d'arrivee absent.<br  />
+<sub><span class="tt"><a class="el" href="test__world__travel_8cpp.html" title="Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme,...">Source/Test/Unit/Core/World/test_world_travel.cpp</a>:230</span></sub>  </td><td class="markdownTableBodyNone">Chaque defaut de portail devient un code exploitable au chargement.  </td><td class="markdownTableBodyNone">1. Batir un dossier ou un portail vise une carte absente et un autre un point d'arrivee absent.<br  />
  2. Valider le graphe.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">defauts.size()</span> vaut <span class="tt">3U</span>.<br  />
 Vérifie que <span class="tt">defauts[0]</span> vaut <span class="tt">(<a class="el" href="structcore_1_1WorldIssue.html" title="Un défaut relevé sur une carte, et où.">core::WorldIssue</a>{.mapId = "place", .position = {5, 5}, .code = WorldIssueCode::UnknownTargetMap, .value = "nulle-part"})</span>.<br  />
 Vérifie que <span class="tt">defauts[1]</span> vaut <span class="tt">(<a class="el" href="structcore_1_1WorldIssue.html" title="Un défaut relevé sur une carte, et où.">core::WorldIssue</a>{.mapId = "place", .position = {6, 5}, .code = WorldIssueCode::UnknownArrivalPoint, .value = "cave"})</span>.<br  />
@@ -4695,19 +4695,32 @@ Vérifie que <span class="tt">voyage.lastIssue().has_value()</span> est vrai.<br
 Vérifie que <span class="tt">voyage.lastIssue()-&gt;code</span> vaut <span class="tt">WorldIssueCode::UnreadableMap</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>WorldTravelTest.UnPointDArriveeEnDoubleEstReleveSurLaCarte</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__world__travel_8cpp.html" title="Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme,...">Source/Test/Unit/Core/World/test_world_travel.cpp</a>:265</span></sub>  </td><td class="markdownTableBodyNone">Deux points d'arrivee du meme nom sont un defaut de la carte.  </td><td class="markdownTableBodyNone">1. Poser deux points d'arrivee « seuil » sur la meme carte.<br  />
+<sub><span class="tt"><a class="el" href="test__world__travel_8cpp.html" title="Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme,...">Source/Test/Unit/Core/World/test_world_travel.cpp</a>:268</span></sub>  </td><td class="markdownTableBodyNone">Deux points d'arrivee du meme nom sont un defaut de la carte.  </td><td class="markdownTableBodyNone">1. Poser deux points d'arrivee « seuil » sur la meme carte.<br  />
  2. Valider la carte lue, puis le graphe.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">defauts.size()</span> vaut <span class="tt">1U</span>.<br  />
 Vérifie que <span class="tt">defauts.front()</span> vaut <span class="tt">(<a class="el" href="structcore_1_1WorldIssue.html" title="Un défaut relevé sur une carte, et où.">core::WorldIssue</a>{.mapId = "place", .position = {6, 6}, .code = WorldIssueCode::DuplicateArrivalPoint, .value = "seuil"})</span>.<br  />
 Vérifie que <span class="tt">premier.has_value()</span> est vrai.<br  />
 Vérifie que <span class="tt">*premier</span> vaut <span class="tt">(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{1, 4})</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>WorldTravelTest.UneArriveeInconnueRefuseLEntree</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__world__travel_8cpp.html" title="Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme,...">Source/Test/Unit/Core/World/test_world_travel.cpp</a>:291</span></sub>  </td><td class="markdownTableBodyNone">Entrer par un point d'arrivee absent est refuse, le nom cite.  </td><td class="markdownTableBodyNone">1. Entrer sur une carte par un point d'arrivee qu'elle n'offre pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">voyage.enter("un", "")</span> vaut <span class="tt">TravelResult::Moved</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__world__travel_8cpp.html" title="Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme,...">Source/Test/Unit/Core/World/test_world_travel.cpp</a>:294</span></sub>  </td><td class="markdownTableBodyNone">Entrer par un point d'arrivee absent est refuse, le nom cite.  </td><td class="markdownTableBodyNone">1. Entrer sur une carte par un point d'arrivee qu'elle n'offre pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">voyage.enter("un", "")</span> vaut <span class="tt">TravelResult::Moved</span>.<br  />
 Vérifie que <span class="tt">voyage.enter("deux", "cave")</span> vaut <span class="tt">TravelResult::UnknownArrival</span>.<br  />
 Vérifie que <span class="tt">voyage.lastIssue().has_value()</span> est vrai.<br  />
 Vérifie que <span class="tt">voyage.lastIssue()-&gt;code</span> vaut <span class="tt">WorldIssueCode::UnknownArrivalPoint</span>.<br  />
 Vérifie que <span class="tt">voyage.lastIssue()-&gt;value</span> vaut <span class="tt">"cave"</span>.<br  />
 Vérifie que <span class="tt">voyage.currentMapId()</span> vaut <span class="tt">"un"</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>WorldTravelTest.LesCartesDuPremierDossierPassentDevant</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__world__travel_8cpp.html" title="Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme,...">Source/Test/Unit/Core/World/test_world_travel.cpp</a>:315</span></sub>  </td><td class="markdownTableBodyNone">Les cartes du brouillon passent devant celles du jeu.  </td><td class="markdownTableBodyNone">1. Poser deux dossiers, la meme carte dans les deux sous un nom different, et une seconde carte dans le dernier seulement.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">std::filesystem::create_directories(racine / "brouillons")</span> est vrai.<br  />
+Vérifie que <span class="tt">std::filesystem::create_directories(racine / "livrees")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="classcore_1_1LevelWriter.html#a388600fd0af9ddeed6675704125ce6f6" title="Écrit un niveau au format JSON dans un fichier (EX-EDIT-006).">core::LevelWriter::saveToFile</a>(brouillon, racine / "brouillons" / "martpart.json")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="classcore_1_1LevelWriter.html#a388600fd0af9ddeed6675704125ce6f6" title="Écrit un niveau au format JSON dans un fichier (EX-EDIT-006).">core::LevelWriter::saveToFile</a>(livree, racine / "livrees" / "martpart.json")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="classcore_1_1LevelWriter.html#a388600fd0af9ddeed6675704125ce6f6" title="Écrit un niveau au format JSON dans un fichier (EX-EDIT-006).">core::LevelWriter::saveToFile</a>(voisine, racine / "livrees" / "arenarea.json")</span> est vrai.<br  />
+Vérifie que <span class="tt">retouchee.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">retouchee.level-&gt;name()</span> vaut <span class="tt">"Martpart retouche"</span>.<br  />
+Vérifie que <span class="tt">autour.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">autour.level-&gt;name()</span> vaut <span class="tt">"Arenarea"</span>.<br  />
+Vérifie que <span class="tt">absente.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">absente.errorCode</span> vaut <span class="tt"><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2" title="Fichier de carte introuvable sur disque.">core::LevelValidationError::FileNotFound</a></span>.  </td></tr>
 </table>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
 Editor</h2>
@@ -5375,6 +5388,37 @@ Vérifie que <span class="tt">after.entriesOutside.size()</span> vaut <span clas
 Vérifie que <span class="tt">countIssues(lines, "outside every combat zone")</span> vaut <span class="tt">4U</span>.<br  />
 Vérifie que <span class="tt">hmi::combatZoneSummary(after).find("sable: 11 x 14")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
 Vérifie que <span class="tt">verdict().zone.columns</span> vaut <span class="tt">20</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__game__launch_8cpp.html" title="Ce que l&#39;essai complet pose sur le disque (LOT-EDITOR-10) : les brouillons ouverts,...">test_game_launch.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameLaunch.LIdentifiantDonneLeChemin</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__game__launch_8cpp.html" title="Ce que l&#39;essai complet pose sur le disque (LOT-EDITOR-10) : les brouillons ouverts,...">Source/Test/Unit/Editor/test_game_launch.cpp</a>:40</span></sub>  </td><td class="markdownTableBodyNone">L'identifiant d'une carte donne son chemin dans le dossier d'essai.  </td><td class="markdownTableBodyNone">1. Ecrire le brouillon de <span class="tt">capital/martpart</span> dans un dossier d'essai neuf.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">erreur.empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">std::filesystem::exists(fichier)</span> est vrai.<br  />
+Vérifie que <span class="tt">contenu</span> vaut <span class="tt">"{\\"a\\\\":1}\"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>GameLaunch.LeDossierNeGardeRienDeLEssaiPrecedent</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__launch_8cpp.html" title="Ce que l&#39;essai complet pose sur le disque (LOT-EDITOR-10) : les brouillons ouverts,...">Source/Test/Unit/Editor/test_game_launch.cpp</a>:61</span></sub>  </td><td class="markdownTableBodyNone">Le dossier d'essai ne garde rien de l'essai precedent.  </td><td class="markdownTableBodyNone">1. Ecrire deux brouillons, puis un seul.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ad05eb30edadbbf1334bc6c0057c0cbb2" title="Écrit drafts sous directory, un fichier par carte (&lt;mapId&gt;.json).">hmi::writeDraftMaps</a>(dir, {<a class="el" href="structhmi_1_1DraftMap.html" title="Une carte ouverte, telle que l&#39;essai la jouera : son identifiant et son brouillon.">hmi::DraftMap</a>{.mapId = "capital/martpart", .json = "{}"}, <a class="el" href="structhmi_1_1DraftMap.html" title="Une carte ouverte, telle que l&#39;essai la jouera : son identifiant et son brouillon.">hmi::DraftMap</a>{.mapId = "coliseum", .json = "{}"}}) .empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">std::filesystem::exists(dir / "coliseum.json")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ad05eb30edadbbf1334bc6c0057c0cbb2" title="Écrit drafts sous directory, un fichier par carte (&lt;mapId&gt;.json).">hmi::writeDraftMaps</a>(dir, {<a class="el" href="structhmi_1_1DraftMap.html" title="Une carte ouverte, telle que l&#39;essai la jouera : son identifiant et son brouillon.">hmi::DraftMap</a>{.mapId = "capital/martpart", .json = "{}"}}) .empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">std::filesystem::exists(dir / "capital" / "martpart.json")</span> est vrai.<br  />
+Vérifie que <span class="tt">std::filesystem::exists(dir / "coliseum.json")</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameLaunch.SansBrouillonLeDossierEstVide</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__launch_8cpp.html" title="Ce que l&#39;essai complet pose sur le disque (LOT-EDITOR-10) : les brouillons ouverts,...">Source/Test/Unit/Editor/test_game_launch.cpp</a>:83</span></sub>  </td><td class="markdownTableBodyNone">Sans brouillon, le dossier d'essai est vide et l'ecriture reussit.  </td><td class="markdownTableBodyNone">1. Ecrire une liste de brouillons vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ad05eb30edadbbf1334bc6c0057c0cbb2" title="Écrit drafts sous directory, un fichier par carte (&lt;mapId&gt;.json).">hmi::writeDraftMaps</a>(dir, {}).empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">std::filesystem::exists(dir / "capital")</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>GameLaunch.LeDossierDEssaiEstTemporaire</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__launch_8cpp.html" title="Ce que l&#39;essai complet pose sur le disque (LOT-EDITOR-10) : les brouillons ouverts,...">Source/Test/Unit/Editor/test_game_launch.cpp</a>:97</span></sub>  </td><td class="markdownTableBodyNone">Le dossier d'essai vit hors du depot.  </td><td class="markdownTableBodyNone">1. Demander le dossier de l'essai complet.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">essai.filename()</span> vaut <span class="tt">std::filesystem::path{"JustAnotherRpgGame-playtest"}</span>.<br  />
+Vérifie que <span class="tt">std::filesystem::equivalent(essai.parent_path(), std::filesystem::temp_directory_path())</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameLaunch.SansJeuAcoteLeCheminEstVide</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__launch_8cpp.html" title="Ce que l&#39;essai complet pose sur le disque (LOT-EDITOR-10) : les brouillons ouverts,...">Source/Test/Unit/Editor/test_game_launch.cpp</a>:117</span></sub>  </td><td class="markdownTableBodyNone">Sans jeu construit a cote, le chemin rendu est vide.  </td><td class="markdownTableBodyNone">1. Chercher le jeu dans un dossier qui ne le contient pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::gameExecutable(dir).empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>GameLaunch.LeJeuEstCherchePresDeLEditeur</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__launch_8cpp.html" title="Ce que l&#39;essai complet pose sur le disque (LOT-EDITOR-10) : les brouillons ouverts,...">Source/Test/Unit/Editor/test_game_launch.cpp</a>:131</span></sub>  </td><td class="markdownTableBodyNone">Le jeu est cherche a cote de l'editeur.  </td><td class="markdownTableBodyNone">1. Poser un exécutable du nom du jeu dans un dossier, puis l'y chercher.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::gameExecutable(dir)</span> vaut <span class="tt">jeu</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__gesture__script_8cpp.html" title="Tests de l&#39;éditeur sans fenêtre (LOT-EDITOR-13) : un scénario --apply par outil, comparé à un fichier...">test_gesture_script.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -6239,6 +6283,48 @@ Vérifie que <span class="tt">engine.volume()</span> vaut <span class="tt">0.42f
 <sub><span class="tt"><a class="el" href="test__audio__engine_8cpp.html" title="Tests unitaires du moteur audio (EX-REN-047, EX-NFR-040).">Source/Test/Unit/HMI/Audio/test_audio_engine.cpp</a>:61</span></sub>  </td><td class="markdownTableBodyNone">Le volume par defaut du moteur audio est au maximum.  </td><td class="markdownTableBodyNone">1. Construire un AudioEngine sans regler de volume.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">engine.volume()</span> vaut <span class="tt">1.0f</span> (comparaison flottante).  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
+Game (6)</h3>
+<p><b><span class="tt"><a class="el" href="test__launch__options_8cpp.html" title="La ligne de commande de l&#39;essai complet (LOT-EDITOR-10) : ce que l&#39;éditeur écrit, le jeu doit le reli...">test_launch_options.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>LaunchOptions.CarteSeuleNePosePasDOptionVide</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__launch__options_8cpp.html" title="La ligne de commande de l&#39;essai complet (LOT-EDITOR-10) : ce que l&#39;éditeur écrit, le jeu doit le reli...">Source/Test/Unit/HMI/Game/test_launch_options.cpp</a>:21</span></sub>  </td><td class="markdownTableBodyNone">Une carte seule ne pose aucune option vide.  </td><td class="markdownTableBodyNone">1. Construire la ligne de commande d'un essai qui ne nomme qu'une carte.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::gameLaunchArguments(options)</span> vaut <span class="tt">(std::vector&lt;std::string&gt;{"--map=capital/martpart"})</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LaunchOptions.PointDArriveeSurLOptionDeCarte</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__launch__options_8cpp.html" title="La ligne de commande de l&#39;essai complet (LOT-EDITOR-10) : ce que l&#39;éditeur écrit, le jeu doit le reli...">Source/Test/Unit/HMI/Game/test_launch_options.cpp</a>:36</span></sub>  </td><td class="markdownTableBodyNone">Le point d'arrivee s'ecrit sur l'option de carte.  </td><td class="markdownTableBodyNone">1. Construire la ligne de commande d'une carte et d'un point d'arrivee.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::gameLaunchArguments(options).front()</span> vaut <span class="tt">"--map=capital/arenarea@martpart"</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>LaunchOptions.AllerRetourCompletParLAnalyse</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__launch__options_8cpp.html" title="La ligne de commande de l&#39;essai complet (LOT-EDITOR-10) : ce que l&#39;éditeur écrit, le jeu doit le reli...">Source/Test/Unit/HMI/Game/test_launch_options.cpp</a>:50</span></sub>  </td><td class="markdownTableBodyNone">Ce que l'editeur ecrit, le jeu le relit a l'identique.  </td><td class="markdownTableBodyNone">1. Construire la ligne de commande d'un essai complet (carte, case, drapeaux, dossiers).<br  />
+2. Relire chaque option par les fonctions d'analyse du jeu.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">arguments.size()</span> vaut <span class="tt">4U</span>.<br  />
+Vérifie que <span class="tt">arguments[1]</span> vaut <span class="tt">"--at=12,39"</span>.<br  />
+Vérifie que <span class="tt">arguments[2]</span> vaut <span class="tt">"--flags=quete-du-heraut,porte-est-ouverte"</span>.<br  />
+Vérifie que <span class="tt">relue.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">relue-&gt;column</span> vaut <span class="tt">12</span>.<br  />
+Vérifie que <span class="tt">relue-&gt;row</span> vaut <span class="tt">39</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a387d159bebe6f50a4f2e6a376161f2cf">hmi::parseWorldFlags</a>("quete-du-heraut,porte-est-ouverte")</span> vaut <span class="tt">options.flags</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a613a6276c7f598e007ab8fc0863e299f">hmi::parseLevelDirectories</a>(arguments[3].substr(std::string_view{"--levels="}.size()))</span> vaut <span class="tt">options.levelDirectories</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LaunchOptions.LesDossiersSeSeparentAuPointVirgule</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__launch__options_8cpp.html" title="La ligne de commande de l&#39;essai complet (LOT-EDITOR-10) : ce que l&#39;éditeur écrit, le jeu doit le reli...">Source/Test/Unit/HMI/Game/test_launch_options.cpp</a>:81</span></sub>  </td><td class="markdownTableBodyNone">Les dossiers de cartes se separent au point-virgule.  </td><td class="markdownTableBodyNone">1. Analyser <span class="tt">--levels=</span> sur deux chemins Windows portant chacun un deux-points.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">dossiers.size()</span> vaut <span class="tt">2U</span>.<br  />
+Vérifie que <span class="tt">dossiers[0]</span> vaut <span class="tt">std::filesystem::path{"C:/tmp/essai"}</span>.<br  />
+Vérifie que <span class="tt">dossiers[1]</span> vaut <span class="tt">std::filesystem::path{"D:/depot/Levels"}</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>LaunchOptions.CaseIllisibleRefusee</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__launch__options_8cpp.html" title="La ligne de commande de l&#39;essai complet (LOT-EDITOR-10) : ce que l&#39;éditeur écrit, le jeu doit le reli...">Source/Test/Unit/HMI/Game/test_launch_options.cpp</a>:98</span></sub>  </td><td class="markdownTableBodyNone">Une case illisible est refusee, jamais ramenee a zero.  </td><td class="markdownTableBodyNone">1. Analyser des valeurs de <span class="tt">--at=</span> incompletes, non numeriques ou negatives.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aef0942e7c48316d72395a273318becd2">hmi::parseStartCell</a>("").has_value()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aef0942e7c48316d72395a273318becd2">hmi::parseStartCell</a>("12").has_value()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aef0942e7c48316d72395a273318becd2">hmi::parseStartCell</a>("12,").has_value()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aef0942e7c48316d72395a273318becd2">hmi::parseStartCell</a>("12,39,4").has_value()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aef0942e7c48316d72395a273318becd2">hmi::parseStartCell</a>("douze,39").has_value()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aef0942e7c48316d72395a273318becd2">hmi::parseStartCell</a>("12,-3").has_value()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aef0942e7c48316d72395a273318becd2">hmi::parseStartCell</a>("12,39x").has_value()</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LaunchOptions.DrapeauxSansDoublonNiVide</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__launch__options_8cpp.html" title="La ligne de commande de l&#39;essai complet (LOT-EDITOR-10) : ce que l&#39;éditeur écrit, le jeu doit le reli...">Source/Test/Unit/HMI/Game/test_launch_options.cpp</a>:117</span></sub>  </td><td class="markdownTableBodyNone">Les drapeaux se lisent sans doublon ni valeur vide.  </td><td class="markdownTableBodyNone">1. Analyser <span class="tt">--flags=</span> avec un separateur en trop et un drapeau repete.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a387d159bebe6f50a4f2e6a376161f2cf">hmi::parseWorldFlags</a>("a,,b,a")</span> vaut <span class="tt">(std::vector&lt;std::string&gt;{"a", "b"})</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a387d159bebe6f50a4f2e6a376161f2cf">hmi::parseWorldFlags</a>("").empty()</span> est vrai.  </td></tr>
+</table>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
 Graphics (138)</h3>
 <p><b><span class="tt"><a class="el" href="test__animation__catalog_8cpp.html" title="Tests unitaires du format nom-asset.anim.json (hmi::AnimationCatalog) : lecture, validation,...">test_animation_catalog.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -7435,7 +7521,7 @@ Vérifie que <span class="tt">travel.cross(entity.position, flags)</span> vaut <
 Vérifie que <span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a>(travel.currentMap()-&gt;tileMap().tile(pos.column, pos.row))</span> est faux.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacecore.html#aa92b467992651f41252bd07e5c5f79d0">core::portalAt</a>(*travel.currentMap(), pos).has_value()</span> est faux.  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
 Input (25)</h3>
 <p><b><span class="tt"><a class="el" href="test__button__repeat_8cpp.html" title="Tests unitaires de la répétition d&#39;un bouton de manette tenu (LOT-24).">test_button_repeat.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -7632,7 +7718,7 @@ Vérifie que <span class="tt">hmi::qtKeyToHmiKey(Qt::Key_Alt).has_value()</span>
 Vérifie que <span class="tt">hmi::qtKeyToHmiKey(Qt::Key_Home).has_value()</span> est faux.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1b53de392afb0dfdf5cdef4543fb672d" title="Traduit un code Qt::Key en hmi::Key.">hmi::qtKeyToHmiKey</a>(-1).has_value()</span> est faux.  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
 Interface (29)</h3>
 <p><b><span class="tt"><a class="el" href="test__character__sheet__values_8cpp.html" title="Tests unitaires des valeurs affichées par l&#39;écran de fiche (LOT-38).">test_character_sheet_values.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -7874,7 +7960,7 @@ Vérifie que <span class="tt">resolveTransition(*depuisLaCarte, ScreenEvent::Clo
 Vérifie que <span class="tt">opened-&gt;rpgReturnTo</span> vaut <span class="tt">expected</span>.<br  />
 Vérifie que <span class="tt">resolveTransition(*opened, ScreenEvent::CloseRpgScreen)-&gt;screen</span> vaut <span class="tt">expected</span>.  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
 Localization (9)</h3>
 <p><b><span class="tt"><a class="el" href="test__localization_8cpp.html" title="Tests unitaires du catalogue de traduction : analyse, repli, changement de langue.">test_localization.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -7932,7 +8018,7 @@ Vérifie que <span class="tt">english.count(key) &gt; 0</span> est vrai.<br  />
 Vérifie que <span class="tt">french.count(key) &gt; 0</span> est vrai.<br  />
 Vérifie que <span class="tt">french.size()</span> vaut <span class="tt">english.size()</span>.  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
 Platform (5)</h3>
 <p><b><span class="tt"><a class="el" href="test__crash__dump_8cpp.html" title="Minidump sur plantage (HMI/Platform/CrashDump) : nom du fichier et écriture réelle.">test_crash_dump.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -7962,7 +8048,7 @@ Vérifie que <span class="tt">hasExceptionStream(path)</span> est vrai.  </td></
 <td class="markdownTableBodyNone"><b>CrashDumpTest.EchoueSansLeverSurUnCheminImpossible</b> (Majeur)<br  />
 <sub><span class="tt"><a class="el" href="test__crash__dump_8cpp.html" title="Minidump sur plantage (HMI/Platform/CrashDump) : nom du fichier et écriture réelle.">Source/Test/Unit/HMI/Platform/test_crash_dump.cpp</a>:189</span></sub>  </td><td class="markdownTableBodyNone">Un chemin de minidump impossible échoue sans exception ni plantage.  </td><td class="markdownTableBodyNone">1. Écrire un dump sous un nom interdit par Windows (« a?b.dmp »).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1acfbf8f1ffce943900246a61f336bf7" title="Écrit un minidump du processus courant.">hmi::writeMiniDump</a>(directory_ / "a?b.dmp", nullptr)</span> est faux.  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
 Presentation (17)</h3>
 <p><b><span class="tt"><a class="el" href="test__credits__catalog_8cpp.html" title="Tests unitaires de la lecture des crédits (LOT-87, T3.3).">test_credits_catalog.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -8123,7 +8209,7 @@ Vérifie que <span class="tt">place</span> diffère de <span class="tt">region-&
 Vérifie que <span class="tt">place-&gt;placed</span> est vrai.<br  />
 Vérifie que <span class="tt">place-&gt;hasCityMap</span> est vrai.  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
 Runtime (3)</h3>
 <p><b><span class="tt"><a class="el" href="test__arena__model_8cpp.html" title="Tests de la vue-modèle du Colisée (LOT-24) : un combat joué par les seuls gestes du clavier et de la ...">test_arena_model.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -8168,9 +8254,9 @@ Vérifie que <span class="tt">actifs</span> vaut <span class="tt">1</span>.<br  
 Vérifie que <span class="tt">reachable.isEmpty()</span> est faux.<br  />
 Vérifie que <span class="tt">cell.value("column") == fighter.value("column") &amp;&amp; cell.value("row") == fighter.value("row")</span> est faux.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md28"></a>
 Tests d'intégration (2)</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md28"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md29"></a>
 Exploration — <span class="tt">test_exploration_carte_livree.cpp</span> (2)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -8192,9 +8278,9 @@ Vérifie que <span class="tt">snapshot.figures.back().figure</span> vaut <span c
 Vérifie que <span class="tt">moved</span> est vrai.<br  />
 Vérifie que <span class="tt">play.figures().back().clip</span> vaut <span class="tt">"walk"</span>.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md29"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md30"></a>
 Tests système (1)</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md30"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md31"></a>
 Éditeur de niveaux — <span class="tt">test_parcours_edition_rpg.cpp</span> (1)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">

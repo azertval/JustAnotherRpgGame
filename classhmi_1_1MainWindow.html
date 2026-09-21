@@ -163,6 +163,12 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a77025d20fbce06f8f0fd55455cc6eca8" id="r_a77025d20fbce06f8f0fd55455cc6eca8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a77025d20fbce06f8f0fd55455cc6eca8">showTransientStatusMessage</a> (const QString &amp;message, int timeoutMs)</td></tr>
 <tr class="memitem:a79a0a32f6374cffe570e60650baadca4" id="r_a79a0a32f6374cffe570e60650baadca4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a79a0a32f6374cffe570e60650baadca4">applyPanelFocus</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool)</td></tr>
 <tr class="memitem:ab07d84d5a7c24ef8bef666a1cdaa0bb0" id="r_ab07d84d5a7c24ef8bef666a1cdaa0bb0"><td class="memItemLeft">QDockWidget *&#160;</td><td class="memItemRight"><a class="el" href="#ab07d84d5a7c24ef8bef666a1cdaa0bb0">dockFor</a> (<a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726">PanelId</a> panel) const</td></tr>
+<tr class="memitem:ae58dfac3b4b241974f322ffac9230283" id="r_ae58dfac3b4b241974f322ffac9230283"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae58dfac3b4b241974f322ffac9230283">runInGame</a> (std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; at)</td></tr>
+<tr class="memdesc:ae58dfac3b4b241974f322ffac9230283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance <span class="tt">JustAnotherRpgGame</span> sur la carte ouverte, au départ de <code class="param">at</code> (<span class="tt">EX-EDIT-093</span>, <span class="tt">EX-EDIT-095</span>).  <br /></td></tr>
+<tr class="memitem:a0736f19a870745f3e40135888af7ee3d" id="r_a0736f19a870745f3e40135888af7ee3d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0736f19a870745f3e40135888af7ee3d">openRunInGameDialog</a> ()</td></tr>
+<tr class="memdesc:a0736f19a870745f3e40135888af7ee3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Run in game… » : la case de départ et les drapeaux de monde, puis l'essai.  <br /></td></tr>
+<tr class="memitem:aa2b7066edcb640abeae9f9454f0c22d2" id="r_aa2b7066edcb640abeae9f9454f0c22d2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa2b7066edcb640abeae9f9454f0c22d2">stopRunningGame</a> ()</td></tr>
+<tr class="memdesc:aa2b7066edcb640abeae9f9454f0c22d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arrête l'essai en cours, s'il y en a un (un second essai remplace le premier).  <br /></td></tr>
 <tr class="memitem:ab5fd27ff6544e711305b36ae6e9f2653" id="r_ab5fd27ff6544e711305b36ae6e9f2653"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab5fd27ff6544e711305b36ae6e9f2653">runContentCheck</a> ()</td></tr>
 <tr class="memdesc:ab5fd27ff6544e711305b36ae6e9f2653"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contrôle toutes les cartes enregistrées et montre le bilan dans « Problems ».  <br /></td></tr>
 <tr class="memitem:aa8690f8dc7dcf1406906c04a54d10553" id="r_aa8690f8dc7dcf1406906c04a54d10553"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa8690f8dc7dcf1406906c04a54d10553">goToFinding</a> (const <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &amp;finding)</td></tr>
@@ -248,6 +254,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ace2cd0890455862e0d44849fdc839af4" id="r_ace2cd0890455862e0d44849fdc839af4"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ace2cd0890455862e0d44849fdc839af4">_prefabPlace</a></td></tr>
 <tr class="memdesc:ace2cd0890455862e0d44849fdc839af4"><td class="mdescLeft">&#160;</td><td class="mdescRight">La bibliothèque montrée : le lieu dont elle vient — relue quand il change — et les vignettes déjà rendues, par <span class="tt">lieu/nom</span>.  <br /></td></tr>
 <tr class="memitem:aaf3fd467aa48568de39975fe72cfe8de" id="r_aaf3fd467aa48568de39975fe72cfe8de"><td class="memItemLeft">std::map&lt; std::string, QPixmap &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aaf3fd467aa48568de39975fe72cfe8de">_prefabThumbnails</a></td></tr>
+<tr class="memitem:a63e1c1cd752453cb2d1b80986d0d94ba" id="r_a63e1c1cd752453cb2d1b80986d0d94ba"><td class="memItemLeft">QProcess *&#160;</td><td class="memItemRight"><a class="el" href="#a63e1c1cd752453cb2d1b80986d0d94ba">_game</a> = nullptr</td></tr>
+<tr class="memdesc:a63e1c1cd752453cb2d1b80986d0d94ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'essai complet en cours, s'il y en a un (<span class="tt">LOT-EDITOR-10</span>) : un seul à la fois.  <br /></td></tr>
+<tr class="memitem:ac34b14871777893b6f02885d2215e1e9" id="r_ac34b14871777893b6f02885d2215e1e9"><td class="memItemLeft"><a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac34b14871777893b6f02885d2215e1e9">_runChoice</a></td></tr>
+<tr class="memdesc:ac34b14871777893b6f02885d2215e1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le dernier « Run in game… » a choisi : repris tel quel par les essais suivants.  <br /></td></tr>
 <tr class="memitem:a9070cc10b7ea209e15e5c2ff9e623f50" id="r_a9070cc10b7ea209e15e5c2ff9e623f50"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1AutosaveStore.html">AutosaveStore</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9070cc10b7ea209e15e5c2ff9e623f50">_autosave</a></td></tr>
 <tr class="memitem:a053f67d2426ca6b7644aa68c43bbc285" id="r_a053f67d2426ca6b7644aa68c43bbc285"><td class="memItemLeft">QTimer *&#160;</td><td class="memItemRight"><a class="el" href="#a053f67d2426ca6b7644aa68c43bbc285">_autosaveTimer</a> = nullptr</td></tr>
 <tr class="memitem:a0238ff13db5d523b1872d7a9797be0d6" id="r_a0238ff13db5d523b1872d7a9797be0d6"><td class="memItemLeft">std::map&lt; <a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a> *, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0238ff13db5d523b1872d7a9797be0d6">_autosavedMapIds</a></td></tr>
@@ -1189,6 +1199,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a0736f19a870745f3e40135888af7ee3d" name="a0736f19a870745f3e40135888af7ee3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0736f19a870745f3e40135888af7ee3d">&#9670;&#160;</a></span>openRunInGameDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::openRunInGameDialog </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>« Run in game… » : la case de départ et les drapeaux de monde, puis l'essai. </p>
+
+</div>
+</div>
 <a id="a0c0f25275caa45e3ab0fdab1575520f0" name="a0c0f25275caa45e3ab0fdab1575520f0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0c0f25275caa45e3ab0fdab1575520f0">&#9670;&#160;</a></span>openShortcutsDialog()</h2>
 
@@ -1606,6 +1643,34 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ae58dfac3b4b241974f322ffac9230283" name="ae58dfac3b4b241974f322ffac9230283"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae58dfac3b4b241974f322ffac9230283">&#9670;&#160;</a></span>runInGame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::runInGame </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>at</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lance <span class="tt">JustAnotherRpgGame</span> sur la carte ouverte, au départ de <code class="param">at</code> (<span class="tt">EX-EDIT-093</span>, <span class="tt">EX-EDIT-095</span>). </p>
+<p>Les brouillons de <b>tous</b> les onglets sont écrits dans le dossier d'essai, et le jeu les sert avant ses propres cartes : on joue ce qu'on a sous les yeux, portails compris. Rien n'est enregistré dans le dépôt. </p>
+
+</div>
+</div>
 <a id="a89d530c9e3bc3d028b3c95c724450cfd" name="a89d530c9e3bc3d028b3c95c724450cfd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a89d530c9e3bc3d028b3c95c724450cfd">&#9670;&#160;</a></span>saveBeforeRefactor()</h2>
 
@@ -1855,6 +1920,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa2b7066edcb640abeae9f9454f0c22d2" name="aa2b7066edcb640abeae9f9454f0c22d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2b7066edcb640abeae9f9454f0c22d2">&#9670;&#160;</a></span>stopRunningGame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::stopRunningGame </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Arrête l'essai en cours, s'il y en a un (un second essai remplace le premier). </p>
 
 </div>
 </div>
@@ -2214,6 +2306,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a63e1c1cd752453cb2d1b80986d0d94ba" name="a63e1c1cd752453cb2d1b80986d0d94ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63e1c1cd752453cb2d1b80986d0d94ba">&#9670;&#160;</a></span>_game</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QProcess* hmi::MainWindow::_game = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'essai complet en cours, s'il y en a un (<span class="tt">LOT-EDITOR-10</span>) : un seul à la fois. </p>
+
+</div>
+</div>
 <a id="a2ca20212f1ccc0c2df74dde270e8a6ff" name="a2ca20212f1ccc0c2df74dde270e8a6ff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ca20212f1ccc0c2df74dde270e8a6ff">&#9670;&#160;</a></span>_layers</h2>
 
@@ -2481,6 +2597,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac34b14871777893b6f02885d2215e1e9" name="ac34b14871777893b6f02885d2215e1e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac34b14871777893b6f02885d2215e1e9">&#9670;&#160;</a></span>_runChoice</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> hmi::MainWindow::_runChoice</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce que le dernier « Run in game… » a choisi : repris tel quel par les essais suivants. </p>
 
 </div>
 </div>

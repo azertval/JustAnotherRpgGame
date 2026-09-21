@@ -98,40 +98,40 @@ $(function(){initNavTree('spec-combat.html','',''); });
 </blockquote>
 <p>Ce document concrétise <a class="el" href="spec-vision.html#EX-VIS-004" title="EX-VIS-004"><span class="tt">EX-VIS-004</span></a> — « résoudre un combat tactique complet au tour par tour » — dont il détaille chaque terme : l'initiative, la portée, le jet d'attaque et la fin de rencontre.</p>
 <p>Le combat est la moitié « au tour par tour » du jeu. Il se déroule <b>sur la carte d'exploration</b>, sur une grille dérivée de la couche de collision — décision de cadrage actée avant le <span class="tt">LOT-01</span> : pas d'écran de combat séparé, pas de transition vers une arène abstraite. Ce qui change à la bascule, c'est le <b>temps</b>, pas le lieu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md184"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md185"></a>
 1. Bascule</h1>
 <ul>
 <li><a class="anchor" id="EX-CBT-001"></a><b>EX-CBT-001</b> — Le passage exploration ↔ combat est <b>explicite et réversible</b> : la partie entre en combat sur un déclencheur nommé, en sort quand plus aucun camp hostile n'est engagé, et le personnage reste <b>au même endroit de la même carte</b>. La grille tactique est <b>dérivée de la couche de collision</b> (<span class="tt">EX-LVL-016</span>), jamais dessinée séparément : deux sources de vérité pour « peut-on se tenir ici » donneraient un combat où l'on traverse ce qu'on ne pouvait pas traverser une seconde plus tôt.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md185"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md186"></a>
 2. Le tour</h1>
 <ul>
 <li><a class="anchor" id="EX-CBT-010"></a><b>EX-CBT-010</b> — L'ordre de jeu est déterminé par un jet d'<b>initiative</b> en début de combat, et reste <b>stable</b> jusqu'à la fin : un ordre recalculé à chaque tour rendrait toute planification impossible. Les égalités sont départagées par une règle déterministe, non par l'ordre d'insertion en mémoire — sans quoi deux parties identiques divergeraient.</li>
 <li><a class="anchor" id="EX-CBT-011"></a><b>EX-CBT-011</b> — Un tour offre une <b>action</b>, une <b>action bonus</b>, une <b>réaction</b> et un <b>déplacement</b>, chacun consommable <b>une seule fois</b>. La réaction se reconstitue au début du tour suivant de son porteur, et non à la fin du tour courant : c'est ce qui permet à une réaction d'être dépensée <em>hors</em> de son propre tour, ce que la moitié des capacités défensives supposent.</li>
 <li><a class="anchor" id="EX-CBT-012"></a><b>EX-CBT-012</b> — La fin d'un tour est <b>explicite</b>. Un tour qui se termine tout seul quand les ressources sont épuisées prive le joueur de la possibilité de ne rien faire, qui est une décision tactique légitime — et rend le jeu imprévisible dès qu'une capacité rend une action.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md186"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md187"></a>
 3. L'espace</h1>
 <ul>
 <li><a class="anchor" id="EX-CBT-020"></a><b>EX-CBT-020</b> — Le déplacement d'un tour est borné par une <b>portée en cases</b> calculée par un <b>parcours sur la grille</b>, et non par une distance à vol d'oiseau : un mur entre deux cases voisines doit coûter le détour. Les cases atteignables sont <b>montrées</b> avant que le joueur ne s'engage.</li>
 <li><a class="anchor" id="EX-CBT-021"></a><b>EX-CBT-021</b> — Une attaque à distance suppose une <b>ligne de vue</b>, calculée sur la même grille, et un obstacle partiel confère une <b>couverture</b> qui pénalise l'attaque. Sans couverture, un décor de combat n'a aucun intérêt tactique et se réduit à un obstacle de déplacement.</li>
 <li><a class="anchor" id="EX-CBT-022"></a><b>EX-CBT-022</b> — Une arme déclare son <b>allonge</b> ou sa <b>portée</b>, et le moteur distingue le corps à corps de l'attaque à distance : la première est gênée par l'adjacence d'un ennemi, la seconde en pâtit. C'est cette distinction qui donne un rôle à la position, et donc au déplacement du tour précédent.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md187"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md188"></a>
 4. Attaque et dégâts</h1>
 <ul>
 <li><a class="anchor" id="EX-CBT-030"></a><b>EX-CBT-030</b> — Une attaque est un jet d'attaque (<span class="tt">EX-REG-020</span>) opposé à la <b>classe d'armure</b> de la cible. La classe d'armure est <b>recalculée depuis ses sources</b> (équipement porté, capacités actives, conditions), jamais accumulée : une classe de personnage peut la calculer autrement — sans armure, à partir d'une autre caractéristique — et un total stocké rendrait ce cas impossible à exprimer.</li>
 <li><a class="anchor" id="EX-CBT-031"></a><b>EX-CBT-031</b> — Un <b>20 naturel</b> est une réussite critique : les <b>dés</b> de dégâts sont doublés, <b>pas les modificateurs</b>. Doubler le total ferait croître la part fixe des dégâts avec le niveau, et rendrait le critique dévastateur exactement là où il devait rester une bonne surprise.</li>
 <li><a class="anchor" id="EX-CBT-032"></a><b>EX-CBT-032</b> — Les dégâts sont <b>typés</b>, et une cible peut y être <b>résistante</b>, <b>vulnérable</b> ou <b>immunisée</b>. Un type de dégâts inconnu du moteur ne doit <b>jamais</b> tomber dans un cas par défaut silencieux : c'est le scénario d'<span class="tt">EX-CNT-011</span>, et il produit un sort qui ne fait plus rien sans que personne ne le remarque.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md188"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md189"></a>
 5. Agonie et mort</h1>
 <ul>
 <li><a class="anchor" id="EX-CBT-040"></a><b>EX-CBT-040</b> — À <b>0 point de vie</b>, un personnage tombe <b>inconscient</b> et lance des <b>jets de sauvegarde contre la mort</b> : trois réussites le stabilisent, trois échecs le tuent. Un personnage qui meurt au premier coup porté sous zéro retirerait tout intérêt au fait d'être relevé par un allié — et donc au groupe.</li>
 <li><a class="anchor" id="EX-CBT-041"></a><b>EX-CBT-041</b> — Un soin qui ramène au-dessus de 0 <b>réinitialise</b> le compteur de jets et rend conscient. Des échecs qui se reporteraient d'une agonie à la suivante rendraient la seconde chute mécaniquement fatale, sans que rien à l'écran ne l'annonce.</li>
 <li><a class="anchor" id="EX-CBT-042"></a><b>EX-CBT-042</b> — La mort <b>hors combat</b> doit avoir un effet <b>défini</b>, et cet effet n'est <b>pas</b> « redémarrer le niveau ». Le monde est ouvert : il n'y a pas de niveau à recommencer (<span class="tt">EX-GP-031</span> et <span class="tt">EX-GP-032</span> sont retirées), et aucune définition de la mort ne doit en coexister avec celle-ci — deux définitions qui coexistent, c'est la plus ancienne qui gagne.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md189"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md190"></a>
 6. L'adversaire</h1>
 <ul>
 <li><a class="anchor" id="EX-CBT-050"></a><b>EX-CBT-050</b> — L'intelligence artificielle choisit <b>dans les mêmes actions que le joueur</b>, avec les <b>mêmes informations</b> : pas d'action réservée aux monstres, pas de connaissance de ce que la ligne de vue lui refuse. Une IA qui triche est indétectable en développement et insupportable en jeu ; et surtout, chaque capacité ajoutée au joueur profite gratuitement à l'adversaire. </li>

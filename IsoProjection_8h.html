@@ -127,10 +127,10 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La projection isométrique du Colisée : d'une case de la grille de combat à sa place dans le monde, et retour. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1155"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1166"></a>
 D'où viennent les formules</h2>
 <p>Elles sont portées de la scène QML du Colisée (<span class="tt">Source/Ui/Controls/ArenaScene.ui.qml</span>, <span class="tt">LOT-50</span>), qui les appliquait en pixels d'élément. Ici, elles s'expriment en <b>unités monde</b> (<span class="tt">EX-ARCH-021</span>) : le cadrage — centrer la scène, la faire tenir dans la surface — n'est plus l'affaire de la projection mais celle de la caméra (<span class="tt"><a class="el" href="classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu.">hmi::Camera2D</a></span>), qui ne fait que déplacer et agrandir, en aval, des points déjà projetés.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1156"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1167"></a>
 Le repère</h2>
 <p>Une case (c, r) occupe, en coordonnées de grille <b>continues</b>, le carré [c, c + 1[ × [r, r + 1[ (<span class="tt">EX-ARCH-020</span> : colonne vers la droite, ligne vers le bas). La projection est affine : </p><pre class="fragment">monde.x = originX + L/2 + (gc − gr) · L/2
 monde.y = originY       + (gc + gr) · H/2

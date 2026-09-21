@@ -181,7 +181,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>L'attaque : un jet de d20 contre la classe d'armure, amendable avant d'être figé, puis les dégâts (<span class="tt">LOT-21</span>, <span class="tt">EX-CBT-030</span>, <span class="tt">EX-CBT-031</span>, <span class="tt">EX-REG-003</span>). </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1135"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1146"></a>
 Ce que dit le Manuel, et où chaque règle vit</h2>
 <p>Manuel des Joueurs, chapitre 9, « Effectuer une attaque » :</p>
 <ul>
@@ -190,10 +190,10 @@ Ce que dit le Manuel, et où chaque règle vit</h2>
 <li><b>résoudre</b> — le d20, puis les dés de dégâts si l'attaque touche (<span class="tt"><a class="el" href="namespacecore.html#ab1a4d741effe8706e8261be043b9224a" title="Résout une attaque dans le combat : déclaration, jet, dégâts, points de vie.">core::resolveAttack</a></span>).</li>
 </ul>
 <p>« Faire 1 ou 20 » : un 20 au d20 <b>touche automatiquement</b>, quels que soient les modificateurs et la CA, et c'est un coup critique ; un 1 <b>rate automatiquement</b>. Le critique double <b>les dés</b> de dégâts, pas les modificateurs (<span class="tt"><a class="el" href="namespacecore.html#abfebc43646d1d520094ddedc511ffab2" title="Lance chaque clause, en doublant les dés si le coup est critique.">core::rollDamage</a></span>, <span class="tt">EX-CBT-031</span>).</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1136"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1147"></a>
 Un jet qui est un objet</h2>
 <p>Les livres de Tanares lisent le d20 <b>brut</b> (<em>Omen</em>, <em>Augurs</em>), le relancent <b>avant</b> la résolution, ajoutent un modificateur <b>après</b> avoir vu le résultat (<em>Future Guard</em>), substituent un résultat stocké. Rien de cela ne s'écrit si le jet est un entier rendu par une fonction : le jet est donc un <span class="tt"><a class="el" href="structcore_1_1AttackRoll.html" title="Un jet d&#39;attaque : la demande, les dés, les amendements, et l&#39;issue une fois figée.">core::AttackRoll</a></span> que trois points d'insertion reçoivent, et l'issue n'est figée qu'après le dernier. Chaque amendement s'inscrit dans le jet, pour que le journal le dise.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1137"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1148"></a>
 Hors de ce fichier, nommément</h2>
 <p>La ligne de vue et l'abri se calculent dans <span class="tt"><a class="el" href="LineOfSight_8h.html" title="Ligne de vue et abri sur la grille tactique (LOT-22, EX-CBT-021).">Core/Combat/LineOfSight.h</a></span> (<span class="tt">LOT-22</span>) et se lisent ici : <span class="tt"><a class="el" href="namespacecore.html#a7365293652d3b9980a5d196d0ada9400" title="Peut-on viser target avec cette attaque ?">core::checkTarget</a></span> refuse une cible sous abri total, <span class="tt"><a class="el" href="namespacecore.html#ab1a4d741effe8706e8261be043b9224a" title="Résout une attaque dans le combat : déclaration, jet, dégâts, points de vie.">core::resolveAttack</a></span> pose l'abri sur le jet. L'inconscience, les jets contre la mort, la mort instantanée et le coup qui assomme sont au <span class="tt">LOT-72</span>, qui lit l'excédent et le critique que le <span class="tt">LOT-21</span> rapporte ; les sorts et les attaques de classe arrivent avec les classes. </p>
 </div></div><!-- contents -->

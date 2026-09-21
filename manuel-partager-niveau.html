@@ -94,17 +94,17 @@ $(function(){initNavTree('manuel-partager-niveau.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Manuel_2partager-un-niveau"></a></p>
 <p>Ce guide s'adresse aux <b>créateurs de cartes</b> sans connaissance en programmation. Il explique comment créer une carte dans l'éditeur, puis la partager avec le reste de l'équipe via une interface Git graphique — <b>jamais de ligne de commande</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1117"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1128"></a>
 1. Récupérer le projet</h1>
 <ol type="1">
 <li>Installer <a href="https://desktop.github.com/">GitHub Desktop</a> (gratuit).</li>
 <li>Ouvrir GitHub Desktop, se connecter avec un compte GitHub (en créer un si besoin — gratuit).</li>
 <li><b>File → Clone repository</b>, choisir <span class="tt">azertval/JustAnotherRpgGame</span>, puis un dossier sur votre ordinateur. Le bouton <b>Clone</b> télécharge tout le projet.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1118"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1129"></a>
 2. Lancer l'éditeur</h1>
 <p>L'éditeur est un programme à part, livré à côté du jeu : <b><span class="tt">LevelEditor.exe</span></b>, dans le même dossier que <span class="tt">JustAnotherRpgGame.exe</span> — voir <a class="el" href="manuel-telecharger.html" title="Télécharger et lancer le jeu">Télécharger et lancer le jeu</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1119"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1130"></a>
 3. Créer une carte</h1>
 <p>La fenêtre montre la carte ouverte au centre, entourée de quatre panneaux qu'on peut déplacer, redimensionner ou détacher :</p>
 <ul>
@@ -143,7 +143,7 @@ $(function(){initNavTree('manuel-partager-niveau.html','',''); });
 <td class="markdownTableBodyNone">Enregistrer  </td><td class="markdownTableBodyNone"><b>Ctrl+S</b> — un message confirme l'enregistrement, ou explique ce qui manque (par exemple : aucune entrée).  </td></tr>
 </table>
 <p>La carte est enregistrée à côté de l'exécutable, dans le dossier <span class="tt">Levels</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1120"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1131"></a>
 4. Publier votre carte</h1>
 <ol type="1">
 <li>Copiez le fichier de votre carte (<span class="tt">Levels\&lt;nom&gt;.json</span>, à côté de <span class="tt">LevelEditor.exe</span>) dans le dossier <span class="tt">Source/Elements/Levels/</span> de votre copie du projet (celle clonée à l'étape 1).</li>
@@ -151,10 +151,10 @@ $(function(){initNavTree('manuel-partager-niveau.html','',''); });
 <li>En bas à gauche, donnez un court résumé (ex. « Ajout de la carte du port ») et cliquez <b>Commit to main</b>.</li>
 <li>Cliquez <b>Push origin</b> (en haut) : votre carte est envoyée sur GitHub, visible par toute l'équipe.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1121"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1132"></a>
 5. Récupérer les cartes des autres</h1>
 <p>Dans GitHub Desktop, cliquez <b>Fetch origin</b> puis <b>Pull origin</b> : les cartes ajoutées par d'autres membres de l'équipe apparaissent dans votre dossier <span class="tt">Source/Elements/Levels/</span>, prêtes à être ouvertes dans l'éditeur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1122"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1133"></a>
 En cas de problème</h1>
 <ul>
 <li><b>L'enregistrement affiche un message d'erreur</b> : le message précise le problème (par exemple : aucune entrée). Corrigez et recommencez <b>Ctrl+S</b>.</li>

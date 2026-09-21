@@ -96,13 +96,13 @@ $(function(){initNavTree('spec-controles.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré</b> pour l'exploration, les écrans et l'arène. Le clavier suffit à tout ; la manette (XInput) pilote l'arène et la carte du monde. Dépend de <a class="el" href="spec-gameplay.html#md_Specification_2gameplay" title="Specification/gameplay.md"><span class="tt">gameplay.md</span></a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md197"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md198"></a>
 1. Périphériques</h1>
 <ul>
 <li><a class="anchor" id="EX-CTRL-001"></a><b>EX-CTRL-001</b> — Le jeu doit être jouable <b>entièrement au clavier</b>.</li>
 <li><a class="anchor" id="EX-CTRL-002"></a><b>EX-CTRL-002</b> — Le jeu doit supporter une <b>manette</b> (XInput).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md198"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md199"></a>
 2. Commandes du jeu</h1>
 <p>Les entrées sont traduites en <b>commandes nommées</b> : un écran réagit à « déplacer », « valider » ou « retour », jamais à une touche en particulier.</p>
 <table class="markdownTable">
@@ -127,7 +127,7 @@ $(function(){initNavTree('spec-controles.html','',''); });
 <li><a class="anchor" id="EX-CTRL-012"></a><b>EX-CTRL-012</b> — Les raccourcis de l'<b>éditeur</b> doivent être <b>reconfigurables</b> par fichier (<span class="tt">Settings/keybindings.json</span>) ; un fichier absent ou partiel retombe sur les valeurs par défaut.</li>
 <li><a class="anchor" id="EX-CTRL-022"></a><b>EX-CTRL-022</b> — <b>Interagir</b> doit être une commande dédiée (E ou Espace) qui déclenche l'entité placée devant le héros — dialogue, coffre, portail (<span class="tt">EX-EXP-004</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md199"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md200"></a>
 3. Réactivité</h1>
 <ul>
 <li><a class="anchor" id="EX-CTRL-020"></a><b>EX-CTRL-020</b> — La latence entre une entrée et son effet ne doit pas dépasser <b>un pas</b> de simulation : une touche enfoncée est lue au pas suivant, jamais perdue entre deux.</li>
@@ -141,7 +141,7 @@ Exigences retirées</h1>
 <li><a class="anchor" id="EX-CTRL-013"></a><b>EX-CTRL-013</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — commande de ruée (dash) : le jeu n'a pas de ruée.</li>
 <li><a class="anchor" id="EX-CTRL-021"></a><b>EX-CTRL-021</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — échantillonnage des entrées par la boucle d'une fenêtre native : Qt distribue désormais les événements.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md200"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md201"></a>
 Traçabilité</h1>
 <p>L'acquisition des entrées relève de <span class="tt">Source/HMI</span> (<span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">hmi::InputState</a></span>, <span class="tt"><a class="el" href="classhmi_1_1GamepadNavigator.html" title="La manette pour un écran Qt Quick : chaque appui devient un signal nommé (LOT-24).">hmi::GamepadNavigator</a></span>) ; <span class="tt">Source/Core</span> ne reçoit que des intentions (<span class="tt"><a class="el" href="structcore_1_1ExplorationIntent.html" title="Ce que le joueur demande d&#39;un pas de simulation.">core::ExplorationIntent</a></span>), sans dépendance inverse. Voir <a class="el" href="spec-exigences.html#md_Specification_2exigences-non-fonctionnelles" title="Specification/exigences-non-fonctionnelles.md"><span class="tt">exigences-non-fonctionnelles.md</span></a> pour l'architecture. </p>
 </div></div><!-- contents -->

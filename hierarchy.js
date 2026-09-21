@@ -147,6 +147,7 @@ var hierarchy =
     [ "core::DifficultyScale", "structcore_1_1DifficultyScale.html", null ],
     [ "core::DifficultyTier", "structcore_1_1DifficultyTier.html", null ],
     [ "hmi::DraftEntityOverlay", "structhmi_1_1DraftEntityOverlay.html", null ],
+    [ "hmi::DraftMap", "structhmi_1_1DraftMap.html", null ],
     [ "hmi::DraftRenderer", "classhmi_1_1DraftRenderer.html", null ],
     [ "hmi::DraftTextures", "structhmi_1_1DraftTextures.html", null ],
     [ "hmi::EditContextTarget", "classhmi_1_1EditContextTarget.html", [
@@ -200,6 +201,7 @@ var hierarchy =
     [ "core::Footprint", "structcore_1_1Footprint.html", null ],
     [ "hmi::ArenaViewportItem::Framing", "structhmi_1_1ArenaViewportItem_1_1Framing.html", null ],
     [ "hmi::WorldViewportItem::Framing", "structhmi_1_1WorldViewportItem_1_1Framing.html", null ],
+    [ "hmi::GameLaunchOptions", "structhmi_1_1GameLaunchOptions.html", null ],
     [ "hmi::GamepadPoller", "classhmi_1_1GamepadPoller.html", null ],
     [ "hmi::GestureFileResult", "structhmi_1_1GestureFileResult.html", null ],
     [ "core::GestureScope", "classcore_1_1GestureScope.html", null ],
@@ -375,6 +377,7 @@ var hierarchy =
     [ "hmi::RpgField", "structhmi_1_1RpgField.html", null ],
     [ "hmi::RpgScreenDescriptor", "structhmi_1_1RpgScreenDescriptor.html", null ],
     [ "hmi::RpgScreenLayout", "structhmi_1_1RpgScreenLayout.html", null ],
+    [ "hmi::RunInGameChoice", "structhmi_1_1RunInGameChoice.html", null ],
     [ "hmi::AudioEngine::Sample", "structhmi_1_1AudioEngine_1_1Sample.html", null ],
     [ "hmi::SceneChangeChoice", "structhmi_1_1SceneChangeChoice.html", null ],
     [ "hmi::SceneImages", "classhmi_1_1SceneImages.html", null ],

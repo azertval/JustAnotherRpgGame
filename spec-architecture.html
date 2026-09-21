@@ -96,13 +96,13 @@ $(function(){initNavTree('spec-architecture.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré</b>. Décisions <b>structurantes</b> (sens des dépendances, ECS, frontière simulation ↔ rendu, deux exécutables). Transverse à toutes les specs. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md174"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md175"></a>
 1. Modules &amp; dépendances</h1>
 <ul>
 <li><span class="tt">Core</span> (simulation, indépendant du système), <span class="tt">HMI</span> (rendu, entrées, présentation, éditeur), <span class="tt">Ui</span> et <span class="tt">App</span> (écrans et points d'entrée), <span class="tt">Elements</span> (données et assets), <span class="tt">Test</span>.</li>
 <li><a class="anchor" id="EX-ARCH-001"></a><b>EX-ARCH-001</b> — Le sens des dépendances est <span class="tt">HMI → Core</span>, jamais l'inverse. <span class="tt">Core</span> est testable sans fenêtre ni GPU. </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md175"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md176"></a>
 2. Modèle d'entités : ECS</h1>
 <p>Choix retenu : <b>ECS</b>, hébergé dans <span class="tt">Core</span>, pour les objets posés sur une carte (entités de carte, <span class="tt"><a class="el" href="namespacecore.html#adb2706947c6f0111c0cdd008fde5779e" title="Peuple un World d&#39;une entité par objet de la couche objects.">core::spawnMapEntities</a></span>).</p>
 <ul>
@@ -111,7 +111,7 @@ $(function(){initNavTree('spec-architecture.html','',''); });
 <li><a class="anchor" id="EX-ARCH-012"></a><b>EX-ARCH-012</b> — Le rendu (<span class="tt">HMI</span>) <b>lit</b> les composants (ex. <span class="tt">Transform</span>, <span class="tt">Sprite</span>) sans les muter.</li>
 <li>Composants : <span class="tt">Transform</span> (position/échelle/rotation en unités monde), <span class="tt">Sprite</span>, <span class="tt">Animation</span>, <span class="tt">Interactable</span>, <span class="tt">RpgActor</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md176"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md177"></a>
 3. Coordonnées &amp; unités — trois espaces distincts</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -131,32 +131,32 @@ $(function(){initNavTree('spec-architecture.html','',''); });
 </blockquote>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md177"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md178"></a>
 4. Frontière simulation ↔ rendu</h1>
 <ul>
 <li><a class="anchor" id="EX-ARCH-030"></a><b>EX-ARCH-030</b> — <span class="tt">Core</span> met à jour la simulation à <b>pas de temps fixe</b> ; <span class="tt">HMI</span> produit l'image en <b>lisant</b> l'état. </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md178"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md179"></a>
 5. Mathématiques dans Core</h1>
 <ul>
 <li><a class="anchor" id="EX-ARCH-040"></a><b>EX-ARCH-040</b> — <span class="tt">Core</span> définit <b>ses propres types</b> mathématiques (<span class="tt">Vector2</span>, <span class="tt">Rect</span>, …), <b>sans dépendance graphique</b>. La conversion vers <span class="tt">DirectXMath</span> a lieu uniquement à la frontière de rendu (<span class="tt">HMI</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md179"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md180"></a>
 6. Abstraction de rendu</h1>
 <ul>
 <li><a class="anchor" id="EX-ARCH-050"></a><b>EX-ARCH-050</b> — Le rendu est un <b>pipeline mince</b> (lot de sprites) au-dessus de <b>QRhi</b>, qui retient Direct3D 11 sous Windows (<span class="tt">EX-REN-002</span>). Le projet n'ajoute aucune couche d'abstraction graphique propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md180"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md181"></a>
 7. Modèle de threading</h1>
 <ul>
 <li><a class="anchor" id="EX-ARCH-060"></a><b>EX-ARCH-060</b> — Boucle <b>mono-thread</b> au MVP. Un éventuel chargement asynchrone sera isolé plus tard, sans remettre en cause la simulation déterministe.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md181"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md182"></a>
 8. Communication inter-systèmes</h1>
 <ul>
 <li><a class="anchor" id="EX-ARCH-070"></a><b>EX-ARCH-070</b> — Communication par <b>appels directs / observateur simple</b>. Pas de bus d'événements tant que le couplage reste faible (réévalué si nécessaire).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md182"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md183"></a>
 9. Gestion des ressources</h1>
 <ul>
 <li><a class="anchor" id="EX-ARCH-080"></a><b>EX-ARCH-080</b> — Les ressources sont gérées par <b>nom logique</b>, avec chargement <b>à la demande</b> et mise en cache. La gestion vit <b>du côté qui possède la ressource</b> : les <b>textures</b> relèvent de <span class="tt">HMI</span> (décodage d'image et création sur QRhi), car <span class="tt">Core</span> ne doit connaître aucune ressource graphique (<span class="tt">EX-NFR-010</span>, <span class="tt">EX-ARCH-010</span>) ; les <b>cartes</b> et les <b>catalogues</b> restent des données de <span class="tt">Core</span>, chargées et validées par leur propre chargeur (<span class="tt">EX-LVL-004</span>). Il n'existe donc <b>pas</b> de gestionnaire de ressources unique dans <span class="tt">Core</span> — la formulation initiale, antérieure à la séparation <span class="tt">Core</span>/<span class="tt">HMI</span> telle qu'elle est aujourd'hui appliquée, l'aurait obligé à dépendre de la présentation.</li>
@@ -172,7 +172,7 @@ Exigences retirées</h1>
 <li><a class="anchor" id="EX-ARCH-090"></a><b>EX-ARCH-090</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — état « Éditeur » parmi les états du jeu : l'éditeur est un exécutable distinct (<span class="tt">EX-EDIT-030</span>).</li>
 <li><a class="anchor" id="EX-ARCH-100"></a><b>EX-ARCH-100</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — décors en entités de la simulation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md183"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md184"></a>
 Traçabilité</h1>
 <p>Ces décisions conditionnent tous les lots. Exigences non fonctionnelles associées : <a class="el" href="spec-exigences.html#md_Specification_2exigences-non-fonctionnelles" title="Specification/exigences-non-fonctionnelles.md"><span class="tt">exigences-non-fonctionnelles.md</span></a>.</p>
 <p><span class="tt">EX-ARCH-001</span>, <span class="tt">EX-ARCH-060</span> et <span class="tt">EX-ARCH-070</span> sont des <b>invariants transverses</b> : chaque lot les respecte par construction (sens des dépendances, boucle mono-thread, communication directe) sans avoir besoin de les citer nommément dans son « Exigences couvertes ». Qu'ils n'apparaissent dans aucun lot n'est donc pas une exigence orpheline.</p>

@@ -33,6 +33,8 @@ var dir_772c1d7d11cd878bc340037b824a0fc7 =
     [ "EntityShapes.cpp", "EntityShapes_8cpp.html", "EntityShapes_8cpp" ],
     [ "EntityShapes.h", "EntityShapes_8h.html", "EntityShapes_8h" ],
     [ "FileOperationResult.h", "FileOperationResult_8h.html", "FileOperationResult_8h" ],
+    [ "GameLaunch.cpp", "GameLaunch_8cpp.html", "GameLaunch_8cpp" ],
+    [ "GameLaunch.h", "GameLaunch_8h.html", "GameLaunch_8h" ],
     [ "GestureScript.cpp", "GestureScript_8cpp.html", "GestureScript_8cpp" ],
     [ "GestureScript.h", "GestureScript_8h.html", "GestureScript_8h" ],
     [ "LayerView.cpp", "LayerView_8cpp.html", "LayerView_8cpp" ],

@@ -97,7 +97,7 @@ $(function(){initNavTree('lot-91-poc.html','',''); });
 <p>Tâche <b>T0</b> du <a class="el" href="lot-91.html" title="LOT-91 — Atelier des PNJ : les figurines du Character Compendium">LOT-91</a>. Ce document est un <b>protocole</b> : chaque étape est exécutée à la main, dans l'ordre, et son résultat est noté dans le journal en fin de page. Rien de la chaîne n'est codé avant que ce protocole ait rendu son verdict — c'est lui qui dit ce qu'il faut coder, et s'il faut le coder.</p>
 <p>Ce qu'il doit prouver, en cinq planches : que le générateur tient le style d'une planche à l'autre avec les mêmes références ; que le fond transparent est exploitable ; que le pas de pixel se mesure et se ramène à la grille ; que le compte d'images par rangée est tenu assez souvent pour qu'une boucle automatique ait un sens ; et ce que coûte une planche retenue. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md725"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md727"></a>
 0. Le poste</h1>
 <ul>
 <li>Python <b>3.13</b> par le lanceur <span class="tt">py -3.13</span> (le <span class="tt">python</span> du Bash de Claude Code est celui d'Inkscape, sans pip). <span class="tt">numpy</span>, <span class="tt">Pillow</span>, <span class="tt">pymupdf</span> sont installés ; il manque le SDK :</li>
@@ -111,7 +111,7 @@ $(function(){initNavTree('lot-91-poc.html','',''); });
 <li>Un dossier de travail <b>hors dépôt</b>, où tout ce que le protocole produit se range : <span class="tt">D:\JustAnotherDnDGame-npc-poc\</span> avec un sous-dossier par PNJ. Rien de ce dossier n'est versionné avant la clôture du protocole.</li>
 <li>Le modèle courant de l'API Images, lu sur la doc du jour ; ce document écrit <span class="tt">gpt-image-1</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md726"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md728"></a>
 1. Les cinq PNJ du pilote</h1>
 <p>Tous <em>Medium</em>, donc tous en 48 × 64 ; choisis pour couvrir des silhouettes, des tenues et des jeux d'animations différents. (Le Tigre impérial et Morlogh, prévus par l'étude, sont <em>Large</em> : ils attendent la classe 96 × 96.)</p>
 <table class="markdownTable">
@@ -128,7 +128,7 @@ $(function(){initNavTree('lot-91-poc.html','',''); });
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><span class="tt">jade</span>  </td><td class="markdownTableBodyNone">Jade, the Bard  </td><td class="markdownTableBodyNone">68  </td><td class="markdownTableBodyNone">Humaine sans armure, instrument à la place de l'arme ; <span class="tt">cast</span> = jouer du luth, pas un sort de la main libre.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md727"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md729"></a>
 2. Les références (étape E1, à la main)</h1>
 <p>Pour chaque PNJ, quatre images dans <span class="tt">D:\JustAnotherDnDGame-npc-poc\&lt;slug&gt;\ref\</span>.</p>
 <p><b>2.1 — Portrait et figurine dorée</b>, rendus depuis la page (jamais extraits par <span class="tt">xref</span>). Le Compendium est une double page à pagination <b>simple</b> : page PDF 10 = fiche 10, largeur 1 224 points, portrait à gauche, figurine à droite.</p>
@@ -162,11 +162,11 @@ $(function(){initNavTree('lot-91-poc.html','',''); });
 <div class="line">    strip.paste(frame, (i * 192 + 48, 170 - 20 - 128), frame)   # pieds 20 px au-dessus du bas</div>
 <div class="line">strip.save(r&quot;D:\JustAnotherDnDGame-npc-poc\ref2_scale.png&quot;)</div>
 <div class="line">EOF</div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md728"></a>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md730"></a>
 3. Le style commun v1 (étape E2, bloc A)</h1>
 <p>Écrire <span class="tt">D:\JustAnotherDnDGame-npc-poc\style.md</span>, <b>en anglais</b>, en recopiant le bloc A de la page d'étude, tel quel, avec en tête une ligne <span class="tt">STYLE v1 — 2026-09-16</span>. Il ne change pas pendant le protocole : si une planche montre qu'il doit changer, on note la correction dans le journal et on ne l'applique qu'à la version v2, après les cinq PNJ. C'est ainsi qu'on sait si un défaut vient du style ou du PNJ.</p>
 <p>Le bloc B de chaque PNJ (cinq lignes : <span class="tt">CHARACTER</span>, <span class="tt">LOOK</span>, <span class="tt">WEAPON</span>, <span class="tt">PALETTE</span>, <span class="tt">ANIMATION SET</span>) est rédigé à la main dans <span class="tt">&lt;slug&gt;\prompt_b.txt</span>, à partir des rendus de l'étape 2 : nommer l'arme, la tenue, la coiffe, ce qui distingue ce PNJ d'un autre. Pour Jade, <span class="tt">ANIMATION SET</span> décrit <span class="tt">cast</span> comme un chant de barde (les deux mains au luth, notes magiques). Pour Xorius, la ligne <span class="tt">WEAPON</span> dit que la rangée 3 est un tir à l'arc.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md729"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md731"></a>
 4. La référence canonique : Anariel (étape R)</h1>
 <p>La maquette <span class="tt">Anariel_MockUp_SpriteSheet.png</span> a prouvé que le style est atteignable, mais elle <b>n'est pas au format</b> que le prompt exige : fond bleu nuit peint, cartouches, légendes, numéros d'images, nuancier, bande d'échelle, images réparties à l'œil et non sur la grille. Envoyée comme ancre de style à chaque PNJ, elle enseigne au générateur ces défauts autant que le style. L'étape R produit donc, <b>avant les quatre autres PNJ</b>, une Anariel qui est exactement ce que la chaîne doit rendre ; elle remplace ensuite la maquette comme référence 1.</p>
 <p>Anariel ne compte pas dans les chiffres du verdict (§10) : elle a droit à plus de tours, et à la retouche.</p>
@@ -247,7 +247,7 @@ $(function(){initNavTree('lot-91-poc.html','',''); });
 <div class="line">py -3.13 normalise.py xorius\tour2\marche\candidat1.png xorius\tour2\norm marche --hauteur 45</div>
 <div class="line">py -3.13 compose.py xorius 1 2</div>
 </div><!-- fragment --><p>Le numéro de tour n'est qu'un dossier : la marche prend la planche normalisée du <b>tour le plus récent</b> (<span class="tt">tourK\norm\planche.png</span>), d'où un numéro de tour au-dessus de celui de la planche.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md730"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md732"></a>
 5. Le tour 1 (étape E3)</h1>
 <p>Un appel par PNJ, trois candidats, les références dans l'ordre fixe : style, échelle, portrait peint, figurine, portrait pixel art retenu. <span class="tt">py -3.13 tour.py &lt;slug&gt; 1</span> fait l'appel ci-dessous.</p>
 <div class="fragment"><div class="line">py -3.13 - &lt;&lt;&#39;EOF&#39;</div>
@@ -269,7 +269,7 @@ $(function(){initNavTree('lot-91-poc.html','',''); });
 <div class="line">print(&quot;ok&quot;, tour)</div>
 <div class="line">EOF</div>
 </div><!-- fragment --><p>Noter dans le journal le <b>coût</b> affiché sur le tableau de bord OpenAI après les cinq appels du tour 1 : c'est le seul chiffre de coût fiable.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md731"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md733"></a>
 6. Le contrôle mécanique (étape E4, en mode manuel)</h1>
 <p>Pour chaque candidat, six mesures. Elles seront le cœur de <span class="tt">receive.py</span> ; ici on les fait tourner à la main et on lit les nombres.</p>
 <div class="fragment"><div class="line">py -3.13 - &lt;&lt;&#39;EOF&#39;</div>
@@ -325,7 +325,7 @@ $(function(){initNavTree('lot-91-poc.html','',''); });
 <td class="markdownTableBodyNone">5. Hauteur  </td><td class="markdownTableBodyNone">100 à 120 px  </td><td class="markdownTableBodyNone">Trop grand ou trop petit : la bande d'échelle n'est pas lue ; noter.  </td></tr>
 </table>
 <p>Un candidat qui passe les cinq mesures est <b>survivant</b>. S'il n'y en a aucun sur les trois, on passe directement au tour 2 en partant du candidat le moins mauvais.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md732"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md734"></a>
 7. La revue par vision, contre une liste fermée</h1>
 <p>Sur chaque survivant, ouvrir la planche et répondre <b>oui ou non</b> à ces neuf questions ; une réponse « non » et sa raison vont au journal. Claude peut faire cette relecture (joindre la planche, le portrait et la figurine dorée à la demande) ; l'humain tranche.</p>
 <ol type="1">
@@ -340,10 +340,10 @@ $(function(){initNavTree('lot-91-poc.html','',''); });
 <li>Aucun texte, cadre, légende, ombre au sol, décor.</li>
 </ol>
 <p>Neuf « oui » : la planche est <b>retenue</b>. Sinon, chaque « non » est noté au journal avec la phrase de prompt qu'il appelle.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md733"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md735"></a>
 8. Les tours 2 et 3 (nouvelle génération)</h1>
 <p>Pas de correction par édition (décision du 16 septembre ; l'essai du tour 2 d'Anariel l'a montré : l'interface régénère tout et ne rattrape pas un compte d'images). Le tour K+1 est une <b>génération complète avec le même prompt</b> : pendant le protocole, <span class="tt">style.md</span> et les dispositions sont gelés, et un défaut qui revient d'un tour à l'autre est une correction pour la v2, pas une retouche du PNJ. Seul le bloc B du PNJ peut être précisé (arme, tenue mal lues), et cela se note. Au plus trois tours ; au-delà, le PNJ passe en <b>file humaine</b> : on note pourquoi, on passe au suivant, on ne retouche pas l'image à la main pendant le protocole.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md734"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md736"></a>
 9. La découpe d'une planche retenue</h1>
 <p>Pour chaque planche retenue, produire les bandes 48 × 64 pour les voir dans le jeu. À ce stade la découpe est manuelle-assistée : les rangées et cellules de l'étape 6, un rééchantillonnage au pas mesuré, l'alpha binarisé, chaque image recentrée sur son ancre au pied.</p>
 <div class="fragment"><div class="line">py -3.13 - &lt;&lt;&#39;EOF&#39;</div>
@@ -360,7 +360,7 @@ $(function(){initNavTree('lot-91-poc.html','',''); });
 <div class="line"># bandes : une image par colonne, `idle.png` = 6 x 48 de large, 64 de haut</div>
 <div class="line">EOF</div>
 </div><!-- fragment --><p>Le corps de cette découpe est ce que T4 écrira proprement ; pendant le protocole, l'objectif est d'obtenir <span class="tt">idle.png</span> et <span class="tt">walk.png</span> d'Anariel dans <span class="tt">Source/Elements/Assets/Coliseum/characters/anariel/</span> avec un <span class="tt">idle.anim.json</span> copié de Bram et adapté (<span class="tt">frames: [0..5]</span>, <span class="tt">frameDuration: 0.15</span>, <span class="tt">loop: true</span>), puis de la voir au Colisée à la place d'un héros pour juger l'échelle et la lisibilité <b>en jeu</b>. Si une figurine qui passe toutes les mesures est illisible à l'écran, c'est le style qui est faux, pas la chaîne.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md735"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md737"></a>
 10. Le verdict, et ce qu'il déclenche</h1>
 <p>Le protocole est clos quand Anariel est acceptée (§4) et que les quatre autres PNJ ont un statut : retenu (tour 1, 2 ou 3) ou file humaine. Les chiffres portent sur ces quatre-là. Le journal donne alors les cinq chiffres qui décident de la suite :</p>
 <table class="markdownTable">
@@ -378,7 +378,7 @@ $(function(){initNavTree('lot-91-poc.html','',''); });
 <td class="markdownTableBodyNone">Coût par PNJ retenu (tous tours compris)  </td><td class="markdownTableBodyNone">à noter, pas de seuil  </td><td class="markdownTableBodyNone">Décide la taille des lots de la série, pas l'existence de la chaîne.  </td></tr>
 </table>
 <p>Quatre seuils atteints : <span class="tt">style.md</span> v1 est <b>confirmé</b>, l'ancre et les planches retenues deviennent les figurines de remplacement du projet, et T1 à T5 commencent sur ces planches. Le journal est joint à la PR de T0.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md736"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md738"></a>
 Journal</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -475,7 +475,7 @@ Journal</h1>
 <li><b>Bilan provisoire</b> : Anariel (ancre), Lizz (S 1), Xorius (S 3 + M 4), Jade (S 3 + M 4) terminés ; Nakral en passes au tour 5.</li>
 <li><b>16 septembre, tour 5 de Nakral : retenu.</b> Passe <span class="tt">attack</span> : une seule épée, arc dans la bande (code 0). Marche : épée tenue basse comme sur la planche, grâce à la précision du bloc B. <b>Les cinq PNJ sont produits.</b> Bandes et <span class="tt">.anim.json</span> copiés dans <span class="tt">Source/Elements/Assets/Npc/</span> ; manifeste : <span class="tt">kaelith_voss</span> → <span class="tt">anariel</span>, <span class="tt">elira</span> → <span class="tt">jade</span>, <span class="tt">darin</span> → <span class="tt">xorius</span>, <span class="tt">bram</span> → <span class="tt">nakral</span> (Lizz n'a pas de héros à remplacer). Aperçu à l'échelle : même taille entre eux, lisibles ; plus massifs que les héros du Colisée, plus fins. Jugement à l'écran (étape J) : à l'utilisateur.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md737"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md739"></a>
 Verdict (16 septembre)</h2>
 <p>Appels d'image par PNJ, portrait compris (interface, un candidat par envoi) :</p>
 <table class="markdownTable">

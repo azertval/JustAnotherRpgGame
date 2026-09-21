@@ -96,7 +96,7 @@ $(function(){initNavTree('spec-niveaux.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré</b>. Format JSON versionné (version 4 depuis le <span class="tt">LOT-EDITOR-12</span>), chargement, validation, couches à pièces nommées, collision déduite et cases forcées, entités à identifiant, zones peintes, variantes ; le Colisée et deux quartiers de la Capitale sont livrés dans ce format. Dépend de <a class="el" href="spec-gameplay.html#md_Specification_2gameplay" title="Specification/gameplay.md"><span class="tt">gameplay.md</span></a>. Schéma publié : <span class="tt">Documentation/Editeur/level.schema.json</span>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md274"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md276"></a>
 1. Représentation des cartes</h1>
 <ul>
 <li><a class="anchor" id="EX-LVL-001"></a><b>EX-LVL-001</b> — Une carte doit être décrite par un <b>fichier de données</b> externe (pas en dur dans le code), placé dans <span class="tt">Source/Elements/Levels</span>.</li>
@@ -108,7 +108,7 @@ $(function(){initNavTree('spec-niveaux.html','',''); });
 <li><a class="anchor" id="EX-LVL-017"></a><b>EX-LVL-017</b> — Une carte doit porter une <b>liste d'entités</b> — PNJ, coffres, panneaux, portails, rencontres — distincte de ses grilles : une entité est un <b>objet</b> à type libre, placé sur une case et porteur de ses propres données, là où une grille ne retient qu'un type par case. Le type n'est <b>pas</b> interprété au chargement — c'est le gameplay qui lui donne un sens — mais la position est validée comme celle d'une tuile (<span class="tt">EX-LVL-004</span>). Concrétisé en <span class="tt">LOT-04</span>.</li>
 <li><a class="anchor" id="EX-LVL-018"></a><b>EX-LVL-018</b> — Une couche et une entité doivent pouvoir porter un <b>dictionnaire de propriétés libres</b>, et tout champ <b>inconnu</b> du chargeur doit y être rangé : ignoré sans erreur à la lecture, et <b>réémis</b> à l'écriture. Sans quoi le moindre besoin découvert plus tard — terrain difficile, couverture, hauteur, dialogue d'un PNJ — imposerait une nouvelle version de format et la migration de tout le contenu déjà produit. Concrétisé en <span class="tt">LOT-04</span>.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md275"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md277"></a>
 Format v4 (<span class="tt">LOT-EDITOR-12</span>)</h2>
 <p>La seule révision de format du module éditeur, faite tant qu'il n'y avait que trois cartes.</p>
 <ul>
@@ -119,7 +119,7 @@ Format v4 (<span class="tt">LOT-EDITOR-12</span>)</h2>
 <li><a class="anchor" id="EX-LVL-023"></a><b>EX-LVL-023</b> — Une carte peut être la <b>variante</b> d'une autre (<span class="tt">"base"</span>) : elle ne porte aucune case, reprend celles de sa base, change de planche (<span class="tt">"scene"</span>) et porte ses propres entités. Sa base se cherche du dossier de la variante vers la racine ; une base elle-même variante est refusée.</li>
 <li><a class="anchor" id="EX-LVL-024"></a><b>EX-LVL-024</b> — La <b>hauteur</b> est réservée : <span class="tt">"floor"</span> par couche, <span class="tt">"elevation"</span> par case de couche et par entité, lus, gardés et réécrits ; ni le jeu ni l'éditeur ne s'en servent, et le contrôle signale toute valeur non nulle.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md276"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md278"></a>
 Format retenu (JSON, liste de tuiles-objets)</h2>
 <p>Types de tuiles : <span class="tt">entry</span> (entrée, point d'arrivée par défaut), <span class="tt">solid</span> (matière pleine), et le terrain du RPG (<span class="tt">EX-EXP-005</span>) — <span class="tt">grass</span>, <span class="tt">dirt</span>, <span class="tt">sand</span>, <span class="tt">water</span>, <span class="tt">deepWater</span> (sols ; l'eau profonde bloque), <span class="tt">wall</span>, <span class="tt">cliff</span> (obstacles), <span class="tt">bridge</span>, <span class="tt">stairs</span> (passages). Une case <b>vide</b> n'est pas listée (absence = vide).</p>
 <p>Une case de couche peut nommer sa <b>pièce</b> (<span class="tt">"piece"</span>, <span class="tt">EX-LVL-019</span>), la pièce de la planche du lieu (<span class="tt">EX-VIS-008</span>) dessinée sur cette case. Une carte v3 portait cette pièce sur la grille racine (<span class="tt">"texture"</span>) : le chargeur la range sur la couche de décor, et une v4 qui en porte encore une est refusée. Écriture canonique : champs dans cet ordre, une case par ligne.</p>
@@ -207,7 +207,7 @@ Format retenu (JSON, liste de tuiles-objets)</h2>
 d'arrivée nommé)</span>, jamais par des coordonnées, qui se désynchroniseraient au premier redimensionnement de la carte cible (<span class="tt">EX-EDIT-052</span>) : </p><div class="fragment"><div class="line">{ &quot;type&quot;: &quot;portal&quot;, &quot;x&quot;: 11, &quot;y&quot;: 4, &quot;targetMap&quot;: &quot;foret&quot;, &quot;arrival&quot;: &quot;lisiere-est&quot; }</div>
 <div class="line">{ &quot;type&quot;: &quot;spawnPoint&quot;, &quot;x&quot;: 1, &quot;y&quot;: 4, &quot;name&quot;: &quot;porte-ouest&quot; }</div>
 </div><!-- fragment --><p>Coordonnées <span class="tt">x</span> = colonne, <span class="tt">y</span> = ligne, origine <b>haut-gauche</b> ; toute tuile hors des bornes <span class="tt">width × height</span> est invalide.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md277"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md279"></a>
 2. Conception (lignes directrices)</h1>
 <ul>
 <li>Chaque carte doit être <b>franchissable</b> : aucune zone jouable ne doit être inatteignable.</li>
@@ -231,7 +231,7 @@ Exigences retirées</h1>
 <li><a class="anchor" id="EX-LVL-008"></a><b>EX-LVL-008</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — route des plateformes mobiles et capacités par niveau.</li>
 <li><a class="anchor" id="EX-LVL-009"></a><b>EX-LVL-009</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — liste des plans picturaux et parallaxe.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md278"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md280"></a>
 Traçabilité</h1>
 <p>Le chargement et la validation relèvent de <span class="tt">Source/Core</span> (<span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></span>, <span class="tt"><a class="el" href="classcore_1_1LevelWriter.html" title="Sérialise une carte vers le format JSON défini par EX-LVL-003.">core::LevelWriter</a></span>, <span class="tt"><a class="el" href="namespacecore.html#a3322a01062af04e9242df68f744c142f" title="Déduit la grille de collision d&#39;une carte.">core::deriveCollision</a></span>) ; la migration et le contrôle de toutes les cartes, de l'éditeur (<span class="tt">LevelEditor --migrate</span>, <span class="tt">--check</span>, <span class="tt">EX-EDIT-062</span>) ; les fichiers de cartes sont dans <span class="tt">Source/Elements/Levels</span>. Types de tuiles : <a class="el" href="spec-gameplay.html#md_Specification_2gameplay" title="Specification/gameplay.md"><span class="tt">gameplay.md</span></a> ; exploration : <a class="el" href="spec-exploration.html#md_Specification_2exploration" title="Specification/exploration.md"><span class="tt">exploration.md</span></a>. </p>
 </div></div><!-- contents -->

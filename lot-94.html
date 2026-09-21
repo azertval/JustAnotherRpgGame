@@ -96,15 +96,15 @@ $(function(){initNavTree('lot-94.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 17 septembre 2026</b> (ajouté à la feuille de route le 16 ; PR #65). Vérification : voir <em>Acceptation, telle que vérifiée</em> plus bas. Prérequis : <a class="el" href="lot-87.html" title="LOT-87 — Charte v2 et intégration des maquettes">LOT-87</a> (le cahier des assets, où la pièce <span class="tt">ui/background/menu-scene</span> est décrite, et la maquette 08 de l'écran de carte), <a class="el" href="lot-39.html" title="LOT-39 — Plomberie des clés d&#39;assets">LOT-39</a> (le manifeste de provenance, <span class="tt">illustrations.json</span>), <a class="el" href="lot-37.html" title="LOT-37 — Atlas des régions et graphe de cartes">LOT-37</a> (l'atlas, dont les lieux se placent sur les cartes). Alimente : <a class="el" href="roadmap.html#lot-28" title="LOT-28 — Audio, effets et version &lt;tt&gt;0.0.1&lt;/tt&gt;">LOT-28</a>, <span class="tt">LOT-42</span>, <span class="tt">LOT-96</span>. Absorbe : <span class="tt">LOT-95</span> (le plan de la Capitale), retiré par fusion le 17 septembre 2026. Exigences couvertes : <span class="tt">EX-IHM-076</span> (refondue), <span class="tt">EX-IHM-106</span>, <span class="tt">EX-IHM-107</span> (détail plus bas). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md760"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md762"></a>
 Objectif</h1>
 <p>Le §3 de la <a class="el" href="roadmap.html" title="Feuille de route — le bac à sable de Tanares">feuille de route</a> laisse les licences « en sommeil » pour la <b>donnée</b> et le vocabulaire du corpus (projet privé), pas pour ses <b>images</b> : le plan de la ville, la carte du monde et les planches sont des œuvres, et le jeu ne les affiche pas. Deux l'étaient pourtant, les seules images du corpus commises : <span class="tt">UI/world-map.jpg</span> (Sourcebook, page 44) et <span class="tt">UI/world-map-hd.jpg</span> (<span class="tt">VTT/Map - World.jpg</span>), fond de l'écran de carte du monde, mais aussi du menu principal, des crédits et des options, faute d'une pièce <span class="tt">menu-scene</span> jamais produite.</p>
 <p>Ce lot les retire, met le dépôt en règle avec lui-même — et, le même jour, rend au jeu son écran « Carte », sur des cartes qui sont <b>celles de l'auteur</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md761"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md763"></a>
 Deux temps, le même jour</h1>
 <p><b>1. Le retrait (17 septembre 2026, matin).</b> Les deux cartes partent, et l'écran avec elles : formulaire, jumeau, <span class="tt">WorldMapModel</span>, <span class="tt">WorldMapRegions</span>, <span class="tt">world-map-regions.json</span>, test, capture de référence, l'entrée de <span class="tt">RpgScreenId</span> et de <span class="tt">ScreenRouter</span>, la commande <span class="tt">sourcebook illustrations</span> qui les extrayait. <span class="tt">check_ui_assets.py</span> refuse toute provenance autre que <span class="tt">produced</span> ; <span class="tt">EX-IHM-076</span> est refondue : une illustration d'interface est <b>produite</b>, jamais extraite. La page écrivait alors « la carte du monde est supprimée pour le moment », et renvoyait au <span class="tt">LOT-42</span> le soin d'en <b>générer</b> une.</p>
 <p><b>2. Le retour (17 septembre 2026, soir).</b> L'auteur livre <b>seize cartes qu'il a peintes lui-même</b>, en 1 920 × 1 080 et <b>sans lettrage</b> : le monde, les treize régions de l'atlas, et deux plans de ville — la Capitale impériale et Fisherman's Wharf. <em>Décision de l'auteur</em> : « cela correspond au <span class="tt">LOT-94</span> + une refonte totale de l'interface de carte, avec une vue complète, une vue zoom région et une vue zoom ville (deux villes prêtes) ; cela couvre également le <span class="tt">LOT-95</span> ». La phrase du matin est donc <b>remplacée</b> : l'écran « Carte » revient, sur les cartes de l'auteur — jamais sur une image du corpus, règle qui reste entière (<span class="tt">EX-IHM-076</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md762"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md764"></a>
 Ce que ce lot livre</h1>
 <ul>
 <li><b>Plus une image du corpus dans le dépôt</b>, et un lint qui le tient : <span class="tt">check_ui_assets.py</span> refuse toute illustration d'interface dont la provenance n'est pas <span class="tt">produced</span>.</li>
@@ -115,7 +115,7 @@ Ce que ce lot livre</h1>
 <li><b>L'écran, à trois niveaux</b> : les briques <span class="tt">MapCanvas</span>, <span class="tt">MapHud</span>, <span class="tt">MapSidePanel</span> et <span class="tt">MapMarker</span> (refondue) ; trois formulaires, <span class="tt">WorldMapForm</span>, <span class="tt">RegionMapForm</span>, <span class="tt">CityMapForm</span>, et leurs jumeaux <span class="tt">WorldMap.qml</span> (qui orchestre les trois niveaux), <span class="tt">RegionMap.qml</span>, <span class="tt">CityMap.qml</span> ; une capture de référence QML par niveau. <span class="tt">--map-region=&lt;id&gt;</span> et <span class="tt">--map-city=&lt;id&gt;</span> ouvrent un niveau directement.</li>
 <li><b>La spécification</b> : la section 12 de <span class="tt"><a class="el" href="interface-ihm_8md.html">interface-ihm.md</a></span>, <span class="tt">EX-IHM-106</span> et <span class="tt">EX-IHM-107</span> ; <span class="tt">EX-IHM-076</span> amendée — les cartes peintes par l'auteur ont leur propre manifeste.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md763"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md765"></a>
 Les commandes, les mêmes aux trois niveaux</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -134,7 +134,7 @@ Les commandes, les mêmes aux trois niveaux</h2>
 <td class="markdownTableBodyNone">Déplacer la carte  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone">glisser  </td></tr>
 </table>
 <p>Depuis le niveau monde, Échap ferme l'écran.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md764"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md766"></a>
 Ce qui reste hors du lot, nommément</h1>
 <p>Le <span class="tt">LOT-95</span> prévoyait plus que ce que ce lot a absorbé. Le plan de la ville, l'écran de zoom et la Capitale dans l'atlas (elle y est depuis le <a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a> : <span class="tt">central-empire-the-capital-city</span>) sont faits ici. Le reste passe au <b><span class="tt">LOT-96</span></b>, qui remplit déjà <span class="tt">capital.json</span> :</p>
 <ul>
@@ -144,7 +144,7 @@ Ce qui reste hors du lot, nommément</h1>
 </ul>
 <p>Au <b><span class="tt">LOT-42</span></b> (voyage) : les lieux <b>découverts</b>, la position de la compagnie, et le choix d'une destination depuis l'écran. Il bâtit sur l'écran et les cartes livrés ici ; il n'a plus de carte du monde à produire.</p>
 <p><b>Relevé à reprendre au fil de l'eau</b> : les positions ont été relevées <b>à l'œil</b>. Ctrl+clic dans l'écran journalise la fraction de l'image sous le pointeur, pour retoucher <span class="tt">world-maps.json</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md765"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md767"></a>
 Les décisions</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -172,7 +172,7 @@ Les décisions</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>Provenance <span class="tt">author</span></b>  </td><td class="markdownTableBodyNone">Les cartes ne passent pas par le cahier des assets ni par <span class="tt">illustrations.json</span>, qui n'admet que <span class="tt">produced</span> : elles ont leur manifeste et leur lint (<span class="tt">EX-IHM-076</span>, amendée).  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md766"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md768"></a>
 Acceptation, telle que vérifiée</h1>
 <ul>
 <li>Aucun fichier du dépôt n'a la provenance <span class="tt">tanares</span>, et <span class="tt">check_ui_assets.py</span> le refuse en CI.</li>
@@ -182,14 +182,14 @@ Acceptation, telle que vérifiée</h1>
 <li><span class="tt"><a class="el" href="test__world__maps_8cpp.html" title="Tests unitaires des cartes de l&#39;écran « Carte » : monde, régions, villes (LOT-94, LOT-95) — trois niv...">test_world_maps.cpp</a></span> couvre la lecture et la jointure ; <span class="tt"><a class="el" href="test__rpg__screens_8cpp.html" title="Tests unitaires du catalogue des écrans du RPG et de leur ossature (LOT-68, EX-IHM-090,...">test_rpg_screens.cpp</a></span> compte neuf écrans.</li>
 <li><span class="tt">lint_lots.py</span> et <span class="tt">lint_exigences.py</span> verts ; le <span class="tt">LOT-42</span>, le <span class="tt">LOT-96</span>, le <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a> et le <a class="el" href="roadmap.html#lot-28" title="LOT-28 — Audio, effets et version &lt;tt&gt;0.0.1&lt;/tt&gt;">LOT-28</a> citent ce lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md767"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md769"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-IHM-076</span> — une illustration d'interface est produite, jamais extraite du corpus ; les cartes peintes par l'auteur ont leur propre manifeste.</li>
 <li><span class="tt">EX-IHM-106</span> — l'écran « Carte » a trois niveaux, les mêmes commandes aux trois, et l'on ne s'y déplace pas.</li>
 <li><span class="tt">EX-IHM-107</span> — aucun nom peint, des positions tenues à part de l'atlas, jamais inventées.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md768"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md770"></a>
 Journal</h1>
 <ul>
 <li><b>16 septembre 2026</b> — lot ajouté à la feuille de route à la relecture du plan d'intégration de la Capitale : les images du corpus sont des références, jamais des assets.</li>

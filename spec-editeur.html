@@ -99,10 +99,10 @@ $(function(){initNavTree('spec-editeur.html','',''); });
 <blockquote class="doxtable">
 <p><b>Refonte décidée le 18 septembre 2026.</b> L'éditeur devient un module à part, refait lot par lot selon la <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">feuille de route de l'éditeur</a>. Cette page reste sa spécification ; chaque <span class="tt">LOT-EDITOR</span> révise les exigences qu'il touche. Le <a class="el" href="lot-editor-01.html" title="LOT-EDITOR-01 — Le socle du module">LOT-EDITOR-01</a> a déplacé le code dans <span class="tt">Source/Editor</span>, fait de l'éditeur un outil interne (style Fusion, textes anglais, sans charte) et ajouté la section 8. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md221"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md222"></a>
 Objectif</h1>
 <p>Permettre la <b>création et la modification des cartes sans écrire de code ni de JSON</b>, afin que des membres de l'équipe <b>non-développeurs</b> (game design, level design) contribuent directement au contenu du jeu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md222"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md223"></a>
 1. Exigences fonctionnelles</h1>
 <ul>
 <li><a class="anchor" id="EX-EDIT-001"></a><b>EX-EDIT-001</b> — L'éditeur doit permettre de créer et modifier une carte <b>sans compétence en programmation</b> ni ligne de commande.</li>
@@ -114,35 +114,35 @@ Objectif</h1>
 <li><a class="anchor" id="EX-EDIT-008"></a><b>EX-EDIT-008</b> — L'éditeur doit permettre d'<b>essayer la carte</b> immédiatement, sans l'enregistrer, pour un cycle création → essai rapide (<span class="tt">EX-EDIT-055</span>).</li>
 <li><a class="anchor" id="EX-EDIT-009"></a><b>EX-EDIT-009</b> — L'éditeur doit permettre de <b>nommer</b> une carte à sa création et de la <b>renommer</b>, et <b>avertir avant d'écraser</b> un fichier existant différent de la carte en cours d'édition.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md223"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md224"></a>
 2. Réutilisation &amp; cohérence</h1>
 <ul>
 <li><a class="anchor" id="EX-EDIT-010"></a><b>EX-EDIT-010</b> — L'éditeur doit <b>réutiliser le modèle de carte et la validation de <span class="tt">Core</span></b> — aucune duplication de la logique de carte entre le jeu et l'éditeur.</li>
 <li><a class="anchor" id="EX-EDIT-011"></a><b>EX-EDIT-011</b> — Une carte enregistrée par l'éditeur doit être <b>directement jouable</b> par le jeu sans conversion, et réciproquement. Ce que l'éditeur ne sait pas modifier, il doit le <b>transporter</b> : les pièces assignées par case, les propriétés libres des couches et des entités (<span class="tt">EX-LVL-018</span>) traversent un cycle ouvrir/enregistrer sans perte — un éditeur qui efface en silence ce qu'il n'affiche pas est pire qu'un éditeur incomplet.</li>
 <li><a class="anchor" id="EX-EDIT-043"></a><b>EX-EDIT-043</b> — La <b>pièce</b> nommée par une case de couche (<span class="tt">"piece"</span>, <span class="tt">EX-LVL-019</span>) doit être conservée par l'éditeur, et retirée si l'on repeint la case d'un autre type. <em>Révisée au <span class="tt">LOT-EDITOR-12</span></em> : la pièce quitte la grille de collision (<span class="tt">"texture"</span> d'une v3) pour sa couche. <em>Révisée au <span class="tt">LOT-EDITOR-03</span></em> : la poser est l'affaire de l'éditeur (<span class="tt">EX-EDIT-064</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md224"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md225"></a>
 3. Distribution &amp; collaboration</h1>
 <ul>
 <li><a class="anchor" id="EX-EDIT-020"></a><b>EX-EDIT-020</b> — L'éditeur doit être fourni comme un <b>outil exécutable</b> que les non-codeurs lancent sans étape de build.</li>
 <li><a class="anchor" id="EX-EDIT-021"></a><b>EX-EDIT-021</b> — Les cartes sont des <b>fichiers</b> rangés dans <span class="tt">Source/Elements/Levels</span> et versionnés ; l'éditeur enregistre directement à cet emplacement.</li>
 <li><a class="anchor" id="EX-EDIT-022"></a><b>EX-EDIT-022</b> — Le partage des cartes passe par <b>Git via une interface graphique</b> (type GitHub Desktop) : les cartes sont versionnées dans le dépôt au même titre que le reste du projet, publiées et récupérées <b>sans ligne de commande</b>. Un court guide est fourni dans le manuel.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md225"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md226"></a>
 4. Approche d'implémentation (décidée)</h1>
 <p><b>Un outil d'auteur à part, et un mode intégré au jeu qui n'en est pas un.</b> L'édition de contenu vit dans <span class="tt">LevelEditor</span>, un exécutable Qt Widgets distinct du jeu ; l'édition <b>dans la scène</b>, depuis le jeu, est l'<b>arène</b> du <span class="tt">LOT-50</span>.</p>
 <ul>
 <li><a class="anchor" id="EX-EDIT-030"></a><b>EX-EDIT-030</b> — L'<b>outil d'auteur</b> est un exécutable distinct du jeu (<span class="tt">LevelEditor</span>), qui partage le code du jeu mais pas sa technologie d'interface : le jeu ne lie pas Qt Widgets (<span class="tt">EX-IHM-102</span>). Le <b>mode intégré</b> au jeu est l'arène, un bac à sable de débogage où l'on pose des combattants et rejoue à graine fixée — pas un outil qui produit du contenu versionné. Refondue au <span class="tt">LOT-11</span> (décision de l'auteur, 16 septembre 2026) : retarger <span class="tt">LevelEditor</span> plutôt que reconstruire l'édition dans la scène en Qt Quick.</li>
 <li><a class="anchor" id="EX-EDIT-031"></a><b>EX-EDIT-031</b> — L'éditeur réutilise le <b>rendu du jeu</b> (QRhi, <span class="tt"><a class="el" href="classhmi_1_1SceneResources.html" title="Lot de sprites, atlas et registre de textures — créés ensemble, libérés ensemble, dans le bon ordre.">hmi::SceneResources</a></span>, composition de <span class="tt">HMI</span>), le <b>modèle et la validation de carte</b> de <span class="tt">Core</span>, et, pour l'essai, la <b>mise en scène du jeu</b> elle-même (<span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html">hmi::WorldPlay</a></span>, <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>) — sans duplication.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md226"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md227"></a>
 5. Non-objectifs</h1>
 <ul>
 <li>Édition collaborative en temps réel.</li>
 <li>Édition des assets graphiques et sonores : l'éditeur agence des cartes, il ne dessine pas les planches. Les planches de lieux et les figurines viennent de leurs ateliers (<span class="tt">LOT-92</span>, <span class="tt">LOT-91</span>).</li>
 <li>Sélection multiple non contiguë <b>de cases</b> et historique annuler/refaire par delta (l'historique par instantanés complets reste adapté à la taille des cartes du projet). Les <b>entités</b>, elles, se sélectionnent à plusieurs (<span class="tt">EX-EDIT-072</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md227"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md228"></a>
 6. Robustesse et confort d'édition</h1>
 <ul>
 <li><a class="anchor" id="EX-EDIT-012"></a><b>EX-EDIT-012</b> — L'éditeur doit <b>demander confirmation</b> avant toute action destructrice : un redimensionnement qui supprimerait l'entrée, une entité ou une pièce assignée, et l'ouverture d'une autre carte alors que des modifications ne sont <b>pas enregistrées</b>.</li>
@@ -153,7 +153,7 @@ Objectif</h1>
 <li><a class="anchor" id="EX-EDIT-018"></a><b>EX-EDIT-018</b> — La palette doit regrouper les types de tuiles en <b>catégories</b> (Tuile, Jalon, Sol, Obstacle, Passage) plutôt qu'en liste plate, et rester entièrement accessible par <b>défilement</b> quand tout est déplié. <em>Révisée au <span class="tt">LOT-EDITOR-03</span></em> : c'est l'onglet « Types » de la palette ; les pièces du lieu ont le leur, groupé par classe (<span class="tt">EX-EDIT-063</span>).</li>
 <li><a class="anchor" id="EX-EDIT-023"></a><b>EX-EDIT-023</b> — L'éditeur doit afficher, en superposition de la grille de tuiles, un <b>quadrillage de repère</b> case par case (bascule <span class="tt">F10</span>), sans effet sur le cadrage.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md228"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md229"></a>
 7. Couches, entités et monde (<span class="tt">LOT-11</span>)</h1>
 <ul>
 <li><a class="anchor" id="EX-EDIT-048"></a><b>EX-EDIT-048</b> — L'éditeur doit peindre les <b>trois couches</b> d'une carte : un <b>sélecteur de couche active</b> désigne la grille que visent le pinceau, le rectangle, la copie et le collage — la <b>collision</b> (grille racine, qui porte seule l'entrée) ou une couche <b>visuelle</b> (sol, décor). Une couche visuelle <b>refuse</b> l'entrée, qui porte une règle, en le disant. Couches visuelles ajoutées, retirées, renommées, changées de rôle et réordonnées, chaque geste <b>annulable</b> (<span class="tt">EX-EDIT-005</span>). Ajouter la première couche visuelle à une carte à grille unique y recopie l'image de la grille. Concrétisé au <span class="tt">LOT-11</span>.</li>
@@ -165,7 +165,7 @@ Objectif</h1>
 <li><a class="anchor" id="EX-EDIT-054"></a><b>EX-EDIT-054</b> — Le combat se jouant sur la carte d'exploration, l'éditeur doit <b>avertir</b> quand une rencontre posée n'est pas un <b>terrain tactique valide</b> : un combattant de sa formation hors de la carte, sur un obstacle ou sur un autre — selon la règle même du montage d'une rencontre (<span class="tt"><a class="el" href="classcore_1_1BattleGrid.html#ae717e61951843569c4bed5e1b9adba67" title="Place combatant, d&#39;emprise side × side, avec anchor pour coin haut-gauche.">core::BattleGrid::place</a></span>) —, ou une zone atteignable en un déplacement depuis le déclencheur trop petite pour la rencontre et un groupe de quatre (<span class="tt"><a class="el" href="namespacecore.html#a0224a562daa9e9d9bc0358fb71a2a04d" title="Vérifie que chaque rencontre posée sur la carte tombe sur un terrain tactique valide.">core::analyzeEncounterTerrain</a></span>, seuils nommés). Avec l'outil « Entité », la zone et la formation de la rencontre sélectionnée se voient sur la carte. Concrétisé au <span class="tt">LOT-11</span>.</li>
 <li><a class="anchor" id="EX-EDIT-055"></a><b>EX-EDIT-055</b> — L'<b>essai immédiat</b> (<span class="tt">EX-EDIT-008</span>) doit jouer la carte en cours avec la <b>mise en scène du jeu</b> (<span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html">hmi::WorldPlay</a></span>) : même lieu, mêmes figurines, mêmes portails ; un portail qui ramène à la carte éditée retrouve le brouillon, pas le fichier. Ce que l'éditeur n'ouvre pas — un dialogue, un combat — est <b>dit</b> dans la barre d'état plutôt que tu. Refondue au <span class="tt">LOT-88</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md229"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md230"></a>
 8. Le socle du module (<span class="tt">LOT-EDITOR-01</span>)</h1>
 <p>Un outil d'atelier dure si l'on n'y perd jamais de travail. Ces trois exigences viennent du socle du module (<a class="el" href="lot-editor-01.html" title="LOT-EDITOR-01 — Le socle du module">LOT-EDITOR-01</a>).</p>
 <ul>
@@ -173,7 +173,7 @@ Objectif</h1>
 <li><a class="anchor" id="EX-EDIT-057"></a><b>EX-EDIT-057</b> — Une carte ouverte <b>changée sur disque</b> (par un script, un autre outil, un changement de branche) ne doit jamais être <b>écrasée en silence</b>. Brouillon intact : la carte est relue. Brouillon modifié : l'auteur choisit de relire le disque ou de garder son brouillon, et la version écartée est mise de côté avant tout. La comparaison porte sur le <b>contenu</b> du fichier, pas sur sa date.</li>
 <li><a class="anchor" id="EX-EDIT-058"></a><b>EX-EDIT-058</b> — L'historique d'annulation est <b>plafonné</b> (le pas le plus ancien est oublié au-delà), et l'état « modifié » suit le <b>contenu</b> : défaire jusqu'à l'état enregistré rend une carte non modifiée, et un geste sans effet (repeindre une case du même type) ne la modifie pas.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md230"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md231"></a>
 9. Le canevas qui montre le lieu (<span class="tt">LOT-EDITOR-02</span>)</h1>
 <p>On édite sur le lieu tel qu'on le jouera. Ces trois exigences viennent du canevas du module (<a class="el" href="lot-editor-02.html" title="LOT-EDITOR-02 — Le canevas montre le lieu">LOT-EDITOR-02</a>).</p>
 <ul>
@@ -181,13 +181,13 @@ Objectif</h1>
 <li><a class="anchor" id="EX-EDIT-060"></a><b>EX-EDIT-060</b> — Le <b>pointage</b> désigne la case dont le <b>losange</b> est sous le pointeur, jamais l'image qui la couvre : sous un relief haut, on pointe la case de derrière. Il prend la hauteur en paramètre (réserve de la décision D11), et reste juste aux quatre coins de la carte. La case survolée, ses coordonnées et ses pièces se lisent à l'écran.</li>
 <li><a class="anchor" id="EX-EDIT-061"></a><b>EX-EDIT-061</b> — Une couche peut être <b>masquée</b>, <b>grisée</b> ou <b>verrouillée</b> (visible, mais aucun geste ne la peint) ; les reliefs peuvent passer <b>en transparence</b> ; une <b>mini-carte</b> montre toute la carte et le cadre de la vue, et ramène la vue d'un clic. Ce sont des aides d'édition : rien n'est enregistré dans la carte.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md231"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md232"></a>
 10. La garde du format (<span class="tt">LOT-EDITOR-12</span>)</h1>
 <p>Le format de carte v4 (<span class="tt">EX-LVL-019</span> à <span class="tt">EX-LVL-024</span>) se garde par l'éditeur, sans fenêtre (<a class="el" href="lot-editor-12.html" title="LOT-EDITOR-12 — Le format v4 et sa garde en CI">LOT-EDITOR-12</a>).</p>
 <ul>
 <li><a class="anchor" id="EX-EDIT-062"></a><b>EX-EDIT-062</b> — <span class="tt">LevelEditor --migrate</span> convertit une carte de toute version passée en v4 canonique <b>sans changer ce que le jeu joue</b> (même instantané de scène, même grille tactique) : il nomme la pièce de chaque case d'après la table du lieu, donne les identifiants et force les cases où la collision écrite s'écarte des pièces. <span class="tt">LevelEditor --check</span> contrôle toutes les cartes — version courante, écriture canonique octet pour octet, références, pièces présentes au manifeste, collision égale à la déduction hors cases forcées, identifiants — et tourne en CI. Les deux s'exécutent sans fenêtre et appellent la même logique que l'éditeur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md232"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md233"></a>
 11. Peindre avec les pièces du lieu (<span class="tt">LOT-EDITOR-03</span>)</h1>
 <p>On pose ce que le jeu montrera, et la collision suit (<a class="el" href="lot-editor-03.html" title="LOT-EDITOR-03 — Peindre avec les pièces du lieu">LOT-EDITOR-03</a>).</p>
 <ul>
@@ -195,7 +195,7 @@ Objectif</h1>
 <li><a class="anchor" id="EX-EDIT-064"></a><b>EX-EDIT-064</b> — Poser une pièce écrit, <b>en un geste</b> et un pas d'annulation, sa couche (la première de sol pour un sol, la première de décor sinon), sa pièce, le type de sa case et la <b>collision de son emprise</b>. Deux emprises ne se recouvrent pas sur une couche ; la gomme retire une pièce entière depuis n'importe laquelle de ses cases, collision comprise ; reposer la même pièce ne modifie pas la carte.</li>
 <li><a class="anchor" id="EX-EDIT-065"></a><b>EX-EDIT-065</b> — La collision <b>suit</b> chaque geste sur une couche visuelle, sur les seules cases qu'il touche, hors cases forcées et hors entrée. Peindre la grille de collision <b>force</b> la case qui s'écarte de la déduction et libère celle qui s'y accorde ; la gomme, la collision active, rend les cases forcées à la déduction. Les cases forcées se montrent en <b>masque</b> quand on peint la collision, et la barre d'état les signale.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md233"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md234"></a>
 12. Les outils du peintre (<span class="tt">LOT-EDITOR-04</span>)</h1>
 <p>Tracer vite, et défaire d'un coup (<a class="el" href="lot-editor-04.html" title="LOT-EDITOR-04 — Les outils du peintre">LOT-EDITOR-04</a>).</p>
 <ul>
@@ -204,7 +204,7 @@ Objectif</h1>
 <li><a class="anchor" id="EX-EDIT-068"></a><b>EX-EDIT-068</b> — Les <b>notes d'auteur</b> s'épinglent à une case et vivent dans <span class="tt">&lt;carte&gt;.editor.json</span>, à côté de la carte, que le jeu ne lit jamais : écriture canonique, clés inconnues gardées, fichier retiré quand il n'a plus rien. Elles ne sont ni annulées ni comptées comme une modification de la carte, et suivent la carte qu'on renomme, duplique ou supprime. Aucune liste de cartes ne prend une annexe pour une carte.</li>
 <li><a class="anchor" id="EX-EDIT-069"></a><b>EX-EDIT-069</b> — La <b>mesure</b> donne l'étendue en cases et la distance entre deux cases, en cases et en pieds (une case = 5 pieds, une diagonale = une case). L'<b>essai</b> peut partir de la case survolée, sans toucher au brouillon ; une case qui arrête le pas est refusée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md234"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md235"></a>
 13. Entités et zones sur le canevas (<span class="tt">LOT-EDITOR-05</span>)</h1>
 <p>Les zones se tirent à la souris, les entités montrent leur figurine et leurs liens (<a class="el" href="lot-editor-05.html" title="LOT-EDITOR-05 — Entités et zones sur le canevas">LOT-EDITOR-05</a>).</p>
 <ul>
@@ -213,7 +213,7 @@ Objectif</h1>
 <li><a class="anchor" id="EX-EDIT-072"></a><b>EX-EDIT-072</b> — Les entités se <b>sélectionnent à plusieurs</b> (<span class="tt">Maj</span> + clic sur le canevas, sélection étendue dans la liste), se <b>déplacent en groupe</b> — tout le groupe ou rien, s'il sortirait de la carte — et se retirent ensemble, en un pas. La liste des entités se <b>filtre</b> sur la famille, l'identifiant et les valeurs, et montre l'identifiant et l'étiquette de chacune.</li>
 <li><a class="anchor" id="EX-EDIT-073"></a><b>EX-EDIT-073</b> — L'inspecteur est tiré d'un <b>schéma typé</b> : entier <b>borné</b>, énumération, et <b>référence</b> à un catalogue avec sa liste de choix — dialogue, rencontre, carte, point d'arrivée, figurine, drapeau, lieu de l'atlas, objet, <span class="tt">carte#id</span>. Une valeur hors bornes ou absente de son catalogue avertit, sans empêcher d'enregistrer. <b>Contrat d'extension</b> : toute famille d'entité que le jeu lit est dans <span class="tt"><a class="el" href="namespacecore.html#a3c877363f8258fc1ba137c48aa283397" title="Les familles que l&#39;éditeur sait poser, dans l&#39;ordre de sa liste.">core::knownEntityKinds</a></span>, et un test bloquant le vérifie sur les sources du jeu et les cartes livrées.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md235"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md236"></a>
 14. L'éditeur sans fenêtre (<span class="tt">LOT-EDITOR-13</span>)</h1>
 <p>Ce que les scripts des cartes apportaient — l'édition en masse, rejouable, relue en diff —, sans les scripts (<a class="el" href="lot-editor-13.html" title="LOT-EDITOR-13 — L&#39;éditeur sans fenêtre">LOT-EDITOR-13</a>).</p>
 <ul>
@@ -221,14 +221,14 @@ Objectif</h1>
 <li><a class="anchor" id="EX-EDIT-075"></a><b>EX-EDIT-075</b> — <span class="tt">LevelEditor --render [carte…]</span> rend une carte en PNG, en isométrie et <b>sans fenêtre</b>, par le peintre du canevas (<span class="tt">EX-EDIT-059</span>) : bandes au choix (sol, relief, figurines, masque de collision), échelle au choix, une image par carte nommée d'après son identifiant. La CI rend chaque carte qu'une PR ajoute ou change et publie les images.</li>
 <li><a class="anchor" id="EX-EDIT-076"></a><b>EX-EDIT-076</b> — Chaque outil a <b>un scénario <span class="tt">--apply</span></b>, rejoué sur une carte-témoin et comparé octet pour octet à un fichier attendu : c'est le test d'IHM du module (règle 4 de la feuille de route).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md236"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md237"></a>
 15. Les cartes se font dans l'éditeur (<span class="tt">LOT-EDITOR-06</span>)</h1>
 <p>L'éditeur fait foi pour les cartes faites à la main (décision D4) : plus aucun script ne les écrit (<a class="el" href="lot-editor-06.html" title="LOT-EDITOR-06 — Les cartes quittent leurs scripts">LOT-EDITOR-06</a>).</p>
 <ul>
 <li><a class="anchor" id="EX-EDIT-077"></a><b>EX-EDIT-077</b> — Une nouvelle carte <b>choisit son lieu</b> à la création, parmi les planches qui ont un manifeste de pièces, avec son nom et sa taille. Elle naît comme les cartes livrées : une couche de sol qui nomme le lieu, une couche de décor, la collision déduite ; elle passe le contrôle (<span class="tt">EX-EDIT-062</span>) sans autre geste. Sans lieu, elle reste une grille unique peinte par types.</li>
 <li><a class="anchor" id="EX-EDIT-078"></a><b>EX-EDIT-078</b> — Chaque carte livrée <b>s'ouvre et s'enregistre dans l'éditeur sans changer d'un octet</b> ; une retouche s'y enregistre, se recharge à l'identique et se défait jusqu'au fichier livré. Aucun script n'écrit plus dans <span class="tt">Levels/</span> : ceux qui y écrivaient restent dans leurs dossiers de lot, comme trace, et refusent d'y écrire.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md237"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md238"></a>
 16. Le contrôle du contenu (<span class="tt">LOT-EDITOR-07</span>)</h1>
 <p>Une carte bien écrite (<span class="tt">EX-EDIT-062</span>) doit aussi se jouer (<a class="el" href="lot-editor-07.html" title="LOT-EDITOR-07 — Contrôle du contenu">LOT-EDITOR-07</a>).</p>
 <ul>
@@ -236,7 +236,7 @@ Objectif</h1>
 <li><a class="anchor" id="EX-EDIT-080"></a><b>EX-EDIT-080</b> — La fenêtre montre les constats de <b>toutes</b> les cartes, tels qu'enregistrés, dans un panneau « Problems » : au lancement, après chaque enregistrement et à la demande. Un double-clic ouvre la carte du constat, sélectionne son entité et cerne sa case.</li>
 <li><a class="anchor" id="EX-EDIT-081"></a><b>EX-EDIT-081</b> — Une carte ne porte pas de texte affiché : son nom est la clé <span class="tt">map.&lt;identifiant&gt;.name</span>, celui d'un îlot se lit sous <span class="tt">city_block.&lt;nom&gt;</span>, et chaque clé est dans chaque catalogue de traduction. Créer, renommer ou dupliquer une carte écrit sa clé et complète les catalogues, traductions de l'ancien nom reprises ; un renommage renomme la clé (<span class="tt">EX-EDIT-082</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md238"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md239"></a>
 17. Renommer et remplacer (<span class="tt">LOT-EDITOR-14</span>)</h1>
 <p>L'identifiant d'une carte est son chemin, et les pièces d'une planche peuvent changer : un nom qui change ne casse rien (<a class="el" href="lot-editor-14.html" title="LOT-EDITOR-14 — Renommer et remplacer">LOT-EDITOR-14</a>).</p>
 <ul>
@@ -244,7 +244,7 @@ Objectif</h1>
 <li><a class="anchor" id="EX-EDIT-083"></a><b>EX-EDIT-083</b> — Une pièce se <b>remplace</b> par une autre de sa planche : sur la carte ouverte, en un pas d'annulation, ou sur toutes les cartes qui la posent (<span class="tt">LevelEditor --replace-piece</span>). La pièce garde sa case d'ancrage et son type ; la collision suit. Refusé : une pièce absente de la planche, un sol remplacé par une pièce debout ou l'inverse, une emprise qui déborderait.</li>
 <li><a class="anchor" id="EX-EDIT-084"></a><b>EX-EDIT-084</b> — Une carte <b>change de planche</b> sans être repeinte : chaque pièce qu'elle pose va à la pièce de même nom (ou dont elle est un ancien nom) de la nouvelle planche, et une <b>table de correspondance</b> donne les autres. Tant qu'une pièce reste sans correspondant, le changement est refusé. Sur la carte ouverte, c'est un pas d'annulation ; par <span class="tt">LevelEditor --change-scene &lt;carte&gt; &lt;lieu&gt; --table &lt;table.json&gt;</span>, un fichier récrit. La collision se redéduit par le nouveau manifeste ; le lieu reçoit une table d'apparence traduite de l'ancienne s'il n'en a pas.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md239"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md240"></a>
 18. Tampons et préfabriqués (<span class="tt">LOT-EDITOR-08</span>)</h1>
 <p>Ce qu'on a composé une fois se repose ailleurs, et se garde (<a class="el" href="lot-editor-08.html" title="LOT-EDITOR-08 — Tampons et préfabriqués">LOT-EDITOR-08</a>).</p>
 <ul>
@@ -253,7 +253,7 @@ Objectif</h1>
   --to &lt;c,r&gt;</span> font de même sans fenêtre, par les mêmes fonctions (règle 4) ; <span class="tt">--check</span> nomme tout fichier de la bibliothèque que l'éditeur ne sait pas relire.</li>
 <li><a class="anchor" id="EX-EDIT-087"></a><b>EX-EDIT-087</b> — Une carte neuve part d'un <b>modèle</b> : ses couches, sa taille, son entrée et ce qu'il pose. Un modèle vit dans <span class="tt">Editor/Templates/&lt;id&gt;.json</span> et ne nomme <b>aucune pièce</b> — il sert tous les lieux ; trois sont livrés : intérieur, rue, arène.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md240"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md241"></a>
 19. Le monde : onglets, portails, ville (<span class="tt">LOT-EDITOR-09</span>)</h1>
 <p>Plusieurs cartes à la fois, un graphe qu'on écrit au geste, et de quoi savoir où en est le monde (<a class="el" href="lot-editor-09.html" title="LOT-EDITOR-09 — Le monde : onglets, portails, ville">LOT-EDITOR-09</a>).</p>
 <ul>
@@ -263,6 +263,14 @@ Objectif</h1>
 <li><a class="anchor" id="EX-EDIT-090"></a><b>EX-EDIT-090</b> — Le navigateur montre une <b>vue de ville</b> : les quartiers d'une ville jouable (<span class="tt">World/cities/&lt;ville&gt;.json</span>) posés sur son plan, aux cadres de <span class="tt">world-maps.json</span>, nommés par l'atlas ; un quartier dont la carte manque, ou qui n'est qu'une porte gardée, se voit comme tel. Double-cliquer un quartier ouvre sa carte, sous le même garde-fou que la liste. La vue ne récrit ni la ville ni <span class="tt">world-maps.json</span>.</li>
 <li><a class="anchor" id="EX-EDIT-091"></a><b>EX-EDIT-091</b> — Une carte porte ses <b>propriétés</b> : sa <b>région</b> et son <b>ambiance</b> sont des propriétés de la carte entière, écrites dans son fichier et lisibles par le jeu (<span class="tt"><a class="el" href="structcore_1_1LevelData.html#a62d8fc26f11eb3238b326422abca7cb4" title="Propriétés libres de la carte entière (LOT-EDITOR-09) : la région du monde où elle se trouve (core::M...">core::LevelData::properties</a></span> ; toute clé racine inconnue y est gardée et réémise, comme pour une couche ou une entité). Les changer est un <b>pas d'annulation</b>. Le <b>lieu</b> de la carte se voit dans le même dialogue mais ne s'y édite pas : en changer repeint la carte (<span class="tt">EX-EDIT-084</span>).</li>
 <li><a class="anchor" id="EX-EDIT-092"></a><b>EX-EDIT-092</b> — L'annexe d'une carte dit <b>où elle en est</b> — générée, retouchée, finie, ou rien de dit. Le navigateur l'affiche, <b>filtre</b> par état, et montre les cartes en <b>vignettes</b> rendues par le peintre du canevas (<span class="tt">EX-EDIT-059</span>), gardées tant que le fichier ne change pas. L'état est une note d'auteur : il ne va jamais dans la carte.</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md242"></a>
+20. L'essai complet dans le jeu (<span class="tt">LOT-EDITOR-10</span>)</h1>
+<p>Le vrai jeu, sur la carte ouverte, là où on veut et dans l'état qu'on veut (<a class="el" href="lot-editor-10.html" title="LOT-EDITOR-10 — L&#39;essai complet dans le jeu">LOT-EDITOR-10</a>).</p>
+<ul>
+<li><a class="anchor" id="EX-EDIT-093"></a><b>EX-EDIT-093</b> — Une commande de l'éditeur lance <b>le jeu</b> sur la carte ouverte, sans passer par ses menus : le jeu s'ouvre directement dans la vue de jeu, sur la carte demandée (<span class="tt">--map=</span>), au besoin sur une <b>case</b> précise (<span class="tt">--at=</span>) — l'entrée de la carte sinon, et une case hors de la carte n'empêche pas le lancement. Une carte jamais enregistrée, ou un brouillon qui ne se convertit pas en niveau, est refusé avec sa raison, en barre d'état. Un seul essai vit à la fois : le suivant remplace le précédent.</li>
+<li><a class="anchor" id="EX-EDIT-094"></a><b>EX-EDIT-094</b> — L'essai se lance dans un <b>état de partie</b> choisi : les drapeaux de monde cochés (<span class="tt">--flags=</span>) sont acquis avant le premier pas, ce qui montre la même carte avant et après une quête. La liste propose les drapeaux que les dialogues du jeu posent, et accepte les autres à la main ; le choix sert aux essais suivants de la session.</li>
+<li><a class="anchor" id="EX-EDIT-095"></a><b>EX-EDIT-095</b> — Le jeu joue les <b>brouillons</b>, pas les fichiers : les cartes de <b>tous</b> les onglets sont écrites dans un dossier temporaire, hors du dépôt, que le jeu cherche avant ses propres cartes (<span class="tt">--levels=</span>, <span class="tt"><a class="el" href="classcore_1_1WorldTravel.html#a424d0def362d872b0f498f08673f2615" title="Le chargeur qui cherche une carte dans levelsDirs, dans l&#39;ordre donné.">core::WorldTravel::directoriesLoader</a></span>). Le dossier est vidé à chaque essai ; une carte qu'aucun onglet ne porte reste celle du dépôt ; une carte présente mais illisible fait échouer l'ouverture au lieu de retomber sur la version d'à côté. Un essai n'enregistre rien.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="edit-retirees"></a>
 Exigences retirées</h1>
@@ -289,7 +297,7 @@ Exigences retirées</h1>
 <li><a class="anchor" id="EX-EDIT-046"></a><b>EX-EDIT-046</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — mode création des plans.</li>
 <li><a class="anchor" id="EX-EDIT-047"></a><b>EX-EDIT-047</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — panneau des plans.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md241"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md243"></a>
 Traçabilité</h1>
 <p>Le code vit dans <span class="tt">Source/Editor</span> : <span class="tt">Logic/</span> (bibliothèque <span class="tt">EditorLogic</span>, testée sous <span class="tt">Source/Test/Unit/Editor</span>) et <span class="tt">Ui/</span> (l'exécutable <span class="tt">LevelEditor</span>). L'éditeur s'appuie sur <span class="tt">Core</span> (modèle et validation de carte, <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span>) et sur le rendu de <span class="tt">HMI</span> (<span class="tt"><a class="el" href="rendu-technique_8md.html">rendu-technique.md</a></span>) ; ce qui reste de sa présentation est dans <a class="el" href="spec-interface-ihm.html#md_Specification_2interface-ihm" title="Specification/interface-ihm.md"><span class="tt">interface-ihm.md</span></a>. </p>
 </div></div><!-- contents -->

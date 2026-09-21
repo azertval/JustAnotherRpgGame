@@ -96,11 +96,11 @@ $(function(){initNavTree('lot-88.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 18 septembre 2026</b> (ouvert le même jour), sur la branche <span class="tt">lot-88-retrait-heritage</span>. Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à <b>767/767</b>, <span class="tt">lint_exigences.py</span>, <span class="tt">lint_lots.py</span>, les contrôles Python de la CI et Doxygen verts. Reste la vérification manuelle : ouvrir une carte dans l'éditeur, l'essayer (<b>P</b>), y marcher, franchir un portail, revenir à l'édition par <b>Échap</b> ; lancer le jeu et parcourir Martpart. Prérequis : <a class="el" href="lot-67.html" title="LOT-67 — Menus et vocabulaire d&#39;un RPG">LOT-67</a> (la notion de niveau discret retirée), <a class="el" href="lot-11.html" title="LOT-11 — Éditeur multi-couches et placement d&#39;entités">LOT-11</a> (l'éditeur retargé), <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a> (l'exploration dans le jeu, sur laquelle l'essai de l'éditeur se rebranche). Absorbe : le <span class="tt">LOT-69</span> (retrait de l'atelier pixel art). Exigences : <b>120 retirées</b>, ancres conservées ; <span class="tt">EX-EDIT-055</span> refondue. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md703"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md705"></a>
 Objectif</h1>
 <p>Le dépôt est né d'un jeu de plateforme en vue de côté. Le <a class="el" href="lot-01.html" title="LOT-01 — Fork, purge et remise à nu">LOT-01</a> en avait purgé les niveaux et le solveur par apprentissage ; il restait le reste : un runtime de jeu que l'essai de l'éditeur était seul à faire tourner, les mécanismes (interrupteurs, portes, clés, plaques, plateformes mobiles), la tuile de sortie, le cadrage de caméra, les plans et la parallaxe, l'habillage par skins et raccords automatiques, un atelier de dessin au pixel, des bruitages, des assets et leurs scripts générateurs — et la moitié des spécifications, qui décrivait ce jeu-là.</p>
 <p>Ce lot retire tout ce qui ne sert plus le RPG : code, assets, spécifications, guides, manuel, README. Le dépôt ne garde <b>aucun lien</b> avec le moteur d'origine : aucune mention de son nom, aucun renvoi à son programme de lots, aucun fichier archivé.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md704"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md706"></a>
 Décisions de l'auteur (18 septembre 2026)</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -114,30 +114,30 @@ Décisions de l'auteur (18 septembre 2026)</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Habillage de l'éditeur  </td><td class="markdownTableBodyNone"><b>Tout l'habillage mort</b> : skins, raccords, pièce par case de l'ancien outil, fond, plans, ombres, bascule <span class="tt">F8</span>, cadrage et zones de caméra, atelier pixel art, bibliothèque d'assets. L'éditeur peint types, couches et entités en couleurs procédurales.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md705"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md707"></a>
 Ce qui a été fait</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md706"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md708"></a>
 1. L'essai de l'éditeur joue le jeu</h2>
 <ul>
 <li><span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html">hmi::WorldPlay</a></span> (<span class="tt"><a class="el" href="WorldPlay_8h.html" title="Une carte qu&#39;on parcourt, et ce qu&#39;il faut pour la dessiner — sans Qt.">Source/HMI/Game/WorldPlay.h</a></span>), sans Qt : la mise en scène de l'exploration — une session, ses figurines, l'instantané de scène — partagée par <span class="tt"><a class="el" href="classhmi_1_1WorldModel.html" title="La vue-modèle de l&#39;exploration — la partie en cours : entrer sur une carte, marcher,...">hmi::WorldModel</a></span> (le jeu) et l'essai de l'éditeur. Le jeu et l'éditeur ne peuvent plus diverger sur ce qu'est « marcher sur une carte ».</li>
 <li><span class="tt">EditorViewport</span> dessine le brouillon (<span class="tt">DraftRenderer</span>) et, pendant l'essai, la scène du jeu. Le brouillon est servi sous son propre identifiant de carte ; les autres cartes se lisent sur disque, si bien qu'un portail mène vraiment ailleurs.</li>
 <li>Supprimés : <span class="tt">GameSession</span> et ses modes, la physique de plateforme (<span class="tt">Core/Physics</span>), les systèmes de mouvement, d'animation et de particules, les mécanismes, l'issue de niveau, la caméra de suivi, les zones de caméra, les plans et la parallaxe, les ombres, les skins et raccords, les polices bitmap, l'incrustation de diagnostic <span class="tt">F8</span>/<span class="tt">F9</span> de l'ancien runtime, les déclencheurs de sons, les liaisons clavier et manette du jeu d'origine, et les panneaux d'éditeur qui les servaient (liens, textures, plans, atelier pixel art, bibliothèque, espaces de travail, remappage).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md707"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md709"></a>
 2. Le modèle de carte ne porte plus que le RPG</h2>
 <ul>
 <li><span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;une carte (EX-LVL-002).">core::TileType</a></span> garde douze types : vide, plein, entrée, herbe, terre, sable, eau, eau profonde, mur, falaise, pont, escalier.</li>
 <li><span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">core::Level</a></span> et <span class="tt"><a class="el" href="structcore_1_1LevelData.html" title="Composantes d&#39;une carte, nommées — agrégat de construction de core::Level (LOT-03).">core::LevelData</a></span> perdent la sortie, les mécanismes, le fond, le jeu de skins, le cadrage et les plans ; <span class="tt">CameraFraming</span> et <span class="tt">Plane</span> sont supprimés. Le chargeur n'exige plus qu'une entrée.</li>
 <li>Les trois cartes livrées (Colisée, Martpart, Arenarea) perdent leur tuile de sortie et leur cadrage ; les ateliers du <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a> et du <a class="el" href="lot-96.html" title="LOT-96 — Martpart et Arenarea se parcourent : le graphe des quartiers">LOT-96</a> cessent de les écrire.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md708"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md710"></a>
 3. Assets, scripts et restes de code</h2>
 <ul>
 <li>Supprimés : les fonds, objets, sprites du joueur, skins, palettes et l'atlas en image de l'ancien jeu (<span class="tt">Source/Elements/Assets/</span>), les bruitages (<span class="tt">Source/Elements/Audio/</span>), et leurs scripts générateurs (<span class="tt">scripts/generate_test_*.py</span>, <span class="tt">scripts/motifs/</span>).</li>
 <li>L'atlas de tuiles est désormais <b>procédural seul</b>, sans rangées de sprite du joueur ; la secousse de caméra et les calques de plan disparaissent ; l'option <span class="tt">--export-atlas</span> part.</li>
 <li>Traductions : les clés mortes partent, les messages de l'essai s'ajoutent.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md709"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md711"></a>
 4. Spécifications, guides, manuel</h2>
 <ul>
 <li><span class="tt">ia.md</span> et <span class="tt">decors.md</span> sont retirées ; leurs 41 ancres (<span class="tt">EX-IA-*</span>, <span class="tt">EX-DEC-*</span>) vivent dans <a class="el" href="spec-retirees.html" title="Exigences retirées"><span class="tt">exigences-retirees.md</span></a>.</li>
@@ -148,7 +148,7 @@ Ce qui a été fait</h1>
 <li>Guides, manuel et README décrivent le jeu et l'éditeur tels qu'ils sont ; les guides de la physique et de l'atelier pixel art, et la page « Regarder l'IA jouer » du manuel, sont supprimés.</li>
 <li>Le <span class="tt">CHANGELOG</span> perd les versions du jeu d'origine.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md710"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md712"></a>
 Écarts par rapport au texte de la feuille de route</h1>
 <ul>
 <li><b>Élargi.</b> Le lot était « une passe de rédaction, aucune ligne de code ». L'auteur l'a élargi au code, aux assets et à toute mention du projet d'origine : une spécification qui retire une mécanique encore compilée ne dit pas la vérité non plus.</li>
@@ -156,7 +156,7 @@ Ce qui a été fait</h1>
 <li><b><span class="tt">Documentation/Heritage/</span> supprimé</b>, et non enrichi de <span class="tt">ia.md</span> et <span class="tt">decors.md</span>.</li>
 <li><b>Le <span class="tt">LOT-69</span> est absorbé</b> : l'atelier pixel art est parti avec le reste de l'habillage mort. La question qu'il laissait ouverte — la portée identité de l'éditeur chargeait encore les polices pixel — est tranchée par l'auteur : <span class="tt">Pixelify Sans</span> et <span class="tt">Press Start 2P</span> sont supprimées, avec leur enregistrement, le rôle de police <span class="tt">FontRole::Identity</span> et leur ligne aux crédits.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md711"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md713"></a>
 Exigences qui perdent leur porteur</h1>
 <p>Certaines exigences toujours vraies n'étaient citées que par l'archive supprimée. Elles restent en vigueur ; voici ce qui les tient aujourd'hui.</p>
 <table class="markdownTable">
@@ -175,16 +175,16 @@ Exigences qui perdent leur porteur</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><span class="tt">EX-EDIT-020</span>, <span class="tt">EX-EDIT-021</span>, <span class="tt">EX-EDIT-022</span>  </td><td class="markdownTableBodyNone"><span class="tt">LevelEditor.exe</span>, livré à côté du jeu ; les cartes dans <span class="tt">Source/Elements/Levels/</span> ; le guide <a class="el" href="manuel-partager-niveau.html" title="Créer et partager une carte (sans ligne de commande)">Créer et partager une carte</a>  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md712"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md714"></a>
 Tags du jeu d'origine</h1>
 <p>Les tags <span class="tt">v0.0.1</span> à <span class="tt">v0.1.3</span> et <span class="tt">archive/platformer-v0.1.3</span> désignaient des versions du jeu d'origine, et les premiers entraient en collision avec les jalons de la feuille de route. Ils sont supprimés du dépôt distant et des copies locales, sur décision de l'auteur (18 septembre 2026). Aucune release GitHub ne s'y rattachait.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md713"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md715"></a>
 Vérification</h1>
 <ul>
 <li>Construction et tests : <span class="tt">scripts/build.ps1 -Preset ninja -Test</span>.</li>
 <li>Lints : <span class="tt">py -3.13 scripts/lint_exigences.py</span>, <span class="tt">py -3.13 scripts/lint_lots.py</span>, <span class="tt">py -3.13 scripts/check_translations.py</span>, <span class="tt">py -3.13 scripts/build_docs.py</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md714"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md716"></a>
 Texte d'origine (feuille de route, second audit)</h1>
 <blockquote class="doxtable">
 <p><b>Ajouté au second audit.</b> Les spécifications sont relues comme des entrants, et la moitié d'entre elles décrit <b>un autre jeu</b>. <span class="tt"><a class="el" href="gameplay_8md.html">gameplay.md</a></span> est « livré » avec le saut, la gravité, les pentes, les blocs poussables et 39 exigences de plateforme actives ; <span class="tt"><a class="el" href="controles_8md.html">controles.md</a></span> mappe Sauter et Dash ; <span class="tt"><a class="el" href="rendu-technique_8md.html">rendu-technique.md</a></span> exige un écran de fin de niveau et des bruitages de saut ; <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span> décrit le format par ses tuiles de pente ; <span class="tt">ia.md</span> déclare « livré » un solveur par apprentissage purgé au <span class="tt">LOT-01</span>. Le <span class="tt">LOT-67</span> n'a retiré que la notion de niveau discret ; le <span class="tt">LOT-77</span> a écrit la moitié RPG ; personne ne portait le retrait de l'autre moitié.</p>

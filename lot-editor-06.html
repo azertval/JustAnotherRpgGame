@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-editor-06.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 19 septembre 2026</b> (ouvert le même jour), sur la branche <span class="tt">lot-editor-06-fin-des-scripts</span>. <b>Premier jalon du module</b> : les cartes du jeu se font désormais dans l'éditeur. Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, tests unitaires verts, <span class="tt">LevelEditor --check</span> sans erreur ni avertissement sur les trois cartes, rendus relus à l'œil. <b>Vérification à la souris due</b> (voir plus bas). Prérequis : <span class="tt">LOT-EDITOR-05</span>, <span class="tt">LOT-EDITOR-13</span>. Feuille de route : <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">éditeur</a>. Alimente : <span class="tt">LOT-EDITOR-07</span> (contrôles), <span class="tt">LOT-EDITOR-14</span> (renommer, remplacer), et les cartes du <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>. Exigences : <span class="tt">EX-EDIT-077</span>, <span class="tt">EX-EDIT-078</span> (nouvelles). Guide : <a class="el" href="guide-usage-editeur.html" title="Faire une carte dans l&#39;éditeur">Faire une carte dans l'éditeur</a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1068"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1071"></a>
 Objectif</h1>
 <p>L'éditeur devient la source des cartes faites à la main (décision D4) : le Colisée, Martpart et Arenarea se modifient, s'enregistrent et se rechargent dans l'éditeur, sans perte et sans script.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1069"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1072"></a>
 Ce que le dépôt contenait à l'ouverture (19 septembre 2026)</h1>
 <ul>
 <li><b>Deux scripts d'atelier écrivaient les cartes</b> : <span class="tt">carte_colisee.py</span> (<span class="tt">LOT-09</span>) et <span class="tt">carte_quartiers.py</span> (<span class="tt">LOT-96</span>), chacun avec un <span class="tt">--check</span> qui comparait la carte commitée à son tracé. Les deux étaient verts : les cartes commitées étaient exactement leur dernière génération. Aucun des deux <span class="tt">--check</span> ne tournait en CI (constat du <span class="tt">LOT-EDITOR-12</span>) ; <span class="tt">LevelEditor --check</span> y tournait déjà.</li>
@@ -108,7 +108,7 @@ Ce que le dépôt contenait à l'ouverture (19 septembre 2026)</h1>
 <li><b>Une nouvelle carte ne pouvait pas prendre de lieu.</b> « New » créait une grille unique vide, sans couche ni planche ; rien dans l'éditeur ne pose la propriété <span class="tt">scene</span> d'une couche. La palette n'y montrait donc que les types en couleurs : aucune carte du jeu ne pouvait naître dans l'éditeur.</li>
 </ul>
 <p>Les deux derniers constats bloquaient le jalon : ils sont traités dans ce lot, sans lot à part.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1070"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1073"></a>
 Décisions</h1>
 <ul>
 <li><b>Dernière génération : celle qui est commitée.</b> Relancés à l'ouverture, les deux scripts rendaient les cartes commitées octet pour octet ; il n'y avait rien à régénérer. La chaîne a été vérifiée de bout en bout : tracé du script, puis fichier de retouche rejoué par <span class="tt">--apply</span>, égale la carte livrée, pour chacune des trois.</li>
@@ -123,7 +123,7 @@ Décisions</h1>
 <li><b>L'éditeur ouvre l'arbre des sources qui l'a construit.</b> <span class="tt"><a class="el" href="namespacehmi.html#aef264a6aa52e500e958603c000aaf053" title="Choisit la racine des données.">hmi::resolveDataRoot</a></span> choisit, dans l'ordre : <span class="tt">--data</span> ; le <span class="tt">Source/Elements</span> que la construction lui a donné (<span class="tt">JADG_EDITOR_SOURCE_DATA</span>), s'il existe sur le poste ; le dossier de l'exécutable. La fenêtre et les commandes sans fenêtre partagent cette racine, et le titre de la fenêtre la montre. La copie de <span class="tt">CopyGameData</span> reste ce que lit le jeu.</li>
 <li><b>Une nouvelle carte choisit son lieu</b> (<span class="tt">EX-EDIT-077</span>) : « New » demande un nom, une taille et un lieu parmi les planches qui ont un manifeste (<span class="tt"><a class="el" href="namespacehmi.html#a35165b3b99c6aacab4c7d7c907983f15">hmi::scenePlaces</a></span>). Avec un lieu, la carte naît comme les cartes livrées — couches <span class="tt">sol</span> (propriété <span class="tt">scene</span>) et <span class="tt">relief</span>, collision déduite, le vide en mur, l'entrée sur une case de terre — et passe <span class="tt">--check</span> telle quelle. Sans lieu, elle reste une grille unique. <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a3068ff19e9083535520cdb0dc01e6ddf" title="Assigne la propriété key de la couche visuelle au rang index — par exemple le lieu dont elle prend le...">core::LevelDraft::setLayerProperty</a></span> pose la propriété, en un pas d'annulation. Changer le lieu d'une carte existante reste au <span class="tt">LOT-EDITOR-14</span> (il faut une table de correspondance des pièces).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1071"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1074"></a>
 Livraison</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -143,7 +143,7 @@ Livraison</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Documentation  </td><td class="markdownTableBodyNone">guide d'usage <a class="el" href="guide-usage-editeur.html" title="Faire une carte dans l&#39;éditeur">Faire une carte dans l'éditeur</a> ; <span class="tt"><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></span> §15 ; README du module et de <span class="tt">Levels/</span>  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1072"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1075"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Les trois cartes se modifient, s'enregistrent et se rechargent dans l'éditeur sans perte et sans script.</b> ✔ <span class="tt">ShippedMapsTest.ChaqueCarteSOuvreEtSEnregistreALIdentique</span> : chaque carte ouverte en brouillon puis enregistrée rend son fichier octet pour octet. <span class="tt">ShippedMapsTest.UneRetoucheSEnregistreSeRechargeEtSeDefait</span> : une pièce gommée par geste s'enregistre, disparaît au rechargement, se réenregistre à l'identique, et l'annulation rend le fichier livré. Les trois retouches réelles ont suivi ce chemin, et <span class="tt">--check</span> passe sans avertissement.</li>
@@ -152,7 +152,7 @@ Critères d'acceptation</h1>
 <li><b>Guide d'usage : créer une carte de bout en bout.</b> ✔ <a class="el" href="guide-usage-editeur.html" title="Faire une carte dans l&#39;éditeur">Faire une carte dans l'éditeur</a> ; <span class="tt">LevelFileOps.UneCarteCreeeAvecUnLieuASesDeuxCouches</span> garde le premier pas, et <span class="tt">ContentCheckTest.UneCarteNeuveASonNomDansChaqueCatalogue</span> le contrôle (<span class="tt">LOT-EDITOR-07</span>).</li>
 </ul>
 <p><b>Vérification à la souris, due</b> : lancer <span class="tt">LevelEditor</span> sans argument — le titre montre <span class="tt">…\Source\Elements</span> ; « New » sur une carte <span class="tt">essai</span>, lieu <span class="tt">martpart</span> ; poser un rectangle de pavés, un mur, l'entrée, un coffre ; <span class="tt">Ctrl+S</span>, et <span class="tt">git status</span> montre <span class="tt">Source/Elements/Levels/essai.json</span>. Puis <span class="tt">P</span> pour l'essai, et supprimer la carte.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1073"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1076"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Changer le lieu d'une carte existante</b>, et créer directement une carte dans un sous-dossier : <span class="tt">LOT-EDITOR-14</span>.</li>

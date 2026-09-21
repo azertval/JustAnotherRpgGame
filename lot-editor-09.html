@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-editor-09.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 21 septembre 2026</b> (ouvert le même jour), sur la branche <span class="tt">lot-editor-09-monde</span>. Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, 899 tests unitaires verts (Release), <span class="tt">--check</span> des six cartes livrées à 0 erreur, le critère d'acceptation éprouvé sur les données livrées. <b>Reste due</b> : la vérification à la souris. Prérequis : <span class="tt">LOT-EDITOR-05</span>, <span class="tt">LOT-EDITOR-13</span>. Feuille de route : <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">éditeur</a>. Exigences : <span class="tt">EX-EDIT-088</span> à <span class="tt">EX-EDIT-092</span> (nouvelles). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1086"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1089"></a>
 Objectif</h1>
 <p>Jusqu'ici l'éditeur ouvrait <b>une</b> carte : en ouvrir une autre demandait d'abandonner ou d'enregistrer la première, et comparer deux quartiers était impossible. Le monde, lui, ne se lisait que d'un côté — le graphe des portails se <b>regardait</b>, et relier deux cartes demandait de poser à la main un portail ici, un point d'arrivée là, puis de recommencer dans l'autre sens sans se tromper de nom. Ce lot ouvre les cartes en <b>onglets</b>, rend le graphe <b>éditable au geste</b>, pose les quartiers d'une ville sur son <b>plan</b>, et donne à chaque carte ses <b>propriétés</b> et son <b>état</b> — à cent cartes, c'est le tableau de bord du monde.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1087"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1090"></a>
 Ce que le dépôt contenait à l'ouverture (21 septembre 2026)</h1>
 <ul>
 <li><b>Un seul canevas</b>, membre de la fenêtre (<span class="tt">MainWindow::_viewport</span>), branché une fois pour toutes : une quarantaine de liaisons Qt le nommaient directement. Ouvrir une carte demandait « abandonner les modifications ? », puis remplaçait le brouillon.</li>
@@ -109,7 +109,7 @@ Ce que le dépôt contenait à l'ouverture (21 septembre 2026)</h1>
 <li><b>Une carte ne portait aucune propriété qui lui soit propre</b> : le format v4 n'a de propriétés libres que sur les couches et les entités. Le lieu (<span class="tt">scene</span>) vit sur les couches ; la région et l'ambiance n'existaient nulle part, alors que le <a class="el" href="roadmap.html#lot-28" title="LOT-28 — Audio, effets et version &lt;tt&gt;0.0.1&lt;/tt&gt;">LOT-28</a> les attend.</li>
 <li><b>L'annexe</b> (<span class="tt">&lt;carte&gt;.editor.json</span>) ne portait que les notes d'auteur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1088"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1091"></a>
 Décisions</h1>
 <ul>
 <li><b>Un onglet, un brouillon vivant</b> (décision de l'auteur, 21 septembre) : chaque onglet a son canevas, son historique, sa sauvegarde automatique et sa garde de disque. <em>Écarté</em> : une barre d'onglets qui ne serait qu'une bascule sur un brouillon unique — on reperdrait le cadrage et la sélection à chaque aller-retour, et deux cartes ne se compareraient pas.</li>
@@ -129,7 +129,7 @@ Décisions</h1>
 <li><b>La vignette d'une carte est rendue par le peintre du canevas</b> (<span class="tt"><a class="el" href="namespacehmi.html#ad9167a1055ccb957be12eecf083c3054" title="Rend level en isométrie, hors écran.">hmi::renderMap</a></span>, <span class="tt">EX-EDIT-059</span>) et gardée sous la clé <span class="tt">fichier@horodatage</span> : une carte récrite perd la sienne, les autres la gardent. Les vignettes ne se rendent que si l'auteur les demande.</li>
 <li><b>Un onglet neuf naît vierge</b> ; seul le premier montre la carte de départ, comme l'éditeur l'a toujours fait. <span class="tt">--map=</span> remplace cette carte de départ au lieu de s'ouvrir à côté d'elle.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1089"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1092"></a>
 Livraison</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -145,7 +145,7 @@ Livraison</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Tests  </td><td class="markdownTableBodyNone"><span class="tt"><a class="el" href="test__world__links_8cpp.html" title="Tests des liens du graphe du monde (LOT-EDITOR-09, EX-EDIT-089) : tirer un lien entre deux cartes pos...">test_world_links.cpp</a></span> (4), <span class="tt"><a class="el" href="test__city__view_8cpp.html" title="Tests de la vue de ville (LOT-EDITOR-09, EX-EDIT-090) : les quartiers de la Capitale,...">test_city_view.cpp</a></span> (3), <span class="tt"><a class="el" href="test__map__documents_8cpp.html" title="Tests des cartes ouvertes en onglets (LOT-EDITOR-09, EX-EDIT-088) : le libellé d&#39;un onglet,...">test_map_documents.cpp</a></span> (3) ; l'état dans <span class="tt"><a class="el" href="test__editor__sidecar_8cpp.html" title="Tests du fichier annexe d&#39;une carte, &lt;carte&gt;.editor.json, et de ses notes d&#39;auteur (LOT-EDITOR-04,...">test_editor_sidecar.cpp</a></span>, les propriétés de carte dans <span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></span>  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1090"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1093"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Relier deux cartes depuis le graphe produit deux cartes valides qu'on traverse dans les deux sens.</b> ✔ <span class="tt">DonneesLiens.RelierDeuxCartesSeTraverseDansLesDeuxSens</span> : sur une copie des données livrées, <span class="tt">capital/martpart</span> et <span class="tt">coliseum</span> reliées d'un geste ; chaque carte reçoit son portail vers l'autre (<b>résolu</b>) et le point d'arrivée que ce portail cite (<span class="tt">from-martpart</span>, <span class="tt">from-coliseum</span>), chacun <b>atteignable depuis l'entrée</b> de sa carte ; le contrôle du contenu ne rend aucune erreur de plus.</li>
@@ -155,7 +155,7 @@ Critères d'acceptation</h1>
 <li><b>Les six cartes livrées restent canoniques et sans erreur</b> : <span class="tt">LevelEditor --check</span> (0 erreur, 5 avertissements, ceux d'avant).</li>
 </ul>
 <p><b>Vérification à la souris, due</b> : lancer l'éditeur, ouvrir Martpart depuis le navigateur — un onglet de plus, le premier reste. Peindre une case dans chacun, passer de l'un à l'autre : chaque carte garde son cadrage, son outil et son historique, et le titre d'onglet porte l'étoile. Onglet <b>Graph</b> du navigateur : tirer de <span class="tt">capital/martpart</span> à <span class="tt">coliseum</span> — la fenêtre montre les quatre entités à écrire, puis le graphe porte les deux flèches. <span class="tt">P</span> pour l'essai, franchir le portail dans un sens puis dans l'autre. Onglet <b>City</b> : le plan de la Capitale, Martpart et Arenarea cadrés, les autres tiretés ; double-clic sur Arenarea, elle s'ouvre dans son onglet. <em>Map</em> › <em>Map properties…</em> : mettre la région <span class="tt">central-empire</span>, l'ambiance <span class="tt">market</span>, l'état <em>Retouched</em> ; <span class="tt">Ctrl+S</span>, puis cocher <b>Thumbnails</b> dans le navigateur et filtrer sur <em>Retouched</em> — Martpart seule, avec sa vignette. Fermer un onglet modifié : la question porte sur <b>sa</b> carte.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1091"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1094"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Les cadres de quartier ne s'éditent pas</b> : ils sont notés provisoires dans <span class="tt">world-maps.json</span>, et c'est l'auteur qui les relève (<span class="tt">Ctrl+clic</span> sur l'écran « Carte » du jeu, <span class="tt">LOT-94</span>).</li>

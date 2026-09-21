@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>LaunchOptions.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "HMI/Game/LaunchOptions.h"
+
+#include &lt;algorithm&gt;
+#include &lt;charconv&gt;
+#include &lt;string&gt;
+
+namespace hmi {
+
+namespace {
+
+/// Decoupe @p value sur @p separator ; les morceaux vides sont ecartes.
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string_view&gt; decouper(std::string_view value, char separator) {
+    std::vector&lt;std::string_view&gt; morceaux;
+    std::size_t debut = 0;
+    while (debut &lt;= value.size()) {
+        const std::size_t fin = value.find(separator, debut);
+        const std::string_view morceau = value.substr(</span>
+            debut, fin == std::string_view::npos ? std::string_view::npos : fin - debut);
+<span style = "background-color:#dfd">        if (!morceau.empty()) {
+            morceaux.push_back(morceau);</span>
+        }
+<span style = "background-color:#dfd">        if (fin == std::string_view::npos) {
+            break;</span>
+        }
+<span style = "background-color:#dfd">        debut = fin + 1;
+    }
+    return morceaux;
+}</span>
+
+/// @return L'entier de @p text, s'il est ecrit en entier et sans rien d'autre.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;int&gt; entier(std::string_view text) {
+    int valeur = 0;
+    const char* const fin = text.data() + text.size();
+    const std::from_chars_result lu = std::from_chars(text.data(), fin, valeur);
+    if (lu.ec != std::errc{} || lu.ptr != fin) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return valeur;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::vector&lt;std::string&gt; gameLaunchArguments(const GameLaunchOptions&amp; options) {
+    std::vector&lt;std::string&gt; arguments;
+    std::string carte = "--map=" + options.mapId;
+    if (!options.arrival.empty()) {
+        carte += '@' + options.arrival;</span>
+    }
+<span style = "background-color:#dfd">    arguments.push_back(std::move(carte));
+    if (options.cell) {
+        arguments.push_back("--at=" + std::to_string(options.cell-&gt;column) + LAUNCH_LIST_SEPARATOR +</span>
+                            std::to_string(options.cell-&gt;row));
+    }
+<span style = "background-color:#dfd">    if (!options.flags.empty()) {
+        std::string drapeaux = "--flags=";
+        for (std::size_t index = 0; index &lt; options.flags.size(); ++index) {
+            if (index &gt; 0) {
+                drapeaux += LAUNCH_LIST_SEPARATOR;</span>
+            }
+<span style = "background-color:#dfd">            drapeaux += options.flags[index];
+        }
+        arguments.push_back(std::move(drapeaux));
+    }
+    if (!options.levelDirectories.empty()) {
+        std::string dossiers = "--levels=";
+        for (std::size_t index = 0; index &lt; options.levelDirectories.size(); ++index) {
+            if (index &gt; 0) {
+                dossiers += LAUNCH_PATH_SEPARATOR;</span>
+            }
+<span style = "background-color:#dfd">            dossiers += options.levelDirectories[index].string();
+        }
+        arguments.push_back(std::move(dossiers));
+    }
+    return arguments;
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;core::GridPosition&gt; parseStartCell(std::string_view value) {
+    const std::vector&lt;std::string_view&gt; morceaux = decouper(value, LAUNCH_LIST_SEPARATOR);
+    if (morceaux.size() != 2) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const std::optional&lt;int&gt; colonne = entier(morceaux[0]);
+    const std::optional&lt;int&gt; ligne = entier(morceaux[1]);
+    if (!colonne || !ligne || *colonne &lt; 0 || *ligne &lt; 0) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return core::GridPosition{.column = *colonne, .row = *ligne};
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;std::string&gt; parseWorldFlags(std::string_view value) {
+    std::vector&lt;std::string&gt; drapeaux;
+    for (const std::string_view morceau : decouper(value, LAUNCH_LIST_SEPARATOR)) {
+        std::string drapeau{morceau};</span>
+        // Deux fois le meme drapeau ne veut rien dire de plus qu'une : `core::WorldFlags` est un
+        // ensemble, et le relever ici garde la liste lisible dans le journal.
+<span style = "background-color:#dfd">        if (std::ranges::find(drapeaux, drapeau) == drapeaux.end()) {
+            drapeaux.push_back(std::move(drapeau));</span>
+        }
+<span style = "background-color:#dfd">    }
+    return drapeaux;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;std::filesystem::path&gt; parseLevelDirectories(std::string_view value) {
+    std::vector&lt;std::filesystem::path&gt; dossiers;
+    for (const std::string_view morceau : decouper(value, LAUNCH_PATH_SEPARATOR)) {
+        dossiers.emplace_back(morceau);
+    }
+    return dossiers;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

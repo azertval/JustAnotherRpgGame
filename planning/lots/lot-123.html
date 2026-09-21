@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOT-123 — L&#x27;éditeur debout sur une base vide — Planification</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="index.html" class="active">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="../standards/index.html">Standards</a></nav>
+  <div class="links"><a class="external" href="../../">Documentation ↗</a><a class="external" href="../../qualite/">Qualité ↗</a></div>
+</header>
+<div class="shell">
+
+<main>
+<p class="crumb"><a href="index.html">Lots</a> › <a href="../versions/v0-0-1.html">0.0.1 — Démo basique</a></p><h1><span class="vid">LOT-123</span> L&#x27;éditeur debout sur une base vide</h1><p class="lede">L'éditeur, son contrôle et ses tests ne dépendent plus d'aucune carte ni d'aucune planche livrée : la table rase peut passer sans le casser.</p><dl class="facts"><div><dt>État</dt><dd><span class="badge etat-prochain">prochain</span></dd></div><div><dt>Filière</dt><dd><span class="filiere f-editeur">Éditeur de cartes</span></dd></div><div><dt>Taille</dt><dd>M</dd></div><div><dt>Ordre calculé</dt><dd>1</dd></div><div><dt>Prérequis</dt><dd><a class="ref" href="lot-100.html">LOT-100</a></dd></div><div><dt>Débloque</dt><dd><a class="ref" href="lot-102.html">LOT-102</a> <a class="ref" href="lot-124.html">LOT-124</a> <a class="ref" href="lot-125.html">LOT-125</a></dd></div><div><dt>Reprend</dt><dd>—</dd></div></dl><section><h2>Livrables</h2><ul class=""><li><code>LevelEditor --check</code> rend 0 sur une base <strong>sans aucune carte</strong> (il dit « 0 map »), et <code>resolveDataRoot</code> admet un dossier <code>Levels/</code> vide, gardé par son <code>README.md</code>.</li><li>Une racine de données de test complète sous <code>Source/Test/Fixtures/EditorData/</code> : deux cartes reliées, une planche et son manifeste, un dialogue, une rencontre, ses textes — assez pour tous les contrôles.</li><li>Les dix-huit tests de <code>Source/Test/Unit/Editor/</code> et les trois tests système ou d'intégration rebranchés dessus ; <code>test_shipped_maps</code> garde son mécanisme (toute carte livrée s'ouvre et se réenregistre à l'octet) et admet qu'il n'y en ait aucune.</li><li>Le scénario <code>--apply</code> de référence (<code>martpart-rue.json</code>) rejoué sur la carte de test, fichier attendu régénéré.</li><li><code>bench_canvas</code> et <code>bench_levels</code> réécrits sur la carte de test.</li></ul></section><section><h2>Critères d'acceptation</h2><ul class="checks"><li>Sur une branche où <code>Levels/</code> et <code>Assets/Scene/</code> sont vidés à la main, la CI entière de l'éditeur est verte : tests, <code>--check</code>, <code>--render</code>, mesures.</li><li><code>git grep -i &quot;martpart\|coliseum\|arenarea&quot; Source/Test/Unit/Editor Source/Benchmark</code> ne trouve plus rien.</li><li>Aucun test n'a été supprimé : la liste des rebranchements est dans la PR.</li></ul></section><section class="prose"><h2 id="pourquoi">Pourquoi</h2>
+<p>Le <a href="lot-102.html">LOT-102</a> promet « l'éditeur s'ouvre sur une carte vierge ; <code>LevelEditor --check</code> passe ». L'<a href="../standards/audit-editeur.html">audit de l'éditeur</a> (constats T1 à T6) montre que c'est faux aujourd'hui : <code>--check</code> rend une erreur quand il n'y a aucune carte, et dix-huit tests que l'audit du moteur n'a pas comptés lisent Martpart ou le Colisée. Ce lot passe <strong>avant</strong> la table rase, pour qu'elle reste un retrait et non un chantier.</p>
+<h2 id="périmètre">Périmètre</h2>
+<p>Les tests, le contrôle et les mesures. <strong>Pas dedans</strong> : la nouvelle arborescence (LOT-124), le rendu HD (LOT-125). La carte de test reste au format et au style actuels : elle n'est pas un asset du jeu, et le LOT-124 la déplacera sous le nouvel arbre.</p></section><p class="source">Source : <code>Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-123-editeur-sur-une-base-vide.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-21 · <code>10d2e8080</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

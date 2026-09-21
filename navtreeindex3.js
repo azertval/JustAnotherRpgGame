@@ -1,5 +1,15 @@
 var NAVTREEINDEX3 =
 {
+"classcore_1_1ArenaSession.html#a3582c5bbd58f6c52c7ed986c28b5f1d7":[40,0,1,12,43],
+"classcore_1_1ArenaSession.html#a3582c5bbd58f6c52c7ed986c28b5f1d7":[41,0,0,12,43],
+"classcore_1_1ArenaSession.html#a35cbb920f818826a6c52dc2d946d5700":[40,0,1,12,38],
+"classcore_1_1ArenaSession.html#a35cbb920f818826a6c52dc2d946d5700":[41,0,0,12,38],
+"classcore_1_1ArenaSession.html#a36554b265c0ee59bd356956ab7d2469a":[40,0,1,12,10],
+"classcore_1_1ArenaSession.html#a36554b265c0ee59bd356956ab7d2469a":[41,0,0,12,10],
+"classcore_1_1ArenaSession.html#a385d10918f6417f32c5a60d6f5351c33":[40,0,1,12,23],
+"classcore_1_1ArenaSession.html#a385d10918f6417f32c5a60d6f5351c33":[41,0,0,12,23],
+"classcore_1_1ArenaSession.html#a38808d9b9189c755c35f14cbe7159e07":[40,0,1,12,39],
+"classcore_1_1ArenaSession.html#a38808d9b9189c755c35f14cbe7159e07":[41,0,0,12,39],
 "classcore_1_1ArenaSession.html#a3ce3b41cfdf4361ae9a289d74c9818b9":[40,0,1,12,4],
 "classcore_1_1ArenaSession.html#a3ce3b41cfdf4361ae9a289d74c9818b9":[41,0,0,12,4],
 "classcore_1_1ArenaSession.html#a3dc6b71791568af78f3f66d6987df23c":[40,0,1,12,3],
@@ -239,15 +249,5 @@ var NAVTREEINDEX3 =
 "classcore_1_1CombatState.html#a262ea3a0ba978bcbfcb1b8c2e6a7c4c5":[40,0,1,33,34],
 "classcore_1_1CombatState.html#a262ea3a0ba978bcbfcb1b8c2e6a7c4c5":[41,0,0,33,34],
 "classcore_1_1CombatState.html#a311f1bd4157e775aaa91f3fc8c43d2bb":[40,0,1,33,46],
-"classcore_1_1CombatState.html#a311f1bd4157e775aaa91f3fc8c43d2bb":[41,0,0,33,46],
-"classcore_1_1CombatState.html#a42ce988bb498483d064a799c2a8ae62c":[40,0,1,33,9],
-"classcore_1_1CombatState.html#a42ce988bb498483d064a799c2a8ae62c":[41,0,0,33,9],
-"classcore_1_1CombatState.html#a49abb9a15d8de91f995425ea70356280":[40,0,1,33,8],
-"classcore_1_1CombatState.html#a49abb9a15d8de91f995425ea70356280":[41,0,0,33,8],
-"classcore_1_1CombatState.html#a49d96286a0822ad235828403c81393e1":[40,0,1,33,63],
-"classcore_1_1CombatState.html#a49d96286a0822ad235828403c81393e1":[41,0,0,33,63],
-"classcore_1_1CombatState.html#a4a9785aabe219b6fc2eaf4c51864ce87":[40,0,1,33,68],
-"classcore_1_1CombatState.html#a4a9785aabe219b6fc2eaf4c51864ce87":[41,0,0,33,68],
-"classcore_1_1CombatState.html#a50b0d58335080428272acee52ca4e17d":[40,0,1,33,27],
-"classcore_1_1CombatState.html#a50b0d58335080428272acee52ca4e17d":[41,0,0,33,27]
+"classcore_1_1CombatState.html#a311f1bd4157e775aaa91f3fc8c43d2bb":[41,0,0,33,46]
 };

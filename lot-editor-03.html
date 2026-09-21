@@ -96,17 +96,17 @@ $(function(){initNavTree('lot-editor-03.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 19 septembre 2026</b> (ouvert le même jour), sur la branche <span class="tt">lot-editor-03-pieces</span>. Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, tests unitaires verts (813), acceptation sur Martpart, <span class="tt">LevelEditor --check</span> vert ; capture de la fenêtre (palette des pièces, masque des cases forcées). <b>Vérification à la souris due</b> : poser, glisser et gommer dans le canevas (voir plus bas). Prérequis : <span class="tt">LOT-EDITOR-02</span>, <span class="tt">LOT-EDITOR-12</span>. Feuille de route : <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">éditeur</a>. Alimente : <span class="tt">LOT-EDITOR-04</span>. Exigences : <span class="tt">EX-EDIT-063</span>, <span class="tt">EX-EDIT-064</span>, <span class="tt">EX-EDIT-065</span> (nouvelles) ; <span class="tt">EX-EDIT-002</span>, <span class="tt">EX-EDIT-018</span> et <span class="tt">EX-EDIT-043</span> révisées. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1049"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1052"></a>
 Objectif</h1>
 <p>La palette est la planche du lieu. Poser une pièce écrit sa couche, sa <span class="tt">piece</span> et sa collision en un seul geste — ce que les scripts des cartes faisaient jusqu'ici à la place de l'éditeur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1050"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1053"></a>
 Ce que le dépôt contenait à l'ouverture (19 septembre 2026)</h1>
 <ul>
 <li><b>Une palette de types en couleurs</b> : l'éditeur peignait des types de tuile ; la pièce qu'une case nomme (format v4) ne se posait pas, elle ne faisait que traverser un cycle ouvrir/enregistrer.</li>
 <li><b>Une collision peinte à part</b> : un geste sur une couche visuelle ne touchait pas la grille de collision, alors que <span class="tt">LevelEditor --check</span> exige depuis le <span class="tt">LOT-EDITOR-12</span> qu'elle égale la déduction hors cases forcées. Peindre une carte dans l'éditeur la rendait donc fausse au contrôle.</li>
 <li><b>Des cases forcées invisibles</b> : le Colisée en garde 540 depuis sa migration, sans que rien ne les montre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1051"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1054"></a>
 Décisions</h1>
 <ul>
 <li><b>Le catalogue est le manifeste du lieu</b>, rangé par classe (sols, pièces debout, pièces larges, classe inconnue), sous le nom court que la carte écrit, avec une recherche sur le nom et la classe. Le manifeste ne porte pas d'autre libellé : « les libellés du lieu » sont ses noms de pièce, ceux de la disposition de l'atelier (<span class="tt">LOT-92</span>). Les consignes de dessin de la disposition, en anglais, ne sont pas livrées avec le jeu ; elles n'entrent pas dans la bulle d'aide, qui dit classe, emprise et type tactique.</li>
@@ -124,7 +124,7 @@ Décisions</h1>
 <li><b>Le manifeste suit le brouillon</b> (<span class="tt">LevelDraft::setPieceManifest</span>), partagé et hors de l'historique : l'éditeur le lit avec la table du lieu par <span class="tt">loadPlaceAssets</span>, comme <span class="tt">--check</span>.</li>
 <li><b>La palette prend la hauteur</b> à gauche dans la disposition par défaut (version de disposition 12) : c'est l'outil qu'on regarde le plus.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1052"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1055"></a>
 Livraison</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -142,7 +142,7 @@ Livraison</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Colisée  </td><td class="markdownTableBodyNone"><span class="tt">carte_colisee.py</span> trace la collision déduite ; la carte n'a plus de case forcée (décision de l'auteur, plus bas)  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1053"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1056"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Repeindre une rue et une façade de Martpart sans toucher à la collision rend un fichier identique à l'original.</b> ✔ <span class="tt">BrushGestureTest.RepeindreUneRueEtUneFacadeRendLeMemeFichier</span> : une case de rue (<span class="tt">street-2</span>) et un pan de façade (<span class="tt">window-left</span>) gommés puis reposés au pinceau de pièce ; le brouillon écrit le fichier livré, octet pour octet. Martpart ne pose pas de façade large (<span class="tt">front-left</span> n'y paraît pas) : le pan de mur est la façade de ses rues.</li>
@@ -152,11 +152,11 @@ Critères d'acceptation</h1>
 <li><b>Carte sans lieu : repli sur les types en couleurs.</b> ✔ l'onglet des pièces s'éteint (palette), le canevas peignait déjà les types en couleurs (<span class="tt">LOT-EDITOR-02</span>).</li>
 </ul>
 <p><b>Vérification à la souris, due</b> : sur Martpart, choisir <span class="tt">feature-1</span>, le poser sur la place, glisser sur sa deuxième case (rien ne bouge), le gommer ; la collision active, peindre un mur sur une rue (case magenta), puis la gommer (le magenta part). Les clics postés n'atteignent pas Qt : cette vérification ne se fait pas sans la main de l'auteur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1054"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1057"></a>
 Les 540 cases forcées du Colisée — libérées</h1>
 <p>Le masque les a montrées d'un coup d'œil : l'anneau de <b>vide</b> autour de l'amphithéâtre (538 cases, ni sol ni pièce) et deux <b>piliers</b>, en (7, 10) et (7, 23). Un parcours depuis l'entrée (la porte, en (19, 32)) les atteignait <b>toutes</b> : le héros pouvait sortir par la porte et marcher dans le vide, héritage de la v3 que la migration avait gardé à l'identique. Aucune entité n'y était posée. Les deux piliers se traversaient, là où ceux du couloir est arrêtent le pas.</p>
 <p><em>Décision de l'auteur, 19 septembre 2026</em> : <b>tout libérer</b>. Le vide est un mur, les quatre piliers arrêtent le pas, et la collision du Colisée est exactement la déduction : plus aucune case forcée. Le Colisée étant encore tracé par <span class="tt">carte_colisee.py</span> (jusqu'au <span class="tt">LOT-EDITOR-06</span>), c'est le script qui trace désormais cette collision — le vide en mur, et sur une dalle la collision du type tactique de la pièce qu'elle porte —, pour que <span class="tt">--migrate</span> ne force plus rien ; <span class="tt">--check</span> du script et de l'éditeur sont verts. Un parcours depuis la porte atteint 632 cases, toutes sur un sol : les 634 cases franchissables, moins les deux piliers.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1055"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1058"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Seau, ligne, pipette, gomme en outil, miroir</b> : <span class="tt">LOT-EDITOR-04</span>. La gomme de ce lot est un pinceau de la palette, que le <span class="tt">LOT-EDITOR-04</span> fera outil.</li>

@@ -97,29 +97,29 @@ $(function(){initNavTree('lot-39.html','',''); });
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 1056/1056, <span class="tt">clang-format</span>, les neuf lints, cahier de test et Doxygen verts). Prérequis : <span class="tt">LOT-33</span>, <span class="tt">LOT-34</span>, <span class="tt">LOT-37</span>, <a class="el" href="lot-38.html" title="LOT-38 — Fiche de personnage : maquette et interface">LOT-38</a>.</p>
 <p>Aucune exigence ajoutée : <span class="tt">EX-CNT-040</span> et <span class="tt">EX-CNT-041</span> couvrent ce lot, et c'est leur premier emploi. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md567"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md569"></a>
 Objectif</h1>
 <p>Que le jeu tourne <b>complet</b> — trois cents entrées affichables — avant qu'une seule illustration ne soit produite.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md568"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md570"></a>
 Une clé, jamais un chemin</h1>
 <p>Une donnée désigne son illustration par une <b>clé</b> : <span class="tt">beast/wolf</span>. Jamais <span class="tt">Assets/Entities/beast/wolf.png</span> (<span class="tt">EX-CNT-040</span>). Un chemin dans une donnée de règle lie le catalogue à l'arborescence du disque : le jour où l'on range autrement, ce sont des créatures qui cassent, et le lien entre le déplacement de dossier et la créature sans image ne se voit pas.</p>
 <p><span class="tt"><a class="el" href="namespacecore.html#af313492482f82ad2391f0da874bfe2a7" title="Vrai si key respecte la syntaxe d&#39;une clé d&#39;asset.">core::isValidAssetKey</a></span> refuse donc explicitement ce qui ressemble à un chemin — y compris <span class="tt">beast/wolf/token</span>, qui est un chemin déguisé en clé à trois segments — et emploie <b>la même expression</b> que <span class="tt">common.schema.json</span> : la donnée refusée à la validation est exactement celle que le moteur refuse.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md569"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md571"></a>
 La clé se déduit ; le champ <span class="tt">asset</span> sert à déroger</h1>
 <p>Trois cents entrées auraient sinon porté trois cents lignes recopiées, et la première faute de frappe aurait donné une créature sans image sans que rien ne l'explique. Une créature <span class="tt">wolf.json</span> attend donc <span class="tt">beast/wolf</span> <b>sans rien écrire</b>.</p>
 <p>Le champ <span class="tt">asset</span> d'une donnée existe pour le cas qui ne se déduit pas : deux entrées qui partagent une illustration. C'est une <b>dérogation</b>, pas une répétition — et c'est pourquoi le contrôle d'unicité ne porte que sur les clés <em>dérivées</em> : deux dérogations vers la même image sont légitimes, deux clés dérivées identiques révèlent deux entrées de même identifiant.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md570"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md572"></a>
 Le manifeste est dérivé, jamais tenu à la main</h1>
 <p><span class="tt"><a class="el" href="namespacecore.html#aab57711f82ec7e7ced5a2c8d90d8abe1" title="Énumère les clés qu&#39;attendent les catalogues de rpgDir, selon families.">core::expectedAssetKeys</a></span> énumère les clés qu'attendent les catalogues, en les parcourant. Il n'y a <b>aucun fichier de manifeste commité</b> : il divergerait du catalogue au premier ajout de créature, et c'est la copie oubliée qu'on lit six mois plus tard. Le dériver coûte un balayage de dossier et ne peut pas mentir.</p>
 <p>Les <b>dimensions</b> attendues, en revanche, sont de la donnée : <span class="tt">Assets/Entities/families.json</span> déclare chaque famille, sa taille et les dossiers de catalogue qui l'alimentent. Un <span class="tt">96</span> nu dans un calcul de découpe ne dirait pas ce qu'il représente, et l'ajuster demanderait une recompilation (<span class="tt">EX-VIS-007</span>). Les familles y sont <b>lues</b>, jamais énumérées en C++ : le vocabulaire grandira — sorts, PNJ, quartiers de guilde — et une énumération fermée obligerait chaque lot suivant à recompiler pour ajouter une famille.</p>
 <p>Sept familles à ce jour, <b>308 clés attendues</b> : 94 créatures, 125 objets, 37 armes, 13 armures, 22 espèces, 13 historiques, 4 classes. Compétences, langues et dons n'attendent aucune illustration, et ne figurent donc pas.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md571"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md573"></a>
 Le marqueur, et pourquoi il est déterministe</h1>
 <p><span class="tt">EX-CNT-041</span> : toute clé sans image obtient un <b>marqueur généré</b>. Sans lui, trois cents entrées s'afficheraient comme des trous, et la production graphique deviendrait un préalable bloquant — rien ne pourrait être joué ni relu avant elle. Avec, elle devient un <b>remplacement progressif</b> : une image à la fois, et le jeu ne cesse jamais d'être jouable.</p>
 <p>La même clé donne <b>toujours</b> le même marqueur. Un marqueur tiré au hasard changerait à chaque lancement : le loup ne serait plus reconnaissable d'une partie à l'autre, deux captures du même combat différeraient, et un test ne pourrait rien en dire. La teinte vient donc d'un hachage <b>écrit dans le projet</b> (FNV-1a) plutôt qu'emprunté à <span class="tt">std::hash</span>, dont la valeur n'est pas garantie d'une plateforme ou d'une version de bibliothèque à l'autre — le marqueur d'un loup changerait de teinte au changement de compilateur, une régression invisible en développement et visible chez le joueur.</p>
 <p>Deux diagonales barrent la vignette : un marqueur doit se voir <b>comme</b> un marqueur, et ne jamais passer pour une illustration définitive livrée un peu vite.</p>
 <p>Une clé <b>malformée</b> ne reçoit pas de marqueur. Lui en donner un la ferait passer pour une entrée en attente d'illustration, alors qu'elle est une faute de donnée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md572"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md574"></a>
 Le lint fait deux choses de nature différente</h1>
 <p>C'est le cœur du critère d'acceptation, et il est délibéré :</p>
 <table class="markdownTable">
@@ -133,11 +133,11 @@ Le lint fait deux choses de nature différente</h1>
 <td class="markdownTableBodyNone">clé encore servie par un marqueur  </td><td class="markdownTableBodyNone"><b>liste</b>, et n'échoue pas (<span class="tt">EX-CNT-041</span>)  </td></tr>
 </table>
 <p>Un lint qui échouerait sur la troisième ligne rendrait le dépôt rouge jusqu'à la dernière illustration livrée, et plus personne ne lirait sa sortie. C'est un état d'avancement, pas un défaut.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md573"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md575"></a>
 Ce que le lot ne fait pas</h1>
 <p><b>Il n'affiche rien.</b> Le marqueur est produit et vérifié, mais aucun écran ne montre encore de créature : le premier consommateur sera l'éditeur (<a class="el" href="lot-11.html" title="LOT-11 — Éditeur multi-couches et placement d&#39;entités">LOT-11</a>) ou le contenu du <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>. Le dire plutôt que de laisser croire que le bestiaire est à l'écran : la plomberie est posée, le robinet n'est pas encore branché.</p>
 <p><b>Il ne produit aucune illustration.</b> C'est tout son objet : rendre la production graphique progressive au lieu de bloquante.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md574"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md576"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Aucune clé d'asset orpheline dans les catalogues.</b> ✔ (vérifié par test <em>et</em> par lint, dans les deux sens — clé sans donnée, image sans clé)</li>

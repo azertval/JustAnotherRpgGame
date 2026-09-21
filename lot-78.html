@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-78.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : <span class="tt">scripts/lint_lots.py</span> vert, règle 12 comprise ; <span class="tt">scripts/lint_exigences.py</span> vert ; Doxygen vert). Prérequis : aucun. Prérequis du démarrage de tout lot de la filière. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md634"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md636"></a>
 Objectif</h1>
 <p>Rendre non ambigu tout renvoi <span class="tt">LOT-NN</span> d'une spécification, et empêcher l'ambiguïté de se reformer.</p>
 <p>Ce dépôt est dérivé d'un jeu de plateforme livré après <b>74 lots</b>. Les deux numérotations repartent de <span class="tt">LOT-01</span>. Tant que le programme RPG s'arrêtait à <span class="tt">LOT-29</span>, on pouvait écrire que les deux ensembles ne se croisaient jamais. La feuille de route atteignant <span class="tt">LOT-84</span>, la plage héritée est <b>entièrement recouverte</b> : <span class="tt">LOT-54</span> désigne désormais un atelier pixel art livré <em>et</em> le lot Magicien à faire, et rien ne dit lequel.</p>
 <p>C'est le pire genre de défaut : <b>ambigu sans être cassé</b>. Ni le lint d'exigences ni Doxygen ne le signalent, et seul un lecteur qui connaît les deux programmes peut trancher.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md635"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md637"></a>
 Périmètre</h1>
 <p><b>201 renvois préfixés</b> en <span class="tt">LOT-H-NN</span>, dans <b>dix</b> fichiers de spécification :</p>
 <table class="markdownTable">
@@ -130,7 +130,7 @@ Périmètre</h1>
 </table>
 <p>Les <b>49 renvois restants</b> désignent de vrais lots de ce programme et gardent leur écriture nue : <span class="tt"><a class="el" href="vision_8md.html">vision.md</a></span>, <span class="tt"><a class="el" href="exploration_8md.html">exploration.md</a></span>, les cinq documents du <a class="el" href="lot-77.html" title="LOT-77 — La moitié RPG de la spécification">LOT-77</a>, plus les renvois au <span class="tt">LOT-01</span>, au <span class="tt">LOT-04</span> (format v3), au <span class="tt">LOT-05</span> (modes de jeu) et au <span class="tt">LOT-07</span> (tri par Y).</p>
 <p>S'y ajoutent la <b>convention</b> écrite en tête de <span class="tt"><a class="el" href="specifications_8md.html">specifications.md</a></span>, et la <b>règle 12</b> de <span class="tt">scripts/lint_lots.py</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md636"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md638"></a>
 Comment la classification a été faite</h1>
 <p>Renvoi par renvoi, par couple <b>(fichier, numéro)</b> — pas fichier par fichier. C'était nécessaire : <span class="tt"><a class="el" href="rendu-technique_8md.html">rendu-technique.md</a></span> cite le <span class="tt">LOT-07</span> <b>courant</b> (« l'ordre des calques reste souverain. Concrétisé en <span class="tt">LOT-07</span> », le tri par Y) et le <span class="tt">LOT-08</span> <b>hérité</b> (« une caméra fixe cadrant le tableau depuis <span class="tt">LOT-08</span> », vocabulaire de plateforme) à onze lignes d'écart.</p>
 <p>Deux signaux ont suffi dans la quasi-totalité des cas, tous deux vérifiés contre les titres des epics archivés (retirés du dépôt au <span class="tt">LOT-88</span>) :</p>
@@ -139,14 +139,14 @@ Comment la classification a été faite</h1>
 <li><b>Le vocabulaire.</b> « Tableau », « salle », « plateforme », « saut », « dash », « parallaxe », « atelier pixel art » appartiennent au jeu d'origine ; « région », « fiche », « d20 », « case » au RPG.</li>
 </ul>
 <p>Trois cas ont demandé une vérification directe : <span class="tt"><a class="el" href="architecture_8md.html">architecture.md</a>:20</span> (<span class="tt">LOT-05</span> = modes de jeu, <b>courant</b>), <span class="tt"><a class="el" href="rendu-technique_8md.html">rendu-technique.md</a>:22</span> (<span class="tt">LOT-08</span> = caméra cadrant un tableau, <b>hérité</b>) et les trois <span class="tt">LOT-27</span> d'<span class="tt"><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></span> (palette organisée par catégories, <b>hérités</b> — le <span class="tt">LOT-27</span> courant est le <em>vertical slice</em>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md637"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md639"></a>
 Ce que la règle 12 empêche</h1>
 <p><span class="tt">scripts/lint_lots.py</span> refuse désormais tout <span class="tt">LOT-NN</span> d'une spécification qui ne désigne pas un lot <b>existant de ce programme</b> — livré (il a son dossier) ou inscrit à la feuille de route. Un renvoi à l'hérité doit porter le préfixe.</p>
 <p>Sans cette règle, le travail ci-dessus se déferait au premier renvoi ajouté de mémoire. Et il faudrait le refaire en entier, puisque rien ne dirait lesquels des renvois ont déjà été classés.</p>
 <blockquote class="doxtable">
 <p><b>Un défaut du lint a été trouvé en le vérifiant.</b> La règle 12 a d'abord été écrite avec une expression régulière contenant un caractère de contrôle invisible, qui l'empêchait de jamais correspondre : le lint passait au vert sur un renvoi délibérément faux. Un garde-fou qu'on n'a pas vu échouer n'est pas un garde-fou — la règle n'a été considérée acquise qu'après avoir observé <span class="tt"><a class="el" href="vision_8md.html">vision.md</a>:98 cite LOT-99, qui n'existe pas dans ce programme</span>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md638"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md640"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Aucun <span class="tt">LOT-NN</span> d'une spécification ne désigne un lot hérité sans préfixe <span class="tt">LOT-H-</span>. ✔</li>

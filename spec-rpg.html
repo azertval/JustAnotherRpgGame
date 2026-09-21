@@ -97,19 +97,19 @@ $(function(){initNavTree('spec-rpg.html','',''); });
 <p>Statut : <b>à faire</b> (<span class="tt">LOT-77</span> écrit ce document ; <span class="tt">LOT-13</span>, <span class="tt">LOT-25</span>, <span class="tt">LOT-36</span>, <span class="tt">LOT-43</span>, <span class="tt">LOT-47</span>, <span class="tt">LOT-51</span> → <span class="tt">LOT-65</span> et <span class="tt">LOT-74</span> l'implémentent). Dépend de <a class="el" href="spec-regles-d20.html" title="Règles d20"><span class="tt">regles-d20.md</span></a> et de <a class="el" href="spec-contenu.html" title="Contenu et données"><span class="tt">contenu.md</span></a>. </p>
 </blockquote>
 <p>Le personnage est l'agrégat que tout le reste du jeu consulte. Ce document dit ce qu'il agrège, d'où viennent les valeurs, et comment une classe s'ajoute sans que le moteur ait à la connaître — ce dernier point étant la condition pour que <b>seize classes</b> soient tenables par une seule personne.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md292"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md294"></a>
 1. La fiche</h1>
 <ul>
 <li><a class="anchor" id="EX-RPG-001"></a><b>EX-RPG-001</b> — La fiche de personnage est un <b>agrégat dérivé</b> : espèce, classes, historique, options et équipement portés en sont les <b>sources</b>, et toute valeur affichée (modificateurs, classe d'armure, points de vie maximaux, maîtrises, vitesse) en est <b>calculée</b>. Aucune de ces valeurs n'est codée en C++ ni saisie à la main. C'est la traduction directe d'<span class="tt">EX-VIS-007</span> sur l'objet le plus consulté du jeu.</li>
 <li><a class="anchor" id="EX-RPG-002"></a><b>EX-RPG-002</b> — Un changement de source doit <b>recalculer</b> l'agrégat, jamais le corriger par delta. Retirer une armure doit recalculer la classe d'armure depuis ce qui reste porté, et non lui soustraire ce qu'on croit avoir ajouté : les deux divergent dès qu'un troisième effet s'intercale, et la divergence est silencieuse.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md293"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md295"></a>
 2. Espèce et historique</h1>
 <ul>
 <li><a class="anchor" id="EX-RPG-010"></a><b>EX-RPG-010</b> — Une <b>espèce</b> est entièrement une donnée : ajustements de caractéristiques, vitesse, taille, sens particuliers, langues accordées, traits. Le moteur ne connaît <b>aucune espèce par son nom</b>. Le corpus en fournit treize, et rien ne doit distinguer une espèce importée d'une espèce écrite plus tard.</li>
 <li><a class="anchor" id="EX-RPG-011"></a><b>EX-RPG-011</b> — Un <b>historique</b> accorde des maîtrises, des langues, un équipement de départ et une <b>table de personnalité</b> (traits, idéaux, liens, défauts) tirable aléatoirement. Cette dernière n'est pas décorative : c'est ce qui permet de peupler un monde ouvert de PNJ ayant une personnalité sans en écrire une par PNJ.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md294"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md296"></a>
 3. La classe</h1>
 <ul>
 <li><a class="anchor" id="EX-RPG-020"></a><b>EX-RPG-020</b> — Une <b>classe</b> déclare son dé de vie, ses maîtrises, ses caractéristiques de sauvegarde, sa <b>table de progression sur vingt niveaux</b> et le niveau auquel se choisit sa sous-classe. La table est une <b>donnée relue</b>, pas une suite de conditions dans le code : c'est le seul format où une erreur de niveau se voit à l'œil nu.</li>
@@ -117,21 +117,21 @@ $(function(){initNavTree('spec-rpg.html','',''); });
 <li><a class="anchor" id="EX-RPG-022"></a><b>EX-RPG-022</b> — Une <b>sous-classe</b> se greffe sur sa classe mère <b>sans la dupliquer</b> : elle ajoute des entrées à des niveaux donnés, elle ne recopie pas la progression. Le corpus en compte une vingtaine ; les dupliquer multiplierait par vingt le coût de toute correction sur une classe de base.</li>
 <li><a class="anchor" id="EX-RPG-023"></a><b>EX-RPG-023</b> — Ajouter une classe ne doit demander de modifier <b>aucun</b> fichier C++ existant, hors l'ajout de sa <b>mécanique propre</b>. C'est le critère qui rend le découpage « une classe par lot » réalisable : si ajouter la quinzième classe demande de toucher au code des quatorze premières, le programme s'arrête à la cinquième.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md295"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md297"></a>
 4. Progression</h1>
 <ul>
 <li><a class="anchor" id="EX-RPG-030"></a><b>EX-RPG-030</b> — Les <b>sources d'expérience</b> sont définies et exhaustives : victoire au combat selon le facteur de puissance des adversaires (<span class="tt">EX-REG-050</span>), achèvement de quête, et <b>découverte de lieu</b> — cette dernière propre au bac à sable, où l'exploration doit récompenser autant que le combat. Trois systèmes consommaient l'expérience sans qu'aucun n'en produise ; c'est la définition même d'un trou de spécification.</li>
 <li><a class="anchor" id="EX-RPG-031"></a><b>EX-RPG-031</b> — Le passage de niveau se fait au <b>franchissement d'un seuil</b>, et un dépassement de plusieurs seuils en une fois fait gagner <b>plusieurs niveaux</b>. Une montée plafonnée à un niveau par gain rendrait une récompense de quête tardive silencieusement amputée.</li>
 <li><a class="anchor" id="EX-RPG-032"></a><b>EX-RPG-032</b> — Aucune progression ne doit être liée au <b>franchissement d'un tableau</b> ou d'un niveau discret. La notion n'existe pas dans un monde ouvert, et la spécification héritée qui la porte encore doit être retirée, non contournée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md296"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md298"></a>
 5. Options de personnage</h1>
 <ul>
 <li><a class="anchor" id="EX-RPG-040"></a><b>EX-RPG-040</b> — Les <b>dons</b> sont une donnée, et déclarent leurs conditions d'accès ainsi que leurs effets en termes de mécanismes existants (<span class="tt">EX-CNT-030</span>). Un don dont l'effet n'entre dans aucun mécanisme se déclare narratif plutôt que de ne rien faire.</li>
 <li><a class="anchor" id="EX-RPG-041"></a><b>EX-RPG-041</b> — Le <b>multiclassage</b> déclare ses conditions de caractéristique, les maîtrises qu'il accorde, et surtout le <b>cumul des emplacements de sorts</b> selon une table dédiée. C'est la règle la plus facile à implémenter de travers, et la plus difficile à détecter ensuite : un lanceur multiclassé mal calculé reste jouable, simplement faux.</li>
 <li><a class="anchor" id="EX-RPG-042"></a><b>EX-RPG-042</b> — Les <b>langues</b> sont une donnée, accordée par espèce, historique ou don, et déclarée par chaque créature. Elles ne sont pas décoratives : un dialogue doit pouvoir être <b>refusé</b> faute de langue commune, sans quoi un monde à treize espèces parle partout la même.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md297"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md299"></a>
 6. Sorts</h1>
 <ul>
 <li><a class="anchor" id="EX-RPG-050"></a><b>EX-RPG-050</b> — Le C++ ne porte que des <b>mécanismes de sort</b> — dégâts de zone, jet de sauvegarde, condition appliquée, durée, soin, invocation — et la <b>donnée les compose</b>. Un sort n'est pas une fonction : c'est une combinaison déclarée de mécanismes existants.</li>

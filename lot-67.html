@@ -97,11 +97,11 @@ $(function(){initNavTree('lot-67.html','',''); });
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 1007/1007, <span class="tt">clang-format</span>, les sept lints, cahier de test et Doxygen verts). Prérequis : <a class="el" href="lot-66.html" title="LOT-66 — Charte visuelle : sortir de l&#39;identité pixel art">LOT-66</a> (charte visuelle), <a class="el" href="lot-76.html" title="LOT-76 — Habillage d&#39;interface extrait des livres">LOT-76</a> (ornements tracés).</p>
 <p>Exigence ajoutée : <a class="el" href="spec-interface-ihm.html#EX-IHM-076" title="EX-IHM-076"><span class="tt">EX-IHM-076</span></a> (illustrations extraites du corpus). Exigences <b>refondues</b> : <a class="el" href="spec-gameplay.html#EX-GP-040" title="EX-GP-040"><span class="tt">EX-GP-040</span></a> (états de jeu), <a class="el" href="spec-interface-ihm.html#EX-IHM-003" title="EX-IHM-003"><span class="tt">EX-IHM-003</span></a> (affichage tête haute), <a class="el" href="spec-interface-ihm.html#EX-IHM-004" title="EX-IHM-004"><span class="tt">EX-IHM-004</span></a> (écran de pause). Exigences <b>retirées</b> : <a class="el" href="spec-gameplay.html#EX-GP-030" title="EX-GP-030"><span class="tt">EX-GP-030</span></a>, <a class="el" href="spec-gameplay.html#EX-GP-031" title="EX-GP-031"><span class="tt">EX-GP-031</span></a>, <a class="el" href="spec-gameplay.html#EX-GP-032" title="EX-GP-032"><span class="tt">EX-GP-032</span></a>, <a class="el" href="spec-niveaux.html#EX-LVL-010" title="EX-LVL-010"><span class="tt">EX-LVL-010</span></a> → <a class="el" href="spec-niveaux.html#EX-LVL-015" title="EX-LVL-015"><span class="tt">EX-LVL-015</span></a>, <a class="el" href="spec-interface-ihm.html#EX-IHM-005" title="EX-IHM-005"><span class="tt">EX-IHM-005</span></a>, <a class="el" href="spec-exigences.html#EX-NFR-021" title="EX-NFR-021"><span class="tt">EX-NFR-021</span></a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md606"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md608"></a>
 Objectif</h1>
 <p>Le jeu décrivait un autre jeu. <span class="tt">fr.lang</span> proposait « Choisir un niveau », l'écran de pause « Recommencer le niveau », et un avertissement de sortie parlait de « la progression du <b>tableau</b> en cours ». Un bac à sable ouvert n'a ni niveau à choisir, ni tableau à recommencer.</p>
 <p>Ce lot retire la <b>notion de niveau discret</b> — des écrans, du code, du vocabulaire et des exigences — et remplace le décor du menu principal par la <b>carte du monde de Tanares</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md607"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md609"></a>
 Ce que le joueur voit</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -116,7 +116,7 @@ Ce que le joueur voit</h1>
 <td class="markdownTableBodyNone">Fin de niveau  </td><td class="markdownTableBodyNone">un écran de bilan (temps, morts, sauts)  </td><td class="markdownTableBodyNone">il n'y en a plus  </td></tr>
 </table>
 <p><b>Deux entrées de menu disparaissent parce qu'elles ne menaient plus nulle part.</b> « Continuer » reposait sur une progression au tableau, « Choisir un niveau » sur une séquence : les deux sont retirées. Les rétablir en les grisant aurait coûté plus de confiance qu'elles n'apportaient d'information (<span class="tt">EX-IHM-072</span>). « Continuer » revient avec la sauvegarde du <span class="tt">LOT-17</span>, quand il y aura quelque chose à reprendre ; les entrées RPG de la pause — fiche, inventaire, journal, carte — avec les écrans du <span class="tt">LOT-68</span>, quand elles auront où mener.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md608"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md610"></a>
 La carte du monde en fond, et la frontière qu'elle trace</h1>
 <p>Le <a class="el" href="lot-76.html" title="LOT-76 — Habillage d&#39;interface extrait des livres">LOT-76</a> venait de conclure que l'habillage se <b>trace</b> et ne se livre pas en image (<span class="tt">EX-IHM-075</span>). Ce lot livre une image. Ce n'est pas un revirement : c'est la même frontière, prise de l'autre côté, et <span class="tt">EX-IHM-076</span> l'écrit.</p>
 <p>Un <b>ornement</b> se trace parce qu'il doit se redimensionner et suivre les jetons de la palette. Une <b>illustration</b> ne le peut pas : une carte du monde peinte ne se trace pas, elle se prend ou elle n'existe pas. Les mêmes garde-fous s'appliquent — région déclarée, rendu de région (<span class="tt">EX-CNT-022</span>), manifeste recoupé en intégration continue avec les fichiers <b>et</b> avec le code qui les nomme, repli si l'image est absente (<span class="tt">EX-NFR-040</span>).</p>
@@ -127,12 +127,12 @@ La carte du monde en fond, et la frontière qu'elle trace</h1>
 <li><b>Le filigrane d'achat est recadré, pas effacé.</b> L'effacer demanderait de repeindre ce qu'il recouvre, c'est-à-dire d'inventer des pixels. La région déclarée s'arrête avant lui.</li>
 </ul>
 <p>Et le voile de lisibilité change de nature : le décor tracé se voilait par <b>bandes superposées</b>, ce qui est correct sur des aplats. Sur une carte peinte, chaque palier se lit comme une bande claire en travers du relief — le procédé se voit, et c'est tout ce qu'on voit. Un <b>dégradé continu</b> le remplace, et seulement à gauche, là où vivent les entrées : assombrir l'image entière rendrait le texte lisible en effaçant ce qu'on vient de mettre derrière.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md609"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md611"></a>
 Ce qui a été retiré du code</h1>
 <p><b>Deux écrans</b> (<span class="tt">LevelSelectScreen</span>, <span class="tt">LevelCompleteScreen</span>, leurs <span class="tt">.ui</span> et leurs deux maquettes), <b>deux modèles</b> (<span class="tt">hmi::Progression</span>, <span class="tt">core::LevelSequence</span>) et <b>un bilan de partie</b> (<span class="tt">hmi::LevelRunStats</span>, qui comptait le temps, les morts et les sauts). Environ <b>1 300 lignes</b>.</p>
 <p>Les retirer était le seul choix cohérent : ce sont les mises en œuvre des exigences retirées. Les garder aurait laissé du code que plus aucune exigence ne justifie — et personne, dans six mois, n'aurait su dire s'il attendait un consommateur ou s'il n'en avait plus.</p>
 <p>La machine à états y perd deux écrans et six événements ; le viewport de jeu perd sa <b>liste</b> de niveaux au profit d'une <b>carte</b> unique.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md610"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md612"></a>
 Les seize exigences : retirées pour douze, refondues pour trois</h1>
 <p>La feuille de route demandait de retirer seize exigences. Trois d'entre elles avaient un objet <b>au-delà</b> du niveau discret, et les retirer aurait laissé leur mise en œuvre orpheline — le défaut symétrique de celui qu'on corrigeait :</p>
 <table class="markdownTable">
@@ -146,17 +146,17 @@ Les seize exigences : retirées pour douze, refondues pour trois</h1>
 <td class="markdownTableBodyNone"><span class="tt">EX-IHM-004</span>  </td><td class="markdownTableBodyNone">refondue  </td><td class="markdownTableBodyNone">L'écran de <b>pause</b> reste ; seule la moitié « écran de fin de niveau » tombe.  </td></tr>
 </table>
 <p>Les douze autres sont <b>retirées, pas supprimées</b> : leurs ancres restent, dans une section « Exigences retirées » de leur spécification, avec le texte d'origine et le motif du retrait. C'est le patron déjà suivi pour les décors-sprites, et il a une raison mécanique autant que morale — une vingtaine de lots hérités s'y réfèrent, et supprimer une ancre casserait leurs renvois sans rien apprendre à personne.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md611"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md613"></a>
 Le vocabulaire : « niveau » devient « carte », partout</h1>
 <p>Les deux catalogues passent de « niveau »/« tableau » à « carte » — y compris côté <b>éditeur</b>, où la famille de clés <span class="tt">level.*</span> devient <span class="tt">map.*</span>. L'éditeur n'édite pas des niveaux : il édite les cartes du monde, et il n'y a pas deux vocabulaires.</p>
 <p>Les deux catalogues restent <b>synchrones</b>, 376 clés de chaque côté — un test les compare dans les deux sens, une clé oubliée d'un seul côté ne se verrait sinon qu'en changeant de langue.</p>
 <p>L'événement sonore suit : <span class="tt">LevelCompleted</span> devient <span class="tt">ExitReached</span>, <span class="tt">victoire_tableau</span> devient <span class="tt">sortie_atteinte</span>, et <span class="tt">SequenceCompleted</span> disparaît avec son bruitage. Un identifiant qui nomme une mécanique retirée est un piège pour le prochain lecteur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md612"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md614"></a>
 Ce que le lot ne fait pas</h1>
 <p><b>Il ne rend pas le jeu jouable.</b> « Nouvelle partie » ouvre <span class="tt">demo-deplacement.json</span>, et ce fichier <b>n'existe pas</b> : le <a class="el" href="lot-01.html" title="LOT-01 — Fork, purge et remise à nu">LOT-01</a> a purgé les niveaux du jeu de plateforme et aucun lot n'en a livré depuis. Le constat est antérieur à ce lot — la « Nouvelle partie » d'avant chargeait une séquence tout aussi absente — mais il devient visible, et il vaut mieux l'écrire que le laisser découvrir : la carte de départ arrivera avec le contenu du <span class="tt">LOT-27</span>, sa destination avec le graphe du <span class="tt">LOT-09</span>.</p>
 <p><b>Il ne remplace pas l'ATH.</b> <span class="tt">hmi::GameHud</span> affiche encore des budgets de sauts et de dashs. C'est le contenu que <span class="tt">EX-IHM-003</span> n'énumère plus, et son remplacement appartient à l'IHM de combat du <span class="tt">LOT-24</span>.</p>
 <p><b>Il ne touche pas au format de carte.</b> La tuile de sortie reste dans le format et dans les cartes ; seul son <b>effet</b> change — elle ne termine plus rien, elle ramène au menu, en attendant la transition du <span class="tt">LOT-09</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md613"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md615"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Plus aucune clé de traduction n'emploie « niveau » ou « tableau »</b> au sens du jeu de plateforme. ✔</li>

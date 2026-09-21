@@ -94,10 +94,10 @@ $(function(){initNavTree('guide-audio.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Guide_2guide-audio"></a></p>
 <p>Cette page explique comment le jeu produit du son : le socle de lecture (<span class="tt"><a class="el" href="classhmi_1_1AudioEngine.html" title="Lecture d&#39;échantillons courts à faible latence, avec volume global et repli muet.">hmi::AudioEngine</a></span>), le réglage de volume qui le pilote depuis l'écran des options, et le provisionnement de Qt Multimedia. Le jeu ne livre aujourd'hui <b>aucun bruitage</b> : le socle existe, le volume l'atteint, mais aucun son n'est encore préchargé ni joué.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md31"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md32"></a>
 La règle d'or, une fois de plus</h1>
 <p><span class="tt">Core</span> <b>expose des transitions d'état</b> ; c'est <span class="tt">HMI</span> qui décide qu'une transition fait du bruit. Exactement la même séparation que pour le rendu (<a class="el" href="guide-rendu.html" title="Rendu 2D : de la scène à l&#39;écran">Rendu 2D : de la scène à l'écran</a>) — et pour la même raison : la simulation reste pure, déterministe et testable <b>sans périphérique audio</b> (<span class="tt">EX-NFR-010</span>, <span class="tt">EX-ARCH-012</span>, <span class="tt">EX-REN-047</span>). Aucun fichier de <span class="tt">Core/</span> n'inclut Qt, ni ne sait qu'un son existe.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md32"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md33"></a>
 Le socle : <span class="tt">hmi::AudioEngine</span></h1>
 <p><span class="tt"><a class="el" href="AudioEngine_8h.html" title="Socle de lecture audio : enveloppe fine autour de QSoundEffect (EX-REN-047).">Source/HMI/Audio/AudioEngine.h</a></span> enveloppe <span class="tt">QSoundEffect</span> (Qt Multimedia), le composant Qt conçu précisément pour des échantillons courts à faible latence — le cas d'usage exact d'un bruitage, par opposition à <span class="tt">QMediaPlayer</span> (pensé pour la musique, latence et coût plus élevés).</p>
 <ul>
@@ -106,14 +106,14 @@ Le socle : <span class="tt">hmi::AudioEngine</span></h1>
 <li><b>Tourniquet d'instances.</b> <span class="tt">preload</span> prépare en réalité <span class="tt">MAX_INSTANCES_PER_EVENT</span> (3) <span class="tt">QSoundEffect</span> identiques par identifiant, et <span class="tt">play</span> les consomme en rotation : un même son déclenché en rafale se recouvre sans s'interrompre lui-même de façon audible, sans empiler indéfiniment des lectures superposées.</li>
 <li><b>Volume borné</b> à <span class="tt">[0, 1]</span>, appliqué à tous les échantillons préchargés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md33"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md34"></a>
 Le volume : de l'écran des options au moteur</h1>
 <p>Le moteur vit dans l'application du jeu (<span class="tt"><a class="el" href="Game_2Main_8cpp.html" title="Point d&#39;entrée du jeu (JustAnotherRpgGame) — Qt Quick, sans un seul widget.">Source/App/Game/Main.cpp</a></span>), pas dans la vue-modèle des options : ce n'est pas à un écran de réglages de posséder le son du jeu. <span class="tt">connectOptions</span> lit le volume de <span class="tt"><a class="el" href="classhmi_1_1OptionsModel.html" title="Vue-modèle des options : lit et persiste les réglages, et publie leur changement.">hmi::OptionsModel</a></span> au démarrage, puis le réapplique à chaque <span class="tt">volumeChanged</span> — le curseur de l'écran des options atteint donc réellement le moteur (<span class="tt">EX-REN-048</span>, <span class="tt">EX-IHM-083</span>), même tant qu'aucun son n'est joué.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md34"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md35"></a>
 Provisionnement : Qt Multimedia</h1>
 <p><span class="tt">Qt6::Multimedia</span> est un <b>composant additionnel</b> de Qt, pas une bibliothèque tierce : il figure dans <span class="tt">find_package(Qt6 ... COMPONENTS ... Multimedia ...)</span> de <span class="tt">Source/CMakeLists.txt</span>, avec la même garde que <span class="tt">Widgets</span>/<span class="tt">Gui</span> (absent → cibles Qt ignorées, configuration jamais cassée, <span class="tt">EX-BUILD-010</span>). Provisionné en CI par <span class="tt">modules: qtmultimedia</span> dans l'action <span class="tt">.github/actions/setup-qt</span> ; en local, via le composant <span class="tt">Multimedia</span> de l'installateur Qt officiel ou <span class="tt">aqtinstall -m qtmultimedia</span>.</p>
 <p><span class="tt">windeployqt</span> (<span class="tt">POST_BUILD</span>) déploie <span class="tt">Qt6Multimedia.dll</span> et ses greffons (<span class="tt">multimedia/</span>) à côté de l'exécutable — vérifié explicitement en CI (<span class="tt">ci.yml</span>), puisqu'un build local réussi ne prouve rien sur le zip publié.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md35"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md36"></a>
 Voir aussi</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classhmi_1_1AudioEngine.html" title="Lecture d&#39;échantillons courts à faible latence, avec volume global et repli muet.">hmi::AudioEngine</a></span>, <span class="tt"><a class="el" href="classhmi_1_1OptionsModel.html" title="Vue-modèle des options : lit et persiste les réglages, et publie leur changement.">hmi::OptionsModel</a></span>.</li>

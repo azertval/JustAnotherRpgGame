@@ -94,7 +94,7 @@ $(function(){initNavTree('guide.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Guide_2guide"></a></p>
 <p>Ce guide explique <b>toutes les notions couvertes par le moteur</b> et <b>comment le code les implémente</b>. Objectif : un développeur ayant des notions de C++ mais <b>aucune expérience du développement de jeu vidéo</b> comprend l'ensemble du code <b>en autonomie</b> — chaque page part des définitions de base (qu'est-ce qu'une boucle de jeu ? un ECS ? une couche de tuiles ? un lot de sprites ?) avant d'entrer dans l'implémentation, plutôt que de présupposer ce vocabulaire acquis. Chaque page décrit les fonctions clés, leurs invariants, le <b>pourquoi</b> des choix de conception (pas seulement le <em>quoi</em>), et renvoie aux <b>explications mathématiques/algorithmiques</b> derrière les concepts.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md171"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md172"></a>
 Comment lire ce guide</h1>
 <ul>
 <li>Les noms de types et de fonctions (<span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></span>, <span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html" title="Le héros sur la carte courante : marche, interaction, portails.">core::ExplorationSession</a></span>, …) sont <b>cliquables</b> : ils mènent à la référence de code Doxygen (signature, doc détaillée).</li>
@@ -102,7 +102,7 @@ Comment lire ce guide</h1>
 <li>Le <em>quoi</em> et le <em>pourquoi</em> vivent dans les <a class="el" href="specifications.html" title="Spécifications">spécifications</a> ; ce guide couvre le <em>comment</em> — y compris les notions de game dev prérequises pour le comprendre.</li>
 <li>Les pages sont <b>indépendantes mais s'appuient les unes sur les autres</b> (voir leurs sections « Voir aussi ») : <a class="el" href="guide-maths.html" title="Mathématiques du moteur">Mathématiques du moteur</a> pose le vocabulaire (vecteurs, rectangles, unités) réutilisé par <a class="el" href="guide-niveaux.html" title="Niveaux : modèle, couches, entités, chargement">Niveaux : modèle, couches, entités, chargement</a> et <a class="el" href="guide-rendu.html" title="Rendu 2D : de la scène à l&#39;écran">Rendu 2D : de la scène à l'écran</a> ; <a class="el" href="guide-boucle.html" title="Boucle de jeu et pas de temps fixe">Boucle de jeu et pas de temps fixe</a> et <a class="el" href="guide-ecs.html" title="ECS : entités, composants, systèmes">ECS : entités, composants, systèmes</a> posent les deux piliers d'architecture (déterminisme, données/logique) sur lesquels tout le reste s'appuie. En cas de doute sur un terme, remonter à la page qui le définit plutôt que de le supposer connu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md172"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md173"></a>
 Architecture en deux couches</h1>
 <p>Le moteur sépare strictement :</p>
 <ul>
@@ -111,7 +111,7 @@ Architecture en deux couches</h1>
 <li><b><span class="tt">Source/Ui</span></b> — ce que la <b>conception</b> modifie : les écrans du jeu en QML déclaratif, leurs jetons et leurs ornements. Ne connaît de <span class="tt">HMI</span> que ses vues-modèles (<span class="tt">EX-IHM-100</span>).</li>
 </ul>
 <p>La règle d'or : <b>la simulation est dans <span class="tt">Core</span>, déterministe et testée</b> ; <span class="tt">HMI</span> orchestre et affiche. Cette frontière est ce qui rend le moteur analysable domaine par domaine.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md173"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md174"></a>
 Plan du guide</h1>
 <ul>
 <li><a class="el" href="guide-boucle.html" title="Boucle de jeu et pas de temps fixe">Boucle de jeu et pas de temps fixe</a> — la boucle de jeu et le <b>pas de temps fixe</b> (déterminisme).</li>

@@ -96,11 +96,11 @@ $(function(){initNavTree('lot-22.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 1130/1130 en Debug et en Release, <span class="tt">clang-format</span>, les lints, le contrôle des données RPG et le cahier de test verts ; deux défauts réintroduits à la main font chacun échouer leur test). Prérequis : <a class="el" href="lot-19.html" title="LOT-19 — Grille tactique et déplacement">LOT-19</a> (la grille), <a class="el" href="lot-21.html" title="LOT-21 — Attaques, dégâts et états">LOT-21</a> (l'attaque et son jet amendable). Alimente <a class="el" href="lot-23.html" title="LOT-23 — IA tactique ennemie">LOT-23</a>, <a class="el" href="lot-24.html" title="LOT-24 — IHM de combat">LOT-24</a>, <a class="el" href="roadmap.html#lot-25" title="LOT-25 — Sorts et capacités de classe">LOT-25</a>, <span class="tt">LOT-35</span> et <span class="tt">LOT-72</span>. Exigences couvertes : <span class="tt">EX-CBT-021</span> (la ligne de vue et la couverture), <span class="tt">EX-CBT-022</span> (l'arme déclare son allonge ou sa portée). Aucune exigence ajoutée. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md474"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md476"></a>
 Objectif</h1>
 <p>Rendre la <b>géométrie</b> tactique signifiante : portée d'arme, ligne de vue bloquée, abri, gabarits d'effet de zone. C'est ce lot qui fait qu'un combat se joue avec le terrain plutôt que sur une grille vide.</p>
 <p>Le <b>Manuel des Joueurs</b> fait foi pour chaque règle qu'il écrit : chapitre 9 (« Attaques à distance », « Portée », « Abri », « Attaques d'opportunité », « Esquiver »), chapitre 10 (« Un chemin dégagé jusqu'à la cible », « Zones d'effet »), chapitre 5 (« Allonge », « Lancer »). Il ne dit pas comment les mesurer sur un quadrillage : ce que le lot a tranché là est nommé ci-dessous.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md475"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md477"></a>
 Ce que ce lot livre, et ce qu'il ne livre pas</h1>
 <ul>
 <li><b>La ligne de vue et l'abri</b> (<span class="tt">Source/Core/Combat/LineOfSight.{h,cpp}</span>) : des points de grille en demi-cases (<span class="tt"><a class="el" href="structcore_1_1GridPoint.html" title="Un point de la grille, en demi-cases : la case (c, r) va de (2c, 2r) à (2c+2, 2r+2).">core::GridPoint</a></span>), le segment dégagé (<span class="tt"><a class="el" href="namespacecore.html#aef818c5b82795fc59c0d259e968762cd" title="Vrai si rien n&#39;arrête la vue sur le segment a — b (extrémités exceptées).">core::isSightClear</a></span>), la vue entre deux emprises (<span class="tt"><a class="el" href="namespacecore.html#aba1d28cef88c61f722b2b034a8415f10" title="Vrai si les deux emprises se voient : un segment dégagé relie un point de grille de l&#39;une à un point ...">core::hasLineOfSight</a></span>), l'abri contre une emprise ou contre un point d'origine (<span class="tt"><a class="el" href="namespacecore.html#a870aa619bde747a0f4d7be56b323ebc3" title="L&#39;abri de target contre ce qui vient de attacker.">core::coverFrom</a></span>, <span class="tt"><a class="el" href="namespacecore.html#aebf827caa223eb1215f8613ffab5263e" title="L&#39;abri de target contre un effet qui part d&#39;un point — l&#39;origine d&#39;une zone.">core::coverFromPoint</a></span>), et entre deux combattants (<span class="tt"><a class="el" href="namespacecore.html#a9ca481bd627a473f4cddc6f5e14dd971" title="L&#39;abri d&#39;un combattant contre un autre, les autres combattants placés faisant corps.">core::coverBetween</a></span>).</li>
@@ -111,7 +111,7 @@ Ce que ce lot livre, et ce qu'il ne livre pas</h1>
 <li><b>Dans l'arène</b> : l'attaque refusée sous abri total (<span class="tt"><a class="el" href="namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbeda62da737bbf89f486e90024dc099e2bc4" title="La cible est sous abri total : aucune ligne de vue ne la relie à l&#39;attaquant (LOT-22).">core::ArenaActionResult::TotalCover</a></span>), l'esquive qui ne désavantage qu'un attaquant vu, l'attaque d'opportunité réservée à un fuyard « situé dans votre champ de vision ». L'écran choisit la première attaque qui peut viser la cible — l'arc du squelette tire enfin — et propose l'arme lancée d'un personnage qui en porte une.</li>
 </ul>
 <p>Il ne livre <b>pas</b> les sorts qui emploient ces zones, ni les jets de sauvegarde de Dextérité auxquels l'abri s'ajoute (<span class="tt"><a class="el" href="namespacecore.html#aac10188449066631157dad14349a01eb" title="Le bonus d&#39;un abri à la CA et aux sauvegardes de Dextérité : 0, +2, +5 ; 0 pour l&#39;abri total,...">core::coverBonus</a></span> en donne le montant) : ils arrivent avec les classes. Ni la lumière, les sens et les ténèbres — « voir » est ici la ligne de vue —, ni le déplacement de l'origine d'une zone visée derrière un obstacle.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md476"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md478"></a>
 Les règles du Manuel, et où chacune vit</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -137,7 +137,7 @@ Les règles du Manuel, et où chacune vit</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Esquiver : désavantage « si vous pouvez voir l'attaquant »  </td><td class="markdownTableBodyNone"><span class="tt"><a class="el" href="classcore_1_1ArenaSession.html" title="Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.">core::ArenaSession</a></span> (<span class="tt">contextAgainst</span>)  </td><td class="markdownTableBodyNone">idem  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md477"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md479"></a>
 La symétrie, par construction</h1>
 <p>La feuille de route demandait que la ligne de vue soit <b>symétrique</b> et que ce soit vérifié exhaustivement. Le défaut classique vient d'un tracé qui <b>avance</b> — case par case, depuis A, jusqu'au premier obstacle — et qui, parti de B, ne passe pas par les mêmes cases.</p>
 <p>Ici, rien n'avance. La question posée est « ce segment touche-t-il cette case ? », en arithmétique <b>entière exacte</b> : les points sont en demi-cases (coin de case pair, centre impair), chaque axe donne l'intervalle des paramètres où le segment est dans la case, et l'intersection se compare en fractions. Un segment n'a pas de sens de parcours, et l'ensemble des segments examinés — tous les points de grille d'une emprise vers tous ceux de l'autre — est le même dans les deux sens.</p>
@@ -147,7 +147,7 @@ La symétrie, par construction</h1>
 <li><b>Tous les points de grille d'une emprise</b>, pas seulement ses quatre coins : c'est ce qui garde la relation symétrique pour une créature de grande taille.</li>
 </ul>
 <p><span class="tt">LineOfSightTest.LaVueEstSymetriqueSurDesGrillesGenerees</span> génère vingt grilles 5 × 5 de murs, d'eau profonde, de portes et de herses à des densités de 10 à 55 %, et compare les deux sens pour chaque paire de points de grille (plus de 25 000 segments), puis pour chaque paire d'emprises 1 × 1 et 2 × 2 contre 1 × 1, en vérifiant au passage que l'abri total équivaut exactement à l'absence de vue. <b>Réintroduit à la main</b>, un segment qui compte son point de départ et pas son point d'arrivée — exactement le tracé qui avance — fait échouer ce test à la première paire asymétrique.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md478"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md480"></a>
 L'abri : ce que la grille compte</h1>
 <p>Le Manuel définit l'abri par la <b>fraction du corps</b> qu'un obstacle protège, et ne dit pas comment la mesurer sur un quadrillage. Le lot prend la méthode du <em>Guide du Maître</em> — hors du corpus, mais la seule que les tables connaissent — : l'attaquant choisit un point de son emprise, trace des lignes vers les quatre coins d'une case de la cible, et compte celles qu'un obstacle coupe. Il choisit le point et la case qui l'arrangent.</p>
 <p>Trois <b>familles</b> d'obstacles se comptent séparément, parce que les abris ne s'additionnent pas :</p>
@@ -158,16 +158,16 @@ L'abri : ce que la grille compte</h1>
 </ul>
 <p>Pour chaque choix de l'attaquant, le meilleur abri des trois familles compte ; puis l'attaquant garde le choix le moins abrité. Un mur qui coupe deux lignes et une créature qui coupe les deux autres font donc un abri <b>partiel</b>, pas un abri total — le test le rejoue depuis un point fixe.</p>
 <p>L'abri se pose sur le jet <b>avant le premier greffon</b> <span class="tt">BeforeRoll</span>, par <span class="tt">AttackRoll::applyCover</span>, qui ne remplace un abri que par un meilleur : poser deux fois l'abri partiel laisse la CA à +2, l'abri important par-dessus la porte à +5, pas à +7, et le journal l'écrit — « [abri partiel : CA 15 -&gt; 17] ». <b>Réintroduit à la main</b>, un bonus qui s'ajoute à chaque appel fait lire 19 et 22 au test là où il attend 17 et 20.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md479"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md481"></a>
 Les zones d'effet : la moitié d'une case</h1>
 <p>Une case est <b>dans la zone si la forme en couvre au moins la moitié</b> — la règle du <em>Guide du Maître</em> pour les zones circulaires, étendue aux quatre autres formes plutôt que d'en inventer une par forme. La surface se calcule exactement : le cône (un triangle, sa largeur égale à sa distance), la ligne et le cube (des rectangles) sont découpés par la case ; le disque d'une sphère ou d'un cylindre s'intègre analytiquement. Une case couverte à 50 % pile est dedans.</p>
 <p>Le point d'origine est un <span class="tt"><a class="el" href="structcore_1_1GridPoint.html" title="Un point de la grille, en demi-cases : la case (c, r) va de (2c, 2r) à (2c+2, 2r+2).">core::GridPoint</a></span> : une intersection pour une boule de feu, le milieu du bord d'une créature pour un souffle, son centre pour une aura. « L'origine n'est pas incluse » dans un cône tombe alors de la géométrie : parti du centre d'une case, il n'en couvre qu'un huitième. Les gabarits sont figés par des <b>dessins</b> de référence (<span class="tt">X</span> pour une case de la zone), relus contre la règle avant d'être écrits : la sphère de rayon 2 sur une intersection est un carré 4 × 4 sans ses coins, le cône de 3 depuis le bord d'une case couvre 1, 1 puis 3 cases, la ligne diagonale de 4 cases en couvre 3.</p>
 <p>Une case de la zone qu'aucun segment dégagé ne relie à l'origine — par l'un de ses quatre coins — en sort, et une case qui arrête elle-même la vue n'est pas un emplacement : l'effet s'y heurte.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md480"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md482"></a>
 La donnée : des propriétés, pas de la prose</h1>
 <p>Le <span class="tt">LOT-21</span> avait laissé les portées « en prose » et une règle n'avait pas le droit de les y lire. Le schéma des armes prévoyait déjà <span class="tt">properties</span>, <span class="tt">rangeNormal</span> et <span class="tt">rangeLong</span> : ils sont remplis, à l'<b>extraction</b>, par les fonctions <span class="tt">proprietes_d_arme</span> et <span class="tt">portees</span> des scripts du corpus, qui lisent la colonne des propriétés des <em>Basic Rules</em> et les blocs de créatures, et <b>refusent</b> une propriété inconnue plutôt que de la deviner. Les fichiers livrés ont été réécrits par ces mêmes fonctions ; <span class="tt">check_rpg_data.py</span> les valide.</p>
 <p>Deux conséquences qu'il faut savoir : les armes de <b>finesse</b> du catalogue (dague, rapière, cimeterre, épée courte, fouet, fléchette) le sont désormais pour de vrai, et <span class="tt"><a class="el" href="namespacecore.html#a322a4b7a467d4c7168e4173641b88459" title="La caractéristique du jet d&#39;attaque avec weapon (Manuel, chapitre 9, « Modificateurs du jet »).">core::weaponAttackAbility</a></span> leur donne la meilleure de la Force et de la Dextérité ; la <b>hallebarde</b>, la coutille, la pique, le fouet et la lance d'arçon frappent à deux cases. Un test charge le catalogue et vérifie qu'une arme a des portées <b>si et seulement si</b> elle a les munitions ou le lancer.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md481"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md483"></a>
 Décisions prises en route</h1>
 <ul>
 <li><b>Les portées sont arrondies vers le bas</b> en cases : une portée ne dépasse jamais ce que le texte promet. Toutes celles du corpus sont des multiples de 1,50 m ; l'arrondi ne mord pas encore.</li>
@@ -180,7 +180,7 @@ Décisions prises en route</h1>
 <li><b>Un cube suit la direction donnée</b>, qui peut être diagonale : le Manuel ne l'oriente pas, et l'interdire serait une règle de plus sans texte pour la porter.</li>
 <li><b>L'abri d'un objet est déclaré, jamais déduit</b> de son <span class="tt">kind</span>, que la grille n'interprète pas.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md482"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md484"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Les sorts</b> et leurs jets de sauvegarde, auxquels l'abri s'ajoute : <span class="tt">LOT-25</span>, <span class="tt">LOT-35</span>, avec les classes. Ils trouveront <span class="tt"><a class="el" href="structcore_1_1AreaOfEffect.html" title="Une zone posée sur la grille.">core::AreaOfEffect</a></span>, <span class="tt"><a class="el" href="namespacecore.html#a5f3db4ca6c004505a376ed726e7770b1" title="Les cases réellement atteintes : le gabarit, moins celles qu&#39;aucune ligne droite ne relie à l&#39;origine...">core::affectedCells</a></span> et <span class="tt"><a class="el" href="namespacecore.html#aebf827caa223eb1215f8613ffab5263e" title="L&#39;abri de target contre un effet qui part d&#39;un point — l&#39;origine d&#39;une zone.">core::coverFromPoint</a></span>.</li>
@@ -189,7 +189,7 @@ Ce qui reste hors du lot, nommément</h1>
 <li><b>L'arme improvisée lancée</b> (une épée longue jetée) et les <b>munitions</b> consommées : avec l'inventaire en combat.</li>
 <li><b>Montrer</b> portées, lignes de vue et gabarits au joueur : l'IHM de combat, <span class="tt">LOT-24</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md483"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md485"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Symétrie de la ligne de vue vérifiée exhaustivement sur des grilles générées.</b> ✔ Vingt grilles, chaque paire de points de grille et d'emprises, dans les deux sens ; un tracé asymétrique réintroduit fait échouer le test.</li>
