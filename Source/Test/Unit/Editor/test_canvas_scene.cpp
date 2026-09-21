@@ -4,7 +4,7 @@
 /**
  * @file test_canvas_scene.cpp
  * @brief Ce que le canevas iso montre (`LOT-EDITOR-02`) : la même liste de primitives que le jeu
- *        sur Martpart, et l'effet des réglages de couche sur les bandes de la scène.
+ *        sur la carte d'essai, et l'effet des réglages de couche sur les bandes de la scène.
  */
 
 #include <cstdint>
@@ -30,13 +30,19 @@
 
 namespace {
 
+// La racine d'essai de l'éditeur (`LOT-123`) : ce test comparait le canevas au jeu sur une
+// carte LIVRÉE, que la table rase du `LOT-102` emporte.
+[[nodiscard]] std::filesystem::path dataRoot() {
+    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
+}
+
 [[nodiscard]] std::filesystem::path assets() {
-    return std::filesystem::path(JADG_ASSETS_DIR);
+    return dataRoot() / "Assets";
 }
 
 [[nodiscard]] core::LevelDraft draftOf(const std::string& relativePath) {
     core::LevelLoadResult loaded =
-        core::LevelLoader::loadFromFile(std::filesystem::path(JADG_LEVELS_DIR) / relativePath);
+        core::LevelLoader::loadFromFile(dataRoot() / "Levels" / relativePath);
     if (!loaded.ok()) {
         throw std::runtime_error(relativePath + " : " + loaded.error);
     }
@@ -84,31 +90,31 @@ struct FakeTextures {
 }  // namespace
 
 /**
- * @brief Martpart ouverte dans l'éditeur produit la même liste de primitives que dans le jeu.
- * \castest{<b>Le canevas iso compose Martpart comme le jeu.</b><br/>
+ * @brief La carte d'essai ouverte dans l'éditeur produit la même liste de primitives que dans le jeu.
+ * \castest{<b>Le canevas iso compose une carte comme le jeu.</b><br/>
  * \tcat Unitaire · Editeur · Canevas<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Ouvrir Martpart livree comme brouillon d'editeur et prendre l'instantane du
+ * \tetapes 1. Ouvrir la carte d'essai comme brouillon d'editeur et prendre l'instantane du
  *             canevas.<br/>
- *          2. Entrer dans Martpart avec le moteur du jeu (`hmi::WorldPlay`) et prendre son
+ *          2. Entrer dans la carte d'essai avec le moteur du jeu (`hmi::WorldPlay`) et prendre son
  *             instantane.<br/>
  *          3. Composer les deux avec les memes textures.<br/>
  * \tattendu Les instantanes sont egaux, heros mis a part ; les listes de primitives sont egales,
  *           dans le meme ordre, a la figurine du heros pres.
  * }
  */
-TEST(CanvasSceneTest, MartpartSeComposeCommeDansLeJeu) {
-    const core::LevelDraft draft = draftOf("capital/martpart.json");
-    const hmi::WorldSceneSnapshot editor = hmi::canvasSnapshot(draft, appearanceOf("martpart"));
+TEST(CanvasSceneTest, LaCarteDEssaiSeComposeCommeDansLeJeu) {
+    const core::LevelDraft draft = draftOf("bourg/place.json");
+    const hmi::WorldSceneSnapshot editor = hmi::canvasSnapshot(draft, appearanceOf("bourg"));
 
-    hmi::WorldPlay play(core::WorldTravel::directoryLoader(JADG_LEVELS_DIR), assets());
-    ASSERT_TRUE(play.enter("capital/martpart", {}));
+    hmi::WorldPlay play(core::WorldTravel::directoryLoader(dataRoot() / "Levels"), assets());
+    ASSERT_TRUE(play.enter("bourg/place", {}));
     hmi::WorldSceneSnapshot game = play.snapshot();
     ASSERT_FALSE(game.figures.empty());
     const hmi::WorldFigureSnapshot hero = game.figures.back();
     game.figures.pop_back();  // le héros : le jeu le pose, l'éditeur non.
 
-    EXPECT_EQ(editor.place, "martpart");
+    EXPECT_EQ(editor.place, "bourg");
     EXPECT_EQ(editor, game);
     EXPECT_FALSE(editor.figures.empty()) << "les sentinelles Ironhand ont leur figurine";
 
@@ -131,7 +137,7 @@ TEST(CanvasSceneTest, MartpartSeComposeCommeDansLeJeu) {
         }
     }
     EXPECT_EQ(matched, fromEditor.size()) << "l'ordre du jeu, primitive pour primitive";
-    EXPECT_GT(fromEditor.size(), 1000U) << "Martpart : sol et relief de 48 x 40 cases";
+    EXPECT_GT(fromEditor.size(), 1000U) << "La carte d'essai : sol et relief de 48 x 40 cases";
 }
 
 /**

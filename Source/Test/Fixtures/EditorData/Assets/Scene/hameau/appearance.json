@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "place": "hameau",
+  "comment": "Ce que le lieu d'essai met sur une case : le SOL vient du type de tuile de la couche sol, le RELIEF nomme sa piece a la case. Fixture du LOT-123.",
+  "floors": {
+    "dirt": [
+      "street"
+    ],
+    "solid": [
+      "square"
+    ]
+  },
+  "relief": {
+    "wall": [
+      "wall-left"
+    ]
+  }
+}

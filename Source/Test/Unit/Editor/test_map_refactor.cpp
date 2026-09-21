@@ -3,8 +3,11 @@
 
 /**
  * @file test_map_refactor.cpp
- * @brief Tests de « renommer et remplacer » (`LOT-EDITOR-14`) : sur une copie des données livrées,
- *        un renommage suit tout ce qui cite, et une carte change de planche sans être repeinte.
+ * @brief Tests de « renommer et remplacer » (`LOT-EDITOR-14`) : sur une copie de la racine d'essai
+ *        de l'éditeur, un renommage suit tout ce qui cite, et une carte change de planche sans
+ *        être repeinte.
+ *
+ * C'était une copie des données **livrées** (`LOT-123`) : la table rase du `LOT-102` les emporte.
  */
 
 #include <algorithm>
@@ -28,7 +31,7 @@
 namespace {
 
 [[nodiscard]] std::filesystem::path elements() {
-    return std::filesystem::path(JADG_LEVELS_DIR).parent_path();
+    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
 }
 
 [[nodiscard]] std::string lire(const std::filesystem::path& path) {
@@ -44,7 +47,7 @@ void ecrire(const std::filesystem::path& path, const std::string& text) {
     file << text;
 }
 
-// Ce que le contrôle lit des données livrées, sans le récrire : ce que les entités citent, et les
+// Ce que le contrôle lit de la racine d'essai, sans le récrire : ce que les entités citent, et les
 // manifestes des figurines — pas leurs images.
 constexpr const char* DOSSIERS_LUS[] = {"World/dialogues", "World/locations", "Rpg/encounters",
                                         "Rpg/creatures",   "Rpg/items",       "Assets/Npc",
@@ -53,7 +56,7 @@ constexpr const char* DOSSIERS_LUS[] = {"World/dialogues", "World/locations", "R
 constexpr const char* DOSSIERS_RECRITS[] = {"Levels", "Localization", "World/cities",
                                             "Assets/Scene"};
 
-// Recopie les fichiers de @p dossier des données livrées sous @p racine, images exceptées.
+// Recopie les fichiers de @p dossier de la racine d'essai sous @p racine, images exceptées.
 void copier(const std::filesystem::path& racine, const char* dossier) {
     for (const auto& entry : std::filesystem::recursive_directory_iterator(elements() / dossier)) {
         const std::string extension = entry.path().extension().string();
@@ -67,7 +70,7 @@ void copier(const std::filesystem::path& racine, const char* dossier) {
     }
 }
 
-// Une copie des données par suite ; ce qu'un test récrit est recopié avant chacun. Copier tout à
+// Une copie de la racine d'essai par suite ; ce qu'un test récrit est recopié avant chacun. Copier tout à
 // chaque test coûtait quatre secondes sur ce poste.
 class Donnees : public ::testing::Test {
 protected:
@@ -121,38 +124,37 @@ protected:
 }  // namespace
 
 /**
- * @brief Acceptation du `LOT-EDITOR-14` : renommer `capital/martpart` laisse le `--check` vert. Le
- *        portail d'Arenarea, les quartiers et portes gardées de la ville et la clé du nom suivent.
- * \castest{<b>Renommer Martpart laisse le contrôle vert.</b><br/>
+ * @brief Acceptation du `LOT-EDITOR-14` : renommer `bourg/place` laisse le `--check` vert. Le
+ *        portail de la Cave, le quartier et les portes gardées de la ville et la clé du nom suivent.
+ * \castest{<b>Renommer une carte laisse le contrôle vert.</b><br/>
  * \tcat Unitaire · Renommer et remplacer<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Copier les données livrées.<br/>2. Renommer `capital/martpart` en
- * `capital/marche`.<br/>3. Contrôler toutes les cartes.<br/>
+ * \tetapes 1. Copier la racine d'essai.<br/>2. Renommer `bourg/place` en
+ * `bourg/marche`.<br/>3. Contrôler toutes les cartes.<br/>
  * \tattendu Aucune erreur, autant d'avertissements qu'avant ; l'ancien fichier a disparu ; le
  * portail, la ville et les deux catalogues citent le nouvel identifiant, le texte gardé.
  * }
  */
-TEST_F(Donnees, RenommerMartpartLaisseLeControleVert) {
+TEST_F(Donnees, RenommerUneCarteLaisseLeControleVert) {
     const hmi::MapCheckReport avant = hmi::checkAllMaps(racine);
     ASSERT_TRUE(avant.ok()) << constats();
 
-    appliquer(hmi::planRenameMap(racine, "capital/martpart", "capital/marche"));
+    appliquer(hmi::planRenameMap(racine, "bourg/place", "bourg/marche"));
 
     const hmi::MapCheckReport apres = hmi::checkAllMaps(racine);
     EXPECT_TRUE(apres.ok()) << constats();
     EXPECT_EQ(apres.count(hmi::MapCheckSeverity::Warning),
               avant.count(hmi::MapCheckSeverity::Warning));
-    EXPECT_FALSE(std::filesystem::exists(carte("capital/martpart")));
-    EXPECT_EQ(core::LevelLoader::loadFromFile(carte("capital/marche")).level->name(),
-              "map.capital.marche.name");
-    EXPECT_NE(lire(carte("capital/arenarea")).find(R"("targetMap": "capital/marche")"),
-              std::string::npos);
-    const std::string ville = lire(racine / "World" / "cities" / "capital.json");
-    EXPECT_EQ(ville.find("capital/martpart"), std::string::npos);
-    EXPECT_NE(ville.find(R"("map": "capital/marche")"), std::string::npos);
+    EXPECT_FALSE(std::filesystem::exists(carte("bourg/place")));
+    EXPECT_EQ(core::LevelLoader::loadFromFile(carte("bourg/marche")).level->name(),
+              "map.bourg.marche.name");
+    EXPECT_NE(lire(carte("cave")).find(R"("targetMap": "bourg/marche")"), std::string::npos);
+    const std::string ville = lire(racine / "World" / "cities" / "bourg.json");
+    EXPECT_EQ(ville.find("bourg/place"), std::string::npos);
+    EXPECT_NE(ville.find(R"("map": "bourg/marche")"), std::string::npos);
     const std::string fr = lire(racine / "Localization" / "fr.lang");
-    EXPECT_NE(fr.find("map.capital.marche.name = Martpart"), std::string::npos);
-    EXPECT_EQ(fr.find("map.capital.martpart.name"), std::string::npos);
+    EXPECT_NE(fr.find("map.bourg.marche.name = La Place"), std::string::npos);
+    EXPECT_EQ(fr.find("map.bourg.place.name"), std::string::npos);
 }
 
 /**
@@ -161,26 +163,26 @@ TEST_F(Donnees, RenommerMartpartLaisseLeControleVert) {
  * \castest{<b>Une carte change de dossier, son annexe la suit.</b><br/>
  * \tcat Unitaire · Renommer et remplacer<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Donner une note d'auteur au Colisée.<br/>2. Le renommer `arenes/coliseum`, puis
- * de nouveau `coliseum`.<br/>
- * \tattendu La note est dans `arenes/coliseum.editor.json`, puis de retour ; le dossier `arenes`
+ * \tetapes 1. Donner une note d'auteur au Donjon.<br/>2. Le renommer `arenes/donjon`, puis
+ * de nouveau `donjon`.<br/>
+ * \tattendu La note est dans `arenes/donjon.editor.json`, puis de retour ; le dossier `arenes`
  * a disparu ; le contrôle reste sans erreur.
  * }
  */
 TEST_F(Donnees, UneCarteChangeDeDossierSonAnnexeLaSuit) {
     hmi::EditorSidecar notes;
     ASSERT_TRUE(hmi::setNote(notes, {.column = 3, .row = 4}, "loge"));
-    ASSERT_TRUE(hmi::writeSidecar(hmi::sidecarPath(carte("coliseum")), notes));
+    ASSERT_TRUE(hmi::writeSidecar(hmi::sidecarPath(carte("donjon")), notes));
 
-    appliquer(hmi::planRenameMap(racine, "coliseum", "arenes/coliseum"));
-    EXPECT_FALSE(std::filesystem::exists(hmi::sidecarPath(carte("coliseum"))));
+    appliquer(hmi::planRenameMap(racine, "donjon", "arenes/donjon"));
+    EXPECT_FALSE(std::filesystem::exists(hmi::sidecarPath(carte("donjon"))));
     const hmi::SidecarReadResult lues =
-        hmi::readSidecar(hmi::sidecarPath(carte("arenes/coliseum")));
+        hmi::readSidecar(hmi::sidecarPath(carte("arenes/donjon")));
     ASSERT_NE(hmi::noteAt(lues.sidecar, {.column = 3, .row = 4}), nullptr);
     EXPECT_TRUE(hmi::checkAllMaps(racine).ok()) << constats();
 
-    appliquer(hmi::planRenameMap(racine, "arenes/coliseum", "coliseum"));
-    EXPECT_TRUE(std::filesystem::exists(hmi::sidecarPath(carte("coliseum"))));
+    appliquer(hmi::planRenameMap(racine, "arenes/donjon", "donjon"));
+    EXPECT_TRUE(std::filesystem::exists(hmi::sidecarPath(carte("donjon"))));
     EXPECT_FALSE(std::filesystem::exists(racine / "Levels" / "arenes"));
 }
 
@@ -190,21 +192,21 @@ TEST_F(Donnees, UneCarteChangeDeDossierSonAnnexeLaSuit) {
  * \castest{<b>Un renommage impossible n'écrit rien.</b><br/>
  * \tcat Unitaire · Renommer et remplacer<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Renommer Martpart en Arenarea, puis en `a:b`.<br/>2. Ajouter une carte
- * illisible et renommer Martpart.<br/>
+ * \tetapes 1. Renommer la Place en Cave, puis en `a:b`.<br/>2. Ajouter une carte
+ * illisible et renommer la Place.<br/>
  * \tattendu Trois refus, chacun sans rien à écrire ; le dernier nomme la carte illisible.
  * }
  */
 TEST_F(Donnees, UnRenommageImpossibleNEcritRien) {
     const hmi::RefactorPlan pris =
-        hmi::planRenameMap(racine, "capital/martpart", "capital/arenarea");
+        hmi::planRenameMap(racine, "bourg/place", "cave");
     EXPECT_FALSE(pris.ok());
     EXPECT_TRUE(pris.edits.empty());
-    EXPECT_FALSE(hmi::planRenameMap(racine, "capital/martpart", "a:b").ok());
+    EXPECT_FALSE(hmi::planRenameMap(racine, "bourg/place", "a:b").ok());
 
     ecrire(carte("cassee"), "{");
     const hmi::RefactorPlan illisible =
-        hmi::planRenameMap(racine, "capital/martpart", "capital/marche");
+        hmi::planRenameMap(racine, "bourg/place", "bourg/marche");
     EXPECT_FALSE(illisible.ok());
     EXPECT_NE(illisible.error.find("cassee"), std::string::npos) << illisible.error;
     EXPECT_TRUE(illisible.edits.empty());
@@ -216,27 +218,26 @@ TEST_F(Donnees, UnRenommageImpossibleNEcritRien) {
  * \castest{<b>Renommer un point d'arrivée suit portails et ville.</b><br/>
  * \tcat Unitaire · Renommer et remplacer<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Renommer le point `porte-est` de Martpart, départ de la Capitale.<br/>2. Renommer
- * son point `arenarea`, où mène le portail d'Arenarea.<br/>
- * \tattendu La ville part de `porte-orientale` ; le portail d'Arenarea arrive à
- * `vers-arenarea` ; le contrôle reste sans erreur.
+ * \tetapes 1. Renommer le point `porte-est` de la Place, départ de la ville.<br/>2. Renommer
+ * son point `cave`, où mène le portail de la Cave.<br/>
+ * \tattendu La ville part de `porte-orientale` ; le portail de la Cave arrive à
+ * `vers-la-place` ; le contrôle reste sans erreur.
  * }
  */
 TEST_F(Donnees, RenommerUnPointDArriveeSuitPortailsEtVille) {
-    appliquer(hmi::planRenameArrival(racine, "capital/martpart", "porte-est", "porte-orientale"));
+    appliquer(hmi::planRenameArrival(racine, "bourg/place", "porte-est", "porte-orientale"));
     EXPECT_NE(
-        lire(racine / "World" / "cities" / "capital.json").find(R"("arrival": "porte-orientale")"),
+        lire(racine / "World" / "cities" / "bourg.json").find(R"("arrival": "porte-orientale")"),
         std::string::npos);
 
     const std::vector<hmi::Citation> portails =
-        hmi::citationsOfArrival(racine, "capital/martpart", "arenarea");
+        hmi::citationsOfArrival(racine, "bourg/place", "cave");
     ASSERT_EQ(portails.size(), 1U);
-    EXPECT_EQ(portails.front().mapId, "capital/arenarea");
-    appliquer(hmi::planRenameArrival(racine, "capital/martpart", "arenarea", "vers-arenarea"));
-    EXPECT_NE(lire(carte("capital/arenarea")).find(R"("arrival": "vers-arenarea")"),
-              std::string::npos);
+    EXPECT_EQ(portails.front().mapId, "cave");
+    appliquer(hmi::planRenameArrival(racine, "bourg/place", "cave", "vers-la-place"));
+    EXPECT_NE(lire(carte("cave")).find(R"("arrival": "vers-la-place")"), std::string::npos);
     EXPECT_FALSE(
-        hmi::planRenameArrival(racine, "capital/martpart", "vers-arenarea", "porte-orientale")
+        hmi::planRenameArrival(racine, "bourg/place", "vers-la-place", "porte-orientale")
             .ok());
     EXPECT_TRUE(hmi::checkAllMaps(racine).ok()) << constats();
 }
@@ -247,18 +248,18 @@ TEST_F(Donnees, RenommerUnPointDArriveeSuitPortailsEtVille) {
  * \castest{<b>Renommer un identifiant d'entité, et ses refus.</b><br/>
  * \tcat Unitaire · Renommer et remplacer<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Renommer `e6` de Martpart en `e1`, `e999`, `a#b`.<br/>2. Le renommer
+ * \tetapes 1. Renommer `e6` de la Place en `e1`, `e999`, `a#b`.<br/>2. Le renommer
  * `depart-est`.<br/>
  * \tattendu Trois refus ; puis l'entité s'appelle `depart-est` et le contrôle reste sans erreur.
  * }
  */
 TEST_F(Donnees, RenommerUnIdentifiantDEntite) {
-    EXPECT_FALSE(hmi::planRenameEntityId(racine, "capital/martpart", "e6", "e1").ok());
-    EXPECT_FALSE(hmi::planRenameEntityId(racine, "capital/martpart", "e6", "e999").ok());
-    EXPECT_FALSE(hmi::planRenameEntityId(racine, "capital/martpart", "e6", "a#b").ok());
+    EXPECT_FALSE(hmi::planRenameEntityId(racine, "bourg/place", "e6", "e1").ok());
+    EXPECT_FALSE(hmi::planRenameEntityId(racine, "bourg/place", "e6", "e999").ok());
+    EXPECT_FALSE(hmi::planRenameEntityId(racine, "bourg/place", "e6", "a#b").ok());
 
-    appliquer(hmi::planRenameEntityId(racine, "capital/martpart", "e6", "depart-est"));
-    const auto lue = core::LevelLoader::loadFromFile(carte("capital/martpart"));
+    appliquer(hmi::planRenameEntityId(racine, "bourg/place", "e6", "depart-est"));
+    const auto lue = core::LevelLoader::loadFromFile(carte("bourg/place"));
     ASSERT_TRUE(lue.ok());
     EXPECT_TRUE(std::ranges::any_of(lue.level->entities(),
                                     [](const auto& entity) { return entity.id == "depart-est"; }));
@@ -271,25 +272,25 @@ TEST_F(Donnees, RenommerUnIdentifiantDEntite) {
  * \castest{<b>Qui cite une carte, qui pose une pièce.</b><br/>
  * \tcat Unitaire · Renommer et remplacer<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Demander qui cite Martpart.<br/>2. Demander qui pose `wall-corner`.<br/>
- * \tattendu Le portail d'Arenarea, le quartier et une porte gardée de la ville, la clé de chaque
- * catalogue ; `wall-corner` sur les trois cartes livrées. Rien n'est écrit.
+ * \tetapes 1. Demander qui cite la Place.<br/>2. Demander qui pose `wall-corner`.<br/>
+ * \tattendu Le portail de la Cave, le quartier et une porte gardée de la ville, la clé de chaque
+ * catalogue ; `wall-corner` sur les trois cartes. Rien n'est écrit.
  * }
  */
 TEST_F(Donnees, QuiCiteUneCarteQuiPoseUnePiece) {
-    const std::vector<hmi::Citation> carteCitee = hmi::citationsOfMap(racine, "capital/martpart");
+    const std::vector<hmi::Citation> carteCitee = hmi::citationsOfMap(racine, "bourg/place");
     EXPECT_TRUE(cite(carteCitee, "portal e2: targetMap"));
-    EXPECT_TRUE(cite(carteCitee, "district central-empire-the-capital-city-martpart: map"));
+    EXPECT_TRUE(cite(carteCitee, "district test-city-place: map"));
     EXPECT_TRUE(cite(carteCitee, "guard map"));
-    EXPECT_TRUE(cite(carteCitee, "map.capital.martpart.name"));
+    EXPECT_TRUE(cite(carteCitee, "map.bourg.place.name"));
 
     const std::vector<hmi::Citation> piece = hmi::citationsOfPiece(racine, "wall-corner");
-    for (const char* id : {"capital/arenarea", "capital/martpart", "coliseum"}) {
+    for (const char* id : {"bourg/place", "cave", "donjon"}) {
         EXPECT_TRUE(std::ranges::any_of(piece, [id](const hmi::Citation& c) {
             return c.mapId == id;
         })) << id;
     }
-    EXPECT_TRUE(std::filesystem::exists(carte("capital/martpart")));
+    EXPECT_TRUE(std::filesystem::exists(carte("bourg/place")));
 }
 
 /**
@@ -316,38 +317,38 @@ TEST_F(Donnees, RemplacerUnePieceSurToutesLesCartes) {
 }
 
 /**
- * @brief Acceptation du `LOT-EDITOR-14`, sur une planche d'essai : Arenarea passe de la planche de
- *        Martpart à une planche à elle sans être repeinte. Les pièces de même nom (ou d'un ancien
+ * @brief Acceptation du `LOT-EDITOR-14`, sur une planche d'essai : la Cave passe de la planche
+ *        commune à une planche à elle sans être repeinte. Les pièces de même nom (ou d'un ancien
  *        nom) se retrouvent seules ; celle qui n'a pas de correspondant demande la table
  *        (`EX-EDIT-084`).
- * \castest{<b>Arenarea change de planche sans être repeinte.</b><br/>
+ * \castest{<b>Une carte change de planche sans être repeinte.</b><br/>
  * \tcat Unitaire · Renommer et remplacer<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Installer une planche `arenarea`, copie de celle de Martpart où `street-2` devient
+ * \tetapes 1. Installer une planche `caveau`, copie de la planche commune, où `street-2` devient
  * `paving-2` et `street-3` devient `cobbles` (ancien nom `street-3`).<br/>2. Changer de planche
  * sans table, puis avec la table `street-2 → paving-2`.<br/>
- * \tattendu Sans table : refus qui nomme `street-2`. Avec : la carte nomme `arenarea`, pose
+ * \tattendu Sans table : refus qui nomme `street-2`. Avec : la carte nomme `caveau`, pose
  * `paving-2` et `cobbles`, sa collision n'a pas bougé, la planche reçoit une table d'apparence
  * traduite, et le contrôle reste sans erreur.
  * }
  */
-TEST_F(Donnees, ArenareaChangeDePlancheSansEtreRepeinte) {
-    std::string manifeste = lire(racine / "Assets" / "Scene" / "martpart" / "manifest.json");
+TEST_F(Donnees, UneCarteChangeDePlancheSansEtreRepeinte) {
+    std::string manifeste = lire(racine / "Assets" / "Scene" / "bourg" / "manifest.json");
     const auto remplacer = [&manifeste](std::string_view avant, std::string_view apres) {
         const std::size_t at = manifeste.find(avant);
         ASSERT_NE(at, std::string::npos) << avant;
         manifeste.replace(at, avant.size(), apres);
     };
-    remplacer(R"("disposition": "martpart")", R"("disposition": "arenarea")");
-    remplacer(R"("scene/martpart/street-2": {)", R"("scene/arenarea/paving-2": {)");
-    remplacer(R"("scene/martpart/street-3": {)",
-              R"("scene/arenarea/cobbles": {"aliases": ["street-3"], )");
-    ecrire(racine / "Assets" / "Scene" / "arenarea" / "manifest.json", manifeste);
+    remplacer(R"("disposition": "bourg")", R"("disposition": "caveau")");
+    remplacer(R"("scene/bourg/street-2": {)", R"("scene/caveau/paving-2": {)");
+    remplacer(R"("scene/bourg/street-3": {)",
+              R"("scene/caveau/cobbles": {"aliases": ["street-3"], )");
+    ecrire(racine / "Assets" / "Scene" / "caveau" / "manifest.json", manifeste);
     const core::TileMap avant =
-        core::LevelLoader::loadFromFile(carte("capital/arenarea")).level->tileMap();
+        core::LevelLoader::loadFromFile(carte("cave")).level->tileMap();
 
     const hmi::RefactorPlan sansTable =
-        hmi::planChangeScene(racine, "capital/arenarea", "arenarea", {});
+        hmi::planChangeScene(racine, "cave", "caveau", {});
     ASSERT_FALSE(sansTable.ok());
     EXPECT_NE(sansTable.error.find("street-2"), std::string::npos) << sansTable.error;
     EXPECT_EQ(sansTable.error.find("street-3"), std::string::npos) << sansTable.error;
@@ -357,11 +358,11 @@ TEST_F(Donnees, ArenareaChangeDePlancheSansEtreRepeinte) {
                       "pieces": {"street-2": "paving-2"}})");
     const hmi::PieceTableResult lue = hmi::readPieceTable(table);
     ASSERT_TRUE(lue.ok()) << lue.error;
-    appliquer(hmi::planChangeScene(racine, "capital/arenarea", "arenarea", lue.table));
+    appliquer(hmi::planChangeScene(racine, "cave", "caveau", lue.table));
 
-    const core::LevelLoadResult apres = core::LevelLoader::loadFromFile(carte("capital/arenarea"));
+    const core::LevelLoadResult apres = core::LevelLoader::loadFromFile(carte("cave"));
     ASSERT_TRUE(apres.ok()) << apres.error;
-    EXPECT_EQ(hmi::scenePlaceOf(apres.level->layers()), "arenarea");
+    EXPECT_EQ(hmi::scenePlaceOf(apres.level->layers()), "caveau");
     for (int row = 0; row < avant.height(); ++row) {
         for (int column = 0; column < avant.width(); ++column) {
             EXPECT_EQ(apres.level->tileMap().tile(column, row), avant.tile(column, row))
@@ -369,10 +370,10 @@ TEST_F(Donnees, ArenareaChangeDePlancheSansEtreRepeinte) {
         }
     }
     const std::string apparence =
-        lire(racine / "Assets" / "Scene" / "arenarea" / "appearance.json");
-    EXPECT_NE(apparence.find(R"("place": "arenarea")"), std::string::npos) << apparence;
+        lire(racine / "Assets" / "Scene" / "caveau" / "appearance.json");
+    EXPECT_NE(apparence.find(R"("place": "caveau")"), std::string::npos) << apparence;
     EXPECT_NE(apparence.find("paving-2"), std::string::npos) << apparence;
-    EXPECT_EQ(hmi::citationsOfPiece(racine, "street-2").size(), 1U);  // Martpart seule
+    EXPECT_EQ(hmi::citationsOfPiece(racine, "street-2").size(), 1U);  // la Place seule
     EXPECT_FALSE(hmi::citationsOfPiece(racine, "paving-2").empty());
     EXPECT_FALSE(hmi::citationsOfPiece(racine, "cobbles").empty());
     EXPECT_TRUE(hmi::checkAllMaps(racine).ok()) << constats();

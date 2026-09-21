@@ -31,8 +31,11 @@ namespace {
 using hmi::MapCheckSeverity;
 
 /// La racine des données livrées : `Source/Elements`.
+// La racine d'essai de l'éditeur (`LOT-123`) : deux cartes reliées, une planche, une ville, un
+// dialogue, une rencontre, leurs textes. Ce test lisait les cartes LIVRÉES, que la table rase
+// du `LOT-102` emporte. Voir `Fixtures/EditorData/README.md`.
 [[nodiscard]] std::filesystem::path elements() {
-    return std::filesystem::path(JADG_LEVELS_DIR).parent_path();
+    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
 }
 
 [[nodiscard]] std::string lire(const std::filesystem::path& path) {
@@ -130,7 +133,7 @@ constexpr const char* FAUTIVE = R"({"version": 4, "name": "fautive", "width": 8,
     {"id": "e5", "type": "spawnPoint", "x": 1, "y": 1, "name": "orpheline"},
     {"id": "e6", "type": "cityBlock", "x": 0, "y": 0, "name": "ilot-sans-cle", "width": 1,
      "height": 1},
-    {"id": "e7", "type": "encounter", "x": 0, "y": 3, "encounterId": "colisee-fauves"},
+    {"id": "e7", "type": "encounter", "x": 0, "y": 3, "encounterId": "rats-du-donjon"},
     {"id": "e8", "type": "zone", "x": 6, "y": 4, "width": 1, "height": 1},
     {"id": "e9", "type": "mystere", "x": 0, "y": 1}
   ]})";
@@ -144,7 +147,7 @@ constexpr const char* FAUTIVE = R"({"version": 4, "name": "fautive", "width": 8,
  * \tcrit Bloquant<br/>
  * \tetapes 1. Un projet de trois cartes et une variante : une carte fautive (nom qui n'est pas une
  * clé, îlot sans clé, dialogue inconnu, drapeau que rien ne pose, famille inconnue, rencontre dont
- * un loup tombe hors de la carte, PNJ muré, coffre dans un mur, zone hors d'atteinte, portail sans
+ * un rat tombe hors de la carte, PNJ muré, coffre dans un mur, zone hors d'atteinte, portail sans
  * retour, point d'arrivée orphelin), sa cible, et la variante d'une base dont un mur est tombé
  * sur son PNJ.<br/>2. Lancer `--check`.<br/>
  * \tattendu Chaque défaut sort, à sa gravité ; code de sortie 1.
@@ -183,9 +186,9 @@ TEST(ContentCheckTest, ChaqueDefautDeContenuSort) {
     EXPECT_TRUE(
         signale(constats, MapCheckSeverity::Error, "fautive", "no dialogue sets flag \"jamais"));
     EXPECT_TRUE(signale(constats, MapCheckSeverity::Warning, "fautive", "\"mystere\" is unknown"));
-    // Le terrain : la rencontre du LOT-11, sur toute carte ; au bord, un loup tomberait dehors.
+    // Le terrain : la rencontre du LOT-11, sur toute carte ; au bord, un rat tomberait dehors.
     EXPECT_TRUE(signale(constats, MapCheckSeverity::Error, "fautive",
-                        "Encounter \"colisee-fauves\": \"wolf\" would stand off the map"))
+                        "Encounter \"rats-du-donjon\": \"rat-d-essai\" would stand off the map"))
         << tout(constats);
     // L'atteignabilité.
     EXPECT_TRUE(signale(constats, MapCheckSeverity::Error, "fautive",
@@ -279,15 +282,15 @@ TEST(ContentCheckTest, UnPointDArriveeNommeEstUnDepart) {
  * \castest{<b>Une clé ajoutée garde les traductions qu'elle reprend.</b><br/>
  * \tcat Unitaire · Contrôle du contenu<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Former la clé de `capital/martpart`.<br/>2. Ajouter une clé nouvelle, puis une clé
+ * \tetapes 1. Former la clé de `bourg/place`.<br/>2. Ajouter une clé nouvelle, puis une clé
  * qui reprend une clé existante, à deux catalogues dont l'un n'a pas de fin de ligne.<br/>
- * \tattendu `map.capital.martpart.name` ; la clé nouvelle a le texte donné partout ; la clé reprise
+ * \tattendu `map.bourg.place.name` ; la clé nouvelle a le texte donné partout ; la clé reprise
  * a la traduction de chaque langue ; une clé déjà là n'est pas réécrite.
  * }
  */
 TEST(ContentCheckTest, LesCataloguesSeCompletentSansRienPerdre) {
-    EXPECT_EQ(hmi::mapNameKey("capital/martpart"), "map.capital.martpart.name");
-    EXPECT_EQ(hmi::mapNameKey("coliseum"), "map.coliseum.name");
+    EXPECT_EQ(hmi::mapNameKey("bourg/place"), "map.bourg.place.name");
+    EXPECT_EQ(hmi::mapNameKey("donjon"), "map.donjon.name");
 
     const Projet projet;
     projet.catalogue("fr", "# Catalogue\nmap.a.name = Ancienne");
@@ -313,7 +316,7 @@ TEST(ContentCheckTest, LesCataloguesSeCompletentSansRienPerdre) {
  * \castest{<b>Une carte neuve a son nom dans chaque catalogue.</b><br/>
  * \tcat Unitaire · Contrôle du contenu<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Créer « Echoppe » au lieu `martpart` dans un projet à deux catalogues.<br/>
+ * \tetapes 1. Créer « Echoppe » au lieu `bourg` dans un projet à deux catalogues.<br/>
  * 2. La contrôler ; la renommer « Etal », la dupliquer.<br/>
  * \tattendu Le nom est `map.Echoppe.name`, les deux catalogues l'ont ; aucune erreur ; le nom
  * renommé est `map.Etal.name`, aux traductions de l'ancien ; la copie a sa propre clé.
@@ -323,15 +326,15 @@ TEST(ContentCheckTest, UneCarteNeuveASonNomDansChaqueCatalogue) {
     const Projet projet;
     projet.catalogue("fr", "");
     projet.catalogue("en", "");
-    const std::filesystem::path planche = projet.racine() / "Assets" / "Scene" / "martpart";
+    const std::filesystem::path planche = projet.racine() / "Assets" / "Scene" / "bourg";
     std::filesystem::create_directories(planche);
     for (const char* fichier : {"manifest.json", "appearance.json"}) {
-        std::filesystem::copy_file(elements() / "Assets" / "Scene" / "martpart" / fichier,
+        std::filesystem::copy_file(elements() / "Assets" / "Scene" / "bourg" / fichier,
                                    planche / fichier);
     }
     const hmi::LevelFileOperations operations(projet.racine() / "Levels");
 
-    const hmi::FileOperationResult cree = operations.create("Echoppe", 12, 8, "martpart");
+    const hmi::FileOperationResult cree = operations.create("Echoppe", 12, 8, "bourg");
     ASSERT_TRUE(cree.ok()) << cree.error;
     const core::LevelLoadResult lue = core::LevelLoader::loadFromFile(cree.path);
     ASSERT_TRUE(lue.ok()) << lue.error;

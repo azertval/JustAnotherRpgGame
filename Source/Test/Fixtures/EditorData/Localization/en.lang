@@ -1,0 +1,19 @@
+# Catalogue d'essai des tests de l'éditeur (LOT-123) — en.
+
+city_block.avenue-de-la-cave = Cellar Avenue
+city_block.grand-place = Great Square
+city_block.halle-aux-grains = Grain Hall
+city_block.oubliettes = Oubliettes
+city_block.parvis = Forecourt
+city_block.porte-de-l-est = East Gate
+city_block.porte-du-bourg = Town Gate
+city_block.portes-du-sud = Southern Gates
+city_block.ruelles-du-sud = Southern Lanes
+city_block.salle-basse = Lower Hall
+dialogue.garde-du-bourg.halte = Halt.
+dialogue.garde-du-bourg.halte.partir = I am leaving.
+dialogue.garde-du-bourg.halte.pourquoi = Why?
+dialogue.garde-du-bourg.pourquoi = The ward is closed.
+map.bourg.place.name = The Square
+map.cave.name = The Cellar
+map.donjon.name = The Keep

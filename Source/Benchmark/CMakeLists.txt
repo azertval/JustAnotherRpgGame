@@ -24,5 +24,7 @@ target_link_libraries(Benchmarks PRIVATE
     Core SceneComposition benchmark::benchmark_main project_warnings)
 target_compile_definitions(Benchmarks PRIVATE
     JADG_RPG_RULES_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Rpg/rules"
-    JADG_ASSETS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Assets"
-    JADG_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels")
+    # Racine de donnees des tests de l'editeur (LOT-123) : les deux mesures de l'editeur chargeaient
+    # une carte LIVREE en dur, que la table rase du LOT-102 emporte. Elles mesurent desormais la
+    # carte d'essai, qui ne bouge pas -- et une serie se compare d'une version a l'autre.
+    JADG_EDITOR_DATA_DIR="${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/EditorData")

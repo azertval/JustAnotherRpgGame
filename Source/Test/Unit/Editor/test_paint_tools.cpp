@@ -4,7 +4,7 @@
 /**
  * @file test_paint_tools.cpp
  * @brief Tests des outils du peintre — ligne, seau, pipette, miroir, mesure — et de
- *        l'acceptation du `LOT-EDITOR-04` : une maison de Martpart en moins de dix gestes.
+ *        l'acceptation du `LOT-EDITOR-04` : une maison de la carte d'essai en moins de dix gestes.
  */
 
 #include <filesystem>
@@ -36,8 +36,10 @@ using core::TileType;
 using hmi::BrushKind;
 using hmi::CanvasBrush;
 
+// La racine d'essai de l'editeur (LOT-123) : ces gestes se jouaient sur une carte LIVREE, que
+// la table rase du LOT-102 emporte. La carte d'essai a la meme geometrie.
 [[nodiscard]] std::filesystem::path dataRoot() {
-    return std::filesystem::path(JADG_LEVELS_DIR).parent_path();
+    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
 }
 
 [[nodiscard]] std::string lire(const std::filesystem::path& path) {
@@ -47,8 +49,8 @@ using hmi::CanvasBrush;
     return text.str();
 }
 
-/// Martpart, telle que livrée, avec le manifeste et la table de son lieu.
-struct Martpart {
+/// La carte d'essai, telle que livrée, avec le manifeste et la table de son lieu.
+struct CarteDEssai {
     std::string fichier;
     hmi::PlaceAssets lieu;
     LevelDraft draft;
@@ -69,13 +71,13 @@ struct Martpart {
     }
 };
 
-[[nodiscard]] Martpart martpart() {
-    const std::filesystem::path path = dataRoot() / "Levels" / "capital" / "martpart.json";
+[[nodiscard]] CarteDEssai carteDEssai() {
+    const std::filesystem::path path = dataRoot() / "Levels" / "bourg" / "place.json";
     core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
     EXPECT_TRUE(loaded.ok()) << loaded.error;
-    Martpart carte{.fichier = lire(path),
-                   .lieu = hmi::loadPlaceAssets(dataRoot(), "martpart"),
-                   .draft = LevelDraft::fromLevel(*loaded.level)};
+    CarteDEssai carte{.fichier = lire(path),
+                      .lieu = hmi::loadPlaceAssets(dataRoot(), "bourg"),
+                      .draft = LevelDraft::fromLevel(*loaded.level)};
     EXPECT_TRUE(carte.lieu.manifest.has_value());
     EXPECT_TRUE(carte.lieu.appearance.has_value());
     carte.draft.setPieceManifest(
@@ -133,12 +135,12 @@ TEST(PaintToolsTest, LaLignePoseUneCaseParPas) {
  * \castest{<b>Un trait est un seul pas d'annulation.</b><br/>
  * \tcat Unitaire · Outils du peintre<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Sur Martpart, tracer une ligne de `light` sur six cases de rue.<br/>2. Annuler.<br/>
+ * \tetapes 1. Sur La carte d'essai, tracer une ligne de `light` sur six cases de rue.<br/>2. Annuler.<br/>
  * \tattendu Six lanternes, un pas d'annulation ; annulé, le fichier livré revient.
  * }
  */
 TEST(PaintToolsTest, UnTraitEstUnSeulPas) {
-    Martpart carte = martpart();
+    CarteDEssai carte = carteDEssai();
     const std::vector<GridPosition> ligne =
         hmi::lineCells({.column = 20, .row = 3}, {.column = 25, .row = 3});
     const hmi::BrushResult result =
@@ -158,14 +160,14 @@ TEST(PaintToolsTest, UnTraitEstUnSeulPas) {
  * \castest{<b>Le seau remplit une région, en un pas.</b><br/>
  * \tcat Unitaire · Outils du peintre<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Sur Martpart, verser `square` sur une case de la place, le sol actif… puis
+ * \tetapes 1. Sur La carte d'essai, verser `square` sur une case de la place, le sol actif… puis
  * `street-3` sur la place.<br/>2. Annuler.<br/>
  * \tattendu Toute la place (et rien d'autre) devient `street-3`, collision suivie ; un pas ;
  * annulé, le fichier livré revient.
  * }
  */
 TEST(PaintToolsTest, LeSeauRemplitUneRegionEnUnPas) {
-    Martpart carte = martpart();
+    CarteDEssai carte = carteDEssai();
     const GridPosition graine{.column = 20, .row = 16};
     ASSERT_EQ(carte.pieceEn(carte.sol, graine.column, graine.row), "square");
     const std::vector<GridPosition> place = hmi::floodRegion(carte.draft, carte.sol, graine);
@@ -202,7 +204,7 @@ TEST(PaintToolsTest, LeSeauRemplitUneRegionEnUnPas) {
  * }
  */
 TEST(PaintToolsTest, LeSeauEtLesPiecesLarges) {
-    Martpart carte = martpart();
+    CarteDEssai carte = carteDEssai();
     const hmi::BrushResult refus =
         hmi::applyBucket(carte.draft, carte.piece("feature-1", false), std::nullopt,
                          hmi::LayerViewState{}, {.column = 20, .row = 16}, carte.contexte());
@@ -222,14 +224,14 @@ TEST(PaintToolsTest, LeSeauEtLesPiecesLarges) {
  * \castest{<b>La pipette prend ce qu'on voit.</b><br/>
  * \tcat Unitaire · Outils du peintre<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Sur Martpart, piquer un mur, la collision active puis le sol actif, et une case
+ * \tetapes 1. Sur La carte d'essai, piquer un mur, la collision active puis le sol actif, et une case
  * vide.<br/>2. Poser un étal, piquer sa deuxième case.<br/>
  * \tattendu `wall` sur la collision ; `street` sur le sol ; `wall-right` depuis le décor (ou une
  * autre couche), couche rendue ; rien sur le vide ; `feature-1` pour l'étal.
  * }
  */
 TEST(PaintToolsTest, LaPipettePrendCeQuOnVoit) {
-    Martpart carte = martpart();
+    CarteDEssai carte = carteDEssai();
     const GridPosition mur{.column = 0, .row = 2};  // wall-right, au-dessus de la rue
     const GridPosition rue{.column = 0, .row = 3};
     const hmi::PlaceAppearance* const table = &*carte.lieu.appearance;
@@ -273,7 +275,7 @@ TEST(PaintToolsTest, LaPipettePrendCeQuOnVoit) {
  * }
  */
 TEST(PaintToolsTest, LeMiroirPoseLaJumelle) {
-    Martpart carte = martpart();
+    CarteDEssai carte = carteDEssai();
     const hmi::MirrorAxis axe = hmi::mirrorAxisThrough({.column = 30, .row = 5});
     EXPECT_EQ(axe.offset, 25);
     EXPECT_EQ(hmi::mirrorCell(axe, {.column = 26, .row = 5}), (GridPosition{30, 1}));
@@ -331,12 +333,12 @@ TEST(PaintToolsTest, LaMesureEnCasesEtEnPieds) {
 }
 
 /**
- * @brief Tracer une maison de Martpart — sol, murs, porte, seuil — prend moins de dix gestes,
+ * @brief Tracer une maison de la carte d'essai — sol, murs, porte, seuil — prend moins de dix gestes,
  *        sans ouvrir la couche collision ni un formulaire (acceptation du `LOT-EDITOR-04`).
- * \castest{<b>Une maison de Martpart en six gestes.</b><br/>
+ * \castest{<b>Une maison de la carte d'essai en six gestes.</b><br/>
  * \tcat Unitaire · Outils du peintre<br/>
  * \tcrit Critique<br/>
- * \tetapes Sur un terrain vide de Martpart, le décor actif, le miroir par l'angle (30, 5) :<br/>
+ * \tetapes Sur un terrain vide de la carte d'essai, le décor actif, le miroir par l'angle (30, 5) :<br/>
  * 1. rectangle de `street` (25, 0)–(29, 4) ;<br/>2. ligne de `wall-right` (25, 5)–(29, 5) ;<br/>
  * 3. pinceau `wall-corner` sur l'angle ;<br/>4. pinceau `door-right` en (27, 5) ;<br/>5. pinceau
  * `doorstep` en (27, 4) ;<br/>6. annuler puis refaire le dernier geste.<br/>
@@ -345,8 +347,8 @@ TEST(PaintToolsTest, LaMesureEnCasesEtEnPieds) {
  * forcée, et la couche active n'a jamais été la collision.
  * }
  */
-TEST(PaintToolsTest, UneMaisonDeMartpartEnMoinsDeDixGestes) {
-    Martpart carte = martpart();
+TEST(PaintToolsTest, UneMaisonEnMoinsDeDixGestes) {
+    CarteDEssai carte = carteDEssai();
     const hmi::LayerViewState vue;
     const hmi::StrokeContext miroir =
         carte.contexte(hmi::mirrorAxisThrough({.column = 30, .row = 5}));

@@ -21,6 +21,8 @@
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelWriter.h"
+#include "Core/Levels/TileType.h"
+#include "Core/World/WorldGraph.h"
 #include "Editor/Logic/MapFormat.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
@@ -30,8 +32,10 @@ namespace {
 using hmi::MapCheckSeverity;
 
 /// La racine des données livrées : `Source/Elements`.
+// La racine d'essai de l'éditeur (`LOT-123`) : la planche et les manifestes que ces
+// tests recopient venaient des données LIVRÉES, que la table rase du `LOT-102` emporte.
 [[nodiscard]] std::filesystem::path dataRoot() {
-    return std::filesystem::path(JADG_LEVELS_DIR).parent_path();
+    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
 }
 
 [[nodiscard]] std::filesystem::path fixtures() {
@@ -92,10 +96,10 @@ public:
                   ("jadg-map-format-" + std::to_string(std::rand()));
         std::filesystem::create_directories(_racine / "Levels");
         // Le manifeste et la table suffisent : le contrôle ne lit aucune image.
-        const std::filesystem::path planche = _racine / "Assets" / "Scene" / "martpart";
+        const std::filesystem::path planche = _racine / "Assets" / "Scene" / "bourg";
         std::filesystem::create_directories(planche);
         for (const char* fichier : {"manifest.json", "appearance.json"}) {
-            std::filesystem::copy_file(dataRoot() / "Assets" / "Scene" / "martpart" / fichier,
+            std::filesystem::copy_file(dataRoot() / "Assets" / "Scene" / "bourg" / fichier,
                                        planche / fichier);
         }
         // Les figurines que les PNJ citent : le contrôle du contenu les cherche (LOT-EDITOR-07).
@@ -157,7 +161,7 @@ private:
  * \castest{<b>La migration ne change pas ce que le jeu joue.</b><br/>
  * \tcat Unitaire · Format v4<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Migrer `format-v3.json` avec la planche de Martpart.<br/>2. Relire la v4.<br/>
+ * \tetapes 1. Migrer `format-v3.json` avec la planche d'essai.<br/>2. Relire la v4.<br/>
  * \tattendu Même instantané de scène, même grille tactique ; pièces du sol nommées ; deux
  * identifiants ; sept cases de vide forcées.
  * }
@@ -166,14 +170,20 @@ TEST(MapFormatTest, LaMigrationNeChangePasCeQueLeJeuJoue) {
     const core::Level v3 = chargerFichier(fixtures() / "format-v3.json");
 
     const hmi::MapMigration migration =
-        hmi::migrateLevel(v3, hmi::loadPlaceAssets(dataRoot(), "martpart"));
+        hmi::migrateLevel(v3, hmi::loadPlaceAssets(dataRoot(), "bourg"));
     ASSERT_TRUE(migration.ok()) << migration.error;
     const core::Level v4 = charger(migration.text);
 
     EXPECT_EQ(instantane(v4), instantane(v3));
     EXPECT_TRUE(memeGrilleTactique(v4, v3));
     EXPECT_EQ(migration.namedPieces, 3U) << "les trois cases de sol";
-    EXPECT_EQ(v4.layers()[1].pieceAt(2, 0), "square");
+    // La case solide reçoit une pièce de la fente `solid` de la table du lieu ; laquelle
+    // dépend de la table, pas de la migration (`LOT-123` : la planche d'essai en offre
+    // plusieurs par fente, la planche d'alors n'en avait qu'une).
+    const hmi::PlaceAssets lieu = hmi::loadPlaceAssets(dataRoot(), "bourg");
+    ASSERT_TRUE(lieu.appearance.has_value());
+    EXPECT_EQ(v4.layers()[1].pieceAt(2, 0),
+              lieu.appearance->floorPiece(core::TileType::Solid, {.column = 2, .row = 0}));
     EXPECT_EQ(migration.newIds, 2U);
     EXPECT_EQ(v4.entities()[1].id, "e2");
     EXPECT_EQ(v4.nextEntityId(), 3);
@@ -190,7 +200,7 @@ TEST(MapFormatTest, LaMigrationNeChangePasCeQueLeJeuJoue) {
  * }
  */
 TEST(MapFormatTest, LaMigrationEstIdempotente) {
-    const hmi::PlaceAssets planche = hmi::loadPlaceAssets(dataRoot(), "martpart");
+    const hmi::PlaceAssets planche = hmi::loadPlaceAssets(dataRoot(), "bourg");
     const hmi::MapMigration premiere =
         hmi::migrateLevel(chargerFichier(fixtures() / "format-v3.json"), planche);
     const hmi::MapMigration seconde = hmi::migrateLevel(charger(premiere.text), planche);
@@ -204,14 +214,15 @@ TEST(MapFormatTest, LaMigrationEstIdempotente) {
  * \castest{<b>Les cartes livrées passent le contrôle.</b><br/>
  * \tcat Unitaire · Format v4<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Contrôler `Source/Elements/Levels`.<br/>
- * \tattendu Au moins trois cartes, aucune erreur.
+ * \tetapes 1. Contrôler `Source/Elements`.<br/>
+ * \tattendu Aucune erreur. Aucune carte livrée : rien à contrôler, et c'est un état
+ *           légitime (`LOT-123`, table rase du `LOT-102`).
  * }
  */
 TEST(MapFormatTest, LesCartesLivreesPassentLeControle) {
-    const hmi::MapCheckReport bilan = hmi::checkAllMaps(dataRoot());
+    const hmi::MapCheckReport bilan =
+        hmi::checkAllMaps(std::filesystem::path(JADG_LEVELS_DIR).parent_path());
 
-    EXPECT_GE(bilan.maps, 3U);
     for (const hmi::MapCheckFinding& constat : bilan.findings) {
         EXPECT_NE(constat.severity, MapCheckSeverity::Error) << hmi::formatFinding(constat);
     }
@@ -231,7 +242,7 @@ TEST(MapFormatTest, ChaqueDefautSortEtLeControleEchoue) {
     const DossierDeDonnees donnees;
     donnees.ecrire("fautive", R"({"version": 4, "name": "fautive", "width": 3, "height": 1,
       "tiles": [ {"x": 0, "y": 0, "type": "entry"} ],
-      "layers": [ {"kind": "ground", "scene": "martpart", "tiles": [
+      "layers": [ {"kind": "ground", "scene": "bourg", "tiles": [
         {"x": 0, "y": 0, "type": "dirt", "piece": "street"},
         {"x": 1, "y": 0, "type": "dirt", "piece": "introuvable", "elevation": 2},
         {"x": 2, "y": 0, "type": "dirt", "piece": "wall-left"} ]} ],
@@ -299,9 +310,12 @@ TEST(MapFormatTest, SansCommandeLEditeurOuvreSaFenetre) {
 }
 
 /**
- * @brief Acceptation du lot, sur les trois cartes livrées : leurs versions v3, rangées dans
- *        `JADG_V3_MAPS_DIR` (tirées de l'historique git), se jouent comme leurs v4 migrées.
- * \castest{<b>Les trois cartes migrées se jouent à l'identique.</b><br/>
+ * @brief Acceptation du lot, sur **chaque** carte livrée : sa version v3, rangée dans
+ *        `JADG_V3_MAPS_DIR` (tirée de l'historique git), se joue comme sa v4 migrée.
+ *
+ * Le seul test de ce fichier à lire les cartes livrées, et c'est son objet ; il admet
+ * qu'il n'y en ait aucune (`LOT-123`), et ne saute que les cartes sans version v3.
+ * \castest{<b>Chaque carte migrée se joue à l'identique.</b><br/>
  * \tcat Unitaire · Format v4<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Extraire les v3 : `git show 376c541da:Source/Elements/Levels/…` (le
@@ -311,17 +325,23 @@ TEST(MapFormatTest, SansCommandeLEditeurOuvreSaFenetre) {
  * variable.
  * }
  */
-TEST(MapFormatTest, LesTroisCartesMigreesSeJouentALIdentique) {
+TEST(MapFormatTest, ChaqueCarteMigreeSeJoueALIdentique) {
     const std::optional<std::string> dossier = variable("JADG_V3_MAPS_DIR");
     if (!dossier) {
         GTEST_SKIP() << "JADG_V3_MAPS_DIR non definie : versions v3 absentes";
     }
-    for (const char* carte : {"coliseum", "capital/martpart", "capital/arenarea"}) {
+    const std::filesystem::path livrees =
+        std::filesystem::path(JADG_LEVELS_DIR).parent_path();
+    for (const std::filesystem::path& fichier : hmi::mapFiles(livrees)) {
+        const std::string carte = core::mapIdOf(livrees / "Levels", fichier);
         SCOPED_TRACE(carte);
-        const core::Level v3 =
-            chargerFichier(std::filesystem::path(*dossier) / (std::string{carte} + ".json"));
-        const core::Level v4 =
-            chargerFichier(std::filesystem::path(JADG_LEVELS_DIR) / (std::string{carte} + ".json"));
+        const std::filesystem::path ancienne =
+            std::filesystem::path(*dossier) / (carte + ".json");
+        if (!std::filesystem::is_regular_file(ancienne)) {
+            continue;  // une carte posée après la v3 n'a pas d'ancienne version
+        }
+        const core::Level v3 = chargerFichier(ancienne);
+        const core::Level v4 = chargerFichier(fichier);
         EXPECT_EQ(instantane(v4), instantane(v3));
         EXPECT_TRUE(memeGrilleTactique(v4, v3));
         EXPECT_EQ(v4.entry(), v3.entry());

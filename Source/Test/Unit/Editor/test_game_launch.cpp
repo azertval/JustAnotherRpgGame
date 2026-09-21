@@ -40,15 +40,15 @@ protected:
  * \castest{<b>L'identifiant d'une carte donne son chemin dans le dossier d'essai.</b><br/>
  * \tcat Unitaire · Essai complet<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Ecrire le brouillon de `capital/martpart` dans un dossier d'essai neuf.<br/>
- * \tattendu Le fichier est `capital/martpart.json`, et porte le brouillon tel quel.
+ * \tetapes 1. Ecrire le brouillon de `bourg/place` dans un dossier d'essai neuf.<br/>
+ * \tattendu Le fichier est `bourg/place.json`, et porte le brouillon tel quel.
  * }
  */
 TEST_F(GameLaunch, LIdentifiantDonneLeChemin) {
     const std::string erreur =
-        hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = "capital/martpart", .json = "{\"a\":1}"}});
+        hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = "bourg/place", .json = "{\"a\":1}"}});
     EXPECT_TRUE(erreur.empty()) << erreur;
-    const std::filesystem::path fichier = dir / "capital" / "martpart.json";
+    const std::filesystem::path fichier = dir / "bourg" / "place.json";
     ASSERT_TRUE(std::filesystem::exists(fichier));
     std::ifstream lu(fichier, std::ios::binary);
     std::string contenu;
@@ -67,15 +67,15 @@ TEST_F(GameLaunch, LIdentifiantDonneLeChemin) {
  * }
  */
 TEST_F(GameLaunch, LeDossierNeGardeRienDeLEssaiPrecedent) {
-    ASSERT_TRUE(hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = "capital/martpart", .json = "{}"},
-                                          hmi::DraftMap{.mapId = "coliseum", .json = "{}"}})
+    ASSERT_TRUE(hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = "bourg/place", .json = "{}"},
+                                          hmi::DraftMap{.mapId = "donjon", .json = "{}"}})
                     .empty());
-    ASSERT_TRUE(std::filesystem::exists(dir / "coliseum.json"));
+    ASSERT_TRUE(std::filesystem::exists(dir / "donjon.json"));
 
-    ASSERT_TRUE(hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = "capital/martpart", .json = "{}"}})
+    ASSERT_TRUE(hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = "bourg/place", .json = "{}"}})
                     .empty());
-    EXPECT_TRUE(std::filesystem::exists(dir / "capital" / "martpart.json"));
-    EXPECT_FALSE(std::filesystem::exists(dir / "coliseum.json"));
+    EXPECT_TRUE(std::filesystem::exists(dir / "bourg" / "place.json"));
+    EXPECT_FALSE(std::filesystem::exists(dir / "donjon.json"));
 }
 
 /**
@@ -89,7 +89,7 @@ TEST_F(GameLaunch, LeDossierNeGardeRienDeLEssaiPrecedent) {
  */
 TEST_F(GameLaunch, SansBrouillonLeDossierEstVide) {
     EXPECT_TRUE(hmi::writeDraftMaps(dir, {}).empty());
-    EXPECT_FALSE(std::filesystem::exists(dir / "capital"));
+    EXPECT_FALSE(std::filesystem::exists(dir / "bourg"));
 }
 
 /**

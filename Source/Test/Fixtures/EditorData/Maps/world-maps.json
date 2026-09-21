@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "note": "Les plans d'essai des tests de l'éditeur (LOT-123).",
+  "world": {
+    "image": "world-test.jpg",
+    "places": {
+      "test-realm": [
+        0.5,
+        0.5
+      ]
+    }
+  },
+  "regions": {
+    "test-realm": {
+      "image": "region-test-realm.jpg",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "frame": [
+        0.25,
+        0.25,
+        0.5,
+        0.5
+      ],
+      "places": {
+        "test-city": [
+          0.5,
+          0.5
+        ]
+      }
+    }
+  },
+  "cities": {
+    "test-city": {
+      "image": "city-test-city.jpg",
+      "places": {
+        "test-city-place": [
+          0.7,
+          0.5
+        ],
+        "test-city-cave": [
+          0.56,
+          0.34
+        ],
+        "test-city-nord": [
+          0.74,
+          0.68
+        ],
+        "test-city-sud": [
+          0.78,
+          0.93
+        ],
+        "test-city-est": [
+          0.62,
+          0.79
+        ],
+        "test-city-ouest": [
+          0.68,
+          0.2
+        ]
+      },
+      "districts": {
+        "test-city-place": {
+          "frame": [
+            0.61,
+            0.41,
+            0.18,
+            0.18
+          ]
+        },
+        "test-city-cave": {
+          "frame": [
+            0.47,
+            0.25,
+            0.18,
+            0.18
+          ]
+        }
+      }
+    }
+  }
+}

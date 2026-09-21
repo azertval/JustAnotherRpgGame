@@ -1,0 +1,38 @@
+{
+  "id": "garde-du-bourg",
+  "name": "Le garde du bourg",
+  "source": "original",
+  "speaker": {
+    "languages": [
+      "common"
+    ],
+    "attitude": "indifferent"
+  },
+  "start": "halte",
+  "nodes": [
+    {
+      "id": "halte",
+      "type": "line",
+      "choices": [
+        {
+          "id": "pourquoi",
+          "next": "pourquoi"
+        },
+        {
+          "id": "partir",
+          "next": "fin"
+        }
+      ]
+    },
+    {
+      "id": "pourquoi",
+      "type": "line",
+      "next": "fin",
+      "setFlag": "bourg-averti"
+    },
+    {
+      "id": "fin",
+      "type": "end"
+    }
+  ]
+}

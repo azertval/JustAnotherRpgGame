@@ -661,15 +661,18 @@ int checkCommand(const std::filesystem::path& dataRoot, std::string& output) {
     for (const LibraryFinding& finding : library) {
         output += finding.file.string() + ": error: " + finding.message + "\n";
     }
+    // LOT-123 : une base SANS AUCUNE CARTE n'est pas une erreur. La table rase (LOT-102) vide
+    // `Levels/`, et l'etape CI du controle doit rester verte ce jour-la : l'absence de carte se
+    // DIT -- ou le controle a cherche, et « 0 map » --, elle ne fait plus echouer. Ce qui garde
+    // contre un dossier mal designe, c'est `--data`, qui nomme la racine.
+    if (report.maps == 0) {
+        output += "no map under " + levelsOf(dataRoot).string() + "\n";
+    }
     output += "checked " + std::to_string(report.maps) +
               " maps: " + std::to_string(report.count(MapCheckSeverity::Error)) + " errors, " +
               std::to_string(report.count(MapCheckSeverity::Warning)) + " warnings\n";
     if (!library.empty()) {
         output += std::to_string(library.size()) + " unreadable editor library files\n";
-        return 1;
-    }
-    if (report.maps == 0) {
-        output += "error: no map under " + levelsOf(dataRoot).string() + "\n";
         return 1;
     }
     return report.ok() ? 0 : 1;

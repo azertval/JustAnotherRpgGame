@@ -29,8 +29,11 @@
 
 namespace {
 
+// La racine d'essai de l'éditeur (`LOT-123`) : ce test reliait deux cartes LIVRÉES, que la
+// table rase du `LOT-102` emporte. La Place et le Donjon de la racine d'essai ne sont reliés
+// par aucun portail : c'est ce qu'il faut pour éprouver `--link-maps`.
 [[nodiscard]] std::filesystem::path elements() {
-    return std::filesystem::path(JADG_LEVELS_DIR).parent_path();
+    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
 }
 
 // Ce que le contrôle lit sans le récrire.
@@ -51,7 +54,7 @@ void copier(const std::filesystem::path& racine, const char* dossier) {
     }
 }
 
-/// Une copie des données livrées ; les cartes sont refaites avant chaque test.
+/// Une copie de la racine d'essai ; les cartes sont refaites avant chaque test.
 class DonneesLiens : public ::testing::Test {
 protected:
     static inline std::filesystem::path racine;
@@ -145,7 +148,7 @@ protected:
  * \castest{<b>Relier deux cartes se traverse dans les deux sens.</b><br/>
  * \tcat Unitaire · Le monde<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Copier les données livrées.<br/>2. Relier `capital/martpart` et `coliseum`.<br/>
+ * \tetapes 1. Copier la racine d'essai.<br/>2. Relier `bourg/place` et `donjon`.<br/>
  * 3. Relire le graphe du monde et contrôler toutes les cartes.<br/>
  * \tattendu Chaque carte a un portail vers l'autre, résolu, et le point d'arrivée qu'il cite ;
  * chaque point d'arrivée est atteignable depuis l'entrée de sa carte ; le contrôle ne signale
@@ -157,29 +160,29 @@ TEST_F(DonneesLiens, RelierDeuxCartesSeTraverseDansLesDeuxSens) {
     ASSERT_TRUE(avant.ok()) << constats();
 
     hmi::MapLink lien;
-    appliquer(hmi::planLinkMaps(racine, "capital/martpart", "coliseum", &lien));
+    appliquer(hmi::planLinkMaps(racine, "bourg/place", "donjon", &lien));
 
-    EXPECT_EQ(lien.from.arrivalName, "from-coliseum");
-    EXPECT_EQ(lien.to.arrivalName, "from-martpart");
+    EXPECT_EQ(lien.from.arrivalName, "from-donjon");
+    EXPECT_EQ(lien.to.arrivalName, "from-place");
 
     const core::WorldGraph graphe = core::loadWorldGraph(racine / "Levels");
-    const core::WorldPortalLink* const aller = portail(graphe, "capital/martpart", "coliseum");
-    const core::WorldPortalLink* const retour = portail(graphe, "coliseum", "capital/martpart");
+    const core::WorldPortalLink* const aller = portail(graphe, "bourg/place", "donjon");
+    const core::WorldPortalLink* const retour = portail(graphe, "donjon", "bourg/place");
     ASSERT_NE(aller, nullptr);
     ASSERT_NE(retour, nullptr);
     EXPECT_EQ(aller->status, core::PortalLinkStatus::Resolved);
     EXPECT_EQ(retour->status, core::PortalLinkStatus::Resolved);
-    EXPECT_EQ(aller->arrival, "from-martpart");
-    EXPECT_EQ(retour->arrival, "from-coliseum");
+    EXPECT_EQ(aller->arrival, "from-place");
+    EXPECT_EQ(retour->arrival, "from-donjon");
 
-    const std::optional<core::GridPosition> surLeColisee =
-        arrivee(carte("coliseum"), "from-martpart");
-    const std::optional<core::GridPosition> surMartpart =
-        arrivee(carte("capital/martpart"), "from-coliseum");
-    ASSERT_TRUE(surLeColisee.has_value());
-    ASSERT_TRUE(surMartpart.has_value());
-    EXPECT_TRUE(atteignable(carte("coliseum"), *surLeColisee));
-    EXPECT_TRUE(atteignable(carte("capital/martpart"), *surMartpart));
+    const std::optional<core::GridPosition> surLeDonjon =
+        arrivee(carte("donjon"), "from-place");
+    const std::optional<core::GridPosition> surLaPlace =
+        arrivee(carte("bourg/place"), "from-donjon");
+    ASSERT_TRUE(surLeDonjon.has_value());
+    ASSERT_TRUE(surLaPlace.has_value());
+    EXPECT_TRUE(atteignable(carte("donjon"), *surLeDonjon));
+    EXPECT_TRUE(atteignable(carte("bourg/place"), *surLaPlace));
 
     const hmi::MapCheckReport apres = hmi::checkAllMaps(racine);
     EXPECT_EQ(apres.count(hmi::MapCheckSeverity::Error), 0U) << constats();
@@ -195,12 +198,12 @@ TEST_F(DonneesLiens, RelierDeuxCartesSeTraverseDansLesDeuxSens) {
  * }
  */
 TEST_F(DonneesLiens, UnLienImpossibleNecritRien) {
-    const hmi::RefactorPlan memeCarte = hmi::planLinkMaps(racine, "coliseum", "coliseum");
+    const hmi::RefactorPlan memeCarte = hmi::planLinkMaps(racine, "donjon", "donjon");
     EXPECT_FALSE(memeCarte.ok());
     EXPECT_TRUE(memeCarte.edits.empty());
     EXPECT_NE(memeCarte.error.find("itself"), std::string::npos);
 
-    const hmi::RefactorPlan inconnue = hmi::planLinkMaps(racine, "coliseum", "capital/repaire");
+    const hmi::RefactorPlan inconnue = hmi::planLinkMaps(racine, "donjon", "bourg/repaire");
     EXPECT_FALSE(inconnue.ok());
     EXPECT_TRUE(inconnue.edits.empty());
     EXPECT_NE(inconnue.error.find("cannot be read"), std::string::npos);
@@ -212,18 +215,18 @@ TEST_F(DonneesLiens, UnLienImpossibleNecritRien) {
  * \castest{<b>Deux liens entre les mêmes cartes se distinguent.</b><br/>
  * \tcat Unitaire · Le monde<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Relier deux fois `capital/martpart` et `coliseum`.<br/>
+ * \tetapes 1. Relier deux fois `bourg/place` et `donjon`.<br/>
  * \tattendu Le second lien nomme ses points d'arrivée `from-…-2` ; les quatre portails sont
  * résolus.
  * }
  */
 TEST_F(DonneesLiens, DeuxLiensEntreLesMemesCartesSeDistinguent) {
-    appliquer(hmi::planLinkMaps(racine, "capital/martpart", "coliseum"));
+    appliquer(hmi::planLinkMaps(racine, "bourg/place", "donjon"));
     hmi::MapLink second;
-    appliquer(hmi::planLinkMaps(racine, "capital/martpart", "coliseum", &second));
+    appliquer(hmi::planLinkMaps(racine, "bourg/place", "donjon", &second));
 
-    EXPECT_EQ(second.from.arrivalName, "from-coliseum-2");
-    EXPECT_EQ(second.to.arrivalName, "from-martpart-2");
+    EXPECT_EQ(second.from.arrivalName, "from-donjon-2");
+    EXPECT_EQ(second.to.arrivalName, "from-place-2");
 
     const core::WorldGraph graphe = core::loadWorldGraph(racine / "Levels");
     const auto resolus = [&graphe](std::string_view mapId, std::string_view target) {
@@ -232,8 +235,8 @@ TEST_F(DonneesLiens, DeuxLiensEntreLesMemesCartesSeDistinguent) {
                 return link->toMap == target && link->status == core::PortalLinkStatus::Resolved;
             });
     };
-    EXPECT_EQ(resolus("capital/martpart", "coliseum"), 2);
-    EXPECT_EQ(resolus("coliseum", "capital/martpart"), 2);
+    EXPECT_EQ(resolus("bourg/place", "donjon"), 2);
+    EXPECT_EQ(resolus("donjon", "bourg/place"), 2);
 }
 
 /**
@@ -241,13 +244,13 @@ TEST_F(DonneesLiens, DeuxLiensEntreLesMemesCartesSeDistinguent) {
  * \castest{<b>Un point d'arrivée dit d'où l'on vient.</b><br/>
  * \tcat Unitaire · Le monde<br/>
  * \tcrit Mineur<br/>
- * \tetapes 1. Demander le nom pour `capital/martpart` sans rien de pris, puis avec.<br/>
- * \tattendu `from-martpart`, puis `from-martpart-2`, puis `from-martpart-3`.
+ * \tetapes 1. Demander le nom pour `bourg/place` sans rien de pris, puis avec.<br/>
+ * \tattendu `from-place`, puis `from-place-2`, puis `from-place-3`.
  * }
  */
 TEST(LiensDuMonde, UnPointDarriveeDitDouLonVient) {
-    EXPECT_EQ(hmi::arrivalNameFrom("capital/martpart", {}), "from-martpart");
-    EXPECT_EQ(hmi::arrivalNameFrom("capital/martpart", {"from-martpart"}), "from-martpart-2");
-    EXPECT_EQ(hmi::arrivalNameFrom("coliseum", {"from-coliseum", "from-coliseum-2"}),
-              "from-coliseum-3");
+    EXPECT_EQ(hmi::arrivalNameFrom("bourg/place", {}), "from-place");
+    EXPECT_EQ(hmi::arrivalNameFrom("bourg/place", {"from-place"}), "from-place-2");
+    EXPECT_EQ(hmi::arrivalNameFrom("donjon", {"from-donjon", "from-donjon-2"}),
+              "from-donjon-3");
 }

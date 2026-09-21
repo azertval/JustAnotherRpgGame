@@ -61,9 +61,10 @@ constexpr const char* MAP = R"({
         .name = std::move(name), .kind = kind, .tiles = core::TileMap(2, 2), .properties = {}};
 }
 
-// Racine des elements livres : le dossier parent des niveaux.
+// La racine d'essai de l'editeur (LOT-123) : ce test lisait les catalogues et les cartes
+// LIVRES, que la table rase du LOT-102 emporte. Voir Fixtures/EditorData/README.md.
 [[nodiscard]] std::filesystem::path elementsRoot() {
-    return std::filesystem::path{JADG_LEVELS_DIR}.parent_path();
+    return std::filesystem::path{JADG_EDITOR_DATA_DIR};
 }
 
 }  // namespace
@@ -270,29 +271,29 @@ TEST(EditionEntitesTest, ChoixProposesParLePanneau) {
 }
 
 /**
- * @brief Les catalogues livrés se lisent, et les trois cartes livrées ne lèvent aucun
+ * @brief Les catalogues se lisent, et les deux cartes d essai ne lèvent aucun
  * avertissement : figurines, quartiers gardés, portails et points d'arrivée sont tous connus.
- * \castest{<b>Les catalogues livres alimentent l'editeur.</b><br/>
+ * \castest{<b>Les catalogues alimentent l'editeur.</b><br/>
  * \tcat Unitaire · Edition d'entites<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Lire les references sous Source/Elements.<br/>2. Valider les entites du Colisee, de
- * Martpart et d'Arenarea.<br/>
- * \tattendu Le dialogue du heraut, la rencontre du Colisee, les figurines des deux ateliers, les
+ * \tetapes 1. Lire les references de la racine d essai.<br/>2. Valider les entites des deux
+ * cartes.<br/>
+ * \tattendu Le dialogue du garde, la rencontre du donjon, les figurines des deux ateliers, les
  * lieux de l'atlas, les objets et les cartes sont connus ; aucune entite n'est signalee.
  * }
  */
-TEST(EditionEntitesTest, CataloguesLivresAlimententLEditeur) {
+TEST(EditionEntitesTest, LesCataloguesAlimententLEditeur) {
     const hmi::EditorReferences references = hmi::loadEditorReferences(elementsRoot());
-    EXPECT_NE(std::ranges::find(references.dialogues, "heraut-colisee"),
+    EXPECT_NE(std::ranges::find(references.dialogues, "garde-du-bourg"),
               references.dialogues.end());
-    EXPECT_NE(references.encounters.find("colisee-fauves"), nullptr);
-    ASSERT_NE(references.world.find("coliseum"), nullptr);
-    EXPECT_TRUE(std::ranges::binary_search(references.figures, "anariel"));
-    EXPECT_TRUE(std::ranges::binary_search(references.figures, "Monsters/lion"));
+    EXPECT_NE(references.encounters.find("rats-du-donjon"), nullptr);
+    ASSERT_NE(references.world.find("donjon"), nullptr);
+    EXPECT_TRUE(std::ranges::binary_search(references.figures, "figurant"));
+    EXPECT_TRUE(std::ranges::binary_search(references.figures, "Monsters/sentinelle"));
     EXPECT_FALSE(references.locations.empty());
     EXPECT_FALSE(references.items.empty());
 
-    for (const char* const mapId : {"coliseum", "capital/martpart", "capital/arenarea"}) {
+    for (const char* const mapId : {"donjon", "bourg/place"}) {
         const core::LevelLoadResult map = core::LevelLoader::loadFromFile(
             elementsRoot() / "Levels" / (std::string{mapId} + ".json"));
         ASSERT_TRUE(map.ok()) << map.error;

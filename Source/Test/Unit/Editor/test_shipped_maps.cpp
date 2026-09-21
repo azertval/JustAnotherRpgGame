@@ -6,12 +6,17 @@
  * @brief Les cartes livrées se font dans l'éditeur (`LOT-EDITOR-06`, décision D4) : chacune
  *        s'ouvre, se modifie, s'enregistre et se recharge sans perte, et sans script.
  *
- * Les scripts qui les posaient (`carte_colisee.py`, `carte_quartiers.py`) sont retirés : plus rien
- * ne compare une carte à un tracé. Ce qui garde les cartes, c'est ce que fait l'éditeur — le
- * brouillon (`core::LevelDraft`) qu'ouvre la fenêtre, les gestes que rejoue `--apply`, et le texte
- * canonique qu'écrit l'enregistrement.
+ * Les scripts qui les posaient sont retirés : plus rien ne compare une carte à un tracé. Ce qui
+ * garde les cartes, c'est ce que fait l'éditeur — le brouillon (`core::LevelDraft`) qu'ouvre la
+ * fenêtre, les gestes que rejoue `--apply`, et le texte canonique qu'écrit l'enregistrement.
+ *
+ * **Le seul fichier de `Unit/Editor` qui lise encore les cartes livrées, et c'est son objet**
+ * (`LOT-123`) : il balaie celles qu'il trouve, quelles qu'elles soient, et admet qu'il n'y en ait
+ * aucune — la table rase du `LOT-102` vide `Levels/`. Les autres tests de l'éditeur ouvrent la
+ * racine d'essai, `Source/Test/Fixtures/EditorData`.
  */
 
+#include <cstdlib>
 #include <filesystem>
 #include <fstream>
 #include <memory>
@@ -104,13 +109,12 @@ struct PieceDressee {
  * \tcrit Bloquant<br/>
  * \tetapes 1. Pour chaque carte de `Source/Elements/Levels`, l'ouvrir en brouillon avec le
  *          manifeste de son lieu.<br/>2. L'enregistrer sans la toucher.<br/>
- * \tattendu Au moins trois cartes ; chaque texte enregistré égale le fichier livré, octet pour
- *           octet.
+ * \tattendu Chaque texte enregistré égale le fichier livré, octet pour octet. Aucune carte
+ *           livrée : rien à vérifier, et c'est un état légitime (`LOT-123`).
  * }
  */
 TEST(ShippedMapsTest, ChaqueCarteSOuvreEtSEnregistreALIdentique) {
     const auto cartes = hmi::mapFiles(dataRoot());
-    ASSERT_GE(cartes.size(), 3U);
     for (const std::filesystem::path& fichier : cartes) {
         SCOPED_TRACE(fichier.string());
         const std::string livre = lire(fichier);
@@ -187,4 +191,41 @@ TEST(DataRootTest, LEditeurOuvreLesDonneesDeLArbreDesSources) {
     EXPECT_EQ(hmi::resolveDataRoot({}, executable, sources / "absent"), executable);
     EXPECT_EQ(hmi::resolveDataRoot({}, executable, {}), executable);
     EXPECT_EQ(hmi::resolveDataRoot({"--data"}, executable, {}), executable);
+}
+
+/**
+ * @brief Un `Levels/` **vide** reste l'arbre des sources : c'est son `README.md` qui le tient
+ *        dans le dépôt, git ne gardant pas un dossier vide.
+ *
+ * Ce que la table rase du `LOT-102` laisse derrière elle : un `Levels/` sans aucune carte. Si
+ * `resolveDataRoot` le refusait, la fenêtre et les commandes se rabattraient en silence sur la
+ * copie que la construction refait à côté de l'exécutable, et l'auteur dessinerait dans le vide.
+ * \castest{<b>Un dossier de niveaux vide reste l'arbre des sources.</b><br/>
+ * \tcat Unitaire · Editeur · Cartes livrées<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Batir une racine dont `Levels/` ne porte que son `README.md`.<br/>2. Resoudre la
+ * racine sans `--data`.<br/>3. Controler cette racine.<br/>
+ * \tattendu La racine est celle de l'arbre des sources, pas le dossier de l'executable ; le
+ * controle ne trouve aucune carte, le dit, et rend 0.
+ * }
+ */
+TEST(DataRootTest, UnDossierDeNiveauxVideResteLArbreDesSources) {
+    const std::filesystem::path racine = std::filesystem::temp_directory_path() /
+                                         ("jadg-base-vide-" + std::to_string(std::rand()));
+    std::error_code ignore;
+    std::filesystem::remove_all(racine, ignore);
+    std::filesystem::create_directories(racine / "Levels");
+    std::ofstream(racine / "Levels" / "README.md") << "# Cartes du jeu.\n";
+
+    EXPECT_EQ(hmi::resolveDataRoot({"--check"}, "bin", racine), racine);
+
+    std::string sortie;
+    const std::optional<int> code =
+        hmi::runMapCommand({"--check", "--data", racine.string()}, {}, sortie);
+    ASSERT_TRUE(code.has_value());
+    EXPECT_EQ(*code, 0) << sortie;
+    EXPECT_NE(sortie.find("no map under"), std::string::npos) << sortie;
+    EXPECT_NE(sortie.find("checked 0 maps"), std::string::npos) << sortie;
+
+    std::filesystem::remove_all(racine, ignore);
 }

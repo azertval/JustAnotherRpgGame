@@ -22,8 +22,10 @@
 
 namespace {
 
+// La racine d'essai de l'éditeur (`LOT-123`) : ce test rendait une carte LIVRÉE, que la
+// table rase du `LOT-102` emporte. Voir `Fixtures/EditorData/README.md`.
 [[nodiscard]] std::filesystem::path dataRoot() {
-    return std::filesystem::path(JADG_LEVELS_DIR).parent_path();
+    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
 }
 
 /// La part des pixels de @p image qui ne sont pas le fond @p background.
@@ -44,32 +46,32 @@ namespace {
 }  // namespace
 
 /**
- * @brief Martpart se rend en PNG, sans fenêtre ; la collision se peint par-dessus quand on la
+ * @brief La carte d'essai se rend en PNG, sans fenêtre ; la collision se peint par-dessus quand
  *        demande.
- * \castest{<b>--render peint une carte livrée hors écran.</b><br/>
+ * \castest{<b>--render peint une carte hors écran.</b><br/>
  * \tcat Unitaire · Editeur · Sans fenetre<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Rendre Martpart au quart de l'échelle, bandes par défaut.<br/>
+ * \tetapes 1. Rendre la Place au quart de l'échelle, bandes par défaut.<br/>
  *          2. La rendre avec la collision en plus.<br/>
  * \tattendu Une image de la taille du cadre (989 × 648), peinte sur plus du cinquième de sa
  *           surface (le losange de la carte en couvre la moitié, moins les îlots vides) ; la
  *           collision change l'image.
  * }
  */
-TEST(MapRenderTest, MartpartSeRendSansFenetre) {
-    const core::LevelLoadResult martpart =
-        core::LevelLoader::loadFromFile(dataRoot() / "Levels" / "capital" / "martpart.json");
-    ASSERT_TRUE(martpart.ok()) << martpart.error;
+TEST(MapRenderTest, UneCarteSeRendSansFenetre) {
+    const core::LevelLoadResult carte =
+        core::LevelLoader::loadFromFile(dataRoot() / "Levels" / "bourg" / "place.json");
+    ASSERT_TRUE(carte.ok()) << carte.error;
 
     hmi::MapRenderOptions options;
     options.scale = 0.25;
-    const QImage lieu = hmi::renderMap(*martpart.level, dataRoot(), options);
+    const QImage lieu = hmi::renderMap(*carte.level, dataRoot(), options);
     EXPECT_EQ(lieu.width(), 989);
     EXPECT_EQ(lieu.height(), 648);
     EXPECT_GT(peinte(lieu, options.background), 1.0 / 5.0);
 
     options.bands.collision = 1.0F;
-    const QImage collision = hmi::renderMap(*martpart.level, dataRoot(), options);
+    const QImage collision = hmi::renderMap(*carte.level, dataRoot(), options);
     EXPECT_NE(collision, lieu);
 }
 
@@ -95,8 +97,8 @@ TEST(MapRenderTest, LesBandesSeLisentParLeurNom) {
  * \castest{<b>--render écrit une image par carte.</b><br/>
  * \tcat Unitaire · Editeur · Sans fenetre<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. `--render capital/martpart coliseum --scale 0.125 --output <dossier>`.<br/>
- * \tattendu Code 0 ; `capital-martpart.png` et `coliseum.png` dans le dossier.
+ * \tetapes 1. `--render bourg/place donjon --scale 0.125 --output <dossier>`.<br/>
+ * \tattendu Code 0 ; `bourg-place.png` et `donjon.png` dans le dossier.
  * }
  */
 TEST(MapRenderTest, RenderEcritUneImageParCarte) {
@@ -104,13 +106,13 @@ TEST(MapRenderTest, RenderEcritUneImageParCarte) {
         std::filesystem::temp_directory_path() / ("jadg-render-" + std::to_string(std::rand()));
     std::string sortie;
     const std::optional<int> code =
-        hmi::runRenderCommand({"--render", "capital/martpart", "coliseum", "--scale", "0.125",
+        hmi::runRenderCommand({"--render", "bourg/place", "donjon", "--scale", "0.125",
                                "--data", dataRoot().string(), "--output", dossier.string()},
                               {}, sortie);
     ASSERT_TRUE(code.has_value());
     EXPECT_EQ(*code, 0) << sortie;
-    EXPECT_TRUE(std::filesystem::exists(dossier / "capital-martpart.png")) << sortie;
-    EXPECT_TRUE(std::filesystem::exists(dossier / "coliseum.png")) << sortie;
+    EXPECT_TRUE(std::filesystem::exists(dossier / "bourg-place.png")) << sortie;
+    EXPECT_TRUE(std::filesystem::exists(dossier / "donjon.png")) << sortie;
     EXPECT_FALSE(hmi::runRenderCommand({"--check"}, {}, sortie).has_value());
 
     std::error_code ignore;
