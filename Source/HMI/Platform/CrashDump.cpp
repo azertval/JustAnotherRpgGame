@@ -34,6 +34,13 @@ CrashDumpSettings& settings() {
     return instance;
 }
 
+/// Erreurs des tentatives de la dernière écriture (writeMiniDump), pour le diagnostic : sans elles,
+/// seule l'erreur de la dernière tentative est connue, et une panne de CI reste illisible.
+std::array<unsigned long, kMiniDumpAttemptCount>& attemptErrors() {
+    static std::array<unsigned long, kMiniDumpAttemptCount> instance{};
+    return instance;
+}
+
 [[noreturn]] void raiseFatalError() {
     RaiseException(kFatalErrorExceptionCode, EXCEPTION_NONCONTINUABLE, 0, nullptr);
     // RaiseException avec EXCEPTION_NONCONTINUABLE ne revient pas ; si un débogueur reprend quand
@@ -96,23 +103,40 @@ struct DumpJob {
     EXCEPTION_RECORD recordCopy{};
     CONTEXT contextCopy{};
     EXCEPTION_POINTERS pointersCopy{};
+    // Tentative en cours : si non nul, seul ce thread est consigné (voir writeDumpJob).
+    DWORD onlyThread = 0;
     BOOL written = FALSE;
     DWORD error = ERROR_SUCCESS;
+    // Code d'erreur de chaque tentative, dans l'ordre : ce que la CI montre quand tout échoue.
+    std::array<unsigned long, kMiniDumpAttemptCount> errors{};
 };
 
-/// Rappel de MiniDumpWriteDump : une zone mémoire illisible est sautée au lieu d'annuler le dump.
-/// Sans lui, une pile qu'un autre thread libère pendant la lecture fait échouer toute l'écriture
-/// sur ERROR_PARTIAL_COPY -- vu sur les runners de CI après des tests qui laissent des threads
-/// (Nightly, ordre aléatoire répété), à chaque essai. Les autres rappels gardent le comportement
-/// par défaut : threads et modules inclus, aucune mémoire ajoutée.
-BOOL CALLBACK skipUnreadableMemory(PVOID /*param*/, const PMINIDUMP_CALLBACK_INPUT input,
+/// Rappel de MiniDumpWriteDump : une zone mémoire illisible est sautée au lieu d'annuler le dump,
+/// et, sur la dernière tentative, seul le thread du plantage est consigné.
+///
+/// ReadMemoryFailureCallback ne couvre pas tout : « si l'échec a lieu dans une pile, il est
+/// considéré comme irrécupérable et le minidump échoue » (documentation de
+/// MINIDUMP_CALLBACK_TYPE). Une pile qu'un thread en cours de fin libère pendant la lecture fait
+/// donc échouer l'écriture sur ERROR_PARTIAL_COPY quoi qu'on réponde -- vu sur les runners de CI,
+/// jamais sur le poste. Le seul remède est de ne pas lire cette pile : IncludeThreadCallback rend
+/// FALSE pour tout thread autre que celui du plantage (`onlyThread`), ce que la dernière tentative
+/// seule demande. Les autres rappels gardent le comportement par défaut : threads et modules
+/// inclus, aucune mémoire ajoutée.
+BOOL CALLBACK skipUnreadableMemory(PVOID param, const PMINIDUMP_CALLBACK_INPUT input,
                                    PMINIDUMP_CALLBACK_OUTPUT output) {
     if (input == nullptr || output == nullptr) {
         return FALSE;
     }
+    const auto* const job = static_cast<const DumpJob*>(param);
     switch (input->CallbackType) {
-        case IncludeModuleCallback:
         case IncludeThreadCallback:
+            if (job != nullptr && job->onlyThread != 0 &&
+                // NOLINTNEXTLINE(cppcoreguidelines-pro-type-union-access): union de l'API Win32.
+                input->IncludeThread.ThreadId != job->onlyThread) {
+                return FALSE;  // thread exclu : sa pile n'est pas lue, donc pas d'échec dessus
+            }
+            return TRUE;
+        case IncludeModuleCallback:
         case ModuleCallback:
         case ThreadCallback:
         case ThreadExCallback:
@@ -145,21 +169,35 @@ DWORD WINAPI writeDumpJob(LPVOID parameter) {
     // un état étendu du processeur (CONTEXT_XSTATE) dont la taille dépend de la machine. Les essais
     // suivants passent une copie limitée au CONTEXT de base, puis les pointeurs d'origine lus par
     // ReadProcessMemory (ClientPointers). Un dump sans l'état AVX vaut mieux que pas de dump.
+    //
+    // La dernière tentative n'écrit que le thread du plantage : une pile illisible (un thread qui
+    // se termine pendant la lecture) fait échouer tout le dump, sans rappel possible, et c'est
+    // l'échec observé en CI. La pile fautive suffit à lire le plantage ; celles des autres threads
+    // sont ce qu'on abandonne en dernier recours.
     struct Attempt {
         MINIDUMP_TYPE type;
         EXCEPTION_POINTERS* pointers;
         BOOL clientPointers;
+        DWORD onlyThread;
     };
-    const std::array<Attempt, 3> attempts = {{
-        {.type = rich, .pointers = job->original, .clientPointers = FALSE},
+    const std::array<Attempt, kMiniDumpAttemptCount> attempts = {{
+        {.type = rich, .pointers = job->original, .clientPointers = FALSE, .onlyThread = 0},
         {.type = reduced,
          .pointers = job->original != nullptr ? &job->pointersCopy : nullptr,
-         .clientPointers = FALSE},
-        {.type = reduced, .pointers = job->original, .clientPointers = TRUE},
+         .clientPointers = FALSE,
+         .onlyThread = 0},
+        {.type = reduced, .pointers = job->original, .clientPointers = TRUE, .onlyThread = 0},
+        {.type = reduced,
+         .pointers = job->original != nullptr ? &job->pointersCopy : nullptr,
+         .clientPointers = FALSE,
+         .onlyThread = job->threadId},
     }};
     MINIDUMP_CALLBACK_INFORMATION callback{};
     callback.CallbackRoutine = &skipUnreadableMemory;
+    callback.CallbackParam = job;
+    std::size_t index = 0;
     for (const Attempt& attempt : attempts) {
+        job->onlyThread = attempt.onlyThread;
         LARGE_INTEGER start{};
         SetFilePointerEx(job->file, start, nullptr, FILE_BEGIN);
         SetEndOfFile(job->file);
@@ -175,6 +213,8 @@ DWORD WINAPI writeDumpJob(LPVOID parameter) {
             return 0;
         }
         job->error = GetLastError();
+        job->errors.at(index) = job->error;
+        ++index;
     }
     return 0;
 }
@@ -242,11 +282,16 @@ bool writeMiniDump(const std::filesystem::path& path, _EXCEPTION_POINTERS* excep
         writeDumpJob(&job);
     }
     CloseHandle(file);
+    attemptErrors() = job.errors;
     if (job.written == FALSE) {
         SetLastError(job.error);
         return false;
     }
     return true;
+}
+
+std::array<unsigned long, kMiniDumpAttemptCount> lastMiniDumpAttemptErrors() {
+    return attemptErrors();
 }
 
 void installCrashDumpWriter(std::filesystem::path directory, std::string application,

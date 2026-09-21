@@ -6,6 +6,16 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Un minidump n'échoue plus sur la pile d'un autre thread.** Le test
+  `CrashDumpTest.EcritUnMinidumpAvecLeContexteDUneException` échouait par intermittence sur les
+  runners de CI (`ERROR_PARTIAL_COPY`), jamais sur le poste. Le rappel posé en `#78` ne pouvait pas
+  l'éviter : la documentation de `MINIDUMP_CALLBACK_TYPE` dit qu'un échec de lecture *dans une pile*
+  est tenu pour irrécupérable et n'appelle aucun rappel. `writeMiniDump` tente donc, en dernier
+  recours, un dump restreint au seul thread du plantage : les piles des autres threads ne sont plus
+  lues, donc plus une cause d'échec. Le relevé des erreurs de chaque tentative
+  (`hmi::lastMiniDumpAttemptErrors`) est affiché par le test, pour qu'une prochaine panne se lise
+  dans le journal de la CI.
+
 - **Le standard 2D HD devient normatif (LOT-101).** Le style qui remplace le pixel art est chiffré
   et éprouvé : une maquette de huit cases sur huit d'Arenarea, montée par `scripts/build_hd_mockup.py`
   depuis la planche de référence et cadrée à 1080p et à 2160p, sert désormais de référence de

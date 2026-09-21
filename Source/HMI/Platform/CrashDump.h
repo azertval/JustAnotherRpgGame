@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <array>
+#include <cstddef>
 #include <ctime>
 #include <filesystem>
 #include <string>
@@ -26,6 +28,10 @@ namespace hmi {
 /// paramètre invalide de la CRT) en exception structurée, que le filtre sait écrire : « JADG ».
 inline constexpr unsigned long kFatalErrorExceptionCode = 0xE04A4447UL;
 
+/// Nombre de tentatives d'écriture d'un minidump, de la plus riche à la plus réduite
+/// (writeMiniDump).
+inline constexpr std::size_t kMiniDumpAttemptCount = 4;
+
 /**
  * @brief Nom du fichier d'un minidump : `<application>_<version>_<AAAAMMJJ_HHMMSS>.dmp`.
  *
@@ -47,14 +53,25 @@ inline constexpr unsigned long kFatalErrorExceptionCode = 0xE04A4447UL;
  * Le dossier parent est créé au besoin. Sans @p exception, le dump porte l'état de tous les threads
  * au moment de l'appel, sans contexte d'exception. L'écriture a lieu sur un thread dédié, que
  * l'appelant attend. Si le dump riche (mémoire référencée par les piles) échoue, des dumps réduits
- * sont tentés, qui gardent piles et contexte (sans l'état étendu du processeur) ; si tous échouent,
- * `GetLastError()` en donne la raison.
+ * sont tentés, qui gardent piles et contexte (sans l'état étendu du processeur) ; la dernière
+ * tentative n'écrit plus que le thread du plantage, une pile illisible d'un autre thread faisant
+ * échouer tout le dump. Si toutes échouent, `GetLastError()` en donne la raison.
  *
  * @param path      Chemin du fichier `.dmp` à écrire (écrasé s'il existe).
  * @param exception Contexte de l'exception à consigner, ou `nullptr`.
  * @return `true` si le fichier a été écrit.
  */
 bool writeMiniDump(const std::filesystem::path& path, _EXCEPTION_POINTERS* exception);
+
+/**
+ * @brief Erreurs des tentatives du dernier writeMiniDump, dans l'ordre (0 = tentative non faite).
+ *
+ * `GetLastError()` ne rend que la raison de la dernière tentative : une panne comme celle vue en CI
+ * reste alors indéchiffrable. Diagnostic seul ; le test de minidump les affiche quand il échoue.
+ *
+ * @return Une copie du relevé, tentative par tentative.
+ */
+[[nodiscard]] std::array<unsigned long, kMiniDumpAttemptCount> lastMiniDumpAttemptErrors();
 
 /**
  * @brief Installe l'écriture d'un minidump sur toute fin anormale du processus.
