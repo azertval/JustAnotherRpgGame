@@ -10,9 +10,7 @@ projet. Leur provenance, famille par famille :
 | Dossier | Provenance | Trace |
 |---|---|---|
 | `Maps/` | cartes **peintes par l'auteur**, sans lettrage (`LOT-94`) | `"provenance": "author"` dans `Maps/manifest.json` |
-| `Coliseum/` | découpées par `scripts/extract_coliseum_atlas.py` dans une planche de production sortie d'un générateur d'images (`LOT-50`) | `Coliseum/README.md`, `Coliseum/manifest.json` |
-| `Scene/<lieu>/` | planches de l'atelier des textures, générateur d'images d'OpenAI, envois à la main, découpées par `scripts/extract_texture_sheet.py` (`LOT-92`) | `Scene/<lieu>/manifest.json` |
-| `Npc/` | bandes et portraits de l'atelier des PNJ, même générateur (`LOT-91`) | `Npc/README.md`, `Npc/manifest.json` |
+| `Regions/`, `Common/` | l'art de scène **2D HD**, produit par la chaîne du `LOT-104` : encore vide, la table rase du `LOT-102` ayant emporté tout l'art en pixel art | le `manifest.json` de chaque dossier |
 | `UI/` | illustrations de l'interface, chacune avec sa provenance | `UI/illustrations.json` |
 
 Aucune image n'est tirée des livres du corpus source : `UI/illustrations.json` refuse cette

@@ -242,12 +242,12 @@ TEST(AssetGalleryTest, ToutAssetLivreEstDansLaGalerie) {
                          "assetGalleryExcludes.";
     }
 
-    EXPECT_TRUE(hmi::assetGalleryExcludes("Scene/martpart/planche-1.png"));
-    EXPECT_TRUE(hmi::assetGalleryExcludes("Coliseum/production_source_atlas.png"));
     EXPECT_TRUE(hmi::assetGalleryExcludes("UI/background/menu-scene.png"));
     EXPECT_TRUE(hmi::assetGalleryExcludes("Maps/world.jpg"));
-    EXPECT_FALSE(hmi::assetGalleryExcludes("Scene/martpart/street.png"));
-    EXPECT_FALSE(hmi::assetGalleryExcludes("Npc/anariel/portrait.png"));
+    EXPECT_TRUE(hmi::assetGalleryExcludes("Fonts/Cinzel.ttf"));
+    EXPECT_FALSE(
+        hmi::assetGalleryExcludes("Regions/central-empire/capital/martpart/Scene/street.png"));
+    EXPECT_FALSE(hmi::assetGalleryExcludes("Npc/figurant/portrait.png"));
 }
 
 /**
