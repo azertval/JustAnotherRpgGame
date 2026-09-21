@@ -9,6 +9,7 @@
 
 #include <QColor>
 #include <QImage>
+#include <QRect>
 #include <cstdlib>
 #include <filesystem>
 #include <optional>
@@ -117,4 +118,35 @@ TEST(MapRenderTest, RenderEcritUneImageParCarte) {
 
     std::error_code ignore;
     std::filesystem::remove_all(dossier, ignore);
+}
+
+/**
+ * @brief `--plan` rend la carte au vocabulaire des plans de principe : blocs couchés à plat et
+ *        légende, ce qui donne une image différente du rendu ordinaire (`LOT-128`).
+ * \castest{<b>--plan couche les blocs et ajoute une legende.</b><br/>
+ * \tcat Unitaire · Editeur · Sans fenetre<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Rendre une carte de maquette, une fois ordinairement, une fois en plan.<br/>
+ * \tattendu Deux images de meme taille mais differentes ; le coin haut gauche, vide dans le rendu
+ * ordinaire, porte la legende du plan.
+ * }
+ */
+TEST(MapRenderTest, LePlanCoucheLesBlocsEtLegende) {
+    const core::LevelLoadResult carte =
+        core::LevelLoader::loadFromFile(dataRoot() / "Levels" / "donjon.json");
+    ASSERT_TRUE(carte.ok()) << carte.error;
+
+    hmi::MapRenderOptions options;
+    options.scale = 0.5;
+    const QImage ordinaire = hmi::renderMap(*carte.level, dataRoot(), options);
+    options.plan = true;
+    const QImage plan = hmi::renderMap(*carte.level, dataRoot(), options);
+
+    ASSERT_FALSE(plan.isNull());
+    EXPECT_EQ(plan.size(), ordinaire.size());
+    EXPECT_NE(plan, ordinaire);
+    // La legende occupe le coin haut gauche, que le losange de la carte laisse vide.
+    const QRect coin(0, 0, plan.width() / 4, plan.height() / 4);
+    EXPECT_GT(peinte(plan.copy(coin), options.background),
+              peinte(ordinaire.copy(coin), options.background));
 }

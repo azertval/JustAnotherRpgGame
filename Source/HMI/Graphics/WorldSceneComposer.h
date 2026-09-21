@@ -167,6 +167,9 @@ struct WorldSceneSnapshot {
     /// Le **type** de chaque case, une entrée par case, ligne par ligne : ce que le rendu de
     /// maquette dessine là où aucune pièce n'est nommée (`LOT-128`).
     std::vector<core::TileType> types;
+    /// Le type de chaque case de la couche **décor**, même disposition. Un mur s'y peint aussi
+    /// souvent que sur le sol, et il doit s'y extruder pareillement.
+    std::vector<core::TileType> reliefTypes;
     std::map<std::string, core::PieceFootprint, std::less<>> footprints;
     std::vector<WorldFigureSnapshot> figures;
     /// Les jetons et les tracés de maquette (`LOT-128`), déjà choisis par `maquetteMarks`.
@@ -178,6 +181,8 @@ struct WorldSceneSnapshot {
     [[nodiscard]] std::string_view reliefAt(core::GridPosition cell) const;
     /// @return Le type de @p cell, `core::TileType::Empty` hors grille.
     [[nodiscard]] core::TileType typeAt(core::GridPosition cell) const;
+    /// @return Le type de @p cell sur la couche décor, `core::TileType::Empty` hors grille.
+    [[nodiscard]] core::TileType reliefTypeAt(core::GridPosition cell) const;
 
     [[nodiscard]] bool operator==(const WorldSceneSnapshot&) const = default;
 };
@@ -271,6 +276,20 @@ template <class Map>
 /// @return Tous les chemins de texture que @p snapshot demandera, sans doublon, triés.
 [[nodiscard]] std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot);
 
+/// @brief Ce que l'appelant peut changer à la composition — rien, par défaut.
+struct WorldComposeOptions {
+    /**
+     * @brief Les blocs de maquette se dessinent **à plat** : le vocabulaire des plans de principe
+     *        du planning (`LevelEditor --render --plan`, `LOT-128`).
+     *
+     * Un plan dit ce que la carte contient et comment on y circule ; l'extrusion, qui sert à
+     * *jouer*, y cacherait justement ce qu'on vient lire — ce qui se trouve derrière un mur.
+     */
+    bool flatBlocks = false;
+
+    [[nodiscard]] bool operator==(const WorldComposeOptions&) const = default;
+};
+
 /**
  * @brief Compose le lieu dans un tampon réutilisé.
  *
@@ -278,11 +297,13 @@ template <class Map>
  * enchaîne `clear()`, les compositions, puis `sort()`.
  */
 void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
-                       const core::IsoProjection& projection, const ScenePieceTextures& textures);
+                       const core::IsoProjection& projection, const ScenePieceTextures& textures,
+                       WorldComposeOptions options = {});
 
 /// @brief Compose le lieu dans une scène neuve, **triée** — commodité des tests et des captures.
 [[nodiscard]] ComposedScene composeWorldScene(const WorldSceneSnapshot& snapshot,
                                               const core::IsoProjection& projection,
-                                              const ScenePieceTextures& textures);
+                                              const ScenePieceTextures& textures,
+                                              WorldComposeOptions options = {});
 
 }  // namespace hmi

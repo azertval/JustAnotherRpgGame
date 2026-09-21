@@ -32,6 +32,8 @@ std::string_view mapStateKey(MapState state) noexcept {
     switch (state) {
         case MapState::Generated:
             return "generated";
+        case MapState::Blockout:
+            return "blockout";
         case MapState::Retouched:
             return "retouched";
         case MapState::Finished:
@@ -55,6 +57,8 @@ std::string_view mapStateLabel(MapState state) noexcept {
     switch (state) {
         case MapState::Generated:
             return "Generated";
+        case MapState::Blockout:
+            return "Blockout";
         case MapState::Retouched:
             return "Retouched";
         case MapState::Finished:
@@ -66,8 +70,8 @@ std::string_view mapStateLabel(MapState state) noexcept {
 }
 
 const std::vector<MapState>& knownMapStates() {
-    static const std::vector<MapState> states{MapState::Generated, MapState::Retouched,
-                                              MapState::Finished};
+    static const std::vector<MapState> states{MapState::Generated, MapState::Blockout,
+                                              MapState::Retouched, MapState::Finished};
     return states;
 }
 

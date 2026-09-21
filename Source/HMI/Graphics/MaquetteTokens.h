@@ -104,4 +104,22 @@ struct MaquetteTokenRequest {
 /// @brief Comme ci-dessus, depuis un chemin ; image vide si @p path n'est pas un chemin de jeton.
 [[nodiscard]] core::MarkerImage maquetteTokenImage(std::string_view path, int size);
 
+/**
+ * @brief Peint @p text avec la **même table de glyphes** que les jetons.
+ *
+ * `LevelEditor --render` tourne **sans `QApplication`** (`LOT-EDITOR-13`, décision D9) : il n'a
+ * donc aucune police à sa disposition, et `QPainter::drawText` y échoue. La légende du plan de
+ * principe (`--plan`) écrit par conséquent ses libellés avec les glyphes des jetons — ce qui, au
+ * passage, lui donne la typographie des pastilles qu'elle légende.
+ *
+ * Les lettres sont **mises en majuscules** ; l'espace laisse un blanc, et tout caractère hors de
+ * la table donne `?`.
+ * @param text  Le libellé.
+ * @param scale Pixels par pixel de glyphe (au moins 1).
+ * @param color La teinte des lettres.
+ * @return L'image du libellé, fond transparent ; vide si @p text l'est.
+ */
+[[nodiscard]] core::MarkerImage maquetteTextImage(std::string_view text, int scale,
+                                                  core::MarkerColor color);
+
 }  // namespace hmi

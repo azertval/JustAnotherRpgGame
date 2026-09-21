@@ -44,6 +44,9 @@ struct MapRenderOptions {
     double scale = 1.0;
     /// Le fond, autour du losange de la carte.
     QColor background = QColor(24, 26, 30);
+    /// **Plan de principe** (`--plan`, `LOT-128`) : les blocs se couchent en losanges plats et une
+    /// légende s'ajoute. Ce que la carte contient et comment on y circule, pas ce qu'on y voit.
+    bool plan = false;
 };
 
 /**
@@ -80,6 +83,7 @@ struct MapRenderOptions {
  * - `--output <fichier.png | dossier>` : un fichier pour une carte unique, sinon un dossier où
  *   chaque carte s'écrit `capital-martpart.png` (défaut : le dossier courant) ;
  * - `--layers floors,relief,figures,collision` : les bandes (défaut : les trois premières) ;
+ * - `--plan` : le plan de principe — losanges plats, pastilles, légende ;
  * - `--scale <s>` : l'échelle ;
  * - `--data <racine>` : la racine des données (défaut : @p defaultDataRoot).
  *

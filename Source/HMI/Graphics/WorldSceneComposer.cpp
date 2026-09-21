@@ -276,7 +276,7 @@ void composeTrace(ComposedScene& scene, const core::IsoProjection& projection,
 // meme cas.
 void composeMaquetteCell(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                          const core::IsoProjection& projection, const ScenePieceTextures& textures,
-                         core::GridPosition cell) {
+                         core::GridPosition cell, bool flatBlocks) {
     if (textures.solid.texture == nullptr) {
         return;  // sans aplat, rien a teinter : on ne dessine pas plutot que de dessiner faux.
     }
@@ -284,7 +284,7 @@ void composeMaquetteCell(ComposedScene& scene, const WorldSceneSnapshot& snapsho
     if (type == core::TileType::Empty) {
         return;  // une case vide n'est pas du sol : elle ne se dessine pas, comme avant.
     }
-    if (maquetteExtrudes(type)) {
+    if (maquetteExtrudes(type) && !flatBlocks) {
         composeMaquetteBlock(scene, projection, textures, cell, type);
         return;
     }
@@ -293,10 +293,10 @@ void composeMaquetteCell(ComposedScene& scene, const WorldSceneSnapshot& snapsho
 
 void composeFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                   const core::IsoProjection& projection, const ScenePieceTextures& textures,
-                  core::GridPosition cell) {
+                  core::GridPosition cell, bool flatBlocks) {
     const std::string_view piece = snapshot.floorAt(cell);
     if (piece.empty()) {
-        composeMaquetteCell(scene, snapshot, projection, textures, cell);
+        composeMaquetteCell(scene, snapshot, projection, textures, cell, flatBlocks);
         return;
     }
     const SceneTexture& texture = textures.resolve(piecePath(snapshot.place, piece));
@@ -315,9 +315,16 @@ void composeFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
 
 void composeRelief(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                    const core::IsoProjection& projection, const ScenePieceTextures& textures,
-                   core::GridPosition cell, float unitsPerScenePixel) {
+                   core::GridPosition cell, float unitsPerScenePixel, bool flatBlocks) {
     const std::string_view piece = snapshot.reliefAt(cell);
     if (piece.empty()) {
+        // Un mur se peint aussi souvent sur la couche decor que sur le sol : il doit s'y extruder
+        // pareillement, sans quoi une carte maquettee a la maniere des modeles livres serait vide
+        // (LOT-128). Un type de decor qui ne bloque pas n'a, lui, pas de forme a prendre.
+        const core::TileType type = snapshot.reliefTypeAt(cell);
+        if (textures.solid.texture != nullptr && maquetteExtrudes(type) && !flatBlocks) {
+            composeMaquetteBlock(scene, projection, textures, cell, type);
+        }
         return;
     }
     const SceneTexture& texture = textures.resolve(piecePath(snapshot.place, piece));
@@ -411,6 +418,14 @@ core::TileType WorldSceneSnapshot::typeAt(core::GridPosition cell) const {
     }
     const std::size_t index = indexOf(cell, columns);
     return index < types.size() ? types[index] : core::TileType::Empty;
+}
+
+core::TileType WorldSceneSnapshot::reliefTypeAt(core::GridPosition cell) const {
+    if (!inGrid(cell, columns, rows)) {
+        return core::TileType::Empty;
+    }
+    const std::size_t index = indexOf(cell, columns);
+    return index < reliefTypes.size() ? reliefTypes[index] : core::TileType::Empty;
 }
 
 std::string scenePlaceOf(const core::Level& level) {
@@ -612,6 +627,7 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
     snapshot.floors.assign(cases, std::string{});
     snapshot.relief.assign(cases, std::string{});
     snapshot.types.assign(cases, core::TileType::Empty);
+    snapshot.reliefTypes.assign(cases, core::TileType::Empty);
 
     for (int row = 0; row < snapshot.rows; ++row) {
         for (int column = 0; column < snapshot.columns; ++column) {
@@ -625,6 +641,7 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
                     ? pieceAt(*sol, cell, appearance, true)
                     : std::string{appearance.floorPiece(grilleSol.tile(column, row), cell)};
             if (decor != nullptr && decor->tiles.inBounds(column, row)) {
+                snapshot.reliefTypes[index] = decor->tiles.tile(column, row);
                 snapshot.relief[index] = pieceAt(*decor, cell, appearance, false);
                 const core::PieceFootprint emprise =
                     appearance.pieceFootprint(snapshot.relief[index]);
@@ -696,7 +713,8 @@ std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot) {
 }
 
 void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
-                       const core::IsoProjection& projection, const ScenePieceTextures& textures) {
+                       const core::IsoProjection& projection, const ScenePieceTextures& textures,
+                       WorldComposeOptions options) {
     const float unitsPerPixel = projection.tileWidth() / core::ARENA_SHEET_TILE_WIDTH_PIXELS;
     const float unitsPerScenePixel =
         projection.tileWidth() / static_cast<float>(SCENE_TILE_WIDTH_PIXELS);
@@ -704,8 +722,9 @@ void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
     for (int row = 0; row < snapshot.rows; ++row) {
         for (int column = 0; column < snapshot.columns; ++column) {
             const core::GridPosition cell{.column = column, .row = row};
-            composeFloor(scene, snapshot, projection, textures, cell);
-            composeRelief(scene, snapshot, projection, textures, cell, unitsPerScenePixel);
+            composeFloor(scene, snapshot, projection, textures, cell, options.flatBlocks);
+            composeRelief(scene, snapshot, projection, textures, cell, unitsPerScenePixel,
+                          options.flatBlocks);
         }
     }
     for (const WorldFigureSnapshot& figure : snapshot.figures) {
@@ -721,9 +740,10 @@ void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
 
 ComposedScene composeWorldScene(const WorldSceneSnapshot& snapshot,
                                 const core::IsoProjection& projection,
-                                const ScenePieceTextures& textures) {
+                                const ScenePieceTextures& textures,
+                                WorldComposeOptions options) {
     ComposedScene scene;
-    composeWorldScene(scene, snapshot, projection, textures);
+    composeWorldScene(scene, snapshot, projection, textures, options);
     scene.sort();
     return scene;
 }

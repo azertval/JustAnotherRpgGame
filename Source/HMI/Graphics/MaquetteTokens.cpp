@@ -3,6 +3,7 @@
 
 #include "HMI/Graphics/MaquetteTokens.h"
 
+#include <algorithm>
 #include <array>
 #include <cctype>
 #include <cstdint>
@@ -67,6 +68,9 @@ constexpr std::array<Glyph, 37> GLYPHS = {{
     {'9', {0x0E, 0x11, 0x11, 0x0F, 0x01, 0x02, 0x0C}},
     {'?', {0x0E, 0x11, 0x01, 0x02, 0x04, 0x00, 0x04}},
 }};
+
+/// Ecart entre deux lettres, en pixels de glyphe.
+constexpr int GLYPH_SPACING = 1;
 
 [[nodiscard]] const std::array<std::uint8_t, GLYPH_ROWS>& glyphOf(char character) {
     for (const Glyph& glyph : GLYPHS) {
@@ -227,6 +231,47 @@ core::MarkerImage maquetteTokenImage(const MaquetteTokenRequest& request, int si
                         continue;
                     }
                     image.pixels[static_cast<std::size_t>((y * size) + x)] = letter;
+                }
+            }
+        }
+    }
+    return image;
+}
+
+core::MarkerImage maquetteTextImage(std::string_view text, int scale,
+                                    core::MarkerColor color) {
+    const int step = std::max(1, scale);
+    if (text.empty()) {
+        return {};
+    }
+    const auto letters = static_cast<int>(text.size());
+    core::MarkerImage image;
+    image.width = ((GLYPH_COLUMNS + GLYPH_SPACING) * letters - GLYPH_SPACING) * step;
+    image.height = GLYPH_ROWS * step;
+    image.pixels.assign(
+        static_cast<std::size_t>(image.width) * static_cast<std::size_t>(image.height),
+        core::MarkerColor{.r = 0, .g = 0, .b = 0, .a = 0});
+
+    for (int letter = 0; letter < letters; ++letter) {
+        const auto raw = static_cast<unsigned char>(text[static_cast<std::size_t>(letter)]);
+        if (raw == ' ') {
+            continue;
+        }
+        const std::array<std::uint8_t, GLYPH_ROWS>& rows =
+            glyphOf(static_cast<char>(std::toupper(raw)));
+        const int originX = letter * (GLYPH_COLUMNS + GLYPH_SPACING) * step;
+        for (int row = 0; row < GLYPH_ROWS; ++row) {
+            for (int column = 0; column < GLYPH_COLUMNS; ++column) {
+                const auto bit = static_cast<std::uint8_t>(1U << (GLYPH_COLUMNS - 1 - column));
+                if ((rows[static_cast<std::size_t>(row)] & bit) == 0) {
+                    continue;
+                }
+                for (int dy = 0; dy < step; ++dy) {
+                    for (int dx = 0; dx < step; ++dx) {
+                        const int x = originX + (column * step) + dx;
+                        const int y = (row * step) + dy;
+                        image.pixels[static_cast<std::size_t>((y * image.width) + x)] = color;
+                    }
                 }
             }
         }
