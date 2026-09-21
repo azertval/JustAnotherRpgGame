@@ -53,6 +53,16 @@ La référence culturelle est le **Colisée de Rome**. Le livre donne la silhoue
 ovale en bord de baie, gradins rouges, feux sur le pourtour) ; la référence romaine donne la
 **facture**. Rien n'est décalqué du livre : tout est redessiné.
 
+Le monument compte **trois niveaux**, et c'est sa colonne vertébrale :
+
+| Niveau | Ce qu'il est | Qui y entre |
+|---|---|---|
+| **0 — l'arène** | sable, podium, coursive des dieux, gradins | le public, les combattants |
+| **−1 — sous les tribunes** | vestiaires des gladiateurs et **prison des condamnés** | les combattants, les gardes |
+| **−2 — les catacombes** | les **Ungods enchaînés**, et ce qui vit dessous | personne, officiellement |
+
+#### Niveau 0 — l'arène
+
 **L'enceinte.** Ovale en pierre claire, **trois niveaux d'arcades superposées** — piliers toscans
 au rez-de-chaussée, ioniens au premier, corinthiens au second —, puis un **attique plein** à
 pilastres, percé de fenêtres carrées et hérissé de corbeaux de mâts (le velum se tend au-dessus
@@ -61,49 +71,51 @@ la foule dans les gradins — sont la respiration du volume : on les voit de par
 
 **Le podium.** Entre le sable et les gradins, un mur droit de **deux cases de haut**, plaqué de
 marbre, couronné d'une balustrade : nul ne saute dans l'arène, et rien de l'arène n'en sort. Le
-**sable** est en contrebas ; sous lui court l'**hypogée**, d'où montent les vestiaires et le couloir.
-Deux portes se font face sur le grand axe : la **porte du triomphe**, par où l'on entre et par où
-le vainqueur ressort vers le parvis, et la **porte des morts**, par où l'on évacue.
+**sable** est en contrebas. Deux portes se font face sur le grand axe : la **porte du triomphe**,
+par où l'on entre et par où le vainqueur ressort vers le parvis, et la **porte des morts**, par où
+l'on évacue.
 
-**Les 18 divinités : 18 statues.** Sur la coursive qui couronne le podium, **une statue par
-divinité du panthéon**, régulièrement réparties tout autour de l'ovale, face au sable, chacune sur
-son socle au nom gravé, avec un **brasero** entre deux socles (ce sont les « feux sur le pourtour »
-du livre). Le combattant est jugé sous le regard de tous les dieux : c'est l'arène où l'on conteste
-un décret impérial, et aucune foi n'en est écartée. Les dix-huit, du chapitre 4 du Sourcebook
-(SB p. 68-86) :
+**Les divinités : 14 statues sur la coursive.** Sur la coursive qui couronne le podium, **une
+statue par divinité reconnue**, régulièrement réparties tout autour de l'ovale, face au sable,
+chacune sur son socle au nom gravé, avec un **brasero** entre deux socles (ce sont les « feux sur
+le pourtour » du livre). Le combattant est jugé sous le regard des dieux — c'est l'arène où l'on
+conteste un décret impérial.
 
-| # | Divinité | Domaine | Religion |
-|---|---|---|---|
-| 1 | Aibidh | Automne et Air | Cuibhle |
-| 2 | Ba-Ka | Magie et Esprit | Ba-Ka |
-| 3 | Bás | Hiver et Mort | Cuibhle |
-| 4 | Bauron | Châtiment | Célestianisme |
-| 5 | Breith | Printemps et Terre | Cuibhle |
-| 6 | C'thraxis | Dame des Péchés | Culte de l'Aile d'Ombre |
-| 7 | Dorsi | Dieu gardien des nains | Dorsisme |
-| 8 | Droggath | Le Pondeur de chair | Culte de l'Aile d'Ombre |
-| 9 | Fruitful | Déesse féerique | Fruitlisme |
-| 10 | Fumetsu Tenshinkin | *n'est pas un vrai dieu* | Fumetsu Eido |
-| 11 | Glorious One | Vaillance | La Voie de la Gloire |
-| 12 | Krynnethoth | Le Mystique | Culte de l'Aile d'Ombre |
-| 13 | Lumina | Sagesse | Luminisme |
-| 14 | Òigridh | Été et Feu | Cuibhle |
-| 15 | Tamera & Bauron | Dualité | Foi du Parlevent |
-| 16 | Tamera | Vie | Célestianisme |
-| 17 | Les Esprits de la Nature | Âmes du monde | Spiritualisme |
-| 18 | Z'ulvath | L'Aile d'Ombre | Culte de l'Aile d'Ombre |
+**Les quatre Ungods ne sont pas là** — ni statue dans l'arène, ni loge, ni bannière. Ils sont dans
+les **catacombes**, deux niveaux plus bas, enchaînés (voir plus loin). Les dix-huit sont donc bien
+dans le monument, mais **pas au même étage** : ce que l'Empire montre au public, et ce qu'il tient
+sous le sable, ne se mélangent pas.
 
-Les **quatre Ungods** (C'thraxis, Droggath, Krynnethoth, Z'ulvath) sont là comme les autres — la
-DA demande les dix-huit — mais en **basalte noir, le socle cerclé de chaînes** : l'Empire les
-reconnaît sans les honorer. *Décision de mise en scène, inventée : le livre ne dit rien de ces
-statues.*
+Les dix-huit, du chapitre 4 du Sourcebook (SB p. 68-86) :
 
-**Les 5 factions : 5 tribunes d'honneur.** Derrière la coursive des statues, le premier rang des
-gradins s'ouvre sur **cinq loges couvertes**, une par faction du chapitre 2 (SB p. 38-49),
-avec le **drapeau de la faction tendu devant la loge**, sur la balustrade, bien lisible
-depuis le sable. Et **derrière chaque loge, une immense tribune de spectateurs réservée au peuple
-de la faction** : les gradins sont partagés en cinq secteurs, chacun aux couleurs de sa faction.
-C'est la lecture du lieu en un coup d'œil — qui regarde, et pour qui.
+| # | Divinité | Domaine | Religion | Où |
+|---|---|---|---|---|
+| 1 | Aibidh | Automne et Air | Cuibhle | coursive |
+| 2 | Ba-Ka | Magie et Esprit | Ba-Ka | coursive |
+| 3 | Bás | Hiver et Mort | Cuibhle | coursive |
+| 4 | Bauron | Châtiment | Célestianisme | coursive |
+| 5 | Breith | Printemps et Terre | Cuibhle | coursive |
+| 6 | Dorsi | Dieu gardien des nains | Dorsisme | coursive |
+| 7 | Fruitful | Déesse féerique | Fruitlisme | coursive |
+| 8 | Fumetsu Tenshinkin | *n'est pas un vrai dieu* | Fumetsu Eido | coursive, socle à part |
+| 9 | Glorious One | Vaillance | La Voie de la Gloire | coursive |
+| 10 | Lumina | Sagesse | Luminisme | coursive |
+| 11 | Òigridh | Été et Feu | Cuibhle | coursive |
+| 12 | Tamera & Bauron | Dualité | Foi du Parlevent | coursive |
+| 13 | Tamera | Vie | Célestianisme | coursive |
+| 14 | Les Esprits de la Nature | Âmes du monde | Spiritualisme | coursive |
+| 15 | C'thraxis | Dame des Péchés | Culte de l'Aile d'Ombre | **catacombes, enchaînée** |
+| 16 | Droggath | Le Pondeur de chair | Culte de l'Aile d'Ombre | **catacombes, enchaîné** |
+| 17 | Krynnethoth | Le Mystique | Culte de l'Aile d'Ombre | **catacombes, enchaîné** |
+| 18 | Z'ulvath | L'Aile d'Ombre | Culte de l'Aile d'Ombre | **catacombes, enchaîné** |
+
+**Les factions : 4 tribunes d'honneur.** Derrière la coursive des statues, le premier rang des
+gradins s'ouvre sur **quatre loges couvertes** — quatre des cinq factions du chapitre 2
+(SB p. 38-49) —, avec le **drapeau de la faction tendu devant la
+loge**, sur la balustrade, bien lisible depuis le sable. Et **derrière chaque loge, une immense
+tribune de spectateurs réservée au peuple de la faction** : les gradins sont partagés en quatre
+secteurs, chacun aux couleurs de sa faction. C'est la lecture du lieu en un coup d'œil — qui
+regarde, et pour qui. **Le Culte de l'Aile d'Ombre n'a pas de tribune** : il n'est pas reçu.
 
 | Secteur | Faction | Alignement | Nations et organisations membres |
 |---|---|---|---|
@@ -111,11 +123,9 @@ C'est la lecture du lieu en un coup d'œil — qui regarde, et pour qui.
 | Grand axe, en face | **Forces alliées** | Loyal Bon | République des Freelands, nains straviens, Église célestianiste, royaume de Yama, elfes de Sindile, Guilde des Chasseurs de reliques, révolutionnaires de Kolbjörn |
 | Petit axe | **Arcanum** | Neutre | Magocratie de Mage Tower, Théocratie de Kepesh, peuple cirrus |
 | Petit axe | **Forces de Darkall** | Neutre Mauvais | les kemets (Îles de la Tempête, Darkall), les Veilleurs |
-| Entre-deux | **Culte de l'Aile d'Ombre** | Chaotique Mauvais | Sorcières Pourpres, Culte Caché, Pondeurs, Seigneurs d'Ombre |
 
 La **loge impériale** est la plus grande et la mieux placée : c'est celle-là que le combattant voit
-en levant les yeux. La loge du Culte est la seule **close, grillagée et vide** — elle existe, on ne
-s'y assied pas ; sa tribune de peuple est murée. *Décision de mise en scène, inventée.*
+en levant les yeux.
 
 **Les drapeaux.** Le livre donne les emblèmes en image, jamais en texte : l'héraldique ci-dessous
 est **inventée**, accordée à la palette de l'Empire et à la bannière au lion du kit commun.
@@ -126,4 +136,30 @@ est **inventée**, accordée à la palette de l'Empire et à la bannière au lio
 | Forces alliées | anneau d'argent à trois pylônes (le Vandanamalika) sur azur |
 | Arcanum | tour et œil arcanique, blanc sur violet |
 | Forces de Darkall | masque kemet blanc de givre sur noir |
-| Culte de l'Aile d'Ombre | aile déployée, pourpre sombre sur noir |
+
+#### Niveau −1 — sous les tribunes : vestiaires et prison
+
+Sous les gradins court un second niveau, voûté, qui sert **deux usages qui ne se croisent pas** :
+
+- les **vestiaires des gladiateurs** — ceux qui combattent de leur plein gré : râteliers d'armes,
+  bancs, fontaine, l'antichambre où l'on attend son tour ;
+- la **prison** — les **condamnés à mort envoyés au jeu dans l'arène** : cellules à grille, couloir
+  des gardes, la salle où le maître d'arène vient chercher le condamné.
+
+Les deux débouchent sur le même **escalier de la porte du triomphe**, mais par des couloirs
+distincts, et la prison est la seule partie gardée. Le portail vers le parvis d'Arenarea est au
+bout du couloir des vestiaires — un condamné ne passe pas par là.
+
+C'est ce niveau que la démo `0.0.1` parcourt : le condamné arrive par la prison, le combattant par
+les vestiaires.
+
+#### Niveau −2 — les catacombes, et les Ungods enchaînés
+
+Sous la prison, un escalier descend dans les **catacombes du colisée**. C'est là, et nulle part
+ailleurs dans le monument, que les **quatre Ungods sont représentés : enchaînés**. L'accès se fait
+**par la prison** — le seul chemin, et il est gardé.
+
+Les catacombes **feront l'objet d'un donjon cultiste** à part entière (voir la fiche de lot
+`LOT-157`) : le Culte de l'Aile d'Ombre, qui n'a ni statue ni loge au-dessus, tient ce qui est en
+dessous. Dans la démo `0.0.1`, l'escalier existe et **reste fermé**.
+

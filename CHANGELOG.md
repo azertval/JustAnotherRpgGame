@@ -6,17 +6,22 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
-- **La direction artistique de l'Arena of Fate est tranchée (D-17).** Le style de la planche
+- **La direction artistique de l'Arena of Fate est tranchée (D-17, D-18).** Le style de la planche
   d'origine est abandonné : l'arène se dessine désormais **d'après le Colisée de Rome** — enceinte
   ovale à trois niveaux d'arcades superposées, attique à pilastres et corbeaux de mâts, podium de
-  marbre, sable en contrebas, hypogée. Le panthéon et la politique deviennent lisibles depuis le
-  sable : les **18 divinités** du Sourcebook ont chacune leur **statue** sur la coursive qui couronne
-  le podium (les quatre Ungods en basalte noir, socle enchaîné), et les **5 factions** ont chacune
-  leur **tribune d'honneur** à drapeau, adossée à une **immense tribune de peuple** à ses couleurs.
-  Le référentiel de la Capitale porte la DA complète (les dix-huit nommées, les cinq factions et
-  leurs membres, l'héraldique — inventée, rien n'est décalqué du livre) ; `LOT-106` en tire son
-  inventaire de pièces par famille, `LOT-107` son tracé en trois anneaux sur 34 × 24 cases dont seuls
-  le sable et l'hypogée se parcourent, et le plan de principe est redessiné.
+  marbre, sable en contrebas. Le monument compte **trois niveaux**. Au niveau de l'arène, le
+  panthéon et la politique deviennent lisibles depuis le sable : les **14 divinités reconnues** ont
+  chacune leur **statue** sur la coursive qui couronne le podium, et les **4 factions reçues** ont
+  chacune leur **tribune d'honneur** à drapeau, adossée à une **immense tribune de peuple** à ses
+  couleurs. Sous les tribunes, un second niveau tient les **vestiaires des gladiateurs** et la
+  **prison des condamnés envoyés au jeu**, par deux chemins distincts. **Ni Ungod ni Culte dans le
+  colisée** : les quatre Ungods sont représentés **enchaînés dans les catacombes**, deux niveaux
+  plus bas, dont l'accès passe **par la prison** — un donjon cultiste à part entière, ouvert par le
+  nouveau `LOT-157` ; le `LOT-107` pose l'escalier et le condamne. Le référentiel de la Capitale
+  porte la DA complète (les dix-huit divinités et où chacune se trouve, les factions et leurs
+  nations membres, l'héraldique — inventée, rien n'est décalqué du livre) ; `LOT-106` en tire son
+  inventaire de pièces par famille, `LOT-107` son tracé en quatre anneaux sur 34 × 24 cases dont
+  seuls le sable et le niveau −1 se parcourent, et le plan de principe est redessiné.
 
 - **Le standard 2D HD devient normatif (LOT-101).** Le style qui remplace le pixel art est chiffré
   et éprouvé : une maquette de huit cases sur huit d'Arenarea, montée par `scripts/build_hd_mockup.py`
