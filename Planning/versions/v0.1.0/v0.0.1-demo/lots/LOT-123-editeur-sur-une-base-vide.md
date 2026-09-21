@@ -9,7 +9,7 @@ resume = "L'éditeur, son contrôle et ses tests ne dépendent plus d'aucune car
 prerequis = ["LOT-100"]
 livrables = [
   "`LevelEditor --check` rend 0 sur une base **sans aucune carte** (il dit « 0 map »), et `resolveDataRoot` admet un dossier `Levels/` vide, gardé par son `README.md`.",
-  "Une racine de données de test complète sous `Source/Test/Fixtures/EditorData/` : deux cartes reliées, une planche et son manifeste, un dialogue, une rencontre, ses textes — assez pour tous les contrôles.",
+  "Une racine de données de test complète sous `Source/Test/Fixtures/GameData/` : deux cartes reliées, une planche et son manifeste, un dialogue, une rencontre, ses textes — assez pour tous les contrôles.",
   "Les dix-huit tests de `Source/Test/Unit/Editor/` et les trois tests système ou d'intégration rebranchés dessus ; `test_shipped_maps` garde son mécanisme (toute carte livrée s'ouvre et se réenregistre à l'octet) et admet qu'il n'y en ait aucune.",
   "Le scénario `--apply` de référence (`martpart-rue.json`) rejoué sur la carte de test, fichier attendu régénéré.",
   "`bench_canvas` et `bench_levels` réécrits sur la carte de test.",

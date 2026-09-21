@@ -43,8 +43,9 @@ constexpr int TARGET_SIZE = 256;
 /// Fond franc, qu'aucune pièce de la planche ne reproduit à l'identique.
 constexpr float CLEAR[4] = {1.0f, 0.0f, 1.0f, 1.0f};
 
-std::filesystem::path coliseum() {
-    return std::filesystem::path(JADG_ASSETS_DIR) / "Coliseum";
+/// Le kit d'arene de la racine d'essai : manifeste, figurines, et le lieu dont il tire ses pieces.
+std::filesystem::path kit() {
+    return std::filesystem::path(JADG_TEST_DATA_DIR) / "Assets" / "Arena";
 }
 
 std::unique_ptr<QRhi> createOffscreenRhi() {
@@ -173,8 +174,8 @@ TEST(ArenaSceneRendererTest, CreationLiberationRecreation) {
     }
     OffscreenTarget target(*rhi);
     {
-        hmi::ArenaSceneRenderer renderer(coliseum());
-        ASSERT_FALSE(renderer.catalog().heroes().empty()) << "manifeste du Colisee illisible";
+        hmi::ArenaSceneRenderer renderer(kit());
+        ASSERT_FALSE(renderer.catalog().heroes().empty()) << "manifeste du kit illisible";
         EXPECT_FALSE(renderer.ensureResources(nullptr));
         EXPECT_FALSE(renderer.created());
 
@@ -183,13 +184,13 @@ TEST(ArenaSceneRendererTest, CreationLiberationRecreation) {
         EXPECT_EQ(renderer.rhi(), rhi.get());
         EXPECT_EQ(renderer.textures().byPath.size(),
                   hmi::arenaTexturePaths(renderer.catalog()).size())
-            << "une piece livree n'a pas pu etre chargee";
+            << "une piece du kit n'a pas pu etre chargee";
         EXPECT_NE(renderer.textures().missing.texture, nullptr);
         // Idempotent sur la meme interface.
         const hmi::TextureHandle sand =
-            renderer.textures().resolve("../Scene/coliseum/sand.png").texture;
+            renderer.textures().resolve("../Scene/bourg/sand.png").texture;
         EXPECT_TRUE(renderer.ensureResources(rhi.get()));
-        EXPECT_EQ(renderer.textures().resolve("../Scene/coliseum/sand.png").texture, sand);
+        EXPECT_EQ(renderer.textures().resolve("../Scene/bourg/sand.png").texture, sand);
 
         // Liberee sans avoir jamais dessine : le lot de creation doit etre rendu, pas perdu.
         renderer.release();
@@ -224,7 +225,7 @@ TEST(ArenaSceneRendererTest, SceneNonVideSurUneGrilleDeTest) {
         GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
     }
     OffscreenTarget target(*rhi);
-    hmi::ArenaSceneRenderer renderer(coliseum());
+    hmi::ArenaSceneRenderer renderer(kit());
     ASSERT_TRUE(renderer.ensureResources(rhi.get()));
 
     renderer.setSnapshot(snapshotDePiste());
@@ -273,7 +274,7 @@ TEST(ArenaSceneRendererTest, RecreationSurUneAutreInterface) {
     OffscreenTarget firstTarget(*first);
     OffscreenTarget secondTarget(*second);
 
-    hmi::ArenaSceneRenderer renderer(coliseum());
+    hmi::ArenaSceneRenderer renderer(kit());
     renderer.setSnapshot(snapshotDePiste());
     ASSERT_TRUE(renderer.ensureResources(first.get()));
     EXPECT_GT(paintedPixels(renderFrame(*first, renderer, firstTarget)), 0U);
@@ -347,10 +348,10 @@ TEST(ArenaSceneRendererTest, CaptureDeLArenePourRelecture) {
         GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
     }
     OffscreenTarget target(*rhi, QSize(1600, 1000));
-    hmi::ArenaSceneRenderer renderer(coliseum());
+    hmi::ArenaSceneRenderer renderer(kit());
     ASSERT_TRUE(renderer.ensureResources(rhi.get()));
 
-    // Le Colisée du LOT-50 : 20 × 14, l'enceinte au bord, une porte au milieu de chaque côté.
+    // Une arène de 20 × 14, l'enceinte au bord, une porte au milieu de chaque côté.
     constexpr int columns = 20;
     constexpr int rows = 14;
     hmi::ArenaSceneSnapshot snapshot;
@@ -391,16 +392,16 @@ TEST(ArenaSceneRendererTest, CaptureDeLArenePourRelecture) {
  * \tattendu Zone 20 × 14, départs conservés et décor du nouveau kit sans texture manquante.
  * }
  */
-TEST(ArenaSceneRendererTest, ProductionBattleUsesArenaOfBraveMapAndEntries) {
-    const auto loaded = core::LevelLoader::loadFromFile(std::filesystem::path(JADG_LEVELS_DIR) /
-                                                        "capital/arena-of-brave.json");
+TEST(ArenaSceneRendererTest, LeCombatUtiliseLeDecorEtLesDepartsDeLaZone) {
+    const auto loaded = core::LevelLoader::loadFromFile(std::filesystem::path(JADG_TEST_DATA_DIR) /
+                                                        "Levels" / "donjon.json");
     ASSERT_TRUE(loaded.ok()) << loaded.error;
     const auto zones = core::combatZonesOf(*loaded.level);
-    const auto* zone = core::findCombatZone(zones, "sable");
+    const auto* zone = core::findCombatZone(zones, "salle");
     ASSERT_NE(zone, nullptr);
     ASSERT_EQ(zone->columns, 20);
     ASSERT_EQ(zone->rows, 14);
-    EXPECT_TRUE(core::validateCombatZones("capital/arena-of-brave", *loaded.level).empty());
+    EXPECT_TRUE(core::validateCombatZones("donjon", *loaded.level).empty());
     core::ArenaSession session(core::cropLevelToZone(*loaded.level, *zone));
     core::ArenaBout bout{.seed = 7, .lethal = false, .heroicMark = false};
     auto ally = concurrent("Bram", CombatSide::Allies, 1, 5);
@@ -412,23 +413,22 @@ TEST(ArenaSceneRendererTest, ProductionBattleUsesArenaOfBraveMapAndEntries) {
     ASSERT_TRUE(mounted.refusals.empty());
     const auto snapshot = hmi::snapshotArenaScene(session);
     ASSERT_EQ(snapshot.figures.size(), 2U);
+    // Les entrees de la salle, ramenees au repere de la zone decoupee (origine 10, 10).
     EXPECT_EQ(snapshot.figures[0].anchor.column, 1);
     EXPECT_EQ(snapshot.figures[1].anchor.column, 18);
     const auto rhi = createOffscreenRhi();
     ASSERT_NE(rhi, nullptr);
-    hmi::ArenaSceneRenderer renderer(coliseum(), true);
+    hmi::ArenaSceneRenderer renderer(kit(), true);
     renderer.setSnapshot(snapshot);
     ASSERT_TRUE(renderer.ensureResources(rhi.get()));
     OffscreenTarget target(*rhi, QSize(1600, 1000));
     const auto image = renderFrame(*rhi, renderer, target);
-    EXPECT_GT(renderer.composed().quads().size(), 7700U);
+    // Le decor derriere la zone est celui de la carte : bien plus de quads que les 280 cases de
+    // la zone, et pas un seul damier.
+    EXPECT_GT(renderer.composed().quads().size(), 280U);
     for (const auto& quad : renderer.composed().quads()) {
         EXPECT_NE(quad.texture, renderer.textures().missing.texture);
-        for (const auto& [path, texture] : renderer.textures().byPath) {
-            if (path.starts_with("../Scene/coliseum/"))
-                EXPECT_NE(quad.texture, texture.texture);
-        }
     }
-    EXPECT_TRUE(image.save("arena-of-brave-combat.png"));
+    EXPECT_TRUE(image.save("salle-combat.png"));
     EXPECT_TRUE(session.start());
 }

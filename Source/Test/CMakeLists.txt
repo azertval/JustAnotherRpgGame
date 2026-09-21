@@ -247,11 +247,13 @@ target_compile_definitions(UnitTests PRIVATE
     # Dossier de fixtures parcouru par les tests parametres (LOT-79) : un catalogue se teste en
     # balayant un dossier, pas en ecrivant un test par entree.
     JADG_TEST_FIXTURES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures"
-    # Racine de donnees des tests de l'EDITEUR (LOT-123) : une racine complete, a la forme de
-    # Source/Elements -- deux cartes reliees, une planche, une ville, un dialogue, une rencontre,
-    # leurs textes. Les tests de l'editeur lisaient les cartes LIVREES ; la table rase du LOT-102
-    # les vide, et ces tests seraient tombes avec elles. Voir Fixtures/EditorData/README.md.
-    JADG_EDITOR_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/EditorData"
+    # Racine de donnees d'ESSAI (LOT-123, elargie au LOT-102) : une racine complete, a la forme
+    # de Source/Elements -- trois cartes reliees, une planche de lieu, un kit d'arene, des
+    # figurines, une ville, un dialogue, une rencontre, leurs textes. Les tests de l'editeur ET du
+    # jeu lisaient les cartes et les assets LIVRES ; la table rase du LOT-102 les vide, et ces
+    # tests seraient tombes avec eux : ils lisent desormais cette racine, qui ne prouve pas du
+    # contenu mais des MECANISMES. Voir Fixtures/GameData/README.md.
+    JADG_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/GameData"
     JADG_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
     JADG_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization"
     # Schemas RPG (LOT-32) : le test d'enumerations lit la donnee LIVREE, pas une copie -- une
@@ -368,7 +370,7 @@ target_link_libraries(IntegrationTests PRIVATE
 # Racine des données du test d'intégration « carte → scène » : la racine d'essai de l'éditeur
 # (LOT-123). Il ouvrait les cartes LIVRÉES, que la table rase du LOT-102 emporte.
 target_compile_definitions(IntegrationTests PRIVATE
-    JADG_EDITOR_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/EditorData")
+    JADG_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/GameData")
 
 # Tests système : un parcours de jeu complet sur le contenu livré, sans la couche GPU.
 add_executable(SystemTests
@@ -385,7 +387,7 @@ target_link_libraries(SystemTests PRIVATE
 # Racine des données du parcours : la racine d'essai de l'éditeur (LOT-123). Le parcours validait
 # ses entités contre les catalogues LIVRÉS, que la table rase du LOT-102 emporte.
 target_compile_definitions(SystemTests PRIVATE
-    JADG_EDITOR_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/EditorData")
+    JADG_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/GameData")
 
 # Enregistre chaque TEST() aupres de CTest.
 #

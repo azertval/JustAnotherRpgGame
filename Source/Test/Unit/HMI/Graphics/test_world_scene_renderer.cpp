@@ -9,8 +9,8 @@
  * Jumeau de `test_arena_scene_renderer.cpp`, et pour la même raison : `hmi::WorldViewportItem`
  * n'est qu'un hôte Qt Quick, et tout ce qui peut fuir ou planter vit dans
  * `hmi::WorldSceneRenderer`. Ce test le fait tourner sur un `QRhi` Direct3D 11 sans fenêtre, sur le
- * Colisée tel qu'il est commité — c'est la **capture de référence** du lot : elle est écrite à côté
- * des captures de l'arène, pour être relue à l'œil.
+ * donjon d'essai tel qu'il est commité — c'est la **capture de référence** du lot : elle est
+ * écrite à côté des captures de l'arène, pour être relue à l'œil.
  */
 
 #include <QImage>
@@ -46,7 +46,7 @@ constexpr int TARGET_SIZE = 512;
 constexpr float CLEAR[4] = {1.0F, 0.0F, 1.0F, 1.0F};
 
 std::filesystem::path assets() {
-    return std::filesystem::path(JADG_ASSETS_DIR);
+    return std::filesystem::path(JADG_TEST_DATA_DIR) / "Assets";
 }
 
 std::unique_ptr<QRhi> createOffscreenRhi() {
@@ -109,13 +109,13 @@ std::size_t paintedPixels(const QImage& image) {
     return painted;
 }
 
-/// Le Colisée **livré**, et sa table d'apparence livrée : le lieu tel qu'il se joue.
-hmi::WorldSceneSnapshot colisee() {
-    core::LevelLoadResult carte =
-        core::LevelLoader::loadFromFile(std::filesystem::path(JADG_LEVELS_DIR) / "coliseum.json");
+/// Le donjon d'essai et sa table d'apparence : un lieu tel qu'il se joue.
+hmi::WorldSceneSnapshot donjonDEssai() {
+    core::LevelLoadResult carte = core::LevelLoader::loadFromFile(
+        std::filesystem::path(JADG_TEST_DATA_DIR) / "Levels" / "donjon.json");
     EXPECT_TRUE(carte.ok()) << carte.error;
     hmi::PlaceAppearanceResult table =
-        hmi::PlaceAppearance::loadFromFile(assets() / "Scene" / "coliseum" / "appearance.json");
+        hmi::PlaceAppearance::loadFromFile(assets() / "Scene" / "bourg" / "appearance.json");
     EXPECT_TRUE(table.ok()) << table.message;
     if (!carte.ok() || !table.ok()) {
         return {};
@@ -124,7 +124,7 @@ hmi::WorldSceneSnapshot colisee() {
     return hmi::snapshotWorldScene(
         *carte.level, table.appearance,
         {hmi::WorldFigureSnapshot{
-            .figure = "jade", .clip = "idle", .point = {19.5F, 32.5F}, .frame = 0}});
+            .figure = "figurant", .clip = "idle", .point = {19.5F, 32.5F}, .frame = 0}});
 }
 
 }  // namespace
@@ -136,7 +136,7 @@ hmi::WorldSceneSnapshot colisee() {
  * \tcrit Bloquant<br/>
  * \tetapes 1. Creer les ressources hors ecran, sans dessiner.<br/>
  *          2. Liberer, puis liberer encore.<br/>
- *          3. Recreer, dessiner une image du Colisee livre, detruire le rendu avant
+ *          3. Recreer, dessiner une image d'un lieu, detruire le rendu avant
  *             l'interface.<br/>
  * \tattendu Le damier de repli existe des la creation ; les textures du lieu ne se chargent qu'au
  *           premier dessin (elles dependent de la carte) ; apres liberation plus rien n'est cree.
@@ -161,7 +161,7 @@ TEST(WorldSceneRendererTest, CreationLiberationRecreation) {
         EXPECT_TRUE(renderer.textures().byPath.empty());
         EXPECT_TRUE(renderer.ensureResources(rhi.get())) << "idempotent sur la meme interface";
 
-        renderer.setSnapshot(colisee());
+        renderer.setSnapshot(donjonDEssai());
         renderer.setFocus({19.5F, 32.5F});
         static_cast<void>(renderFrame(*rhi, renderer, target));
         EXPECT_FALSE(renderer.textures().byPath.empty())
@@ -183,24 +183,24 @@ TEST(WorldSceneRendererTest, CreationLiberationRecreation) {
         renderer.release();
 
         ASSERT_TRUE(renderer.ensureResources(rhi.get()));
-        renderer.setSnapshot(colisee());
+        renderer.setSnapshot(donjonDEssai());
         const QImage image = renderFrame(*rhi, renderer, target);
         EXPECT_EQ(image.size(), QSize(TARGET_SIZE, TARGET_SIZE));
     }
 }
 
 /**
- * @brief Le Colisée livré devient des pixels, et aucune pièce ne tombe sur le damier.
- * \castest{<b>Le Colisee livre se dessine, sans une seule piece manquante.</b><br/>
+ * @brief Le donjon d'essai devient des pixels, et aucune pièce ne tombe sur le damier.
+ * \castest{<b>Le donjon d'essai se dessine, sans une seule piece manquante.</b><br/>
  * \tcat Unitaire · Rendu QRhi d'un lieu<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Charger `coliseum.json` et la table d'apparence du lieu.<br/>
+ * \tetapes 1. Charger la carte du donjon d'essai et la table d'apparence du lieu.<br/>
  *          2. Dessiner une image hors ecran, cadree sur le heros a la porte.<br/>
  * \tattendu Plus de mille quads composes, tous sur une piece CHARGEE (aucun damier) ; une part
  *           notable de l'image est peinte.
  * }
  */
-TEST(WorldSceneRendererTest, LeColiseeLivreDevientDesPixels) {
+TEST(WorldSceneRendererTest, UnLieuDevientDesPixels) {
     const std::unique_ptr<QRhi> rhi = createOffscreenRhi();
     if (!rhi) {
         GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
@@ -209,7 +209,7 @@ TEST(WorldSceneRendererTest, LeColiseeLivreDevientDesPixels) {
     hmi::WorldSceneRenderer renderer(assets());
     ASSERT_TRUE(renderer.ensureResources(rhi.get()));
 
-    renderer.setSnapshot(colisee());
+    renderer.setSnapshot(donjonDEssai());
     renderer.setFocus({19.5F, 32.5F});
     const QImage image = renderFrame(*rhi, renderer, target);
     ASSERT_EQ(image.size(), QSize(TARGET_SIZE, TARGET_SIZE));
@@ -272,31 +272,30 @@ TEST(WorldSceneRendererTest, LaCameraSuitLeHerosSansSortirDeLaCarte) {
 }
 
 /**
- * @brief Martpart et Arenarea livres deviennent des pixels, sentinelle comprise.
- * \castest{<b>Les deux quartiers livres se dessinent sans une piece sur le damier, et la sentinelle
- * sous les traits du soldat Ironhand.</b><br/>
+ * @brief Deux lieux deviennent des pixels, leurs sentinelles comprises.
+ * \castest{<b>Deux lieux se dessinent sans une piece sur le damier, sentinelles sous les traits de
+ * leur figurine.</b><br/>
  * \tcat Unitaire · Rendu QRhi d'un lieu<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Charger `capital/martpart.json` et `capital/arenarea.json`, et la table de
- * Martpart.<br/>
- *          2. Dessiner chacun hors ecran, cadre sur une porte gardee, le heros a cote.<br/>
- * \tattendu Aucun quad sur le damier ; la figurine de la sentinelle est la bande du soldat
- *           Ironhand (LOT-93), chargee et non remplacee par le damier ; une part notable de
- *           l'image est peinte (LOT-96).
+ * \tetapes 1. Charger deux cartes d'essai, et la table du lieu.<br/>
+ *          2. Dessiner chacune hors ecran, cadre sur une sentinelle, le heros a cote.<br/>
+ * \tattendu Aucun quad sur le damier ; la figurine de la sentinelle est une vraie bande, chargee
+ *           et non remplacee par le damier ; une part notable de l'image est peinte (LOT-96).
  * }
  */
-TEST(WorldSceneRendererTest, LesQuartiersLivresDeviennentDesPixels) {
+TEST(WorldSceneRendererTest, DeuxLieuxDeviennentDesPixels) {
     const std::unique_ptr<QRhi> rhi = createOffscreenRhi();
     if (!rhi) {
         GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
     }
     hmi::PlaceAppearanceResult table =
-        hmi::PlaceAppearance::loadFromFile(assets() / "Scene" / "martpart" / "appearance.json");
+        hmi::PlaceAppearance::loadFromFile(assets() / "Scene" / "bourg" / "appearance.json");
     ASSERT_TRUE(table.ok()) << table.message;
 
-    for (const char* const quartier : {"martpart", "arenarea"}) {
-        core::LevelLoadResult carte = core::LevelLoader::loadFromFile(
-            std::filesystem::path(JADG_LEVELS_DIR) / "capital" / (std::string{quartier} + ".json"));
+    for (const char* const quartier : {"bourg/place", "cave"}) {
+        core::LevelLoadResult carte =
+            core::LevelLoader::loadFromFile(std::filesystem::path(JADG_TEST_DATA_DIR) / "Levels" /
+                                            (std::string{quartier} + ".json"));
         ASSERT_TRUE(carte.ok()) << quartier << " : " << carte.error;
 
         // Les figurines de la carte, comme le jeu les pose : les sentinelles, puis le heros a cote
@@ -328,9 +327,8 @@ TEST(WorldSceneRendererTest, LesQuartiersLivresDeviennentDesPixels) {
             EXPECT_NE(quad.texture, renderer.textures().missing.texture)
                 << quartier << " : piece tombee sur le damier";
         }
-        // La sentinelle porte la figurine du soldat Ironhand (LOT-93) : une vraie bande, et non
-        // plus un marqueur.
-        const auto soldat = renderer.textures().byPath.find("Monsters/ironhand-soldier/idle.png");
+        // La sentinelle porte une vraie bande de figurine, et non plus un marqueur.
+        const auto soldat = renderer.textures().byPath.find("Monsters/sentinelle/idle.png");
         ASSERT_NE(soldat, renderer.textures().byPath.end()) << quartier;
         EXPECT_NE(soldat->second.texture, nullptr);
         EXPECT_NE(soldat->second.texture, renderer.textures().missing.texture) << quartier;
@@ -340,25 +338,23 @@ TEST(WorldSceneRendererTest, LesQuartiersLivresDeviennentDesPixels) {
 }
 
 /**
- * @brief Les trois cartes se sauvegardent et se rendent avec le kit livré.
- * \castest{<b>Les trois cartes se sauvegardent et se rendent avec le kit livré.</b><br/>
- * \tcat Unitaire · Rendu du Colisée<br/>
+ * @brief Les trois cartes se sauvegardent et se rendent avec leur kit.
+ * \castest{<b>Les trois cartes se sauvegardent et se rendent avec leur kit.</b><br/>
+ * \tcat Unitaire · Rendu du donjon d'essai<br/>
  * \tcrit Critique<br/>
  * \tetapes Charger et enregistrer chaque carte ; comparer les textures du jeu et de l’éditeur.<br/>
  * \tattendu Entités et couches conservées, ancrages et profondeurs identiques, aucune texture
  * manquante.
  * }
  */
-TEST(WorldSceneRendererTest, ArenaOfBraveMapsRoundTripAndRenderWithInstalledKit) {
+TEST(WorldSceneRendererTest, LesCartesSeSauvegardentEtSeRendentAvecLeurKit) {
     const auto rhi = createOffscreenRhi();
     ASSERT_NE(rhi, nullptr);
-    const auto table =
-        hmi::PlaceAppearance::loadFromFile(assets() / "Scene/arena-of-brave/appearance.json");
+    const auto table = hmi::PlaceAppearance::loadFromFile(assets() / "Scene/bourg/appearance.json");
     ASSERT_TRUE(table.ok()) << table.message;
-    for (const std::string name :
-         {"arena-of-brave", "arena-of-brave-camp-a", "arena-of-brave-camp-b"}) {
-        const auto loaded = core::LevelLoader::loadFromFile(assets().parent_path() /
-                                                            "Levels/capital" / (name + ".json"));
+    for (const std::string name : {"bourg/place", "cave", "donjon"}) {
+        const auto loaded =
+            core::LevelLoader::loadFromFile(assets().parent_path() / "Levels" / (name + ".json"));
         ASSERT_TRUE(loaded.ok()) << name << ": " << loaded.error;
         const auto draft = core::LevelDraft::fromLevel(*loaded.level);
         const auto saved = core::LevelLoader::loadFromString(draft.toJson());
@@ -373,7 +369,10 @@ TEST(WorldSceneRendererTest, ArenaOfBraveMapsRoundTripAndRenderWithInstalledKit)
         const auto paths =
             hmi::worldTexturePaths(hmi::snapshotWorldScene(*saved.level, table.appearance, {}));
         editorImages.ensure(paths);
-        renderer.setFocus(name == "arena-of-brave" ? core::Vector2{44, 44} : core::Vector2{6, 6});
+        // Cadre au centre de la carte : ce test juge le rendu, pas un endroit particulier.
+        renderer.setFocus(
+            core::Vector2{static_cast<float>(saved.level->tileMap().width()) / 2.0F,
+                          static_cast<float>(saved.level->tileMap().height()) / 2.0F});
         const auto image = renderFrame(*rhi, renderer, target);
         EXPECT_GT(paintedPixels(image), static_cast<std::size_t>(TARGET_SIZE * TARGET_SIZE / 4));
         for (const auto& quad : renderer.composed().quads())
@@ -388,25 +387,25 @@ TEST(WorldSceneRendererTest, ArenaOfBraveMapsRoundTripAndRenderWithInstalledKit)
                 EXPECT_FLOAT_EQ(editor.anchor->y, gpu.anchor->y);
             }
         }
-        EXPECT_TRUE(image.save(QString::fromStdString(name + "-renderer.png")));
+        EXPECT_TRUE(image.save(QString::fromStdString(
+            std::string(name).substr(std::string(name).find('/') + 1) + "-renderer.png")));
     }
 }
 
 /**
- * @brief Tous les portails de l’arène se traversent.
- * \castest{<b>Tous les portails de l’arène se traversent.</b><br/>
- * \tcat Unitaire · Rendu du Colisée<br/>
+ * @brief Tous les portails des cartes se traversent.
+ * \castest{<b>Tous les portails des cartes se traversent.</b><br/>
+ * \tcat Unitaire · Rendu du donjon d'essai<br/>
  * \tcrit Critique<br/>
  * \tetapes Entrer dans chaque carte et traverser chaque portail avec WorldTravel.<br/>
  * \tattendu Arrivées sur une case libre, sans boucle de téléportation.
  * }
  */
-TEST(WorldSceneRendererTest, ArenaOfBravePortalsUseRealWorldTravel) {
+TEST(WorldSceneRendererTest, TousLesPortailsSeTraversent) {
     core::WorldTravel travel(core::WorldTravel::directoryLoader(assets().parent_path() / "Levels"));
     const core::WorldFlags flags;
-    for (const std::string name :
-         {"arena-of-brave", "arena-of-brave-camp-a", "arena-of-brave-camp-b"}) {
-        const std::string id = "capital/" + name;
+    for (const std::string name : {"bourg/place", "cave", "donjon"}) {
+        const std::string id = name;
         ASSERT_EQ(travel.enter(id, {}), core::TravelResult::Moved);
         const auto entities = travel.currentMap()->entities();
         for (const auto& entity : entities) {

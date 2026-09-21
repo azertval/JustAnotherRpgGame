@@ -1,4 +1,5 @@
 {
+  "scene": "coliseum",
   "source": "production_source_atlas.png",
   "sourceSha256": "c208f347eb07080d3fc252656e9ea63d80e5e3b711f735f89157039868a8873d",
   "frame": [

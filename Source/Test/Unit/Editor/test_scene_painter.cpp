@@ -61,7 +61,7 @@ constexpr int CHANNEL_TOLERANCE = 48;
 constexpr double DIFFERING_PIXELS_TOLERANCE = 0.005;
 
 [[nodiscard]] std::filesystem::path dataRoot() {
-    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
+    return std::filesystem::path(JADG_TEST_DATA_DIR);
 }
 
 [[nodiscard]] std::filesystem::path assets() {

@@ -88,7 +88,7 @@ std::size_t paintedPixels(const QImage& image) {
 }
 
 std::filesystem::path assets() {
-    return std::filesystem::path(JADG_ASSETS_DIR);
+    return std::filesystem::path(JADG_TEST_DATA_DIR) / "Assets";
 }
 
 /// Un bloc de figure en (0, 0), sans grille ni emprise : seul le sprite peint.
@@ -111,7 +111,7 @@ hmi::AssetGalleryFrame figureFrame(const std::string& path) {
  * \castest{<b>La galerie ne garde que les textures voulues.</b><br/>
  * \tcat Unitaire · Galerie des assets (rendu)<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Dessiner la figure au repos d'anariel. 2. Ne plus rien vouloir, 1 s puis 1,5 s.<br/>
+ * \tetapes 1. Dessiner la figure au repos d'un PNJ. 2. Ne plus rien vouloir, 1 s puis 1,5 s.<br/>
  * \tattendu Une texture en mémoire et des pixels peints ; gardée à 1 s ; libérée à 2,5 s.
  * }
  */
@@ -124,7 +124,7 @@ TEST(AssetGalleryRendererTest, ChargementEtLiberation) {
     hmi::AssetGalleryRenderer renderer(assets());
     ASSERT_TRUE(renderer.ensureResources(rhi.get()));
 
-    renderer.setFrame(figureFrame("Npc/anariel/idle.png"));
+    renderer.setFrame(figureFrame("Npc/figurant/idle.png"));
     const QImage image = renderFrame(*rhi, renderer, target, 0.016f);
     EXPECT_EQ(renderer.cachedTextureCount(), 1U);
     EXPECT_GT(paintedPixels(image), 100U);
@@ -154,19 +154,28 @@ TEST(AssetGalleryRendererTest, ChargementsEtalesEtFichierAbsent) {
     hmi::AssetGalleryRenderer renderer(assets());
     ASSERT_TRUE(renderer.ensureResources(rhi.get()));
 
+    // Les vingt-huit bandes des figurines de la racine d'essai : plus que UPLOADS_PER_FRAME, ce
+    // qui est tout ce que ce test demande a la donnee.
     hmi::AssetGalleryFrame many;
-    for (const char* npc : {"anariel", "jade", "lizz", "nakral", "xorius"}) {
+    for (const char* figure : {"Npc/figurant", "Monsters/sentinelle"}) {
         for (const char* clip : {"idle", "walk", "attack", "hit", "death", "cast"}) {
-            many.wanted.push_back(std::string("Npc/") + npc + "/" + clip + ".png");
+            many.wanted.push_back(std::string(figure) + "/" + clip + ".png");
         }
     }
+    for (const char* figure :
+         {"Arena/characters/champion", "Arena/characters/doublure", "Arena/enemies/adversaire"}) {
+        for (const char* clip : {"idle", "walk", "attack", "hit", "death"}) {
+            many.wanted.push_back(std::string(figure) + "/" + clip + ".png");
+        }
+    }
+    many.wanted.emplace_back("Arena/enemies/tireur/idle.png");
     renderer.setFrame(many);
     renderFrame(*rhi, renderer, target, 0.016f);
     EXPECT_EQ(renderer.cachedTextureCount(),
               static_cast<std::size_t>(hmi::AssetGalleryRenderer::UPLOADS_PER_FRAME));
     EXPECT_TRUE(renderer.loading());
     renderFrame(*rhi, renderer, target, 0.016f);
-    EXPECT_EQ(renderer.cachedTextureCount(), 30U);
+    EXPECT_EQ(renderer.cachedTextureCount(), 28U);
     EXPECT_FALSE(renderer.loading());
 
     hmi::AssetGalleryRenderer absent(assets());

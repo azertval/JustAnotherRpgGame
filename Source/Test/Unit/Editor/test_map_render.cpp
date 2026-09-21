@@ -23,9 +23,9 @@
 namespace {
 
 // La racine d'essai de l'éditeur (`LOT-123`) : ce test rendait une carte LIVRÉE, que la
-// table rase du `LOT-102` emporte. Voir `Fixtures/EditorData/README.md`.
+// table rase du `LOT-102` emporte. Voir `Fixtures/GameData/README.md`.
 [[nodiscard]] std::filesystem::path dataRoot() {
-    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
+    return std::filesystem::path(JADG_TEST_DATA_DIR);
 }
 
 /// La part des pixels de @p image qui ne sont pas le fond @p background.

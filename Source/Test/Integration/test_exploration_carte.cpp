@@ -7,7 +7,7 @@
  *        dessine — la chaîne que le jeu et l'essai immédiat de l'éditeur partagent
  *        (`hmi::WorldPlay`), sans GPU.
  *
- * Les cartes sont celles de la racine d'essai de l'éditeur (`Source/Test/Fixtures/EditorData`).
+ * Les cartes sont celles de la racine d'essai de l'éditeur (`Source/Test/Fixtures/GameData`).
  * Jusqu'au `LOT-123` c'étaient les cartes **livrées** : la table rase du `LOT-102` les emporte, et
  * ce test serait tombé avec elles. Ce qu'il éprouve ne change pas — une carte sur disque, son lieu,
  * ses planches, et le héros qui y marche.
@@ -27,7 +27,7 @@
 namespace {
 
 [[nodiscard]] std::filesystem::path dataRoot() {
-    return std::filesystem::path{JADG_EDITOR_DATA_DIR};
+    return std::filesystem::path{JADG_TEST_DATA_DIR};
 }
 
 [[nodiscard]] hmi::WorldPlay playFromDisk() {

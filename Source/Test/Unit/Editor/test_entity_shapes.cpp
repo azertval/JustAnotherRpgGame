@@ -385,7 +385,7 @@ TEST(EntitesAFormeTest, LaFormationParSesFigurines) {
  */
 TEST(EntitesAFormeTest, AcceptationRedimensionnerLaZoneDuColisee) {
     const core::LevelLoadResult loaded =
-        core::LevelLoader::loadFromFile(std::filesystem::path{JADG_EDITOR_DATA_DIR} / "Levels" /
+        core::LevelLoader::loadFromFile(std::filesystem::path{JADG_TEST_DATA_DIR} / "Levels" /
                                         "donjon.json");
     ASSERT_TRUE(loaded.ok()) << loaded.error;
     core::LevelDraft map = core::LevelDraft::fromLevel(*loaded.level);

@@ -40,7 +40,7 @@ using hmi::Stamp;
 // LIVRÉES, que la table rase du `LOT-102` emporte. Les deux cartes d'essai partagent une
 // planche, comme les deux quartiers d'alors : un préfabriqué de l'une se pose sur l'autre.
 [[nodiscard]] std::filesystem::path dataRoot() {
-    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
+    return std::filesystem::path(JADG_TEST_DATA_DIR);
 }
 
 /// Une carte du disque, avec le manifeste de son lieu : le brouillon déduit alors ses emprises.

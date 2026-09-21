@@ -12,7 +12,7 @@
  * lui-même, puis se relit en diff :
  *
  * @code
- * LevelEditor --data Source/Test/Fixtures/EditorData --apply Source/Test/Fixtures/Gestures/paint.json
+ * LevelEditor --data Source/Test/Fixtures/GameData --apply Source/Test/Fixtures/Gestures/paint.json
  *     Source/Test/Fixtures/Gestures/terrain.json
  *     --output Source/Test/Fixtures/Gestures/paint.attendu.json
  * @endcode
@@ -44,7 +44,7 @@ using nlohmann::json;
 // La racine d'essai de l'éditeur (`LOT-123`) : ces scénarios se rejouaient sur la planche et
 // la carte LIVRÉES, que la table rase du `LOT-102` emporte.
 [[nodiscard]] std::filesystem::path dataRoot() {
-    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
+    return std::filesystem::path(JADG_TEST_DATA_DIR);
 }
 
 [[nodiscard]] std::filesystem::path gestures() {

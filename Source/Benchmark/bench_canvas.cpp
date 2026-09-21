@@ -7,7 +7,7 @@
  *        et le jeu à chaque image (`LOT-EDITOR-02`, feuille de route de l'éditeur, §5 règle 5).
  *
  * La carte d'essai `bourg/place` (48 × 40 cases, quelques centaines de pièces de relief), lue de la
- * racine de données des tests de l'éditeur (`Source/Test/Fixtures/EditorData`). Jusqu'au `LOT-123`
+ * racine de données des tests de l'éditeur (`Source/Test/Fixtures/GameData`). Jusqu'au `LOT-123`
  * c'était une carte **livrée**, chargée en dur : la table rase du `LOT-102` l'emporte, et la mesure
  * serait partie avec elle — une série ne se compare d'une version à l'autre que si son entrée ne
  * bouge pas. Les textures sont des identités sans image, à la taille que déclare le manifeste : on
@@ -37,7 +37,7 @@ constexpr const char* PLACE = "bourg";
 /// Instantané puis composition triée de la carte d'essai, comme le canevas après un coup de
 /// pinceau.
 static void ComposeTestMap(benchmark::State& state) {
-    const std::filesystem::path dataRoot(JADG_EDITOR_DATA_DIR);
+    const std::filesystem::path dataRoot(JADG_TEST_DATA_DIR);
     const std::filesystem::path scene = dataRoot / "Assets" / "Scene" / PLACE;
     const core::LevelLoadResult map =
         core::LevelLoader::loadFromFile(dataRoot / "Levels" / PLACE / "place.json");

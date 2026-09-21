@@ -25,6 +25,7 @@ namespace {
 constexpr const char* REFERENCE_JSON = R"({
   "heroes": ["kaelith_voss", "bram", "elira", "darin"],
   "gladiators": ["gladiator_sword_shield", "gladiator_lance", "retiarius", "archer"],
+  "scene": "coliseum",
   "paleSlabs": ["01", "02", "03", "04", "05", "10", "11", "13", "14", "15"],
   "heroFrames": 5,
   "enemyFrames": 8
@@ -70,10 +71,12 @@ TEST(ArenaAppearanceCatalogTest, LectureDeReference) {
 TEST(ArenaAppearanceCatalogTest, ChampsInvalidesRefuses) {
     const std::vector<std::string> invalides = {
         R"({"gladiators": ["a"], "paleSlabs": ["01"], "heroFrames": 1, "enemyFrames": 1})",
-        R"({"heroes": [], "gladiators": ["a"], "paleSlabs": ["01"], "heroFrames": 1, "enemyFrames": 1})",
-        R"({"heroes": ["a"], "gladiators": ["a"], "paleSlabs": ["01"], "heroFrames": 0, "enemyFrames": 1})",
-        R"({"heroes": ["a"], "gladiators": ["a"], "paleSlabs": ["01"], "heroFrames": "5", "enemyFrames": 1})",
-        R"({"heroes": [1], "gladiators": ["a"], "paleSlabs": ["01"], "heroFrames": 1, "enemyFrames": 1})",
+        R"({"heroes": ["a"], "gladiators": ["a"], "paleSlabs": ["01"], "heroFrames": 1, "enemyFrames": 1})",
+        R"({"scene": "", "heroes": ["a"], "gladiators": ["a"], "paleSlabs": ["01"], "heroFrames": 1, "enemyFrames": 1})",
+        R"({"scene": "coliseum", "heroes": [], "gladiators": ["a"], "paleSlabs": ["01"], "heroFrames": 1, "enemyFrames": 1})",
+        R"({"scene": "coliseum", "heroes": ["a"], "gladiators": ["a"], "paleSlabs": ["01"], "heroFrames": 0, "enemyFrames": 1})",
+        R"({"scene": "coliseum", "heroes": ["a"], "gladiators": ["a"], "paleSlabs": ["01"], "heroFrames": "5", "enemyFrames": 1})",
+        R"({"scene": "coliseum", "heroes": [1], "gladiators": ["a"], "paleSlabs": ["01"], "heroFrames": 1, "enemyFrames": 1})",
     };
     for (const std::string& json : invalides) {
         const hmi::ArenaAppearanceCatalogResult result =
@@ -280,17 +283,17 @@ TEST(ArenaAppearanceCatalogTest, NomVideRendLaPremiereFigurine) {
 }
 
 /**
- * @brief Le catalogue livre avec le jeu se lit sans erreur, avec ses cinq champs au complet.
- * \castest{<b>`Source/Elements/Assets/Coliseum/manifest.json` se lit sans erreur.</b><br/>
+ * @brief Le manifeste d'un kit d'arene se lit sans erreur, avec ses cinq champs au complet.
+ * \castest{<b>Le manifeste du kit d'arene d'essai se lit sans erreur.</b><br/>
  * \tcat Unitaire · Catalogue d'apparence de l'arene<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Lire le manifeste livre depuis les sources.<br/>
  * \tattendu Succes ; heros, gladiateurs et dalles non vides.
  * }
  */
-TEST(ArenaAppearanceCatalogTest, ManifesteLivreValide) {
+TEST(ArenaAppearanceCatalogTest, ManifesteDUnKitValide) {
     const std::filesystem::path path =
-        std::filesystem::path(JADG_ASSETS_DIR) / "Coliseum" / "manifest.json";
+        std::filesystem::path(JADG_TEST_DATA_DIR) / "Assets" / "Arena" / "manifest.json";
     ASSERT_TRUE(std::filesystem::exists(path)) << path.string();
 
     const hmi::ArenaAppearanceCatalogResult result =

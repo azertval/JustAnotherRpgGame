@@ -99,7 +99,7 @@ TEST_F(LevelFileOps, UneCarteCreeeAvecUnLieuASesDeuxCouches) {
  * }
  */
 TEST(ScenePlacesTest, LesLieuxProposesOntUnManifeste) {
-    const std::filesystem::path donnees{JADG_EDITOR_DATA_DIR};
+    const std::filesystem::path donnees{JADG_TEST_DATA_DIR};
     const std::vector<std::string> lieux = hmi::scenePlaces(donnees);
     EXPECT_TRUE(std::ranges::is_sorted(lieux));
     EXPECT_NE(std::ranges::find(lieux, "bourg"), lieux.end());

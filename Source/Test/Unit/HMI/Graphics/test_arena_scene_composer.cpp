@@ -35,6 +35,7 @@ using hmi::RenderLayer;
 constexpr const char* CATALOG_JSON = R"({
   "heroes": ["kaelith_voss", "bram", "elira", "darin"],
   "gladiators": ["gladiator_sword_shield", "gladiator_lance", "retiarius", "archer"],
+  "scene": "coliseum",
   "paleSlabs": ["01", "02", "03", "04", "05", "10", "11", "13", "14", "15"],
   "heroFrames": 5,
   "enemyFrames": 8
