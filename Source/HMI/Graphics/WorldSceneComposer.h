@@ -11,6 +11,7 @@
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/PieceFootprint.h"
+#include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/ScenePieces.h"
@@ -105,6 +106,9 @@ struct WorldSceneSnapshot {
     std::string place;
     std::vector<std::string> floors;
     std::vector<std::string> relief;
+    /// Le **type** de chaque case, une entrée par case, ligne par ligne : ce que le rendu de
+    /// maquette dessine là où aucune pièce n'est nommée (`LOT-128`).
+    std::vector<core::TileType> types;
     std::map<std::string, core::PieceFootprint, std::less<>> footprints;
     std::vector<WorldFigureSnapshot> figures;
 
@@ -112,6 +116,8 @@ struct WorldSceneSnapshot {
     [[nodiscard]] std::string_view floorAt(core::GridPosition cell) const;
     /// @return Le nom de la pièce de relief de @p cell, vide hors grille ou sans relief.
     [[nodiscard]] std::string_view reliefAt(core::GridPosition cell) const;
+    /// @return Le type de @p cell, `core::TileType::Empty` hors grille.
+    [[nodiscard]] core::TileType typeAt(core::GridPosition cell) const;
 
     [[nodiscard]] bool operator==(const WorldSceneSnapshot&) const = default;
 };

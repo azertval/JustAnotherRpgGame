@@ -14,7 +14,7 @@
 #include "Core/Levels/TileType.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/RenderLayer.h"
-#include "HMI/Graphics/TileVisuals.h"
+#include "HMI/Graphics/MaquettePalette.h"
 
 namespace hmi {
 
@@ -91,28 +91,31 @@ const ComposedScene& DraftRenderer::compose(
     return _scene;
 }
 
+// La vue a plat peint les memes teintes que la maquette isometrique (LOT-128, decision D5) : la
+// vignette de la palette, la mini-carte, le canevas a plat et le canevas iso ont ainsi UNE couleur
+// par type, et non quatre qui se ressemblent.
 void DraftRenderer::composeTiles(const core::TileMap& tiles, RenderLayer layer, std::int32_t order,
                                  float opacity) {
-    const auto atlasWidth = static_cast<float>(_textures.atlasWidth);
-    const auto atlasHeight = static_cast<float>(_textures.atlasHeight);
+    if (_textures.solid == nullptr) {
+        return;
+    }
     for (int row = 0; row < tiles.height(); ++row) {
         for (int column = 0; column < tiles.width(); ++column) {
             const core::TileType type = tiles.tile(column, row);
             if (type == core::TileType::Empty) {
                 continue;
             }
-            const core::AtlasRegion region = regionForTile(type);
+            const MaquetteColor tint = maquetteColor(type);
             SpriteQuad quad;
             quad.x = static_cast<float>(column);
             quad.y = static_cast<float>(row);
             quad.width = 1.0F;
             quad.height = 1.0F;
-            quad.u0 = static_cast<float>(region.x) / atlasWidth;
-            quad.v0 = static_cast<float>(region.y) / atlasHeight;
-            quad.u1 = static_cast<float>(region.x + region.width) / atlasWidth;
-            quad.v1 = static_cast<float>(region.y + region.height) / atlasHeight;
+            quad.r = tint.r;
+            quad.g = tint.g;
+            quad.b = tint.b;
             quad.a = opacity;
-            _scene.addSprite(layer, _textures.atlas, order, quad);
+            _scene.addSprite(layer, _textures.solid, order, quad);
         }
     }
 }

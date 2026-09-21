@@ -172,24 +172,9 @@ QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot
     painter.setRenderHint(QPainter::Antialiasing, false);
     painter.setTransform(QTransform(scale, 0.0, 0.0, scale, margin * scale, margin * scale));
 
+    // Une carte sans lieu n'a plus de chemin de peinture a part : le rendu de maquette est dans la
+    // composition, que le jeu, le canevas et `--render` partagent (LOT-128).
     const IsoBandOpacity& bands = options.bands;
-    if (place.empty() && bands.floors > 0.0F) {
-        // Une carte sans lieu n'a aucune pièce : ses types, en couleurs, comme dans le canevas.
-        const auto typeColor = [&images, &bands](core::TileType type) {
-            return type == core::TileType::Empty ? QColor{}
-                                                 : withAlpha(images.tileColor(type), bands.floors);
-        };
-        bool visual = false;
-        for (const core::TileLayer& layer : draft.layers()) {
-            if (core::isVisualLayerKind(layer.kind)) {
-                visual = true;
-                paintDiamonds(painter, projection, layer.tiles, typeColor);
-            }
-        }
-        if (!visual) {
-            paintDiamonds(painter, projection, draft.tileMap(), typeColor);
-        }
-    }
     paintComposedScene(painter, scene, std::nullopt, [&bands](const ComposedQuad& quad) {
         return bandOpacity(bands, quad.layer);
     });

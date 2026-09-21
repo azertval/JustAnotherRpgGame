@@ -86,6 +86,14 @@ bool WorldSceneRenderer::ensureResources(QRhi* rhi) {
         _textures.missing = SceneTexture{
             .texture = _missing.handle(), .width = _missing.width, .height = _missing.height};
     }
+    // L'aplat du rendu de maquette : un pixel blanc, que la teinte de chaque primitive colore
+    // (LOT-128). Un seul pixel, donc une seule texture pour toutes les cases d'une carte nue.
+    if (std::optional<LoadedTexture> solid =
+            createTexture(_resources.context(), 1, 1, {0xFFFFFFFFU})) {
+        _solid = std::move(*solid);
+        _textures.solid = SceneTexture{
+            .texture = _solid.handle(), .width = _solid.width, .height = _solid.height};
+    }
     _resources.setFrameUpdates(nullptr);
     GRAPHICS_LOG_INFO("Lieu : ressources QRhi creees (" + std::string(rhi->backendName()) + ").");
     return true;
@@ -167,8 +175,10 @@ void WorldSceneRenderer::release() noexcept {
     _composed.clear();
     _textures.byPath.clear();
     _textures.missing = SceneTexture{};
+    _textures.solid = SceneTexture{};
     _loaded.clear();
     _missing = LoadedTexture{};
+    _solid = LoadedTexture{};
     _requested.clear();
     if (_pendingUploads != nullptr) {
         _pendingUploads->release();

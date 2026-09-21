@@ -23,6 +23,7 @@
 #include "Core/Levels/TileType.h"
 #include "Core/Resources/ScenePieceManifest.h"
 #include "HMI/Graphics/ComposedScene.h"
+#include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/RenderLayer.h"
 #include "HMI/Graphics/ScenePiecePlacement.h"
@@ -418,4 +419,126 @@ TEST(ScenePiecePlacement, DepthRequiresOptInAndValidAnchor) {
     auto legacy = manifest;
     legacy.erase("placementVersion");
     EXPECT_FALSE(hmi::scenePieceDepthOffset(legacy, "gate.png"));
+}
+
+// --- Le rendu de maquette (LOT-128) ---------------------------------------------------------
+
+namespace {
+
+/// L'aplat blanc, tel que les deux rendus le fournissent a la composition.
+hmi::TextureHandle aplat() {
+    static int pixel = 0;
+    return &pixel;
+}
+
+/// Une carte 2 x 1 **sans lieu** : de l'eau, puis un mur. Aucune couche ne nomme de `scene`.
+[[nodiscard]] core::Level carteNue() {
+    core::TileMap collision{2, 1};
+    collision.setTile(0, 0, core::TileType::Water);
+    collision.setTile(1, 0, core::TileType::Wall);
+    return core::Level{core::LevelData{.name = "maquette", .tileMap = std::move(collision)}};
+}
+
+/// La projection des cartes d'essai, au rapport du losange de l'atelier.
+[[nodiscard]] core::IsoProjection projectionDe(const hmi::WorldSceneSnapshot& instantane) {
+    return core::IsoProjection{instantane.columns, instantane.rows, core::ARENA_TILE_WIDTH_UNITS,
+                               instantane.diamondRatio};
+}
+
+}  // namespace
+
+/**
+ * @brief Une carte sans lieu se compose en losanges de couleur, un par case, a la teinte de son
+ *        type : c'est le rendu de maquette.
+ * \castest{<b>Une carte sans lieu se compose en losanges de couleur.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Composer une carte de deux cases qui ne nomme aucun lieu.<br/>
+ * \tattendu Deux primitives Poly sur le calque des tuiles, aux teintes de l'eau et du mur.
+ * }
+ */
+TEST(MaquetteRenderTest, UneCarteSansLieuSeComposeEnLosangesDeCouleur) {
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(carteNue(), hmi::PlaceAppearance{}, {});
+    ASSERT_EQ(instantane.typeAt({0, 0}), core::TileType::Water);
+    ASSERT_EQ(instantane.typeAt({1, 0}), core::TileType::Wall);
+
+    hmi::ScenePieceTextures resolues;
+    resolues.solid = hmi::SceneTexture{.texture = aplat(), .width = 1, .height = 1};
+    const hmi::ComposedScene scene =
+        hmi::composeWorldScene(instantane, projectionDe(instantane), resolues);
+
+    ASSERT_EQ(scene.size(), 2U);
+    for (const hmi::ComposedQuad& quad : scene.quads()) {
+        EXPECT_EQ(quad.kind, hmi::QuadKind::Poly);
+        EXPECT_EQ(quad.layer, hmi::RenderLayer::Tile);
+        EXPECT_EQ(quad.texture, aplat());
+    }
+    const hmi::MaquetteColor eau = hmi::maquetteColor(core::TileType::Water);
+    const hmi::MaquetteColor mur = hmi::maquetteColor(core::TileType::Wall);
+    EXPECT_FLOAT_EQ(scene.quads()[0].poly.r, eau.r);
+    EXPECT_FLOAT_EQ(scene.quads()[0].poly.b, eau.b);
+    EXPECT_FLOAT_EQ(scene.quads()[1].poly.r, mur.r);
+    EXPECT_NE(eau.r, mur.r);
+}
+
+/**
+ * @brief Sur une carte **avec** lieu, un type que la table ne couvre pas n'est plus invisible : il
+ *        prend le losange de maquette, les cases couvertes gardant leur piece.
+ * \castest{<b>Un type absent de la table du lieu prend le rendu de maquette.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Peindre une case d'eau sur la carte du Colisee, dont la table ne couvre que le
+ * sable et la pierre.<br/>2. Composer.<br/>
+ * \tattendu La case d'eau est un losange de couleur ; les autres restent des pieces texturees.
+ * }
+ */
+TEST(MaquetteRenderTest, UnTypeNonCouvertParLeLieuPrendLaMaquette) {
+    core::TileMap collision{2, 1};
+    core::TileMap sol{2, 1};
+    sol.setTile(0, 0, core::TileType::Sand);
+    sol.setTile(1, 0, core::TileType::Water);  // la table du Colisee ne couvre pas l'eau
+    core::LevelData donnees{.name = "colisee", .tileMap = std::move(collision)};
+    donnees.layers.push_back(core::TileLayer{.name = "sol",
+                                             .kind = core::LayerKind::Ground,
+                                             .tiles = std::move(sol),
+                                             .properties = {{"scene", std::string{"coliseum"}}}});
+
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(core::Level{std::move(donnees)}, table(), {});
+    EXPECT_FALSE(instantane.floorAt({0, 0}).empty());
+    EXPECT_TRUE(instantane.floorAt({1, 0}).empty());
+
+    hmi::ScenePieceTextures resolues = textures({"Scene/coliseum/sand.png"});
+    resolues.solid = hmi::SceneTexture{.texture = aplat(), .width = 1, .height = 1};
+    const hmi::ComposedScene scene =
+        hmi::composeWorldScene(instantane, projectionDe(instantane), resolues);
+
+    ASSERT_EQ(scene.size(), 2U);
+    int sprites = 0;
+    int losanges = 0;
+    for (const hmi::ComposedQuad& quad : scene.quads()) {
+        quad.kind == hmi::QuadKind::Poly ? ++losanges : ++sprites;
+    }
+    EXPECT_EQ(sprites, 1);
+    EXPECT_EQ(losanges, 1);
+}
+
+/**
+ * @brief Sans aplat, rien n'est dessine plutot que quelque chose de faux : la maquette est une
+ *        primitive de couleur, et une couleur sans texture liee ne se soumet pas.
+ * \castest{<b>Sans aplat, la maquette ne compose rien.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Composer une carte sans lieu avec une table de textures sans aplat.<br/>
+ * \tattendu Aucune primitive.
+ * }
+ */
+TEST(MaquetteRenderTest, SansAplatRienNEstCompose) {
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(carteNue(), hmi::PlaceAppearance{}, {});
+    const hmi::ComposedScene scene =
+        hmi::composeWorldScene(instantane, projectionDe(instantane), hmi::ScenePieceTextures{});
+
+    EXPECT_EQ(scene.size(), 0U);
 }

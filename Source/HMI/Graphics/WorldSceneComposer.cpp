@@ -17,6 +17,7 @@
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Rpg/Dialogue.h"
+#include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 
 namespace hmi {
@@ -75,11 +76,43 @@ constexpr std::array<std::string_view, 2> FIGURE_DIRECTORIES = {"Npc/", "Monster
     return {column, row};
 }
 
+// Le losange de maquette d'une case : les quatre sommets du losange de sa boite, a la teinte de son
+// type (LOT-128). C'est ce qui se dessine quand AUCUNE piece n'est nommee -- carte sans lieu, ou
+// type que la table du lieu ne couvre pas : les deux manques sont le meme cas.
+void composeMaquetteFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
+                          const core::IsoProjection& projection,
+                          const ScenePieceTextures& textures, core::GridPosition cell) {
+    if (textures.solid.texture == nullptr) {
+        return;  // sans aplat, rien a teinter : on ne dessine pas plutot que de dessiner faux.
+    }
+    const core::TileType type = snapshot.typeAt(cell);
+    if (type == core::TileType::Empty) {
+        return;  // une case vide n'est pas du sol : elle ne se dessine pas, comme avant.
+    }
+    const core::Rect bounds = projection.tileBounds(cell);
+    const float halfWidth = bounds.size.x / 2.0F;
+    const float halfHeight = bounds.size.y / 2.0F;
+    const float left = bounds.position.x;
+    const float top = bounds.position.y;
+    const MaquetteColor tint = maquetteColor(type);
+
+    // Sommets dans l'ordre du pourtour : haut, droite, bas, gauche.
+    PolyQuad quad;
+    quad.x = {left + halfWidth, left + bounds.size.x, left + halfWidth, left};
+    quad.y = {top, top + halfHeight, top + bounds.size.y, top + halfHeight};
+    quad.r = tint.r;
+    quad.g = tint.g;
+    quad.b = tint.b;
+    scene.addPoly(RenderLayer::Tile, textures.solid.texture, core::IsoProjection::depth(cell),
+                  quad);
+}
+
 void composeFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                   const core::IsoProjection& projection, const ScenePieceTextures& textures,
                   core::GridPosition cell) {
     const std::string_view piece = snapshot.floorAt(cell);
     if (piece.empty()) {
+        composeMaquetteFloor(scene, snapshot, projection, textures, cell);
         return;
     }
     const SceneTexture& texture = textures.resolve(piecePath(snapshot.place, piece));
@@ -188,6 +221,14 @@ std::string_view WorldSceneSnapshot::reliefAt(core::GridPosition cell) const {
     return index < relief.size() ? std::string_view{relief[index]} : std::string_view{};
 }
 
+core::TileType WorldSceneSnapshot::typeAt(core::GridPosition cell) const {
+    if (!inGrid(cell, columns, rows)) {
+        return core::TileType::Empty;
+    }
+    const std::size_t index = indexOf(cell, columns);
+    return index < types.size() ? types[index] : core::TileType::Empty;
+}
+
 std::string scenePlaceOf(const core::Level& level) {
     return scenePlaceOf(level.layers());
 }
@@ -257,11 +298,15 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
         static_cast<std::size_t>(snapshot.columns) * static_cast<std::size_t>(snapshot.rows);
     snapshot.floors.assign(cases, std::string{});
     snapshot.relief.assign(cases, std::string{});
+    snapshot.types.assign(cases, core::TileType::Empty);
 
     for (int row = 0; row < snapshot.rows; ++row) {
         for (int column = 0; column < snapshot.columns; ++column) {
             const core::GridPosition cell{.column = column, .row = row};
             const std::size_t index = indexOf(cell, snapshot.columns);
+            // Le type de la case vient de la MEME grille que son sol : ce qui se dessine en
+            // maquette est ce que la couche de sol dit, jamais une autre.
+            snapshot.types[index] = grilleSol.tile(column, row);
             snapshot.floors[index] =
                 sol != nullptr
                     ? pieceAt(*sol, cell, appearance, true)

@@ -61,7 +61,7 @@ struct DraftEntityOverlay {
  * @brief Compose un `core::LevelDraft` en cours d'édition, **à plat** : la vue qui lit les types
  *        et la collision (décision D1 de la feuille de route de l'éditeur).
  *
- * Une couleur par type de tuile (`hmi::regionForTile`, l'atlas procédural), les couches visuelles
+ * Une couleur par type de tuile (`hmi::maquetteColor`, la palette de maquette), les couches visuelles
  * dans leur ordre, la collision en masque teinté par catégorie, puis les entités par leur marqueur
  * de famille (`LOT-39`). Cette vue ne cherche pas à ressembler au jeu : elle montre ce qu'on
  * édite — le type de chaque case. La vue iso, par défaut, montre le lieu (`hmi::EditorViewport`).
