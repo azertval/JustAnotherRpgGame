@@ -8,10 +8,12 @@
  */
 
 #include <cstddef>
+#include <filesystem>
 #include <map>
 #include <optional>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <utility>
 #include <vector>
 
@@ -21,6 +23,7 @@
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
+#include "Core/Levels/LevelWriter.h"
 #include "Core/Levels/MapEntity.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
@@ -78,10 +81,9 @@ public:
             ++_lectures[std::string{mapId}];
             const auto trouvee = _cartes.find(std::string{mapId});
             if (trouvee == _cartes.end()) {
-                return core::LevelLoadResult{
-                    .level = std::nullopt,
-                    .error = "carte absente : " + std::string{mapId},
-                    .errorCode = core::LevelValidationError::FileNotFound};
+                return core::LevelLoadResult{.level = std::nullopt,
+                                             .error = "carte absente : " + std::string{mapId},
+                                             .errorCode = core::LevelValidationError::FileNotFound};
             }
             return core::LevelLoadResult{.level = core::Level{trouvee->second},
                                          .error = {},
@@ -205,8 +207,9 @@ TEST(WorldTravelTest, UneCaseSansPortailNEstPasUneTraversee) {
  */
 TEST(WorldTravelTest, UnPortailADrapeauResteFermeSansLeDrapeau) {
     DossierEnMemoire dossier;
-    dossier.poser("place",
-                  carteData("place", {portail("repaire", "seuil", {5, 5}, "quest/enfants/indices")}));
+    dossier.poser(
+        "place",
+        carteData("place", {portail("repaire", "seuil", {5, 5}, "quest/enfants/indices")}));
     dossier.poser("repaire", carteData("repaire", {pointDArrivee("seuil", {1, 4})}));
 
     core::WorldTravel voyage{dossier.chargeur()};
@@ -305,4 +308,54 @@ TEST(WorldTravelTest, UneArriveeInconnueRefuseLEntree) {
     EXPECT_EQ(voyage.lastIssue()->code, WorldIssueCode::UnknownArrivalPoint);
     EXPECT_EQ(voyage.lastIssue()->value, "cave");
     EXPECT_EQ(voyage.currentMapId(), "un");
+}
+
+/**
+ * @brief Le chargeur a plusieurs dossiers sert le premier qui porte la carte, et n'invente rien.
+ * \castest{<b>Les cartes du brouillon passent devant celles du jeu.</b><br/>
+ * \tcat Unitaire · Monde parcouru<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Poser deux dossiers, la meme carte dans les deux sous un nom different, et une
+ * seconde carte dans le dernier seulement.<br/>
+ * \tattendu La carte commune vient du PREMIER dossier ; celle qui n'est que dans le second en
+ * vient ; une carte absente des deux echoue.
+ * }
+ */
+TEST(WorldTravelTest, LesCartesDuPremierDossierPassentDevant) {
+    const std::filesystem::path racine =
+        std::filesystem::temp_directory_path() / "pg_world_travel_dirs";
+    std::error_code erreur;
+    std::filesystem::remove_all(racine, erreur);
+    ASSERT_TRUE(std::filesystem::create_directories(racine / "brouillons"));
+    ASSERT_TRUE(std::filesystem::create_directories(racine / "livrees"));
+
+    // Ecrite puis RELUE : le fichier doit donc porter la case d'entree, que le chargeur exige.
+    const auto surDisque = [](std::string nom) {
+        core::LevelData donnees = carteData(std::move(nom), {});
+        donnees.tileMap.setTile(1, 1, core::TileType::Entry);
+        return core::Level{donnees};
+    };
+    const core::Level brouillon = surDisque("Martpart retouche");
+    const core::Level livree = surDisque("Martpart livre");
+    const core::Level voisine = surDisque("Arenarea");
+    ASSERT_TRUE(core::LevelWriter::saveToFile(brouillon, racine / "brouillons" / "martpart.json"));
+    ASSERT_TRUE(core::LevelWriter::saveToFile(livree, racine / "livrees" / "martpart.json"));
+    ASSERT_TRUE(core::LevelWriter::saveToFile(voisine, racine / "livrees" / "arenarea.json"));
+
+    const core::WorldTravel::MapLoader chargeur =
+        core::WorldTravel::directoriesLoader({racine / "brouillons", racine / "livrees"});
+
+    const core::LevelLoadResult retouchee = chargeur("martpart");
+    ASSERT_TRUE(retouchee.ok()) << retouchee.error;
+    EXPECT_EQ(retouchee.level->name(), "Martpart retouche");
+
+    const core::LevelLoadResult autour = chargeur("arenarea");
+    ASSERT_TRUE(autour.ok()) << autour.error;
+    EXPECT_EQ(autour.level->name(), "Arenarea");
+
+    const core::LevelLoadResult absente = chargeur("coliseum");
+    EXPECT_FALSE(absente.ok());
+    EXPECT_EQ(absente.errorCode, core::LevelValidationError::FileNotFound);
+
+    std::filesystem::remove_all(racine, erreur);
 }

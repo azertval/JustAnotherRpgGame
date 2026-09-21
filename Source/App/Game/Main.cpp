@@ -35,11 +35,14 @@
 #include "Core/BuildConfig.h"
 #include "Core/Core.h"
 #include "Core/Diagnostics/MemoryLogSink.h"
+#include "Core/Levels/GridPosition.h"
 #include "HMI/Audio/AudioEngine.h"
+#include "HMI/Game/LaunchOptions.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 #include "HMI/Runtime/CityBlockImageProvider.h"
 #include "HMI/Runtime/OptionsModel.h"
+#include "HMI/Runtime/ScreenRouter.h"
 #include "HMI/Runtime/WorldModel.h"
 
 namespace {
@@ -267,11 +270,50 @@ void connectOptions(QQmlApplicationEngine& engine, hmi::AudioEngine& audio,
     });
 }
 
+/// @return La valeur d'une option de ligne de commande, en `QString`.
+[[nodiscard]] QString toQString(std::string_view value) {
+    return QString::fromUtf8(value.data(), static_cast<qsizetype>(value.size()));
+}
+
+/**
+ * @brief L'endroit et l'état de la partie imposés par la ligne de commande (`LOT-EDITOR-10`).
+ *
+ * `--at=<colonne>,<ligne>` pose le héros sur la case voulue, `--flags=<a>,<b>` marque des faits
+ * acquis : c'est la carte **après** une quête, sans avoir à la jouer. Une valeur illisible est
+ * ignorée et signalée, jamais fatale (`EX-NFR-040`).
+ */
+void applyStartState(int argc, char** argv, hmi::WorldModel& world) {
+    if (const std::optional<std::string_view> at = app::commandLineOption(argc, argv, "--at=")) {
+        if (const std::optional<core::GridPosition> cell = hmi::parseStartCell(*at)) {
+            world.setStartCell(*cell);
+        } else {
+            HMI_LOG_WARNING("--at= attend <colonne>,<ligne> : le heros partira de l'entree.");
+        }
+    }
+    if (const std::optional<std::string_view> flags =
+            app::commandLineOption(argc, argv, "--flags=")) {
+        QStringList poses;
+        for (const std::string& flag : hmi::parseWorldFlags(*flags)) {
+            poses.push_back(QString::fromStdString(flag));
+        }
+        world.setStartFlags(poses);
+        HMI_LOG_INFO("Drapeaux de monde poses au lancement : " + std::to_string(poses.size()) +
+                     ".");
+    }
+}
+
 /**
  * @brief Carte d'ouverture imposée (--map=<carte>[@<arrivée>]), dans un build de développement.
  *
- * Pour voir ou capturer une carte sans y marcher depuis la porte de départ (`LOT-96`). Un binaire
- * livré l'ignore : « Nouvelle partie » y ouvre toujours la porte de départ.
+ * Pour voir ou capturer une carte sans y marcher depuis la porte de départ (`LOT-96`), et pour
+ * l'essai complet que lance l'éditeur (`LOT-EDITOR-10`) : `--levels=` sert alors les brouillons
+ * avant les cartes du binaire, `--at=` et `--flags=` disent où et dans quel état. Un binaire livré
+ * ignore tout cela : « Nouvelle partie » y ouvre toujours la porte de départ.
+ *
+ * Le jeu s'**ouvre sur la carte**, sans passer par le menu : une carte imposée n'a de sens que si
+ * on y entre, et l'essai de l'éditeur ne doit demander aucun clic. L'écran est celui que le
+ * routeur désigne — pas un écran forcé (`--screen=`) —, si bien que dialogue, pause et Colisée
+ * s'ouvrent ensuite normalement.
  */
 void applyStartMap(int argc, char** argv, QQmlApplicationEngine& engine) {
     // `if constexpr` avec sa branche `else` : un retour anticipe laisserait en Release un code
@@ -287,13 +329,21 @@ void applyStartMap(int argc, char** argv, QQmlApplicationEngine& engine) {
             HMI_LOG_WARNING("--map= : le modele du monde est introuvable.");
             return;
         }
-        const QStringList parts =
-            QString::fromUtf8(option->data(), static_cast<qsizetype>(option->size()))
-                .split(QLatin1Char('@'));
+        // AVANT toute autre chose : le chargeur des cartes refait la session, et emporterait les
+        // drapeaux poses ou la figurine choisie.
+        if (const std::optional<std::string_view> levels =
+                app::commandLineOption(argc, argv, "--levels=")) {
+            world->setLevelDirectories(hmi::parseLevelDirectories(*levels));
+        }
+        const QStringList parts = toQString(*option).split(QLatin1Char('@'));
         world->setStartOverride(parts.value(0), parts.value(1));
+        applyStartState(argc, argv, *world);
         if (const auto figure = app::commandLineOption(argc, argv, "--hero-figure=")) {
-            world->setHeroFigure(
-                QString::fromUtf8(figure->data(), static_cast<qsizetype>(figure->size())));
+            world->setHeroFigure(toQString(*figure));
+        }
+        if (auto* const router =
+                engine.singletonInstance<hmi::ScreenRouter*>("Jadg.Runtime", "ScreenRouter")) {
+            router->openGame();
         }
         HMI_LOG_INFO("Carte d'ouverture imposee : " + parts.value(0).toStdString());
     } else {

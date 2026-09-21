@@ -8,7 +8,10 @@
 #include <QStringList>
 #include <QTimer>
 #include <QtQmlIntegration>
+#include <filesystem>
 #include <memory>
+#include <optional>
+#include <vector>
 
 #include "Core/Math/Vector2.h"
 #include "Core/World/CityPlan.h"
@@ -100,6 +103,28 @@ public:
      */
     void setStartOverride(const QString& mapId, const QString& arrival);
 
+    /**
+     * @brief Pose les cartes du brouillon **devant** celles du binaire — l'essai complet de
+     *        l'éditeur (`--levels=`, `LOT-EDITOR-10`).
+     *
+     * Les dossiers sont cherchés dans l'ordre, puis vient toujours le `Levels/` de l'exécutable :
+     * on joue les cartes qu'on a sous les yeux, et celles qu'on n'édite pas restent celles du jeu.
+     * À appeler **avant** la première entrée : la session est refaite.
+     */
+    void setLevelDirectories(const std::vector<std::filesystem::path>& directories);
+
+    /**
+     * @brief La case où « Nouvelle partie » pose le héros, à la place de l'entrée de la carte
+     *        (`--at=`, `LOT-EDITOR-10`) : l'endroit de la carte qu'on veut voir, tout de suite.
+     */
+    void setStartCell(core::GridPosition cell);
+
+    /**
+     * @brief Les drapeaux de monde acquis avant le premier pas (`--flags=`, `LOT-EDITOR-10`) :
+     *        la carte telle qu'elle est **après** une quête, sans avoir à la jouer.
+     */
+    void setStartFlags(const QStringList& flags);
+
     /// @return La carte du quartier @p districtId de la ville, vide s'il n'en a pas (`LOT-96`).
     [[nodiscard]] Q_INVOKABLE QString mapOfDistrict(const QString& districtId) const;
 
@@ -165,6 +190,8 @@ signals:
 private:
     /// Un pas fixe : avance la session, joue ses événements, publie ce qui a changé.
     void step();
+    /// Pose le héros sur la case de `--at=`, si elle est sur la carte (`LOT-EDITOR-10`).
+    void placeHeroAtStartCell();
     /// Retient le quartier de la carte courante parmi les quartiers visités.
     void noteDistrictVisit();
 
@@ -178,6 +205,8 @@ private:
     /// La carte et l'arrivée imposées par `--map=`, vides sinon.
     QString _startMapOverride;
     QString _startArrivalOverride;
+    /// La case imposée par `--at=`, absente sinon (`LOT-EDITOR-10`).
+    std::optional<core::GridPosition> _startCell;
     core::Vector2 _move{};
     bool _interact = false;
     quint64 _sceneRevision = 1;

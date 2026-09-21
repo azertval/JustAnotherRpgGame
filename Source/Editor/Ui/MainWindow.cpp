@@ -22,6 +22,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QProcess>
 #include <QPushButton>
 #include <QRect>
 #include <QScreen>
@@ -51,6 +52,7 @@
 #include "Editor/Logic/DiskGuard.h"
 #include "Editor/Logic/EditorStatus.h"
 #include "Editor/Logic/EntityReferences.h"
+#include "Editor/Logic/GameLaunch.h"
 #include "Editor/Logic/MapDocuments.h"
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/MapRefactor.h"
@@ -68,9 +70,12 @@
 #include "Editor/Ui/PalettePanel.h"
 #include "Editor/Ui/ProblemsPanel.h"
 #include "Editor/Ui/RefactorDialogs.h"
+#include "Editor/Ui/RunInGameDialog.h"
+#include "HMI/Game/LaunchOptions.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Platform/CrashDump.h"
+#include "HMI/Platform/ExecutableDirectory.h"
 
 namespace hmi {
 
@@ -538,6 +543,10 @@ void MainWindow::buildMenus() {
     QMenu* const mapMenu = menuBar()->addMenu(QStringLiteral("&Map"));
     mapMenu->addAction(_actions->action(EditorCommand::Playtest));
     mapMenu->addAction(_actions->action(EditorCommand::PlaytestHere));
+    // L'essai COMPLET : le vrai jeu, sur les brouillons ouverts (LOT-EDITOR-10).
+    mapMenu->addAction(_actions->action(EditorCommand::RunInGame));
+    mapMenu->addAction(_actions->action(EditorCommand::RunInGameHere));
+    mapMenu->addAction(_actions->action(EditorCommand::RunInGameOptions));
     mapMenu->addSeparator();
     QAction* const checkAll = mapMenu->addAction(QStringLiteral("Check all maps"));
     connect(checkAll, &QAction::triggered, this, [this] {
@@ -1071,6 +1080,110 @@ void MainWindow::openMapPropertiesDialog() {
                                5000);
 }
 
+void MainWindow::stopRunningGame() {
+    if (_game == nullptr || _game->state() == QProcess::NotRunning) {
+        return;
+    }
+    // Un second essai REMPLACE le premier : deux jeux sur les memes brouillons, c'est deux mondes
+    // qui divergent, et l'on ne sait plus lequel montre la retouche qu'on vient de faire.
+    _game->kill();
+    _game->waitForFinished(2000);
+}
+
+void MainWindow::runInGame(std::optional<core::GridPosition> at) {
+    if (_viewport->mapId().empty()) {
+        showTransientStatusMessage(QStringLiteral("Save the map first: the game opens maps by id."),
+                                   5000);
+        return;
+    }
+    // Le brouillon doit etre une carte JOUABLE : le jeu la refuserait, et l'on chercherait la
+    // raison dans son journal a lui.
+    const core::LevelLoadResult valide = _viewport->draft().toLevel();
+    if (!valide.ok()) {
+        showTransientStatusMessage(
+            QStringLiteral("Cannot run in game: %1").arg(QString::fromStdString(valide.error)),
+            8000);
+        return;
+    }
+    const std::filesystem::path jeu = gameExecutable(executableDirectory());
+    if (jeu.empty()) {
+        showTransientStatusMessage(
+            QStringLiteral("Cannot run in game: JustAnotherRpgGame is not built next to the "
+                           "editor."),
+            8000);
+        return;
+    }
+    // TOUS les onglets, pas seulement celui qu'on joue : un portail mene sur la carte d'a cote, et
+    // c'est le brouillon de cette carte-la qu'on veut voir, pas son dernier enregistrement.
+    std::vector<DraftMap> brouillons;
+    for (int index = 0; index < _tabs->count(); ++index) {
+        const EditorViewport* const view = documentAt(index);
+        if (view != nullptr && !view->mapId().empty()) {
+            brouillons.push_back(DraftMap{.mapId = view->mapId(), .json = view->draftJson()});
+        }
+    }
+    const std::filesystem::path dossier = playtestDirectory();
+    if (const std::string erreur = writeDraftMaps(dossier, brouillons); !erreur.empty()) {
+        HMI_LOG_WARNING("Editeur : essai complet refuse, " + erreur);
+        showTransientStatusMessage(
+            QStringLiteral("Cannot run in game: %1").arg(QString::fromStdString(erreur)), 8000);
+        return;
+    }
+
+    GameLaunchOptions options;
+    options.mapId = _viewport->mapId();
+    options.cell = at;
+    options.flags = _runChoice.flags;
+    // Les brouillons d'abord, puis les cartes du depot : une carte qu'aucun onglet ne porte reste
+    // celle que l'editeur ouvrirait, et non la copie de construction.
+    options.levelDirectories = {dossier, editorDataRoot() / "Levels"};
+    QStringList arguments;
+    for (const std::string& argument : gameLaunchArguments(options)) {
+        arguments.push_back(QString::fromStdString(argument));
+    }
+
+    stopRunningGame();
+    if (_game == nullptr) {
+        _game = new QProcess(this);
+        connect(_game, &QProcess::errorOccurred, this, [this](QProcess::ProcessError) {
+            showTransientStatusMessage(
+                QStringLiteral("The game could not be started: %1").arg(_game->errorString()),
+                8000);
+        });
+        connect(_game, &QProcess::finished, this, [this](int code, QProcess::ExitStatus) {
+            showTransientStatusMessage(QStringLiteral("Game closed (exit code %1).").arg(code),
+                                       5000);
+        });
+    }
+    _game->setProgram(QString::fromStdString(jeu.string()));
+    _game->setArguments(arguments);
+    _game->setWorkingDirectory(QString::fromStdString(jeu.parent_path().string()));
+    _game->start();
+    HMI_LOG_INFO("Editeur : essai complet, " + jeu.filename().string() + " " +
+                 arguments.join(QLatin1Char(' ')).toStdString());
+    showTransientStatusMessage(
+        QStringLiteral("Running %1 in the game…").arg(QString::fromStdString(options.mapId)), 5000);
+}
+
+void MainWindow::openRunInGameDialog() {
+    const core::GridPosition bornes{.column = _viewport->levelWidth(),
+                                    .row = _viewport->levelHeight()};
+    // La case survolee est la proposition la plus utile : on ouvre le dialogue depuis l'endroit
+    // qu'on regarde.
+    RunInGameChoice depart = _runChoice;
+    if (!depart.cell) {
+        depart.cell = _viewport->hoveredCell();
+    }
+    const std::optional<RunInGameChoice> choix = askRunInGame(
+        this, QString::fromStdString(_viewport->mapId()),
+        _references != nullptr ? _references->flags : std::vector<std::string>{}, bornes, depart);
+    if (!choix) {
+        return;
+    }
+    _runChoice = *choix;
+    runInGame(_runChoice.cell);
+}
+
 void MainWindow::runContentCheck() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
     const MapCheckReport report = checkAllMaps(editorDataRoot());
@@ -1134,6 +1247,13 @@ void MainWindow::connectEditorCommands() {
             [this] { _viewport->startPlaytest(); });
     connect(_actions->action(EditorCommand::PlaytestHere), &QAction::triggered, this,
             [this] { _viewport->startPlaytestHere(); });
+    // L'essai complet (LOT-EDITOR-10) : le jeu, de l'entree de la carte ou de la case survolee.
+    connect(_actions->action(EditorCommand::RunInGame), &QAction::triggered, this,
+            [this] { runInGame(_runChoice.cell); });
+    connect(_actions->action(EditorCommand::RunInGameHere), &QAction::triggered, this,
+            [this] { runInGame(_viewport->hoveredCell()); });
+    connect(_actions->action(EditorCommand::RunInGameOptions), &QAction::triggered, this,
+            [this] { openRunInGameDialog(); });
     connect(_actions->action(EditorCommand::Mirror), &QAction::toggled, this,
             [this](bool enabled) { _viewport->setMirror(enabled); });
     connect(_actions->action(EditorCommand::Undo), &QAction::triggered, this,

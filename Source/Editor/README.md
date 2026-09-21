@@ -55,6 +55,10 @@ Faire une carte de bout en bout : le
   portail / point d'arrivée **des deux côtés**, par un plan montré avant d'être écrit
   (`EX-EDIT-089`) ; la ville se voit par quartiers (`EX-EDIT-090`) ; une carte porte sa région et
   son ambiance (`EX-EDIT-091`), et son annexe dit où elle en est (`EX-EDIT-092`).
+- **L'essai complet** (`LOT-EDITOR-10`) : *Run in game* lance le **vrai jeu** sur la carte
+  ouverte, à la case voulue et dans l'état de partie voulu (`EX-EDIT-093`, `EX-EDIT-094`) ; les
+  brouillons de tous les onglets sont posés dans un dossier temporaire, que le jeu sert avant ses
+  propres cartes (`EX-EDIT-095`).
 - **Deux façons d'éditer, un seul chemin.** La souris et `--apply` appellent les mêmes fonctions
   pures, dans le même ordre ; un scénario `--apply` par outil, comparé à un fichier attendu, tient
   lieu de test d'IHM (`EX-EDIT-074`, `EX-EDIT-076`).
@@ -92,6 +96,8 @@ Faire une carte de bout en bout : le
   atteignabilité, portails sans retour, points d'arrivée orphelins, textes (`EX-EDIT-079`).
 - `MapTexts` — la clé du nom d'une carte, et les catalogues de traduction qu'on lit et complète
   (`EX-EDIT-081`).
+- `GameLaunch` — l'essai complet : le dossier temporaire des brouillons joués, leur écriture, et
+  le jeu cherché à côté de l'éditeur (`EX-EDIT-095`).
 - `DataRoot` — la racine des données que l'éditeur ouvre : `--data`, sinon l'arbre des sources qui
   l'a construit, sinon le dossier de l'exécutable (`LOT-EDITOR-06`).
 - `EditorTool`, `PanelFocus` — l'outil actif et le panneau qu'il met en avant.
