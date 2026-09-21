@@ -23,6 +23,7 @@ lot qui les a prises.
 | D-14 | 20 sept. 2026 | Les quatre classes de base **restent** après la `0.3.0` | ce sont les classes simplifiées du livre, pas un brouillon des vraies |
 | D-15 | 20 sept. 2026 | Les **cartes peintes** (`Assets/Maps/`, `Maps/world-maps.json`) et le **HUD** (`Assets/UI/`, charte v2) **restent** : ils sont déjà au standard. La table rase ne vise que l'art de scène, les figurines et les cartes jouables | décision de l'auteur (ancienne Q-01) |
 | D-16 | 20 sept. 2026 | L'**Arena of Fate** est une **sous-zone d'Arenarea** — un donjon, au sens d'un lieu clos à plusieurs salles où l'on entre depuis le quartier —, pas un quartier. La démo compte **deux quartiers et un donjon** ; assets et carte se rangent **sous** `arenarea/` | décision de l'auteur (ancienne Q-04) ; conforme au livre, qui place l'arène dans Arenarea (p. 99) |
+| D-17 | 21 sept. 2026 | La **DA de l'Arena of Fate** : architecture du **Colisée de Rome** ; les **18 divinités** en statues sur la coursive du podium ; les **5 factions** en **tribunes d'honneur** à drapeau, chacune adossée à une **immense tribune de peuple**. Le style d'origine de la planche est abandonné | décision de l'auteur — le plan doit se lire d'un coup d'œil : qui juge, qui regarde, pour qui |
 
 ## À trancher par l'auteur
 
@@ -37,3 +38,4 @@ lot qui les a prises.
 | Q-10 | Les ~17 **villages sans texte** de la carte du monde : contenu inventé, ou décor ? | Décor dans la `0.1.0`, contenu au besoin | `0.0.7` à `0.0.9` |
 | Q-11 | Le **Madwalker** sans ses formes pénombrales, ou reporté à la `0.17.0` ? | Livré sans, complété ensuite | LOT-312 |
 | Q-12 | L'**éditeur** : ses quatre lots restants (`LOT-EDITOR-08` à `11`) avant ou pendant les zones ? | `LOT-EDITOR-09` (lieu à plusieurs cartes) avant Phantom Fortress ; les autres au besoin | `0.0.5` |
+| Q-13 | Les **quatre Ungods** en statue et la **loge du Culte de l'Aile d'Ombre** dans l'arène impériale : présents, ou écartés ? | Présents — les dix-huit, comme le demande la DA — mais en basalte noir à socle enchaîné, et la loge close, grillagée, sa tribune murée | LOT-106 |

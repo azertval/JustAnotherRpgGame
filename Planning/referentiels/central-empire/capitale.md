@@ -46,3 +46,84 @@ Watcher's Eye, Cyan Fortress, Imperium Tigris Lair, Yorehof Forest, The Northwoo
 - **Arena of Fate** : seule arène où l'on peut contester un **décret impérial** (p. 92) ; Yama y a gagné son autonomie, Thalia la protection de Bak (p. 93) ; Avelum y est devenu un héros (p. 114-115) ; les **Twin Tigers** y combattent sur ordre de Baleroth (p. 101) ; **Galender** en est l'un des combattants les plus estimés (p. 103). La Third Eye truque des combats et fait assassiner des héros (p. 92) ; les Death Merchants éliminaient les champions rivaux (p. 101).
 - **Plan VTT** : Arena of Fate (amphithéâtre ovale en bord de baie, gradins rouges, feux sur le pourtour), Dusk of Justice Betting House (au pied de l'arène), Golden Chalice Casino, Hippodrome, Inlet's Bazaar Block, Cloaked Brewer Pub, Natural Pool, Arena Gate ; rues : **Herofate Ave** (axe), Gauntlet St (ceinture de l'arène), Sanguine Lane, Greenwater St, Lost Troll Corner, Twin Corner, Murkye End, Eaglenest St, Greatboulder St, Griffon St, Ayefall St, Mapleleaf Plaza, Lost Bird Path, Orion St, Mason's St.
 - **Les trois arènes de la Capitale** : Arena of Fate (Arenarea, politique et judiciaire), Illu Die Arena (Martpart, spectacle nocturne), Braves Arena (Neckoffoods, débutants). L'**Arena of Future** est à Fisherman's Wharf (Republic, p. 112-113), hors région.
+
+### L'Arena of Fate — architecture et iconographie (DA de l'auteur, 21 sept. 2026)
+
+La référence culturelle est le **Colisée de Rome**. Le livre donne la silhouette (amphithéâtre
+ovale en bord de baie, gradins rouges, feux sur le pourtour) ; la référence romaine donne la
+**facture**. Rien n'est décalqué du livre : tout est redessiné.
+
+**L'enceinte.** Ovale en pierre claire, **trois niveaux d'arcades superposées** — piliers toscans
+au rez-de-chaussée, ioniens au premier, corinthiens au second —, puis un **attique plein** à
+pilastres, percé de fenêtres carrées et hérissé de corbeaux de mâts (le velum se tend au-dessus
+des gradins les jours de grande audience). Les **vomitoires** — bouches d'escalier qui dégorgent
+la foule dans les gradins — sont la respiration du volume : on les voit de partout.
+
+**Le podium.** Entre le sable et les gradins, un mur droit de **deux cases de haut**, plaqué de
+marbre, couronné d'une balustrade : nul ne saute dans l'arène, et rien de l'arène n'en sort. Le
+**sable** est en contrebas ; sous lui court l'**hypogée**, d'où montent les vestiaires et le couloir.
+Deux portes se font face sur le grand axe : la **porte du triomphe**, par où l'on entre et par où
+le vainqueur ressort vers le parvis, et la **porte des morts**, par où l'on évacue.
+
+**Les 18 divinités : 18 statues.** Sur la coursive qui couronne le podium, **une statue par
+divinité du panthéon**, régulièrement réparties tout autour de l'ovale, face au sable, chacune sur
+son socle au nom gravé, avec un **brasero** entre deux socles (ce sont les « feux sur le pourtour »
+du livre). Le combattant est jugé sous le regard de tous les dieux : c'est l'arène où l'on conteste
+un décret impérial, et aucune foi n'en est écartée. Les dix-huit, du chapitre 4 du Sourcebook
+(SB p. 68-86) :
+
+| # | Divinité | Domaine | Religion |
+|---|---|---|---|
+| 1 | Aibidh | Automne et Air | Cuibhle |
+| 2 | Ba-Ka | Magie et Esprit | Ba-Ka |
+| 3 | Bás | Hiver et Mort | Cuibhle |
+| 4 | Bauron | Châtiment | Célestianisme |
+| 5 | Breith | Printemps et Terre | Cuibhle |
+| 6 | C'thraxis | Dame des Péchés | Culte de l'Aile d'Ombre |
+| 7 | Dorsi | Dieu gardien des nains | Dorsisme |
+| 8 | Droggath | Le Pondeur de chair | Culte de l'Aile d'Ombre |
+| 9 | Fruitful | Déesse féerique | Fruitlisme |
+| 10 | Fumetsu Tenshinkin | *n'est pas un vrai dieu* | Fumetsu Eido |
+| 11 | Glorious One | Vaillance | La Voie de la Gloire |
+| 12 | Krynnethoth | Le Mystique | Culte de l'Aile d'Ombre |
+| 13 | Lumina | Sagesse | Luminisme |
+| 14 | Òigridh | Été et Feu | Cuibhle |
+| 15 | Tamera & Bauron | Dualité | Foi du Parlevent |
+| 16 | Tamera | Vie | Célestianisme |
+| 17 | Les Esprits de la Nature | Âmes du monde | Spiritualisme |
+| 18 | Z'ulvath | L'Aile d'Ombre | Culte de l'Aile d'Ombre |
+
+Les **quatre Ungods** (C'thraxis, Droggath, Krynnethoth, Z'ulvath) sont là comme les autres — la
+DA demande les dix-huit — mais en **basalte noir, le socle cerclé de chaînes** : l'Empire les
+reconnaît sans les honorer. *Décision de mise en scène, inventée : le livre ne dit rien de ces
+statues.*
+
+**Les 5 factions : 5 tribunes d'honneur.** Derrière la coursive des statues, le premier rang des
+gradins s'ouvre sur **cinq loges couvertes**, une par faction du chapitre 2 (SB p. 38-49),
+avec le **drapeau de la faction tendu devant la loge**, sur la balustrade, bien lisible
+depuis le sable. Et **derrière chaque loge, une immense tribune de spectateurs réservée au peuple
+de la faction** : les gradins sont partagés en cinq secteurs, chacun aux couleurs de sa faction.
+C'est la lecture du lieu en un coup d'œil — qui regarde, et pour qui.
+
+| Secteur | Faction | Alignement | Nations et organisations membres |
+|---|---|---|---|
+| Grand axe, côté parvis | **Empire tanaréen** (hôte) | Loyal Mauvais | Empire central, Parlement des Mers, royaume de Kolbjörn, Benênet |
+| Grand axe, en face | **Forces alliées** | Loyal Bon | République des Freelands, nains straviens, Église célestianiste, royaume de Yama, elfes de Sindile, Guilde des Chasseurs de reliques, révolutionnaires de Kolbjörn |
+| Petit axe | **Arcanum** | Neutre | Magocratie de Mage Tower, Théocratie de Kepesh, peuple cirrus |
+| Petit axe | **Forces de Darkall** | Neutre Mauvais | les kemets (Îles de la Tempête, Darkall), les Veilleurs |
+| Entre-deux | **Culte de l'Aile d'Ombre** | Chaotique Mauvais | Sorcières Pourpres, Culte Caché, Pondeurs, Seigneurs d'Ombre |
+
+La **loge impériale** est la plus grande et la mieux placée : c'est celle-là que le combattant voit
+en levant les yeux. La loge du Culte est la seule **close, grillagée et vide** — elle existe, on ne
+s'y assied pas ; sa tribune de peuple est murée. *Décision de mise en scène, inventée.*
+
+**Les drapeaux.** Le livre donne les emblèmes en image, jamais en texte : l'héraldique ci-dessous
+est **inventée**, accordée à la palette de l'Empire et à la bannière au lion du kit commun.
+
+| Faction | Drapeau |
+|---|---|
+| Empire tanaréen | lion d'or sur pourpre — la bannière du kit commun, en grand format |
+| Forces alliées | anneau d'argent à trois pylônes (le Vandanamalika) sur azur |
+| Arcanum | tour et œil arcanique, blanc sur violet |
+| Forces de Darkall | masque kemet blanc de givre sur noir |
+| Culte de l'Aile d'Ombre | aile déployée, pourpre sombre sur noir |

@@ -6,6 +6,18 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **La direction artistique de l'Arena of Fate est tranchée (D-17).** Le style de la planche
+  d'origine est abandonné : l'arène se dessine désormais **d'après le Colisée de Rome** — enceinte
+  ovale à trois niveaux d'arcades superposées, attique à pilastres et corbeaux de mâts, podium de
+  marbre, sable en contrebas, hypogée. Le panthéon et la politique deviennent lisibles depuis le
+  sable : les **18 divinités** du Sourcebook ont chacune leur **statue** sur la coursive qui couronne
+  le podium (les quatre Ungods en basalte noir, socle enchaîné), et les **5 factions** ont chacune
+  leur **tribune d'honneur** à drapeau, adossée à une **immense tribune de peuple** à ses couleurs.
+  Le référentiel de la Capitale porte la DA complète (les dix-huit nommées, les cinq factions et
+  leurs membres, l'héraldique — inventée, rien n'est décalqué du livre) ; `LOT-106` en tire son
+  inventaire de pièces par famille, `LOT-107` son tracé en trois anneaux sur 34 × 24 cases dont seuls
+  le sable et l'hypogée se parcourent, et le plan de principe est redessiné.
+
 - **Le standard 2D HD devient normatif (LOT-101).** Le style qui remplace le pixel art est chiffré
   et éprouvé : une maquette de huit cases sur huit d'Arenarea, montée par `scripts/build_hd_mockup.py`
   depuis la planche de référence et cadrée à 1080p et à 2160p, sert désormais de référence de
