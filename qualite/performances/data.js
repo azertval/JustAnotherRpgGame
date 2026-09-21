@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789910271580,
+  "lastUpdate": 1789958574660,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -616,6 +616,70 @@ window.BENCHMARK_DATA = {
             "value": 468.6737529293563,
             "unit": "us/iter",
             "extra": "iterations: 2987\ncpu: 470.79009039169733 us\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "ab39ebb86bc43f1af39501d7fa9b413446775d10",
+          "message": "LOT-101 — Le standard 2D HD devient normatif (#95)\n\n* docs(standard): le standard 2D HD devient normatif (LOT-101)\n\nLa maquette de validation monte huit cases sur huit d'Arenarea a l'echelle du\nstandard, depuis la planche de reference, et la cadre aux deux definitions ou le\njeu se joue. Elle est reproductible (scripts/build_hd_mockup.py --check) et\ndevient la reference de non-regression du rendu HD du LOT-103.\n\nTrois exigences sont reecrites : EX-VIS-008 (la scene peinte, losange de\n256 x 159, figurine de 170 px en cellule 192 x 256, alpha continu, echelle de\nl'art donnee par le lieu), EX-VIS-009 (la frontiere scene / interface, qui\nsepare desormais deux echelles et non deux factures) et EX-REN-013 (zoom libre,\nune case valant la hauteur de la fenetre divisee par 10,8, soit la meme etendue\nde monde a toute definition). La consigne du generateur est ecrite en trois\nblocs.\n\nCe que la maquette a impose au standard : la famille des sols livre d'abord une\ndalle de fond repetable en trois variantes, une planche d'animation porte 8 px\nde marge entre ses images, et une zone qui remplit la vue fait au moins vingt\ncases sur dix-sept.\n\nLe nombre d'images par animation reste la seule valeur ouverte : il se tranche\nsur l'essai de marche commande dans la fiche du lot.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* docs(standard): la consigne sait commander une planche d'animation (LOT-101)\n\nLe bloc B demandait \"ONE piece, centred, alone... no cropping\" : envoye tel\nquel, il contredisait l'essai de marche, qui demande une bande de six ou huit\nimages. Le cadrage a donc sa variante planche d'animation -- meme figure, meme\nlumiere, seule la pose change, 8 px de marge du standard -- et une animation se\ncommande en une seule fois, parce que demander les images une par une garantit\nque le personnage derive.\n\nLe bloc C de l'essai s'aligne : il ne redit plus la marge et nomme les quatre\nposes cles du cycle, pour que six et huit soient compares sur la meme marche.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* docs(standard): la maquette est approuvee, le sol passe au LOT-108 (LOT-101)\n\nL'auteur approuve la maquette aux deux definitions, dans ce qu'elle juge : la\ncomposition et l'emprise se lisent a 100 px de case, et la mollesse du trait a\n2160p est celle de la planche agrandie, pas celle du standard.\n\nSa reserve ne restait portee que par une regle du paragraphe 4 : repete sur tout\nl'ecran, le panneau borde dessine un treillis. Elle devient un risque nomme et un\ncritere du LOT-108, qui produit les sols d'Arenarea -- douze cases sur douze sans\nmotif regulier, parce que le moire ne se voit pas sur quatre.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* docs(standard): la cadence des figurines part au LOT-112 (LOT-101)\n\nLe LOT-101 devait trancher ici le nombre d'images par animation, sur un essai de\nmarche en six et en huit images. Decision de l'auteur : ce lot fige le standard\nde la scene -- geometrie, facture, palette, familles de pieces -- et la maquette\nle valide sur ce terrain. Une cadence ne se juge pas sur une place vide : elle se\njuge sur la premiere figurine, a cote de son ancre et de son sol, et c'est le\nLOT-112 qui la produit en fixant le gabarit de toutes les autres.\n\nL'essai part donc entier au LOT-112 : le bloc C pret a envoyer, les trois\nquestions dans l'ordre, un livrable et un critere. Le paragraphe 5 du standard\nnomme ce lot au lieu de dire \"a trancher\", et le detail des pieces reste ce\nqu'il etait -- l'affaire des lots d'assets dedies, ce standard disant le format\net non le dessin.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* docs(planning): LOT-101 livre (PR #95)\n\nLes trois criteres sont tenus : l'auteur a approuve la maquette aux deux\ndefinitions, le standard de la scene ne laisse aucune valeur ouverte, et les\ntrois lints sont verts. La filiere des assets est debloquee : le LOT-102 peut\ncommencer.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-20T20:43:14Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/ab39ebb86bc43f1af39501d7fa9b413446775d10"
+        },
+        "date": 1789958572195,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "ReachableAreaDashing",
+            "value": 97286.35156249776,
+            "unit": "ns/iter",
+            "extra": "iterations: 12800\ncpu: 97656.25 ns\nthreads: 1"
+          },
+          {
+            "name": "FindPathAcrossGrid",
+            "value": 137314.19000000073,
+            "unit": "ns/iter",
+            "extra": "iterations: 10000\ncpu: 139062.5 ns\nthreads: 1"
+          },
+          {
+            "name": "LineOfSightAcrossGrid",
+            "value": 36236.20382543831,
+            "unit": "ns/iter",
+            "extra": "iterations: 47158\ncpu: 36446.626235209296 ns\nthreads: 1"
+          },
+          {
+            "name": "CoverFromWithInterposed",
+            "value": 98337.91953162433,
+            "unit": "ns/iter",
+            "extra": "iterations: 14689\ncpu: 102117.23058070664 ns\nthreads: 1"
+          },
+          {
+            "name": "PlanTurnFourVersusFour",
+            "value": 673417.4184261063,
+            "unit": "ns/iter",
+            "extra": "iterations: 2084\ncpu: 532329.6545105566 ns\nthreads: 1"
+          },
+          {
+            "name": "LoadShippedLevel",
+            "value": 1475412.248995962,
+            "unit": "ns/iter",
+            "extra": "iterations: 996\ncpu: 1443273.092369478 ns\nthreads: 1"
+          },
+          {
+            "name": "ComposeMartpart",
+            "value": 269.8241874637339,
+            "unit": "us/iter",
+            "extra": "iterations: 6892\ncpu: 283.3901625072548 us\nthreads: 1"
           }
         ]
       }

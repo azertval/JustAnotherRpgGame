@@ -1,7 +1,7 @@
 {
-  "generated": "2026-09-20 21:20 UTC",
+  "generated": "2026-09-21 05:30 UTC",
   "commit": "ab39ebb86",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/35536448482",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/35564730665",
   "coverage": {
     "percent": 91.39,
     "covered": 24603,
@@ -138,51 +138,51 @@
   },
   "benchmarks": {
     "suite": "Combat et niveaux (Release, windows-2022)",
-    "runs": 10,
-    "date": "2026-09-20 13:17 UTC",
-    "commit": "f6fbbbb2c",
+    "runs": 11,
+    "date": "2026-09-21 02:42 UTC",
+    "commit": "ab39ebb86",
     "benches": [
       {
         "name": "ReachableAreaDashing",
-        "value": 155501.77455357125,
+        "value": 97286.35156249776,
         "unit": "ns/iter",
-        "change_percent": -0.5
+        "change_percent": -37.4
       },
       {
         "name": "FindPathAcrossGrid",
-        "value": 213549.53569355668,
+        "value": 137314.19000000073,
         "unit": "ns/iter",
-        "change_percent": 1.0
+        "change_percent": -35.7
       },
       {
         "name": "LineOfSightAcrossGrid",
-        "value": 57070.61754188496,
+        "value": 36236.20382543831,
         "unit": "ns/iter",
-        "change_percent": 0.0
+        "change_percent": -36.5
       },
       {
         "name": "CoverFromWithInterposed",
-        "value": 160636.72991070937,
+        "value": 98337.91953162433,
         "unit": "ns/iter",
-        "change_percent": -0.4
+        "change_percent": -38.8
       },
       {
         "name": "PlanTurnFourVersusFour",
-        "value": 1163730.9821428538,
+        "value": 673417.4184261063,
         "unit": "ns/iter",
-        "change_percent": 5.3
+        "change_percent": -42.1
       },
       {
         "name": "LoadShippedLevel",
-        "value": 2623663.5593220815,
+        "value": 1475412.248995962,
         "unit": "ns/iter",
-        "change_percent": -0.5
+        "change_percent": -43.8
       },
       {
         "name": "ComposeMartpart",
-        "value": 468.6737529293563,
+        "value": 269.8241874637339,
         "unit": "us/iter",
-        "change_percent": -0.2
+        "change_percent": -42.4
       }
     ]
   },
