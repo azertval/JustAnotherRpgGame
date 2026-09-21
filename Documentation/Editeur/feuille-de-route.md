@@ -16,7 +16,7 @@ les cartes du jeu. Il a sa piste à part : cette page ne dépend pas de la
 > `LOT-EDITOR-11`, est abandonné (voir sa rubrique). Un audit de l'éditeur face au planning du jeu
 > (`Planning/standards/audit-editeur.md`) a montré que l'outil ne peut plus « avancer à part » : la
 > 2D HD, l'arborescence d'assets par niveaux et la quête de la démo lui demandent des lots dont les
-> cartes dépendent. **Ces lots vivent dans `Planning/`, filière `editeur`** (`LOT-123` à `LOT-127`,
+> cartes dépendent. **Ces lots vivent dans `Planning/`, filière `editeur`** (`LOT-123` à `LOT-128`,
 > `LOT-143`, `LOT-158`, `LOT-159`, `LOT-166` à `LOT-169`). Cette page reste l'histoire du module,
 > ses décisions D1 à D13 et ses cinq règles, qui valent toujours.
 

@@ -6,7 +6,7 @@ filiere = "cartes"
 statut = "a-faire"
 taille = "M"
 resume = "L'Arena of Fate se parcourt, et figure dans l'onglet « Carte » **à l'intérieur d'Arenarea**."
-prerequis = ["LOT-106", "LOT-103", "LOT-126", "LOT-127"]
+prerequis = ["LOT-106", "LOT-103", "LOT-126", "LOT-127", "LOT-128"]
 livrables = [
   "`Levels/central-empire/capital/arenarea/arena-of-fate.json` (le sable et ses anneaux) et `arena-of-fate/undercroft.json` (le niveau −1 : vestiaires et prison), dessinées **dans l'éditeur** et reliées par l'escalier de la porte du triomphe (décision D-21).",
   "`capital/arenarea/arena-of-fate/Map/` : l'image de la zone pour l'onglet « Carte », et son entrée dans `world-maps.json`.",

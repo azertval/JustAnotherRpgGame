@@ -105,6 +105,15 @@ canevas (déjà libre), la mini-carte, les vignettes de pièces (déjà lissées
 Ce que l'éditeur ne fera **pas**, et c'est voulu : écrire les dialogues et les quêtes (des données,
 contrôlées par `--check` aux LOT-116 et LOT-117), dessiner les planches, régler les rencontres.
 
+### Le mode sans texture
+
+Demandé par l'auteur le 21 septembre : maquetter une carte par sa physique, la jouer, l'habiller ensuite.
+L'éditeur sait déjà la **dessiner** (lieu « none », palette des types, collision déduite du type, `--check`
+vert) et la **convertir** (`Change sheet…`). Mais le jeu et les deux essais montrent un **écran uniforme** —
+`WorldPlay` charge une apparence vide et le composeur n'a aucun repli par type —, un mur est un losange plat,
+un PNJ sans figurine est invisible, et `--render` ne dessine aucune entité. `EX-EXP-005` n'est pas tenue.
+C'est le [LOT-128](../versions/v0.1.0/v0.0.1-demo/lots/LOT-128-cartes-maquettes.md).
+
 ## 4. Les dettes de l'atelier
 
 Relevées dans les dossiers des lots livrés, sous leurs rubriques « pas fait » :
@@ -136,6 +145,7 @@ le reprend comme un **outil de dessin** — un semis à graine sur une sélectio
 
 | Lot | Version | Objet | Débloque |
 |---|---|---|---|
+| [LOT-128](../versions/v0.1.0/v0.0.1-demo/lots/LOT-128-cartes-maquettes.md) | `0.0.1` | Les cartes maquettes : dessiner et **jouer** sans texture, jetons vert / jaune / rouge | les trois cartes, LOT-118 |
 | [LOT-123](../versions/v0.1.0/v0.0.1-demo/lots/LOT-123-editeur-sur-une-base-vide.md) | `0.0.1` | L'éditeur debout sur une base vide | LOT-102 |
 | [LOT-124](../versions/v0.1.0/v0.0.1-demo/lots/LOT-124-editeur-et-arborescence-par-niveaux.md) | `0.0.1` | Une carte puise dans son lieu **et** ses niveaux communs | les trois cartes |
 | [LOT-125](../versions/v0.1.0/v0.0.1-demo/lots/LOT-125-canevas-hd.md) | `0.0.1` | Le canevas, les vignettes et `--render` en HD | les trois cartes |

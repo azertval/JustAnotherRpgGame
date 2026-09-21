@@ -10,7 +10,7 @@ prerequis = ["LOT-142"]
 livrables = [
   "La vue de ville devient **éditable** : le cadre d'un quartier se tire sur le plan peint, une sous-zone se range **dans** sa zone (décision D-16), et l'éditeur écrit `Maps/world-maps.json` et `World/cities/*.json` de façon canonique.",
   "Une vue de **région** sur le même modèle : les zones de l'Empire posées sur sa carte peinte.",
-  "`--render --plan` : le rendu à plat d'une carte, comme **fond de travail** pour peindre l'image de l'onglet — jamais l'image livrée.",
+  "Le rendu `--render --plan` du LOT-128 proposé comme **fond de travail** pour peindre l'image de l'onglet — jamais l'image livrée.",
   "`--check` : la région d'une carte existe à l'atlas ; chaque carte jouable a son entrée et son image d'onglet ; chaque quartier cliquable mène à une carte qui existe.",
 ]
 criteres = [

@@ -9,11 +9,13 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 - **L'éditeur entre au planning.** Un audit de l'éditeur de cartes face au planning par versions
   (`Planning/standards/audit-editeur.md`) : ce qu'il sait faire, ce que la table rase, l'arborescence
   d'assets par niveaux et la 2D HD lui cassent, ce que chaque version du jeu demandera aux cartes.
-  Douze lots en sortent, dans une nouvelle filière `editeur` — `LOT-123` à `LOT-127` pour la démo,
+  Treize lots en sortent, dans une nouvelle filière `editeur` — `LOT-123` à `LOT-128` pour la démo,
   puis `LOT-143`, `LOT-158`, `LOT-159`, `LOT-166` à `LOT-169` —, et les lots de cartes les déclarent
   en prérequis. `LOT-EDITOR-11` (génération assistée) est abandonné avec le générateur qu'il
   pilotait ; son besoin réel devient le semis assisté du `LOT-168`. La feuille de route de
-  l'éditeur est close.
+  l'éditeur est close. Le `LOT-128` ouvre les **cartes maquettes** : une carte se dessine et se joue
+  sans texture — sols et murs en couleurs, jetons ronds vert (joueur), jaune (PNJ de quête) et rouge
+  (hostile) —, puis s'habille sans refaire sa physique.
 
 - **L'essai complet dans le jeu (LOT-EDITOR-10).** *Map* › *Run in game* (**F5**) lance
   `JustAnotherRpgGame` sur la carte ouverte dans l'éditeur : le jeu s'ouvre **directement sur
