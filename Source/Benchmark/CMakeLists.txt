@@ -27,4 +27,4 @@ target_compile_definitions(Benchmarks PRIVATE
     # Racine de donnees des tests de l'editeur (LOT-123) : les deux mesures de l'editeur chargeaient
     # une carte LIVREE en dur, que la table rase du LOT-102 emporte. Elles mesurent desormais la
     # carte d'essai, qui ne bouge pas -- et une serie se compare d'une version a l'autre.
-    JADG_EDITOR_DATA_DIR="${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/EditorData")
+    JADG_TEST_DATA_DIR="${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/GameData")

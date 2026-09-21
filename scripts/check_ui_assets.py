@@ -52,9 +52,6 @@ ROOT = Path(__file__).resolve().parent.parent
 UI = ROOT / "Source" / "Elements" / "Assets" / "UI"
 MANIFEST = UI / "illustrations.json"
 CAHIER = ROOT / "Documentation" / "Lot" / "LOT-87-charte-v2" / "assets-brief.json"
-# Les pieces du Colisee (LOT-50) : un autre dossier, un autre manifeste, ecrit par
-# scripts/extract_coliseum_atlas.py depuis la planche de production.
-COLISEUM_MANIFEST = ROOT / "Source" / "Elements" / "Assets" / "Coliseum" / "manifest.json"
 # Les cartes de l'ecran « Carte » (LOT-94, LOT-95) : peintes par l'auteur, sous Assets/Maps/, avec
 # leur propre manifeste, que scripts/check_map_assets.py recoupe.
 MAPS_MANIFEST = ROOT / "Source" / "Elements" / "Assets" / "Maps" / "manifest.json"
@@ -123,13 +120,6 @@ def read_manifest() -> dict:
         print(f"check_ui_assets : {MANIFEST.relative_to(ROOT)} absent.", file=sys.stderr)
         sys.exit(1)
     return json.loads(MANIFEST.read_text(encoding="utf-8"))
-
-
-def read_coliseum_manifest() -> list[str]:
-    """Les fichiers de la planche du Colisee (LOT-50), ou rien si le dossier n'existe pas."""
-    if not COLISEUM_MANIFEST.is_file():
-        return []
-    return list(json.loads(COLISEUM_MANIFEST.read_text(encoding="utf-8")).get("files", {}))
 
 
 def read_maps_manifest() -> list[str]:
@@ -265,10 +255,8 @@ def check_code_keys(declared_files: set[str]) -> None:
         )
     # Aucun nom n'est pas une lecture cassee : depuis le LOT-94, plus aucun ecran ne designe une
     # image par son fichier (les briques passent par les cles du cahier, l'arene par son composeur).
-    # Les pieces du Colisee (LOT-50) ont leur propre manifeste, ecrit par
-    # scripts/extract_coliseum_atlas.py : ce que la scene de l'arene nomme s'y recoupe, pas ici.
-    coliseum_names = {Path(name).name for name in read_coliseum_manifest()}
-    used -= coliseum_names
+    # Les pieces d'une SCENE ne se recoupent pas ici : elles ont leur manifeste, et depuis la
+    # table rase du LOT-102 la nouvelle arborescence les porte (controle au LOT-104).
     # De meme les cartes de l'ecran « Carte » : ce que ses formulaires nomment se recoupe avec leur
     # manifeste, par scripts/check_map_assets.py.
     used -= set(read_maps_manifest())

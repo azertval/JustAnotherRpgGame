@@ -6,8 +6,9 @@
  * @brief Tests de la vue-modèle du Colisée (`LOT-24`) : un combat joué par les seuls gestes du
  *        clavier et de la manette, ce que la grille montre et cache, la réaction du joueur.
  *
- * La vue-modèle charge ses catalogues à côté de l'exécutable, comme le jeu : ces tests tournent
- * dans le dossier `bin` où le jeu déploie ses données.
+ * La vue-modèle charge ses catalogues de règles à côté de l'exécutable, comme le jeu : ces tests
+ * tournent dans le dossier `bin` où le jeu déploie ses données. Son **contenu** — l'arène et sa
+ * carte — vient de la racine d'essai, le jeu n'en ayant plus depuis le `LOT-102`.
  */
 
 #include <QString>
@@ -16,6 +17,7 @@
 #include <QVariantMap>
 #include <algorithm>
 #include <cstdlib>
+#include <filesystem>
 #include <tuple>
 #include <utility>
 
@@ -62,7 +64,7 @@ void lancer(hmi::ArenaModel& arena) {
  * }
  */
 TEST(ArenaModelTest, LaReactionSeBasculeDepuisLaBarre) {
-    hmi::ArenaModel arena;
+    hmi::ArenaModel arena{nullptr, JADG_TEST_DATA_DIR};
     lancer(arena);
     QVariantList actions = arena.turnActions();
     ASSERT_GE(actions.size(), 5);
@@ -99,7 +101,7 @@ TEST(ArenaModelTest, LaReactionSeBasculeDepuisLaBarre) {
  * }
  */
 TEST(ArenaModelTest, LeSurvolPoseLeCurseur) {
-    hmi::ArenaModel arena;
+    hmi::ArenaModel arena{nullptr, JADG_TEST_DATA_DIR};
     const int colonneInitiale = arena.cursorColumn();
     const int ligneInitiale = arena.cursorRow();
     arena.pointCursor(colonneInitiale + 1, ligneInitiale + 1);
@@ -134,7 +136,7 @@ TEST(ArenaModelTest, LeSurvolPoseLeCurseur) {
  * }
  */
 TEST(ArenaModelTest, LeCalqueDeLaGrilleDecritCombattantsEtCasesAtteignables) {
-    hmi::ArenaModel arena;
+    hmi::ArenaModel arena{nullptr, JADG_TEST_DATA_DIR};
     EXPECT_TRUE(arena.fighters().isEmpty());
     EXPECT_TRUE(arena.reachableCells().isEmpty());
 

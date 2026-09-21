@@ -1,0 +1,13 @@
+{
+  "id": "arene-du-bourg",
+  "name": "L'arene du Bourg",
+  "source": "original",
+  "region": "test-region",
+  "location": "test-city",
+  "map": "donjon.json",
+  "zone": "salle",
+  "lethal": false,
+  "heroicMark": true,
+  "flanking": true,
+  "description": "L'arene d'essai : la salle du donjon du Bourg, non letale, sous Marque."
+}

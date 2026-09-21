@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "disposition": "common-props",
+  "comment": "Vide : le mobilier et les objets génériques du monde entier, a la premiere piece promue (LOT-102).",
+  "tile": [
+    256,
+    159
+  ],
+  "textures": {}
+}

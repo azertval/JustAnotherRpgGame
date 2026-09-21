@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "disposition": "capital",
+  "comment": "Vide : le kit de la Capitale -- pavage, lampadaires, fontaines (LOT-105).",
+  "tile": [
+    256,
+    159
+  ],
+  "textures": {}
+}

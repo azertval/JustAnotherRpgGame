@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "comment": "Vide : les PNJ nommes de le quartier du marché (LOT-110).",
+  "frame": [
+    192,
+    256
+  ],
+  "wideFrame": [
+    384,
+    256
+  ],
+  "animations": [
+    "idle",
+    "walk",
+    "attack",
+    "hit",
+    "death",
+    "cast"
+  ],
+  "npcs": []
+}

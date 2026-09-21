@@ -152,6 +152,16 @@ public:
      */
     int applyNpcManifest(const std::filesystem::path& path);
 
+    /**
+     * @brief Le lieu dont l'arène emprunte ses pièces de scène (champ `scene` du manifeste).
+     *
+     * La composition lit les sols et l'enceinte dans `../Scene/<lieu>/`, à côté du dossier du kit.
+     * Le kit dit donc lui-même de quelle planche il se sert : rien n'est écrit en dur dans le
+     * moteur (LOT-102).
+     */
+    [[nodiscard]] const std::string& scene() const noexcept {
+        return _scene;
+    }
     [[nodiscard]] const std::vector<std::string>& heroes() const noexcept {
         return _heroes;
     }
@@ -172,6 +182,7 @@ private:
     [[nodiscard]] static ArenaAppearanceCatalogResult fromDocument(
         const core::JsonDocument& document);
 
+    std::string _scene;
     std::vector<std::string> _heroes;
     std::vector<std::string> _gladiators;
     std::vector<std::string> _paleSlabs;

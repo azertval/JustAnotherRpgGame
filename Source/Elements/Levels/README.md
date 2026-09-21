@@ -2,31 +2,24 @@
 
 Cartes du jeu, un fichier **JSON** par carte (`EX-LVL-001`, `EX-LVL-003`).
 
-> **Peuplé au `LOT-09`.** La première carte est `coliseum.json`, **le Colisée en version finale** : 40 × 34 cases, le sable du
-> `LOT-50` (20 × 14) au centre comme **zone de combat déclarée** (`combatZone`, `EX-LVL-018`),
-> l'enceinte et ses quatre portes, deux couloirs sous les gradins, deux vestiaires, les tribunes du
-> nord et du sud, la loge impériale, le grand escalier, le hall et la porte. Elle a été posée par
-> un script d'atelier (`Documentation/Lot/LOT-09-colisee-premiere-carte/atelier/carte_colisee.py`),
-> retiré depuis ; `arena-of-the-future.json`, la piste nue du `LOT-50`, est partie avec elle. Le contenu du *vertical slice* arrive avec le `LOT-27`.
+> **Vidé au `LOT-102`.** Le jeu quitte le pixel art : `coliseum.json` (`LOT-09`) et les quartiers
+> de `capital/` (`LOT-96`) sont partis avec l'art qu'ils posaient. Les cartes 2D HD se dessinent à
+> l'éditeur, sous le **même découpage que les assets** — `<région>/<ville>/<zone>.json`, la
+> sous-zone sous son dossier de zone :
+> `central-empire/capital/arenarea.json` (`LOT-109`), `martpart.json` (`LOT-111`),
+> `arenarea/arena-of-fate.json` (`LOT-107`). Une carte a pour identifiant son **chemin relatif** :
+> un portail vise `central-empire/capital/martpart`, et le graphe du monde comme le navigateur de
+> l'éditeur lisent les sous-dossiers.
 
-> **`capital/`, au `LOT-96`** : les quartiers de la Capitale qui ont leur carte — `martpart.json`
-> (le quartier du marché, 48 × 40) et `arenarea.json` (le quartier des arènes, 48 × 40, sur la
-> planche de Martpart faute de planche propre), reliés par l'avenue ; « Nouvelle partie » ouvre
-> le jeu à la porte de l'Est de Martpart, que nomme `World/cities/capital.json`. Même méthode que le Colisée : un script d'atelier les a
-> posées (`Documentation/Lot/LOT-96-quartiers-capitale/atelier/carte_quartiers.py`), retiré
-> depuis. Une carte d'un sous-dossier a pour
-> identifiant son **chemin relatif** : un portail vise `capital/martpart`, et le graphe du monde
-> comme le navigateur de l'éditeur lisent les sous-dossiers.
-
-> **Format v4, au `LOT-EDITOR-12`.** Les trois cartes ont été migrées par
-> `LevelEditor --migrate` et sont gardées en CI par `LevelEditor --data Source/Elements --check`.
+> **Format v4, au `LOT-EDITOR-12`.** Toute carte écrite ici est gardée en CI par
+> `LevelEditor --data Source/Elements --check`, et une carte d'un format antérieur se migre par
+> `LevelEditor --migrate`.
 > Schéma : `Documentation/Editeur/level.schema.json` ; spécification :
 > `Documentation/Specification/niveaux.md`.
 
 > **L'éditeur fait foi, au `LOT-EDITOR-06`.** Ces cartes se modifient dans `LevelEditor` — à la
 > souris, ou par `LevelEditor --apply` —, qui ouvre ce dossier-ci et non la copie de la
-> construction. Aucun script n'y écrit plus : les deux scripts d'atelier restent dans leurs dossiers
-> de lot, comme trace, et refusent d'écrire ici. Faire une carte : guide d'usage
+> construction. Aucun script n'y écrit. Faire une carte : guide d'usage
 > `Documentation/Editeur/guide-usage.md`.
 
 > **Ce `README.md` est le gardien du dossier (`LOT-123`).** Git ne garde pas un dossier vide : sans
@@ -36,7 +29,7 @@ Cartes du jeu, un fichier **JSON** par carte (`EX-LVL-001`, `EX-LVL-003`).
 > `LevelEditor --check` le dit (« 0 map ») et rend 0.
 
 - Le **`name`** d'une carte est une clé de traduction, `map.<identifiant>.name`
-  (`map.capital.martpart.name`), que le bandeau du jeu traduit et que chaque catalogue de
+  (`map.central-empire.capital.martpart.name`), que le bandeau du jeu traduit et que chaque catalogue de
   `Localization/` doit porter : `LevelEditor --check` le vérifie (`LOT-EDITOR-07`).
 - Une carte est un objet JSON : `version`, `name`, `width`, `height`, et une liste **`tiles`**
   d'objets `{ "x", "y", "type" }` — la grille de **collision**, entrée comprise, **déduite** des

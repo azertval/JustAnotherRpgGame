@@ -1,0 +1,28 @@
+{
+  "scene": "bourg",
+  "frame": [
+    48,
+    64
+  ],
+  "heroFrames": 5,
+  "enemyFrames": 8,
+  "animations": [
+    "idle",
+    "walk",
+    "attack",
+    "hit",
+    "death"
+  ],
+  "heroes": [
+    "champion",
+    "doublure"
+  ],
+  "gladiators": [
+    "adversaire",
+    "tireur"
+  ],
+  "paleSlabs": [
+    "stone-slab",
+    "stone-slab-worn"
+  ]
+}

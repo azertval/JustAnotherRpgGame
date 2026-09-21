@@ -36,7 +36,7 @@ using hmi::CanvasBrush;
 // La racine d'essai de l'éditeur (`LOT-123`) : ces gestes se jouaient sur une carte LIVRÉE,
 // que la table rase du `LOT-102` emporte. La carte d'essai a la même géométrie.
 [[nodiscard]] std::filesystem::path dataRoot() {
-    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
+    return std::filesystem::path(JADG_TEST_DATA_DIR);
 }
 
 [[nodiscard]] std::string lire(const std::filesystem::path& path) {

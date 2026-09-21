@@ -17,8 +17,8 @@
 
 namespace {
 
-const std::filesystem::path MONDE{JADG_WORLD_DIR};
-const std::filesystem::path NIVEAUX{JADG_LEVELS_DIR};
+const std::filesystem::path MONDE{std::filesystem::path(JADG_TEST_DATA_DIR) / "World"};
+const std::filesystem::path NIVEAUX{std::filesystem::path(JADG_TEST_DATA_DIR) / "Levels"};
 
 // Fournit un dossier temporaire vierge par test (cree/supprime automatiquement).
 class CityPlanFileTest : public ::testing::Test {
@@ -47,37 +47,37 @@ protected:
 }  // namespace
 
 /**
- * @brief La Capitale livree se lit : douze quartiers, deux cartes, dix portes gardees.
- * \castest{<b>La Capitale livree se lit, et sa porte de depart s'ouvre.</b><br/>
+ * @brief La ville d'essai se lit : six quartiers, deux cartes, quatre portes gardees.
+ * \castest{<b>Une ville se lit, et sa porte de depart s'ouvre.</b><br/>
  * \tcat Unitaire · Graphe de la ville<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Lire `Source/Elements/World/cities/capital.json`.<br/>
+ * \tetapes 1. Lire la ville de la racine d'essai.<br/>
  * 2. Entrer a sa porte de depart par le chargeur du jeu.<br/>
- * \tattendu Douze quartiers, dont Martpart et Arenarea avec leur carte et dix fermes ; le depart
- * est la porte de l'Est de Martpart, et la carte s'y ouvre.
+ * \tattendu Six quartiers, dont deux avec leur carte et quatre fermes ; le depart est la porte de
+ * l'Est du premier, et la carte s'y ouvre.
  * }
  */
-TEST(CityPlanTest, LaCapitaleLivreeSeLit) {
-    const core::CityPlanResult lue = core::loadCityPlan(MONDE / "cities" / "capital.json");
+TEST(CityPlanTest, UneVilleSeLit) {
+    const core::CityPlanResult lue = core::loadCityPlan(MONDE / "cities" / "bourg.json");
     ASSERT_TRUE(lue.ok()) << lue.error;
     const core::CityPlan& capitale = lue.plan;
 
-    EXPECT_EQ(capitale.location, "central-empire-the-capital-city");
-    ASSERT_EQ(capitale.districts.size(), 12U);
+    EXPECT_EQ(capitale.location, "test-city");
+    ASSERT_EQ(capitale.districts.size(), 6U);
     int cartes = 0;
     int gardees = 0;
     for (const core::CityDistrict& quartier : capitale.districts) {
         (quartier.hasMap() ? cartes : gardees) += 1;
     }
     EXPECT_EQ(cartes, 2);
-    EXPECT_EQ(gardees, 10);
+    EXPECT_EQ(gardees, 4);
 
-    EXPECT_EQ(capitale.startMap(), "capital/martpart");
+    EXPECT_EQ(capitale.startMap(), "bourg/place");
     EXPECT_EQ(capitale.startArrival, "porte-est");
-    const core::CityDistrict* const arenarea = capitale.districtOfMap("capital/arenarea");
-    ASSERT_NE(arenarea, nullptr);
-    EXPECT_EQ(arenarea->id, "central-empire-the-capital-city-arenarea");
-    EXPECT_EQ(capitale.districtOfMap("coliseum"), nullptr);
+    const core::CityDistrict* const cave = capitale.districtOfMap("cave");
+    ASSERT_NE(cave, nullptr);
+    EXPECT_EQ(cave->id, "test-city-cave");
+    EXPECT_EQ(capitale.districtOfMap("donjon"), nullptr);
 
     core::WorldTravel voyage{core::WorldTravel::directoryLoader(NIVEAUX)};
     EXPECT_EQ(voyage.enter(capitale.startMap(), capitale.startArrival), core::TravelResult::Moved);

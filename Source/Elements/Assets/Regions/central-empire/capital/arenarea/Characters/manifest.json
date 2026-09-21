@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "comment": "Vide : les PNJ nommes de le quartier de l'arène (LOT-108).",
+  "frame": [
+    192,
+    256
+  ],
+  "wideFrame": [
+    384,
+    256
+  ],
+  "animations": [
+    "idle",
+    "walk",
+    "attack",
+    "hit",
+    "death",
+    "cast"
+  ],
+  "npcs": []
+}

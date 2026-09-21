@@ -5,21 +5,41 @@ l'exécutable au build (patron `Levels`/`Localization`, sous `Assets/`) et charg
 Chaque sous-dossier est une **famille** ; la plupart sont **engendrées** par un script ou un atelier
 et ne se retouchent pas à la main — le README de la famille dit lequel.
 
+## L'arborescence (`LOT-102`)
+
+Le volume à venir — treize régions, une centaine de zones, des centaines de PNJ — impose que la
+question *cet asset, où va-t-il ?* ait une réponse qui ne soit jamais « ça dépend ». Un asset vit
+au **niveau le plus bas qui couvre tous ses usages**, du monde à la sous-zone :
+
+```
+Common/                                  ce qui existe partout
+Regions/<région>/Common/                 l'identité d'une région
+Regions/<région>/<ville>/Common/         ce que les quartiers d'une ville partagent
+Regions/<région>/<ville>/<zone>/         ce qu'on ne voit que là
+…/<zone>/<sous-zone>/                    un donjon : un lieu clos où l'on entre depuis la zone
+```
+
+Trois règles s'ensuivent : un asset **naît propre et monte par promotion** (jamais copié) ; le
+moteur **résout une clé du plus propre au plus commun** (une zone peut donc remplacer une pièce
+commune sous la même clé) ; **un dossier, un manifeste** — un fichier qu'aucun manifeste ne cite
+fait échouer la CI. Le détail, les noms et le budget :
+[l'arborescence](../../../Planning/standards/arborescence-assets.md).
+
+Les **sources** ne sont pas versionnées : masters, planches de référence et sorties brutes du
+générateur vivent dans `Tools/AssetsHD/` (ignoré par git), sous le même arbre. Le dépôt ne reçoit
+que l'asset **installé** : détouré, réduit à l'échelle du standard, ancré, inscrit au manifeste.
+
 ## Contenu
 
-- `Coliseum/` — pièces de la scène isométrique du Colisée (`LOT-50`), découpées de la planche de
-  production par `scripts/extract_coliseum_atlas.py` (voir `Coliseum/README.md`).
+- `Common/`, `Regions/` — l'arborescence ci-dessus. Encore vide : la table rase du `LOT-102` a
+  emporté tout l'art de scène de l'ancien style, et les premières pièces 2D HD arrivent au
+  `LOT-105`.
 - `Entities/` — familles des illustrations d'entité et leur contrat de dimensions
   (`families.json`, `core::loadAssetFamilies`) ; une donnée désigne son image par une **clé**, et
   un marqueur en tient lieu tant qu'aucune n'existe (voir `Entities/README.md`).
 - `Fonts/` — polices TTF de l'interface et leurs licences (voir `Fonts/README.md`).
 - `Maps/` — cartes peintes par l'auteur : le monde, les régions et les villes (`LOT-94`), décrites
   par `manifest.json`.
-- `Npc/` — PNJ de l'atelier : bandes d'animation, `.anim.json` et portrait par PNJ (`LOT-91`, voir
-  `Npc/README.md`).
-- `Scene/<lieu>/` — textures de scène d'un lieu (`coliseum`, `martpart`), découpées de leurs
-  planches par `scripts/extract_texture_sheet.py` (`LOT-92`) : `manifest.json` (planches et
-  textures) et `appearance.json` (ce que le lieu pose sur une case, `hmi::PlaceAppearance`).
 - `UI/` — illustrations de l'interface (`background/menu-scene.png`, le fond du menu), décrites par
   `illustrations.json`.
 

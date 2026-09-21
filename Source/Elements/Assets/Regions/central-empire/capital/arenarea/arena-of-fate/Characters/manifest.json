@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "comment": "Vide : les figurines de l'Arena of Fate (LOT-106, LOT-113).",
+  "frame": [
+    192,
+    256
+  ],
+  "wideFrame": [
+    384,
+    256
+  ],
+  "animations": [
+    "idle",
+    "walk",
+    "attack",
+    "hit",
+    "death",
+    "cast"
+  ],
+  "npcs": []
+}

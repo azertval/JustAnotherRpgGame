@@ -22,7 +22,7 @@
 namespace {
 
 [[nodiscard]] std::filesystem::path elements() {
-    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
+    return std::filesystem::path(JADG_TEST_DATA_DIR);
 }
 
 [[nodiscard]] const hmi::CityDistrictView* quartier(const hmi::CityView& ville,

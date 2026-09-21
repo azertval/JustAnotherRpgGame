@@ -19,34 +19,34 @@
 namespace {
 
 [[nodiscard]] std::filesystem::path sceneDirectory(const std::string& place) {
-    return std::filesystem::path(JADG_ASSETS_DIR) / "Scene" / place;
+    return std::filesystem::path(JADG_TEST_DATA_DIR) / "Assets" / "Scene" / place;
 }
 
 }  // namespace
 
 /**
- * @brief Le manifeste livré de Martpart se lit, avec emprise, ancre et miroir.
- * \castest{<b>Le manifeste des pieces de Martpart se lit dans Core.</b><br/>
+ * @brief Le manifeste du lieu d'essai se lit, avec emprise, ancre et miroir.
+ * \castest{<b>Le manifeste des pieces d'un lieu se lit dans Core.</b><br/>
  * \tcat Unitaire · Assets<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Lire `Assets/Scene/martpart/manifest.json`.<br/>
+ * \tetapes 1. Lire le manifeste du lieu d'essai.<br/>
  *          2. Chercher une piece de sol, une piece large et son miroir.<br/>
- * \tattendu Le lieu est `martpart` ; la rue est un sol d'une case ancre en (34, 0) ; la facade
- *           droite est large, occupe 2 x 1 cases et se declare miroir de la facade gauche ; une
- *           piece inconnue n'est pas trouvee.
+ * \tattendu Le lieu est celui du manifeste ; la rue est un sol d'une case ancre en (34, 0) ; la
+ * facade droite est large, occupe 2 x 1 cases et se declare miroir de la facade gauche ; une piece
+ * inconnue n'est pas trouvee.
  * }
  */
-TEST(ScenePieceManifestTest, LeManifesteDeMartpartSeLit) {
+TEST(ScenePieceManifestTest, LeManifesteDUnLieuSeLit) {
     const core::ScenePieceManifestResult read =
-        core::ScenePieceManifest::loadFromFile(sceneDirectory("martpart") / "manifest.json");
+        core::ScenePieceManifest::loadFromFile(sceneDirectory("bourg") / "manifest.json");
     ASSERT_TRUE(read.ok()) << read.message;
     const core::ScenePieceManifest& manifest = read.manifest;
-    EXPECT_EQ(manifest.place(), "martpart");
+    EXPECT_EQ(manifest.place(), "bourg");
     EXPECT_FALSE(manifest.pieces().empty());
 
     const core::ScenePiece* street = manifest.find("street");
     ASSERT_NE(street, nullptr);
-    EXPECT_EQ(street->key, "scene/martpart/street");
+    EXPECT_EQ(street->key, "scene/bourg/street");
     EXPECT_EQ(street->file, "street.png");
     EXPECT_EQ(street->pieceClass, core::ScenePieceClass::Floor);
     EXPECT_EQ(street->footprintColumns, 1);
@@ -69,17 +69,17 @@ TEST(ScenePieceManifestTest, LeManifesteDeMartpartSeLit) {
 }
 
 /**
- * @brief Chaque pièce déclarée par un manifeste livré a son image.
- * \castest{<b>Toute piece declaree par un lieu livre a son image.</b><br/>
+ * @brief Chaque pièce déclarée par un manifeste a son image.
+ * \castest{<b>Toute piece declaree par un lieu a son image.</b><br/>
  * \tcat Unitaire · Assets<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Lire les manifestes du Colisee et de Martpart.<br/>
+ * \tetapes 1. Lire les manifestes des deux lieux d'essai.<br/>
  *          2. Chercher le fichier de chaque piece dans le dossier du lieu.<br/>
  * \tattendu Aucune piece ne manque, et chaque emprise vaut au moins une case.
  * }
  */
-TEST(ScenePieceManifestTest, ChaquePieceLivreeASonImage) {
-    for (const std::string place : {"coliseum", "martpart"}) {
+TEST(ScenePieceManifestTest, ChaquePieceDeclareeASonImage) {
+    for (const std::string place : {"bourg", "hameau"}) {
         const core::ScenePieceManifestResult read =
             core::ScenePieceManifest::loadFromFile(sceneDirectory(place) / "manifest.json");
         ASSERT_TRUE(read.ok()) << place << " : " << read.message;

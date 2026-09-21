@@ -35,7 +35,7 @@ using hmi::MapCheckSeverity;
 // La racine d'essai de l'éditeur (`LOT-123`) : la planche et les manifestes que ces
 // tests recopient venaient des données LIVRÉES, que la table rase du `LOT-102` emporte.
 [[nodiscard]] std::filesystem::path dataRoot() {
-    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
+    return std::filesystem::path(JADG_TEST_DATA_DIR);
 }
 
 [[nodiscard]] std::filesystem::path fixtures() {

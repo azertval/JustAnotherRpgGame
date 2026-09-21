@@ -13,7 +13,7 @@
  * **Le seul fichier de `Unit/Editor` qui lise encore les cartes livrées, et c'est son objet**
  * (`LOT-123`) : il balaie celles qu'il trouve, quelles qu'elles soient, et admet qu'il n'y en ait
  * aucune — la table rase du `LOT-102` vide `Levels/`. Les autres tests de l'éditeur ouvrent la
- * racine d'essai, `Source/Test/Fixtures/EditorData`.
+ * racine d'essai, `Source/Test/Fixtures/GameData`.
  */
 
 #include <cstdlib>
