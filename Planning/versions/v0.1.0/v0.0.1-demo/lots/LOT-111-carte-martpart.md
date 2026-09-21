@@ -6,7 +6,7 @@ filiere = "cartes"
 statut = "a-faire"
 taille = "M"
 resume = "Martpart se parcourt, et figure dans l'onglet « Carte »."
-prerequis = ["LOT-110", "LOT-103"]
+prerequis = ["LOT-110", "LOT-103", "LOT-124", "LOT-125", "LOT-128"]
 livrables = [
   "`Levels/central-empire/capital/martpart.json`, dessinée **dans l'éditeur**.",
   "`capital/martpart/Map/` : l'image de la zone pour l'onglet « Carte », et son entrée dans `world-maps.json`.",

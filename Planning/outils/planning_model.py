@@ -32,6 +32,7 @@ FILIERES = {
     'moteur': 'Moteur',
     'regles': 'Règles et données',
     'interface': 'Interface',
+    'editeur': 'Éditeur de cartes',
     'version': 'Recette et version',
 }
 STATUTS = ('a-faire', 'en-cours', 'livre', 'abandonne')

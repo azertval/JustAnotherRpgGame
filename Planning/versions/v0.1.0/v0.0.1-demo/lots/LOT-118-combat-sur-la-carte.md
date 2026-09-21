@@ -6,7 +6,7 @@ filiere = "moteur"
 statut = "a-faire"
 taille = "L"
 resume = "Une rencontre engagée sur une carte d'exploration se joue **sur place** : la carte se fige, la grille paraît, le combat se joue, l'exploration reprend."
-prerequis = ["LOT-103"]
+prerequis = ["LOT-103", "LOT-128"]
 reprend = ["LOT-27 (le combat posé sur la carte)", "LOT-24 (hérité)"]
 livrables = [
   "`core::beginEncounter` monte une session de combat sur la zone de combat de la carte, gelée.",
@@ -20,6 +20,11 @@ criteres = [
   "Aucune régression du mode arène.",
 ]
 +++
+
+## Sur une maquette
+
+La carte de test du combat est une **carte maquette** ([LOT-128](LOT-128-cartes-maquettes.md)) : sols et murs
+en couleurs, jetons vert et rouge. Le combat sur la carte n'attend donc aucun asset.
 
 ## Pourquoi
 

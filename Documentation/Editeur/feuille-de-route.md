@@ -12,6 +12,14 @@ les cartes du jeu. Il a sa piste à part : cette page ne dépend pas de la
 > carte une fois** (version 4), tant qu'il n'y a que trois cartes à migrer. Un audit du code a
 > précédé cette page ; ses constats sont en §2, les décisions de l'auteur en §3.
 
+> **Close le 21 septembre 2026.** Treize lots sur quatorze sont livrés ; le quatorzième,
+> `LOT-EDITOR-11`, est abandonné (voir sa rubrique). Un audit de l'éditeur face au planning du jeu
+> (`Planning/standards/audit-editeur.md`) a montré que l'outil ne peut plus « avancer à part » : la
+> 2D HD, l'arborescence d'assets par niveaux et la quête de la démo lui demandent des lots dont les
+> cartes dépendent. **Ces lots vivent dans `Planning/`, filière `editeur`** (`LOT-123` à `LOT-128`,
+> `LOT-143`, `LOT-158`, `LOT-159`, `LOT-166` à `LOT-169`). Cette page reste l'histoire du module,
+> ses décisions D1 à D13 et ses cinq règles, qui valent toujours.
+
 Comme pour le jeu, un dossier de lot se crée **au démarrage** du lot, et un lot livré quitte cette
 page pour son dossier. Les dossiers vivent dans `Documentation/Editeur/LOT-EDITOR-NN-…/`, **pas**
 dans `Documentation/Lot/` : `lint_lots.py` y prend tout dossier `LOT-*` pour un lot du jeu. Ce lint
@@ -199,7 +207,7 @@ sont des noms, pas un ordre : l'ordre vient des prérequis.
 | `LOT-EDITOR-08` | Tampons et préfabriqués (livré) | 04 | S |
 | `LOT-EDITOR-09` | Le monde : onglets, portails, ville — **livré** | 05, 13 | M |
 | `LOT-EDITOR-10` | Essai complet dans le jeu — **livré** | 01 | S |
-| `LOT-EDITOR-11` | Génération assistée | 07 et [LOT-40](@ref lot-40) | M |
+| `LOT-EDITOR-11` | Génération assistée — **abandonné** | — | — |
 
 Tailles relatives : S tient en une séance, M en quelques-unes, L demande un découpage en phases.
 
@@ -224,7 +232,7 @@ digraph editeur {
   E08 [label="08\ntampons\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E09 [label="09\nmonde\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E10 [label="10\nessai complet\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
-  E11 [label="11\ngénération"];
+  E11 [label="11\ngénération\n(abandonné)", style="rounded,dashed"];
   L40 [label="LOT-40\n(jeu)", style="rounded,dashed"];
   E01 -> E02; E01 -> E12; E01 -> E10;
   E02 -> E03; E12 -> E03;
@@ -408,7 +416,11 @@ d'exploration.
 
 ### LOT-EDITOR-11 — Génération assistée {#lot-editor-11}
 
-> Statut : **à faire**. Prérequis : 07, et le [LOT-40](@ref lot-40) du jeu.
+> Statut : **abandonné le 21 septembre 2026.** Le [LOT-40](@ref lot-40), dont il pilotait le
+> générateur, a été écarté du planning le 20 septembre : les cartes se dessinent, zone par zone, et
+> aucun générateur de terrain n'existe dans `Core`. Ce qui reste du besoin — semer une forêt à
+> graine notée, et que les retouches survivent à un nouveau semis — est le `LOT-168` du planning,
+> un outil de dessin de l'éditeur. Le texte d'origine est gardé ci-dessous.
 
 Le générateur se pilote depuis l'éditeur, et ce qui a été retouché survit à une nouvelle
 génération.

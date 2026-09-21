@@ -6,7 +6,7 @@ filiere = "version"
 statut = "a-faire"
 taille = "M"
 resume = "Le système de combat est joué, équilibré et tagué."
-prerequis = ["LOT-140", "LOT-141", "LOT-136"]
+prerequis = ["LOT-140", "LOT-141", "LOT-136", "LOT-143"]
 livrables = [
   "Une **série de six rencontres** d'arène, de difficulté croissante, qui éprouve les quatre classes.",
   "L'équilibrage par simulation : taux de victoire par rencontre et par composition de groupe.",

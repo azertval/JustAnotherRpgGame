@@ -42,7 +42,7 @@ c'est de l'histoire, elle ne bouge pas.
 
 | Ancien lot | Objet | Raison |
 |---|---|---|
-| `LOT-40` | Générateur de terrain | les cartes sont **dessinées** dans l'éditeur, zone par zone : c'est tout le sens d'une sous-version par zone. La génération assistée reste un lot de l'éditeur (`LOT-EDITOR-11`), au service du dessin |
+| `LOT-40` | Générateur de terrain | les cartes sont **dessinées** dans l'éditeur, zone par zone : c'est tout le sens d'une sous-version par zone. `LOT-EDITOR-11`, qui le pilotait, est abandonné avec lui (décision D-20) ; ce qu'il en reste — un semis à graine qui respecte les retouches — est le [LOT-168](../versions/v0.1.0/v0.0.5-abords-de-la-capitale/lots/LOT-168-semis-assiste.md) |
 
 ## Les ateliers pixel art
 

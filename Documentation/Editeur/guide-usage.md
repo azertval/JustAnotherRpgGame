@@ -203,4 +203,4 @@ sans fenêtre : `--rename-map`, `--rename-arrival`, `--rename-id`, `--who-cites`
 - Engager un **combat** depuis une carte d'exploration : le jeu ne le branche pas encore
   ([LOT-27](@ref lot-27)). *Run in game* ouvre bien les dialogues ; une rencontre ne
   déclenche rien.
-- Générer une carte et la régénérer sans perdre les retouches : `LOT-EDITOR-11`.
+- Semer une forêt ou une prairie sans perdre les retouches : `LOT-168` du planning (`LOT-EDITOR-11`, qui pilotait un générateur, est abandonné).

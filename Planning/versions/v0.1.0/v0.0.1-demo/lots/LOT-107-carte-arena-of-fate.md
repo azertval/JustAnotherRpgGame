@@ -6,9 +6,9 @@ filiere = "cartes"
 statut = "a-faire"
 taille = "M"
 resume = "L'Arena of Fate se parcourt, et figure dans l'onglet « Carte » **à l'intérieur d'Arenarea**."
-prerequis = ["LOT-106", "LOT-103"]
+prerequis = ["LOT-106", "LOT-103", "LOT-126", "LOT-127", "LOT-128"]
 livrables = [
-  "`Levels/central-empire/capital/arenarea/arena-of-fate.json`, dessinée **dans l'éditeur**.",
+  "`Levels/central-empire/capital/arenarea/arena-of-fate.json` (le sable et ses anneaux) et `arena-of-fate/undercroft.json` (le niveau −1 : vestiaires et prison), dessinées **dans l'éditeur** et reliées par l'escalier de la porte du triomphe (décision D-21).",
   "`capital/arenarea/arena-of-fate/Map/` : l'image de la zone pour l'onglet « Carte », et son entrée dans `world-maps.json`.",
   "Portails, points d'apparition nommés, zones (combat, déclencheurs de quête).",
 ]
@@ -71,7 +71,18 @@ atteignables.
 
 Au fond de la prison, l'**escalier des catacombes** descend au niveau −2. Il est posé sur la carte
 et **condamné** : c'est le crochet du `LOT-157`. Le contrôle de l'éditeur doit l'accepter comme
-porte sans arrivée — sinon la carte est marquée d'un portail mort.
+porte sans arrivée — sinon la carte est marquée d'un portail mort : c'est `portal.sealed`, au
+[LOT-126](LOT-126-ce-que-la-quete-demande-aux-cartes.md).
+
+### Deux cartes, pas deux étages
+
+Le niveau −1 est **sous** les gradins, qui occupent les mêmes cases en décor. Un niveau est une carte
+(décision D-21) : le lot livre **deux cartes** — `arena-of-fate.json`, le sable et ses anneaux, et
+`arena-of-fate/undercroft.json`, les vestiaires et la prison. L'**escalier de la porte du triomphe** est le
+portail entre elles ; la **porte des morts** en est un second. Le portail vers le parvis d'Arenarea et
+l'escalier condamné des catacombes sont sur la carte du sous-sol. La taille de 34 × 24 ne vaut que
+pour la carte du sable ; celle du sous-sol se fixe au tracé. L'onglet « Carte » montre les deux sous la
+même sous-zone.
 
 ![Plan de principe](../maquettes/plan-arena-of-fate.svg)
 

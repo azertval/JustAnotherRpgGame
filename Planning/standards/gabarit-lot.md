@@ -33,7 +33,7 @@ maquettes = ["../maquettes/arena-of-fate-plan.svg"]
 | `id` | oui | `LOT-NNN`, trois chiffres, jamais réattribué |
 | `titre` | oui | l'objet du lot, en une ligne |
 | `version` | oui | un identifiant de [`versions.toml`](../versions/versions.toml) |
-| `filiere` | oui | `standard`, `assets`, `cartes`, `pnj`, `quete`, `moteur`, `regles`, `interface`, `version` |
+| `filiere` | oui | `standard`, `assets`, `cartes`, `pnj`, `quete`, `moteur`, `regles`, `interface`, `editeur`, `version` |
 | `statut` | oui | `a-faire`, `en-cours`, `livre`, `abandonne` |
 | `taille` | oui | `S` (une séance), `M` (deux à trois), `L` (une semaine), `XL` (à redécouper si possible) |
 | `resume` | oui | une phrase |

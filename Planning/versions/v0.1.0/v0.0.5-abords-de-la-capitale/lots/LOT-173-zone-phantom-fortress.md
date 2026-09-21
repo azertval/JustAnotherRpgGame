@@ -6,7 +6,7 @@ filiere = "cartes"
 statut = "a-faire"
 taille = "XL"
 resume = "Phantom Fortress : assets HD, PNJ, carte jouable et carte de l'onglet."
-prerequis = ["LOT-170", "LOT-171"]
+prerequis = ["LOT-170", "LOT-171", "LOT-167"]
 livrables = [
   "Les assets HD propres à Phantom Fortress, et ce qu'elle verse au commun.",
   "Ses PNJ nommés, neutres et hostiles : figurines, portraits, fiches, placements.",
@@ -34,7 +34,7 @@ Officiers Ironhand, prisonniers, un bibliothécaire de la propagande.
 
 ## Premier donjon
 
-Plusieurs cartes reliées (cours, ailes, étages bas, souterrain) : l'éditeur doit savoir gérer un **lieu à plusieurs cartes** (`LOT-EDITOR-09`).
+Plusieurs cartes reliées (cours, ailes, étages bas, souterrain) : l'éditeur sait gérer un **lieu à plusieurs cartes** depuis le `LOT-EDITOR-09` (onglets, graphe, liens posés des deux côtés). Les cours sont du plein air : [LOT-167](LOT-167-grandes-cartes-de-plein-air.md).
 
 Détail : [zones](../../../../referentiels/central-empire/zones.md) · [Capitale](../../../../referentiels/central-empire/capitale.md) ·
 [PNJ nommés](../../../../referentiels/central-empire/pnj-nommes.md) · [hostiles](../../../../referentiels/central-empire/hostiles.md).

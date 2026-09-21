@@ -8,6 +8,9 @@ dans la version.
 
 ![Déroulé de la quête](maquettes/quete-demo-deroule.svg)
 
+> L'Arena of Fate tient en **deux cartes** (décision D-21) : le sable, et le niveau −1 des vestiaires et de
+> la prison. Le vestiaire A est sur la seconde ; le combat se joue sur la première.
+
 ## Déroulé
 
 | # | Carte | Étape | Ce que le moteur doit savoir faire |
