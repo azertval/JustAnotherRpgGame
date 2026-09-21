@@ -1,10 +1,9 @@
-# Interface utilisateur (IHM) {#spec-interface-ihm}
+# Interface utilisateur (IHM)
 
 > Statut : **livré**. Écrans du jeu en Qt Quick, éditeur de cartes en Qt Widgets, charte v2 des
 > écrans du jeu.
 >
-> **Révisée au `LOT-EDITOR-01`** (décision D7 de la [feuille de route de l'éditeur](@ref
-> roadmap-editeur)). L'éditeur est un **outil interne** : style Fusion de Qt, textes anglais écrits
+> **Révisée au `LOT-EDITOR-01`** (décision D7 de la [feuille de route de l'éditeur](../../Planning/vision/archives/feuille-de-route-editeur.md)). L'éditeur est un **outil interne** : style Fusion de Qt, textes anglais écrits
 > dans le code, widgets construits en code, sans charte ni thème. Les exigences qui ne visaient que
 > son habillage et l'agencement de ses panneaux sont retirées ; son agencement se décide lot par lot
 > dans sa feuille de route. Ce qui reste ici de l'éditeur : un binaire Qt Widgets à part
@@ -17,12 +16,12 @@ dessinée sur QRhi (`EX-REN-002`) ; l'interface, elle, repose sur **Qt**, pour u
 maintenable, à fenêtres réglables. `Core` demeure indépendant de la présentation (`EX-NFR-010`).
 
 ## 1. Socle applicatif
-- \anchor EX-IHM-001 **EX-IHM-001** — Toute l'**interface** (écrans du jeu, éditeur) doit reposer
+- **EX-IHM-001** — Toute l'**interface** (écrans du jeu, éditeur) doit reposer
   sur le framework **Qt** ; seule la **scène** se dessine par le pipeline 2D du projet, sur QRhi.
-- \anchor EX-IHM-002 **EX-IHM-002** — La **scène** doit être **embarquée dans un élément Qt**
+- **EX-IHM-002** — La **scène** doit être **embarquée dans un élément Qt**
   (`EX-REN-050`), sans processus séparé ni duplication du pipeline de rendu ; le déterminisme de la
   simulation (`EX-NFR-002`) et la latence d'entrée (`EX-CTRL-020`) sont préservés.
-- \anchor EX-IHM-003 **EX-IHM-003** — Le jeu doit afficher, **dans la scène rendue**, un
+- **EX-IHM-003** — Le jeu doit afficher, **dans la scène rendue**, un
   **affichage tête haute** minimal indiquant l'état dont le joueur a besoin pour décider, et lui
   seul. L'affichage passe par le catalogue de traduction (`EX-REN-033`) et n'a aucun effet sur le
   gameplay (`EX-ARCH-012`).
@@ -30,7 +29,7 @@ maintenable, à fenêtres réglables. `Core` demeure indépendant de la présent
   > doit y lire un joueur de RPG (points de vie, initiative, actions restantes) est le sujet de l'IHM de combat du
   > `LOT-24` ; l'exigence garde donc son critère — *ce dont le joueur a besoin pour décider* — et
   > cesse d'en fixer la liste, que chaque lot ajusterait sinon en la contredisant.
-- \anchor EX-IHM-004 **EX-IHM-004** — Le jeu doit offrir un **écran de pause** suspendant
+- **EX-IHM-004** — Le jeu doit offrir un **écran de pause** suspendant
   réellement la simulation, sans consommer de pas de temps fixe, navigable au clavier, à la souris
   et à la manette comme le reste de l'interface, et passant par le catalogue de traduction
   (`EX-REN-033`). Détaille `EX-REN-031` du côté de l'interface.
@@ -41,20 +40,20 @@ maintenable, à fenêtres réglables. `Core` demeure indépendant de la présent
   > n'apporte d'information (`EX-IHM-072`).
 
 ## 2. Éditeur
-- \anchor EX-IHM-011 **EX-IHM-011** — La **disposition** des panneaux de l'éditeur doit être
+- **EX-IHM-011** — La **disposition** des panneaux de l'éditeur doit être
   **persistée** (sauvegardée et restaurée entre deux sessions), et réinitialisable à une disposition
   par défaut.
 
 ## 3. Gestion des cartes
-- \anchor EX-IHM-021 **EX-IHM-021** — L'éditeur doit permettre de **créer, renommer, dupliquer et
+- **EX-IHM-021** — L'éditeur doit permettre de **créer, renommer, dupliquer et
   supprimer** une carte, avec **validation de nom** (`EX-EDIT-006`) et **confirmation** des actions
   destructrices ; aucune modification non enregistrée ne doit être perdue silencieusement.
 
 ## 4. Menus, options, unification
-- \anchor EX-IHM-040 **EX-IHM-040** — Le **menu principal** et l'écran **Options** (plein écran,
+- **EX-IHM-040** — Le **menu principal** et l'écran **Options** (plein écran,
   volume, langue `EX-REN-033`) doivent être fournis en Qt Quick, navigables au clavier, à la souris
   et à la manette.
-- \anchor EX-IHM-041 **EX-IHM-041** — Chaque exécutable doit reposer sur **une seule technologie
+- **EX-IHM-041** — Chaque exécutable doit reposer sur **une seule technologie
   d'UI** — Qt Quick pour le jeu, Qt Widgets pour l'éditeur — et aucun écran ne se dessine à la main
   au `SpriteBatch`.
 
@@ -70,7 +69,7 @@ l'éditeur au rendu natif de l'autre — et des grandeurs d'habillage (couleurs,
 vignettes, largeurs) éparpillées entre la feuille de style, les fichiers de description d'interface
 et des constantes locales à chaque widget.
 
-- \anchor EX-IHM-050 **EX-IHM-050** — L'interface hors-jeu doit reposer sur un **style d'interface
+- **EX-IHM-050** — L'interface hors-jeu doit reposer sur un **style d'interface
   maîtrisé par l'application** (et non sur le style natif de la plate-forme), assorti d'un **thème
   unique externalisé** couvrant **l'ensemble** des widgets — fenêtre, panneaux dockables, barres de
   menus et d'état, onglets, arbres et tables, champs de saisie, barres de défilement, infobulles,
@@ -82,25 +81,25 @@ et des constantes locales à chaque widget.
   > **Précisée au `LOT-EDITOR-01`.** L'éditeur n'est plus dans sa portée : outil interne, il prend
   > le style Fusion de Qt tel quel. `EX-IHM-051` à `053` et `EX-IHM-082` ne visent plus, eux aussi,
   > que les écrans du jeu.
-- \anchor EX-IHM-051 **EX-IHM-051** — Les grandeurs d'habillage (couleurs, espacements, tailles
+- **EX-IHM-051** — Les grandeurs d'habillage (couleurs, espacements, tailles
   d'icônes et de vignettes, largeurs de contrôles) doivent provenir d'une **source unique**, dont
   dérivent à la fois la palette de l'application, la feuille de style et la **couleur d'effacement du
   viewport** — cette dernière étant aujourd'hui définie indépendamment, d'où une couture visible entre
   le canevas Direct3D 11 et les widgets qui l'entourent. Aucune constante de style ne doit subsister
   en dur dans le code des widgets.
-- \anchor EX-IHM-052 **EX-IHM-052** — La **typographie** doit avoir une source de vérité unique (et
+- **EX-IHM-052** — La **typographie** doit avoir une source de vérité unique (et
   non partagée entre feuille de style et fichiers de description d'interface), et reposer sur une
   **police embarquée avec l'application**, avec **repli** sur une famille générique si elle est
   absente — l'interface ne doit dépendre d'aucune police installée sur le système hôte.
-- \anchor EX-IHM-053 **EX-IHM-053** — Les **icônes et vignettes** de l'interface doivent rester
+- **EX-IHM-053** — Les **icônes et vignettes** de l'interface doivent rester
   **nettes à toute échelle d'affichage** (facteur de mise à l'échelle du système). Une **icône des écrans
   du jeu** est une image **produite** comme les ornements (`EX-IHM-075`), depuis une entrée du cahier
-  des assets du [LOT-87](@ref lot-87-cahier-assets), à **deux fois sa plus grande taille d'affichage
+  des assets du [LOT-87](../../Planning/versions/v0.0.0/v0.0.0-fondation/annexes/LOT-87-charte-v2/assets-brief.md), à **deux fois sa plus grande taille d'affichage
   à 1080p**, et réduite avec lissage. Une **vignette** d'asset est agrandie selon la nature de l'image
   qu'elle représente (`EX-ARCH-022`) — au plus proche voisin pour une tuile pixellisée, interpolée
   pour une illustration peinte.
   > **Refondue au `LOT-66`.** Elle imposait l'absence de lissage *pour toutes* les vignettes, au
-  > motif qu'elles représentent du pixel art. Une vignette de panneau peint ([LOT-76](@ref lot-76))
+  > motif qu'elles représentent du pixel art. Une vignette de panneau peint ([LOT-76](../../Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-76-habillage-interface.md))
   > agrandie au plus proche voisin serait crénelée, et la bibliothèque d'assets montrerait alors
   > une image que le jeu ne rend pas ainsi — la vignette cesserait d'être un aperçu.
   >
@@ -113,9 +112,9 @@ et des constantes locales à chaque widget.
 
 ## 6. Architecture de l'information
 Depuis le `LOT-EDITOR-01`, l'agencement de l'éditeur (panneaux, barre d'état, barre d'outils) se
-décide dans sa [feuille de route](@ref roadmap-editeur) ; une seule règle reste commune.
+décide dans sa [feuille de route](../../Planning/vision/archives/feuille-de-route-editeur.md) ; une seule règle reste commune.
 
-- \anchor EX-IHM-062 **EX-IHM-062** — Un même **état** ou une même **commande** ne doit être exposé
+- **EX-IHM-062** — Un même **état** ou une même **commande** ne doit être exposé
   qu'à **un seul endroit** de l'interface, **raccourci clavier compris** : deux contrôles pilotant la
   même valeur peuvent diverger et obligent l'utilisateur à deviner lequel fait autorité. Un raccourci
   clavier reste un second chemin **légitime** vers une commande, à condition d'être affiché par la
@@ -130,8 +129,8 @@ fenêtre, ce qui donne une interface visiblement petite dès qu'on dépasse la d
 ordinateur portable. Et le focus n'est signalé que par un changement de teinte — suffisant à la
 souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en est.
 
-- \anchor EX-IHM-070 **EX-IHM-070** — Les écrans du **jeu** doivent porter la **charte v2** du
-  [LOT-87](@ref lot-87), qui tient en **deux matières** : des **panneaux sombres** cerclés d'un filet
+- **EX-IHM-070** — Les écrans du **jeu** doivent porter la **charte v2** du
+  [LOT-87](../../Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-87-charte-v2.md), qui tient en **deux matières** : des **panneaux sombres** cerclés d'un filet
   d'or (menu principal, options, crédits, carte, HUD) et le **parchemin de Tanares** (fiche de
   personnage, inventaire, équipe, compétences, dialogue, marchand). Le **grenat** et l'**or** en sont
   les accents communs. Les titres se composent en `Cinzel`, le corps et les citations en
@@ -166,22 +165,22 @@ souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en
   > **Refondue au `LOT-66`.** Elle imposait une identité **pixel art** — police bitmap, bordures
   > franches, aucun lissage — héritée des premiers lots du moteur. Elle entrait en
   > contradiction frontale avec les références du jeu visé : une police bitmap non lissée et une
-  > illustration peinte à 300 ppp ne cohabitent pas. Le [LOT-01](@ref lot-01) avait délibérément
+  > illustration peinte à 300 ppp ne cohabitent pas. Le [LOT-01](../../Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-01-fork-purge.md) avait délibérément
   > conservé l'atelier pixel art ; ce renversement est assumé, pas subi.
-- \anchor EX-IHM-071 **EX-IHM-071** — L'élément **focalisé** d'un écran du jeu doit être signalé par
+- **EX-IHM-071** — L'élément **focalisé** d'un écran du jeu doit être signalé par
   une **marque explicite** (curseur), et non par la seule teinte : la navigation à la manette
   (`EX-IHM-040`) repose entièrement sur le parcours de focus, qu'une simple nuance de couleur rend
   difficile à suivre — et impossible pour un joueur qui distingue mal les couleurs. Une feuille de
   style ne sachant pas ajouter de contenu, cette marque est nécessairement peinte par le contrôle.
-- \anchor EX-IHM-072 **EX-IHM-072** — Aucun écran ne doit exposer de réglage **inopérant**. Un
+- **EX-IHM-072** — Aucun écran ne doit exposer de réglage **inopérant**. Un
   contrôle grisé et non branché coûte plus de confiance qu'il n'apporte d'information : il se retire,
   ou il se branche. Symétriquement, une capacité qui existe déjà (comptage de cadence, bascule de
   rendu) s'expose comme réglage plutôt que de rester derrière une touche non documentée — sans jamais
   en faire un **second** état (`EX-IHM-062`).
 
-- \anchor EX-IHM-075 **EX-IHM-075** — L'habillage ornemental des écrans du jeu — cadres, plaques,
+- **EX-IHM-075** — L'habillage ornemental des écrans du jeu — cadres, plaques,
   bandeaux, boutons, médaillons — est livré en **images produites** à la définition de conception
-  (1920 × 1080), chacune décrite par une entrée du **cahier des assets** du [LOT-87](@ref lot-87) :
+  (1920 × 1080), chacune décrite par une entrée du **cahier des assets** du [LOT-87](../../Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-87-charte-v2.md) :
   dimensions, marges, états, prompt de génération, et la maquette qui la montre. Jamais découpé des
   maquettes elles-mêmes, qui restent des relevés de cotes. Les trois raisons qui imposaient autrefois
   le tracé deviennent trois **conditions** que chaque pièce doit tenir :
@@ -229,9 +228,9 @@ souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en
   > Cette exigence tranche l'autre moitié de la question, et écarte explicitement la voie du
   > découpage d'images — essayée, puis abandonnée au `LOT-76`.
 
-- \anchor EX-IHM-076 **EX-IHM-076** — Une **illustration** d'interface — fond d'écran, carte,
+- **EX-IHM-076** — Une **illustration** d'interface — fond d'écran, carte,
   portrait — est **produite**, jamais extraite : elle vient d'une entrée du cahier des assets du
-  [LOT-87](@ref lot-87), comme les ornements (`EX-IHM-075`). Le plan de la ville, la carte du monde
+  [LOT-87](../../Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-87-charte-v2.md), comme les ornements (`EX-IHM-075`). Le plan de la ville, la carte du monde
   et les planches du corpus sont des **œuvres** : le jeu ne les affiche pas, et ses écrans ne les
   recopient pas — une carte est **produite ou peinte pour le jeu**, jamais reprise du livre. Ce qui est
   interdit, c'est l'image **extraite du corpus** et l'image **sans provenance** — venue d'ailleurs,
@@ -273,12 +272,12 @@ d'agrandissement, qui ne concerne que les écrans du jeu, était substitué dans
 l'**application** : en changer repolissait ses 862 widgets, cinq secondes durant en configuration
 Debug. Et un écran exposait des réglages que rien ne transmettait au moteur.
 
-- \anchor EX-IHM-080 **EX-IHM-080** — Aucun écran ne doit **contraindre la taille de la fenêtre** :
+- **EX-IHM-080** — Aucun écran ne doit **contraindre la taille de la fenêtre** :
   il s'y adapte, au besoin en **défilant**, et ne rogne jamais son contenu sans recours. Cette
   garantie doit être portée par le **chemin d'ajout commun** des écrans, et non par une convention à
   réappliquer dans chaque fichier de description d'interface : une règle qu'il faut se rappeler
   d'appliquer se reperd au premier écran ajouté — c'est déjà arrivé deux fois.
-- \anchor EX-IHM-081 **EX-IHM-081** — Les **facteurs d'agrandissement** (`EX-IHM-070`) — l'entier
+- **EX-IHM-081** — Les **facteurs d'agrandissement** (`EX-IHM-070`) — l'entier
   du viewport comme le réel de la charte v2 — doivent être bornés par la **zone d'affichage
   disponible**, et non par la seule hauteur de la fenêtre ; la géométrie **restaurée** d'une session
   précédente doit être ramenée dans cette même zone, position et taille. Un facteur dérivé d'une
@@ -286,12 +285,12 @@ Debug. Et un écran exposait des réglages que rien ne transmettait au moteur.
   l'application ne décide pas.
   > **Précisée au `LOT-87`**, qui ajoute le facteur réel : dérivé de la fenêtre, lui-même bornée par
   > l'écran, et d'aucun contenu (`EX-IHM-080`), il n'ouvre pas de nouvelle boucle.
-- \anchor EX-IHM-082 **EX-IHM-082** — Une préoccupation limitée à une **portée** ne doit jamais
+- **EX-IHM-082** — Une préoccupation limitée à une **portée** ne doit jamais
   provoquer un rejeu de style d'une portée **plus large** : un habillage s'applique là où il porte,
   et nulle part ailleurs. (Le châssis d'édition, seconde portée d'`EX-IHM-050`, n'a plus de feuille
   depuis le `LOT-EDITOR-01`.) Le coût d'un changement
   d'habillage doit rester proportionnel à ce qui change réellement.
-- \anchor EX-IHM-083 **EX-IHM-083** — Tout **réglage exposé** par un écran doit **atteindre** le
+- **EX-IHM-083** — Tout **réglage exposé** par un écran doit **atteindre** le
   moteur, ou ne pas être exposé ; et l'écran doit **ouvrir sur les valeurs par défaut du moteur**,
   jamais sur une seconde liste de valeurs inscrite dans sa description. Un réglage inerte est pire
   qu'un réglage absent : il se règle, il s'enregistre, et il ment.
@@ -305,7 +304,7 @@ quatre lots à venir les remplissent chacun de leur côté (`LOT-38`, `LOT-42`, 
 différemment, se ferment différemment et se naviguent différemment : le défaut ne se voit sur aucun
 d'eux pris isolément, et sur les quatre ensemble il n'est plus rattrapable sans les refaire.
 
-- \anchor EX-IHM-090 **EX-IHM-090** — Les écrans du **RPG** doivent partager un **châssis** unique :
+- **EX-IHM-090** — Les écrans du **RPG** doivent partager un **châssis** unique :
   le même cadre (panneau, titre, zone de contenu, pied d'actions), la même ouverture et la même
   fermeture, le même passage d'un écran à l'autre **sans repasser par le menu**, et le même parcours
   de focus à la manette (`EX-IHM-071`). L'**ossature** de chaque écran — ses blocs, leurs genres,
@@ -316,7 +315,7 @@ d'eux pris isolément, et sur les quatre ensemble il n'est plus rattrapable sans
   Corollaire : les libellés de cette description passent par le catalogue de traduction
   (`EX-REN-033`) comme tout autre texte, et rien ne les y rattachant qu'une table, leur présence
   dans **les deux** catalogues doit être vérifiée automatiquement.
-- \anchor EX-IHM-091 **EX-IHM-091** — Chaque écran du RPG doit déclarer sa **règle de
+- **EX-IHM-091** — Chaque écran du RPG doit déclarer sa **règle de
   superposition** : suspend-il la simulation, ou se consulte-t-il en marchant ? Cette règle
   appartient à la **description** de l'écran, jamais au code qui l'ouvre : ouvert depuis la pause,
   depuis le jeu ou depuis une touche, un même écran doit se comporter de la même façon, et une règle
@@ -349,7 +348,7 @@ déplacement de la frontière entre deux métiers.
 
 ### La frontière, telle qu'elle est tenue
 
-- \anchor EX-IHM-100 **EX-IHM-100** — Une modification **purement visuelle** d'un écran du jeu —
+- **EX-IHM-100** — Une modification **purement visuelle** d'un écran du jeu —
   mise en page, couleurs, typographie, ornements, animations, textes — doit être réalisable **sans
   modifier ni recompiler une ligne de C++**, depuis Qt Design Studio ouvrant
   `Source/Ui/JadgUi.qmlproject`. Ce projet ne décrit que `Source/Ui`, les jumeaux de câblage et
@@ -358,27 +357,27 @@ déplacement de la frontière entre deux métiers.
   **sans C++** (`Jadg.Ui`) : c'est ce qui le rend résolvable par l'atelier, dont le marionnettiste
   ne charge aucun plugin du projet ; les types C++ forment un module à part (`Jadg.Runtime`) que
   seuls les jumeaux importent, et que l'atelier remplace par des doublures QML (`Source/Ui/Mocks`).
-- \anchor EX-IHM-101 **EX-IHM-101** — La couche de **présentation** (`Source/HMI/Presentation`,
+- **EX-IHM-101** — La couche de **présentation** (`Source/HMI/Presentation`,
   et les vues-modèles de `Source/HMI/Runtime` exposées au QML) transforme l'état du jeu en données
   affichables et **ne dessine rien** : elle ne connaît ni Qt Quick, ni Qt Widgets. Seule exception,
   nommée : la surface de rendu (`GameViewportItem`), qui est un item de scène et non un modèle. Un écran lui demande *ce que le jeu sait dire*, jamais *comment le
   montrer*. Un seul en-tête d'IHM qui y entrerait signalerait que la logique de vue a commencé à
   redescendre dans la couche de données — et c'est ainsi que les 2 472 lignes de `MainWindow.cpp`
   se sont accumulées.
-- \anchor EX-IHM-102 **EX-IHM-102** — L'exécutable du **jeu** ne lie pas `Qt6::Widgets`. Ce n'est
+- **EX-IHM-102** — L'exécutable du **jeu** ne lie pas `Qt6::Widgets`. Ce n'est
   pas une convention mais une impossibilité : un widget qui y réapparaîtrait ferait échouer
   l'édition de liens. Les widgets n'appartiennent qu'à l'éditeur de cartes, binaire séparé.
-- \anchor EX-IHM-103 **EX-IHM-103** — Tout écran et tout contrôle du jeu est un **formulaire
+- **EX-IHM-103** — Tout écran et tout contrôle du jeu est un **formulaire
   `.ui.qml`** — le sous-ensemble **déclaratif** de QML — et ne contient aucun code impératif.
   Qt Design Studio relit et **réenregistre** ces fichiers : ce qu'il n'y comprend pas, il le perd,
   sans avertir. La logique vit dans un fichier jumeau `.qml`, côté développeur. La règle ne vise
   donc pas le style, mais ce que l'outil détruirait.
-- \anchor EX-IHM-104 **EX-IHM-104** — Un formulaire n'importe que des modules connus **à la fois**
+- **EX-IHM-104** — Un formulaire n'importe que des modules connus **à la fois**
   de l'installation Qt et de Qt Design Studio. Le designer livre les siens (`QtQuick.Studio.*`),
   absents d'une installation ordinaire : un formulaire qui en importerait s'ouvrirait parfaitement
   chez la conception et casserait le jeu — le pire des deux mondes, découvert le plus tard
   possible.
-- \anchor EX-IHM-105 **EX-IHM-105** — Aucune couleur, famille de police ni taille de texte n'est
+- **EX-IHM-105** — Aucune couleur, famille de police ni taille de texte n'est
   écrite en dur hors de `Source/Ui/Theme`. C'est ce qui donne son sens aux jetons : une valeur
   écrite dans un écran survit à un changement de palette, ne suit plus rien, et personne ne
   remarque qu'un seul écran a cessé de ressembler aux autres (`EX-IHM-051`).
@@ -431,14 +430,14 @@ Le `LOT-94` avait retiré la carte du monde avec les deux images du corpus qui l
 revient sur des cartes **peintes par l'auteur** — le monde, les treize régions de l'atlas, les plans
 de la Capitale impériale et de Fisherman's Wharf —, en 1 920 × 1 080 et **sans lettrage**.
 
-- \anchor EX-IHM-106 **EX-IHM-106** — L'écran « Carte » a **trois niveaux** — le monde, une région,
+- **EX-IHM-106** — L'écran « Carte » a **trois niveaux** — le monde, une région,
   le plan d'une ville — et l'on passe de l'un à l'autre par un **repère** : une région sur le monde,
   une ville à plan sur sa région. On ne s'y **déplace** pas et l'on n'y voyage pas : la carte sert à
   s'orienter, le déplacement se fait sur les cartes de niveau. Les **mêmes commandes** valent aux
   trois niveaux, au clavier, à la manette et à la souris : choisir le repère voisin, parcourir la
   liste des lieux, ouvrir, remonter, agrandir, déplacer la carte. Chaque niveau est un formulaire
   (`EX-IHM-100`) et a sa capture de référence.
-- \anchor EX-IHM-107 **EX-IHM-107** — Une carte ne porte **aucun nom peint** : tout nom est posé
+- **EX-IHM-107** — Une carte ne porte **aucun nom peint** : tout nom est posé
   par le jeu, dans sa police et dans sa langue. Les positions — repère et cadre d'une région, lieux
   de l'atlas, quartiers, noms de géographie — sont des **fractions** de l'image, relevées sur la
   carte et tenues dans un fichier **à part de l'atlas** (`Source/Elements/Maps/world-maps.json`) :
@@ -454,26 +453,26 @@ de la Capitale impériale et de Fisherman's Wharf —, en 1 920 × 1 080 et **sa
 
 > Ancres conservées, jamais renumérotées : les lots livrés s'y réfèrent.
 
-- \anchor EX-IHM-005 **EX-IHM-005** *(retirée en `LOT-67`)* — reprendre, commencer ou choisir un
+- **EX-IHM-005** *(retirée en `LOT-67`)* — reprendre, commencer ou choisir un
   niveau : il n'y a plus de séquence de niveaux ; « Reprendre » reviendra avec la sauvegarde du
   `LOT-17`.
-- \anchor EX-IHM-030 **EX-IHM-030** *(retirée au `LOT-88`)* — tracé des liaisons de mécanismes.
-- \anchor EX-IHM-031 **EX-IHM-031** *(retirée au `LOT-88`)* — panneau « Liens ».
-- \anchor EX-IHM-073 **EX-IHM-073** *(retirée au `LOT-88`)* — espaces de travail exclusifs : l'éditeur
+- **EX-IHM-030** *(retirée au `LOT-88`)* — tracé des liaisons de mécanismes.
+- **EX-IHM-031** *(retirée au `LOT-88`)* — panneau « Liens ».
+- **EX-IHM-073** *(retirée au `LOT-88`)* — espaces de travail exclusifs : l'éditeur
   n'a plus qu'une activité.
-- \anchor EX-IHM-010 **EX-IHM-010** *(retirée au `LOT-EDITOR-01`)* — fenêtre de l'éditeur à panneaux
+- **EX-IHM-010** *(retirée au `LOT-EDITOR-01`)* — fenêtre de l'éditeur à panneaux
   dockables ; son agencement se décide dans la feuille de route de l'éditeur.
-- \anchor EX-IHM-020 **EX-IHM-020** *(retirée au `LOT-EDITOR-01`)* — panneau de gestion des cartes
+- **EX-IHM-020** *(retirée au `LOT-EDITOR-01`)* — panneau de gestion des cartes
   avec recherche ; la gestion elle-même reste (`EX-IHM-021`).
-- \anchor EX-IHM-054 **EX-IHM-054** *(retirée au `LOT-EDITOR-01`)* — thème clair et sombre de
+- **EX-IHM-054** *(retirée au `LOT-EDITOR-01`)* — thème clair et sombre de
   l'éditeur : Fusion suit le réglage du système.
-- \anchor EX-IHM-055 **EX-IHM-055** *(retirée au `LOT-EDITOR-01`)* — commandes de l'éditeur à icônes
+- **EX-IHM-055** *(retirée au `LOT-EDITOR-01`)* — commandes de l'éditeur à icônes
   tracées, depuis un catalogue d'actions.
-- \anchor EX-IHM-060 **EX-IHM-060** *(retirée au `LOT-EDITOR-01`)* — barre d'état permanente de
+- **EX-IHM-060** *(retirée au `LOT-EDITOR-01`)* — barre d'état permanente de
   l'éditeur (elle reste, sans être exigée).
-- \anchor EX-IHM-061 **EX-IHM-061** *(retirée au `LOT-EDITOR-01`)* — panneaux groupés et mis en
+- **EX-IHM-061** *(retirée au `LOT-EDITOR-01`)* — panneaux groupés et mis en
   avant selon l'outil actif.
-- \anchor EX-IHM-074 **EX-IHM-074** *(retirée au `LOT-EDITOR-01`)* — hiérarchie des surfaces de
+- **EX-IHM-074** *(retirée au `LOT-EDITOR-01`)* — hiérarchie des surfaces de
   commande de l'éditeur.
 
 ## Traçabilité

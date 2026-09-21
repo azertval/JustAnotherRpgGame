@@ -169,8 +169,8 @@ Trois changements, faits dans `Source/Ui` seulement, puis le jeu relancé avec
 
 | Avant | Après |
 |---|---|
-| ![menu avant](captures/phase1-avant-menu.jpg) | ![menu après](captures/phase1-apres-menu.jpg) |
-| ![fiche avant](captures/phase1-avant-fiche.png) | ![fiche après](captures/phase1-apres-fiche.png) |
+| ![menu avant](../annexes/LOT-87-charte-v2/captures/phase1-avant-menu.jpg) | ![menu après](../annexes/LOT-87-charte-v2/captures/phase1-apres-menu.jpg) |
+| ![fiche avant](../annexes/LOT-87-charte-v2/captures/phase1-avant-fiche.png) | ![fiche après](../annexes/LOT-87-charte-v2/captures/phase1-apres-fiche.png) |
 
 Le `git diff` du test touche trois fichiers, tous sous `Source/Ui/**` ; aucun `.cpp`, aucun
 `.h`, aucun fichier engendré. Les deux journaux de session ne contiennent aucun avertissement QML.
@@ -352,7 +352,7 @@ mise en page inchangées. Le journal ne le signale pas : il ne dit qu'un fichier
 
 ### T2.4 — Le cahier des assets
 
-Le cahier est une page à part, @subpage lot-87-cahier-assets, et son jumeau machine
+Le cahier est une page à part, [LOT-87 — Cahier des assets de la charte v2](../annexes/LOT-87-charte-v2/assets-brief.md), et son jumeau machine
 `assets-brief.json`, validé contre `assets-brief.schema.json` par `scripts/check_assets_brief.py`.
 **80 pièces, 214 images** (une par état ou par membre d'un jeu d'icônes), en onze familles ; chacune
 porte sa clé au format du `LOT-39` (`ui/<famille>/<pièce>`), sa taille de production à 1080p, ses
@@ -434,7 +434,7 @@ refusées avec leur motif ; `check_ui_assets.py` reste vert après une installat
 Aucune pièce n'est encore produite : la production (le générateur d'images, hors de portée de
 Claude) n'a pas tourné. Le cahier et les deux scripts sont la matière prête à la recevoir.
 La production a tourné ensuite : les 213 pièces sont reçues le 18 septembre 2026 (voir
-[la réception des images produites](@ref lot-87-reception)).
+[la réception des images produites](#lot-87-reception)).
 
 ### T2.7 — Les briques de la charte v2
 
@@ -575,7 +575,7 @@ ramenées à 1920 × 1080, puis multipliées par `Tokens.uiScale` : scène en fo
 
 | Maquette | 1920 × 1080 | 1280 × 720 |
 |---|---|---|
-| ![maquette 06](references/06_Main_Menu_Mockup.png) | ![menu à 1080p](captures/t3-1-menu-1080p.png) | ![menu à 720p](captures/t3-1-menu-720p.png) |
+| ![maquette 06](../annexes/LOT-87-charte-v2/references/06_Main_Menu_Mockup.png) | ![menu à 1080p](../annexes/LOT-87-charte-v2/captures/t3-1-menu-1080p.png) | ![menu à 720p](../annexes/LOT-87-charte-v2/captures/t3-1-menu-720p.png) |
 
 ### T3.2 — Les options (maquette 05)
 
@@ -608,7 +608,7 @@ Conséquence assumée : le volume et la langue ne s'appliquent plus au glisser o
 
 | Maquette | 1920 × 1080 (Général) | 1280 × 720 (Général) | 1280 × 720 (Graphismes) |
 |---|---|---|---|
-| ![maquette 05](references/05_Options_Mockup.png) | ![options à 1080p](captures/t3-2-options-1080p.png) | ![options à 720p](captures/t3-2-options-720p.png) | ![graphismes à 720p](captures/t3-2-options-graphismes-720p.png) |
+| ![maquette 05](../annexes/LOT-87-charte-v2/references/05_Options_Mockup.png) | ![options à 1080p](../annexes/LOT-87-charte-v2/captures/t3-2-options-1080p.png) | ![options à 720p](../annexes/LOT-87-charte-v2/captures/t3-2-options-720p.png) | ![graphismes à 720p](../annexes/LOT-87-charte-v2/captures/t3-2-options-graphismes-720p.png) |
 
 ### T3.3 — Les crédits (maquette 07)
 
@@ -636,7 +636,7 @@ contributeur à y nommer, et `credits.json` en accueillera une le jour où il en
 
 | Maquette | 1920 × 1080 | 1280 × 720 |
 |---|---|---|
-| ![maquette 07](references/07_Credit_Mockup.png) | ![crédits à 1080p](captures/t3-3-credits-1080p.png) | ![crédits à 720p](captures/t3-3-credits-720p.png) |
+| ![maquette 07](../annexes/LOT-87-charte-v2/references/07_Credit_Mockup.png) | ![crédits à 1080p](../annexes/LOT-87-charte-v2/captures/t3-3-credits-1080p.png) | ![crédits à 720p](../annexes/LOT-87-charte-v2/captures/t3-3-credits-720p.png) |
 
 ### T3.4 — La fiche de personnage (maquette 03)
 
@@ -674,7 +674,7 @@ niveau suivant** qui remplit la jauge d'expérience (`character_sheet.experience
 
 | Maquette | 1920 × 1080 | 1280 × 720 |
 |---|---|---|
-| ![maquette 03](references/03_Character_Sheet_Mockup.png) | ![fiche à 1080p](captures/t3-4-fiche-1080p.png) | ![fiche à 720p](captures/t3-4-fiche-720p.png) |
+| ![maquette 03](../annexes/LOT-87-charte-v2/references/03_Character_Sheet_Mockup.png) | ![fiche à 1080p](../annexes/LOT-87-charte-v2/captures/t3-4-fiche-1080p.png) | ![fiche à 720p](../annexes/LOT-87-charte-v2/captures/t3-4-fiche-720p.png) |
 
 ### T3.5 — L'inventaire et l'équipement (maquette 04)
 
@@ -724,7 +724,7 @@ valeur publiée (règle du `LOT-14`).
 
 | Maquette | 1920 × 1080 | 1280 × 720 |
 |---|---|---|
-| ![maquette 04](references/04_Inventory_Equipment_Mockup.png) | ![inventaire à 1080p](captures/t3-5-inventaire-1080p.png) | ![inventaire à 720p](captures/t3-5-inventaire-720p.png) |
+| ![maquette 04](../annexes/LOT-87-charte-v2/references/04_Inventory_Equipment_Mockup.png) | ![inventaire à 1080p](../annexes/LOT-87-charte-v2/captures/t3-5-inventaire-1080p.png) | ![inventaire à 720p](../annexes/LOT-87-charte-v2/captures/t3-5-inventaire-720p.png) |
 
 ### T3.6 — La carte du monde (maquette 08)
 
@@ -773,7 +773,7 @@ sur la carte (`LOT-16`). La mini-carte montre la carte entière, sans rectangle 
 
 | Maquette | 1920 × 1080 | 1280 × 720 | Fiche de région (720p) |
 |---|---|---|---|
-| ![maquette 08](references/08_Map_Mockup.png) | ![carte à 1080p](captures/t3-6-carte-1080p.png) | ![carte à 720p](captures/t3-6-carte-720p.png) | ![fiche de région](captures/t3-6-carte-fiche-720p.png) |
+| ![maquette 08](../annexes/LOT-87-charte-v2/references/08_Map_Mockup.png) | ![carte à 1080p](../annexes/LOT-87-charte-v2/captures/t3-6-carte-1080p.png) | ![carte à 720p](../annexes/LOT-87-charte-v2/captures/t3-6-carte-720p.png) | ![fiche de région](../annexes/LOT-87-charte-v2/captures/t3-6-carte-fiche-720p.png) |
 
 ### T3.7 — L'équipe de mercenaires (maquette 09)
 
@@ -806,7 +806,7 @@ L'illustration de la base n'est pas au cahier (données de la compagnie) : son c
 
 | Maquette | 1920 × 1080 | 1280 × 720 |
 |---|---|---|
-| ![maquette 09](references/09_MercenaryScreen_Mockup.png) | ![compagnie à 1080p](captures/t3-7-compagnie-1080p.png) | ![compagnie à 720p](captures/t3-7-compagnie-720p.png) |
+| ![maquette 09](../annexes/LOT-87-charte-v2/references/09_MercenaryScreen_Mockup.png) | ![compagnie à 1080p](../annexes/LOT-87-charte-v2/captures/t3-7-compagnie-1080p.png) | ![compagnie à 720p](../annexes/LOT-87-charte-v2/captures/t3-7-compagnie-720p.png) |
 
 ### T3.8 — Les compétences et sorts (maquette 10)
 
@@ -836,7 +836,7 @@ de bouton « Gestion des sorts » : il n'aurait rien à ouvrir (`EX-IHM-072`).
 
 | Maquette | 1920 × 1080 | 1280 × 720 |
 |---|---|---|
-| ![maquette 10](references/10_Skills_Mockup.png) | ![sorts à 1080p](captures/t3-8-sorts-1080p.png) | ![sorts à 720p](captures/t3-8-sorts-720p.png) |
+| ![maquette 10](../annexes/LOT-87-charte-v2/references/10_Skills_Mockup.png) | ![sorts à 1080p](../annexes/LOT-87-charte-v2/captures/t3-8-sorts-1080p.png) | ![sorts à 720p](../annexes/LOT-87-charte-v2/captures/t3-8-sorts-720p.png) |
 
 ### T3.9 — Pause, dialogue, marchand, journal : restylés
 
@@ -860,10 +860,10 @@ les contrôles v1 partent au T5.2 une fois qu'il est fait.
 
 | Écran | 1920 × 1080 | 1280 × 720 |
 |---|---|---|
-| Pause | ![pause à 1080p](captures/t3-9-pause-1080p.png) | ![pause à 720p](captures/t3-9-pause-720p.png) |
-| Dialogue | ![dialogue à 1080p](captures/t3-9-dialogue-1080p.png) | ![dialogue à 720p](captures/t3-9-dialogue-720p.png) |
-| Marchand | ![marchand à 1080p](captures/t3-9-merchant-1080p.png) | ![marchand à 720p](captures/t3-9-merchant-720p.png) |
-| Journal | ![journal à 1080p](captures/t3-9-journal-1080p.png) | ![journal à 720p](captures/t3-9-journal-720p.png) |
+| Pause | ![pause à 1080p](../annexes/LOT-87-charte-v2/captures/t3-9-pause-1080p.png) | ![pause à 720p](../annexes/LOT-87-charte-v2/captures/t3-9-pause-720p.png) |
+| Dialogue | ![dialogue à 1080p](../annexes/LOT-87-charte-v2/captures/t3-9-dialogue-1080p.png) | ![dialogue à 720p](../annexes/LOT-87-charte-v2/captures/t3-9-dialogue-720p.png) |
+| Marchand | ![marchand à 1080p](../annexes/LOT-87-charte-v2/captures/t3-9-merchant-1080p.png) | ![marchand à 720p](../annexes/LOT-87-charte-v2/captures/t3-9-merchant-720p.png) |
+| Journal | ![journal à 1080p](../annexes/LOT-87-charte-v2/captures/t3-9-journal-1080p.png) | ![journal à 720p](../annexes/LOT-87-charte-v2/captures/t3-9-journal-720p.png) |
 
 ### Où en est la phase 3
 
@@ -940,11 +940,11 @@ pixel art ; la scène isométrique peinte de la maquette n'est pas un objectif d
 
 | Maquette | Combat, 1920 × 1080 | Combat, 1280 × 720 |
 |---|---|---|
-| ![maquette 01](references/01_InGame_HUD_Mockup.png) | ![combat à 1080p](captures/t4-1-combat-1080p.png) | ![combat à 720p](captures/t4-1-combat-720p.png) |
+| ![maquette 01](../annexes/LOT-87-charte-v2/references/01_InGame_HUD_Mockup.png) | ![combat à 1080p](../annexes/LOT-87-charte-v2/captures/t4-1-combat-1080p.png) | ![combat à 720p](../annexes/LOT-87-charte-v2/captures/t4-1-combat-720p.png) |
 
 | Exploration, 1920 × 1080 | Exploration, 1280 × 720 |
 |---|---|
-| ![exploration à 1080p](captures/t4-1-exploration-1080p.png) | ![exploration à 720p](captures/t4-1-exploration-720p.png) |
+| ![exploration à 1080p](../annexes/LOT-87-charte-v2/captures/t4-1-exploration-1080p.png) | ![exploration à 720p](../annexes/LOT-87-charte-v2/captures/t4-1-exploration-720p.png) |
 
 ## Phase 5 — retirer ce qui ne sert plus
 
@@ -979,8 +979,7 @@ rien ne restait à basculer sous `Source/Elements/Assets/UI/icons/`.
   **Écart assumé** : les deux fichiers de police et leurs licences restent dans
   `Source/Elements/Assets/Fonts/`. Ils sont encore chargés par `hmi::applyFont()`
   (`Source/HMI/Interface/ApplicationTheme.cpp`), qui sert une portée entièrement distincte — la
-  portée **identité** du châssis d'édition en Qt Widgets (`LOT-56`/`LOT-68`, @ref
-  guide-design-ihm), avec son propre système de jetons (`hmi::identityTokens()`,
+  portée **identité** du châssis d'édition en Qt Widgets (`LOT-56`/`LOT-68`, [Conception de l'IHM](../../../../../Documentation/Guide/guide-design-ihm.md)), avec son propre système de jetons (`hmi::identityTokens()`,
   `DesignTokens.cpp`) construit sur une échelle entière en pixels, sans rapport avec
   `Source/Ui/Theme/Tokens.qml`. Ce plan ne couvre que les écrans QML du jeu (`Source/Ui/**`) ; faire
   suivre cette seconde portée à la charte v2 — ou trancher qu'elle reste en pixel art — est une
@@ -1016,7 +1015,7 @@ Tanares ont servi de références de style ; aucun de leurs pixels n'est repris.
   `illustrations.json`.
 - **La section `pending` du manifeste est vidée** : plus aucune clé du cahier n'est en attente, et
   `check_ui_assets.py` vérifie désormais que chacune a son fichier.
-- **Documentation de la livraison** sous `Documentation/Lot/LOT-87-charte-v2/images-produites/` : les planches par
+- **Documentation de la livraison** sous `Planning/versions/v0.0.0/v0.0.0-fondation/annexes/LOT-87-charte-v2/images-produites/` : les planches par
   famille et par groupe d'icônes (`planches/`, étiquetées, ce ne sont pas des captures du jeu) et
   l'inventaire (`inventory.json`, `inventory.csv` : chemins, dimensions, modes d'affichage, marges,
   empreintes).
@@ -1042,18 +1041,18 @@ manette) sur les états livrés, que les captures statiques ne montrent pas.
 
 ## Exigences couvertes
 
-- [`EX-IHM-070`](@ref EX-IHM-070), [`EX-IHM-075`](@ref EX-IHM-075), [`EX-IHM-076`](@ref EX-IHM-076),
-  [`EX-IHM-081`](@ref EX-IHM-081) : refondues ou précisées par la phase 2 (T2.1), pour décrire la
+- [`EX-IHM-070`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-070), [`EX-IHM-075`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-075), [`EX-IHM-076`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-076),
+  [`EX-IHM-081`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-081) : refondues ou précisées par la phase 2 (T2.1), pour décrire la
   charte v2.
-- [`EX-IHM-053`](@ref EX-IHM-053) : refondue par le T2.4 — les icônes des écrans du jeu sont
+- [`EX-IHM-053`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-053) : refondue par le T2.4 — les icônes des écrans du jeu sont
   produites, au double de leur taille d'affichage.
 
 ## Bilan
 
-Statut : **livré**. Exigences refondues : [`EX-IHM-070`](@ref EX-IHM-070) (charte v2, facteur réel),
-[`EX-IHM-075`](@ref EX-IHM-075) (ornements produits en images, sous trois conditions),
-[`EX-IHM-076`](@ref EX-IHM-076) (illustrations extraites ou produites, jamais sans provenance).
-Exigence précisée : [`EX-IHM-081`](@ref EX-IHM-081) (les deux facteurs). Phase 3 : une PR par
+Statut : **livré**. Exigences refondues : [`EX-IHM-070`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-070) (charte v2, facteur réel),
+[`EX-IHM-075`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-075) (ornements produits en images, sous trois conditions),
+[`EX-IHM-076`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-076) (illustrations extraites ou produites, jamais sans provenance).
+Exigence précisée : [`EX-IHM-081`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-081) (les deux facteurs). Phase 3 : une PR par
 tâche, empilées — #28 (T3.1), puis #29 à #36. Les critères d'acceptation de la phase 0 sont dans
 l'en-tête de la fiche.
 
@@ -1061,7 +1060,7 @@ l'en-tête de la fiche.
 inventaire, carte, compagnie, sorts), les quatre restylés sans redessin (pause, dialogue, marchand,
 journal) et le cadre du HUD tiennent tous sur la charte v2 ; plus aucun écran n'importe un contrôle
 ou un jeton de la charte v1. Les 214 images du cahier sont livrées depuis le 18 septembre 2026
-([la réception](@ref lot-87-reception)) : les briques posent les images produites, plus aucun aplat de
+([la réception](#lot-87-reception)) : les briques posent les images produites, plus aucun aplat de
 repli ne s'affiche. Restent aussi ouverts, notés au T5.2 : la portée identité du châssis
 d'édition (police pixel, jetons entiers) n'a pas suivi la charte v2, et les branches distantes
 mortes de la phase 0 attendent une suppression manuelle.

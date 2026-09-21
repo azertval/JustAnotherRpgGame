@@ -32,7 +32,7 @@ revenir — **sans que le joueur perde quoi que ce soit au passage**.
 ## Périmètre
 
 Il livre la **bascule**, pas le combat. Ni initiative, ni tour actif, ni résolution d'action : ce
-sont les [LOT-19](@ref lot-19) et [LOT-20](@ref lot-20). Séparer les deux n'est pas un découpage
+sont les [LOT-19](LOT-19-grille-tactique.md) et [LOT-20](LOT-20-initiative-tour-par-tour.md). Séparer les deux n'est pas un découpage
 administratif — un aller-retour qui perd la position du personnage est un défaut qu'on ne voit plus
 une fois qu'il y a des tours à jouer par-dessus, et qu'on n'aurait jamais isolé.
 
@@ -66,7 +66,7 @@ Il ne porte pas non plus les ennemis vaincus : cela ne se restitue pas, cela s'*
 
 ### Un ennemi vaincu est un drapeau de monde, pas un booléen
 
-C'est le piège que le [LOT-10](@ref lot-10) avait déjà nommé pour les coffres, et il se pose
+C'est le piège que le [LOT-10](LOT-10-entites-de-carte.md) avait déjà nommé pour les coffres, et il se pose
 identiquement ici : l'entité de l'ennemi est détruite et recréée depuis la couche `objects` au
 rechargement de la carte, et un booléen porté par elle disparaîtrait avec elle. L'ennemi
 réapparaîtrait à chaque passage — un défaut qui ne casse rien, ne lève aucune alerte, et se confond
@@ -112,9 +112,9 @@ Trois passes de l'exploration disparaissent, chacune pour une raison précise :
 
 | Passe retirée | Pourquoi |
 |---|---|
-| `moveCharacter` | le déplacement suit le **budget du tour** ([LOT-19](@ref lot-19)), pas l'intention libre du joueur ; la laisser donnerait un combat où l'on marche pendant le tour d'un autre |
+| `moveCharacter` | le déplacement suit le **budget du tour** ([LOT-19](LOT-19-grille-tactique.md)), pas l'intention libre du joueur ; la laisser donnerait un combat où l'on marche pendant le tour d'un autre |
 | `updateMechanisms` | une plaque de pression qui s'enfoncerait au milieu d'un tour ferait dépendre le combat d'une règle qu'aucun livre ne décrit |
-| `evaluateOutcome` | tomber à zéro point de vie est une issue du **combat**, pas du niveau ; l'évaluer ici rechargerait le niveau au lieu d'ouvrir l'agonie ([LOT-72](@ref lot-72)) |
+| `evaluateOutcome` | tomber à zéro point de vie est une issue du **combat**, pas du niveau ; l'évaluer ici rechargerait le niveau au lieu d'ouvrir l'agonie ([LOT-72](../../../../vision/archives/feuille-de-route-jeu.md#lot-72)) |
 
 Ce qui reste tourne parce que le combat demeure une **scène** : particules et secousse d'écran
 finissent ce qu'elles ont commencé, les animations continuent — un combattant immobile respire — et
@@ -123,9 +123,9 @@ vérifie qu'aucune passe gelée n'y figure.
 
 ### Le personnage de démonstration
 
-`Rpg/encounters/nuee-de-rats.json` : trois bêtes du SRD ([LOT-33](@ref lot-33)), seules créatures
+`Rpg/encounters/nuee-de-rats.json` : trois bêtes du SRD ([LOT-33](LOT-33-bestiaire-de-base.md)), seules créatures
 livrées à ce jour. Déclarée **provisoire** avec son critère de retrait — elle disparaît quand le
-contenu du [LOT-27](@ref lot-27) fournira ses propres rencontres.
+contenu du [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27) fournira ses propres rencontres.
 
 ## Vérification
 

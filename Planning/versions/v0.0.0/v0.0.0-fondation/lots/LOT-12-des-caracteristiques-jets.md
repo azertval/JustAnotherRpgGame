@@ -22,7 +22,7 @@ criteres = [
   "Avantage = max de deux d20, désavantage = min ; les deux ensemble **s'annulent**, y compris à 2 contre 1. ✔",
   "1 et 20 naturels détectés et **distingués** d'un total de 1 ou 20. ✔",
   "Aucune dépendance ECS, Qt ou rendu : `Core/Rpg/` compile seul. ✔",
-  "Une notation mal formée est refusée — dont `ld8`, la faute d'OCR que le [LOT-30](@ref lot-30) a documentée. ✔",
+  "Une notation mal formée est refusée — dont `ld8`, la faute d'OCR que le [LOT-30](LOT-30-chaine-extraction-corpus.md) a documentée. ✔",
   "`ctest` : **968/968** (954 avant le lot, plus 14). ✔",
 ]
 sources = ["Basic Rules, p. 64 (table « Tâche / DD »)"]
@@ -49,11 +49,11 @@ ni GPU.
 ### Ce que le lot ne fait pas
 
 **Il ne connaît ni personnage ni créature.** `rollCheck` prend un seuil et des modificateurs ; d'où
-ils viennent est l'affaire du [LOT-13](@ref lot-13). `Core/Rpg/` ne dépend ni de l'ECS, ni de Qt,
+ils viennent est l'affaire du [LOT-13](LOT-13-fiche-de-personnage.md). `Core/Rpg/` ne dépend ni de l'ECS, ni de Qt,
 ni du rendu.
 
 **Il n'applique aucune règle de critique.** `isNaturalTwenty()` le *signale* ; ce qu'un critique
-fait aux dégâts appartient au [LOT-21](@ref lot-21).
+fait aux dégâts appartient au [LOT-21](LOT-21-attaques-degats-etats.md).
 
 ## Conception
 
@@ -132,5 +132,5 @@ Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertisseme
 968/968, `clang-format`, les six lints, cahier de test et Doxygen verts. Aucun prérequis : pur
 `Core`, zéro dépendance.
 
-Exigences couvertes : [`EX-REG-002`](@ref EX-REG-002), [`EX-REG-003`](@ref EX-REG-003),
-[`EX-REG-021`](@ref EX-REG-021), [`EX-NFR-002`](@ref EX-NFR-002).
+Exigences couvertes : [`EX-REG-002`](../../../../../Documentation/Specification/regles-d20.md#EX-REG-002), [`EX-REG-003`](../../../../../Documentation/Specification/regles-d20.md#EX-REG-003),
+[`EX-REG-021`](../../../../../Documentation/Specification/regles-d20.md#EX-REG-021), [`EX-NFR-002`](../../../../../Documentation/Specification/exigences-non-fonctionnelles.md#EX-NFR-002).

@@ -52,14 +52,14 @@ armure et le plafond d'une valeur de caractéristique) — avec leurs deux sché
 ### Ce que le lot ne fait pas
 
 **Il ne calcule pas la classe d'armure d'une armure portée.** Une fiche sans équipement a la CA que
-le livre lui donne ; les armures sont le [LOT-34](@ref lot-34), et l'inventaire le
-[LOT-14](@ref lot-14).
+le livre lui donne ; les armures sont le [LOT-34](LOT-34-equipement.md), et l'inventaire le
+[LOT-14](LOT-14-inventaire-et-equipement.md).
 
 **Il n'attribue pas les capacités de classe.** La progression porte leurs identifiants, niveau par
 niveau ; les jouer viendra avec les mécanismes qui les portent.
 
 **Il n'a pas d'interface.** La fiche est un objet du `Core`, sans fenêtre : sa maquette et son écran
-sont le [LOT-38](@ref lot-38).
+sont le [LOT-38](LOT-38-fiche-de-personnage.md).
 
 ## Conception
 
@@ -67,7 +67,7 @@ sont le [LOT-38](@ref lot-38).
 
 Le périmètre annonçait un `ClassDefinition.{h,cpp}` « piloté par JSON, jamais codé en dur : dé de
 vie, maîtrises, progression par niveau ». C'est exactement `core::PlayableClass`, que le
-[LOT-36](@ref lot-36) a livré en chargeant `Source/Elements/Rpg/classes/` — dé de vie,
+[LOT-36](LOT-36-especes-historiques-classes.md) a livré en chargeant `Source/Elements/Rpg/classes/` — dé de vie,
 caractéristique principale, jets de sauvegarde et vingt lignes de progression.
 
 Écrire un second type pour la même chose aurait créé deux vérités sur ce qu'est une classe, et la
@@ -113,7 +113,7 @@ une fiche jouable.
 ### `CharacterSheet` est un objet autonome, jamais un singleton joueur
 
 La décision de cadrage est « un héros au départ, quatre à terme » : le passage au groupe
-([LOT-29](@ref lot-29)) ne doit **rien** changer à ce type. Aucune fonction du fichier ne prend
+([LOT-29](../../../../vision/archives/feuille-de-route-jeu.md#lot-29)) ne doit **rien** changer à ce type. Aucune fonction du fichier ne prend
 « le personnage » implicitement — toutes reçoivent la fiche sur laquelle elles travaillent.
 
 Le test `QuatreFichesIndependantes` est ce qui rend la règle exécutoire : il construit quatre
@@ -128,7 +128,7 @@ un personnage avec le bonus de l'ancien — un défaut qui se joue et ne se voit
 
 `RpgActor` porte un **indice**, pas une `CharacterSheet`. La raison de taille est secondaire ; la
 vraie est qu'**une fiche n'appartient pas à une entité**. Un personnage du groupe garde la sienne
-quand il change de carte et que son entité est détruite puis recréée ([LOT-09](@ref lot-09)) : une
+quand il change de carte et que son entité est détruite puis recréée ([LOT-09](LOT-09-colisee-premiere-carte.md)) : une
 fiche survit à l'entité qui la représente. Loger la fiche dans le composant lierait la vie de l'une
 à celle de l'autre, et le `LOT-29` devrait défaire ce lien.
 
@@ -156,7 +156,7 @@ silence ferait *descendre* un personnage de niveau, et le défaut passerait pour
 
 Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à
 992/992, `clang-format`, les six lints, cahier de test et Doxygen verts. Alimente
-[LOT-14](@ref lot-14), [LOT-27](@ref lot-27), [LOT-38](@ref lot-38), [LOT-74](@ref lot-74).
+[LOT-14](LOT-14-inventaire-et-equipement.md), [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27), [LOT-38](LOT-38-fiche-de-personnage.md), [LOT-74](../../../../vision/archives/feuille-de-route-jeu.md#lot-74).
 
-Exigences couvertes : [`EX-REG-010`](@ref EX-REG-010), [`EX-REG-011`](@ref EX-REG-011),
-[`EX-RPG-001`](@ref EX-RPG-001).
+Exigences couvertes : [`EX-REG-010`](../../../../../Documentation/Specification/regles-d20.md#EX-REG-010), [`EX-REG-011`](../../../../../Documentation/Specification/regles-d20.md#EX-REG-011),
+[`EX-RPG-001`](../../../../../Documentation/Specification/rpg.md#EX-RPG-001).

@@ -1,11 +1,11 @@
-# Contrôles & entrées {#spec-controles}
+# Contrôles & entrées
 
 > Statut : **livré** pour l'exploration, les écrans et l'arène. Le clavier suffit à tout ; la
 > manette (XInput) pilote l'arène et la carte du monde. Dépend de [`gameplay.md`](gameplay.md).
 
 ## 1. Périphériques
-- \anchor EX-CTRL-001 **EX-CTRL-001** — Le jeu doit être jouable **entièrement au clavier**.
-- \anchor EX-CTRL-002 **EX-CTRL-002** — Le jeu doit supporter une **manette** (XInput).
+- **EX-CTRL-001** — Le jeu doit être jouable **entièrement au clavier**.
+- **EX-CTRL-002** — Le jeu doit supporter une **manette** (XInput).
 
 ## 2. Commandes du jeu
 
@@ -21,20 +21,20 @@ ou « retour », jamais à une touche en particulier.
 | Valider | Entrée | A |
 | Retour | Échap | B |
 
-- \anchor EX-CTRL-010 **EX-CTRL-010** — Chaque commande du jeu doit être une **commande nommée**,
+- **EX-CTRL-010** — Chaque commande du jeu doit être une **commande nommée**,
   dissociée de la touche ou du bouton physique qui la déclenche : une touche du clavier et un bouton
   de manette mènent à la même commande.
-- \anchor EX-CTRL-011 **EX-CTRL-011** — L'état d'un bouton doit distinguer **pressé**, **maintenu**
+- **EX-CTRL-011** — L'état d'un bouton doit distinguer **pressé**, **maintenu**
   et **relâché** d'une lecture à l'autre, pour qu'un appui maintenu ne déclenche qu'une fois — ou
   se répète à une cadence choisie, pas à celle de la lecture (`hmi::InputState`).
-- \anchor EX-CTRL-012 **EX-CTRL-012** — Les raccourcis de l'**éditeur** doivent être
+- **EX-CTRL-012** — Les raccourcis de l'**éditeur** doivent être
   **reconfigurables** par fichier (`Settings/keybindings.json`) ; un fichier absent ou partiel
   retombe sur les valeurs par défaut.
-- \anchor EX-CTRL-022 **EX-CTRL-022** — **Interagir** doit être une commande dédiée (E ou Espace)
+- **EX-CTRL-022** — **Interagir** doit être une commande dédiée (E ou Espace)
   qui déclenche l'entité placée devant le héros — dialogue, coffre, portail (`EX-EXP-004`).
 
 ## 3. Réactivité
-- \anchor EX-CTRL-020 **EX-CTRL-020** — La latence entre une entrée et son effet ne doit pas
+- **EX-CTRL-020** — La latence entre une entrée et son effet ne doit pas
   dépasser **un pas** de simulation : une touche enfoncée est lue au pas suivant, jamais perdue
   entre deux.
 
@@ -42,9 +42,9 @@ ou « retour », jamais à une touche en particulier.
 
 > Ancres conservées, jamais renumérotées : les lots livrés s'y réfèrent.
 
-- \anchor EX-CTRL-013 **EX-CTRL-013** *(retirée au `LOT-88`)* — commande de ruée (dash) : le jeu n'a
+- **EX-CTRL-013** *(retirée au `LOT-88`)* — commande de ruée (dash) : le jeu n'a
   pas de ruée.
-- \anchor EX-CTRL-021 **EX-CTRL-021** *(retirée au `LOT-88`)* — échantillonnage des entrées par la
+- **EX-CTRL-021** *(retirée au `LOT-88`)* — échantillonnage des entrées par la
   boucle d'une fenêtre native : Qt distribue désormais les événements.
 
 ## Traçabilité

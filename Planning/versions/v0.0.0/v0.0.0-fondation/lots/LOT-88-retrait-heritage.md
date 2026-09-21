@@ -11,7 +11,7 @@ livrables = [
   "`hmi::WorldPlay` (`Source/HMI/Game/WorldPlay.h`) : la mise en scène de l'exploration, partagée par `hmi::WorldModel` et l'essai de l'éditeur (`EditorViewport`, `DraftRenderer`).",
   "`core::TileType` réduit à douze types ; `core::Level` et `core::LevelData` sans sortie, mécanismes, fond, skins, cadrage ni plans ; `CameraFraming` et `Plane` supprimés.",
   "Suppression de `GameSession`, de `Core/Physics`, des mécanismes, des skins et raccords, de l'atelier pixel art, des assets et bruitages d'origine (`Source/Elements/Assets/`, `Source/Elements/Audio/`) et de leurs scripts générateurs.",
-  "Le registre compact [`exigences-retirees.md`](@ref spec-retirees) : 120 exigences retirées, ancres conservées ; `ia.md` et `decors.md` retirées, huit spécifications réécrites sur le jeu réel.",
+  "Le registre compact [`exigences-retirees.md`](../../../../../Documentation/Specification/exigences-retirees.md) : 120 exigences retirées, ancres conservées ; `ia.md` et `decors.md` retirées, huit spécifications réécrites sur le jeu réel.",
   "`lint_exigences.py` reconnaît la marque *(retirée…)* ; `lint_lots.py` refuse la notation `LOT-H-NN` ; `Documentation/Heritage/` supprimé.",
   "Polices `Pixelify Sans` et `Press Start 2P` supprimées avec `FontRole::Identity` ; tags `v0.0.1` à `v0.1.3` et `archive/platformer-v0.1.3` supprimés.",
 ]
@@ -24,7 +24,7 @@ criteres = [
 
 ## Pourquoi
 
-Le dépôt est né d'un jeu de plateforme en vue de côté. Le [LOT-01](@ref lot-01) en avait purgé les
+Le dépôt est né d'un jeu de plateforme en vue de côté. Le [LOT-01](LOT-01-fork-purge.md) en avait purgé les
 niveaux et le solveur par apprentissage ; il restait le reste : un runtime de jeu que l'essai de
 l'éditeur était seul à faire tourner, les mécanismes (interrupteurs, portes, clés, plaques,
 plateformes mobiles), la tuile de sortie, le cadrage de caméra, les plans et la parallaxe,
@@ -63,7 +63,7 @@ Ce qui a été fait, en quatre volets.
   le cadrage et les plans ; `CameraFraming` et `Plane` sont supprimés. Le chargeur n'exige plus
   qu'une entrée.
 - Les trois cartes livrées (Colisée, Martpart, Arenarea) perdent leur tuile de sortie et leur
-  cadrage ; les ateliers du [LOT-09](@ref lot-09) et du [LOT-96](@ref lot-96) cessent de les
+  cadrage ; les ateliers du [LOT-09](LOT-09-colisee-premiere-carte.md) et du [LOT-96](LOT-96-quartiers-capitale.md) cessent de les
   écrire.
 
 ### 3. Assets, scripts et restes de code
@@ -78,7 +78,7 @@ Ce qui a été fait, en quatre volets.
 ### 4. Spécifications, guides, manuel
 
 - `ia.md` et `decors.md` sont retirées ; leurs 41 ancres (`EX-IA-*`, `EX-DEC-*`) vivent dans
-  [`exigences-retirees.md`](@ref spec-retirees).
+  [`exigences-retirees.md`](../../../../../Documentation/Specification/exigences-retirees.md).
 - `gameplay.md`, `controles.md`, `rendu-technique.md`, `niveaux.md`, `editeur-niveaux.md`,
   `interface-ihm.md`, `architecture.md`, `exigences-non-fonctionnelles.md` sont réécrites sur le
   jeu réel ; chacune liste ses exigences retirées en fin de page.
@@ -123,12 +123,12 @@ vigueur ; voici ce qui les tient aujourd'hui.
 
 | Exigence | Ce qui la tient |
 |---|---|
-| `EX-IHM-001`, `EX-IHM-041` | Deux exécutables, une technologie d'UI chacun : Qt Quick pour le jeu, Qt Widgets pour l'éditeur ([LOT-86](@ref lot-86)) |
+| `EX-IHM-001`, `EX-IHM-041` | Deux exécutables, une technologie d'UI chacun : Qt Quick pour le jeu, Qt Widgets pour l'éditeur ([LOT-86](LOT-86-refonte-hmi-quick.md)) |
 | `EX-IHM-002` | La scène embarquée dans un élément Qt : `WorldViewportItem`, `ArenaViewportItem`, et le `QRhiWidget` de l'éditeur |
 | `EX-REN-030` | Le menu principal en Qt Quick (`MainMenu.qml`) |
 | `EX-GP-014` | Le déplacement de `core::ExplorationSession`, résolu axe par axe contre les tuiles solides |
 | `EX-NFR-001` | Le compteur de diagnostic des options ; la cadence se constate, elle ne se vérifie pas en CI |
-| `EX-EDIT-020`, `EX-EDIT-021`, `EX-EDIT-022` | `LevelEditor.exe`, livré à côté du jeu ; les cartes dans `Source/Elements/Levels/` ; le guide [Créer et partager une carte](@ref manuel-partager-niveau) |
+| `EX-EDIT-020`, `EX-EDIT-021`, `EX-EDIT-022` | `LevelEditor.exe`, livré à côté du jeu ; les cartes dans `Source/Elements/Levels/` ; le guide [Créer et partager une carte](../../../../../Documentation/Guide/Manuel/partager-un-niveau.md) |
 
 ## Tags du jeu d'origine
 

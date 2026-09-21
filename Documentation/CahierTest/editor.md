@@ -1,6 +1,6 @@
 # Editor
 
-Tests unitaires — **175 cas** (14 bloquants, 43 critiques, 91 majeurs, 27 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **179 cas** (15 bloquants, 43 critiques, 94 majeurs, 27 mineurs). [Retour à la synthèse](README.md).
 
 ## test_autosave.cpp
 
@@ -892,7 +892,11 @@ L'annexe garde où en est la carte.
 - Vérifie que `hmi::mapStateKey(hmi::MapState::Generated)` vaut `"generated"`.
 - Vérifie que `hmi::mapStateFromKey("retouched")` vaut `hmi::MapState::Retouched`.
 - Vérifie que `hmi::mapStateLabel(hmi::MapState::Unset)` vaut `"not stated"`.
-- Vérifie que `hmi::knownMapStates().size()` vaut `3U`.
+- Vérifie que `hmi::knownMapStates().size()` vaut `4U`.
+- Vérifie que `hmi::mapStateKey(hmi::MapState::Blockout)` vaut `"blockout"`.
+- Vérifie que `hmi::mapStateFromKey("blockout")` vaut `hmi::MapState::Blockout`.
+- Vérifie que `hmi::mapStateLabel(hmi::MapState::Blockout)` vaut `"Blockout"`.
+- Vérifie que `hmi::knownMapStates()[1]` vaut `hmi::MapState::Blockout`.
 
 ## test_editor_status.cpp
 
@@ -1624,7 +1628,7 @@ Un geste refusé ne touche pas au fichier.
 
 ### LevelFileOps.CreeUnNiveauValide
 
-*Critique · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:48`
+*Critique · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:49`
 
 Créer un niveau écrit un fichier valide, immédiatement listé.
 
@@ -1641,7 +1645,7 @@ Créer un niveau écrit un fichier valide, immédiatement listé.
 
 ### LevelFileOps.UneCarteCreeeAvecUnLieuASesDeuxCouches
 
-*Bloquant · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:67`
+*Bloquant · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:68`
 
 Une carte creee avec un lieu a ses deux couches.
 
@@ -1658,9 +1662,24 @@ Une carte creee avec un lieu a ses deux couches.
 - Vérifie que `sols` vaut `1`.
 - Vérifie que `decors` vaut `1`.
 
+### LevelFileOps.UneCarteCreeeSansLieuASesDeuxCouches
+
+*Majeur* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:96`
+
+Une carte creee sans lieu a ses deux couches, et aucun lieu. cat Unitaire · Opérations sur fichiers de niveau crit Bloquant etapes 1. Créer une carte 12 × 8 sans lieu. 2. La relire. attendu Une couche de sol et une de décor ; aucune propriété `scene` ; la case de l'entrée porte un sol.
+
+**Résultat attendu**
+
+- Vérifie que `result.ok()` est vrai.
+- Vérifie que `lu.ok()` est vrai.
+- Vérifie que `hmi::scenePlaceOf(*lu.level).empty()` est vrai.
+- Vérifie que `sols` vaut `1`.
+- Vérifie que `decors` vaut `1`.
+- Vérifie que `instantane.typeAt({.column = 0, .row = 7})` vaut `core::TileType::Dirt`.
+
 ### ScenePlacesTest.LesLieuxProposesOntUnManifeste
 
-*Majeur · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:94`
+*Majeur · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:129`
 
 Les lieux proposes ont un manifeste.
 
@@ -1677,7 +1696,7 @@ Les lieux proposes ont un manifeste.
 
 ### LevelFileOps.LaPlusPetiteCarteFaitUneCase
 
-*Majeur · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:116`
+*Majeur · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:151`
 
 La plus petite carte créable est 1×1.
 
@@ -1695,7 +1714,7 @@ La plus petite carte créable est 1×1.
 
 ### LevelFileOps.FichierDeSequenceExcluDeLaListe
 
-*Majeur · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:137`
+*Majeur · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:172`
 
 Un fichier de séquence n'apparaît jamais dans la liste des niveaux.
 
@@ -1712,7 +1731,7 @@ Un fichier de séquence n'apparaît jamais dans la liste des niveaux.
 
 ### LevelFileOps.RefuseNomInvalideEtCollision
 
-*Critique · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:161`
+*Critique · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:196`
 
 Un nom invalide ou déjà pris est refusé, sans écraser le niveau existant.
 
@@ -1729,7 +1748,7 @@ Un nom invalide ou déjà pris est refusé, sans écraser le niveau existant.
 
 ### LevelFileOps.RenommeEtDeplaceLeFichier
 
-*Critique · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:178`
+*Critique · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:213`
 
 Renommer déplace le fichier : l'ancien chemin disparaît, le nouveau existe.
 
@@ -1747,7 +1766,7 @@ Renommer déplace le fichier : l'ancien chemin disparaît, le nouveau existe.
 
 ### LevelFileOps.DupliqueSousUnNomUnique
 
-*Critique · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:198`
+*Critique · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:233`
 
 Dupliquer deux fois le même niveau produit deux copies distinctes.
 
@@ -1766,7 +1785,7 @@ Dupliquer deux fois le même niveau produit deux copies distinctes.
 
 ### LevelFileOps.SupprimeLeFichier
 
-*Critique · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:220`
+*Critique · Unitaire · Opérations sur fichiers de niveau* — `Source/Test/Unit/Editor/test_level_file_operations.cpp:255`
 
 Supprimer retire effectivement le fichier du disque.
 
@@ -2002,9 +2021,21 @@ Chaque défaut sort, et le contrôle échoue.
 - Vérifie que `*code` vaut `1`.
 - Vérifie que `sortie.find("does not exist")` diffère de `std::string::npos`.
 
+### MapFormatTest.UnTypeNonCouvertParLeLieuEstSignale
+
+*Majeur* — `Source/Test/Unit/Editor/test_map_format.cpp:273`
+
+Un type absent de la table du lieu est signale par le controle. cat Unitaire · Format v4 crit Majeur etapes 1. Ecrire une carte du lieu d'essai portant une case d'eau, que sa table ne couvre pas. 2. La controler. attendu Un avertissement nomme le type et la table ; aucune erreur ne vise le type.
+
+**Résultat attendu**
+
+- Vérifie que `signale(constats, MapCheckSeverity::Warning, "tile type \"water\" is not covered")` est vrai.
+- Vérifie que `signale(constats, MapCheckSeverity::Warning, "shown as a mock-up")` est vrai.
+- Vérifie que `signale(constats, MapCheckSeverity::Error, "tile type")` est faux.
+
 ### MapFormatTest.MigrerRendUneCarteQueLeControleAccepte
 
-*Critique · Unitaire · Format v4* — `Source/Test/Unit/Editor/test_map_format.cpp:272`
+*Critique · Unitaire · Format v4* — `Source/Test/Unit/Editor/test_map_format.cpp:303`
 
 --migrate rend une carte que --check accepte.
 
@@ -2021,7 +2052,7 @@ Chaque défaut sort, et le contrôle échoue.
 
 ### MapFormatTest.SansCommandeLEditeurOuvreSaFenetre
 
-*Mineur · Unitaire · Format v4* — `Source/Test/Unit/Editor/test_map_format.cpp:299`
+*Mineur · Unitaire · Format v4* — `Source/Test/Unit/Editor/test_map_format.cpp:330`
 
 Sans commande, l'éditeur ouvre sa fenêtre.
 
@@ -2036,7 +2067,7 @@ Sans commande, l'éditeur ouvre sa fenêtre.
 
 ### MapFormatTest.ChaqueCarteMigreeSeJoueALIdentique
 
-*Critique · Unitaire · Format v4* — `Source/Test/Unit/Editor/test_map_format.cpp:318`
+*Critique · Unitaire · Format v4* — `Source/Test/Unit/Editor/test_map_format.cpp:349`
 
 Chaque carte migrée se joue à l'identique.
 
@@ -2246,7 +2277,7 @@ Une table de correspondance mal formée est refusée.
 
 ### MapRenderTest.UneCarteSeRendSansFenetre
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:51`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:52`
 
 --render peint une carte hors écran.
 
@@ -2265,7 +2296,7 @@ Une table de correspondance mal formée est refusée.
 
 ### MapRenderTest.LesBandesSeLisentParLeurNom
 
-*Mineur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:80`
+*Mineur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:81`
 
 --layers lit les bandes du canevas.
 
@@ -2281,7 +2312,7 @@ Une table de correspondance mal formée est refusée.
 
 ### MapRenderTest.RenderEcritUneImageParCarte
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:97`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:98`
 
 --render écrit une image par carte.
 
@@ -2296,6 +2327,24 @@ Une table de correspondance mal formée est refusée.
 - Vérifie que `std::filesystem::exists(dossier / "bourg-place.png")` est vrai.
 - Vérifie que `std::filesystem::exists(dossier / "donjon.png")` est vrai.
 - Vérifie que `hmi::runRenderCommand({"--check"}, {}, sortie).has_value()` est faux.
+
+### MapRenderTest.LePlanCoucheLesBlocsEtLegende
+
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:126`
+
+--plan couche les blocs et ajoute une legende.
+
+**Étapes**
+
+1. Rendre une carte de maquette, une fois ordinairement, une fois en plan.
+
+**Résultat attendu**
+
+- Vérifie que `carte.ok()` est vrai.
+- Vérifie que `plan.isNull()` est faux.
+- Vérifie que `plan.size()` vaut `ordinaire.size()`.
+- Vérifie que `plan` diffère de `ordinaire`.
+- Vérifie que `peinte(plan.copy(coin), options.background)` est strictement supérieur à `peinte(ordinaire.copy(coin), options.background)`.
 
 ## test_paint_tools.cpp
 
@@ -2659,7 +2708,7 @@ Le type d'une pièce vient de la table du lieu.
 
 ### ScenePainterTest.UneCartePeinteEgaleLeRenduDuJeu
 
-*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:202`
+*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:205`
 
 Le canevas de l'editeur peint une carte comme le jeu la dessine.
 
@@ -2675,7 +2724,7 @@ Le canevas de l'editeur peint une carte comme le jeu la dessine.
 
 ### ScenePainterTest.LaSecondeCartePeinteEgaleLeRenduDuJeu
 
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:226`
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:229`
 
 Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.
 
@@ -2687,6 +2736,22 @@ Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.
 **Résultat attendu**
 
 - Moins de 0,5 % des pixels different au-dela de la tolerance.
+
+### ScenePainterTest.UneCarteSansAucuneImageSeVoitDansLesDeuxRendus
+
+*Bloquant · Unitaire · Rendu de maquette* — `Source/Test/Unit/Editor/test_scene_painter.cpp:293`
+
+Une carte sans aucun fichier d'image se voit, pareillement dans les deux rendus.
+
+**Étapes**
+
+1. Batir en memoire une carte sans lieu : sols, eau, enceinte de murs, quatre entites.
+2. La rendre hors ecran par le rendu QRhi du jeu, puis par le peintre de l'editeur.
+
+**Résultat attendu**
+
+- Vérifie que `maquette.place.empty()` est vrai.
+- Vérifie que `hmi::parseMaquetteTokenPath(path).has_value()` est vrai.
 
 ## test_shipped_maps.cpp
 
@@ -2933,11 +2998,11 @@ La bibliothèque livrée se lit.
 - Vérifie que `modele.width` est strictement supérieur à `0`.
 - Vérifie que `modele.height` est strictement supérieur à `0`.
 - Vérifie que `std::ranges::any_of( modele.layers, [](const hmi::MapTemplateLayer& couche) { return couche.scene; })` est vrai.
-- Vérifie que `identifiants` vaut `(std::vector<std::string>{"arena", "interior", "street"})`.
+- Vérifie que `identifiants` vaut `(std::vector<std::string>{"arena", "blockout", "interior", "street"})`.
 
 ### StampsTest.UnModeleNeNommeAucunePiece
 
-*Mineur · Unitaire · Modèles de carte* — `Source/Test/Unit/Editor/test_stamps.cpp:375`
+*Mineur · Unitaire · Modèles de carte* — `Source/Test/Unit/Editor/test_stamps.cpp:376`
 
 Un modèle qui nomme une pièce est refusé.
 

@@ -1,4 +1,4 @@
-# Système de design et architecture de l'information {#guide-design-ihm}
+# Système de design et architecture de l'information
 
 > Statut : **refondu au `LOT-EDITOR-01`**. Cette page décrivait le système de design du châssis
 > d'édition — jetons, thème clair/sombre, feuille de style, icônes tracées, catalogue d'actions.
@@ -6,13 +6,13 @@
 > l'information dans l'éditeur et la règle d'échelle des écrans du jeu.
 >
 > Les jetons du **jeu** vivent dans `Source/Ui/Theme/Tokens.qml`, écrits à la main et possédés par
-> la conception — voir @ref guide-conception-qds. Le socle applicatif est en @ref guide-ihm-qt.
+> la conception — voir [Concevoir les écrans dans Qt Design Studio](guide-conception-qds.md). Le socle applicatif est en [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md).
 
 ## L'éditeur : un outil, pas un produit
 
 Un système de design coûte : chaque widget ajouté doit y entrer, chaque jeton tenir dans deux thèmes,
 chaque icône être tracée. L'éditeur ne sert qu'à l'auteur, et on le juge sur une seule question —
-une carte se fait-elle vite et juste ? Depuis le [LOT-EDITOR-01](@ref lot-editor-01) :
+une carte se fait-elle vite et juste ? Depuis le [LOT-EDITOR-01](../../Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-EDITOR-01-socle.md) :
 
 - **Style Fusion de Qt**, choisi avant tout widget (`App/Editor/Main.cpp`). Il dessine pareil sur
   tout poste et suit le schéma clair ou sombre du système : le menu « Thème » est parti avec
@@ -32,7 +32,7 @@ l'agencement de l'éditeur se décide dans sa feuille de route), mais ils resten
 
 ### Une barre d'état structurée
 
-\ref hmi::editorStatusLines "editorStatusLines" (`Editor/Logic/EditorStatus.h`) est une **fonction
+`hmi::editorStatusLines` (`Editor/Logic/EditorStatus.h`) est une **fonction
 pure** qui décide du contenu de cinq zones **permanentes** : carte ouverte, modifications non
 enregistrées, outil actif, case survolée, zoom. Ces zones sont ajoutées par `addPermanentWidget` :
 un message transitoire ne peut donc pas les recouvrir. L'aide contextuelle à l'outil actif se
@@ -46,7 +46,7 @@ Défaire jusqu'à l'état enregistré l'éteint.
 ### Des panneaux groupés, et qui suivent l'outil
 
 Les panneaux sont regroupés en onglets par défaut (`tabifyDockWidget`), chacun restant
-individuellement déplaçable, détachable et refermable. \ref hmi::panelForTool "panelForTool" est
+individuellement déplaçable, détachable et refermable. `hmi::panelForTool` est
 une table pure qui dit quel panneau mettre en avant pour un outil donné.
 
 La mise en avant **n'est jamais un masquage**, et elle **cède dès que l'utilisateur a imposé son
@@ -59,14 +59,14 @@ version, ce qui invalide les dispositions antérieures.
 `EX-IHM-062` interdit qu'un même état ou une même commande soit exposé à deux endroits. Le menu
 View porte en tête les seules commandes de **vue** (recadrer, grille), et chaque panneau n'y a
 qu'une entrée, sa bascule de visibilité ; Undo/Redo/Copy/Paste dispatchent via
-\ref hmi::EditContextTarget "EditContextTarget", interface qu'implémente `hmi::EditorViewport`.
+`hmi::EditContextTarget`, interface qu'implémente `hmi::EditorViewport`.
 
 ## Deux identités, deux règles d'échelle (LOT-66)
 
 La règle tient en une phrase : **l'éditeur suit les réglages du système, les écrans du jeu sont
 une image agrandie d'un facteur entier.**
 
-\ref hmi::identityScaleFor "identityScaleFor" décide de ce facteur depuis la hauteur **logique** de la
+`hmi::identityScaleFor` décide de ce facteur depuis la hauteur **logique** de la
 fenêtre — jamais la hauteur réelle : Qt applique la mise à l'échelle du système par-dessus, et
 multiplier une seconde fois donnerait une interface deux fois trop grande sur un écran réglé à
 200 %. La division est entière et non arrondie : une fenêtre de 700 px passerait sinon à l'échelle 2,
@@ -77,7 +77,7 @@ l'échelle 1**. En pixels et non en points : un point vaut une fraction variable
 selon l'écran, et le facteur entier n'aurait alors plus rien d'entier.
 
 **Et le facteur se borne à l'écran, pas à la fenêtre** (`EX-IHM-081`,
-\ref hmi::identityScaleForDisplay "identityScaleForDisplay"). Dériver le facteur de la seule
+`hmi::identityScaleForDisplay`). Dériver le facteur de la seule
 hauteur de fenêtre en faisait une boucle sans point fixe : le facteur grossit les grandeurs
 d'habillage, qui grossissent la taille minimale des écrans, qui grossit la fenêtre — laquelle
 relance le calcul un cran plus haut, sans que rien ne redescende jamais. La zone d'affichage
@@ -94,6 +94,6 @@ l'encadrement se lit comme une bordure épaisse. Une échelle fractionnaire ne s
 *floue* : elle serait **fausse**, et silencieuse.
 
 ## Voir aussi
-- @ref guide-ihm-qt — le socle applicatif Qt, les surfaces de rendu QRhi, la boucle et les entrées.
-- @ref guide-editeur — l'éditeur de cartes lui-même (brouillon, outils, essai immédiat, reprise).
-- [Spécification IHM](@ref spec-interface-ihm) — le *quoi/pourquoi*.
+- [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md) — le socle applicatif Qt, les surfaces de rendu QRhi, la boucle et les entrées.
+- [Éditeur de niveaux](guide-editeur.md) — l'éditeur de cartes lui-même (brouillon, outils, essai immédiat, reprise).
+- [Spécification IHM](../Specification/interface-ihm.md) — le *quoi/pourquoi*.

@@ -22,14 +22,14 @@ criteres = [
   "L'écran « Carte » s'ouvre depuis le cadre de jeu, descend du monde à une région puis à une ville et remonte, au clavier, à la manette et à la souris ; une capture de référence QML par niveau.",
   "`check_map_assets.py` est vert : « 16 carte(s) conforme(s) au manifeste, à l'atlas et à world-maps.json ».",
   "`test_world_maps.cpp` couvre la lecture et la jointure ; `test_rpg_screens.cpp` compte neuf écrans.",
-  "`lint_lots.py` et `lint_exigences.py` verts ; le `LOT-42`, le `LOT-96`, le [LOT-27](@ref lot-27) et le [LOT-28](@ref lot-28) citent ce lot.",
+  "`lint_lots.py` et `lint_exigences.py` verts ; le `LOT-42`, le `LOT-96`, le [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27) et le [LOT-28](../../../../vision/archives/feuille-de-route-jeu.md#lot-28) citent ce lot.",
 ]
 sources = ["Tanares Sourcebook, p. 44 (la carte du monde, retirée du dépôt par ce lot)"]
 +++
 
 ## Pourquoi
 
-Le §3 de la [feuille de route](@ref roadmap) laisse les licences « en sommeil » pour la **donnée**
+Le §3 de la [feuille de route](../../../../vision/archives/feuille-de-route-jeu.md) laisse les licences « en sommeil » pour la **donnée**
 et le vocabulaire du corpus (projet privé), pas pour ses **images** : le plan de la ville, la carte
 du monde et les planches sont des œuvres, et le jeu ne les affiche pas. Deux l'étaient pourtant, les
 seules images du corpus commises : `UI/world-map.jpg` (Sourcebook, page 44) et
@@ -103,7 +103,7 @@ Depuis le niveau monde, Échap ferme l'écran.
 ### Ce qui reste hors du lot, nommément
 
 Le `LOT-95` prévoyait plus que ce que ce lot a absorbé. Le plan de la ville, l'écran de zoom et la
-Capitale dans l'atlas (elle y est depuis le [LOT-92](@ref lot-92) :
+Capitale dans l'atlas (elle y est depuis le [LOT-92](LOT-92-atelier-textures.md) :
 `central-empire-the-capital-city`) sont faits ici. Le reste passe au **`LOT-96`**, qui remplit déjà
 `capital.json` :
 
@@ -111,7 +111,7 @@ Capitale dans l'atlas (elle y est depuis le [LOT-92](@ref lot-92) :
   niveau que chaque quartier désigne ;
 - les niveaux **quartier** et **îlot** du plan de la Capitale, sous le niveau ville ;
 - la **position du héros** et les **quartiers visités** sur le plan, persistés au
-  [LOT-17](@ref lot-17).
+  [LOT-17](../../../../vision/archives/feuille-de-route-jeu.md#lot-17).
 
 Au **`LOT-42`** (voyage) : les lieux **découverts**, la position de la compagnie, et le choix d'une
 destination depuis l'écran. Il bâtit sur l'écran et les cartes livrés ici ; il n'a plus de carte du
@@ -170,6 +170,6 @@ Les six critères de l'en-tête sont l'« acceptation, telle que vérifiée » �
 ## Bilan
 
 Statut : **livré le 17 septembre 2026** (ajouté à la feuille de route le 16 ; PR #65).
-Alimente : [LOT-28](@ref lot-28), `LOT-42`, `LOT-96`.
+Alimente : [LOT-28](../../../../vision/archives/feuille-de-route-jeu.md#lot-28), `LOT-42`, `LOT-96`.
 Absorbe : `LOT-95` (le plan de la Capitale), retiré par fusion le 17 septembre 2026.
 Exigences couvertes : `EX-IHM-076` (refondue), `EX-IHM-106`, `EX-IHM-107` (détail plus haut).

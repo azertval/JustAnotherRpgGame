@@ -1,4 +1,4 @@
-# Niveaux : modèle, couches, entités, chargement {#guide-niveaux}
+# Niveaux : modèle, couches, entités, chargement
 
 Une carte (un « niveau », dans le vocabulaire du code) est une **grille de tuiles typées** plus des
 métadonnées : un nom, une entrée, des couches visibles, des entités et des pièces assignées par
@@ -17,13 +17,13 @@ source d'erreurs fréquente :
   grille, sans unité de mesure continue. C'est ce que manipule tout ce qui parle de la carte comme
   d'un plateau discret (entrée, position d'une entité, pièce assignée).
 - une position **continue**, en flottants : `core::CellPoint` pour le héros de l'exploration
-  (`{1.5, 2.5}` est le centre de la case `(1, 2)`), `core::Vector2` (@ref guide-maths) ailleurs.
+  (`{1.5, 2.5}` est le centre de la case `(1, 2)`), `core::Vector2` ([Mathématiques du moteur](guide-maths.md)) ailleurs.
 
 Comme une tuile = 1 unité, convertir l'un vers l'autre est une simple conversion de type
 (`core::cellOf`, `core::cellCenter`) — mais les deux ne sont **jamais** interchangeables dans le
 code : une case n'a pas de position « à mi-chemin », un personnage si.
 
-### \ref core::TileType "core::TileType" : le vocabulaire des cases
+### `core::TileType` : le vocabulaire des cases
 
 Chaque case de la grille a l'un de ces douze types :
 
@@ -47,14 +47,14 @@ changera de camp.
 Ce qui **agit** sur une carte — PNJ, coffres, portails, rencontres — n'est pas un type de tuile
 mais une **entité** (voir plus bas) : une grille ne retient qu'un type par case, sans métadonnée.
 
-### \ref core::TileMap "core::TileMap" : la grille
+### `core::TileMap` : la grille
 
 `core::TileMap` est une grille dense `width × height` de `TileType`, origine **haut-gauche** (même
-convention que tout le moteur, @ref guide-maths). Elle expose `tile(colonne, ligne)` (lecture),
+convention que tout le moteur, [Mathématiques du moteur](guide-maths.md)). Elle expose `tile(colonne, ligne)` (lecture),
 `setTile`, `inBounds` et `isSolid(colonne, ligne)`. C'est une donnée pure, sans dépendance à un
 fichier ou à un rendu — testable isolément.
 
-### \ref core::Level "core::Level" : la carte assemblée
+### `core::Level` : la carte assemblée
 
 `core::Level` se construit à partir d'un agrégat nommé, `core::LevelData` (C++20 *designated
 initializers*), et regroupe :
@@ -69,7 +69,7 @@ initializers*), et regroupe :
 
 C'est l'objet que le chargeur produit et que le reste du moteur (exploration, combat, rendu)
 consomme en lecture seule : un `Level` n'a **aucun** mutateur. L'édition passe par un type
-distinct, `core::LevelDraft` (@ref guide-editeur).
+distinct, `core::LevelDraft` ([Éditeur de niveaux](guide-editeur.md)).
 
 ### Couches : ce qu'on voit n'est pas ce qui bloque
 
@@ -136,7 +136,7 @@ chemin) et `loadFromString` (depuis du texte déjà en mémoire, pratique pour l
 }
 ```
 
-(exemple illustratif, repris de [`niveaux.md`](@ref spec-niveaux) — les cartes réelles sont dans
+(exemple illustratif, repris de [`niveaux.md`](../Specification/niveaux.md) — les cartes réelles sont dans
 `Source/Elements/Levels/`, par exemple `coliseum.json`). À lire ainsi :
 
 - `version` est le numéro de format (`core::LEVEL_FORMAT_VERSION`, aujourd'hui `3`, `EX-LVL-005`) ;
@@ -184,6 +184,6 @@ qui bloque ; seul le masque de collision le fait.
   `core::MapEntity`, `core::PropertyMap`, `core::TileTextureOverride`.
 - `core::LevelLoader`, `core::LevelLoadResult`, `core::LevelWriter`.
 - `core::ExplorationSession`, `core::WorldTravel`, `core::knownEntityKinds`.
-- @ref guide-editeur — le brouillon mutable, qui repasse par ce chargeur pour valider.
-- @ref guide-ecrans — les écrans du jeu qui mettent une carte à l'écran.
-- [`niveaux.md`](@ref spec-niveaux) — le format de carte et ses exigences.
+- [Éditeur de niveaux](guide-editeur.md) — le brouillon mutable, qui repasse par ce chargeur pour valider.
+- [Écrans, navigation et boucle de jeu](guide-ecrans.md) — les écrans du jeu qui mettent une carte à l'écran.
+- [`niveaux.md`](../Specification/niveaux.md) — le format de carte et ses exigences.

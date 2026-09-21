@@ -30,7 +30,7 @@ L'éditeur sort dans son propre module, débarrassé de la charte, et gagne de q
 longtemps sans risque : un brouillon ne se perd plus sur un plantage, une carte changée sur disque
 n'est plus écrasée en silence, et l'historique d'annulation a un plafond.
 
-Feuille de route : [éditeur](@ref roadmap-editeur). Le lot alimente `LOT-EDITOR-02`,
+Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-editeur.md). Le lot alimente `LOT-EDITOR-02`,
 `LOT-EDITOR-12` et `LOT-EDITOR-10`.
 
 ## Ce que le dépôt contenait à l'ouverture (18 septembre 2026)
@@ -90,7 +90,7 @@ Feuille de route : [éditeur](@ref roadmap-editeur). Le lot alimente `LOT-EDITOR
   révision neuve, `undo` et `redo` rendent celle de l'état qu'ils restaurent. L'éditeur est modifié
   quand la révision n'est plus celle de l'ouverture ou de l'enregistrement. Repeindre une case du
   même type ne fait plus rien (ni pas d'historique, ni révision). Le bogue relevé au
-  [LOT-11](@ref lot-11) n'a pas été reproduit sur la version du lot ; la nouvelle règle le rend
+  [LOT-11](LOT-11-editeur-multicouches.md) n'a pas été reproduit sur la version du lot ; la nouvelle règle le rend
   impossible sans mutation réelle.
 - **La carte de départ s'ouvre à la construction du canevas**, plus dans `createResources`.
 - **Historique plafonné à 200 pas** (`LevelDraft::UNDO_HISTORY_LIMIT`). Le stockage des pièces par

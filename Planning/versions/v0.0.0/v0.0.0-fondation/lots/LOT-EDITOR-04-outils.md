@@ -28,7 +28,7 @@ Tracer vite : seau, ligne, pipette, gomme et miroir, plus la mesure en cases et 
 d'auteur et l'essai lancé à la case survolée. Chaque outil est une fonction pure, avec un test ; un
 geste est un pas d'annulation.
 
-Feuille de route : [éditeur](@ref roadmap-editeur). Le lot alimente `LOT-EDITOR-13` (sans fenêtre)
+Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-editeur.md). Le lot alimente `LOT-EDITOR-13` (sans fenêtre)
 et `LOT-EDITOR-08` (tampons).
 
 ## Ce que le dépôt contenait à l'ouverture (19 septembre 2026)

@@ -51,7 +51,7 @@ signalent, et seul un lecteur qui connaît les deux programmes peut trancher.
 | `conventions.md` | 4 |
 
 Les **49 renvois restants** désignent de vrais lots de ce programme et gardent leur écriture nue :
-`vision.md`, `exploration.md`, les cinq documents du [LOT-77](@ref lot-77), plus les renvois au
+`vision.md`, `exploration.md`, les cinq documents du [LOT-77](LOT-77-specification-rpg.md), plus les renvois au
 `LOT-01`, au `LOT-04` (format v3), au `LOT-05` (modes de jeu) et au `LOT-07` (tri par Y).
 
 S'y ajoutent la **convention** écrite en tête de `specifications.md`, et la **règle 12** de

@@ -48,7 +48,7 @@ de leurs prérequis, les fiches, les maquettes et les référentiels.
 
 ## Et l'ancienne feuille de route ?
 
-`Documentation/Lot/roadmap.md` est **figée** : elle reste l'histoire des lots `LOT-01` à `LOT-96`,
+`Planning/vision/archives/feuille-de-route-jeu.md` est **figée** : elle reste l'histoire des lots `LOT-01` à `LOT-96`,
 dont les dossiers gardent ce que leur réalisation a tranché. Les lots qu'elle annonçait et qui
 n'ont pas été livrés sont **repris** ici sous de nouveaux numéros, à partir de `LOT-100` ; chaque
 fiche dit ce qu'elle reprend (`reprend = [...]`), et la

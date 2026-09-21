@@ -29,8 +29,8 @@ criteres = [
 Un panneau « Problems » couvre toutes les cartes du projet, et le contrôle de la CI s'étend : une
 carte n'est plus seulement **bien écrite** (le format, `LOT-EDITOR-12`), elle **se joue**.
 
-Feuille de route : [éditeur](@ref roadmap-editeur). Le lot alimente `LOT-EDITOR-11` (génération
-assistée : « le contrôle du 07 reste vert »), et les cartes du [LOT-27](@ref lot-27).
+Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-editeur.md). Le lot alimente `LOT-EDITOR-11` (génération
+assistée : « le contrôle du 07 reste vert »), et les cartes du [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27).
 
 ## Ce que le dépôt contenait à l'ouverture (19 septembre 2026)
 
@@ -65,7 +65,7 @@ assistée : « le contrôle du 07 reste vert »), et les cartes du [LOT-27](@ref
   garde les avertissements en direct de la carte ouverte.
 - **Propager une clé renommée**, retirer l'ancienne : `LOT-EDITOR-14`.
 - **Traduire le texte d'un panneau (`sign`)** : la famille n'a pas de propriété que le jeu lise.
-- **Relier le Colisée au monde** (ce qui lèvera ses deux avertissements) : [LOT-27](@ref lot-27).
+- **Relier le Colisée au monde** (ce qui lèvera ses deux avertissements) : [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27).
 
 ## Conception
 
@@ -129,7 +129,7 @@ assistée : « le contrôle du 07 reste vert »), et les cartes du [LOT-27](@ref
   `LevelEditor --data Source/Elements --check`.
 - **Les cartes livrées passent.** ✔ `MapFormatTest.LesCartesLivreesPassentLeControle` : zéro
   erreur. Restent deux avertissements, exacts : les points d'arrivée `porte` et `sable` du Colisée,
-  qu'aucun portail ne nomme encore — le Colisée ne sera relié au monde qu'au [LOT-27](@ref lot-27).
+  qu'aucun portail ne nomme encore — le Colisée ne sera relié au monde qu'au [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27).
 - **Double-clic = aller à la case.** Branché ; les clics ne se simulent pas sur ce poste (constat
   du `LOT-EDITOR-02`) : vérification à la souris due.
 

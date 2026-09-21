@@ -28,7 +28,7 @@ Une maison de Martpart demande une dizaine de gestes (`LOT-EDITOR-04`) ; la deux
 autant. Ce lot fait qu'un morceau de carte composé une fois **se repose** ailleurs, **se garde**
 dans la bibliothèque de son lieu, et qu'une carte neuve **part d'un modèle** plutôt que du vide.
 
-Feuille de route : [éditeur](@ref roadmap-editeur).
+Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-editeur.md).
 
 ## Ce que le dépôt contenait à l'ouverture (20 septembre 2026)
 
@@ -60,7 +60,7 @@ Feuille de route : [éditeur](@ref roadmap-editeur).
 
 - **Les références entre entités d'un même tampon** (`carte#id`) ne sont pas réécrites à la pose :
   aucune famille ne déclare encore de propriété de source `EntityRefs` (`LOT-EDITOR-14`) ; les
-  quêtes du [LOT-16](@ref lot-16) en seront, et c'est là que la question se posera.
+  quêtes du [LOT-16](../../../../vision/archives/feuille-de-route-jeu.md#lot-16) en seront, et c'est là que la question se posera.
 - **Aucun préfabriqué n'est livré** : la bibliothèque est celle de l'auteur, et un étal figé dans
   le dépôt vieillirait avec la planche. `--save-prefab` la remplit en une commande.
 - **La suppression et le renommage d'un préfabriqué** ne se font pas depuis la fenêtre : ce sont

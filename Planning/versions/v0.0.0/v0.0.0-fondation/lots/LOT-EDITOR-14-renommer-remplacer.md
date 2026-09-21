@@ -28,7 +28,7 @@ Un nom qui change ne casse plus rien (constat A7 : l'identifiant d'une carte est
 d'autres fichiers citent), et une carte survit à la planche qui change (règle 3 de la feuille de
 route).
 
-Feuille de route : [éditeur](@ref roadmap-editeur).
+Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-editeur.md).
 
 ## Ce que le dépôt contenait à l'ouverture (19 septembre 2026)
 
@@ -41,7 +41,7 @@ Feuille de route : [éditeur](@ref roadmap-editeur).
 - **Une pièce** ne se remplaçait qu'à la main, case par case ; une planche réextraite ne laissait
   que les `aliases` du manifeste et le damier.
 - **Arenarea** emprunte la planche de Martpart (décision du `LOT-96`, à confirmer par l'auteur) ;
-  **aucune planche Arenarea n'existe** : l'atelier du [LOT-92](@ref lot-92) ne l'a jamais
+  **aucune planche Arenarea n'existe** : l'atelier du [LOT-92](LOT-92-atelier-textures.md) ne l'a jamais
   commandée.
 
 ## Périmètre
@@ -59,11 +59,11 @@ Feuille de route : [éditeur](@ref roadmap-editeur).
 
 ### Ce qui reste hors du lot, nommément
 
-- **La planche d'Arenarea** : atelier du [LOT-92](@ref lot-92), à la main de l'auteur.
+- **La planche d'Arenarea** : atelier du [LOT-92](LOT-92-atelier-textures.md), à la main de l'auteur.
 - **Changer de planche une variante depuis la fenêtre** : `--change-scene` le fait ; la fenêtre
   n'édite pas encore les variantes.
 - **Les `carte#id` des quêtes** : suivis dès qu'une famille déclare la source `EntityRefs`
-  ([LOT-16](@ref lot-16)).
+  ([LOT-16](../../../../vision/archives/feuille-de-route-jeu.md#lot-16)).
 - **Relier deux cartes depuis le graphe du monde** : `LOT-EDITOR-09`.
 
 ## Conception
@@ -76,7 +76,7 @@ Feuille de route : [éditeur](@ref roadmap-editeur).
   source `Maps`, `ArrivalPoints` ou `EntityRefs` dans `core::knownEntityKinds` est suivie sans code
   (règle 2). Un point d'arrivée est cité par une propriété `ArrivalPoints` **dont l'entité vise sa
   carte** (le `targetMap` du portail) : deux points homonymes de deux cartes ne se confondent pas.
-  Aucune famille ne déclare encore `EntityRefs` ; les quêtes du [LOT-16](@ref lot-16) en seront.
+  Aucune famille ne déclare encore `EntityRefs` ; les quêtes du [LOT-16](../../../../vision/archives/feuille-de-route-jeu.md#lot-16) en seront.
 - **Hors des cartes**, trois fichiers citent : les villes (`district.map`, `guard.map`,
   `start.arrival`), récrites en JSON indenté de deux espaces comme le dépôt les écrit ; les
   catalogues `.lang`, où la **clé** du nom change ligne par ligne, texte et place gardés

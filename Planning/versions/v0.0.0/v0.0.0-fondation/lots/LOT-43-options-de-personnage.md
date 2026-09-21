@@ -32,7 +32,7 @@ sources = [
 
 Quatre catalogues oubliés du premier découpage, tous présents dans le corpus et tous exigés par la
 fiche de personnage : **18 compétences**, **16 langues**, **42 dons**, et la règle du
-**multiclassage**. Le [LOT-13](@ref lot-13) les suppose sans jamais dire d'où ils viennent ; ils
+**multiclassage**. Le [LOT-13](LOT-13-fiche-de-personnage.md) les suppose sans jamais dire d'où ils viennent ; ils
 viennent d'ici.
 
 ## Périmètre
@@ -137,10 +137,10 @@ lignes « Prérequis » du livre sont dans le corps du texte, sous des titres mu
 demanderait le découpage par don que ce lot n'a pas fait.
 
 **Il ne charge rien en C++ hors du multiclassage.** Les catalogues sont des données validées en CI ;
-le moteur n'en lit que ce dont il a besoin, par `core::JsonDocument` ([LOT-79](@ref lot-79)).
+le moteur n'en lit que ce dont il a besoin, par `core::JsonDocument` ([LOT-79](LOT-79-socle-chargement-donnees.md)).
 
 ## Bilan
 
-Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 954/954, `clang-format`, les six lints, cahier de test et Doxygen verts ; tous les critères d'acceptation sont cochés dans l'epic d'origine. Alimente [LOT-13](@ref lot-13), `LOT-36`.
+Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 954/954, `clang-format`, les six lints, cahier de test et Doxygen verts ; tous les critères d'acceptation sont cochés dans l'epic d'origine. Alimente [LOT-13](LOT-13-fiche-de-personnage.md), `LOT-36`.
 
-Exigences couvertes : [`EX-REG-012`](@ref EX-REG-012), [`EX-RPG-040`](@ref EX-RPG-040), [`EX-RPG-041`](@ref EX-RPG-041), [`EX-RPG-042`](@ref EX-RPG-042).
+Exigences couvertes : [`EX-REG-012`](../../../../../Documentation/Specification/regles-d20.md#EX-REG-012), [`EX-RPG-040`](../../../../../Documentation/Specification/rpg.md#EX-RPG-040), [`EX-RPG-041`](../../../../../Documentation/Specification/rpg.md#EX-RPG-041), [`EX-RPG-042`](../../../../../Documentation/Specification/rpg.md#EX-RPG-042).

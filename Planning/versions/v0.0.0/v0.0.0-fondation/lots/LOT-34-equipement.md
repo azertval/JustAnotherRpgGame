@@ -48,7 +48,7 @@ tests**.
 ### Ce que le lot ne fait pas
 
 **Il ne livre pas les objets magiques.** Le chapitre 10 du *Sourcebook* est en anglais et demande
-une étape de traduction ; il alimente le [LOT-26](@ref lot-26), qui ne l'attend pas pour exister.
+une étape de traduction ; il alimente le [LOT-26](../../../../vision/archives/feuille-de-route-jeu.md#lot-26), qui ne l'attend pas pour exister.
 
 **Il ne livre ni les marchandises ni les services.** Leurs deux tables, pages 57 et 58, sont noyées
 dans du texte courant et ne se relèvent pas comme des tables : elles restent à extraire, et rien de
@@ -61,7 +61,7 @@ le rendre lisible demanderait de propager l'intertitre comme le fait la table de
 cette table-là ne justifie pas pour quatre lignes.
 
 **Il ne gère pas l'inventaire.** `totalWeightGrams` calcule un poids ; porter, équiper et encombrer
-sont le [LOT-14](@ref lot-14).
+sont le [LOT-14](LOT-14-inventaire-et-equipement.md).
 
 ## Conception
 
@@ -162,6 +162,6 @@ Ce que l'epic relevait en face de chaque critère, dans l'ordre des critères de
 
 Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1008/1008, `clang-format`, les six lints, cahier de test et Doxygen verts.
 
-Alimente [LOT-14](@ref lot-14), [LOT-26](@ref lot-26), [LOT-27](@ref lot-27).
+Alimente [LOT-14](LOT-14-inventaire-et-equipement.md), [LOT-26](../../../../vision/archives/feuille-de-route-jeu.md#lot-26), [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27).
 
-Exigences couvertes : [`EX-INV-001`](@ref EX-INV-001), [`EX-INV-010`](@ref EX-INV-010), [`EX-INV-011`](@ref EX-INV-011), [`EX-INV-041`](@ref EX-INV-041).
+Exigences couvertes : [`EX-INV-001`](../../../../../Documentation/Specification/inventaire.md#EX-INV-001), [`EX-INV-010`](../../../../../Documentation/Specification/inventaire.md#EX-INV-010), [`EX-INV-011`](../../../../../Documentation/Specification/inventaire.md#EX-INV-011), [`EX-INV-041`](../../../../../Documentation/Specification/inventaire.md#EX-INV-041).

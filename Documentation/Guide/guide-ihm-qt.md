@@ -1,9 +1,9 @@
-# IHM Qt — deux applications, deux technologies {#guide-ihm-qt}
+# IHM Qt — deux applications, deux technologies
 
 > Statut : **refondu** (`LOT-86`). Le **jeu** est une application **Qt Quick** ; l'**éditeur de
 > niveaux** reste en **Qt Widgets**, dans son propre binaire. Le rendu de scène passe par **QRhi**
 > — Direct3D 11 par défaut sous Windows — des deux côtés. L'apparence des écrans du jeu et le mode
-> d'emploi de la conception sont en @ref guide-conception-qds, que cette page laisse de côté.
+> d'emploi de la conception sont en [Concevoir les écrans dans Qt Design Studio](guide-conception-qds.md), que cette page laisse de côté.
 
 ## Pourquoi deux binaires
 
@@ -257,8 +257,8 @@ JustAnotherRpgGame --screen=MainMenu --window-size=1920x1080 --screenshot=menu-1
 
 ## Voir aussi
 
-- @ref guide-conception-qds — le mode d'emploi de la **conception** : ce qu'on modifie sans code.
-- @ref guide-design-ihm — la répartition de l'information dans l'éditeur.
-- @ref guide-ecrans — la navigation entre écrans.
-- @ref guide-boucle — la boucle et le pas de temps fixe.
-- @ref guide-rendu — le pipeline QRhi, partagé par les deux applications.
+- [Concevoir les écrans dans Qt Design Studio](guide-conception-qds.md) — le mode d'emploi de la **conception** : ce qu'on modifie sans code.
+- [Système de design et architecture de l'information](guide-design-ihm.md) — la répartition de l'information dans l'éditeur.
+- [Écrans, navigation et boucle de jeu](guide-ecrans.md) — la navigation entre écrans.
+- [Boucle de jeu et pas de temps fixe](guide-boucle.md) — la boucle et le pas de temps fixe.
+- [Rendu 2D : de la scène à l'écran](guide-rendu.md) — le pipeline QRhi, partagé par les deux applications.

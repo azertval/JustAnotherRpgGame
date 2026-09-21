@@ -12,7 +12,7 @@ livrables = [
   "`PieceFootprint`, type tactique et alias au manifeste, `core::deriveCollision`, `core::canonicalCollisionTile`, `LevelVariant` ; `BattleGrid::zonesAt` lit les zones peintes.",
   "`Editor/Logic/MapFormat` : `LevelEditor --migrate` et `--check` (`hmi::runMapCommand`), branchés dans `main` et dans `ci.yml` (`LevelEditor --data Source/Elements --check`).",
   "Les trois cartes migrées (Colisée, Martpart, Arenarea), les types tactiques du Colisée, les scripts des cartes passés par `--migrate`.",
-  "`Documentation/Editeur/level.schema.json` et son test Python ; fuzz du chargeur amorcé en v4, variantes comprises.",
+  "`Documentation/Specification/level.schema.json` et son test Python ; fuzz du chargeur amorcé en v4, variantes comprises.",
   "Fixtures v0 à v4 et variante (`Source/Test/Fixtures/Levels`) ; tests `FormatV4Test`, `MapFormatTest`.",
   "`EX-LVL-019` à `EX-LVL-024`, `EX-EDIT-062`.",
 ]
@@ -33,7 +33,7 @@ couche, la collision se déduit des pièces, les entités ont un identifiant, le
 cartes des variantes, et la hauteur une place réservée. Et une garde en CI, avant que les scripts
 des cartes ne partent (constat A12).
 
-Feuille de route : [éditeur](@ref roadmap-editeur). Le lot alimente `LOT-EDITOR-03` et
+Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-editeur.md). Le lot alimente `LOT-EDITOR-03` et
 `LOT-EDITOR-05`.
 
 ## Ce que le dépôt contenait à l'ouverture (19 septembre 2026)
@@ -55,7 +55,7 @@ Feuille de route : [éditeur](@ref roadmap-editeur). Le lot alimente `LOT-EDITOR
 |---|---|
 | 1 — phase 1 | `TileLayer` à pièces et hauteurs, `MapEntity` à identifiant, hauteur et cases, `Level` à cases forcées, compteur et variante ; chargeur v4 (v3 lue, `texture` rangée sur le décor) ; écrivain canonique ; `PieceFootprint`, type tactique et alias au manifeste, `deriveCollision`, `LevelVariant` ; `BattleGrid::zonesAt` lit les zones peintes ; la composition lit la pièce de chaque couche, les alias et l'emprise ; fixtures v0 à v4 et variante ; tests |
 | 2 — phase 2 | `Editor/Logic/MapFormat` (`--migrate`, `--check`), branchement dans `main` et dans `ci.yml` ; les trois cartes migrées ; types tactiques du Colisée ; scripts des cartes par `--migrate` ; tests d'acceptation |
-| 3 — phase 3 | `Documentation/Editeur/level.schema.json` et son test Python ; fuzz du chargeur amorcé en v4, variantes comprises |
+| 3 — phase 3 | `Documentation/Specification/level.schema.json` et son test Python ; fuzz du chargeur amorcé en v4, variantes comprises |
 | 4 — documentation | le dossier du lot, la feuille de route, `niveaux.md`, `editeur-niveaux.md`, le README des niveaux, le cahier de tests |
 
 ### Ce qui reste hors du lot, nommément

@@ -13,7 +13,7 @@ livrables = [
   "La [nouvelle arborescence](../../../../standards/arborescence-assets.md) créée, avec ses manifestes vides et un README par niveau.",
   "La ressource `JadgUiColiseum` (`Source/Ui/CMakeLists.txt`) retirée — plus aucun QML ne la lisait — et `World/cities/capital.json` supprimé plutôt qu'adapté : le format exige qu'un quartier de départ ait sa carte. `check_rpg_data.py` n'avait rien à changer ; les cartes peintes et le HUD ne sont pas touchés.",
   "Les tests qui nommaient un contenu livré : quatre supprimés, les onze autres rebranchés sur la racine d'essai (`Source/Test/Fixtures/GameData/`, élargie d'un kit d'arène et de figurines).",
-  "`Documentation/CahierTest.md` et les captures de référence QML régénérés.",
+  "`Documentation/CahierTest/` et les captures de référence QML régénérés.",
   "L'atelier pixel art retiré : `extract_texture_sheet.py`, `extract_coliseum_atlas.py`, les dispositions du LOT-92, le contrat de `LOT-CREATION-ASSETS`, et la fabrique de figurines `asset_factory.py`.",
 ]
 criteres = [

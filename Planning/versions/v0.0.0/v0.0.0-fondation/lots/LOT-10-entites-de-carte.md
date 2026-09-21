@@ -52,10 +52,10 @@ la désignation de la cible et sa résolution.
 de l'invite est de l'interface, et `Core` n'écrit pas de français (`EX-NFR-011`).
 
 **Il ne donne pas de butin.** Un coffre dit qu'il vient d'être consommé ; ce qu'il contient est le
-[LOT-26](@ref lot-26), qui suppose les objets du [LOT-34](@ref lot-34).
+[LOT-26](../../../../vision/archives/feuille-de-route-jeu.md#lot-26), qui suppose les objets du [LOT-34](LOT-34-equipement.md).
 
 **Il ne fait pas parler les PNJ**, ni ne fait franchir les portails : ce sont les
-[LOT-15](@ref lot-15) et [LOT-09](@ref lot-09).
+[LOT-15](LOT-15-pnj-dialogues.md) et [LOT-09](LOT-09-colisee-premiere-carte.md).
 
 ## Conception
 
@@ -66,13 +66,13 @@ butin qu'une fois, y compris après un aller-retour de carte*. La seconde moiti�
 celle qui décide de la conception.
 
 **Un booléen sur l'entité ne tient pas.** Quand le joueur quitte la carte et y revient
-([LOT-09](@ref lot-09)), l'entité du coffre est détruite puis **recréée depuis le fichier de
+([LOT-09](LOT-09-colisee-premiere-carte.md)), l'entité du coffre est détruite puis **recréée depuis le fichier de
 niveau**, qui ne sait rien de ce qui s'est passé. Un drapeau porté par l'entité disparaîtrait avec
 elle, et le coffre redonnerait son butin à chaque passage — un défaut qui ne casse rien, ne lève
 aucune alerte, et se confond avec de la générosité de conception.
 
 L'état vit donc **à côté** des entités, dans `WorldFlags`, qui survit au chargement de carte et que
-le [LOT-17](@ref lot-17) sérialisera telle quelle. Le test le vérifie littéralement : il ouvre le
+le [LOT-17](../../../../vision/archives/feuille-de-route-jeu.md#lot-17) sérialisera telle quelle. Le test le vérifie littéralement : il ouvre le
 coffre, **détruit le monde**, en construit un neuf depuis les mêmes données de carte, et vérifie
 que le coffre recréé n'est plus une cible.
 
@@ -84,7 +84,7 @@ et le second serait vide dès sa première ouverture sans que rien ne l'explique
 
 Corollaire assumé : **déplacer un coffre dans l'éditeur le remet à neuf** pour une partie déjà
 commencée. C'est le bon compromis — l'inverse demanderait un identifiant stable écrit dans le
-fichier de carte, que le [LOT-11](@ref lot-11) devrait générer et maintenir unique.
+fichier de carte, que le [LOT-11](LOT-11-editeur-multicouches.md) devrait générer et maintenir unique.
 
 **Le drapeau est levé et sa valeur de retour dit s'il était neuf.** `WorldFlags::set()` renvoie
 `false` si le fait était déjà acquis, ce qui évite au gameplay de faire un `isSet` puis un `set` —
@@ -122,14 +122,14 @@ le `LOT-04`. Une entité dont le type n'est pas dans la table des familles connu
 `Transform`, sans `Interactable`. La refuser ferait disparaître un objet de la carte sans que son
 auteur comprenne pourquoi, et `EX-NFR-040` demande de tolérer plutôt que d'effondrer.
 
-Les familles connues sont une **table**, non un `if` par cas : le [LOT-15](@ref lot-15) ajoutera les
-PNJ et le [LOT-09](@ref lot-09) les portails, et chacun devrait sinon retoucher la même fonction.
+Les familles connues sont une **table**, non un `if` par cas : le [LOT-15](LOT-15-pnj-dialogues.md) ajoutera les
+PNJ et le [LOT-09](LOT-09-colisee-premiere-carte.md) les portails, et chacun devrait sinon retoucher la même fonction.
 
 ## Bilan
 
 Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à
 1001/1001, `clang-format`, les six lints, cahier de test et Doxygen verts. Le `LOT-04` apportait la
-couche `objects`, le `LOT-06` l'orientation du personnage. Alimente [LOT-09](@ref lot-09),
-[LOT-15](@ref lot-15), [LOT-16](@ref lot-16), [LOT-26](@ref lot-26), [LOT-27](@ref lot-27).
+couche `objects`, le `LOT-06` l'orientation du personnage. Alimente [LOT-09](LOT-09-colisee-premiere-carte.md),
+[LOT-15](LOT-15-pnj-dialogues.md), [LOT-16](../../../../vision/archives/feuille-de-route-jeu.md#lot-16), [LOT-26](../../../../vision/archives/feuille-de-route-jeu.md#lot-26), [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27).
 L'epic d'origine ne nommait aucune exigence couverte en tête ; le corps cite `EX-NFR-011` et
 `EX-NFR-040`.

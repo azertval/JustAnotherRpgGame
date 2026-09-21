@@ -130,15 +130,15 @@ Gardées pour ne pas refaire le débat dans six mois.
 Nouvelles, toutes vérifiées par `scripts/check_ui_layers.py` — c'est la condition pour qu'elles
 soient des règles et non des intentions :
 
-- [`EX-IHM-100`](@ref EX-IHM-100) — une modification purement visuelle, sans toucher au C++ ;
-- [`EX-IHM-101`](@ref EX-IHM-101) — la présentation ne connaît ni Qt Quick ni Qt Widgets ;
-- [`EX-IHM-102`](@ref EX-IHM-102) — le jeu ne lie pas `Qt6::Widgets` ;
-- [`EX-IHM-103`](@ref EX-IHM-103) — écrans et contrôles en `.ui.qml`, sans code impératif ;
-- [`EX-IHM-104`](@ref EX-IHM-104) — imports connus à la fois de Qt et de Qt Design Studio ;
-- [`EX-IHM-105`](@ref EX-IHM-105) — aucun littéral d'apparence hors du thème.
+- [`EX-IHM-100`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-100) — une modification purement visuelle, sans toucher au C++ ;
+- [`EX-IHM-101`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-101) — la présentation ne connaît ni Qt Quick ni Qt Widgets ;
+- [`EX-IHM-102`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-102) — le jeu ne lie pas `Qt6::Widgets` ;
+- [`EX-IHM-103`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-103) — écrans et contrôles en `.ui.qml`, sans code impératif ;
+- [`EX-IHM-104`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-104) — imports connus à la fois de Qt et de Qt Design Studio ;
+- [`EX-IHM-105`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-105) — aucun littéral d'apparence hors du thème.
 
 Réutilisées et **verrouillées** par le même contrôle, sans être redéclarées :
-[`EX-ARCH-001`](@ref EX-ARCH-001) et [`EX-NFR-010`](@ref EX-NFR-010) — `Core` sans un seul en-tête
+[`EX-ARCH-001`](../../../../../Documentation/Specification/architecture.md#EX-ARCH-001) et [`EX-NFR-010`](../../../../../Documentation/Specification/exigences-non-fonctionnelles.md#EX-NFR-010) — `Core` sans un seul en-tête
 Qt, vrai depuis le `LOT-01` et qu'un seul `QString` suffirait à rendre faux.
 
 ## Où en est le lot
@@ -189,4 +189,4 @@ Dans l'epic d'origine, les quatre premiers critères — test de l'artiste, test
 
 ## Bilan
 
-Statut : **livré** par la PR #24 ; le [LOT-87](@ref lot-87) s'y adosse. Ce qui reste hors du lot est nommé dans « Où en est le lot ».
+Statut : **livré** par la PR #24 ; le [LOT-87](LOT-87-charte-v2.md) s'y adosse. Ce qui reste hors du lot est nommé dans « Où en est le lot ».

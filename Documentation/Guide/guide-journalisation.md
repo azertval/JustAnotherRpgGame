@@ -1,4 +1,4 @@
-# Journalisation et assertions {#guide-journalisation}
+# Journalisation et assertions
 
 Cette page explique à quoi sert un système de journalisation (« logging ») dans un jeu, et comment
 celui de ce moteur est construit. Tout vit dans `Source/Core/Diagnostics`, plus un petit en-tête de
@@ -21,7 +21,7 @@ faits pour un usage **ultérieur** et humain (diagnostic après coup), sans jama
 programme ; une assertion vérifie un invariant **immédiatement** et signale un **bug** s'il est
 violé.
 
-## Les niveaux de gravité : \ref core::LogLevel "core::LogLevel"
+## Les niveaux de gravité : `core::LogLevel`
 
 Tous les messages ne se valent pas : un message peut être un détail de mise au point sans intérêt
 en usage normal, ou au contraire signaler une erreur qu'il faut voir absolument. `core::LogLevel`
@@ -39,7 +39,7 @@ généralement tout voir (`Trace` et au-dessus) ; pour une session de test plus 
 `Warning` et `Error` évite de noyer les messages importants dans le bruit des détails `Trace`/`Info`.
 C'est le rôle du `Logger`, ci-dessous.
 
-## \ref core::Logger "core::Logger" : filtrer puis diffuser
+## `core::Logger` : filtrer puis diffuser
 
 `core::Logger` a exactement deux responsabilités, séparées volontairement de toute écriture réelle
 sur un support (fichier, console, etc.) :
@@ -124,12 +124,12 @@ journal verbeux en ne gardant que la catégorie qui intéresse un diagnostic pr�
 
 Le commentaire de `Core/CoreLog.h` le rappelle explicitement : ces macros sont **à réserver aux
 événements de cycle de vie** (démarrage, chargement d'un niveau, création d'une ressource) — **jamais
-dans un chemin exécuté à chaque frame ou à chaque pas fixe** (@ref guide-boucle). Un jeu tourne à
+dans un chemin exécuté à chaque frame ou à chaque pas fixe** ([Boucle de jeu et pas de temps fixe](guide-boucle.md)). Un jeu tourne à
 60 pas par seconde ; journaliser à cette fréquence, même avec un niveau filtré, resterait coûteux
 (construction de chaînes, appel de fonction, éventuelle écriture) et pourrait à lui seul dégrader le
 *framerate* — le symptôme inverse de ce que la journalisation est censée aider à diagnostiquer.
 
-## Le format d'une ligne : \ref core::formatLogLine "core::formatLogLine"
+## Le format d'une ligne : `core::formatLogLine`
 
 `core::formatLogLine(timestamp, level, category, file, line, message)` compose une ligne de la
 forme :
@@ -147,7 +147,7 @@ Deux détails valent d'être notés :
   `formatLogLine`, plutôt que lu directement à l'intérieur de la fonction de formatage. Cela rend
   `formatLogLine` **pure** et testable : un test peut lui passer un horodatage fixe et vérifier la
   ligne produite **exactement**, sans dépendre de l'heure réelle à laquelle le test s'exécute — un
-  cas particulier du principe déjà rencontré en @ref guide-boucle (isoler ce qui dépend du temps
+  cas particulier du principe déjà rencontré en [Boucle de jeu et pas de temps fixe](guide-boucle.md) (isoler ce qui dépend du temps
   réel derrière un paramètre injecté, pas une lecture directe de l'horloge système).
 
 ## Configurer le niveau minimal au lancement
@@ -186,12 +186,12 @@ niveau en tête de chaque ligne, dans un fichier horodaté (`Logs/session_<date>
 toucher à ce que `Core` a déjà collecté. En Release, aucun sink mémoire n'est enregistré : le bouton
 signale simplement des journaux indisponibles.
 
-## Assertions : \ref JADG_ASSERT "JADG_ASSERT", un outil différent
+## Assertions : `JADG_ASSERT`, un outil différent
 
 Une **assertion** vérifie qu'une condition, censée être **toujours vraie** si le code est correct
 (une précondition, un invariant), l'est effectivement à un point précis de l'exécution — sa
 violation signale un **bug** dans le programme lui-même, pas un événement à consigner pour
-information. C'est déjà ce que `ComponentPool`/`World` utilisent abondamment (@ref guide-ecs) :
+information. C'est déjà ce que `ComponentPool`/`World` utilisent abondamment ([ECS : entités, composants, systèmes](guide-ecs.md)) :
 `JADG_ASSERT(has(entity), "...")` avant d'accéder à un composant, par exemple.
 
 Deux différences fondamentales avec la journalisation :
@@ -215,5 +215,5 @@ ici ») protège contre un bug du code, et n'a de sens qu'en développement.
 - `core::Logger`, `core::LogLevel`, `core::ILogSink`, `core::ConsoleLogSink`, `core::MemoryLogSink`.
 - `core::formatLogLine`, `core::parseLogLevel`, `core::defaultLogger`.
 - `JADG_ASSERT`, `core::setAssertionHandler`.
-- @ref guide-boucle — la règle « jamais de log dans le chemin exécuté à chaque pas fixe ».
-- @ref guide-ecs — usage concret des assertions pour les préconditions du `World`/`ComponentPool`.
+- [Boucle de jeu et pas de temps fixe](guide-boucle.md) — la règle « jamais de log dans le chemin exécuté à chaque pas fixe ».
+- [ECS : entités, composants, systèmes](guide-ecs.md) — usage concret des assertions pour les préconditions du `World`/`ComponentPool`.

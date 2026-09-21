@@ -1,6 +1,6 @@
 # HMI · Graphics
 
-Tests unitaires — **138 cas** (18 bloquants, 48 critiques, 65 majeurs, 7 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **156 cas** (18 bloquants, 57 critiques, 74 majeurs, 7 mineurs). [Retour à la synthèse](README.md).
 
 ## test_animation_catalog.cpp
 
@@ -1754,6 +1754,114 @@ Enregistrer par-dessus un asset existant remplace son contenu sans residu.
 - Vérifie que `decoded->height` vaut `1`.
 - Vérifie que `fileCount()` vaut `1U`.
 
+## test_maquette_tokens.cpp
+
+### MaquetteTokenTest.LaLettreEstLaPremiereAlphanumerique
+
+*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:16`
+
+La lettre d'un jeton est la premiere alphanumerique de son nom.
+
+**Étapes**
+
+1. Demander la lettre de plusieurs noms, dont un vide et un sans lettre.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::maquetteTokenLetter("market-mother")` vaut `'M'`.
+- Vérifie que `hmi::maquetteTokenLetter("-- arenarea")` vaut `'A'`.
+- Vérifie que `hmi::maquetteTokenLetter("2e-porte")` vaut `'2'`.
+- Vérifie que `hmi::maquetteTokenLetter("")` vaut `'?'`.
+- Vérifie que `hmi::maquetteTokenLetter("---")` vaut `'?'`.
+
+### MaquetteTokenTest.LeCheminSeRelit
+
+*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:34`
+
+Le chemin d'un jeton se relit en sa nature et sa lettre.
+
+**Étapes**
+
+1. Ecrire puis relire le chemin de chaque nature.
+2. Relire des chemins qui n'en sont pas.
+
+**Résultat attendu**
+
+- Vérifie que `relu.has_value()` est vrai.
+- Vérifie que `relu->kind` vaut `kind`.
+- Vérifie que `relu->letter` vaut `'W'`.
+- Vérifie que `hmi::parseMaquetteTokenPath("Scene/coliseum/sand.png").has_value()` est faux.
+- Vérifie que `hmi::parseMaquetteTokenPath("Npc/anariel/idle.png").has_value()` est faux.
+- Vérifie que `hmi::parseMaquetteTokenPath("Token/inconnu/W.png").has_value()` est faux.
+- Vérifie que `hmi::parseMaquetteTokenPath("Token/player/MOT.png").has_value()` est faux.
+
+### MaquetteTokenTest.UneLettreIllisibleDonneUnPointDInterrogation
+
+*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:62`
+
+Un nom illisible donne le chemin du point d'interrogation.
+
+**Étapes**
+
+1. Ecrire le chemin d'un jeton dont la lettre est un caractere de ponctuation.
+
+**Résultat attendu**
+
+- Vérifie que `relu.has_value()` est vrai.
+- Vérifie que `relu->letter` vaut `'?'`.
+
+### MaquetteTokenTest.LImageEstUnDisqueALettreDeterministe
+
+*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:79`
+
+L'image d'un jeton est un disque a lettre, deterministe.
+
+**Étapes**
+
+1. Peindre deux fois le meme jeton.
+2. Examiner le centre, un coin, et deux lettres differentes.
+
+**Résultat attendu**
+
+- Vérifie que `premiere.isEmpty()` est faux.
+- Vérifie que `premiere.width` vaut `44`.
+- Vérifie que `premiere.height` vaut `44`.
+- Vérifie que `premiere.pixels` vaut `seconde.pixels`.
+- Vérifie que `premiere.at(0, 0).a` vaut `0`.
+- Vérifie que `premiere.at(43, 43).a` vaut `0`.
+- Vérifie que `premiere.at(22, 22).a` vaut `255`.
+- Vérifie que `premiere.pixels` diffère de `autre.pixels`.
+
+### MaquetteTokenTest.UneDemandeImpossibleRendUneImageVide
+
+*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:112`
+
+Une demande impossible rend une image vide.
+
+**Étapes**
+
+1. Demander un jeton de cote nul, puis l'image d'un chemin de planche.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::maquetteTokenImage(hmi::MaquetteTokenRequest{}, 0).isEmpty()` est vrai.
+- Vérifie que `hmi::maquetteTokenImage("Scene/coliseum/sand.png", 44).isEmpty()` est vrai.
+
+### MaquetteTokenTest.LesSixNaturesOntSixTeintes
+
+*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:127`
+
+Les six natures de jeton ont six teintes distinctes.
+
+**Étapes**
+
+1. Comparer les teintes des six natures deux a deux.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::maquetteTokenColor(natures[i]) == hmi::maquetteTokenColor(natures[j])` est faux.
+- Vérifie que `hmi::maquetteTokenKindKey(natures[i])` diffère de `hmi::maquetteTokenKindKey(natures[j])`.
+
 ## test_missing_texture.cpp
 
 ### MissingTextureTest.DimensionsAttendues
@@ -1834,6 +1942,81 @@ L'avertissement de texture manquante nomme l'asset attendu.
 **Résultat attendu**
 
 - Vérifie que `message.find("Backgrounds/foret.png")` diffère de `std::string::npos`.
+
+## test_poly_quad.cpp
+
+### PolyQuadTest.BoiteEnglobanteDesSommets
+
+*Majeur · Unitaire · PolyQuad* — `Source/Test/Unit/HMI/Graphics/test_poly_quad.cpp:38`
+
+La boite englobante d'un losange est celle de ses quatre sommets.
+
+**Étapes**
+
+1. Borner un losange de 4 x 2 pose en (10, 20).
+
+**Résultat attendu**
+
+- Vérifie que `bounds.position.x` vaut `10.0f` (comparaison flottante).
+- Vérifie que `bounds.position.y` vaut `20.0f` (comparaison flottante).
+- Vérifie que `bounds.size.x` vaut `4.0f` (comparaison flottante).
+- Vérifie que `bounds.size.y` vaut `2.0f` (comparaison flottante).
+
+### PolyQuadTest.CullingCommeLesAutres
+
+*Critique · Unitaire · PolyQuad* — `Source/Test/Unit/HMI/Graphics/test_poly_quad.cpp:57`
+
+Un losange hors cadrage est ecarte, celui du cadrage est conserve.
+
+**Étapes**
+
+1. Fixer un cadrage.
+2. Composer un losange dedans, puis un losange loin dehors.
+
+**Résultat attendu**
+
+- Vérifie que `scene.addPoly(hmi::RenderLayer::Tile, solid, 0, diamond(15.0f, 15.0f, 2.0f, 1.0f))` est vrai.
+- Vérifie que `scene.addPoly(hmi::RenderLayer::Tile, solid, 0, diamond(800.0f, 15.0f, 2.0f, 1.0f))` est faux.
+- Vérifie que `scene.statistics().considered` vaut `2`.
+- Vérifie que `scene.statistics().culled` vaut `1`.
+- Vérifie que `scene.statistics().submitted` vaut `1`.
+
+### PolyQuadTest.NatureEtSommetsPreserves
+
+*Majeur · Unitaire · PolyQuad* — `Source/Test/Unit/HMI/Graphics/test_poly_quad.cpp:81`
+
+Le quad compose porte bien la nature Poly et ses sommets intacts.
+
+**Étapes**
+
+1. Composer un losange sans cadrage.
+
+**Résultat attendu**
+
+- Vérifie que `scene.addPoly(hmi::RenderLayer::Tile, solid, 7, given)` est vrai.
+- Vérifie que `composed.kind` vaut `hmi::QuadKind::Poly`.
+- Vérifie que `composed.sortOrder` vaut `7`.
+- Vérifie que `composed.poly.x[i]` vaut `given.x[i]` (comparaison flottante).
+- Vérifie que `composed.poly.y[i]` vaut `given.y[i]` (comparaison flottante).
+
+### PolyQuadTest.TrieAvecLesAutresPrimitives
+
+*Critique · Unitaire · PolyQuad* — `Source/Test/Unit/HMI/Graphics/test_poly_quad.cpp:106`
+
+Un losange se trie avec les autres primitives, par calque puis par texture.
+
+**Étapes**
+
+1. Composer un sprite de decor, puis un losange de sol, puis un second losange de sol.
+2. Trier.
+
+**Résultat attendu**
+
+- Vérifie que `scene.size()` vaut `3U`.
+- Vérifie que `scene.quads()[0].layer` vaut `hmi::RenderLayer::Tile`.
+- Vérifie que `scene.quads()[1].layer` vaut `hmi::RenderLayer::Tile`.
+- Vérifie que `scene.quads()[2].layer` vaut `hmi::RenderLayer::Object`.
+- Vérifie que `scene.batchCount()` vaut `2`.
 
 ## test_procedural_atlas.cpp
 
@@ -2286,7 +2469,7 @@ tile(colonne, ligne) renvoie un rectangle de 16x16 pixels à l'origine attendue.
 
 ### ScenePiecePlacement.PreservesLegacyPlacementWithoutOptIn
 
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:36`
+*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:37`
 
 Le placement historique reste inchangé.
 
@@ -2302,7 +2485,7 @@ Le placement historique reste inchangé.
 
 ### ScenePiecePlacement.AlignsFractionalOriginWithoutChangingDimensions
 
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:55`
+*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:56`
 
 Une ancre fractionnaire aligne la pièce.
 
@@ -2321,7 +2504,7 @@ Une ancre fractionnaire aligne la pièce.
 
 ### ScenePiecePlacement.RejectsMalformedAnchor
 
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:79`
+*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:80`
 
 Une ancre invalide est ignorée.
 
@@ -2335,7 +2518,7 @@ Une ancre invalide est ignorée.
 
 ### ScenePiecePlacement.ProjectionIsOptInAndRejectsInvalidRatios
 
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:95`
+*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:96`
 
 La projection explicite est contrôlée.
 
@@ -2354,7 +2537,7 @@ La projection explicite est contrôlée.
 
 ### WorldSceneComposerTest.LInstantaneTireLeSolDuTypeEtLeReliefDeLaCase
 
-*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:182`
+*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:183`
 
 Le sol vient du type de tuile, le relief de la piece nommee a la case.
 
@@ -2380,7 +2563,7 @@ Le sol vient du type de tuile, le relief de la piece nommee a la case.
 
 ### WorldSceneComposerTest.LesCheminsCouvrentLeLieuEtLesFigurines
 
-*Majeur · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:215`
+*Majeur · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:216`
 
 La liste des textures a charger couvre exactement ce que la composition resout.
 
@@ -2402,7 +2585,7 @@ La liste des textures a charger couvre exactement ce que la composition resout.
 
 ### WorldSceneComposerTest.LaCompositionPoseChaquePieceSurSonCalque
 
-*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:244`
+*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:245`
 
 Sol, relief et figurine tombent sur les calques Tile, Object et Player.
 
@@ -2419,7 +2602,7 @@ Sol, relief et figurine tombent sur les calques Tile, Object et Player.
 
 ### WorldSceneComposerTest.UneFigurineSansImageAUneCleDeMarqueur
 
-*Majeur · Unitaire · Rendu du lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:294`
+*Majeur · Unitaire · Rendu du lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:295`
 
 La cle du marqueur d'une figurine se tire de son chemin de bande.
 
@@ -2439,7 +2622,7 @@ La cle du marqueur d'une figurine se tire de son chemin de bande.
 
 ### WorldSceneComposerTest.UneFigurineSeNommeParSlugOuParDossier
 
-*Majeur · Unitaire · Scène du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:317`
+*Majeur · Unitaire · Scène du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:318`
 
 Le soldat Ironhand se lit dans les monstres, Anariel dans les PNJ.
 
@@ -2455,7 +2638,7 @@ Le soldat Ironhand se lit dans les monstres, Anariel dans les PNJ.
 
 ### WorldSceneComposerTest.LaPieceNommeeLEmporteSousSonNomCourant
 
-*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:336`
+*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:337`
 
 La pièce nommée l'emporte, sous son nom courant.
 
@@ -2472,7 +2655,7 @@ La pièce nommée l'emporte, sous son nom courant.
 
 ### WorldSceneComposerTest.UnePieceLargeSeTrieAuPiedDeSonEmprise
 
-*Majeur · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:365`
+*Majeur · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:366`
 
 Une pièce large se trie au pied de son emprise.
 
@@ -2489,7 +2672,7 @@ Une pièce large se trie au pied de son emprise.
 
 ### ScenePiecePlacement.DepthRequiresOptInAndValidAnchor
 
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:406`
+*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:407`
 
 La profondeur exige un manifeste de placement valide.
 
@@ -2502,6 +2685,164 @@ La profondeur exige un manifeste de placement valide.
 - Vérifie que `hmi::scenePieceDepthOffset(manifest, "gate.png")` vaut `4.5F`.
 - Vérifie que `hmi::scenePieceDepthOffset(manifest, "unknown.png")` est faux.
 - Vérifie que `hmi::scenePieceDepthOffset(legacy, "gate.png")` est faux.
+
+### MaquetteRenderTest.UneCarteSansLieuSeComposeEnLosangesDeCouleur
+
+*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:453`
+
+Une carte sans lieu se compose en losanges de couleur.
+
+**Étapes**
+
+1. Composer une carte de deux cases qui ne nomme aucun lieu.
+
+**Résultat attendu**
+
+- Vérifie que `instantane.typeAt({0, 0})` vaut `core::TileType::Water`.
+- Vérifie que `instantane.typeAt({1, 0})` vaut `core::TileType::Wall`.
+- Vérifie que `scene.size()` vaut `4U`.
+- Vérifie que `quad.kind` vaut `hmi::QuadKind::Poly`.
+- Vérifie que `quad.texture` vaut `aplat()`.
+- Vérifie que `scene.quads()[0].layer` vaut `hmi::RenderLayer::Tile`.
+- Vérifie que `scene.quads()[0].poly.r` vaut `eau.r` (comparaison flottante).
+- Vérifie que `scene.quads()[0].poly.b` vaut `eau.b` (comparaison flottante).
+- Vérifie que `scene.quads()[i].layer` vaut `hmi::RenderLayer::Object`.
+
+### MaquetteRenderTest.UnTypeNonCouvertParLeLieuPrendLaMaquette
+
+*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:490`
+
+Un type absent de la table du lieu prend le rendu de maquette.
+
+**Étapes**
+
+1. Peindre une case d'eau sur la carte du Colisee, dont la table ne couvre que le sable et la pierre.
+2. Composer.
+
+**Résultat attendu**
+
+- Vérifie que `instantane.floorAt({0, 0}).empty()` est faux.
+- Vérifie que `instantane.floorAt({1, 0}).empty()` est vrai.
+- Vérifie que `scene.size()` vaut `2U`.
+- Vérifie que `sprites` vaut `1`.
+- Vérifie que `losanges` vaut `1`.
+
+### MaquetteRenderTest.SansAplatRienNEstCompose
+
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:532`
+
+Sans aplat, la maquette ne compose rien.
+
+**Étapes**
+
+1. Composer une carte sans lieu avec une table de textures sans aplat.
+
+**Résultat attendu**
+
+- Vérifie que `scene.size()` vaut `0U`.
+
+### MaquetteRenderTest.UnMurSeComposeEnBlocDeTroisFaces
+
+*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:551`
+
+Un mur se compose en bloc de trois faces, haut d'une case.
+
+**Étapes**
+
+1. Composer une carte d'une seule case de mur, sans lieu.
+
+**Résultat attendu**
+
+- Vérifie que `scene.size()` vaut `3U`.
+- Vérifie que `quad.layer` vaut `hmi::RenderLayer::Object`.
+- Vérifie que `quad.kind` vaut `hmi::QuadKind::Poly`.
+- Vérifie que `premiere` diffère de `deuxieme`.
+- Vérifie que `deuxieme` diffère de `troisieme`.
+- Vérifie que `plusHaut` vaut `bounds.position.y - bounds.size.y` (comparaison flottante).
+
+### MaquetteRenderTest.LEauProfondeNeSExtrudePas
+
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:597`
+
+L'eau profonde reste un losange plat, plus sombre que l'eau vive.
+
+**Étapes**
+
+1. Interroger l'extrusion et la palette pour l'eau profonde.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::maquetteExtrudes(core::TileType::DeepWater)` est faux.
+- Vérifie que `hmi::maquetteExtrudes(core::TileType::Wall)` est vrai.
+- Vérifie que `hmi::maquetteExtrudes(core::TileType::Solid)` est vrai.
+- Vérifie que `hmi::maquetteExtrudes(core::TileType::Cliff)` est vrai.
+- Vérifie que `profonde.r + profonde.g + profonde.b` est strictement inférieur à `vive.r + vive.g + vive.b`.
+
+### MaquetteRenderTest.LaCouleurDuJetonSeDeduitDeLEntite
+
+*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:619`
+
+La couleur d'un jeton se deduit de ce que le format dit deja.
+
+**Étapes**
+
+1. Poser un PNJ avec dialogue, un sans, un avec figurine, une rencontre, deux entrees d'arene, un point d'apparition, un portail et un coffre.
+2. En tirer les marques.
+
+**Résultat attendu**
+
+- Vérifie que `marques.tokens.size()` vaut `8U`.
+- Vérifie que `marques.tokens[0].kind` vaut `hmi::MaquetteTokenKind::Talker`.
+- Vérifie que `marques.tokens[0].letter` vaut `'M'`.
+- Vérifie que `marques.tokens[1].kind` vaut `hmi::MaquetteTokenKind::Neutral`.
+- Vérifie que `marques.tokens[1].letter` vaut `'N'`.
+- Vérifie que `marques.tokens[2].kind` vaut `hmi::MaquetteTokenKind::Hostile`.
+- Vérifie que `marques.tokens[2].letter` vaut `'W'`.
+- Vérifie que `marques.tokens[3].kind` vaut `hmi::MaquetteTokenKind::Hostile`.
+- Vérifie que `marques.tokens[4].kind` vaut `hmi::MaquetteTokenKind::Player`.
+- Vérifie que `marques.tokens[5].kind` vaut `hmi::MaquetteTokenKind::Player`.
+- Vérifie que `marques.tokens[5].letter` vaut `'G'`.
+- Vérifie que `marques.tokens[6].kind` vaut `hmi::MaquetteTokenKind::Portal`.
+- Vérifie que `marques.tokens[6].letter` vaut `'A'`.
+- Vérifie que `marques.tokens[6].arrow` est vrai.
+- Vérifie que `marques.tokens[7].kind` vaut `hmi::MaquetteTokenKind::Object`.
+
+### MaquetteRenderTest.LesTracesNeParaissentQuEnMaquette
+
+*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:669`
+
+Une carte habillee garde ses jetons mais perd ses traces.
+
+**Étapes**
+
+1. Tirer les marques d'un portail, d'une zone de combat et d'un trajet, en maquette puis hors maquette.
+
+**Résultat attendu**
+
+- Vérifie que `maquette.tokens.size()` vaut `1U`.
+- Vérifie que `maquette.tokens.front().arrow` est vrai.
+- Vérifie que `maquette.traces.size()` vaut `2U`.
+- Vérifie que `maquette.traces[0].shape` vaut `hmi::MaquetteTraceShape::Outline`.
+- Vérifie que `maquette.traces[0].cells.size()` vaut `6U`.
+- Vérifie que `maquette.traces[1].shape` vaut `hmi::MaquetteTraceShape::Path`.
+- Vérifie que `habillee.tokens.size()` vaut `1U`.
+- Vérifie que `habillee.tokens.front().arrow` est faux.
+- Vérifie que `habillee.traces.empty()` est vrai.
+
+### MaquetteRenderTest.LesCheminsContiennentLesJetons
+
+*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:712`
+
+Les chemins de textures d'une carte contiennent ceux de ses jetons.
+
+**Étapes**
+
+1. Batir une carte sans lieu portant une rencontre.
+2. Lister ses chemins de texture.
+
+**Résultat attendu**
+
+- Vérifie que `std::ranges::find(chemins, hmi::maquetteTokenPath(hmi::MaquetteTokenKind::Hostile, 'W'))` diffère de `chemins.end()`.
 
 ## test_world_scene_renderer.cpp
 

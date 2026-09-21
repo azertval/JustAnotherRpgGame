@@ -31,7 +31,7 @@ A11) —, sans les scripts (décision D9). `LevelEditor --apply gestes.json` rej
 fonctions mêmes des outils ; `LevelEditor --render` rend une carte en PNG ; la CI montre dans la PR
 les cartes qu'elle change.
 
-Feuille de route : [éditeur](@ref roadmap-editeur). Le lot alimente `LOT-EDITOR-06` (fin des
+Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-editeur.md). Le lot alimente `LOT-EDITOR-06` (fin des
 scripts) et `LOT-EDITOR-09` (monde).
 
 ## Ce que le dépôt contenait à l'ouverture (19 septembre 2026)

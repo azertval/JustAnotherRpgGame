@@ -127,23 +127,23 @@ menu dont les lignes bougent quand on les parcourt.
 
 ### Le renversement est assumé, pas subi
 
-Le [LOT-01](@ref lot-01) a **délibérément conservé** l'atelier pixel art lors de la purge, et le
-[LOT-11](@ref lot-11) en fait un acquis à ne pas régresser. Ce lot revient sur cette décision. Il ne
+Le [LOT-01](LOT-01-fork-purge.md) a **délibérément conservé** l'atelier pixel art lors de la purge, et le
+[LOT-11](LOT-11-editeur-multicouches.md) en fait un acquis à ne pas régresser. Ce lot revient sur cette décision. Il ne
 la contourne pas : `EX-EDIT-045` porte désormais, écrite noir sur blanc, la raison pour laquelle
 l'atelier **reste** — c'est un outil de travail, pas une esthétique — et le fait que sa suppression
-éventuelle était le `LOT-69` — absorbé par le [LOT-88](@ref lot-88) —, pas celui-ci.
+éventuelle était le `LOT-69` — absorbé par le [LOT-88](LOT-88-retrait-heritage.md) —, pas celui-ci.
 
 ## Ce que le lot ne fait pas
 
 **Il ne redessine pas les planches de `.design-mockups/`.** Elles reçoivent la palette, le nommage
 des rôles et la composition de l'encadrement — le lint `check_design_tokens.py` l'exige, et une
 maquette qui ne décrit plus le jeu ne sert plus à décider quoi que ce soit. Mais les **ornements,
-l'illustration peinte et la mise en page à empattements** relèvent du [LOT-68](@ref lot-68), qui
+l'illustration peinte et la mise en page à empattements** relèvent du [LOT-68](LOT-68-chassis-ecrans-rpg.md), qui
 porte les planches.
 
 **Il ne bascule pas le filtrage de la scène.** `EX-ARCH-022` n'impose plus le plus proche voisin,
 mais le rendu le pratique encore : c'est correct pour les tuiles héritées, ses seuls assets
-aujourd'hui. Le basculement suit l'arrivée des plans peints ([LOT-76](@ref lot-76)) — et c'est écrit
+aujourd'hui. Le basculement suit l'arrivée des plans peints ([LOT-76](LOT-76-habillage-interface.md)) — et c'est écrit
 dans l'exigence, pas laissé à deviner.
 
 **Il ne touche pas à la portée éditeur.** Un outil de travail garde son apparence d'outil de
@@ -152,6 +152,6 @@ cadre y changent, la structure étant commune — leurs valeurs sont intactes.
 
 ## Bilan
 
-Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1009/1009, `clang-format`, les six lints, cahier de test et Doxygen verts ; tous les critères d'acceptation sont cochés dans l'epic d'origine. Alimente [LOT-67](@ref lot-67), [LOT-68](@ref lot-68), `LOT-69` (absorbé par le [LOT-88](@ref lot-88)), [LOT-76](@ref lot-76).
+Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1009/1009, `clang-format`, les six lints, cahier de test et Doxygen verts ; tous les critères d'acceptation sont cochés dans l'epic d'origine. Alimente [LOT-67](LOT-67-menus-vocabulaire-rpg.md), [LOT-68](LOT-68-chassis-ecrans-rpg.md), `LOT-69` (absorbé par le [LOT-88](LOT-88-retrait-heritage.md)), [LOT-76](LOT-76-habillage-interface.md).
 
-Exigences refondues : [`EX-ARCH-022`](@ref EX-ARCH-022) (racine), [`EX-DEC-003`](@ref EX-DEC-003), [`EX-DEC-032`](@ref EX-DEC-032), [`EX-DEC-043`](@ref EX-DEC-043), [`EX-REN-032`](@ref EX-REN-032), [`EX-REN-041`](@ref EX-REN-041), [`EX-IHM-053`](@ref EX-IHM-053), [`EX-IHM-070`](@ref EX-IHM-070), [`EX-IHM-073`](@ref EX-IHM-073), [`EX-EDIT-041`](@ref EX-EDIT-041), [`EX-EDIT-045`](@ref EX-EDIT-045). Exigences **tenues sans changement** : [`EX-IHM-071`](@ref EX-IHM-071), [`EX-IHM-072`](@ref EX-IHM-072).
+Exigences refondues : [`EX-ARCH-022`](../../../../../Documentation/Specification/architecture.md#EX-ARCH-022) (racine), [`EX-DEC-003`](../../../../../Documentation/Specification/exigences-retirees.md#EX-DEC-003), [`EX-DEC-032`](../../../../../Documentation/Specification/exigences-retirees.md#EX-DEC-032), [`EX-DEC-043`](../../../../../Documentation/Specification/exigences-retirees.md#EX-DEC-043), [`EX-REN-032`](../../../../../Documentation/Specification/rendu-technique.md#EX-REN-032), [`EX-REN-041`](../../../../../Documentation/Specification/rendu-technique.md#EX-REN-041), [`EX-IHM-053`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-053), [`EX-IHM-070`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-070), [`EX-IHM-073`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-073), [`EX-EDIT-041`](../../../../../Documentation/Specification/editeur-niveaux.md#EX-EDIT-041), [`EX-EDIT-045`](../../../../../Documentation/Specification/editeur-niveaux.md#EX-EDIT-045). Exigences **tenues sans changement** : [`EX-IHM-071`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-071), [`EX-IHM-072`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-072).

@@ -28,7 +28,7 @@ Les zones se tirent à la souris, les entités montrent leur figurine et leurs l
 n'a de code propre dans le canevas : tout vient de la table des familles, `core::knownEntityKinds`,
 qui devient un **schéma typé**.
 
-Feuille de route : [éditeur](@ref roadmap-editeur). Le lot alimente `LOT-EDITOR-06` (fin des
+Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-editeur.md). Le lot alimente `LOT-EDITOR-06` (fin des
 scripts) et `LOT-EDITOR-09` (monde).
 
 ## Ce que le dépôt contenait à l'ouverture (19 septembre 2026)

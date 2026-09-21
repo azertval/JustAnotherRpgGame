@@ -20,7 +20,7 @@ livrables = [
 criteres = [
   "**À l'écran** : « Nouvelle partie » ouvre le Colisée à sa porte ; on parcourt au clavier et à la manette le hall, un couloir, un vestiaire et une tribune ; on parle à un PNJ et l'écran de dialogue s'ouvre sur son dialogue ; on parle au héraut, le combat se joue sur le sable et l'on revient sur la carte au même endroit ; une capture de référence du Colisée entre dans les tests QML.",
   "**Headless** : un parcours de cinq cartes de fixture, aller et retour, par points d'arrivée nommés ; un portail orphelin et une zone de combat invalide sont refusés au chargement avec un message exploitable ; la session d'arène joue sur la zone déclarée, et les cases hors zone lui sont inconnues.",
-  "L'état de la carte (porte ouverte, coffre pris) est **conservé** dans la session au retour du sable — c'est ce qui distingue un monde d'une suite de tableaux. Persisté au [LOT-17](@ref lot-17).",
+  "L'état de la carte (porte ouverte, coffre pris) est **conservé** dans la session au retour du sable — c'est ce qui distingue un monde d'une suite de tableaux. Persisté au [LOT-17](../../../../vision/archives/feuille-de-route-jeu.md#lot-17).",
   "Aucun fichier de test, de démonstration ou de planche provisoire ne subsiste dans `Source/Elements/` ; le Colisée du menu principal joue sur `coliseum.json`, et `ArenaSession` se rejoue à graine fixée comme avant.",
 ]
 +++
@@ -38,37 +38,37 @@ c'est un lieu.
 
 - **La scène d'exploration dans le jeu Qt Quick.** `hmi::GameSession` compile dans le jeu et non
   plus seulement dans l'éditeur ; un `WorldViewportItem`, jumeau d'`ArenaViewportItem`
-  ([LOT-86](@ref lot-86)), dessine la carte courante par le **même** pipeline QRhi et le même
+  ([LOT-86](LOT-86-refonte-hmi-quick.md)), dessine la carte courante par le **même** pipeline QRhi et le même
   composeur à calques (sol, objets, personnages) ; la caméra suit le héros (`cameraFraming`,
   `EX-LVL-006`) — le Colisée ne tient plus dans un écran ; le héros est une figurine de l'atelier
   du `LOT-91`. Aucun second moteur de rendu : l'arène et le lieu se dessinent par le même code.
 - **Le graphe** : cartes, portails, points d'arrivée **nommés**. Un portail référence
   `(carte cible, nom du point d'arrivée)`, jamais des coordonnées, qui se désynchroniseraient au
   premier redimensionnement. Le portail et le point d'arrivée sont des entités de la table du
-  [LOT-10](@ref lot-10) : ils se posent dans l'éditeur, se détruisent et se recréent avec la carte.
-  Un portail peut exiger un drapeau (`requiresFlag`), lu ici, posé au [LOT-16](@ref lot-16). Le
+  [LOT-10](LOT-10-entites-de-carte.md) : ils se posent dans l'éditeur, se détruisent et se recréent avec la carte.
+  Un portail peut exiger un drapeau (`requiresFlag`), lu ici, posé au [LOT-16](../../../../vision/archives/feuille-de-route-jeu.md#lot-16). Le
   Colisée n'a qu'une carte, mais le graphe est là dès ce lot, avec ses cinq cartes de fixture, pour
   que le `LOT-96` n'ait que des quartiers à y poser.
 - **La carte du Colisée, version finale** : `Source/Elements/Levels/coliseum.json`, avec la planche
-  du [LOT-92](@ref lot-92). Le sable du `LOT-50` (20 × 14) en est le centre ; autour, les **zones
+  du [LOT-92](LOT-92-atelier-textures.md). Le sable du `LOT-50` (20 × 14) en est le centre ; autour, les **zones
   neutres** : la porte et le hall, deux couloirs sous les gradins, les vestiaires des deux camps,
   les tribunes et la loge — et des PNJ pour les peupler, pris parmi les cinq figurines déjà livrées
   par l'atelier, avec un dialogue chacun. Le combat y est **interdit** par propriété de zone
   (`EX-LVL-018`), comme le livre le veut hors du sable.
 - **Le sable comme zone de combat déclarée** : un rectangle nommé sur la carte (`combatZone`,
   propriété de couche ou entité de zone, `EX-LVL-018`) que `core::ArenaSession`
-  ([LOT-50](@ref lot-50)) prend pour grille tactique **à la place de la carte entière**. Les points
+  ([LOT-50](LOT-50-colisee.md)) prend pour grille tactique **à la place de la carte entière**. Les points
   d'entrée des deux camps (`arenaEntry`) restent des entités, dans la zone. Le Colisée ouvert depuis
   le menu principal joue sur cette zone de cette carte : le niveau `arena-of-the-future.json` part,
   et l'arène du catalogue (`World/arena/`) désigne `coliseum.json` et sa zone — et prend enfin sa
   **région** : la Capitale.
 - **Du sol au sable, et retour** : le héraut est une entité `npc` posée à la grille ; son dialogue
   (`heraut-colisee.json`, qui perd sa marque *provisoire*) lance la session d'arène par la bascule
-  du [LOT-18](@ref lot-18) — la carte est gelée, la session joue sur la zone, la fin de session
+  du [LOT-18](LOT-18-bascule-exploration-combat.md) — la carte est gelée, la session joue sur la zone, la fin de session
   rend la carte à l'exploration, personnage au même endroit, relevé par la Marque. C'est le geste
-  que le [LOT-27](@ref lot-27) reprendra pour l'Arène du Destin.
+  que le [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27) reprendra pour l'Arène du Destin.
 - **Parler depuis la carte** : touche `E` ou bouton de la manette → `core::findInteractionTarget`
-  ([LOT-10](@ref lot-10)) → `core::dialogueTriggerFor` ([LOT-15](@ref lot-15)) →
+  ([LOT-10](LOT-10-entites-de-carte.md)) → `core::dialogueTriggerFor` ([LOT-15](LOT-15-pnj-dialogues.md)) →
   `hmi::DialogueMode` et l'écran de dialogue, **sur le dialogue du PNJ visé**, plus jamais sur le
   héraut écrit en dur.
 - **Transition** : fondu au passage d'un portail et à l'entrée du sable, dans le jumeau QML de la
@@ -81,9 +81,9 @@ c'est un lieu.
   contenu : le niveau `arena-of-the-future.json` et la planche
   `Coliseum/production_source_atlas.png` du `LOT-50` ; les tuiles, fonds, objets et skins de test
   des `LOT-06` à `LOT-08` (`Assets/Backgrounds/test_*.png` et les scripts `generate_test_*.py` qui
-  les produisent) ; le personnage de démonstration du [LOT-13](@ref lot-13)
+  les produisent) ; le personnage de démonstration du [LOT-13](LOT-13-fiche-de-personnage.md)
   (`demonstration-brenna.json`), remplacé par le héros créé à « Nouvelle partie » ; la rencontre de
-  démonstration du [LOT-18](@ref lot-18) (`nuee-de-rats.json`), remplacée par une rencontre du
+  démonstration du [LOT-18](LOT-18-bascule-exploration-combat.md) (`nuee-de-rats.json`), remplacée par une rencontre du
   Colisée sur des blocs du `LOT-33` ; l'ouverture en dur du dialogue du héraut. Les **quatre
   classes provisoires** du `LOT-36` restent : leur retrait est au dernier lot de classe, et elles
   ne sont pas un substitut de contenu mais un échafaudage de règles. En sortie,
@@ -96,29 +96,29 @@ c'est un lieu.
 Le périmètre écrit dans la feuille de route date du 16 septembre ; une lecture du dépôt en déplace
 la charge, sans en changer la cible.
 
-- **`core::WorldGraph` existe déjà** (`Source/Core/World/`, posé au [LOT-11](@ref lot-11) pour la
+- **`core::WorldGraph` existe déjà** (`Source/Core/World/`, posé au [LOT-11](LOT-11-editeur-multicouches.md) pour la
   vue « graphe du monde » du navigateur de cartes) : cartes, points d'arrivée nommés, statut d'un
   portail (`PortalLinkStatus`). Ce lot n'a pas de graphe à inventer : il lui ajoute le **chargement
   de carte à chaud** et la **traversée**, sans changer son contrat de lecture.
 - **La plomberie QRhi du jeu est posée** : `hmi::GameViewportItem` (QML `GameViewport`) crée son
   `QRhi` et sa passe de rendu, mais **ne dessine aucune scène** ; `GameView.qml` est encore en
   `pending: true` (« Aucune carte à jouer »). Le jumeau à recopier est `ArenaViewportItem`, avec
-  `ArenaSceneComposer` et `ArenaSceneRenderer` ([LOT-86](@ref lot-86)).
+  `ArenaSceneComposer` et `ArenaSceneRenderer` ([LOT-86](LOT-86-refonte-hmi-quick.md)).
 - **`hmi::GameSession` ne compile que dans `LevelEditor`** : il est déclaré dans la cible de
   l'éditeur, pas dans celle du jeu.
 - **Les 36 textures du Colisée sont installées** (`Source/Elements/Assets/Scene/coliseum/`,
-  [LOT-92](@ref lot-92)) : sables, dalles, pavés de couloir, planches de vestiaire, gradins,
+  [LOT-92](LOT-92-atelier-textures.md)) : sables, dalles, pavés de couloir, planches de vestiaire, gradins,
   loge, murs, arches, escaliers, torches, bannières, grilles. La carte se trace avec elles, et
   avec elles seules.
 - **`Source/Elements/Levels/` ne porte qu'`arena-of-the-future.json`**, le niveau provisoire du
-  [LOT-50](@ref lot-50), que ce lot remplace.
+  [LOT-50](LOT-50-colisee.md), que ce lot remplace.
 
 ### Décisions d'ouverture
 
 - **La carte se pose par script, puis se retouche dans l'éditeur** (*décision de l'auteur*,
   17 septembre 2026). Un script d'atelier versionné dans le lot écrit `coliseum.json` depuis une
   description de haut niveau (les zones, leurs bords, leurs pièces) ; l'éditeur du
-  [LOT-11](@ref lot-11) reste l'outil de retouche, et le fichier produit est un fichier de niveau
+  [LOT-11](LOT-11-editeur-multicouches.md) reste l'outil de retouche, et le fichier produit est un fichier de niveau
   ordinaire, sans marque d'origine. Écrire les cases à la main n'était ni relisible ni rejouable ;
   les tracer entièrement à la souris n'était pas un usage du temps de l'auteur.
 - **Une seule PR en fin de lot** (*décision de l'auteur*), six phases commitées sur
@@ -132,7 +132,7 @@ la charge, sans en changer la cible.
 | 2 | **La scène d'exploration dans le jeu** | `WorldViewportItem`, jumeau d'`ArenaViewportItem` : même pipeline QRhi, même composeur à calques ; la caméra suit le héros (`EX-LVL-006`) ; `GameSession` compile dans `JustAnotherRpgGame` et `GameView.qml` quitte `pending` |
 | 3 | **La carte du Colisée, version finale** | `Source/Elements/Levels/coliseum.json` : le sable 20 × 14 au centre, le hall et la porte, deux couloirs sous les gradins, les deux vestiaires, les tribunes et la loge ; les PNJ (`anariel`, `jade`, `lizz`, `nakral`, `xorius`) et leur dialogue |
 | 4 | **Le sable, zone de combat déclarée** | `combatZone` sur la carte (`EX-LVL-018`) ; `core::ArenaSession` joue sur la zone et non sur la carte entière ; l'arène du catalogue désigne `coliseum.json`, sa zone et sa région (la Capitale) |
-| 5 | **Parler, basculer, revenir** | `E` / bouton de manette → `core::findInteractionTarget` → `core::dialogueTriggerFor` → `hmi::DialogueMode`, sur le dialogue du PNJ visé ; le héraut lance la session d'arène par la bascule du [LOT-18](@ref lot-18) ; retour sur la carte au même endroit, état de carte conservé ; fondu piloté par `hmi::ScreenRouter` |
+| 5 | **Parler, basculer, revenir** | `E` / bouton de manette → `core::findInteractionTarget` → `core::dialogueTriggerFor` → `hmi::DialogueMode`, sur le dialogue du PNJ visé ; le héraut lance la session d'arène par la bascule du [LOT-18](LOT-18-bascule-exploration-combat.md) ; retour sur la carte au même endroit, état de carte conservé ; fondu piloté par `hmi::ScreenRouter` |
 | 6 | **Les retraits** | Le contenu provisoire quitte `Source/Elements/` ; capture de référence du Colisée dans les tests QML ; `check_asset_keys.py` et les tests sans aucune clé de test |
 
 ## Ce que le lot a livré, et ce qu'il n'a pas livré
@@ -178,7 +178,7 @@ du dialogue du héraut.
 ## Journal
 
 - **17 septembre 2026, ouverture.** Les deux décisions d'ouverture ci-dessus. Le lot **quitte la
-  section 11 de la [feuille de route](@ref roadmap) pour cette page dès son ouverture** :
+  section 11 de la [feuille de route](../../../../vision/archives/feuille-de-route-jeu.md) pour cette page dès son ouverture** :
   `lint_lots.py` tient un lot pourvu d'un dossier pour sorti de la page, et l'ancre `{#lot-09}`
   ne peut pas être écrite deux fois. Les deux tableaux de la section 6 ont été régénérés
   (`lint_lots.py --regenerer`) et le diagramme perd les arêtes entrantes du lot, comme pour tout
@@ -218,14 +218,14 @@ PSScriptAnalyzer, absent du poste et sans rapport avec ce lot (aucun `.ps1` touc
 l'écran : `--screen=GameView` et `--screen=Arena`, captures à l'appui. Reste la vérification
 IHM manuelle — marcher, parler, descendre sur le sable, en revenir.
 
-Ce que chaque prérequis apportait : [LOT-10](@ref lot-10) (les portails et les PNJ sont des entités
-de carte), [LOT-15](@ref lot-15) (le dialogue qu'on ouvre depuis la carte), [LOT-18](@ref lot-18)
-(la bascule exploration ↔ combat), [LOT-50](@ref lot-50) (le Colisée, dont ce lot livre la version
-finale), [LOT-86](@ref lot-86) (le pipeline QRhi et `ArenaViewportItem`, dont la scène
-d'exploration est le jumeau), [LOT-11](@ref lot-11) (la carte se trace dans l'éditeur),
-[LOT-92](@ref lot-92) (le style de scène et la planche du Colisée).
+Ce que chaque prérequis apportait : [LOT-10](LOT-10-entites-de-carte.md) (les portails et les PNJ sont des entités
+de carte), [LOT-15](LOT-15-pnj-dialogues.md) (le dialogue qu'on ouvre depuis la carte), [LOT-18](LOT-18-bascule-exploration-combat.md)
+(la bascule exploration ↔ combat), [LOT-50](LOT-50-colisee.md) (le Colisée, dont ce lot livre la version
+finale), [LOT-86](LOT-86-refonte-hmi-quick.md) (le pipeline QRhi et `ArenaViewportItem`, dont la scène
+d'exploration est le jumeau), [LOT-11](LOT-11-editeur-multicouches.md) (la carte se trace dans l'éditeur),
+[LOT-92](LOT-92-atelier-textures.md) (le style de scène et la planche du Colisée).
 
-Alimente : `LOT-96`, [LOT-16](@ref lot-16), [LOT-17](@ref lot-17), [LOT-27](@ref lot-27),
+Alimente : `LOT-96`, [LOT-16](../../../../vision/archives/feuille-de-route-jeu.md#lot-16), [LOT-17](../../../../vision/archives/feuille-de-route-jeu.md#lot-17), [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27),
 `LOT-42`, `LOT-80`.
 
 Exigences couvertes : `EX-VIS-001`, `EX-VIS-002`, `EX-EXP-*`, `EX-LVL-018`, `EX-LVL-006`,

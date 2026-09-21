@@ -38,7 +38,7 @@ c'est pour cela qu'il était seul dans ce lot.
 
 Livrer les 94 d'abord fait tourner tout l'aval — attaques, IA, rencontres — sur des données réelles
 pendant que le reste arrive. Loup, ours, araignée géante et sanglier peuplent le donjon du
-[LOT-27](@ref lot-27) sans attendre.
+[LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27) sans attendre.
 
 ## Périmètre
 
@@ -67,7 +67,7 @@ corpus — police, corps, graisse — sur laquelle repose toute l'extraction de 
 
 **Il ne type qu'une clause de dégâts par action.** Une morsure qui inflige « 7 (1d10 + 2) dégâts
 perforants + 5 (1d10) dégâts de poison » en porte deux ; `damage` ne rend que la première, et le
-texte reste ce qui fait foi jusqu'à ce que le [LOT-21](@ref lot-21) sache composer plusieurs
+texte reste ce qui fait foi jusqu'à ce que le [LOT-21](LOT-21-attaques-degats-etats.md) sache composer plusieurs
 clauses. Le champ n'est pas *faux*, il est **partiel**, et c'est écrit là où on le lit.
 
 **Il ne porte aucune illustration.** Le champ `asset` existe au schéma, aucune créature ne le
@@ -208,4 +208,4 @@ Ce que l'epic relevait en face de chaque critère, dans l'ordre des critères de
 
 Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 974/974, `clang-format`, les six lints, cahier de test et Doxygen verts.
 
-Alimente [LOT-13](@ref lot-13), [LOT-21](@ref lot-21), [LOT-23](@ref lot-23), [LOT-27](@ref lot-27), `LOT-46`.
+Alimente [LOT-13](LOT-13-fiche-de-personnage.md), [LOT-21](LOT-21-attaques-degats-etats.md), [LOT-23](LOT-23-ia-tactique.md), [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27), `LOT-46`.

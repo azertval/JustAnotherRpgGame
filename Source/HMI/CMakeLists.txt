@@ -18,7 +18,7 @@
 # (`PlaceAppearance`), la composition d'une carte (`WorldSceneComposer`) et la géométrie des pièces
 # (`ScenePieces.h`, en-tête seul). Le jeu la soumet au GPU (`WorldSceneRenderer`), l'éditeur la peint
 # avec QPainter : **une** composition, deux façons de la dessiner, et l'ordre de dessin est le même
-# par construction (décision D2 de Documentation/Editeur/feuille-de-route.md, constat A8).
+# par construction (décision D2 de Planning/vision/archives/feuille-de-route-editeur.md, constat A8).
 #
 # Les fichiers restent sous HMI/Graphics, dans l'espace de noms `hmi` : ce qui sort de HmiLib est la
 # frontière d'édition de liens, pas les chemins d'inclusion que quarante fichiers écrivent. HmiLib la

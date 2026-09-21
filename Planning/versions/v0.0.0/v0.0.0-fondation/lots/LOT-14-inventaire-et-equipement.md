@@ -66,7 +66,7 @@ pénalités de vitesse (3 et 6 mètres) — chacun avec la **phrase du corpus** 
 `EX-VIS-007` interdit qu'un `7500` nu vive dans le C++ : il ne dirait pas ce qu'il représente, et
 l'ajuster demanderait une recompilation.
 
-**Tout est en grammes.** Le livre écrit des kilogrammes ; les catalogues du [LOT-34](@ref lot-34)
+**Tout est en grammes.** Le livre écrit des kilogrammes ; les catalogues du [LOT-34](LOT-34-equipement.md)
 donnent déjà des grammes entiers. Mêler les deux unités dans une somme donnerait un sac de cinq
 cents kilos pour une poignée de fléchettes, et l'unité unique supprime la question.
 
@@ -90,11 +90,11 @@ Dextérité à distance. Une arme de *finesse* laisse le choix, et la branche ex
 du catalogue ne déclare encore cette propriété autrement qu'en toutes lettres dans son texte
 français, et lire une règle dans de la prose est exactement ce que ce projet évite. `Weapon` lit
 désormais un tableau `properties` que le schéma prévoit déjà ; il se remplira au
-[LOT-49](@ref lot-49).
+[LOT-49](../../../../vision/archives/feuille-de-route-jeu.md#lot-49).
 
 ### L'écran
 
-L'inventaire est l'un des neuf écrans du [LOT-68](@ref lot-68), et il garde son rendu générique :
+L'inventaire est l'un des neuf écrans du [LOT-68](LOT-68-chassis-ecrans-rpg.md), et il garde son rendu générique :
 seize emplacements, la charge, la bourse, le sac. Ce lot ne change pas le châssis — il **remplit**
 son ossature, en câblant chaque champ sur un identifiant que `hmi::inventoryValues` produit.
 

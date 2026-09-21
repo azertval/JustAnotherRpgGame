@@ -35,7 +35,7 @@ tromper de nom. Ce lot ouvre les cartes en **onglets**, rend le graphe **éditab
 les quartiers d'une ville sur son **plan**, et donne à chaque carte ses **propriétés** et son
 **état** — à cent cartes, c'est le tableau de bord du monde.
 
-Feuille de route : [éditeur](@ref roadmap-editeur).
+Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-editeur.md).
 
 ## Ce que le dépôt contenait à l'ouverture (21 septembre 2026)
 
@@ -50,7 +50,7 @@ Feuille de route : [éditeur](@ref roadmap-editeur).
   le graphe d'une ville, mais seuls l'écran « Carte » du jeu les lisait.
 - **Une carte ne portait aucune propriété qui lui soit propre** : le format v4 n'a de propriétés
   libres que sur les couches et les entités. Le lieu (`scene`) vit sur les couches ; la région et
-  l'ambiance n'existaient nulle part, alors que le [LOT-28](@ref lot-28) les attend.
+  l'ambiance n'existaient nulle part, alors que le [LOT-28](../../../../vision/archives/feuille-de-route-jeu.md#lot-28) les attend.
 - **L'annexe** (`<carte>.editor.json`) ne portait que les notes d'auteur.
 
 ## Périmètre
@@ -69,7 +69,7 @@ Feuille de route : [éditeur](@ref roadmap-editeur).
 
 - **Les cadres de quartier ne s'éditent pas** : ils sont notés provisoires dans `world-maps.json`,
   et c'est l'auteur qui les relève (`Ctrl+clic` sur l'écran « Carte » du jeu, `LOT-94`).
-- **L'ambiance n'est pas jouée** : le [LOT-28](@ref lot-28) la lira ; ici elle s'écrit et se relit.
+- **L'ambiance n'est pas jouée** : le [LOT-28](../../../../vision/archives/feuille-de-route-jeu.md#lot-28) la lira ; ici elle s'écrit et se relit.
 - **La région n'est pas contrôlée** contre l'atlas : une carte peut précéder sa région, et une
   valeur hors liste reste saisissable. Le jour où le voyage (`LOT-42`) s'en sert, le contrôle du
   contenu (`LOT-EDITOR-07`) la vérifiera.
@@ -122,7 +122,7 @@ Feuille de route : [éditeur](@ref roadmap-editeur).
 - **La région et l'ambiance sont des propriétés de la carte**, pas de l'annexe (décision de
   l'auteur) : `core::LevelData` reçoit une `PropertyMap` de **carte**, et le chargeur y range toute
   clé racine qu'il ne connaît pas — comme il le fait déjà pour une couche ou une entité. Le jeu
-  peut donc les lire, ce qu'attend le [LOT-28](@ref lot-28). Une propriété qui porte le nom d'un
+  peut donc les lire, ce qu'attend le [LOT-28](../../../../vision/archives/feuille-de-route-jeu.md#lot-28). Une propriété qui porte le nom d'un
   champ du format est ignorée à l'écriture : le format fait foi.
 - **Le lieu se voit dans les propriétés, il ne s'y édite pas** : en changer repeint la carte, et
   c'est *Map* › *Change sheet…* (`LOT-EDITOR-14`), avec sa table de correspondance.

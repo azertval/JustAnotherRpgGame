@@ -1,24 +1,24 @@
-# Cartes & format {#spec-niveaux}
+# Cartes & format
 
 > Statut : **livré**. Format JSON versionné (version 4 depuis le `LOT-EDITOR-12`), chargement,
 > validation, couches à pièces nommées, collision déduite et cases forcées, entités à identifiant,
 > zones peintes, variantes ; le Colisée et deux quartiers de la Capitale sont livrés dans ce format.
 > Dépend de [`gameplay.md`](gameplay.md). Schéma publié :
-> `Documentation/Editeur/level.schema.json`.
+> `Documentation/Specification/level.schema.json`.
 
 ## 1. Représentation des cartes
-- \anchor EX-LVL-001 **EX-LVL-001** — Une carte doit être décrite par un **fichier de données**
+- **EX-LVL-001** — Une carte doit être décrite par un **fichier de données**
   externe (pas en dur dans le code), placé dans `Source/Elements/Levels`.
-- \anchor EX-LVL-002 **EX-LVL-002** — Le format doit décrire au minimum : dimensions de la grille,
+- **EX-LVL-002** — Le format doit décrire au minimum : dimensions de la grille,
   type de chaque tuile, position d'entrée, couches visibles et entités.
-- \anchor EX-LVL-003 **EX-LVL-003** — Le format retenu est un **JSON structuré orienté objets** : une
+- **EX-LVL-003** — Le format retenu est un **JSON structuré orienté objets** : une
   carte est un objet JSON portant ses **métadonnées** (nom, dimensions) et une **liste de tuiles**,
   chaque tuile étant un **objet** `{x, y, type, …}` (les cases vides sont omises) pouvant porter des
   **champs propres** (la pièce nommée par une case de couche, `"piece"`, `EX-LVL-019`). Choisi pour un
   format
   **extensible** (données riches par tuile, *round-trip* d'éditeur direct), au prix d'une lisibilité
   « à l'œil » moindre qu'une grille ASCII — l'édition passe par l'**éditeur**, pas par le texte brut.
-- \anchor EX-LVL-005 **EX-LVL-005** — Le fichier de carte doit porter un **numéro de version de
+- **EX-LVL-005** — Le fichier de carte doit porter un **numéro de version de
   format**, afin qu'une évolution non rétrocompatible soit **détectée** plutôt que subie. Un fichier
   **sans** numéro de version est lu comme la version initiale, sans erreur ni avertissement ; une
   version supérieure à celle gérée est refusée avec un message explicite. **Toute version passée se
@@ -26,11 +26,11 @@
   explicite (`LevelEditor --migrate`, `EX-EDIT-062`), jamais l'effet de bord d'un enregistrement ;
   l'écriture est **canonique** : charger puis enregistrer une carte intacte rend le même fichier,
   octet pour octet.
-- \anchor EX-LVL-004 **EX-LVL-004** — Le chargement d'une carte doit **valider** les données
+- **EX-LVL-004** — Le chargement d'une carte doit **valider** les données
   (positions des tuiles et des entités **dans les bornes** `width × height`, une seule tuile par case,
   **une et une seule entrée**, types de tuile connus) et signaler une erreur exploitable en cas de
   fichier invalide (cf. politique d'erreurs des conventions).
-- \anchor EX-LVL-016 **EX-LVL-016** — Une carte doit porter **N couches de tuiles typées** plutôt
+- **EX-LVL-016** — Une carte doit porter **N couches de tuiles typées** plutôt
   qu'une grille unique : un RPG en vue de dessus superpose un **sol** (herbe, dalle, eau), un
   **décor** (arbre, tonneau, tapis) et une **collision** — masque indépendant du visuel, un tapis se
   traverse et un tonneau non. La grille de **collision** d'une carte est son tableau racine `tiles`,
@@ -41,13 +41,13 @@
   **promue** en couche de tête, pour que tout consommateur boucle sur les couches sans cas
   particulier. Un fichier **sans** tableau `layers` se charge, sa grille promue en couche unique dite
   *legacy*, à la fois décor et collision. Concrétisé en `LOT-04`.
-- \anchor EX-LVL-017 **EX-LVL-017** — Une carte doit porter une **liste d'entités** — PNJ, coffres,
+- **EX-LVL-017** — Une carte doit porter une **liste d'entités** — PNJ, coffres,
   panneaux, portails, rencontres — distincte de ses grilles : une entité est un **objet** à type
   libre, placé sur une case et porteur de ses propres données, là où une grille ne retient qu'un
   type par case. Le type n'est **pas** interprété au chargement — c'est le gameplay qui lui donne un
   sens — mais la position est validée comme celle d'une tuile (`EX-LVL-004`). Concrétisé en
   `LOT-04`.
-- \anchor EX-LVL-018 **EX-LVL-018** — Une couche et une entité doivent pouvoir porter un
+- **EX-LVL-018** — Une couche et une entité doivent pouvoir porter un
   **dictionnaire de propriétés libres**, et tout champ **inconnu** du chargeur doit y être rangé :
   ignoré sans erreur à la lecture, et **réémis** à l'écriture. Sans quoi le moindre besoin découvert
   plus tard — terrain difficile, couverture, hauteur, dialogue d'un PNJ — imposerait une nouvelle
@@ -57,7 +57,7 @@
 
 La seule révision de format du module éditeur, faite tant qu'il n'y avait que trois cartes.
 
-- \anchor EX-LVL-019 **EX-LVL-019** — Chaque case d'une couche visible porte son **type** et une
+- **EX-LVL-019** — Chaque case d'une couche visible porte son **type** et une
   **pièce** facultative de la planche du lieu (`"piece"`). Le type ne garde qu'un sens, celui des
   règles et du générateur ; la pièce est ce qu'on voit, et la table d'apparence du lieu n'en est que
   le **défaut** (cartes générées, case sans pièce). Une pièce **large** est ancrée sur une case et
@@ -65,25 +65,25 @@ La seule révision de format du module éditeur, faite tant qu'il n'y avait que 
   (`core::footprintCells`, une seule règle, lue par la composition du jeu et par la déduction de
   collision). Une pièce se cite par son nom courant ou par un ancien nom (`aliases` du manifeste) ;
   une pièce introuvable reste dans le fichier.
-- \anchor EX-LVL-020 **EX-LVL-020** — La grille de collision est **écrite** dans le fichier — le
+- **EX-LVL-020** — La grille de collision est **écrite** dans le fichier — le
   jeu la lit sans manifeste — et **égale à sa déduction** (`core::deriveCollision`) hors des cases
   que l'auteur a **forcées** (`"forced"`). La déduction prend, case par case, la contribution la plus
   forte du **type tactique** de chaque pièce qui la couvre (`tactical` au manifeste : `open`,
   `difficult`, `cover`, `obstacle`, `solid`), de la règle du type d'une case sans pièce, et fait
   d'une case que rien ne couvre un mur. Gêne et abri ne sont pas encore joués depuis une pièce :
   déduits franchissables, signalés par le contrôle.
-- \anchor EX-LVL-021 **EX-LVL-021** — Chaque entité porte un **identifiant** court (`"id"`), unique
+- **EX-LVL-021** — Chaque entité porte un **identifiant** court (`"id"`), unique
   dans la carte, donné par l'éditeur et **jamais réemployé** (compteur `"nextEntityId"`) : quêtes,
   drapeaux et sauvegardes citent une entité par `carte#id`, pas par sa case. Deux entités du même
   identifiant sont refusées au chargement.
-- \anchor EX-LVL-022 **EX-LVL-022** — Une zone (`"type": "zone"`) est un **rectangle** (`width` ×
+- **EX-LVL-022** — Une zone (`"type": "zone"`) est un **rectangle** (`width` ×
   `height` depuis sa case) **ou** un ensemble de cases **peint** (`"cells"`) ; ses propriétés
   s'appliquent à chaque case couverte, et `core::BattleGrid::zonesAt` lit les deux formes.
-- \anchor EX-LVL-023 **EX-LVL-023** — Une carte peut être la **variante** d'une autre (`"base"`) :
+- **EX-LVL-023** — Une carte peut être la **variante** d'une autre (`"base"`) :
   elle ne porte aucune case, reprend celles de sa base, change de planche (`"scene"`) et porte ses
   propres entités. Sa base se cherche du dossier de la variante vers la racine ; une base elle-même
   variante est refusée.
-- \anchor EX-LVL-024 **EX-LVL-024** — La **hauteur** est réservée : `"floor"` par couche,
+- **EX-LVL-024** — La **hauteur** est réservée : `"floor"` par couche,
   `"elevation"` par case de couche et par entité, lus, gardés et réécrits ; ni le jeu ni l'éditeur
   ne s'en servent, et le contrôle signale toute valeur non nulle.
 
@@ -206,21 +206,21 @@ Coordonnées `x` = colonne, `y` = ligne, origine **haut-gauche** ; toute tuile h
 > décrivaient une **campagne** de tableaux ordonnés ; le jeu est un bac à sable, relié par le
 > **graphe de cartes** du `LOT-09` et retenu par la **sauvegarde** du `LOT-17`.
 
-- \anchor EX-LVL-010 **EX-LVL-010** *(retirée en `LOT-67`)* — ordre de chargement des niveaux.
-- \anchor EX-LVL-011 **EX-LVL-011** *(retirée en `LOT-67`)* — enchaînement automatique des niveaux.
-- \anchor EX-LVL-012 **EX-LVL-012** *(retirée en `LOT-67`)* — niveaux de démonstration à difficulté
+- **EX-LVL-010** *(retirée en `LOT-67`)* — ordre de chargement des niveaux.
+- **EX-LVL-011** *(retirée en `LOT-67`)* — enchaînement automatique des niveaux.
+- **EX-LVL-012** *(retirée en `LOT-67`)* — niveaux de démonstration à difficulté
   croissante.
-- \anchor EX-LVL-013 **EX-LVL-013** *(retirée en `LOT-67`)* — séquence de niveaux en donnée de
+- **EX-LVL-013** *(retirée en `LOT-67`)* — séquence de niveaux en donnée de
   contenu.
-- \anchor EX-LVL-014 **EX-LVL-014** *(retirée en `LOT-67`, remplacée par la sauvegarde du `LOT-17`)*
+- **EX-LVL-014** *(retirée en `LOT-67`, remplacée par la sauvegarde du `LOT-17`)*
   — progression par tableau.
-- \anchor EX-LVL-015 **EX-LVL-015** *(retirée en `LOT-67`, reprise par le `LOT-49`)* — couverture de
+- **EX-LVL-015** *(retirée en `LOT-67`, reprise par le `LOT-49`)* — couverture de
   toutes les mécaniques par le contenu livré.
-- \anchor EX-LVL-006 **EX-LVL-006** *(retirée au `LOT-88`)* — mode de cadrage de caméra par niveau.
-- \anchor EX-LVL-007 **EX-LVL-007** *(retirée au `LOT-88`)* — zones de caméra dessinées à la main.
-- \anchor EX-LVL-008 **EX-LVL-008** *(retirée au `LOT-88`)* — route des plateformes mobiles et
+- **EX-LVL-006** *(retirée au `LOT-88`)* — mode de cadrage de caméra par niveau.
+- **EX-LVL-007** *(retirée au `LOT-88`)* — zones de caméra dessinées à la main.
+- **EX-LVL-008** *(retirée au `LOT-88`)* — route des plateformes mobiles et
   capacités par niveau.
-- \anchor EX-LVL-009 **EX-LVL-009** *(retirée au `LOT-88`)* — liste des plans picturaux et
+- **EX-LVL-009** *(retirée au `LOT-88`)* — liste des plans picturaux et
   parallaxe.
 
 ## Traçabilité

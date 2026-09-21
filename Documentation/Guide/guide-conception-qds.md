@@ -1,4 +1,4 @@
-# Concevoir les écrans dans Qt Design Studio {#guide-conception-qds}
+# Concevoir les écrans dans Qt Design Studio
 
 > Statut : **en place** (`LOT-86`, module de conception refondu au `LOT-87`). Cette page ne s'adresse pas au développeur mais à **qui dessine
 > les écrans**. Elle décrit ce qu'on peut faire sans jamais ouvrir un fichier source, ce qui demande
@@ -210,7 +210,7 @@ quelque chose de neuf.
 
 ## Voir aussi
 
-- @ref guide-ihm-qt — le socle applicatif : deux binaires, module QML, surface de rendu.
-- @ref guide-design-ihm — la répartition de l'information dans l'éditeur et l'échelle des écrans du jeu.
-- [Spécification IHM](@ref spec-interface-ihm), section 11 — le *pourquoi* de cette frontière
+- [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md) — le socle applicatif : deux binaires, module QML, surface de rendu.
+- [Système de design et architecture de l'information](guide-design-ihm.md) — la répartition de l'information dans l'éditeur et l'échelle des écrans du jeu.
+- [Spécification IHM](../Specification/interface-ihm.md), section 11 — le *pourquoi* de cette frontière
   (`EX-IHM-100` à `EX-IHM-105`).

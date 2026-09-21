@@ -51,7 +51,7 @@ classes.
   (`core::CombatantProfile::armorClass`, `damageTraits`), les réserves sur le combattant
   (`core::CombatState::grantReserve`), et deux crochets de plus — `DamageTaken` et
   `CombatantDowned` — qui portent les PV avant et après, l'excédent et le critique.
-- **Dans l'arène** : le coup d'essai du [LOT-50](@ref lot-50) est **retiré** ;
+- **Dans l'arène** : le coup d'essai du [LOT-50](LOT-50-colisee.md) est **retiré** ;
   `core::ArenaSession::attack` joue l'action *attaquer*, `dodge` et `disengage` les actions
   *esquiver* et *se désengager*, et `move` déclenche les **attaques d'opportunité**. L'écran gagne
   deux boutons ; le personnage de démonstration frappe avec son épée longue, contre la CA que son
@@ -124,7 +124,7 @@ changement de montant s'inscrit dans une trace (`core::DamageWork::adjust`), que
 : « résistance (contondant) 20 -> 10 ».
 
 - **Une salve, un appel.** Le pipeline accumule les pertes de toutes ses cibles et les applique en
-  **un** `CombatState::applyDamage(span)` : la règle du [LOT-20](@ref lot-20) — une zone qui abat les
+  **un** `CombatState::applyDamage(span)` : la règle du [LOT-20](LOT-20-initiative-tour-par-tour.md) — une zone qui abat les
   deux camps est une défaite quel que soit l'ordre des cibles — tient donc aussi pour des dégâts
   résistés, absorbés ou convertis.
 - **Contournables.** Une affinité nomme les drapeaux qui la contournent : « résistance aux dégâts
@@ -196,6 +196,6 @@ Ce que l'epic relevait en face de chaque critère, dans l'ordre des critères de
 
 Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1120/1120 en Debug et en Release, `clang-format`, les lints, la Doxygen et le cahier de test verts ; deux défauts réintroduits à la main font chacun échouer leurs tests ; écran de l'arène capturé.
 
-Alimente [LOT-22](@ref lot-22), [LOT-23](@ref lot-23), [LOT-24](@ref lot-24), `LOT-25`, [LOT-27](@ref lot-27), `LOT-47` et `LOT-72`.
+Alimente [LOT-22](LOT-22-portee-ligne-de-vue.md), [LOT-23](LOT-23-ia-tactique.md), [LOT-24](LOT-24-ihm-combat.md), `LOT-25`, [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27), `LOT-47` et `LOT-72`.
 
 Exigences couvertes : `EX-CBT-030` (l'attaque contre une CA recalculée depuis ses sources), `EX-CBT-031` (le critique double les dés), `EX-CBT-032` (dégâts typés, jamais de type par défaut), et `EX-REG-003` pour chaque attaque. Aucune exigence ajoutée.

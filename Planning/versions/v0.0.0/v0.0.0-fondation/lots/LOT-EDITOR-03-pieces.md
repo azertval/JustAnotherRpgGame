@@ -30,7 +30,7 @@ criteres = [
 La palette est la planche du lieu. Poser une pièce écrit sa couche, sa `piece` et sa collision en
 un seul geste — ce que les scripts des cartes faisaient jusqu'ici à la place de l'éditeur.
 
-Feuille de route : [éditeur](@ref roadmap-editeur). Le lot alimente `LOT-EDITOR-04`.
+Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-editeur.md). Le lot alimente `LOT-EDITOR-04`.
 
 ## Ce que le dépôt contenait à l'ouverture (19 septembre 2026)
 

@@ -66,7 +66,7 @@ leurs propriétés — c'est-à-dire de produire le contenu du RPG sans écrire 
 - **L'outil « Entité »** (icône d'épingle) et **le panneau « Entités »** : la famille à poser, la
   liste des entités, le formulaire de l'entité sélectionnée, et les avertissements — références
   cassées et terrain tactique —, un double-clic sélectionnant l'entité en cause.
-- **Les marqueurs générés** du [LOT-39](@ref lot-39) : chaque famille a le sien
+- **Les marqueurs générés** du [LOT-39](LOT-39-cles-assets.md) : chaque famille a le sien
   (`hmi::entityMarkerKey`, `TextureCache::markerTexture`), dans le canevas comme dans l'essai.
 - **La zone et la formation** de la rencontre sélectionnée, sur la carte, avec l'outil « Entité » :
   la zone en bleu (en orange si elle est trop étroite), chaque case voulue en vert, ou en rouge si
@@ -81,7 +81,7 @@ leurs propriétés — c'est-à-dire de produire le contenu du RPG sans écrire 
 ### Ce qui reste hors du lot, nommément
 
 - **La traversée des portails, le chargement à chaud, la validation au chargement** : le
-  [LOT-09](@ref lot-09), sur le contrat et le graphe statique posés ici.
+  [LOT-09](LOT-09-colisee-premiere-carte.md), sur le contrat et le graphe statique posés ici.
 - **Ouvrir le dialogue d'un PNJ dans l'essai** : l'essai dit quel dialogue le PNJ ouvrirait ; le
   jouer est l'affaire de l'exploration du jeu Qt Quick (`LOT-27`).
 - **Le contenu du coffre** : le butin du `LOT-26`.
@@ -96,11 +96,11 @@ leurs propriétés — c'est-à-dire de produire le contenu du RPG sans écrire 
 
 La feuille de route interdisait de démarrer avant que le §8 ait tranché **où vit l'édition** : dans
 la scène, depuis le jeu (ce que voulait le §10), ou dans `LevelEditor`, l'exécutable Qt Widgets que
-le [LOT-86](@ref lot-86) a séparé du jeu (la recommandation de l'audit).
+le [LOT-86](LOT-86-refonte-hmi-quick.md) a séparé du jeu (la recommandation de l'audit).
 
 **L'auteur a tranché le 16 septembre 2026 : retarger `LevelEditor`.** `EX-EDIT-030` est refondue en
 conséquence — l'outil d'auteur est un exécutable distinct, qui partage le code du jeu mais pas sa
-technologie d'interface, et le mode intégré au jeu est l'arène du [LOT-50](@ref lot-50), un bac à
+technologie d'interface, et le mode intégré au jeu est l'arène du [LOT-50](LOT-50-colisee.md), un bac à
 sable de débogage. `EX-EDIT-031` ne parle plus de Direct3D 11, que le rendu atteint depuis le
 `LOT-69` hérité au travers de QRhi. La boucle « poser → essayer » que l'édition dans la scène
 promettait reste servie par l'essai immédiat, que ce lot étend aux entités (`EX-EDIT-055`).
@@ -113,7 +113,7 @@ L'état des lieux fait au démarrage a trouvé six écarts. Ils décident de la 
   code : le mot « portail » ne vivait que dans des commentaires, et le seul « point d'apparition »
   était la tuile d'entrée. Le lot devait « poser et éditer les portails (carte cible, point
   d'arrivée) » : il en a d'abord écrit le **contrat** (`core::PORTAL_ENTITY_TYPE`,
-  `core::SPAWN_POINT_ENTITY_TYPE`, `niveaux.md`), que le [LOT-09](@ref lot-09) traversera.
+  `core::SPAWN_POINT_ENTITY_TYPE`, `niveaux.md`), que le [LOT-09](LOT-09-colisee-premiere-carte.md) traversera.
 - **`core::LevelDraft` portait couches et entités sans aucun mutateur** — « en attendant
   l'outillage d'édition du `LOT-11` » —, et l'éditeur ne peignait que la grille racine.
 - **Aucun code de l'interface ne lisait les entités d'une carte**, pas même l'essai immédiat : un
@@ -177,7 +177,7 @@ Décisions prises en route.
 - **Une seule règle pour « se tenir ici ».** Le terrain tactique place la formation par
   `core::BattleGrid::place`, exactement ce que fait le montage d'une rencontre : un avertissement
   de l'éditeur et un refus en jeu ne peuvent pas diverger. La zone est une `core::ReachableArea` :
-  diagonales et coins suivent la règle du [LOT-19](@ref lot-19).
+  diagonales et coins suivent la règle du [LOT-19](LOT-19-grille-tactique.md).
 - **Trois seuils nommés** pour « trop étroit » : un groupe de **quatre**, une zone d'**un
   déplacement** (6 cases, 30 pieds), **quatre** cases libres par combattant. Ce sont des seuils
   d'auteur, pas des règles du Manuel, écrits là où ils se règlent (`TacticalTerrain.h`).
@@ -205,9 +205,9 @@ Statut : **livré, en attente de la vérification IHM manuelle**. Vérification 
 Debug `/W4 /WX` sans avertissement, `ctest` à **1278/1278** (1145 au `LOT-24`), lints d'exigences
 et de lots verts, cahier de test régénéré ; captures de `LevelEditor` relues.
 
-Ce que chaque prérequis apportait : [LOT-04](@ref lot-04) (le format à couches et entités),
-[LOT-08](@ref lot-08) (le vocabulaire de terrain), [LOT-10](@ref lot-10) (les entités de carte et
-l'interaction). Alimente [LOT-27](@ref lot-27) (le contenu du slice se produit dans l'éditeur),
+Ce que chaque prérequis apportait : [LOT-04](LOT-04-format-v3-multicouches.md) (le format à couches et entités),
+[LOT-08](LOT-08-tuiles-rpg.md) (le vocabulaire de terrain), [LOT-10](LOT-10-entites-de-carte.md) (les entités de carte et
+l'interaction). Alimente [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27) (le contenu du slice se produit dans l'éditeur),
 `LOT-40` (le générateur écrit des cartes que l'éditeur ouvre) et `LOT-69` (retrait de l'atelier
 pixel art).
 

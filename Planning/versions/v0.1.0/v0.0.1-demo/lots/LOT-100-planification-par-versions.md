@@ -11,7 +11,7 @@ livrables = [
   "`Planning/` : vision, versions, fiches de lots, référentiels, standards.",
   "`Planning/outils/lint_planning.py` dans le job `lint-exigences`, et ses tests dans `pytest`.",
   "Le site de planification publié sous `planning/` du site du projet, relié à la documentation.",
-  "`Documentation/Lot/roadmap.md` figée, avec un renvoi vers `Planning/`.",
+  "`Planning/vision/archives/feuille-de-route-jeu.md` figée, avec un renvoi vers `Planning/`.",
 ]
 criteres = [
   "`python Planning/outils/lint_planning.py` est vert, en local et en CI.",

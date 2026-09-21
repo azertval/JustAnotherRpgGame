@@ -1,10 +1,10 @@
-# Écrans, navigation et boucle de jeu {#guide-ecrans}
+# Écrans, navigation et boucle de jeu
 
 Cette page explique comment le jeu passe du menu à la carte, à la pause, aux options, aux écrans
-du RPG ou au Colisée. Les écrans sont des fichiers QML (@ref guide-ihm-qt) ; la **table de
+du RPG ou au Colisée. Les écrans sont des fichiers QML ([IHM Qt — deux applications, deux technologies](guide-ihm-qt.md)) ; la **table de
 transitions** qui décide où l'on peut aller est, elle, du C++ pur, testé sans fenêtre, que
 `hmi::ScreenRouter` se contente d'appeler pour le compte du QML. L'éditeur de niveaux est un
-binaire séparé (@ref guide-editeur) : aucun chemin du jeu n'y mène.
+binaire séparé ([Éditeur de niveaux](guide-editeur.md)) : aucun chemin du jeu n'y mène.
 
 ## La machine à états : `hmi::ScreenFlow`
 
@@ -48,7 +48,7 @@ outils de vérification, pas des chemins de jeu.
 
 ## La vue de jeu et la session qui lui survit
 
-`Screens/GameView.qml` pose la surface de rendu QRhi (`WorldViewport`, @ref guide-rendu) sur le
+`Screens/GameView.qml` pose la surface de rendu QRhi (`WorldViewport`, [Rendu 2D : de la scène à l'écran](guide-rendu.md)) sur le
 singleton `hmi::WorldModel`, qui porte la **session d'exploration** (`core::ExplorationSession`,
 via `hmi::WorldPlay`). La session est un singleton précisément parce que la pile **détruit** la vue
 de jeu quand un autre écran la remplace : une session possédée par l'écran mourrait avec lui, et
@@ -62,7 +62,7 @@ suspend la simulation est dit par `hmi::pausesGame` (`EX-IHM-091`), pas par la t
 transitions, qui ne connaît pas ces écrans un par un.
 
 L'**essai immédiat** de l'éditeur joue la même exploration, par le même `hmi::WorldPlay`
-(`EX-EDIT-055`, @ref guide-editeur) : l'essai montre donc exactement ce que le jeu montrera.
+(`EX-EDIT-055`, [Éditeur de niveaux](guide-editeur.md)) : l'essai montre donc exactement ce que le jeu montrera.
 
 ## Pause
 
@@ -91,14 +91,14 @@ L'**event loop Qt** (`QGuiApplication::exec`) possède la navigation. La simulat
 avance à **pas fixe** dans `hmi::WorldModel` : un `QTimer` précis de `STEP_MILLISECONDS` (16 ms)
 appelle `WorldModel::step`, qui transmet l'intention courante (direction, interaction) à
 `WorldPlay::step` avec une durée constante — jamais le temps réel écoulé. Le rendu, lui, est
-cadencé par le graphe de scène Qt Quick ; le détail est dans @ref guide-ihm-qt et @ref
-guide-boucle.
+cadencé par le graphe de scène Qt Quick ; le détail est dans [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md) et
+[La boucle de jeu](guide-boucle.md).
 
 ## Voir aussi
 - `hmi::ScreenRouter`, `hmi::WorldModel`, `hmi::WorldPlay`.
 - `hmi::ScreenFlow`, `hmi::ScreenId`, `hmi::ScreenEvent`, `hmi::ScreenState`, `hmi::ScreenDressing`.
-- @ref guide-ihm-qt — le socle Qt Quick : module QML, surface de rendu QRhi.
-- @ref guide-entrees — le clavier et la manette dans les écrans.
-- @ref guide-niveaux, @ref guide-editeur — le format des cartes, et comment l'éditeur réutilise
+- [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md) — le socle Qt Quick : module QML, surface de rendu QRhi.
+- [Entrées et actions logiques](guide-entrees.md) — le clavier et la manette dans les écrans.
+- [Niveaux : modèle, couches, entités, chargement](guide-niveaux.md), [Éditeur de niveaux](guide-editeur.md) — le format des cartes, et comment l'éditeur réutilise
   `hmi::WorldPlay` pour l'essai immédiat.
-- @ref guide-boucle — le pas fixe.
+- [Boucle de jeu et pas de temps fixe](guide-boucle.md) — le pas fixe.

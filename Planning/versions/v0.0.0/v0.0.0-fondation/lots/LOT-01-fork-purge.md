@@ -16,7 +16,7 @@ livrables = [
   "Renommage du dépôt en `JustAnotherRpgGame` (cibles CMake, binaire, documentation, workflows), préfixe de macro `JADG_`, version remise à `0.1.0`.",
 ]
 criteres = [
-  "Tag d'archive posé **avant** toute suppression (supprimé depuis par le [LOT-88](@ref lot-88)).",
+  "Tag d'archive posé **avant** toute suppression (supprimé depuis par le [LOT-88](LOT-88-retrait-heritage.md)).",
   'Un `grep -rn "gravity" Source/` ne renvoie plus rien.',
   "Configuration CMake réussie, `Core` et `JustAnotherRpgGame` compilés sans avertissement en `/W4 /WX`, exécutable produit.",
   "Le nombre de tests survivants est mesuré et publié : il devient l'oracle de référence des lots `LOT-02` à `LOT-05`, tous des refactorings à comportement constant.",

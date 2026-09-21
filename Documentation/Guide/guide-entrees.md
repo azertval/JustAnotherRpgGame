@@ -1,4 +1,4 @@
-# Entrées et actions logiques {#guide-entrees}
+# Entrées et actions logiques
 
 Cette page explique comment une touche physique devient un déplacement du personnage, et pourquoi
 ce trajet passe par une étape intermédiaire qui, au premier abord, peut sembler superflue.
@@ -27,12 +27,12 @@ Le trajet complet est donc : **touche physique → événement Qt → traduction
 `core::ExplorationIntent` (intention) → `Core` (logique de jeu)**. Les premières étapes vivent du
 côté de la présentation, la dernière dans `Core`, indépendante.
 
-## L'intention : \ref core::ExplorationIntent "core::ExplorationIntent"
+## L'intention : `core::ExplorationIntent`
 
 `core::ExplorationIntent` est le **contrat** de données entre la présentation et l'exploration :
 
 - `move` : la direction voulue, un `core::Vector2` de longueur **au plus 1** — déjà normalisée, pour
-  qu'une diagonale n'aille pas plus vite qu'une ligne droite (@ref guide-maths). Deux touches
+  qu'une diagonale n'aille pas plus vite qu'une ligne droite ([Mathématiques du moteur](guide-maths.md)). Deux touches
   opposées enfoncées ensemble **se neutralisent** plutôt que de privilégier arbitrairement l'une ;
 - `interact` : vrai **le pas** où le joueur demande l'interaction — un appui ponctuel, pas un état
   maintenu.
@@ -44,7 +44,7 @@ physiques. Deux traducteurs la construisent, un par application :
   directions enfoncées (flèches, `Z`/`W`, `Q`/`A`, `S`, `D`), en compose la direction normalisée et
   la pousse à `hmi::WorldModel::setMove` à chaque appui ou relâchement ; `E`/`Espace` appellent
   `WorldModel::interact`, `Échap` ouvre la pause. `WorldModel` range l'intention et la remet à la
-  session au pas suivant (@ref guide-boucle) ;
+  session au pas suivant ([Boucle de jeu et pas de temps fixe](guide-boucle.md)) ;
 - dans l'**essai immédiat** de l'éditeur, `hmi::EditorViewport` retient les touches enfoncées
   (mêmes touches que le jeu) et compose la même direction ; `E`/`Espace` lèvent une demande
   d'interaction, `Échap` arrête l'essai.
@@ -58,7 +58,7 @@ d'événement de relâchement pour les touches maintenues. Sans précaution, une
 resterait « collée » et le personnage avancerait seul au retour. `hmi::EditorViewport` traite donc
 `QEvent::FocusOut` en oubliant toutes les touches tenues.
 
-## Échantillonner plutôt que réagir : \ref hmi::InputState "hmi::InputState"
+## Échantillonner plutôt que réagir : `hmi::InputState`
 
 Deux façons classiques d'observer les entrées existent :
 
@@ -146,7 +146,7 @@ alimente aussi un état par `hmi::GamepadButton` (`onGamepadButtonDown`/`onGamep
 `InputState::gamepadButtonDown`/`gamepadButtonPressed`) — dix boutons et directions (D-pad et stick
 gauche fusionnés en une seule notion par direction). C'est cette piste que lit le jeu.
 
-**Dans le jeu : \ref hmi::GamepadNavigator "hmi::GamepadNavigator".** Qt 6 n'a plus de module
+**Dans le jeu : `hmi::GamepadNavigator`.** Qt 6 n'a plus de module
 manette ; le jeu Qt Quick passe donc par ce pont. Tant qu'il est `active`, il sonde la manette
 soixante fois par seconde (`beginFrame`, puis `GamepadPoller::poll`) et émet `pressed` avec le nom
 du bouton (`up`, `down`, `left`, `right`, `a`, `b`, `x`, `y`, `lb`, `rb`). La croix et le stick se
@@ -176,7 +176,7 @@ La page Options du jeu est en QML (`Source/Ui/Screens/OptionsForm.ui.qml`, câbl
 chaque réglage : plein écran, **V-Sync** (`EX-REN-022`), volume, **langue**, journaux de
 diagnostic. Le jeu ne propose pas de remappage des touches.
 
-## Les raccourcis de l'éditeur : \ref hmi::EditorKeyBindings "EditorKeyBindings"
+## Les raccourcis de l'éditeur : `hmi::EditorKeyBindings`
 
 Les raccourcis de l'éditeur sont **reconfigurables par fichier** (`EX-CTRL-012`) :
 `hmi::EditorKeyBindings` associe chaque `hmi::EditorAction` (Sauvegarder, Annuler, Refaire, Copier,
@@ -196,7 +196,7 @@ barre d'outils — une seule source, jamais un second traitement dans la vue.
   l'entrée concernée (`EX-NFR-040`), jamais bloquant. `save` relit le fichier existant pour
   préserver les autres sections plutôt que de les écraser.
 
-## La langue de l'interface : \ref hmi::Localization "hmi::Localization"
+## La langue de l'interface : `hmi::Localization`
 
 Tous les textes d'interface de l'éditeur passent par une **clé** stable (`EX-REN-033`) plutôt que
 par un libellé en dur : `hmi::Localization` résout une clé (« action.copy ») vers la chaîne de la
@@ -220,5 +220,5 @@ traduit ses écrans QML par le mécanisme de Qt (`qsTr`) ; sa langue se choisit 
   Options, en QML ; `hmi::OptionsModel`.
 - `hmi::EditorKeyBindings`, `hmi::EditorActions` — raccourcis de l'éditeur.
 - `hmi::Localization`.
-- @ref guide-boucle — à quel moment un pas lit l'intention.
-- @ref guide-ihm-qt — les deux applications qui pilotent tout ceci.
+- [Boucle de jeu et pas de temps fixe](guide-boucle.md) — à quel moment un pas lit l'intention.
+- [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md) — les deux applications qui pilotent tout ceci.

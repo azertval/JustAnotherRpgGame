@@ -36,7 +36,7 @@ sources = [
 
 De quoi construire un personnage jouable au plus tôt : **22 espèces**, **13 historiques** et les
 **4 classes simplifiées** qui serviront de socle au premier modèle de combat. Le
-[LOT-13](@ref lot-13) suppose ces trois catalogues sans dire d'où ils viennent ; ils viennent d'ici.
+[LOT-13](LOT-13-fiche-de-personnage.md) suppose ces trois catalogues sans dire d'où ils viennent ; ils viennent d'ici.
 
 ## Périmètre
 
@@ -67,7 +67,7 @@ bestiaire est reposé dessus, et produit une sortie **identique à l'octet près
 
 ### Le *Manuel des Joueurs* est un scan, et sa graisse ment
 
-La méthode du [LOT-33](@ref lot-33) — la graisse porte la structure — **ne s'applique pas** au
+La méthode du [LOT-33](LOT-33-bestiaire-de-base.md) — la graisse porte la structure — **ne s'applique pas** au
 *Manuel*. Son OCR attribue les polices au hasard : sur le bloc du tieffelin, « Vitesse. » ne porte
 aucune graisse, « Âge. » en porte sur deux fragments non contigus, et les titres eux-mêmes sont
 mutilés — `TaiJJe` pour « Taille », `Vision dans Je noir`, `tliaumaturgie`, `d'wie`. Un détecteur
@@ -80,7 +80,7 @@ Deux parades, et aucune n'est une relecture :
    comptent — augmentation, taille, vitesse, langues — ont chacun une formulation stable.
 2. **Les noms de traits viennent du lexique** (`LOT-30`), qui porte les capacités raciales sous ses
    catégories `capacité (nain)`, `capacité (tieffelin)`… C'est exactement ce pour quoi il a été
-   construit, et c'est la parade que le [LOT-43](@ref lot-43) employait déjà pour les dons.
+   construit, et c'est la parade que le [LOT-43](LOT-43-options-de-personnage.md) employait déjà pour les dons.
 
 **Et les augmentations sont recoupées.** Elles figurent deux fois dans le *Manuel* : dans le bloc de
 la race, et dans la table « Augmentations raciales » de la page 12, dont l'ordonnée rattache chaque
@@ -201,6 +201,6 @@ les jouer viendra avec les mécanismes qui les portent.
 
 ## Bilan
 
-Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 983/983, `clang-format`, les six lints, cahier de test et Doxygen verts ; tous les critères d'acceptation sont cochés dans l'epic d'origine. Alimente [LOT-13](@ref lot-13), [LOT-27](@ref lot-27).
+Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 983/983, `clang-format`, les six lints, cahier de test et Doxygen verts ; tous les critères d'acceptation sont cochés dans l'epic d'origine. Alimente [LOT-13](LOT-13-fiche-de-personnage.md), [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27).
 
-Exigences couvertes : [`EX-CNT-030`](@ref EX-CNT-030), [`EX-CNT-031`](@ref EX-CNT-031), [`EX-RPG-010`](@ref EX-RPG-010), [`EX-RPG-011`](@ref EX-RPG-011).
+Exigences couvertes : [`EX-CNT-030`](../../../../../Documentation/Specification/contenu.md#EX-CNT-030), [`EX-CNT-031`](../../../../../Documentation/Specification/contenu.md#EX-CNT-031), [`EX-RPG-010`](../../../../../Documentation/Specification/rpg.md#EX-RPG-010), [`EX-RPG-011`](../../../../../Documentation/Specification/rpg.md#EX-RPG-011).

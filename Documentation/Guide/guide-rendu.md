@@ -1,11 +1,11 @@
-# Rendu 2D : de la scène à l'écran {#guide-rendu}
+# Rendu 2D : de la scène à l'écran
 
 Cette page explique comment un lieu qu'on parcourt, l'arène du Colisée ou le brouillon de l'éditeur
 finissent par apparaître comme une image à l'écran, en partant des notions de base du rendu temps
 réel pour qui n'en a jamais écrit. Tout le rendu vit dans `Source/HMI/Graphics`, sur une surface
 fournie par Qt (l'éditeur dans `Source/Editor/Ui`, le jeu dans `Source/HMI/Runtime`) ; c'est la
 seule partie du moteur qui dépend du GPU, via **QRhi** (voir plus bas — `Core` en reste totalement
-indépendant, @ref guide-boucle et `EX-ARCH-040`).
+indépendant, [Boucle de jeu et pas de temps fixe](guide-boucle.md) et `EX-ARCH-040`).
 
 ## Vocabulaire de base : GPU, swap chain, back buffer
 
@@ -65,12 +65,12 @@ toutes composées avec le reste de l'interface :
 
 - `hmi::EditorViewport` (`Source/Editor/Ui`) : le canevas de l'éditeur, une **`QGraphicsView`**
   (`LOT-EDITOR-02`). Il ne parle pas au GPU : il peint par `QPainter` la **même** scène composée
-  que le jeu soumet (`hmi::paintComposedScene`), en édition comme en essai immédiat (@ref
-  guide-editeur), et reçoit les événements clavier/souris **Qt** (@ref guide-entrees). Un test
+  que le jeu soumet (`hmi::paintComposedScene`), en édition comme en essai immédiat (
+  [L'éditeur de cartes](guide-editeur.md)), et reçoit les événements clavier/souris **Qt** ([Entrées et actions logiques](guide-entrees.md)). Un test
   compare son image au rendu QRhi du jeu, cadrage pour cadrage.
 - `hmi::WorldViewportItem` et `hmi::ArenaViewportItem` (`Source/HMI/Runtime`) : le lieu qu'on
   parcourt et l'arène, dans le jeu Qt Quick. Ce sont des **`QQuickRhiItem`**, exposés au QML
-  (@ref guide-ihm-qt).
+  ([IHM Qt — deux applications, deux technologies](guide-ihm-qt.md)).
 
 Les trois possèdent les mêmes ressources graphiques — lot de sprites, atlas, registre de textures —
 regroupées dans `hmi::SceneResources`. Le regroupement existe pour l'**ordre de libération** : ce
@@ -84,9 +84,9 @@ Le seul instant où les deux se parlent est `synchronize()`, pendant que le fil 
 bloqué : n'y traversent que des **valeurs** — un instantané de la scène (`hmi::WorldSceneSnapshot`,
 `hmi::ArenaSceneSnapshot`), jamais un pointeur vers la carte ou la session.
 
-## Unités monde et pixels : \ref hmi::Camera2D "hmi::Camera2D"
+## Unités monde et pixels : `hmi::Camera2D`
 
-`Core` ne connaît que des **unités monde** (@ref guide-maths) — jamais de pixels. Le rendu doit
+`Core` ne connaît que des **unités monde** ([Mathématiques du moteur](guide-maths.md)) — jamais de pixels. Le rendu doit
 donc **convertir** une position monde en position d'écran avant de dessiner quoi que ce soit ;
 c'est le rôle de `hmi::Camera2D`. Deux paramètres gouvernent cette conversion :
 
@@ -134,7 +134,7 @@ scène à l'écran :
 L'élément Qt Quick publie ce cadrage à son calque d'interface QML et s'en sert pour traduire le
 pointeur en case : deux cadrages recalculés chacun de leur côté ne tombent jamais au même pixel.
 
-## Le pipeline de dessin de sprites : \ref hmi::SpriteBatch "hmi::SpriteBatch"
+## Le pipeline de dessin de sprites : `hmi::SpriteBatch`
 
 ### Pourquoi « batcher » plutôt que dessiner un sprite à la fois
 
@@ -146,7 +146,7 @@ un grand nombre de sprites partageant la **même texture** en un minimum d'appel
 l'usage est `beginFrame()`, puis pour chaque lot `begin(projection, texture)`, un ou plusieurs
 `draw(quad)` et `end()`, puis un unique `submit(...)` qui téléverse et dessine l'image entière.
 
-### \ref hmi::SpriteQuad "SpriteQuad" : un rectangle texturé
+### `hmi::SpriteQuad` : un rectangle texturé
 
 Un **quad** est simplement un rectangle (deux triangles, en pratique — un GPU ne sait dessiner que
 des triangles). `hmi::SpriteQuad` (`HMI/Graphics/Quad.h`, sans dépendance GPU) en décrit un par sa
@@ -177,7 +177,7 @@ Le pipeline gère aussi la **transparence** (mélange `SrcAlpha`/`OneMinusSrcAlp
 de *blending* configuré, le canal alpha d'un quad serait ignoré et chaque sprite dessinerait un
 rectangle plein — une figurine n'aurait plus de silhouette.
 
-### \ref hmi::LineQuad "LineQuad" : un segment orienté
+### `hmi::LineQuad` : un segment orienté
 
 `SpriteQuad` décrit toujours un rectangle **aligné aux axes** : impossible d'en tirer un trait en
 diagonale. `hmi::LineQuad` couvre ce cas sans nouveau pipeline ni nouveau shader — même tampon,
@@ -196,7 +196,7 @@ texture, à des positions connues. C'est ce qui permet le batching décrit plus 
 `SpriteBatch::begin` ne prend **qu'une seule** texture par lot, donc dessiner des sprites différents
 dans le même appel exige qu'ils proviennent tous du même atlas.
 
-### \ref hmi::TextureAtlas "hmi::TextureAtlas" : l'atlas des couleurs plates
+### `hmi::TextureAtlas` : l'atlas des couleurs plates
 
 `hmi::TextureAtlas` porte une grille de régions de 16 pixels de côté (`TILE_SIZE`), **générée en
 code** par `hmi::buildProceduralAtlasImage` (`HMI/Graphics/ProceduralAtlas.h`, logique **pure**,
@@ -337,7 +337,7 @@ La composition **lit** l'état du jeu mais ne le modifie **jamais** (`EX-ARCH-01
 un simple observateur, jamais une source de vérité. L'arène n'est vue que par
 `const core::ArenaSession&`, et n'est lue qu'une fois, par `hmi::snapshotArenaScene` ; le lieu, par
 `hmi::snapshotWorldScene`. Le rendu est aussi **découplé** de la simulation au pas fixe
-(`EX-REN-021`), cohérent avec la séparation décrite en @ref guide-boucle : la simulation avance par
+(`EX-REN-021`), cohérent avec la séparation décrite en [Boucle de jeu et pas de temps fixe](guide-boucle.md) : la simulation avance par
 pas fixes, discrets ; le rendu, lui, redessine le dernier instantané une fois par **frame** réelle,
 qu'un pas ait eu lieu ou non entre deux frames.
 
@@ -365,7 +365,7 @@ compose le brouillon (vue iso) ou la carte jouée par `hmi::WorldPlay` (essai), 
 `hmi::paintComposedScene` la peint par `QPainter` — échantillonnage au plus proche, remplissage
 texturé qui prend le centre des pixels comme le GPU. La composition vit dans la cible
 `SceneComposition`, sans GPU ni Qt, que `HmiLib` et l'éditeur lient. En essai, c'est la boucle
-décrite en @ref guide-boucle : des pas de simulation fixes, puis **une** peinture.
+décrite en [Boucle de jeu et pas de temps fixe](guide-boucle.md) : des pas de simulation fixes, puis **une** peinture.
 
 ## Voir aussi
 - `hmi::SpriteBatch`, `hmi::SpriteQuad`, `hmi::LineQuad`, `hmi::RhiContext`,
@@ -385,5 +385,5 @@ décrite en @ref guide-boucle : des pas de simulation fixes, puis **une** peintu
   fichiers et replis (`EX-REN-041`, `EX-REN-042`, `EX-REN-007`).
 - `core::AnimationClip`, `core::ClipSet`, `hmi::AnimationCatalog`, `hmi::ArenaAnimationDriver` —
   l'animation par données (`EX-REN-005`, `EX-REN-012`).
-- @ref guide-boucle — où le rendu s'insère dans la boucle de jeu.
-- @ref guide-maths — les unités monde converties en pixels par la caméra.
+- [Boucle de jeu et pas de temps fixe](guide-boucle.md) — où le rendu s'insère dans la boucle de jeu.
+- [Mathématiques du moteur](guide-maths.md) — les unités monde converties en pixels par la caméra.

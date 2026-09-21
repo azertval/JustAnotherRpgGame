@@ -1,4 +1,4 @@
-# ECS : entités, composants, systèmes {#guide-ecs}
+# ECS : entités, composants, systèmes
 
 Cette page explique le patron d'architecture **Entity-Component-System**
 ([ECS](https://en.wikipedia.org/wiki/Entity_component_system) ⧉) depuis ses principes, puis détaille
@@ -43,7 +43,7 @@ les composants, la logique vit dans les systèmes** ; un composant ne contient j
 comportement, un système ne stocke jamais d'état de jeu à demeure (il le lit/écrit dans les
 composants, qui restent la seule source de vérité).
 
-## L'entité : \ref core::Entity "core::Entity"
+## L'entité : `core::Entity`
 
 Une entité (`core::Entity`) est un **handle générationnel** : une paire `{index, generation}`.
 
@@ -62,7 +62,7 @@ Une entité (`core::Entity`) est un **handle générationnel** : une paire `{ind
 Une entité, à elle seule, ne « fait » rien : elle ne devient un personnage, un décor ou un
 coffre que par les composants qu'on lui attache.
 
-## Le \ref core::World "World"
+## Le `core::World`
 
 `core::World` est le point d'entrée unique de la simulation : il possède les entités, les
 composants et les systèmes. API essentielle :
@@ -181,7 +181,7 @@ C'est **exactement** le motif d'un système : une vue, une lambda, la logique de
 
 `World::addSystem(std::unique_ptr<ISystem>)` enregistre un système ; `World::update(fixedDelta)`
 exécute **tous** les systèmes enregistrés, **dans l'ordre d'enregistrement**, une fois par pas de
-temps fixe (@ref guide-boucle). Cet ordre est significatif et fait partie du contrat de
+temps fixe ([Boucle de jeu et pas de temps fixe](guide-boucle.md)). Cet ordre est significatif et fait partie du contrat de
 déterminisme (`EX-NFR-002`) : deux systèmes qui lisent et écrivent les mêmes composants doivent
 s'exécuter dans un ordre stable pour produire toujours le même résultat.
 
@@ -198,4 +198,4 @@ logique lit des composants et n'en garde aucun état.
 - `core::World`, `core::Entity`, `core::EntityManager`, `core::ComponentPool`, `core::View`.
 - `core::ISystem`, `core::spawnMapEntities`, `core::findInteractionTarget`.
 - `core::Transform`, `core::Sprite`, `core::Animation`, `core::Interactable`, `core::RpgActor`.
-- @ref guide-maths (les types de données des composants), @ref guide-niveaux (la couche `objects`).
+- [Mathématiques du moteur](guide-maths.md) (les types de données des composants), [Niveaux : modèle, couches, entités, chargement](guide-niveaux.md) (la couche `objects`).

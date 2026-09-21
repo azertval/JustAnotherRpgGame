@@ -160,6 +160,6 @@ Ce que l'epic relevait en face de chaque critère, dans l'ordre des critères de
 
 Statut : **livré, en attente de la vérification IHM manuelle**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1145/1145 en Debug, `check_ui_layers`, `check_qml_designer_compat`, les lints et le contrôle des données RPG verts ; captures de l'écran en combat relues.
 
-Alimente [LOT-27](@ref lot-27).
+Alimente [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27).
 
 Exigences couvertes : `EX-IHM-003` (l'affichage dit ce dont le joueur a besoin pour décider), `EX-CBT-020` (les cases atteignables et le chemin **montrés avant** que le joueur ne s'engage). Aucune exigence ajoutée.

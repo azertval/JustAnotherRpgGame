@@ -28,5 +28,5 @@ ignore = [
 [lint.per-file-ignores]
 # Prototypes de l'atelier des PNJ (LOT-91), écrits en style compact pendant la preuve de concept
 # (`if x: y`, `a; b`) : un style, pas un défaut. À lever quand T1-T5 les reprendront.
-"Documentation/Lot/LOT-91-atelier-pnj/atelier/scripts/*.py" = ["E701", "E702"]
-"Documentation/Lot/LOT-93-atelier-monstres/atelier/scripts/*.py" = ["E701", "E702"]
+"Planning/versions/v0.0.0/v0.0.0-fondation/annexes/LOT-91-atelier-pnj/atelier/scripts/*.py" = ["E701", "E702"]
+"Planning/versions/v0.0.0/v0.0.0-fondation/annexes/LOT-93-atelier-monstres/atelier/scripts/*.py" = ["E701", "E702"]

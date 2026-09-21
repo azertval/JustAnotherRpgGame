@@ -56,7 +56,7 @@ les écrans du `LOT-68`, quand elles auront où mener.
 
 ### La carte du monde en fond, et la frontière qu'elle trace
 
-Le [LOT-76](@ref lot-76) venait de conclure que l'habillage se **trace** et ne se livre pas en
+Le [LOT-76](LOT-76-habillage-interface.md) venait de conclure que l'habillage se **trace** et ne se livre pas en
 image (`EX-IHM-075`). Ce lot livre une image. Ce n'est pas un revirement : c'est la même frontière,
 prise de l'autre côté, et `EX-IHM-076` l'écrit.
 
@@ -129,7 +129,7 @@ mécanique retirée est un piège pour le prochain lecteur.
 ## Ce que le lot ne fait pas
 
 **Il ne rend pas le jeu jouable.** « Nouvelle partie » ouvre `demo-deplacement.json`, et ce fichier
-**n'existe pas** : le [LOT-01](@ref lot-01) a purgé les niveaux du jeu de plateforme et aucun lot
+**n'existe pas** : le [LOT-01](LOT-01-fork-purge.md) a purgé les niveaux du jeu de plateforme et aucun lot
 n'en a livré depuis. Le constat est antérieur à ce lot — la « Nouvelle partie » d'avant chargeait
 une séquence tout aussi absente — mais il devient visible, et il vaut mieux l'écrire que le laisser
 découvrir : la carte de départ arrivera avec le contenu du `LOT-27`, sa destination avec le graphe
@@ -147,4 +147,4 @@ la transition du `LOT-09`.
 
 Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1007/1007, `clang-format`, les sept lints, cahier de test et Doxygen verts ; tous les critères d'acceptation sont cochés dans l'epic d'origine.
 
-Exigence ajoutée : [`EX-IHM-076`](@ref EX-IHM-076) (illustrations extraites du corpus). Exigences **refondues** : [`EX-GP-040`](@ref EX-GP-040) (états de jeu), [`EX-IHM-003`](@ref EX-IHM-003) (affichage tête haute), [`EX-IHM-004`](@ref EX-IHM-004) (écran de pause). Exigences **retirées** : [`EX-GP-030`](@ref EX-GP-030), [`EX-GP-031`](@ref EX-GP-031), [`EX-GP-032`](@ref EX-GP-032), [`EX-LVL-010`](@ref EX-LVL-010) → [`EX-LVL-015`](@ref EX-LVL-015), [`EX-IHM-005`](@ref EX-IHM-005), [`EX-NFR-021`](@ref EX-NFR-021).
+Exigence ajoutée : [`EX-IHM-076`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-076) (illustrations extraites du corpus). Exigences **refondues** : [`EX-GP-040`](../../../../../Documentation/Specification/gameplay.md#EX-GP-040) (états de jeu), [`EX-IHM-003`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-003) (affichage tête haute), [`EX-IHM-004`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-004) (écran de pause). Exigences **retirées** : [`EX-GP-030`](../../../../../Documentation/Specification/gameplay.md#EX-GP-030), [`EX-GP-031`](../../../../../Documentation/Specification/gameplay.md#EX-GP-031), [`EX-GP-032`](../../../../../Documentation/Specification/gameplay.md#EX-GP-032), [`EX-LVL-010`](../../../../../Documentation/Specification/niveaux.md#EX-LVL-010) → [`EX-LVL-015`](../../../../../Documentation/Specification/niveaux.md#EX-LVL-015), [`EX-IHM-005`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-005), [`EX-NFR-021`](../../../../../Documentation/Specification/exigences-non-fonctionnelles.md#EX-NFR-021).

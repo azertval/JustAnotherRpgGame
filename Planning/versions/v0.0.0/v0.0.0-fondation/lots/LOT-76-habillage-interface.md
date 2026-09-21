@@ -28,7 +28,7 @@ criteres = [
 
 ## Pourquoi
 
-Sortir du vocabulaire d'aplats. Le [LOT-66](@ref lot-66) avait donné aux écrans du jeu la palette
+Sortir du vocabulaire d'aplats. Le [LOT-66](LOT-66-charte-visuelle.md) avait donné aux écrans du jeu la palette
 du parchemin et un encadrement à trois bandes ; il leur manquait ce qui fait qu'une page de Tanares
 se reconnaît en une seconde : **la pierre sertie à l'angle et le bandeau de titre à ailes**. Ce lot
 les livre, et il les livre **tracés**.
@@ -125,7 +125,7 @@ et non d'un module de géométrie.
 
 **Il ne dessine pas de cadre de champ ni de médaillon rond.** Les deux seraient traçables et
 utiles ; aucun n'a de consommateur aujourd'hui. Le châssis d'écrans du `LOT-68` et l'inventaire du
-[LOT-14](@ref lot-14) les demanderont, avec la taille et le comportement qu'ils leur faudront —
+[LOT-14](LOT-14-inventaire-et-equipement.md) les demanderont, avec la taille et le comportement qu'ils leur faudront —
 livrés d'avance, ils seraient devinés.
 
 **Il ne redessine pas les planches de `.design-mockups/`.** Elles reçoivent les deux jetons neufs,
@@ -134,6 +134,6 @@ planches.
 
 ## Bilan
 
-Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1032/1032, `clang-format`, les six lints, cahier de test et Doxygen verts ; tous les critères d'acceptation sont cochés dans l'epic d'origine. Alimente `LOT-38`, [LOT-15](@ref lot-15), [LOT-24](@ref lot-24).
+Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1032/1032, `clang-format`, les six lints, cahier de test et Doxygen verts ; tous les critères d'acceptation sont cochés dans l'epic d'origine. Alimente `LOT-38`, [LOT-15](LOT-15-pnj-dialogues.md), [LOT-24](LOT-24-ihm-combat.md).
 
-Exigence ajoutée : [`EX-IHM-075`](@ref EX-IHM-075). Exigences tenues sans changement : [`EX-IHM-051`](@ref EX-IHM-051) (aucune couleur hors des jetons), [`EX-IHM-070`](@ref EX-IHM-070) (identité du parchemin, teintes relevées), [`EX-IHM-081`](@ref EX-IHM-081) (facteur d'agrandissement entier).
+Exigence ajoutée : [`EX-IHM-075`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-075). Exigences tenues sans changement : [`EX-IHM-051`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-051) (aucune couleur hors des jetons), [`EX-IHM-070`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-070) (identité du parchemin, teintes relevées), [`EX-IHM-081`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-081) (facteur d'agrandissement entier).

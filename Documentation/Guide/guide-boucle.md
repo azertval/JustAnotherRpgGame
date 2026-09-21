@@ -1,4 +1,4 @@
-# Boucle de jeu et pas de temps fixe {#guide-boucle}
+# Boucle de jeu et pas de temps fixe
 
 Cette page part de zéro : elle explique ce qu'est une boucle de jeu pour qui n'en a jamais écrit,
 puis détaille comment ce moteur la construit.
@@ -19,7 +19,7 @@ donc une boucle qui tourne **en permanence**, tant que le jeu est ouvert, et qui
 Un tour de cette boucle correspond à une **frame** (image). Un jeu qui tourne à 60 *frames per
 second* (FPS) exécute ces quatre étapes 60 fois par seconde, soit un tour toutes les ~16,7 ms. Dans
 ce moteur, Qt possède la boucle d'événements ; la logique et le rendu s'y branchent de deux façons
-(@ref guide-ihm-qt) :
+([IHM Qt — deux applications, deux technologies](guide-ihm-qt.md)) :
 
 - dans le **jeu**, `hmi::WorldModel` avance l'exploration sur un `QTimer` de précision
   (`WorldModel::STEP_MILLISECONDS`, 16 ms), et la surface de rendu (`hmi::WorldViewportItem`)
@@ -68,7 +68,7 @@ Le rendu, lui, n'a pas besoin de cette contrainte : dessiner une fois de plus ou
 seconde ne casse aucun invariant logique. Il reste donc cadencé sur le temps réel, une fois par
 frame — c'est le **découplage** entre logique (fixe) et rendu (variable).
 
-## L'accumulateur : \ref core::FixedTimestep "core::FixedTimestep"
+## L'accumulateur : `core::FixedTimestep`
 
 Le mécanisme qui convertit un temps réel variable en un nombre entier de pas fixes s'appelle un
 **accumulateur**. Principe :
@@ -121,7 +121,7 @@ son tour rattraper encore plus de pas — un cercle vicieux appelé la **spirale
 `maximumStepsPerCall` : le nombre de pas renvoyé par `advance()` est **plafonné** (5 par défaut),
 quitte à ce que la simulation « perde » du temps réel dans un cas extrême plutôt que de bloquer.
 
-### \ref core::FixedTimestep::interpolationAlpha "interpolationAlpha"
+### `core::FixedTimestep::interpolationAlpha`
 
 Après avoir consommé tous les pas fixes disponibles, il peut rester une fraction de pas dans
 l'accumulateur (entre 0 et 1 pas). `interpolationAlpha()` l'expose comme un facteur dans `[0, 1[`,
@@ -136,7 +136,7 @@ est découplé). Elles imposent en revanche une précaution sur les **entrées**
 une telle frame doit **survivre** jusqu'à ce qu'un pas de simulation le lise, au lieu d'être effacé
 par la frame suivante. C'est pourquoi l'essai immédiat note la demande d'interaction (`E`/Espace)
 dans un drapeau que **le premier pas consommé** remet à zéro, et non la frame de rendu — voir
-@ref guide-entrees. Sans cette précaution, à 144 Hz environ deux appuis sur trois seraient perdus.
+[Entrées et actions logiques](guide-entrees.md). Sans cette précaution, à 144 Hz environ deux appuis sur trois seraient perdus.
 
 ## Conséquence pratique pour tout le code de simulation
 
@@ -149,5 +149,5 @@ romprait cette garantie et deviendrait, par construction, non déterministe et d
 ## Voir aussi
 - `core::FixedTimestep`.
 - `hmi::WorldModel` (pas du jeu), `hmi::EditorViewport` (essai immédiat), `hmi::WorldPlay`.
-- @ref guide-ihm-qt, @ref guide-ecrans (navigation).
-- @ref guide-ecs — les entités que la logique manipule.
+- [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md), [Écrans, navigation et boucle de jeu](guide-ecrans.md) (navigation).
+- [ECS : entités, composants, systèmes](guide-ecs.md) — les entités que la logique manipule.

@@ -48,7 +48,7 @@ Parler à un PNJ par un arbre de dialogue scripté, avec choix, conditions et je
   (`core::loadDifficultyScale`, `Core/Rpg/Check`), la fiche porte ses **langues**
   (`core::CharacterSheet::languages`), et la table des interactifs connaît la famille `npc`.
 
-Il ne livre **pas** la conversation ouverte depuis la carte : l'interaction du [LOT-10](@ref lot-10)
+Il ne livre **pas** la conversation ouverte depuis la carte : l'interaction du [LOT-10](LOT-10-entites-de-carte.md)
 ne tourne pas dans `hmi::GameSession`, et la surface de rendu Qt Quick n'affiche aucune scène d'où
 parler à quelqu'un. `core::dialogueTriggerFor` lit le dialogue d'un PNJ posé sur une carte et
 `hmi::DialogueMode` gèle le monde, mais aucune session ne bascule encore de l'un à l'autre ; l'écran
@@ -67,7 +67,7 @@ de dialogue ouvre le héraut du Colisée, écrit dans son jumeau. C'est la boucl
   réplique déclare l'attitude qu'elle montre ; la retenir est un drapeau, et la règle d'attitude du
   *Guide du Maître* (qui module les degrés de difficulté) est à écrire avec le peuplement civil
   (`LOT-82`).
-- **L'éditeur de dialogues** : le panneau de propriétés du [LOT-11](@ref lot-11) proposera les
+- **L'éditeur de dialogues** : le panneau de propriétés du [LOT-11](LOT-11-editeur-multicouches.md) proposera les
   dialogues du catalogue.
 
 ## Conception
@@ -165,7 +165,7 @@ conversation voudra cadrer son interlocuteur, et séparer ensuite un mode partag
 
 ### L'écran
 
-La mise en page du [LOT-68](@ref lot-68), restylée au [LOT-87](@ref lot-87), est conservée. Deux
+La mise en page du [LOT-68](LOT-68-chassis-ecrans-rpg.md), restylée au [LOT-87](LOT-87-charte-v2.md), est conservée. Deux
 ajouts au formulaire, faute desquels il ne pouvait pas servir : `replyChosen(rowId)`, émis par un
 clic sur une réponse, et `checkOutcome`, la restitution du jet au-dessus de la réplique qui en
 découle. `LedgerList` gagne `interactive` et `rowActivated` — faux par défaut, les autres registres

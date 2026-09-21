@@ -205,6 +205,6 @@ Ce que l'epic relevait en face de chaque critère, dans l'ordre des critères de
 
 Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1139/1139 en Debug, les lints et le contrôle des données RPG verts ; deux défauts réintroduits à la main font chacun échouer leur test.
 
-Alimente [LOT-24](@ref lot-24), [LOT-27](@ref lot-27), `LOT-46`.
+Alimente [LOT-24](LOT-24-ihm-combat.md), [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27), `LOT-46`.
 
 Exigences couvertes : `EX-CBT-050` (l'IA choisit dans les mêmes actions que le joueur, avec les mêmes informations). Aucune exigence ajoutée.

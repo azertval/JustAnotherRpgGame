@@ -30,7 +30,7 @@ criteres = [
 
 ## Pourquoi
 
-Le [LOT-68](@ref lot-68) a livré neuf écrans vides. Celui-ci en remplit un : la **fiche de
+Le [LOT-68](LOT-68-chassis-ecrans-rpg.md) a livré neuf écrans vides. Celui-ci en remplit un : la **fiche de
 personnage**, relevée sur la maquette du corpus, et alimentée par un personnage réel.
 
 ## Conception
@@ -133,7 +133,7 @@ fois —, et c'est à ce moment que l'écran cessera d'être une ossature pour d
 
 #### Ce que l'écran est donc aujourd'hui
 
-L'ossature en données du [LOT-68](@ref lot-68), **remplie**. C'est le rendu générique, celui des huit
+L'ossature en données du [LOT-68](LOT-68-chassis-ecrans-rpg.md), **remplie**. C'est le rendu générique, celui des huit
 autres écrans, et il porte les vraies valeurs : identité, progression, six caractéristiques avec
 leur modificateur, combat, six jets de sauvegarde, dix-huit compétences. La table des écrans reste
 donc la seule description de la fiche, et le jour des assets unitaires elle restera le contrat — ce
@@ -164,7 +164,7 @@ c'est-à-dire pas du tout.
 ### Le personnage affiché : une donnée, et un échafaudage assumé
 
 Un écran de fiche qui n'affiche aucune fiche ne se relit pas. Il n'y a pourtant ni groupe
-([LOT-29](@ref lot-29)) ni sauvegarde ([LOT-17](@ref lot-17)) d'où tirer un personnage réel.
+([LOT-29](../../../../vision/archives/feuille-de-route-jeu.md#lot-29)) ni sauvegarde ([LOT-17](../../../../vision/archives/feuille-de-route-jeu.md#lot-17)) d'où tirer un personnage réel.
 
 Ce lot livre donc **`Rpg/characters/demonstration-brenna.json`** : une demi-elfe de niveau 3,
 cartographe, avec son schéma (`character.schema.json`) et sa validation en intégration continue.
@@ -178,7 +178,7 @@ et personne n'aurait su laquelle croire.
 
 Le personnage est **déclaré provisoire**, avec son critère de retrait (`EX-CNT-032`) : il disparaît
 le jour où une partie en fournit un vrai. C'est aussi ce qui l'autorise à référencer l'une des
-quatre classes provisoires du [LOT-36](@ref lot-36) — les seules qui existent — sans casser le
+quatre classes provisoires du [LOT-36](LOT-36-especes-historiques-classes.md) — les seules qui existent — sans casser le
 garde-fou qui interdit aux données **définitives** de le faire. Ce garde-fou a été précisé, pas
 contourné : une donnée provisoire porte son propre critère de retrait, et disparaît donc avec ce
 qu'elle référence.
@@ -187,7 +187,7 @@ qu'elle référence.
 
 Les dix-huit compétences et les six caractéristiques s'affichent, donc s'écrivent dans le catalogue
 de traduction. Or ce sont des **termes de règle** — « Escamotage », pas « Tour de main » — et le
-lexique du [LOT-30](@ref lot-30) les porte déjà. Les réécrire sans lien avec lui était exactement le
+lexique du [LOT-30](LOT-30-chaine-extraction-corpus.md) les porte déjà. Les réécrire sans lien avec lui était exactement le
 défaut que `check_glossary.py` existe pour empêcher : ses deux nouveaux espaces de noms
 (`rpg.skill.`, `rpg.ability.`) portent le contrôle de 0 à **24 clés de règle**.
 
@@ -207,4 +207,4 @@ ci-dessus.
 
 Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1034/1034, `clang-format`, les huit lints, cahier de test et Doxygen verts. Vérification manuelle : la fiche ouverte, remplie et parcourue dans l'application. Tous les critères d'acceptation sont cochés dans l'epic d'origine.
 
-Aucune exigence ajoutée : `EX-IHM-090` et `EX-IHM-091` du [LOT-68](@ref lot-68) couvrent ce lot, et c'est leur premier vrai emploi.
+Aucune exigence ajoutée : `EX-IHM-090` et `EX-IHM-091` du [LOT-68](LOT-68-chassis-ecrans-rpg.md) couvrent ce lot, et c'est leur premier vrai emploi.

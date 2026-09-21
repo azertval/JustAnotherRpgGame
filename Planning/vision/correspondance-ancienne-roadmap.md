@@ -1,6 +1,6 @@
 # Correspondance avec l'ancienne feuille de route
 
-`Documentation/Lot/roadmap.md` annonçait quarante-trois lots non livrés. Aucun n'est perdu : chacun
+`Planning/vision/archives/feuille-de-route-jeu.md` annonçait quarante-trois lots non livrés. Aucun n'est perdu : chacun
 est **repris** sous un nouveau numéro, **reporté** à une version prévisionnelle, ou **écarté** avec
 sa raison. Les lots livrés (`LOT-01` à `LOT-96`) gardent leur dossier dans `Documentation/Lot/` :
 c'est de l'histoire, elle ne bouge pas.

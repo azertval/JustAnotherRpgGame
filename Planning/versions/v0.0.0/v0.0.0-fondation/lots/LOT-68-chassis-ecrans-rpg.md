@@ -35,7 +35,7 @@ inventaire et équipement, journal de quêtes, carte du monde, dialogue, marchan
 Guilde, affichage tête haute de combat.
 
 Ce lot ne les **remplit** pas — c'est le travail du `LOT-38` pour la fiche, du `LOT-42` pour la
-carte, du `LOT-45` pour la guilde, du [LOT-24](@ref lot-24) pour le combat. Il livre ce qu'ils ont
+carte, du `LOT-45` pour la guilde, du [LOT-24](LOT-24-ihm-combat.md) pour le combat. Il livre ce qu'ils ont
 en commun et qu'aucun ne doit réinventer : le **cadre**, la **navigation**, le **parcours de
 focus**, la **règle de superposition**, et l'**ossature** de chacun.
 
@@ -64,8 +64,8 @@ un état du jeu et mentirait à la première lecture (`EX-IHM-072`).
 | Combat | Ordre d'initiative, cible, barre d'actions |
 
 Ces champs ne sont pas inventés : ils sont **relevés sur les modèles déjà livrés** —
-`core::CharacterSheet` ([LOT-13](@ref lot-13)), `core::Ability` ([LOT-12](@ref lot-12)),
-`core::Equipment` ([LOT-34](@ref lot-34)). Une ossature qui annonce des champs que le modèle ne
+`core::CharacterSheet` ([LOT-13](LOT-13-fiche-de-personnage.md)), `core::Ability` ([LOT-12](LOT-12-des-caracteristiques-jets.md)),
+`core::Equipment` ([LOT-34](LOT-34-equipement.md)). Une ossature qui annonce des champs que le modèle ne
 porte pas promet ce que le jeu ne pourra pas tenir.
 
 ### L'ossature est une table, et c'est tout le lot
@@ -87,7 +87,7 @@ table C++, parce que ce que ces huit écrans partagent pèse plus lourd que ce q
 **Même règle pour la feuille de style** : les blocs sont habillés par **rôle** (propriété dynamique
 `rpgRole`), jamais par nom d'objet. Tenir dans `theme-identity.qss` la liste des blocs décrits par
 la table les ferait diverger au premier écran ajouté — la leçon des sections de l'écran de crédits
-([LOT-66](@ref lot-66)), et elle pèse plus lourd ici.
+([LOT-66](LOT-66-charte-visuelle.md)), et elle pèse plus lourd ici.
 
 ### La règle de superposition, portée par l'écran et non par l'appelant
 
@@ -102,8 +102,8 @@ l'autre sans que rien ne le signale. `MainWindow` l'applique, il ne la redécide
 
 ### « Nouvelle partie » : un échafaudage, et il est écrit
 
-Cette entrée devrait ouvrir une carte. Elle n'en a aucune : le [LOT-01](@ref lot-01) a purgé les
-niveaux du jeu de plateforme, `demo-deplacement.json` n'existe pas, et le [LOT-67](@ref lot-67)
+Cette entrée devrait ouvrir une carte. Elle n'en a aucune : le [LOT-01](LOT-01-fork-purge.md) a purgé les
+niveaux du jeu de plateforme, `demo-deplacement.json` n'existe pas, et le [LOT-67](LOT-67-menus-vocabulaire-rpg.md)
 avait écrit ce constat plutôt que de le laisser découvrir. Elle chargeait donc un fichier absent.
 
 Elle ouvre désormais le **châssis**, sur la fiche de personnage. Ce n'est pas un pis-aller : huit
@@ -150,4 +150,4 @@ lot. Ce qui est livré ici est le châssis, et il se regarde dans l'application.
 
 Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1014/1014, `clang-format`, les sept lints, cahier de test et Doxygen verts. Vérification manuelle : les huit écrans ouverts et parcourus dans l'application. Tous les critères d'acceptation sont cochés dans l'epic d'origine.
 
-Exigences **ajoutées** : [`EX-IHM-090`](@ref EX-IHM-090) (châssis commun, ossature en données), [`EX-IHM-091`](@ref EX-IHM-091) (règle de superposition).
+Exigences **ajoutées** : [`EX-IHM-090`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-090) (châssis commun, ossature en données), [`EX-IHM-091`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-091) (règle de superposition).

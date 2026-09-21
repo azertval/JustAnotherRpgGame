@@ -12,7 +12,7 @@ livrables = [
   "Les scripts de la chaîne : `references.py`, `chatgpt.py`, `normalise_portrait.py`, `palette.py`, `normalise.py`, `compose.py`, `integre.py`, `mesure.py`, `prompts.py`, `tour.py`, `portrait.py`.",
   "Le jeu d'animations figé (`idle` 6, `walk` 8, `hit` 4, `death` 6, `attack` 8, `cast` 8) et ses cellules 48 × 64 / 96 × 64.",
   "Cinq figurines intégrées sous `Source/Elements/Assets/Npc/<slug>/` (Anariel, Jade, Lizz, Nakral, Xorius) : six bandes, leurs `.anim.json`, `portrait.png`, et `Npc/manifest.json`.",
-  "La [preuve de concept](@ref lot-91-poc) (`poc.md`) : son journal et son verdict.",
+  "La [preuve de concept](../annexes/LOT-91-atelier-pnj/poc.md) (`poc.md`) : son journal et son verdict.",
 ]
 criteres = [
   "Chaque PNJ coché a, dans `Source/Elements/Assets/Npc/<slug>/`, ses six bandes aux dimensions du jeu d'animations, leurs `.anim.json` et `portrait.png`, et figure dans `Npc/manifest.json`.",
@@ -296,13 +296,13 @@ nomme les dossiers `atelier/pnj/<slug>/` et `Assets/Npc/<slug>/`.
 ## Bilan
 
 Statut : **ouvert le 16 septembre 2026, hors feuille de route.** Ce lot ne figure pas dans la
-[feuille de route](@ref roadmap) et n'entre dans aucun jalon : c'est un chantier long, alimenté
+[feuille de route](../../../../vision/archives/feuille-de-route-jeu.md) et n'entre dans aucun jalon : c'est un chantier long, alimenté
 au fil de l'eau, au rythme du budget de génération. Cinq PNJ sur 160 sont cochés.
 Exigences : `EX-CNT-023` (le corpus reste hors dépôt), `EX-VIS-007` (les tailles en donnée).
 Aucune exigence ajoutée.
 
-La méthode a été établie par la [preuve de concept](@ref lot-91-poc) (T0, close le
+La méthode a été établie par la [preuve de concept](../annexes/LOT-91-atelier-pnj/poc.md) (T0, close le
 16 septembre 2026) sur cinq PNJ : Anariel, Lizz, Xorius, Nakral et Jade. Le journal du PoC garde
 chaque tour, chaque défaut et chaque décision ; cette fiche n'en garde que la méthode.
 
-- @subpage lot-91-poc — la preuve de concept, son journal et son verdict.
+- [LOT-91 — Preuve de concept : cinq planches à la main](../annexes/LOT-91-atelier-pnj/poc.md) — la preuve de concept, son journal et son verdict.

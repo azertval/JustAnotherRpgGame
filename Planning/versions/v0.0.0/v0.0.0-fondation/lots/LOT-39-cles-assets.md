@@ -113,8 +113,8 @@ défaut.
 ## Ce que le lot ne fait pas
 
 **Il n'affiche rien.** Le marqueur est produit et vérifié, mais aucun écran ne montre encore de
-créature : le premier consommateur sera l'éditeur ([LOT-11](@ref lot-11)) ou le contenu du
-[LOT-27](@ref lot-27). Le dire plutôt que de laisser croire que le bestiaire est à l'écran :
+créature : le premier consommateur sera l'éditeur ([LOT-11](LOT-11-editeur-multicouches.md)) ou le contenu du
+[LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27). Le dire plutôt que de laisser croire que le bestiaire est à l'écran :
 la plomberie est posée, le robinet n'est pas encore branché.
 
 **Il ne produit aucune illustration.** C'est tout son objet : rendre la production graphique

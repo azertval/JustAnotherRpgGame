@@ -67,6 +67,8 @@ def lint(root):
                 continue
             path, _, anchor = target.partition('#')
             resolved = (source.parent / path).resolve()
+            if resolved.is_relative_to(root / 'reference'):
+                continue  # la référence de code : engendrée par Doxygen, posée là à la publication
             if not resolved.exists():
                 errors.append(f'{rel}: lien mort — {target}')
             elif anchor and resolved.suffix == '.md' and anchor not in anchors_of(resolved):

@@ -45,11 +45,11 @@ Quatre briques de `Core`, pures et vérifiables sans fenêtre (`Source/Core/Comb
   tour, par round, par rencontre, par jour », et « immunisé 24 heures contre cette source » ;
 - `core::CombatState` (`CombatState.{h,cpp}`) — la machine à états : montage, rounds, tours,
   crochets, entrées et sorties, points de vie, les trois fins ; et `core::mountEncounter`, qui pose
-  sur la grille la rencontre que `core::beginEncounter` ([LOT-18](@ref lot-18)) a engagée.
+  sur la grille la rencontre que `core::beginEncounter` ([LOT-18](LOT-18-bascule-exploration-combat.md)) a engagée.
 
 Il ne livre ni attaque, ni IA, ni affichage. Le jet d'attaque et le pipeline de dégâts sont au
-[LOT-21](@ref lot-21), qui aboutira dans `CombatState::applyDamage` ; la tactique ennemie au
-[LOT-23](@ref lot-23) ; le bandeau d'initiative et les cases surlignées au [LOT-24](@ref lot-24).
+[LOT-21](LOT-21-attaques-degats-etats.md), qui aboutira dans `CombatState::applyDamage` ; la tactique ennemie au
+[LOT-23](LOT-23-ia-tactique.md) ; le bandeau d'initiative et les cases surlignées au [LOT-24](LOT-24-ihm-combat.md).
 `hmi::CombatMode` n'est pas branché sur la machine : il reste le mode qui gèle le monde, et le
 combat en cours vit hors de lui, pour la raison qui y gardait déjà `core::EncounterRun` — se
 vérifier sans fenêtre. Le brancher sur une session de jeu est l'affaire du `LOT-24` et de l'arène
@@ -60,11 +60,11 @@ vérifier sans fenêtre. Le brancher sur une session de jeu est l'affaire du `LO
 - **La surprise** (Manuel, « Surprise ») : un combattant surpris ne peut ni se déplacer ni agir à son
   premier tour, ni réagir avant la fin de ce tour. Elle suppose la discrétion et la perception
   passive ; le crochet `TurnStart` et `ActionEconomy::spend` suffisent à l'écrire, avec les
-  conditions du [LOT-72](@ref lot-72).
+  conditions du [LOT-72](../../../../vision/archives/feuille-de-route-jeu.md#lot-72).
 - **Les jets contre la mort** : un allié à terre voit ses tours passés ici ; le `LOT-72` lui en
   rendra un.
 - **Les attaques d'opportunité** : la réaction est dépensable hors du tour, mais le déclencheur
-  « sortir d'une allonge » est au [LOT-21](@ref lot-21).
+  « sortir d'une allonge » est au [LOT-21](LOT-21-attaques-degats-etats.md).
 - **Les actions nommées** (se précipiter, se désengager, esquiver, se tenir prêt) : ce sont des
   usages de l'action, au `LOT-21`.
 - **La taille d'un personnage** : la fiche n'en porte pas, et `profileFor(CharacterSheet)` le fait
@@ -77,7 +77,7 @@ vérifier sans fenêtre. Le brancher sur une session de jeu est l'affaire du `LO
 
 ### Les trois points que la grille laissait ouverts
 
-Le [LOT-19](@ref lot-19) attendait ce lot sur trois points, faute de tour :
+Le [LOT-19](LOT-19-grille-tactique.md) attendait ce lot sur trois points, faute de tour :
 
 - **les identifiants et les placements** — `CombatState::enlist` attribue les `core::CombatantId`
   dans l'ordre des enrôlements, et `core::mountEncounter` enrôle le groupe puis les créatures de la
@@ -133,7 +133,7 @@ de fin de tour est annoncé quand même, parce que les actions légendaires ne d
 fini d'un tour interrompu.
 
 Un combattant à terre garde sa place et ses tours sont **passés** ; relevé, il rejoue à sa place.
-Les jets contre la mort, qui lui rendront un tour, sont au [LOT-72](@ref lot-72).
+Les jets contre la mort, qui lui rendront un tour, sont au [LOT-72](../../../../vision/archives/feuille-de-route-jeu.md#lot-72).
 
 ### L'économie d'action est une liste
 
@@ -178,7 +178,7 @@ Trois arbitrages que la feuille de route ne tranchait pas :
   qui abat le dernier allié et le dernier ennemi n'est pas une victoire ou une défaite selon l'ordre
   des cibles. Le défaut inverse a été réintroduit : le test de défaite échoue.
 
-Une rencontre dont on ne fuit pas (`core::Encounter::escapable`, [LOT-18](@ref lot-18)) refuse la
+Une rencontre dont on ne fuit pas (`core::Encounter::escapable`, [LOT-18](LOT-18-bascule-exploration-combat.md)) refuse la
 sortie d'un allié (`WithdrawResult::NotEscapable`) ; `mountEncounter` recopie le drapeau. L'issue
 produite est le `core::CombatOutcome` que `core::endEncounter` consommait déjà : un test monte une
 rencontre, la gagne, et vérifie que le drapeau de monde est posé.
@@ -231,12 +231,12 @@ Rien dans l'ordre ni dans la machine ne distingue « le » joueur : les alliés 
 `core::CombatantProfile` se construit indifféremment d'une fiche (`profileFor(CharacterSheet)`) ou
 d'un bloc du bestiaire (`profileFor(Creature)`). Un test monte **quatre alliés** et deux ennemis :
 chacun des six joue exactement trois tours en trois rounds, trois alliés à terre ne terminent pas le
-combat, et le quatrième le gagne. C'est la précaution que le [LOT-29](@ref lot-29) demande pour rester
+combat, et le quatrième le gagne. C'est la précaution que le [LOT-29](../../../../vision/archives/feuille-de-route-jeu.md#lot-29) demande pour rester
 un lot d'ajout.
 
 ## Relevé en chemin : la case d'une créature coûte double
 
-En relisant la page du Manuel qui fonde `canPassThrough`, une phrase que le [LOT-19](@ref lot-19)
+En relisant la page du Manuel qui fonde `canPassThrough`, une phrase que le [LOT-19](LOT-19-grille-tactique.md)
 n'appliquait pas : « N'oubliez pas que l'emplacement occupé par une autre créature est considéré
 comme un terrain difficile » (PDF p. 192 et 193). Traverser un allié coûtait 1. Le défaut était
 **latent** — `canPassThrough` était vide, et personne ne traversait personne — et ce lot le rendait

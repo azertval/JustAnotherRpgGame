@@ -54,7 +54,7 @@ final du `LOT-09`, qui remplace celle du `LOT-50`.
 
 ### Ce qui reste hors du lot, nommément
 
-- **Au [LOT-09](@ref lot-09)** : retirer la planche du `LOT-50` (ses figurines servent encore) ;
+- **Au [LOT-09](LOT-09-colisee-premiere-carte.md)** : retirer la planche du `LOT-50` (ses figurines servent encore) ;
   poser une texture par l'`anchor` de son manifeste — le composeur de l'arène suppose
   (34, hauteur − 42), faux pour une pièce libre élargie ; poser les grandes pièces du Colisée
   (portes, loges) et ses gradins, que la grille de combat n'emploie pas encore.
@@ -64,7 +64,7 @@ final du `LOT-09`, qui remplace celle du `LOT-50`.
 - **Poids des planches recomposées** : la planche de Martpart pèse 1,5 Mio ; les allègements
   essayés n'étaient pas fidèles (journal).
 - **Les autres lieux de la Capitale** (Arenarea, le bas-fond, la variante noble de l'Arène du
-  Destin) se commandent au fil de l'eau par les lots qui les posent (`LOT-96`, [LOT-27](@ref lot-27)).
+  Destin) se commandent au fil de l'eau par les lots qui les posent (`LOT-96`, [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27)).
 
 ## Conception
 
@@ -366,5 +366,5 @@ Statut : **livré le 16 septembre 2026** (ouvert le même jour). Vérification :
 d'exigences et de lots verts, cahier de test régénéré (1275 cas) ; maquette approuvée et
 spécification relue par l'auteur ; arène capturée hors écran et relue.
 
-Alimente : [LOT-09](@ref lot-09), `LOT-93`, `LOT-95`, `LOT-42`.
+Alimente : [LOT-09](LOT-09-colisee-premiere-carte.md), `LOT-93`, `LOT-95`, `LOT-42`.
 Exigences couvertes : `EX-VIS-008`, `EX-VIS-009` (détail plus haut).

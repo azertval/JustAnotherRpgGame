@@ -11,7 +11,7 @@ Chaque constat a été lu dans le code ; ce qui est seulement supposé est dit.
 
 ## 1. Ce que l'éditeur sait faire
 
-Treize lots sur quatorze sont livrés (`Documentation/Editeur/feuille-de-route.md`). En bref :
+Treize lots sur quatorze sont livrés (`Planning/vision/archives/feuille-de-route-editeur.md`). En bref :
 
 | Domaine | État |
 |---|---|

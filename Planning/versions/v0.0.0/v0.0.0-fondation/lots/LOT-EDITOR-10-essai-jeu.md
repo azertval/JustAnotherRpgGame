@@ -32,7 +32,7 @@ pour vérifier qu'un couloir passe et qu'une porte mène quelque part ; ce n'en 
 vérifier qu'une carte **se joue**. Ce lot ajoute l'autre moitié : un bouton qui lance
 `JustAnotherRpgGame` sur la carte ouverte, là où on veut, dans l'état de partie qu'on veut.
 
-Feuille de route : [éditeur](@ref roadmap-editeur).
+Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-editeur.md).
 
 ## Ce que le dépôt contenait à l'ouverture (21 septembre 2026)
 
@@ -80,8 +80,7 @@ autres.
 
 - **La rencontre ne s'engage pas encore.** Le critère d'acceptation écrit à l'ouverture du module
   (« parler à Myr puis engager une rencontre sur Martpart ») tient pour sa première moitié : le
-  jeu ouvre le dialogue du PNJ qu'on aborde (`LOT-09`). La seconde attend le [LOT-27](@ref
-  lot-27) : `hmi::WorldModel` **émet** `encounterRequested`, et aucun écran ne l'écoute — le
+  jeu ouvre le dialogue du PNJ qu'on aborde (`LOT-09`). La seconde attend le [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27) : `hmi::WorldModel` **émet** `encounterRequested`, et aucun écran ne l'écoute — le
   combat depuis une carte d'exploration n'est branché nulle part (le Colisée, lui, est un mode à
   part). Ce lot n'ouvre pas ce chantier : il ne change du jeu que sa ligne de commande.
 - **Myr n'existe pas.** Les PNJ de Martpart sont les sentinelles Ironhand (`LOT-93`), et c'est

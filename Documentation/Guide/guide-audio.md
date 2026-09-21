@@ -1,4 +1,4 @@
-# Audio {#guide-audio}
+# Audio
 
 Cette page explique comment le jeu produit du son : le socle de lecture (`hmi::AudioEngine`), le
 réglage de volume qui le pilote depuis l'écran des options, et le provisionnement de Qt
@@ -8,7 +8,7 @@ mais aucun son n'est encore préchargé ni joué.
 ## La règle d'or, une fois de plus
 
 `Core` **expose des transitions d'état** ; c'est `HMI` qui décide qu'une transition fait du bruit.
-Exactement la même séparation que pour le rendu (@ref guide-rendu) — et pour la même raison : la
+Exactement la même séparation que pour le rendu ([Rendu 2D : de la scène à l'écran](guide-rendu.md)) — et pour la même raison : la
 simulation reste pure, déterministe et testable **sans périphérique audio** (`EX-NFR-010`,
 `EX-ARCH-012`, `EX-REN-047`). Aucun fichier de `Core/` n'inclut Qt, ni ne sait qu'un son existe.
 
@@ -56,5 +56,5 @@ sur le zip publié.
 
 ## Voir aussi
 - `hmi::AudioEngine`, `hmi::OptionsModel`.
-- @ref guide-rendu — la même séparation `Core`/`HMI` appliquée à l'image.
-- @ref guide-ecrans — l'écran des options, d'où vient le volume.
+- [Rendu 2D : de la scène à l'écran](guide-rendu.md) — la même séparation `Core`/`HMI` appliquée à l'image.
+- [Écrans, navigation et boucle de jeu](guide-ecrans.md) — l'écran des options, d'où vient le volume.

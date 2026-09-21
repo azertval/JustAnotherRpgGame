@@ -28,6 +28,7 @@ import posixpath
 import re
 import shutil
 import sys
+import xml.etree.ElementTree as ElementTree
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -72,6 +73,34 @@ def strip_code(text):
     return re.sub(r'`[^`]*`', '', text)
 
 
+def load_tagfile(path):
+    """Les symboles de la référence de code, d'après le fichier d'étiquettes de Doxygen.
+
+    `GENERATE_TAGFILE` écrit, pour chaque classe, espace de noms et membre, la page et l'ancre qui le
+    documentent. Un nom de symbole cité en code dans le guide (`core::World`, `hmi::Camera2D::zoom`)
+    devient ainsi un lien vers la référence ; sans fichier, il reste du code, et rien ne casse.
+    """
+    symbols = {}
+    try:
+        root = ElementTree.parse(path).getroot()
+    except (OSError, ElementTree.ParseError):
+        return symbols
+    for compound in root.iter('compound'):
+        if compound.get('kind') not in ('class', 'struct', 'namespace'):
+            continue
+        name, filename = compound.findtext('name'), compound.findtext('filename')
+        if not name or not filename:
+            continue
+        filename = filename if filename.endswith('.html') else filename + '.html'
+        symbols.setdefault(name, filename)
+        for member in compound.iter('member'):
+            anchor = member.findtext('anchor')
+            target = member.findtext('anchorfile') or filename
+            if member.findtext('name') and anchor:
+                symbols.setdefault(f'{name}::{member.findtext("name")}', f'{target}#{anchor}')
+    return symbols
+
+
 class Page:
     def __init__(self, source_rel, text):
         self.source_rel = source_rel
@@ -88,7 +117,7 @@ class Page:
 
 class Site:
     def __init__(self, root, out, commit='', planning_url='planning/', reference_url='reference/',
-                 source_root=None):
+                 source_root=None, tagfile=None):
         self.root = Path(root)
         self.out = Path(out)
         self.commit = commit
@@ -98,6 +127,7 @@ class Site:
         self.pages = {}       # source_rel -> Page
         self.exigences = {}   # id -> dict(page, source, texte, retiree)
         self.lots = {}        # id -> slug, d'après `Planning/`
+        self.symbols = load_tagfile(tagfile) if tagfile else {}  # `core::World` -> page de la référence
         try:
             planning = load_planning(self.root.parent / 'Planning')
             self.lots = {lot.id: lot.slug for lot in planning.lots.values()}
@@ -196,11 +226,16 @@ class Site:
             if inner in self.lots:
                 target = posixpath.join(self.planning_url, f'lots/{self.lots[inner]}.html')
                 return f'<a class="ref" href="{esc(self.rel(page, target))}"><code>{inner}</code></a>'
+            symbol = html.unescape(inner).removesuffix('()')
+            if symbol in self.symbols:
+                target = posixpath.join(self.reference_url, self.symbols[symbol])
+                return f'<a class="ref" href="{esc(self.rel(page, target))}"><code>{inner}</code></a>'
             return match.group(0)
 
         pieces = re.split(r'(<a\b.*?</a>|<pre>.*?</pre>)', content, flags=re.DOTALL)
         for index in range(0, len(pieces), 2):
-            pieces[index] = re.sub(r'<code>((?:EX|LOT)-[A-Z0-9-]+)</code>', replace, pieces[index])
+            pieces[index] = re.sub(r'<code>((?:EX|LOT)-[A-Z0-9-]+|(?:core|hmi)::[\w:]+(?:\(\))?)</code>',
+                                   replace, pieces[index])
         return ''.join(pieces)
 
     # -- gabarit ----------------------------------------------------------------------------------
@@ -450,10 +485,13 @@ def main(argv=None):
     parser.add_argument('--root', default=str(DOCS_ROOT), help='dossier Documentation/ à lire')
     parser.add_argument('--out', required=True, help='dossier du site engendré (remplacé en entier)')
     parser.add_argument('--commit', default='', help='commit publié, rappelé en pied de page')
+    parser.add_argument('--tagfile', default='', help="fichier d'étiquettes de Doxygen : relie les symboles "
+                                                      'cités en code à la référence')
     args = parser.parse_args(argv)
-    site = Site(args.root, args.out, args.commit)
+    site = Site(args.root, args.out, args.commit, tagfile=args.tagfile or None)
     site.build()
-    print(f'Site de documentation : {len(site.pages)} pages, {len(site.exigences)} exigences → {args.out}')
+    print(f'Site de documentation : {len(site.pages)} pages, {len(site.exigences)} exigences, '
+          f'{len(site.symbols)} symboles relies, dans {args.out}')
     return 0
 
 

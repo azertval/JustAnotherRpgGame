@@ -47,7 +47,7 @@ par l'auteur le 18 septembre 2026 :
 
 Le contrôle visuel se fait **dans la galerie des assets** (`--screen=AssetGallery`), et seulement
 là : c'est l'outil fait pour cela. Les faire jouer au Colisée ou en ville est le travail du
-[LOT-27](@ref lot-27).
+[LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27).
 
 ## Les décisions
 
@@ -152,7 +152,7 @@ d'art, le lion 44 dans une cellule de 96), comme la fiche le voulait.
 ## Les sentinelles portent le soldat
 
 *Décision de l'auteur, 18 septembre 2026* : le soldat Ironhand **est** la « sentinelle » et la
-« patrouille Ironhand » des figurines de la Capitale ([LOT-96](@ref lot-96), `LOT-27`). Les dix
+« patrouille Ironhand » des figurines de la Capitale ([LOT-96](LOT-96-quartiers-capitale.md), `LOT-27`). Les dix
 sentinelles des portes de Martpart et d'Arenarea, jusque-là dessinées par leur marqueur, portent
 donc `"figure": "Monsters/ironhand-soldier"`. Une valeur de `figure` qui contient une barre est un
 dossier depuis `Assets/` (`hmi::figureStripPath`) ; sans barre, c'est un PNJ de `Npc/`, comme
@@ -371,7 +371,7 @@ Ironhand sont dans `Source/Elements/Assets/Monsters/`, au manifeste, et dans la 
 (`--screen=AssetGallery`, famille « Monstres »), animation par animation : la capture automatique
 part avant le chargement des images. Le détail de la production est plus haut.
 
-Alimente : [LOT-27](@ref lot-27) (le lion et les loups du Colisée, le soldat Ironhand de la ville),
+Alimente : [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27) (le lion et les loups du Colisée, le soldat Ironhand de la ville),
 `LOT-46` (les 82 blocs de Tanares).
 Exigences : `EX-CNT-040` et `EX-CNT-041` (les clés d'assets et leur état d'avancement, que
 `check_asset_keys.py` étend aux figurines), `EX-CNT-042` (tout asset livré paraît dans la galerie).

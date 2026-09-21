@@ -44,7 +44,7 @@ Le *quoi* et le *pourquoi* sont décrits dans les
 
 > Le jeu quitte le pixel art pour la **2D HD** et repart d'une démo basique (`0.0.1`) : la
 > [planification](Planning/README.md) dit ce qui reste. L'ancienne
-> [feuille de route](Documentation/Lot/roadmap.md) est figée.
+> [feuille de route](Planning/vision/archives/feuille-de-route-jeu.md) est figée.
 
 Le **jeu** :
 

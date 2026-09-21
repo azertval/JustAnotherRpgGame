@@ -32,7 +32,7 @@ et surtout leurs **sept statistiques régionales** — sept axes déjà tabulés
 règlent le taux de rencontre, le stock d'un marchand, ses prix et la fréquence des PNJ hostiles.
 Dix ambiances mécaniquement distinctes sans qu'aucune valeur ne soit inventée.
 
-Une région est un **nœud** du graphe de cartes du [LOT-09](@ref lot-09), un lieu une **carte** à
+Une région est un **nœud** du graphe de cartes du [LOT-09](LOT-09-colisee-premiere-carte.md), un lieu une **carte** à
 créer. C'est ce lot qui donne au graphe de vrais nœuds à relier.
 
 ## Périmètre
@@ -138,7 +138,7 @@ lèverait aucune erreur, elle produirait simplement moins de lieux.
 
 ## Ce que le lot ne fait pas, et pourquoi
 
-**Les clés d'espèce restent en anglais.** Le catalogue d'espèces du [LOT-36](@ref lot-36) est en
+**Les clés d'espèce restent en anglais.** Le catalogue d'espèces du [LOT-36](LOT-36-especes-historiques-classes.md) est en
 français et n'en couvre que la moitié : ni géant, ni gobelinoïde, ni kemet, ni merfolk, ni orc, ni
 soulborn n'y existent. Fabriquer ici une correspondance à moitié vide donnerait un champ vrai une
 fois sur deux — pire qu'un champ dont on sait qu'il ne pointe nulle part. C'est la plomberie de
@@ -162,6 +162,6 @@ clé pour tenir dans un chiffre rond la rend illisible sans rien garantir de plu
 
 ## Bilan
 
-Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1021/1021, `clang-format`, les six lints, cahier de test et Doxygen verts. Alimente [LOT-09](@ref lot-09), [LOT-27](@ref lot-27), `LOT-80`, `LOT-81`.
+Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1021/1021, `clang-format`, les six lints, cahier de test et Doxygen verts. Alimente [LOT-09](LOT-09-colisee-premiere-carte.md), [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27), `LOT-80`, `LOT-81`.
 
 L'epic d'origine ne portait pas de section « Critères d'acceptation » : les critères de l'en-tête sont relevés dans son texte (l'acceptation qu'il cite — « aucune région inatteignable », sept axes exploitables — et les contrôles qu'il décrit).

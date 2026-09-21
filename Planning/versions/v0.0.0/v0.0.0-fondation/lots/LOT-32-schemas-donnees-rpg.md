@@ -18,7 +18,7 @@ criteres = [
   "Ajouter une valeur d'énumération d'un seul côté fait échouer un test (`EX-CNT-011`) — vérifié par injection, sur les deux contrôles.",
   "Le champ `source` est obligatoire au schéma et son absence est refusée (`EX-CNT-001`, `EX-CNT-002`).",
   "Une donnée provisoire est énumérée par la CI et doit écrire d'avance son critère de retrait (`EX-CNT-032`).",
-  "Aucun catalogue RPG ne porte sa propre routine de lecture — il n'en existe aucun, et le [LOT-79](@ref lot-79) est la seule voie ouverte.",
+  "Aucun catalogue RPG ne porte sa propre routine de lecture — il n'en existe aucun, et le [LOT-79](LOT-79-socle-chargement-donnees.md) est la seule voie ouverte.",
   "`ctest` : 948/948 (943 avant le lot, plus 5).",
 ]
 +++
@@ -37,7 +37,7 @@ valider. C'est l'ordre qui compte : les catalogues arrivent du `LOT-33` au `LOT-
 **Onze schémas** sous `Source/Elements/Rpg/schema/` : les dix familles annoncées — créature, objet,
 arme, armure, sort, espèce, classe, historique, état, type de dégâts — plus `common.schema.json`,
 qui porte ce que toutes réutilisent. Une définition écrite deux fois diverge ; c'est la leçon des
-six lecteurs JSON du [LOT-79](@ref lot-79), transposée aux contrats.
+six lecteurs JSON du [LOT-79](LOT-79-socle-chargement-donnees.md), transposée aux contrats.
 
 **`scripts/check_rpg_data.py`**, exécuté en CI, qui valide tout `Source/Elements/Rpg/**/*.json`.
 
@@ -51,7 +51,7 @@ schémas.
 ### Ce que le lot ne fait pas
 
 **Il ne charge rien.** Aucun lecteur C++ de catalogue n'est écrit ici : quand ils viendront, ils
-passeront par `core::JsonDocument` ([LOT-79](@ref lot-79)) et non par une septième réimplémentation
+passeront par `core::JsonDocument` ([LOT-79](LOT-79-socle-chargement-donnees.md)) et non par une septième réimplémentation
 de `loadFromFile`. Ce lot écrit des contrats.
 
 **Il ne valide pas les schémas à l'exécution.** La validation par schéma est faite en CI, en
@@ -103,7 +103,7 @@ l'entrée évite des arrondis là où l'encombrement se calcule par somme, et l'
 affaire de présentation.
 
 **Le formalisme des dés est contraint par expression régulière.** `1d8`, `2d6+3`, `4`. C'est la
-parade au risque résiduel que le [LOT-30](@ref lot-30) a laissé ouvert : un `1d8` devenu `ld8` à
+parade au risque résiduel que le [LOT-30](LOT-30-chaine-extraction-corpus.md) a laissé ouvert : un `1d8` devenu `ld8` à
 l'OCR est invisible à la relecture et fatal à l'exécution.
 
 **`additionalProperties: false` partout.** Sans lui, `weigthGrams` au lieu de `weightGrams` passe
@@ -116,7 +116,7 @@ deux fois. Deux lignes identiques pour une seule faute font douter qu'il n'y en 
 ### Le validateur s'auto-teste, faute de données à valider
 
 Aucun catalogue n'existe encore. `check_rpg_data.py` serait donc **vert par vacuité** — la panne du
-[LOT-78](@ref lot-78), déjà rencontrée au [LOT-30](@ref lot-30). Il s'éprouve sur
+[LOT-78](LOT-78-numeros-herites.md), déjà rencontrée au [LOT-30](LOT-30-chaine-extraction-corpus.md). Il s'éprouve sur
 `scripts/fixtures/rpg/` avant de se prononcer : trois fixtures valides qu'il doit accepter, et
 **dix fixtures invalides qu'il doit refuser**, chacune nommée d'après le défaut qu'elle déclenche —
 provenance absente, provenance inconnue, type de dégâts en français, dés mal formés, caractéristique
@@ -149,4 +149,4 @@ Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertisseme
 
 Prérequis de `LOT-33` à `LOT-37`, `LOT-43` et `LOT-84`.
 
-Exigences couvertes : [`EX-CNT-001`](@ref EX-CNT-001), [`EX-CNT-002`](@ref EX-CNT-002), [`EX-CNT-010`](@ref EX-CNT-010), [`EX-CNT-011`](@ref EX-CNT-011), [`EX-CNT-032`](@ref EX-CNT-032).
+Exigences couvertes : [`EX-CNT-001`](../../../../../Documentation/Specification/contenu.md#EX-CNT-001), [`EX-CNT-002`](../../../../../Documentation/Specification/contenu.md#EX-CNT-002), [`EX-CNT-010`](../../../../../Documentation/Specification/contenu.md#EX-CNT-010), [`EX-CNT-011`](../../../../../Documentation/Specification/contenu.md#EX-CNT-011), [`EX-CNT-032`](../../../../../Documentation/Specification/contenu.md#EX-CNT-032).

@@ -59,7 +59,7 @@ et le voyage n'existe pas encore.
 
 ### Le premier lieu où le combat est tenu
 
-Le [LOT-20](@ref lot-20) avait laissé `core::CombatState` hors de tout : vérifié sans fenêtre, tenu
+Le [LOT-20](LOT-20-initiative-tour-par-tour.md) avait laissé `core::CombatState` hors de tout : vérifié sans fenêtre, tenu
 par personne. `core::ArenaSession` est le premier objet du jeu qui le **tient** — la carte, la
 composition, la machine, la suite aléatoire, le journal —, et il le fait sans passer par
 `hmi::CombatMode` ni par `hmi::GameSession` : une arène est une carte à elle seule, rien n'y est à
@@ -95,7 +95,7 @@ donnée (`lethal: true`, Feargus). Un test le vérifie dans les deux sens.
 
 Le rituel accorde aussi la **troisième économie d'action** du §4bis : chaque combattant d'une arène
 à Marque reçoit `heroicAction` par `core::ActionEconomy::declare`, le crochet posé au
-[LOT-20](@ref lot-20). Aucune capacité ne la dépense encore — ce sera l'affaire des classes —, mais
+[LOT-20](LOT-20-initiative-tour-par-tour.md). Aucune capacité ne la dépense encore — ce sera l'affaire des classes —, mais
 la ressource existe, se voit dans l'écran, et son absence dans une arène sans Marque est testée.
 
 Les **huit rôles** des Marques (Bruiser, Brute, Commander, Controller, Healer, Shooter, Tactician,
@@ -206,6 +206,6 @@ l'auteur : le vrai design du jeu, pas une esquisse — un tileset qui respecte l
 
 ## Bilan
 
-Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1090/1090 en Debug et en Release, `clang-format`, les lints et le cahier de test verts. Un critère sur cinq n'est pas tenu et part au `LOT-42` (voir « Vérification »). Alimente [LOT-21](@ref lot-21) — les attaques se vérifient à l'œil dans l'arène — et `LOT-51` à `LOT-65`.
+Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1090/1090 en Debug et en Release, `clang-format`, les lints et le cahier de test verts. Un critère sur cinq n'est pas tenu et part au `LOT-42` (voir « Vérification »). Alimente [LOT-21](LOT-21-attaques-degats-etats.md) — les attaques se vérifient à l'œil dans l'arène — et `LOT-51` à `LOT-65`.
 
 Exigences couvertes : la part « rejouable à graine fixée » d'`EX-NFR-002`, et le lieu où `EX-CBT-001` à `EX-CBT-020` se regardent. Aucune exigence ajoutée.

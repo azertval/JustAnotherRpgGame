@@ -145,7 +145,7 @@ une table d'autorité française qui accepte « etourdi » pour « étourdi » n
 
 **Aucune clé de règle n'existe encore** : les lots qui les créeront ne sont pas faits. Le contrôle
 serait donc vert par vacuité, et personne ne saurait s'il fonctionne — c'est exactement la panne du
-[LOT-78](@ref lot-78), où une règle de lint contenait un caractère invisible qui l'empêchait de
+[LOT-78](LOT-78-numeros-herites.md), où une règle de lint contenait un caractère invisible qui l'empêchait de
 jamais correspondre. Il s'**auto-teste** donc à chaque appel, sur six catalogues fictifs (deux
 conformes, quatre fautifs) qu'il doit classer correctement avant d'avoir le droit de se prononcer
 sur les vrais. Si l'auto-test échoue, le script s'arrête sans rendre de verdict.
@@ -168,4 +168,4 @@ Statut : **fait**. Vérification automatisée : `check_glossary`, `lint_lots`, `
 
 Prérequis de tous les autres lots de la filière contenu.
 
-Exigences couvertes : [`EX-CNT-020`](@ref EX-CNT-020), [`EX-CNT-021`](@ref EX-CNT-021), [`EX-CNT-022`](@ref EX-CNT-022), [`EX-CNT-023`](@ref EX-CNT-023).
+Exigences couvertes : [`EX-CNT-020`](../../../../../Documentation/Specification/contenu.md#EX-CNT-020), [`EX-CNT-021`](../../../../../Documentation/Specification/contenu.md#EX-CNT-021), [`EX-CNT-022`](../../../../../Documentation/Specification/contenu.md#EX-CNT-022), [`EX-CNT-023`](../../../../../Documentation/Specification/contenu.md#EX-CNT-023).

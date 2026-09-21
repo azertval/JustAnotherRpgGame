@@ -2,7 +2,7 @@
 
 Le **module éditeur de cartes** (`LOT-EDITOR-01`) : un outil interne, fait pour l'auteur seul, qui
 sert à fabriquer les cartes du jeu. Son programme est la
-[feuille de route de l'éditeur](../../Documentation/Editeur/feuille-de-route.md) ; sa spécification,
+[feuille de route de l'éditeur](../../Planning/vision/archives/feuille-de-route-editeur.md) ; sa spécification,
 [`editeur-niveaux.md`](../../Documentation/Specification/editeur-niveaux.md).
 
 Le module dépend de `Core` (modèle et validation de carte, manifeste des pièces), de
@@ -16,7 +16,7 @@ l'éditeur ne parle plus au GPU : il peint la composition du jeu par `QPainter`.
 | [`Ui/`](Ui/README.md) | Les widgets, construits en code : fenêtre, canevas, panneaux | `LevelEditor` (point d'entrée : `Source/App/Editor/Main.cpp`) |
 
 Faire une carte de bout en bout : le
-[guide d'usage](../../Documentation/Editeur/guide-usage.md).
+[guide d'usage](../../Documentation/Guide/Manuel/utiliser-l-editeur.md).
 
 ## Règles du module
 

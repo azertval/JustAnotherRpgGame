@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 Valentin Eloy
 # SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 
-# Le module éditeur (LOT-EDITOR-01, décision D5 de Documentation/Editeur/feuille-de-route.md).
+# Le module éditeur (LOT-EDITOR-01, décision D5 de Planning/vision/archives/feuille-de-route-editeur.md).
 #
 #   Logic/  la logique pure de l'éditeur, sans Qt : bibliothèque `EditorLogic`, testée par
 #           `UnitTests` (Source/Test/Unit/Editor) ;

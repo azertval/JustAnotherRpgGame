@@ -218,6 +218,6 @@ Ce que l'epic relevait en face de chaque critère, dans l'ordre des critères de
 
 Statut : **fait**. Vérification automatisée : build `/W4 /WX` sans avertissement, `ctest` à 1130/1130 en Debug et en Release, `clang-format`, les lints, le contrôle des données RPG et le cahier de test verts ; deux défauts réintroduits à la main font chacun échouer leur test.
 
-Alimente [LOT-23](@ref lot-23), [LOT-24](@ref lot-24), [LOT-25](@ref lot-25), `LOT-35` et `LOT-72`.
+Alimente [LOT-23](LOT-23-ia-tactique.md), [LOT-24](LOT-24-ihm-combat.md), [LOT-25](../../../../vision/archives/feuille-de-route-jeu.md#lot-25), `LOT-35` et `LOT-72`.
 
 Exigences couvertes : `EX-CBT-021` (la ligne de vue et la couverture), `EX-CBT-022` (l'arme déclare son allonge ou sa portée). Aucune exigence ajoutée.

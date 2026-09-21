@@ -1,24 +1,24 @@
-# Éditeur de niveaux {#guide-editeur}
+# Éditeur de niveaux
 
 > **Binaire séparé depuis le `LOT-86`** (`LevelEditor`), **module à part depuis le
 > `LOT-EDITOR-01`** (`Source/Editor`). Il n'héberge aucun écran du jeu, qui vit en Qt Quick dans
 > `JustAnotherRpgGame` : sa fenêtre s'ouvre directement sur la carte de départ, et son widget
 > central est le canevas. C'est un outil interne : style Fusion, textes anglais, widgets construits
-> en code. Son programme : la [feuille de route de l'éditeur](@ref roadmap-editeur).
+> en code. Son programme : la [feuille de route de l'éditeur](../../Planning/vision/archives/feuille-de-route-editeur.md).
 
 
-Cette page explique comment l'éditeur transforme le modèle de carte déjà vu dans @ref guide-niveaux
+Cette page explique comment l'éditeur transforme le modèle de carte déjà vu dans [Niveaux : modèle, couches, entités, chargement](guide-niveaux.md)
 en un **outil de création de contenu**, sans écrire un second moteur. Le **modèle d'édition**
 (mutabilité, validation, annuler/refaire, sérialisation) vit dans
 `Source/Core/Levels/LevelDraft.*`/`LevelWriter.*` ; l'**interaction** (peinture souris, outils,
 essai, garde-fous) vit dans le canevas Qt `Source/Editor/Ui/EditorViewport.*`. L'habillage de
 l'IHM Qt lui-même — fenêtre, docks (Palette, Niveaux, Couches, Entités), arbre de palette,
-navigateur de fichiers — est décrit dans @ref guide-ihm-qt ; cette page se concentre sur ce qui est
+navigateur de fichiers — est décrit dans [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md) ; cette page se concentre sur ce qui est
 **propre à l'édition**.
 
 ## Le problème : éditer une carte sans (re)coder le moteur
 
-@ref guide-niveaux a montré que `core::Level` est **immuable** une fois construit : ses champs sont
+[Niveaux : modèle, couches, entités, chargement](guide-niveaux.md) a montré que `core::Level` est **immuable** une fois construit : ses champs sont
 posés au constructeur, sans mutateur. C'est un choix délibéré — une carte **en cours de jeu** ne
 doit jamais changer de forme sous les pieds du joueur. Mais un **éditeur**, par nature, fait
 exactement l'inverse : poser une tuile, la retirer, déplacer l'entrée, doivent être des opérations
@@ -31,7 +31,7 @@ La solution retenue : un type **distinct**, `core::LevelDraft`, qui porte toute 
 qui ne redevient un `Level` **validé** qu'au moment décisif (l'enregistrement ou l'essai), en
 repassant par le chemin de validation déjà existant plutôt que d'en écrire un second.
 
-## \ref core::LevelDraft "core::LevelDraft" : une carte qu'on peut défaire
+## `core::LevelDraft` : une carte qu'on peut défaire
 
 `LevelDraft` reprend les mêmes données qu'un `Level` (nom, grille de tuiles, entrée, couches,
 entités, pièces assignées) mais expose des **mutateurs** : `paintTile`, `paintRegion`, `setEntry`,
@@ -40,7 +40,7 @@ entités (`placeEntity`, `moveEntity`, `setEntityProperty`…). Deux invariants 
 reste de la page :
 
 - **La grille de tuiles reste l'unique source de vérité.** Exactement comme pour `Level`
-  (@ref guide-niveaux), une case `Entry` dans `core::TileMap` **est** la donnée — `entry()` n'est
+  ([Niveaux : modèle, couches, entités, chargement](guide-niveaux.md)), une case `Entry` dans `core::TileMap` **est** la donnée — `entry()` n'est
   qu'un accès en cache, toujours resynchronisé par les mutateurs. Peindre autre chose par-dessus
   l'entrée l'invalide automatiquement, et peindre un type différent sur une case retire la pièce
   qui lui était assignée : il ne peut jamais exister d'état où la grille dit une chose et le cache
@@ -52,9 +52,9 @@ reste de la page :
   exactement le même message d'erreur qu'un fichier de carte mal formé (`EX-LVL-004`), sans qu'une
   seule règle de `LevelLoader` n'ait été dupliquée.
 
-## \ref core::LevelWriter "core::LevelWriter" : l'inverse du chargement
+## `core::LevelWriter` : l'inverse du chargement
 
-Écrire une carte est l'inverse exact de `LevelLoader::loadFromString` (@ref guide-niveaux) —
+Écrire une carte est l'inverse exact de `LevelLoader::loadFromString` ([Niveaux : modèle, couches, entités, chargement](guide-niveaux.md)) —
 parcourir la grille ligne par ligne, émettre un objet JSON par tuile non vide (avec sa pièce
 assignée, champ `"texture"`), puis les couches, les entités et leurs propriétés libres. Deux
 conventions gardent l'aller-retour exact : l'entrée n'est écrite qu'**en tant que tuile** (jamais à
@@ -68,7 +68,7 @@ Cette sérialisation sert `EX-EDIT-011` : sérialiser puis recharger une carte p
 
 Le canevas d'édition (`hmi::EditorViewport`, `LOT-EDITOR-02`) montre **le lieu tel qu'on le
 jouera** : une `QGraphicsView` dont l'élément unique parcourt la liste de primitives que compose le
-jeu (`hmi::composeWorldScene`, @ref guide-rendu) et la peint par `QPainter`
+jeu (`hmi::composeWorldScene`, [Rendu 2D : de la scène à l'écran](guide-rendu.md)) et la peint par `QPainter`
 (`hmi::paintComposedScene`), en ne touchant que la partie visible (`EX-EDIT-059`). Aucun second
 moteur : la composition est celle du jeu, dans la cible `SceneComposition`, et un test compare
 l'image du canevas au rendu GPU du jeu. Par-dessus viennent les aides d'édition : quadrillage en
@@ -106,12 +106,12 @@ pas peindre une case cachée sous un panneau.
 
 La barre d'outils ne porte **que** la sélection d'outil et quatre commandes à usage continu —
 Save, Playtest, Undo, Redo. Tout le reste vit dans la barre de menus, organisée par nature d'action
-(File, Edit, Map, View, Help) : voir @ref guide-design-ihm.
+(File, Edit, Map, View, Help) : voir [Système de design et architecture de l'information](guide-design-ihm.md).
 
 Le canevas ne reçoit donc que des **clics de grille** ; il n'a jamais à arbitrer entre « peindre »
-et « cliquer un panneau ». Détail de ces widgets Qt : @ref guide-ihm-qt.
+et « cliquer un panneau ». Détail de ces widgets Qt : [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md).
 
-### Quatre outils, une même grille : \ref hmi::EditorTool "EditorTool"
+### Quatre outils, une même grille : `hmi::EditorTool`
 
 Au-delà du pinceau (`Paint`, peindre case par case), l'éditeur propose **Rectangle** (glisser
 définit un rectangle, rempli du type sélectionné au relâchement), **Sélection** (glisser mémorise
@@ -124,7 +124,7 @@ pinceau, `_dragging` + `_dragStart` pour Rectangle/Sélection, `applyRectangle`,
 que de l'appliquer à moitié — un choix délibéré pour qu'un changement d'avis ne produise jamais de
 mutation partielle et surprenante.
 
-### Peindre par lot sans dupliquer la logique de peinture : \ref core::LevelDraft::paintRegion "LevelDraft::paintRegion"
+### Peindre par lot sans dupliquer la logique de peinture : `core::LevelDraft::paintRegion`
 
 Remplissage rectangulaire et collage partagent le même besoin : appliquer un **bloc** de types de
 tuiles en une seule fois, plutôt qu'une case. Une implémentation naïve dupliquerait la sémantique
@@ -235,7 +235,7 @@ Le `LevelDraft` et son historique ne sont, à aucun moment, touchés.
 **aucun fichier n'est écrit** — le brouillon invalide reste en mémoire, et le motif du refus est
 émis via le signal `statusMessage` (barre d'état de la fenêtre). Si elle réussit,
 `LevelWriter::saveToFile` écrit le JSON dans le dossier `Levels` de l'application — le **même**
-dossier que le jeu lit (@ref guide-niveaux), garantissant qu'une carte enregistrée est
+dossier que le jeu lit ([Niveaux : modèle, couches, entités, chargement](guide-niveaux.md)), garantissant qu'une carte enregistrée est
 immédiatement jouable. Avant d'écrire, la fenêtre vérifie que le fichier n'a pas changé sur disque
 depuis sa lecture (voir ci-dessous).
 
@@ -280,13 +280,13 @@ return rawZoom >= 1.0F ? std::floor(rawZoom) : rawZoom;
 
 Zoom **entier** (netteté des pixels) tant que l'ajustement brut reste `≥ 1` ; zoom
 **fractionnaire** (la valeur brute, sans `floor`) uniquement lorsque c'est strictement nécessaire
-pour qu'une carte plus grande tienne malgré tout. La placer dans `Camera2D` (@ref guide-rendu)
+pour qu'une carte plus grande tienne malgré tout. La placer dans `Camera2D` ([Rendu 2D : de la scène à l'écran](guide-rendu.md))
 plutôt que dans le canevas la rend en prime testable sans GPU.
 
 **Caméra manuelle et grille de repère.** Molette (zoom) et glisser prennent le relais du cadrage
 automatique (`updateEditCamera`) ; `0` le rétablit (`resetCamera`), et `F10` bascule un
 **quadrillage de repère** — fines lignes à chaque bord de case. La capture de ces touches passe par
-les actions Qt uniques de `hmi::EditorActions` (@ref guide-entrees), jamais par un second
+les actions Qt uniques de `hmi::EditorActions` ([Entrées et actions logiques](guide-entrees.md)), jamais par un second
 traitement dans le canevas.
 
 ## Gérer ses fichiers de niveaux
@@ -299,7 +299,7 @@ fichiers Windows (liste **noire** minimale ; les accents restent autorisés). Le
 fichiers elles-mêmes sont une couche **pure et testée**, `hmi::LevelFileOperations`
 (créer/renommer/dupliquer/supprimer, sans dépendance Qt) — la même séparation « logique pure /
 accès disque » que `LevelLoader`/`Core` appliquent à la validation. Détail du panneau :
-@ref guide-ihm-qt.
+[IHM Qt — deux applications, deux technologies](guide-ihm-qt.md).
 
 ## Voir aussi
 - `core::LevelDraft` (dont `paintRegion`, `wouldResizeDropContent`), `core::LevelWriter`,
@@ -310,10 +310,10 @@ accès disque » que `LevelLoader`/`Core` appliquent à la validation. Détail d
 - `hmi::WorldPlay`, `hmi::composeWorldScene` — la mise en scène partagée par le jeu et l'essai.
 - `hmi::paintComposedScene`, `hmi::SceneImages`, `hmi::pickIsoCell`, `hmi::isoBandOpacity`,
   `hmi::MiniMap` — le canevas qui montre le lieu (`LOT-EDITOR-02`).
-- @ref guide-ihm-qt — l'IHM Qt : fenêtre, docks, arbre de palette, navigateur de fichiers, canevas.
-- @ref guide-design-ihm — l'éditeur outil interne, la barre d'état, le regroupement des panneaux et l'unicité des
+- [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md) — l'IHM Qt : fenêtre, docks, arbre de palette, navigateur de fichiers, canevas.
+- [Système de design et architecture de l'information](guide-design-ihm.md) — l'éditeur outil interne, la barre d'état, le regroupement des panneaux et l'unicité des
   commandes de l'éditeur.
-- @ref guide-niveaux — le modèle de carte immuable, la validation et le format JSON réutilisés sans
+- [Niveaux : modèle, couches, entités, chargement](guide-niveaux.md) — le modèle de carte immuable, la validation et le format JSON réutilisés sans
   duplication.
-- @ref guide-rendu — la composition d'un lieu (`hmi::ComposedScene`, `hmi::composeWorldScene`), que
+- [Rendu 2D : de la scène à l'écran](guide-rendu.md) — la composition d'un lieu (`hmi::ComposedScene`, `hmi::composeWorldScene`), que
   le canevas peint par `QPainter` comme le jeu la soumet au GPU.

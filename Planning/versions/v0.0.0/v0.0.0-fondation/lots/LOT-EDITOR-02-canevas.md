@@ -30,7 +30,7 @@ On édite sur le lieu rendu en isométrie comme dans le jeu, avec une bascule ve
 (décisions D1 et D2 de la feuille de route). Le pointage est juste partout, y compris sous un mur
 haut, et prend la hauteur en paramètre (D11).
 
-Feuille de route : [éditeur](@ref roadmap-editeur). Le lot alimente `LOT-EDITOR-03` et
+Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-editeur.md). Le lot alimente `LOT-EDITOR-03` et
 `LOT-EDITOR-05`.
 
 ## Ce que le dépôt contenait à l'ouverture (18 septembre 2026)
