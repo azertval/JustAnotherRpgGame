@@ -9,6 +9,7 @@
 
 #include <rhi/qrhi.h>
 
+#include "Core/Combat/Arena.h"
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/World/CombatZone.h"
@@ -19,6 +20,7 @@
 #include "HMI/Graphics/ScenePiecePlacement.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/SpriteRenderer.h"
+#include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace hmi {
 
@@ -86,26 +88,35 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, 
 
 void ArenaSceneRenderer::loadBattlefield() {
     const auto data = _directory.parent_path().parent_path();
-    const auto definition =
-        core::readJsonObjectFromFile(data / "World/arena/arena-of-the-future.json", 1);
-    if (!definition.ok()) {
-        GRAPHICS_LOG_WARNING("Arena battlefield definition: " + definition.message);
+    // La premiere arene qui nomme sa carte et sa zone : aucun nom de contenu n'est ecrit dans le
+    // moteur (LOT-102). Sans arene jouable, le combat se joue sans decor -- ce n'est pas une
+    // panne (`EX-NFR-040`).
+    const core::ArenaCatalog arenas = core::loadArenas(data / "World" / "arena");
+    const core::Arena* definition = nullptr;
+    for (const core::Arena& arena : arenas.arenas) {
+        if (!arena.map.empty() && !arena.zone.empty()) {
+            definition = &arena;
+            break;
+        }
+    }
+    if (definition == nullptr) {
+        GRAPHICS_LOG_WARNING("Arena battlefield: aucune arene ne nomme une carte et sa zone.");
         return;
     }
-    const auto level = core::LevelLoader::loadFromFile(data / "Levels" /
-                                                       definition.root.value("map", std::string{}));
+    const auto level = core::LevelLoader::loadFromFile(data / "Levels" / definition->map);
     if (!level.ok()) {
         GRAPHICS_LOG_WARNING("Arena battlefield: " + level.error);
         return;
     }
     const auto zones = core::combatZonesOf(*level.level);
-    const auto* zone = core::findCombatZone(zones, definition.root.value("zone", std::string{}));
+    const auto* zone = core::findCombatZone(zones, definition->zone);
     if (zone == nullptr) {
         GRAPHICS_LOG_WARNING("Arena battlefield: unknown combat zone");
         return;
     }
-    const auto appearance = PlaceAppearance::loadFromFile(_directory.parent_path() /
-                                                          "Scene/arena-of-brave/appearance.json");
+    // Le decor est celui que la carte declare, pas un lieu ecrit dans le moteur.
+    const auto appearance = PlaceAppearance::loadFromFile(
+        _directory.parent_path() / "Scene" / scenePlaceOf(*level.level) / "appearance.json");
     if (!appearance.ok()) {
         GRAPHICS_LOG_WARNING("Arena battlefield appearance: " + appearance.message);
         return;

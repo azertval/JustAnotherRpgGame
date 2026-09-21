@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "comment": "Vide : les citadins de la Capitale (LOT-105).",
+  "frame": [
+    192,
+    256
+  ],
+  "wideFrame": [
+    384,
+    256
+  ],
+  "animations": [
+    "idle",
+    "walk",
+    "attack",
+    "hit",
+    "death",
+    "cast"
+  ],
+  "npcs": []
+}

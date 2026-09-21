@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "disposition": "arenarea",
+  "comment": "Vide : les pieces propres a le quartier de l'arène (LOT-108).",
+  "tile": [
+    256,
+    159
+  ],
+  "textures": {}
+}

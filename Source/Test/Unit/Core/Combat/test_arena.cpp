@@ -181,12 +181,12 @@ TEST(ArenaTest, LesPointsDEntreeSeLisentDeLaCarte) {
 }
 
 /**
- * @brief La premiere carte livree se charge, et les catalogues de l'arene avec elle.
- * \castest{<b>La premiere carte de Source/Elements/Levels se charge et accueille les deux camps ;
+ * @brief La carte d'une arene se charge, et les catalogues de l'arene avec elle.
+ * \castest{<b>La carte que nomme la premiere arene jouable se charge et accueille les deux camps ;
  * les arenes et les huit Marques Heroiques se chargent.</b><br/>
  * \tcat Unitaire · Combat<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Charger le catalogue des arenes livre et les Marques Heroiques.<br/>2. Charger la
+ * \tetapes 1. Charger le catalogue des arenes d'essai et les Marques Heroiques.<br/>2. Charger la
  * carte que la premiere arene nomme.<br/>3. Lire ses points d'entree et verifier qu'aucun n'est
  * dans un mur.<br/>
  * \tattendu Aucune erreur de chargement ; une arene jouable non letale a Marque Heroique ; huit
@@ -195,7 +195,7 @@ TEST(ArenaTest, LesPointsDEntreeSeLisentDeLaCarte) {
  */
 TEST(ArenaTest, LaPremiereCarteSeChargeEtAccueilleLesDeuxCamps) {
     const core::ArenaCatalog arenes =
-        core::loadArenas(std::filesystem::path(JADG_WORLD_DIR) / "arena");
+        core::loadArenas(std::filesystem::path(JADG_TEST_DATA_DIR) / "World" / "arena");
     EXPECT_TRUE(arenes.errors.empty());
     const core::HeroicMarkCatalog marques =
         core::loadHeroicMarks(std::filesystem::path(JADG_RPG_RULES_DIR) / "heroic-marks.json");
@@ -216,8 +216,8 @@ TEST(ArenaTest, LaPremiereCarteSeChargeEtAccueilleLesDeuxCamps) {
     EXPECT_TRUE(jouable->heroicMark);
     EXPECT_EQ(arenes.find(jouable->id), jouable);
 
-    const core::LevelLoadResult carte =
-        core::LevelLoader::loadFromFile(std::filesystem::path(JADG_LEVELS_DIR) / jouable->map);
+    const core::LevelLoadResult carte = core::LevelLoader::loadFromFile(
+        std::filesystem::path(JADG_TEST_DATA_DIR) / "Levels" / jouable->map);
     ASSERT_TRUE(carte.ok()) << carte.error;
     const core::BattleGrid grille(*carte.level);
     int allies = 0;

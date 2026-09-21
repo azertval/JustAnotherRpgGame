@@ -180,17 +180,17 @@ TEST(AssetGalleryTest, ImageJouee) {
 }
 
 /**
- * @brief Les assets livrés se lisent sans erreur, et chaque forme désigne un fichier existant.
- * \castest{<b>La galerie lit les assets livrés.</b><br/>
+ * @brief Les assets d'une racine se lisent sans erreur, chaque forme désignant un fichier.
+ * \castest{<b>La galerie lit les assets d'une racine.</b><br/>
  * \tcat Unitaire · Galerie des assets<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Lire le catalogue de Source/Elements/Assets.<br/>
- * \tattendu Aucune erreur ; PNJ avec attaque de 96 px en 8 images jouée une fois ; toutes les
- * textures existent.
+ * \tetapes 1. Lire le catalogue de la racine d'essai.<br/>
+ * \tattendu Aucune erreur ; PNJ avec attaque de 96 px en 8 images jouée une fois ; monstres et
+ * lieu présents ; toutes les textures existent.
  * }
  */
-TEST(AssetGalleryTest, AssetsLivres) {
-    const std::filesystem::path root(JADG_ASSETS_DIR);
+TEST(AssetGalleryTest, AssetsDEssai) {
+    const std::filesystem::path root = std::filesystem::path(JADG_TEST_DATA_DIR) / "Assets";
     const hmi::AssetGalleryCatalog catalog = hmi::AssetGalleryCatalog::load(root);
     for (const std::string& error : catalog.errors) {
         ADD_FAILURE() << error;
@@ -200,15 +200,15 @@ TEST(AssetGalleryTest, AssetsLivres) {
     ASSERT_NE(npcs, nullptr);
     const auto attack = std::find_if(npcs->entries.begin(), npcs->entries.end(),
                                      [](const hmi::AssetGalleryEntry& value) {
-                                         return value.model == "anariel" && value.form == "attack";
+                                         return value.model == "figurant" && value.form == "attack";
                                      });
     ASSERT_NE(attack, npcs->entries.end());
     EXPECT_EQ(attack->frameWidth, 96);
     EXPECT_EQ(attack->frameCount(), 8);
     EXPECT_FALSE(attack->loop);
 
-    EXPECT_NE(familyNamed(catalog, "Colisée · pièces"), nullptr);
-    EXPECT_NE(familyNamed(catalog, "Scène · martpart"), nullptr);
+    EXPECT_NE(familyNamed(catalog, "Monstres"), nullptr);
+    EXPECT_NE(familyNamed(catalog, "Scène · bourg"), nullptr);
 
     for (const hmi::AssetGalleryFamily& family : catalog.families) {
         for (const hmi::AssetGalleryEntry& value : family.entries) {
@@ -242,12 +242,12 @@ TEST(AssetGalleryTest, ToutAssetLivreEstDansLaGalerie) {
                          "assetGalleryExcludes.";
     }
 
-    EXPECT_TRUE(hmi::assetGalleryExcludes("Scene/martpart/planche-1.png"));
-    EXPECT_TRUE(hmi::assetGalleryExcludes("Coliseum/production_source_atlas.png"));
     EXPECT_TRUE(hmi::assetGalleryExcludes("UI/background/menu-scene.png"));
     EXPECT_TRUE(hmi::assetGalleryExcludes("Maps/world.jpg"));
-    EXPECT_FALSE(hmi::assetGalleryExcludes("Scene/martpart/street.png"));
-    EXPECT_FALSE(hmi::assetGalleryExcludes("Npc/anariel/portrait.png"));
+    EXPECT_TRUE(hmi::assetGalleryExcludes("Fonts/Cinzel.ttf"));
+    EXPECT_FALSE(
+        hmi::assetGalleryExcludes("Regions/central-empire/capital/martpart/Scene/street.png"));
+    EXPECT_FALSE(hmi::assetGalleryExcludes("Npc/figurant/portrait.png"));
 }
 
 /**

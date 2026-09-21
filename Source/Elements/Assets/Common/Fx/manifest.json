@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "disposition": "common-fx",
+  "comment": "Vide : les effets de combat et de sort du monde entier, a la premiere piece promue (LOT-102).",
+  "tile": [
+    256,
+    159
+  ],
+  "textures": {}
+}

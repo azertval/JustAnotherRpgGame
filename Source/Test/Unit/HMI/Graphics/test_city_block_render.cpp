@@ -26,14 +26,15 @@
 
 namespace {
 
-const std::filesystem::path NIVEAUX{JADG_LEVELS_DIR};
-const std::filesystem::path ASSETS{JADG_ASSETS_DIR};
+const std::filesystem::path NIVEAUX{std::filesystem::path(JADG_TEST_DATA_DIR) / "Levels"};
+const std::filesystem::path ASSETS{std::filesystem::path(JADG_TEST_DATA_DIR) / "Assets"};
 
 }  // namespace
 
 /**
  * @brief Le cadrage d'un ilot le contient, et grandit avec lui.
- * \castest{<b>Le cadrage d'un ilot couvre son losange englobant, plus la hauteur des pieces.</b><br/>
+ * \castest{<b>Le cadrage d'un ilot couvre son losange englobant, plus la hauteur des
+ * pieces.</b><br/>
  * \tcat Unitaire · Plan de la ville<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Cadrer un ilot de 10 x 8 cases, puis un de 20 x 16, sur une carte de 48 x 40.<br/>
@@ -52,8 +53,8 @@ TEST(CityBlockRenderTest, LeCadrageContientLIlot) {
 
     EXPECT_GT(cadrePetit.pixelWidth, 0);
     EXPECT_EQ(cadreGrand.pixelWidth, 2 * cadrePetit.pixelWidth);
-    const float losange = static_cast<float>(petit.columns + petit.rows) *
-                          projection.tileHeight() / 2.0F * hmi::Camera2D::PIXELS_PER_UNIT;
+    const float losange = static_cast<float>(petit.columns + petit.rows) * projection.tileHeight() /
+                          2.0F * hmi::Camera2D::PIXELS_PER_UNIT;
     EXPECT_GT(static_cast<float>(cadrePetit.pixelHeight), losange);
 
     // Le centre de l'ilot est (15, 14) ; la hauteur des pieces remonte le point suivi.
@@ -62,26 +63,25 @@ TEST(CityBlockRenderTest, LeCadrageContientLIlot) {
 }
 
 /**
- * @brief La place du marche livree devient une image, dessinee par le rendu du lieu.
- * \castest{<b>Un ilot de Martpart se dessine hors ecran, a la taille de son cadrage.</b><br/>
+ * @brief L'ilot d'un lieu devient une image, dessinee par le rendu du lieu.
+ * \castest{<b>Un ilot d'un lieu se dessine hors ecran, a la taille de son cadrage.</b><br/>
  * \tcat Unitaire · Plan de la ville<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Charger `capital/martpart.json`, sa table d'apparence et son ilot « place du
- * marche ».<br/>
+ * \tetapes 1. Charger une carte de ville, sa table d'apparence et son plus grand ilot.<br/>
  * 2. Le dessiner hors ecran.<br/>
  * \tattendu Une image a la taille du cadrage, dont une part notable n'est pas le fond : l'ilot
  * est la carte telle que le jeu la dessine, pas une image a part (LOT-96).
  * }
  */
-TEST(CityBlockRenderTest, LaPlaceDuMarcheDevientUneImage) {
+TEST(CityBlockRenderTest, UnIlotDevientUneImage) {
     const core::LevelLoadResult lu =
-        core::LevelLoader::loadFromFile(NIVEAUX / "capital" / "martpart.json");
+        core::LevelLoader::loadFromFile(NIVEAUX / "bourg" / "place.json");
     ASSERT_TRUE(lu.ok()) << lu.error;
-    const hmi::PlaceAppearanceResult table = hmi::PlaceAppearance::loadFromFile(
-        ASSETS / "Scene" / "martpart" / "appearance.json");
+    const hmi::PlaceAppearanceResult table =
+        hmi::PlaceAppearance::loadFromFile(ASSETS / "Scene" / "bourg" / "appearance.json");
     ASSERT_TRUE(table.ok()) << table.message;
     const std::vector<core::CityBlock> ilots = core::cityBlocksOf(*lu.level);
-    const auto place = std::ranges::find(ilots, std::string{"place-du-marche"}, &core::CityBlock::name);
+    const auto place = std::ranges::find(ilots, std::string{"grand-place"}, &core::CityBlock::name);
     ASSERT_NE(place, ilots.end());
 
     const hmi::WorldSceneSnapshot instantane =
@@ -102,7 +102,7 @@ TEST(CityBlockRenderTest, LaPlaceDuMarcheDevientUneImage) {
             peints += image.pixelColor(x, y) != fond ? 1U : 0U;
         }
     }
-    const std::size_t echantillons =
-        static_cast<std::size_t>((image.width() + 3) / 4) * static_cast<std::size_t>((image.height() + 3) / 4);
+    const std::size_t echantillons = static_cast<std::size_t>((image.width() + 3) / 4) *
+                                     static_cast<std::size_t>((image.height() + 3) / 4);
     EXPECT_GT(peints * 3, echantillons) << "l'ilot est presque vide";
 }

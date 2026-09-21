@@ -38,7 +38,7 @@ namespace {
 // catalogues LIVRES, que la table rase du LOT-102 emporte. Les catalogues d essai portent ce
 // qu il lui faut -- un dialogue, une rencontre a deux combattants.
 [[nodiscard]] std::filesystem::path elementsRoot() {
-    return std::filesystem::path{JADG_EDITOR_DATA_DIR};
+    return std::filesystem::path{JADG_TEST_DATA_DIR};
 }
 
 // Pose une entite neuve de la famille @p type, ses proprietes a leur defaut, puis @p properties.

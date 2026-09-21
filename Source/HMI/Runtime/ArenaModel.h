@@ -8,6 +8,7 @@
 #include <QStringList>
 #include <QVariantList>
 #include <QtQmlIntegration>
+#include <filesystem>
 #include <memory>
 #include <optional>
 #include <string>
@@ -111,7 +112,14 @@ class ArenaModel : public QObject {
     Q_PROPERTY(QStringList journal READ journal NOTIFY changed)
 
 public:
-    explicit ArenaModel(QObject* parent = nullptr);
+    /**
+     * @brief Construit la vue-modèle et lit ses catalogues.
+     * @param parent      Parent Qt.
+     * @param contentRoot Racine du **contenu** — les arènes (`World/arena`) et leurs cartes
+     *                    (`Levels/`). Vide : à côté de l'exécutable, comme le jeu. Les tests y
+     *                    mettent la racine d'essai, faute de contenu livré depuis le `LOT-102`.
+     */
+    explicit ArenaModel(QObject* parent = nullptr, std::filesystem::path contentRoot = {});
     ~ArenaModel() override;
 
     [[nodiscard]] QString arenaName() const;
@@ -235,6 +243,7 @@ private:
     /// Recale le curseur et l'action choisie sur le combattant actif, à chaque changement de tour.
     void followActive();
 
+    std::filesystem::path _contentRoot;
     std::unique_ptr<Catalogs> _catalogs;
     core::GridPosition _cursor{};
     int _selectedAction = 0;

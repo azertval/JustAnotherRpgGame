@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "disposition": "arena-of-fate",
+  "comment": "Vide : le Colisee de l'Arena of Fate, sous-zone d'Arenarea (LOT-106).",
+  "tile": [
+    256,
+    159
+  ],
+  "textures": {}
+}

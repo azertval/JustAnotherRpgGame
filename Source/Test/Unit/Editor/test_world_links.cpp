@@ -33,7 +33,7 @@ namespace {
 // table rase du `LOT-102` emporte. La Place et le Donjon de la racine d'essai ne sont reliés
 // par aucun portail : c'est ce qu'il faut pour éprouver `--link-maps`.
 [[nodiscard]] std::filesystem::path elements() {
-    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
+    return std::filesystem::path(JADG_TEST_DATA_DIR);
 }
 
 // Ce que le contrôle lit sans le récrire.

@@ -306,12 +306,7 @@ AssetGalleryCatalog AssetGalleryCatalog::load(const std::filesystem::path& asset
 }
 
 bool assetGalleryExcludes(std::string_view path) noexcept {
-    const std::size_t slash = path.rfind('/');
-    const std::string_view fileName =
-        slash == std::string_view::npos ? path : path.substr(slash + 1);
-    return path == "Coliseum/production_source_atlas.png" || path.starts_with("UI/") ||
-           path.starts_with("Maps/") || path.starts_with("Fonts/") ||
-           (path.starts_with("Scene/") && fileName.starts_with("planche-"));
+    return path.starts_with("UI/") || path.starts_with("Maps/") || path.starts_with("Fonts/");
 }
 
 std::vector<std::string> assetGalleryUnlisted(const std::filesystem::path& assetsRoot,

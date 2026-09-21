@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "disposition": "martpart",
+  "comment": "Vide : les pieces propres a le quartier du marché (LOT-110).",
+  "tile": [
+    256,
+    159
+  ],
+  "textures": {}
+}

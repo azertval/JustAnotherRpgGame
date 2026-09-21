@@ -18,8 +18,9 @@ namespace hmi {
 
 namespace {
 
-// Les textures de scene de l'atelier du LOT-92, a cote du dossier du Colisee (comme ../Npc).
-constexpr std::string_view SCENE_DIRECTORY = "../Scene/coliseum/";
+// Les textures de scene du lieu, a cote du dossier du kit d'arene (comme ../Npc). Le lieu vient
+// du manifeste du kit (`scene`), jamais du code : une arene n'est pas forcement le Colisee.
+constexpr std::string_view SCENE_ROOT = "../Scene/";
 
 // Les sols : le sable, ses variantes semees la ou la brique QML posait une dalle claire, la pierre
 // sous l'enceinte, le seuil sous une porte.
@@ -40,9 +41,12 @@ constexpr std::string_view PILLAR = "pillar";
 // Marge basse d'une figurine, en hauteurs de losange (anchors.bottomMargin de ArenaTile.ui.qml).
 constexpr float FIGURE_BOTTOM_MARGIN = 0.42F;
 
-/// Le chemin d'une piece de scene : `../Scene/coliseum/<nom><suffixe>.png`.
-void scenePath(std::string& path, std::string_view name, std::string_view suffix = {}) {
-    path.assign(SCENE_DIRECTORY);
+/// Le chemin d'une piece de scene : `../Scene/<lieu du kit>/<nom><suffixe>.png`.
+void scenePath(const ArenaAppearanceCatalog& catalog, std::string& path, std::string_view name,
+               std::string_view suffix = {}) {
+    path.assign(SCENE_ROOT);
+    path.append(catalog.scene());
+    path.push_back('/');
     path.append(name);
     path.append(suffix);
     path.append(".png");
@@ -111,15 +115,15 @@ void composeTile(const Composer& composer, const ArenaAppearanceCatalog& catalog
 
     // --- Le sol : etire sur la boite du losange, comme l'Image en anchors.fill ---------------
     if (appearance.wall) {
-        scenePath(path, STONE);
+        scenePath(catalog, path, STONE);
     } else if (appearance.gateSpot) {
-        scenePath(path, THRESHOLD);
+        scenePath(catalog, path, THRESHOLD);
     } else if (appearance.slab) {
         scenePath(
-            path,
+            catalog, path,
             SAND_VARIANTS[static_cast<std::size_t>(appearance.slabVariant) % SAND_VARIANTS.size()]);
     } else {
-        scenePath(path, SAND);
+        scenePath(catalog, path, SAND);
     }
     if (const ArenaTexture& floor = composer.textures.resolve(path); floor.texture != nullptr) {
         SpriteQuad quad;
@@ -136,23 +140,23 @@ void composeTile(const Composer& composer, const ArenaAppearanceCatalog& catalog
     // decore, pas une decoration posee sur un pan.
     const std::string_view edge = edgeSuffix(cell, snapshot.rows);
     if (appearance.gateSpot) {
-        scenePath(path, ARCH, edge);
+        scenePath(catalog, path, ARCH, edge);
     } else {
         switch (appearance.wallFeature) {
             case WallFeature::None:
                 return;
             case WallFeature::Corner:
                 // L'angle du fond ferme les deux murs ; les trois autres angles sont des piliers.
-                scenePath(path, cell.column == 0 && cell.row == 0 ? CORNER : PILLAR);
+                scenePath(catalog, path, cell.column == 0 && cell.row == 0 ? CORNER : PILLAR);
                 break;
             case WallFeature::Plain:
-                scenePath(path, WALL, edge);
+                scenePath(catalog, path, WALL, edge);
                 break;
             case WallFeature::BannerSpot:
-                scenePath(path, BANNER, edge);
+                scenePath(catalog, path, BANNER, edge);
                 break;
             case WallFeature::TorchSpot:
-                scenePath(path, TORCH, edge);
+                scenePath(catalog, path, TORCH, edge);
                 break;
         }
     }
@@ -239,7 +243,7 @@ std::vector<std::string> arenaTexturePaths(const ArenaAppearanceCatalog& catalog
     std::vector<std::string> paths;
     std::string path;
     const auto add = [&](std::string_view name, std::string_view suffix = {}) {
-        scenePath(path, name, suffix);
+        scenePath(catalog, path, name, suffix);
         paths.push_back(path);
     };
     add(SAND);

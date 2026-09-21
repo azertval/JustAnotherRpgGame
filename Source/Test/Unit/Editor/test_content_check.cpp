@@ -33,9 +33,9 @@ using hmi::MapCheckSeverity;
 /// La racine des données livrées : `Source/Elements`.
 // La racine d'essai de l'éditeur (`LOT-123`) : deux cartes reliées, une planche, une ville, un
 // dialogue, une rencontre, leurs textes. Ce test lisait les cartes LIVRÉES, que la table rase
-// du `LOT-102` emporte. Voir `Fixtures/EditorData/README.md`.
+// du `LOT-102` emporte. Voir `Fixtures/GameData/README.md`.
 [[nodiscard]] std::filesystem::path elements() {
-    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
+    return std::filesystem::path(JADG_TEST_DATA_DIR);
 }
 
 [[nodiscard]] std::string lire(const std::filesystem::path& path) {

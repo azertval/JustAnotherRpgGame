@@ -28,10 +28,9 @@ qu'aucun schema ne le peut :
 7. `displaySizes` ne vaut que pour une piece fixe, et une piece fixe ne s'affiche jamais plus grande
    que sa production (`EX-IHM-075` : produite a 1080p, reduite avec lissage) ;
 8. la page `.md` est a jour du JSON ;
-9. les textures de SCENE (LOT-92) n'ont pas de piece ici -- ni jeton, ni maquette d'ecran : leur cahier
-   est la disposition de leur planche (`LOT-92-atelier-textures/atelier/dispositions/*.json`), et ce
-   script la fait valider par `extract_texture_sheet.valider_tout` : cles `scene/...` au format du
-   LOT-39 et uniques, lieu present dans l'atlas, grille qui tient dans la planche.
+Les textures de SCENE n'ont jamais eu de piece ici, et n'en ont plus du tout : la table rase du
+LOT-102 a emporte l'atelier des textures avec son art. Le controle de la chaine de production 2D HD
+est au LOT-104.
 
 Usage :
     python scripts/check_assets_brief.py                    # controle, code de sortie non nul si faute
@@ -53,8 +52,6 @@ import re
 import struct
 import sys
 from pathlib import Path
-
-import extract_texture_sheet
 
 RACINE = Path(__file__).resolve().parent.parent
 LOT = RACINE / "Documentation" / "Lot" / "LOT-87-charte-v2"
@@ -401,8 +398,6 @@ def main() -> int:
     controler_pieces(cahier)
     controler_couverture(cahier)
     page_a_jour(cahier, arguments.write)
-    cles_de_scene, fautes_de_scene = extract_texture_sheet.valider_tout()
-    erreurs.extend(fautes_de_scene)
 
     for e in erreurs:
         print("ERREUR " + e)
@@ -410,8 +405,8 @@ def main() -> int:
         print("check_assets_brief : %d faute(s)." % len(erreurs))
         return 1
     images = sum(len(cles(p)) for p in cahier["pieces"])
-    print("check_assets_brief : %d pieces, %d images, %d exclusions, %d textures de scene -- conforme."
-          % (len(cahier["pieces"]), images, len(cahier["excluded"]), cles_de_scene))
+    print("check_assets_brief : %d pieces, %d images, %d exclusions -- conforme."
+          % (len(cahier["pieces"]), images, len(cahier["excluded"])))
     return 0
 
 

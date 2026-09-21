@@ -17,6 +17,24 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   `AUTO_LIGHT` : en `LIGHT`, Doxygen résout ses variables à la génération et écrit ses couleurs en
   dur, ne laissant rien à rebrancher. Aucun contenu ne change, et plus aucune couleur ne s'écrit
   ailleurs que dans `Site/tokens.css`.
+  
+- **Table rase : plus un asset de scène, plus une carte (LOT-102).** Le jeu quitte le pixel art, et
+  deux styles ne cohabitent pas, même provisoirement : **704 fichiers** dont 621 images
+  disparaissent — `Assets/Scene/`, `Assets/Coliseum/`, `Assets/Npc/`, `Assets/Monsters/`,
+  `Levels/coliseum.json`, `Levels/capital/`, `World/arena/`. Les seize cartes peintes de
+  `Assets/Maps/`, le HUD de la charte v2, l'atlas, les règles et les textes restent : ils sont déjà
+  au standard. Ce n'était pas un `git rm` : une règle CMake, quatre contrôles Python et une
+  quarantaine de tests lisaient ces fichiers. Les tests qui prouvaient un **mécanisme** — un
+  manifeste se lit, un portail se traverse, une zone se découpe, le GPU et l'éditeur tombent
+  d'accord — lisent désormais une **racine de données d'essai** (`Source/Test/Fixtures/GameData/`,
+  née pour l'éditeur au `LOT-123`, élargie d'un kit d'arène, de figurines et de deux arènes) ;
+  quatre tests qui ne prouvaient qu'un **contenu** sont supprimés, leur liste est dans la PR. Deux
+  noms de contenu quittent le moteur au passage : le dossier de pièces d'une arène vient de son
+  manifeste, et le décor derrière une zone de combat, de la carte que l'arène nomme. À la place,
+  l'**arborescence** du standard est posée, vide, avec ses manifestes à l'échelle 2D HD et un README
+  par niveau : `Common/` pour ce qui existe partout, puis `Regions/central-empire/` jusqu'aux trois
+  lieux de la démo. L'atelier pixel art part avec son art. Le jeu démarre et affiche ses écrans sur
+  cette base vide, l'éditeur s'ouvre sur une carte vierge, et les 906 tests sont verts.
 
 - **L'éditeur debout sur une base vide (LOT-123).** `LevelEditor --check` ne tient plus l'absence
   de carte pour une erreur : il dit « no map under … », « checked 0 maps », et rend **0** — la table

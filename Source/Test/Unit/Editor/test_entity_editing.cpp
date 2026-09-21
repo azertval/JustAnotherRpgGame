@@ -62,9 +62,9 @@ constexpr const char* MAP = R"({
 }
 
 // La racine d'essai de l'editeur (LOT-123) : ce test lisait les catalogues et les cartes
-// LIVRES, que la table rase du LOT-102 emporte. Voir Fixtures/EditorData/README.md.
+// LIVRES, que la table rase du LOT-102 emporte. Voir Fixtures/GameData/README.md.
 [[nodiscard]] std::filesystem::path elementsRoot() {
-    return std::filesystem::path{JADG_EDITOR_DATA_DIR};
+    return std::filesystem::path{JADG_TEST_DATA_DIR};
 }
 
 }  // namespace

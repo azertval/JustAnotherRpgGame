@@ -15,6 +15,7 @@ namespace hmi {
 
 namespace {
 
+constexpr const char* FIELD_SCENE = "scene";
 constexpr const char* FIELD_HEROES = "heroes";
 constexpr const char* FIELD_GLADIATORS = "gladiators";
 constexpr const char* FIELD_PALE_SLABS = "paleSlabs";
@@ -70,6 +71,17 @@ constexpr const char* NPC_DIRECTORY_FROM_COLISEUM = "../Npc/";
     return true;
 }
 
+[[nodiscard]] bool readNonEmptyString(const nlohmann::json& root, const char* field,
+                                      std::string& out, std::string& error) {
+    if (!root.contains(field) || !root[field].is_string() ||
+        root[field].get<std::string>().empty()) {
+        error = std::string("Le champ « ") + field + " » est absent ou n'est pas un texte.";
+        return false;
+    }
+    out = root[field].get<std::string>();
+    return true;
+}
+
 [[nodiscard]] bool readPositiveInt(const nlohmann::json& root, const char* field, int& out,
                                    std::string& error) {
     if (!root.contains(field) || !root[field].is_number_integer() || root[field].get<int>() <= 0) {
@@ -97,6 +109,9 @@ ArenaAppearanceCatalogResult ArenaAppearanceCatalog::fromDocument(
     ArenaAppearanceCatalog catalog;
     std::string error;
 
+    if (!readNonEmptyString(root, FIELD_SCENE, catalog._scene, error)) {
+        return failure(error, ArenaAppearanceError::MalformedStructure);
+    }
     if (!readStringArray(root, FIELD_HEROES, catalog._heroes, error) ||
         !readStringArray(root, FIELD_GLADIATORS, catalog._gladiators, error) ||
         !readStringArray(root, FIELD_PALE_SLABS, catalog._paleSlabs, error)) {

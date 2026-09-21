@@ -225,17 +225,17 @@ TEST(ArenaAnimationDriverTest, RemoveRetireDuPilotage) {
 }
 
 /**
- * @brief Les planches livrées avec le jeu se lisent sans erreur, chaque action déclarée existante.
- * \castest{<b>Les `.anim.json` du Colisée sont valides.</b><br/>
+ * @brief Les planches d'un kit d'arène se lisent sans erreur, chaque action déclarée existante.
+ * \castest{<b>Les `.anim.json` d'un kit d'arène sont valides.</b><br/>
  * \tcat Unitaire · Pilote d'animation de l'arène<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Lire `characters/bram` (cinq actions). 2. Lire `enemies/archer` (idle seul).<br/>
+ * \tetapes 1. Lire un héros (cinq actions). 2. Lire un gladiateur au repos seul.<br/>
  * \tattendu Succès, sans erreur ; `bram` porte ses cinq jeux, `archer` seulement `idle`.
  * }
  */
-TEST(ArenaAnimationDriverTest, PlanchesLivreesValides) {
+TEST(ArenaAnimationDriverTest, PlanchesDUnKitValides) {
     const std::filesystem::path characters =
-        std::filesystem::path(JADG_ASSETS_DIR) / "Coliseum" / "characters" / "bram";
+        std::filesystem::path(JADG_TEST_DATA_DIR) / "Assets" / "Arena" / "characters" / "champion";
     ASSERT_TRUE(std::filesystem::exists(characters)) << characters.string();
     const hmi::ArenaFigureAnimationLoad hero = hmi::loadArenaFigureAnimations(characters);
     EXPECT_TRUE(hero.errors.empty()) << (hero.errors.empty() ? "" : hero.errors.front());
@@ -246,14 +246,14 @@ TEST(ArenaAnimationDriverTest, PlanchesLivreesValides) {
     EXPECT_NE(hero.clips.death, nullptr);
 
     const std::filesystem::path enemy =
-        std::filesystem::path(JADG_ASSETS_DIR) / "Coliseum" / "enemies" / "archer";
+        std::filesystem::path(JADG_TEST_DATA_DIR) / "Assets" / "Arena" / "enemies" / "tireur";
     ASSERT_TRUE(std::filesystem::exists(enemy)) << enemy.string();
-    const hmi::ArenaFigureAnimationLoad archer = hmi::loadArenaFigureAnimations(enemy);
-    EXPECT_TRUE(archer.errors.empty()) << (archer.errors.empty() ? "" : archer.errors.front());
-    EXPECT_NE(archer.clips.idle, nullptr);
-    EXPECT_EQ(archer.clips.attack, nullptr);
-    EXPECT_EQ(archer.clips.hit, nullptr);
-    EXPECT_EQ(archer.clips.death, nullptr);
+    const hmi::ArenaFigureAnimationLoad tireur = hmi::loadArenaFigureAnimations(enemy);
+    EXPECT_TRUE(tireur.errors.empty()) << (tireur.errors.empty() ? "" : tireur.errors.front());
+    EXPECT_NE(tireur.clips.idle, nullptr);
+    EXPECT_EQ(tireur.clips.attack, nullptr);
+    EXPECT_EQ(tireur.clips.hit, nullptr);
+    EXPECT_EQ(tireur.clips.death, nullptr);
 }
 
 }  // namespace
