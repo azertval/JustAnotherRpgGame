@@ -468,18 +468,20 @@ TEST(MaquetteRenderTest, UneCarteSansLieuSeComposeEnLosangesDeCouleur) {
     const hmi::ComposedScene scene =
         hmi::composeWorldScene(instantane, projectionDe(instantane), resolues);
 
-    ASSERT_EQ(scene.size(), 2U);
+    // L'eau est un losange plat sur le calque des tuiles ; le mur, un bloc de trois faces sur le
+    // calque du decor (LOT-128, decision D6).
+    ASSERT_EQ(scene.size(), 4U);
     for (const hmi::ComposedQuad& quad : scene.quads()) {
         EXPECT_EQ(quad.kind, hmi::QuadKind::Poly);
-        EXPECT_EQ(quad.layer, hmi::RenderLayer::Tile);
         EXPECT_EQ(quad.texture, aplat());
     }
+    EXPECT_EQ(scene.quads()[0].layer, hmi::RenderLayer::Tile);
     const hmi::MaquetteColor eau = hmi::maquetteColor(core::TileType::Water);
-    const hmi::MaquetteColor mur = hmi::maquetteColor(core::TileType::Wall);
     EXPECT_FLOAT_EQ(scene.quads()[0].poly.r, eau.r);
     EXPECT_FLOAT_EQ(scene.quads()[0].poly.b, eau.b);
-    EXPECT_FLOAT_EQ(scene.quads()[1].poly.r, mur.r);
-    EXPECT_NE(eau.r, mur.r);
+    for (std::size_t i = 1; i < scene.size(); ++i) {
+        EXPECT_EQ(scene.quads()[i].layer, hmi::RenderLayer::Object);
+    }
 }
 
 /**
@@ -541,4 +543,71 @@ TEST(MaquetteRenderTest, SansAplatRienNEstCompose) {
         hmi::composeWorldScene(instantane, projectionDe(instantane), hmi::ScenePieceTextures{});
 
     EXPECT_EQ(scene.size(), 0U);
+}
+
+/**
+ * @brief Un type qui bloque se compose en bloc extrude : trois faces, d'eclairements distincts,
+ *        montant d'une case au-dessus du losange, sur le calque du decor.
+ * \castest{<b>Un mur se compose en bloc de trois faces, haut d'une case.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Composer une carte d'une seule case de mur, sans lieu.<br/>
+ * \tattendu Trois primitives sur le calque du decor ; le dessus monte d'une hauteur de losange
+ * au-dessus du sommet de la case, et les trois faces n'ont pas la meme teinte.
+ * }
+ */
+TEST(MaquetteRenderTest, UnMurSeComposeEnBlocDeTroisFaces) {
+    core::TileMap collision{1, 1};
+    collision.setTile(0, 0, core::TileType::Wall);
+    const core::Level carte{core::LevelData{.name = "mur", .tileMap = std::move(collision)}};
+
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(carte, hmi::PlaceAppearance{}, {});
+    const core::IsoProjection projection = projectionDe(instantane);
+    hmi::ScenePieceTextures resolues;
+    resolues.solid = hmi::SceneTexture{.texture = aplat(), .width = 1, .height = 1};
+    const hmi::ComposedScene scene = hmi::composeWorldScene(instantane, projection, resolues);
+
+    ASSERT_EQ(scene.size(), 3U);
+    for (const hmi::ComposedQuad& quad : scene.quads()) {
+        EXPECT_EQ(quad.layer, hmi::RenderLayer::Object);
+        EXPECT_EQ(quad.kind, hmi::QuadKind::Poly);
+    }
+    // Trois eclairements distincts : sans cet ecart, le bloc redevient une tache plate.
+    const float premiere = scene.quads()[0].poly.r;
+    const float deuxieme = scene.quads()[1].poly.r;
+    const float troisieme = scene.quads()[2].poly.r;
+    EXPECT_NE(premiere, deuxieme);
+    EXPECT_NE(deuxieme, troisieme);
+
+    // Le point le plus haut du bloc est une hauteur de losange au-dessus du sommet de la case.
+    const core::Rect bounds = projection.tileBounds({.column = 0, .row = 0});
+    float plusHaut = bounds.position.y;
+    for (const hmi::ComposedQuad& quad : scene.quads()) {
+        for (const float y : quad.poly.y) {
+            plusHaut = std::min(plusHaut, y);
+        }
+    }
+    EXPECT_FLOAT_EQ(plusHaut, bounds.position.y - bounds.size.y);
+}
+
+/**
+ * @brief L'eau profonde bloque le pas mais n'est pas de la matiere : elle reste un losange plat,
+ *        plus sombre que l'eau vive, et l'on voit par-dessus.
+ * \castest{<b>L'eau profonde reste un losange plat, plus sombre que l'eau vive.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Interroger l'extrusion et la palette pour l'eau profonde.<br/>
+ * \tattendu Elle ne s'extrude pas, et sa teinte est plus sombre que celle de l'eau.
+ * }
+ */
+TEST(MaquetteRenderTest, LEauProfondeNeSExtrudePas) {
+    EXPECT_FALSE(hmi::maquetteExtrudes(core::TileType::DeepWater));
+    EXPECT_TRUE(hmi::maquetteExtrudes(core::TileType::Wall));
+    EXPECT_TRUE(hmi::maquetteExtrudes(core::TileType::Solid));
+    EXPECT_TRUE(hmi::maquetteExtrudes(core::TileType::Cliff));
+
+    const hmi::MaquetteColor vive = hmi::maquetteColor(core::TileType::Water);
+    const hmi::MaquetteColor profonde = hmi::maquetteColor(core::TileType::DeepWater);
+    EXPECT_LT(profonde.r + profonde.g + profonde.b, vive.r + vive.g + vive.b);
 }

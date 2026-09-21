@@ -76,12 +76,95 @@ constexpr std::array<std::string_view, 2> FIGURE_DIRECTORIES = {"Npc/", "Monster
     return {column, row};
 }
 
-// Le losange de maquette d'une case : les quatre sommets du losange de sa boite, a la teinte de son
-// type (LOT-128). C'est ce qui se dessine quand AUCUNE piece n'est nommee -- carte sans lieu, ou
-// type que la table du lieu ne couvre pas : les deux manques sont le meme cas.
-void composeMaquetteFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
-                          const core::IsoProjection& projection,
-                          const ScenePieceTextures& textures, core::GridPosition cell) {
+// Les quatre sommets du losange d'une case, dans l'ordre du pourtour : haut, droite, bas, gauche.
+struct DiamondVertices {
+    std::array<float, 4> x{};
+    std::array<float, 4> y{};
+};
+
+[[nodiscard]] DiamondVertices diamondOf(const core::Rect& bounds) {
+    const float halfWidth = bounds.size.x / 2.0F;
+    const float halfHeight = bounds.size.y / 2.0F;
+    const float left = bounds.position.x;
+    const float top = bounds.position.y;
+    return DiamondVertices{
+        .x = {left + halfWidth, left + bounds.size.x, left + halfWidth, left},
+        .y = {top, top + halfHeight, top + bounds.size.y, top + halfHeight}};
+}
+
+// Eclairement des trois faces d'un bloc : le dessus prend la lumiere, la face gauche moins, la
+// droite le moins. Sans cet ecart, trois quads de la MEME teinte ne se distinguent pas et le bloc
+// redevient une tache plate -- exactement ce que l'extrusion doit eviter.
+constexpr float BLOCK_TOP_LIGHT = 1.0F;
+constexpr float BLOCK_LEFT_LIGHT = 0.74F;
+constexpr float BLOCK_RIGHT_LIGHT = 0.54F;
+
+[[nodiscard]] PolyQuad tintedQuad(const MaquetteColor& tint, float light) {
+    PolyQuad quad;
+    quad.r = tint.r * light;
+    quad.g = tint.g * light;
+    quad.b = tint.b * light;
+    return quad;
+}
+
+// Le losange plat d'une case, a la teinte de son type : le sol de maquette.
+void composeMaquetteDiamond(ComposedScene& scene, const core::IsoProjection& projection,
+                            const ScenePieceTextures& textures, core::GridPosition cell,
+                            core::TileType type) {
+    const DiamondVertices diamond = diamondOf(projection.tileBounds(cell));
+    PolyQuad quad = tintedQuad(maquetteColor(type), BLOCK_TOP_LIGHT);
+    quad.x = diamond.x;
+    quad.y = diamond.y;
+    scene.addPoly(RenderLayer::Tile, textures.solid.texture, core::IsoProjection::depth(cell),
+                  quad);
+}
+
+// Le BLOC d'une case de matiere pleine : trois faces, haut d'une case (decision D6).
+//
+// Sur le calque du DECOR, et trie au pied de la case comme une piece de relief : c'est ce qui le
+// fait masquer ce qui est derriere lui, figurines comprises. Un bloc pose sur le calque des tuiles
+// passerait sous le heros quel que soit leur ordre, et le mur cesserait d'etre un mur.
+void composeMaquetteBlock(ComposedScene& scene, const core::IsoProjection& projection,
+                          const ScenePieceTextures& textures, core::GridPosition cell,
+                          core::TileType type) {
+    const core::Rect bounds = projection.tileBounds(cell);
+    const DiamondVertices base = diamondOf(bounds);
+    const float height = bounds.size.y;  // une case de haut : la hauteur du losange
+    const MaquetteColor tint = maquetteColor(type);
+    const float footY = projection
+                            .gridToWorld(gridPoint(static_cast<float>(cell.column),
+                                                   static_cast<float>(cell.row)))
+                            .y;
+    const std::int32_t order = worldDepthSortOrder(footY, WorldDepthSlot::Relief);
+    const auto raised = [height](float y) { return y - height; };
+
+    // Face gauche : arete gauche -> bas, puis les deux memes sommets remontes.
+    PolyQuad leftFace = tintedQuad(tint, BLOCK_LEFT_LIGHT);
+    leftFace.x = {base.x[3], base.x[2], base.x[2], base.x[3]};
+    leftFace.y = {base.y[3], base.y[2], raised(base.y[2]), raised(base.y[3])};
+    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, leftFace);
+
+    // Face droite : bas -> arete droite.
+    PolyQuad rightFace = tintedQuad(tint, BLOCK_RIGHT_LIGHT);
+    rightFace.x = {base.x[2], base.x[1], base.x[1], base.x[2]};
+    rightFace.y = {base.y[2], base.y[1], raised(base.y[1]), raised(base.y[2])};
+    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, rightFace);
+
+    // Dessus : le losange de la case, remonte d'une hauteur.
+    PolyQuad topFace = tintedQuad(tint, BLOCK_TOP_LIGHT);
+    topFace.x = base.x;
+    for (std::size_t i = 0; i < 4; ++i) {
+        topFace.y[i] = raised(base.y[i]);
+    }
+    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, topFace);
+}
+
+// Le rendu de maquette d'une case (LOT-128). C'est ce qui se dessine quand AUCUNE piece n'est
+// nommee -- carte sans lieu, ou type que la table du lieu ne couvre pas : les deux manques sont le
+// meme cas.
+void composeMaquetteCell(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
+                         const core::IsoProjection& projection, const ScenePieceTextures& textures,
+                         core::GridPosition cell) {
     if (textures.solid.texture == nullptr) {
         return;  // sans aplat, rien a teinter : on ne dessine pas plutot que de dessiner faux.
     }
@@ -89,22 +172,11 @@ void composeMaquetteFloor(ComposedScene& scene, const WorldSceneSnapshot& snapsh
     if (type == core::TileType::Empty) {
         return;  // une case vide n'est pas du sol : elle ne se dessine pas, comme avant.
     }
-    const core::Rect bounds = projection.tileBounds(cell);
-    const float halfWidth = bounds.size.x / 2.0F;
-    const float halfHeight = bounds.size.y / 2.0F;
-    const float left = bounds.position.x;
-    const float top = bounds.position.y;
-    const MaquetteColor tint = maquetteColor(type);
-
-    // Sommets dans l'ordre du pourtour : haut, droite, bas, gauche.
-    PolyQuad quad;
-    quad.x = {left + halfWidth, left + bounds.size.x, left + halfWidth, left};
-    quad.y = {top, top + halfHeight, top + bounds.size.y, top + halfHeight};
-    quad.r = tint.r;
-    quad.g = tint.g;
-    quad.b = tint.b;
-    scene.addPoly(RenderLayer::Tile, textures.solid.texture, core::IsoProjection::depth(cell),
-                  quad);
+    if (maquetteExtrudes(type)) {
+        composeMaquetteBlock(scene, projection, textures, cell, type);
+        return;
+    }
+    composeMaquetteDiamond(scene, projection, textures, cell, type);
 }
 
 void composeFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
@@ -112,7 +184,7 @@ void composeFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                   core::GridPosition cell) {
     const std::string_view piece = snapshot.floorAt(cell);
     if (piece.empty()) {
-        composeMaquetteFloor(scene, snapshot, projection, textures, cell);
+        composeMaquetteCell(scene, snapshot, projection, textures, cell);
         return;
     }
     const SceneTexture& texture = textures.resolve(piecePath(snapshot.place, piece));
