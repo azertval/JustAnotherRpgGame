@@ -38,6 +38,15 @@ Le poste exécute les mêmes outils que la CI, aux mêmes versions, lues dans `e
   `cmake --build --preset ninja --target update_translations` met `jadg_en.ts` à jour du code (les
   chaînes retirées en sortent), Qt Linguist le traduit, `scripts/check_translations.py` le vérifie —
   le job `build-ninja` rejoue les deux premiers.
+- **Assertions en Debug** : une assertion de la bibliothèque standard ou de la CRT s'écrit sur la
+  **sortie d'erreur** (fichier et ligne), au lieu d'ouvrir une boîte modale qui bloquerait un
+  programme sans fenêtre — `LevelEditor --check`, `UnitTests.exe`, un job de CI
+  (`hmi::routeCrtReportsToStderr`, posée par le bootstrap des applications et par
+  `Source/Test/Support/CrtReports.cpp`).
+- **Un binaire Debug qui corrompt sa pile sans raison** : c'est en général le répertoire de build
+  qui a perdu les dépendances d'en-têtes de Ninja (`.ninja_deps`) — une structure modifiée n'a
+  alors été recompilée que d'un côté. `scripts/build.ps1` refuse de construire un répertoire dans
+  cet état ; la sortie est `-Clean`.
 - **Plantages** : le jeu et l'éditeur écrivent un minidump sous `Crashes/`, à côté de `Logs/`. Le
   lire : ouvrir le `.dmp` dans Visual Studio avec le zip de **symboles** de la même version (son nom
   porte la version). `JustAnotherRpgGame.exe --crash-test` provoque un plantage pour l'éprouver.

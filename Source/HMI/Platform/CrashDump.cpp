@@ -12,6 +12,7 @@
 #include <utility>
 
 #include <Windows.h>
+#include <crtdbg.h>
 
 // dbghelp.h exige Windows.h avant lui.
 #include <DbgHelp.h>
@@ -318,6 +319,17 @@ std::array<unsigned long, kMiniDumpAttemptCount> lastMiniDumpAttemptErrors() {
     return attemptErrors();
 }
 
+void routeCrtReportsToStderr() {
+#ifndef NDEBUG
+    // Une assertion de la CRT ou de la bibliotheque standard n'ouvre plus de boite modale : elle
+    // s'ecrit sur stderr, ou un programme sans fenetre la lit -- et ou la CI la garde.
+    for (const int report : {_CRT_WARN, _CRT_ERROR, _CRT_ASSERT}) {
+        _CrtSetReportMode(report, _CRTDBG_MODE_FILE | _CRTDBG_MODE_DEBUG);
+        _CrtSetReportFile(report, _CRTDBG_FILE_STDERR);
+    }
+#endif
+}
+
 void installCrashDumpWriter(std::filesystem::path directory, std::string application,
                             std::string version) {
     CrashDumpSettings& current = settings();
@@ -332,6 +344,8 @@ void installCrashDumpWriter(std::filesystem::path directory, std::string applica
     // abort() ne passe par aucun des chemins ci-dessus : sans ce réglage, la CRT afficherait sa
     // boîte « abort() has been called » en Debug au lieu de laisser std::terminate conclure.
     _set_abort_behavior(0, _WRITE_ABORT_MSG | _CALL_REPORTFAULT);
+    // Une assertion Debug ne doit pas bloquer un programme sans fenetre sur une boite modale.
+    routeCrtReportsToStderr();
 }
 
 void triggerCrashForTest() {

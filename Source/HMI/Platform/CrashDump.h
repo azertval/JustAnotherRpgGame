@@ -93,6 +93,24 @@ void installCrashDumpWriter(std::filesystem::path directory, std::string applica
                             std::string version);
 
 /**
+ * @brief Envoie les **assertions de la CRT** (build Debug) sur la sortie d'erreur, au lieu de la
+ *        boîte de dialogue modale.
+ *
+ * En Debug, une assertion de la bibliothèque standard (`_STL_VERIFY`, `assert`) ouvre une boîte
+ * « Microsoft Visual C++ Runtime Library » et **attend un clic** : un programme sans fenêtre —
+ * `LevelEditor --check`, `UnitTests.exe`, un job de CI — s'arrête alors pour toujours, sans un mot
+ * dans son journal. Routées vers `stderr`, les mêmes assertions nomment leur fichier et leur ligne,
+ * puis la CRT poursuit sa route habituelle (paramètre invalide, `abort`), que
+ * `installCrashDumpWriter` sait conclure par un minidump.
+ *
+ * Sans effet hors build Debug (`NDEBUG`), où la CRT ne rapporte rien.
+ *
+ * Appelée par `installCrashDumpWriter` ; les exécutables de test, qui n'ont pas de bootstrap
+ * d'application, l'appellent eux-mêmes (`Source/Test/Support/CrtReports.cpp`).
+ */
+void routeCrtReportsToStderr();
+
+/**
  * @brief Déclenche volontairement une violation d'accès, pour éprouver installCrashDumpWriter.
  *
  * Utilisé par l'option `--crash-test` du jeu, que le test de fumée de la release lance pour prouver
