@@ -108,3 +108,8 @@ __pycache__/
 # Fabrique : références envoyées au générateur, strictement locales.
 # Seuls leurs chemins et empreintes sont versionnés dans request.json.
 /Tools/
+
+# Captures du test de parite peintre / GPU (test_scene_painter) : deux images par cadrage, ecrites
+# a cote de l'executable pour etre relues a l'oeil. Une sortie de test, regeneree a chaque
+# execution -- deja supprimee du depot une fois (PR #91), elle y etait revenue.
+/editor-captures/
