@@ -25,6 +25,7 @@
 # lie en PUBLIC, rien ne change pour le jeu.
 add_library(SceneComposition STATIC
     Graphics/ComposedScene.cpp
+    Graphics/MaquetteTokens.cpp
     Graphics/PlaceAppearance.cpp
     Graphics/WorldSceneComposer.cpp
 )

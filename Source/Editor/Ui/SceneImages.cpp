@@ -9,10 +9,11 @@
 #include "Core/Resources/AssetMarker.h"
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/EntityMarkers.h"
+#include "HMI/Graphics/MaquettePalette.h"
+#include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
 #include "HMI/Graphics/ScenePiecePlacement.h"
-#include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/HmiLog.h"
 
@@ -111,6 +112,16 @@ int SceneImages::bandFrameWidth(const std::string& path) const {
 void SceneImages::ensure(const std::vector<std::string>& paths) {
     for (const std::string& path : paths) {
         if (!_requested.insert(path).second) {
+            continue;
+        }
+        // Un jeton n'est pas un fichier : il se peint (LOT-128, decision D2). La meme image, au
+        // pixel pres, que celle que le jeu televerse.
+        if (const core::MarkerImage token =
+                maquetteTokenImage(path, MAQUETTE_TOKEN_SIZE_PIXELS);
+            !token.isEmpty()) {
+            QImage& stored = _images[path] =
+                fromRgba8(token.width, token.height, markerPixelsRgba8(token));
+            _textures.byPath[path] = textureOf(stored, 0);
             continue;
         }
         QImage loaded(QString::fromStdWString((_directory / path).wstring()));

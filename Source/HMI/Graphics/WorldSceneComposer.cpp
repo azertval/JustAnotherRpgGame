@@ -7,16 +7,22 @@
 #include <array>
 #include <cctype>
 #include <cstddef>
+#include <optional>
 #include <set>
 #include <utility>
 #include <variant>
 
+#include "Core/Combat/Arena.h"
+#include "Core/Combat/CombatTransition.h"
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/MapEntity.h"
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Rpg/Dialogue.h"
+#include "Core/World/CityBlock.h"
+#include "Core/World/CombatZone.h"
+#include "Core/World/EntityKinds.h"
 #include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 
@@ -157,6 +163,112 @@ void composeMaquetteBlock(ComposedScene& scene, const core::IsoProjection& proje
         topFace.y[i] = raised(base.y[i]);
     }
     scene.addPoly(RenderLayer::Object, textures.solid.texture, order, topFace);
+}
+
+// Epaisseur d'un trace de maquette, en hauteurs de losange : assez fin pour ne pas couvrir le sol,
+// assez epais pour se voir a l'echelle ou l'on lit une carte entiere.
+constexpr float TRACE_THICKNESS = 0.09F;
+
+// Un jeton : l'image engendree du disque a lettre, posee au centre de sa case.
+//
+// Sur le calque de l'INTERFACE EN SCENE, comme les traces, et non dans la bande de profondeur ou
+// vit la figurine qu'il remplace (decision de realisation D7). Un jeton n'est pas un objet du
+// monde : c'est une marque sur un plan, et une marque a demi cachee par le mur d'en face ne dit
+// plus ou est le PNJ -- ce qui est precisement son seul travail.
+void composeToken(ComposedScene& scene, const core::IsoProjection& projection,
+                  const ScenePieceTextures& textures, const MaquetteTokenSnapshot& token,
+                  float unitsPerScenePixel) {
+    // Sans repli sur le damier : un jeton est peint ou n'est pas la. C'est aussi ce qui fait qu'un
+    // rendu qui ignore les jetons -- l'arriere-plan de combat de l'arene -- n'en herite pas.
+    const SceneTexture* const texture =
+        textures.find(maquetteTokenPath(token.kind, token.letter));
+    if (texture == nullptr || texture->texture == nullptr) {
+        return;
+    }
+    const core::Vector2 centre =
+        projection.gridToWorld(gridPoint(static_cast<float>(token.cell.column) + 0.5F,
+                                         static_cast<float>(token.cell.row) + 0.5F));
+    const float side = static_cast<float>(MAQUETTE_TOKEN_SIZE_PIXELS) * unitsPerScenePixel;
+    const float footY = projection
+                            .gridToWorld(gridPoint(static_cast<float>(token.cell.column),
+                                                   static_cast<float>(token.cell.row)))
+                            .y;
+    const std::int32_t order = worldDepthSortOrder(footY, WorldDepthSlot::Figure);
+
+    SpriteQuad quad;
+    quad.x = centre.x - (side / 2.0F);
+    // Le disque repose sur le centre de la case, legerement releve : il se tient dessus, il n'y
+    // flotte pas.
+    quad.y = centre.y - side + (projection.tileHeight() * 0.18F);
+    quad.width = side;
+    quad.height = side;
+    scene.addSprite(RenderLayer::UI, texture->texture, order, quad);
+
+    if (!token.arrow) {
+        return;
+    }
+    // La fleche d'un portail : un fut et une pointe, au-dessus du jeton. La sortie se voit d'un
+    // coup d'oeil, avant meme qu'on lise la lettre.
+    const MaquetteColor gold = maquetteTokenColor(MaquetteTokenKind::Portal);
+    const float top = quad.y - (side * 0.12F);
+    const float headHeight = side * 0.38F;
+    const float headHalf = side * 0.30F;
+    const float shaftHalf = side * 0.10F;
+
+    PolyQuad shaft = tintedQuad(gold, 1.0F);
+    shaft.x = {centre.x - shaftHalf, centre.x + shaftHalf, centre.x + shaftHalf,
+               centre.x - shaftHalf};
+    shaft.y = {top - headHeight, top - headHeight, top, top};
+    scene.addPoly(RenderLayer::UI, textures.solid.texture, order, shaft);
+
+    // La pointe : un quad dont deux sommets coincident, donc un triangle.
+    PolyQuad head = tintedQuad(gold, 1.0F);
+    head.x = {centre.x, centre.x + headHalf, centre.x, centre.x - headHalf};
+    head.y = {top - headHeight - headHeight, top - headHeight, top - headHeight,
+              top - headHeight};
+    scene.addPoly(RenderLayer::UI, textures.solid.texture, order, head);
+}
+
+// Un trace : le contour du losange de chaque case d'une zone, ou la ligne brisee d'un trajet.
+void composeTrace(ComposedScene& scene, const core::IsoProjection& projection,
+                  const ScenePieceTextures& textures, const MaquetteTraceSnapshot& trace) {
+    if (textures.solid.texture == nullptr || trace.cells.empty()) {
+        return;
+    }
+    const float thickness = projection.tileHeight() * TRACE_THICKNESS;
+    const auto segment = [&](core::Vector2 from, core::Vector2 to, std::int32_t order) {
+        LineQuad line;
+        line.ax = from.x;
+        line.ay = from.y;
+        line.bx = to.x;
+        line.by = to.y;
+        line.thickness = thickness;
+        line.r = trace.color.r;
+        line.g = trace.color.g;
+        line.b = trace.color.b;
+        scene.addLine(RenderLayer::UI, textures.solid.texture, order, line);
+    };
+
+    if (trace.shape == MaquetteTraceShape::Path) {
+        for (std::size_t i = 1; i < trace.cells.size(); ++i) {
+            const auto centreOf = [&projection](core::GridPosition cell) {
+                return projection.gridToWorld(gridPoint(static_cast<float>(cell.column) + 0.5F,
+                                                        static_cast<float>(cell.row) + 0.5F));
+            };
+            segment(centreOf(trace.cells[i - 1]), centreOf(trace.cells[i]),
+                    core::IsoProjection::depth(trace.cells[i]));
+        }
+        return;
+    }
+    for (const core::GridPosition cell : trace.cells) {
+        const DiamondVertices diamond = diamondOf(projection.tileBounds(cell));
+        const std::int32_t order = core::IsoProjection::depth(cell);
+        for (std::size_t i = 0; i < 4; ++i) {
+            const std::size_t next = (i + 1) % 4;
+            segment(core::Vector2{diamond.x[i], diamond.y[i]},
+                    core::Vector2{diamond.x[next], diamond.y[next]}, order);
+        }
+    }
 }
 
 // Le rendu de maquette d'une case (LOT-128). C'est ce qui se dessine quand AUCUNE piece n'est
@@ -305,6 +417,133 @@ std::string scenePlaceOf(const core::Level& level) {
     return scenePlaceOf(level.layers());
 }
 
+namespace {
+
+// La valeur texte d'une propriete d'entite, vide si elle manque ou n'est pas un texte.
+[[nodiscard]] std::string_view textProperty(const core::MapEntity& entity, std::string_view key) {
+    const auto found = entity.properties.find(std::string{key});
+    if (found == entity.properties.end()) {
+        return {};
+    }
+    const std::string* value = std::get_if<std::string>(&found->second);
+    return value != nullptr ? std::string_view{*value} : std::string_view{};
+}
+
+// Le nom d'ou le jeton tire sa lettre : ce que le canevas ecrit deja a cote de l'entite -- la carte
+// cible d'un portail, le dialogue d'un PNJ, le nom d'un point d'arrivee --, a defaut son TYPE.
+//
+// Surtout pas son identifiant : ils s'ecrivent tous `e<numero>`, et tous les jetons porteraient un
+// `E`. Le type, lui, distingue au moins un coffre (`C`) d'un PNJ (`N`).
+[[nodiscard]] std::string_view tokenName(const core::MapEntity& entity) {
+    const core::EntityKind* const kind = core::findEntityKind(entity.type);
+    if (kind != nullptr && !kind->labelProperty.empty()) {
+        const std::string_view label = textProperty(entity, kind->labelProperty);
+        if (!label.empty()) {
+            return label;
+        }
+    }
+    return entity.type;
+}
+
+// La nature du jeton d'une entite ponctuelle, ou rien si elle n'en merite pas (decision D3).
+//
+// Rien n'est ajoute au format pour cette table : `core::MapEntity` n'a aucune notion d'hostilite,
+// et la condition de quete n'existera qu'au LOT-116. Le jaune se regle donc sur « ce PNJ porte un
+// dialogue », et le LOT-116 le rebranchera sur la quete -- une ligne, pas une decision a reprendre.
+[[nodiscard]] std::optional<MaquetteTokenKind> tokenKindOf(const core::MapEntity& entity) {
+    if (entity.type == core::NPC_ENTITY_TYPE) {
+        // Un PNJ qui porte deja sa figurine se dessine par elle : pas de jeton par-dessus.
+        if (!textProperty(entity, core::NPC_FIGURE_PROPERTY).empty()) {
+            return std::nullopt;
+        }
+        return textProperty(entity, core::NPC_DIALOGUE_PROPERTY).empty()
+                   ? MaquetteTokenKind::Neutral
+                   : MaquetteTokenKind::Talker;
+    }
+    if (entity.type == core::ENCOUNTER_ENTITY_TYPE) {
+        return MaquetteTokenKind::Hostile;
+    }
+    if (entity.type == core::ARENA_ENTRY_ENTITY_TYPE) {
+        return textProperty(entity, core::ARENA_SIDE_PROPERTY) == "enemies"
+                   ? MaquetteTokenKind::Hostile
+                   : MaquetteTokenKind::Player;
+    }
+    if (entity.type == core::SPAWN_POINT_ENTITY_TYPE) {
+        return MaquetteTokenKind::Player;
+    }
+    if (entity.type == core::PORTAL_ENTITY_TYPE) {
+        return MaquetteTokenKind::Portal;
+    }
+    if (entity.type == "chest" || entity.type == "sign") {
+        return MaquetteTokenKind::Object;
+    }
+    return std::nullopt;
+}
+
+// Les cases d'un rectangle nomme par `width` et `height` depuis la case de l'entite.
+[[nodiscard]] std::vector<core::GridPosition> rectangleCells(const core::MapEntity& entity) {
+    const auto extent = [&entity](std::string_view key) {
+        const auto found = entity.properties.find(std::string{key});
+        if (found == entity.properties.end()) {
+            return 1;
+        }
+        const std::int64_t* value = std::get_if<std::int64_t>(&found->second);
+        return value != nullptr ? static_cast<int>(std::max<std::int64_t>(1, *value)) : 1;
+    };
+    const int width = extent(core::SHAPE_WIDTH_PROPERTY);
+    const int height = extent(core::SHAPE_HEIGHT_PROPERTY);
+    std::vector<core::GridPosition> cells;
+    cells.reserve(static_cast<std::size_t>(width) * static_cast<std::size_t>(height));
+    for (int row = 0; row < height; ++row) {
+        for (int column = 0; column < width; ++column) {
+            cells.push_back(core::GridPosition{.column = entity.position.column + column,
+                                               .row = entity.position.row + row});
+        }
+    }
+    return cells;
+}
+
+}  // namespace
+
+MaquetteMarks maquetteMarks(const std::vector<core::MapEntity>& entities, bool maquette) {
+    MaquetteMarks marks;
+    for (const core::MapEntity& entity : entities) {
+        if (const std::optional<MaquetteTokenKind> kind = tokenKindOf(entity)) {
+            marks.tokens.push_back(
+                MaquetteTokenSnapshot{.kind = *kind,
+                                      .letter = maquetteTokenLetter(tokenName(entity)),
+                                      .cell = entity.position,
+                                      .arrow = maquette && *kind == MaquetteTokenKind::Portal});
+            continue;
+        }
+        if (!maquette) {
+            continue;  // une carte finie ne montre pas ses declencheurs
+        }
+        if (entity.type == core::COMBAT_ZONE_ENTITY_TYPE) {
+            marks.traces.push_back(MaquetteTraceSnapshot{.shape = MaquetteTraceShape::Outline,
+                                                         .color = maquetteColorOf(0xb33a3a),
+                                                         .cells = rectangleCells(entity)});
+        } else if (entity.type == core::CITY_BLOCK_ENTITY_TYPE) {
+            marks.traces.push_back(MaquetteTraceSnapshot{.shape = MaquetteTraceShape::Outline,
+                                                         .color = maquetteColorOf(0xd2ac62),
+                                                         .cells = rectangleCells(entity)});
+        } else if (entity.type == core::ZONE_ENTITY_TYPE) {
+            marks.traces.push_back(MaquetteTraceSnapshot{.shape = MaquetteTraceShape::Outline,
+                                                         .color = maquetteColorOf(0xefe6d2),
+                                                         .cells = core::zoneCells(entity)});
+        } else if (entity.type == core::ROUTE_ENTITY_TYPE) {
+            std::vector<core::GridPosition> points = entity.cells;
+            if (points.empty() || points.front() != entity.position) {
+                points.insert(points.begin(), entity.position);
+            }
+            marks.traces.push_back(MaquetteTraceSnapshot{.shape = MaquetteTraceShape::Path,
+                                                         .color = maquetteColorOf(0xefe6d2),
+                                                         .cells = std::move(points)});
+        }
+    }
+    return marks;
+}
+
 std::vector<WorldFigureSnapshot> npcFigures(const std::vector<core::MapEntity>& entities,
                                             int frame) {
     std::vector<WorldFigureSnapshot> figures;
@@ -365,6 +604,8 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
         snapshot.place = appearance.place();
     }
     snapshot.figures = std::move(figures);
+    // Une carte qui ne nomme aucun lieu est une maquette : ses declencheurs s'y voient.
+    snapshot.marks = maquetteMarks(source.entities, snapshot.place.empty());
 
     const auto cases =
         static_cast<std::size_t>(snapshot.columns) * static_cast<std::size_t>(snapshot.rows);
@@ -446,6 +687,11 @@ std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot) {
         uniques.insert(figureStripPath(figure.figure, "idle"));
         uniques.insert(figureStripPath(figure.figure, "walk"));
     }
+    // Les jetons s'adressent comme des planches : un chemin de plus, que le rendu peindra au lieu
+    // de le charger (LOT-128, decision D2).
+    for (const MaquetteTokenSnapshot& token : snapshot.marks.tokens) {
+        uniques.insert(maquetteTokenPath(token.kind, token.letter));
+    }
     return {uniques.begin(), uniques.end()};
 }
 
@@ -464,6 +710,12 @@ void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
     }
     for (const WorldFigureSnapshot& figure : snapshot.figures) {
         composeFigure(scene, projection, textures, figure, unitsPerPixel);
+    }
+    for (const MaquetteTokenSnapshot& token : snapshot.marks.tokens) {
+        composeToken(scene, projection, textures, token, unitsPerScenePixel);
+    }
+    for (const MaquetteTraceSnapshot& trace : snapshot.marks.traces) {
+        composeTrace(scene, projection, textures, trace);
     }
 }
 

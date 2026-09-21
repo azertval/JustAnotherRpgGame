@@ -13,6 +13,7 @@
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ScenePiecePlacement.h"
 #include "HMI/Graphics/SpriteBatch.h"
@@ -131,6 +132,19 @@ void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
     for (const std::string& path : paths) {
         // Deja tente : une piece absente ne doit pas etre redemandee a chaque image.
         if (!_requested.insert(path).second) {
+            continue;
+        }
+        // Un jeton n'est pas un fichier : il se peint (LOT-128, decision D2). La meme image, au
+        // pixel pres, que celle que l'editeur dessine.
+        if (const core::MarkerImage token = maquetteTokenImage(path, MAQUETTE_TOKEN_SIZE_PIXELS);
+            !token.isEmpty()) {
+            if (std::optional<LoadedTexture> painted = createTexture(
+                    _resources.context(), token.width, token.height, markerPixelsRgba8(token))) {
+                _textures.byPath[path] = SceneTexture{.texture = painted->handle(),
+                                                      .width = painted->width,
+                                                      .height = painted->height};
+                _loaded.push_back(std::move(*painted));
+            }
             continue;
         }
         std::optional<LoadedTexture> texture =

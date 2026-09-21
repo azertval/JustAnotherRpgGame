@@ -178,6 +178,28 @@ de losange, en trois faces (dessus, gauche, droite) éclairées différemment, t
 case comme une pièce de relief. Un `cliff` à deux cases viendra avec la hauteur du format v4, qui
 lui garde déjà sa place.
 
+## Décisions de réalisation
+
+### D7 — Le jeton est une marque, pas un objet du monde
+
+Posé d'abord dans la bande de profondeur, comme la figurine qu'il remplace, le jeton se faisait
+couper en deux par le premier mur d'en face — et un point d'apparition contre le bord de la carte,
+ce qu'est justement la Market Gate de Martpart, devenait illisible. Il vit donc sur le calque de
+l'**interface en scène**, avec les tracés : c'est une pastille sur un plan, comme celles des plans
+du planning, et une pastille à demi cachée ne fait plus son seul travail — dire où est le PNJ.
+
+### D8 — La lettre vient du nom, à défaut du **type**, jamais de l'identifiant
+
+Les identifiants d'entité s'écrivent tous `e<numéro>` : les tirer de là donnait un `E` à tous les
+jetons. À défaut d'étiquette, c'est le type qui parle — `N` pour un PNJ, `C` pour un coffre.
+
+### D9 — Un jeton est peint ou absent, jamais un damier
+
+`ScenePieceTextures::resolve` retombe sur le damier pour toute pièce manquante ; un damier à la
+place d'un jeton ne dirait rien et se ferait passer pour une planche oubliée. Les jetons passent
+donc par `find`, sans repli — ce qui fait aussi qu'un rendu qui les ignore, comme l'arrière-plan de
+combat de l'arène, n'en hérite pas.
+
 ## Plan de réalisation
 
 Six phases ; chacune se construit et se teste seule.

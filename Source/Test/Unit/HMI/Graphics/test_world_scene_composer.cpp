@@ -611,3 +611,127 @@ TEST(MaquetteRenderTest, LEauProfondeNeSExtrudePas) {
     const hmi::MaquetteColor profonde = hmi::maquetteColor(core::TileType::DeepWater);
     EXPECT_LT(profonde.r + profonde.g + profonde.b, vive.r + vive.g + vive.b);
 }
+
+/**
+ * @brief La couleur d'un jeton se déduit de ce que le format dit déjà, sans propriété nouvelle
+ *        (décision D3) : le dialogue fait le jaune, la rencontre le rouge, le camp d'une entrée
+ *        d'arène l'un ou l'autre.
+ * \castest{<b>La couleur d'un jeton se deduit de ce que le format dit deja.</b><br/>
+ * \tcat Unitaire · Jetons de maquette<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Poser un PNJ avec dialogue, un sans, un avec figurine, une rencontre, deux entrees
+ * d'arene, un point d'apparition, un portail et un coffre.<br/>2. En tirer les marques.<br/>
+ * \tattendu Chaque jeton porte la nature attendue ; le PNJ qui a deja sa figurine n'a pas de
+ * jeton.
+ * }
+ */
+TEST(MaquetteRenderTest, LaCouleurDuJetonSeDeduitDeLEntite) {
+    const auto entite = [](std::string type, core::PropertyMap properties) {
+        return core::MapEntity{.type = std::move(type),
+                               .position = {.column = 0, .row = 0},
+                               .properties = std::move(properties)};
+    };
+    const std::vector<core::MapEntity> entites = {
+        entite("npc", {{"dialogue", std::string{"market-mother"}}}),
+        entite("npc", {}),
+        entite("npc", {{"figure", std::string{"anariel"}}}),
+        entite("encounter", {{"encounterId", std::string{"wolves"}}}),
+        entite("arenaEntry", {{"side", std::string{"enemies"}}}),
+        entite("arenaEntry", {{"side", std::string{"allies"}}}),
+        entite("spawnPoint", {{"name", std::string{"gate"}}}),
+        entite("portal", {{"targetMap", std::string{"arenarea"}}}),
+        entite("chest", {}),
+    };
+
+    const hmi::MaquetteMarks marques = hmi::maquetteMarks(entites, /*maquette=*/true);
+
+    // Huit jetons : le PNJ qui porte deja sa figurine se dessine par elle, pas par un jeton.
+    ASSERT_EQ(marques.tokens.size(), 8U);
+    EXPECT_EQ(marques.tokens[0].kind, hmi::MaquetteTokenKind::Talker);
+    EXPECT_EQ(marques.tokens[0].letter, 'M');
+    EXPECT_EQ(marques.tokens[1].kind, hmi::MaquetteTokenKind::Neutral);
+    EXPECT_EQ(marques.tokens[1].letter, 'N');  // a defaut de nom, son type
+    EXPECT_EQ(marques.tokens[2].kind, hmi::MaquetteTokenKind::Hostile);
+    EXPECT_EQ(marques.tokens[2].letter, 'W');
+    EXPECT_EQ(marques.tokens[3].kind, hmi::MaquetteTokenKind::Hostile);
+    EXPECT_EQ(marques.tokens[4].kind, hmi::MaquetteTokenKind::Player);
+    EXPECT_EQ(marques.tokens[5].kind, hmi::MaquetteTokenKind::Player);
+    EXPECT_EQ(marques.tokens[5].letter, 'G');
+    EXPECT_EQ(marques.tokens[6].kind, hmi::MaquetteTokenKind::Portal);
+    EXPECT_EQ(marques.tokens[6].letter, 'A');
+    EXPECT_TRUE(marques.tokens[6].arrow);
+    EXPECT_EQ(marques.tokens[7].kind, hmi::MaquetteTokenKind::Object);
+}
+
+/**
+ * @brief Les jetons se posent toujours ; les tracés et la flèche du portail ne paraissent qu'en
+ *        maquette — une carte finie ne montre pas ses déclencheurs.
+ * \castest{<b>Une carte habillee garde ses jetons mais perd ses traces.</b><br/>
+ * \tcat Unitaire · Jetons de maquette<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Tirer les marques d'un portail, d'une zone de combat et d'un trajet, en maquette
+ * puis hors maquette.<br/>
+ * \tattendu En maquette : un jeton a fleche et deux traces. Hors maquette : le jeton sans sa
+ * fleche, et aucune trace.
+ * }
+ */
+TEST(MaquetteRenderTest, LesTracesNeParaissentQuEnMaquette) {
+    std::vector<core::MapEntity> entites = {
+        core::MapEntity{.type = "portal",
+                        .position = {.column = 1, .row = 1},
+                        .properties = {{"targetMap", std::string{"arenarea"}}}},
+        core::MapEntity{.type = "combatZone",
+                        .position = {.column = 2, .row = 2},
+                        .properties = {{"name", std::string{"duel"}},
+                                       {"width", std::int64_t{3}},
+                                       {"height", std::int64_t{2}}}},
+        core::MapEntity{.type = "route",
+                        .position = {.column = 0, .row = 0},
+                        .properties = {{"name", std::string{"ronde"}}}},
+    };
+    entites.back().cells = {{.column = 0, .row = 0}, {.column = 0, .row = 3}};
+
+    const hmi::MaquetteMarks maquette = hmi::maquetteMarks(entites, /*maquette=*/true);
+    EXPECT_EQ(maquette.tokens.size(), 1U);
+    EXPECT_TRUE(maquette.tokens.front().arrow);
+    ASSERT_EQ(maquette.traces.size(), 2U);
+    // La zone de combat couvre bien ses 3 x 2 cases.
+    EXPECT_EQ(maquette.traces[0].shape, hmi::MaquetteTraceShape::Outline);
+    EXPECT_EQ(maquette.traces[0].cells.size(), 6U);
+    EXPECT_EQ(maquette.traces[1].shape, hmi::MaquetteTraceShape::Path);
+
+    const hmi::MaquetteMarks habillee = hmi::maquetteMarks(entites, /*maquette=*/false);
+    EXPECT_EQ(habillee.tokens.size(), 1U);
+    EXPECT_FALSE(habillee.tokens.front().arrow);
+    EXPECT_TRUE(habillee.traces.empty());
+}
+
+/**
+ * @brief Un jeton se demande par un chemin, comme une planche : le rendu n'a rien de neuf à
+ *        apprendre, il voit un chemin de plus.
+ * \castest{<b>Les chemins de textures d'une carte contiennent ceux de ses jetons.</b><br/>
+ * \tcat Unitaire · Jetons de maquette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Batir une carte sans lieu portant une rencontre.<br/>2. Lister ses chemins de
+ * texture.<br/>
+ * \tattendu Le chemin du jeton rouge « W » y figure.
+ * }
+ */
+TEST(MaquetteRenderTest, LesCheminsContiennentLesJetons) {
+    core::TileMap collision{2, 1};
+    collision.setTile(0, 0, core::TileType::Grass);
+    collision.setTile(1, 0, core::TileType::Grass);
+    core::LevelData donnees{.name = "maquette", .tileMap = std::move(collision)};
+    donnees.entities.push_back(core::MapEntity{.type = "encounter",
+                                               .position = {.column = 1, .row = 0},
+                                               .properties = {{"encounterId",
+                                                               std::string{"wolves"}}}});
+
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(core::Level{std::move(donnees)}, hmi::PlaceAppearance{}, {});
+    const std::vector<std::string> chemins = hmi::worldTexturePaths(instantane);
+
+    EXPECT_NE(std::ranges::find(chemins,
+                                hmi::maquetteTokenPath(hmi::MaquetteTokenKind::Hostile, 'W')),
+              chemins.end());
+}
