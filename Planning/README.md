@@ -20,7 +20,9 @@ mais une **démo basique** — deux quartiers et un donjon, une quête. Le déta
 | [`referentiels/`](referentiels/README.md) | Ce que les livres donnent à faire : zones, PNJ nommés, peuples, monstres, classes, espèces, régions |
 | [`standards/`](standards/README.md) | Les règles communes : le style 2D HD, l'arborescence des assets, le gabarit d'un lot, ce que « livré » veut dire |
 | `outils/` | Le lint du dossier et le générateur du site (Python, bibliothèque standard seule) |
-| `site/` | La feuille de style et le script du site |
+
+L'habillage du site n'est plus ici : il est [commun aux trois parties](../Site/README.md) du site
+publié, dans `Site/` à la racine du dépôt.
 
 ## Les gestes
 

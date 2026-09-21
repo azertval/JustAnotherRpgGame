@@ -28,6 +28,8 @@ Le détail de chaque lot (objectifs, tâches, avancement) est dans la rubrique
 - @subpage lots — les lots **livrés** (`LOT-01` à `LOT-96`) et l'ancienne feuille de route, figée.
 - **Planification** — les versions et les lots **à venir**, leur avancement et leurs maquettes :
   <a href="planning/index.html">site de planification</a> (source : dossier `Planning/` du dépôt).
+- **Qualité** — couverture de code par domaine et mesures de performance de la nuit :
+  <a href="qualite/index.html">page qualité</a> (assemblée à chaque publication du site).
 - @subpage manuel — manuel utilisateur (télécharger et lancer le jeu).
 - **Référence de code** — classes, espaces de noms et fichiers de `Source/` : voir
   l'arbre de navigation (menu latéral) et les onglets *Namespaces* / *Classes*.

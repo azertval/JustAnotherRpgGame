@@ -76,6 +76,7 @@ système) — voir le **Cahier de test**.
 | Dossier | Rôle |
 |---------|------|
 | `Documentation/` | Documentation publiée en site **Doxygen** : `Specification/` (specs & conventions), `Lot/` (lots de travail et feuille de route), `Manuel/` (manuel utilisateur), `SourceBook/` (corpus d'entrée), **Guide du développeur**, **Cahier de test**, et référence de code. |
+| `Site/` | La **charte du site publié** : palette, fontes et barre d'en-tête, partagées par la Doxygen, la planification et la page qualité. Aucune couleur ne s'écrit ailleurs — voir [`Site/README.md`](Site/README.md). |
 | `Source/` | Code source, réparti par fonction. |
 | `scripts/` | Build, contrôles de CI, ateliers d'extraction et de découpe d'assets. |
 | `.github/workflows/` | Intégration continue (voir plus bas). |
