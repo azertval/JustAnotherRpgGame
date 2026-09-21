@@ -97,10 +97,10 @@ $(function(){initNavTree('lot-38.html','',''); });
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 1034/1034, <span class="tt">clang-format</span>, les huit lints, cahier de test et Doxygen verts ; vérification manuelle : la fiche ouverte, remplie et parcourue dans l'application). Prérequis : <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a> (fiche de personnage), <a class="el" href="lot-68.html" title="LOT-68 — Le châssis des écrans du RPG">LOT-68</a> (châssis des écrans), <a class="el" href="lot-76.html" title="LOT-76 — Habillage d&#39;interface extrait des livres">LOT-76</a> (ornements tracés).</p>
 <p>Aucune exigence ajoutée : <span class="tt">EX-IHM-090</span> et <span class="tt">EX-IHM-091</span> du <a class="el" href="lot-68.html" title="LOT-68 — Le châssis des écrans du RPG">LOT-68</a> couvrent ce lot, et c'est leur premier vrai emploi. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md553"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md554"></a>
 Objectif</h1>
 <p>Le <a class="el" href="lot-68.html" title="LOT-68 — Le châssis des écrans du RPG">LOT-68</a> a livré neuf écrans vides. Celui-ci en remplit un : la <b>fiche de personnage</b>, relevée sur la maquette du corpus, et alimentée par un personnage réel.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md554"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md555"></a>
 La maquette : cinq planches, et ce qu'on relève dessus</h1>
 <p>La source est <b><span class="tt">VTT/Blank Sheets RPG (1).pdf</span></b> — les cinq feuilles Tanares <b>vierges</b>, arrivées avec les ressources de table virtuelle. Vierges, et non remplies : un exemple rempli cache ses propres cadres, et une mise en page se relève sur ce qui la montre. <span class="tt">Character_Sheets_Tanares.pdf</span>, déjà au corpus, porte les mêmes feuilles remplies ; <span class="tt">VTT/RPG Sheets - BW print (2).pdf</span> en donne la structure à plat.</p>
 <p>Les cinq planches sont dans le périmètre :</p>
@@ -119,7 +119,7 @@ La maquette : cinq planches, et ce qu'on relève dessus</h1>
 <td class="markdownTableBodyNone">5 — <b>feuille d'équipe</b> : blason, quartier général, mécénat  </td><td class="markdownTableBodyNone">Un <b>neuvième écran</b>  </td></tr>
 </table>
 <p><b>La cinquième planche n'est pas la fiche d'un personnage.</b> C'est celle de son équipe — renommée, blason, installations, dessein caché. La ranger dans la fiche aurait mêlé deux sujets sur un même écran ; elle a donc son écran. Et cet écran est la <b>preuve</b> de ce que le <span class="tt">LOT-68</span> affirmait : il s'ajoute par une entrée de table et ses clés de traduction, sans qu'aucun des huit autres, ni la feuille de style, ni le châssis, n'aient été touchés (<span class="tt">EX-IHM-090</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md555"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md556"></a>
 Un champ affiché, ou écrit comme non alimenté</h1>
 <p>Le critère d'acceptation demandait que chaque champ de la maquette soit <b>affiché</b> ou <b>inscrit dans une liste explicite</b> de champs hors périmètre — « un champ simplement oublié n'est pas un arbitrage ». Cette liste n'est pas un document à côté : elle est <b>dans la table</b>.</p>
 <p>Chaque ligne de l'ossature porte un identifiant de valeur, ou une chaîne vide. Vide veut dire : <em>ce champ existe sur la feuille, il est à l'écran, et rien ne l'alimente encore</em>. Il reste au tiret cadratin. La colonne des identifiants vides <b>est</b> le périmètre restant, lisible d'un coup d'œil, et impossible à laisser dériver — un champ ajouté sans source se voit à la lecture de la table.</p>
@@ -147,22 +147,22 @@ Un champ affiché, ou écrit comme non alimenté</h1>
 <td class="markdownTableBodyNone">Toute la feuille d'équipe  </td><td class="markdownTableBodyNone">la Guilde du <span class="tt">LOT-45</span> et sa progression, <span class="tt">LOT-83</span>  </td></tr>
 </table>
 <p><b>Aucune de ces cases n'affiche zéro.</b> Un « 0 » se lirait comme un état du jeu — un personnage sans emplacement de sort disponible, une CA nulle — et mentirait. Le tiret dit « on ne sait pas encore », ce qui est la vérité.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md556"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md557"></a>
 La planche gravée : une piste ouverte, puis refermée</h1>
 <p>La feuille du corpus a été <b>vectorisée</b> et essayée comme fond d'écran : l'idée était que la fiche cesse de <em>ressembler</em> à la planche du livre pour en <b>être</b> le trait, avec les intitulés traduits reposés dessus. Elle a fonctionné, et elle a été abandonnée. Ce qu'elle a appris mérite d'être écrit ici, parce que le chemin est tentant et que rien n'en signale le bout avant d'y être.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md557"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md558"></a>
 Ce qui marchait</h2>
 <p>Le lettrage d'un tracé <b>se retire</b>. Le fichier du corpus est un calque d'encre — un unique chemin noir de 21 906 sous-chemins, sans balise <span class="tt">&lt;text&gt;</span> ni calque à masquer, où une lettre est un sous-chemin comme un filet de cadre. Ce qui les distingue est leur <b>étendue</b> : une lettre tient dans le rectangle de son intitulé, un filet de cadre le traverse de part en part. Retirer les sous-chemins entièrement contenus dans une liste de rectangles enlevait 2 565 lettres et gardait 19 341 traits d'ornement, proprement.</p>
 <p>Et une <b>seule table</b> décrivait les deux moitiés — ce qui est effacé, ce qui est reposé —, si bien qu'il devenait impossible d'effacer un intitulé sans le reposer, ou d'en reposer un sur une gravure restée en place.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md558"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md559"></a>
 Ce qui l'a arrêtée</h2>
 <p><b>Qt ne sait pas rendre ce tracé.</b> <span class="tt">QSvgHandler</span> rejette tout <span class="tt">&lt;path&gt;</span> de plus de 32 768 éléments — il ne le tronque pas malgré son message, il le <b>jette</b> : <span class="tt">isValid()</span> reste vrai, la taille est correcte, et le rendu est vide. La panne ressemble donc à un asset manquant, pas à une limite. Ce tracé en demande 540 094, seize fois et demie la limite.</p>
 <p>Le découper en plusieurs chemins ne marche pas davantage, et c'est le point qui n'était pas prévisible : un remplissage — non-nul comme pair-impair — se calcule sur l'<b>ensemble</b> des contours d'un même chemin. Le blanc d'un cartouche, le trou d'un anneau, l'intérieur du cadre de page n'existent que parce qu'un autre contour du même chemin y annule le premier. Trois découpes ont été essayées — dans l'ordre du fichier, par arbre quaternaire sur le centre, puis en mariant chaque forme aux contours qu'elle contient — et les trois rendent la même image fausse. La raison est dans la donnée : le contour du <b>cadre de page</b> fait à lui seul 24 535 points, 75 % du budget d'un chemin, et il enveloppe toute la feuille. Aucune coupe ne peut le laisser du même côté que ce qu'il contient.</p>
 <p>Restait le masque d'encre en PNG, qui fonctionnait. Mais un fond monolithique n'est pas un asset : on ne peut ni déplacer un cartouche, ni réutiliser un anneau, ni changer un ornement sans rejouer toute la chaîne depuis le corpus. <b>C'est cette raison-là, et non la limite de Qt, qui a fermé la piste</b> : la feuille sera reprise en assets <b>unitaires</b> — un cartouche, un anneau, un bandeau à la fois —, et c'est à ce moment que l'écran cessera d'être une ossature pour devenir une planche.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md559"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md560"></a>
 Ce que l'écran est donc aujourd'hui</h2>
 <p>L'ossature en données du <a class="el" href="lot-68.html" title="LOT-68 — Le châssis des écrans du RPG">LOT-68</a>, <b>remplie</b>. C'est le rendu générique, celui des huit autres écrans, et il porte les vraies valeurs : identité, progression, six caractéristiques avec leur modificateur, combat, six jets de sauvegarde, dix-huit compétences. La table des écrans reste donc la seule description de la fiche, et le jour des assets unitaires elle restera le contrat — ce sont les <em>widgets</em> qui changeront, pas ce qu'ils affichent.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md560"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md561"></a>
 Ce que la fiche calcule, et où</h1>
 <p><span class="tt"><a class="el" href="namespacehmi.html#ad2b3435349dd004d6768a14a49f5dacc">hmi::characterSheetValues</a></span> est une fonction <b>pure</b> : d'une <span class="tt"><a class="el" href="structcore_1_1CharacterSheet.html" title="La fiche d&#39;une créature jouable ou non : héros, PNJ, ennemi.">core::CharacterSheet</a></span> et des catalogues, elle rend une table <span class="tt">identifiant → texte</span>. Aucun widget, aucun fichier. C'est ce qui permet de vérifier par test qu'un modificateur s'affiche <span class="tt">+3</span> et non <span class="tt">3</span>, qu'une sauvegarde maîtrisée compte son bonus, et que la Perception passive vaut 10 + le modificateur — sans ouvrir de fenêtre.</p>
 <p>Trois décisions d'affichage y sont prises, et chacune répond à une ambiguïté de lecture :</p>
@@ -172,21 +172,21 @@ Ce que la fiche calcule, et où</h1>
 <li><b>la maîtrise se voit</b> (<span class="tt">+4 •</span>) : c'est ce que porte la pastille cochée de la feuille, et le seul moyen de la rendre dans une ligne de texte.</li>
 </ul>
 <p>Le lien entre les deux côtés — ce que la fonction produit, ce que l'ossature attend — est le seul contrat, et un test le vérifie dans les deux sens. Une faute de frappe d'un côté ne se verrait sinon qu'à l'écran, sous la forme d'un champ resté au tiret au milieu de champs remplis, c'est-à-dire pas du tout.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md561"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md562"></a>
 Le personnage affiché : une donnée, et un échafaudage assumé</h1>
 <p>Un écran de fiche qui n'affiche aucune fiche ne se relit pas. Il n'y a pourtant ni groupe (<a class="el" href="roadmap.html#lot-29" title="LOT-29 — Groupe de quatre personnages">LOT-29</a>) ni sauvegarde (<a class="el" href="roadmap.html#lot-17" title="LOT-17 — Reprendre sa partie dans la Capitale : sauvegarde riche">LOT-17</a>) d'où tirer un personnage réel.</p>
 <p>Ce lot livre donc <b><span class="tt">Rpg/characters/demonstration-brenna.json</span></b> : une demi-elfe de niveau 3, cartographe, avec son schéma (<span class="tt">character.schema.json</span>) et sa validation en intégration continue.</p>
 <p>Le fichier ne porte que des <b>choix</b> — espèce, classe, historique, valeurs de caractéristique avant augmentation, niveau. Rien de dérivé : ni points de vie, ni classe d'armure, ni valeurs finales. Le moteur les calcule (<span class="tt"><a class="el" href="namespacecore.html#ae5471fabe4f247c99a3c50293f59f91e" title="Construit une fiche depuis une espèce, une classe et un historique.">core::buildCharacterSheet</a></span>, <span class="tt">LOT-13</span>), et le niveau s'atteint par <b>gain d'expérience</b>, le chemin qu'une partie empruntera. Écrire ces valeurs dans le fichier en aurait fait une seconde source, qui aurait différé de la première au premier ajustement de règle — et personne n'aurait su laquelle croire.</p>
 <p>Le personnage est <b>déclaré provisoire</b>, avec son critère de retrait (<span class="tt">EX-CNT-032</span>) : il disparaît le jour où une partie en fournit un vrai. C'est aussi ce qui l'autorise à référencer l'une des quatre classes provisoires du <a class="el" href="lot-36.html" title="LOT-36 — Espèces, historiques et classes provisoires">LOT-36</a> — les seules qui existent — sans casser le garde-fou qui interdit aux données <b>définitives</b> de le faire. Ce garde-fou a été précisé, pas contourné : une donnée provisoire porte son propre critère de retrait, et disparaît donc avec ce qu'elle référence.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md562"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md563"></a>
 Le lexique tient maintenant les compétences et les caractéristiques</h1>
 <p>Les dix-huit compétences et les six caractéristiques s'affichent, donc s'écrivent dans le catalogue de traduction. Or ce sont des <b>termes de règle</b> — « Escamotage », pas « Tour de main » — et le lexique du <a class="el" href="lot-30.html" title="LOT-30 — Chaîne d&#39;extraction du corpus et lexique bilingue">LOT-30</a> les porte déjà. Les réécrire sans lien avec lui était exactement le défaut que <span class="tt">check_glossary.py</span> existe pour empêcher : ses deux nouveaux espaces de noms (<span class="tt">rpg.skill.</span>, <span class="tt">rpg.ability.</span>) portent le contrôle de 0 à <b>24 clés de règle</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md563"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md564"></a>
 Ce que le lot ne fait pas</h1>
 <p><b>Il n'édite rien.</b> La fiche se lit ; créer ou modifier un personnage est un autre sujet, et il n'a pas de lot à ce jour.</p>
 <p><b>Il ne traduit pas les catalogues.</b> Espèce, classe et historique s'affichent avec le nom que porte leur donnée — « Brawler », « Cartographer » — parce que les catalogues Tanares sont en anglais. C'est le sujet du lexique et des lots de contenu, pas de l'écran qui les affiche.</p>
 <p><b>Il ne remplit pas les huit autres écrans.</b> Ils gardent leurs tirets, et leurs lots sont nommés ci-dessus.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md564"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md565"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Chaque champ de la maquette est affiché, ou déclaré sans source</b> — dans la table, à sa ligne, et non dans une liste tenue à part. ✔</li>

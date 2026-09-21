@@ -4,7 +4,6 @@ var PaintTools_8cpp =
     [ "hmi::applyRectangleStroke", "namespacehmi.html#a1a59e0da62704797c214af4c224f7e57", null ],
     [ "hmi::applyStroke", "namespacehmi.html#ac28181ffcc60f1a3a3d72a1d1d4001be", null ],
     [ "hmi::brushTargetLayer", "namespacehmi.html#ac6dc704de039d583d2c57eaa2ab073b2", null ],
-    [ "hmi::copyTypeBlock", "namespacehmi.html#a58adc24cc2fdca4a1bd04954b8893ea1", null ],
     [ "hmi::floodRegion", "namespacehmi.html#aae27f1521d18b1d80a966d54a3f06cfd", null ],
     [ "hmi::lineCells", "namespacehmi.html#af759d2b783c12c7eb6e871adc4e19867", null ],
     [ "hmi::measureBetween", "namespacehmi.html#a9e8aa722715e4ca8b1c75806a71e7b56", null ],

@@ -102,8 +102,8 @@ $(function(){initNavTree('classhmi_1_1LevelFileOperations.html','','classhmi_1_1
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a2e34e94f00788eefba7056c5cac47bb1" id="r_a2e34e94f00788eefba7056c5cac47bb1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2e34e94f00788eefba7056c5cac47bb1">LevelFileOperations</a> (std::filesystem::path levelsDir, std::filesystem::path levelsRoot={})</td></tr>
 <tr class="memitem:a0f2a3f81e7b378c50c4448c292ec2499" id="r_a0f2a3f81e7b378c50c4448c292ec2499"><td class="memItemLeft">std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0f2a3f81e7b378c50c4448c292ec2499">list</a> () const</td></tr>
-<tr class="memitem:a0e173c0978bb5aa257a96ffae66dd135" id="r_a0e173c0978bb5aa257a96ffae66dd135"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0e173c0978bb5aa257a96ffae66dd135">create</a> (const std::string &amp;name, int width, int height, const std::string &amp;place={}) const</td></tr>
-<tr class="memdesc:a0e173c0978bb5aa257a96ffae66dd135"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée un niveau minimal valide nommé <code class="param">name</code>, d'une case au moins, entrée au coin bas gauche.  <br /></td></tr>
+<tr class="memitem:ac5fafeb1ce061d5a0ec7571601b840d0" id="r_ac5fafeb1ce061d5a0ec7571601b840d0"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac5fafeb1ce061d5a0ec7571601b840d0">create</a> (const std::string &amp;name, int width, int height, const std::string &amp;place={}, const <a class="el" href="structhmi_1_1MapTemplate.html">MapTemplate</a> *model=nullptr) const</td></tr>
+<tr class="memdesc:ac5fafeb1ce061d5a0ec7571601b840d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée un niveau minimal valide nommé <code class="param">name</code>, d'une case au moins, entrée au coin bas gauche.  <br /></td></tr>
 <tr class="memitem:a75d94a9afbfd01776b721f58729ae0b8" id="r_a75d94a9afbfd01776b721f58729ae0b8"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a75d94a9afbfd01776b721f58729ae0b8">rename</a> (const std::filesystem::path &amp;source, const std::string &amp;newName) const</td></tr>
 <tr class="memdesc:a75d94a9afbfd01776b721f58729ae0b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme le niveau <code class="param">source</code> en <code class="param">newName</code>, dans son dossier, par le renommage propagé (<span class="tt"><a class="el" href="namespacehmi.html#a43197e19f5f5d84456fbc0ec9a7d9c86" title="Renomme la carte oldId en newId — un autre dossier est permis (coliseum → capital/coliseum).">hmi::planRenameMap</a></span>, <span class="tt">LOT-EDITOR-14</span>) : portails, variantes, villes et clé du nom suivent, et les catalogues gardent leurs traductions sous la nouvelle clé.  <br /></td></tr>
 <tr class="memitem:a551c21f123f010c79dc0092566523968" id="r_a551c21f123f010c79dc0092566523968"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a551c21f123f010c79dc0092566523968">duplicate</a> (const std::filesystem::path &amp;source) const</td></tr>
@@ -204,8 +204,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a0e173c0978bb5aa257a96ffae66dd135" name="a0e173c0978bb5aa257a96ffae66dd135"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e173c0978bb5aa257a96ffae66dd135">&#9670;&#160;</a></span>create()</h2>
+<a id="ac5fafeb1ce061d5a0ec7571601b840d0" name="ac5fafeb1ce061d5a0ec7571601b840d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5fafeb1ce061d5a0ec7571601b840d0">&#9670;&#160;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,7 +231,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>place</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;) const</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>place</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1MapTemplate.html">MapTemplate</a> *</td>          <td class="paramname"><span class="paramname"><em>model</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -243,6 +248,7 @@ Private Attributes</h2></td></tr>
 
 <p>Crée un niveau minimal valide nommé <code class="param">name</code>, d'une case au moins, entrée au coin bas gauche. </p>
 <p>Sans lieu, la carte est une grille unique vide. Avec un lieu (<span class="tt">LOT-EDITOR-06</span>), elle naît comme les cartes livrées : une couche de sol <span class="tt">sol</span> qui prend ses pièces dans la planche de <code class="param">place</code> (propriété <span class="tt">scene</span>), une couche de décor <span class="tt">relief</span> au-dessus, et la collision déduite — tout est vide, donc tout arrête la vue, sauf la case d'entrée, qui reçoit un sol.</p>
+<p>Avec un <b>modèle</b> (<span class="tt">LOT-EDITOR-08</span>, <span class="tt">EX-EDIT-087</span>), ce sont ses couches qui naissent, son tampon qui est posé et son entrée qui est mise : une carte neuve part d'une pièce, d'une rue ou d'une arène plutôt que du vide. Le modèle ne nomme aucune pièce ; le lieu reste celui que <code class="param">place</code> donne.</p>
 <p>Son nom est la clé <span class="tt">map.&lt;identifiant&gt;.name</span> (<span class="tt">LOT-EDITOR-07</span>), que chaque catalogue de traduction reçoit avec <code class="param">name</code> pour texte : la carte passe le contrôle telle quelle. </p>
 
 </div>

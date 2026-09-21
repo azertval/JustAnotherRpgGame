@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-92.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 16 septembre 2026</b> (ouvert le même jour). Vérification : build Debug et <span class="tt">ctest</span> à <b>1280/1281</b> (la capture de l'arène, jouée sur demande, est sautée), <span class="tt">pytest</span> de l'atelier à 28/28, <span class="tt">extract_texture_sheet.py --check</span> vert pour le Colisée et Martpart, <span class="tt">check_assets_brief.py</span>, lints d'exigences et de lots verts, cahier de test régénéré (1275 cas) ; maquette approuvée et spécification relue par l'auteur ; arène capturée hors écran et relue. Prérequis : <a class="el" href="lot-50.html" title="LOT-50 — Le Colisée : bac à sable de combat">LOT-50</a> (la planche du Colisée et <span class="tt">extract_coliseum_atlas.py</span>), <a class="el" href="lot-91.html" title="LOT-91 — Atelier des PNJ : les figurines du Character Compendium">LOT-91</a> (la méthode de l'atelier des PNJ), <a class="el" href="lot-39.html" title="LOT-39 — Plomberie des clés d&#39;assets">LOT-39</a> (les clés d'assets et le cahier), <a class="el" href="lot-37.html" title="LOT-37 — Atlas des régions et graphe de cartes">LOT-37</a> (l'atlas, dont le bloc B lit les lieux). Alimente : <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a>, <span class="tt">LOT-93</span>, <span class="tt">LOT-95</span>, <span class="tt">LOT-42</span>. Exigences couvertes : <span class="tt">EX-VIS-008</span>, <span class="tt">EX-VIS-009</span> (détail plus bas). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md736"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md737"></a>
 Objectif</h1>
 <p>Les figurines ont une méthode (<span class="tt">LOT-91</span>), pas les textures. Ce lot donne à la scène un <b>style écrit</b>, fixé par une maquette approuvée par l'auteur, puis une méthode pour commander une planche de textures <b>par lieu</b>, depuis le descriptif du lieu dans l'atlas. Première planche : le Colisée final du <span class="tt">LOT-09</span>, qui remplace celle du <span class="tt">LOT-50</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md737"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md738"></a>
 Ce que ce lot livre</h1>
 <ul>
 <li><b>La Capitale dans l'atlas</b> : la Capitale et ses douze quartiers, lus dans l'encart du Sourcebook ; 94 → 107 lieux ; filigranes retirés des treize fiches qui les portaient.</li>
@@ -108,7 +108,7 @@ Ce que ce lot livre</h1>
 <li><b>Deux planches installées</b> : le Colisée (36 textures, <span class="tt">Assets/Scene/coliseum/</span>), que l'arène dessine désormais, et Martpart (22 textures, <span class="tt">Assets/Scene/martpart/</span>).</li>
 <li><b>La spécification des deux identités</b> : <span class="tt">EX-VIS-008</span> (la scène en pixel art isométrique) et <span class="tt">EX-VIS-009</span> (l'interface à la charte v2, et leur frontière), <span class="tt">EX-IHM-070</span> et <span class="tt">EX-ARCH-022</span> précisées en renvoi.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md738"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md739"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Au <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a></b> : retirer la planche du <span class="tt">LOT-50</span> (ses figurines servent encore) ; poser une texture par l'<span class="tt">anchor</span> de son manifeste — le composeur de l'arène suppose (34, hauteur − 42), faux pour une pièce libre élargie ; poser les grandes pièces du Colisée (portes, loges) et ses gradins, que la grille de combat n'emploie pas encore.</li>
@@ -116,7 +116,7 @@ Ce qui reste hors du lot, nommément</h1>
 <li><b>Poids des planches recomposées</b> : la planche de Martpart pèse 1,5 Mio ; les allègements essayés n'étaient pas fidèles (journal).</li>
 <li><b>Les autres lieux de la Capitale</b> (Arenarea, le bas-fond, la variante noble de l'Arène du Destin) se commandent au fil de l'eau par les lots qui les posent (<span class="tt">LOT-96</span>, <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md739"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md740"></a>
 Les décisions</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -134,10 +134,10 @@ Les décisions</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>Identités</b>  </td><td class="markdownTableBodyNone">La scène est en pixel art ; l'interface reste à la charte v2 (<span class="tt">LOT-87</span>). La spécification le dit (T5).  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md740"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md741"></a>
 Risque : l'angle 0,62 en pixel art</h2>
 <p>Le pixel art isométrique trace ses arêtes en marches régulières de 2 pour 1 ; un rapport de 0,62 donne des marches de 21 pour 34, irrégulières, qui se voient sur un sol uni. La maquette dit si cela se lit ; si non, deux sorties, à trancher avec elle sous les yeux : un losange 68 × 34 (2 : 1, <span class="tt">ARENA_DIAMOND_RATIO</span> à 0,5 et le cadrage à revoir) ou des sols texturés qui masquent l'arête (pavés, sable).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md741"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md742"></a>
 Les tâches</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -155,13 +155,13 @@ Les tâches</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>T5 — Martpart et la spécification</b>  </td><td class="markdownTableBodyNone">La planche de Martpart se <b>commande</b> (envoi prêt) depuis sa seule fiche d'atlas, bloc A intouché ; <span class="tt">Documentation/Specification/</span> dit les deux identités, scène et interface.  </td><td class="markdownTableBodyNone">Envoi préparé sans rédaction à la main ; spécification relue.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md742"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md743"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-VIS-008</span> — la scène en pixel art isométrique, au style écrit par le bloc A (T1, T2, T4, T5).</li>
 <li><span class="tt">EX-VIS-009</span> — l'interface à la charte v2, et la frontière entre les deux identités (T5).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md743"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md744"></a>
 Journal</h1>
 <ul>
 <li><b>16 septembre 2026</b> — ouverture. Point de vue isométrique 0,62 gardé ; la Capitale entre dans l'atlas. Rédaction du prompt de maquette (T1).</li>

@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-editor-14.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 19 septembre 2026</b> (ouvert le même jour), sur la branche <span class="tt">lot-editor-14-renommer-remplacer</span>, sur <span class="tt"><a class="el" href="Editor_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> après le <span class="tt">LOT-EDITOR-07</span>. Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, tests unitaires verts, les deux critères d'acceptation éprouvés sur une copie des données livrées. <b>Restent dues</b> : la vérification à la souris, et la planche d'Arenarea (voir plus bas). Prérequis : <span class="tt">LOT-EDITOR-06</span>. Feuille de route : <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">éditeur</a>. Exigences : <span class="tt">EX-EDIT-082</span>, <span class="tt">EX-EDIT-083</span>, <span class="tt">EX-EDIT-084</span> (nouvelles) ; <span class="tt">EX-EDIT-081</span> révisée. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1087"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1096"></a>
 Objectif</h1>
 <p>Un nom qui change ne casse plus rien (constat A7 : l'identifiant d'une carte est son chemin, que d'autres fichiers citent), et une carte survit à la planche qui change (règle 3 de la feuille de route).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1088"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1097"></a>
 Ce que le dépôt contenait à l'ouverture (19 septembre 2026)</h1>
 <ul>
 <li><b>Renommer une carte</b> ne changeait que son fichier, dans son dossier, et ajoutait la nouvelle clé de son nom aux catalogues : le portail d'Arenarea, les quartiers et portes gardées de <span class="tt">World/cities/capital.json</span> citaient encore l'ancien identifiant, et l'ancienne clé restait. Le <span class="tt">--check</span> le voyait, rien ne le réparait. Aucune carte ne changeait de dossier.</li>
@@ -107,7 +107,7 @@ Ce que le dépôt contenait à l'ouverture (19 septembre 2026)</h1>
 <li><b>Une pièce</b> ne se remplaçait qu'à la main, case par case ; une planche réextraite ne laissait que les <span class="tt">aliases</span> du manifeste et le damier.</li>
 <li><b>Arenarea</b> emprunte la planche de Martpart (décision du <span class="tt">LOT-96</span>, à confirmer par l'auteur) ; <b>aucune planche Arenarea n'existe</b> : l'atelier du <a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a> ne l'a jamais commandée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1089"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1098"></a>
 Décisions</h1>
 <ul>
 <li><b>Un plan, puis l'écriture.</b> Chaque opération lit tout le projet et calcule chaque fichier à récrire (<span class="tt"><a class="el" href="structhmi_1_1RefactorPlan.html" title="Ce qu&#39;une opération récrira, calculé sans rien écrire.">hmi::RefactorPlan</a></span>) sans rien écrire ; <span class="tt"><a class="el" href="namespacehmi.html#a883391e9cf300c6d9ac2eeb7e694f54e" title="Écrit le plan : les textes d&#39;abord (dossiers créés au besoin), les retraits ensuite ; un dossier de c...">hmi::applyRefactorPlan</a></span> écrit ensuite. Une opération refusée (nom pris, identifiant invalide, carte du projet illisible, pièce absente) n'écrit donc aucun fichier. La fenêtre montre le plan avant de l'écrire.</li>
@@ -120,7 +120,7 @@ Décisions</h1>
 <li><b>Arenarea n'a pas encore sa planche</b> — <em>décision de l'auteur, 19 septembre 2026</em>, entre trois options (livrer le mécanisme et la commande, produire d'abord la planche, changer le critère) : le mécanisme est livré et éprouvé sur une planche d'essai, la disposition <span class="tt">arenarea</span> de l'atelier est écrite (modèle <span class="tt">quartier</span>, comme Martpart) et sa commande se prépare. Le passage réel attend la planche, comme la vérification à la souris attend l'auteur.</li>
 <li><b>Les commandes sans fenêtre</b> : <span class="tt">--who-cites</span>, <span class="tt">--rename-map</span>, <span class="tt">--rename-arrival</span>, <span class="tt">--rename-id</span>, <span class="tt">--replace-piece</span>, <span class="tt">--change-scene</span>, chacune suivie au besoin de <span class="tt">--check</span>. Pas de geste <span class="tt">--apply</span> pour remplacer ou changer de planche : <span class="tt">--replace-piece</span> et <span class="tt">--change-scene</span> appellent les mêmes fonctions du brouillon que la fenêtre (règle 4).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1090"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1099"></a>
 Livraison</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -138,7 +138,7 @@ Livraison</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Tests  </td><td class="markdownTableBodyNone"><span class="tt"><a class="el" href="test__map__refactor_8cpp.html" title="Tests de « renommer et remplacer » (LOT-EDITOR-14) : sur une copie des données livrées,...">test_map_refactor.cpp</a></span> (9, sur une copie des données livrées) ; <span class="tt"><a class="el" href="test__level__draft__pieces_8cpp.html" title="Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (LOT-...">test_level_draft_pieces.cpp</a></span> (+3) ; <span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">test_level_file_operations.cpp</a></span> (cartes sous <span class="tt">Levels/</span>)  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1091"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1100"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Renommer <span class="tt">capital/martpart</span> laisse le <span class="tt">--check</span> vert.</b> ✔ <span class="tt">Donnees.RenommerMartpartLaisseLeControleVert</span> : zéro erreur, autant d'avertissements qu'avant (les deux points du Colisée) ; portail d'Arenarea, quartier et portes gardées de la Capitale, clé du nom dans <span class="tt">fr.lang</span> et <span class="tt">en.lang</span> suivent. Même chose en ligne de commande : <span class="tt">LevelEditor --data &lt;copie&gt; --rename-map capital/martpart capital/marche --check</span> sort en 0.</li>
@@ -151,7 +151,7 @@ Critères d'acceptation</h1>
 <li><span class="tt">LevelEditor --data Source/Elements --change-scene capital/arenarea arenarea --check</span> — sans table : le modèle <span class="tt">quartier</span> donne à Arenarea les noms de pièces de Martpart. Le contrôle vert, relire le rendu (<span class="tt">--render capital/arenarea</span>) et l'îlot du plan.</li>
 </ol>
 <p><b>Vérification à la souris, due</b> : ouvrir Martpart ; menu <em>Map</em> › <em>Who cites this map?</em> : le portail d'Arenarea, la ville, les deux clés ; double-cliquer le portail, Arenarea s'ouvre, le portail sélectionné. <em>Replace piece…</em> <span class="tt">street-2</span> → <span class="tt">street-3</span> sur la carte : un <span class="tt">Ctrl+Z</span> le défait. <em>Change sheet…</em> vers <span class="tt">coliseum</span> : la table montre les trous, <em>OK</em> reste grisé. <em>File</em> › <em>Rename</em> <span class="tt">capital/marche</span>, puis de nouveau <span class="tt">capital/martpart</span> : le dock « Problems » reste à 0 erreur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1092"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1101"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>La planche d'Arenarea</b> : atelier du <a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a>, à la main de l'auteur.</li>

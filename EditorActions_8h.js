@@ -25,6 +25,8 @@ var EditorActions_8h =
       [ "hmi::EditorCommand::Mirror", "namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a2403def5083f02105e7802b3b315681e", null ],
       [ "hmi::EditorCommand::Copy", "namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a5fb63579fc981698f97d55bfecb213ea", null ],
       [ "hmi::EditorCommand::Paste", "namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a36bb6559696dc9124986ae120515984f", null ],
+      [ "hmi::EditorCommand::PasteMirrored", "namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a7d8393a85811c22a219169498a94ea91", null ],
+      [ "hmi::EditorCommand::SaveAsPrefab", "namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a28274ec234daec25053e4d9346c695b5", null ],
       [ "hmi::EditorCommand::Rename", "namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a904a8304056d77e4547744781b7ceb50", null ],
       [ "hmi::EditorCommand::ShortcutsOverview", "namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a2583b92d245a881127917f19531ccf3b", null ]
     ] ],

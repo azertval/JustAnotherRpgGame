@@ -104,12 +104,19 @@ Inheritance diagram for hmi::PalettePanel:</div>
   <img src="classhmi_1_1PalettePanel.png" alt=""/>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:PrefabItem" id="r_PrefabItem"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PalettePanel_1_1PrefabItem.html">PrefabItem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un préfabriqué de la bibliothèque, tel que la palette le montre.  <a href="structhmi_1_1PalettePanel_1_1PrefabItem.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:a41293567f5813d2d68819193c823e846" id="r_a41293567f5813d2d68819193c823e846"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a41293567f5813d2d68819193c823e846">tileSelected</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
 <tr class="memdesc:a41293567f5813d2d68819193c823e846"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur sélectionne une tuile (feuille) dans l'arbre des types.  <br /></td></tr>
 <tr class="memitem:aecbb1989cbaeff2231f0a0de3b81a1a9" id="r_aecbb1989cbaeff2231f0a0de3b81a1a9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aecbb1989cbaeff2231f0a0de3b81a1a9">pieceSelected</a> (const QString &amp;piece, bool floor)</td></tr>
 <tr class="memdesc:aecbb1989cbaeff2231f0a0de3b81a1a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit une pièce ; <code class="param">floor</code> : elle va sur la couche de sol.  <br /></td></tr>
+<tr class="memitem:aade36a20ee2bb4dc83dae18c9f70aabd" id="r_aade36a20ee2bb4dc83dae18c9f70aabd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aade36a20ee2bb4dc83dae18c9f70aabd">prefabSelected</a> (const QString &amp;name)</td></tr>
+<tr class="memdesc:aade36a20ee2bb4dc83dae18c9f70aabd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit un préfabriqué : le tampon à armer (<span class="tt">LOT-EDITOR-08</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -117,6 +124,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1a573b3201ad6ce9d9d5c86cad1c8154" id="r_a1a573b3201ad6ce9d9d5c86cad1c8154"><td class="memItemLeft"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1a573b3201ad6ce9d9d5c86cad1c8154">selectedTile</a> () const noexcept</td></tr>
 <tr class="memitem:ad24eefa6be650cefdc4a56ac62995347" id="r_ad24eefa6be650cefdc4a56ac62995347"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad24eefa6be650cefdc4a56ac62995347">setPieceCatalog</a> (std::vector&lt; <a class="el" href="structhmi_1_1PieceCatalogGroup.html">PieceCatalogGroup</a> &gt; catalog, const std::filesystem::path &amp;placeDirectory)</td></tr>
 <tr class="memdesc:ad24eefa6be650cefdc4a56ac62995347"><td class="mdescLeft">&#160;</td><td class="mdescRight">Montre le catalogue d'un lieu.  <br /></td></tr>
+<tr class="memitem:a03d97557ac36f4d584c10d516ecc8249" id="r_a03d97557ac36f4d584c10d516ecc8249"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a03d97557ac36f4d584c10d516ecc8249">setPrefabs</a> (std::vector&lt; <a class="el" href="structhmi_1_1PalettePanel_1_1PrefabItem.html">PrefabItem</a> &gt; prefabs)</td></tr>
+<tr class="memdesc:a03d97557ac36f4d584c10d516ecc8249"><td class="mdescLeft">&#160;</td><td class="mdescRight">Montre la bibliothèque du lieu ; une liste vide éteint l'onglet.  <br /></td></tr>
 <tr class="memitem:a1e5eed578fb9a7ce0901d3e6698497ff" id="r_a1e5eed578fb9a7ce0901d3e6698497ff"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1e5eed578fb9a7ce0901d3e6698497ff">showPiece</a> (const QString &amp;piece, bool floor)</td></tr>
 <tr class="memdesc:a1e5eed578fb9a7ce0901d3e6698497ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Montre <code class="param">piece</code> choisie (la pipette l'a prise), sans rien émettre.  <br /></td></tr>
 <tr class="memitem:a22fb2b59adc8c82a357e357d72dbe9d6" id="r_a22fb2b59adc8c82a357e357d72dbe9d6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a22fb2b59adc8c82a357e357d72dbe9d6">showTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
@@ -133,6 +142,7 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a7fdb92fcf95438fa75044ab0363e8d92" id="r_a7fdb92fcf95438fa75044ab0363e8d92"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7fdb92fcf95438fa75044ab0363e8d92">buildPieceModel</a> ()</td></tr>
 <tr class="memitem:ab9b24b5798171c54e5b7f569f97b51a2" id="r_ab9b24b5798171c54e5b7f569f97b51a2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab9b24b5798171c54e5b7f569f97b51a2">onCurrentChanged</a> (const QModelIndex &amp;current)</td></tr>
 <tr class="memitem:a6cacdc20ab7455f5b924685f5c02b8cc" id="r_a6cacdc20ab7455f5b924685f5c02b8cc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6cacdc20ab7455f5b924685f5c02b8cc">onPieceChanged</a> (const QModelIndex &amp;current)</td></tr>
+<tr class="memitem:aad49a708c84d273e19174c442c1de5d7" id="r_aad49a708c84d273e19174c442c1de5d7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aad49a708c84d273e19174c442c1de5d7">onPrefabChosen</a> (const QModelIndex &amp;current)</td></tr>
 <tr class="memitem:a7f429cc45ca73c48b62bc282f1a13418" id="r_a7f429cc45ca73c48b62bc282f1a13418"><td class="memItemLeft">QPixmap&#160;</td><td class="memItemRight"><a class="el" href="#a7f429cc45ca73c48b62bc282f1a13418">thumbnailFor</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
 <tr class="memdesc:a7f429cc45ca73c48b62bc282f1a13418"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vignette d'un type : sa couleur dans l'atlas procédural.  <br /></td></tr>
 <tr class="memitem:af5575a09e7355c2943e52d46068fe60d" id="r_af5575a09e7355c2943e52d46068fe60d"><td class="memItemLeft">QPixmap&#160;</td><td class="memItemRight"><a class="el" href="#af5575a09e7355c2943e52d46068fe60d">pieceThumbnail</a> (const <a class="el" href="structhmi_1_1PieceCatalogEntry.html">PieceCatalogEntry</a> &amp;entry) const</td></tr>
@@ -147,6 +157,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a29f973db48c4dd3fa4de31a05ac6dca4" id="r_a29f973db48c4dd3fa4de31a05ac6dca4"><td class="memItemLeft">QStandardItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a29f973db48c4dd3fa4de31a05ac6dca4">_pieceModel</a></td></tr>
 <tr class="memitem:a7da613b972d98e7a045925d712ed7aad" id="r_a7da613b972d98e7a045925d712ed7aad"><td class="memItemLeft">QTreeView *&#160;</td><td class="memItemRight"><a class="el" href="#a7da613b972d98e7a045925d712ed7aad">_tree</a></td></tr>
 <tr class="memitem:a388bd72162c541b85e8d14341fbacfe8" id="r_a388bd72162c541b85e8d14341fbacfe8"><td class="memItemLeft">QStandardItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a388bd72162c541b85e8d14341fbacfe8">_model</a></td></tr>
+<tr class="memitem:a392798f309365694a910a3810a8e1112" id="r_a392798f309365694a910a3810a8e1112"><td class="memItemLeft">QTreeView *&#160;</td><td class="memItemRight"><a class="el" href="#a392798f309365694a910a3810a8e1112">_prefabTree</a></td></tr>
+<tr class="memdesc:a392798f309365694a910a3810a8e1112"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'onglet « Prefabs » (<span class="tt">LOT-EDITOR-08</span>) : la bibliothèque du lieu.  <br /></td></tr>
+<tr class="memitem:a08547fcaa0ed7766b7a4beda576ed2bf" id="r_a08547fcaa0ed7766b7a4beda576ed2bf"><td class="memItemLeft">QStandardItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a08547fcaa0ed7766b7a4beda576ed2bf">_prefabModel</a></td></tr>
+<tr class="memitem:a65b2a9d5cc3c1af9adac19a93b83a91c" id="r_a65b2a9d5cc3c1af9adac19a93b83a91c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1PalettePanel_1_1PrefabItem.html">PrefabItem</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a65b2a9d5cc3c1af9adac19a93b83a91c">_prefabs</a></td></tr>
 <tr class="memitem:aafd9ee36f3a303d8d38e7d8030a2c81e" id="r_aafd9ee36f3a303d8d38e7d8030a2c81e"><td class="memItemLeft"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="#aafd9ee36f3a303d8d38e7d8030a2c81e">_selected</a> = <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">core::TileType::Solid</a></td></tr>
 <tr class="memitem:a39f253b9e8283abc7094c2ba472c2057" id="r_a39f253b9e8283abc7094c2ba472c2057"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1PieceCatalogGroup.html">PieceCatalogGroup</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a39f253b9e8283abc7094c2ba472c2057">_catalog</a></td></tr>
 <tr class="memitem:a409bfe339cd5a38a3257a492dc959538" id="r_a409bfe339cd5a38a3257a492dc959538"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a409bfe339cd5a38a3257a492dc959538">_placeDirectory</a></td></tr>
@@ -156,9 +170,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La palette : <b>la planche du lieu</b> d'abord, les types en repli (<span class="tt">LOT-EDITOR-03</span>). </p>
-<p>Deux onglets :</p>
+<p>Trois onglets :</p>
 <ul>
 <li><b>Pieces</b> — le catalogue du lieu (<span class="tt"><a class="el" href="namespacehmi.html#af13dc656bfde25b7f2e991d124ec836e" title="Le catalogue d&#39;un lieu.">hmi::pieceCatalog</a></span>) : vignettes groupées par classe, sous le nom court que la carte écrit, une recherche, et à part les pièces que la carte cite et que la planche n'a plus, en damier (<span class="tt">EX-EDIT-063</span>). Choisir une pièce arme le pinceau de pièce ; la pièce va d'elle-même sur sa couche.</li>
+<li><b>Prefabs</b> — la bibliothèque du lieu (<span class="tt">LOT-EDITOR-08</span>) : un préfabriqué par ligne, sa vignette <b>générée</b> de son propre contenu, son étendue et ce qu'il porte. Le choisir arme le tampon ; <span class="tt">Ctrl+V</span> le pose, <span class="tt">Ctrl+Maj+V</span> son reflet.</li>
 <li><b>Types</b> — la taxonomie des types de tuile (<span class="tt"><a class="el" href="namespacehmi.html#a324d7671eeb331de4b3459d66be9d0ca" title="Taxonomie complète des types de tuiles peignables, en catégories/sous-groupes.">hmi::tileTaxonomy</a></span>), en arbre : le repli d'une carte sans lieu, et la collision (<span class="tt">EX-EDIT-018</span>). Sans lieu, l'onglet des pièces est éteint.</li>
 </ul>
 <p>Le panneau ne connaît ni brouillon ni canevas : il émet ce qu'on choisit. La gomme est un outil de la barre d'outils depuis le <span class="tt">LOT-EDITOR-04</span> ; la pipette montre ici ce qu'elle a pris (<span class="tt"><a class="el" href="#a1e5eed578fb9a7ce0901d3e6698497ff" title="Montre piece choisie (la pipette l&#39;a prise), sans rien émettre.">showPiece</a></span>, <span class="tt"><a class="el" href="#a22fb2b59adc8c82a357e357d72dbe9d6" title="Montre le type type choisi (la pipette l&#39;a pris), sans rien émettre.">showTile</a></span>), sans rien émettre. </p>
@@ -316,6 +331,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aad49a708c84d273e19174c442c1de5d7" name="aad49a708c84d273e19174c442c1de5d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad49a708c84d273e19174c442c1de5d7">&#9670;&#160;</a></span>onPrefabChosen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::PalettePanel::onPrefabChosen </td>
+          <td>(</td>
+          <td class="paramtype">const QModelIndex &amp;</td>          <td class="paramname"><span class="paramname"><em>current</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aecbb1989cbaeff2231f0a0de3b81a1a9" name="aecbb1989cbaeff2231f0a0de3b81a1a9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aecbb1989cbaeff2231f0a0de3b81a1a9">&#9670;&#160;</a></span>pieceSelected</h2>
 
@@ -374,6 +414,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aade36a20ee2bb4dc83dae18c9f70aabd" name="aade36a20ee2bb4dc83dae18c9f70aabd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aade36a20ee2bb4dc83dae18c9f70aabd">&#9670;&#160;</a></span>prefabSelected</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::PalettePanel::prefabSelected </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand l'utilisateur choisit un préfabriqué : le tampon à armer (<span class="tt">LOT-EDITOR-08</span>). </p>
+
+</div>
+</div>
 <a id="a1a573b3201ad6ce9d9d5c86cad1c8154" name="a1a573b3201ad6ce9d9d5c86cad1c8154"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1a573b3201ad6ce9d9d5c86cad1c8154">&#9670;&#160;</a></span>selectedTile()</h2>
 
@@ -427,6 +494,25 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a03d97557ac36f4d584c10d516ecc8249" name="a03d97557ac36f4d584c10d516ecc8249"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03d97557ac36f4d584c10d516ecc8249">&#9670;&#160;</a></span>setPrefabs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::PalettePanel::setPrefabs </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structhmi_1_1PalettePanel_1_1PrefabItem.html">PrefabItem</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>prefabs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Montre la bibliothèque du lieu ; une liste vide éteint l'onglet. </p>
 
 </div>
 </div>
@@ -656,6 +742,74 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a08547fcaa0ed7766b7a4beda576ed2bf" name="a08547fcaa0ed7766b7a4beda576ed2bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08547fcaa0ed7766b7a4beda576ed2bf">&#9670;&#160;</a></span>_prefabModel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStandardItemModel* hmi::PalettePanel::_prefabModel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a65b2a9d5cc3c1af9adac19a93b83a91c" name="a65b2a9d5cc3c1af9adac19a93b83a91c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65b2a9d5cc3c1af9adac19a93b83a91c">&#9670;&#160;</a></span>_prefabs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1PalettePanel_1_1PrefabItem.html">PrefabItem</a>&gt; hmi::PalettePanel::_prefabs</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a392798f309365694a910a3810a8e1112" name="a392798f309365694a910a3810a8e1112"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a392798f309365694a910a3810a8e1112">&#9670;&#160;</a></span>_prefabTree</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QTreeView* hmi::PalettePanel::_prefabTree</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'onglet « Prefabs » (<span class="tt">LOT-EDITOR-08</span>) : la bibliothèque du lieu. </p>
 
 </div>
 </div>

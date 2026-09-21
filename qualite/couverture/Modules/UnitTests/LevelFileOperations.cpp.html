@@ -108,7 +108,8 @@ void LevelFileOperations::addNameTranslation(const std::filesystem::path&amp; fi
 }</span>
 
 FileOperationResult LevelFileOperations::create(const std::string&amp; name, int width, int height,
-<span style = "background-color:#dfd">                                                const std::string&amp; place) const {
+                                                const std::string&amp; place,
+<span style = "background-color:#dfd">                                                const MapTemplate* model) const {
     const std::string trimmed = hmi::trimLevelName(name);
     if (!hmi::isValidLevelName(name)) {
         return FileOperationResult::failure("Nom de niveau invalide.");</span>
@@ -123,7 +124,40 @@ FileOperationResult LevelFileOperations::create(const std::string&amp; name, int
     }
     // Niveau minimal valide : grille vide + une entrÃ©e (coin bas gauche).
 <span style = "background-color:#dfd">    core::LevelDraft draft = core::LevelDraft::empty(nameKeyFor(target), width, height);
-    if (!place.empty()) {</span>
+    if (model != nullptr) {</span>
+        // Le modÃ¨le (LOT-EDITOR-08) : ses couches, son tampon, son entrÃ©e. Il ne nomme aucune
+        // piÃ¨ce ; seul le lieu, s'il y en a un, dit oÃ¹ les prendre.
+<span style = "background-color:#fdd">        for (const MapTemplateLayer&amp; layer : model-&gt;layers) {
+            const std::optional&lt;std::size_t&gt; added = draft.addLayer(layer.kind, layer.name);
+            if (added &amp;&amp; layer.scene &amp;&amp; !place.empty()) {
+                draft.setLayerProperty(*added, std::string{SCENE_PLACE_PROPERTY}, place);</span>
+            }
+<span style = "background-color:#fdd">        }
+        draft.paintRegion(0, 0,</span>
+                          std::vector&lt;std::vector&lt;core::TileType&gt;&gt;(
+                              static_cast&lt;std::size_t&gt;(height),
+                              std::vector&lt;core::TileType&gt;(static_cast&lt;std::size_t&gt;(width),
+                                                          core::TileType::Wall)));
+<span style = "background-color:#fdd">        const LayerViewState libre;
+        const StampPasteResult pose =</span>
+            pasteStamp(draft, model-&gt;stamp, core::GridPosition{.column = 0, .row = 0}, libre);
+<span style = "background-color:#fdd">        if (!pose.refusal.empty()) {
+            return FileOperationResult::failure("ModÃ¨le refusÃ© : " + pose.refusal);</span>
+        }
+        const core::GridPosition entry =
+<span style = "background-color:#fdd">            model-&gt;entry.value_or(core::GridPosition{.column = 0, .row = height - 1});
+        draft.setEntry(std::min(entry.column, width - 1), std::min(entry.row, height - 1));
+        core::LevelLoadResult fromTemplate = draft.toLevel();
+        if (!fromTemplate.ok()) {
+            return FileOperationResult::failure("Niveau invalide : " + fromTemplate.error);</span>
+        }
+<span style = "background-color:#fdd">        if (!core::LevelWriter::saveToFile(*fromTemplate.level, target)) {
+            return FileOperationResult::failure("Ãchec de l'Ã©criture du fichier.");</span>
+        }
+<span style = "background-color:#fdd">        addNameTranslation(target, trimmed);
+        return FileOperationResult::success(target);</span>
+    }
+<span style = "background-color:#dfd">    if (!place.empty()) {</span>
         // Les couches des cartes livrÃ©es. Le sol nomme le lieu ; la collision est celle que la
         // dÃ©duction donne Ã  une carte vide : le vide arrÃªte la vue (dÃ©cision D10).
 <span style = "background-color:#dfd">        const std::optional&lt;std::size_t&gt; ground = draft.addLayer(core::LayerKind::Ground, "sol");

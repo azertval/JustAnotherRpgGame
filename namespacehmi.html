@@ -195,6 +195,22 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce du catalogue.  <a href="structhmi_1_1PieceCatalogEntry.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PieceCatalogGroup" id="r_PieceCatalogGroup"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PieceCatalogGroup.html">PieceCatalogGroup</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un groupe de la palette : un titre, ses pièces dans l'ordre du manifeste.  <a href="structhmi_1_1PieceCatalogGroup.html#details">More...</a><br /></td></tr>
+<tr class="memitem:StampPiece" id="r_StampPiece"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1StampPiece.html">StampPiece</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce du tampon, ancrée en coordonnées <b>relatives</b> à son coin haut gauche.  <a href="structhmi_1_1StampPiece.html#details">More...</a><br /></td></tr>
+<tr class="memitem:StampLayer" id="r_StampLayer"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1StampLayer.html">StampLayer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une couche visuelle du tampon.  <a href="structhmi_1_1StampLayer.html#details">More...</a><br /></td></tr>
+<tr class="memitem:StampForcedCell" id="r_StampForcedCell"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1StampForcedCell.html">StampForcedCell</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une case dont la collision est forcée à la main, et la valeur qu'elle force.  <a href="structhmi_1_1StampForcedCell.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Stamp" id="r_Stamp"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un morceau de carte : le rectangle, ses couches, ses entités, ses cases forcées.  <a href="structhmi_1_1Stamp.html#details">More...</a><br /></td></tr>
+<tr class="memitem:StampPasteResult" id="r_StampPasteResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1StampPasteResult.html">StampPasteResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une pose a fait.  <a href="structhmi_1_1StampPasteResult.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MapTemplateLayer" id="r_MapTemplateLayer"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapTemplateLayer.html">MapTemplateLayer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une couche que le modèle donne à la carte neuve.  <a href="structhmi_1_1MapTemplateLayer.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MapTemplate" id="r_MapTemplate"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapTemplate.html">MapTemplate</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un <b>modèle de carte</b> : ce dont part une carte neuve (<span class="tt">EX-EDIT-087</span>).  <a href="structhmi_1_1MapTemplate.html#details">More...</a><br /></td></tr>
+<tr class="memitem:LibraryFinding" id="r_LibraryFinding"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LibraryFinding.html">LibraryFinding</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un constat sur la bibliothèque : un préfabriqué ou un modèle qui ne se lit pas.  <a href="structhmi_1_1LibraryFinding.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TileEntry" id="r_TileEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TileEntry.html">TileEntry</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une tuile sélectionnable : son type et son libellé affiché.  <a href="structhmi_1_1TileEntry.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TileSubgroup" id="r_TileSubgroup"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TileSubgroup.html">TileSubgroup</a></td></tr>
@@ -606,9 +622,11 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a2403def5083f02105e7802b3b315681e">Mirror</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a5fb63579fc981698f97d55bfecb213ea">Copy</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a36bb6559696dc9124986ae120515984f">Paste</a>
-, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a904a8304056d77e4547744781b7ceb50">Rename</a>
+, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a7d8393a85811c22a219169498a94ea91">PasteMirrored</a>
 , <br />
-&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a2583b92d245a881127917f19531ccf3b">ShortcutsOverview</a>
+&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a28274ec234daec25053e4d9346c695b5">SaveAsPrefab</a>
+, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a904a8304056d77e4547744781b7ceb50">Rename</a>
+, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a2583b92d245a881127917f19531ccf3b">ShortcutsOverview</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a576cb29b1af75dc6bda8abb048330f18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une commande de l'éditeur : les onze outils, puis les commandes.  <a href="#a576cb29b1af75dc6bda8abb048330f18">More...</a><br /></td></tr>
@@ -937,8 +955,8 @@ Functions</h2></td></tr>
 <tr class="memitem:aa9bc383870e52d4d94f97981c63c4a62" id="r_aa9bc383870e52d4d94f97981c63c4a62"><td class="memItemLeft">std::vector&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa9bc383870e52d4d94f97981c63c4a62">filterEntities</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, std::string_view filter)</td></tr>
 <tr class="memdesc:aa9bc383870e52d4d94f97981c63c4a62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les rangs des entités que <code class="param">filter</code> désigne, dans l'ordre de la carte.  <br /></td></tr>
 <tr class="memitem:ab5d9a77ac353caf145404f16a59ab39b" id="r_ab5d9a77ac353caf145404f16a59ab39b"><td class="memItemLeft">std::vector&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab5d9a77ac353caf145404f16a59ab39b">toggledSelection</a> (std::vector&lt; std::size_t &gt; selection, std::size_t index)</td></tr>
-<tr class="memitem:ad2d5ef8bbea644403c389e5d20a5fbde" id="r_ad2d5ef8bbea644403c389e5d20a5fbde"><td class="memItemLeft"><a class="el" href="structhmi_1_1GestureScriptResult.html">GestureScriptResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad2d5ef8bbea644403c389e5d20a5fbde">applyGestureScript</a> (const nlohmann::json &amp;script, <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, <a class="el" href="structhmi_1_1EditorSidecar.html">EditorSidecar</a> &amp;sidecar, const <a class="el" href="structhmi_1_1PlaceAssets.html">PlaceAssets</a> &amp;assets)</td></tr>
-<tr class="memdesc:ad2d5ef8bbea644403c389e5d20a5fbde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue les gestes de <code class="param">script</code> sur <code class="param">draft</code>.  <br /></td></tr>
+<tr class="memitem:ac51afb66cf0175a7664c655c56674293" id="r_ac51afb66cf0175a7664c655c56674293"><td class="memItemLeft"><a class="el" href="structhmi_1_1GestureScriptResult.html">GestureScriptResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac51afb66cf0175a7664c655c56674293">applyGestureScript</a> (const nlohmann::json &amp;script, <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, <a class="el" href="structhmi_1_1EditorSidecar.html">EditorSidecar</a> &amp;sidecar, const <a class="el" href="structhmi_1_1PlaceAssets.html">PlaceAssets</a> &amp;assets, const std::filesystem::path &amp;dataRoot={})</td></tr>
+<tr class="memdesc:ac51afb66cf0175a7664c655c56674293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue les gestes de <code class="param">script</code> sur <code class="param">draft</code>.  <br /></td></tr>
 <tr class="memitem:ab1145769bfcc581f39091b42c792705c" id="r_ab1145769bfcc581f39091b42c792705c"><td class="memItemLeft"><a class="el" href="structhmi_1_1GestureFileResult.html">GestureFileResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab1145769bfcc581f39091b42c792705c">applyGestureFile</a> (const std::filesystem::path &amp;scriptFile, std::string_view map, const std::filesystem::path &amp;dataRoot, std::filesystem::path &amp;mapFile)</td></tr>
 <tr class="memdesc:ab1145769bfcc581f39091b42c792705c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit le fichier de gestes <code class="param">scriptFile</code>, charge la carte, rejoue les gestes et rend les textes à écrire — sans rien écrire.  <br /></td></tr>
 <tr class="memitem:a5513925544b8628185e12eae822a83e8" id="r_a5513925544b8628185e12eae822a83e8"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1LayerRow.html">LayerRow</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5513925544b8628185e12eae822a83e8">layerRows</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers)</td></tr>
@@ -994,8 +1012,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab96fa423fcd48543b29174b992e6f5c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">La pipette : le pinceau qui repeindrait ce qu'on voit en <code class="param">cell</code>.  <br /></td></tr>
 <tr class="memitem:aad110f20f3c42237d01dfeb1093565a3" id="r_aad110f20f3c42237d01dfeb1093565a3"><td class="memItemLeft"><a class="el" href="structhmi_1_1CanvasBrush.html">CanvasBrush</a>&#160;</td><td class="memItemRight"><a class="el" href="#aad110f20f3c42237d01dfeb1093565a3">pieceBrush</a> (const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> *appearance, std::string piece, bool floor)</td></tr>
 <tr class="memdesc:aad110f20f3c42237d01dfeb1093565a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le pinceau d'une pièce choisie dans la palette : la pièce, le type qu'écrit sa case d'ancrage (<span class="tt"><a class="el" href="#a2959b61f0394085789d35563568aac2d" title="Le type qu&#39;écrit la case d&#39;ancrage d&#39;une pièce posée à la main (décision D3 : le type garde le sens d...">hmi::pieceCellType</a></span>), sa couche.  <br /></td></tr>
-<tr class="memitem:a58adc24cc2fdca4a1bd04954b8893ea1" id="r_a58adc24cc2fdca4a1bd04954b8893ea1"><td class="memItemLeft">std::vector&lt; std::vector&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a58adc24cc2fdca4a1bd04954b8893ea1">copyTypeBlock</a> (const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;tiles, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> first, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> last)</td></tr>
-<tr class="memdesc:a58adc24cc2fdca4a1bd04954b8893ea1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les types du rectangle [<code class="param">first</code>, <code class="param">last</code>] de <code class="param">tiles</code> (<span class="tt">[ligne][colonne]</span>), bornes dans n'importe quel ordre : ce que copie la sélection (<span class="tt">Ctrl+C</span>) et que colle <span class="tt"><a class="el" href="#a0e0956e7e96a74928e44f3f75a32061b" title="Peint un bloc de types ([ligne][colonne]) à partir de origin sur la couche active,...">hmi::paintTypeBlock</a></span>.  <br /></td></tr>
 <tr class="memitem:a9e8aa722715e4ca8b1c75806a71e7b56" id="r_a9e8aa722715e4ca8b1c75806a71e7b56"><td class="memItemLeft"><a class="el" href="structhmi_1_1Measure.html">Measure</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9e8aa722715e4ca8b1c75806a71e7b56">measureBetween</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> from, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> to) noexcept</td></tr>
 <tr class="memitem:ad700de438e32b031575672ea56198aed" id="r_ad700de438e32b031575672ea56198aed"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ad700de438e32b031575672ea56198aed">measureLabel</a> (const <a class="el" href="structhmi_1_1Measure.html">Measure</a> &amp;measure)</td></tr>
 <tr class="memitem:ad532ff719e53686ef85d80516e85089e" id="r_ad532ff719e53686ef85d80516e85089e"><td class="memItemLeft">const std::array&lt; <a class="el" href="structhmi_1_1PanelFocusEntry.html">PanelFocusEntry</a>, <a class="el" href="#aa22d8fa67dd7b945de1a25413ef6532e">PANEL_FOCUS_CATALOG_COUNT</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad532ff719e53686ef85d80516e85089e">panelFocusCatalog</a> ()</td></tr>
@@ -1008,6 +1024,28 @@ Functions</h2></td></tr>
 <tr class="memitem:aabb6d90483bf13d7b93dc031ac1cdfb0" id="r_aabb6d90483bf13d7b93dc031ac1cdfb0"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aabb6d90483bf13d7b93dc031ac1cdfb0">pieceTargetLayer</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers, bool floor)</td></tr>
 <tr class="memitem:a2959b61f0394085789d35563568aac2d" id="r_a2959b61f0394085789d35563568aac2d"><td class="memItemLeft"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2959b61f0394085789d35563568aac2d">pieceCellType</a> (const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> *appearance, std::string_view piece, bool floor)</td></tr>
 <tr class="memdesc:a2959b61f0394085789d35563568aac2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le type qu'écrit la case d'ancrage d'une pièce posée à la main (décision D3 : le type garde le sens de règle de la case).  <br /></td></tr>
+<tr class="memitem:a86891f5de291d0a457c7dee889e9e9ed" id="r_a86891f5de291d0a457c7dee889e9e9ed"><td class="memItemLeft"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a>&#160;</td><td class="memItemRight"><a class="el" href="#a86891f5de291d0a457c7dee889e9e9ed">cutStamp</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> first, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> last)</td></tr>
+<tr class="memdesc:a86891f5de291d0a457c7dee889e9e9ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Découpe le rectangle [<code class="param">first</code>, <code class="param">last</code>] (bornes incluses, dans n'importe quel ordre) de <code class="param">draft</code>, agrandi jusqu'à contenir l'emprise de chaque pièce prise (voir l'en-tête).  <br /></td></tr>
+<tr class="memitem:acb773e916d7cf8cdaefb9c5f89a68279" id="r_acb773e916d7cf8cdaefb9c5f89a68279"><td class="memItemLeft"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a>&#160;</td><td class="memItemRight"><a class="el" href="#acb773e916d7cf8cdaefb9c5f89a68279">mirrorStamp</a> (const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;stamp, const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> *manifest)</td></tr>
+<tr class="memitem:a22523d76b1fdd6565d1f3076d4f1355c" id="r_a22523d76b1fdd6565d1f3076d4f1355c"><td class="memItemLeft"><a class="el" href="structhmi_1_1StampPasteResult.html">StampPasteResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a22523d76b1fdd6565d1f3076d4f1355c">pasteStamp</a> (<a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;stamp, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> at, const <a class="el" href="classhmi_1_1LayerViewState.html">LayerViewState</a> &amp;view)</td></tr>
+<tr class="memdesc:a22523d76b1fdd6565d1f3076d4f1355c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose <code class="param">stamp</code>, son coin haut gauche en <code class="param">at</code>, en <b>un</b> geste (voir l'en-tête).  <br /></td></tr>
+<tr class="memitem:a584227142e9d0b815089675e13bee33d" id="r_a584227142e9d0b815089675e13bee33d"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a584227142e9d0b815089675e13bee33d">stampLabel</a> (const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;stamp)</td></tr>
+<tr class="memitem:a696cb5ea01e7799dd96b5fb1d251df4b" id="r_a696cb5ea01e7799dd96b5fb1d251df4b"><td class="memItemLeft">nlohmann::json&#160;</td><td class="memItemRight"><a class="el" href="#a696cb5ea01e7799dd96b5fb1d251df4b">stampToJson</a> (const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;stamp)</td></tr>
+<tr class="memitem:a2d195c639fb5e48fce2944f545a0392b" id="r_a2d195c639fb5e48fce2944f545a0392b"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2d195c639fb5e48fce2944f545a0392b">stampFromJson</a> (const nlohmann::json &amp;json, std::string &amp;error)</td></tr>
+<tr class="memdesc:a2d195c639fb5e48fce2944f545a0392b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit un tampon écrit par <span class="tt"><a class="el" href="#a696cb5ea01e7799dd96b5fb1d251df4b">hmi::stampToJson</a></span>.  <br /></td></tr>
+<tr class="memitem:ada4c5f2f4d7544a3bb0598071fc35af2" id="r_ada4c5f2f4d7544a3bb0598071fc35af2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ada4c5f2f4d7544a3bb0598071fc35af2">isValidPrefabName</a> (std::string_view name)</td></tr>
+<tr class="memitem:a07be0ee4221ad06662b636b34b4e4fba" id="r_a07be0ee4221ad06662b636b34b4e4fba"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a07be0ee4221ad06662b636b34b4e4fba">prefabsDir</a> (const std::filesystem::path &amp;dataRoot, std::string_view place)</td></tr>
+<tr class="memitem:a9c9aba9b8952f0682eb1a046133bb2c4" id="r_a9c9aba9b8952f0682eb1a046133bb2c4"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9c9aba9b8952f0682eb1a046133bb2c4">prefabNames</a> (const std::filesystem::path &amp;dataRoot, std::string_view place)</td></tr>
+<tr class="memitem:a61e52f75a8d6b8bcf684423612d33961" id="r_a61e52f75a8d6b8bcf684423612d33961"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a61e52f75a8d6b8bcf684423612d33961">writePrefab</a> (const std::filesystem::path &amp;dataRoot, std::string_view place, std::string_view name, const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;stamp)</td></tr>
+<tr class="memdesc:a61e52f75a8d6b8bcf684423612d33961"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit <code class="param">stamp</code> comme préfabriqué <code class="param">name</code> du lieu <code class="param">place</code>, dossier créé au besoin.  <br /></td></tr>
+<tr class="memitem:a78fb9c779ee4b68d1d2050a0a9f05f5a" id="r_a78fb9c779ee4b68d1d2050a0a9f05f5a"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a78fb9c779ee4b68d1d2050a0a9f05f5a">readPrefab</a> (const std::filesystem::path &amp;dataRoot, std::string_view place, std::string_view name, std::string &amp;error)</td></tr>
+<tr class="memdesc:a78fb9c779ee4b68d1d2050a0a9f05f5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit le préfabriqué <code class="param">name</code> du lieu <code class="param">place</code>.  <br /></td></tr>
+<tr class="memitem:a539a375b9de8cc3b296bd4fac53c3c78" id="r_a539a375b9de8cc3b296bd4fac53c3c78"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1MapTemplate.html">MapTemplate</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a539a375b9de8cc3b296bd4fac53c3c78">mapTemplateFromJson</a> (const nlohmann::json &amp;json, std::string &amp;error)</td></tr>
+<tr class="memdesc:a539a375b9de8cc3b296bd4fac53c3c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit un modèle écrit dans le format <span class="tt">jadg-editor-map-template</span>.  <br /></td></tr>
+<tr class="memitem:a0e4099166134b351936920ef6d43c2ef" id="r_a0e4099166134b351936920ef6d43c2ef"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MapTemplate.html">MapTemplate</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0e4099166134b351936920ef6d43c2ef">mapTemplates</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
+<tr class="memitem:adf9e3c71ee8b149a0affc39de3cb2d0e" id="r_adf9e3c71ee8b149a0affc39de3cb2d0e"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1LibraryFinding.html">LibraryFinding</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adf9e3c71ee8b149a0affc39de3cb2d0e">checkEditorLibrary</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
+<tr class="memitem:a8cb11ddb4f6f0829572c5af78aec6f4b" id="r_a8cb11ddb4f6f0829572c5af78aec6f4b"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8cb11ddb4f6f0829572c5af78aec6f4b">runPrefabCommand</a> (const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;dataRoot, std::string &amp;output)</td></tr>
+<tr class="memdesc:a8cb11ddb4f6f0829572c5af78aec6f4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">La bibliothèque <b>sans fenêtre</b> (<span class="tt">LOT-EDITOR-08</span>, règle 4 de la feuille de route) : les mêmes fonctions que la fenêtre, appelées en ligne de commande.  <br /></td></tr>
 <tr class="memitem:a8158375fa940021f6bb346e7c2b09247" id="r_a8158375fa940021f6bb346e7c2b09247"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8158375fa940021f6bb346e7c2b09247">thumbnailPixelSize</a> (int logicalSize, double scaleFactor) noexcept</td></tr>
 <tr class="memdesc:a8158375fa940021f6bb346e7c2b09247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille en pixels <b>réels</b> pour une taille logique et un facteur d'échelle d'affichage donnés.  <br /></td></tr>
 <tr class="memitem:a324d7671eeb331de4b3459d66be9d0ca" id="r_a324d7671eeb331de4b3459d66be9d0ca"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1TileCategory.html">TileCategory</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a324d7671eeb331de4b3459d66be9d0ca">tileTaxonomy</a> ()</td></tr>
@@ -1024,6 +1062,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a8f058cebbeb2de49915110ec3f501b2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La flèche sous <code class="param">point</code> : distance au trait (ou au cercle d'une boucle) au plus <code class="param">tolerance</code>.  <br /></td></tr>
 <tr class="memitem:aea9d8742fc17bfd6135f669a67430cd7" id="r_aea9d8742fc17bfd6135f669a67430cd7"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1IsoBandOpacity.html">IsoBandOpacity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aea9d8742fc17bfd6135f669a67430cd7">parseRenderLayers</a> (std::string_view list)</td></tr>
 <tr class="memdesc:aea9d8742fc17bfd6135f669a67430cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit une liste de bandes (<span class="tt">floors,relief,figures,collision</span>).  <br /></td></tr>
+<tr class="memitem:ae7f247079ad6dfe5c32dcc3dbc814f84" id="r_ae7f247079ad6dfe5c32dcc3dbc814f84"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="#ae7f247079ad6dfe5c32dcc3dbc814f84">renderStamp</a> (const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;stamp, const std::filesystem::path &amp;dataRoot, const std::string &amp;place, int maxSide)</td></tr>
+<tr class="memdesc:ae7f247079ad6dfe5c32dcc3dbc814f84"><td class="mdescLeft">&#160;</td><td class="mdescRight">La <b>vignette d'un préfabriqué</b> (<span class="tt">LOT-EDITOR-08</span>) : le tampon posé sur une carte de sa taille, rendu par le même peintre, réduit pour tenir dans un carré de <code class="param">maxSide</code> pixels.  <br /></td></tr>
 <tr class="memitem:ad9167a1055ccb957be12eecf083c3054" id="r_ad9167a1055ccb957be12eecf083c3054"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="#ad9167a1055ccb957be12eecf083c3054">renderMap</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const std::filesystem::path &amp;dataRoot, const <a class="el" href="structhmi_1_1MapRenderOptions.html">MapRenderOptions</a> &amp;options)</td></tr>
 <tr class="memdesc:ad9167a1055ccb957be12eecf083c3054"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">level</code> en isométrie, hors écran.  <br /></td></tr>
 <tr class="memitem:ad551059312355ed10cda2f2300d1a6b9" id="r_ad551059312355ed10cda2f2300d1a6b9"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad551059312355ed10cda2f2300d1a6b9">runRenderCommand</a> (const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;defaultDataRoot, std::string &amp;output)</td></tr>
@@ -1150,6 +1190,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a0c06cbf1bf3c8f1d58a5c581e17e3666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom du fichier d'un minidump : <span class="tt">&lt;application&gt;_&lt;version&gt;_&lt;AAAAMMJJ_HHMMSS&gt;.dmp</span>.  <br /></td></tr>
 <tr class="memitem:a1acfbf8f1ffce943900246a61f336bf7" id="r_a1acfbf8f1ffce943900246a61f336bf7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1acfbf8f1ffce943900246a61f336bf7">writeMiniDump</a> (const std::filesystem::path &amp;path, _EXCEPTION_POINTERS *exception)</td></tr>
 <tr class="memdesc:a1acfbf8f1ffce943900246a61f336bf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit un minidump du processus courant.  <br /></td></tr>
+<tr class="memitem:abd38f09f1f47f1d85b7e0e0d3d8323f9" id="r_abd38f09f1f47f1d85b7e0e0d3d8323f9"><td class="memItemLeft">std::array&lt; unsigned long, <a class="el" href="#a9df788d7b4dc601bd5e26a42a1517666">kMiniDumpAttemptCount</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abd38f09f1f47f1d85b7e0e0d3d8323f9">lastMiniDumpAttemptErrors</a> ()</td></tr>
+<tr class="memdesc:abd38f09f1f47f1d85b7e0e0d3d8323f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erreurs des tentatives du dernier writeMiniDump, dans l'ordre (0 = tentative non faite).  <br /></td></tr>
 <tr class="memitem:aabf51fbbdb0a8cdb119dc1c28fa88980" id="r_aabf51fbbdb0a8cdb119dc1c28fa88980"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aabf51fbbdb0a8cdb119dc1c28fa88980">installCrashDumpWriter</a> (std::filesystem::path directory, std::string application, std::string version)</td></tr>
 <tr class="memdesc:aabf51fbbdb0a8cdb119dc1c28fa88980"><td class="mdescLeft">&#160;</td><td class="mdescRight">Installe l'écriture d'un minidump sur toute fin anormale du processus.  <br /></td></tr>
 <tr class="memitem:a3482171b78c19d4cd5a16786cc13c330" id="r_a3482171b78c19d4cd5a16786cc13c330"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3482171b78c19d4cd5a16786cc13c330">triggerCrashForTest</a> ()</td></tr>
@@ -1260,13 +1302,21 @@ Variables</h2></td></tr>
 <tr class="memdesc:aa22d8fa67dd7b945de1a25413ef6532e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'entrées de la table (tous les outils n'ont pas de panneau dédié).  <br /></td></tr>
 <tr class="memitem:a5df9b58a558cb32ba554bcb3bff09c45" id="r_a5df9b58a558cb32ba554bcb3bff09c45"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a5df9b58a558cb32ba554bcb3bff09c45">MISSING_PIECES_GROUP</a> = &quot;Missing from the sheet&quot;</td></tr>
 <tr class="memdesc:a5df9b58a558cb32ba554bcb3bff09c45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Titre du groupe des pièces que la carte cite et que la planche n'a pas.  <br /></td></tr>
+<tr class="memitem:ab7143562544d6ba9f30275efaf9e0f09" id="r_ab7143562544d6ba9f30275efaf9e0f09"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ab7143562544d6ba9f30275efaf9e0f09">PREFAB_FORMAT</a> = &quot;jadg-editor-prefab&quot;</td></tr>
+<tr class="memdesc:ab7143562544d6ba9f30275efaf9e0f09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom du format d'un préfabriqué (champ <span class="tt">format</span>).  <br /></td></tr>
+<tr class="memitem:a10aafee24225eec64d465b723365edad" id="r_a10aafee24225eec64d465b723365edad"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a10aafee24225eec64d465b723365edad">PREFAB_VERSION</a> = 1</td></tr>
+<tr class="memdesc:a10aafee24225eec64d465b723365edad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version du format d'un préfabriqué (champ <span class="tt">version</span>).  <br /></td></tr>
+<tr class="memitem:a5a64b888489cdeabbfe223ba0c1824cc" id="r_a5a64b888489cdeabbfe223ba0c1824cc"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a5a64b888489cdeabbfe223ba0c1824cc">MAP_TEMPLATE_FORMAT</a> = &quot;jadg-editor-map-template&quot;</td></tr>
+<tr class="memdesc:a5a64b888489cdeabbfe223ba0c1824cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom du format d'un modèle de carte (champ <span class="tt">format</span>).  <br /></td></tr>
+<tr class="memitem:a0c62b707e9cd5039f5b7db7d9ba87134" id="r_a0c62b707e9cd5039f5b7db7d9ba87134"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a0c62b707e9cd5039f5b7db7d9ba87134">MAP_TEMPLATE_VERSION</a> = 1</td></tr>
+<tr class="memdesc:a0c62b707e9cd5039f5b7db7d9ba87134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version du format d'un modèle de carte (champ <span class="tt">version</span>).  <br /></td></tr>
 <tr class="memitem:a7b7c3b187b367c4fb075b366382c9d33" id="r_a7b7c3b187b367c4fb075b366382c9d33"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a7b7c3b187b367c4fb075b366382c9d33">WORLD_GRAPH_NODE_RADIUS</a> = 26.0f</td></tr>
 <tr class="memdesc:a7b7c3b187b367c4fb075b366382c9d33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rayon du disque d'une carte, en pixels logiques.  <br /></td></tr>
 <tr class="memitem:a1ef72f4a347aa932d445d92e2cd5b2de" id="r_a1ef72f4a347aa932d445d92e2cd5b2de"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a1ef72f4a347aa932d445d92e2cd5b2de">WORLD_GRAPH_NODE_SPACING</a> = 160.0f</td></tr>
 <tr class="memdesc:a1ef72f4a347aa932d445d92e2cd5b2de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance minimale entre les centres de deux cartes voisines sur le cercle : la largeur d'une étiquette (nom et identifiant, posés sous le disque) plus une marge.  <br /></td></tr>
 <tr class="memitem:aa58aa4e76a3cdd2fcbd55c22d52a4bd6" id="r_aa58aa4e76a3cdd2fcbd55c22d52a4bd6"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#aa58aa4e76a3cdd2fcbd55c22d52a4bd6">WORLD_GRAPH_MIN_CIRCLE_RADIUS</a> = 120.0f</td></tr>
 <tr class="memdesc:aa58aa4e76a3cdd2fcbd55c22d52a4bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rayon plancher du cercle dès qu'il porte deux cartes ou plus.  <br /></td></tr>
-<tr class="memitem:a8419e0bc52afdaf288a539da747b1577" id="r_a8419e0bc52afdaf288a539da747b1577"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a8419e0bc52afdaf288a539da747b1577">EDITOR_COMMAND_COUNT</a> = 25</td></tr>
+<tr class="memitem:a8419e0bc52afdaf288a539da747b1577" id="r_a8419e0bc52afdaf288a539da747b1577"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a8419e0bc52afdaf288a539da747b1577">EDITOR_COMMAND_COUNT</a> = 27</td></tr>
 <tr class="memdesc:a8419e0bc52afdaf288a539da747b1577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de commandes, déclaré au plus près de l'énumération qu'il compte.  <br /></td></tr>
 <tr class="memitem:a65b2c16b6aab8dd5aa2fa49fd1cb872b" id="r_a65b2c16b6aab8dd5aa2fa49fd1cb872b"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a65b2c16b6aab8dd5aa2fa49fd1cb872b">ARENA_FIGURE_FRAME_WIDTH_PIXELS</a> = <a class="el" href="#a46b9654e0a27fbe317b1b281d1560182">FIGURE_FRAME_WIDTH_PIXELS</a></td></tr>
 <tr class="memdesc:a65b2c16b6aab8dd5aa2fa49fd1cb872b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur d'une image des bandes d'animation de la planche, en pixels (<span class="tt">manifest.json</span>, <span class="tt">frame</span>), quand la bande n'en déclare pas d'autre (<span class="tt"><a class="el" href="structhmi_1_1ArenaTexture.html#a54b06c2d1e41c3fdeba90bcdbdcbae1f" title="Largeur d&#39;une image si la texture est une bande d&#39;animation (frameWidth de son .anim....">ArenaTexture::frameWidth</a></span>).  <br /></td></tr>
@@ -1332,6 +1382,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:a2a20dc2308d9f364b3d764c4443ef799"><td class="mdescLeft">&#160;</td><td class="mdescRight">Délai minimal entre deux sondages XInput d'un slot resté <b>déconnecté</b> (anti-saccade).  <br /></td></tr>
 <tr class="memitem:a71b3644be39aea9fcff1d4ffdf126963" id="r_a71b3644be39aea9fcff1d4ffdf126963"><td class="memItemLeft">constexpr unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a71b3644be39aea9fcff1d4ffdf126963">kFatalErrorExceptionCode</a> = 0xE04A4447UL</td></tr>
 <tr class="memdesc:a71b3644be39aea9fcff1d4ffdf126963"><td class="mdescLeft">&#160;</td><td class="mdescRight">Code de l'exception levée pour transformer une fin anormale (std::terminate, appel virtuel pur, paramètre invalide de la CRT) en exception structurée, que le filtre sait écrire : « JADG ».  <br /></td></tr>
+<tr class="memitem:a9df788d7b4dc601bd5e26a42a1517666" id="r_a9df788d7b4dc601bd5e26a42a1517666"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a9df788d7b4dc601bd5e26a42a1517666">kMiniDumpAttemptCount</a> = 4</td></tr>
+<tr class="memdesc:a9df788d7b4dc601bd5e26a42a1517666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de tentatives d'écriture d'un minidump, de la plus riche à la plus réduite (writeMiniDump).  <br /></td></tr>
 <tr class="memitem:a28af23097f4afb7b262687a468fcf913" id="r_a28af23097f4afb7b262687a468fcf913"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a28af23097f4afb7b262687a468fcf913">DIALOGUE_LEAVE_REPLY</a> = &quot;leave&quot;</td></tr>
 <tr class="memdesc:a28af23097f4afb7b262687a468fcf913"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifiant de la ligne « Quitter la conversation », quand plus rien n'attend de réponse.  <br /></td></tr>
 <tr class="memitem:ae54af503d82aa33bf9e298ef1a96f275" id="r_ae54af503d82aa33bf9e298ef1a96f275"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ae54af503d82aa33bf9e298ef1a96f275">IDENTITY_BASE_HEIGHT</a> = 360</td></tr>
@@ -1827,6 +1879,10 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a5fb63579fc981698f97d55bfecb213ea" name="a576cb29b1af75dc6bda8abb048330f18a5fb63579fc981698f97d55bfecb213ea"></a>Copy&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a36bb6559696dc9124986ae120515984f" name="a576cb29b1af75dc6bda8abb048330f18a36bb6559696dc9124986ae120515984f"></a>Paste&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a7d8393a85811c22a219169498a94ea91" name="a576cb29b1af75dc6bda8abb048330f18a7d8393a85811c22a219169498a94ea91"></a>PasteMirrored&#160;</td><td class="fielddoc"><p>Coller le tampon <b>reflété</b> (<span class="tt">LOT-EDITOR-08</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a28274ec234daec25053e4d9346c695b5" name="a576cb29b1af75dc6bda8abb048330f18a28274ec234daec25053e4d9346c695b5"></a>SaveAsPrefab&#160;</td><td class="fielddoc"><p>Enregistrer la sélection comme préfabriqué du lieu (<span class="tt">LOT-EDITOR-08</span>). </p>
+</td></tr>
 <tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a904a8304056d77e4547744781b7ceb50" name="a576cb29b1af75dc6bda8abb048330f18a904a8304056d77e4547744781b7ceb50"></a>Rename&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a2583b92d245a881127917f19531ccf3b" name="a576cb29b1af75dc6bda8abb048330f18a2583b92d245a881127917f19531ccf3b"></a>ShortcutsOverview&#160;</td><td class="fielddoc"></td></tr>
 </table>
@@ -2872,8 +2928,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ad2d5ef8bbea644403c389e5d20a5fbde" name="ad2d5ef8bbea644403c389e5d20a5fbde"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2d5ef8bbea644403c389e5d20a5fbde">&#9670;&#160;</a></span>applyGestureScript()</h2>
+<a id="ac51afb66cf0175a7664c655c56674293" name="ac51afb66cf0175a7664c655c56674293"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac51afb66cf0175a7664c655c56674293">&#9670;&#160;</a></span>applyGestureScript()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2899,7 +2955,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structhmi_1_1PlaceAssets.html">PlaceAssets</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>assets</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PlaceAssets.html">PlaceAssets</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>assets</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -2917,6 +2978,7 @@ Variables</h2></td></tr>
     <tr><td class="paramname">draft</td><td>La carte à modifier. </td></tr>
     <tr><td class="paramname">sidecar</td><td>Son annexe (les notes). </td></tr>
     <tr><td class="paramname">assets</td><td>Le manifeste et la table de son lieu. </td></tr>
+    <tr><td class="paramname">dataRoot</td><td>La racine des données, où vit la bibliothèque de préfabriqués ; vide, un geste qui arme un <span class="tt">prefab</span> est refusé. </td></tr>
   </table>
   </dd>
 </dl>
@@ -3766,6 +3828,32 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="adf9e3c71ee8b149a0affc39de3cb2d0e" name="adf9e3c71ee8b149a0affc39de3cb2d0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf9e3c71ee8b149a0affc39de3cb2d0e">&#9670;&#160;</a></span>checkEditorLibrary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1LibraryFinding.html">LibraryFinding</a> &gt; hmi::checkEditorLibrary </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les fichiers de <span class="tt">&lt;dataRoot&gt;/Editor/</span> que l'éditeur ne sait pas relire — ce que <span class="tt">LevelEditor --check</span> ajoute au contrôle des cartes (<span class="tt">EX-EDIT-086</span>). </dd></dl>
+
+</div>
+</div>
 <a id="a57bbb524f453684c3c946474ef6a3ea9" name="a57bbb524f453684c3c946474ef6a3ea9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a57bbb524f453684c3c946474ef6a3ea9">&#9670;&#160;</a></span>checkMapContent()</h2>
 
@@ -4459,43 +4547,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a58adc24cc2fdca4a1bd04954b8893ea1" name="a58adc24cc2fdca4a1bd04954b8893ea1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58adc24cc2fdca4a1bd04954b8893ea1">&#9670;&#160;</a></span>copyTypeBlock()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; std::vector&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> &gt; &gt; hmi::copyTypeBlock </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>tiles</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>first</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>last</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Les types du rectangle [<code class="param">first</code>, <code class="param">last</code>] de <code class="param">tiles</code> (<span class="tt">[ligne][colonne]</span>), bornes dans n'importe quel ordre : ce que copie la sélection (<span class="tt">Ctrl+C</span>) et que colle <span class="tt"><a class="el" href="#a0e0956e7e96a74928e44f3f75a32061b" title="Peint un bloc de types ([ligne][colonne]) à partir de origin sur la couche active,...">hmi::paintTypeBlock</a></span>. </p>
-<p>Une case hors de la grille est vide. </p>
-
-</div>
-</div>
 <a id="a0c06cbf1bf3c8f1d58a5c581e17e3666" name="a0c06cbf1bf3c8f1d58a5c581e17e3666"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0c06cbf1bf3c8f1d58a5c581e17e3666">&#9670;&#160;</a></span>crashDumpFileName()</h2>
 
@@ -4590,6 +4641,43 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La texture chargée, ou <span class="tt">std::nullopt</span> en cas d'échec de création côté GPU. </dd></dl>
+
+</div>
+</div>
+<a id="a86891f5de291d0a457c7dee889e9e9ed" name="a86891f5de291d0a457c7dee889e9e9ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86891f5de291d0a457c7dee889e9e9ed">&#9670;&#160;</a></span>cutStamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a> hmi::cutStamp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>draft</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>first</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>last</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Découpe le rectangle [<code class="param">first</code>, <code class="param">last</code>] (bornes incluses, dans n'importe quel ordre) de <code class="param">draft</code>, agrandi jusqu'à contenir l'emprise de chaque pièce prise (voir l'en-tête). </p>
+<dl class="section return"><dt>Returns</dt><dd>Le tampon ; vide si le rectangle ne rencontre pas la carte. </dd></dl>
 
 </div>
 </div>
@@ -6224,6 +6312,32 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ada4c5f2f4d7544a3bb0598071fc35af2" name="ada4c5f2f4d7544a3bb0598071fc35af2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada4c5f2f4d7544a3bb0598071fc35af2">&#9670;&#160;</a></span>isValidPrefabName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::isValidPrefabName </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai si <code class="param">name</code> peut nommer un préfabriqué : non vide, et fait de lettres ASCII minuscules, de chiffres, de tirets et de tirets bas — ce qui en fait un nom de fichier sûr sur tout poste. </dd></dl>
+
+</div>
+</div>
 <a id="aa11e1e0720b6d68b5362d8062922cf64" name="aa11e1e0720b6d68b5362d8062922cf64"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa11e1e0720b6d68b5362d8062922cf64">&#9670;&#160;</a></span>itemSheet()</h2>
 
@@ -6325,6 +6439,35 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Les langues de <code class="param">catalogs</code> qui n'ont pas <code class="param">key</code>, triées. </dd></dl>
+
+</div>
+</div>
+<a id="abd38f09f1f47f1d85b7e0e0d3d8323f9" name="abd38f09f1f47f1d85b7e0e0d3d8323f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd38f09f1f47f1d85b7e0e0d3d8323f9">&#9670;&#160;</a></span>lastMiniDumpAttemptErrors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt; unsigned long, <a class="el" href="#a9df788d7b4dc601bd5e26a42a1517666">kMiniDumpAttemptCount</a> &gt; hmi::lastMiniDumpAttemptErrors </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Erreurs des tentatives du dernier writeMiniDump, dans l'ordre (0 = tentative non faite). </p>
+<p><span class="tt">GetLastError()</span> ne rend que la raison de la dernière tentative : une panne comme celle vue en CI reste alors indéchiffrable. Diagnostic seul ; le test de minidump les affiche quand il échoue.</p>
+<dl class="section return"><dt>Returns</dt><dd>Une copie du relevé, tentative par tentative. </dd></dl>
 
 </div>
 </div>
@@ -6796,6 +6939,70 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a539a375b9de8cc3b296bd4fac53c3c78" name="a539a375b9de8cc3b296bd4fac53c3c78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a539a375b9de8cc3b296bd4fac53c3c78">&#9670;&#160;</a></span>mapTemplateFromJson()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1MapTemplate.html">MapTemplate</a> &gt; hmi::mapTemplateFromJson </td>
+          <td>(</td>
+          <td class="paramtype">const nlohmann::json &amp;</td>          <td class="paramname"><span class="paramname"><em>json</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>error</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Relit un modèle écrit dans le format <span class="tt">jadg-editor-map-template</span>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">json</td><td>Le modèle, lu. </td></tr>
+    <tr><td class="paramname">error</td><td>Reçoit le motif du refus ; vide si la lecture a réussi. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0e4099166134b351936920ef6d43c2ef" name="a0e4099166134b351936920ef6d43c2ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e4099166134b351936920ef6d43c2ef">&#9670;&#160;</a></span>mapTemplates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1MapTemplate.html">MapTemplate</a> &gt; hmi::mapTemplates </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les modèles de <span class="tt">&lt;dataRoot&gt;/Editor/Templates/*.json</span>, triés par identifiant ; les fichiers illisibles sont passés (<span class="tt">--check</span> les nomme). </dd></dl>
+
+</div>
+</div>
 <a id="abb5b5c18732cf5389e71bb864df46380" name="abb5b5c18732cf5389e71bb864df46380"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abb5b5c18732cf5389e71bb864df46380">&#9670;&#160;</a></span>markerPixelsRgba8()</h2>
 
@@ -7032,6 +7239,36 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>La jumelle de <code class="param">piece</code> dans <code class="param">manifest</code> : la pièce dont elle est le miroir, ou celle qui est le sien ; <code class="param">piece</code> elle-même si elle n'en a pas, ou sans manifeste. </dd></dl>
+
+</div>
+</div>
+<a id="acb773e916d7cf8cdaefb9c5f89a68279" name="acb773e916d7cf8cdaefb9c5f89a68279"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb773e916d7cf8cdaefb9c5f89a68279">&#9670;&#160;</a></span>mirrorStamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a> hmi::mirrorStamp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>stamp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> *</td>          <td class="paramname"><span class="paramname"><em>manifest</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le reflet de <code class="param">stamp</code> dans son propre miroir ; <code class="param">manifest</code> donne les jumelles des pièces (<span class="tt">nullptr</span> : chaque pièce garde son nom). </dd></dl>
 
 </div>
 </div>
@@ -7566,6 +7803,48 @@ Variables</h2></td></tr>
 
 <p>Lit l'annexe depuis son texte JSON. </p>
 <p>Tolérant : une note mal formée est ignorée, les autres restent ; un texte qui n'est pas un objet JSON rend une annexe vide et un avertissement. Jamais d'exception (<span class="tt">EX-NFR-040</span>). </p>
+
+</div>
+</div>
+<a id="a22523d76b1fdd6565d1f3076d4f1355c" name="a22523d76b1fdd6565d1f3076d4f1355c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22523d76b1fdd6565d1f3076d4f1355c">&#9670;&#160;</a></span>pasteStamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1StampPasteResult.html">StampPasteResult</a> hmi::pasteStamp </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>draft</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>stamp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>at</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1LayerViewState.html">LayerViewState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>view</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pose <code class="param">stamp</code>, son coin haut gauche en <code class="param">at</code>, en <b>un</b> geste (voir l'en-tête). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">draft</td><td>La carte. </td></tr>
+    <tr><td class="paramname">stamp</td><td>Le tampon. </td></tr>
+    <tr><td class="paramname">at</td><td>La case du coin haut gauche. </td></tr>
+    <tr><td class="paramname">view</td><td>Les réglages des couches (verrous). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -8214,6 +8493,66 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a9c9aba9b8952f0682eb1a046133bb2c4" name="a9c9aba9b8952f0682eb1a046133bb2c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c9aba9b8952f0682eb1a046133bb2c4">&#9670;&#160;</a></span>prefabNames()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; hmi::prefabNames </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les noms des préfabriqués du lieu <code class="param">place</code>, triés (vide si le dossier n'existe pas). </dd></dl>
+
+</div>
+</div>
+<a id="a07be0ee4221ad06662b636b34b4e4fba" name="a07be0ee4221ad06662b636b34b4e4fba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07be0ee4221ad06662b636b34b4e4fba">&#9670;&#160;</a></span>prefabsDir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::prefabsDir </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le dossier des préfabriqués du lieu <code class="param">place</code> : <span class="tt">&lt;dataRoot&gt;/Editor/Prefabs/&lt;place&gt;/</span>. </dd></dl>
+
+</div>
+</div>
 <a id="ad41bb1dd00388cd216ed0adc326d0e5e" name="ad41bb1dd00388cd216ed0adc326d0e5e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad41bb1dd00388cd216ed0adc326d0e5e">&#9670;&#160;</a></span>previousRpgScreen()</h2>
 
@@ -8395,6 +8734,56 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Lit une table de correspondance : <span class="tt">{"format": "jadg-piece-table", "version": 1, "pieces": {"ancien": "nouveau"}}</span>. </p>
+
+</div>
+</div>
+<a id="a78fb9c779ee4b68d1d2050a0a9f05f5a" name="a78fb9c779ee4b68d1d2050a0a9f05f5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78fb9c779ee4b68d1d2050a0a9f05f5a">&#9670;&#160;</a></span>readPrefab()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &gt; hmi::readPrefab </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>error</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Relit le préfabriqué <code class="param">name</code> du lieu <code class="param">place</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dataRoot</td><td>La racine des données. </td></tr>
+    <tr><td class="paramname">place</td><td>Le lieu dont il vient. </td></tr>
+    <tr><td class="paramname">name</td><td>Son nom, sans extension. </td></tr>
+    <tr><td class="paramname">error</td><td>Reçoit le motif du refus ; vide si la lecture a réussi. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -8784,6 +9173,57 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ae7f247079ad6dfe5c32dcc3dbc814f84" name="ae7f247079ad6dfe5c32dcc3dbc814f84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7f247079ad6dfe5c32dcc3dbc814f84">&#9670;&#160;</a></span>renderStamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QImage hmi::renderStamp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>stamp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>place</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxSide</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La <b>vignette d'un préfabriqué</b> (<span class="tt">LOT-EDITOR-08</span>) : le tampon posé sur une carte de sa taille, rendu par le même peintre, réduit pour tenir dans un carré de <code class="param">maxSide</code> pixels. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stamp</td><td>Le tampon. </td></tr>
+    <tr><td class="paramname">dataRoot</td><td>La racine des données (les planches). </td></tr>
+    <tr><td class="paramname">place</td><td>Le lieu dont il prend ses pièces ; vide, il se peint par ses types. </td></tr>
+    <tr><td class="paramname">maxSide</td><td>Le côté du carré, en pixels (&gt; 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'image, nulle si le tampon ne se compose pas. </dd></dl>
+
+</div>
+</div>
 <a id="a47eb27b6f73b5d9a8bedda2b55e0d371" name="a47eb27b6f73b5d9a8bedda2b55e0d371"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a47eb27b6f73b5d9a8bedda2b55e0d371">&#9670;&#160;</a></span>resizeRectangle()</h2>
 
@@ -9080,7 +9520,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1214"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1226"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
 <p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>
@@ -9135,6 +9575,47 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <li><span class="tt">--apply &lt;gestes.json&gt; [carte]</span> : rejoue les gestes du fichier sur la carte (celle que nomme le fichier, à défaut) et l'écrit en place, ou dans <span class="tt">--output</span> ; un geste refusé n'écrit rien et sort en 1 (<span class="tt"><a class="el" href="#ab1145769bfcc581f39091b42c792705c" title="Lit le fichier de gestes scriptFile, charge la carte, rejoue les gestes et rend les textes à écrire —...">hmi::applyGestureFile</a></span>). Suivi de <span class="tt">--check</span>, il contrôle ensuite toutes les cartes.</li>
 </ul>
 <dl class="section return"><dt>Returns</dt><dd>Le code de sortie, ou <span class="tt">std::nullopt</span> si la ligne de commande ne demande aucune de ces commandes — l'éditeur ouvre alors sa fenêtre. </dd></dl>
+
+</div>
+</div>
+<a id="a8cb11ddb4f6f0829572c5af78aec6f4b" name="a8cb11ddb4f6f0829572c5af78aec6f4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cb11ddb4f6f0829572c5af78aec6f4b">&#9670;&#160;</a></span>runPrefabCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; int &gt; hmi::runPrefabCommand </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>arguments</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>output</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La bibliothèque <b>sans fenêtre</b> (<span class="tt">LOT-EDITOR-08</span>, règle 4 de la feuille de route) : les mêmes fonctions que la fenêtre, appelées en ligne de commande. </p>
+<ul>
+<li><span class="tt">--list-prefabs [lieu…]</span> : les préfabriqués d'un lieu, tous les lieux à défaut ;</li>
+<li><span class="tt">--save-prefab &lt;carte&gt; &lt;nom&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;</span> : découpe le rectangle de la carte et l'écrit comme préfabriqué du lieu de cette carte. C'est ce que fait « Save selection as prefab… », et c'est ainsi que se fabrique un préfabriqué livré.</li>
+</ul>
+<dl class="section return"><dt>Returns</dt><dd>Le code de sortie (0, 1 en cas d'échec, 2 si la ligne de commande est fausse), ou <span class="tt">std::nullopt</span> si aucune de ces commandes n'est demandée. </dd></dl>
 
 </div>
 </div>
@@ -9886,6 +10367,96 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 
 </div>
 </div>
+<a id="a2d195c639fb5e48fce2944f545a0392b" name="a2d195c639fb5e48fce2944f545a0392b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d195c639fb5e48fce2944f545a0392b">&#9670;&#160;</a></span>stampFromJson()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &gt; hmi::stampFromJson </td>
+          <td>(</td>
+          <td class="paramtype">const nlohmann::json &amp;</td>          <td class="paramname"><span class="paramname"><em>json</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>error</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Relit un tampon écrit par <span class="tt"><a class="el" href="#a696cb5ea01e7799dd96b5fb1d251df4b">hmi::stampToJson</a></span>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">json</td><td>Le tampon, lu. </td></tr>
+    <tr><td class="paramname">error</td><td>Reçoit le motif du refus ; vide si la lecture a réussi. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a584227142e9d0b815089675e13bee33d" name="a584227142e9d0b815089675e13bee33d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a584227142e9d0b815089675e13bee33d">&#9670;&#160;</a></span>stampLabel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::stampLabel </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>stamp</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Ce que la barre d'état dit d'un tampon : <span class="tt">3 × 2 · 2 pieces · 1 entity</span>. </dd></dl>
+
+</div>
+</div>
+<a id="a696cb5ea01e7799dd96b5fb1d251df4b" name="a696cb5ea01e7799dd96b5fb1d251df4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a696cb5ea01e7799dd96b5fb1d251df4b">&#9670;&#160;</a></span>stampToJson()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">nlohmann::json hmi::stampToJson </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>stamp</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le tampon en JSON, tel que la bibliothèque l'écrit. </dd></dl>
+
+</div>
+</div>
 <a id="aefe5a3c767ba4b0482688df953007fe1" name="aefe5a3c767ba4b0482688df953007fe1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aefe5a3c767ba4b0482688df953007fe1">&#9670;&#160;</a></span>standingPieceQuad()</h2>
 
@@ -10584,7 +11155,7 @@ template&lt;class Map&gt; </div>
 </div><div class="memdoc">
 
 <p>Écrit un minidump du processus courant. </p>
-<p>Le dossier parent est créé au besoin. Sans <code class="param">exception</code>, le dump porte l'état de tous les threads au moment de l'appel, sans contexte d'exception. L'écriture a lieu sur un thread dédié, que l'appelant attend. Si le dump riche (mémoire référencée par les piles) échoue, des dumps réduits sont tentés, qui gardent piles et contexte (sans l'état étendu du processeur) ; si tous échouent, <span class="tt">GetLastError()</span> en donne la raison.</p>
+<p>Le dossier parent est créé au besoin. Sans <code class="param">exception</code>, le dump porte l'état de tous les threads au moment de l'appel, sans contexte d'exception. L'écriture a lieu sur un thread dédié, que l'appelant attend. Si le dump riche (mémoire référencée par les piles) échoue, des dumps réduits sont tentés, qui gardent piles et contexte (sans l'état étendu du processeur) ; la dernière tentative n'écrit plus que le thread du plantage, une pile illisible d'un autre thread faisant échouer tout le dump, et elle est réessayée : l'échec observé en CI est un aléa, pas un refus stable. Si toutes échouent, <span class="tt">GetLastError()</span> en donne la raison.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">path</td><td>Chemin du fichier <span class="tt">.dmp</span> à écrire (écrasé s'il existe). </td></tr>
@@ -10593,6 +11164,48 @@ template&lt;class Map&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si le fichier a été écrit. </dd></dl>
+
+</div>
+</div>
+<a id="a61e52f75a8d6b8bcf684423612d33961" name="a61e52f75a8d6b8bcf684423612d33961"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61e52f75a8d6b8bcf684423612d33961">&#9670;&#160;</a></span>writePrefab()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::writePrefab </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>stamp</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écrit <code class="param">stamp</code> comme préfabriqué <code class="param">name</code> du lieu <code class="param">place</code>, dossier créé au besoin. </p>
+<dl class="section return"><dt>Returns</dt><dd>Le motif du refus (nom vide ou invalide, tampon vide, écriture impossible) ; vide si le fichier a été écrit. </dd></dl>
 
 </div>
 </div>
@@ -11141,7 +11754,7 @@ template&lt;class Map&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t hmi::EDITOR_COMMAND_COUNT = 25</td>
+          <td class="memname">std::size_t hmi::EDITOR_COMMAND_COUNT = 27</td>
         </tr>
       </table>
   </td>
@@ -11566,6 +12179,78 @@ template&lt;class Map&gt; </div>
 
 </div>
 </div>
+<a id="a9df788d7b4dc601bd5e26a42a1517666" name="a9df788d7b4dc601bd5e26a42a1517666"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9df788d7b4dc601bd5e26a42a1517666">&#9670;&#160;</a></span>kMiniDumpAttemptCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t hmi::kMiniDumpAttemptCount = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de tentatives d'écriture d'un minidump, de la plus riche à la plus réduite (writeMiniDump). </p>
+
+</div>
+</div>
+<a id="a5a64b888489cdeabbfe223ba0c1824cc" name="a5a64b888489cdeabbfe223ba0c1824cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a64b888489cdeabbfe223ba0c1824cc">&#9670;&#160;</a></span>MAP_TEMPLATE_FORMAT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view hmi::MAP_TEMPLATE_FORMAT = &quot;jadg-editor-map-template&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nom du format d'un modèle de carte (champ <span class="tt">format</span>). </p>
+
+</div>
+</div>
+<a id="a0c62b707e9cd5039f5b7db7d9ba87134" name="a0c62b707e9cd5039f5b7db7d9ba87134"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c62b707e9cd5039f5b7db7d9ba87134">&#9670;&#160;</a></span>MAP_TEMPLATE_VERSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::MAP_TEMPLATE_VERSION = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Version du format d'un modèle de carte (champ <span class="tt">version</span>). </p>
+
+</div>
+</div>
 <a id="a5df9b58a558cb32ba554bcb3bff09c45" name="a5df9b58a558cb32ba554bcb3bff09c45"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5df9b58a558cb32ba554bcb3bff09c45">&#9670;&#160;</a></span>MISSING_PIECES_GROUP</h2>
 
@@ -11683,6 +12368,54 @@ template&lt;class Map&gt; </div>
 </div><div class="memdoc">
 
 <p>Nombre d'entrées de la table (tous les outils n'ont pas de panneau dédié). </p>
+
+</div>
+</div>
+<a id="ab7143562544d6ba9f30275efaf9e0f09" name="ab7143562544d6ba9f30275efaf9e0f09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7143562544d6ba9f30275efaf9e0f09">&#9670;&#160;</a></span>PREFAB_FORMAT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view hmi::PREFAB_FORMAT = &quot;jadg-editor-prefab&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nom du format d'un préfabriqué (champ <span class="tt">format</span>). </p>
+
+</div>
+</div>
+<a id="a10aafee24225eec64d465b723365edad" name="a10aafee24225eec64d465b723365edad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10aafee24225eec64d465b723365edad">&#9670;&#160;</a></span>PREFAB_VERSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::PREFAB_VERSION = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Version du format d'un préfabriqué (champ <span class="tt">version</span>). </p>
 
 </div>
 </div>

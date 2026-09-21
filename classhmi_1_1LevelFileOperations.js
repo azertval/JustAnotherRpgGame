@@ -2,7 +2,7 @@ var classhmi_1_1LevelFileOperations =
 [
     [ "LevelFileOperations", "classhmi_1_1LevelFileOperations.html#a2e34e94f00788eefba7056c5cac47bb1", null ],
     [ "addNameTranslation", "classhmi_1_1LevelFileOperations.html#af5bbcef7d8f0d48a8dd8e63b6618aa2d", null ],
-    [ "create", "classhmi_1_1LevelFileOperations.html#a0e173c0978bb5aa257a96ffae66dd135", null ],
+    [ "create", "classhmi_1_1LevelFileOperations.html#ac5fafeb1ce061d5a0ec7571601b840d0", null ],
     [ "duplicate", "classhmi_1_1LevelFileOperations.html#a551c21f123f010c79dc0092566523968", null ],
     [ "list", "classhmi_1_1LevelFileOperations.html#a0f2a3f81e7b378c50c4448c292ec2499", null ],
     [ "nameKeyFor", "classhmi_1_1LevelFileOperations.html#ab11903ab615cd82453aa9c59f6df1aec", null ],

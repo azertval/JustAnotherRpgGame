@@ -22,6 +22,7 @@ var dir_72f94039b203173a88806b7e5cad74af =
     [ "test_piece_catalog.cpp", "test__piece__catalog_8cpp.html", "test__piece__catalog_8cpp" ],
     [ "test_scene_painter.cpp", "test__scene__painter_8cpp.html", "test__scene__painter_8cpp" ],
     [ "test_shipped_maps.cpp", "test__shipped__maps_8cpp.html", "test__shipped__maps_8cpp" ],
+    [ "test_stamps.cpp", "test__stamps_8cpp.html", "test__stamps_8cpp" ],
     [ "test_thumbnail_geometry.cpp", "test__thumbnail__geometry_8cpp.html", "test__thumbnail__geometry_8cpp" ],
     [ "test_tile_taxonomy.cpp", "test__tile__taxonomy_8cpp.html", "test__tile__taxonomy_8cpp" ],
     [ "test_world_graph_layout.cpp", "test__world__graph__layout_8cpp.html", "test__world__graph__layout_8cpp" ]

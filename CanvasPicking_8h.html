@@ -144,13 +144,13 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le pointage du canevas : d'un point du monde à la case qu'il désigne, dans la vue isométrique comme dans la vue à plat (<span class="tt">LOT-EDITOR-02</span>, décision D1, <span class="tt">EX-EDIT-060</span>). </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1164"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1173"></a>
 Deux vues, un repère de cases</h2>
 <p>La vue <b>iso</b> dessine le lieu comme le jeu : <span class="tt"><a class="el" href="classcore_1_1IsoProjection.html" title="La projection isométrique d&#39;une grille de combat de columns × rows cases.">core::IsoProjection</a></span>, losanges de rapport 0,62, pièces debout qui montent au-dessus de leur case. La vue <b>à plat</b> dessine une case par unité monde, <span class="tt">(colonne, ligne)</span> = <span class="tt">(x, y)</span>. Le canevas ne connaît qu'une chose de la vue : ces fonctions ; tout le reste — gestes, outils, brouillon — parle en cases.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1165"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1174"></a>
 Un relief haut se désigne par son pied</h2>
 <p>On pointe le <b>losange</b> d'une case, jamais l'image qui la couvre : un clic sur le haut d'un mur désigne la case derrière le mur, celle dont le losange est sous le pointeur. C'est la règle qui rend le pointage prévisible sous un relief haut ; la transparence des reliefs (phase 3) permet de voir ce qu'on pointe.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1166"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1175"></a>
 La hauteur, réservée (D11)</h2>
 <p>Le format v4 réservera une <span class="tt">elevation</span> par case. Le pointage la prend donc en paramètre dès maintenant : une case élevée de <span class="tt">e</span> niveaux est dessinée <span class="tt">e × ELEVATION_STEP_DIAMONDS</span> hauteurs de losange plus haut, et se pointe là. Ni le jeu ni l'éditeur ne s'en servent : ils passent 0.</p>
 <p>Logique pure, sans Qt : testée par <span class="tt">UnitTests</span> (<span class="tt"><a class="el" href="test__canvas__picking_8cpp.html" title="Le pointage du canevas de l&#39;éditeur (LOT-EDITOR-02) : juste aux quatre coins de Martpart,...">Unit/Editor/test_canvas_picking.cpp</a></span>). </p>

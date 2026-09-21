@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-86.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré</b> (PR #24 ; le <a class="el" href="lot-87.html" title="LOT-87 — Charte v2 et intégration des maquettes">LOT-87</a> s'y adosse). Prérequis : <span class="tt">LOT-38</span>, <span class="tt">LOT-68</span>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md642"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md643"></a>
 Objectif</h1>
 <p><b>Rendre les interfaces du jeu modifiables par un artiste sans qu'il ouvre un fichier source.</b></p>
 <p>Pas « ranger le C++ », pas « QML est plus souple » : séparer la conception du code comme le fait l'industrie, où ce sont deux métiers qui ne se marchent pas dessus. Tout ce que ce lot livre se juge à ce critère, et à lui seul.</p>
 <p>Corollaire tenu partout : <b>aucune surcouche</b>. Une couche qui n'existe que pour compenser l'inadéquation d'une autre est le défaut qu'on corrige, pas la solution.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md643"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md644"></a>
 Ce qui existait</h1>
 <p><b>Côté code</b>, la couche Qt Widgets avait cessé d'être tenable :</p>
 <ul>
@@ -112,29 +112,29 @@ Ce qui existait</h1>
 </ul>
 <p><b>Côté conception</b>, il n'y avait pas de séparation mais une transcription. <span class="tt">.design-mockups/</span> portait des maquettes HTML/CSS dessinées à la main à 1280 × 720 ; la palette y était <b>écrite deux fois</b>, en CSS et en C++, tenue par un lint dont le commentaire disait : <em>« Rien ne les reliait. Une retouche de teinte d'un côté laissait l'autre en arrière sans qu'aucune Pull Request ne le signale. »</em> Les libellés étaient recopiés depuis <span class="tt">fr.lang</span> <b>mot pour mot</b>, à la main.</p>
 <p>Trois représentations du même écran, deux transcriptions manuelles, un garde-fou pour rattraper les erreurs. L'artiste dessinait, un développeur transcrivait.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md644"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md645"></a>
 La direction artistique, reprise des maquettes supprimées</h1>
 <p><span class="tt">.design-mockups/</span> disparaît avec ce lot : la maquette et l'écran deviennent le même fichier. Ses décisions sont reportées ici, seule trace qui subsiste.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md645"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md646"></a>
 Attention : le texte des maquettes était périmé</h2>
 <p>Les planches nommaient la direction retenue « <b>Ambre nuit</b> » et la décrivaient comme « votre bleu-nuit et votre ambre <span class="tt">#ffd133</span>, rendus en pixel art ». <b>Ce n'est plus l'identité du jeu.</b> Ce texte datait du <span class="tt">LOT-68</span> ; les <span class="tt">LOT-66</span> et <span class="tt">LOT-76</span> ont depuis remplacé la portée identité par le <b>parchemin de Tanares</b>, dont chaque teinte est <em>relevée</em> sur les feuilles de personnage de la source — parchemin vieilli <span class="tt">#d0c0a0</span>, encre sépia <span class="tt">#302000</span>, or des filets <span class="tt">#c0a060</span>, grenat des cabochons <span class="tt">#701010</span>. <span class="tt">#ffd133</span> n'est plus que l'accent du <b>châssis d'édition</b>.</p>
 <p>C'est une illustration de ce que ce lot corrige : la maquette avait cessé de décrire le jeu, et le seul contrôle qui les reliait comparait les couleurs — pas les mots. <span class="tt">Source/Ui/Theme/Tokens.qml</span> porte désormais ces valeurs, à un seul endroit, et il n'y a plus de second texte à laisser périmer.</p>
 <p><em>Le prix, assumé et toujours vrai</em> : le parchemin est chaleureux et lisible, mais peu mémorable. Personne ne reconnaîtra le jeu à sa capture d'écran.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md646"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md647"></a>
 Les deux directions écartées, et pourquoi</h2>
 <p>Gardées pour ne pas refaire le débat dans six mois.</p>
 <ul>
 <li><b>B — Cyan cathodique.</b> Noir profond, cyan froid, lignes de balayage. La plus caractérisée : on sait en une seconde qu'on est devant un jeu et non un logiciel. <em>Écartée</em> : les lignes de balayage fatiguent sur de longues sessions, et le froid va mal aux écrans de fin de niveau, qui doivent être accueillants.</li>
 <li><b>C — Néon arcade.</b> Magenta et cyan sur violet profond, la seule qui donne une couleur signature. <em>Écartée</em> : deux accents, c'est deux fois plus de règles à tenir — il faudrait décider une bonne fois lequel dit « action » et lequel dit « information ».</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md647"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md648"></a>
 Décisions d'écran à honorer</h2>
 <ul>
 <li><b>Menu principal</b> — pas de cadre : les entrées se posent sur une scène à trois plans. La lisibilité tient à un dégradé sombre sur le tiers gauche plutôt qu'à un voile plein, pour que le décor reste visible.</li>
 <li><b>Options</b> — compteur d'images par seconde en haut à droite, onglet Vidéo. Il remplace l'ancien sélecteur de limite d'images/s, grisé et jamais branché : afficher le chiffre est utile, imposer un plafond ne l'était pas. C'est un élément de HUD, il vit avec le HUD.</li>
 <li><b>Fin de niveau</b> — le bilan (temps, morts, sauts) est retenu. <b>À savoir avant de démarrer : aucune de ces trois valeurs n'est comptée aujourd'hui.</b> Il faut les accumuler pendant la partie et les faire remonter, et le temps doit être mesuré en <b>pas de simulation</b> plutôt qu'en horloge murale pour rester comparable d'une machine à l'autre. C'est du travail de session de jeu, pas d'habillage.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md648"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md649"></a>
 Exigences couvertes</h1>
 <p>Nouvelles, toutes vérifiées par <span class="tt">scripts/check_ui_layers.py</span> — c'est la condition pour qu'elles soient des règles et non des intentions :</p>
 <ul>
@@ -146,7 +146,7 @@ Exigences couvertes</h1>
 <li><a class="el" href="spec-interface-ihm.html#EX-IHM-105" title="EX-IHM-105"><span class="tt">EX-IHM-105</span></a> — aucun littéral d'apparence hors du thème.</li>
 </ul>
 <p>Réutilisées et <b>verrouillées</b> par le même contrôle, sans être redéclarées : <a class="el" href="spec-architecture.html#EX-ARCH-001" title="EX-ARCH-001"><span class="tt">EX-ARCH-001</span></a> et <a class="el" href="spec-exigences.html#EX-NFR-010" title="EX-NFR-010"><span class="tt">EX-NFR-010</span></a> — <span class="tt">Core</span> sans un seul en-tête Qt, vrai depuis le <span class="tt">LOT-01</span> et qu'un seul <span class="tt">QString</span> suffirait à rendre faux.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md649"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md650"></a>
 Où en est le lot</h1>
 <p><b>Fait et vérifié.</b></p>
 <ul>
@@ -168,7 +168,7 @@ Où en est le lot</h1>
 <li><span class="tt">MenuBackdropGeometry</span> et <span class="tt">KeyHintText</span> attendent leur portage en QML ; ils restent compilés et testés comme sources de ce portage.</li>
 <li><b>Les modules <span class="tt">aqtinstall</span> de la CI</b> n'ont pas été touchés : ajouter un nom de module inconnu ferait échouer le provisionnement pour tout le monde. Si Qt Quick manque à l'image, rien ne passe inaperçu — <span class="tt">find_package</span> nomme les modules absents et le contrôle d'exécutable échoue franchement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md650"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md651"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Test de l'artiste</b> — ouvrir <span class="tt">Source/Ui/JadgUi.qmlproject</span> dans Qt Design Studio, y déplacer un bloc d'un écran, changer une couleur dans <span class="tt">Tokens.qml</span>, remplacer un ornement par un autre SVG ; relancer le jeu avec <span class="tt">JADG_QML_FROM_SOURCE=1</span> et voir les trois changements, <b>sans qu'aucun compilateur C++ n'ait été lancé</b>.</li>

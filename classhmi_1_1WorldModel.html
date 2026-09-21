@@ -213,7 +213,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'exploration — <b>la partie en cours</b> : entrer sur une carte, marcher, parler, franchir. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1217"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1229"></a>
 Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 <p>Elle tient une <span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html" title="Le héros sur la carte courante : marche, interaction, portails.">core::ExplorationSession</a></span> et fait tourner son <b>pas fixe</b> ; chaque geste de l'écran devient une intention passée à la session, et ce que l'écran montre est relu d'elle. Elle ne décide rien du monde : ni la collision, ni la traversée, ni ce qu'un PNJ répond.</p>
 <p>Même partage que l'arène (<span class="tt"><a class="el" href="classhmi_1_1ArenaModel.html" title="La vue-modèle de l&#39;arène : composer deux camps, lancer, jouer, rejouer.">hmi::ArenaModel</a></span>) : la surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante : le jumeau d&#39;hmi::ArenaViewportItem pour le monde.">hmi::WorldViewportItem</a></span>) prend un <b>instantané en valeurs</b> (<span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html" title="Le lieu en valeurs : ce que la composition lit, et rien d&#39;autre.">hmi::WorldSceneSnapshot</a></span>) dans <span class="tt">synchronize()</span>, pendant que le fil graphique est bloqué. Le modèle ne lui passe jamais la session. </p>

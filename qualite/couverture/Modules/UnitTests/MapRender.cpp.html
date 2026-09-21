@@ -21,6 +21,7 @@
 #include &lt;array&gt;
 #include &lt;cmath&gt;
 #include &lt;functional&gt;
+#include &lt;memory&gt;
 #include &lt;utility&gt;
 
 #include "Core/Combat/IsoProjection.h"
@@ -103,6 +104,48 @@ void paintDiamonds(QPainter&amp; painter, const core::IsoProjection&amp; project
 <span style = "background-color:#dfd">        start = comma + 1;
     }
     return bands;
+}</span>
+
+QImage renderStamp(const Stamp&amp; stamp, const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#fdd">                   const std::string&amp; place, int maxSide) {
+    if (stamp.empty() || maxSide &lt;= 0) {
+        return {};</span>
+    }
+    // Une carte jetable a la taille du tampon : ses couches sont celles qu'il nomme, dans l'ordre
+    // ou il les porte, et le peintre du canevas fait le reste (regle 4 : un seul chemin de rendu).
+<span style = "background-color:#fdd">    core::LevelDraft draft = core::LevelDraft::empty("prefab", stamp.width, stamp.height);
+    bool namedPlace = false;
+    for (const StampLayer&amp; layer : stamp.layers) {
+        const std::optional&lt;std::size_t&gt; added = draft.addLayer(layer.kind, layer.name);
+        if (added &amp;&amp; !namedPlace &amp;&amp; layer.kind == core::LayerKind::Ground &amp;&amp; !place.empty()) {
+            draft.setLayerProperty(*added, std::string{SCENE_PLACE_PROPERTY}, place);
+            namedPlace = true;</span>
+        }
+<span style = "background-color:#fdd">    }
+    PlaceAssets assets = loadPlaceAssets(dataRoot, place);
+    if (assets.manifest) {
+        draft.setPieceManifest(std::make_shared&lt;const core::ScenePieceManifest&gt;(*assets.manifest));</span>
+    }
+<span style = "background-color:#fdd">    const LayerViewState libre;
+    if (!pasteStamp(draft, stamp, core::GridPosition{.column = 0, .row = 0}, libre)</span>
+             .refusal.empty()) {
+<span style = "background-color:#fdd">        return {};</span>
+    }
+    // La carte doit avoir une entree pour se valider ; elle ne se peint pas, la bande des
+    // figurines etant eteinte.
+<span style = "background-color:#fdd">    draft.setEntry(0, stamp.height - 1);
+    const core::LevelLoadResult level = draft.toLevel();
+    if (!level.ok()) {
+        return {};</span>
+    }
+<span style = "background-color:#fdd">    const QImage image =</span>
+        renderMap(*level.level, dataRoot,
+                  MapRenderOptions{
+                      .bands = IsoBandOpacity{}, .scale = 1.0, .background = QColor(0, 0, 0, 0)});
+<span style = "background-color:#fdd">    if (image.isNull()) {
+        return image;</span>
+    }
+<span style = "background-color:#fdd">    return image.scaled(maxSide, maxSide, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 }</span>
 
 QImage renderMap(const core::Level&amp; level, const std::filesystem::path&amp; dataRoot,

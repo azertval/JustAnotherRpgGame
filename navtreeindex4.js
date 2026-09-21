@@ -1,5 +1,8 @@
 var NAVTREEINDEX4 =
 {
+"classcore_1_1CombatState.html#a60abc195d90cdbaf8f966905338a5006":[40,0,1,33,15],
+"classcore_1_1CombatState.html#a60abc195d90cdbaf8f966905338a5006":[41,0,0,33,15],
+"classcore_1_1CombatState.html#a625a3a4dcaa114c7227d03674663a827":[40,0,1,33,4],
 "classcore_1_1CombatState.html#a625a3a4dcaa114c7227d03674663a827":[41,0,0,33,4],
 "classcore_1_1CombatState.html#a630e16d458263fa061eab50540dc39e7":[40,0,1,33,55],
 "classcore_1_1CombatState.html#a630e16d458263fa061eab50540dc39e7":[41,0,0,33,55],
@@ -246,8 +249,5 @@ var NAVTREEINDEX4 =
 "classcore_1_1EntityManager.html#a937aabf7ba0a10ba6c946a075ef55a8a":[40,0,1,92,3],
 "classcore_1_1EntityManager.html#a937aabf7ba0a10ba6c946a075ef55a8a":[41,0,0,92,3],
 "classcore_1_1EntityManager.html#ab174963453832efe0d7fe31442b066e0":[40,0,1,92,2],
-"classcore_1_1EntityManager.html#ab174963453832efe0d7fe31442b066e0":[41,0,0,92,2],
-"classcore_1_1EntityManager.html#ad9feb93ceee916b183731570b9d49b10":[40,0,1,92,5],
-"classcore_1_1EntityManager.html#ad9feb93ceee916b183731570b9d49b10":[41,0,0,92,5],
-"classcore_1_1ExplorationReach.html":[40,0,1,196]
+"classcore_1_1EntityManager.html#ab174963453832efe0d7fe31442b066e0":[41,0,0,92,2]
 };

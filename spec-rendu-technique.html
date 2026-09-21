@@ -96,14 +96,14 @@ $(function(){initNavTree('spec-rendu-technique.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré</b> pour le lieu qu'on parcourt, l'arène et le canevas de l'éditeur : scène composée sur QRhi (Direct3D 11), tri par profondeur, textures chargées depuis des fichiers, texte et traductions par Qt. Dépend de <a class="el" href="spec-vision.html#md_Specification_2vision" title="Specification/vision.md"><span class="tt">vision.md</span></a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md283"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md284"></a>
 1. Cible technique</h1>
 <ul>
 <li><a class="anchor" id="EX-REN-001"></a><b>EX-REN-001</b> — Le jeu doit fonctionner sous <b>Windows 10/11 (x64)</b>.</li>
 <li><a class="anchor" id="EX-REN-002"></a><b>EX-REN-002</b> — Le rendu doit s'appuyer sur <b>Direct3D 11</b>, atteint <b>au travers de QRhi</b> (<span class="tt">EX-REN-050</span>), qui retient ce backend par défaut sous Windows. Direct3D 12 est écarté : surdimensionné pour de la 2D.</li>
 <li><a class="anchor" id="EX-REN-003"></a><b>EX-REN-003</b> — La fenêtre du jeu doit être redimensionnable, avec titre et icône ; aucun écran n'en contraint la taille (<span class="tt">EX-IHM-080</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md284"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md285"></a>
 2. Rendu 2D</h1>
 <ul>
 <li><a class="anchor" id="EX-REN-010"></a><b>EX-REN-010</b> — Le rendu doit dessiner une carte à partir des <b>pièces de la planche de son lieu</b> (<span class="tt">EX-VIS-008</span>) : une pièce de sol par case, une pièce de relief là où la carte en pose une, la table d'apparence du lieu décidant laquelle.</li>
@@ -118,14 +118,14 @@ $(function(){initNavTree('spec-rendu-technique.html','',''); });
 <li><a class="anchor" id="EX-REN-043"></a><b>EX-REN-043</b> — Le rendu doit pouvoir dessiner, en une seule image, des primitives provenant de <b>plusieurs textures distinctes</b>, selon l'ordonnancement de calques unique de <span class="tt">EX-REN-014</span>.</li>
 <li><a class="anchor" id="EX-REN-007"></a><b>EX-REN-007</b> — Un asset graphique absent ou illisible n'interrompt jamais le rendu : il est remplacé par un <b>repli visible</b> (damier, ou marqueur généré pour une figurine) et journalisé une fois avec le <b>nom du fichier</b> (<span class="tt">EX-NFR-040</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md285"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md286"></a>
 3. Boucle &amp; temps</h1>
 <ul>
 <li><a class="anchor" id="EX-REN-020"></a><b>EX-REN-020</b> — Le jeu doit tourner à <b>60 images/seconde</b> cible.</li>
 <li><a class="anchor" id="EX-REN-021"></a><b>EX-REN-021</b> — La logique doit être mise à jour à <b>pas de temps fixe</b> (simulation déterministe), le rendu étant découplé.</li>
 <li><a class="anchor" id="EX-REN-022"></a><b>EX-REN-022</b> — La présentation doit être synchronisée pour éviter le <em>tearing</em> : elle appartient au <b>compositeur de Qt</b> (<span class="tt">EX-REN-050</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md286"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md287"></a>
 4. Interface (HMI)</h1>
 <ul>
 <li><a class="anchor" id="EX-REN-030"></a><b>EX-REN-030</b> — Le jeu doit afficher un <b>menu principal</b> (nouvelle partie, options, crédits, quitter).</li>
@@ -133,13 +133,13 @@ $(function(){initNavTree('spec-rendu-technique.html','',''); });
 <li><a class="anchor" id="EX-REN-032"></a><b>EX-REN-032</b> — Le jeu doit afficher son <b>texte</b> avec des polices <b>vectorielles embarquées</b> — un titrage à empattements et un corps de lecture, conformes à la charte (<span class="tt">LOT-66</span>, <span class="tt">LOT-87</span>). Le texte est rendu par Qt.</li>
 <li><a class="anchor" id="EX-REN-033"></a><b>EX-REN-033</b> — Tout <b>texte affiché</b> doit passer par un <b>catalogue de traduction</b> : le code référence des <b>clés</b> stables, résolues vers une chaîne selon la <b>langue active</b>, chargée depuis un <b>fichier par langue</b> (français par défaut). Aucun libellé d'interface n'est codé en dur, afin de rendre l'ajout d'une langue trivial. Une clé ou un fichier de langue manquant est traité comme une <b>erreur récupérable</b> (repli déterministe), cf. <span class="tt">EX-NFR-040</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md287"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md288"></a>
 5. Audio</h1>
 <ul>
 <li><a class="anchor" id="EX-REN-047"></a><b>EX-REN-047</b> — La lecture audio vit <b>entièrement dans <span class="tt">HMI</span></b> (<span class="tt"><a class="el" href="classhmi_1_1AudioEngine.html" title="Lecture d&#39;échantillons courts à faible latence, avec volume global et repli muet.">hmi::AudioEngine</a></span>, Qt Multimedia) : la simulation reste pure, déterministe et testable <b>sans périphérique audio</b> (<span class="tt">EX-NFR-010</span>), et le son n'a <b>aucun effet</b> sur elle (<span class="tt">EX-ARCH-012</span>). Qt Multimedia est provisionné selon <span class="tt">EX-BUILD-010</span>.</li>
 <li><a class="anchor" id="EX-REN-048"></a><b>EX-REN-048</b> — Le <b>volume</b> est réglable depuis les options, prend effet immédiatement et est <b>persisté</b>. L'absence de périphérique audio est une <b>erreur récupérable</b> (<span class="tt">EX-NFR-040</span>) : le jeu reste pleinement jouable en silence.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md288"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md289"></a>
 6. Surface de rendu</h1>
 <ul>
 <li><a class="anchor" id="EX-REN-050"></a><b>EX-REN-050</b> — Le rendu doit être présenté dans un <b>élément composé avec l'interface</b> — <span class="tt">QQuickRhiItem</span> pour le jeu, une <span class="tt">QGraphicsView</span> peinte par <span class="tt">QPainter</span> pour l'éditeur depuis le <span class="tt">LOT-EDITOR-02</span> — et jamais dans une <b>fenêtre native</b> embarquée : un élément frère d'une fenêtre native ne se dessine pas de façon fiable par-dessus elle.</li>
@@ -163,7 +163,7 @@ Exigences retirées</h1>
 <li><a class="anchor" id="EX-REN-046"></a><b>EX-REN-046</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — bascule de rendu Physique/Texture.</li>
 <li><a class="anchor" id="EX-REN-049"></a><b>EX-REN-049</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — composition des plans picturaux.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md289"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md290"></a>
 Traçabilité</h1>
 <p>Tout ce qui touche fenêtre, rendu, entrées et interface relève de <span class="tt">Source/HMI</span> ; la logique de simulation reste dans <span class="tt">Source/Core</span>. Contraintes de performance : <a class="el" href="spec-exigences.html#md_Specification_2exigences-non-fonctionnelles" title="Specification/exigences-non-fonctionnelles.md"><span class="tt">exigences-non-fonctionnelles.md</span></a>. </p>
 </div></div><!-- contents -->

@@ -149,6 +149,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a092b1ee865b290125749d74f20757baf" id="r_a092b1ee865b290125749d74f20757baf"><td class="memItemLeft">const <a class="el" href="structhmi_1_1CanvasBrush.html">CanvasBrush</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a092b1ee865b290125749d74f20757baf">brush</a> () const noexcept</td></tr>
 <tr class="memitem:adfec046652f3ec5702b1d6d30947493e" id="r_adfec046652f3ec5702b1d6d30947493e"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1PieceCatalogGroup.html">PieceCatalogGroup</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adfec046652f3ec5702b1d6d30947493e">pieceCatalog</a> () const</td></tr>
 <tr class="memitem:a187bce4cdab8c53ae8d2f03690d3d18f" id="r_a187bce4cdab8c53ae8d2f03690d3d18f"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a187bce4cdab8c53ae8d2f03690d3d18f">placeDirectory</a> () const</td></tr>
+<tr class="memitem:af6475c5e915c27d80fb0e98e54909254" id="r_af6475c5e915c27d80fb0e98e54909254"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af6475c5e915c27d80fb0e98e54909254">place</a> () const noexcept</td></tr>
 <tr class="memitem:a9483dfdcea629d7f7f6879cc75b75cb1" id="r_a9483dfdcea629d7f7f6879cc75b75cb1"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9483dfdcea629d7f7f6879cc75b75cb1">hoveredCellForced</a> () const</td></tr>
 <tr class="memitem:a01f8f3ad0730421bcde6b0bf5736db59" id="r_a01f8f3ad0730421bcde6b0bf5736db59"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a01f8f3ad0730421bcde6b0bf5736db59">setTool</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool)</td></tr>
 <tr class="memitem:a29ff52fd39a14e9ccfb888bb5e61461b" id="r_a29ff52fd39a14e9ccfb888bb5e61461b"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorKeyBindings.html">hmi::EditorKeyBindings</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a29ff52fd39a14e9ccfb888bb5e61461b">editorBindings</a> () noexcept</td></tr>
@@ -160,7 +161,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ac74e119e93cc45dc4bf95ffc87f20873"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le brouillon porte des modifications : sa révision n'est plus celle de la dernière ouverture ou du dernier enregistrement (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#ae1dc7f0a73b888edbcc04e114116fefe" title="Identifie l&#39;état du contenu : change à chaque mutation, et revient à sa valeur d&#39;avant quand undo() d...">core::LevelDraft::revision</a></span>).  <br /></td></tr>
 <tr class="memitem:a7a36fd2f80e18da0782e75694b2c76cd" id="r_a7a36fd2f80e18da0782e75694b2c76cd"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7a36fd2f80e18da0782e75694b2c76cd">replacePieces</a> (const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a> &amp;renaming)</td></tr>
 <tr class="memdesc:a7a36fd2f80e18da0782e75694b2c76cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme des pièces de la carte ouverte, en un pas d'annulation (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#afe371b92fcdac56ae41550ee9eef6c45" title="Renomme, sur toutes les couches visuelles, chaque pièce que renaming nomme (LOT-EDITOR-14,...">core::LevelDraft::replacePieces</a></span>, <span class="tt">LOT-EDITOR-14</span>).  <br /></td></tr>
-<tr class="memitem:a0caaf177a260fdb146d9016ded603d94" id="r_a0caaf177a260fdb146d9016ded603d94"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0caaf177a260fdb146d9016ded603d94">changeScene</a> (const std::string &amp;place, const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a> &amp;table)</td></tr>
+<tr class="memitem:a0caaf177a260fdb146d9016ded603d94" id="r_a0caaf177a260fdb146d9016ded603d94"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0caaf177a260fdb146d9016ded603d94">changeScene</a> (const std::string &amp;<a class="el" href="#af6475c5e915c27d80fb0e98e54909254">place</a>, const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a> &amp;table)</td></tr>
 <tr class="memdesc:a0caaf177a260fdb146d9016ded603d94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait passer la carte ouverte à la planche du lieu <code class="param">place</code>, pièces traduites par <code class="param">table</code>, en un pas d'annulation (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#aacc7771e216fb566455fff8e416eef9c" title="Fait passer la carte à la planche du lieu place (LOT-EDITOR-14), en un pas : la propriété scene des c...">core::LevelDraft::changeScene</a></span>, <span class="tt">LOT-EDITOR-14</span>).  <br /></td></tr>
 <tr class="memitem:aeb239786658a9aa66cfa6770f061361a" id="r_aeb239786658a9aa66cfa6770f061361a"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aeb239786658a9aa66cfa6770f061361a">mapId</a> () const noexcept</td></tr>
 <tr class="memitem:afcb850859f73d7a4f2a70ad8a7ff5830" id="r_afcb850859f73d7a4f2a70ad8a7ff5830"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#afcb850859f73d7a4f2a70ad8a7ff5830">levelPath</a> () const</td></tr>
@@ -187,6 +188,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0915fcbdf6724cfe52b5d5fab170b623" id="r_a0915fcbdf6724cfe52b5d5fab170b623"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0915fcbdf6724cfe52b5d5fab170b623">paste</a> () override</td></tr>
 <tr class="memitem:a2a55ebbd168bcb95a73b01e001110975" id="r_a2a55ebbd168bcb95a73b01e001110975"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2a55ebbd168bcb95a73b01e001110975">canCopy</a> () const override</td></tr>
 <tr class="memitem:ab2387d3e3317222e10c9e4efff60629f" id="r_ab2387d3e3317222e10c9e4efff60629f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab2387d3e3317222e10c9e4efff60629f">canPaste</a> () const override</td></tr>
+<tr class="memitem:a9bf2b2c4ee19ea8c532c077926cb9f35" id="r_a9bf2b2c4ee19ea8c532c077926cb9f35"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9bf2b2c4ee19ea8c532c077926cb9f35">pasteMirroredClipboard</a> ()</td></tr>
+<tr class="memdesc:a9bf2b2c4ee19ea8c532c077926cb9f35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Colle le tampon <b>reflété</b> : la jumelle de chaque pièce, le rectangle transposé.  <br /></td></tr>
+<tr class="memitem:aa02f61647f6eb5ab789c8b31f68f6a92" id="r_aa02f61647f6eb5ab789c8b31f68f6a92"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa02f61647f6eb5ab789c8b31f68f6a92">setClipboardStamp</a> (<a class="el" href="structhmi_1_1Stamp.html">Stamp</a> stamp)</td></tr>
+<tr class="memdesc:aa02f61647f6eb5ab789c8b31f68f6a92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arme <code class="param">stamp</code> comme tampon à poser : un préfabriqué choisi dans la bibliothèque.  <br /></td></tr>
+<tr class="memitem:aad433dc2ebd1f418c7508573e80f9918" id="r_aad433dc2ebd1f418c7508573e80f9918"><td class="memItemLeft">const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aad433dc2ebd1f418c7508573e80f9918">clipboardStamp</a> () const noexcept</td></tr>
+<tr class="memitem:aabab5d694fca223519757188c43207dc" id="r_aabab5d694fca223519757188c43207dc"><td class="memItemLeft"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a>&#160;</td><td class="memItemRight"><a class="el" href="#aabab5d694fca223519757188c43207dc">selectionStamp</a> () const</td></tr>
 <tr class="memitem:a791e3976ceee78809bf740357eec6629" id="r_a791e3976ceee78809bf740357eec6629"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a791e3976ceee78809bf740357eec6629">toggleGrid</a> () noexcept</td></tr>
 <tr class="memitem:a35b41810acc18a8e660a73f99f38c31c" id="r_a35b41810acc18a8e660a73f99f38c31c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a35b41810acc18a8e660a73f99f38c31c">resetCamera</a> ()</td></tr>
 <tr class="memdesc:a35b41810acc18a8e660a73f99f38c31c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recadre la vue sur toute la carte.  <br /></td></tr>
@@ -283,7 +290,7 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:afa1b29b54cd3a06ed1b7c68b03d6394c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le quadrillage en losanges, du premier au dernier bord visible.  <br /></td></tr>
 <tr class="memitem:ac330bacd2588604a86286261702ab3e1" id="r_ac330bacd2588604a86286261702ab3e1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac330bacd2588604a86286261702ab3e1">paintEncounterTerrain</a> (QPainter &amp;painter)</td></tr>
 <tr class="memdesc:ac330bacd2588604a86286261702ab3e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le terrain de la rencontre sélectionnée : sa zone, puis la case de chaque combattant.  <br /></td></tr>
-<tr class="memitem:a801f840b7cb02a01a69b85c6951a1fc6" id="r_a801f840b7cb02a01a69b85c6951a1fc6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a801f840b7cb02a01a69b85c6951a1fc6">loadPlaceAssets</a> (const std::string &amp;place)</td></tr>
+<tr class="memitem:a801f840b7cb02a01a69b85c6951a1fc6" id="r_a801f840b7cb02a01a69b85c6951a1fc6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a801f840b7cb02a01a69b85c6951a1fc6">loadPlaceAssets</a> (const std::string &amp;<a class="el" href="#af6475c5e915c27d80fb0e98e54909254">place</a>)</td></tr>
 <tr class="memdesc:a801f840b7cb02a01a69b85c6951a1fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit la table d'apparence et le manifeste du lieu <code class="param">place</code>.  <br /></td></tr>
 <tr class="memitem:a5daf16badf13822378d78e2d1ef88666" id="r_a5daf16badf13822378d78e2d1ef88666"><td class="memItemLeft">QRectF&#160;</td><td class="memItemRight"><a class="el" href="#a5daf16badf13822378d78e2d1ef88666">contentBounds</a> () const</td></tr>
 <tr class="memitem:a61bc22ea34a792a6c63125541ed5da78" id="r_a61bc22ea34a792a6c63125541ed5da78"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a61bc22ea34a792a6c63125541ed5da78">refreshBounds</a> ()</td></tr>
@@ -319,7 +326,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a15def7390e4a5adbafc5bc2d3e447838"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le masque des cases forcées, en losanges (iso) ou en carrés (à plat).  <br /></td></tr>
 <tr class="memitem:ab148685747fbd44def06165878ed0fa6" id="r_ab148685747fbd44def06165878ed0fa6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab148685747fbd44def06165878ed0fa6">applyRectangle</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> a, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> b)</td></tr>
 <tr class="memitem:a357ac41215eab75a5351c0a1fca47a5f" id="r_a357ac41215eab75a5351c0a1fca47a5f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a357ac41215eab75a5351c0a1fca47a5f">copySelection</a> ()</td></tr>
-<tr class="memitem:aa8fa8bbfaa2ac85ce578b2f8ae8dff21" id="r_aa8fa8bbfaa2ac85ce578b2f8ae8dff21"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa8fa8bbfaa2ac85ce578b2f8ae8dff21">pasteClipboard</a> ()</td></tr>
+<tr class="memitem:a1b11208c1efbb72cd5ddffe5417f460d" id="r_a1b11208c1efbb72cd5ddffe5417f460d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1b11208c1efbb72cd5ddffe5417f460d">pasteClipboard</a> (bool mirrored)</td></tr>
+<tr class="memdesc:a1b11208c1efbb72cd5ddffe5417f460d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose le tampon au-dessus de la case survolée ; <code class="param">mirrored</code> le reflète d'abord.  <br /></td></tr>
 <tr class="memitem:a6cb4886cb0ecbcd1fb5953dfcf36c106" id="r_a6cb4886cb0ecbcd1fb5953dfcf36c106"><td class="memItemLeft">std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6cb4886cb0ecbcd1fb5953dfcf36c106">highlight</a> () const</td></tr>
 <tr class="memitem:a166574de2611d0acd82db669d350f3f8" id="r_a166574de2611d0acd82db669d350f3f8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a166574de2611d0acd82db669d350f3f8">markDraftMutated</a> ()</td></tr>
 <tr class="memdesc:a166574de2611d0acd82db669d350f3f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalide le rendu du brouillon et notifie les panneaux (<span class="tt"><a class="el" href="#a7c355b35edfde092e790577fb6b136cc">draftChanged</a></span>) — après toute mutation de <span class="tt"><a class="el" href="#a4b7a7550dd2cfc2863e954b39600e26a">_draft</a></span>.  <br /></td></tr>
@@ -380,7 +388,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a0b0cc9a60b7798d1327c81a4037cc5aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case d'un constat, cernée (<span class="tt"><a class="el" href="#a9ead4403c48f80fe66824bba17f646be" title="Centre la vue sur cell et la cerne, jusqu&#39;à la carte suivante ou au prochain appel : la case d&#39;un con...">revealCell</a></span>).  <br /></td></tr>
 <tr class="memitem:acc37bbc95209ab6c94cbca516c15afea" id="r_acc37bbc95209ab6c94cbca516c15afea"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#acc37bbc95209ab6c94cbca516c15afea">_lastEmittedZoom</a> = 0.0F</td></tr>
 <tr class="memitem:a9b83a7e57f64afc19e8473970e0d886d" id="r_a9b83a7e57f64afc19e8473970e0d886d"><td class="memItemLeft">std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9b83a7e57f64afc19e8473970e0d886d">_selection</a></td></tr>
-<tr class="memitem:acfeab99e642c5139f06a24ef07c4c1f2" id="r_acfeab99e642c5139f06a24ef07c4c1f2"><td class="memItemLeft">std::vector&lt; std::vector&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acfeab99e642c5139f06a24ef07c4c1f2">_clipboard</a></td></tr>
+<tr class="memitem:a88c142fa6db82c153b3b4884b2ce0bef" id="r_a88c142fa6db82c153b3b4884b2ce0bef"><td class="memItemLeft"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a>&#160;</td><td class="memItemRight"><a class="el" href="#a88c142fa6db82c153b3b4884b2ce0bef">_clipboard</a></td></tr>
+<tr class="memdesc:a88c142fa6db82c153b3b4884b2ce0bef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le tampon : ce que <span class="tt">Ctrl+C</span> a découpé, ou le préfabriqué armé (<span class="tt">LOT-EDITOR-08</span>).  <br /></td></tr>
 <tr class="memitem:a0dd1ad3bdcfd5f40010d1b96a516b900" id="r_a0dd1ad3bdcfd5f40010d1b96a516b900"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a0dd1ad3bdcfd5f40010d1b96a516b900">_mapId</a></td></tr>
 <tr class="memdesc:a0dd1ad3bdcfd5f40010d1b96a516b900"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifiant de carte du brouillon (<span class="tt">capital/martpart</span>) : son chemin sous <span class="tt">Levels/</span>, sans extension ; son nom tant qu'il n'a jamais été ouvert ni enregistré.  <br /></td></tr>
 <tr class="memitem:ae21d3ddad2e9c89cf92130cd7a71ecb1" id="r_ae21d3ddad2e9c89cf92130cd7a71ecb1"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#ae21d3ddad2e9c89cf92130cd7a71ecb1">_savedRevision</a> = 0</td></tr>
@@ -1021,6 +1030,32 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aad433dc2ebd1f418c7508573e80f9918" name="aad433dc2ebd1f418c7508573e80f9918"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad433dc2ebd1f418c7508573e80f9918">&#9670;&#160;</a></span>clipboardStamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp; hmi::EditorViewport::clipboardStamp </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le tampon courant : ce que <span class="tt">Ctrl+C</span> a pris, ou le préfabriqué armé. </dd></dl>
 
 </div>
 </div>
@@ -2027,7 +2062,7 @@ Private Attributes</h2></td></tr>
 <p>Relit la table d'apparence et le manifeste du lieu <code class="param">place</code>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">place</td><td>Le lieu que la carte nomme ; vide : rien à lire. </td></tr>
+    <tr><td class="paramname"><a class="el" href="#af6475c5e915c27d80fb0e98e54909254">place</a></td><td>Le lieu que la carte nomme ; vide : rien à lire. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2882,8 +2917,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa8fa8bbfaa2ac85ce578b2f8ae8dff21" name="aa8fa8bbfaa2ac85ce578b2f8ae8dff21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8fa8bbfaa2ac85ce578b2f8ae8dff21">&#9670;&#160;</a></span>pasteClipboard()</h2>
+<a id="a1b11208c1efbb72cd5ddffe5417f460d" name="a1b11208c1efbb72cd5ddffe5417f460d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b11208c1efbb72cd5ddffe5417f460d">&#9670;&#160;</a></span>pasteClipboard()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2894,7 +2929,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void hmi::EditorViewport::pasteClipboard </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>mirrored</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -2904,6 +2939,35 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Pose le tampon au-dessus de la case survolée ; <code class="param">mirrored</code> le reflète d'abord. </p>
+
+</div>
+</div>
+<a id="a9bf2b2c4ee19ea8c532c077926cb9f35" name="a9bf2b2c4ee19ea8c532c077926cb9f35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bf2b2c4ee19ea8c532c077926cb9f35">&#9670;&#160;</a></span>pasteMirroredClipboard()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EditorViewport::pasteMirroredClipboard </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Colle le tampon <b>reflété</b> : la jumelle de chaque pièce, le rectangle transposé. </p>
 
 </div>
 </div>
@@ -2983,6 +3047,32 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le catalogue des pièces du lieu de la carte ouverte (<span class="tt"><a class="el" href="namespacehmi.html#af13dc656bfde25b7f2e991d124ec836e" title="Le catalogue d&#39;un lieu.">hmi::pieceCatalog</a></span>). </dd></dl>
+
+</div>
+</div>
+<a id="af6475c5e915c27d80fb0e98e54909254" name="af6475c5e915c27d80fb0e98e54909254"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6475c5e915c27d80fb0e98e54909254">&#9670;&#160;</a></span>place()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; hmi::EditorViewport::place </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le lieu de la carte ouverte (<span class="tt">scene</span>), vide pour une carte sans lieu. </dd></dl>
 
 </div>
 </div>
@@ -3575,6 +3665,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aabab5d694fca223519757188c43207dc" name="aabab5d694fca223519757188c43207dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabab5d694fca223519757188c43207dc">&#9670;&#160;</a></span>selectionStamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a> hmi::EditorViewport::selectionStamp </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le tampon de la sélection courante, vide s'il n'y a pas de sélection. </dd></dl>
+
+</div>
+</div>
 <a id="a4f6293155c8b824917abf5e99ea435d5" name="a4f6293155c8b824917abf5e99ea435d5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4f6293155c8b824917abf5e99ea435d5">&#9670;&#160;</a></span>setActiveLayer()</h2>
 
@@ -3657,6 +3773,25 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Bascule entre la vue iso (le lieu) et la vue à plat (les types), cadrage recalculé. </p>
+
+</div>
+</div>
+<a id="aa02f61647f6eb5ab789c8b31f68f6a92" name="aa02f61647f6eb5ab789c8b31f68f6a92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa02f61647f6eb5ab789c8b31f68f6a92">&#9670;&#160;</a></span>setClipboardStamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EditorViewport::setClipboardStamp </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a></td>          <td class="paramname"><span class="paramname"><em>stamp</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Arme <code class="param">stamp</code> comme tampon à poser : un préfabriqué choisi dans la bibliothèque. </p>
 
 </div>
 </div>
@@ -4532,8 +4667,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="acfeab99e642c5139f06a24ef07c4c1f2" name="acfeab99e642c5139f06a24ef07c4c1f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfeab99e642c5139f06a24ef07c4c1f2">&#9670;&#160;</a></span>_clipboard</h2>
+<a id="a88c142fa6db82c153b3b4884b2ce0bef" name="a88c142fa6db82c153b3b4884b2ce0bef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88c142fa6db82c153b3b4884b2ce0bef">&#9670;&#160;</a></span>_clipboard</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4542,7 +4677,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::vector&lt;<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&gt; &gt; hmi::EditorViewport::_clipboard</td>
+          <td class="memname"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a> hmi::EditorViewport::_clipboard</td>
         </tr>
       </table>
   </td>
@@ -4551,6 +4686,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Le tampon : ce que <span class="tt">Ctrl+C</span> a découpé, ou le préfabriqué armé (<span class="tt">LOT-EDITOR-08</span>). </p>
 
 </div>
 </div>

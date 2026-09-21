@@ -97,15 +97,15 @@ $(function(){initNavTree('guide-usage-editeur.html','',''); });
 <p>Guide d'usage de l'auteur, écrit au <a class="el" href="lot-editor-06.html" title="LOT-EDITOR-06 — Les cartes quittent leurs scripts">LOT-EDITOR-06</a>. Depuis ce lot, <b>l'éditeur fait foi</b> pour les cartes faites à la main (décision D4) : aucun script ne les écrit plus. Le fonctionnement interne de l'outil est dans <a class="el" href="guide-editeur.html" title="Éditeur de niveaux">Éditeur de niveaux</a> ; ses commandes, dans le README du module, <span class="tt">Source/Editor/README.md</span>. </p>
 </blockquote>
 <p>Une carte se fait en sept temps : la créer avec son lieu, poser le sol, dresser le relief, placer l'entrée, poser les entités, l'essayer, l'enregistrer et la contrôler. Exemple suivi : une petite échoppe de Martpart, 12 × 8 cases.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1020"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1022"></a>
 0. Ouvrir l'éditeur sur le dépôt</h1>
 <p>Construire (<span class="tt">scripts/build.ps1</span>), puis lancer <span class="tt">build\ninja\bin\LevelEditor.exe</span>. L'éditeur ouvre les données de <b>l'arbre des sources qui l'a construit</b> — <span class="tt">Source/Elements</span> —, et non la copie que la construction refait à côté de l'exécutable : ce qu'on enregistre arrive dans le dépôt, et la construction suivante ne l'écrase pas. Le titre de la fenêtre dit quel dossier est ouvert ; <span class="tt">--data &lt;dossier&gt;</span> en ouvre un autre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1021"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1023"></a>
 1. Créer la carte, avec son lieu</h1>
-<p>Panneau <b>Maps</b>, onglet <em>List</em>, bouton <b>New</b> : un nom (<span class="tt">echoppe</span>), une taille en cases, et un <b>lieu</b> — la planche dont la carte prendra ses pièces (<span class="tt">martpart</span>, <span class="tt">coliseum</span>…). La carte naît comme les cartes livrées : une couche de sol <span class="tt">sol</span> qui nomme le lieu, une couche de décor <span class="tt">relief</span>, et une collision déduite où tout, encore vide, arrête la vue — sauf l'entrée, au coin bas gauche, posée sur une case de terre. Double-cliquer la carte dans la liste l'ouvre.</p>
+<p>Panneau <b>Maps</b>, onglet <em>List</em>, bouton <b>New</b> : un nom (<span class="tt">echoppe</span>), une taille en cases, un <b>lieu</b> — la planche dont la carte prendra ses pièces (<span class="tt">martpart</span>, <span class="tt">coliseum</span>…) — et un <b>modèle</b>. Sans modèle, la carte naît comme les cartes livrées : une couche de sol <span class="tt">sol</span> qui nomme le lieu, une couche de décor <span class="tt">relief</span>, et une collision déduite où tout, encore vide, arrête la vue — sauf l'entrée, au coin bas gauche, posée sur une case de terre. Avec un modèle (<span class="tt">LOT-EDITOR-08</span>) — <b>Interior</b>, <b>Street</b>, <b>Arena</b> —, elle naît avec sa taille, ses murs et son entrée déjà posés ; choisir le modèle reprend sa taille, qu'on peut encore changer, et ce qu'il ne couvre pas reste plein. Double-cliquer la carte dans la liste l'ouvre.</p>
 <p>Sans lieu (« none »), on peint des types en couleurs sur une grille unique : c'est le repli des cartes générées, pas la façon de faire une carte du jeu.</p>
 <p>Une carte d'un quartier va dans un sous-dossier (<span class="tt">capital/…</span>) : la créer, puis la renommer <span class="tt">capital/echoppe</span> (<b>Rename</b>, ci-dessous) ; le fichier change de dossier.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1022"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1024"></a>
 2. Poser le sol</h1>
 <p>Panneau <b>Palette</b>, onglet <em>Pieces</em> : la planche du lieu, groupée par classe, avec une recherche. Une pièce de sol va d'elle-même sur la couche <span class="tt">sol</span>. Les outils, à leur touche :</p>
 <table class="markdownTable">
@@ -125,31 +125,41 @@ $(function(){initNavTree('guide-usage-editeur.html','',''); });
 <td class="markdownTableBodyNone"><span class="tt">I</span>, ou <span class="tt">Alt</span> + clic  </td><td class="markdownTableBodyNone">pipette  </td><td class="markdownTableBodyNone">reprendre la pièce d'une case  </td></tr>
 </table>
 <p>Un geste, du clic au relâchement, se défait d'un <span class="tt">Ctrl+Z</span>. La collision suit chaque geste : une case qui reçoit un sol devient franchissable.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1023"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1025"></a>
 3. Dresser le relief</h1>
 <p>Toujours dans <em>Pieces</em> : murs, fenêtres, portes, angles, lanternes, étals. Une pièce debout va sur <span class="tt">relief</span>. Une pièce <b>large</b> (une devanture, un grand étal) occupe deux cases, depuis la case où on la pose ; poser une pièce sur une emprise déjà prise retire celle qui y était. Le <b>miroir</b> (<span class="tt">M</span>, par la case survolée) pose la jumelle de chaque pièce de l'autre côté d'un axe : une façade symétrique se dresse d'un seul trait.</p>
 <p><b>F9</b> bascule entre l'isométrie (ce que le jeu montrera) et la vue à plat, où l'on lit les types et la collision ; <b>F8</b> rend le relief transparent pour voir le sol dessous.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1024"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1026"></a>
 4. Placer l'entrée</h1>
 <p>Panneau <b>Layers</b> : choisir la couche <em>Collision</em>, puis dans <em>Palette</em>, onglet <em>Types</em>, le marqueur <b>Entry</b>, et cliquer la case où le héros apparaît. Une carte n'a qu'une entrée : la reposer la déplace. Peindre la collision ailleurs <b>force</b> la case ; la gomme la rend à la déduction. On ne force qu'en dernier recours : une case forcée ne suit plus les pièces.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1025"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1027"></a>
 5. Poser les entités</h1>
 <p>Outil <b>Entité</b> (<span class="tt">O</span>), puis une famille dans la liste <em>Place</em> du panneau <b>Entities</b> : un PNJ (son dialogue, sa figurine), un coffre, un point d'arrivée (<span class="tt">spawnPoint</span>, nommé), un portail (<span class="tt">portal</span> : la carte visée et le point d'arrivée de l'autre côté), une zone de combat qu'on tire d'un coin à l'autre. L'inspecteur propose les valeurs que les catalogues connaissent ; ses avertissements disent ce qui manque, et une zone de combat donne son verdict tactique pendant qu'on la tire. Une entité reçoit un identifiant (<span class="tt">e12</span>) qu'elle garde : les quêtes la citeront par <span class="tt">carte#e12</span>.</p>
 <p>Pour relier deux cartes, poser les deux paires : un portail et un point d'arrivée de chaque côté.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1026"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1028"></a>
 6. Essayer</h1>
 <p><b>P</b> lance l'essai depuis l'entrée, <b>Shift+P</b> depuis la case survolée : on marche, on passe les portails. Pour le vrai jeu, dialogues et combats compris, il faudra le <span class="tt">LOT-EDITOR-10</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1027"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1029"></a>
 7. Enregistrer, contrôler, publier</h1>
 <p><span class="tt">Ctrl+S</span> enregistre, après validation : une carte que le jeu refuserait ne s'écrit pas. Puis, dans un terminal à la racine du dépôt :</p>
 <div class="fragment"><div class="line">build\ninja\bin\LevelEditor.exe --check</div>
 <div class="line">build\ninja\bin\LevelEditor.exe --render echoppe --scale 0.5 --output echoppe.png</div>
 </div><!-- fragment --><p><span class="tt">--check</span> contrôle <b>toutes</b> les cartes — format, pièces, collision, identifiants, puis ce qui se joue : références des entités, rencontres, cases utiles hors d'atteinte, portails sans retour, clés de traduction — et c'est ce que la CI exige. Dans la fenêtre, le même contrôle remplit le panneau <b>Problems</b>, en bas : au lancement, à chaque enregistrement, et par <em>Map › Check all maps</em>. Un double-clic sur un constat ouvre sa carte, sélectionne l'entité et cerne la case en magenta. Le panneau lit les cartes <b>enregistrées</b> ; les avertissements en direct de la carte ouverte restent dans le panneau <em>Entities</em>.</p>
 <p>Le nom d'une carte n'est pas du texte mais une clé, <span class="tt">map.&lt;identifiant&gt;.name</span> : « New » l'écrit dans <span class="tt">Source/Elements/Localization/fr.lang</span> et <span class="tt">en.lang</span> avec le nom tapé ; il reste à y mettre le vrai nom, dans chaque langue. <span class="tt">--render</span> rend la carte en PNG, comme elle rendra dans la PR : la CI publie le rendu de chaque carte qu'une PR change (artefact <span class="tt">map-renders</span>). La carte se relit alors en diff : le fichier est canonique, une retouche ne change que ses cases.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1028"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1030"></a>
 Retoucher en masse, sans la souris</h1>
 <p>Ce que la main fait se rejoue par fichier : <span class="tt">LevelEditor --apply gestes.json</span> appelle les mêmes fonctions que les outils, dans le même ordre, et ne touche pas au fichier si un geste est refusé. C'est la façon de faire une retouche relue en diff, ou de répéter un geste sur plusieurs cartes. Les trois retouches du <span class="tt">LOT-EDITOR-06</span> en sont des exemples (<span class="tt">Documentation/Editeur/LOT-EDITOR-06-fin-des-scripts/retouches/</span>), le format est décrit dans <span class="tt"><a class="el" href="GestureScript_8h.html" title="L&#39;éditeur sans fenêtre : rejouer une liste de gestes sur une carte (LevelEditor --apply gestes....">Source/Editor/Logic/GestureScript.h</a></span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1029"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1031"></a>
+Répéter ce qu'on a composé : tampons et préfabriqués</h1>
+<p>Une échoppe, un étal, une cour se composent une fois (<span class="tt">LOT-EDITOR-08</span>) :</p>
+<ul>
+<li>Outil <b>Sélection</b> (<span class="tt">S</span>), tirer autour de ce qu'on veut reprendre, puis <span class="tt">Ctrl+C</span>. Le <b>tampon</b> emporte tout : les types de chaque couche, les pièces qui y sont ancrées — entières, le rectangle s'agrandissant jusqu'à leur emprise —, les entités et les cases de collision forcées. La barre d'état dit ce qu'il porte (<span class="tt">3 × 2 · 2 pieces · 1 entity</span>).</li>
+<li><span class="tt">Ctrl+V</span> le pose, coin haut gauche sur la case survolée, <b>en un pas</b> : un <span class="tt">Ctrl+Z</span> défait tout. Chaque entité posée reçoit un identifiant neuf ; l'entrée, elle, n'est jamais emportée. <span class="tt">Ctrl+Maj+V</span> pose le <b>reflet</b> du tampon : il passe de w × h à h × w et chaque pièce prend sa jumelle, comme le miroir du pinceau.</li>
+<li>Un tampon <b>remplace</b> ce qu'il couvre, cases vides comprises : serrer la sélection.</li>
+<li><span class="tt">Ctrl+Maj+S</span> (<em>Edit</em> › <em>Save selection as prefab…</em>) l'enregistre comme <b>préfabriqué</b> du lieu, sous un nom de minuscules, de chiffres, de tirets et de tirets bas. L'onglet <b>Prefabs</b> de la palette montre alors la bibliothèque du lieu, chacun avec une vignette rendue de son propre contenu ; le choisir arme le tampon, <span class="tt">Ctrl+V</span> le pose. Les préfabriqués sont des fichiers, dans <span class="tt">Source/Elements/Editor/Prefabs/&lt;lieu&gt;/</span> : on les renomme et on les supprime à l'explorateur.</li>
+<li>Sans fenêtre : <span class="tt">LevelEditor --list-prefabs</span> et <span class="tt">LevelEditor --save-prefab capital/martpart etal --from 21,24 --to 21,24</span>.</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1032"></a>
 Renommer, remplacer, changer de planche</h1>
 <p>Un nom qui change ne casse rien (<span class="tt">LOT-EDITOR-14</span>) :</p>
 <ul>
@@ -159,10 +169,9 @@ Renommer, remplacer, changer de planche</h1>
 <li><b>Change sheet…</b> fait passer la carte à une autre planche : chaque pièce va à son homonyme, et la table du dialogue donne les autres ; on ne valide qu'une table sans trou. Un pas, lui aussi.</li>
 </ul>
 <p>Tout ce qui récrit d'autres fichiers demande d'abord d'enregistrer la carte ouverte, et un refus (nom pris, carte illisible, pièce sans correspondant) n'écrit rien. Les mêmes commandes existent sans fenêtre : <span class="tt">--rename-map</span>, <span class="tt">--rename-arrival</span>, <span class="tt">--rename-id</span>, <span class="tt">--who-cites</span>, <span class="tt">--replace-piece</span>, <span class="tt">--change-scene</span> (voir <span class="tt">Source/Editor/README.md</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1030"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1033"></a>
 Ce qui ne se fait pas encore dans l'éditeur</h1>
 <ul>
-<li>Copier un ensemble de pièces et d'entités comme un tampon : <span class="tt">LOT-EDITOR-08</span>.</li>
 <li>Relier deux cartes depuis le graphe du monde : <span class="tt">LOT-EDITOR-09</span>. </li>
 </ul>
 </div></div><!-- contents -->

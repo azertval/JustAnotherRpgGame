@@ -62,10 +62,11 @@ var searchData=
   ['issolid_59',['isSolid',['../classcore_1_1TileMap.html#acc50d7a0a8bdb26db3694ddacd37f457',1,'core::TileMap::isSolid()'],['../namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb',1,'core::isSolid(TileType type) noexcept']]],
   ['isvalidassetkey_60',['isValidAssetKey',['../namespacecore.html#af313492482f82ad2391f0da874bfe2a7',1,'core']]],
   ['isvalidlevelname_61',['isValidLevelName',['../namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e',1,'hmi']]],
-  ['isvisible_62',['isVisible',['../classhmi_1_1ComposedScene.html#ad544319d48036199694098d8c61dfd05',1,'hmi::ComposedScene']]],
-  ['isvisuallayerindex_63',['isVisualLayerIndex',['../classcore_1_1LevelDraft.html#a00ca9003b47f9e9aa47adb784018ce61',1,'core::LevelDraft']]],
-  ['isvisuallayerkind_64',['isVisualLayerKind',['../namespacecore.html#aaf5abd7971c954a0b6b1f917658f4d38',1,'core']]],
-  ['isvisuallayertiletype_65',['isVisualLayerTileType',['../namespacecore.html#a96f9c5663954e6157f2593864bad5840',1,'core']]],
-  ['itemsheet_66',['itemSheet',['../namespacehmi.html#aa11e1e0720b6d68b5362d8062922cf64',1,'hmi']]],
-  ['iterator_67',['Iterator',['../classcore_1_1View_1_1Iterator.html#a2ff93b328284c1d0facc842494e8514e',1,'core::View::Iterator']]]
+  ['isvalidprefabname_62',['isValidPrefabName',['../namespacehmi.html#ada4c5f2f4d7544a3bb0598071fc35af2',1,'hmi']]],
+  ['isvisible_63',['isVisible',['../classhmi_1_1ComposedScene.html#ad544319d48036199694098d8c61dfd05',1,'hmi::ComposedScene']]],
+  ['isvisuallayerindex_64',['isVisualLayerIndex',['../classcore_1_1LevelDraft.html#a00ca9003b47f9e9aa47adb784018ce61',1,'core::LevelDraft']]],
+  ['isvisuallayerkind_65',['isVisualLayerKind',['../namespacecore.html#aaf5abd7971c954a0b6b1f917658f4d38',1,'core']]],
+  ['isvisuallayertiletype_66',['isVisualLayerTileType',['../namespacecore.html#a96f9c5663954e6157f2593864bad5840',1,'core']]],
+  ['itemsheet_67',['itemSheet',['../namespacehmi.html#aa11e1e0720b6d68b5362d8062922cf64',1,'hmi']]],
+  ['iterator_68',['Iterator',['../classcore_1_1View_1_1Iterator.html#a2ff93b328284c1d0facc842494e8514e',1,'core::View::Iterator']]]
 ];

@@ -27,6 +27,11 @@ var searchData=
   ['sprite_24',['Sprite',['../structcore_1_1Sprite.html',1,'core']]],
   ['spritebatch_25',['SpriteBatch',['../classhmi_1_1SpriteBatch.html',1,'hmi']]],
   ['spritequad_26',['SpriteQuad',['../structhmi_1_1SpriteQuad.html',1,'hmi']]],
-  ['state_27',['State',['../structcore_1_1LevelDraft_1_1State.html',1,'core::LevelDraft']]],
-  ['strokecontext_28',['StrokeContext',['../structhmi_1_1StrokeContext.html',1,'hmi']]]
+  ['stamp_27',['Stamp',['../structhmi_1_1Stamp.html',1,'hmi']]],
+  ['stampforcedcell_28',['StampForcedCell',['../structhmi_1_1StampForcedCell.html',1,'hmi']]],
+  ['stamplayer_29',['StampLayer',['../structhmi_1_1StampLayer.html',1,'hmi']]],
+  ['stamppasteresult_30',['StampPasteResult',['../structhmi_1_1StampPasteResult.html',1,'hmi']]],
+  ['stamppiece_31',['StampPiece',['../structhmi_1_1StampPiece.html',1,'hmi']]],
+  ['state_32',['State',['../structcore_1_1LevelDraft_1_1State.html',1,'core::LevelDraft']]],
+  ['strokecontext_33',['StrokeContext',['../structhmi_1_1StrokeContext.html',1,'hmi']]]
 ];

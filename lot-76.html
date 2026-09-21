@@ -97,10 +97,10 @@ $(function(){initNavTree('lot-76.html','',''); });
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 1032/1032, <span class="tt">clang-format</span>, les six lints, cahier de test et Doxygen verts). Prérequis : <a class="el" href="lot-30.html" title="LOT-30 — Chaîne d&#39;extraction du corpus et lexique bilingue">LOT-30</a> (chaîne d'extraction), <a class="el" href="lot-66.html" title="LOT-66 — Charte visuelle : sortir de l&#39;identité pixel art">LOT-66</a> (charte visuelle). Alimente <span class="tt">LOT-38</span>, <a class="el" href="lot-15.html" title="LOT-15 — PNJ et dialogues">LOT-15</a>, <a class="el" href="lot-24.html" title="LOT-24 — IHM de combat">LOT-24</a>.</p>
 <p>Exigence ajoutée : <a class="el" href="spec-interface-ihm.html#EX-IHM-075" title="EX-IHM-075"><span class="tt">EX-IHM-075</span></a>. Exigences tenues sans changement : <a class="el" href="spec-interface-ihm.html#EX-IHM-051" title="EX-IHM-051"><span class="tt">EX-IHM-051</span></a> (aucune couleur hors des jetons), <a class="el" href="spec-interface-ihm.html#EX-IHM-070" title="EX-IHM-070"><span class="tt">EX-IHM-070</span></a> (identité du parchemin, teintes relevées), <a class="el" href="spec-interface-ihm.html#EX-IHM-081" title="EX-IHM-081"><span class="tt">EX-IHM-081</span></a> (facteur d'agrandissement entier). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md620"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md621"></a>
 Objectif</h1>
 <p>Sortir du vocabulaire d'aplats. Le <a class="el" href="lot-66.html" title="LOT-66 — Charte visuelle : sortir de l&#39;identité pixel art">LOT-66</a> avait donné aux écrans du jeu la palette du parchemin et un encadrement à trois bandes ; il leur manquait ce qui fait qu'une page de Tanares se reconnaît en une seconde : <b>la pierre sertie à l'angle et le bandeau de titre à ailes</b>. Ce lot les livre, et il les livre <b>tracés</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md621"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md622"></a>
 Le renversement du milieu du lot, et pourquoi il valait mieux</h1>
 <p>Le titre de ce lot dit « extrait des livres », et la feuille de route le décrivait comme un découpage : <em>« panneaux de parchemin, cadres, bordures, pictogrammes… sortent parfaitement par rendu clippé »</em>. Cette voie a été construite en entier — vingt et une planches PNG à 300 ppp, un manifeste, un lint d'intégrité — puis <b>abandonnée</b>, sur la seule preuve qui compte : l'écran.</p>
 <p>Un cabochon de 108 pixels posé sur le panneau des crédits, haut de 340, mangeait le tiers de sa hauteur et recouvrait la première ligne. Le corriger demandait de découpler la taille de découpe de la taille de pose ; à ce point-là, on n'étirait plus une image, on la <b>redessinait mal</b>. Et deux défauts de plus attendaient derrière :</p>
@@ -109,7 +109,7 @@ Le renversement du milieu du lot, et pourquoi il valait mieux</h1>
 <li><b>une image fige ses couleurs hors des jetons</b> (<span class="tt">EX-IHM-051</span>). C'était déjà l'argument du <span class="tt">LOT-66</span>, et il n'avait pas cessé d'être vrai — il avait seulement été contourné.</li>
 </ul>
 <p>Le lot livre donc ce que la feuille de route voulait — <em>l'habillage du livre dans le jeu</em> — par le moyen que la feuille de route n'avait pas envisagé. <span class="tt">EX-IHM-075</span> écrit noir sur blanc la conclusion, pour que la voie du découpage ne soit pas réessayée dans trois lots.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md622"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md623"></a>
 Ce que le corpus donne encore : la mesure, pas la matière</h1>
 <p>Rien de l'analyse n'est perdu, et c'est ce qui rend le tracé légitime plutôt qu'inventé (<span class="tt">EX-IHM-070</span>) :</p>
 <table class="markdownTable">
@@ -127,15 +127,15 @@ Ce que le corpus donne encore : la mesure, pas la matière</h1>
 <td class="markdownTableBodyNone">Débord de la pierre sur l'angle  </td><td class="markdownTableBodyNone">2 × l'épaisseur du filet  </td><td class="markdownTableBodyNone"><span class="tt">PARCHMENT_CABOCHON_FACTOR</span>  </td></tr>
 </table>
 <p>Le grenat mérite un mot. Le <span class="tt">LOT-66</span> signalait <span class="tt">error</span> comme le <b>seul</b> rôle non attesté par le corpus — <em>« une feuille de personnage n'a pas d'état d'erreur à montrer »</em>. C'était vrai d'un état d'erreur, et faux du rouge : il est là, dans les cabochons et les plaques de bandeau. Sa valeur est la dominante quantifiée des pixels franchement rouges d'un cabochon, mesurée <b>séparément sur deux angles opposés</b> de la planche, qui donnent la même valeur — la même méthode que le <span class="tt">LOT-66</span>, avec la même vérification croisée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md623"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md624"></a>
 Deux ornements, deux invariants</h1>
 <p><b>Le cabochon</b> (<span class="tt">hmi::cabochonShapes</span>) — un octogone d'or, un losange de grenat à deux facettes, un éclat. L'octogone plutôt qu'un carré : ce sont les angles coupés qui se lisent comme les griffes tenant la pierre, et ils survivent à la petite taille quand les facettes internes, elles, ne se lisent plus. Il <b>déborde</b> du carré d'angle du <span class="tt">LOT-66</span> — d'un facteur deux — parce qu'à la taille exacte du filet il s'y confond : posé sur l'angle, pas encastré dedans.</p>
 <p><b>Le bandeau</b> (<span class="tt">hmi::titleBannerShapes</span>) — une plaque de grenat à chevrons entre deux ailes d'or. Son invariant est le cœur du lot : <b>l'envergure des ailes suit la hauteur, jamais la largeur</b>. Un titre long allonge la plaque et rien d'autre. C'est exactement ce qu'une image étirée ne sait pas faire, et un test le vérifie sur trois largeurs.</p>
 <p>Quand la largeur ne suffit plus, ce sont les <b>ailes</b> qui cèdent — d'abord en se réduisant, puis en disparaissant sous <span class="tt">ORNAMENT_MINIMUM_SIZE</span>. Jamais la plaque : c'est elle qui porte le titre, et un moignon de six pixels ne se lit pas comme une aile mais comme une bavure.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md624"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md625"></a>
 L'accentué reste tracé à l'ancienne, et ce n'est pas un oubli</h1>
 <p><span class="tt">ParchmentPanel</span> a deux modes. Le normal porte désormais ses quatre cabochons. L'<b>accentué</b> — pause, écrans superposés — garde ses carrés d'or nus : son filet passe à la couleur d'accent pour signaler que l'écran se superpose au jeu, et une pierre dessinée par-dessus rendrait ce signal illisible. Un ornement qui masque une information n'est pas un ornement, c'est un défaut.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md625"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md626"></a>
 Le titre devient son bandeau, sur les six écrans</h1>
 <p>Les six <span class="tt">QLabel</span> de titre sont promus <span class="tt">hmi::TitleBanner</span>. Trois conséquences valaient d'être tranchées plutôt que découvertes :</p>
 <ul>
@@ -143,12 +143,12 @@ Le titre devient son bandeau, sur les six écrans</h1>
 <li><b>le texte tient entre les ailes</b>, par <span class="tt">contentsMargins</span> et non par un décalage au moment de peindre — sinon l'élision et le retour à la ligne décident sur la mauvaise largeur, et le mot coupé n'apparaît que sur le titre le plus long, c'est-à-dire jamais pendant qu'on le règle ;</li>
 <li><b>la couleur du titre change</b>, de l'or des filets à l'or <b>pâle</b> des reflets : l'ancien tenait sur du parchemin et disparaît sur le grenat. C'est la même valeur qui éclaire la facette du cabochon — pour que le doré du bandeau soit <em>un</em> doré, et non deux.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md626"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md627"></a>
 Ce que le lot ne fait pas</h1>
 <p><b>Il ne livre pas de pictogrammes.</b> La feuille de route en annonçait : les seize médaillons d'emplacement d'équipement des feuilles de personnage. Ce sont des <b>illustrations</b> — une armure de plates peinte, une bourse de cuir — pas de l'habillage, et le tracé n'est pas le bon outil pour elles. Elles relèvent de la filière d'assets du <span class="tt">LOT-39</span>, avec les autres illustrations du corpus, et non d'un module de géométrie.</p>
 <p><b>Il ne dessine pas de cadre de champ ni de médaillon rond.</b> Les deux seraient traçables et utiles ; aucun n'a de consommateur aujourd'hui. Le châssis d'écrans du <span class="tt">LOT-68</span> et l'inventaire du <a class="el" href="lot-14.html" title="LOT-14 — Inventaire et équipement">LOT-14</a> les demanderont, avec la taille et le comportement qu'ils leur faudront — livrés d'avance, ils seraient devinés.</p>
 <p><b>Il ne redessine pas les planches de <span class="tt">.design-mockups/</span>.</b> Elles reçoivent les deux jetons neufs, que <span class="tt">check_design_tokens.py</span> exige ; les ornements eux-mêmes relèvent du <span class="tt">LOT-68</span>, qui porte les planches.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md627"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md628"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Les éléments s'intègrent aux jetons de la charte du <span class="tt">LOT-66</span></b> : chaque forme porte un rôle, et aucune couleur n'est écrite hors de <span class="tt">DesignTokens.cpp</span>. ✔</li>

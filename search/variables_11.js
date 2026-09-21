@@ -12,7 +12,7 @@ var searchData=
   ['reaction_5fresource_9',['REACTION_RESOURCE',['../namespacecore.html#a7397c26065a22000f4167d104a2dc69c',1,'core']]],
   ['reason_10',['reason',['../structcore_1_1ProvisionalStatus.html#a6b9070ea167983ea809524612ce68d0e',1,'core::ProvisionalStatus']]],
   ['references_11',['references',['../structhmi_1_1ContentContext.html#acc23dbc064c07ab347a3d88de82ca8a6',1,'hmi::ContentContext']]],
-  ['refusal_12',['refusal',['../structhmi_1_1BrushResult.html#a60727a5e305558b0e26a4ce8409c4f1a',1,'hmi::BrushResult']]],
+  ['refusal_12',['refusal',['../structhmi_1_1BrushResult.html#a60727a5e305558b0e26a4ce8409c4f1a',1,'hmi::BrushResult::refusal'],['../structhmi_1_1StampPasteResult.html#a4fbabd0dcd5f8b021b8cb01c25a2b516',1,'hmi::StampPasteResult::refusal']]],
   ['refusals_13',['refusals',['../structcore_1_1ArenaMount.html#a37880f1b5e5d0689f5b60511b490ed93',1,'core::ArenaMount::refusals'],['../structcore_1_1EncounterMount.html#af4bc940f51a11ebfe1639e40af665997',1,'core::EncounterMount::refusals']]],
   ['refused_14',['refused',['../structcore_1_1CreatureAttacks.html#a3d5c717b41ea86dbd502095306681a57',1,'core::CreatureAttacks::refused'],['../structhmi_1_1EntityDragResult.html#a0152993d2f99cd0dc89ab990a42a6fd1',1,'hmi::EntityDragResult::refused']]],
   ['region_15',['region',['../structcore_1_1Arena.html#a2010fc18af618e4eeb116842082bb2ba',1,'core::Arena::region'],['../structcore_1_1Sprite.html#a6388caacbea8c28cb9e8956cd46e9b2c',1,'core::Sprite::region'],['../structcore_1_1Location.html#a9ba858868f5d971ecf67214a963b6284',1,'core::Location::region']]],

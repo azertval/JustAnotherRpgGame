@@ -172,7 +172,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La scène de combat du Colisée composée en primitives, <b>sans GPU</b> : ce que dessinait <span class="tt">ArenaScene.ui.qml</span>/<span class="tt">ArenaTile.ui.qml</span> (<span class="tt">LOT-50</span>), prêt pour <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence et échantillonnage nearest (pixel ar...">hmi::SpriteBatch</a></span>. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1177"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1189"></a>
 Ce qui va où</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -183,10 +183,10 @@ Ce qui va où</h2>
 <p>case | | enceinte (pan, angle, pilier, bannière, torche, arche) | <span class="tt">RenderLayer::Object</span> | pied de la case |</p>
 <p>Le décor vient de l'atelier des textures (<span class="tt">LOT-92</span>, <span class="tt">Assets/Scene/coliseum/</span>) : <b>une</b> pièce par case d'enceinte, qui porte son mur (une torche est un pan à torche), dressée contre l'arête du fond parallèle au bord de la grille et posée par son ancre. Les figurines restent celles du Colisée. | figurine d'un combattant | <span class="tt">RenderLayer::Player</span> | pied de son emprise |</p>
 <p><span class="tt">Object</span> et <span class="tt">Player</span> partagent la bande de profondeur (<span class="tt"><a class="el" href="namespacehmi.html#a0f6ab0e99f196e8793e69035b8f4bf98" title="Le calque appartient-il à la bande de profondeur ?">hmi::sortsByDepth</a></span>) : un mur plus bas à l'écran passe devant une figurine, un mur plus haut derrière — ce que faisait le <span class="tt">z: c + r</span> de la scène QML, sans que <span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html#a6c3bcd9889c444a2150dd1b3bd576a14" title="Ordonne la scène (calque, puis texture, puis sortOrder), de façon stable.">hmi::ComposedScene::sort</a></span> change.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1178"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1190"></a>
 La profondeur</h2>
 <p><span class="tt">sortOrder</span> = <span class="tt">depthSortOrder(pied) × ARENA_DEPTH_SLOTS + rang</span>. Le pied est le <b>sommet bas</b> du losange de la case (de l'emprise, pour une figurine), pas le bord bas du quad : une bannière posée plus haut que son mur doit rester devant lui. Le rang (<span class="tt">ArenaDepthSlot</span>) départage les pièces d'une même case dans l'ordre où la brique QML les empilait ; laissé à égalité, le tri trancherait par rang de texture, qui dépend de la première case composée.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1179"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1191"></a>
 Les combattants</h2>
 <ul>
 <li><span class="tt">Standing</span> : une figurine, à l'image que donne <span class="tt"><a class="el" href="structhmi_1_1ArenaAnimationState.html" title="L&#39;état d&#39;animation des figurines, par combattant.">hmi::ArenaAnimationState</a></span> ;</li>
@@ -194,10 +194,10 @@ Les combattants</h2>
 <li><span class="tt">Withdrawn</span> : <b>aucun</b> quad — il a quitté la grille et l'ordre.</li>
 </ul>
 <p>Une créature de plus d'une case (<span class="tt"><a class="el" href="namespacecore.html#a64de19e2c29ae4e9c60441599e61d808" title="Côté, en cases, de l&#39;emprise d&#39;une créature de taille size.">core::footprintSide</a></span>) a <b>une</b> figurine, centrée sur son emprise et agrandie à sa taille, là où la scène QML en posait une par case tenue.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1180"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1192"></a>
 Ce qui n'y est pas</h2>
 <p>Les surbrillances de case (atteignable, au tour), la jauge et les points de vie : ce sont des rectangles et du texte d'interface, pas des pièces de la planche, et le curseur de ciblage reste en QML (<span class="tt">LOT-24</span>).</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1181"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1193"></a>
 Lecture seule, et par instantané</h2>
 <p>La session n'est vue que par <span class="tt">const <a class="el" href="classcore_1_1ArenaSession.html" title="Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.">core::ArenaSession</a>&amp;</span> (<span class="tt">EX-ARCH-012</span>) : aucune méthode mutante n'est appelable, et c'est le compilateur qui le garantit — <span class="tt">combat()</span> et <span class="tt">grid()</span> n'y rendent que leur version <span class="tt">const</span>.</p>
 <p>Elle n'est lue qu'<b>une fois</b>, par <span class="tt">snapshotArenaScene</span>, qui en extrait ce que la composition dessine — la grille et les figurines — <b>en valeurs</b> (<span class="tt">LOT-86</span> Phase 5). La composition ne lit que cet instantané. C'est ce qui permet au rendu Qt Quick (<span class="tt"><a class="el" href="classhmi_1_1ArenaViewportItem.html" title="Surface QRhi de la scène de combat du Colisée : la grille, l&#39;enceinte et les figurines,...">hmi::ArenaViewportItem</a></span>) de composer sur le fil de rendu une session qui vit sur le fil graphique : l'instantané se prend dans <span class="tt">synchronize()</span>, pendant que le fil graphique est bloqué, et ne garde aucun pointeur vers elle. <span class="tt"><a class="el" href="classcore_1_1CombatState.html" title="Un combat, du montage de la rencontre à sa fin.">core::CombatState</a></span> n'est pas copiable ; l'instantané ne copie que ce qui se dessine. </p>

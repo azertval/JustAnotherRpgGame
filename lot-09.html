@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-09.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 17 septembre 2026</b> (ouvert le même jour). Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à <b>1 317/1 317</b> (dont le rendu du Colisée hors écran sur un vrai <span class="tt">QRhi</span>), toute la batterie de <span class="tt">scripts/check.py</span> verte hormis PSScriptAnalyzer, absent du poste et sans rapport avec ce lot (aucun <span class="tt">.ps1</span> touché). Relu à l'écran : <span class="tt">--screen=GameView</span> et <span class="tt">--screen=Arena</span>, captures à l'appui. Reste la vérification IHM manuelle — marcher, parler, descendre sur le sable, en revenir. Le détail de ce qui est livré et de ce qui ne l'est pas est plus bas. Prérequis : <a class="el" href="lot-04.html" title="LOT-04 — Format de carte `version: 3`, multi-couches">LOT-04</a>, <a class="el" href="lot-06.html" title="LOT-06 — Déplacement top-down 8 directions">LOT-06</a>, <a class="el" href="lot-10.html" title="LOT-10 — Entités de carte et interaction">LOT-10</a> (les portails et les PNJ sont des entités de carte), <a class="el" href="lot-15.html" title="LOT-15 — PNJ et dialogues">LOT-15</a> (le dialogue qu'on ouvre depuis la carte), <a class="el" href="lot-18.html" title="LOT-18 — Bascule exploration ↔ combat">LOT-18</a> (la bascule exploration ↔ combat), <a class="el" href="lot-50.html" title="LOT-50 — Le Colisée : bac à sable de combat">LOT-50</a> (le Colisée, dont ce lot livre la version finale), <a class="el" href="lot-86.html" title="LOT-86 — Refonte de l&#39;IHM sur Qt Quick">LOT-86</a> (le pipeline QRhi et <span class="tt">ArenaViewportItem</span>, dont la scène d'exploration est le jumeau), <a class="el" href="lot-11.html" title="LOT-11 — Éditeur multi-couches et placement d&#39;entités">LOT-11</a> (la carte se trace dans l'éditeur), <a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a> (le style de scène et la planche du Colisée). Alimente : <span class="tt">LOT-96</span>, <a class="el" href="roadmap.html#lot-16" title="LOT-16 — Les affaires de la Capitale : quêtes et drapeaux de monde">LOT-16</a>, <a class="el" href="roadmap.html#lot-17" title="LOT-17 — Reprendre sa partie dans la Capitale : sauvegarde riche">LOT-17</a>, <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>, <span class="tt">LOT-42</span>, <span class="tt">LOT-80</span>. Exigences couvertes : <span class="tt">EX-VIS-001</span>, <span class="tt">EX-VIS-002</span>, <span class="tt">EX-EXP-*</span>, <span class="tt">EX-LVL-018</span>, <span class="tt">EX-LVL-006</span>, <span class="tt">EX-NFR-040</span>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md361"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md362"></a>
 Objectif</h1>
 <p>« Nouvelle partie » pose le personnage à la <b>porte du Colisée</b> ; on parcourt au clavier et à la manette l'entrée, les couloirs, les vestiaires et les tribunes — des lieux où l'on marche et où l'on parle, et où l'on ne se bat pas — ; on descend sur le sable, qui est la zone de combat ; le héraut, posé sur la carte à la grille du sable, lance le combat du Colisée <b>sur cette zone</b>, et à l'issue on est de retour sur la carte, au même endroit. Le Colisée cesse d'être une grille nue : c'est un lieu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md362"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md363"></a>
 Ce que le dépôt contenait à l'ouverture (17 septembre 2026)</h1>
 <p>Le périmètre écrit dans la feuille de route date du 16 septembre ; une lecture du dépôt en déplace la charge, sans en changer la cible.</p>
 <ul>
@@ -109,13 +109,13 @@ Ce que le dépôt contenait à l'ouverture (17 septembre 2026)</h1>
 <li><b>Les 36 textures du Colisée sont installées</b> (<span class="tt">Source/Elements/Assets/Scene/coliseum/</span>, <a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a>) : sables, dalles, pavés de couloir, planches de vestiaire, gradins, loge, murs, arches, escaliers, torches, bannières, grilles. La carte se trace avec elles, et avec elles seules.</li>
 <li><b><span class="tt">Source/Elements/Levels/</span> ne porte qu'<span class="tt">arena-of-the-future.json</span></b>, le niveau provisoire du <a class="el" href="lot-50.html" title="LOT-50 — Le Colisée : bac à sable de combat">LOT-50</a>, que ce lot remplace.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md363"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md364"></a>
 Décisions d'ouverture</h1>
 <ul>
 <li><b>La carte se pose par script, puis se retouche dans l'éditeur</b> (<em>décision de l'auteur</em>, 17 septembre 2026). Un script d'atelier versionné dans le lot écrit <span class="tt">coliseum.json</span> depuis une description de haut niveau (les zones, leurs bords, leurs pièces) ; l'éditeur du <a class="el" href="lot-11.html" title="LOT-11 — Éditeur multi-couches et placement d&#39;entités">LOT-11</a> reste l'outil de retouche, et le fichier produit est un fichier de niveau ordinaire, sans marque d'origine. Écrire les cases à la main n'était ni relisible ni rejouable ; les tracer entièrement à la souris n'était pas un usage du temps de l'auteur.</li>
 <li><b>Une seule PR en fin de lot</b> (<em>décision de l'auteur</em>), six phases commitées sur <span class="tt">worktree-lot-09-colisee</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md364"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md365"></a>
 Les six phases</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -133,9 +133,9 @@ Les six phases</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">6  </td><td class="markdownTableBodyNone"><b>Les retraits</b>  </td><td class="markdownTableBodyNone">Le contenu provisoire quitte <span class="tt">Source/Elements/</span> ; capture de référence du Colisée dans les tests QML ; <span class="tt">check_asset_keys.py</span> et les tests sans aucune clé de test  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md365"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md366"></a>
 Ce que le lot a livré, et ce qu'il n'a pas livré</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md366"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md367"></a>
 Livré, et vérifié</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -159,7 +159,7 @@ Livré, et vérifié</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Le fondu du passage  </td><td class="markdownTableBodyNone">un voile dans le jumeau de la vue de jeu, relancé à l'entrée sur une carte et au retour  </td><td class="markdownTableBodyNone">relu à l'écran  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md367"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md368"></a>
 Écarté, et pourquoi</h2>
 <p>Trois retraits que la feuille de route demandait n'ont <b>pas</b> été faits. Les écrire ici vaut mieux que les faire à moitié :</p>
 <ul>
@@ -168,7 +168,7 @@ Livré, et vérifié</h2>
 <li><b><span class="tt"><a class="el" href="classhmi_1_1GameViewportItem.html" title="Surface QRhi du jeu, composée avec le reste de l&#39;interface QML.">hmi::GameViewportItem</a></span> reste</b> : l'écran de jeu ne s'en sert plus, mais l'affichage tête haute de combat (<span class="tt">CombatHud.qml</span>) le pose encore. Il partira avec le branchement du combat sur la carte (<span class="tt">LOT-27</span>).</li>
 </ul>
 <p>Sont partis, eux : le niveau <span class="tt">arena-of-the-future.json</span>, les six fonds de test et <span class="tt">generate_test_backgrounds.py</span>, la rencontre de démonstration <span class="tt">nuee-de-rats.json</span> (remplacée par <span class="tt">colisee-fauves.json</span>, les fauves du Colisée, sur les bêtes du <span class="tt">LOT-33</span>) et la marque <em>provisoire</em> du dialogue du héraut.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md368"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md369"></a>
 Périmètre</h1>
 <ul>
 <li><b>La scène d'exploration dans le jeu Qt Quick.</b> <span class="tt">hmi::GameSession</span> compile dans le jeu et non plus seulement dans l'éditeur ; un <span class="tt">WorldViewportItem</span>, jumeau d'<span class="tt">ArenaViewportItem</span> (<a class="el" href="lot-86.html" title="LOT-86 — Refonte de l&#39;IHM sur Qt Quick">LOT-86</a>), dessine la carte courante par le <b>même</b> pipeline QRhi et le même composeur à calques (sol, objets, personnages) ; la caméra suit le héros (<span class="tt">cameraFraming</span>, <span class="tt">EX-LVL-006</span>) — le Colisée ne tient plus dans un écran ; le héros est une figurine de l'atelier du <span class="tt">LOT-91</span>. Aucun second moteur de rendu : l'arène et le lieu se dessinent par le même code.</li>
@@ -181,7 +181,7 @@ Périmètre</h1>
 <li><b>Validation au chargement</b> : un portail dont la carte ou le point d'arrivée n'existe pas, une zone de combat qui déborde de la carte ou qui n'est pas un terrain tactique valide, sont des erreurs explicites, pas un plantage à la traversée (<span class="tt">EX-NFR-040</span>).</li>
 <li><b>Retraits, en sortie de lot.</b> La carte finale rend sans objet tout ce qui tenait lieu de contenu : le niveau <span class="tt">arena-of-the-future.json</span> et la planche <span class="tt">Coliseum/production_source_atlas.png</span> du <span class="tt">LOT-50</span> ; les tuiles, fonds, objets et skins de test des <span class="tt">LOT-06</span> à <span class="tt">LOT-08</span> (<span class="tt">Assets/Backgrounds/test_*.png</span> et les scripts <span class="tt">generate_test_*.py</span> qui les produisent) ; le personnage de démonstration du <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a> (<span class="tt">demonstration-brenna.json</span>), remplacé par le héros créé à « Nouvelle partie » ; la rencontre de démonstration du <a class="el" href="lot-18.html" title="LOT-18 — Bascule exploration ↔ combat">LOT-18</a> (<span class="tt">nuee-de-rats.json</span>), remplacée par une rencontre du Colisée sur des blocs du <span class="tt">LOT-33</span> ; l'ouverture en dur du dialogue du héraut. Les <b>quatre classes provisoires</b> du <span class="tt">LOT-36</span> restent : leur retrait est au dernier lot de classe, et elles ne sont pas un substitut de contenu mais un échafaudage de règles. En sortie, <span class="tt">check_asset_keys.py</span> et les tests ne connaissent plus aucune clé de test.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md369"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md370"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>À l'écran</b> : « Nouvelle partie » ouvre le Colisée à sa porte ; on parcourt au clavier et à la manette le hall, un couloir, un vestiaire et une tribune ; on parle à un PNJ et l'écran de dialogue s'ouvre sur son dialogue ; on parle au héraut, le combat se joue sur le sable et l'on revient sur la carte au même endroit ; une capture de référence du Colisée entre dans les tests QML.</li>
@@ -189,7 +189,7 @@ Critères d'acceptation</h1>
 <li>L'état de la carte (porte ouverte, coffre pris) est <b>conservé</b> dans la session au retour du sable — c'est ce qui distingue un monde d'une suite de tableaux. Persisté au <a class="el" href="roadmap.html#lot-17" title="LOT-17 — Reprendre sa partie dans la Capitale : sauvegarde riche">LOT-17</a>.</li>
 <li>Aucun fichier de test, de démonstration ou de planche provisoire ne subsiste dans <span class="tt">Source/Elements/</span> ; le Colisée du menu principal joue sur <span class="tt">coliseum.json</span>, et <span class="tt">ArenaSession</span> se rejoue à graine fixée comme avant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md370"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md371"></a>
 Journal</h1>
 <ul>
 <li><b>17 septembre 2026, ouverture.</b> Les deux décisions d'ouverture ci-dessus. Le lot <b>quitte la section 11 de la <a class="el" href="roadmap.html" title="Feuille de route — le bac à sable de Tanares">feuille de route</a> pour cette page dès son ouverture</b> : <span class="tt">lint_lots.py</span> tient un lot pourvu d'un dossier pour sorti de la page, et l'ancre <span class="tt">{#lot-09}</span> ne peut pas être écrite deux fois. Les deux tableaux de la section 6 ont été régénérés (<span class="tt">lint_lots.py --regenerer</span>) et le diagramme perd les arêtes entrantes du lot, comme pour tout lot sorti de la page ; le nœud y reste, marqué « en cours ».</li>

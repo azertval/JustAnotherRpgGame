@@ -98,6 +98,11 @@ $(function(){initNavTree('structcore_1_1MapEntity.html','','structcore_1_1MapEnt
 
 <p><code>#include &lt;<a class="el" href="MapEntity_8h_source.html">MapEntity.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af5ce5ab17b9150b3a8999cd5e862018d" id="r_af5ce5ab17b9150b3a8999cd5e862018d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af5ce5ab17b9150b3a8999cd5e862018d">operator==</a> (const <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &amp;) const =default</td></tr>
+<tr class="memdesc:af5ce5ab17b9150b3a8999cd5e862018d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deux entités sont égales si tout l'est, identifiant compris : ce que compare un tampon relu (<span class="tt">LOT-EDITOR-08</span>) ou un test qui vérifie qu'une carte n'a pas bougé.  <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a0585fa6522c09d42c879ed8bd9c32550" id="r_a0585fa6522c09d42c879ed8bd9c32550"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a0585fa6522c09d42c879ed8bd9c32550">type</a></td></tr>
@@ -117,7 +122,35 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>Une entité de carte — ce qui n'est <b>pas</b> une tuile. </p>
 <p>La grille ne porte qu'un <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;une carte (EX-LVL-002).">core::TileType</a></span> par case, sans métadonnée : un PNJ a un nom et un dialogue, un coffre un contenu et un état « déjà ouvert », un portail une carte cible et un point d'arrivée. Des vecteurs annexes indexés par position, un par famille, obligeraient à ajouter un vecteur à chaque famille nouvelle. Une <b>liste d'objets à propriétés</b> les porte toutes.</p>
 <p><span class="tt">Core</span> ne connaît <b>aucune</b> sémantique de <span class="tt"><a class="el" href="#a0585fa6522c09d42c879ed8bd9c32550" title="Type de l&#39;entité, libre : &quot;npc&quot;, &quot;chest&quot;, &quot;sign&quot;, &quot;portal&quot;, &quot;encounter&quot;…">type</a></span> : c'est une chaîne, interprétée par le gameplay (<span class="tt">LOT-10</span> et suivants). Le chargeur ne valide donc pas qu'un type existe — une entité inconnue est une erreur de conception tolérée, pas une carte invalide (<span class="tt">EX-NFR-040</span>). </p>
-</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="af5ce5ab17b9150b3a8999cd5e862018d" name="af5ce5ab17b9150b3a8999cd5e862018d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5ce5ab17b9150b3a8999cd5e862018d">&#9670;&#160;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::MapEntity::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deux entités sont égales si tout l'est, identifiant compris : ce que compare un tampon relu (<span class="tt">LOT-EDITOR-08</span>) ou un test qui vérifie qu'une carte n'a pas bougé. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a7852db46b5652c07b44fe5fd9bc198f3" name="a7852db46b5652c07b44fe5fd9bc198f3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7852db46b5652c07b44fe5fd9bc198f3">&#9670;&#160;</a></span>cells</h2>
 

@@ -244,6 +244,15 @@ Objectif</h1>
 <li><a class="anchor" id="EX-EDIT-083"></a><b>EX-EDIT-083</b> — Une pièce se <b>remplace</b> par une autre de sa planche : sur la carte ouverte, en un pas d'annulation, ou sur toutes les cartes qui la posent (<span class="tt">LevelEditor --replace-piece</span>). La pièce garde sa case d'ancrage et son type ; la collision suit. Refusé : une pièce absente de la planche, un sol remplacé par une pièce debout ou l'inverse, une emprise qui déborderait.</li>
 <li><a class="anchor" id="EX-EDIT-084"></a><b>EX-EDIT-084</b> — Une carte <b>change de planche</b> sans être repeinte : chaque pièce qu'elle pose va à la pièce de même nom (ou dont elle est un ancien nom) de la nouvelle planche, et une <b>table de correspondance</b> donne les autres. Tant qu'une pièce reste sans correspondant, le changement est refusé. Sur la carte ouverte, c'est un pas d'annulation ; par <span class="tt">LevelEditor --change-scene &lt;carte&gt; &lt;lieu&gt; --table &lt;table.json&gt;</span>, un fichier récrit. La collision se redéduit par le nouveau manifeste ; le lieu reçoit une table d'apparence traduite de l'ancienne s'il n'en a pas.</li>
 </ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md239"></a>
+18. Tampons et préfabriqués (<span class="tt">LOT-EDITOR-08</span>)</h1>
+<p>Ce qu'on a composé une fois se repose ailleurs, et se garde (<a class="el" href="lot-editor-08.html" title="LOT-EDITOR-08 — Tampons et préfabriqués">LOT-EDITOR-08</a>).</p>
+<ul>
+<li><a class="anchor" id="EX-EDIT-085"></a><b>EX-EDIT-085</b> — Une sélection se copie <b>entière</b> : les types de chaque couche visuelle, les pièces qui y sont ancrées, les entités qui s'y tiennent et les cases dont la collision est forcée. Une pièce est prise entière ou pas du tout — elle l'est si sa case d'ancrage est dans le rectangle, qui s'agrandit alors jusqu'à son emprise ; l'entrée n'est jamais prise. Coller pose le tampon au curseur, en <b>un pas d'annulation</b>, chaque entité recevant un identifiant neuf ; <span class="tt">Ctrl+Maj+V</span> pose son reflet, pièces jumelles comprises. Une couche du tampon va à la couche de même nom, à défaut à la première de même rôle ; une couche absente ou verrouillée refuse la pose sans rien écrire.</li>
+<li><a class="anchor" id="EX-EDIT-086"></a><b>EX-EDIT-086</b> — Un tampon s'enregistre comme <b>préfabriqué</b> du lieu, dans <span class="tt">Editor/Prefabs/&lt;lieu&gt;/&lt;nom&gt;.json</span> ; la palette en montre la bibliothèque, chacun avec une <b>vignette générée</b> de son propre contenu par le peintre du canevas (<span class="tt">EX-EDIT-059</span>), et le choisir arme le tampon. <span class="tt">LevelEditor --list-prefabs</span> et <span class="tt">--save-prefab &lt;carte&gt; &lt;nom&gt; --from &lt;c,r&gt;
+  --to &lt;c,r&gt;</span> font de même sans fenêtre, par les mêmes fonctions (règle 4) ; <span class="tt">--check</span> nomme tout fichier de la bibliothèque que l'éditeur ne sait pas relire.</li>
+<li><a class="anchor" id="EX-EDIT-087"></a><b>EX-EDIT-087</b> — Une carte neuve part d'un <b>modèle</b> : ses couches, sa taille, son entrée et ce qu'il pose. Un modèle vit dans <span class="tt">Editor/Templates/&lt;id&gt;.json</span> et ne nomme <b>aucune pièce</b> — il sert tous les lieux ; trois sont livrés : intérieur, rue, arène.</li>
+</ul>
 <h1 class="doxsection"><a class="anchor" id="edit-retirees"></a>
 Exigences retirées</h1>
 <blockquote class="doxtable">
@@ -269,7 +278,7 @@ Exigences retirées</h1>
 <li><a class="anchor" id="EX-EDIT-046"></a><b>EX-EDIT-046</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — mode création des plans.</li>
 <li><a class="anchor" id="EX-EDIT-047"></a><b>EX-EDIT-047</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — panneau des plans.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md239"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md240"></a>
 Traçabilité</h1>
 <p>Le code vit dans <span class="tt">Source/Editor</span> : <span class="tt">Logic/</span> (bibliothèque <span class="tt">EditorLogic</span>, testée sous <span class="tt">Source/Test/Unit/Editor</span>) et <span class="tt">Ui/</span> (l'exécutable <span class="tt">LevelEditor</span>). L'éditeur s'appuie sur <span class="tt">Core</span> (modèle et validation de carte, <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span>) et sur le rendu de <span class="tt">HMI</span> (<span class="tt"><a class="el" href="rendu-technique_8md.html">rendu-technique.md</a></span>) ; ce qui reste de sa présentation est dans <a class="el" href="spec-interface-ihm.html#md_Specification_2interface-ihm" title="Specification/interface-ihm.md"><span class="tt">interface-ihm.md</span></a>. </p>
 </div></div><!-- contents -->

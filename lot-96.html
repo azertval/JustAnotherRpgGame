@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-96.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 18 septembre 2026</b> (ouvert le même jour), sur la branche <span class="tt">lot-96-quartiers-capitale</span>, une phase par commit. Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à <b>1 338/1 338</b> (dont Martpart, Arenarea et un îlot rendus hors écran sur un vrai <span class="tt">QRhi</span>), la batterie de <span class="tt">scripts/check.py</span> verte hormis PSScriptAnalyzer, absent du poste (aucun <span class="tt">.ps1</span> touché). Relu à l'écran : « Nouvelle partie » à la porte de l'Est de Martpart, Arenarea par <span class="tt">--map=</span>, la sentinelle et son marqueur, les trois niveaux du plan par <span class="tt">--screen=WorldMap</span>. Reste la vérification manuelle en jeu — marcher de Martpart à Arenarea et revenir, parler à une sentinelle, ouvrir la carte et y voir l'anneau du héros ; au clavier et à la manette. Prérequis : <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a> (l'exploration dans le jeu, le graphe de cartes et les portails, prouvés au Colisée), <a class="el" href="lot-94.html" title="LOT-94 — Les images du corpus quittent le dépôt ; l&#39;écran « Carte » revient sur les cartes de l&#39;auteur : monde, région, ville">LOT-94</a> (le plan de la Capitale peint par l'auteur, source du tracé, ses douze quartiers placés, et l'écran « Carte » qui le montre), <a class="el" href="lot-11.html" title="LOT-11 — Éditeur multi-couches et placement d&#39;entités">LOT-11</a> (l'éditeur, où les quartiers se retouchent), <a class="el" href="lot-15.html" title="LOT-15 — PNJ et dialogues">LOT-15</a> (le dialogue de la sentinelle). Alimente : <a class="el" href="roadmap.html#lot-16" title="LOT-16 — Les affaires de la Capitale : quêtes et drapeaux de monde">LOT-16</a>, <a class="el" href="roadmap.html#lot-17" title="LOT-17 — Reprendre sa partie dans la Capitale : sauvegarde riche">LOT-17</a>, <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>. Exigences couvertes : <span class="tt">EX-IHM-076</span>, <span class="tt">EX-NFR-040</span>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md767"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md768"></a>
 Objectif</h1>
 <p>« Nouvelle partie » pose le personnage à une porte de <b>Martpart</b>, le quartier du marché ; on y marche ; on passe à <b>Arenarea</b> par l'avenue et on revient sur ses pas, au point d'arrivée nommé ; on parle à une sentinelle Ironhand qui garde un quartier fermé. L'écran « Carte » montre le quartier où l'on est et ceux qu'on a visités, et descend de la ville au quartier, puis à l'îlot. Ce lot livre une ville qu'on <b>parcourt</b>, pas une ville qu'on regarde : l'habillage complet est au <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md768"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md769"></a>
 Ce que le dépôt contenait à l'ouverture (18 septembre 2026)</h1>
 <ul>
 <li><b>Le moteur est prêt.</b> <span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html" title="Le héros sur la carte courante : marche, interaction, portails.">core::ExplorationSession</a></span>, <span class="tt"><a class="el" href="classcore_1_1WorldTravel.html" title="La carte courante, et le passage d&#39;une carte à l&#39;autre.">core::WorldTravel</a></span> et sa validation (<span class="tt">validateWorldGraph</span>, <span class="tt">validateWorldMap</span>), <span class="tt"><a class="el" href="classhmi_1_1WorldModel.html" title="La vue-modèle de l&#39;exploration — la partie en cours : entrer sur une carte, marcher,...">hmi::WorldModel</a></span> en singleton, le composeur et le rendu de lieu (<span class="tt">WorldSceneComposer</span>, <span class="tt">WorldSceneRenderer</span>) : tout est livré au <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a> et éprouvé sur cinq cartes de fixture. Ce lot n'y ajoute que des cartes.</li>
@@ -111,14 +111,14 @@ Ce que le dépôt contenait à l'ouverture (18 septembre 2026)</h1>
 <li><b>Aucune figurine de sentinelle</b> : l'atelier du <a class="el" href="lot-91.html" title="LOT-91 — Atelier des PNJ : les figurines du Character Compendium">LOT-91</a> a livré cinq figurines (<span class="tt">anariel</span>, <span class="tt">jade</span>, <span class="tt">lizz</span>, <span class="tt">nakral</span>, <span class="tt">xorius</span>), aucune n'est un garde Ironhand.</li>
 <li><b>Cinq dialogues</b> dans <span class="tt">Source/Elements/World/dialogues/</span>, tous du Colisée : ils servent de modèle à <span class="tt">sentinelle-ironhand.json</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md769"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md770"></a>
 Décisions d'ouverture</h1>
 <ul>
 <li><b>Le niveau îlot est un rendu de la carte de niveau</b> (<em>décision de l'auteur</em>, 18 septembre 2026). L'îlot n'a pas d'image à lui : l'écran « Carte » montre la carte du quartier telle que le jeu la dessine, vue de haut, par le composeur de lieu — les mêmes planches, le même marqueur, le héros à sa case. Rien à peindre ni à commander, et un plan qui ne peut pas diverger du terrain qu'on parcourt. Un îlot est un rectangle de cases nommé sur la carte du quartier.</li>
 <li><b>Le niveau quartier est un recadrage du plan de ville, provisoire</b> (<em>décision de l'auteur</em>, 18 septembre 2026). C'est une entorse nommée à la règle du <a class="el" href="lot-94.html" title="LOT-94 — Les images du corpus quittent le dépôt ; l&#39;écran « Carte » revient sur les cartes de l&#39;auteur : monde, région, ville">LOT-94</a> — « une carte repeinte n'est pas une carte recadrée » — tolérée jusqu'à ce que l'auteur peigne la vue de chaque quartier. Pour qu'elle ne s'installe pas : <b>aucun fichier recadré n'est commité</b>. Le quartier porte un <b>cadre</b> sur le plan de ville, en fractions, comme le <span class="tt">frame</span> d'une région sur le monde, et l'écran agrandit ce cadre ; le jour où une image peinte existe, un champ <span class="tt">image</span> la désigne et le cadre ne sert plus qu'à l'origine du zoom. <span class="tt">check_map_assets.py</span> signale chaque quartier encore sans image.</li>
 <li><b>Les cartes se posent par script, puis se retouchent dans l'éditeur</b> — la méthode du <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a>, reconduite : un script d'atelier versionné dans ce dossier écrit <span class="tt">martpart.json</span> et <span class="tt">arenarea.json</span> depuis une description de haut niveau (rues, îlots, bâtiments nommés, portes), relevée sur le plan de ville ; l'éditeur du <a class="el" href="lot-11.html" title="LOT-11 — Éditeur multi-couches et placement d&#39;entités">LOT-11</a> reste l'outil de retouche.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md770"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md771"></a>
 Les phases</h1>
 <p>L'ordre a changé à la première phase (voir le journal) : les cartes d'abord, le graphe qui les nomme ensuite, pour que chaque commit reste vert.</p>
 <table class="markdownTable">
@@ -137,7 +137,7 @@ Les phases</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">6  </td><td class="markdownTableBodyNone"><b>Captures et vérification</b>  </td><td class="markdownTableBodyNone">Captures de référence QML de Martpart, d'Arenarea et de chaque niveau ajouté au plan ; le geste au clavier et à la manette  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md771"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md772"></a>
 Ce que le lot a livré</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -155,14 +155,14 @@ Ce que le lot a livré</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Le plan montre où l'on est, et descend au quartier puis à l'îlot  </td><td class="markdownTableBodyNone">cinq niveaux ; quartier = cadre du plan (provisoire), îlot = rendu de la carte (<span class="tt">image://cityblock/</span>)  </td><td class="markdownTableBodyNone"><span class="tt">CityBlockTest</span>, <span class="tt">CityBlockRenderTest</span> (2), références QML <span class="tt">DistrictMapForm</span>, <span class="tt">BlockMapForm</span>, <span class="tt">CityMapForm</span>  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md772"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md773"></a>
 Points ouverts</h1>
 <ul>
 <li><b>La planche d'Arenarea.</b> Arenarea emprunte celle de Martpart (phase 2, voir le journal). Si l'auteur commande une planche Arenarea à l'atelier du <a class="el" href="lot-92.html" title="LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu">LOT-92</a> (envois manuels), la carte change de lieu d'une ligne (<span class="tt">"scene"</span> de sa couche de sol) ; sinon, l'emprunt tient jusqu'au <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>.</li>
 <li><b>La figurine de la sentinelle.</b> Marqueur du <a class="el" href="lot-39.html" title="LOT-39 — Plomberie des clés d&#39;assets">LOT-39</a> (phase 4) jusqu'à ce que l'atelier du <a class="el" href="lot-91.html" title="LOT-91 — Atelier des PNJ : les figurines du Character Compendium">LOT-91</a> produise un garde Ironhand, sous le slug <span class="tt">sentinelle-ironhand</span> que les dix PNJ nomment déjà : la figurine livrée remplacera le marqueur sans qu'une carte change. Reprendre une des cinq figurines livrées ferait d'un personnage nommé un garde anonyme — écarté.</li>
 <li><b>Le Colisée du menu principal</b> reste tel que le <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a> l'a livré ; le brancher depuis Arenarea est au <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md773"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md774"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>À l'écran</b> : « Nouvelle partie » ouvre Martpart à sa porte ; on passe à Arenarea et on revient <b>au point d'arrivée nommé</b> ; on parle à la sentinelle d'une porte fermée et l'écran de dialogue s'ouvre sur son dialogue ; le plan montre le héros dans le bon quartier.</li>
@@ -171,7 +171,7 @@ Critères d'acceptation</h1>
 <li>L'écran « Carte » descend de la ville à un quartier puis à un îlot ; captures de référence QML de Martpart, d'Arenarea et de chaque niveau ajouté.</li>
 <li>Aucune tuile de test ; le marqueur du <a class="el" href="lot-39.html" title="LOT-39 — Plomberie des clés d&#39;assets">LOT-39</a> est le seul substitut ; aucune image du corpus, ni aucun recadrage commité (<span class="tt">EX-IHM-076</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md774"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md775"></a>
 Journal</h1>
 <ul>
 <li><b>18 septembre 2026, ouverture.</b> Les trois décisions d'ouverture ci-dessus. Le lot quitte la section 11 de la <a class="el" href="roadmap.html" title="Feuille de route — le bac à sable de Tanares">feuille de route</a> pour cette page ; les deux tableaux de la section 6 sont régénérés (<span class="tt">lint_lots.py --regenerer</span>) ; le diagramme perd les arêtes entrantes du lot, et son nœud est marqué « en cours ». Au passage, le nœud du <a class="el" href="lot-09.html" title="LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte">LOT-09</a>, livré le 17, prend sa marque « livré », oubliée à la livraison.</li>

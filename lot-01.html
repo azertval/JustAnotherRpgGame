@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-01.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : configuration CMake, build <span class="tt">Core</span> et <span class="tt">JustAnotherRpgGame</span> sans avertissement en <span class="tt">/W4 /WX</span>, exécutable produit). La vérification IHM manuelle — menu, éditeur, chargement d'une carte — reste à faire par l'utilisateur, comme pour tout lot touchant moteur et rendu. Prérequis : aucun. C'est le premier lot du dépôt. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md305"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md306"></a>
 Objectif</h1>
 <p>Ramener le dépôt d'origine à un <b>moteur 2D générique</b>, sans gameplay de plateforme ni solveur d'IA, pour que les lots suivants construisent le RPG en vue de dessus sur une base propre plutôt qu'à côté d'un jeu qu'on ne finira pas.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md306"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md307"></a>
 Pourquoi purger en premier</h1>
 <p>Le dépôt d'origine est un jeu de plateforme/puzzle en vue de côté livré en <span class="tt">0.1.3</span> après 74 lots. Son architecture est remarquablement réutilisable — la frontière <span class="tt">HMI → Core</span> (<span class="tt">EX-ARCH-001</span>), un ECS à composants de données pures (<span class="tt">EX-ARCH-010</span>/<span class="tt">011</span>/<span class="tt">012</span>), une simulation à pas fixe découplée du rendu (<span class="tt">EX-ARCH-030</span>/<span class="tt">031</span>) — mais son <b>contenu</b> ne l'est pas :</p>
 <ul>
@@ -109,12 +109,12 @@ Pourquoi purger en premier</h1>
 </ul>
 <p>Une stratégie de coexistence aurait traîné tout cela pendant les vingt-cinq lots du programme, en payant deux fois chaque évolution de format. Le fork permet l'inverse : purger d'abord, construire ensuite sur une base trois fois plus petite.</p>
 <p>Le prix est assumé et connu : purger tôt supprime une partie de l'oracle de test. La mitigation tient en un point — <b>la purge est une suppression mécanique, pas une transformation</b>. Aucun comportement conservé n'est réécrit ; on retire des fichiers entiers et les tests qui les visaient. Ce qui reste garde ses propres tests, et c'est cet ensemble résiduel qui sert d'oracle aux refactorings des lots <span class="tt">LOT-02</span> à <span class="tt">LOT-05</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md307"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md308"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md308"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md309"></a>
 Conservé tel quel</h2>
 <p><span class="tt">Core/Ecs</span> (World, EntityManager, ComponentPool, View, ISystem ; composants <span class="tt">Transform</span>, <span class="tt">Velocity</span>, <span class="tt">Collider</span>, <span class="tt">Sprite</span>, <span class="tt">Animation</span>, <span class="tt">Particle</span>), <span class="tt">Core/Time/FixedTimestep</span>, <span class="tt">Core/Math</span> (Vector2, Rect, MathUtils, DeterministicRandom), <span class="tt">Core/Physics</span> (<span class="tt">sweepAabb</span>, <span class="tt">sweepAabbVsAabb</span>, <span class="tt">Aabb</span>), <span class="tt">Core/Diagnostics</span>, <span class="tt">Core/Levels</span> (TileMap, chargeur/écrivain/brouillon, LevelScene), tout <span class="tt">HMI/Graphics</span>, <span class="tt">HMI/Input</span>, <span class="tt">HMI/Interface</span>, <span class="tt">HMI/Audio</span>, <span class="tt">HMI/Localization</span>, <span class="tt">HMI/Editor</span> (undo/redo, bibliothèque d'assets, atelier pixel art) et l'infrastructure CI/doc/test.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md309"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md310"></a>
 Supprimé</h2>
 <ul>
 <li><span class="tt">Source/AiSolver/</span> (12 k lignes), <span class="tt">Source/HMI/Ai/</span>, <span class="tt">AiModeScreen</span>, <span class="tt">TrainingChartWidget</span>, <span class="tt">ReplayPlayback</span>, les rejeux livrés, l'entrée « Mode IA » du menu et son état de <span class="tt">ScreenFlow</span>.</li>
@@ -124,21 +124,21 @@ Supprimé</h2>
 <li>L'outil « Parcours » de l'éditeur (<span class="tt">PathGeometry</span>, <span class="tt">PathGesture</span>) et le panneau « Propriétés », qui ne pilotaient que des réglages de plateforme.</li>
 <li>25 valeurs de <span class="tt">TileType</span> sur 36, les 26 niveaux de démonstration et leurs plans picturaux, et les tests correspondants.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md310"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md311"></a>
 Conservé contre l'attente — deux décisions</h2>
 <p><b><span class="tt">MechanismController</span> est resté.</b> Interrupteur↔porte, plaque de pression, clé↔porte verrouillée ne sont pas du gameplay de plateforme : c'est le vocabulaire de puzzle qu'un Zelda-like utilise tel quel. Il a été retiré puis restauré, débarrassé de sa seule partie caduque (les dangers commutés, dont le type de tuile disparaît). Les cinq types de tuile associés restent donc dans <span class="tt">TileType</span>, et le mécanisme reste testé.</p>
 <p><b>Le détourage par silhouette est resté, vidé.</b> <span class="tt">SlopeMask</span> portait à la fois la géométrie des pentes (caduque) et le mécanisme de découpe partagé par l'atlas procédural, le détourage des skins (<span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Crée et conserve les textures des marqueurs d&#39;entité, une par clé d&#39;asset.">hmi::TextureCache</a></span>) et les vignettes de la palette. Il devient <span class="tt">HMI/Graphics/TileSilhouette</span>, dont la liste <span class="tt">SILHOUETTE_TILE_TYPES</span> est <b>vide</b> : trois chaînes d'appel restent fonctionnelles pour un fichier de quarante lignes, et le vocabulaire de tuiles du <span class="tt">LOT-08</span> (falaises, bords d'eau, ponts) la repeuplera.</p>
 <p><b><span class="tt">aisolver::GridDistanceField</span> a été sauvé.</b> BFS 4-voisins multi-source sur <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span>, à lectures <span class="tt">O(1)</span>, ne dépendant que de <span class="tt">Core</span> : c'est exactement le calcul de portée de déplacement du combat tactique. Déplacé en <span class="tt">Core/World/GridDistanceField</span>, rebasculé dans le namespace <span class="tt"><a class="el" href="namespacecore.html" title="Espace de noms du moteur et de la logique de jeu.">core</a></span>, avec son test — consommé par le <span class="tt">LOT-19</span>.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md311"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md312"></a>
 Conséquence assumée</h2>
 <p><span class="tt">hmi::GameSession::update</span> ne déplace plus le personnage : la physique de plateforme est partie et son remplaçant top-down (<span class="tt">core::TopDownMovementSystem</span>) arrive au <span class="tt">LOT-06</span>. <b>Le jeu se lance, charge et affiche une carte, mais n'est pas jouable</b> dans cet intervalle. L'intention d'entrée est lue sans être consommée, pour que le système de déplacement se branche sans changer ni la signature ni l'ordre des passes.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md312"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md313"></a>
 Identité du dépôt</h2>
 <p>Renommage en <span class="tt">JustAnotherRpgGame</span> (cibles CMake, binaire, documentation, workflows) et préfixe de macro <span class="tt">JADG_</span>. Version remise à <span class="tt">0.1.0</span>. Le programme de lots d'origine est mis en archive (le <span class="tt">LOT-88</span> l'a depuis retiré du dépôt).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md313"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md314"></a>
 Exigences couvertes</h1>
 <p>Aucune exigence nouvelle : ce lot <b>retire</b>. Les catégories <span class="tt">EX-GP-*</span> (gameplay de plateforme) et <span class="tt">EX-IA-*</span> (solveur autonome) passent en <b>héritage, hors périmètre</b> — jamais renumérotées, la règle du dépôt l'interdit. Les catégories du RPG (<span class="tt">EX-EXP-*</span>, <span class="tt">EX-REG-*</span>, <span class="tt">EX-CBT-*</span>, <span class="tt">EX-RPG-*</span>) sont créées par les lots qui les concrétisent.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md314"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md315"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Tag d'archive posé <b>avant</b> toute suppression (supprimé depuis par le <a class="el" href="lot-88.html" title="LOT-88 — Retrait de l&#39;héritage : code, assets et spécifications">LOT-88</a>).</li>

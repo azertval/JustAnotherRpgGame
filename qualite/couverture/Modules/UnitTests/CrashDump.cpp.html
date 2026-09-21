@@ -40,9 +40,19 @@ struct CrashDumpSettings {
     std::string version;
 };
 
+/// Pause entre deux essais de la tentative de dernier recours (writeDumpJob), en millisecondes.
+constexpr DWORD kMiniDumpRetryPauseMs = 50;
+
 <span style = "background-color:#fdd">CrashDumpSettings&amp; settings() {
     static CrashDumpSettings instance;
     return instance;
+}</span>
+
+/// Erreurs des tentatives de la derniÃ¨re Ã©criture (writeMiniDump), pour le diagnostic : sans elles,
+/// seule l'erreur de la derniÃ¨re tentative est connue, et une panne de CI reste illisible.
+<span style = "background-color:#dfd">std::array&lt;unsigned long, kMiniDumpAttemptCount&gt;&amp; attemptErrors() {</span>
+    static std::array&lt;unsigned long, kMiniDumpAttemptCount&gt; instance{};
+<span style = "background-color:#dfd">    return instance;
 }</span>
 
 <span style = "background-color:#fdd">[[noreturn]] void raiseFatalError() {
@@ -107,23 +117,40 @@ struct DumpJob {
     EXCEPTION_RECORD recordCopy{};
     CONTEXT contextCopy{};
     EXCEPTION_POINTERS pointersCopy{};
+    // Tentative en cours : si non nul, seul ce thread est consignÃ© (voir writeDumpJob).
+    DWORD onlyThread = 0;
     BOOL written = FALSE;
     DWORD error = ERROR_SUCCESS;
+    // Code d'erreur de chaque tentative, dans l'ordre : ce que la CI montre quand tout Ã©choue.
+    std::array&lt;unsigned long, kMiniDumpAttemptCount&gt; errors{};
 };
 
-/// Rappel de MiniDumpWriteDump : une zone mÃ©moire illisible est sautÃ©e au lieu d'annuler le dump.
-/// Sans lui, une pile qu'un autre thread libÃ¨re pendant la lecture fait Ã©chouer toute l'Ã©criture
-/// sur ERROR_PARTIAL_COPY -- vu sur les runners de CI aprÃ¨s des tests qui laissent des threads
-/// (Nightly, ordre alÃ©atoire rÃ©pÃ©tÃ©), Ã  chaque essai. Les autres rappels gardent le comportement
-/// par dÃ©faut : threads et modules inclus, aucune mÃ©moire ajoutÃ©e.
-BOOL CALLBACK skipUnreadableMemory(PVOID /*param*/, const PMINIDUMP_CALLBACK_INPUT input,
+/// Rappel de MiniDumpWriteDump : une zone mÃ©moire illisible est sautÃ©e au lieu d'annuler le dump,
+/// et, sur la derniÃ¨re tentative, seul le thread du plantage est consignÃ©.
+///
+/// ReadMemoryFailureCallback ne couvre pas tout : Â« si l'Ã©chec a lieu dans une pile, il est
+/// considÃ©rÃ© comme irrÃ©cupÃ©rable et le minidump Ã©choue Â» (documentation de
+/// MINIDUMP_CALLBACK_TYPE). Une pile qu'un thread en cours de fin libÃ¨re pendant la lecture fait
+/// donc Ã©chouer l'Ã©criture sur ERROR_PARTIAL_COPY quoi qu'on rÃ©ponde -- vu sur les runners de CI,
+/// jamais sur le poste. Le seul remÃ¨de est de ne pas lire cette pile : IncludeThreadCallback rend
+/// FALSE pour tout thread autre que celui du plantage (`onlyThread`), ce que la derniÃ¨re tentative
+/// seule demande. Les autres rappels gardent le comportement par dÃ©faut : threads et modules
+/// inclus, aucune mÃ©moire ajoutÃ©e.
+BOOL CALLBACK skipUnreadableMemory(PVOID param, const PMINIDUMP_CALLBACK_INPUT input,
 <span style = "background-color:#dfd">                                   PMINIDUMP_CALLBACK_OUTPUT output) {
     if (input == nullptr || output == nullptr) {</span>
 <span style = "background-color:#fdd">        return FALSE;</span>
     }
-<span style = "background-color:#dfd">    switch (input-&gt;CallbackType) {</span>
-        case IncludeModuleCallback:
+<span style = "background-color:#dfd">    const auto* const job = static_cast&lt;const DumpJob*&gt;(param);
+    switch (input-&gt;CallbackType) {</span>
         case IncludeThreadCallback:
+<span style = "background-color:#dfd">            if (job != nullptr &amp;&amp; job-&gt;onlyThread != 0 &amp;&amp;</span>
+                // NOLINTNEXTLINE(cppcoreguidelines-pro-type-union-access): union de l'API Win32.
+                input-&gt;IncludeThread.ThreadId != job-&gt;onlyThread) {
+<span style = "background-color:#fdd">                return FALSE;  // thread exclu : sa pile n'est pas lue, donc pas d'Ã©chec dessus</span>
+            }
+<span style = "background-color:#dfd">            return TRUE;</span>
+        case IncludeModuleCallback:
         case ModuleCallback:
         case ThreadCallback:
         case ThreadExCallback:
@@ -156,36 +183,73 @@ BOOL CALLBACK skipUnreadableMemory(PVOID /*param*/, const PMINIDUMP_CALLBACK_INP
     // un Ã©tat Ã©tendu du processeur (CONTEXT_XSTATE) dont la taille dÃ©pend de la machine. Les essais
     // suivants passent une copie limitÃ©e au CONTEXT de base, puis les pointeurs d'origine lus par
     // ReadProcessMemory (ClientPointers). Un dump sans l'Ã©tat AVX vaut mieux que pas de dump.
+    //
+    // La derniÃ¨re tentative n'Ã©crit que le thread du plantage : une pile illisible (un thread qui
+    // se termine pendant la lecture) fait Ã©chouer tout le dump, sans rappel possible, et c'est
+    // l'Ã©chec observÃ© en CI. La pile fautive suffit Ã  lire le plantage ; celles des autres threads
+    // sont ce qu'on abandonne en dernier recours.
+    //
+    // La derniÃ¨re est rÃ©essayÃ©e : sur les runners, la mÃªme version Ã©choue une fois sur deux, et
+    // toujours sur un Ã©tat que dbghelp lit au mauvais moment (pile libÃ©rÃ©e, thread en transition).
+    // Quelques dizaines de millisecondes plus tard, l'Ã©tat a changÃ©. Seule la derniÃ¨re tentative,
+    // la plus Ã©troite, est reprise : un plantage ne doit pas attendre douze Ã©critures.
     struct Attempt {
         MINIDUMP_TYPE type;
         EXCEPTION_POINTERS* pointers;
         BOOL clientPointers;
+        DWORD onlyThread;
+        int tries;
     };
-    const std::array&lt;Attempt, 3&gt; attempts = {{
-<span style = "background-color:#dfd">        {.type = rich, .pointers = job-&gt;original, .clientPointers = FALSE},
+    const std::array&lt;Attempt, kMiniDumpAttemptCount&gt; attempts = {{
+<span style = "background-color:#dfd">        {.type = rich,
+         .pointers = job-&gt;original,
+         .clientPointers = FALSE,
+         .onlyThread = 0,
+         .tries = 1},
         {.type = reduced,
          .pointers = job-&gt;original != nullptr ? &amp;job-&gt;pointersCopy : nullptr,
-         .clientPointers = FALSE},
-        {.type = reduced, .pointers = job-&gt;original, .clientPointers = TRUE},</span>
+         .clientPointers = FALSE,
+         .onlyThread = 0,
+         .tries = 1},
+        {.type = reduced,
+         .pointers = job-&gt;original,
+         .clientPointers = TRUE,
+         .onlyThread = 0,
+         .tries = 1},
+        {.type = reduced,
+         .pointers = job-&gt;original != nullptr ? &amp;job-&gt;pointersCopy : nullptr,
+         .clientPointers = FALSE,
+         .onlyThread = job-&gt;threadId,
+         .tries = 3},</span>
     }};
 <span style = "background-color:#dfd">    MINIDUMP_CALLBACK_INFORMATION callback{};
     callback.CallbackRoutine = &amp;skipUnreadableMemory;
+    callback.CallbackParam = job;
+    std::size_t index = 0;
     for (const Attempt&amp; attempt : attempts) {
-        LARGE_INTEGER start{};
-        SetFilePointerEx(job-&gt;file, start, nullptr, FILE_BEGIN);
-        SetEndOfFile(job-&gt;file);
-        MINIDUMP_EXCEPTION_INFORMATION information{};
-        information.ThreadId = job-&gt;threadId;
-        information.ExceptionPointers = attempt.pointers;
-        information.ClientPointers = attempt.clientPointers;
-        job-&gt;written = MiniDumpWriteDump(</span>
-            GetCurrentProcess(), GetCurrentProcessId(), job-&gt;file, attempt.type,
-            attempt.pointers != nullptr ? &amp;information : nullptr, nullptr, &amp;callback);
-<span style = "background-color:#dfd">        if (job-&gt;written != FALSE) {
-            job-&gt;error = ERROR_SUCCESS;
-            return 0;</span>
+        job-&gt;onlyThread = attempt.onlyThread;
+        for (int attemptTry = 0; attemptTry &lt; attempt.tries; ++attemptTry) {
+            if (attemptTry &gt; 0) {</span>
+<span style = "background-color:#fdd">                Sleep(kMiniDumpRetryPauseMs);</span>
+            }
+<span style = "background-color:#dfd">            LARGE_INTEGER start{};
+            SetFilePointerEx(job-&gt;file, start, nullptr, FILE_BEGIN);
+            SetEndOfFile(job-&gt;file);
+            MINIDUMP_EXCEPTION_INFORMATION information{};
+            information.ThreadId = job-&gt;threadId;
+            information.ExceptionPointers = attempt.pointers;
+            information.ClientPointers = attempt.clientPointers;
+            job-&gt;written = MiniDumpWriteDump(</span>
+                GetCurrentProcess(), GetCurrentProcessId(), job-&gt;file, attempt.type,
+                attempt.pointers != nullptr ? &amp;information : nullptr, nullptr, &amp;callback);
+<span style = "background-color:#dfd">            if (job-&gt;written != FALSE) {
+                job-&gt;error = ERROR_SUCCESS;
+                return 0;</span>
+            }
+<span style = "background-color:#fdd">            job-&gt;error = GetLastError();
+            job-&gt;errors.at(index) = job-&gt;error;
         }
-<span style = "background-color:#fdd">        job-&gt;error = GetLastError();
+        ++index;
     }
     return 0;</span>
 <span style = "background-color:#dfd">}</span>
@@ -253,11 +317,16 @@ std::string crashDumpFileName(std::string_view application, std::string_view ver
 <span style = "background-color:#fdd">        writeDumpJob(&amp;job);</span>
     }
 <span style = "background-color:#dfd">    CloseHandle(file);
+    attemptErrors() = job.errors;
     if (job.written == FALSE) {</span>
 <span style = "background-color:#fdd">        SetLastError(job.error);
         return false;</span>
     }
 <span style = "background-color:#dfd">    return true;
+}</span>
+
+<span style = "background-color:#fdd">std::array&lt;unsigned long, kMiniDumpAttemptCount&gt; lastMiniDumpAttemptErrors() {
+    return attemptErrors();
 }</span>
 
 void installCrashDumpWriter(std::filesystem::path directory, std::string application,

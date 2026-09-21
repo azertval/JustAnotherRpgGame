@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-21.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 1120/1120 en Debug et en Release, <span class="tt">clang-format</span>, les lints, la Doxygen et le cahier de test verts ; deux défauts réintroduits à la main font chacun échouer leurs tests ; écran de l'arène capturé). Prérequis : <a class="el" href="lot-13.html" title="LOT-13 — Fiche de personnage">LOT-13</a> (la fiche), <a class="el" href="lot-14.html" title="LOT-14 — Inventaire et équipement">LOT-14</a> (l'arme portée), <a class="el" href="lot-20.html" title="LOT-20 — Initiative et tour par tour">LOT-20</a> (le tour et ses crochets). Alimente <a class="el" href="lot-22.html" title="LOT-22 — Portée, ligne de vue et zones d&#39;effet">LOT-22</a>, <a class="el" href="lot-23.html" title="LOT-23 — IA tactique ennemie">LOT-23</a>, <a class="el" href="lot-24.html" title="LOT-24 — IHM de combat">LOT-24</a>, <span class="tt">LOT-25</span>, <a class="el" href="roadmap.html#lot-27" title="LOT-27 — La Capitale : contenu du &lt;em&gt;vertical slice&lt;/em&gt;">LOT-27</a>, <span class="tt">LOT-47</span> et <span class="tt">LOT-72</span>. Exigences couvertes : <span class="tt">EX-CBT-030</span> (l'attaque contre une CA recalculée depuis ses sources), <span class="tt">EX-CBT-031</span> (le critique double les dés), <span class="tt">EX-CBT-032</span> (dégâts typés, jamais de type par défaut), et <span class="tt">EX-REG-003</span> pour chaque attaque. Aucune exigence ajoutée. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md463"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md464"></a>
 Objectif</h1>
 <p>Résoudre une attaque au d20 contre la classe d'armure, et appliquer ses dégâts — selon le <b>Manuel des Joueurs, chapitre 9</b> (« Effectuer une attaque », « Dégâts et guérison »), qui fait foi pour chaque règle de ce lot. Les sorts n'en sont pas : ils arriveront de manière exhaustive avec les classes.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md464"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md465"></a>
 Ce que ce lot livre, et ce qu'il ne livre pas</h1>
 <ul>
 <li><b>Les dégâts</b> (<span class="tt">Source/Core/Combat/Damage.{h,cpp}</span>) : clauses typées et drapeaux de source (<span class="tt"><a class="el" href="structcore_1_1DamageClause.html" title="Une clause de dégâts, telle qu&#39;une attaque la porte avant les dés.">core::DamageClause</a></span>, <span class="tt"><a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4" title="Ce qu&#39;une source de dégâts est, au-delà de son type.">core::DamageFlag</a></span>), le lancer qui double les dés d'un critique (<span class="tt"><a class="el" href="namespacecore.html#abfebc43646d1d520094ddedc511ffab2" title="Lance chaque clause, en doublant les dés si le coup est critique.">core::rollDamage</a></span>), les affinités d'une cible et ce qui les contourne (<span class="tt"><a class="el" href="structcore_1_1DamageTraits.html" title="Les affinités d&#39;une cible — combattant ou structure.">core::DamageTraits</a></span>), les <b>réserves</b> de points de vie (<span class="tt"><a class="el" href="structcore_1_1HitPointReserve.html" title="Une réserve de points de vie : ce qui absorbe les dégâts avant les PV.">core::HitPointReserve</a></span>), et le <b>pipeline à étapes nommées</b> (<span class="tt"><a class="el" href="classcore_1_1DamagePipeline.html" title="Le pipeline de dégâts : cinq étapes nommées, et ce qui s&#39;y greffe.">core::DamagePipeline</a></span>) qui se termine dans <span class="tt"><a class="el" href="classcore_1_1CombatState.html#a49abb9a15d8de91f995425ea70356280" title="Retire amount points de vie, sans descendre sous 0 ; à 0, le combattant est à terre.">core::CombatState::applyDamage</a></span> — pour un combattant comme pour une structure de la grille.</li>
@@ -109,7 +109,7 @@ Ce que ce lot livre, et ce qu'il ne livre pas</h1>
 <li><b>Autour</b> : la règle « Force au corps à corps, Dextérité à distance, la meilleure des deux en finesse » n'est plus écrite qu'une fois (<span class="tt"><a class="el" href="namespacecore.html#a322a4b7a467d4c7168e4173641b88459" title="La caractéristique du jet d&#39;attaque avec weapon (Manuel, chapitre 9, « Modificateurs du jet »).">core::weaponAttackAbility</a></span>, que la fiche et l'attaque lisent toutes deux).</li>
 </ul>
 <p>Il ne livre <b>pas</b> l'agonie : ni inconscience, ni jets contre la mort, ni mort instantanée, ni coup qui assomme. La feuille de route les avait fusionnés dans le <span class="tt">LOT-72</span> à l'audit, et le critère d'acceptation du lot qui les réclamait encore est une trace de l'état antérieur ; ce lot s'arrête aux PV bornés à 0 et <b>rapporte</b> ce dont l'agonie aura besoin (ci-dessous). Il ne livre pas non plus la portée à distance, la ligne de vue ni l'abri (<span class="tt">LOT-22</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md465"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md466"></a>
 Les règles du Manuel, et où chacune vit</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -141,7 +141,7 @@ Les règles du Manuel, et où chacune vit</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Esquiver : désavantage aux attaques contre soi jusqu'au début de son tour  </td><td class="markdownTableBodyNone"><span class="tt"><a class="el" href="classcore_1_1ArenaSession.html#a8fe411d2eeeb7eec646bafd6baa5269a" title="L&#39;action esquiver : jusqu&#39;au début de son prochain tour, les attaques contre le combattant actif sont...">core::ArenaSession::dodge</a></span>  </td><td class="markdownTableBodyNone">idem  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md466"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md467"></a>
 Un jet qui est un objet</h1>
 <p>Le §4bis de la feuille de route demandait que le résultat d'un jet soit un objet que des crochets lisent et amendent <b>avant</b> que l'issue ne soit figée. <span class="tt"><a class="el" href="structcore_1_1AttackRoll.html" title="Un jet d&#39;attaque : la demande, les dés, les amendements, et l&#39;issue une fois figée.">core::AttackRoll</a></span> est cet objet, et <span class="tt"><a class="el" href="classcore_1_1AttackHooks.html" title="Les greffons des jets d&#39;attaque, par étape, dans l&#39;ordre d&#39;insertion.">core::AttackHooks</a></span> lui offre trois instants, dans l'ordre :</p>
 <ul>
@@ -150,7 +150,7 @@ Un jet qui est un objet</h1>
 <li><span class="tt">BeforeOutcome</span> — ajouter un modificateur après avoir vu le total (<span class="tt">addModifier</span>).</li>
 </ul>
 <p>L'issue n'est figée qu'après : un 1 rate, un résultat au moins égal au seuil critique touche et est critique, sinon le total se compare à la CA. Chaque amendement s'inscrit dans le jet. Le même point d'insertion rend les tests écrivables : un « 20 naturel » y est un greffon qui substitue le dé, pas une graine cherchée à la main.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md467"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md468"></a>
 Un pipeline, pas une soustraction</h1>
 <p>Les dégâts traversent cinq étapes nommées (<span class="tt"><a class="el" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6" title="Les étapes du pipeline, dans l&#39;ordre où elles s&#39;exécutent.">core::DamageStage</a></span>), chacune point d'insertion : <b>source</b> (drapeaux), <b>conversion</b> (type), <b>résistances</b> (immunité, puis résistance, puis vulnérabilité — les greffons s'exécutent <em>avant</em> le moteur, ce qui place une réduction fixe là où le Manuel la veut), <b>réserves</b> (la plus récente absorbe d'abord), <b>points de vie</b>. Chaque changement de montant s'inscrit dans une trace (<span class="tt"><a class="el" href="structcore_1_1DamageWork.html#a7b39ee53ae0d6b6eaedbb90dc41697ef" title="Change le montant d&#39;une portion, et l&#39;inscrit dans la trace.">core::DamageWork::adjust</a></span>), que le journal restitue : « résistance (contondant) 20 -&gt; 10 ».</p>
 <ul>
@@ -159,10 +159,10 @@ Un pipeline, pas une soustraction</h1>
 <li><b>Les structures ont des PV.</b> <span class="tt"><a class="el" href="structcore_1_1GridObject.html" title="Un objet posé sur une case : une toile, une barricade, un tonneau.">core::GridObject</a></span> porte ses affinités, et <span class="tt">DamagePipeline::applyToStructure</span> les fait traverser les mêmes étapes, réserves exceptées.</li>
 <li><b>Aucun type par défaut</b> (<span class="tt">EX-CBT-032</span>). Une action de bestiaire à bonus d'attaque dont les dégâts ne seraient pas typés est <b>refusée</b> par <span class="tt"><a class="el" href="namespacecore.html#a9f790045523fda834167bed21d202dd3" title="Les attaques d&#39;un bloc de bestiaire : chaque action qui a un bonus d&#39;attaque et des dégâts.">core::attacksFor</a></span>, qui le nomme ; un test charge les 94 créatures livrées et n'en trouve aucune.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md468"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md469"></a>
 Ce que l'agonie trouvera en place</h1>
 <p><span class="tt"><a class="el" href="structcore_1_1CombatEvent.html" title="Ce qu&#39;un crochet annonce.">core::CombatEvent</a></span> porte, pour <span class="tt">DamageTaken</span> et <span class="tt">CombatantDowned</span>, les PV avant et après, le maximum, l'<b>excédent</b> au-delà de 0 et le drapeau <b>critique</b>. C'est exactement ce que le chapitre 9 demande au <span class="tt">LOT-72</span> : la mort instantanée quand l'excédent atteint le maximum (l'exemple du clerc à 6 PV sur 12 qui en subit 18 est rejoué par test), un échec de jet contre la mort pour des dégâts subis à 0 PV — <span class="tt">DamageTaken</span> est annoncé même à 0 —, deux pour un critique. <span class="tt"><a class="el" href="namespacecore.html#a7a167c903e311c5d67c0dedf3292eaa5" title="Vrai si l&#39;événement fait passer les points de vie sous la fraction numerator / denominator du maximum...">core::crossedBelow</a></span> dit qu'un seuil a été <b>franchi</b> (<em>Battle Fury</em> sous 50 %), une fois.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md469"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md470"></a>
 Décisions prises en route</h1>
 <ul>
 <li><b>La CA est un nombre du profil, calculé à sa construction.</b> <span class="tt">EX-CBT-030</span> interdit une CA accumulée ; le profil la prend de ce qui la produit — <span class="tt"><a class="el" href="namespacecore.html#a9a5cbcc72fe725bdada14f1b5a38e3d1" title="Calcule tout ce que l&#39;équipement porté produit, depuis la fiche et les catalogues.">core::derivedStatsFor</a></span> pour une fiche (le personnage de démonstration passe de sa CA sans armure à celle de son armure de cuir clouté et de son bouclier), le bloc pour une créature — et ce qui la change en combat passe par le jet, jamais par ce nombre.</li>
@@ -175,7 +175,7 @@ Décisions prises en route</h1>
 <li><b>Le journal écrit l'attaque à sa place.</b> Sa ligne se réserve après la déclaration et avant les dés, et se remplit une fois l'attaque résolue : la chute, l'issue et la Marque Héroïque qu'elle déclenche s'écrivent après elle, dans l'ordre où c'est arrivé.</li>
 <li><b>Le bestiaire ne type que la première clause</b> d'une action. Le moteur sait porter plusieurs clauses et le test du critique le montre ; c'est la donnée qui n'en fournit qu'une (le serpent venimeux géant perd ainsi son poison), et l'extraire est l'affaire du contrôle de cohérence (<span class="tt">LOT-49</span>) ou des créatures de Tanares (<span class="tt">LOT-46</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md470"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md471"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>L'agonie et la mort</b>, l'état inconscient, le coup qui assomme, la surprise : <span class="tt">LOT-72</span>.</li>
@@ -184,7 +184,7 @@ Ce qui reste hors du lot, nommément</h1>
 <li><b>Le combat monté et le combat sous-marin</b> : sans monture ni carte immergée, rien à éprouver.</li>
 <li><b>Les sorts</b>, et les attaques qu'ils demandent : avec les classes (<span class="tt">LOT-25</span>, <span class="tt">LOT-35</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md471"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md472"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Un 20 naturel double les dés et non le modificateur, vérifié par test.</b> ✔ Sur deux cents graines, 1d6+3 critique tient entre 5 et 15 ; la même règle se vérifie dans une attaque résolue.</li>

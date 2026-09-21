@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Stamps.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;cstddef&gt;
+#include &lt;filesystem&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include &lt;nlohmann/json.hpp&gt;
+
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/MapEntity.h"
+#include "Core/Levels/TileLayer.h"
+#include "Core/Levels/TileType.h"
+#include "Editor/Logic/LayerView.h"
+
+/**
+ * @file Editor/Logic/Stamps.h
+ * @brief Le **tampon** : un morceau de carte qu'on dÃ©coupe, qu'on repose ailleurs et qu'on garde
+ *        comme **prÃ©fabriquÃ©** (`LOT-EDITOR-08`, `EX-EDIT-085`, `EX-EDIT-086`).
+ *
+ * Un tampon (`hmi::Stamp`) est un rectangle de carte **complet** : les types de chaque couche
+ * visuelle, les piÃ¨ces qui y sont ancrÃ©es, les entitÃ©s qui s'y tiennent, et les cases dont la
+ * collision est forcÃ©e Ã  la main. `Ctrl+C` le dÃ©coupe (`hmi::cutStamp`), `Ctrl+V` le repose
+ * (`hmi::pasteStamp`), et il s'Ã©crit dans la bibliothÃ¨que du lieu pour revenir plus tard
+ * (`hmi::writePrefab`). Logique **pure** : le canevas l'appelle Ã  la souris, l'Ã©diteur sans
+ * fenÃªtre la rejoue (rÃ¨gle 4 de la feuille de route).
+ *
+ * ## Ce que le dÃ©coupage prend
+ *
+ * - **Une piÃ¨ce est prise entiÃ¨re ou pas du tout** : elle l'est si sa case d'**ancrage** est dans
+ *   le rectangle. Le rectangle du tampon s'agrandit alors jusqu'Ã  contenir toute son emprise â
+ *   sans quoi un Ã©tal 2 Ã 1 choisi au bord perdrait sa moitiÃ© droite. Une piÃ¨ce qui couvre le
+ *   rectangle mais est ancrÃ©e dehors n'est pas prise : elle appartient Ã  ce qu'on laisse.
+ * - **Une entitÃ© est prise si sa case est dans le rectangle**, avec sa forme entiÃ¨re (`cells`),
+ *   qui peut dÃ©border : une zone est Ã  elle-mÃªme sa propre Ã©tendue, et le rectangle ne s'agrandit
+ *   pas pour elle. Son **identifiant ne suit pas** : le tampon ne porte que ce qu'elle est, et
+ *   chaque pose en donne un neuf (dÃ©cision D8).
+ * - **Les cases forcÃ©es** gardent leur valeur de collision. L'**entrÃ©e** n'est jamais prise : elle
+ *   est unique dans une carte, et deux poses la dÃ©placeraient sans qu'on l'ait demandÃ©.
+ *
+ * ## Ce que la pose Ã©crit
+ *
+ * Un tampon **remplace** ce qu'il couvre, il ne s'y ajoute pas : chaque case de son rectangle
+ * reÃ§oit le type qu'il porte, vide compris. C'est ce qu'on attend d'un tampon, et c'est la seule
+ * rÃ¨gle qui rende une pose prÃ©visible. Toute la pose est **un geste** : un `Ctrl+Z` la dÃ©fait
+ * (`core::GestureScope`, `EX-EDIT-066`).
+ *
+ * Une couche du tampon va Ã  la couche **de mÃªme nom** de la carte ; Ã  dÃ©faut, Ã  la premiÃ¨re couche
+ * visuelle de mÃªme rÃ´le ; Ã  dÃ©faut, la pose est refusÃ©e. Une couche verrouillÃ©e la refuse aussi,
+ * comme pour le pinceau. Ce qui dÃ©borde de la carte est dÃ©coupÃ© aux bords ; un tampon qui
+ * tomberait entiÃ¨rement dehors est refusÃ©.
+ *
+ * ## Le miroir
+ *
+ * `hmi::mirrorStamp` reflÃ¨te le tampon dans **son propre** miroir â la diagonale de son coin haut
+ * gauche, verticale Ã  l'Ã©cran iso, celle que connaissent les planches (`hmi::MirrorAxis`) : la
+ * case (c, r) passe en (r, c), un tampon de w Ã h devient h Ã w, et chaque piÃ¨ce prend sa jumelle
+ * (`hmi::mirrorPieceName`). Le miroir **armÃ©** du canevas, lui, ne s'applique pas Ã  une pose : un
+ * tampon est dÃ©jÃ  une composition, et la reflÃ©ter au loin la poserait ailleurs qu'au curseur.
+ */
+
+namespace core {
+class LevelDraft;
+class ScenePieceManifest;
+}  // namespace core
+
+namespace hmi {
+
+/// @brief Une piÃ¨ce du tampon, ancrÃ©e en coordonnÃ©es **relatives** Ã  son coin haut gauche.
+struct StampPiece {
+    core::GridPosition anchor{};
+    std::string piece;
+    /// Le type qu'Ã©crit sa case d'ancrage (`hmi::pieceCellType`), tel qu'il Ã©tait sur la carte.
+    core::TileType type = core::TileType::Empty;
+
+    [[nodiscard]] bool operator==(const StampPiece&amp;) const = default;
+};
+
+/// @brief Une couche visuelle du tampon.
+struct StampLayer {
+    /// Le nom de la couche d'oÃ¹ elle vient : la pose cherche ce nom d'abord.
+    std::string name;
+    core::LayerKind kind = core::LayerKind::Ground;
+    /// Les types, denses, ligne par ligne (`width` Ã `height`).
+    std::vector&lt;core::TileType&gt; types;
+    /// Les piÃ¨ces ancrÃ©es dans le tampon, dans l'ordre oÃ¹ la carte les range.
+    std::vector&lt;StampPiece&gt; pieces;
+
+    [[nodiscard]] bool operator==(const StampLayer&amp;) const = default;
+};
+
+/// @brief Une case dont la collision est forcÃ©e Ã  la main, et la valeur qu'elle force.
+struct StampForcedCell {
+    core::GridPosition cell{};
+    core::TileType type = core::TileType::Solid;
+
+    [[nodiscard]] bool operator==(const StampForcedCell&amp;) const = default;
+};
+
+/// @brief Un morceau de carte : le rectangle, ses couches, ses entitÃ©s, ses cases forcÃ©es.
+struct Stamp {
+    int width = 0;
+    int height = 0;
+    /// Le lieu dont il tient ses piÃ¨ces (`scene`), vide pour un tampon sans piÃ¨ce.
+    std::string place;
+    std::vector&lt;StampLayer&gt; layers;
+    /// Les entitÃ©s, en coordonnÃ©es relatives, **sans identifiant**.
+    std::vector&lt;core::MapEntity&gt; entities;
+    std::vector&lt;StampForcedCell&gt; forced;
+
+    /// @return Vrai si le tampon n'a rien Ã  poser.
+<span style = "background-color:#dfd">    [[nodiscard]] bool empty() const noexcept {
+        return width &lt;= 0 || height &lt;= 0 || (layers.empty() &amp;&amp; entities.empty());
+    }</span>
+
+    [[nodiscard]] bool operator==(const Stamp&amp;) const = default;
+};
+
+/**
+ * @brief DÃ©coupe le rectangle [@p first, @p last] (bornes incluses, dans n'importe quel ordre) de
+ *        @p draft, agrandi jusqu'Ã  contenir l'emprise de chaque piÃ¨ce prise (voir l'en-tÃªte).
+ * @return Le tampon ; vide si le rectangle ne rencontre pas la carte.
+ */
+[[nodiscard]] Stamp cutStamp(const core::LevelDraft&amp; draft, core::GridPosition first,
+                             core::GridPosition last);
+
+/// @return Le reflet de @p stamp dans son propre miroir ; @p manifest donne les jumelles des
+///         piÃ¨ces (`nullptr` : chaque piÃ¨ce garde son nom).
+[[nodiscard]] Stamp mirrorStamp(const Stamp&amp; stamp, const core::ScenePieceManifest* manifest);
+
+/// @brief Ce qu'une pose a fait.
+struct StampPasteResult {
+    /// La carte a changÃ© (un pas d'annulation de plus).
+    bool changed = false;
+    /// Le refus, en anglais, pour la barre d'Ã©tat ; vide sinon.
+    std::string refusal;
+    /// Les rangs des entitÃ©s posÃ©es, dans l'ordre : ce que la fenÃªtre sÃ©lectionne ensuite.
+    std::vector&lt;std::size_t&gt; entities;
+
+    [[nodiscard]] bool operator==(const StampPasteResult&amp;) const = default;
+};
+
+/**
+ * @brief Pose @p stamp, son coin haut gauche en @p at, en **un** geste (voir l'en-tÃªte).
+ * @param draft La carte.
+ * @param stamp Le tampon.
+ * @param at    La case du coin haut gauche.
+ * @param view  Les rÃ©glages des couches (verrous).
+ */
+StampPasteResult pasteStamp(core::LevelDraft&amp; draft, const Stamp&amp; stamp, core::GridPosition at,
+                            const LayerViewState&amp; view);
+
+/// @return Ce que la barre d'Ã©tat dit d'un tampon : `3 Ã 2 Â· 2 pieces Â· 1 entity`.
+[[nodiscard]] std::string stampLabel(const Stamp&amp; stamp);
+
+// --- La bibliothÃ¨que de prÃ©fabriquÃ©s ------------------------------------------------------------
+
+/// @brief Nom du format d'un prÃ©fabriquÃ© (champ `format`).
+inline constexpr std::string_view PREFAB_FORMAT = "jadg-editor-prefab";
+
+/// @brief Version du format d'un prÃ©fabriquÃ© (champ `version`).
+inline constexpr int PREFAB_VERSION = 1;
+
+/// @brief Nom du format d'un modÃ¨le de carte (champ `format`).
+inline constexpr std::string_view MAP_TEMPLATE_FORMAT = "jadg-editor-map-template";
+
+/// @brief Version du format d'un modÃ¨le de carte (champ `version`).
+inline constexpr int MAP_TEMPLATE_VERSION = 1;
+
+/// @return Le tampon en JSON, tel que la bibliothÃ¨que l'Ã©crit.
+[[nodiscard]] nlohmann::json stampToJson(const Stamp&amp; stamp);
+
+/// @brief Relit un tampon Ã©crit par `hmi::stampToJson`.
+/// @param json  Le tampon, lu.
+/// @param error ReÃ§oit le motif du refus ; vide si la lecture a rÃ©ussi.
+[[nodiscard]] std::optional&lt;Stamp&gt; stampFromJson(const nlohmann::json&amp; json, std::string&amp; error);
+
+/// @return Le dossier des prÃ©fabriquÃ©s du lieu @p place :
+///         `&lt;dataRoot&gt;/Editor/Prefabs/&lt;place&gt;/`.
+[[nodiscard]] std::filesystem::path prefabsDir(const std::filesystem::path&amp; dataRoot,
+                                               std::string_view place);
+
+/// @return Les noms des prÃ©fabriquÃ©s du lieu @p place, triÃ©s (vide si le dossier n'existe pas).
+[[nodiscard]] std::vector&lt;std::string&gt; prefabNames(const std::filesystem::path&amp; dataRoot,
+                                                   std::string_view place);
+
+/// @brief Ãcrit @p stamp comme prÃ©fabriquÃ© @p name du lieu @p place, dossier crÃ©Ã© au besoin.
+/// @return Le motif du refus (nom vide ou invalide, tampon vide, Ã©criture impossible) ; vide si
+///         le fichier a Ã©tÃ© Ã©crit.
+[[nodiscard]] std::string writePrefab(const std::filesystem::path&amp; dataRoot, std::string_view place,
+                                      std::string_view name, const Stamp&amp; stamp);
+
+/// @brief Relit le prÃ©fabriquÃ© @p name du lieu @p place.
+/// @param dataRoot La racine des donnÃ©es.
+/// @param place    Le lieu dont il vient.
+/// @param name     Son nom, sans extension.
+/// @param error    ReÃ§oit le motif du refus ; vide si la lecture a rÃ©ussi.
+[[nodiscard]] std::optional&lt;Stamp&gt; readPrefab(const std::filesystem::path&amp; dataRoot,
+                                              std::string_view place, std::string_view name,
+                                              std::string&amp; error);
+
+/// @return Vrai si @p name peut nommer un prÃ©fabriquÃ© : non vide, et fait de lettres ASCII
+///         minuscules, de chiffres, de tirets et de tirets bas â ce qui en fait un nom de fichier
+///         sÃ»r sur tout poste.
+[[nodiscard]] bool isValidPrefabName(std::string_view name);
+
+// --- Les modÃ¨les de carte -----------------------------------------------------------------------
+
+/// @brief Une couche que le modÃ¨le donne Ã  la carte neuve.
+struct MapTemplateLayer {
+    std::string name;
+    core::LayerKind kind = core::LayerKind::Ground;
+    /// Cette couche porte la propriÃ©tÃ© `scene` : c'est elle qui nomme le lieu.
+    bool scene = false;
+
+    [[nodiscard]] bool operator==(const MapTemplateLayer&amp;) const = default;
+};
+
+/**
+ * @brief Un **modÃ¨le de carte** : ce dont part une carte neuve (`EX-EDIT-087`).
+ *
+ * Un modÃ¨le ne nomme **aucune piÃ¨ce** : il sert Ã  tous les lieux, et une piÃ¨ce n'existe que dans
+ * la planche d'un lieu. Son tampon ne pose donc que des types et, s'il en a, des entitÃ©s.
+ */
+struct MapTemplate {
+    /// L'identifiant, celui du fichier : `street`.
+    std::string id;
+    /// Le libellÃ© montrÃ© au choix, en anglais : `Street`.
+    std::string label;
+    /// Ce qu'il fait, en une ligne.
+    std::string description;
+    int width = 24;
+    int height = 24;
+    std::vector&lt;MapTemplateLayer&gt; layers;
+    /// La case d'entrÃ©e de la carte neuve ; par dÃ©faut le coin bas gauche. Un modÃ¨le qui dresse un
+    /// mur sur ce coin doit en nommer une autre : l'entrÃ©e ne se pose pas dans un mur.
+    std::optional&lt;core::GridPosition&gt; entry;
+    /// Ce qu'il pose, coin haut gauche sur la carte ; vide s'il ne pose rien.
+    Stamp stamp;
+
+    [[nodiscard]] bool operator==(const MapTemplate&amp;) const = default;
+};
+
+/// @return Les modÃ¨les de `&lt;dataRoot&gt;/Editor/Templates/*.json`, triÃ©s par identifiant ; les
+///         fichiers illisibles sont passÃ©s (`--check` les nomme).
+[[nodiscard]] std::vector&lt;MapTemplate&gt; mapTemplates(const std::filesystem::path&amp; dataRoot);
+
+/// @brief Relit un modÃ¨le Ã©crit dans le format `jadg-editor-map-template`.
+/// @param json  Le modÃ¨le, lu.
+/// @param error ReÃ§oit le motif du refus ; vide si la lecture a rÃ©ussi.
+[[nodiscard]] std::optional&lt;MapTemplate&gt; mapTemplateFromJson(const nlohmann::json&amp; json,
+                                                             std::string&amp; error);
+
+/// @brief Un constat sur la bibliothÃ¨que : un prÃ©fabriquÃ© ou un modÃ¨le qui ne se lit pas.
+struct LibraryFinding {
+    std::filesystem::path file;
+    std::string message;
+
+    [[nodiscard]] bool operator==(const LibraryFinding&amp;) const = default;
+};
+
+/// @return Les fichiers de `&lt;dataRoot&gt;/Editor/` que l'Ã©diteur ne sait pas relire â ce que
+///         `LevelEditor --check` ajoute au contrÃ´le des cartes (`EX-EDIT-086`).
+[[nodiscard]] std::vector&lt;LibraryFinding&gt; checkEditorLibrary(const std::filesystem::path&amp; dataRoot);
+
+/**
+ * @brief La bibliothÃ¨que **sans fenÃªtre** (`LOT-EDITOR-08`, rÃ¨gle 4 de la feuille de route) : les
+ *        mÃªmes fonctions que la fenÃªtre, appelÃ©es en ligne de commande.
+ *
+ * - `--list-prefabs [lieuâ¦]` : les prÃ©fabriquÃ©s d'un lieu, tous les lieux Ã  dÃ©faut ;
+ * - `--save-prefab &lt;carte&gt; &lt;nom&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;` : dÃ©coupe le rectangle de la carte et
+ *   l'Ã©crit comme prÃ©fabriquÃ© du lieu de cette carte. C'est ce que fait Â« Save selection as
+ *   prefabâ¦ Â», et c'est ainsi que se fabrique un prÃ©fabriquÃ© livrÃ©.
+ *
+ * @return Le code de sortie (0, 1 en cas d'Ã©chec, 2 si la ligne de commande est fausse), ou
+ *         `std::nullopt` si aucune de ces commandes n'est demandÃ©e.
+ */
+[[nodiscard]] std::optional&lt;int&gt; runPrefabCommand(const std::vector&lt;std::string&gt;&amp; arguments,
+                                                  const std::filesystem::path&amp; dataRoot,
+                                                  std::string&amp; output);
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

@@ -184,13 +184,13 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La grille tactique d'une rencontre. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1121"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1130"></a>
 Une seule source de vérité pour « peut-on se tenir ici »</h2>
 <p>Les obstacles viennent de la <b>grille de collision</b> de la carte — <span class="tt"><a class="el" href="classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef">core::Level::tileMap()</a></span> —, jamais d'un masque dessiné pour le combat (<span class="tt">EX-CBT-001</span>). La grille la <b>recopie</b> à la construction : une copie ne peut pas changer sous un tour en cours.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1122"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1131"></a>
 Les propriétés de zone</h2>
 <p>Une couche de la carte qui porte des propriétés libres (<span class="tt">EX-LVL-018</span>) déclare une <b>zone</b> : les cases non vides de cette couche. Une entité <span class="tt">zone</span> en déclare une aussi, rectangle ou ensemble de cases peint (<span class="tt"><a class="el" href="namespacecore.html#acdcfbe0879d84908d423e478039532c3" title="Les cases que couvre la zone entity : ses cases peintes si elle en a, sinon son rectangle (width × he...">core::zoneCells</a></span>, décision D13 de l'éditeur). La grille les relève sans les interpréter, sauf une — <span class="tt">difficultTerrain: true</span>, qui double le coût d'entrée. Les autres (combat interdit, aucun soin, type de dégâts aléatoire) sont lues par ceux qui en ont l'usage (<span class="tt">LOT-50</span>, <span class="tt">LOT-81</span>) au moyen de <span class="tt"><a class="el" href="#a0c816b168810ff9052c1f41225f44186" title="Les propriétés de toutes les zones qui couvrent la case, dans l&#39;ordre des couches.">zonesAt</a></span>, et ce lot n'en invente aucune.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1123"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1132"></a>
 Ce qu'elle ne fait pas</h2>
 <p>Elle ne calcule aucun chemin : c'est <span class="tt"><a class="el" href="namespacecore.html#ad018fcc5c0c0bcabf187d6ae09568067" title="Le meilleur chemin de mover jusqu&#39;à destination, sans limite de budget.">core::findPath</a></span> et <span class="tt"><a class="el" href="classcore_1_1ReachableArea.html" title="Les cases qu&#39;un combattant peut atteindre ce tour-ci, et par où.">core::ReachableArea</a></span>. Elle ne connaît aucun camp : c'est la requête de déplacement qui dit qui l'on peut traverser. Elle n'a pas d'altitude : l'altitude est un <b>attribut</b> du déplacement, jamais une géométrie de la grille (voir <span class="tt"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff" title="Comment un combattant se déplace : au sol, ou en vol.">core::Locomotion</a></span>). </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>

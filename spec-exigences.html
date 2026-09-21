@@ -96,7 +96,7 @@ $(function(){initNavTree('spec-exigences.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré</b>. Outillage qualité effectivement exécuté à chaque PR (CI Debug <b>et</b> Release, clang-tidy, clang-format, ASan, couverture agrégée, contrôles de reproductibilité). Transverse à toutes les specs. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md240"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md241"></a>
 1. Performance</h1>
 <ul>
 <li><a class="anchor" id="EX-NFR-001"></a><b>EX-NFR-001</b> — Le jeu doit maintenir <b>60 images/seconde</b> sur une configuration de bureau récente. Rendue <b>observable</b> par l'incrustation de diagnostic des options : la cadence dépend de la machine, elle <b>reste hors de portée d'un contrôle automatique</b> (une machine virtuelle partagée ne la mesure pas de façon reproductible).</li>
@@ -104,7 +104,7 @@ $(function(){initNavTree('spec-exigences.html','',''); });
 <li><a class="anchor" id="EX-NFR-003"></a><b>EX-NFR-003</b> — L'empreinte mémoire doit rester stable dans le temps (aucune fuite ; vérifiable via AddressSanitizer). Vérifiée par le job <span class="tt">sanitize</span> de <span class="tt">ci.yml</span> : les exécutables de test s'exécutent sous AddressSanitizer à chaque PR.</li>
 <li><a class="anchor" id="EX-NFR-005"></a><b>EX-NFR-005</b> — Le rendu ne doit soumettre que les primitives <b>effectivement visibles</b> : le contenu hors du cadrage de la caméra est écarté avant soumission, marge comprise. Le nombre de primitives émises par image doit rester <b>borné et observable</b>. <b>Vérifiée</b> sans GPU par les tests du culling (<span class="tt"><a class="el" href="test__render__culling_8cpp.html" title="Tests unitaires du culling par cadrage caméra (EX-NFR-005).">Source/Test/Unit/HMI/Graphics/test_render_culling.cpp</a></span>, <span class="tt">EX-NFR-004</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md241"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md242"></a>
 2. Architecture &amp; maintenabilité</h1>
 <ul>
 <li><a class="anchor" id="EX-NFR-010"></a><b>EX-NFR-010</b> — La logique (<span class="tt">Core</span>) doit être <b>indépendante</b> de la présentation (<span class="tt">HMI</span>) et testable sans fenêtre ni GPU.</li>
@@ -112,7 +112,7 @@ $(function(){initNavTree('spec-exigences.html','',''); });
 <li><a class="anchor" id="EX-NFR-012"></a><b>EX-NFR-012</b> — Le code doit respecter le <a class="el" href="spec-conventions.html#md_Specification_2conventions" title="Specification/conventions.md">guide de conventions</a> (nommage, RAII, documentation, gestion d'erreurs).</li>
 <li><a class="anchor" id="EX-NFR-013"></a><b>EX-NFR-013</b> — Le code livré doit compiler <b>sans avertissement</b> (<span class="tt">/W4 /WX</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md242"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md243"></a>
 3. Qualité &amp; vérification</h1>
 <ul>
 <li><a class="anchor" id="EX-NFR-020"></a><b>EX-NFR-020</b> — Toute logique de gameplay livrée dans <span class="tt">Core</span> doit être couverte par des <b>tests unitaires</b> (GoogleTest).</li>
@@ -121,21 +121,21 @@ $(function(){initNavTree('spec-exigences.html','',''); });
 <li><a class="anchor" id="EX-NFR-024"></a><b>EX-NFR-024</b> — L'analyse statique et le formatage doivent être <b>vérifiés automatiquement</b>, pas seulement configurés. Vérifiés par les jobs <span class="tt">clang-tidy</span> (<span class="tt">bugprone-*</span> bloquant, le reste consigné) et <span class="tt">format</span> (<span class="tt">clang-format --dry-run --Werror</span>, version épinglée) de <span class="tt">ci.yml</span>.</li>
 <li><a class="anchor" id="EX-NFR-004"></a><b>EX-NFR-004</b> — La chaîne de rendu doit être <b>vérifiable sans GPU</b> : les primitives de dessin produites pour une scène donnée doivent pouvoir être <b>capturées et inspectées</b> par un test (ordre des calques, tri par profondeur, choix des pièces, effets de bord du culling). Un critère d'acceptation du type « rendu identique » ou « ordre de calque correct » ne doit pas reposer sur une vérification à l'œil quand il peut être asserté.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md243"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md244"></a>
 4. Portabilité &amp; reproductibilité</h1>
 <ul>
 <li><a class="anchor" id="EX-NFR-030"></a><b>EX-NFR-030</b> — Le projet doit se construire <b>exclusivement via CMake</b>, reproductible sur plusieurs postes (cf. <span class="tt">README</span>).</li>
 <li><a class="anchor" id="EX-NFR-031"></a><b>EX-NFR-031</b> — Les dépendances tierces doivent être <b>épinglées</b> à une version (ex. GoogleTest).</li>
 <li><a class="anchor" id="EX-NFR-032"></a><b>EX-NFR-032</b> — Cible actuelle : <b>Windows/Direct3D</b>. Le <span class="tt">Core</span> doit toutefois éviter toute dépendance système inutile pour préserver sa testabilité (et une portabilité future).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md244"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md245"></a>
 5. Robustesse</h1>
 <ul>
 <li><a class="anchor" id="EX-NFR-040"></a><b>EX-NFR-040</b> — Une erreur récupérable (fichier de carte invalide, ressource manquante) ne doit pas faire planter le jeu : elle est signalée et gérée (cf. politique d'erreurs des conventions).</li>
 <li><a class="anchor" id="EX-NFR-041"></a><b>EX-NFR-041</b> — Les ressources (mémoire, ressources GPU) doivent être gérées en <b>RAII</b> (libération garantie).</li>
 <li><a class="anchor" id="EX-NFR-042"></a><b>EX-NFR-042</b> — Une <b>version publiée</b> doit produire une <b>trace exploitable</b> d'exécution : journal écrit dans un fichier à côté de l'exécutable, contenant au minimum la version, la configuration de build et le contexte matériel (adaptateur graphique, manette). Le volume est <b>borné</b> (taille maximale et rotation), la trace reste <b>locale</b> — aucun envoi réseau, aucune donnée personnelle — et un dossier inaccessible dégrade la journalisation, jamais le jeu (<span class="tt">EX-NFR-040</span>). Sans cela, un défaut signalé par un joueur n'est accompagné d'aucun élément.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md245"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md246"></a>
 6. Build &amp; dépendances</h1>
 <ul>
 <li><a class="anchor" id="EX-BUILD-010"></a><b>EX-BUILD-010</b> — Une dépendance tierce <b>non gérable par <span class="tt">FetchContent</span></b> (SDK volumineux tel que <b>Qt</b>) doit être <b>provisionnée et documentée de façon reproductible</b> sur les trois environnements : poste local (installeur officiel ou <span class="tt">aqtinstall</span>), <b>CI</b> (étape d'installation dans le workflow, sur le runner épinglé) et <b>release</b> (déploiement des bibliothèques dynamiques requises à côté de l'exécutable, ex. <span class="tt">windeployqt</span>). La version est <b>épinglée</b> (<span class="tt">EX-NFR-031</span>) et la licence documentée. Le poste local déclare une version minimale (<span class="tt">QT_VERSION_MINIMUM</span>, <span class="tt">Source/HMI/CMakeLists.txt</span>) alignée sur celle de la CI et vérifiée automatiquement contre elle (<span class="tt">scripts/check_qt_version_pin.py</span>) ; un écart local produit un avertissement explicite plutôt qu'une divergence silencieuse. L'exigence de reproductibilité porte aussi sur l'<b>outil de provisionnement lui-même</b> : lorsqu'il doit être pris ailleurs que sur son dépôt de paquets habituel — cas d'<span class="tt">aqtinstall</span>, dont la version publiée ne sait pas installer Qt ≥ 6.11 — la source est épinglée à une <b>révision précise</b> (jamais une branche mobile), et le motif du détour ainsi que sa condition de sortie sont écrits à l'endroit où il est déclaré.</li>
@@ -149,7 +149,7 @@ Exigences retirées</h1>
 <li><a class="anchor" id="EX-NFR-021"></a><b>EX-NFR-021</b> <em>(retirée en <span class="tt">LOT-67</span>)</em> — test système de franchissabilité des niveaux : un bac à sable n'a pas de sortie qui le termine.</li>
 <li><a class="anchor" id="EX-NFR-043"></a><b>EX-NFR-043</b> <em>(retirée au <span class="tt">LOT-88</span>)</em> — plafond de mémoire de texture des plans picturaux.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md246"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md247"></a>
 Traçabilité</h1>
 <p>Ces exigences transverses conditionnent l'acceptation de chaque lot. Elles s'appuient sur de l'outillage <b>effectivement exécuté</b> à chaque PR (CMake, CI Debug <b>et</b> Release, clang-tidy, clang-format, ASan, couverture agrégée) et non plus seulement configuré : voir le tableau « Outillage qualité » de <a class="el" href="spec-conventions.html#md_Specification_2conventions" title="Specification/conventions.md"><span class="tt">conventions.md</span></a> pour le job qui vérifie chaque outil.</p>
 <p><span class="tt">EX-NFR-032</span> (cible Windows/Direct3D) est, comme les exigences ci-dessus, un <b>invariant transverse</b> : aucun lot n'a besoin de le citer pour le respecter, ce silence n'est pas une exigence orpheline. </p>

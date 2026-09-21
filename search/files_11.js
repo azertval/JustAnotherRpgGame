@@ -25,5 +25,7 @@ var searchData=
   ['spritebatch_2ecpp_22',['SpriteBatch.cpp',['../SpriteBatch_8cpp.html',1,'']]],
   ['spritebatch_2eh_23',['SpriteBatch.h',['../SpriteBatch_8h.html',1,'']]],
   ['spriterenderer_2ecpp_24',['SpriteRenderer.cpp',['../SpriteRenderer_8cpp.html',1,'']]],
-  ['spriterenderer_2eh_25',['SpriteRenderer.h',['../SpriteRenderer_8h.html',1,'']]]
+  ['spriterenderer_2eh_25',['SpriteRenderer.h',['../SpriteRenderer_8h.html',1,'']]],
+  ['stamps_2ecpp_26',['Stamps.cpp',['../Stamps_8cpp.html',1,'']]],
+  ['stamps_2eh_27',['Stamps.h',['../Stamps_8h.html',1,'']]]
 ];

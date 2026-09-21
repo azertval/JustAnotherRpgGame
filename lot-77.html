@@ -96,11 +96,11 @@ $(function(){initNavTree('lot-77.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : <span class="tt">scripts/lint_exigences.py</span> vert sans exception ajoutée, <span class="tt">scripts/lint_lots.py</span> vert, Doxygen vert). Prérequis : aucun. Prérequis de toute la filière contenu, à commencer par le <span class="tt">LOT-30</span>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md628"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md629"></a>
 Objectif</h1>
 <p>Écrire les cinq documents de spécification que vingt lots citaient sans qu'ils existent, et éteindre l'échec volontaire du lint d'exigences.</p>
 <p>Le dépôt comptait <b>13 familles réelles pour 269 exigences</b>, et <b>cinq familles fantômes</b> — <span class="tt">EX-CNT-*</span>, <span class="tt">EX-REG-*</span>, <span class="tt">EX-RPG-*</span>, <span class="tt">EX-CBT-*</span>, <span class="tt">EX-INV-*</span> — référencées par la feuille de route sans qu'aucun document ne les porte. Le garde-fou avait été réparé avant ce lot (<span class="tt">FAMILY_REF_RE</span> dans <span class="tt">lint_exigences.py</span>), ce qui rendait la CI <b>rouge à dessein</b> jusqu'à ce que les documents existent. Ce lot est ce qui la remet au vert — et c'est la seule façon légitime de le faire.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md629"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md630"></a>
 Périmètre</h1>
 <p>Cinq documents, <b>69 exigences</b>, insérés dans l'ordre de lecture de <span class="tt"><a class="el" href="specifications_8md.html">specifications.md</a></span> :</p>
 <table class="markdownTable">
@@ -118,7 +118,7 @@ Périmètre</h1>
 <td class="markdownTableBodyNone"><span class="tt"><a class="el" href="contenu_8md.html">Specification/contenu.md</a></span>  </td><td class="markdownTableBodyNone"><span class="tt">EX-CNT-*</span>  </td><td class="markdownTableBodyNone">15  </td><td class="markdownTableBodyNone">Provenance, contrats, extraction, ce qu'une donnée promet, assets, contrôle  </td></tr>
 </table>
 <p>Et la <b>rubrique « Exigences couvertes »</b> posée sur les 25 lots qui les implémentent — quinze lots de la filière et dix lots absorbés de la section 11. Elle manquait à toutes les sections de lot, faute de familles à citer.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md630"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md631"></a>
 Ce que la rédaction a tranché</h1>
 <p><b>Le moteur porte des mécanismes, la donnée porte des valeurs.</b> C'est la règle qui traverse les cinq documents, et elle a une conséquence qu'il fallait écrire noir sur blanc : le catalogue sera complet <b>longtemps avant</b> le moteur. D'où <span class="tt">EX-CNT-030</span> et <span class="tt">EX-CNT-031</span> — une donnée déclare les mécanismes qu'elle exige, le moteur <b>refuse en le disant</b> ce qu'il ne sait pas honorer. Un catalogue complet qui ment sur ce qui est jouable coûte plus cher qu'un catalogue incomplet qui le dit.</p>
 <p><b>Trois généricités décident de la faisabilité du programme</b>, et elles sont écrites comme telles :</p>
@@ -129,7 +129,7 @@ Ce que la rédaction a tranché</h1>
 </ul>
 <p><b>Deux exigences héritées sont contredites explicitement</b>, plutôt que contournées : <span class="tt">EX-CBT-042</span> (la mort hors combat n'est pas « redémarrer le niveau ») et <span class="tt">EX-RPG-032</span> (aucune progression liée au franchissement d'un tableau). Leur retrait effectif appartient au <span class="tt">LOT-67</span> ; ce lot pose la définition qui les remplacera, sans quoi le retrait n'aurait rien à mettre à la place.</p>
 <p><b>Ce que ce lot n'a pas fait</b>, et qui n'était pas dans son périmètre : retirer les exigences de plateforme (<span class="tt">LOT-67</span>), désambiguïser les 208 renvois de numéros hérités (<span class="tt">LOT-78</span>), écrire la brique de chargement (<span class="tt">LOT-79</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md631"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md632"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><span class="tt">python scripts/lint_exigences.py</span> passe au vert <b>sans entrée ajoutée</b> à <span class="tt">UNREFERENCED_ALLOWED</span> — 339 exigences déclarées, 339 référencées. ✔</li>

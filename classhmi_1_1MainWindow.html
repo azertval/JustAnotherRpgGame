@@ -141,6 +141,12 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a6eef550a9435bf33c218a95c8002e762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre <code class="param">path</code>, après avoir demandé quoi faire des modifications non enregistrées.  <br /></td></tr>
 <tr class="memitem:a8e89b7b63ff072e8df9217d8b32df8a0" id="r_a8e89b7b63ff072e8df9217d8b32df8a0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8e89b7b63ff072e8df9217d8b32df8a0">saveMap</a> ()</td></tr>
 <tr class="memdesc:a8e89b7b63ff072e8df9217d8b32df8a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre la carte ouverte (garde du fichier modifié sur disque d'abord), puis relit ce qui en dépend : références, graphe du monde, contrôle.  <br /></td></tr>
+<tr class="memitem:a6f29e531da9bb4f99696c64ff27b867f" id="r_a6f29e531da9bb4f99696c64ff27b867f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6f29e531da9bb4f99696c64ff27b867f">refreshPrefabs</a> (bool force=false)</td></tr>
+<tr class="memdesc:a6f29e531da9bb4f99696c64ff27b867f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Montre la bibliothèque du lieu ouvert dans la palette ; les vignettes déjà rendues sont gardées.  <br /></td></tr>
+<tr class="memitem:a50ce22b0ca257a445a19d621a279ca3b" id="r_a50ce22b0ca257a445a19d621a279ca3b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a50ce22b0ca257a445a19d621a279ca3b">saveSelectionAsPrefab</a> ()</td></tr>
+<tr class="memdesc:a50ce22b0ca257a445a19d621a279ca3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Save selection as prefab… » : demande un nom, écrit le tampon de la sélection.  <br /></td></tr>
+<tr class="memitem:a34c4971bc0060915a28007fa97a99df6" id="r_a34c4971bc0060915a28007fa97a99df6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a34c4971bc0060915a28007fa97a99df6">armPrefab</a> (const QString &amp;name)</td></tr>
+<tr class="memdesc:a34c4971bc0060915a28007fa97a99df6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arme le préfabriqué <code class="param">name</code> du lieu ouvert comme tampon du canevas.  <br /></td></tr>
 <tr class="memitem:a55eeec10938e3d14aa60d0af1e6ccbc6" id="r_a55eeec10938e3d14aa60d0af1e6ccbc6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a55eeec10938e3d14aa60d0af1e6ccbc6">buildRefactorMenu</a> (QMenu *mapMenu)</td></tr>
 <tr class="memdesc:a55eeec10938e3d14aa60d0af1e6ccbc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les commandes du menu <em>Map</em> : qui cite ceci, renommer une entité ou un point d'arrivée, remplacer une pièce, changer de planche.  <br /></td></tr>
 <tr class="memitem:a61fb4d39b00cf8f2a166603d254e1669" id="r_a61fb4d39b00cf8f2a166603d254e1669"><td class="memItemLeft">const <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a61fb4d39b00cf8f2a166603d254e1669">selectedMapEntity</a> () const</td></tr>
@@ -207,6 +213,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:af383ac40d93b51725b361d72e2342292" id="r_af383ac40d93b51725b361d72e2342292"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af383ac40d93b51725b361d72e2342292">_suppressPanelFocusTracking</a> = false</td></tr>
 <tr class="memitem:a61eca251db0d158933e6eb7dbd5e1200" id="r_a61eca251db0d158933e6eb7dbd5e1200"><td class="memItemLeft">std::array&lt; QLabel *, 5 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a61eca251db0d158933e6eb7dbd5e1200">_statusZones</a> {}</td></tr>
 <tr class="memitem:a2d4fd479e6168cd919c7f22208347a5e" id="r_a2d4fd479e6168cd919c7f22208347a5e"><td class="memItemLeft">QTimer *&#160;</td><td class="memItemRight"><a class="el" href="#a2d4fd479e6168cd919c7f22208347a5e">_statusMessageTimer</a> = nullptr</td></tr>
+<tr class="memitem:ace2cd0890455862e0d44849fdc839af4" id="r_ace2cd0890455862e0d44849fdc839af4"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ace2cd0890455862e0d44849fdc839af4">_prefabPlace</a></td></tr>
+<tr class="memdesc:ace2cd0890455862e0d44849fdc839af4"><td class="mdescLeft">&#160;</td><td class="mdescRight">La bibliothèque montrée : le lieu dont elle vient — relue quand il change — et les vignettes déjà rendues, par <span class="tt">lieu/nom</span>.  <br /></td></tr>
+<tr class="memitem:aaf3fd467aa48568de39975fe72cfe8de" id="r_aaf3fd467aa48568de39975fe72cfe8de"><td class="memItemLeft">std::map&lt; std::string, QPixmap &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aaf3fd467aa48568de39975fe72cfe8de">_prefabThumbnails</a></td></tr>
 <tr class="memitem:a9070cc10b7ea209e15e5c2ff9e623f50" id="r_a9070cc10b7ea209e15e5c2ff9e623f50"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1AutosaveStore.html">AutosaveStore</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9070cc10b7ea209e15e5c2ff9e623f50">_autosave</a></td></tr>
 <tr class="memitem:a053f67d2426ca6b7644aa68c43bbc285" id="r_a053f67d2426ca6b7644aa68c43bbc285"><td class="memItemLeft">QTimer *&#160;</td><td class="memItemRight"><a class="el" href="#a053f67d2426ca6b7644aa68c43bbc285">_autosaveTimer</a> = nullptr</td></tr>
 <tr class="memitem:a4f7623d30d858e783ebd7646baa3a5a3" id="r_a4f7623d30d858e783ebd7646baa3a5a3"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a4f7623d30d858e783ebd7646baa3a5a3">_autosavedMapId</a></td></tr>
@@ -365,6 +374,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a34c4971bc0060915a28007fa97a99df6" name="a34c4971bc0060915a28007fa97a99df6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34c4971bc0060915a28007fa97a99df6">&#9670;&#160;</a></span>armPrefab()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::armPrefab </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Arme le préfabriqué <code class="param">name</code> du lieu ouvert comme tampon du canevas. </p>
 
 </div>
 </div>
@@ -902,6 +938,34 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a6f29e531da9bb4f99696c64ff27b867f" name="a6f29e531da9bb4f99696c64ff27b867f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f29e531da9bb4f99696c64ff27b867f">&#9670;&#160;</a></span>refreshPrefabs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::refreshPrefabs </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>force</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Montre la bibliothèque du lieu ouvert dans la palette ; les vignettes déjà rendues sont gardées. </p>
+<p>Le dossier n'est relu que si le lieu a changé, ou si <code class="param">force</code> le demande (après un enregistrement) : le brouillon change à chaque geste, pas la bibliothèque. </p>
+
+</div>
+</div>
 <a id="ace1ef846c7704477a23af655b4f78e74" name="ace1ef846c7704477a23af655b4f78e74"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace1ef846c7704477a23af655b4f78e74">&#9670;&#160;</a></span>refreshStatusHelp()</h2>
 
@@ -1189,6 +1253,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Enregistre la carte ouverte (garde du fichier modifié sur disque d'abord), puis relit ce qui en dépend : références, graphe du monde, contrôle. </p>
+
+</div>
+</div>
+<a id="a50ce22b0ca257a445a19d621a279ca3b" name="a50ce22b0ca257a445a19d621a279ca3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50ce22b0ca257a445a19d621a279ca3b">&#9670;&#160;</a></span>saveSelectionAsPrefab()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::saveSelectionAsPrefab </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>« Save selection as prefab… » : demande un nom, écrit le tampon de la sélection. </p>
 
 </div>
 </div>
@@ -1767,6 +1858,52 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classhmi_1_1PalettePanel.html">PalettePanel</a>* hmi::MainWindow::_palette = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ace2cd0890455862e0d44849fdc839af4" name="ace2cd0890455862e0d44849fdc839af4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace2cd0890455862e0d44849fdc839af4">&#9670;&#160;</a></span>_prefabPlace</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::MainWindow::_prefabPlace</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La bibliothèque montrée : le lieu dont elle vient — relue quand il change — et les vignettes déjà rendues, par <span class="tt">lieu/nom</span>. </p>
+
+</div>
+</div>
+<a id="aaf3fd467aa48568de39975fe72cfe8de" name="aaf3fd467aa48568de39975fe72cfe8de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf3fd467aa48568de39975fe72cfe8de">&#9670;&#160;</a></span>_prefabThumbnails</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, QPixmap&gt; hmi::MainWindow::_prefabThumbnails</td>
         </tr>
       </table>
   </td>

@@ -1,0 +1,943 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Stamps.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/Stamps.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cctype&gt;
+#include &lt;cstdint&gt;
+#include &lt;fstream&gt;
+#include &lt;iterator&gt;
+#include &lt;memory&gt;
+#include &lt;sstream&gt;
+#include &lt;stdexcept&gt;
+#include &lt;system_error&gt;
+#include &lt;utility&gt;
+
+#include "Core/Levels/Level.h"
+#include "Core/Levels/LevelDraft.h"
+#include "Core/Levels/LevelLoader.h"
+#include "Core/Levels/PieceFootprint.h"
+#include "Core/Levels/TileTypeName.h"
+#include "Core/Resources/ScenePieceManifest.h"
+#include "Editor/Logic/MapFormat.h"
+#include "Editor/Logic/PaintTools.h"
+#include "HMI/Graphics/WorldSceneComposer.h"
+
+namespace hmi {
+
+namespace {
+
+using Json = nlohmann::json;
+
+// Un fichier de la bibliotheque qu'on ne sait pas relire : le message remonte au lecteur, qui le
+// rend a l'appelant. Ne quitte jamais ce fichier (EX-NFR-040).
+class StampInvalid : public std::runtime_error {
+public:
+    using std::runtime_error::runtime_error;
+};
+
+// --- Petites aides de lecture/ecriture JSON -----------------------------------------------------
+//
+// Le format d'un prefabrique est le sien : il ne passe pas par core::LevelWriter, qui ecrit une
+// carte. Les quelques conversions qu'il partage avec lui tiennent ici, en une dizaine de lignes.
+
+<span style = "background-color:#dfd">[[nodiscard]] Json cellJson(core::GridPosition cell) {
+    return Json::array({cell.column, cell.row});
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] core::GridPosition cellOf(const Json&amp; value) {
+    if (!value.is_array() || value.size() != 2 || !value[0].is_number_integer() ||</span>
+        !value[1].is_number_integer()) {
+<span style = "background-color:#fdd">        throw StampInvalid("a cell is [column, row]");</span>
+    }
+<span style = "background-color:#dfd">    return core::GridPosition{.column = value[0].get&lt;int&gt;(), .row = value[1].get&lt;int&gt;()};
+}</span>
+
+<span style = "background-color:#dfd">void writeProperties(const core::PropertyMap&amp; properties, Json&amp; object) {
+    for (const auto&amp; [key, value] : properties) {
+        std::visit([&amp;object, &amp;key](const auto&amp; held) { object[key] = held; }, value);
+    }
+}</span>
+
+// Les cles reservees d'une entite : tout le reste est une propriete libre.
+<span style = "background-color:#dfd">[[nodiscard]] bool isEntityField(std::string_view key) {
+    return key == "type" || key == "x" || key == "y" || key == "elevation" || key == "cells";
+}</span>
+
+<span style = "background-color:#dfd">void readProperties(const Json&amp; object, core::PropertyMap&amp; properties) {
+    for (const auto&amp; [key, value] : object.items()) {
+        if (isEntityField(key)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (value.is_boolean()) {</span>
+<span style = "background-color:#fdd">            properties[key] = value.get&lt;bool&gt;();</span>
+<span style = "background-color:#dfd">        } else if (value.is_number_integer()) {</span>
+<span style = "background-color:#fdd">            properties[key] = value.get&lt;std::int64_t&gt;();</span>
+<span style = "background-color:#dfd">        } else if (value.is_number_float()) {</span>
+<span style = "background-color:#fdd">            properties[key] = value.get&lt;double&gt;();</span>
+<span style = "background-color:#dfd">        } else if (value.is_string()) {
+            properties[key] = value.get&lt;std::string&gt;();
+        }</span>
+        // Une valeur composite ne rentre pas dans core::PropertyValue : le format n'en produit
+        // aucune (voir Core/Levels/LevelProperties.h).
+<span style = "background-color:#dfd">    }
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] core::TileType typeOf(const Json&amp; value) {
+    if (!value.is_string()) {</span>
+<span style = "background-color:#fdd">        throw StampInvalid("a tile type is a string");</span>
+    }
+<span style = "background-color:#dfd">    const std::optional&lt;core::TileType&gt; type = core::parseTileType(value.get&lt;std::string&gt;());
+    if (!type) {</span>
+<span style = "background-color:#fdd">        throw StampInvalid("unknown tile type \"" + value.get&lt;std::string&gt;() + "\"");</span>
+    }
+<span style = "background-color:#dfd">    return *type;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string readText(const std::filesystem::path&amp; path) {
+    std::ifstream file(path, std::ios::binary);
+    std::ostringstream buffer;
+    buffer &lt;&lt; file.rdbuf();
+    return buffer.str();
+}</span>
+
+// --- Le rectangle du tampon ---------------------------------------------------------------------
+
+struct Rect {
+    int left = 0;
+    int top = 0;
+    int right = 0;
+    int bottom = 0;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool contains(core::GridPosition cell) const noexcept {
+        return cell.column &gt;= left &amp;&amp; cell.column &lt;= right &amp;&amp; cell.row &gt;= top &amp;&amp; cell.row &lt;= bottom;
+    }
+    [[nodiscard]] int width() const noexcept {
+        return right - left + 1;
+    }
+    [[nodiscard]] int height() const noexcept {
+        return bottom - top + 1;
+    }</span>
+};
+
+<span style = "background-color:#dfd">[[nodiscard]] Rect normalized(core::GridPosition first, core::GridPosition last) {
+    return Rect{.left = std::min(first.column, last.column),</span>
+                .top = std::min(first.row, last.row),
+                .right = std::max(first.column, last.column),
+                .bottom = std::max(first.row, last.row)};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::size_t typeIndex(const Rect&amp; rect, core::GridPosition cell) {
+    return static_cast&lt;std::size_t&gt;(cell.row - rect.top) * static_cast&lt;std::size_t&gt;(rect.width()) +</span>
+           static_cast&lt;std::size_t&gt;(cell.column - rect.left);
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
+// --- Decouper ------------------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">Stamp cutStamp(const core::LevelDraft&amp; draft, core::GridPosition first, core::GridPosition last) {
+    const core::TileMap&amp; root = draft.tileMap();
+    Rect rect = normalized(first, last);
+    rect.left = std::max(rect.left, 0);
+    rect.top = std::max(rect.top, 0);
+    rect.right = std::min(rect.right, root.width() - 1);
+    rect.bottom = std::min(rect.bottom, root.height() - 1);
+    if (rect.width() &lt;= 0 || rect.height() &lt;= 0) {</span>
+<span style = "background-color:#fdd">        return Stamp{};</span>
+    }
+
+    // Les pieces ancrees dans le rectangle l'agrandissent jusqu'a leur emprise entiere : un etal
+    // 2 x 1 choisi au bord ne perd pas sa moitie droite (voir l'en-tete).
+<span style = "background-color:#dfd">    const std::vector&lt;core::TileLayer&gt;&amp; layers = draft.layers();
+    for (const core::TileLayer&amp; layer : layers) {
+        if (!core::isVisualLayerKind(layer.kind)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (int row = rect.top; row &lt;= rect.bottom; ++row) {
+            for (int column = rect.left; column &lt;= rect.right; ++column) {
+                const std::string_view piece = layer.pieceAt(column, row);
+                if (piece.empty()) {
+                    continue;</span>
+                }
+<span style = "background-color:#dfd">                const core::PieceFootprint footprint = draft.pieceFootprint(piece);
+                rect.right = std::max(rect.right, column + std::max(footprint.columns, 1) - 1);
+                rect.bottom = std::max(rect.bottom, row + std::max(footprint.rows, 1) - 1);
+            }
+        }
+    }
+    rect.right = std::min(rect.right, root.width() - 1);
+    rect.bottom = std::min(rect.bottom, root.height() - 1);</span>
+
+<span style = "background-color:#dfd">    Stamp stamp;
+    stamp.width = rect.width();
+    stamp.height = rect.height();
+    stamp.place = scenePlaceOf(layers);
+    const core::GridPosition origin{.column = rect.left, .row = rect.top};</span>
+
+<span style = "background-color:#dfd">    for (const core::TileLayer&amp; layer : layers) {
+        if (!core::isVisualLayerKind(layer.kind)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        StampLayer taken;
+        taken.name = layer.name;
+        taken.kind = layer.kind;
+        taken.types.assign(</span>
+            static_cast&lt;std::size_t&gt;(stamp.width) * static_cast&lt;std::size_t&gt;(stamp.height),
+            core::TileType::Empty);
+<span style = "background-color:#dfd">        for (int row = rect.top; row &lt;= rect.bottom; ++row) {
+            for (int column = rect.left; column &lt;= rect.right; ++column) {
+                const core::GridPosition cell{.column = column, .row = row};
+                taken.types[typeIndex(rect, cell)] = layer.tiles.tile(column, row);
+                const std::string_view piece = layer.pieceAt(column, row);
+                if (!piece.empty()) {
+                    taken.pieces.push_back(</span>
+                        StampPiece{.anchor = core::GridPosition{.column = column - origin.column,
+                                                                .row = row - origin.row},
+                                   .piece = std::string{piece},
+                                   .type = layer.tiles.tile(column, row)});
+                }
+<span style = "background-color:#dfd">            }
+        }
+        stamp.layers.push_back(std::move(taken));
+    }</span>
+
+<span style = "background-color:#dfd">    for (const core::MapEntity&amp; entity : draft.entities()) {
+        if (!rect.contains(entity.position)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        core::MapEntity taken = entity;
+        taken.id.clear();  // chaque pose en donne un neuf (decision D8).
+        taken.position = core::GridPosition{.column = entity.position.column - origin.column,</span>
+                                            .row = entity.position.row - origin.row};
+<span style = "background-color:#dfd">        for (core::GridPosition&amp; cell : taken.cells) {</span>
+<span style = "background-color:#fdd">            cell = core::GridPosition{.column = cell.column - origin.column,</span>
+                                      .row = cell.row - origin.row};
+<span style = "background-color:#fdd">        }</span>
+<span style = "background-color:#dfd">        stamp.entities.push_back(std::move(taken));
+    }</span>
+
+<span style = "background-color:#dfd">    for (const core::GridPosition forced : draft.forcedCollision()) {</span>
+<span style = "background-color:#fdd">        if (!rect.contains(forced)) {
+            continue;</span>
+        }
+<span style = "background-color:#fdd">        stamp.forced.push_back(</span>
+            StampForcedCell{.cell = core::GridPosition{.column = forced.column - origin.column,
+                                                       .row = forced.row - origin.row},
+                            .type = root.tile(forced.column, forced.row)});
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    return stamp;
+}</span>
+
+// --- Le miroir -----------------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">Stamp mirrorStamp(const Stamp&amp; stamp, const core::ScenePieceManifest* manifest) {</span>
+    // Le miroir du tampon est la diagonale de son coin haut gauche : la case (c, r) passe en
+    // (r, c), et une emprise de w x h devient h x w -- exactement ce qui fait d'une piece et de sa
+    // jumelle l'image l'une de l'autre (hmi::mirrorPieceName).
+<span style = "background-color:#dfd">    Stamp mirrored;
+    mirrored.width = stamp.height;
+    mirrored.height = stamp.width;
+    mirrored.place = stamp.place;
+    const auto flip = [](core::GridPosition cell) {
+        return core::GridPosition{.column = cell.row, .row = cell.column};
+    };</span>
+    const Rect rect{
+<span style = "background-color:#dfd">        .left = 0, .top = 0, .right = mirrored.width - 1, .bottom = mirrored.height - 1};</span>
+
+<span style = "background-color:#dfd">    for (const StampLayer&amp; layer : stamp.layers) {
+        StampLayer taken;
+        taken.name = layer.name;
+        taken.kind = layer.kind;
+        taken.types.assign(layer.types.size(), core::TileType::Empty);
+        for (int row = 0; row &lt; stamp.height; ++row) {
+            for (int column = 0; column &lt; stamp.width; ++column) {
+                const std::size_t source =</span>
+                    static_cast&lt;std::size_t&gt;(row) * static_cast&lt;std::size_t&gt;(stamp.width) +
+                    static_cast&lt;std::size_t&gt;(column);
+<span style = "background-color:#dfd">                if (source &gt;= layer.types.size()) {</span>
+<span style = "background-color:#fdd">                    continue;</span>
+                }
+<span style = "background-color:#dfd">                taken.types[typeIndex(rect,</span>
+                                      flip(core::GridPosition{.column = column, .row = row}))] =
+                    layer.types[source];
+<span style = "background-color:#dfd">            }
+        }
+        for (const StampPiece&amp; piece : layer.pieces) {
+            taken.pieces.push_back(StampPiece{.anchor = flip(piece.anchor),</span>
+                                              .piece = mirrorPieceName(manifest, piece.piece),
+                                              .type = piece.type});
+<span style = "background-color:#dfd">        }
+        mirrored.layers.push_back(std::move(taken));
+    }</span>
+
+<span style = "background-color:#dfd">    for (const core::MapEntity&amp; entity : stamp.entities) {</span>
+<span style = "background-color:#fdd">        core::MapEntity taken = entity;
+        taken.position = flip(entity.position);
+        for (core::GridPosition&amp; cell : taken.cells) {
+            cell = flip(cell);
+        }</span>
+        // Une zone rectangle est decrite par des proprietes : sa largeur et sa hauteur s'echangent.
+<span style = "background-color:#fdd">        const auto width = taken.properties.find(std::string{core::ZONE_WIDTH_PROPERTY});
+        const auto height = taken.properties.find(std::string{core::ZONE_HEIGHT_PROPERTY});
+        if (width != taken.properties.end() &amp;&amp; height != taken.properties.end()) {
+            std::swap(width-&gt;second, height-&gt;second);</span>
+        }
+<span style = "background-color:#fdd">        mirrored.entities.push_back(std::move(taken));
+    }</span>
+
+<span style = "background-color:#dfd">    for (const StampForcedCell&amp; forced : stamp.forced) {</span>
+<span style = "background-color:#fdd">        mirrored.forced.push_back(StampForcedCell{.cell = flip(forced.cell), .type = forced.type});
+    }</span>
+<span style = "background-color:#dfd">    return mirrored;
+}</span>
+
+// --- Poser ---------------------------------------------------------------------------------------
+
+namespace {
+
+// La couche de la carte qui recoit celle du tampon : meme nom d'abord, meme role ensuite.
+[[nodiscard]] std::optional&lt;std::size_t&gt; targetLayer(const std::vector&lt;core::TileLayer&gt;&amp; layers,
+<span style = "background-color:#dfd">                                                     const StampLayer&amp; stamped) {
+    for (std::size_t index = 0; index &lt; layers.size(); ++index) {
+        if (core::isVisualLayerKind(layers[index].kind) &amp;&amp; layers[index].name == stamped.name) {
+            return index;</span>
+        }
+<span style = "background-color:#dfd">    }
+    for (std::size_t index = 0; index &lt; layers.size(); ++index) {
+        if (core::isVisualLayerKind(layers[index].kind) &amp;&amp; layers[index].kind == stamped.kind) {</span>
+<span style = "background-color:#fdd">            return index;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return std::nullopt;
+}</span>
+
+}  // namespace
+
+StampPasteResult pasteStamp(core::LevelDraft&amp; draft, const Stamp&amp; stamp, core::GridPosition at,
+<span style = "background-color:#dfd">                            const LayerViewState&amp; view) {
+    StampPasteResult result;
+    if (stamp.empty()) {</span>
+<span style = "background-color:#fdd">        result.refusal = "nothing to paste.";
+        return result;</span>
+    }
+<span style = "background-color:#dfd">    const core::TileMap&amp; root = draft.tileMap();</span>
+    if (at.column &gt; root.width() - 1 || at.row &gt; root.height() - 1 ||
+<span style = "background-color:#dfd">        at.column + stamp.width &lt;= 0 || at.row + stamp.height &lt;= 0) {
+        result.refusal = "the stamp would fall outside the map.";
+        return result;</span>
+    }
+
+    // Toutes les couches d'abord : un refus ne doit rien avoir ecrit.
+<span style = "background-color:#dfd">    std::vector&lt;std::size_t&gt; targets;
+    targets.reserve(stamp.layers.size());
+    const bool hasVisual = std::ranges::any_of(draft.layers(), [](const core::TileLayer&amp; layer) {
+        return core::isVisualLayerKind(layer.kind);
+    });
+    for (const StampLayer&amp; layer : stamp.layers) {
+        const std::optional&lt;std::size_t&gt; target = targetLayer(draft.layers(), layer);
+        if (!target) {
+            result.refusal = "this map has no layer for \"" + layer.name + "\".";
+            return result;</span>
+        }
+<span style = "background-color:#dfd">        if (view.display(*target, hasVisual).locked) {
+            result.refusal = "layer \"" + draft.layers()[*target].name + "\" is locked.";
+            return result;</span>
+        }
+<span style = "background-color:#dfd">        targets.push_back(*target);
+    }</span>
+
+    // Un seul geste : toute la pose se defait d'un Ctrl+Z (EX-EDIT-066).
+<span style = "background-color:#dfd">    const core::GestureScope gesture(draft);
+    bool changed = false;
+    for (std::size_t index = 0; index &lt; stamp.layers.size(); ++index) {
+        const StampLayer&amp; layer = stamp.layers[index];
+        std::vector&lt;std::vector&lt;core::TileType&gt;&gt; block(</span>
+            static_cast&lt;std::size_t&gt;(stamp.height),
+            std::vector&lt;core::TileType&gt;(static_cast&lt;std::size_t&gt;(stamp.width),
+                                        core::TileType::Empty));
+<span style = "background-color:#dfd">        for (int row = 0; row &lt; stamp.height; ++row) {
+            for (int column = 0; column &lt; stamp.width; ++column) {
+                const std::size_t source =</span>
+                    static_cast&lt;std::size_t&gt;(row) * static_cast&lt;std::size_t&gt;(stamp.width) +
+                    static_cast&lt;std::size_t&gt;(column);
+<span style = "background-color:#dfd">                if (source &lt; layer.types.size()) {
+                    block[static_cast&lt;std::size_t&gt;(row)][static_cast&lt;std::size_t&gt;(column)] =</span>
+                        layer.types[source];
+                }
+<span style = "background-color:#dfd">            }
+        }
+        changed = draft.paintLayerRegion(targets[index], at.column, at.row, block) || changed;
+        for (const StampPiece&amp; piece : layer.pieces) {
+            const core::GridPosition anchor{.column = at.column + piece.anchor.column,
+                                            .row = at.row + piece.anchor.row};
+            if (!root.inBounds(anchor.column, anchor.row)) {</span>
+<span style = "background-color:#fdd">                continue;  // decoupe aux bords, comme un bloc de types.</span>
+            }
+<span style = "background-color:#dfd">            changed = draft.placePiece(targets[index], anchor, piece.piece, piece.type) || changed;
+        }
+    }</span>
+
+<span style = "background-color:#dfd">    for (const core::MapEntity&amp; entity : stamp.entities) {
+        core::MapEntity placed = entity;
+        placed.position = core::GridPosition{.column = at.column + entity.position.column,</span>
+                                             .row = at.row + entity.position.row};
+<span style = "background-color:#dfd">        if (!root.inBounds(placed.position.column, placed.position.row)) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        placed.cells.clear();
+        for (const core::GridPosition cell : entity.cells) {</span>
+<span style = "background-color:#fdd">            const core::GridPosition moved{.column = at.column + cell.column,
+                                           .row = at.row + cell.row};
+            if (root.inBounds(moved.column, moved.row)) {
+                placed.cells.push_back(moved);</span>
+            }
+<span style = "background-color:#fdd">        }</span>
+<span style = "background-color:#dfd">        if (const std::optional&lt;std::size_t&gt; index = draft.placeEntity(std::move(placed))) {
+            result.entities.push_back(*index);
+            changed = true;</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    // Les cases forcees en dernier : la collision des cases posees vient d'etre deduite.
+<span style = "background-color:#dfd">    for (const StampForcedCell&amp; forced : stamp.forced) {</span>
+<span style = "background-color:#fdd">        const core::GridPosition cell{.column = at.column + forced.cell.column,
+                                      .row = at.row + forced.cell.row};
+        if (!root.inBounds(cell.column, cell.row) || forced.type == core::TileType::Entry) {
+            continue;</span>
+        }
+<span style = "background-color:#fdd">        if (root.tile(cell.column, cell.row) != forced.type) {
+            draft.paintTile(cell.column, cell.row, forced.type);
+            changed = true;</span>
+        }
+<span style = "background-color:#fdd">    }</span>
+
+<span style = "background-color:#dfd">    result.changed = changed;
+    return result;
+}</span>
+
+<span style = "background-color:#fdd">std::string stampLabel(const Stamp&amp; stamp) {
+    if (stamp.empty()) {
+        return "empty";</span>
+    }
+<span style = "background-color:#fdd">    std::size_t pieces = 0;
+    for (const StampLayer&amp; layer : stamp.layers) {
+        pieces += layer.pieces.size();
+    }
+    std::string label = std::to_string(stamp.width) + " Ã " + std::to_string(stamp.height);
+    if (pieces &gt; 0) {
+        label += " Â· " + std::to_string(pieces) + (pieces == 1 ? " piece" : " pieces");</span>
+    }
+<span style = "background-color:#fdd">    if (!stamp.entities.empty()) {
+        label += " Â· " + std::to_string(stamp.entities.size()) +</span>
+                 (stamp.entities.size() == 1 ? " entity" : " entities");
+    }
+<span style = "background-color:#fdd">    return label;
+}</span>
+
+// --- La bibliotheque -----------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">nlohmann::json stampToJson(const Stamp&amp; stamp) {
+    Json json;
+    json["format"] = std::string{PREFAB_FORMAT};
+    json["version"] = PREFAB_VERSION;
+    json["width"] = stamp.width;
+    json["height"] = stamp.height;
+    if (!stamp.place.empty()) {
+        json["place"] = stamp.place;</span>
+    }
+<span style = "background-color:#dfd">    Json layers = Json::array();
+    for (const StampLayer&amp; layer : stamp.layers) {
+        Json layerJson;
+        layerJson["name"] = layer.name;
+        layerJson["kind"] = core::layerKindName(layer.kind);
+        Json types = Json::array();
+        for (const core::TileType type : layer.types) {
+            types.push_back(core::tileTypeName(type));
+        }
+        layerJson["types"] = std::move(types);
+        if (!layer.pieces.empty()) {
+            Json pieces = Json::array();
+            for (const StampPiece&amp; piece : layer.pieces) {
+                Json pieceJson;
+                pieceJson["at"] = cellJson(piece.anchor);
+                pieceJson["piece"] = piece.piece;
+                pieceJson["type"] = core::tileTypeName(piece.type);
+                pieces.push_back(std::move(pieceJson));
+            }
+            layerJson["pieces"] = std::move(pieces);
+        }
+        layers.push_back(std::move(layerJson));
+    }
+    json["layers"] = std::move(layers);
+    if (!stamp.entities.empty()) {
+        Json entities = Json::array();
+        for (const core::MapEntity&amp; entity : stamp.entities) {
+            Json entityJson;
+            entityJson["type"] = entity.type;
+            entityJson["x"] = entity.position.column;
+            entityJson["y"] = entity.position.row;
+            if (entity.elevation != 0) {</span>
+<span style = "background-color:#fdd">                entityJson["elevation"] = entity.elevation;</span>
+            }
+<span style = "background-color:#dfd">            if (!entity.cells.empty()) {</span>
+<span style = "background-color:#fdd">                Json cells = Json::array();
+                for (const core::GridPosition cell : entity.cells) {
+                    cells.push_back(cellJson(cell));
+                }
+                entityJson["cells"] = std::move(cells);
+            }</span>
+<span style = "background-color:#dfd">            writeProperties(entity.properties, entityJson);
+            entities.push_back(std::move(entityJson));
+        }
+        json["entities"] = std::move(entities);
+    }
+    if (!stamp.forced.empty()) {</span>
+<span style = "background-color:#fdd">        Json forced = Json::array();
+        for (const StampForcedCell&amp; cell : stamp.forced) {
+            Json cellJsonValue;
+            cellJsonValue["at"] = cellJson(cell.cell);
+            cellJsonValue["type"] = core::tileTypeName(cell.type);
+            forced.push_back(std::move(cellJsonValue));
+        }
+        json["forced"] = std::move(forced);
+    }</span>
+<span style = "background-color:#dfd">    return json;
+}</span>
+
+namespace {
+
+// Le corps d'un tampon, partage par le prefabrique et le modele de carte : tout sauf l'en-tete.
+<span style = "background-color:#dfd">[[nodiscard]] Stamp stampBodyFromJson(const Json&amp; json) {
+    Stamp stamp;
+    stamp.width = json.value("width", 0);
+    stamp.height = json.value("height", 0);
+    if (stamp.width &lt;= 0 || stamp.height &lt;= 0) {</span>
+<span style = "background-color:#fdd">        throw StampInvalid("\"width\" and \"height\" must be positive");</span>
+    }
+<span style = "background-color:#dfd">    stamp.place = json.value("place", std::string{});
+    const std::size_t cells =</span>
+        static_cast&lt;std::size_t&gt;(stamp.width) * static_cast&lt;std::size_t&gt;(stamp.height);
+<span style = "background-color:#dfd">    const auto layers = json.find("layers");
+    if (layers != json.end()) {
+        if (!layers-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">            throw StampInvalid("\"layers\" must be a list");</span>
+        }
+<span style = "background-color:#dfd">        for (const Json&amp; layerJson : *layers) {
+            StampLayer layer;
+            layer.name = layerJson.value("name", std::string{});
+            const std::string kind = layerJson.value("kind", std::string{"ground"});
+            layer.kind = kind == "decor" ? core::LayerKind::Decor : core::LayerKind::Ground;
+            const auto types = layerJson.find("types");
+            if (types == layerJson.end() || !types-&gt;is_array() || types-&gt;size() != cells) {</span>
+<span style = "background-color:#fdd">                throw StampInvalid("layer \"" + layer.name +</span>
+                                   "\": \"types\" must hold width Ã height names");
+            }
+<span style = "background-color:#dfd">            for (const Json&amp; type : *types) {
+                layer.types.push_back(typeOf(type));
+            }
+            const auto pieces = layerJson.find("pieces");
+            if (pieces != layerJson.end()) {
+                if (!pieces-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">                    throw StampInvalid("\"pieces\" must be a list");</span>
+                }
+<span style = "background-color:#dfd">                for (const Json&amp; pieceJson : *pieces) {
+                    layer.pieces.push_back(</span>
+                        StampPiece{.anchor = cellOf(pieceJson.at("at")),
+                                   .piece = pieceJson.value("piece", std::string{}),
+                                   .type = typeOf(pieceJson.at("type"))});
+<span style = "background-color:#dfd">                }</span>
+            }
+<span style = "background-color:#dfd">            stamp.layers.push_back(std::move(layer));
+        }</span>
+    }
+<span style = "background-color:#dfd">    const auto entities = json.find("entities");
+    if (entities != json.end()) {
+        if (!entities-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">            throw StampInvalid("\"entities\" must be a list");</span>
+        }
+<span style = "background-color:#dfd">        for (const Json&amp; entityJson : *entities) {
+            core::MapEntity entity;
+            entity.type = entityJson.value("type", std::string{});
+            entity.position = core::GridPosition{.column = entityJson.value("x", 0),</span>
+                                                 .row = entityJson.value("y", 0)};
+<span style = "background-color:#dfd">            entity.elevation = entityJson.value("elevation", 0);
+            const auto cellList = entityJson.find("cells");
+            if (cellList != entityJson.end() &amp;&amp; cellList-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">                for (const Json&amp; cell : *cellList) {
+                    entity.cells.push_back(cellOf(cell));
+                }</span>
+            }
+<span style = "background-color:#dfd">            readProperties(entityJson, entity.properties);
+            stamp.entities.push_back(std::move(entity));
+        }</span>
+    }
+<span style = "background-color:#dfd">    const auto forced = json.find("forced");
+    if (forced != json.end()) {</span>
+<span style = "background-color:#fdd">        if (!forced-&gt;is_array()) {
+            throw StampInvalid("\"forced\" must be a list");</span>
+        }
+<span style = "background-color:#fdd">        for (const Json&amp; cell : *forced) {
+            stamp.forced.push_back(</span>
+                StampForcedCell{.cell = cellOf(cell.at("at")), .type = typeOf(cell.at("type"))});
+<span style = "background-color:#fdd">        }</span>
+    }
+<span style = "background-color:#dfd">    return stamp;
+}</span>
+
+[[nodiscard]] bool headerIs(const Json&amp; json, std::string_view format, int version,
+<span style = "background-color:#dfd">                            std::string&amp; error) {
+    if (!json.is_object() || json.value("format", std::string{}) != format) {</span>
+<span style = "background-color:#fdd">        error = "not a " + std::string{format} + " file";
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (json.value("version", 0) != version) {</span>
+<span style = "background-color:#fdd">        error = std::string{format} + " version must be " + std::to_string(version);
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    return true;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::optional&lt;Stamp&gt; stampFromJson(const nlohmann::json&amp; json, std::string&amp; error) {
+    error.clear();
+    if (!headerIs(json, PREFAB_FORMAT, PREFAB_VERSION, error)) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+    try {
+<span style = "background-color:#dfd">        return stampBodyFromJson(json);</span>
+<span style = "background-color:#fdd">    } catch (const std::exception&amp; invalid) {
+        error = invalid.what();
+        return std::nullopt;
+    }</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">bool isValidPrefabName(std::string_view name) {
+    if (name.empty() || name.size() &gt; 64) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    return std::ranges::all_of(name, [](unsigned char letter) {
+        return (letter &gt;= 'a' &amp;&amp; letter &lt;= 'z') || (letter &gt;= '0' &amp;&amp; letter &lt;= '9') ||</span>
+               letter == '-' || letter == '_';
+<span style = "background-color:#dfd">    });
+}</span>
+
+<span style = "background-color:#dfd">std::filesystem::path prefabsDir(const std::filesystem::path&amp; dataRoot, std::string_view place) {
+    return dataRoot / "Editor" / "Prefabs" / std::filesystem::path(std::string{place});
+}</span>
+
+std::vector&lt;std::string&gt; prefabNames(const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                                     std::string_view place) {
+    std::vector&lt;std::string&gt; names;
+    std::error_code error;
+    const std::filesystem::path dir = prefabsDir(dataRoot, place);
+    if (!std::filesystem::is_directory(dir, error)) {</span>
+<span style = "background-color:#fdd">        return names;</span>
+    }
+<span style = "background-color:#dfd">    for (const std::filesystem::directory_entry&amp; entry :
+         std::filesystem::directory_iterator(dir, error)) {
+        if (entry.is_regular_file() &amp;&amp; entry.path().extension() == ".json") {
+            names.push_back(entry.path().stem().string());
+        }
+    }
+    std::ranges::sort(names);
+    return names;
+}</span>
+
+std::string writePrefab(const std::filesystem::path&amp; dataRoot, std::string_view place,
+<span style = "background-color:#dfd">                        std::string_view name, const Stamp&amp; stamp) {
+    if (!isValidPrefabName(name)) {
+        return "a prefab name is made of lowercase letters, digits, dashes and underscores.";</span>
+    }
+<span style = "background-color:#dfd">    if (stamp.empty()) {
+        return "nothing to save: select a region first.";</span>
+    }
+<span style = "background-color:#dfd">    const std::filesystem::path dir = prefabsDir(dataRoot, place);
+    std::error_code error;
+    std::filesystem::create_directories(dir, error);
+    if (error) {</span>
+<span style = "background-color:#fdd">        return "cannot create " + dir.string() + ": " + error.message();</span>
+    }
+<span style = "background-color:#dfd">    const std::filesystem::path file = dir / (std::string{name} + ".json");
+    std::ofstream out(file, std::ios::binary | std::ios::trunc);
+    if (!out) {</span>
+<span style = "background-color:#fdd">        return "cannot write " + file.string();</span>
+    }
+<span style = "background-color:#dfd">    out &lt;&lt; stampToJson(stamp).dump(2) &lt;&lt; '\n';
+    if (!out) {</span>
+<span style = "background-color:#fdd">        return "cannot write " + file.string();</span>
+    }
+<span style = "background-color:#dfd">    return {};
+}</span>
+
+std::optional&lt;Stamp&gt; readPrefab(const std::filesystem::path&amp; dataRoot, std::string_view place,
+<span style = "background-color:#dfd">                                std::string_view name, std::string&amp; error) {
+    const std::filesystem::path file = prefabsDir(dataRoot, place) / (std::string{name} + ".json");
+    const Json json = Json::parse(readText(file), nullptr, false);
+    if (json.is_discarded()) {</span>
+<span style = "background-color:#fdd">        error = file.string() + ": not a JSON file (or it cannot be read)";
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const std::optional&lt;Stamp&gt; stamp = stampFromJson(json, error);
+    if (!stamp) {</span>
+<span style = "background-color:#fdd">        error = file.string() + ": " + error;</span>
+    }
+<span style = "background-color:#dfd">    return stamp;
+}</span>
+
+// --- Les modeles de carte
+// -------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">std::optional&lt;MapTemplate&gt; mapTemplateFromJson(const nlohmann::json&amp; json, std::string&amp; error) {
+    error.clear();
+    if (!headerIs(json, MAP_TEMPLATE_FORMAT, MAP_TEMPLATE_VERSION, error)) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+    try {
+<span style = "background-color:#dfd">        MapTemplate model;
+        model.id = json.value("id", std::string{});
+        model.label = json.value("label", model.id);
+        model.description = json.value("description", std::string{});
+        model.width = json.value("width", 0);
+        model.height = json.value("height", 0);
+        if (model.id.empty()) {</span>
+<span style = "background-color:#fdd">            throw StampInvalid("\"id\" is missing");</span>
+        }
+<span style = "background-color:#dfd">        if (model.width &lt;= 0 || model.height &lt;= 0) {</span>
+<span style = "background-color:#fdd">            throw StampInvalid("\"width\" and \"height\" must be positive");</span>
+        }
+<span style = "background-color:#dfd">        const auto layers = json.find("layers");
+        if (layers == json.end() || !layers-&gt;is_array() || layers-&gt;empty()) {</span>
+<span style = "background-color:#fdd">            throw StampInvalid("\"layers\" must list at least one layer");</span>
+        }
+<span style = "background-color:#dfd">        for (const Json&amp; layerJson : *layers) {
+            MapTemplateLayer layer;
+            layer.name = layerJson.value("name", std::string{});
+            const std::string kind = layerJson.value("kind", std::string{"ground"});
+            if (kind != "ground" &amp;&amp; kind != "decor") {</span>
+<span style = "background-color:#fdd">                throw StampInvalid("a template layer is \"ground\" or \"decor\"");</span>
+            }
+<span style = "background-color:#dfd">            layer.kind = kind == "decor" ? core::LayerKind::Decor : core::LayerKind::Ground;
+            layer.scene = layerJson.value("scene", false);
+            if (layer.name.empty()) {</span>
+<span style = "background-color:#fdd">                throw StampInvalid("a template layer needs a name");</span>
+            }
+<span style = "background-color:#dfd">            model.layers.push_back(std::move(layer));
+        }
+        const auto entry = json.find("entry");
+        if (entry != json.end()) {
+            model.entry = cellOf(*entry);</span>
+        }
+<span style = "background-color:#dfd">        const auto stamp = json.find("stamp");
+        if (stamp != json.end()) {
+            model.stamp = stampBodyFromJson(*stamp);
+            for (const StampLayer&amp; layer : model.stamp.layers) {
+                if (!layer.pieces.empty()) {
+                    throw StampInvalid("a template names no piece: it serves every place");</span>
+                }
+<span style = "background-color:#dfd">            }</span>
+        }
+<span style = "background-color:#dfd">        return model;
+    } catch (const std::exception&amp; invalid) {
+        error = invalid.what();
+        return std::nullopt;</span>
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">}</span>
+
+namespace {
+
+<span style = "background-color:#dfd">[[nodiscard]] std::filesystem::path templatesDir(const std::filesystem::path&amp; dataRoot) {
+    return dataRoot / "Editor" / "Templates";
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::vector&lt;MapTemplate&gt; mapTemplates(const std::filesystem::path&amp; dataRoot) {
+    std::vector&lt;MapTemplate&gt; models;
+    std::error_code error;
+    const std::filesystem::path dir = templatesDir(dataRoot);
+    if (!std::filesystem::is_directory(dir, error)) {</span>
+<span style = "background-color:#fdd">        return models;</span>
+    }
+<span style = "background-color:#dfd">    for (const std::filesystem::directory_entry&amp; entry :
+         std::filesystem::directory_iterator(dir, error)) {
+        if (!entry.is_regular_file() || entry.path().extension() != ".json") {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const Json json = Json::parse(readText(entry.path()), nullptr, false);
+        if (json.is_discarded()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        std::string ignored;
+        if (std::optional&lt;MapTemplate&gt; model = mapTemplateFromJson(json, ignored)) {
+            models.push_back(std::move(*model));
+        }
+    }
+    std::ranges::sort(models, [](const MapTemplate&amp; left, const MapTemplate&amp; right) {
+        return left.id &lt; right.id;
+    });
+    return models;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;LibraryFinding&gt; checkEditorLibrary(const std::filesystem::path&amp; dataRoot) {
+    std::vector&lt;LibraryFinding&gt; findings;
+    const auto readAll = [&amp;findings](const std::filesystem::path&amp; dir, bool templates) {
+        std::error_code walked;
+        if (!std::filesystem::is_directory(dir, walked)) {
+            return;</span>
+        }
+<span style = "background-color:#dfd">        std::vector&lt;std::filesystem::path&gt; files;
+        for (const std::filesystem::directory_entry&amp; entry :
+             std::filesystem::recursive_directory_iterator(dir, walked)) {
+            if (entry.is_regular_file() &amp;&amp; entry.path().extension() == ".json") {
+                files.push_back(entry.path());
+            }</span>
+        }
+<span style = "background-color:#dfd">        std::ranges::sort(files);
+        for (const std::filesystem::path&amp; file : files) {
+            const Json json = Json::parse(readText(file), nullptr, false);
+            if (json.is_discarded()) {</span>
+<span style = "background-color:#fdd">                findings.push_back(LibraryFinding{</span>
+                    .file = file, .message = "not a JSON file (or it cannot be read)"});
+<span style = "background-color:#fdd">                continue;</span>
+            }
+<span style = "background-color:#dfd">            std::string error;
+            const bool ok = templates ? mapTemplateFromJson(json, error).has_value()</span>
+                                      : stampFromJson(json, error).has_value();
+<span style = "background-color:#dfd">            if (!ok) {</span>
+<span style = "background-color:#fdd">                findings.push_back(LibraryFinding{.file = file, .message = error});</span>
+            }
+<span style = "background-color:#dfd">        }
+    };
+    readAll(dataRoot / "Editor" / "Prefabs", false);
+    readAll(templatesDir(dataRoot), true);
+    return findings;
+}</span>
+
+// --- La bibliotheque sans fenetre ------------------------------------------------------------
+
+namespace {
+
+// Les valeurs qui suivent @p option, jusqu'a la prochaine option (meme lecture que MapRefactor).
+[[nodiscard]] std::optional&lt;std::vector&lt;std::string&gt;&gt; valuesOf(
+<span style = "background-color:#fdd">    const std::vector&lt;std::string&gt;&amp; arguments, std::string_view option) {
+    const auto found = std::ranges::find(arguments, option);
+    if (found == arguments.end()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#fdd">    std::vector&lt;std::string&gt; values;
+    for (auto value = std::next(found); value != arguments.end() &amp;&amp; !value-&gt;starts_with("--");
+         ++value) {
+        values.push_back(*value);
+    }
+    return values;
+}</span>
+
+// Une case ecrite Â« c,r Â» en ligne de commande.
+<span style = "background-color:#fdd">[[nodiscard]] std::optional&lt;core::GridPosition&gt; cellArgument(const std::string&amp; text) {
+    const std::size_t comma = text.find(',');
+    if (comma == std::string::npos) {
+        return std::nullopt;</span>
+    }
+    try {
+<span style = "background-color:#fdd">        return core::GridPosition{.column = std::stoi(text.substr(0, comma)),</span>
+                                  .row = std::stoi(text.substr(comma + 1))};
+<span style = "background-color:#fdd">    } catch (const std::exception&amp;) {
+        return std::nullopt;
+    }
+}</span>
+
+}  // namespace
+
+std::optional&lt;int&gt; runPrefabCommand(const std::vector&lt;std::string&gt;&amp; arguments,
+<span style = "background-color:#fdd">                                    const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
+    const auto usage = [&amp;output](std::string_view text) {
+        output += "usage: " + std::string{text} + "\n";
+        return 2;
+    };
+    if (const auto places = valuesOf(arguments, "--list-prefabs")) {
+        std::vector&lt;std::string&gt; wanted = *places;
+        if (wanted.empty()) {
+            wanted = scenePlaces(dataRoot);</span>
+        }
+<span style = "background-color:#fdd">        std::size_t total = 0;
+        for (const std::string&amp; place : wanted) {
+            for (const std::string&amp; name : prefabNames(dataRoot, place)) {
+                std::string error;
+                const std::optional&lt;Stamp&gt; stamp = readPrefab(dataRoot, place, name, error);
+                output += place + "/" + name + ": " +</span>
+                          (stamp ? stampLabel(*stamp) : "unreadable â " + error) + "\n";
+<span style = "background-color:#fdd">                ++total;
+            }
+        }
+        output += std::to_string(total) + (total == 1 ? " prefab\n" : " prefabs\n");
+        return 0;
+    }
+    const auto save = valuesOf(arguments, "--save-prefab");
+    if (!save) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#fdd">    const auto from = valuesOf(arguments, "--from");
+    const auto to = valuesOf(arguments, "--to");
+    if (save-&gt;size() != 2 || !from || from-&gt;size() != 1 || !to || to-&gt;size() != 1) {
+        return usage("--save-prefab &lt;map&gt; &lt;name&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;");</span>
+    }
+<span style = "background-color:#fdd">    const std::optional&lt;core::GridPosition&gt; first = cellArgument(from-&gt;front());
+    const std::optional&lt;core::GridPosition&gt; last = cellArgument(to-&gt;front());
+    if (!first || !last) {
+        return usage("--save-prefab &lt;map&gt; &lt;name&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;");</span>
+    }
+<span style = "background-color:#fdd">    const std::filesystem::path asPath{(*save)[0]};
+    const std::filesystem::path mapFile = std::filesystem::is_regular_file(asPath)</span>
+                                              ? asPath
+                                              : dataRoot / "Levels" / ((*save)[0] + ".json");
+<span style = "background-color:#fdd">    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(mapFile);
+    if (!loaded.ok()) {
+        output += "error: " + mapFile.string() + ": " + loaded.error + "\n";
+        return 1;</span>
+    }
+<span style = "background-color:#fdd">    const std::string place = scenePlaceOf(loaded.level-&gt;layers());
+    core::LevelDraft draft = core::LevelDraft::fromLevel(*loaded.level);
+    const PlaceAssets assets = loadPlaceAssets(dataRoot, place);
+    if (assets.manifest) {
+        draft.setPieceManifest(std::make_shared&lt;const core::ScenePieceManifest&gt;(*assets.manifest));</span>
+    }
+<span style = "background-color:#fdd">    const Stamp stamp = cutStamp(draft, *first, *last);
+    const std::string error = writePrefab(dataRoot, place, (*save)[1], stamp);
+    if (!error.empty()) {
+        output += "error: " + error + "\n";
+        return 1;</span>
+    }
+<span style = "background-color:#fdd">    output += "saved " + place + "/" + (*save)[1] + ": " + stampLabel(stamp) + "\n";
+    return 0;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

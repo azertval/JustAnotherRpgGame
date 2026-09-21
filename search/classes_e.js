@@ -17,8 +17,9 @@ var searchData=
   ['placement_14',['Placement',['../structcore_1_1BattleGrid_1_1Placement.html',1,'core::BattleGrid']]],
   ['playableclass_15',['PlayableClass',['../structcore_1_1PlayableClass.html',1,'core']]],
   ['portaltarget_16',['PortalTarget',['../structcore_1_1PortalTarget.html',1,'core']]],
-  ['problemspanel_17',['ProblemsPanel',['../classhmi_1_1ProblemsPanel.html',1,'hmi']]],
-  ['proceduralatlasimage_18',['ProceduralAtlasImage',['../structhmi_1_1ProceduralAtlasImage.html',1,'hmi']]],
-  ['projectedit_19',['ProjectEdit',['../structhmi_1_1ProjectEdit.html',1,'hmi']]],
-  ['provisionalstatus_20',['ProvisionalStatus',['../structcore_1_1ProvisionalStatus.html',1,'core']]]
+  ['prefabitem_17',['PrefabItem',['../structhmi_1_1PalettePanel_1_1PrefabItem.html',1,'hmi::PalettePanel']]],
+  ['problemspanel_18',['ProblemsPanel',['../classhmi_1_1ProblemsPanel.html',1,'hmi']]],
+  ['proceduralatlasimage_19',['ProceduralAtlasImage',['../structhmi_1_1ProceduralAtlasImage.html',1,'hmi']]],
+  ['projectedit_20',['ProjectEdit',['../structhmi_1_1ProjectEdit.html',1,'hmi']]],
+  ['provisionalstatus_21',['ProvisionalStatus',['../structcore_1_1ProvisionalStatus.html',1,'core']]]
 ];

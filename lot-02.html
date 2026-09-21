@@ -96,13 +96,13 @@ $(function(){initNavTree('lot-02.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>en cours</b>. Prérequis : <a class="el" href="lot-01.html" title="LOT-01 — Fork, purge et remise à nu">LOT-01</a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md315"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md316"></a>
 Objectif</h1>
 <p>Faire de la couche de présentation <b>sans Qt Widgets</b> une bibliothèque, liée par l'application comme par les tests, pour cesser de relister ses sources à deux endroits.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md316"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md317"></a>
 Le problème</h1>
 <p><span class="tt">Source/HMI</span> était un <span class="tt">add_executable</span>. Conséquence : <span class="tt">Source/Test/CMakeLists.txt</span> relistait <b>79 chemins <span class="tt">../HMI/…</span></b> pour recompiler ces sources dans <span class="tt">UnitTests</span>. Chaque fichier ajouté à l'IHM devait l'être <b>deux fois</b>, et un oubli ne se voyait qu'à l'édition de liens. Le RPG va ajouter des dizaines de fichiers (règles, dialogues, inventaire, IHM de combat) : la dette doublait à chaque lot.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md317"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md318"></a>
 Le découpage retenu — et pourquoi il n'est pas « une seule <span class="tt">HmiLib</span> »</h1>
 <p>Le réflexe est de mettre <b>tout</b> <span class="tt">HMI</span> dans une bibliothèque. C'est faux ici, pour deux raisons que le projet maintenait déjà à la main dans des commentaires :</p>
 <ol type="1">
@@ -110,7 +110,7 @@ Le découpage retenu — et pourquoi il n'est pas « une seule <span class="tt">
 <li><b><span class="tt">Source/HMI/CMakeLists.txt</span> sort tôt (<span class="tt">return()</span>) sans Qt</b>, et c'est délibéré : <span class="tt">-DBUILD_EDITOR_QT=OFF</span> doit continuer de construire les tests seuls. Une bibliothèque déclarée après cette garde n'existerait pas dans ce cas.</li>
 </ol>
 <p>D'où : <b><span class="tt">HmiLib</span> porte le sous-ensemble sans Qt</b>, et est déclarée <b>avant</b> la garde. Ce n'est pas qu'une déduplication — cela <b>nomme</b> une frontière que le projet documentait jusqu'ici en prose, fichier par fichier.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md318"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md319"></a>
 Périmètre</h1>
 <ul>
 <li><span class="tt">add_library(HmiLib STATIC …)</span> avec les 80 sources sans Qt (<span class="tt">Graphics/</span> sans GPU, <span class="tt">Input/</span> sans le pont Qt, <span class="tt">Localization/</span>, <span class="tt">Diagnostics/</span>, <span class="tt">Audio/</span> hors moteur, <span class="tt">Game/</span> hors viewport, <span class="tt">Editor/</span> logique pure, <span class="tt">Interface/</span> hors widgets, <span class="tt">Platform/</span>), déclarée <b>avant</b> <span class="tt">option(BUILD_EDITOR_QT)</span>.</li>
@@ -118,17 +118,17 @@ Périmètre</h1>
 <li>L'exécutable perd ces 80 sources de sa liste et lie <span class="tt">HmiLib</span>.</li>
 <li><span class="tt">UnitTests</span> perd les 79 chemins relistés et lie <span class="tt">HmiLib</span>. Les <b>quatre</b> sources qui dépendent de Qt (<span class="tt">QtKeyMap</span>, <span class="tt">TextureLoader</span>, <span class="tt">SpriteBatch</span>, <span class="tt">AudioEngine</span>) restent ajoutées conditionnellement, comme aujourd'hui.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md319"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md320"></a>
 Points de vigilance</h1>
 <ul>
 <li><b>AUTOMOC</b> : <span class="tt">set(CMAKE_AUTOMOC ON)</span> intervient plus bas dans le fichier ; <span class="tt">HmiLib</span> est donc compilée sans moc. C'est correct — aucune de ces sources n'a de <span class="tt">Q_OBJECT</span> (c'est précisément ce qui les rendait compilables dans les tests). Toute source ajoutée à <span class="tt">HmiLib</span> doit respecter cette règle.</li>
 <li><b>Ressources Qt</b> (<span class="tt">qt6_add_shaders</span>, <span class="tt">.ui</span>) : elles restent sur l'exécutable. Les embarquer dans une bibliothèque <b>statique</b> exposerait au rejet des objets par l'éditeur de liens (une ressource que rien ne référence est écartée) — problème classique, inutile de l'affronter ici.</li>
 <li>Ne pas transformer <span class="tt">HmiLib</span> en fourre-tout : un fichier qui a besoin de <span class="tt">QWidget</span> appartient à l'exécutable, pas à la bibliothèque.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md320"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md321"></a>
 Exigences couvertes</h1>
 <p><span class="tt">EX-ARCH-*</span> et <span class="tt">EX-BUILD-*</span> nouvelles : « la couche de présentation sans Qt Widgets est une bibliothèque, liée par l'application et par les tests ».</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md321"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md322"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> ne contient plus que les <b>quatre</b> chemins <span class="tt">../HMI/…</span> conditionnels à Qt.</li>

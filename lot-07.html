@@ -96,14 +96,14 @@ $(function(){initNavTree('lot-07.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>partiellement fait</b> — le tri par profondeur et la caméra sont livrés, les sprites 4 directions restent à faire (voir « Ce que la réalisation a tranché »). Vérification automatisée : build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> à 921/921, lint d'exigences, cahier de test, Doxygen et <span class="tt">clang-format</span> verts. Prérequis : <a class="el" href="lot-04.html" title="LOT-04 — Format de carte `version: 3`, multi-couches">LOT-04</a> (couches), <a class="el" href="lot-06.html" title="LOT-06 — Déplacement top-down 8 directions">LOT-06</a> (un personnage qui bouge). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md349"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md350"></a>
 Objectif</h1>
 <p>Rendre un monde en vue de dessus <b>crédible</b> : le personnage passe <b>devant</b> ce qui est au-dessus de lui à l'écran, <b>derrière</b> ce qui est en dessous.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md350"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md351"></a>
 Ce qui existe déjà</h1>
 <p><span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html" title="Liste ordonnée des primitives d&#39;une image, indépendante de Direct3D.">hmi::ComposedScene</a></span> trie <b>de façon stable</b> par <span class="tt">(calque, texture, sortOrder)</span>, et <span class="tt">sortOrder</span> est un <span class="tt">std::int32_t</span> <b>par quad</b>. Le tri par Y n'est donc pas une refonte du rendu : c'est <b>alimenter un champ qui existe déjà</b> avec le Y monde quantifié.</p>
 <p>La stabilité du tri compte autant que le tri lui-même : à Y égal, deux sprites doivent garder un ordre constant d'une image à l'autre, sinon ils scintillent.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md351"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md352"></a>
 Périmètre</h1>
 <ul>
 <li>Alimenter <span class="tt">sortOrder</span> depuis le Y monde dans les calques <span class="tt">Object</span> et <span class="tt">Player</span> — en pratique le <b>pied</b> du sprite, pas son coin haut : c'est le point de contact avec le sol qui décide de la profondeur.</li>
@@ -111,13 +111,13 @@ Périmètre</h1>
 <li>Caméra : suivi sans biais vertical (le platformer décalait la vue vers le haut pour anticiper les sauts — sans objet ici).</li>
 <li>Repli procédural du personnage 4 directions dans <span class="tt">ProceduralAtlas</span>, pour que le jeu reste lançable sans aucun asset.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md352"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md353"></a>
 Jalon</h1>
 <p>C'est ici que le projet redevient <b>montrable</b> : une carte, un personnage qui s'y déplace et s'y insère visuellement. À viser tôt — c'est ce qui fait apparaître les frictions réelles bien avant qu'on ait investi dans les règles et le combat.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md353"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md354"></a>
 Exigences couvertes</h1>
 <p><span class="tt">EX-REN-*</span> : tri par Y, décor devant/derrière selon le pied du sprite, sprites directionnels.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md354"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md355"></a>
 Critères d'acceptation</h1>
 <ul>
 <li>Test <span class="tt">QuadRecorder</span> (sans GPU, <span class="tt">EX-NFR-004</span>) : trois sprites à Y croissants sortent dans l'ordre attendu.</li>

@@ -143,7 +143,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Dessine la galerie, et ne garde en mémoire que les textures voulues. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1185"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1197"></a>
 Le cache</h2>
 <p>Une texture voulue et absente est chargée, au plus <span class="tt"><a class="el" href="#a278c3a154a2a3f62a34aeb9e57ad7cdd">UPLOADS_PER_FRAME</a></span> par image : un grand saut de caméra étale ses chargements au lieu de figer une image. Une texture qui n'est plus voulue est libérée après <span class="tt"><a class="el" href="#a53a4757f9e9ea0b09986c7271690a4ca">EVICTION_SECONDS</a></span>, pour qu'un aller-retour de la vue ne la recharge pas. Un fichier illisible est retenu comme tel et dessiné en damier, sans nouvel essai à chaque image.</p>
 <p>Même cycle de vie que <span class="tt"><a class="el" href="classhmi_1_1ArenaSceneRenderer.html" title="Ce qui dessine le Colisée : ressources GPU, textures de la planche, animation des figurines,...">hmi::ArenaSceneRenderer</a></span> : <span class="tt"><a class="el" href="#abaa47bce790e37485885888b08ef40f2">ensureResources</a></span> depuis <span class="tt">initialize()</span>, <span class="tt"><a class="el" href="#acf5cf200df12641ed1d6eed10ec80456">setFrame</a></span> depuis <span class="tt">synchronize()</span>, <span class="tt"><a class="el" href="#a28a2aa93b231f8ec4b09cb2a7a03f205">render</a></span> depuis <span class="tt"><a class="el" href="#a28a2aa93b231f8ec4b09cb2a7a03f205">render()</a></span>. </p>

@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-editor-12.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 19 septembre 2026</b> (ouvert le même jour), sur la branche <span class="tt">lot-editor-12-format-v4</span>, en quatre commits : le format dans <span class="tt">Core</span> (phase 1), <span class="tt">--migrate</span> et <span class="tt">--check</span> avec les trois cartes migrées (phase 2), le schéma et le fuzz (phase 3), puis la documentation. Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, tests unitaires verts (788), acceptation sur les trois cartes livrées, <span class="tt">LevelEditor --check</span> vert, les deux scripts de cartes verts, une minute de fuzz sans défaut. Prérequis : <span class="tt">LOT-EDITOR-01</span>. Feuille de route : <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">éditeur</a>. Alimente : <span class="tt">LOT-EDITOR-03</span>, <span class="tt">LOT-EDITOR-05</span>. Exigences : <span class="tt">EX-LVL-019</span>, <span class="tt">EX-LVL-020</span>, <span class="tt">EX-LVL-021</span>, <span class="tt">EX-LVL-022</span>, <span class="tt">EX-LVL-023</span>, <span class="tt">EX-LVL-024</span>, <span class="tt">EX-EDIT-062</span> (nouvelles) ; <span class="tt">EX-LVL-003</span>, <span class="tt">EX-LVL-005</span>, <span class="tt">EX-LVL-016</span> et <span class="tt">EX-EDIT-043</span> révisées. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1074"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1083"></a>
 Objectif</h1>
 <p>La seule révision de format du module, faite tant qu'il n'y a que trois cartes (décisions D3, D8, D10, D11, D12 et D13 de la feuille de route) : la pièce quitte la grille de collision pour sa couche, la collision se déduit des pièces, les entités ont un identifiant, les zones une forme, les cartes des variantes, et la hauteur une place réservée. Et une garde en CI, avant que les scripts des cartes ne partent (constat A12).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1075"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1084"></a>
 Ce que le dépôt contenait à l'ouverture (19 septembre 2026)</h1>
 <ul>
 <li><b>Le format v3</b> : la pièce d'une case vivait sur la grille de collision (<span class="tt">"texture"</span> des tuiles racine), et seulement pour le relief ; le sol sortait de la table d'apparence du lieu.</li>
@@ -107,7 +107,7 @@ Ce que le dépôt contenait à l'ouverture (19 septembre 2026)</h1>
 <li><b>L'emprise des pièces larges n'était lue par personne</b> (A4) ; le composeur triait une pièce 2 × 1 au pied de sa seule case d'ancrage.</li>
 <li><b>Aucune garde des cartes en CI</b> : le <span class="tt">--check</span> des scripts <span class="tt">carte_colisee.py</span> et <span class="tt">carte_quartiers.py</span> ne tournait nulle part. Celui de <span class="tt">carte_quartiers.py</span> échouait d'ailleurs depuis le <span class="tt">LOT-93</span>, qui avait changé la figurine des sentinelles dans les cartes sans le suivre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1076"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1085"></a>
 Décisions</h1>
 <ul>
 <li><b>La grille racine reste la collision, sous le même nom.</b> <span class="tt">"tiles"</span> porte toujours la grille de collision et l'entrée ; le jeu la lit sans manifeste et ne change pas d'une ligne. Ce qui change : elle est <b>déduite</b> (<span class="tt"><a class="el" href="namespacecore.html#a3322a01062af04e9242df68f744c142f" title="Déduit la grille de collision d&#39;une carte.">core::deriveCollision</a></span>) et vérifiée, hors des cases <b>forcées</b> (<span class="tt">"forced"</span>).</li>
@@ -125,7 +125,7 @@ Décisions</h1>
 <li><b>Le type tactique naît dans la disposition de l'atelier.</b> Le manifeste est produit par <span class="tt">extract_texture_sheet.py</span> : une valeur ajoutée à la main s'y perdrait à la prochaine extraction. La disposition du Colisée déclare <span class="tt">"tactical": "open"</span>, le script la recopie (un miroir hérite de sa source), et le manifeste livré la porte déjà.</li>
 <li><b>L'acceptation sur les vraies cartes compare aux v3 de l'historique.</b> Garder 470 Ko de v3 en fixture pour un seul test aurait été lourd ; le test <span class="tt">MapFormatTest.LesTroisCartesMigreesSeJouentALIdentique</span> lit les v3 dans <span class="tt">JADG_V3_MAPS_DIR</span> (tirées de <span class="tt">git show 376c541da:…</span>) et s'ignore sans elle. Une v0, v1, v2 et v3 de quelques cases restent, elles, en fixture pour toujours.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1077"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1086"></a>
 Livraison</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -139,7 +139,7 @@ Livraison</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">4 — documentation  </td><td class="markdownTableBodyNone">ce dossier, la feuille de route, <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span>, <span class="tt"><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></span>, le README des niveaux, le cahier de tests  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1078"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1087"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Les trois cartes migrées se jouent à l'identique (même instantané de scène, même <span class="tt">BattleGrid</span>).</b> ✔ <span class="tt">MapFormatTest.LesTroisCartesMigreesSeJouentALIdentique</span>, lancé avec les v3 de l'historique : instantané égal, grille tactique égale case par case (au sol, en vol, vue, terrain difficile, zones), même entrée — pour le Colisée, Martpart et Arenarea. Sur la fixture v3, en permanence : <span class="tt">MapFormatTest.LaMigrationNeChangePasCeQueLeJeuJoue</span>.</li>
@@ -148,14 +148,14 @@ Critères d'acceptation</h1>
 <li><b>Le fuzz du chargeur couvre la v4.</b> ✔ amorces v4 et variantes, résolveur de base dans le harnais ; une minute en local : 3 194 entrées, 287 nouvelles, aucun défaut.</li>
 <li><b>Une valeur <span class="tt">elevation</span> non nulle survit à un aller-retour et sort en avertissement du <span class="tt">--check</span>.</b> ✔ <span class="tt">FormatV4Test.LaReserveDeHauteurSurvitALAllerRetour</span>, <span class="tt">MapFormatTest.ChaqueDefautSortEtLeControleEchoue</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1079"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1088"></a>
 Ce que la migration a trouvé, à trancher par l'auteur</h1>
 <ul>
 <li><b>Le Colisée garde 540 cases forcées</b> — <em>libérées au <span class="tt">LOT-EDITOR-03</span>, décision de l'auteur</em>. 538 sont du <b>vide</b> — ni sol ni pièce — que la v3 laissait franchissable ; la déduction en fait des murs, et la migration les a forcées pour que le jeu ne change pas. Deux sont des <b>piliers</b> posés sur des cases franchissables, là où deux autres piliers sont des obstacles. Martpart et Arenarea migrent sans aucune case forcée. Le masque des cases forcées se verra au <span class="tt">LOT-EDITOR-03</span> ; les retirer d'un geste rendra le vide infranchissable.</li>
 <li><b>Des pièces larges se recouvrent</b> (trois avertissements du <span class="tt">--check</span>) : la loge du Colisée pose <span class="tt">box-left</span> (1 × 2) et <span class="tt">box-right</span> (2 × 1) sur des cases voisines dont les emprises se croisent en (16, 6) et (16, 7), et <span class="tt">gate-left</span> / <span class="tt">gate-right</span> en (21, 33). L'emprise n'étant lue par personne jusqu'ici (A4), cela ne se voyait pas.</li>
 <li><b>Franchir un banc, un brasero ou un râtelier</b> : la v3 les rendait franchissables, et leur type tactique dit désormais <span class="tt">open</span> pour garder le jeu identique. S'ils doivent gêner ou arrêter, c'est une ligne de la disposition du Colisée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1080"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1089"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Peindre les pièces et voir les cases forcées</b> : <span class="tt">LOT-EDITOR-03</span>.</li>

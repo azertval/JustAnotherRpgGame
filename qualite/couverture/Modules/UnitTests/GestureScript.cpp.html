@@ -31,6 +31,7 @@
 #include "Editor/Logic/EntityGesture.h"
 #include "Editor/Logic/EntityShapes.h"
 #include "Editor/Logic/PieceCatalog.h"
+#include "Editor/Logic/Stamps.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace hmi {
@@ -51,9 +52,13 @@ public:
 // Rejoue un geste : lit ses champs, arme, puis fait ce que la main ferait.
 class GesturePlayer {
 public:
-<span style = "background-color:#dfd">    GesturePlayer(core::LevelDraft&amp; draft, EditorSidecar&amp; sidecar, const PlaceAssets&amp; assets,</span>
-                  GestureScriptResult&amp; result)
-<span style = "background-color:#dfd">        : _draft(draft), _sidecar(sidecar), _assets(assets), _result(result) {
+    GesturePlayer(core::LevelDraft&amp; draft, EditorSidecar&amp; sidecar, const PlaceAssets&amp; assets,
+                  std::filesystem::path dataRoot, GestureScriptResult&amp; result)
+<span style = "background-color:#dfd">        : _draft(draft),
+          _sidecar(sidecar),
+          _assets(assets),
+          _dataRoot(std::move(dataRoot)),
+          _result(result) {
         _state.view.sync(_draft.layers().size());
     }</span>
 
@@ -236,6 +241,25 @@ private:
         }
 <span style = "background-color:#dfd">        armBrush();
         armEntities();
+        armPrefab();
+    }</span>
+
+    // La bibliotheque du lieu (LOT-EDITOR-08) : un prefabrique devient le tampon a poser.
+<span style = "background-color:#dfd">    void armPrefab() {
+        if (field("prefab") == nullptr) {
+            return;</span>
+        }
+<span style = "background-color:#fdd">        const std::string name = text("prefab");
+        if (_dataRoot.empty()) {
+            throw GestureRefused("no data root: a prefab is read under &lt;data&gt;/Editor/Prefabs");</span>
+        }
+<span style = "background-color:#fdd">        const std::string place = scenePlaceOf(_draft.layers());
+        std::string error;
+        std::optional&lt;Stamp&gt; stamp = readPrefab(_dataRoot, place, name, error);
+        if (!stamp) {
+            throw GestureRefused("prefab \"" + name + "\": " + error);</span>
+        }
+<span style = "background-color:#fdd">        _state.clipboard = std::move(*stamp);
     }</span>
 
     // La palette : un type, ou une piÃ¨ce de la planche.
@@ -369,12 +393,12 @@ private:
         }
 <span style = "background-color:#dfd">    }</span>
 
-<span style = "background-color:#dfd">    [[nodiscard]] const core::TileMap&amp; activeLayerTiles() const {
-        if (_state.activeLayer &amp;&amp; *_state.activeLayer &lt; _draft.layers().size()) {</span>
-<span style = "background-color:#fdd">            return _draft.layers()[*_state.activeLayer].tiles;</span>
+    [[nodiscard]] const core::TileMap&amp; activeLayerTiles() const {
+        if (_state.activeLayer &amp;&amp; *_state.activeLayer &lt; _draft.layers().size()) {
+            return _draft.layers()[*_state.activeLayer].tiles;
         }
-<span style = "background-color:#dfd">        return _draft.tileMap();
-    }</span>
+        return _draft.tileMap();
+    }
 
 <span style = "background-color:#dfd">    void select() {
         const core::GridPosition from = cell("from");
@@ -388,10 +412,10 @@ private:
 <span style = "background-color:#fdd">            return;</span>
         }
 <span style = "background-color:#dfd">        const std::string then = text("then");
-        if (then == "copy") {
-            _state.clipboard = copyTypeBlock(activeLayerTiles(), _state.selection-&gt;first,</span>
-                                             _state.selection-&gt;second);
-<span style = "background-color:#dfd">        } else if (then == "delete") {</span>
+        if (then == "copy") {</span>
+            // Le tampon entier (LOT-EDITOR-08) : couches, pieces, entites, cases forcees.
+<span style = "background-color:#dfd">            _state.clipboard = cutStamp(_draft, _state.selection-&gt;first, _state.selection-&gt;second);
+        } else if (then == "delete") {</span>
             const CanvasBrush eraser{
 <span style = "background-color:#dfd">                .kind = BrushKind::Eraser, .type = {}, .piece = {}, .floor = false};
             report(applyRectangleStroke(_draft, eraser, _state.activeLayer, _state.view,</span>
@@ -404,11 +428,22 @@ private:
 
 <span style = "background-color:#dfd">    void paste() {
         if (_state.clipboard.empty()) {</span>
-<span style = "background-color:#fdd">            throw GestureRefused("nothing to paste: copy a selection first");</span>
+<span style = "background-color:#fdd">            throw GestureRefused("nothing to paste: copy a selection, or arm a prefab, first");</span>
         }
-<span style = "background-color:#dfd">        report(</span>
-            paintTypeBlock(_draft, _state.activeLayer, _state.view, cell("at"), _state.clipboard));
+<span style = "background-color:#dfd">        const Stamp stamp =</span>
+            flag("flip") ? mirrorStamp(_state.clipboard, manifest()) : _state.clipboard;
+<span style = "background-color:#dfd">        const StampPasteResult result = pasteStamp(_draft, stamp, cell("at"), _state.view);
+        if (!result.refusal.empty()) {</span>
+<span style = "background-color:#fdd">            throw GestureRefused(result.refusal);</span>
+        }
+<span style = "background-color:#dfd">        if (!result.entities.empty()) {</span>
+<span style = "background-color:#fdd">            setEntitySelection(result.entities, result.entities.back());</span>
+        }
 <span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] const core::ScenePieceManifest* manifest() const {
+        return _assets.manifest ? &amp;*_assets.manifest : nullptr;
+    }</span>
 
     // --- EntitÃ©s et formes -------------------------------------------------------------------
 
@@ -573,6 +608,7 @@ private:
     core::LevelDraft&amp; _draft;
     EditorSidecar&amp; _sidecar;
     const PlaceAssets&amp; _assets;
+    std::filesystem::path _dataRoot;
     GestureScriptResult&amp; _result;
     GestureState _state;
 <span style = "background-color:#dfd">    const nlohmann::json* _gesture = nullptr;</span>
@@ -599,7 +635,8 @@ private:
 }  // namespace
 
 GestureScriptResult applyGestureScript(const nlohmann::json&amp; script, core::LevelDraft&amp; draft,
-<span style = "background-color:#dfd">                                       EditorSidecar&amp; sidecar, const PlaceAssets&amp; assets) {
+                                       EditorSidecar&amp; sidecar, const PlaceAssets&amp; assets,
+<span style = "background-color:#dfd">                                       const std::filesystem::path&amp; dataRoot) {
     GestureScriptResult result;
     if (!script.is_object() || script.value("format", std::string{}) != GESTURE_SCRIPT_FORMAT) {
         result.error =</span>
@@ -617,7 +654,7 @@ GestureScriptResult applyGestureScript(const nlohmann::json&amp; script, core::L
 <span style = "background-color:#fdd">        result.error = "\"gestures\" must be a list";
         return result;</span>
     }
-<span style = "background-color:#dfd">    GesturePlayer player(draft, sidecar, assets, result);
+<span style = "background-color:#dfd">    GesturePlayer player(draft, sidecar, assets, dataRoot, result);
     for (std::size_t index = 0; index &lt; gestures-&gt;size(); ++index) {
         const nlohmann::json&amp; gesture = (*gestures)[index];
         const std::uint64_t before = draft.revision();</span>
@@ -673,7 +710,7 @@ GestureFileResult applyGestureFile(const std::filesystem::path&amp; scriptFile, 
 <span style = "background-color:#dfd">    const std::filesystem::path sidecarFile = sidecarPath(mapFile);
     EditorSidecar sidecar = readSidecar(sidecarFile).sidecar;</span>
 
-<span style = "background-color:#dfd">    file.script = applyGestureScript(script, draft, sidecar, assets);
+<span style = "background-color:#dfd">    file.script = applyGestureScript(script, draft, sidecar, assets, dataRoot);
     if (!file.script.ok()) {
         file.script.error = origin + ": " + file.script.error;
         return file;</span>

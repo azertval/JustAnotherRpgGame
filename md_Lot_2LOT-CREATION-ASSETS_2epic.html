@@ -92,11 +92,11 @@ $(function(){initNavTree('md_Lot_2LOT-CREATION-ASSETS_2epic.html','',''); });
   <div class="headertitle"><div class="title">LOT-CREATION-ASSETS — Produire selon les régions jouées </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md775"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md776"></a></p>
 <blockquote class="doxtable">
 <p>Pilote T00 en cours, 19 septembre 2026 : premier essai généré, aucune intégration autorisée. Bilan : <span class="tt">Tools/AssetFactory/bilan-poc.md</span> (hors dépôt). Chantier autonome hors roadmap et numérotation gameplay ; remplace la proposition LOT-97 abandonnée. Ce chat local orchestre l’outil de génération intégré. Aucune clé API, SDK payant, budget dollars ou réservation artificielle d’usage. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md776"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md777"></a>
 Progression et tâches</h1>
 <p>Priorité obligatoire après le pilote : carte de test en jeu T01, reprise exhaustive Martpart/Arenarea/Colisée CE-R01 et refonte Ironhand CE-R02. Ces remises en conformité précèdent les ajouts CE-01/CE-02 ci-dessous. Toute texture future reste soumise à T01.</p>
 <p>Calibrer le socle sur les cinq PNJ existants, puis servir <b>Martpart/Myr et Arenarea/Galender</b>. Les autres régions forment une réserve documentée, activée par une scène réellement choisie. Une série mêle PNJ, monstres, décor, objets, symboles ou carte selon son besoin ; <b>dix assets métier maximum, jamais un minimum</b>. Un PNJ complet est une unité (portrait + six bandes et descripteurs détaillés), une tuile/pièce/carte/variante distincte est une unité. Aucun « pack » illimité. Une branche et une PR par série cohérente ; ne pas répartir artificiellement un PNJ entre plusieurs PR.</p>
@@ -156,7 +156,7 @@ Progression et tâches</h1>
 <td class="markdownTableBodyNone"><a class="el" href="md_Lot_2LOT-CREATION-ASSETS_2regions_2penumbra_2preparation.html" title="Pénombre">Pénombre</a>  </td><td class="markdownTableBodyNone">Réserve conditionnelle  </td></tr>
 </table>
 <p>Les treize régions JSON restent distinguées des marges Undertanares/Darkall/Mystical-Wasteland et du plan Pénombre. La région est un contexte d’usage, pas l’identité ou le dossier canonique du fichier final. Les données de lieux peuvent contenir un objet, un PNJ ou du texte de règle : vérifier le type avant de commander un paysage.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md777"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md778"></a>
 Cycle de travail et mémoire</h1>
 <ol type="1">
 <li>Relier chaque unité à une scène/quête/UI et au registre global ; décider créer/réutiliser/adapter. Documenter faits textuels, observations visuelles, choix artistiques et inconnues dans la fiche. Sources SB/CC/PG avec numéro PDF et imprimé.</li>
@@ -167,7 +167,7 @@ Cycle de travail et mémoire</h1>
 <li>Tester les textures candidates en espace isolé avec <a class="el" href="md_Lot_2LOT-CREATION-ASSETS_2tache-01-carte-test-textures.html" title="T01 — Carte de test des textures dans le jeu">T01</a>, le rendu réel du jeu et le témoin de taille figé : mesures de raccord, parcours et revue des captures, puis vérification des cartes consommatrices. Un test graphique manquant ou sauté bloque la validation. Intégrer uniquement sorties validées dans <span class="tt">Source/Elements/Assets/&lt;Famille&gt;/&lt;slug&gt;/</span>, manifeste et <span class="tt">replaces</span> préservés, installation préparée et atomique. Mettre à jour galerie EX-CNT-042, charger réellement les <span class="tt">.anim.json</span>, attendre textures avant captures, crédits et changelog.</li>
 </ol>
 <p>Les outils futurs <span class="tt">py -3.13</span> préparent/réceptionnent/normalisent/contrôlent/intègrent ; <b>le chat effectue génération et relecture</b>. Aucune promesse de CLI autonome accédant à cet outil intégré. Quota atteint : sauver l’étape et reprendre ; réponse perdue = incertaine. Enregistrer modèle/usage seulement si exposés, jamais inventer coût ou tokens. Après échecs identiques, consigner le blocage et revoir le brief.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md778"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md779"></a>
 Contrat de qualité PNJ</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -189,7 +189,7 @@ Contrat de qualité PNJ</h1>
 <p>Le pilote chiffre puis fige les seuils de palette, de raccord de boucle, de dérive de taille, de position et de silhouette. Il mesure le corps séparément des effets ; la chute et la reptation de Lizz ont des contrôles adaptés. Mesurer avant et après normalisation empêche celle-ci de masquer une erreur. Aucun seuil non étalonné n'est présenté comme une garantie.</p>
 <p>La revue vérifie aussi l'arme unique, sa main, la locomotion, le style, les effets et l'identité. Le rapport Markdown ou HTML classe validés / rejetés avec raisons / à revoir et expose les mesures par animation. Aucun asset avec contrôle manquant ou indécis n'est intégré.</p>
 <p>Les tailles hors gabarit attendent un profil validé ; aucune réduction artificielle pour terminer une série. Les profils monstres, décors, tuiles, cartes, objets et PJ sont ajoutés lorsque la série régionale en a besoin, avec leurs propres dimensions et contrôles.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md779"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md780"></a>
 Capacités, branches et validation</h1>
 <p>Pas de lots de stock par famille. Au premier besoin régional d’un nouveau profil, prévoir son format, ses ancres et son QC dans la tâche. Code futur dans <span class="tt">scripts/</span> ou <span class="tt">Tools/</span>, tests Python dans <span class="tt">scripts/tests/</span> et tests du jeu dans <span class="tt">Source/Test/</span>, aucun code d’implémentation dans ce lot documentaire. Réemplois possibles : pilote PNJ validé, lion/loup et autres éléments après audit. Les trois sites Martpart/Arenarea/Colisée exigent CE-R01 ; le soldat Ironhand doit être refait via CE-R02 avant réemploi. La galerie seule ne suffit pas à valider les textures.</p>
 <p>PJ : périmètre demandé <b>12 classes × somme des variantes de races × 2 (homme/femme)</b> ; inventorier les variantes attestées, produire seulement les combinaisons consommées par création de personnage/rencontres et réparties selon régions. Ne pas fabriquer toute la matrice, ne pas changer les classes gameplay du projet.</p>

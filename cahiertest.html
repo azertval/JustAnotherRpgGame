@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>878 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>887 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (875)</h1>
+Tests unitaires (884)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -5351,7 +5351,7 @@ Vérifie que <span class="tt">rendu.mapText</span> vaut <span class="tt">lire(da
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>GestureScriptTest.UnGesteRefuseRendUneErreurLisible</b> (Majeur)<br  />
 <sub><span class="tt"><a class="el" href="test__gesture__script_8cpp.html" title="Tests de l&#39;éditeur sans fenêtre (LOT-EDITOR-13) : un scénario --apply par outil, comparé à un fichier...">Source/Test/Unit/Editor/test_gesture_script.cpp</a>:198</span></sub>  </td><td class="markdownTableBodyNone">Un geste refusé rend une erreur lisible.  </td><td class="markdownTableBodyNone">1. Rejouer un geste sur une couche verrouillée, hors de la carte, avec une pièce inconnue, sur un identifiant absent, un déplacement qui sort une entité, un outil inconnu, un fichier d'un autre format.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">message.find(attendu)</span> diffère de <span class="tt">std::string::npos</span>.<br  />
-Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ad2d5ef8bbea644403c389e5d20a5fbde" title="Rejoue les gestes de script sur draft.">hmi::applyGestureScript</a>(json{{"format", "autre"}}, carte.draft, carte.annexe, carte.lieu) .error.find("not a gesture file")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ac51afb66cf0175a7664c655c56674293" title="Rejoue les gestes de script sur draft.">hmi::applyGestureScript</a>(json{{"format", "autre"}}, carte.draft, carte.annexe, carte.lieu) .error.find("not a gesture file")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>GestureScriptTest.UnGesteRefuseNeTouchePasAuFichier</b> (Critique)<br  />
 <sub><span class="tt"><a class="el" href="test__gesture__script_8cpp.html" title="Tests de l&#39;éditeur sans fenêtre (LOT-EDITOR-13) : un scénario --apply par outil, comparé à un fichier...">Source/Test/Unit/Editor/test_gesture_script.cpp</a>:236</span></sub>  </td><td class="markdownTableBodyNone">Un geste refusé ne touche pas au fichier.  </td><td class="markdownTableBodyNone">1. <span class="tt">LevelEditor --apply</span> d'un fichier dont le deuxième geste est refusé, avec <span class="tt">--output</span>.<br  />
@@ -5857,6 +5857,93 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aef264a6aa52
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aef264a6aa52e500e958603c000aaf053" title="Choisit la racine des données.">hmi::resolveDataRoot</a>({}, executable, sources / "absent")</span> vaut <span class="tt">executable</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aef264a6aa52e500e958603c000aaf053" title="Choisit la racine des données.">hmi::resolveDataRoot</a>({}, executable, {})</span> vaut <span class="tt">executable</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aef264a6aa52e500e958603c000aaf053" title="Choisit la racine des données.">hmi::resolveDataRoot</a>({"--data"}, executable, {})</span> vaut <span class="tt">executable</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__stamps_8cpp.html" title="Tests des tampons et des préfabriqués (LOT-EDITOR-08) : ce que le découpage prend,...">test_stamps.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>StampsTest.LeTamponPrendLaPieceEntiere</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__stamps_8cpp.html" title="Tests des tampons et des préfabriqués (LOT-EDITOR-08) : ce que le découpage prend,...">Source/Test/Unit/Editor/test_stamps.cpp</a>:105</span></sub>  </td><td class="markdownTableBodyNone">Le tampon prend l'étal entier.  </td><td class="markdownTableBodyNone">1. Découper la seule case d'ancrage de l'étal 2 × 1 de Martpart.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">stamp.width</span> vaut <span class="tt">2</span>.<br  />
+Vérifie que <span class="tt">stamp.height</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">stamp.place</span> vaut <span class="tt">"martpart"</span>.<br  />
+Vérifie que <span class="tt">relief.pieces.size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">pieceEn(relief, {.column = 0, .row = 0})</span> vaut <span class="tt">"feature-1"</span>.<br  />
+Vérifie que <span class="tt">couche(stamp, "sol").types.size()</span> vaut <span class="tt">2U</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>StampsTest.UnePieceAncreeDehorsNestPasPrise</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__stamps_8cpp.html" title="Tests des tampons et des préfabriqués (LOT-EDITOR-08) : ce que le découpage prend,...">Source/Test/Unit/Editor/test_stamps.cpp</a>:127</span></sub>  </td><td class="markdownTableBodyNone">Une pièce ancrée dehors n'est pas prise.  </td><td class="markdownTableBodyNone">1. Découper la seconde case de l'étal, celle que son emprise couvre sans l'ancrer.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">stamp.width</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">stamp.height</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">couche(stamp, "relief").pieces.empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>StampsTest.UnePoseSeDefaitDUnSeulPas</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__stamps_8cpp.html" title="Tests des tampons et des préfabriqués (LOT-EDITOR-08) : ce que le découpage prend,...">Source/Test/Unit/Editor/test_stamps.cpp</a>:145</span></sub>  </td><td class="markdownTableBodyNone">Une pose se défait d'un seul pas.  </td><td class="markdownTableBodyNone">1. Découper un morceau de Martpart, le reposer ailleurs, puis annuler.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.refusal.empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">result.changed</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.undoDepth()</span> vaut <span class="tt">pas + 1</span>.<br  />
+Vérifie que <span class="tt">draft.layers()[decor(draft)].pieceAt(ailleurs.column, ailleurs.row)</span> vaut <span class="tt">"feature-1"</span>.<br  />
+Vérifie que <span class="tt">draft.undo()</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.toJson()</span> vaut <span class="tt">avant</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>StampsTest.LeMiroirTransposeLeTampon</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__stamps_8cpp.html" title="Tests des tampons et des préfabriqués (LOT-EDITOR-08) : ce que le découpage prend,...">Source/Test/Unit/Editor/test_stamps.cpp</a>:171</span></sub>  </td><td class="markdownTableBodyNone">Le miroir transpose le tampon.  </td><td class="markdownTableBodyNone">1. Découper la façade <span class="tt">front-left</span> (1 × 2), la refléter.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">stamp.width</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">stamp.height</span> vaut <span class="tt">2</span>.<br  />
+Vérifie que <span class="tt">pieceEn(couche(stamp, "relief"), {.column = 0, .row = 0})</span> vaut <span class="tt">"front-left"</span>.<br  />
+Vérifie que <span class="tt">mirrored.width</span> vaut <span class="tt">2</span>.<br  />
+Vérifie que <span class="tt">mirrored.height</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">pieceEn(couche(mirrored, "relief"), {.column = 0, .row = 0})</span> vaut <span class="tt">"front-right"</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#acb773e916d7cf8cdaefb9c5f89a68279">hmi::mirrorStamp</a>(mirrored, draft.pieceManifest())</span> vaut <span class="tt">stamp</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>StampsTest.UnePoseRefuseeNecritRien</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__stamps_8cpp.html" title="Tests des tampons et des préfabriqués (LOT-EDITOR-08) : ce que le découpage prend,...">Source/Test/Unit/Editor/test_stamps.cpp</a>:196</span></sub>  </td><td class="markdownTableBodyNone">Une pose refusée n'écrit rien.  </td><td class="markdownTableBodyNone">1. Verrouiller le décor, poser. 2. Poser un tampon dont la couche n'existe pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">locked.changed</span> est faux.<br  />
+Vérifie que <span class="tt">locked.refusal.find("locked")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">absent.changed</span> est faux.<br  />
+Vérifie que <span class="tt">absent.refusal.find("relief")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">dehors.changed</span> est faux.<br  />
+Vérifie que <span class="tt">dehors.refusal.find("outside")</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">draft.toJson()</span> vaut <span class="tt">avant</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>StampsTest.UnPrefabriqueFaitLAllerRetour</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__stamps_8cpp.html" title="Tests des tampons et des préfabriqués (LOT-EDITOR-08) : ce que le découpage prend,...">Source/Test/Unit/Editor/test_stamps.cpp</a>:234</span></sub>  </td><td class="markdownTableBodyNone">Un préfabriqué se relit tel qu'il a été écrit.  </td><td class="markdownTableBodyNone">1. Écrire un tampon dans une bibliothèque temporaire, le relire.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">stamp.entities.size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">stamp.entities.front().id.empty()</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a61e52f75a8d6b8bcf684423612d33961" title="Écrit stamp comme préfabriqué name du lieu place, dossier créé au besoin.">hmi::writePrefab</a>(racine, "martpart", "etal", stamp)</span> vaut <span class="tt">""</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9c9aba9b8952f0682eb1a046133bb2c4">hmi::prefabNames</a>(racine, "martpart")</span> vaut <span class="tt">std::vector&lt;std::string&gt;{"etal"}</span>.<br  />
+Vérifie que <span class="tt">error.empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">relu.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">*relu</span> vaut <span class="tt">stamp</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a61e52f75a8d6b8bcf684423612d33961" title="Écrit stamp comme préfabriqué name du lieu place, dossier créé au besoin.">hmi::writePrefab</a>(racine, "martpart", "Étal du marché", stamp).empty()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a61e52f75a8d6b8bcf684423612d33961" title="Écrit stamp comme préfabriqué name du lieu place, dossier créé au besoin.">hmi::writePrefab</a>(racine, "martpart", "etal-vide", Stamp{}).empty()</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DonneesPrefabriques.UnEtalDeMartpartSeReposeAvecSonMarchand</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__stamps_8cpp.html" title="Tests des tampons et des préfabriqués (LOT-EDITOR-08) : ce que le découpage prend,...">Source/Test/Unit/Editor/test_stamps.cpp</a>:276</span></sub>  </td><td class="markdownTableBodyNone">Un étal de Martpart se repose sur Arenarea.  </td><td class="markdownTableBodyNone">1. Poser un marchand sur l'étal du marché, l'enregistrer comme préfabriqué. 2. Ouvrir Arenarea, poser le préfabriqué. 3. Annuler.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">etal.width</span> vaut <span class="tt">2</span>.<br  />
+Vérifie que <span class="tt">etal.entities.size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a61e52f75a8d6b8bcf684423612d33961" title="Écrit stamp comme préfabriqué name du lieu place, dossier créé au besoin.">hmi::writePrefab</a>(racine, "martpart", "etal-du-marche", etal)</span> vaut <span class="tt">""</span>.<br  />
+Vérifie que <span class="tt">prefabrique.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">pose.refusal.empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">pose.changed</span> est vrai.<br  />
+Vérifie que <span class="tt">cible.undoDepth()</span> vaut <span class="tt">pas + 1</span>.<br  />
+Vérifie que <span class="tt">cible.layers()[decor(cible)].pieceAt(place.column, place.row)</span> vaut <span class="tt">"feature-1"</span>.<br  />
+Vérifie que <span class="tt">pose.entities.size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">marchand.type</span> vaut <span class="tt">"npc"</span>.<br  />
+Vérifie que <span class="tt">marchand.position</span> vaut <span class="tt">place</span>.<br  />
+Vérifie que <span class="tt">marchand.id</span> vaut <span class="tt">idLibre</span>.<br  />
+Vérifie que <span class="tt">marchand.id</span> diffère de <span class="tt">etal.entities.front().id</span>.<br  />
+Vérifie que <span class="tt">cible.entities().size()</span> vaut <span class="tt">entitesAvant + 1</span>.<br  />
+Vérifie que <span class="tt">cible.undo()</span> est vrai.<br  />
+Vérifie que <span class="tt">cible.undoDepth()</span> vaut <span class="tt">pas</span>.<br  />
+Vérifie que <span class="tt">sansCompteur(cible.toJson())</span> vaut <span class="tt">sansCompteur(avant)</span>.<br  />
+Vérifie que <span class="tt">cible.entities().size()</span> vaut <span class="tt">entitesAvant</span>.<br  />
+Vérifie que <span class="tt">cible.nextEntityId()</span> est strictement supérieur à <span class="tt">entityIdNumberOf(idLibre)</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DonneesPrefabriques.LesModelesLivresSeLisent</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__stamps_8cpp.html" title="Tests des tampons et des préfabriqués (LOT-EDITOR-08) : ce que le découpage prend,...">Source/Test/Unit/Editor/test_stamps.cpp</a>:342</span></sub>  </td><td class="markdownTableBodyNone">La bibliothèque livrée se lit.  </td><td class="markdownTableBodyNone">1. Lire les modèles de <span class="tt">Editor/Templates</span>. 2. Contrôler toute la bibliothèque.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">modele.layers.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">modele.width</span> est strictement supérieur à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">modele.height</span> est strictement supérieur à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">std::ranges::any_of( modele.layers, [](const <a class="el" href="structhmi_1_1MapTemplateLayer.html" title="Une couche que le modèle donne à la carte neuve.">hmi::MapTemplateLayer</a>&amp; couche) { return couche.scene; })</span> est vrai.<br  />
+Vérifie que <span class="tt">identifiants</span> vaut <span class="tt">(std::vector&lt;std::string&gt;{"arena", "interior", "street"})</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>StampsTest.UnModeleNeNommeAucunePiece</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__stamps_8cpp.html" title="Tests des tampons et des préfabriqués (LOT-EDITOR-08) : ce que le découpage prend,...">Source/Test/Unit/Editor/test_stamps.cpp</a>:372</span></sub>  </td><td class="markdownTableBodyNone">Un modèle qui nomme une pièce est refusé.  </td><td class="markdownTableBodyNone">1. Lire un modèle dont le tampon pose une pièce.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::mapTemplateFromJson(json, error).has_value()</span> est faux.<br  />
+Vérifie que <span class="tt">error.find("piece")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__thumbnail__geometry_8cpp.html" title="Tests unitaires du dimensionnement des vignettes à l&#39;échelle d&#39;affichage (EX-IHM-053).">test_thumbnail_geometry.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -7732,27 +7819,27 @@ Platform (5)</h3>
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>CrashDumpFileName.PorteApplicationVersionEtHorodatage</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__crash__dump_8cpp.html" title="Minidump sur plantage (HMI/Platform/CrashDump) : nom du fichier et écriture réelle.">Source/Test/Unit/HMI/Platform/test_crash_dump.cpp</a>:108</span></sub>  </td><td class="markdownTableBodyNone">Le nom d'un minidump porte l'application, la version et l'heure du plantage.  </td><td class="markdownTableBodyNone">1. Composer le nom pour JustAnotherRpgGame 0.0.4 au 15/09/2026 21:04:07.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a0c06cbf1bf3c8f1d58a5c581e17e3666" title="Nom du fichier d&#39;un minidump : &lt;application&gt;_&lt;version&gt;_&lt;AAAAMMJJ_HHMMSS&gt;.dmp.">hmi::crashDumpFileName</a>("JustAnotherRpgGame", "0.0.4", fixedTime())</span> vaut <span class="tt">"JustAnotherRpgGame_0.0.4_20260915_210407.dmp"</span>.  </td></tr>
+<sub><span class="tt"><a class="el" href="test__crash__dump_8cpp.html" title="Minidump sur plantage (HMI/Platform/CrashDump) : nom du fichier et écriture réelle.">Source/Test/Unit/HMI/Platform/test_crash_dump.cpp</a>:122</span></sub>  </td><td class="markdownTableBodyNone">Le nom d'un minidump porte l'application, la version et l'heure du plantage.  </td><td class="markdownTableBodyNone">1. Composer le nom pour JustAnotherRpgGame 0.0.4 au 15/09/2026 21:04:07.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a0c06cbf1bf3c8f1d58a5c581e17e3666" title="Nom du fichier d&#39;un minidump : &lt;application&gt;_&lt;version&gt;_&lt;AAAAMMJJ_HHMMSS&gt;.dmp.">hmi::crashDumpFileName</a>("JustAnotherRpgGame", "0.0.4", fixedTime())</span> vaut <span class="tt">"JustAnotherRpgGame_0.0.4_20260915_210407.dmp"</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>CrashDumpFileName.RemplaceLesCaracteresHorsNomDeFichier</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__crash__dump_8cpp.html" title="Minidump sur plantage (HMI/Platform/CrashDump) : nom du fichier et écriture réelle.">Source/Test/Unit/HMI/Platform/test_crash_dump.cpp</a>:123</span></sub>  </td><td class="markdownTableBodyNone">Les caractères hors nom de fichier sont remplacés dans le nom du minidump.  </td><td class="markdownTableBodyNone">1. Composer le nom pour « Level Editor » en version « 0.1.0+dev/x ».  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a0c06cbf1bf3c8f1d58a5c581e17e3666" title="Nom du fichier d&#39;un minidump : &lt;application&gt;_&lt;version&gt;_&lt;AAAAMMJJ_HHMMSS&gt;.dmp.">hmi::crashDumpFileName</a>("Level Editor", "0.1.0+dev/x", fixedTime())</span> vaut <span class="tt">"Level_Editor_0.1.0_dev_x_20260915_210407.dmp"</span>.  </td></tr>
+<sub><span class="tt"><a class="el" href="test__crash__dump_8cpp.html" title="Minidump sur plantage (HMI/Platform/CrashDump) : nom du fichier et écriture réelle.">Source/Test/Unit/HMI/Platform/test_crash_dump.cpp</a>:137</span></sub>  </td><td class="markdownTableBodyNone">Les caractères hors nom de fichier sont remplacés dans le nom du minidump.  </td><td class="markdownTableBodyNone">1. Composer le nom pour « Level Editor » en version « 0.1.0+dev/x ».  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a0c06cbf1bf3c8f1d58a5c581e17e3666" title="Nom du fichier d&#39;un minidump : &lt;application&gt;_&lt;version&gt;_&lt;AAAAMMJJ_HHMMSS&gt;.dmp.">hmi::crashDumpFileName</a>("Level Editor", "0.1.0+dev/x", fixedTime())</span> vaut <span class="tt">"Level_Editor_0.1.0_dev_x_20260915_210407.dmp"</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>CrashDumpTest.EcritUnMinidumpSansExceptionEtCreeLeDossier</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__crash__dump_8cpp.html" title="Minidump sur plantage (HMI/Platform/CrashDump) : nom du fichier et écriture réelle.">Source/Test/Unit/HMI/Platform/test_crash_dump.cpp</a>:137</span></sub>  </td><td class="markdownTableBodyNone">Un minidump de l'état courant s'écrit, dossier parent créé au besoin.  </td><td class="markdownTableBodyNone">1. Écrire un dump sans contexte d'exception dans un sous-dossier inexistant.<br  />
+<sub><span class="tt"><a class="el" href="test__crash__dump_8cpp.html" title="Minidump sur plantage (HMI/Platform/CrashDump) : nom du fichier et écriture réelle.">Source/Test/Unit/HMI/Platform/test_crash_dump.cpp</a>:151</span></sub>  </td><td class="markdownTableBodyNone">Un minidump de l'état courant s'écrit, dossier parent créé au besoin.  </td><td class="markdownTableBodyNone">1. Écrire un dump sans contexte d'exception dans un sous-dossier inexistant.<br  />
 2. Lire les quatre premiers octets.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::writeMiniDump(path, nullptr)</span> est vrai.<br  />
 Vérifie que <span class="tt">std::filesystem::exists(path)</span> est vrai.<br  />
 Vérifie que <span class="tt">signature(path)</span> vaut <span class="tt">"MDMP"</span>.<br  />
 Vérifie que <span class="tt">hasExceptionStream(path)</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>CrashDumpTest.EcritUnMinidumpAvecLeContexteDUneException</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__crash__dump_8cpp.html" title="Minidump sur plantage (HMI/Platform/CrashDump) : nom du fichier et écriture réelle.">Source/Test/Unit/HMI/Platform/test_crash_dump.cpp</a>:155</span></sub>  </td><td class="markdownTableBodyNone">Un minidump s'écrit avec le contexte d'une exception structurée.  </td><td class="markdownTableBodyNone">1. Lever une exception structurée, l'attraper dans un filtre SEH qui écrit le dump.<br  />
+<sub><span class="tt"><a class="el" href="test__crash__dump_8cpp.html" title="Minidump sur plantage (HMI/Platform/CrashDump) : nom du fichier et écriture réelle.">Source/Test/Unit/HMI/Platform/test_crash_dump.cpp</a>:170</span></sub>  </td><td class="markdownTableBodyNone">Un minidump s'écrit avec le contexte d'une exception structurée.  </td><td class="markdownTableBodyNone">1. Lever une exception structurée, l'attraper dans un filtre SEH qui écrit le dump.<br  />
 2. Lire la signature et la taille.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">dumpFromStructuredException(&amp;path)</span> est vrai.<br  />
 Vérifie que <span class="tt">signature(path)</span> vaut <span class="tt">"MDMP"</span>.<br  />
 Vérifie que <span class="tt">std::filesystem::file_size(path)</span> est strictement supérieur à <span class="tt">1024U</span>.<br  />
 Vérifie que <span class="tt">hasExceptionStream(path)</span> est vrai.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>CrashDumpTest.EchoueSansLeverSurUnCheminImpossible</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__crash__dump_8cpp.html" title="Minidump sur plantage (HMI/Platform/CrashDump) : nom du fichier et écriture réelle.">Source/Test/Unit/HMI/Platform/test_crash_dump.cpp</a>:173</span></sub>  </td><td class="markdownTableBodyNone">Un chemin de minidump impossible échoue sans exception ni plantage.  </td><td class="markdownTableBodyNone">1. Écrire un dump sous un nom interdit par Windows (« a?b.dmp »).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1acfbf8f1ffce943900246a61f336bf7" title="Écrit un minidump du processus courant.">hmi::writeMiniDump</a>(directory_ / "a?b.dmp", nullptr)</span> est faux.  </td></tr>
+<sub><span class="tt"><a class="el" href="test__crash__dump_8cpp.html" title="Minidump sur plantage (HMI/Platform/CrashDump) : nom du fichier et écriture réelle.">Source/Test/Unit/HMI/Platform/test_crash_dump.cpp</a>:189</span></sub>  </td><td class="markdownTableBodyNone">Un chemin de minidump impossible échoue sans exception ni plantage.  </td><td class="markdownTableBodyNone">1. Écrire un dump sous un nom interdit par Windows (« a?b.dmp »).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1acfbf8f1ffce943900246a61f336bf7" title="Écrit un minidump du processus courant.">hmi::writeMiniDump</a>(directory_ / "a?b.dmp", nullptr)</span> est faux.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
 Presentation (17)</h3>

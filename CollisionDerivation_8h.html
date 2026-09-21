@@ -127,7 +127,7 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La collision d'une carte, <b>déduite</b> de ce qu'elle montre (<span class="tt">LOT-EDITOR-12</span>, décision D10, <span class="tt">EX-LVL-020</span>). </p>
 <p>Jusqu'à la v3, la grille de collision se peignait à part, et rien ne la tenait d'accord avec les pièces posées : un mur dessiné pouvait se traverser. En v4, elle se <b>déduit</b> des couches visuelles et du manifeste des pièces, puis s'<b>écrit</b> dans le fichier — le jeu la lit sans manifeste — avec la liste des cases que l'auteur a <b>forcées</b> à la main. <span class="tt">LevelEditor --check</span> vérifie que le fichier égale la déduction, cases forcées mises à part.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1148"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1157"></a>
 La règle, case par case</h2>
 <p>Chaque case reçoit la contribution <b>la plus forte</b> (<span class="tt"><a class="el" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252" title="Ce qu&#39;une pièce oppose à qui passe : son type tactique (décision D10, constat A5).">core::PieceTactical</a></span>) de :</p>
 <ol type="1">

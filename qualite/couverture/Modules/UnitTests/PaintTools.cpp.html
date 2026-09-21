@@ -365,22 +365,6 @@ std::optional&lt;PickedBrush&gt; pickBrush(const core::LevelDraft&amp; draft, La
         .kind = BrushKind::Piece, .type = type, .piece = std::move(piece), .floor = floor};
 <span style = "background-color:#dfd">}</span>
 
-std::vector&lt;std::vector&lt;core::TileType&gt;&gt; copyTypeBlock(const core::TileMap&amp; tiles,
-                                                       core::GridPosition first,
-<span style = "background-color:#dfd">                                                       core::GridPosition last) {
-    std::vector&lt;std::vector&lt;core::TileType&gt;&gt; block;
-    for (int row = std::min(first.row, last.row); row &lt;= std::max(first.row, last.row); ++row) {
-        std::vector&lt;core::TileType&gt; line;
-        for (int column = std::min(first.column, last.column);
-             column &lt;= std::max(first.column, last.column); ++column) {
-            line.push_back(tiles.inBounds(column, row) ? tiles.tile(column, row)</span>
-                                                       : core::TileType::Empty);
-<span style = "background-color:#dfd">        }
-        block.push_back(std::move(line));
-    }
-    return block;
-}</span>
-
 <span style = "background-color:#dfd">Measure measureBetween(core::GridPosition from, core::GridPosition to) noexcept {
     const int columns = std::abs(to.column - from.column);
     const int rows = std::abs(to.row - from.row);
