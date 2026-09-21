@@ -116,7 +116,7 @@ var searchData=
   ['composeentitymarker_113',['composeEntityMarker',['../classhmi_1_1DraftRenderer.html#a426ade18a8938eb9aac820569403ca75',1,'hmi::DraftRenderer']]],
   ['composegrid_114',['composeGrid',['../classhmi_1_1DraftRenderer.html#a1eabde0038500f14697e69af39359c1f',1,'hmi::DraftRenderer']]],
   ['composehighlight_115',['composeHighlight',['../classhmi_1_1DraftRenderer.html#a25e74134b58cd46d21a696664f0b0596',1,'hmi::DraftRenderer']]],
-  ['composemartpart_116',['ComposeMartpart',['../bench__canvas_8cpp.html#a74118efe3a92613533292a626c7151ce',1,'bench_canvas.cpp']]],
+  ['composetestmap_116',['ComposeTestMap',['../bench__canvas_8cpp.html#a71e35184d69f1962ea2493862669b7cb',1,'bench_canvas.cpp']]],
   ['composetiles_117',['composeTiles',['../classhmi_1_1DraftRenderer.html#a8983304f90b112c3ce97133c57150e0f',1,'hmi::DraftRenderer']]],
   ['composeworldscene_118',['composeWorldScene',['../namespacehmi.html#a634bad2a915ba6f49caae2a158329bb3',1,'hmi::composeWorldScene(ComposedScene &amp;scene, const WorldSceneSnapshot &amp;snapshot, const core::IsoProjection &amp;projection, const ScenePieceTextures &amp;textures)'],['../namespacehmi.html#a14ab42dad3be10394bd6892a8ce39ef4',1,'hmi::composeWorldScene(const WorldSceneSnapshot &amp;snapshot, const core::IsoProjection &amp;projection, const ScenePieceTextures &amp;textures)']]],
   ['conditionname_119',['conditionName',['../namespacecore.html#a987d60e4787ed087f78661162334cbdf',1,'core']]],

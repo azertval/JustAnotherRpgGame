@@ -141,14 +141,14 @@ SceneImages::SceneImages(std::filesystem::path assetsDirectory)
             continue;</span>
         }
         // Une figurine sans image se dessine par son marqueur, comme en jeu (LOT-39, LOT-96).
-<span style = "background-color:#fdd">        const std::string key = figureMarkerKey(path);
+<span style = "background-color:#dfd">        const std::string key = figureMarkerKey(path);
         if (!key.empty()) {
             const core::MarkerImage marker =</span>
                 core::assetMarker(key, FIGURE_FRAME_WIDTH_PIXELS, FIGURE_FRAME_HEIGHT_PIXELS);
-<span style = "background-color:#fdd">            if (!marker.isEmpty()) {
+<span style = "background-color:#dfd">            if (!marker.isEmpty()) {
                 QImage&amp; stored = _images[path] =</span>
                     fromRgba8(marker.width, marker.height, markerPixelsRgba8(marker));
-<span style = "background-color:#fdd">                _textures.byPath[path] = textureOf(stored, stored.width());
+<span style = "background-color:#dfd">                _textures.byPath[path] = textureOf(stored, stored.width());
                 continue;</span>
             }
 <span style = "background-color:#fdd">        }</span>

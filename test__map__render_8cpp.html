@@ -108,8 +108,8 @@ $(function(){initNavTree('test__map__render_8cpp.html','',''); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a71ed213c2423477effb93d85975c3c00" id="r_a71ed213c2423477effb93d85975c3c00"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a71ed213c2423477effb93d85975c3c00">TEST</a> (MapRenderTest, MartpartSeRendSansFenetre)</td></tr>
-<tr class="memdesc:a71ed213c2423477effb93d85975c3c00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Martpart se rend en PNG, sans fenêtre ; la collision se peint par-dessus quand on la demande.  <br /></td></tr>
+<tr class="memitem:a05bcc0659f58a73f6f4f0fa62ddb77cb" id="r_a05bcc0659f58a73f6f4f0fa62ddb77cb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a05bcc0659f58a73f6f4f0fa62ddb77cb">TEST</a> (MapRenderTest, UneCarteSeRendSansFenetre)</td></tr>
+<tr class="memdesc:a05bcc0659f58a73f6f4f0fa62ddb77cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte d'essai se rend en PNG, sans fenêtre ; la collision se peint par-dessus quand demande.  <br /></td></tr>
 <tr class="memitem:aa546d760541f1d8a0c046e774184092a" id="r_aa546d760541f1d8a0c046e774184092a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa546d760541f1d8a0c046e774184092a">TEST</a> (MapRenderTest, LesBandesSeLisentParLeurNom)</td></tr>
 <tr class="memdesc:aa546d760541f1d8a0c046e774184092a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les bandes de <span class="tt">--layers</span> se lisent par leur nom ; un nom inconnu est refusé.  <br /></td></tr>
 <tr class="memitem:a213928bdfe720281e215d07270b1fb43" id="r_a213928bdfe720281e215d07270b1fb43"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a213928bdfe720281e215d07270b1fb43">TEST</a> (MapRenderTest, RenderEcritUneImageParCarte)</td></tr>
@@ -147,40 +147,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a71ed213c2423477effb93d85975c3c00" name="a71ed213c2423477effb93d85975c3c00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71ed213c2423477effb93d85975c3c00">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">MapRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">MartpartSeRendSansFenetre</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Martpart se rend en PNG, sans fenêtre ; la collision se peint par-dessus quand on la demande. </p>
-<p><b>Cas de test :</b> <b>&ndash;render peint une carte livrée hors écran.</b><br  />
- <b>Categorie :</b> Unitaire · Editeur · Sans fenetre<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Rendre Martpart au quart de l'échelle, bandes par défaut.<br  />
-</p><ol type="1">
-<li>La rendre avec la collision en plus.<br  />
- <b>Resultat attendu :</b> Une image de la taille du cadre (989 × 648), peinte sur plus du cinquième de sa surface (le losange de la carte en couvre la moitié, moins les îlots vides) ; la collision change l'image. </li>
-</ol>
-
-</div>
-</div>
 <a id="a213928bdfe720281e215d07270b1fb43" name="a213928bdfe720281e215d07270b1fb43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a213928bdfe720281e215d07270b1fb43">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a213928bdfe720281e215d07270b1fb43">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,8 +171,40 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Editeur · Sans fenetre<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. <span class="tt">--render capital/martpart coliseum --scale 0.125 --output &lt;dossier&gt;</span>.<br  />
- <b>Resultat attendu :</b> Code 0 ; <span class="tt">capital-martpart.png</span> et <span class="tt">coliseum.png</span> dans le dossier. </p>
+ 1. <span class="tt">--render bourg/place donjon --scale 0.125 --output &lt;dossier&gt;</span>.<br  />
+ <b>Resultat attendu :</b> Code 0 ; <span class="tt">bourg-place.png</span> et <span class="tt">donjon.png</span> dans le dossier. </p>
+
+</div>
+</div>
+<a id="a05bcc0659f58a73f6f4f0fa62ddb77cb" name="a05bcc0659f58a73f6f4f0fa62ddb77cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05bcc0659f58a73f6f4f0fa62ddb77cb">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneCarteSeRendSansFenetre</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La carte d'essai se rend en PNG, sans fenêtre ; la collision se peint par-dessus quand demande. </p>
+<p><b>Cas de test :</b> <b>&ndash;render peint une carte hors écran.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Sans fenetre<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Rendre la Place au quart de l'échelle, bandes par défaut.<br  />
+</p><ol type="1">
+<li>La rendre avec la collision en plus.<br  />
+ <b>Resultat attendu :</b> Une image de la taille du cadre (989 × 648), peinte sur plus du cinquième de sa surface (le losange de la carte en couvre la moitié, moins les îlots vides) ; la collision change l'image. </li>
+</ol>
 
 </div>
 </div>

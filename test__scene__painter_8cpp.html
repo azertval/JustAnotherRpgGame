@@ -119,18 +119,19 @@ $(function(){initNavTree('test__scene__painter_8cpp.html','',''); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4ddfd7eb3aa45f5544bc60b1c6636eff" id="r_a4ddfd7eb3aa45f5544bc60b1c6636eff"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4ddfd7eb3aa45f5544bc60b1c6636eff">TEST</a> (ScenePainterTest, MartpartPeinteEgaleLeRenduDuJeu)</td></tr>
-<tr class="memdesc:a4ddfd7eb3aa45f5544bc60b1c6636eff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Martpart peinte par l'éditeur égale, à une tolérance près, le rendu GPU du jeu.  <br /></td></tr>
-<tr class="memitem:aa85b54487d81576a1b2f91537f688934" id="r_aa85b54487d81576a1b2f91537f688934"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa85b54487d81576a1b2f91537f688934">TEST</a> (ScenePainterTest, LeColiseePeintEgaleLeRenduDuJeu)</td></tr>
-<tr class="memdesc:aa85b54487d81576a1b2f91537f688934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le Colisée, et ses pièces larges et miroirs, peint comme dans le jeu.  <br /></td></tr>
+<tr class="memitem:afaa7b37a2a0fe201d74afd14cf8a1fe9" id="r_afaa7b37a2a0fe201d74afd14cf8a1fe9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afaa7b37a2a0fe201d74afd14cf8a1fe9">TEST</a> (ScenePainterTest, UneCartePeinteEgaleLeRenduDuJeu)</td></tr>
+<tr class="memdesc:afaa7b37a2a0fe201d74afd14cf8a1fe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">La Place peinte par l'éditeur égale, à une tolérance près, le rendu GPU du jeu.  <br /></td></tr>
+<tr class="memitem:ab431c4ccbea8cd004a24c4e75c33d163" id="r_ab431c4ccbea8cd004a24c4e75c33d163"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab431c4ccbea8cd004a24c4e75c33d163">TEST</a> (ScenePainterTest, LaSecondeCartePeinteEgaleLeRenduDuJeu)</td></tr>
+<tr class="memdesc:ab431c4ccbea8cd004a24c4e75c33d163"><td class="mdescLeft">&#160;</td><td class="mdescRight">La seconde carte, et ses pièces larges et miroirs, peinte comme dans le jeu.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le canevas de l'éditeur peint le lieu comme le jeu le dessine (<span class="tt">LOT-EDITOR-02</span>). </p>
-<p>Comparer les listes de primitives ne prouve pas que <span class="tt">QPainter</span> pose les ancres, l'échelle des pièces et leurs miroirs comme le GPU (acceptation du lot) : ce test rend <b>la même carte livrée, avec la même caméra</b>, une fois par le rendu QRhi du jeu (<span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>, hors écran), une fois par le peintre de l'éditeur (<span class="tt"><a class="el" href="namespacehmi.html#a7e2e49094a1e633ea842459409c9c13b" title="Rend scene hors écran, cadrée par camera, sur un fond clear — l&#39;image que le jeu dessinerait avec la ...">hmi::renderComposedScene</a></span>), et compare les deux images pixel à pixel, à une tolérance près. Les deux images sont écrites à côté de l'exécutable (<span class="tt">editor-captures/</span>) pour être relues à l'œil.</p>
-<p>La tolérance est celle de deux rasteriseurs : sur l'arête d'un quad étiré, l'échantillonnage au plus proche d'une pièce agrandie de 68 à 86 pixels peut choisir le texel voisin. Une ancre fausse, une échelle fausse ou un ordre de dessin faux, eux, déplacent des pans entiers de l'image et dépassent la tolérance. </p>
+<p>Comparer les listes de primitives ne prouve pas que <span class="tt">QPainter</span> pose les ancres, l'échelle des pièces et leurs miroirs comme le GPU (acceptation du lot) : ce test rend <b>la même carte, avec la même caméra</b>, une fois par le rendu QRhi du jeu (<span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>, hors écran), une fois par le peintre de l'éditeur (<span class="tt"><a class="el" href="namespacehmi.html#a7e2e49094a1e633ea842459409c9c13b" title="Rend scene hors écran, cadrée par camera, sur un fond clear — l&#39;image que le jeu dessinerait avec la ...">hmi::renderComposedScene</a></span>), et compare les deux images pixel à pixel, à une tolérance près. Les deux images sont écrites à côté de l'exécutable (<span class="tt">editor-captures/</span>) pour être relues à l'œil.</p>
+<p>La tolérance est celle de deux rasteriseurs : sur l'arête d'un quad étiré, l'échantillonnage au plus proche d'une pièce agrandie de 68 à 86 pixels peut choisir le texel voisin. Une ancre fausse, une échelle fausse ou un ordre de dessin faux, eux, déplacent des pans entiers de l'image et dépassent la tolérance.</p>
+<p>Les cartes sont celles de la racine d'essai de l'éditeur (<span class="tt">LOT-123</span>) ; c'étaient les cartes <b>livrées</b>, que la table rase du <span class="tt">LOT-102</span> emporte. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="aa85b54487d81576a1b2f91537f688934" name="aa85b54487d81576a1b2f91537f688934"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa85b54487d81576a1b2f91537f688934">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
+<a id="ab431c4ccbea8cd004a24c4e75c33d163" name="ab431c4ccbea8cd004a24c4e75c33d163"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab431c4ccbea8cd004a24c4e75c33d163">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -143,26 +144,26 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">LeColiseePeintEgaleLeRenduDuJeu</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">LaSecondeCartePeinteEgaleLeRenduDuJeu</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le Colisée, et ses pièces larges et miroirs, peint comme dans le jeu. </p>
-<p><b>Cas de test :</b> <b>Le canevas de l'editeur peint le Colisee comme le jeu le dessine.</b><br  />
+<p>La seconde carte, et ses pièces larges et miroirs, peinte comme dans le jeu. </p>
+<p><b>Cas de test :</b> <b>Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.</b><br  />
  <b>Categorie :</b> Unitaire · Editeur · Canevas<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Composer le Colisee livre.<br  />
+ 1. Composer le donjon.<br  />
 </p><ol type="1">
-<li>Le rendre par le jeu et par l'editeur, cadre sur la porte.<br  />
+<li>Le rendre par le jeu et par l'editeur, cadre sur sa porte.<br  />
  <b>Resultat attendu :</b> Moins de 0,5 % des pixels different au-dela de la tolerance. </li>
 </ol>
 
 </div>
 </div>
-<a id="a4ddfd7eb3aa45f5544bc60b1c6636eff" name="a4ddfd7eb3aa45f5544bc60b1c6636eff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ddfd7eb3aa45f5544bc60b1c6636eff">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
+<a id="afaa7b37a2a0fe201d74afd14cf8a1fe9" name="afaa7b37a2a0fe201d74afd14cf8a1fe9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaa7b37a2a0fe201d74afd14cf8a1fe9">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -175,19 +176,19 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">MartpartPeinteEgaleLeRenduDuJeu</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">UneCartePeinteEgaleLeRenduDuJeu</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Martpart peinte par l'éditeur égale, à une tolérance près, le rendu GPU du jeu. </p>
-<p><b>Cas de test :</b> <b>Le canevas de l'editeur peint Martpart comme le jeu la dessine.</b><br  />
+<p>La Place peinte par l'éditeur égale, à une tolérance près, le rendu GPU du jeu. </p>
+<p><b>Cas de test :</b> <b>Le canevas de l'editeur peint une carte comme le jeu la dessine.</b><br  />
  <b>Categorie :</b> Unitaire · Editeur · Canevas<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
- 1. Composer Martpart livree, ses PNJ compris.<br  />
+ 1. Composer la carte d'essai, ses PNJ compris.<br  />
 </p><ol type="1">
-<li>La rendre hors ecran par le rendu QRhi du jeu, cadree sur trois points (place du marche, coin nord, porte est).<br  />
+<li>La rendre hors ecran par le rendu QRhi du jeu, cadree sur trois points (grand- place, coin nord, porte est).<br  />
 </li>
 <li>La peindre par le peintre QPainter de l'editeur avec la meme camera.<br  />
  <b>Resultat attendu :</b> Pour chaque cadrage, moins de 0,5 % des pixels different de plus de 48 sur un canal ; l'image est peinte sur plus de la moitie de sa surface. </li>

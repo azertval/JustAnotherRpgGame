@@ -148,7 +148,7 @@ var searchData=
   ['—_20stravian_20domains_145',['Première série proposée — Stravian Domains',['../md_Lot_2LOT-CREATION-ASSETS_2regions_2stravian-domains_2preparation.html#autotoc_md861',1,'']]],
   ['—_20taii’maku_146',['Première série proposée — Taii’Maku',['../md_Lot_2LOT-CREATION-ASSETS_2regions_2taii-maku-city-states_2preparation.html#autotoc_md867',1,'']]],
   ['—_20tampons_20et_20préfabriqués_147',['— Tampons et préfabriqués',['../lot-editor-08.html',1,'LOT-EDITOR-08 — Tampons et préfabriqués'],['../roadmap-editeur.html#autotoc_md1022',1,'LOT-EDITOR-08 — Tampons et préfabriqués']]],
-  ['—_20test_5fexploration_5fcarte_5flivree_20cpp_202_148',['Exploration — &lt;span class=&quot;tt&quot;&gt;test_exploration_carte_livree.cpp&lt;/span&gt; (2)',['../cahiertest.html#autotoc_md29',1,'']]],
+  ['—_20test_5fexploration_5fcarte_20cpp_202_148',['Exploration — &lt;span class=&quot;tt&quot;&gt;test_exploration_carte.cpp&lt;/span&gt; (2)',['../cahiertest.html#autotoc_md29',1,'']]],
   ['—_20test_5fparcours_5fedition_5frpg_20cpp_201_149',['Éditeur de niveaux — &lt;span class=&quot;tt&quot;&gt;test_parcours_edition_rpg.cpp&lt;/span&gt; (1)',['../cahiertest.html#autotoc_md31',1,'']]],
   ['—_20theocracy_20of_20kepesh_150',['Première série proposée — Theocracy of Kepesh',['../md_Lot_2LOT-CREATION-ASSETS_2regions_2theocracy-of-kepesh_2preparation.html#autotoc_md873',1,'']]],
   ['—_20trois_20espaces_20distincts_151',['3. Coordonnées &amp;amp; unités — trois espaces distincts',['../spec-architecture.html#autotoc_md177',1,'']]],

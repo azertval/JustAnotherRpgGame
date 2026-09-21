@@ -659,7 +659,7 @@ var searchData=
   ['explique_656',['Personne n&apos;y meurt, et c&apos;est la fiction qui l&apos;explique',['../lot-50.html#autotoc_md589',1,'']]],
   ['exploration_657',['Exploration',['../spec-exploration.html',1,'specifications']]],
   ['exploration_658',['exploration',['../structcore_1_1EncounterRun.html#aa18a27458ab47992bc990d3ba9d02142',1,'core::EncounterRun']]],
-  ['exploration_20—_20test_5fexploration_5fcarte_5flivree_20cpp_202_659',['Exploration — &lt;span class=&quot;tt&quot;&gt;test_exploration_carte_livree.cpp&lt;/span&gt; (2)',['../cahiertest.html#autotoc_md29',1,'']]],
+  ['exploration_20—_20test_5fexploration_5fcarte_20cpp_202_659',['Exploration — &lt;span class=&quot;tt&quot;&gt;test_exploration_carte.cpp&lt;/span&gt; (2)',['../cahiertest.html#autotoc_md29',1,'']]],
   ['exploration_20↔_20combat_660',['LOT-18 — Bascule exploration ↔ combat',['../lot-18.html',1,'lots']]],
   ['exploration_20dans_20le_20jeu_20et_20première_20carte_661',['LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte',['../lot-09.html',1,'lots']]],
   ['exploration_2emd_662',['exploration.md',['../exploration_8md.html',1,'']]],

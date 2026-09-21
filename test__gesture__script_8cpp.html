@@ -93,7 +93,7 @@ $(function(){initNavTree('test__gesture__script_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Tests de l'éditeur sans fenêtre (<span class="tt">LOT-EDITOR-13</span>) : un scénario <span class="tt">--apply</span> par outil, comparé à un fichier attendu, les gestes refusés, et l'acceptation du lot — une rue de Martpart effacée puis retracée rend la carte livrée, octet pour octet.  
+<p>Tests de l'éditeur sans fenêtre (<span class="tt">LOT-EDITOR-13</span>) : un scénario <span class="tt">--apply</span> par outil, comparé à un fichier attendu, les gestes refusés, et l'acceptation du lot — une rue de la carte d'essai effacée puis retracée la rend, octet pour octet.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;array&gt;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
@@ -118,17 +118,17 @@ Functions</h2></td></tr>
 <tr class="memdesc:a57e8e99d8d79dec73cd88c5ccda9087d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque outil a son scénario <span class="tt">--apply</span>, et il rend le fichier attendu (règle 4 de la feuille de route : le scénario tient lieu de test d'IHM).  <br /></td></tr>
 <tr class="memitem:a294440e32f89c2fb8797e4ee478700db" id="r_a294440e32f89c2fb8797e4ee478700db"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a294440e32f89c2fb8797e4ee478700db">TEST</a> (GestureScriptTest, LaMesureEtLesNotesRendentLeurCompteRendu)</td></tr>
 <tr class="memdesc:a294440e32f89c2fb8797e4ee478700db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les outils qui ne touchent pas à la carte disent ce qu'ils ont fait : la mesure dans le compte rendu, les notes dans l'annexe.  <br /></td></tr>
-<tr class="memitem:a8126afadfa0476abf46328e8667200d1" id="r_a8126afadfa0476abf46328e8667200d1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8126afadfa0476abf46328e8667200d1">TEST</a> (GestureScriptTest, UneRueDeMartpartRefaiteRendLaCarteLivree)</td></tr>
-<tr class="memdesc:a8126afadfa0476abf46328e8667200d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptation du lot : la rue d'Arenarea, à Martpart, effacée puis retracée par <span class="tt">--apply</span> — pavés, seuils, façade, portes, fenêtres, lanternes — rend la carte livrée.  <br /></td></tr>
+<tr class="memitem:ab69fc7e3636faed07a0709df02d5f231" id="r_ab69fc7e3636faed07a0709df02d5f231"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab69fc7e3636faed07a0709df02d5f231">TEST</a> (GestureScriptTest, UneRueRefaiteRendLaCarteALOctet)</td></tr>
+<tr class="memdesc:ab69fc7e3636faed07a0709df02d5f231"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptation du lot : la rue du nord de la carte d'essai, effacée puis retracée par <span class="tt">--apply</span> — pavés, seuils, façade, portes, fenêtres, lanternes — rend la carte.  <br /></td></tr>
 <tr class="memitem:af1efdee950adf02353fd6e0b11a8d372" id="r_af1efdee950adf02353fd6e0b11a8d372"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af1efdee950adf02353fd6e0b11a8d372">TEST</a> (GestureScriptTest, UnGesteRefuseRendUneErreurLisible)</td></tr>
 <tr class="memdesc:af1efdee950adf02353fd6e0b11a8d372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un geste que la fenêtre refuserait arrête le fichier, et le message nomme le geste.  <br /></td></tr>
 <tr class="memitem:aed6a7a54e8d326892888e2c222e0781d" id="r_aed6a7a54e8d326892888e2c222e0781d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aed6a7a54e8d326892888e2c222e0781d">TEST</a> (GestureScriptTest, UnGesteRefuseNeTouchePasAuFichier)</td></tr>
 <tr class="memdesc:aed6a7a54e8d326892888e2c222e0781d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">--apply</span> refusé n'écrit rien ; accepté, il écrit la carte et son annexe.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests de l'éditeur sans fenêtre (<span class="tt">LOT-EDITOR-13</span>) : un scénario <span class="tt">--apply</span> par outil, comparé à un fichier attendu, les gestes refusés, et l'acceptation du lot — une rue de Martpart effacée puis retracée rend la carte livrée, octet pour octet. </p>
+<div class="textblock"><p>Tests de l'éditeur sans fenêtre (<span class="tt">LOT-EDITOR-13</span>) : un scénario <span class="tt">--apply</span> par outil, comparé à un fichier attendu, les gestes refusés, et l'acceptation du lot — une rue de la carte d'essai effacée puis retracée la rend, octet pour octet. </p>
 <p>Les scénarios vivent dans <span class="tt">Source/Test/Fixtures/Gestures/</span> : <span class="tt">&lt;outil&gt;.json</span> rejoué sur <span class="tt">terrain.json</span> doit rendre <span class="tt">&lt;outil&gt;.attendu.json</span>. Un changement voulu se régénère par l'éditeur lui-même, puis se relit en diff :</p>
-<div class="fragment"><div class="line">LevelEditor --data Source/Elements --apply Source/Test/Fixtures/Gestures/paint.json</div>
+<div class="fragment"><div class="line">LevelEditor --data Source/Test/Fixtures/EditorData --apply Source/Test/Fixtures/Gestures/paint.json</div>
 <div class="line">    Source/Test/Fixtures/Gestures/terrain.json</div>
 <div class="line">    --output Source/Test/Fixtures/Gestures/paint.attendu.json</div>
 </div><!-- fragment --> </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
@@ -161,8 +161,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8126afadfa0476abf46328e8667200d1" name="a8126afadfa0476abf46328e8667200d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8126afadfa0476abf46328e8667200d1">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<a id="ab69fc7e3636faed07a0709df02d5f231" name="ab69fc7e3636faed07a0709df02d5f231"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab69fc7e3636faed07a0709df02d5f231">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -175,18 +175,18 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UneRueDeMartpartRefaiteRendLaCarteLivree</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">UneRueRefaiteRendLaCarteALOctet</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Acceptation du lot : la rue d'Arenarea, à Martpart, effacée puis retracée par <span class="tt">--apply</span> — pavés, seuils, façade, portes, fenêtres, lanternes — rend la carte livrée. </p>
-<p>Les gestes sont ceux de la main dans la fenêtre : une sélection gommée par couche, un rectangle de pavés, un trait par variante de pavé, une ligne de façade, un trait de fenêtres, de portes et de lanternes. Qu'ils rendent le fichier que le script des quartiers avait écrit montre que les outils posent la pièce, le type de sa case et la collision comme la carte livrée les porte. <b>Cas de test :</b> <b>Une rue de Martpart refaite par &ndash;apply rend la carte livrée.</b><br  />
+<p>Acceptation du lot : la rue du nord de la carte d'essai, effacée puis retracée par <span class="tt">--apply</span> — pavés, seuils, façade, portes, fenêtres, lanternes — rend la carte. </p>
+<p>Les gestes sont ceux de la main dans la fenêtre : une sélection gommée par couche, un rectangle de pavés, un trait par variante de pavé, une ligne de façade, un trait de fenêtres, de portes et de lanternes. Qu'ils rendent le fichier tel qu'il est sur disque montre que les outils posent la pièce, le type de sa case et la collision comme la carte les porte. <b>Cas de test :</b> <b>Une rue refaite par &ndash;apply rend la carte, octet pour octet.</b><br  />
  <b>Categorie :</b> Unitaire · Editeur · Sans fenetre<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Rejouer <span class="tt">Fixtures/Gestures/martpart-rue.json</span> sur <span class="tt">capital/martpart</span>.<br  />
- <b>Resultat attendu :</b> Dix gestes, dix pas d'annulation ; le texte égale <span class="tt">martpart.json</span> octet pour octet. </p>
+ 1. Rejouer <span class="tt">Fixtures/Gestures/rue.json</span> sur <span class="tt">bourg/place</span>.<br  />
+ <b>Resultat attendu :</b> Dix gestes, dix pas d'annulation ; le texte égale <span class="tt">place.json</span> octet pour octet. </p>
 
 </div>
 </div>

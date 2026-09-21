@@ -107,6 +107,8 @@ $(function(){initNavTree('test__map__format_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelWriter_8h_source.html">Core/Levels/LevelWriter.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldGraph_8h_source.html">Core/World/WorldGraph.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MapFormat_8h_source.html">Editor/Logic/MapFormat.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
@@ -125,14 +127,46 @@ Functions</h2></td></tr>
 <tr class="memdesc:adc51ab9b4ae285e27d067a157c2bc4d6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">--migrate</span> réécrit une carte en place, et la carte migrée passe le contrôle.  <br /></td></tr>
 <tr class="memitem:a64b02c3f5911e62ef4b9f043489ed771" id="r_a64b02c3f5911e62ef4b9f043489ed771"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a64b02c3f5911e62ef4b9f043489ed771">TEST</a> (MapFormatTest, SansCommandeLEditeurOuvreSaFenetre)</td></tr>
 <tr class="memdesc:a64b02c3f5911e62ef4b9f043489ed771"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans <span class="tt">--check</span> ni <span class="tt">--migrate</span>, l'éditeur ouvre sa fenêtre.  <br /></td></tr>
-<tr class="memitem:ae79f72e73115e588ed88c2d31568b55c" id="r_ae79f72e73115e588ed88c2d31568b55c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae79f72e73115e588ed88c2d31568b55c">TEST</a> (MapFormatTest, LesTroisCartesMigreesSeJouentALIdentique)</td></tr>
-<tr class="memdesc:ae79f72e73115e588ed88c2d31568b55c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptation du lot, sur les trois cartes livrées : leurs versions v3, rangées dans <span class="tt">JADG_V3_MAPS_DIR</span> (tirées de l'historique git), se jouent comme leurs v4 migrées.  <br /></td></tr>
+<tr class="memitem:a11a8c863aa513894e22163f2127c42a5" id="r_a11a8c863aa513894e22163f2127c42a5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a11a8c863aa513894e22163f2127c42a5">TEST</a> (MapFormatTest, ChaqueCarteMigreeSeJoueALIdentique)</td></tr>
+<tr class="memdesc:a11a8c863aa513894e22163f2127c42a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptation du lot, sur <b>chaque</b> carte livrée : sa version v3, rangée dans <span class="tt">JADG_V3_MAPS_DIR</span> (tirée de l'historique git), se joue comme sa v4 migrée.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests de la garde du format v4 (<span class="tt">LOT-EDITOR-12</span>) : migration d'une carte, contrôle de toutes, entrée sans fenêtre de l'éditeur. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a11a8c863aa513894e22163f2127c42a5" name="a11a8c863aa513894e22163f2127c42a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11a8c863aa513894e22163f2127c42a5">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapFormatTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChaqueCarteMigreeSeJoueALIdentique</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Acceptation du lot, sur <b>chaque</b> carte livrée : sa version v3, rangée dans <span class="tt">JADG_V3_MAPS_DIR</span> (tirée de l'historique git), se joue comme sa v4 migrée. </p>
+<p>Le seul test de ce fichier à lire les cartes livrées, et c'est son objet ; il admet qu'il n'y en ait aucune (<span class="tt">LOT-123</span>), et ne saute que les cartes sans version v3. <b>Cas de test :</b> <b>Chaque carte migrée se joue à l'identique.</b><br  />
+ <b>Categorie :</b> Unitaire · Format v4<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Extraire les v3 : <span class="tt">git show 376c541da:Source/Elements/Levels/…</span> (le dernier commit de main avant ce lot).<br  />
+</p><ol type="1">
+<li><span class="tt">JADG_V3_MAPS_DIR=&lt;dossier&gt;</span> puis lancer ce test.<br  />
+ <b>Resultat attendu :</b> Même instantané de scène, même grille tactique, pour chaque carte. Ignoré sans la variable. </li>
+</ol>
+
+</div>
+</div>
 <a id="aff37e7cbd695fa3919a228475999d1cb" name="aff37e7cbd695fa3919a228475999d1cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff37e7cbd695fa3919a228475999d1cb">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aff37e7cbd695fa3919a228475999d1cb">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -162,7 +196,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8d735e8632d39a00cc43a2e6832c578a" name="a8d735e8632d39a00cc43a2e6832c578a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d735e8632d39a00cc43a2e6832c578a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d735e8632d39a00cc43a2e6832c578a">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,7 +226,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a6b32f5a144d98be38b03de2c495a84c9" name="a6b32f5a144d98be38b03de2c495a84c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b32f5a144d98be38b03de2c495a84c9">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b32f5a144d98be38b03de2c495a84c9">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,14 +249,14 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Format v4<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Migrer <span class="tt">format-v3.json</span> avec la planche de Martpart.<br  />
+ 1. Migrer <span class="tt">format-v3.json</span> avec la planche d'essai.<br  />
 2. Relire la v4.<br  />
  <b>Resultat attendu :</b> Même instantané de scène, même grille tactique ; pièces du sol nommées ; deux identifiants ; sept cases de vide forcées. </p>
 
 </div>
 </div>
 <a id="a463023789fa5cc0f7c5cae1fb2b62976" name="a463023789fa5cc0f7c5cae1fb2b62976"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a463023789fa5cc0f7c5cae1fb2b62976">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a463023789fa5cc0f7c5cae1fb2b62976">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,40 +279,8 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Format v4<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Contrôler <span class="tt">Source/Elements/Levels</span>.<br  />
- <b>Resultat attendu :</b> Au moins trois cartes, aucune erreur. </p>
-
-</div>
-</div>
-<a id="ae79f72e73115e588ed88c2d31568b55c" name="ae79f72e73115e588ed88c2d31568b55c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae79f72e73115e588ed88c2d31568b55c">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">MapFormatTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">LesTroisCartesMigreesSeJouentALIdentique</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Acceptation du lot, sur les trois cartes livrées : leurs versions v3, rangées dans <span class="tt">JADG_V3_MAPS_DIR</span> (tirées de l'historique git), se jouent comme leurs v4 migrées. </p>
-<p><b>Cas de test :</b> <b>Les trois cartes migrées se jouent à l'identique.</b><br  />
- <b>Categorie :</b> Unitaire · Format v4<br  />
- <b>Criticite :</b> Critique<br  />
- <b>Etapes :</b><br  />
- 1. Extraire les v3 : <span class="tt">git show 376c541da:Source/Elements/Levels/…</span> (le dernier commit de main avant ce lot).<br  />
-</p><ol type="1">
-<li><span class="tt">JADG_V3_MAPS_DIR=&lt;dossier&gt;</span> puis lancer ce test.<br  />
- <b>Resultat attendu :</b> Même instantané de scène, même grille tactique, pour chaque carte. Ignoré sans la variable. </li>
-</ol>
+ 1. Contrôler <span class="tt">Source/Elements</span>.<br  />
+ <b>Resultat attendu :</b> Aucune erreur. Aucune carte livrée : rien à contrôler, et c'est un état légitime (<span class="tt">LOT-123</span>, table rase du <span class="tt">LOT-102</span>). </p>
 
 </div>
 </div>

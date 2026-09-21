@@ -45,8 +45,8 @@ constexpr std::array&lt;std::string_view, kRegionAxisCount&gt; NOMS_D_AXE{
 [[nodiscard]] bool lireTexte(const nlohmann::json&amp; objet, const char* champ, std::string&amp; sortie,
 <span style = "background-color:#dfd">                             std::string&amp; raison) {
     const auto trouve = objet.find(champ);
-    if (trouve == objet.end() || !trouve-&gt;is_string()) {</span>
-<span style = "background-color:#fdd">        raison = std::string{"champ '"} + champ + "' absent ou non textuel";
+    if (trouve == objet.end() || !trouve-&gt;is_string()) {
+        raison = std::string{"champ '"} + champ + "' absent ou non textuel";
         return false;</span>
     }
 <span style = "background-color:#dfd">    sortie = trouve-&gt;get&lt;std::string&gt;();
@@ -157,7 +157,7 @@ constexpr std::array&lt;std::string_view, kRegionAxisCount&gt; NOMS_D_AXE{
         !lireTexte(racine, "government", sortie.government, raison) ||
 <span style = "background-color:#dfd">        !lireTexte(racine, "faction", sortie.faction, raison) ||</span>
         !lirePopulation(racine, sortie.population, raison)) {
-<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : " + raison + '.');
+<span style = "background-color:#dfd">        erreurs.push_back(fichier + " : " + raison + '.');
         return false;</span>
     }
 
@@ -305,8 +305,8 @@ constexpr std::array&lt;std::string_view, kRegionAxisCount&gt; NOMS_D_AXE{
         }
 <span style = "background-color:#dfd">    }</span>
 
-<span style = "background-color:#dfd">    if (atlas.regions.empty()) {</span>
-<span style = "background-color:#fdd">        atlas.errors.push_back(directory.string() +</span>
+<span style = "background-color:#dfd">    if (atlas.regions.empty()) {
+        atlas.errors.push_back(directory.string() +</span>
                                " : aucune region lue. Un atlas sans region n'est pas un monde.");
     }
 

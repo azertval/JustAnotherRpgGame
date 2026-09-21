@@ -93,7 +93,7 @@ $(function(){initNavTree('test__city__view_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Tests de la <b>vue de ville</b> (<span class="tt">LOT-EDITOR-09</span>, <span class="tt">EX-EDIT-090</span>) : les quartiers de la Capitale, leurs cadres, et celui qu'un clic ouvre.  
+<p>Tests de la <b>vue de ville</b> (<span class="tt">LOT-EDITOR-09</span>, <span class="tt">EX-EDIT-090</span>) : les quartiers d'une ville, leurs cadres, et celui qu'un clic ouvre.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
@@ -103,48 +103,19 @@ $(function(){initNavTree('test__city__view_8cpp.html','',''); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3f52a978830c7c13066030c59b780aea" id="r_a3f52a978830c7c13066030c59b780aea"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3f52a978830c7c13066030c59b780aea">TEST</a> (VueDeVille, LaCapitaleSeVoitParQuartiers)</td></tr>
-<tr class="memdesc:a3f52a978830c7c13066030c59b780aea"><td class="mdescLeft">&#160;</td><td class="mdescRight">La Capitale se voit par quartiers : ceux où l'on marche d'abord, avec leur cadre et leur carte, puis ceux que ferme une porte gardée.  <br /></td></tr>
+<tr class="memitem:aa89f8f7e8211996dfccf5e479a02ff4a" id="r_aa89f8f7e8211996dfccf5e479a02ff4a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa89f8f7e8211996dfccf5e479a02ff4a">TEST</a> (VueDeVille, UneVilleSeVoitParQuartiers)</td></tr>
+<tr class="memdesc:aa89f8f7e8211996dfccf5e479a02ff4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une ville se voit par quartiers : ceux où l'on marche d'abord, avec leur cadre et leur carte, puis ceux que ferme une porte gardée.  <br /></td></tr>
 <tr class="memitem:a0c181c2b23dfe4a1fa04d4091c2864f1" id="r_a0c181c2b23dfe4a1fa04d4091c2864f1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0c181c2b23dfe4a1fa04d4091c2864f1">TEST</a> (VueDeVille, UnClicSurLePlanDesigneUnQuartier)</td></tr>
 <tr class="memdesc:a0c181c2b23dfe4a1fa04d4091c2864f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un clic sur le plan désigne le quartier dont le cadre le contient ; ailleurs, aucun.  <br /></td></tr>
 <tr class="memitem:ae3248169056df0d4fb5e2300600c8ba7" id="r_ae3248169056df0d4fb5e2300600c8ba7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae3248169056df0d4fb5e2300600c8ba7">TEST</a> (VueDeVille, UneVilleInconnueLeDit)</td></tr>
 <tr class="memdesc:ae3248169056df0d4fb5e2300600c8ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une ville inconnue rend une vue en erreur, sans lever ; la carte d'un quartier dit de quelle ville elle est.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests de la <b>vue de ville</b> (<span class="tt">LOT-EDITOR-09</span>, <span class="tt">EX-EDIT-090</span>) : les quartiers de la Capitale, leurs cadres, et celui qu'un clic ouvre. </p>
-<p>Lus sur les données livrées, jamais récrits. </p>
+<div class="textblock"><p>Tests de la <b>vue de ville</b> (<span class="tt">LOT-EDITOR-09</span>, <span class="tt">EX-EDIT-090</span>) : les quartiers d'une ville, leurs cadres, et celui qu'un clic ouvre. </p>
+<p>Lus sur la racine d'essai de l'éditeur (<span class="tt">LOT-123</span>), jamais récrits : ce test lisait la Capitale <b>livrée</b>, que la table rase du <span class="tt">LOT-102</span> emporte. Sa ville d'essai a la même forme — un quartier où l'on marche, avec sa carte et son cadre, et quatre que ferme une porte gardée. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a3f52a978830c7c13066030c59b780aea" name="a3f52a978830c7c13066030c59b780aea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f52a978830c7c13066030c59b780aea">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">VueDeVille</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">LaCapitaleSeVoitParQuartiers</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>La Capitale se voit par quartiers : ceux où l'on marche d'abord, avec leur cadre et leur carte, puis ceux que ferme une porte gardée. </p>
-<p><b>Cas de test :</b> <b>La Capitale se voit par quartiers.</b><br  />
- <b>Categorie :</b> Unitaire · Le monde<br  />
- <b>Criticite :</b> Critique<br  />
- <b>Etapes :</b><br  />
- 1. Bâtir la vue de la ville <span class="tt">capital</span> sur les données livrées.<br  />
- <b>Resultat attendu :</b> La vue porte le plan de la ville et ses six quartiers ; Martpart et Arenarea ont une carte présente et un cadre ; les autres n'ont qu'une porte gardée, et viennent après. </p>
-
-</div>
-</div>
 <a id="a0c181c2b23dfe4a1fa04d4091c2864f1" name="a0c181c2b23dfe4a1fa04d4091c2864f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c181c2b23dfe4a1fa04d4091c2864f1">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c181c2b23dfe4a1fa04d4091c2864f1">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -167,13 +138,13 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Le monde<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Pointer le centre du cadre de Martpart, puis un coin du plan.<br  />
- <b>Resultat attendu :</b> Le premier point désigne Martpart, le second ne désigne rien. </p>
+ 1. Pointer le centre du cadre de la Place, puis un coin du plan.<br  />
+ <b>Resultat attendu :</b> Le premier point désigne la Place, le second ne désigne rien. </p>
 
 </div>
 </div>
 <a id="ae3248169056df0d4fb5e2300600c8ba7" name="ae3248169056df0d4fb5e2300600c8ba7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3248169056df0d4fb5e2300600c8ba7">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3248169056df0d4fb5e2300600c8ba7">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -197,8 +168,37 @@ Functions</h2></td></tr>
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
  1. Bâtir la vue d'une ville qui n'existe pas.<br  />
-2. Demander la ville de <span class="tt">capital/martpart</span>, puis celle du Colisée.<br  />
- <b>Resultat attendu :</b> La vue porte une erreur nommée ; Martpart est de <span class="tt">capital</span>, le Colisée d'aucune ville. </p>
+2. Demander la ville de <span class="tt">bourg/place</span>, puis celle d'une carte hors ville.<br  />
+ <b>Resultat attendu :</b> La vue porte une erreur nommée ; la Place est du <span class="tt">bourg</span>, le Donjon d'aucune ville. </p>
+
+</div>
+</div>
+<a id="aa89f8f7e8211996dfccf5e479a02ff4a" name="aa89f8f7e8211996dfccf5e479a02ff4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa89f8f7e8211996dfccf5e479a02ff4a">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">VueDeVille</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneVilleSeVoitParQuartiers</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une ville se voit par quartiers : ceux où l'on marche d'abord, avec leur cadre et leur carte, puis ceux que ferme une porte gardée. </p>
+<p><b>Cas de test :</b> <b>Une ville se voit par quartiers.</b><br  />
+ <b>Categorie :</b> Unitaire · Le monde<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Bâtir la vue de la ville <span class="tt">bourg</span>.<br  />
+ <b>Resultat attendu :</b> La vue porte le plan de la ville et ses cinq quartiers ; la Place a une carte présente et un cadre ; les autres n'ont qu'une porte gardée, et viennent après. </p>
 
 </div>
 </div>

@@ -152,7 +152,7 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Contrôle du contenu<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
- 1. Un projet de trois cartes et une variante : une carte fautive (nom qui n'est pas une clé, îlot sans clé, dialogue inconnu, drapeau que rien ne pose, famille inconnue, rencontre dont un loup tombe hors de la carte, PNJ muré, coffre dans un mur, zone hors d'atteinte, portail sans retour, point d'arrivée orphelin), sa cible, et la variante d'une base dont un mur est tombé sur son PNJ.<br  />
+ 1. Un projet de trois cartes et une variante : une carte fautive (nom qui n'est pas une clé, îlot sans clé, dialogue inconnu, drapeau que rien ne pose, famille inconnue, rencontre dont un rat tombe hors de la carte, PNJ muré, coffre dans un mur, zone hors d'atteinte, portail sans retour, point d'arrivée orphelin), sa cible, et la variante d'une base dont un mur est tombé sur son PNJ.<br  />
 2. Lancer <span class="tt">--check</span>.<br  />
  <b>Resultat attendu :</b> Chaque défaut sort, à sa gravité ; code de sortie 1. </p>
 
@@ -182,9 +182,9 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Contrôle du contenu<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Former la clé de <span class="tt">capital/martpart</span>.<br  />
+ 1. Former la clé de <span class="tt">bourg/place</span>.<br  />
 2. Ajouter une clé nouvelle, puis une clé qui reprend une clé existante, à deux catalogues dont l'un n'a pas de fin de ligne.<br  />
- <b>Resultat attendu :</b> <span class="tt">map.capital.martpart.name</span> ; la clé nouvelle a le texte donné partout ; la clé reprise a la traduction de chaque langue ; une clé déjà là n'est pas réécrite. </p>
+ <b>Resultat attendu :</b> <span class="tt">map.bourg.place.name</span> ; la clé nouvelle a le texte donné partout ; la clé reprise a la traduction de chaque langue ; une clé déjà là n'est pas réécrite. </p>
 
 </div>
 </div>
@@ -212,7 +212,7 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Contrôle du contenu<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
- 1. Créer « Echoppe » au lieu <span class="tt">martpart</span> dans un projet à deux catalogues.<br  />
+ 1. Créer « Echoppe » au lieu <span class="tt">bourg</span> dans un projet à deux catalogues.<br  />
 </p><ol type="1">
 <li>La contrôler ; la renommer « Etal », la dupliquer.<br  />
  <b>Resultat attendu :</b> Le nom est <span class="tt">map.Echoppe.name</span>, les deux catalogues l'ont ; aucune erreur ; le nom renommé est <span class="tt">map.Etal.name</span>, aux traductions de l'ancien ; la copie a sa propre clé. </li>

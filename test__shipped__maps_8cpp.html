@@ -95,7 +95,8 @@ $(function(){initNavTree('test__shipped__maps_8cpp.html','',''); });
 
 <p>Les cartes livrées se font dans l'éditeur (<span class="tt">LOT-EDITOR-06</span>, décision D4) : chacune s'ouvre, se modifie, s'enregistre et se recharge sans perte, et sans script.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdlib&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
@@ -121,13 +122,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:a63b8330695b1468e9c55c77b93e167d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une retouche faite dans l'éditeur s'enregistre, se recharge sans perte et se défait.  <br /></td></tr>
 <tr class="memitem:aa706d0a9332963f44df18d630469412f" id="r_aa706d0a9332963f44df18d630469412f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa706d0a9332963f44df18d630469412f">TEST</a> (DataRootTest, LEditeurOuvreLesDonneesDeLArbreDesSources)</td></tr>
 <tr class="memdesc:aa706d0a9332963f44df18d630469412f"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fenêtre et les commandes ouvrent l'arbre des sources, pas la copie que la construction refait à côté de l'exécutable : ce qu'on enregistre atteint le dépôt.  <br /></td></tr>
+<tr class="memitem:ad1ebf81d9027f4dd2b3c1ab7b159c95a" id="r_ad1ebf81d9027f4dd2b3c1ab7b159c95a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad1ebf81d9027f4dd2b3c1ab7b159c95a">TEST</a> (DataRootTest, UnDossierDeNiveauxVideResteLArbreDesSources)</td></tr>
+<tr class="memdesc:ad1ebf81d9027f4dd2b3c1ab7b159c95a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un <span class="tt">Levels/</span> <b>vide</b> reste l'arbre des sources : c'est son <span class="tt">README.md</span> qui le tient dans le dépôt, git ne gardant pas un dossier vide.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Les cartes livrées se font dans l'éditeur (<span class="tt">LOT-EDITOR-06</span>, décision D4) : chacune s'ouvre, se modifie, s'enregistre et se recharge sans perte, et sans script. </p>
-<p>Les scripts qui les posaient (<span class="tt">carte_colisee.py</span>, <span class="tt">carte_quartiers.py</span>) sont retirés : plus rien ne compare une carte à un tracé. Ce qui garde les cartes, c'est ce que fait l'éditeur — le brouillon (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Carte mutable en cours d&#39;édition, distincte de Level (immuable).">core::LevelDraft</a></span>) qu'ouvre la fenêtre, les gestes que rejoue <span class="tt">--apply</span>, et le texte canonique qu'écrit l'enregistrement. </p>
+<p>Les scripts qui les posaient sont retirés : plus rien ne compare une carte à un tracé. Ce qui garde les cartes, c'est ce que fait l'éditeur — le brouillon (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Carte mutable en cours d&#39;édition, distincte de Level (immuable).">core::LevelDraft</a></span>) qu'ouvre la fenêtre, les gestes que rejoue <span class="tt">--apply</span>, et le texte canonique qu'écrit l'enregistrement.</p>
+<p><b>Le seul fichier de <span class="tt">Unit/Editor</span> qui lise encore les cartes livrées, et c'est son objet</b> (<span class="tt">LOT-123</span>) : il balaie celles qu'il trouve, quelles qu'elles soient, et admet qu'il n'y en ait aucune — la table rase du <span class="tt">LOT-102</span> vide <span class="tt">Levels/</span>. Les autres tests de l'éditeur ouvrent la racine d'essai, <span class="tt">Source/Test/Fixtures/EditorData</span>. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="aa706d0a9332963f44df18d630469412f" name="aa706d0a9332963f44df18d630469412f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa706d0a9332963f44df18d630469412f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa706d0a9332963f44df18d630469412f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,8 +160,39 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad1ebf81d9027f4dd2b3c1ab7b159c95a" name="ad1ebf81d9027f4dd2b3c1ab7b159c95a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1ebf81d9027f4dd2b3c1ab7b159c95a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DataRootTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnDossierDeNiveauxVideResteLArbreDesSources</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un <span class="tt">Levels/</span> <b>vide</b> reste l'arbre des sources : c'est son <span class="tt">README.md</span> qui le tient dans le dépôt, git ne gardant pas un dossier vide. </p>
+<p>Ce que la table rase du <span class="tt">LOT-102</span> laisse derrière elle : un <span class="tt">Levels/</span> sans aucune carte. Si <span class="tt">resolveDataRoot</span> le refusait, la fenêtre et les commandes se rabattraient en silence sur la copie que la construction refait à côté de l'exécutable, et l'auteur dessinerait dans le vide. <b>Cas de test :</b> <b>Un dossier de niveaux vide reste l'arbre des sources.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Cartes livrées<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Batir une racine dont <span class="tt">Levels/</span> ne porte que son <span class="tt">README.md</span>.<br  />
+2. Resoudre la racine sans <span class="tt">--data</span>.<br  />
+3. Controler cette racine.<br  />
+ <b>Resultat attendu :</b> La racine est celle de l'arbre des sources, pas le dossier de l'executable ; le controle ne trouve aucune carte, le dit, et rend 0. </p>
+
+</div>
+</div>
 <a id="a07033b41fecb29b0544e5615d18589a5" name="a07033b41fecb29b0544e5615d18589a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07033b41fecb29b0544e5615d18589a5">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a07033b41fecb29b0544e5615d18589a5">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,12 +217,12 @@ Functions</h2></td></tr>
  <b>Etapes :</b><br  />
  1. Pour chaque carte de <span class="tt">Source/Elements/Levels</span>, l'ouvrir en brouillon avec le manifeste de son lieu.<br  />
 2. L'enregistrer sans la toucher.<br  />
- <b>Resultat attendu :</b> Au moins trois cartes ; chaque texte enregistré égale le fichier livré, octet pour octet. </p>
+ <b>Resultat attendu :</b> Chaque texte enregistré égale le fichier livré, octet pour octet. Aucune carte livrée : rien à vérifier, et c'est un état légitime (<span class="tt">LOT-123</span>). </p>
 
 </div>
 </div>
 <a id="a63b8330695b1468e9c55c77b93e167d0" name="a63b8330695b1468e9c55c77b93e167d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63b8330695b1468e9c55c77b93e167d0">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a63b8330695b1468e9c55c77b93e167d0">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

@@ -30,7 +30,7 @@ var NAVTREE =
     [ "Navigation", "index.html#autotoc_md3", null ],
     [ "Guide du développeur", "guide.html", "guide" ],
     [ "Cahier de test", "cahiertest.html", [
-      [ "Tests unitaires (909)", "cahiertest.html#autotoc_md4", [
+      [ "Tests unitaires (910)", "cahiertest.html#autotoc_md4", [
         [ "Core", "cahiertest.html#autotoc_md5", [
           [ "Combat (112)", "cahiertest.html#autotoc_md6", null ],
           [ "Data (12)", "cahiertest.html#autotoc_md7", null ],
@@ -58,7 +58,7 @@ var NAVTREE =
         ] ]
       ] ],
       [ "Tests d'intégration (2)", "cahiertest.html#autotoc_md28", [
-        [ "Exploration — <span class=\"tt\">test_exploration_carte_livree.cpp</span> (2)", "cahiertest.html#autotoc_md29", null ]
+        [ "Exploration — <span class=\"tt\">test_exploration_carte.cpp</span> (2)", "cahiertest.html#autotoc_md29", null ]
       ] ],
       [ "Tests système (1)", "cahiertest.html#autotoc_md30", [
         [ "Éditeur de niveaux — <span class=\"tt\">test_parcours_edition_rpg.cpp</span> (1)", "cahiertest.html#autotoc_md31", null ]
@@ -358,7 +358,7 @@ var NAVTREEINDEX =
 "test__canvas__scene_8cpp.html",
 "test__entity__shapes_8cpp.html",
 "test__level__writer_8cpp.html#abc4d0efaa944710e7f65f197fca12421",
-"test__turn__order_8cpp.html#a254da96ef4d2865c217f0b5264b87f16"
+"test__turn__order_8cpp.html#a0dbed9d15f0ac1777f0b5b92339877e5"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

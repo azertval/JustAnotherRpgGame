@@ -93,7 +93,7 @@ $(function(){initNavTree('test__paint__tools_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Tests des outils du peintre — ligne, seau, pipette, miroir, mesure — et de l'acceptation du <span class="tt">LOT-EDITOR-04</span> : une maison de Martpart en moins de dix gestes.  
+<p>Tests des outils du peintre — ligne, seau, pipette, miroir, mesure — et de l'acceptation du <span class="tt">LOT-EDITOR-04</span> : une maison de la carte d'essai en moins de dix gestes.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
@@ -130,11 +130,11 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7d1511c5add2b6cbec840c669b0e4051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le miroir est l'axe vertical de l'écran iso : il transpose les cases et pose la jumelle.  <br /></td></tr>
 <tr class="memitem:a43062c8a1876fd3977eae4b1045aa51e" id="r_a43062c8a1876fd3977eae4b1045aa51e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a43062c8a1876fd3977eae4b1045aa51e">TEST</a> (PaintToolsTest, LaMesureEnCasesEtEnPieds)</td></tr>
 <tr class="memdesc:a43062c8a1876fd3977eae4b1045aa51e"><td class="mdescLeft">&#160;</td><td class="mdescRight">La mesure compte une diagonale pour une case, 5 pieds la case.  <br /></td></tr>
-<tr class="memitem:ad693bf724621040ba35a3dd54a4ad377" id="r_ad693bf724621040ba35a3dd54a4ad377"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad693bf724621040ba35a3dd54a4ad377">TEST</a> (PaintToolsTest, UneMaisonDeMartpartEnMoinsDeDixGestes)</td></tr>
-<tr class="memdesc:ad693bf724621040ba35a3dd54a4ad377"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracer une maison de Martpart — sol, murs, porte, seuil — prend moins de dix gestes, sans ouvrir la couche collision ni un formulaire (acceptation du <span class="tt">LOT-EDITOR-04</span>).  <br /></td></tr>
+<tr class="memitem:afb397dc2bc9ee1aa108f2a3f156098a1" id="r_afb397dc2bc9ee1aa108f2a3f156098a1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afb397dc2bc9ee1aa108f2a3f156098a1">TEST</a> (PaintToolsTest, UneMaisonEnMoinsDeDixGestes)</td></tr>
+<tr class="memdesc:afb397dc2bc9ee1aa108f2a3f156098a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracer une maison de la carte d'essai — sol, murs, porte, seuil — prend moins de dix gestes, sans ouvrir la couche collision ni un formulaire (acceptation du <span class="tt">LOT-EDITOR-04</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests des outils du peintre — ligne, seau, pipette, miroir, mesure — et de l'acceptation du <span class="tt">LOT-EDITOR-04</span> : une maison de Martpart en moins de dix gestes. </p>
+<div class="textblock"><p>Tests des outils du peintre — ligne, seau, pipette, miroir, mesure — et de l'acceptation du <span class="tt">LOT-EDITOR-04</span> : une maison de la carte d'essai en moins de dix gestes. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a44578325d5222b87269312ce17161eab" name="a44578325d5222b87269312ce17161eab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a44578325d5222b87269312ce17161eab">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
@@ -218,7 +218,7 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Outils du peintre<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Sur Martpart, piquer un mur, la collision active puis le sol actif, et une case vide.<br  />
+ 1. Sur La carte d'essai, piquer un mur, la collision active puis le sol actif, et une case vide.<br  />
 2. Poser un étal, piquer sa deuxième case.<br  />
  <b>Resultat attendu :</b> <span class="tt">wall</span> sur la collision ; <span class="tt">street</span> sur le sol ; <span class="tt">wall-right</span> depuis le décor (ou une autre couche), couche rendue ; rien sur le vide ; <span class="tt">feature-1</span> pour l'étal. </p>
 
@@ -309,14 +309,14 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Outils du peintre<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Sur Martpart, verser <span class="tt">square</span> sur une case de la place, le sol actif… puis <span class="tt">street-3</span> sur la place.<br  />
+ 1. Sur La carte d'essai, verser <span class="tt">square</span> sur une case de la place, le sol actif… puis <span class="tt">street-3</span> sur la place.<br  />
 2. Annuler.<br  />
  <b>Resultat attendu :</b> Toute la place (et rien d'autre) devient <span class="tt">street-3</span>, collision suivie ; un pas ; annulé, le fichier livré revient. </p>
 
 </div>
 </div>
-<a id="ad693bf724621040ba35a3dd54a4ad377" name="ad693bf724621040ba35a3dd54a4ad377"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad693bf724621040ba35a3dd54a4ad377">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
+<a id="afb397dc2bc9ee1aa108f2a3f156098a1" name="afb397dc2bc9ee1aa108f2a3f156098a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb397dc2bc9ee1aa108f2a3f156098a1">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -329,17 +329,17 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UneMaisonDeMartpartEnMoinsDeDixGestes</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">UneMaisonEnMoinsDeDixGestes</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Tracer une maison de Martpart — sol, murs, porte, seuil — prend moins de dix gestes, sans ouvrir la couche collision ni un formulaire (acceptation du <span class="tt">LOT-EDITOR-04</span>). </p>
-<p><b>Cas de test :</b> <b>Une maison de Martpart en six gestes.</b><br  />
+<p>Tracer une maison de la carte d'essai — sol, murs, porte, seuil — prend moins de dix gestes, sans ouvrir la couche collision ni un formulaire (acceptation du <span class="tt">LOT-EDITOR-04</span>). </p>
+<p><b>Cas de test :</b> <b>Une maison de la carte d'essai en six gestes.</b><br  />
  <b>Categorie :</b> Unitaire · Outils du peintre<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- Sur un terrain vide de Martpart, le décor actif, le miroir par l'angle (30, 5) :<br  />
+ Sur un terrain vide de la carte d'essai, le décor actif, le miroir par l'angle (30, 5) :<br  />
 </p><ol type="1">
 <li>rectangle de <span class="tt">street</span> (25, 0)–(29, 4) ;<br  />
 2. ligne de <span class="tt">wall-right</span> (25, 5)–(29, 5) ;<br  />
@@ -377,7 +377,7 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Outils du peintre<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Sur Martpart, tracer une ligne de <span class="tt">light</span> sur six cases de rue.<br  />
+ 1. Sur La carte d'essai, tracer une ligne de <span class="tt">light</span> sur six cases de rue.<br  />
 2. Annuler.<br  />
  <b>Resultat attendu :</b> Six lanternes, un pas d'annulation ; annulé, le fichier livré revient. </p>
 

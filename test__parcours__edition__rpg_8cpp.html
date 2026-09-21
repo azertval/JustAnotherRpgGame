@@ -120,7 +120,7 @@ $(function(){initNavTree('test__parcours__edition__rpg_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af7e7d821d280c037b14073dca24e0132" id="r_af7e7d821d280c037b14073dca24e0132"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af7e7d821d280c037b14073dca24e0132">TEST</a> (ParcoursEditionSysteme, ProduitUneCarteDuRpgSansEcrireDeJson)</td></tr>
-<tr class="memdesc:af7e7d821d280c037b14073dca24e0132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parcours complet d'auteur du <span class="tt">LOT-11</span> : une carte à trois couches et quatre familles d'entités, validée contre les catalogues livrés, enregistrée, rechargée, peuplée.  <br /></td></tr>
+<tr class="memdesc:af7e7d821d280c037b14073dca24e0132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parcours complet d'auteur du <span class="tt">LOT-11</span> : une carte à trois couches et quatre familles d'entités, validée contre les catalogues d essai, enregistrée, rechargée, peuplée.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Parcours système du <span class="tt">LOT-11</span> : produire une carte du RPG sans écrire de JSON — trois couches, un PNJ, un coffre, un portail, une rencontre — l'enregistrer, la recharger et la peupler comme le fait l'essai immédiat, sans la couche GPU. </p>
@@ -144,15 +144,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Parcours complet d'auteur du <span class="tt">LOT-11</span> : une carte à trois couches et quatre familles d'entités, validée contre les catalogues livrés, enregistrée, rechargée, peuplée. </p>
+<p>Parcours complet d'auteur du <span class="tt">LOT-11</span> : une carte à trois couches et quatre familles d'entités, validée contre les catalogues d essai, enregistrée, rechargée, peuplée. </p>
 <p><b>Cas de test :</b> <b>Produire une carte du RPG dans l'editeur, sans JSON ecrit a la main.</b><br  />
  <b>Categorie :</b> Système · Éditeur de niveaux<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
  1. Creer une carte, poser l'entree et un couloir de murs dans la collision.<br  />
 2. Ajouter un sol (qui reprend l'image) puis un decor, peindre l'un et l'autre.<br  />
-3. Poser un PNJ au dialogue du heraut, un coffre, un point d'arrivee et un portail qui y mene, une rencontre en terrain ouvert et une dans le couloir.<br  />
-4. Valider contre les catalogues livres et analyser le terrain.<br  />
+3. Poser un PNJ au dialogue du garde, un coffre, un point d'arrivee et un portail qui y mene, une rencontre en terrain ouvert et une dans le couloir.<br  />
+4. Valider contre les catalogues d essai et analyser le terrain.<br  />
 5. Enregistrer, recharger, construire le graphe du monde et peupler le monde ECS.<br  />
 6. Tout annuler.<br  />
  <b>Resultat attendu :</b> Aucune reference cassee ; seule la rencontre du couloir est signalee ; la carte relue porte ses trois couches et ses six entites ; le portail se resout ; le coffre et le PNJ sont interactifs ; l'annulation rend la carte vierge d'entites et de couches. </p>

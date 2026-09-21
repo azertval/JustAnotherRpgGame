@@ -93,7 +93,7 @@ $(function(){initNavTree('test__map__refactor_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Tests de « renommer et remplacer » (<span class="tt">LOT-EDITOR-14</span>) : sur une copie des données livrées, un renommage suit tout ce qui cite, et une carte change de planche sans être repeinte.  
+<p>Tests de « renommer et remplacer » (<span class="tt">LOT-EDITOR-14</span>) : sur une copie de la racine d'essai de l'éditeur, un renommage suit tout ce qui cite, et une carte change de planche sans être repeinte.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;cstdlib&gt;</code><br />
@@ -113,8 +113,8 @@ $(function(){initNavTree('test__map__refactor_8cpp.html','',''); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa40931a817b21f20b90dc760a56dbcc9" id="r_aa40931a817b21f20b90dc760a56dbcc9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa40931a817b21f20b90dc760a56dbcc9">TEST_F</a> (Donnees, RenommerMartpartLaisseLeControleVert)</td></tr>
-<tr class="memdesc:aa40931a817b21f20b90dc760a56dbcc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptation du <span class="tt">LOT-EDITOR-14</span> : renommer <span class="tt">capital/martpart</span> laisse le <span class="tt">--check</span> vert.  <br /></td></tr>
+<tr class="memitem:a454f19f33321e40fa454867719099b5d" id="r_a454f19f33321e40fa454867719099b5d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a454f19f33321e40fa454867719099b5d">TEST_F</a> (Donnees, RenommerUneCarteLaisseLeControleVert)</td></tr>
+<tr class="memdesc:a454f19f33321e40fa454867719099b5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptation du <span class="tt">LOT-EDITOR-14</span> : renommer <span class="tt">bourg/place</span> laisse le <span class="tt">--check</span> vert.  <br /></td></tr>
 <tr class="memitem:abd7753c0affe4dfbdf8f2b6306b1bb42" id="r_abd7753c0affe4dfbdf8f2b6306b1bb42"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abd7753c0affe4dfbdf8f2b6306b1bb42">TEST_F</a> (Donnees, UneCarteChangeDeDossierSonAnnexeLaSuit)</td></tr>
 <tr class="memdesc:abd7753c0affe4dfbdf8f2b6306b1bb42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte change de dossier, son annexe avec elle ; le dossier qu'elle quitte, vidé, ne reste pas.  <br /></td></tr>
 <tr class="memitem:aa9f4d38bf347431012a325ae34c97222" id="r_aa9f4d38bf347431012a325ae34c97222"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa9f4d38bf347431012a325ae34c97222">TEST_F</a> (Donnees, UnRenommageImpossibleNEcritRien)</td></tr>
@@ -127,46 +127,17 @@ Functions</h2></td></tr>
 <tr class="memdesc:acbcf47a0837726ab3eb7abc6186bdccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Qui cite ceci ?  <br /></td></tr>
 <tr class="memitem:a9f577f3e54a018552b02d29c05aa67d6" id="r_a9f577f3e54a018552b02d29c05aa67d6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9f577f3e54a018552b02d29c05aa67d6">TEST_F</a> (Donnees, RemplacerUnePieceSurToutesLesCartes)</td></tr>
 <tr class="memdesc:a9f577f3e54a018552b02d29c05aa67d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplacer une pièce sur toutes les cartes qui la posent, par le brouillon ; refusé pour une pièce absente de la planche ou d'une autre classe (<span class="tt">EX-EDIT-083</span>).  <br /></td></tr>
-<tr class="memitem:a91703784b5d0216f5c9e1cc269ee0af7" id="r_a91703784b5d0216f5c9e1cc269ee0af7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a91703784b5d0216f5c9e1cc269ee0af7">TEST_F</a> (Donnees, ArenareaChangeDePlancheSansEtreRepeinte)</td></tr>
-<tr class="memdesc:a91703784b5d0216f5c9e1cc269ee0af7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptation du <span class="tt">LOT-EDITOR-14</span>, sur une planche d'essai : Arenarea passe de la planche de Martpart à une planche à elle sans être repeinte.  <br /></td></tr>
+<tr class="memitem:a0689948f802b7fd3de5361294952fea9" id="r_a0689948f802b7fd3de5361294952fea9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0689948f802b7fd3de5361294952fea9">TEST_F</a> (Donnees, UneCarteChangeDePlancheSansEtreRepeinte)</td></tr>
+<tr class="memdesc:a0689948f802b7fd3de5361294952fea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptation du <span class="tt">LOT-EDITOR-14</span>, sur une planche d'essai : la Cave passe de la planche commune à une planche à elle sans être repeinte.  <br /></td></tr>
 <tr class="memitem:ae0c112ff2336e61904a23cfd2efcfdb5" id="r_ae0c112ff2336e61904a23cfd2efcfdb5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae0c112ff2336e61904a23cfd2efcfdb5">TEST_F</a> (Donnees, UneTableMalFormeeEstRefusee)</td></tr>
 <tr class="memdesc:ae0c112ff2336e61904a23cfd2efcfdb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une table de correspondance mal formée est refusée, et dit pourquoi.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests de « renommer et remplacer » (<span class="tt">LOT-EDITOR-14</span>) : sur une copie des données livrées, un renommage suit tout ce qui cite, et une carte change de planche sans être repeinte. </p>
+<div class="textblock"><p>Tests de « renommer et remplacer » (<span class="tt">LOT-EDITOR-14</span>) : sur une copie de la racine d'essai de l'éditeur, un renommage suit tout ce qui cite, et une carte change de planche sans être repeinte. </p>
+<p>C'était une copie des données <b>livrées</b> (<span class="tt">LOT-123</span>) : la table rase du <span class="tt">LOT-102</span> les emporte. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a91703784b5d0216f5c9e1cc269ee0af7" name="a91703784b5d0216f5c9e1cc269ee0af7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91703784b5d0216f5c9e1cc269ee0af7">&#9670;&#160;</a></span>TEST_F() <span class="overload">[1/9]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST_F </td>
-          <td>(</td>
-          <td class="paramtype">Donnees</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ArenareaChangeDePlancheSansEtreRepeinte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Acceptation du <span class="tt">LOT-EDITOR-14</span>, sur une planche d'essai : Arenarea passe de la planche de Martpart à une planche à elle sans être repeinte. </p>
-<p>Les pièces de même nom (ou d'un ancien nom) se retrouvent seules ; celle qui n'a pas de correspondant demande la table (<span class="tt">EX-EDIT-084</span>). <b>Cas de test :</b> <b>Arenarea change de planche sans être repeinte.</b><br  />
- <b>Categorie :</b> Unitaire · Renommer et remplacer<br  />
- <b>Criticite :</b> Critique<br  />
- <b>Etapes :</b><br  />
- 1. Installer une planche <span class="tt">arenarea</span>, copie de celle de Martpart où <span class="tt">street-2</span> devient <span class="tt">paving-2</span> et <span class="tt">street-3</span> devient <span class="tt">cobbles</span> (ancien nom <span class="tt">street-3</span>).<br  />
-2. Changer de planche sans table, puis avec la table <span class="tt">street-2 → paving-2</span>.<br  />
- <b>Resultat attendu :</b> Sans table : refus qui nomme <span class="tt">street-2</span>. Avec : la carte nomme <span class="tt">arenarea</span>, pose <span class="tt">paving-2</span> et <span class="tt">cobbles</span>, sa collision n'a pas bougé, la planche reçoit une table d'apparence traduite, et le contrôle reste sans erreur. </p>
-
-</div>
-</div>
 <a id="acbcf47a0837726ab3eb7abc6186bdccd" name="acbcf47a0837726ab3eb7abc6186bdccd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbcf47a0837726ab3eb7abc6186bdccd">&#9670;&#160;</a></span>TEST_F() <span class="overload">[2/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acbcf47a0837726ab3eb7abc6186bdccd">&#9670;&#160;</a></span>TEST_F() <span class="overload">[1/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -189,14 +160,14 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Renommer et remplacer<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Demander qui cite Martpart.<br  />
+ 1. Demander qui cite la Place.<br  />
 2. Demander qui pose <span class="tt">wall-corner</span>.<br  />
- <b>Resultat attendu :</b> Le portail d'Arenarea, le quartier et une porte gardée de la ville, la clé de chaque catalogue ; <span class="tt">wall-corner</span> sur les trois cartes livrées. Rien n'est écrit. </p>
+ <b>Resultat attendu :</b> Le portail de la Cave, le quartier et une porte gardée de la ville, la clé de chaque catalogue ; <span class="tt">wall-corner</span> sur les trois cartes. Rien n'est écrit. </p>
 
 </div>
 </div>
 <a id="a9f577f3e54a018552b02d29c05aa67d6" name="a9f577f3e54a018552b02d29c05aa67d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f577f3e54a018552b02d29c05aa67d6">&#9670;&#160;</a></span>TEST_F() <span class="overload">[3/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f577f3e54a018552b02d29c05aa67d6">&#9670;&#160;</a></span>TEST_F() <span class="overload">[2/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,8 +196,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa40931a817b21f20b90dc760a56dbcc9" name="aa40931a817b21f20b90dc760a56dbcc9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa40931a817b21f20b90dc760a56dbcc9">&#9670;&#160;</a></span>TEST_F() <span class="overload">[4/9]</span></h2>
+<a id="a454f19f33321e40fa454867719099b5d" name="a454f19f33321e40fa454867719099b5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a454f19f33321e40fa454867719099b5d">&#9670;&#160;</a></span>TEST_F() <span class="overload">[3/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,25 +210,25 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">RenommerMartpartLaisseLeControleVert</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">RenommerUneCarteLaisseLeControleVert</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Acceptation du <span class="tt">LOT-EDITOR-14</span> : renommer <span class="tt">capital/martpart</span> laisse le <span class="tt">--check</span> vert. </p>
-<p>Le portail d'Arenarea, les quartiers et portes gardées de la ville et la clé du nom suivent. <b>Cas de test :</b> <b>Renommer Martpart laisse le contrôle vert.</b><br  />
+<p>Acceptation du <span class="tt">LOT-EDITOR-14</span> : renommer <span class="tt">bourg/place</span> laisse le <span class="tt">--check</span> vert. </p>
+<p>Le portail de la Cave, le quartier et les portes gardées de la ville et la clé du nom suivent. <b>Cas de test :</b> <b>Renommer une carte laisse le contrôle vert.</b><br  />
  <b>Categorie :</b> Unitaire · Renommer et remplacer<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Copier les données livrées.<br  />
-2. Renommer <span class="tt">capital/martpart</span> en <span class="tt">capital/marche</span>.<br  />
+ 1. Copier la racine d'essai.<br  />
+2. Renommer <span class="tt">bourg/place</span> en <span class="tt">bourg/marche</span>.<br  />
 3. Contrôler toutes les cartes.<br  />
  <b>Resultat attendu :</b> Aucune erreur, autant d'avertissements qu'avant ; l'ancien fichier a disparu ; le portail, la ville et les deux catalogues citent le nouvel identifiant, le texte gardé. </p>
 
 </div>
 </div>
 <a id="a8bfbf37f5a67188a14224ccc8c0119ac" name="a8bfbf37f5a67188a14224ccc8c0119ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bfbf37f5a67188a14224ccc8c0119ac">&#9670;&#160;</a></span>TEST_F() <span class="overload">[5/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bfbf37f5a67188a14224ccc8c0119ac">&#9670;&#160;</a></span>TEST_F() <span class="overload">[4/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -280,14 +251,14 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Renommer et remplacer<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Renommer <span class="tt">e6</span> de Martpart en <span class="tt">e1</span>, <span class="tt">e999</span>, <span class="tt">a#b</span>.<br  />
+ 1. Renommer <span class="tt">e6</span> de la Place en <span class="tt">e1</span>, <span class="tt">e999</span>, <span class="tt">a#b</span>.<br  />
 2. Le renommer <span class="tt">depart-est</span>.<br  />
  <b>Resultat attendu :</b> Trois refus ; puis l'entité s'appelle <span class="tt">depart-est</span> et le contrôle reste sans erreur. </p>
 
 </div>
 </div>
 <a id="a20d05c9cdf76e92be5f6ada65546dcba" name="a20d05c9cdf76e92be5f6ada65546dcba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20d05c9cdf76e92be5f6ada65546dcba">&#9670;&#160;</a></span>TEST_F() <span class="overload">[6/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a20d05c9cdf76e92be5f6ada65546dcba">&#9670;&#160;</a></span>TEST_F() <span class="overload">[5/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -310,14 +281,14 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Renommer et remplacer<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Renommer le point <span class="tt">porte-est</span> de Martpart, départ de la Capitale.<br  />
-2. Renommer son point <span class="tt">arenarea</span>, où mène le portail d'Arenarea.<br  />
- <b>Resultat attendu :</b> La ville part de <span class="tt">porte-orientale</span> ; le portail d'Arenarea arrive à <span class="tt">vers-arenarea</span> ; le contrôle reste sans erreur. </p>
+ 1. Renommer le point <span class="tt">porte-est</span> de la Place, départ de la ville.<br  />
+2. Renommer son point <span class="tt">cave</span>, où mène le portail de la Cave.<br  />
+ <b>Resultat attendu :</b> La ville part de <span class="tt">porte-orientale</span> ; le portail de la Cave arrive à <span class="tt">vers-la-place</span> ; le contrôle reste sans erreur. </p>
 
 </div>
 </div>
 <a id="abd7753c0affe4dfbdf8f2b6306b1bb42" name="abd7753c0affe4dfbdf8f2b6306b1bb42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd7753c0affe4dfbdf8f2b6306b1bb42">&#9670;&#160;</a></span>TEST_F() <span class="overload">[7/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abd7753c0affe4dfbdf8f2b6306b1bb42">&#9670;&#160;</a></span>TEST_F() <span class="overload">[6/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -340,9 +311,39 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Renommer et remplacer<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Donner une note d'auteur au Colisée.<br  />
-2. Le renommer <span class="tt">arenes/coliseum</span>, puis de nouveau <span class="tt">coliseum</span>.<br  />
- <b>Resultat attendu :</b> La note est dans <span class="tt">arenes/coliseum.editor.json</span>, puis de retour ; le dossier <span class="tt">arenes</span> a disparu ; le contrôle reste sans erreur. </p>
+ 1. Donner une note d'auteur au Donjon.<br  />
+2. Le renommer <span class="tt">arenes/donjon</span>, puis de nouveau <span class="tt">donjon</span>.<br  />
+ <b>Resultat attendu :</b> La note est dans <span class="tt">arenes/donjon.editor.json</span>, puis de retour ; le dossier <span class="tt">arenes</span> a disparu ; le contrôle reste sans erreur. </p>
+
+</div>
+</div>
+<a id="a0689948f802b7fd3de5361294952fea9" name="a0689948f802b7fd3de5361294952fea9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0689948f802b7fd3de5361294952fea9">&#9670;&#160;</a></span>TEST_F() <span class="overload">[7/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">Donnees</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneCarteChangeDePlancheSansEtreRepeinte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Acceptation du <span class="tt">LOT-EDITOR-14</span>, sur une planche d'essai : la Cave passe de la planche commune à une planche à elle sans être repeinte. </p>
+<p>Les pièces de même nom (ou d'un ancien nom) se retrouvent seules ; celle qui n'a pas de correspondant demande la table (<span class="tt">EX-EDIT-084</span>). <b>Cas de test :</b> <b>Une carte change de planche sans être repeinte.</b><br  />
+ <b>Categorie :</b> Unitaire · Renommer et remplacer<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Installer une planche <span class="tt">caveau</span>, copie de la planche commune, où <span class="tt">street-2</span> devient <span class="tt">paving-2</span> et <span class="tt">street-3</span> devient <span class="tt">cobbles</span> (ancien nom <span class="tt">street-3</span>).<br  />
+2. Changer de planche sans table, puis avec la table <span class="tt">street-2 → paving-2</span>.<br  />
+ <b>Resultat attendu :</b> Sans table : refus qui nomme <span class="tt">street-2</span>. Avec : la carte nomme <span class="tt">caveau</span>, pose <span class="tt">paving-2</span> et <span class="tt">cobbles</span>, sa collision n'a pas bougé, la planche reçoit une table d'apparence traduite, et le contrôle reste sans erreur. </p>
 
 </div>
 </div>
@@ -399,8 +400,8 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Renommer et remplacer<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Renommer Martpart en Arenarea, puis en <span class="tt">a:b</span>.<br  />
-2. Ajouter une carte illisible et renommer Martpart.<br  />
+ 1. Renommer la Place en Cave, puis en <span class="tt">a:b</span>.<br  />
+2. Ajouter une carte illisible et renommer la Place.<br  />
  <b>Resultat attendu :</b> Trois refus, chacun sans rien à écrire ; le dernier nomme la carte illisible. </p>
 
 </div>

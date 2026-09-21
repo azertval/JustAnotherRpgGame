@@ -10163,6 +10163,7 @@ Variables</h2></td></tr>
 
 <p>Choisit la racine des données. </p>
 <p>Dans l'ordre : la valeur de <span class="tt">--data</span>, si la ligne de commande en donne une ; sinon <code class="param">sourceData</code>, le <span class="tt">Source/Elements</span> de l'arbre qui a construit l'éditeur, s'il existe sur ce poste ; sinon <code class="param">executableDirectory</code>, où la construction recopie les données.</p>
+<p>Ce qui fait reconnaître l'arbre des sources, c'est la <b>présence</b> de son dossier <span class="tt">Levels/</span>, pas son contenu : un dossier <b>sans aucune carte</b> est un arbre des sources légitime (<span class="tt">LOT-123</span>, table rase du <span class="tt">LOT-102</span>). Git ne gardant pas un dossier vide, c'est <span class="tt">Levels/README.md</span> qui le tient dans le dépôt — le retirer ferait retomber la fenêtre sur la copie de la construction, en silence.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">arguments</td><td>Les arguments de la ligne de commande, sans le programme. </td></tr>

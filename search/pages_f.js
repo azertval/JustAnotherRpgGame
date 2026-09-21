@@ -429,7 +429,7 @@ var searchData=
   ['expérience_20et_20progression_426',['&lt;span class=&quot;tt&quot;&gt;LOT-74&lt;/span&gt; — Expérience et progression',['../roadmap.html#lot-74',1,'']]],
   ['explique_427',['Personne n&apos;y meurt, et c&apos;est la fiction qui l&apos;explique',['../lot-50.html#autotoc_md589',1,'']]],
   ['exploration_428',['Exploration',['../spec-exploration.html',1,'specifications']]],
-  ['exploration_20—_20test_5fexploration_5fcarte_5flivree_20cpp_202_429',['Exploration — &lt;span class=&quot;tt&quot;&gt;test_exploration_carte_livree.cpp&lt;/span&gt; (2)',['../cahiertest.html#autotoc_md29',1,'']]],
+  ['exploration_20—_20test_5fexploration_5fcarte_20cpp_202_429',['Exploration — &lt;span class=&quot;tt&quot;&gt;test_exploration_carte.cpp&lt;/span&gt; (2)',['../cahiertest.html#autotoc_md29',1,'']]],
   ['exploration_20↔_20combat_430',['LOT-18 — Bascule exploration ↔ combat',['../lot-18.html',1,'lots']]],
   ['exploration_20dans_20le_20jeu_20et_20première_20carte_431',['LOT-09 — Le Colisée se parcourt : exploration dans le jeu et première carte',['../lot-09.html',1,'lots']]],
   ['expressions_20matérielles_432',['Panthéon et expressions matérielles',['../md_Lot_2LOT-CREATION-ASSETS_2preparation-regionale.html#autotoc_md788',1,'']]],

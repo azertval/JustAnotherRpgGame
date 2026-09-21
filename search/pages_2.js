@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['2_0',['2',['../cahiertest.html#autotoc_md29',1,'Exploration — &lt;span class=&quot;tt&quot;&gt;test_exploration_carte_livree.cpp&lt;/span&gt; (2)'],['../cahiertest.html#autotoc_md28',1,'Tests d&apos;intégration (2)']]],
+  ['2_0',['2',['../cahiertest.html#autotoc_md29',1,'Exploration — &lt;span class=&quot;tt&quot;&gt;test_exploration_carte.cpp&lt;/span&gt; (2)'],['../cahiertest.html#autotoc_md28',1,'Tests d&apos;intégration (2)']]],
   ['2_20échanger_1',['2. Échanger',['../spec-inventaire.html#autotoc_md274',1,'']]],
   ['2_20éditeur_2',['2. Éditeur',['../spec-interface-ihm.html#autotoc_md259',1,'']]],
   ['2_20états_20de_20jeu_3',['2. États de jeu',['../spec-gameplay.html#autotoc_md256',1,'']]],

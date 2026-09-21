@@ -502,7 +502,7 @@ var searchData=
   ['couverture_499',['Réemploi, histoire et contrôle de couverture',['../md_Lot_2LOT-CREATION-ASSETS_2preparation-regionale.html#autotoc_md789',1,'']]],
   ['cpp_500',['cpp',['../spec-conventions.html#autotoc_md215',1,'Documentation du corps (.cpp)'],['../spec-conventions.html#autotoc_md214',1,'Doxygen dans le header, commentaires simples // dans le .cpp']]],
   ['cpp_201_501',['Éditeur de niveaux — &lt;span class=&quot;tt&quot;&gt;test_parcours_edition_rpg.cpp&lt;/span&gt; (1)',['../cahiertest.html#autotoc_md31',1,'']]],
-  ['cpp_202_502',['Exploration — &lt;span class=&quot;tt&quot;&gt;test_exploration_carte_livree.cpp&lt;/span&gt; (2)',['../cahiertest.html#autotoc_md29',1,'']]],
+  ['cpp_202_502',['Exploration — &lt;span class=&quot;tt&quot;&gt;test_exploration_carte.cpp&lt;/span&gt; (2)',['../cahiertest.html#autotoc_md29',1,'']]],
   ['créature_503',['La méthode, pour une créature',['../lot-93.html#autotoc_md752',1,'']]],
   ['créature_20coûte_20double_504',['Relevé en chemin : la case d&apos;une créature coûte double',['../lot-20.html#autotoc_md464',1,'']]],
   ['créatures_505',['&lt;span class=&quot;tt&quot;&gt;LOT-41&lt;/span&gt; — Peuplement : rencontres et créatures',['../roadmap.html#lot-41',1,'']]],

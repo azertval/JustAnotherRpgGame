@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Integration/test_exploration_carte_livree.cpp File Reference</title>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Integration/test_exploration_carte.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('test__exploration__carte__livree_8cpp.html','',''); });
+$(function(){initNavTree('test__exploration__carte_8cpp.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -89,11 +89,11 @@ $(function(){initNavTree('test__exploration__carte__livree_8cpp.html','',''); })
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">test_exploration_carte_livree.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">test_exploration_carte.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Test d'intégration : d'un fichier de carte livré jusqu'à l'instantané que le rendu du lieu dessine — la chaîne que le jeu et l'essai immédiat de l'éditeur partagent (<span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html">hmi::WorldPlay</a></span>), sans GPU.  
+<p>Test d'intégration : d'un fichier de carte jusqu'à l'instantané que le rendu du lieu dessine — la chaîne que le jeu et l'essai immédiat de l'éditeur partagent (<span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html">hmi::WorldPlay</a></span>), sans GPU.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
@@ -106,16 +106,17 @@ $(function(){initNavTree('test__exploration__carte__livree_8cpp.html','',''); })
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a44382b6483fdc50f7876d1a2fcf0c18d" id="r_a44382b6483fdc50f7876d1a2fcf0c18d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a44382b6483fdc50f7876d1a2fcf0c18d">TEST</a> (ExplorationCarteLivreeIntegration, LeColiseeSeChargeEtSeCompose)</td></tr>
-<tr class="memdesc:a44382b6483fdc50f7876d1a2fcf0c18d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le Colisée livré s'ouvre, nomme son lieu et se compose avec ses planches.  <br /></td></tr>
-<tr class="memitem:a5e889b04577ec2b713add03dbd0d9ad5" id="r_a5e889b04577ec2b713add03dbd0d9ad5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5e889b04577ec2b713add03dbd0d9ad5">TEST</a> (ExplorationCarteLivreeIntegration, LeHerosMarcheSurMartpart)</td></tr>
-<tr class="memdesc:a5e889b04577ec2b713add03dbd0d9ad5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros marche : un pas d'intention le déplace, et sa bande passe à la marche.  <br /></td></tr>
+<tr class="memitem:aa728c995df04c4d9254b4426232cec8d" id="r_aa728c995df04c4d9254b4426232cec8d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa728c995df04c4d9254b4426232cec8d">TEST</a> (ExplorationCarteIntegration, UneCarteSeChargeEtSeCompose)</td></tr>
+<tr class="memdesc:aa728c995df04c4d9254b4426232cec8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte du disque s'ouvre, nomme son lieu et se compose avec ses planches.  <br /></td></tr>
+<tr class="memitem:aadaa0b0edb31c0cd8af18f708a89e605" id="r_aadaa0b0edb31c0cd8af18f708a89e605"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aadaa0b0edb31c0cd8af18f708a89e605">TEST</a> (ExplorationCarteIntegration, LeHerosMarcheSurUneCarte)</td></tr>
+<tr class="memdesc:aadaa0b0edb31c0cd8af18f708a89e605"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros marche : un pas d'intention le déplace, et sa bande passe à la marche.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Test d'intégration : d'un fichier de carte livré jusqu'à l'instantané que le rendu du lieu dessine — la chaîne que le jeu et l'essai immédiat de l'éditeur partagent (<span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html">hmi::WorldPlay</a></span>), sans GPU. </p>
+<div class="textblock"><p>Test d'intégration : d'un fichier de carte jusqu'à l'instantané que le rendu du lieu dessine — la chaîne que le jeu et l'essai immédiat de l'éditeur partagent (<span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html">hmi::WorldPlay</a></span>), sans GPU. </p>
+<p>Les cartes sont celles de la racine d'essai de l'éditeur (<span class="tt">Source/Test/Fixtures/EditorData</span>). Jusqu'au <span class="tt">LOT-123</span> c'étaient les cartes <b>livrées</b> : la table rase du <span class="tt">LOT-102</span> les emporte, et ce test serait tombé avec elles. Ce qu'il éprouve ne change pas — une carte sur disque, son lieu, ses planches, et le héros qui y marche. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a44382b6483fdc50f7876d1a2fcf0c18d" name="a44382b6483fdc50f7876d1a2fcf0c18d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44382b6483fdc50f7876d1a2fcf0c18d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
+<a id="aadaa0b0edb31c0cd8af18f708a89e605" name="aadaa0b0edb31c0cd8af18f708a89e605"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadaa0b0edb31c0cd8af18f708a89e605">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -123,54 +124,54 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">TEST </td>
           <td>(</td>
-          <td class="paramtype">ExplorationCarteLivreeIntegration</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype">ExplorationCarteIntegration</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">LeColiseeSeChargeEtSeCompose</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Le Colisée livré s'ouvre, nomme son lieu et se compose avec ses planches. </p>
-<p><b>Cas de test :</b> <b>La premiere carte du jeu se charge et se compose.</b><br  />
- <b>Categorie :</b> Integration · Exploration<br  />
- <b>Criticite :</b> Critique<br  />
- <b>Etapes :</b><br  />
- 1. Entrer sur la carte livree du Colisee a son entree.<br  />
-2. Prendre l'instantane de la scene.<br  />
- <b>Resultat attendu :</b> Le lieu est nomme, la grille a les dimensions de la carte, des pieces de sol sont dessinees et le heros figure parmi les figurines. </p>
-
-</div>
-</div>
-<a id="a5e889b04577ec2b713add03dbd0d9ad5" name="a5e889b04577ec2b713add03dbd0d9ad5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e889b04577ec2b713add03dbd0d9ad5">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">ExplorationCarteLivreeIntegration</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">LeHerosMarcheSurMartpart</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">LeHerosMarcheSurUneCarte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Le héros marche : un pas d'intention le déplace, et sa bande passe à la marche. </p>
-<p><b>Cas de test :</b> <b>Marcher sur une carte livree deplace le heros et change sa bande.</b><br  />
+<p><b>Cas de test :</b> <b>Marcher sur une carte deplace le heros et change sa bande.</b><br  />
  <b>Categorie :</b> Integration · Exploration<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Entrer sur Martpart.<br  />
+ 1. Entrer sur <span class="tt">bourg/place</span>.<br  />
 2. Avancer d'une seconde, par pas de 1/60 s, dans une direction libre.<br  />
  <b>Resultat attendu :</b> Le heros a quitte son point d'arrivee et sa figurine joue la bande « walk ». </p>
+
+</div>
+</div>
+<a id="aa728c995df04c4d9254b4426232cec8d" name="aa728c995df04c4d9254b4426232cec8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa728c995df04c4d9254b4426232cec8d">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ExplorationCarteIntegration</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneCarteSeChargeEtSeCompose</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une carte du disque s'ouvre, nomme son lieu et se compose avec ses planches. </p>
+<p><b>Cas de test :</b> <b>Une carte du disque se charge et se compose.</b><br  />
+ <b>Categorie :</b> Integration · Exploration<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Entrer sur la carte <span class="tt">donjon</span> a son point d'arrivee.<br  />
+2. Prendre l'instantane de la scene.<br  />
+ <b>Resultat attendu :</b> Le lieu est nomme, la grille a les dimensions de la carte, des pieces de sol sont dessinees et le heros figure parmi les figurines. </p>
 
 </div>
 </div>
@@ -187,7 +188,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_470d866d2aee15f42c1af4c2491482fa.html">Integration</a></li><li class="navelem"><a href="test__exploration__carte__livree_8cpp.html">test_exploration_carte_livree.cpp</a></li>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_470d866d2aee15f42c1af4c2491482fa.html">Integration</a></li><li class="navelem"><a href="test__exploration__carte_8cpp.html">test_exploration_carte.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

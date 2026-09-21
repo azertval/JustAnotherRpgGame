@@ -672,15 +672,18 @@ struct MapCommandLine {
     for (const LibraryFinding&amp; finding : library) {</span>
 <span style = "background-color:#fdd">        output += finding.file.string() + ": error: " + finding.message + "\n";
     }</span>
+    // LOT-123 : une base SANS AUCUNE CARTE n'est pas une erreur. La table rase (LOT-102) vide
+    // `Levels/`, et l'etape CI du controle doit rester verte ce jour-la : l'absence de carte se
+    // DIT -- ou le controle a cherche, et Â« 0 map Â» --, elle ne fait plus echouer. Ce qui garde
+    // contre un dossier mal designe, c'est `--data`, qui nomme la racine.
+<span style = "background-color:#dfd">    if (report.maps == 0) {
+        output += "no map under " + levelsOf(dataRoot).string() + "\n";</span>
+    }
 <span style = "background-color:#dfd">    output += "checked " + std::to_string(report.maps) +</span>
               " maps: " + std::to_string(report.count(MapCheckSeverity::Error)) + " errors, " +
               std::to_string(report.count(MapCheckSeverity::Warning)) + " warnings\n";
 <span style = "background-color:#dfd">    if (!library.empty()) {</span>
 <span style = "background-color:#fdd">        output += std::to_string(library.size()) + " unreadable editor library files\n";
-        return 1;</span>
-    }
-<span style = "background-color:#dfd">    if (report.maps == 0) {</span>
-<span style = "background-color:#fdd">        output += "error: no map under " + levelsOf(dataRoot).string() + "\n";
         return 1;</span>
     }
 <span style = "background-color:#dfd">    return report.ok() ? 0 : 1;
