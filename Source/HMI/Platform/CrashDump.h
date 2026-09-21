@@ -55,7 +55,8 @@ inline constexpr std::size_t kMiniDumpAttemptCount = 4;
  * l'appelant attend. Si le dump riche (mémoire référencée par les piles) échoue, des dumps réduits
  * sont tentés, qui gardent piles et contexte (sans l'état étendu du processeur) ; la dernière
  * tentative n'écrit plus que le thread du plantage, une pile illisible d'un autre thread faisant
- * échouer tout le dump. Si toutes échouent, `GetLastError()` en donne la raison.
+ * échouer tout le dump, et elle est réessayée : l'échec observé en CI est un aléa, pas un refus
+ * stable. Si toutes échouent, `GetLastError()` en donne la raison.
  *
  * @param path      Chemin du fichier `.dmp` à écrire (écrasé s'il existe).
  * @param exception Contexte de l'exception à consigner, ou `nullptr`.

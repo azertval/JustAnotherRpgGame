@@ -23,9 +23,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   l'éviter : la documentation de `MINIDUMP_CALLBACK_TYPE` dit qu'un échec de lecture *dans une pile*
   est tenu pour irrécupérable et n'appelle aucun rappel. `writeMiniDump` tente donc, en dernier
   recours, un dump restreint au seul thread du plantage : les piles des autres threads ne sont plus
-  lues, donc plus une cause d'échec. Le relevé des erreurs de chaque tentative
+  lues, donc plus une cause d'échec. Cette dernière tentative est de plus réessayée : sur les
+  runners, la même version donne une exécution verte et une rouge, l'échec tenant à un état que
+  `dbghelp` lit au mauvais moment. Le relevé des erreurs de chaque tentative
   (`hmi::lastMiniDumpAttemptErrors`) est affiché par le test, pour qu'une prochaine panne se lise
-  dans le journal de la CI.
+  dans le journal de la CI — il a déjà servi : `ERROR_INVALID_USER_BUFFER` sous OpenCppCoverage,
+  là où `ctest` passait.
 
 - **Le standard 2D HD devient normatif (LOT-101).** Le style qui remplace le pixel art est chiffré
   et éprouvé : une maquette de huit cases sur huit d'Arenarea, montée par `scripts/build_hd_mockup.py`

@@ -29,6 +29,9 @@ struct CrashDumpSettings {
     std::string version;
 };
 
+/// Pause entre deux essais de la tentative de dernier recours (writeDumpJob), en millisecondes.
+constexpr DWORD kMiniDumpRetryPauseMs = 50;
+
 CrashDumpSettings& settings() {
     static CrashDumpSettings instance;
     return instance;
@@ -174,23 +177,39 @@ DWORD WINAPI writeDumpJob(LPVOID parameter) {
     // se termine pendant la lecture) fait échouer tout le dump, sans rappel possible, et c'est
     // l'échec observé en CI. La pile fautive suffit à lire le plantage ; celles des autres threads
     // sont ce qu'on abandonne en dernier recours.
+    //
+    // La dernière est réessayée : sur les runners, la même version échoue une fois sur deux, et
+    // toujours sur un état que dbghelp lit au mauvais moment (pile libérée, thread en transition).
+    // Quelques dizaines de millisecondes plus tard, l'état a changé. Seule la dernière tentative,
+    // la plus étroite, est reprise : un plantage ne doit pas attendre douze écritures.
     struct Attempt {
         MINIDUMP_TYPE type;
         EXCEPTION_POINTERS* pointers;
         BOOL clientPointers;
         DWORD onlyThread;
+        int tries;
     };
     const std::array<Attempt, kMiniDumpAttemptCount> attempts = {{
-        {.type = rich, .pointers = job->original, .clientPointers = FALSE, .onlyThread = 0},
+        {.type = rich,
+         .pointers = job->original,
+         .clientPointers = FALSE,
+         .onlyThread = 0,
+         .tries = 1},
         {.type = reduced,
          .pointers = job->original != nullptr ? &job->pointersCopy : nullptr,
          .clientPointers = FALSE,
-         .onlyThread = 0},
-        {.type = reduced, .pointers = job->original, .clientPointers = TRUE, .onlyThread = 0},
+         .onlyThread = 0,
+         .tries = 1},
+        {.type = reduced,
+         .pointers = job->original,
+         .clientPointers = TRUE,
+         .onlyThread = 0,
+         .tries = 1},
         {.type = reduced,
          .pointers = job->original != nullptr ? &job->pointersCopy : nullptr,
          .clientPointers = FALSE,
-         .onlyThread = job->threadId},
+         .onlyThread = job->threadId,
+         .tries = 3},
     }};
     MINIDUMP_CALLBACK_INFORMATION callback{};
     callback.CallbackRoutine = &skipUnreadableMemory;
@@ -198,22 +217,27 @@ DWORD WINAPI writeDumpJob(LPVOID parameter) {
     std::size_t index = 0;
     for (const Attempt& attempt : attempts) {
         job->onlyThread = attempt.onlyThread;
-        LARGE_INTEGER start{};
-        SetFilePointerEx(job->file, start, nullptr, FILE_BEGIN);
-        SetEndOfFile(job->file);
-        MINIDUMP_EXCEPTION_INFORMATION information{};
-        information.ThreadId = job->threadId;
-        information.ExceptionPointers = attempt.pointers;
-        information.ClientPointers = attempt.clientPointers;
-        job->written = MiniDumpWriteDump(
-            GetCurrentProcess(), GetCurrentProcessId(), job->file, attempt.type,
-            attempt.pointers != nullptr ? &information : nullptr, nullptr, &callback);
-        if (job->written != FALSE) {
-            job->error = ERROR_SUCCESS;
-            return 0;
+        for (int attemptTry = 0; attemptTry < attempt.tries; ++attemptTry) {
+            if (attemptTry > 0) {
+                Sleep(kMiniDumpRetryPauseMs);
+            }
+            LARGE_INTEGER start{};
+            SetFilePointerEx(job->file, start, nullptr, FILE_BEGIN);
+            SetEndOfFile(job->file);
+            MINIDUMP_EXCEPTION_INFORMATION information{};
+            information.ThreadId = job->threadId;
+            information.ExceptionPointers = attempt.pointers;
+            information.ClientPointers = attempt.clientPointers;
+            job->written = MiniDumpWriteDump(
+                GetCurrentProcess(), GetCurrentProcessId(), job->file, attempt.type,
+                attempt.pointers != nullptr ? &information : nullptr, nullptr, &callback);
+            if (job->written != FALSE) {
+                job->error = ERROR_SUCCESS;
+                return 0;
+            }
+            job->error = GetLastError();
+            job->errors.at(index) = job->error;
         }
-        job->error = GetLastError();
-        job->errors.at(index) = job->error;
         ++index;
     }
     return 0;
