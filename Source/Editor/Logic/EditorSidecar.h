@@ -29,6 +29,36 @@
 
 namespace hmi {
 
+/**
+ * @brief Où en est une carte (`LOT-EDITOR-09`, `EX-EDIT-092`) : ce que le navigateur montre, et le
+ *        tableau de bord du monde le jour où il y aura cent cartes.
+ *
+ * L'état est une note d'auteur, pas une donnée de jeu : il vit dans l'annexe, jamais dans la carte.
+ */
+enum class MapState {
+    /// Rien n'est dit : une carte qu'on vient de créer.
+    Unset,
+    /// Sortie du générateur, ou posée par un modèle : personne ne l'a encore regardée.
+    Generated,
+    /// Retouchée à la main, mais pas terminée.
+    Retouched,
+    /// Finie : elle se joue telle quelle.
+    Finished,
+};
+
+/// @return Le mot que l'annexe écrit pour @p state (`generated`) ; vide pour `Unset`.
+[[nodiscard]] std::string_view mapStateKey(MapState state) noexcept;
+
+/// @return L'état que nomme @p key ; `MapState::Unset` pour un mot inconnu.
+[[nodiscard]] MapState mapStateFromKey(std::string_view key) noexcept;
+
+/// @return Le libellé anglais de @p state, tel que la fenêtre l'affiche (`Generated`) ;
+///         `not stated` pour `Unset`.
+[[nodiscard]] std::string_view mapStateLabel(MapState state) noexcept;
+
+/// Les états, dans l'ordre d'avancement : ce que les menus et les filtres listent.
+[[nodiscard]] const std::vector<MapState>& knownMapStates();
+
 /// @brief Une note d'auteur, épinglée à une case.
 struct AuthorNote {
     core::GridPosition cell;
@@ -44,6 +74,8 @@ struct EditorSidecar {
 
     /// Les notes, une au plus par case, triées ligne par ligne.
     std::vector<AuthorNote> notes;
+    /// Où en est la carte (`LOT-EDITOR-09`) : `MapState::Unset` tant que l'auteur ne l'a pas dit.
+    MapState state = MapState::Unset;
     /// Les clés que ce lecteur ne connaît pas, gardées pour la réécriture.
     nlohmann::json unknown = nlohmann::json::object();
 
@@ -51,7 +83,7 @@ struct EditorSidecar {
 
     /// @return Vrai si l'annexe n'a rien à garder : son fichier n'a pas lieu d'être.
     [[nodiscard]] bool empty() const noexcept {
-        return notes.empty() && unknown.empty();
+        return notes.empty() && unknown.empty() && state == MapState::Unset;
     }
 };
 

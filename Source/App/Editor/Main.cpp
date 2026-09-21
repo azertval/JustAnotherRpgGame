@@ -17,6 +17,9 @@
  * préfabriqués (`LOT-EDITOR-08`) s'exécutent **sans fenêtre**
  * et rendent la main aussitôt : ni `QApplication` ni affichage, ce qui les fait tourner en CI
  * (`hmi::runMapCommand`, `hmi::runRenderCommand`).
+ *
+ * `--link-maps <carte> <carte>` relie deux cartes des deux côtés (`LOT-EDITOR-09`), par le plan
+ * même que le geste du graphe du monde.
  */
 
 #include <QApplication>
@@ -37,7 +40,6 @@
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/MapRefactor.h"
 #include "Editor/Logic/Stamps.h"
-#include "Editor/Ui/EditorViewport.h"
 #include "Editor/Ui/MainWindow.h"
 #include "Editor/Ui/MapRender.h"
 #include "HMI/HmiLog.h"
@@ -99,12 +101,9 @@ int main(int argc, char** argv) {
 
     hmi::MainWindow window(crashAfterAutosave);
     const auto map = app::commandLineOption(argc, argv, "--map=");
-    if (map) {
-        auto* viewport = window.findChild<hmi::EditorViewport*>();
-        if (viewport == nullptr || !viewport->openLevel(hmi::editorDataRoot() / "Levels" /
-                                                        (std::string{*map} + ".json"))) {
-            return 2;
-        }
+    if (map &&
+        !window.openMap(hmi::editorDataRoot() / "Levels" / (std::string{*map} + ".json"), true)) {
+        return 2;
     }
     const auto screenshot = app::commandLineOption(argc, argv, "--screenshot=");
     if (screenshot) {

@@ -197,13 +197,14 @@ sont des noms, pas un ordre : l'ordre vient des prérequis.
 | `LOT-EDITOR-07` | Contrôle du contenu — **livré** | 06 | M |
 | `LOT-EDITOR-14` | Renommer et remplacer — **livré** | 06 | M |
 | `LOT-EDITOR-08` | Tampons et préfabriqués (livré) | 04 | S |
-| `LOT-EDITOR-09` | Le monde : onglets, portails, ville | 05, 13 | M |
+| `LOT-EDITOR-09` | Le monde : onglets, portails, ville — **livré** | 05, 13 | M |
 | `LOT-EDITOR-10` | Essai complet dans le jeu | 01 | S |
 | `LOT-EDITOR-11` | Génération assistée | 07 et [LOT-40](@ref lot-40) | M |
 
 Tailles relatives : S tient en une séance, M en quelques-unes, L demande un découpage en phases.
 
-Le jalon est atteint : 01, 02, 12, 03, 04, 05, 13 et 06 sont livrés, et 07, 14 et 08 après lui. Le graphe est donné en source
+Le jalon est atteint : 01, 02, 12, 03, 04, 05, 13 et 06 sont livrés, et 07, 14, 08 et 09 après
+lui. Le graphe est donné en source
 Graphviz, comme celui du jeu (la chaîne Doxygen tourne sans `HAVE_DOT`).
 
 ```dot
@@ -221,7 +222,7 @@ digraph editeur {
   E07 [label="07\ncontrôles\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E14 [label="14\nrenommer, remplacer\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E08 [label="08\ntampons\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
-  E09 [label="09\nmonde"];
+  E09 [label="09\nmonde\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E10 [label="10\nessai complet"];
   E11 [label="11\ngénération"];
   L40 [label="LOT-40\n(jeu)", style="rounded,dashed"];
@@ -377,21 +378,17 @@ propre contenu, et que `--list-prefabs` et `--save-prefab` servent sans fenêtre
 Une carte neuve part d'un modèle — intérieur, rue, arène —, qui donne ses couches, sa taille et son
 entrée sans nommer aucune pièce (`EX-EDIT-087`).
 
-### LOT-EDITOR-09 — Le monde : onglets, portails, ville {#lot-editor-09}
+### LOT-EDITOR-09 — Le monde : onglets, portails, ville
 
-> Statut : **à faire**. Prérequis : 05, 13.
+> Statut : **livré le 21 septembre 2026**. Le lot a quitté cette page pour son dossier :
+> @subpage lot-editor-09.
 
-Plusieurs cartes sont ouvertes en onglets ; le graphe des portails devient éditable ; la ville se
-voit par quartiers.
-
-- Tirer un lien entre deux cartes du graphe crée la paire portail / point d'arrivée des deux côtés.
-- Vue de ville : les cadres de `world-maps.json` et les îlots ; ouvrir le quartier d'un clic.
-- Propriétés de carte : lieu, région, ambiance.
-- Navigateur à vignettes (rendu du 13), recherche, et **état de chaque carte** (générée,
-  retouchée, finie) dans le fichier annexe : à cent cartes, c'est le tableau de bord du monde.
-
-*Acceptation* — relier Martpart au repaire depuis le graphe produit deux cartes valides qu'on
-traverse en essai, dans les deux sens.
+Plusieurs cartes sont ouvertes en onglets, chacune avec son brouillon, son historique et sa
+sauvegarde automatique (`EX-EDIT-088`) ; tirer un lien entre deux cartes du graphe pose la paire
+portail / point d'arrivée **des deux côtés** (`EX-EDIT-089`) ; la ville se voit par quartiers sur
+son plan (`EX-EDIT-090`). Une carte porte sa région et son ambiance (`EX-EDIT-091`), et son annexe
+dit où elle en est — générée, retouchée, finie —, que le navigateur montre, filtre et illustre
+d'une vignette (`EX-EDIT-092`).
 
 ### LOT-EDITOR-10 — Essai complet dans le jeu {#lot-editor-10}
 

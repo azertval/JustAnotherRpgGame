@@ -79,7 +79,8 @@ L'inspecteur propose les valeurs que les catalogues connaissent ; ses avertissem
 manque, et une zone de combat donne son verdict tactique pendant qu'on la tire. Une entité reçoit
 un identifiant (`e12`) qu'elle garde : les quêtes la citeront par `carte#e12`.
 
-Pour relier deux cartes, poser les deux paires : un portail et un point d'arrivée de chaque côté.
+Pour relier deux cartes, le plus court est le **graphe du monde** (ci-dessous) : il pose les deux
+paires d'un geste. À la main, poser un portail et un point d'arrivée de chaque côté.
 
 ## 6. Essayer
 
@@ -160,6 +161,31 @@ Tout ce qui récrit d'autres fichiers demande d'abord d'enregistrer la carte ouv
 sans fenêtre : `--rename-map`, `--rename-arrival`, `--rename-id`, `--who-cites`,
 `--replace-piece`, `--change-scene` (voir `Source/Editor/README.md`).
 
+## Plusieurs cartes à la fois, et le monde autour (`LOT-EDITOR-09`)
+
+- **Les cartes s'ouvrent en onglets.** Chacune garde son brouillon, son historique, son cadrage et
+  sa sauvegarde automatique ; l'onglet porte le nom court de la carte, suivi d'une étoile tant
+  qu'elle est modifiée. Ouvrir une carte déjà ouverte revient à son onglet. *File* › *Close tab*
+  (`Ctrl+W`) ferme celui du dessus — le dernier reste, et fermer un onglet modifié demande d'abord
+  quoi faire de son brouillon.
+- **Relier deux cartes d'un geste.** Panneau *Maps*, onglet **Graph** : tirer d'une carte à une
+  autre. L'éditeur montre ce qu'il va écrire — sur chacune, le portail qui mène à l'autre et le
+  point d'arrivée que l'autre cite (`from-martpart`) —, puis l'écrit. La paire se pose au plus
+  près de l'entrée, sur des cases libres et atteignables : `P` traverse aussitôt, dans les deux
+  sens, et l'outil **Entité** déplace ensuite la porte où on la veut. Sans fenêtre :
+  `LevelEditor --link-maps capital/martpart coliseum`.
+- **Voir une ville par quartiers.** Onglet **City** : le plan peint de la ville, les cadres de ses
+  quartiers, leur nom ; un quartier tireté n'a pas (encore) sa carte, ou n'est qu'une porte
+  gardée. Double-cliquer un quartier ouvre sa carte dans son onglet.
+- **Dire ce qu'est une carte.** *Map* › **Map properties…** montre son lieu (la planche ; en
+  changer, c'est *Change sheet…*), et édite sa **région**, son **ambiance** — deux propriétés de
+  la carte, enregistrées avec elle, que le jeu lira — et son **état** : générée, retouchée, finie.
+  L'état est une note d'auteur : il va dans l'annexe `<carte>.editor.json`.
+- **Voir où en est le monde.** Dans la liste des cartes, l'état paraît à côté du nom, le menu
+  déroulant filtre par état, et **Thumbnails** montre chaque carte en vignette — le même rendu que
+  `--render`.
+
 ## Ce qui ne se fait pas encore dans l'éditeur
 
-- Relier deux cartes depuis le graphe du monde : `LOT-EDITOR-09`.
+- Jouer la carte dans le vrai jeu, dialogues et combats compris : `LOT-EDITOR-10`.
+- Générer une carte et la régénérer sans perdre les retouches : `LOT-EDITOR-11`.

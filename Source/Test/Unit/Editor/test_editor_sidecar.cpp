@@ -160,3 +160,34 @@ TEST(EditorSidecarTest, LAnnexeTolereEtGardeCeQuElleNeConnaitPas) {
     EXPECT_TRUE(absente.warning.empty());
     EXPECT_TRUE(absente.sidecar.empty());
 }
+
+/**
+ * @brief L'état d'une carte (`LOT-EDITOR-09`) vit dans l'annexe : écrit, relu, et absent tant que
+ *        l'auteur n'a rien dit.
+ * \castest{<b>L'annexe garde où en est la carte.</b><br/>
+ * \tcat Unitaire · Le monde<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Écrire une annexe sans état, puis avec « finished ».<br/>2. Relire une annexe dont
+ * l'état est un mot inconnu.<br/>
+ * \tattendu Sans état, l'annexe est vide et son texte ne porte pas la clé ; avec, elle se relit
+ * telle quelle ; un mot inconnu vaut « rien dit ».
+ * }
+ */
+TEST(EditorSidecarTest, LAnnexeGardeOuEnEstLaCarte) {
+    hmi::EditorSidecar annexe;
+    EXPECT_TRUE(annexe.empty());
+    EXPECT_EQ(hmi::sidecarJson(annexe).find("\"state\""), std::string::npos);
+
+    annexe.state = hmi::MapState::Finished;
+    EXPECT_FALSE(annexe.empty());
+    const hmi::SidecarReadResult relue = hmi::parseSidecar(hmi::sidecarJson(annexe));
+    EXPECT_TRUE(relue.warning.empty());
+    EXPECT_EQ(relue.sidecar.state, hmi::MapState::Finished);
+
+    EXPECT_EQ(hmi::parseSidecar(R"({"state": "polished", "version": 1})").sidecar.state,
+              hmi::MapState::Unset);
+    EXPECT_EQ(hmi::mapStateKey(hmi::MapState::Generated), "generated");
+    EXPECT_EQ(hmi::mapStateFromKey("retouched"), hmi::MapState::Retouched);
+    EXPECT_EQ(hmi::mapStateLabel(hmi::MapState::Unset), "not stated");
+    EXPECT_EQ(hmi::knownMapStates().size(), 3U);
+}

@@ -31,6 +31,7 @@
 #include <QStandardPaths>
 #include <QStatusBar>
 #include <QString>
+#include <QTabWidget>
 #include <QTableWidget>
 #include <QTimer>
 #include <QToolBar>
@@ -43,20 +44,25 @@
 #include <variant>
 
 #include "Core/World/EntityKinds.h"
+#include "Core/World/WorldGraph.h"
 #include "Editor/Logic/Autosave.h"
+#include "Editor/Logic/CityView.h"
 #include "Editor/Logic/DataRoot.h"
 #include "Editor/Logic/DiskGuard.h"
 #include "Editor/Logic/EditorStatus.h"
 #include "Editor/Logic/EntityReferences.h"
+#include "Editor/Logic/MapDocuments.h"
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/MapRefactor.h"
 #include "Editor/Logic/PieceCatalog.h"
 #include "Editor/Logic/Stamps.h"
+#include "Editor/Logic/WorldLinks.h"
 #include "Editor/Ui/EditorActions.h"
 #include "Editor/Ui/EditorViewport.h"
 #include "Editor/Ui/EntityPanel.h"
 #include "Editor/Ui/LayersPanel.h"
 #include "Editor/Ui/LevelBrowserPanel.h"
+#include "Editor/Ui/MapPropertiesDialog.h"
 #include "Editor/Ui/MapRender.h"
 #include "Editor/Ui/MiniMap.h"
 #include "Editor/Ui/PalettePanel.h"
@@ -119,22 +125,28 @@ constexpr int REFACTOR_STATUS_TIMEOUT_MS = 5000;
 
 }  // namespace
 
-MainWindow::MainWindow(bool crashAfterAutosave)
-    : _viewport(new EditorViewport()),
-      _editContext(_viewport),
-      _crashAfterAutosave(crashAfterAutosave) {
+MainWindow::MainWindow(bool crashAfterAutosave) : _crashAfterAutosave(crashAfterAutosave) {
     // Le dossier des données dans le titre : on sait où l'enregistrement écrit (LOT-EDITOR-06).
     setWindowTitle(QStringLiteral("Just Another RPG Game — Editor — %1")
                        .arg(QString::fromStdWString(hmi::editorDataRoot().wstring())));
     setDockNestingEnabled(true);
 
-    _viewport->setMinimumSize(320, 240);
-    _viewport->setFocusPolicy(Qt::StrongFocus);
-    setCentralWidget(_viewport);
+    // Les cartes ouvertes en onglets (LOT-EDITOR-09) : un canevas par onglet, celui de l'onglet
+    // actif étant `_viewport`. Le dernier onglet ne se ferme pas — la fenêtre a toujours un
+    // canevas, et rien ici n'a de cas « aucune carte ouverte ».
+    _tabs = new QTabWidget;
+    _tabs->setDocumentMode(true);
+    _tabs->setMovable(true);
+    _tabs->setTabsClosable(true);
+    setCentralWidget(_tabs);
+    connect(_tabs, &QTabWidget::currentChanged, this, &MainWindow::activateDocument);
+    connect(_tabs, &QTabWidget::tabCloseRequested, this,
+            [this](int index) { static_cast<void>(closeDocument(index)); });
+    addDocument();
 
     buildUi();
 
-    // La palette arme le pinceau du canevas : un type ou une pièce du lieu.
+    // La palette arme le pinceau du canevas actif : un type ou une pièce du lieu.
     connect(_palette, &PalettePanel::tileSelected, this, [this](core::TileType type) {
         _viewport->setActiveTile(type);
         refreshStatusHelp();
@@ -143,63 +155,26 @@ MainWindow::MainWindow(bool crashAfterAutosave)
         _viewport->setActivePiece(piece.toStdString(), floor);
         refreshStatusHelp();
     });
-    // La pipette a pris un pinceau : la palette le montre, sans le réémettre.
-    connect(_viewport, &EditorViewport::brushPicked, this, [this](const CanvasBrush& brush) {
-        if (brush.kind == BrushKind::Piece) {
-            _palette->showPiece(QString::fromStdString(brush.piece), brush.floor);
-        } else if (brush.kind == BrushKind::Type) {
-            _palette->showTile(brush.type);
-        }
-        refreshStatusHelp();
-    });
-    connect(_viewport, &EditorViewport::toolStateChanged, this, [this] { refreshStatusHelp(); });
-    // L'outil Note : le texte se saisit dans une boîte, la note s'écrit dans l'annexe de la carte.
-    connect(_viewport, &EditorViewport::noteRequested, this, [this](core::GridPosition cell) {
-        const AuthorNote* const note = noteAt(_viewport->sidecar(), cell);
-        bool accepted = false;
-        const QString text = QInputDialog::getMultiLineText(
-            this, QStringLiteral("Author note"),
-            QStringLiteral("Note on (%1, %2) — empty removes it:").arg(cell.column).arg(cell.row),
-            note != nullptr ? QString::fromStdString(note->text) : QString{}, &accepted);
-        if (accepted) {
-            _viewport->setNote(cell, text.toStdString());
-        }
-    });
-    // Le catalogue suit la carte : son lieu, et les pièces qu'elle cite sans que la planche les
-    // ait.
-    const auto refreshPalette = [this] {
-        _palette->setPieceCatalog(_viewport->pieceCatalog(), _viewport->placeDirectory());
-        refreshPrefabs();
-    };
     connect(_palette, &PalettePanel::prefabSelected, this, &MainWindow::armPrefab);
-    connect(_viewport, &EditorViewport::draftChanged, this, refreshPalette);
-    refreshPalette();
-    // Le canevas change d'outil de lui-même (une famille d'entité choisie arme l'outil Entité) :
-    // la barre d'outils suit, sans reboucler (setActiveTool n'émet rien).
-    connect(_viewport, &EditorViewport::toolChanged, _actions, &EditorActions::setActiveTool);
-    // Les messages d'état du canevas (enregistrement, essai, erreurs) s'affichent en bas, puis
-    // laissent la main à l'aide contextuelle.
-    connect(_viewport, &EditorViewport::statusMessage, this,
-            [this](const QString& message) { showTransientStatusMessage(message, 5000); });
-    connect(_viewport, &EditorViewport::toolChanged, this,
-            [this](hmi::EditorTool) { refreshStatusHelp(); });
-    connect(_viewport, &EditorViewport::toolChanged, this, &MainWindow::applyPanelFocus);
-    connect(_viewport, &EditorViewport::hoveredCellChanged, this,
-            [this](std::optional<core::GridPosition>) { refreshStatusHelp(); });
-    connect(_viewport, &EditorViewport::zoomChanged, this, [this](float) { refreshStatusHelp(); });
-    connect(_viewport, &EditorViewport::draftChanged, this, [this] { refreshStatusHelp(); });
-    // Ouvrir une carte depuis le panneau : garde-fou des modifications non enregistrées d'abord.
+    // Ouvrir une carte depuis le panneau : son onglet s'il est déjà ouvert, un onglet neuf sinon.
     connect(_levels, &LevelBrowserPanel::levelOpenRequested, this, [this](const QString& path) {
-        openLevelGuarded(std::filesystem::path(path.toStdString()));
+        static_cast<void>(openMap(std::filesystem::path(path.toStdString())));
     });
     connect(_levels, &LevelBrowserPanel::mapRenameRequested, this,
             [this](const QString& mapId) { renameMap(mapId.toStdString()); });
+    // Tirer un lien entre deux cartes du graphe du monde (LOT-EDITOR-09).
+    connect(_levels, &LevelBrowserPanel::mapLinkRequested, this,
+            [this](const QString& from, const QString& to) {
+                linkMaps(from.toStdString(), to.toStdString());
+            });
     // Les constats : un nouveau contrôle à la demande, et le chemin vers chacun.
     connect(_problems, &ProblemsPanel::checkRequested, this, &MainWindow::runContentCheck);
     connect(_problems, &ProblemsPanel::findingActivated, this, &MainWindow::goToFinding);
 
     connectMapPanels();
     reloadEditorReferences();
+    // La fenêtre est bâtie : le canevas du premier onglet s'y branche et les panneaux le montrent.
+    bindViewport(_viewport);
 
     resize(1280, 720);
     // La palette des pièces est l'outil qu'on regarde le plus : elle prend la hauteur à gauche.
@@ -218,6 +193,241 @@ MainWindow::MainWindow(bool crashAfterAutosave)
     // Le canevas prend le clavier au lancement : les raccourcis à une touche (P, F8, F9) marchent
     // tout de suite, au lieu d'aller à la recherche au clavier de la palette.
     _viewport->setFocus();
+}
+
+// --- Les cartes ouvertes en onglets (LOT-EDITOR-09) ---------------------------------------------
+
+EditorViewport* MainWindow::addDocument() {
+    // Le premier onglet montre la carte de départ, comme l'éditeur l'a toujours fait ; un onglet
+    // de plus naît vierge — il va recevoir une carte nommée (LOT-EDITOR-09).
+    auto* const view =
+        new EditorViewport(_tabs->count() == 0 ? EditorViewport::StartContent::StartMap
+                                               : EditorViewport::StartContent::Blank);
+    view->setMinimumSize(320, 240);
+    view->setFocusPolicy(Qt::StrongFocus);
+    view->setEditorReferences(_references.get());  // les mêmes catalogues pour tous les onglets
+    const int index = _tabs->addTab(view, QString::fromStdString(documentLabel({}, false)));
+    _tabs->setCurrentIndex(index);  // `currentChanged` branche le canevas neuf
+    if (_viewport != view) {
+        bindViewport(view);  // premier onglet : `currentChanged` n'a pas de précédent à quitter
+    }
+    // Un seul onglet ne se ferme pas : la fenêtre garde toujours un canevas.
+    _tabs->setTabsClosable(_tabs->count() > 1);
+    return view;
+}
+
+EditorViewport* MainWindow::documentAt(int index) const {
+    return index >= 0 && index < _tabs->count()
+               ? qobject_cast<EditorViewport*>(_tabs->widget(index))
+               : nullptr;
+}
+
+std::vector<OpenDocument> MainWindow::openDocuments() const {
+    std::vector<OpenDocument> documents;
+    for (int index = 0; index < _tabs->count(); ++index) {
+        const EditorViewport* const view = documentAt(index);
+        if (view != nullptr) {
+            documents.push_back(OpenDocument{.mapId = view->mapId(), .dirty = view->isDirty()});
+        }
+    }
+    return documents;
+}
+
+void MainWindow::activateDocument(int index) {
+    EditorViewport* const view = documentAt(index);
+    if (view == nullptr || view == _viewport) {
+        return;
+    }
+    bindViewport(view);
+    // L'onglet revient : le disque a pu changer pendant qu'on éditait ailleurs.
+    if (_autosave != nullptr) {
+        static_cast<void>(checkDiskChange());
+    }
+    view->setFocus();
+}
+
+void MainWindow::refreshDocumentLabels() {
+    const std::vector<OpenDocument> documents = openDocuments();
+    for (std::size_t index = 0; index < documents.size(); ++index) {
+        const OpenDocument& document = documents[index];
+        const int tab = static_cast<int>(index);
+        _tabs->setTabText(tab,
+                          QString::fromStdString(documentLabel(document.mapId, document.dirty)));
+        _tabs->setTabToolTip(tab, QString::fromStdString(document.mapId));
+    }
+    _tabs->setTabsClosable(_tabs->count() > 1);
+}
+
+bool MainWindow::askAboutChanges(EditorViewport* view) {
+    if (view == nullptr || !view->isDirty()) {
+        return true;
+    }
+    // L'onglet en question passe devant : on ne répond pas d'une carte qu'on ne voit pas.
+    _tabs->setCurrentWidget(view);
+    const QMessageBox::StandardButton answer = QMessageBox::question(
+        this, QStringLiteral("Unsaved changes"),
+        QStringLiteral("Map \"%1\" has unsaved changes. Save them before closing?")
+            .arg(QString::fromStdString(view->mapId())),
+        QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel, QMessageBox::Save);
+    if (answer == QMessageBox::Cancel) {
+        return false;
+    }
+    if (answer == QMessageBox::Save) {
+        // Enregistrement refusé ou impossible : le brouillon reste. Si la garde a relu le disque,
+        // le brouillon d'avant est déjà mis de côté et il n'y a plus rien à enregistrer.
+        const bool draftKept = checkDiskChange();
+        if ((draftKept && !view->save()) || (!draftKept && view->isDirty())) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool MainWindow::closeDocument(int index) {
+    EditorViewport* const view = documentAt(index);
+    if (view == nullptr || _tabs->count() <= 1) {
+        return false;  // le dernier onglet reste : la fenêtre a toujours un canevas.
+    }
+    if (!askAboutChanges(view)) {
+        return false;
+    }
+    // Fermeture voulue : la reprise de ce brouillon n'a plus d'objet.
+    const auto autosaved = _autosavedMapIds.find(view);
+    if (autosaved != _autosavedMapIds.end()) {
+        if (!autosaved->second.empty()) {
+            _autosave->discard(autosaved->second);
+        }
+        _autosavedMapIds.erase(autosaved);
+    }
+    const std::optional<std::size_t> next = documentAfterClose(
+        static_cast<std::size_t>(_tabs->count()), static_cast<std::size_t>(_tabs->indexOf(view)));
+    if (view == _viewport) {
+        unbindViewport();
+    }
+    _tabs->removeTab(_tabs->indexOf(view));
+    view->deleteLater();
+    if (next) {
+        _tabs->setCurrentIndex(static_cast<int>(*next));
+        bindViewport(documentAt(static_cast<int>(*next)));
+    }
+    watchLevelFile();
+    refreshDocumentLabels();
+    return true;
+}
+
+bool MainWindow::openMap(const std::filesystem::path& path, bool reuseCurrent) {
+    const std::string mapId = core::mapIdOf(editorDataRoot() / "Levels", path);
+    if (const std::optional<std::size_t> open = documentOf(openDocuments(), mapId)) {
+        _tabs->setCurrentIndex(static_cast<int>(*open));
+        return true;  // une carte n'est ouverte qu'une fois : deux brouillons se contrediraient.
+    }
+    // Un onglet vierge et intact reçoit la carte ; `reuseCurrent` (le `--map=` du démarrage) prend
+    // aussi l'onglet courant tant qu'il n'a rien de modifié. Sinon, un onglet neuf.
+    const bool blank = (_viewport->mapId().empty() || reuseCurrent) && !_viewport->isDirty();
+    EditorViewport* const view = blank ? _viewport : addDocument();
+    if (!view->openLevel(path)) {
+        if (!blank) {
+            static_cast<void>(closeDocument(_tabs->indexOf(view)));
+        }
+        return false;
+    }
+    watchLevelFile();
+    refreshDocumentLabels();
+    return true;
+}
+
+void MainWindow::unbindViewport() {
+    for (const QMetaObject::Connection& connection : _viewportConnections) {
+        QObject::disconnect(connection);
+    }
+    _viewportConnections.clear();
+}
+
+void MainWindow::bindViewport(EditorViewport* view) {
+    if (view == nullptr) {
+        return;
+    }
+    unbindViewport();
+    _viewport = view;
+    _editContext = view;
+    if (_palette == nullptr) {
+        // La fenêtre n'est pas encore bâtie (premier onglet, dans le constructeur) : elle
+        // rappellera `bindViewport` une fois ses panneaux et ses actions en place.
+        return;
+    }
+    const auto keep = [this](const QMetaObject::Connection& connection) {
+        _viewportConnections.push_back(connection);
+    };
+
+    // La pipette a pris un pinceau : la palette le montre, sans le réémettre.
+    keep(connect(view, &EditorViewport::brushPicked, this, [this](const CanvasBrush& brush) {
+        if (brush.kind == BrushKind::Piece) {
+            _palette->showPiece(QString::fromStdString(brush.piece), brush.floor);
+        } else if (brush.kind == BrushKind::Type) {
+            _palette->showTile(brush.type);
+        }
+        refreshStatusHelp();
+    }));
+    keep(connect(view, &EditorViewport::toolStateChanged, this, [this] { refreshStatusHelp(); }));
+    // L'outil Note : le texte se saisit dans une boîte, la note s'écrit dans l'annexe de la carte.
+    keep(connect(view, &EditorViewport::noteRequested, this, [this](core::GridPosition cell) {
+        const AuthorNote* const note = noteAt(_viewport->sidecar(), cell);
+        bool accepted = false;
+        const QString text = QInputDialog::getMultiLineText(
+            this, QStringLiteral("Author note"),
+            QStringLiteral("Note on (%1, %2) — empty removes it:").arg(cell.column).arg(cell.row),
+            note != nullptr ? QString::fromStdString(note->text) : QString{}, &accepted);
+        if (accepted) {
+            _viewport->setNote(cell, text.toStdString());
+        }
+    }));
+    // Le catalogue suit la carte : son lieu, et les pièces qu'elle cite sans que la planche les
+    // ait. Les panneaux, l'onglet et la barre d'état suivent le brouillon.
+    keep(connect(view, &EditorViewport::draftChanged, this, [this] {
+        refreshPalettePanel();
+        refreshLayersPanel();
+        refreshEntitiesPanel();
+        refreshMiniMap();
+        refreshDocumentLabels();
+        refreshStatusHelp();
+        scheduleAutosave();
+    }));
+    keep(connect(view, &EditorViewport::activeLayerChanged, this,
+                 [this](hmi::LayerSlot) { refreshLayersPanel(); }));
+    keep(connect(view, &EditorViewport::layerViewChanged, this, [this] { refreshLayersPanel(); }));
+    keep(connect(view, &EditorViewport::entitySelectionChanged, this,
+                 [this](std::optional<std::size_t>) { refreshEntitiesPanel(); }));
+    keep(connect(view, &EditorViewport::framingChanged, this,
+                 [this] { _miniMap->setVisibleCorners(_viewport->visibleGridCorners()); }));
+    // Le canevas change d'outil de lui-même (une famille d'entité choisie arme l'outil Entité) :
+    // la barre d'outils suit, sans reboucler (setActiveTool n'émet rien).
+    keep(connect(view, &EditorViewport::toolChanged, _actions, &EditorActions::setActiveTool));
+    keep(connect(view, &EditorViewport::toolChanged, this,
+                 [this](hmi::EditorTool) { refreshStatusHelp(); }));
+    keep(connect(view, &EditorViewport::toolChanged, this, &MainWindow::applyPanelFocus));
+    // Les messages d'état du canevas (enregistrement, essai, erreurs) s'affichent en bas, puis
+    // laissent la main à l'aide contextuelle.
+    keep(connect(view, &EditorViewport::statusMessage, this,
+                 [this](const QString& message) { showTransientStatusMessage(message, 5000); }));
+    keep(connect(view, &EditorViewport::hoveredCellChanged, this,
+                 [this](std::optional<core::GridPosition>) { refreshStatusHelp(); }));
+    keep(connect(view, &EditorViewport::zoomChanged, this, [this](float) { refreshStatusHelp(); }));
+    // Vue iso ou à plat (décision D1) ; l'action suit la vue si elle change autrement.
+    keep(connect(view, &EditorViewport::canvasViewChanged, this, [this](CanvasView canvasView) {
+        QAction* const action = _actions->action(EditorCommand::IsoView);
+        const QSignalBlocker blocker(action);
+        action->setChecked(canvasView == CanvasView::Iso);
+        refreshStatusHelp();
+    }));
+
+    _actions->setActiveTool(view->activeTool());
+    _actions->applyShortcuts(view->editorBindings());
+    refreshPalettePanel();
+    refreshLayersPanel();
+    refreshEntitiesPanel();
+    refreshMiniMap();
+    refreshDocumentLabels();
+    refreshStatusHelp();
 }
 
 MainWindow::~MainWindow() = default;
@@ -297,6 +507,12 @@ void MainWindow::buildMenus() {
     fileMenu->addAction(_actions->action(EditorCommand::Rename));
     _resizeAction = fileMenu->addAction(QStringLiteral("Resize…"));
     fileMenu->addSeparator();
+    // Les cartes ouvertes en onglets (LOT-EDITOR-09) : le dernier onglet ne se ferme pas.
+    QAction* const closeTab = fileMenu->addAction(QStringLiteral("Close tab"));
+    closeTab->setShortcut(QKeySequence::Close);
+    connect(closeTab, &QAction::triggered, this,
+            [this] { static_cast<void>(closeDocument(_tabs->currentIndex())); });
+    fileMenu->addSeparator();
     QAction* const quit = fileMenu->addAction(QStringLiteral("Quit"));
     connect(quit, &QAction::triggered, this, &MainWindow::close);
 
@@ -329,6 +545,9 @@ void MainWindow::buildMenus() {
         _problemsDock->show();
         _problemsDock->raise();
     });
+    // Le lieu, la région, l'ambiance et où en est la carte (LOT-EDITOR-09).
+    QAction* const properties = mapMenu->addAction(QStringLiteral("Map properties…"));
+    connect(properties, &QAction::triggered, this, &MainWindow::openMapPropertiesDialog);
     mapMenu->addSeparator();
     buildRefactorMenu(mapMenu);
 
@@ -359,56 +578,57 @@ void MainWindow::buildMenus() {
     helpMenu->addAction(_actions->action(EditorCommand::ShortcutsOverview));
 }
 
-void MainWindow::connectMapPanels() {
-    const auto refreshLayers = [this] {
-        _layers->refresh(_viewport->draft(), _viewport->activeLayer(), _viewport->layerView());
-    };
-    const auto refreshEntities = [this] {
-        // Le verdict de la zone de combat principale, s'il y en a une (LOT-EDITOR-05).
-        std::string verdict;
-        if (const std::optional<std::size_t> selected = _viewport->selectedEntity()) {
-            for (const core::CombatZoneTerrain& zone : _viewport->combatZones()) {
-                if (zone.entityIndex == *selected) {
-                    verdict = hmi::combatZoneSummary(zone);
-                }
+void MainWindow::refreshLayersPanel() {
+    _layers->refresh(_viewport->draft(), _viewport->activeLayer(), _viewport->layerView());
+}
+
+void MainWindow::refreshEntitiesPanel() {
+    // Le verdict de la zone de combat principale, s'il y en a une (LOT-EDITOR-05).
+    std::string verdict;
+    if (const std::optional<std::size_t> selected = _viewport->selectedEntity()) {
+        for (const core::CombatZoneTerrain& zone : _viewport->combatZones()) {
+            if (zone.entityIndex == *selected) {
+                verdict = hmi::combatZoneSummary(zone);
             }
         }
-        _entities->refresh(_viewport->draft(), _viewport->selectedEntities(),
-                           _viewport->selectedEntity(), _viewport->entityReferenceContext(),
-                           _viewport->diagnostics(), verdict);
-    };
-    connect(_viewport, &EditorViewport::draftChanged, this, [refreshLayers, refreshEntities] {
-        refreshLayers();
-        refreshEntities();
-    });
-    connect(_viewport, &EditorViewport::activeLayerChanged, this,
-            [refreshLayers](hmi::LayerSlot) { refreshLayers(); });
-    connect(_viewport, &EditorViewport::layerViewChanged, this, refreshLayers);
-    connect(_viewport, &EditorViewport::entitySelectionChanged, this,
-            [refreshEntities](std::optional<std::size_t>) { refreshEntities(); });
+    }
+    _entities->refresh(_viewport->draft(), _viewport->selectedEntities(),
+                       _viewport->selectedEntity(), _viewport->entityReferenceContext(),
+                       _viewport->diagnostics(), verdict);
+}
+
+void MainWindow::refreshMiniMap() {
+    _miniMap->setDraft(_viewport->draft());
+    _miniMap->setVisibleCorners(_viewport->visibleGridCorners());
+}
+
+void MainWindow::refreshPalettePanel() {
+    _palette->setPieceCatalog(_viewport->pieceCatalog(), _viewport->placeDirectory());
+    refreshPrefabs();
+}
+
+void MainWindow::connectMapPanels() {
+    // Les panneaux parlent au canevas ACTIF : chaque commande passe par `_viewport`, si bien
+    // qu'un changement d'onglet ne demande de rebrancher personne (LOT-EDITOR-09).
 
     // Couches : le panneau demande, le canevas applique -- l'historique pour la structure, une
     // simple aide d'édition pour la visibilité et l'opacité.
-    connect(_layers, &LayersPanel::activeLayerRequested, _viewport,
-            &EditorViewport::setActiveLayer);
-    connect(_layers, &LayersPanel::visibilityRequested, _viewport,
-            &EditorViewport::setMapLayerVisible);
-    connect(_layers, &LayersPanel::opacityRequested, _viewport,
-            &EditorViewport::setMapLayerOpacity);
-    connect(_layers, &LayersPanel::dimRequested, _viewport, &EditorViewport::setMapLayerDimmed);
-    connect(_layers, &LayersPanel::lockRequested, _viewport, &EditorViewport::setMapLayerLocked);
-
-    // Mini-carte : l'image suit le brouillon, le cadre suit la vue, un clic ramène la vue.
-    const auto refreshMiniMapFrame = [this] {
-        _miniMap->setVisibleCorners(_viewport->visibleGridCorners());
-    };
-    connect(_viewport, &EditorViewport::draftChanged, this, [this, refreshMiniMapFrame] {
-        _miniMap->setDraft(_viewport->draft());
-        refreshMiniMapFrame();
+    connect(_layers, &LayersPanel::activeLayerRequested, this,
+            [this](hmi::LayerSlot slot) { _viewport->setActiveLayer(slot); });
+    connect(_layers, &LayersPanel::visibilityRequested, this,
+            [this](hmi::LayerSlot slot, bool visible) {
+                _viewport->setMapLayerVisible(slot, visible);
+            });
+    connect(_layers, &LayersPanel::opacityRequested, this,
+            [this](hmi::LayerSlot slot, float opacity) {
+                _viewport->setMapLayerOpacity(slot, opacity);
+            });
+    connect(_layers, &LayersPanel::dimRequested, this, [this](hmi::LayerSlot slot, bool dimmed) {
+        _viewport->setMapLayerDimmed(slot, dimmed);
     });
-    connect(_viewport, &EditorViewport::framingChanged, this, refreshMiniMapFrame);
-    connect(_miniMap, &MiniMap::centerRequested, _viewport, &EditorViewport::centerOnGridPoint);
-    _miniMap->setDraft(_viewport->draft());
+    connect(_layers, &LayersPanel::lockRequested, this, [this](hmi::LayerSlot slot, bool locked) {
+        _viewport->setMapLayerLocked(slot, locked);
+    });
     connect(_layers, &LayersPanel::addRequested, this, [this](core::LayerKind kind) {
         _viewport->addMapLayer(kind, kind == core::LayerKind::Decor ? "decor" : "ground");
     });
@@ -425,11 +645,16 @@ void MainWindow::connectMapPanels() {
         }
         _viewport->removeMapLayer(index);
     });
-    connect(_layers, &LayersPanel::moveRequested, _viewport, &EditorViewport::moveMapLayer);
+    connect(_layers, &LayersPanel::moveRequested, this,
+            [this](std::size_t index, bool forward) { _viewport->moveMapLayer(index, forward); });
     connect(_layers, &LayersPanel::renameRequested, this,
             [this](std::size_t index, const QString& name) {
                 _viewport->renameMapLayer(index, name.toStdString());
             });
+
+    // Mini-carte : l'image suit le brouillon, le cadre suit la vue, un clic ramène la vue.
+    connect(_miniMap, &MiniMap::centerRequested, this,
+            [this](core::Vector2 point) { _viewport->centerOnGridPoint(point); });
 
     // Entités : choisir une famille à poser arme l'outil Entité.
     connect(_entities, &EntityPanel::kindToPlaceChanged, this, [this](const QString& type) {
@@ -438,7 +663,8 @@ void MainWindow::connectMapPanels() {
             _viewport->setTool(hmi::EditorTool::Entity);
         }
     });
-    connect(_entities, &EntityPanel::entitySelected, _viewport, &EditorViewport::selectEntity);
+    connect(_entities, &EntityPanel::entitySelected, this,
+            [this](std::optional<std::size_t> index) { _viewport->selectEntity(index); });
     connect(_entities, &EntityPanel::entitiesSelected, this,
             [this](const std::vector<std::size_t>& indices, std::optional<std::size_t> primary) {
                 _viewport->setEntitySelection(indices, primary);
@@ -447,24 +673,8 @@ void MainWindow::connectMapPanels() {
             [this](std::size_t index, const QString& key, const core::PropertyValue& value) {
                 _viewport->setEntityProperty(index, key.toStdString(), value);
             });
-    connect(_entities, &EntityPanel::removeRequested, _viewport,
-            &EditorViewport::removeSelectedEntities);
-
-    refreshLayers();  // état initial (avant tout draftChanged).
-    refreshEntities();
-}
-
-bool MainWindow::openLevelGuarded(const std::filesystem::path& path) {
-    if (_viewport->isDirty()) {
-        const QMessageBox::StandardButton answer = QMessageBox::question(
-            this, QStringLiteral("Unsaved changes"),
-            QStringLiteral("The current map has unsaved changes. Discard them and open the "
-                           "other map?"));
-        if (answer != QMessageBox::Yes) {
-            return false;
-        }
-    }
-    return _viewport->openLevel(path);
+    connect(_entities, &EntityPanel::removeRequested, this,
+            [this] { _viewport->removeSelectedEntities(); });
 }
 
 bool MainWindow::saveMap() {
@@ -480,6 +690,7 @@ bool MainWindow::saveMap() {
     // des AUTRES cartes se valident contre le fichier, et le graphe du monde le montre.
     reloadEditorReferences();
     _levels->refreshWorldGraph();
+    refreshDocumentLabels();
     runContentCheck();  // les autres cartes peuvent dépendre de celle-ci (portails, retours).
     return true;
 }
@@ -565,7 +776,7 @@ void MainWindow::renameSelectedEntityId() {
     if (accepted && !newId.isEmpty()) {
         carryOutPlan(
             planRenameEntityId(editorDataRoot(), _viewport->mapId(), oldId, newId.toStdString()),
-            QStringLiteral("Rename entity id"), _viewport->mapId());
+            QStringLiteral("Rename entity id"));
     }
 }
 
@@ -587,7 +798,7 @@ void MainWindow::renameSelectedArrival() {
     if (accepted && !newName.isEmpty()) {
         carryOutPlan(
             planRenameArrival(editorDataRoot(), _viewport->mapId(), oldName, newName.toStdString()),
-            QStringLiteral("Rename arrival point"), _viewport->mapId());
+            QStringLiteral("Rename arrival point"));
     }
 }
 
@@ -614,7 +825,7 @@ void MainWindow::replacePieceOnMaps() {
     }
     if (saveBeforeRefactor()) {
         carryOutPlan(planReplacePiece(editorDataRoot(), choice->from, choice->to, {}),
-                     QStringLiteral("Replace piece"), _viewport->mapId());
+                     QStringLiteral("Replace piece"));
     }
 }
 
@@ -647,14 +858,30 @@ void MainWindow::buildRefactorMenu(QMenu* mapMenu) {
 }
 
 bool MainWindow::saveBeforeRefactor() {
-    if (!_viewport->isDirty()) {
+    // Un renommage récrit des fichiers de carte : un brouillon non enregistré, dans n'importe quel
+    // onglet, serait écrit par-dessus au premier `Ctrl+S` (LOT-EDITOR-09).
+    if (dirtyDocuments(openDocuments()).empty()) {
         return true;
     }
     const QMessageBox::StandardButton answer = QMessageBox::question(
         this, QStringLiteral("Save first"),
-        QStringLiteral("This rewrites map files, maybe the open one. Save the open map first?"),
+        QStringLiteral("This rewrites map files, maybe some open ones. Save every open map "
+                       "first?"),
         QMessageBox::Save | QMessageBox::Cancel);
-    return answer == QMessageBox::Save && saveMap();
+    if (answer != QMessageBox::Save) {
+        return false;
+    }
+    for (int index = 0; index < _tabs->count(); ++index) {
+        EditorViewport* const view = documentAt(index);
+        if (view == nullptr || !view->isDirty()) {
+            continue;
+        }
+        _tabs->setCurrentIndex(index);
+        if (!saveMap()) {
+            return false;
+        }
+    }
+    return true;
 }
 
 void MainWindow::renameMap(const std::string& mapId) {
@@ -671,14 +898,12 @@ void MainWindow::renameMap(const std::string& mapId) {
     if (!accepted || newId.isEmpty() || newId.toStdString() == mapId) {
         return;
     }
-    const std::string openAfter =
-        mapId == _viewport->mapId() ? newId.toStdString() : _viewport->mapId();
     carryOutPlan(planRenameMap(editorDataRoot(), mapId, newId.toStdString()),
-                 QStringLiteral("Rename map"), openAfter);
+                 QStringLiteral("Rename map"), mapId, newId.toStdString());
 }
 
 void MainWindow::carryOutPlan(const RefactorPlan& plan, const QString& title,
-                              const std::string& openAfter) {
+                              const std::string& renamedFrom, const std::string& renamedTo) {
     const std::filesystem::path& root = editorDataRoot();
     if (!plan.ok()) {
         QMessageBox::warning(this, title, QString::fromStdString(plan.error));
@@ -694,13 +919,22 @@ void MainWindow::carryOutPlan(const RefactorPlan& plan, const QString& title,
     if (!written) {
         QMessageBox::warning(this, title, QString::fromStdString(error));
     }
-    // La carte ouverte a pu être récrite ou déplacée : on la relit, propre, là où elle est.
-    const std::filesystem::path reopened = root / "Levels" / (openAfter + ".json");
-    std::error_code missing;
-    if (std::filesystem::exists(reopened, missing)) {
-        _viewport->openLevel(reopened);
-        watchLevelFile();
+    // Toute carte ouverte a pu être récrite, et celle que le plan déplace a changé de chemin :
+    // chaque onglet se relit là où sa carte est, propre (LOT-EDITOR-09).
+    for (int index = 0; index < _tabs->count(); ++index) {
+        EditorViewport* const view = documentAt(index);
+        if (view == nullptr || view->mapId().empty()) {
+            continue;
+        }
+        const std::string mapId = view->mapId() == renamedFrom ? renamedTo : view->mapId();
+        const std::filesystem::path reopened = root / "Levels" / (mapId + ".json");
+        std::error_code missing;
+        if (std::filesystem::exists(reopened, missing)) {
+            static_cast<void>(view->openLevel(reopened));
+        }
     }
+    watchLevelFile();
+    refreshDocumentLabels();
     _levels->refresh();
     reloadEditorReferences();
     runContentCheck();
@@ -795,6 +1029,48 @@ void MainWindow::armPrefab(const QString& name) {
     _viewport->setClipboardStamp(std::move(*stamp));
 }
 
+// --- Le monde : liens du graphe et propriétés de carte (LOT-EDITOR-09) -------------------------
+
+void MainWindow::linkMaps(const std::string& fromMap, const std::string& toMap) {
+    // Le plan récrit deux cartes : elles peuvent être ouvertes, et leur brouillon les écraserait.
+    if (!saveBeforeRefactor()) {
+        return;
+    }
+    carryOutPlan(planLinkMaps(editorDataRoot(), fromMap, toMap), QStringLiteral("Link maps"));
+}
+
+void MainWindow::openMapPropertiesDialog() {
+    const core::PropertyMap& properties = _viewport->draft().properties();
+    const auto text = [&properties](std::string_view key) {
+        const auto found = properties.find(std::string{key});
+        if (found == properties.end()) {
+            return std::string{};
+        }
+        const auto* const value = std::get_if<std::string>(&found->second);
+        return value != nullptr ? *value : std::string{};
+    };
+    const MapPropertiesChoice current{.region = text(core::MAP_REGION_PROPERTY),
+                                      .ambience = text(core::MAP_AMBIENCE_PROPERTY),
+                                      .state = _viewport->sidecar().state};
+    const std::optional<MapPropertiesChoice> chosen = askMapProperties(
+        this, QString::fromStdString(_viewport->mapId()),
+        QString::fromStdString(_viewport->place()), worldRegionIds(editorDataRoot()), current);
+    if (!chosen || *chosen == current) {
+        return;
+    }
+    // La région et l'ambiance sont dans la carte : un pas d'annulation, enregistré avec elle.
+    _viewport->setMapProperties({{std::string{core::MAP_REGION_PROPERTY}, chosen->region},
+                                 {std::string{core::MAP_AMBIENCE_PROPERTY}, chosen->ambience}});
+    // Où en est la carte est une note d'auteur : l'annexe s'écrit tout de suite, et seulement
+    // pour une carte qui a un fichier.
+    if (!_viewport->mapId().empty() && chosen->state != current.state) {
+        _viewport->setMapState(chosen->state);
+        _levels->refresh();
+    }
+    showTransientStatusMessage(QStringLiteral("Map properties changed. Ctrl+S saves the map."),
+                               5000);
+}
+
 void MainWindow::runContentCheck() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
     const MapCheckReport report = checkAllMaps(editorDataRoot());
@@ -806,7 +1082,7 @@ void MainWindow::runContentCheck() {
 
 void MainWindow::goToFinding(const MapCheckFinding& finding) {
     if (finding.mapId != _viewport->mapId() &&
-        !openLevelGuarded(editorDataRoot() / "Levels" / (finding.mapId + ".json"))) {
+        !openMap(editorDataRoot() / "Levels" / (finding.mapId + ".json"))) {
         return;
     }
     std::optional<core::GridPosition> cell = finding.cell;
@@ -827,7 +1103,13 @@ void MainWindow::goToFinding(const MapCheckFinding& finding) {
 void MainWindow::reloadEditorReferences() {
     _references =
         std::make_unique<EditorReferences>(hmi::loadEditorReferences(hmi::editorDataRoot()));
-    _viewport->setEditorReferences(_references.get());
+    // Tous les onglets citent les mêmes catalogues : une carte ouverte dans un second onglet
+    // verrait sinon toutes ses références cassées (LOT-EDITOR-09).
+    for (int index = 0; index < _tabs->count(); ++index) {
+        if (EditorViewport* const view = documentAt(index)) {
+            view->setEditorReferences(_references.get());
+        }
+    }
 }
 
 void MainWindow::connectToolActions() {
@@ -837,23 +1119,22 @@ void MainWindow::connectToolActions() {
         if (!tool) {
             continue;
         }
-        connect(_actions->action(command), &QAction::toggled, _viewport,
-                [this, tool = *tool](bool on) {
-                    if (on) {
-                        _viewport->setTool(tool);
-                    }
-                });
+        connect(_actions->action(command), &QAction::toggled, this, [this, tool = *tool](bool on) {
+            if (on) {
+                _viewport->setTool(tool);
+            }
+        });
     }
 }
 
 void MainWindow::connectEditorCommands() {
     connect(_actions->action(EditorCommand::Save), &QAction::triggered, this,
             [this] { saveMap(); });
-    connect(_actions->action(EditorCommand::Playtest), &QAction::triggered, _viewport,
+    connect(_actions->action(EditorCommand::Playtest), &QAction::triggered, this,
             [this] { _viewport->startPlaytest(); });
-    connect(_actions->action(EditorCommand::PlaytestHere), &QAction::triggered, _viewport,
+    connect(_actions->action(EditorCommand::PlaytestHere), &QAction::triggered, this,
             [this] { _viewport->startPlaytestHere(); });
-    connect(_actions->action(EditorCommand::Mirror), &QAction::toggled, _viewport,
+    connect(_actions->action(EditorCommand::Mirror), &QAction::toggled, this,
             [this](bool enabled) { _viewport->setMirror(enabled); });
     connect(_actions->action(EditorCommand::Undo), &QAction::triggered, this,
             [this] { _editContext->undo(); });
@@ -864,25 +1145,19 @@ void MainWindow::connectEditorCommands() {
     connect(_actions->action(EditorCommand::Paste), &QAction::triggered, this,
             [this] { _editContext->paste(); });
     // Tampons et préfabriqués (LOT-EDITOR-08) : le reflet, et la bibliothèque du lieu.
-    connect(_actions->action(EditorCommand::PasteMirrored), &QAction::triggered, _viewport,
+    connect(_actions->action(EditorCommand::PasteMirrored), &QAction::triggered, this,
             [this] { _viewport->pasteMirroredClipboard(); });
     connect(_actions->action(EditorCommand::SaveAsPrefab), &QAction::triggered, this,
             [this] { saveSelectionAsPrefab(); });
-    connect(_actions->action(EditorCommand::ToggleGrid), &QAction::triggered, _viewport,
+    connect(_actions->action(EditorCommand::ToggleGrid), &QAction::triggered, this,
             [this] { _viewport->toggleGrid(); });
-    connect(_actions->action(EditorCommand::ResetCamera), &QAction::triggered, _viewport,
+    connect(_actions->action(EditorCommand::ResetCamera), &QAction::triggered, this,
             [this] { _viewport->resetCamera(); });
     // Vue iso ou à plat (décision D1) ; l'action suit la vue si elle change autrement.
-    connect(
-        _actions->action(EditorCommand::IsoView), &QAction::toggled, _viewport,
-        [this](bool iso) { _viewport->setCanvasView(iso ? CanvasView::Iso : CanvasView::Flat); });
-    connect(_viewport, &EditorViewport::canvasViewChanged, this, [this](CanvasView view) {
-        QAction* const action = _actions->action(EditorCommand::IsoView);
-        const QSignalBlocker blocker(action);
-        action->setChecked(view == CanvasView::Iso);
-        refreshStatusHelp();
+    connect(_actions->action(EditorCommand::IsoView), &QAction::toggled, this, [this](bool iso) {
+        _viewport->setCanvasView(iso ? CanvasView::Iso : CanvasView::Flat);
     });
-    connect(_actions->action(EditorCommand::SeeThroughRelief), &QAction::toggled, _viewport,
+    connect(_actions->action(EditorCommand::SeeThroughRelief), &QAction::toggled, this,
             [this](bool enabled) { _viewport->setSeeThroughRelief(enabled); });
     // Renommer la carte ouverte : le même renommage propagé que le navigateur de cartes.
     connect(_actions->action(EditorCommand::Rename), &QAction::triggered, this,
@@ -1031,32 +1306,23 @@ void MainWindow::saveLayout() {
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {
-    if (_viewport->isDirty()) {
-        const QMessageBox::StandardButton answer = QMessageBox::question(
-            this, QStringLiteral("Unsaved changes"),
-            QStringLiteral("Map \"%1\" has unsaved changes. Save them before closing?")
-                .arg(QString::fromStdString(_viewport->mapId())),
-            QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel, QMessageBox::Save);
-        if (answer == QMessageBox::Cancel) {
+    // Chaque onglet modifié demande quoi faire du sien : rien ne se perd, et rien ne s'enregistre
+    // sans qu'on l'ait dit (LOT-EDITOR-09).
+    for (int index = 0; index < _tabs->count(); ++index) {
+        if (!askAboutChanges(documentAt(index))) {
             event->ignore();
             return;
         }
-        // Enregistrement refusé ou impossible : la fenêtre reste, le brouillon aussi. Si la garde a
-        // relu le disque, le brouillon d'avant est déjà mis de côté et il n'y a rien à enregistrer.
-        if (answer == QMessageBox::Save) {
-            const bool draftKept = checkDiskChange();
-            if ((draftKept && !_viewport->save()) || (!draftKept && _viewport->isDirty())) {
-                event->ignore();
-                return;
-            }
+    }
+    // Fermeture voulue : les brouillons sont enregistrés ou abandonnés, leur reprise n'a plus
+    // d'objet.
+    _autosaveTimer->stop();
+    for (const auto& [view, mapId] : _autosavedMapIds) {
+        if (!mapId.empty()) {
+            _autosave->discard(mapId);
         }
     }
-    // Fermeture voulue : le brouillon est enregistré ou abandonné, sa reprise n'a plus d'objet.
-    _autosaveTimer->stop();
-    if (!_autosavedMapId.empty()) {
-        _autosave->discard(_autosavedMapId);
-        _autosavedMapId.clear();
-    }
+    _autosavedMapIds.clear();
     saveLayout();
     QMainWindow::closeEvent(event);
 }
@@ -1066,7 +1332,7 @@ void MainWindow::setUpSafetyNet() {
     _autosaveTimer = new QTimer(this);
     _autosaveTimer->setSingleShot(true);
     connect(_autosaveTimer, &QTimer::timeout, this, &MainWindow::writeAutosave);
-    connect(_viewport, &EditorViewport::draftChanged, this, &MainWindow::scheduleAutosave);
+    // `bindViewport` relance le délai à chaque geste du canevas actif.
 
     _watcher = new QFileSystemWatcher(this);
     _diskCheckTimer = new QTimer(this);
@@ -1093,59 +1359,74 @@ void MainWindow::setUpSafetyNet() {
 }
 
 void MainWindow::scheduleAutosave() {
-    watchLevelFile();  // la carte ouverte a pu changer (ouverture, renommage).
+    if (_autosaveTimer == nullptr) {
+        return;  // le filet de sécurité n'est pas encore posé (construction de la fenêtre).
+    }
+    watchLevelFile();  // les cartes ouvertes ont pu changer (ouverture, renommage).
     _autosaveTimer->start(AUTOSAVE_DELAY_MS);
 }
 
 void MainWindow::writeAutosave() {
-    const std::string& mapId = _viewport->mapId();
-    // Le fichier de reprise d'une autre carte (renommée, ou quittée en abandonnant ses
-    // modifications) n'a plus d'objet.
-    if (!_autosavedMapId.empty() && (_autosavedMapId != mapId || !_viewport->isDirty())) {
-        _autosave->discard(_autosavedMapId);
-        _autosavedMapId.clear();
-    }
-    if (!_viewport->isDirty()) {
-        return;
-    }
-    const AutosaveRecord record{
-        .mapId = mapId, .levelPath = _viewport->levelPath(), .draftJson = _viewport->draftJson()};
-    if (!_autosave->write(record)) {
-        HMI_LOG_WARNING("Editeur : sauvegarde automatique impossible dans " +
-                        _autosave->directory().string());
-        return;
-    }
-    _autosavedMapId = mapId;
-    if (_crashAfterAutosave) {
-        hmi::triggerCrashForTest();
+    // Chaque onglet a son brouillon de reprise, sous l'identifiant de sa carte (LOT-EDITOR-09).
+    for (int index = 0; index < _tabs->count(); ++index) {
+        EditorViewport* const view = documentAt(index);
+        if (view == nullptr) {
+            continue;
+        }
+        std::string& autosaved = _autosavedMapIds[view];
+        const std::string& mapId = view->mapId();
+        // Le fichier de reprise d'une autre carte (renommée, ou quittée en abandonnant ses
+        // modifications) n'a plus d'objet.
+        if (!autosaved.empty() && (autosaved != mapId || !view->isDirty())) {
+            _autosave->discard(autosaved);
+            autosaved.clear();
+        }
+        if (!view->isDirty()) {
+            continue;
+        }
+        const AutosaveRecord record{
+            .mapId = mapId, .levelPath = view->levelPath(), .draftJson = view->draftJson()};
+        if (!_autosave->write(record)) {
+            HMI_LOG_WARNING("Editeur : sauvegarde automatique impossible dans " +
+                            _autosave->directory().string());
+            continue;
+        }
+        autosaved = mapId;
+        if (_crashAfterAutosave) {
+            hmi::triggerCrashForTest();
+        }
     }
 }
 
 void MainWindow::offerRecovery() {
-    bool recovered = false;
     for (const AutosaveRecord& record : _autosave->pending()) {
         const QString map = QString::fromStdString(record.mapId);
-        bool recover = false;
-        // Une seule carte ouverte à la fois : les brouillons suivants sont mis de côté.
-        if (!recovered) {
-            QMessageBox box(QMessageBox::Warning, QStringLiteral("Recover unsaved draft"),
-                            QStringLiteral("The editor did not close normally. An unsaved draft of "
-                                           "map \"%1\" was found.\n\nRecover it? If you discard "
-                                           "it, it is set aside, not deleted.")
-                                .arg(map),
-                            QMessageBox::NoButton, this);
-            QPushButton* const recoverButton =
-                box.addButton(QStringLiteral("Recover"), QMessageBox::AcceptRole);
-            box.addButton(QStringLiteral("Discard"), QMessageBox::DestructiveRole);
-            box.setDefaultButton(recoverButton);
-            box.exec();
-            recover = box.clickedButton() == recoverButton;
-        }
-        if (recover && _viewport->restoreDraft(record.mapId, record.draftJson)) {
-            recovered = true;
-            _autosavedMapId = record.mapId;
-            watchLevelFile();
-            continue;
+        QMessageBox box(QMessageBox::Warning, QStringLiteral("Recover unsaved draft"),
+                        QStringLiteral("The editor did not close normally. An unsaved draft of "
+                                       "map \"%1\" was found.\n\nRecover it? If you discard "
+                                       "it, it is set aside, not deleted.")
+                            .arg(map),
+                        QMessageBox::NoButton, this);
+        QPushButton* const recoverButton =
+            box.addButton(QStringLiteral("Recover"), QMessageBox::AcceptRole);
+        box.addButton(QStringLiteral("Discard"), QMessageBox::DestructiveRole);
+        box.setDefaultButton(recoverButton);
+        box.exec();
+        const bool recover = box.clickedButton() == recoverButton;
+        // Chaque brouillon repris prend son onglet (LOT-EDITOR-09) : plus besoin de les mettre de
+        // côté faute de place, comme quand une seule carte s'ouvrait.
+        if (recover) {
+            const bool blank = _viewport->mapId().empty() && !_viewport->isDirty();
+            EditorViewport* const view = blank ? _viewport : addDocument();
+            if (view->restoreDraft(record.mapId, record.draftJson)) {
+                _autosavedMapIds[view] = record.mapId;
+                watchLevelFile();
+                refreshDocumentLabels();
+                continue;
+            }
+            if (!blank) {
+                static_cast<void>(closeDocument(_tabs->indexOf(view)));
+            }
         }
         const std::optional<std::filesystem::path> kept =
             _autosave->keepAside(record.mapId, "draft", timestamp(), record.draftJson);
@@ -1168,18 +1449,35 @@ void MainWindow::offerRecovery() {
 }
 
 void MainWindow::watchLevelFile() {
-    const QString path = displayPath(_viewport->levelPath());
-    const QStringList watched = _watcher->files();
-    // Sous Windows, un fichier remplacé (écriture puis renommage) quitte la surveillance : on le
-    // reprend dès qu'il existe à nouveau.
-    if (watched.size() == 1 && watched.constFirst() == path) {
+    if (_watcher == nullptr) {
+        return;  // avant `setUpSafetyNet` : il n'y a encore rien à surveiller.
+    }
+    // Les fichiers de toutes les cartes ouvertes : celle qu'on regarde, et celles qui attendent
+    // dans leur onglet (LOT-EDITOR-09). Sous Windows, un fichier remplacé (écriture puis
+    // renommage) quitte la surveillance : on la refait dès qu'il existe à nouveau.
+    QStringList wanted;
+    for (int index = 0; index < _tabs->count(); ++index) {
+        const EditorViewport* const view = documentAt(index);
+        if (view == nullptr) {
+            continue;
+        }
+        const QString path = displayPath(view->levelPath());
+        if (!path.isEmpty() && QFileInfo::exists(path) && !wanted.contains(path)) {
+            wanted.append(path);
+        }
+    }
+    QStringList watched = _watcher->files();
+    watched.sort();
+    QStringList sorted = wanted;
+    sorted.sort();
+    if (watched == sorted) {
         return;
     }
     if (!watched.isEmpty()) {
         _watcher->removePaths(watched);
     }
-    if (QFileInfo::exists(path)) {
-        _watcher->addPath(path);
+    if (!wanted.isEmpty()) {
+        _watcher->addPaths(wanted);
     }
 }
 

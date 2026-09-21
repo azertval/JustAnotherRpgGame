@@ -380,6 +380,41 @@ Ce qu'on a composé une fois se repose ailleurs, et se garde
   taille, son entrée et ce qu'il pose. Un modèle vit dans `Editor/Templates/<id>.json` et ne nomme
   **aucune pièce** — il sert tous les lieux ; trois sont livrés : intérieur, rue, arène.
 
+## 19. Le monde : onglets, portails, ville (`LOT-EDITOR-09`)
+Plusieurs cartes à la fois, un graphe qu'on écrit au geste, et de quoi savoir où en est le monde
+([LOT-EDITOR-09](@ref lot-editor-09)).
+
+- \anchor EX-EDIT-088 **EX-EDIT-088** — Plusieurs cartes s'ouvrent en **onglets**, chacune avec son
+  brouillon, son historique d'annulation, sa sauvegarde automatique et sa garde du fichier sur
+  disque. Une carte déjà ouverte revient à son onglet au lieu de s'ouvrir deux fois ; le dernier
+  onglet ne se ferme pas. Ouvrir n'écrase plus rien : c'est **fermer** un onglet, ou la fenêtre,
+  qui demande quoi faire de chaque brouillon modifié, l'onglet en question au premier plan. Un
+  renommage ou un remplacement exige que **toutes** les cartes ouvertes soient enregistrées, puis
+  chaque onglet se relit là où sa carte est.
+- \anchor EX-EDIT-089 **EX-EDIT-089** — **Tirer un lien** d'une carte à une autre sur le graphe du
+  monde pose la paire **portail / point d'arrivée des deux côtés** : sur chaque carte, le portail
+  qui mène à l'autre et le point d'arrivée que le portail d'en face cite, nommé d'après la carte
+  d'où l'on vient (`from-martpart`, décalé s'il est pris). La paire se pose au plus près de
+  l'entrée, sur des cases libres et **atteignables depuis l'entrée** : les deux cartes se
+  traversent aussitôt, dans les deux sens. Comme un renommage, c'est un **plan** montré avant
+  d'être écrit (`hmi::planLinkMaps`) ; refusé, il n'écrit rien. `LevelEditor --link-maps <carte>
+  <carte>` fait de même sans fenêtre, par la même fonction.
+- \anchor EX-EDIT-090 **EX-EDIT-090** — Le navigateur montre une **vue de ville** : les quartiers
+  d'une ville jouable (`World/cities/<ville>.json`) posés sur son plan, aux cadres de
+  `world-maps.json`, nommés par l'atlas ; un quartier dont la carte manque, ou qui n'est qu'une
+  porte gardée, se voit comme tel. Double-cliquer un quartier ouvre sa carte, sous le même
+  garde-fou que la liste. La vue ne récrit ni la ville ni `world-maps.json`.
+- \anchor EX-EDIT-091 **EX-EDIT-091** — Une carte porte ses **propriétés** : sa **région** et son
+  **ambiance** sont des propriétés de la carte entière, écrites dans son fichier et lisibles par le
+  jeu (`core::LevelData::properties` ; toute clé racine inconnue y est gardée et réémise, comme
+  pour une couche ou une entité). Les changer est un **pas d'annulation**. Le **lieu** de la carte
+  se voit dans le même dialogue mais ne s'y édite pas : en changer repeint la carte
+  (`EX-EDIT-084`).
+- \anchor EX-EDIT-092 **EX-EDIT-092** — L'annexe d'une carte dit **où elle en est** — générée,
+  retouchée, finie, ou rien de dit. Le navigateur l'affiche, **filtre** par état, et montre les
+  cartes en **vignettes** rendues par le peintre du canevas (`EX-EDIT-059`), gardées tant que le
+  fichier ne change pas. L'état est une note d'auteur : il ne va jamais dans la carte.
+
 ## Exigences retirées {#edit-retirees}
 
 > Ancres conservées, jamais renumérotées : les lots livrés s'y réfèrent. Chacune servait un
