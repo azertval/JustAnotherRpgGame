@@ -6,6 +6,29 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Tampons et préfabriqués dans l'éditeur (LOT-EDITOR-08).** Une sélection se copie désormais
+  **entière** : les types de chaque couche, les pièces qui y sont ancrées (prises entières, le
+  rectangle s'agrandissant jusqu'à leur emprise), les entités et les cases de collision forcées.
+  Coller pose le tampon au curseur en **un pas d'annulation**, chaque entité recevant un
+  identifiant neuf ; `Ctrl+Maj+V` pose son reflet, pièces jumelles comprises. Un tampon
+  s'enregistre comme **préfabriqué** du lieu (`Editor/Prefabs/<lieu>/`), que la palette montre dans
+  un onglet avec une vignette générée de son propre contenu, et que `LevelEditor --list-prefabs` et
+  `--save-prefab` servent sans fenêtre. Une carte neuve part enfin d'un **modèle** —
+  intérieur, rue, arène —, qui donne ses couches, sa taille et son entrée sans nommer aucune pièce.
+  `--check` nomme tout fichier de la bibliothèque qu'il ne sait pas relire.
+
+- **Un minidump n'échoue plus sur la pile d'un autre thread.** Le test
+  `CrashDumpTest.EcritUnMinidumpAvecLeContexteDUneException` échouait par intermittence sur les
+  runners de CI (`ERROR_PARTIAL_COPY`), jamais sur le poste. Le rappel posé en `#78` ne pouvait pas
+  l'éviter : la documentation de `MINIDUMP_CALLBACK_TYPE` dit qu'un échec de lecture *dans une pile*
+  est tenu pour irrécupérable et n'appelle aucun rappel. `writeMiniDump` tente donc, en dernier
+  recours, un dump restreint au seul thread du plantage : les piles des autres threads ne sont plus
+  lues, donc plus une cause d'échec. Cette dernière tentative est de plus réessayée : sur les
+  runners, la même version donne une exécution verte et une rouge, l'échec tenant à un état que
+  `dbghelp` lit au mauvais moment. Le relevé des erreurs de chaque tentative
+  (`hmi::lastMiniDumpAttemptErrors`) est affiché par le test, pour qu'une prochaine panne se lise
+  dans le journal de la CI — il a déjà servi : `ERROR_INVALID_USER_BUFFER` sous OpenCppCoverage,
+  là où `ctest` passait.
 - **La direction artistique de l'Arena of Fate est tranchée (D-17, D-18).** Le style de la planche
   d'origine est abandonné : l'arène se dessine désormais **d'après le Colisée de Rome** — enceinte
   ovale à trois niveaux d'arcades superposées, attique à pilastres et corbeaux de mâts, podium de

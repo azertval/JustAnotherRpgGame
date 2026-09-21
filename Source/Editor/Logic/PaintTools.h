@@ -172,15 +172,6 @@ struct PickedBrush {
                                                    core::GridPosition cell,
                                                    const PlaceAppearance* appearance);
 
-/**
- * @brief Les types du rectangle [@p first, @p last] de @p tiles (`[ligne][colonne]`), bornes dans
- *        n'importe quel ordre : ce que copie la sélection (`Ctrl+C`) et que colle
- *        `hmi::paintTypeBlock`. Une case hors de la grille est vide.
- */
-[[nodiscard]] std::vector<std::vector<core::TileType>> copyTypeBlock(const core::TileMap& tiles,
-                                                                     core::GridPosition first,
-                                                                     core::GridPosition last);
-
 /// @brief Une mesure entre deux cases.
 struct Measure {
     /// Écart en colonnes et en lignes (valeurs absolues).

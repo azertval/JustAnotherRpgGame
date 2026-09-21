@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "Editor/Logic/FileOperationResult.h"
+#include "Editor/Logic/Stamps.h"
 
 /**
  * @file Editor/Logic/LevelFileOperations.h
@@ -47,11 +48,17 @@ public:
      * @p place (propriété `scene`), une couche de décor `relief` au-dessus, et la collision
      * déduite — tout est vide, donc tout arrête la vue, sauf la case d'entrée, qui reçoit un sol.
      *
+     * Avec un **modèle** (`LOT-EDITOR-08`, `EX-EDIT-087`), ce sont ses couches qui naissent, son
+     * tampon qui est posé et son entrée qui est mise : une carte neuve part d'une pièce, d'une rue
+     * ou d'une arène plutôt que du vide. Le modèle ne nomme aucune pièce ; le lieu reste celui que
+     * @p place donne.
+     *
      * Son nom est la clé `map.<identifiant>.name` (`LOT-EDITOR-07`), que chaque catalogue de
      * traduction reçoit avec @p name pour texte : la carte passe le contrôle telle quelle.
      */
     [[nodiscard]] FileOperationResult create(const std::string& name, int width, int height,
-                                             const std::string& place = {}) const;
+                                             const std::string& place = {},
+                                             const MapTemplate* model = nullptr) const;
 
     /// Renomme le niveau @p source en @p newName, dans son dossier, par le renommage propagé
     /// (`hmi::planRenameMap`, `LOT-EDITOR-14`) : portails, variantes, villes et clé du nom suivent,

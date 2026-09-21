@@ -19,11 +19,14 @@
 #include <QStandardItemModel>
 #include <QTabWidget>
 #include <QVBoxLayout>
+#include <cstddef>
 #include <utility>
+#include <vector>
 
 #include "Core/World/WorldGraph.h"
 #include "Editor/Logic/LevelFileOperations.h"
 #include "Editor/Logic/MapFormat.h"
+#include "Editor/Logic/Stamps.h"
 #include "Editor/Ui/WorldGraphView.h"
 #include "HMI/HmiLog.h"
 
@@ -169,6 +172,25 @@ void LevelBrowserPanel::onNew() {
         placeCombo->addItem(QString::fromStdString(place), QString::fromStdString(place));
     }
     placeCombo->addItem(QStringLiteral("(none: colored tile types)"), QString());
+    // Le modèle (LOT-EDITOR-08) : ses couches, son tampon, son entrée. Le choisir reprend sa
+    // taille ; l'auteur peut encore l'agrandir, et ce que le modèle ne couvre pas reste plein.
+    const std::vector<MapTemplate> models = mapTemplates(_dir.parent_path());
+    auto* const templateCombo = new QComboBox(&dialog);
+    templateCombo->addItem(QStringLiteral("(none: an empty map)"), -1);
+    for (std::size_t index = 0; index < models.size(); ++index) {
+        templateCombo->addItem(QString::fromStdString(models[index].label),
+                               static_cast<int>(index));
+        templateCombo->setItemData(templateCombo->count() - 1,
+                                   QString::fromStdString(models[index].description),
+                                   Qt::ToolTipRole);
+    }
+    connect(templateCombo, &QComboBox::currentIndexChanged, &dialog, [&](int) {
+        const int chosen = templateCombo->currentData().toInt();
+        if (chosen >= 0 && chosen < static_cast<int>(models.size())) {
+            widthSpin->setValue(models[static_cast<std::size_t>(chosen)].width);
+            heightSpin->setValue(models[static_cast<std::size_t>(chosen)].height);
+        }
+    });
     auto* const buttons =
         new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
     connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
@@ -178,15 +200,20 @@ void LevelBrowserPanel::onNew() {
     form->addRow(QStringLiteral("Width (cells)"), widthSpin);
     form->addRow(QStringLiteral("Height (cells)"), heightSpin);
     form->addRow(QStringLiteral("Place (piece sheet)"), placeCombo);
+    form->addRow(QStringLiteral("Template"), templateCombo);
     form->addRow(buttons);
     if (dialog.exec() != QDialog::Accepted || nameEdit->text().isEmpty()) {
         return;
     }
     const QString name = nameEdit->text();
     const LevelFileOperations ops(_dir);
+    const int chosen = templateCombo->currentData().toInt();
+    const MapTemplate* const model = chosen >= 0 && chosen < static_cast<int>(models.size())
+                                         ? &models[static_cast<std::size_t>(chosen)]
+                                         : nullptr;
     const FileOperationResult result =
         ops.create(name.toStdString(), widthSpin->value(), heightSpin->value(),
-                   placeCombo->currentData().toString().toStdString());
+                   placeCombo->currentData().toString().toStdString(), model);
     if (result.ok()) {
         HMI_LOG_INFO("Niveaux : cree « " + name.toStdString() + " ».");
     }

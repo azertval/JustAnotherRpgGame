@@ -70,7 +70,7 @@ constexpr std::array<Scenario, 11> SCENARIOS = {{
     {.outil = "line", .gestes = 2, .pas = 1},
     {.outil = "bucket", .gestes = 2, .pas = 2},
     {.outil = "pipette", .gestes = 4, .pas = 2},
-    {.outil = "selection", .gestes = 3, .pas = 2},
+    {.outil = "selection", .gestes = 4, .pas = 3},
     {.outil = "entity", .gestes = 7, .pas = 6},
     {.outil = "shape", .gestes = 5, .pas = 5},
     {.outil = "measure", .gestes = 1, .pas = 0},

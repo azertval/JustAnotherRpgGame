@@ -124,6 +124,7 @@ add_executable(UnitTests
     Unit/Editor/test_map_format.cpp
     Unit/Editor/test_content_check.cpp
     Unit/Editor/test_map_refactor.cpp
+    Unit/Editor/test_stamps.cpp
     Unit/Editor/test_piece_catalog.cpp
     Unit/Editor/test_brush_gesture.cpp
     Unit/Editor/test_paint_tools.cpp

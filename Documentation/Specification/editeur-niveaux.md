@@ -358,6 +358,28 @@ change ne casse rien ([LOT-EDITOR-14](@ref lot-editor-14)).
   se redéduit par le nouveau manifeste ; le lieu reçoit une table d'apparence traduite de l'ancienne
   s'il n'en a pas.
 
+## 18. Tampons et préfabriqués (`LOT-EDITOR-08`)
+Ce qu'on a composé une fois se repose ailleurs, et se garde
+([LOT-EDITOR-08](@ref lot-editor-08)).
+
+- \anchor EX-EDIT-085 **EX-EDIT-085** — Une sélection se copie **entière** : les types de chaque
+  couche visuelle, les pièces qui y sont ancrées, les entités qui s'y tiennent et les cases dont la
+  collision est forcée. Une pièce est prise entière ou pas du tout — elle l'est si sa case
+  d'ancrage est dans le rectangle, qui s'agrandit alors jusqu'à son emprise ; l'entrée n'est jamais
+  prise. Coller pose le tampon au curseur, en **un pas d'annulation**, chaque entité recevant un
+  identifiant neuf ; `Ctrl+Maj+V` pose son reflet, pièces jumelles comprises. Une couche du tampon
+  va à la couche de même nom, à défaut à la première de même rôle ; une couche absente ou
+  verrouillée refuse la pose sans rien écrire.
+- \anchor EX-EDIT-086 **EX-EDIT-086** — Un tampon s'enregistre comme **préfabriqué** du lieu, dans
+  `Editor/Prefabs/<lieu>/<nom>.json` ; la palette en montre la bibliothèque, chacun avec une
+  **vignette générée** de son propre contenu par le peintre du canevas (`EX-EDIT-059`), et le
+  choisir arme le tampon. `LevelEditor --list-prefabs` et `--save-prefab <carte> <nom> --from <c,r>
+  --to <c,r>` font de même sans fenêtre, par les mêmes fonctions (règle 4) ; `--check` nomme tout
+  fichier de la bibliothèque que l'éditeur ne sait pas relire.
+- \anchor EX-EDIT-087 **EX-EDIT-087** — Une carte neuve part d'un **modèle** : ses couches, sa
+  taille, son entrée et ce qu'il pose. Un modèle vit dans `Editor/Templates/<id>.json` et ne nomme
+  **aucune pièce** — il sert tous les lieux ; trois sont livrés : intérieur, rue, arène.
+
 ## Exigences retirées {#edit-retirees}
 
 > Ancres conservées, jamais renumérotées : les lots livrés s'y réfèrent. Chacune servait un

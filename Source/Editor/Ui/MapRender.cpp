@@ -10,6 +10,7 @@
 #include <array>
 #include <cmath>
 #include <functional>
+#include <memory>
 #include <utility>
 
 #include "Core/Combat/IsoProjection.h"
@@ -92,6 +93,48 @@ std::optional<IsoBandOpacity> parseRenderLayers(std::string_view list) {
         start = comma + 1;
     }
     return bands;
+}
+
+QImage renderStamp(const Stamp& stamp, const std::filesystem::path& dataRoot,
+                   const std::string& place, int maxSide) {
+    if (stamp.empty() || maxSide <= 0) {
+        return {};
+    }
+    // Une carte jetable a la taille du tampon : ses couches sont celles qu'il nomme, dans l'ordre
+    // ou il les porte, et le peintre du canevas fait le reste (regle 4 : un seul chemin de rendu).
+    core::LevelDraft draft = core::LevelDraft::empty("prefab", stamp.width, stamp.height);
+    bool namedPlace = false;
+    for (const StampLayer& layer : stamp.layers) {
+        const std::optional<std::size_t> added = draft.addLayer(layer.kind, layer.name);
+        if (added && !namedPlace && layer.kind == core::LayerKind::Ground && !place.empty()) {
+            draft.setLayerProperty(*added, std::string{SCENE_PLACE_PROPERTY}, place);
+            namedPlace = true;
+        }
+    }
+    PlaceAssets assets = loadPlaceAssets(dataRoot, place);
+    if (assets.manifest) {
+        draft.setPieceManifest(std::make_shared<const core::ScenePieceManifest>(*assets.manifest));
+    }
+    const LayerViewState libre;
+    if (!pasteStamp(draft, stamp, core::GridPosition{.column = 0, .row = 0}, libre)
+             .refusal.empty()) {
+        return {};
+    }
+    // La carte doit avoir une entree pour se valider ; elle ne se peint pas, la bande des
+    // figurines etant eteinte.
+    draft.setEntry(0, stamp.height - 1);
+    const core::LevelLoadResult level = draft.toLevel();
+    if (!level.ok()) {
+        return {};
+    }
+    const QImage image =
+        renderMap(*level.level, dataRoot,
+                  MapRenderOptions{
+                      .bands = IsoBandOpacity{}, .scale = 1.0, .background = QColor(0, 0, 0, 0)});
+    if (image.isNull()) {
+        return image;
+    }
+    return image.scaled(maxSide, maxSide, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 }
 
 QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot,

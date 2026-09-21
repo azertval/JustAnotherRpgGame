@@ -196,14 +196,14 @@ sont des noms, pas un ordre : l'ordre vient des prérequis.
 | `LOT-EDITOR-06` | Les cartes quittent leurs scripts — **livré** | 05, 13 | S |
 | `LOT-EDITOR-07` | Contrôle du contenu — **livré** | 06 | M |
 | `LOT-EDITOR-14` | Renommer et remplacer — **livré** | 06 | M |
-| `LOT-EDITOR-08` | Tampons et préfabriqués | 04 | S |
+| `LOT-EDITOR-08` | Tampons et préfabriqués (livré) | 04 | S |
 | `LOT-EDITOR-09` | Le monde : onglets, portails, ville | 05, 13 | M |
 | `LOT-EDITOR-10` | Essai complet dans le jeu | 01 | S |
 | `LOT-EDITOR-11` | Génération assistée | 07 et [LOT-40](@ref lot-40) | M |
 
 Tailles relatives : S tient en une séance, M en quelques-unes, L demande un découpage en phases.
 
-Le jalon est atteint : 01, 02, 12, 03, 04, 05, 13 et 06 sont livrés, et 07 et 14 après lui. Le graphe est donné en source
+Le jalon est atteint : 01, 02, 12, 03, 04, 05, 13 et 06 sont livrés, et 07, 14 et 08 après lui. Le graphe est donné en source
 Graphviz, comme celui du jeu (la chaîne Doxygen tourne sans `HAVE_DOT`).
 
 ```dot
@@ -220,7 +220,7 @@ digraph editeur {
   E06 [label="06\nfin des scripts\n(jalon, livré)", style="rounded,filled,bold", fillcolor="#dddddd"];
   E07 [label="07\ncontrôles\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E14 [label="14\nrenommer, remplacer\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
-  E08 [label="08\ntampons"];
+  E08 [label="08\ntampons\n(livré)", style="rounded,filled", fillcolor="#dddddd"];
   E09 [label="09\nmonde"];
   E10 [label="10\nessai complet"];
   E11 [label="11\ngénération"];
@@ -364,19 +364,18 @@ la carte ouverte, en un pas, ou sur toutes les cartes (`EX-EDIT-083`). Une carte
 par une table de correspondance, sans être repeinte (`EX-EDIT-084`) ; la planche d'Arenarea reste
 à produire par l'atelier du [LOT-92](@ref lot-92), sa commande est prête.
 
-### LOT-EDITOR-08 — Tampons et préfabriqués {#lot-editor-08}
+### LOT-EDITOR-08 — Tampons et préfabriqués
 
-> Statut : **à faire**. Prérequis : 04.
+> Statut : **livré le 20 septembre 2026**. Le lot a quitté cette page pour son dossier :
+> @subpage lot-editor-08.
 
-La sélection copiée emporte ses couches, ses pièces et ses entités, et peut s'enregistrer comme
-préfabriqué.
-
-- Bibliothèque par lieu (`Source/Elements/Editor/Prefabs/<lieu>/`), vignette générée, miroir à la
-  pose.
-- Modèles de carte : intérieur, rue, arène — une nouvelle carte part d'un modèle.
-
-*Acceptation* — un étal de Martpart enregistré se repose ailleurs avec son marchand, qui reçoit un
-nouvel `id` ; l'annulation le retire en un pas.
+Une sélection se copie **entière** — les types de chaque couche, les pièces ancrées, les entités,
+les cases forcées — et se repose au curseur en un pas d'annulation, chaque entité recevant un
+identifiant neuf ; `Ctrl+Maj+V` pose son reflet, jumelles comprises (`EX-EDIT-085`). Un tampon
+s'enregistre comme préfabriqué du lieu, que la palette montre avec une vignette générée de son
+propre contenu, et que `--list-prefabs` et `--save-prefab` servent sans fenêtre (`EX-EDIT-086`).
+Une carte neuve part d'un modèle — intérieur, rue, arène —, qui donne ses couches, sa taille et son
+entrée sans nommer aucune pièce (`EX-EDIT-087`).
 
 ### LOT-EDITOR-09 — Le monde : onglets, portails, ville {#lot-editor-09}
 

@@ -41,6 +41,7 @@
 #include "Editor/Logic/LayerView.h"
 #include "Editor/Logic/PaintTools.h"
 #include "Editor/Logic/PieceCatalog.h"
+#include "Editor/Logic/Stamps.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
@@ -126,6 +127,10 @@ public:
     [[nodiscard]] std::vector<PieceCatalogGroup> pieceCatalog() const;
     /// @return Le dossier des images du lieu (`Assets/Scene/<lieu>`), vide sans lieu.
     [[nodiscard]] std::filesystem::path placeDirectory() const;
+    /// @return Le lieu de la carte ouverte (`scene`), vide pour une carte sans lieu.
+    [[nodiscard]] const std::string& place() const noexcept {
+        return _appearancePlace;
+    }
     /// @return Vrai si la collision de la case survolée est forcée à la main.
     [[nodiscard]] bool hoveredCellForced() const;
     void setTool(hmi::EditorTool tool);
@@ -210,7 +215,7 @@ public:
         copySelection();
     }
     void paste() override {
-        pasteClipboard();
+        pasteClipboard(false);
     }
     [[nodiscard]] bool canCopy() const override {
         return _selection.has_value();
@@ -218,6 +223,20 @@ public:
     [[nodiscard]] bool canPaste() const override {
         return !_clipboard.empty();
     }
+
+    // --- Tampons et préfabriqués (LOT-EDITOR-08) ---
+    /// Colle le tampon **reflété** : la jumelle de chaque pièce, le rectangle transposé.
+    void pasteMirroredClipboard() {
+        pasteClipboard(true);
+    }
+    /// Arme @p stamp comme tampon à poser : un préfabriqué choisi dans la bibliothèque.
+    void setClipboardStamp(Stamp stamp);
+    /// @return Le tampon courant : ce que `Ctrl+C` a pris, ou le préfabriqué armé.
+    [[nodiscard]] const Stamp& clipboardStamp() const noexcept {
+        return _clipboard;
+    }
+    /// @return Le tampon de la sélection courante, vide s'il n'y a pas de sélection.
+    [[nodiscard]] Stamp selectionStamp() const;
 
     void toggleGrid() noexcept;
     /// Recadre la vue sur toute la carte.
@@ -425,7 +444,8 @@ private:
     void paintForcedMask(QPainter& painter, const CellRange& cells, bool iso);
     void applyRectangle(core::GridPosition a, core::GridPosition b);
     void copySelection();
-    void pasteClipboard();
+    /// Pose le tampon au-dessus de la case survolée ; @p mirrored le reflète d'abord.
+    void pasteClipboard(bool mirrored);
     [[nodiscard]] std::optional<std::pair<core::GridPosition, core::GridPosition>> highlight()
         const;
     /// Invalide le rendu du brouillon et notifie les panneaux (`draftChanged`) — après toute
@@ -496,7 +516,8 @@ private:
     std::optional<core::GridPosition> _revealedCell;
     float _lastEmittedZoom = 0.0F;
     std::optional<std::pair<core::GridPosition, core::GridPosition>> _selection;
-    std::vector<std::vector<core::TileType>> _clipboard;
+    /// Le tampon : ce que `Ctrl+C` a découpé, ou le préfabriqué armé (`LOT-EDITOR-08`).
+    Stamp _clipboard;
     /// Identifiant de carte du brouillon (`capital/martpart`) : son chemin sous `Levels/`, sans
     /// extension ; son nom tant qu'il n'a jamais été ouvert ni enregistré.
     std::string _mapId;

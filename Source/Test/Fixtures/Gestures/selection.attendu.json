@@ -9,14 +9,12 @@
     {"x": 4, "y": 0, "type": "wall"},
     {"x": 5, "y": 0, "type": "wall"},
     {"x": 1, "y": 1, "type": "entry"},
+    {"x": 9, "y": 1, "type": "wall"},
+    {"x": 9, "y": 2, "type": "wall"},
+    {"x": 9, "y": 3, "type": "wall"},
     {"x": 3, "y": 4, "type": "wall"},
     {"x": 4, "y": 4, "type": "wall"},
     {"x": 5, "y": 4, "type": "wall"}
-  ],
-  "forced": [
-    {"x": 3, "y": 4},
-    {"x": 4, "y": 4},
-    {"x": 5, "y": 4}
   ],
   "layers": [
     {
@@ -152,7 +150,13 @@
       "tiles": [
         {"x": 3, "y": 0, "type": "wall", "piece": "wall-right"},
         {"x": 4, "y": 0, "type": "wall", "piece": "window-right"},
-        {"x": 5, "y": 0, "type": "wall", "piece": "wall-right"}
+        {"x": 5, "y": 0, "type": "wall", "piece": "wall-right"},
+        {"x": 9, "y": 1, "type": "wall", "piece": "wall-left"},
+        {"x": 9, "y": 2, "type": "wall", "piece": "window-left"},
+        {"x": 9, "y": 3, "type": "wall", "piece": "wall-left"},
+        {"x": 3, "y": 4, "type": "wall", "piece": "wall-right"},
+        {"x": 4, "y": 4, "type": "wall", "piece": "window-right"},
+        {"x": 5, "y": 4, "type": "wall", "piece": "wall-right"}
       ]
     }
   ],

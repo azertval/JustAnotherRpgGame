@@ -44,6 +44,10 @@ Faire une carte de bout en bout : le
 - **Un contrôle, deux entrées.** `--check` et le panneau « Problems » appellent le même
   `hmi::checkAllMaps`, sur toutes les cartes ; un constat nomme sa carte, sa case et son entité, et
   le panneau y mène (`EX-EDIT-079`, `EX-EDIT-080`).
+- **Ce qu'on a composé une fois se repose.** Une sélection se copie entière — couches, pièces
+  ancrées, entités, cases forcées —, se pose en un pas d'annulation avec des identifiants neufs,
+  se reflète, et s'enregistre comme préfabriqué du lieu (`EX-EDIT-085`, `EX-EDIT-086`). Une carte
+  neuve part d'un modèle (`EX-EDIT-087`).
 - **Deux façons d'éditer, un seul chemin.** La souris et `--apply` appellent les mêmes fonctions
   pures, dans le même ordre ; un scénario `--apply` par outil, comparé à un fichier attendu, tient
   lieu de test d'IHM (`EX-EDIT-074`, `EX-EDIT-076`).
@@ -66,6 +70,8 @@ Faire une carte de bout en bout : le
   que la fenêtre garde d'un geste à l'autre, et le refus lisible d'un geste (`EX-EDIT-074`).
 - `LevelFileOperations`, `LevelNameValidation` — créer (avec son lieu, `EX-EDIT-077`), renommer,
   dupliquer, supprimer une carte ; son nom est une clé, que les catalogues reçoivent (`EX-EDIT-081`).
+- `Stamps` — les **tampons** : découper un rectangle de carte entier, le reposer, le refléter, et
+  la bibliothèque de préfabriqués et de modèles de carte du lieu (`EX-EDIT-085` à `EX-EDIT-087`).
 - `MapRefactor` — renommer et remplacer d'un bout à l'autre du projet : qui cite une carte, un
   point d'arrivée, une entité, une pièce ; le plan de chaque fichier à récrire, calculé avant d'en
   écrire un (`EX-EDIT-082`, `EX-EDIT-083`, `EX-EDIT-084`).
@@ -110,6 +116,8 @@ de l'arbre qui l'a construit, et à défaut le dossier de l'exécutable (`hmi::r
 | `LevelEditor --migrate [carte…] [--output f]` | Convertit en v4 canonique (`EX-EDIT-062`). |
 | `LevelEditor --apply gestes.json [carte] [--output f]` | Rejoue les gestes du fichier ; un geste refusé n'écrit rien (`EX-EDIT-074`). |
 | `LevelEditor --render [carte…] [--output f.png\|dossier] [--layers floors,relief,figures,collision] [--scale s]` | Rend en PNG, en isométrie (`EX-EDIT-075`). |
+| `LevelEditor --list-prefabs [lieu…]` | Liste les préfabriqués d'un lieu, de tous les lieux à défaut (`EX-EDIT-086`). |
+| `LevelEditor --save-prefab <carte> <nom> --from <c,r> --to <c,r>` | Découpe le rectangle et l'écrit comme préfabriqué du lieu de la carte (`EX-EDIT-086`). |
 | `LevelEditor --who-cites map <carte>` (ou `arrival <carte> <point>`, `entity <carte> <id>`, `piece <pièce>`) | Liste ce qui cite, sans rien écrire (`EX-EDIT-082`). |
 | `LevelEditor --rename-map <ancien> <nouveau>` | Renomme une carte, dossier compris, et tout ce qui la cite ; refusé, n'écrit rien (`EX-EDIT-082`). |
 | `LevelEditor --rename-arrival <carte> <ancien> <nouveau>`, `--rename-id <carte> <ancien> <nouveau>` | Renomme un point d'arrivée, un identifiant d'entité, et ce qui les cite (`EX-EDIT-082`). |
@@ -139,6 +147,8 @@ d'éprouver la reprise.
 
 | Chemin | Contenu |
 |---|---|
+| `Editor/Prefabs/<lieu>/<nom>.json` | Un **préfabriqué** du lieu (`jadg-editor-prefab`, version 1) : un morceau de carte gardé, que la palette montre et que `Ctrl+V` repose. |
+| `Editor/Templates/<id>.json` | Un **modèle de carte** (`jadg-editor-map-template`, version 1) : couches, taille, entrée, et ce qu'il pose. Il ne nomme aucune pièce. |
 | `Levels/<carte>.editor.json` | L'annexe de la carte : ses notes d'auteur, une par case. Le jeu ne la lit jamais, aucune liste de cartes ne la prend pour une carte ; elle suit la carte qu'on renomme, duplique ou supprime. |
 
 ## Touches des outils
@@ -151,6 +161,8 @@ d'éprouver la reprise.
 | `Z` | forme : peindre la zone sélectionnée (`Ctrl` gomme), tracer le trajet sélectionné |
 | `D` · `N` | mesure (5 pieds la case), note d'auteur |
 | `M` | miroir, par la case survolée |
+| `Ctrl+C` · `Ctrl+V` · `Ctrl+Maj+V` | copier la sélection en tampon, la poser, la poser reflétée |
+| `Ctrl+Maj+S` | enregistrer la sélection comme préfabriqué |
 | `P` · `Shift+P` | essai depuis l'entrée, depuis la case survolée |
 
 Pour ouvrir le nouveau Colisée, utiliser `scripts/open-arena-editor.ps1` ou

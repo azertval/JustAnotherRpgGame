@@ -354,22 +354,6 @@ CanvasBrush pieceBrush(const PlaceAppearance* appearance, std::string piece, boo
         .kind = BrushKind::Piece, .type = type, .piece = std::move(piece), .floor = floor};
 }
 
-std::vector<std::vector<core::TileType>> copyTypeBlock(const core::TileMap& tiles,
-                                                       core::GridPosition first,
-                                                       core::GridPosition last) {
-    std::vector<std::vector<core::TileType>> block;
-    for (int row = std::min(first.row, last.row); row <= std::max(first.row, last.row); ++row) {
-        std::vector<core::TileType> line;
-        for (int column = std::min(first.column, last.column);
-             column <= std::max(first.column, last.column); ++column) {
-            line.push_back(tiles.inBounds(column, row) ? tiles.tile(column, row)
-                                                       : core::TileType::Empty);
-        }
-        block.push_back(std::move(line));
-    }
-    return block;
-}
-
 Measure measureBetween(core::GridPosition from, core::GridPosition to) noexcept {
     const int columns = std::abs(to.column - from.column);
     const int rows = std::abs(to.row - from.row);

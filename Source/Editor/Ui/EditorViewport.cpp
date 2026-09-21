@@ -981,27 +981,55 @@ void EditorViewport::applyRectangle(core::GridPosition a, core::GridPosition b) 
                                      strokeContext()));
 }
 
-void EditorViewport::copySelection() {
+Stamp EditorViewport::selectionStamp() const {
     if (!_selection) {
-        return;
+        return {};
     }
-    const core::GridPosition mn = _selection->first;
-    const core::GridPosition mx = _selection->second;
-    _clipboard = copyTypeBlock(activeLayerTiles(), mn, mx);
-    emit statusMessage(QStringLiteral("Region copied (%1 × %2).")
-                           .arg(mx.column - mn.column + 1)
-                           .arg(mx.row - mn.row + 1));
+    return cutStamp(_draft, _selection->first, _selection->second);
 }
 
-void EditorViewport::pasteClipboard() {
+void EditorViewport::copySelection() {
+    // Le tampon entier (LOT-EDITOR-08) : couches, pieces, entites, cases forcees.
+    Stamp stamp = selectionStamp();
+    if (stamp.empty()) {
+        return;
+    }
+    const QString label = QString::fromStdString(stampLabel(stamp));
+    _clipboard = std::move(stamp);
+    emit statusMessage(QStringLiteral("Copied: %1.").arg(label));
+}
+
+void EditorViewport::setClipboardStamp(Stamp stamp) {
+    const QString label = QString::fromStdString(stampLabel(stamp));
+    _clipboard = std::move(stamp);
+    if (!_clipboard.empty()) {
+        emit statusMessage(QStringLiteral("Stamp armed: %1. Ctrl+V to place it.").arg(label));
+    }
+    emit draftChanged();
+}
+
+void EditorViewport::pasteClipboard(bool mirrored) {
     if (_clipboard.empty() || !_hoverCell) {
         return;
     }
-    const BrushResult result =
-        paintTypeBlock(_draft, _activeLayer, _layerView, *_hoverCell, _clipboard);
-    reportBrush(result);
+    const Stamp stamp = mirrored ? mirrorStamp(_clipboard, _manifest.get()) : _clipboard;
+    const StampPasteResult result = pasteStamp(_draft, stamp, *_hoverCell, _layerView);
+    if (!result.refusal.empty()) {
+        emit statusMessage(
+            QStringLiteral("Paste refused: %1").arg(QString::fromStdString(result.refusal)));
+        return;
+    }
     if (result.changed) {
-        emit statusMessage(QStringLiteral("Region pasted."));
+        markDraftMutated();
+        // Les entites posees sont selectionnees : l'inspecteur montre la derniere, prete a etre
+        // renommee, et un Suppr les retire toutes.
+        if (!result.entities.empty()) {
+            setEntitySelection(result.entities, result.entities.back());
+        }
+        emit statusMessage(
+            QStringLiteral("Pasted: %1%2")
+                .arg(QString::fromStdString(stampLabel(stamp)),
+                     mirrored ? QStringLiteral(" (mirrored).") : QStringLiteral(".")));
     }
     _refusalReported = false;
 }

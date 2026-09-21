@@ -53,12 +53,16 @@ enum class EditorCommand {
     Mirror,
     Copy,
     Paste,
+    /// Coller le tampon **reflété** (`LOT-EDITOR-08`).
+    PasteMirrored,
+    /// Enregistrer la sélection comme préfabriqué du lieu (`LOT-EDITOR-08`).
+    SaveAsPrefab,
     Rename,
     ShortcutsOverview,
 };
 
 /// Nombre de commandes, déclaré au plus près de l'énumération qu'il compte.
-inline constexpr std::size_t EDITOR_COMMAND_COUNT = 25;
+inline constexpr std::size_t EDITOR_COMMAND_COUNT = 27;
 
 /**
  * @brief Construit et possède les `QAction` de l'éditeur : chaque outil et chaque commande

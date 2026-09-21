@@ -20,6 +20,7 @@
 #include "Editor/Logic/EntityGesture.h"
 #include "Editor/Logic/EntityShapes.h"
 #include "Editor/Logic/PieceCatalog.h"
+#include "Editor/Logic/Stamps.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace hmi {
@@ -41,8 +42,12 @@ public:
 class GesturePlayer {
 public:
     GesturePlayer(core::LevelDraft& draft, EditorSidecar& sidecar, const PlaceAssets& assets,
-                  GestureScriptResult& result)
-        : _draft(draft), _sidecar(sidecar), _assets(assets), _result(result) {
+                  std::filesystem::path dataRoot, GestureScriptResult& result)
+        : _draft(draft),
+          _sidecar(sidecar),
+          _assets(assets),
+          _dataRoot(std::move(dataRoot)),
+          _result(result) {
         _state.view.sync(_draft.layers().size());
     }
 
@@ -225,6 +230,25 @@ private:
         }
         armBrush();
         armEntities();
+        armPrefab();
+    }
+
+    // La bibliotheque du lieu (LOT-EDITOR-08) : un prefabrique devient le tampon a poser.
+    void armPrefab() {
+        if (field("prefab") == nullptr) {
+            return;
+        }
+        const std::string name = text("prefab");
+        if (_dataRoot.empty()) {
+            throw GestureRefused("no data root: a prefab is read under <data>/Editor/Prefabs");
+        }
+        const std::string place = scenePlaceOf(_draft.layers());
+        std::string error;
+        std::optional<Stamp> stamp = readPrefab(_dataRoot, place, name, error);
+        if (!stamp) {
+            throw GestureRefused("prefab \"" + name + "\": " + error);
+        }
+        _state.clipboard = std::move(*stamp);
     }
 
     // La palette : un type, ou une pièce de la planche.
@@ -378,8 +402,8 @@ private:
         }
         const std::string then = text("then");
         if (then == "copy") {
-            _state.clipboard = copyTypeBlock(activeLayerTiles(), _state.selection->first,
-                                             _state.selection->second);
+            // Le tampon entier (LOT-EDITOR-08) : couches, pieces, entites, cases forcees.
+            _state.clipboard = cutStamp(_draft, _state.selection->first, _state.selection->second);
         } else if (then == "delete") {
             const CanvasBrush eraser{
                 .kind = BrushKind::Eraser, .type = {}, .piece = {}, .floor = false};
@@ -393,10 +417,21 @@ private:
 
     void paste() {
         if (_state.clipboard.empty()) {
-            throw GestureRefused("nothing to paste: copy a selection first");
+            throw GestureRefused("nothing to paste: copy a selection, or arm a prefab, first");
         }
-        report(
-            paintTypeBlock(_draft, _state.activeLayer, _state.view, cell("at"), _state.clipboard));
+        const Stamp stamp =
+            flag("flip") ? mirrorStamp(_state.clipboard, manifest()) : _state.clipboard;
+        const StampPasteResult result = pasteStamp(_draft, stamp, cell("at"), _state.view);
+        if (!result.refusal.empty()) {
+            throw GestureRefused(result.refusal);
+        }
+        if (!result.entities.empty()) {
+            setEntitySelection(result.entities, result.entities.back());
+        }
+    }
+
+    [[nodiscard]] const core::ScenePieceManifest* manifest() const {
+        return _assets.manifest ? &*_assets.manifest : nullptr;
     }
 
     // --- Entités et formes -------------------------------------------------------------------
@@ -562,6 +597,7 @@ private:
     core::LevelDraft& _draft;
     EditorSidecar& _sidecar;
     const PlaceAssets& _assets;
+    std::filesystem::path _dataRoot;
     GestureScriptResult& _result;
     GestureState _state;
     const nlohmann::json* _gesture = nullptr;
@@ -588,7 +624,8 @@ private:
 }  // namespace
 
 GestureScriptResult applyGestureScript(const nlohmann::json& script, core::LevelDraft& draft,
-                                       EditorSidecar& sidecar, const PlaceAssets& assets) {
+                                       EditorSidecar& sidecar, const PlaceAssets& assets,
+                                       const std::filesystem::path& dataRoot) {
     GestureScriptResult result;
     if (!script.is_object() || script.value("format", std::string{}) != GESTURE_SCRIPT_FORMAT) {
         result.error =
@@ -606,7 +643,7 @@ GestureScriptResult applyGestureScript(const nlohmann::json& script, core::Level
         result.error = "\"gestures\" must be a list";
         return result;
     }
-    GesturePlayer player(draft, sidecar, assets, result);
+    GesturePlayer player(draft, sidecar, assets, dataRoot, result);
     for (std::size_t index = 0; index < gestures->size(); ++index) {
         const nlohmann::json& gesture = (*gestures)[index];
         const std::uint64_t before = draft.revision();
@@ -662,7 +699,7 @@ GestureFileResult applyGestureFile(const std::filesystem::path& scriptFile, std:
     const std::filesystem::path sidecarFile = sidecarPath(mapFile);
     EditorSidecar sidecar = readSidecar(sidecarFile).sidecar;
 
-    file.script = applyGestureScript(script, draft, sidecar, assets);
+    file.script = applyGestureScript(script, draft, sidecar, assets, dataRoot);
     if (!file.script.ok()) {
         file.script.error = origin + ": " + file.script.error;
         return file;

@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "Editor/Logic/CanvasScene.h"
+#include "Editor/Logic/Stamps.h"
 
 namespace core {
 class Level;
@@ -59,6 +60,18 @@ struct MapRenderOptions {
  */
 [[nodiscard]] QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot,
                                const MapRenderOptions& options);
+
+/**
+ * @brief La **vignette d'un préfabriqué** (`LOT-EDITOR-08`) : le tampon posé sur une carte de sa
+ *        taille, rendu par le même peintre, réduit pour tenir dans un carré de @p maxSide pixels.
+ * @param stamp    Le tampon.
+ * @param dataRoot La racine des données (les planches).
+ * @param place    Le lieu dont il prend ses pièces ; vide, il se peint par ses types.
+ * @param maxSide  Le côté du carré, en pixels (> 0).
+ * @return L'image, nulle si le tampon ne se compose pas.
+ */
+[[nodiscard]] QImage renderStamp(const Stamp& stamp, const std::filesystem::path& dataRoot,
+                                 const std::string& place, int maxSide);
 
 /**
  * @brief L'entrée `--render` de l'éditeur, avant toute construction de fenêtre.

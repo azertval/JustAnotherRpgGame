@@ -24,6 +24,7 @@
 #include "Editor/Logic/ContentCheck.h"
 #include "Editor/Logic/EditorSidecar.h"
 #include "Editor/Logic/GestureScript.h"
+#include "Editor/Logic/Stamps.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace hmi {
@@ -654,9 +655,19 @@ int checkCommand(const std::filesystem::path& dataRoot, std::string& output) {
     for (const MapCheckFinding& finding : report.findings) {
         output += formatFinding(finding) + "\n";
     }
+    // La bibliotheque de l'editeur (LOT-EDITOR-08) : un prefabrique ou un modele illisible est
+    // une erreur, comme une carte illisible.
+    const std::vector<LibraryFinding> library = checkEditorLibrary(dataRoot);
+    for (const LibraryFinding& finding : library) {
+        output += finding.file.string() + ": error: " + finding.message + "\n";
+    }
     output += "checked " + std::to_string(report.maps) +
               " maps: " + std::to_string(report.count(MapCheckSeverity::Error)) + " errors, " +
               std::to_string(report.count(MapCheckSeverity::Warning)) + " warnings\n";
+    if (!library.empty()) {
+        output += std::to_string(library.size()) + " unreadable editor library files\n";
+        return 1;
+    }
     if (report.maps == 0) {
         output += "error: no map under " + levelsOf(dataRoot).string() + "\n";
         return 1;
