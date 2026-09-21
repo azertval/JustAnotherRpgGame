@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "id": "central-empire",
+  "name": "L'Empire central",
+  "comment": "Palette et credits a ecrire par le LOT-105 (kit commun de la Capitale).",
+  "tile": [
+    256,
+    159
+  ],
+  "figure": {
+    "frame": [
+      192,
+      256
+    ],
+    "wideFrame": [
+      384,
+      256
+    ]
+  },
+  "palette": [],
+  "credits": []
+}

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "disposition": "central-empire",
+  "comment": "Vide : le kit imperial -- architecture, mobilier, bannieres (LOT-105).",
+  "tile": [
+    256,
+    159
+  ],
+  "textures": {}
+}

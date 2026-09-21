@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "disposition": "common-terrain",
+  "comment": "Vide : les sols naturels du monde entier, a la premiere piece promue (LOT-102).",
+  "tile": [
+    256,
+    159
+  ],
+  "textures": {}
+}
