@@ -15,6 +15,7 @@
 #include <ctime>
 #include <filesystem>
 #include <fstream>
+#include <sstream>
 #include <string>
 
 #include <Windows.h>
@@ -83,6 +84,19 @@ bool hasExceptionStream(const std::filesystem::path& path) {
     return false;
 }
 
+/// Les erreurs des tentatives d'écriture, en hexadécimal : de quoi lire un échec depuis le journal
+/// de la CI sans machine sous la main (writeMiniDump n'expose sinon que la dernière).
+std::string attemptErrors() {
+    std::ostringstream text;
+    text << std::hex << std::uppercase;
+    const char* separator = "";
+    for (const unsigned long error : hmi::lastMiniDumpAttemptErrors()) {
+        text << separator << "0x" << error;
+        separator = ", ";
+    }
+    return text.str();
+}
+
 /// Filtre SEH : écrit le dump avec le contexte de l'exception, puis la déclare traitée.
 int dumpThenHandle(const std::filesystem::path* path, EXCEPTION_POINTERS* exception,
                    bool* written) {
@@ -144,7 +158,8 @@ TEST(CrashDumpFileName, RemplaceLesCaracteresHorsNomDeFichier) {
  */
 TEST_F(CrashDumpTest, EcritUnMinidumpSansExceptionEtCreeLeDossier) {
     const std::filesystem::path path = directory_ / "sous-dossier" / "etat.dmp";
-    ASSERT_TRUE(hmi::writeMiniDump(path, nullptr)) << "GetLastError = " << GetLastError();
+    ASSERT_TRUE(hmi::writeMiniDump(path, nullptr))
+        << "GetLastError = " << GetLastError() << " ; tentatives : " << attemptErrors();
     ASSERT_TRUE(std::filesystem::exists(path));
     EXPECT_EQ(signature(path), "MDMP");
     EXPECT_FALSE(hasExceptionStream(path));
@@ -162,7 +177,8 @@ TEST_F(CrashDumpTest, EcritUnMinidumpSansExceptionEtCreeLeDossier) {
  */
 TEST_F(CrashDumpTest, EcritUnMinidumpAvecLeContexteDUneException) {
     const std::filesystem::path path = directory_ / "exception.dmp";
-    ASSERT_TRUE(dumpFromStructuredException(&path)) << "GetLastError = " << GetLastError();
+    ASSERT_TRUE(dumpFromStructuredException(&path))
+        << "GetLastError = " << GetLastError() << " ; tentatives : " << attemptErrors();
     EXPECT_EQ(signature(path), "MDMP");
     EXPECT_GT(std::filesystem::file_size(path), 1024U);
     EXPECT_TRUE(hasExceptionStream(path));
