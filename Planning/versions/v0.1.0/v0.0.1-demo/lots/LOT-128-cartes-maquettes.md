@@ -216,6 +216,8 @@ Six phases ; chacune se construit et se teste seule.
 La recette est le critère : l'auteur redessine Martpart en maquette, en moins d'une séance, et la
 joue.
 
+Livré le 22 septembre 2026, **PR #108**.
+
 ## Ce qui reste à l'auteur
 
 Tout est écrit et vérifié par les tests, **sauf le premier critère**, qui ne peut l'être que par
