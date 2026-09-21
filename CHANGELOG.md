@@ -6,6 +6,18 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Un seul site, une seule charte.** Le site publié avait trois rendus pour trois générateurs :
+  le bleu et blanc de Doxygen à la racine, l'ivoire de la planification sous `planning/`, et une
+  troisième palette écrite à la main dans la page qualité. Ils partagent désormais `Site/` —
+  `tokens.css` (la palette et les fontes, le sombre compris, écrit une seule fois) et `topbar.css`
+  (la barre d'en-tête, mêmes libellés et même ordre partout, la partie courante marquée). La page
+  qualité perd sa feuille propre et reprend les classes de `theme.css` ; la référence de code reçoit
+  `reference.css`, qui rebranche les ~140 variables CSS de Doxygen sur les jetons, et `header.html`,
+  qui porte la barre à la place des onglets de Doxygen (`DISABLE_INDEX`). `HTML_COLORSTYLE` passe à
+  `AUTO_LIGHT` : en `LIGHT`, Doxygen résout ses variables à la génération et écrit ses couleurs en
+  dur, ne laissant rien à rebrancher. Aucun contenu ne change, et plus aucune couleur ne s'écrit
+  ailleurs que dans `Site/tokens.css`.
+
 - **L'éditeur debout sur une base vide (LOT-123).** `LevelEditor --check` ne tient plus l'absence
   de carte pour une erreur : il dit « no map under … », « checked 0 maps », et rend **0** — la table
   rase du `LOT-102` videra `Levels/` sans faire rougir la CI. Le `README.md` du dossier des

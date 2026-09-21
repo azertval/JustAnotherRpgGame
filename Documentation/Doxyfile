@@ -31,6 +31,27 @@ EXCLUDE_PATTERNS       = */build/* */External/* */generated/* */Source/*README.m
 # Page d'accueil du site (mainpage) et arbre de navigation latéral.
 USE_MDFILE_AS_MAINPAGE = index.md
 GENERATE_TREEVIEW      = YES
+# Les onglets de Doxygen laissent la place à la barre commune du site (cf. HTML_HEADER) : deux
+# rangées de navigation qui ne disent pas la même chose, c'est une de trop. L'arbre latéral reste,
+# et la recherche rejoint le bandeau de titre.
+DISABLE_INDEX          = YES
+
+# --- Habillage : la charte du site (Site/) ---
+# Le site publié a trois parties — cette référence de code à la racine, la planification sous
+# `planning/`, la page qualité sous `qualite/`. Elles partagent une palette, des fontes et une
+# barre d'en-tête, toutes trois tenues dans `Site/`, et aucune n'en redéfinit une seule valeur.
+# Ici : le gabarit d'en-tête qui porte la barre, puis les feuilles, dans l'ordre. Elles passent
+# après la `doxygen.css` engendrée, dont elles rebranchent les variables sur les jetons.
+HTML_HEADER            = ../Site/header.html
+HTML_EXTRA_STYLESHEET  = ../Site/tokens.css \
+                         ../Site/topbar.css \
+                         ../Site/reference.css
+# AUTO_LIGHT, et pas LIGHT : en LIGHT (comme en DARK), Doxygen résout ses variables à la
+# génération et écrit les couleurs en dur — il n'y aurait plus rien à rebrancher. AUTO_LIGHT laisse
+# les `var(--…)` dans la feuille, que Site/reference.css redéfinit. TOGGLE les laisserait aussi,
+# mais ajouterait un bouton de bascule que les deux autres parties du site n'ont pas : ici le
+# sombre suit la préférence du système, et nulle part on n'en décide autrement.
+HTML_COLORSTYLE        = AUTO_LIGHT
 
 # Extraction.
 EXTRACT_ALL            = YES

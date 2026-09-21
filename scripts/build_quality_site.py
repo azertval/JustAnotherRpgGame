@@ -118,39 +118,13 @@ def read_benchmarks(text):
     }
 
 
-STYLE = """
-:root { --bg:#f6f4ee; --surface:#fff; --ink:#1d1b16; --muted:#5f5a4e; --line:#ddd6c6;
-        --accent:#7a1f12; --good:#2f6b3a; --warn:#9a5b00; --bad:#9a2a1a; --bar:#c8a15a;
-        color-scheme: light; }
-@media (prefers-color-scheme: dark) {
-  :root { --bg:#16140f; --surface:#1f1c16; --ink:#ece6d8; --muted:#aaa28f; --line:#3a352a;
-          --accent:#e0a27a; --good:#7fc28a; --warn:#e0b25a; --bad:#f0a58c; --bar:#b08a45;
-          color-scheme: dark; }
-}
-* { box-sizing: border-box; }
-body { margin:0; background:var(--bg); color:var(--ink);
-       font:16px/1.55 "Segoe UI", system-ui, sans-serif; }
-main { max-width: 980px; margin: 0 auto; padding: 32px 16px 64px; }
-h1 { font-size: 32px; margin: 0 0 4px; }
-h2 { font-size: 22px; margin: 40px 0 12px; padding-top: 16px; border-top: 1px solid var(--line); }
-p.meta { color: var(--muted); margin: 0 0 24px; }
-a { color: var(--accent); }
-nav { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 16px 0; }
-.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px;
-         background: var(--line); border: 1px solid var(--line); }
-.facts div { background: var(--surface); padding: 14px 16px; }
-.facts .v { font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
-.facts .k { color: var(--muted); font-size: 14px; }
-.wrap { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
-table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
-th, td { padding: 8px 12px; border-bottom: 1px solid var(--line); text-align: left; }
-th { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
-td.n { text-align: right; white-space: nowrap; }
-.bar { height: 8px; background: var(--line); border-radius: 4px; min-width: 120px; }
-.bar span { display: block; height: 100%; border-radius: 4px; background: var(--bar); }
-.good { color: var(--good); } .warn { color: var(--warn); } .bad { color: var(--bad); }
-.empty { color: var(--muted); font-style: italic; }
-"""
+# La charte du site publié, partagée avec la référence de code et le site de planification.
+# Cette page n'a plus de feuille à elle : elle emprunte les classes de `theme.css` (`.topbar`,
+# `.shell`, `.stats`, `.table-wrap`, `.bar`, `.good`/`.warn`/`.bad`) et recopie les feuilles dans
+# `qualite/assets/`, comme le fait la planification dans le sien. `theme.css` importe les deux
+# autres : les trois sont nécessaires.
+CHARTE = Path(__file__).resolve().parents[1] / 'Site'
+CHARTE_FICHIERS = ('theme.css', 'tokens.css', 'topbar.css')
 
 
 def _pct_class(percent):
@@ -159,52 +133,74 @@ def _pct_class(percent):
     return 'good' if percent >= 85 else ('warn' if percent >= 70 else 'bad')
 
 
+def _topbar(summary):
+    """La barre commune du site : la marque, les sections de la page, puis les trois parties.
+
+    Le même ordre et les mêmes libellés que sur les deux autres — c'est ce qui les fait lire comme
+    un seul site. Une section absente (couverture non mesurée, aucune mesure nocturne) ne laisse
+    pas un lien mort : elle ne paraît pas dans la barre, et la page le dit à sa place.
+    """
+    sections = ['<a class="active" href="index.html">Mesures</a>']
+    if summary.get('coverage_html'):
+        sections.append('<a href="couverture/index.html">Couverture détaillée</a>')
+    if summary.get('benchmarks_page'):
+        sections.append('<a href="performances/index.html">Courbes de performance</a>')
+    sections.append('<a href="summary.json">summary.json</a>')
+    return ('<header class="topbar">'
+            '<a class="brand" href="../index.html"><span>Just Another RPG Game</span> Qualité</a>'
+            '<nav>%s</nav>'
+            '<div class="links"><a href="../index.html">Documentation</a>'
+            '<a href="../planning/index.html">Planification</a>'
+            '<a class="active" href="index.html">Qualité</a></div>'
+            '</header>' % ''.join(sections))
+
+
 def render(summary):
     esc = html.escape
     coverage = summary.get('coverage')
     benchmarks = summary.get('benchmarks')
     parts = ['<!doctype html><html lang="fr"><head><meta charset="utf-8">',
              '<meta name="viewport" content="width=device-width,initial-scale=1">',
-             '<title>Qualité de JustAnotherRpgGame</title><style>%s</style></head><body><main>' % STYLE,
-             '<h1>Qualité de JustAnotherRpgGame</h1>',
-             '<p class="meta">Publié le %s depuis <code>%s</code>%s.</p>' % (
+             '<title>Qualité — JustAnotherRpgGame</title>',
+             '<link rel="stylesheet" href="assets/theme.css">',
+             '</head><body>',
+             _topbar(summary),
+             '<div class="shell"><main>',
+             '<h1>Qualité</h1>',
+             '<p class="lede">Ce que la chaîne mesure à chaque intégration sur <code>main</code> : '
+             'la couverture des trois suites de tests, et les mesures de performance de la nuit.</p>',
+             '<p class="hint">Publié le %s depuis <code>%s</code>%s.</p>' % (
                  esc(summary['generated']), esc(summary.get('commit') or '?'),
-                 (' — <a href="%s">run</a>' % esc(summary['run_url'])) if summary.get('run_url') else ''),
-             '<nav><a href="../index.html">Documentation (Doxygen)</a>']
-    if summary.get('coverage_html'):
-        parts.append('<a href="couverture/index.html">Rapport de couverture détaillé</a>')
-    if summary.get('benchmarks_page'):
-        parts.append('<a href="performances/index.html">Courbes de performance</a>')
-    parts.append('<a href="summary.json">summary.json</a></nav>')
+                 (' — <a href="%s">run</a>' % esc(summary['run_url'])) if summary.get('run_url') else '')]
 
     parts.append('<h2>Couverture de code</h2>')
     if coverage and coverage['percent'] is not None:
-        parts.append('<div class="facts"><div><div class="v %s">%.2f %%</div><div class="k">lignes '
-                     'couvertes, trois suites fusionnées</div></div><div><div class="v">%d / %d</div>'
-                     '<div class="k">lignes</div></div><div><div class="v">%d</div><div class="k">'
-                     'fichiers mesurés</div></div></div>' % (
+        parts.append('<div class="stats"><div><b class="%s">%.2f %%</b><span>lignes couvertes, '
+                     'trois suites fusionnées</span></div><div><b>%d / %d</b><span>lignes</span>'
+                     '</div><div><b>%d</b><span>fichiers mesurés</span></div></div>' % (
                          _pct_class(coverage['percent']), coverage['percent'], coverage['covered'],
                          coverage['valid'], coverage['files']))
-        parts.append('<div class="wrap" style="margin-top:16px"><table><thead><tr><th>Domaine</th>'
-                     '<th>Couverture</th><th class="n">%</th><th class="n">Lignes</th></tr></thead><tbody>')
+        parts.append('<div class="table-wrap"><table><thead><tr><th>Domaine</th>'
+                     '<th>Couverture</th><th class="num">%</th><th class="num">Lignes</th></tr>'
+                     '</thead><tbody>')
         for area in coverage['areas']:
             percent = area['percent'] or 0.0
             parts.append('<tr><td><code>%s</code></td><td><div class="bar"><span style="width:%.1f%%">'
-                         '</span></div></td><td class="n %s">%.1f</td><td class="n">%d / %d</td></tr>' % (
-                             esc(area['name']), percent, _pct_class(area['percent']), percent,
-                             area['covered'], area['valid']))
+                         '</span></div></td><td class="num %s">%.1f</td><td class="num">%d / %d</td>'
+                         '</tr>' % (esc(area['name']), percent, _pct_class(area['percent']), percent,
+                                    area['covered'], area['valid']))
         parts.append('</tbody></table></div>')
     else:
         parts.append('<p class="empty">Couverture non mesurée pour cette publication.</p>')
 
     parts.append('<h2>Performances</h2>')
     if benchmarks:
-        parts.append('<p class="meta">Mesure nocturne du %s (commit <code>%s</code>), %d série(s) '
+        parts.append('<p class="hint">Mesure nocturne du %s (commit <code>%s</code>), %d série(s) '
                      'enregistrée(s). Écart par rapport à la mesure précédente ; une hausse est un '
                      'ralentissement.</p>' % (esc(benchmarks['date']), esc(benchmarks['commit']),
                                                benchmarks['runs']))
-        parts.append('<div class="wrap"><table><thead><tr><th>Mesure</th><th class="n">Valeur</th>'
-                     '<th class="n">Écart</th></tr></thead><tbody>')
+        parts.append('<div class="table-wrap"><table><thead><tr><th>Mesure</th>'
+                     '<th class="num">Valeur</th><th class="num">Écart</th></tr></thead><tbody>')
         for bench in benchmarks['benches']:
             change = bench['change_percent']
             if change is None:
@@ -212,14 +208,18 @@ def render(summary):
             else:
                 cell = '%+.1f %%' % change
                 css = 'bad' if change > 10 else ('good' if change < -10 else '')
-            parts.append('<tr><td><code>%s</code></td><td class="n">%s %s</td><td class="n %s">%s</td></tr>'
+            parts.append('<tr><td><code>%s</code></td><td class="num">%s %s</td>'
+                         '<td class="num %s">%s</td></tr>'
                          % (esc(bench['name']), '{:,.0f}'.format(bench['value']).replace(',', ' '),
                             esc(bench['unit']), css, cell))
         parts.append('</tbody></table></div>')
     else:
         parts.append('<p class="empty">Aucune mesure nocturne publiée pour l\'instant.</p>')
 
-    parts.append('</main></body></html>\n')
+    parts.append('</main></div>')
+    parts.append('<footer>Assemblé par <code>scripts/build_quality_site.py</code> à la publication '
+                 'du site. Rien ici ne s\'édite : la source est la chaîne.</footer>')
+    parts.append('</body></html>\n')
     return ''.join(parts)
 
 
@@ -234,7 +234,10 @@ def main():
     arguments = parser.parse_args()
 
     quality = arguments.site / 'qualite'
-    quality.mkdir(parents=True, exist_ok=True)
+    assets = quality / 'assets'
+    assets.mkdir(parents=True, exist_ok=True)
+    for name in CHARTE_FICHIERS:
+        shutil.copy2(CHARTE / name, assets / name)
     summary = {
         'generated': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC'),
         'commit': arguments.commit[:9],

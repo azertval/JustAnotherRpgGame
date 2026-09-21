@@ -1,0 +1,236 @@
+/* SPDX-FileCopyrightText: 2026 Valentin Eloy
+   SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+   La référence de code aux couleurs de la charte.
+
+   Le nom : Doxygen refuse une feuille supplémentaire qui s'appellerait `doxygen.css`, du nom de
+   la sienne. Celle-ci porte donc le nom de la partie du site qu'elle habille.
+
+   Depuis 1.9.5, la feuille de Doxygen n'écrit plus une seule couleur en dur dans ses règles :
+   elle les prend toutes dans des variables CSS déclarées sur `html`. Cette feuille ne redéfinit
+   donc presque aucune règle — elle rebranche ces variables sur les jetons de `tokens.css`. Ses
+   pages gardent la mise en page de Doxygen (arbre de navigation, listes de membres, prototypes),
+   et prennent l'ivoire, le sable et l'or du reste du site.
+
+   `Doxyfile` charge par `HTML_EXTRA_STYLESHEET`, dans cet ordre, `tokens.css`, `topbar.css` puis
+   cette feuille — après la `doxygen.css` engendrée, donc gagnante à spécificité égale. Elle ne
+   les importe pas elle-même : Doxygen ne recopie dans le site que les fichiers qu'on lui nomme,
+   et un `@import` y pointerait dans le vide.
+
+   Les rares couleurs restées en dur dans la feuille de Doxygen (le `#d23600` de l'onglet courant,
+   les `#bbb` des menus) sont reprises en fin de fichier, une à une.
+
+   `HTML_COLORSTYLE = AUTO_LIGHT` : en LIGHT, Doxygen résoudrait ses variables à la génération et
+   écrirait les couleurs en dur, ne laissant rien à rebrancher. En AUTO_LIGHT il les laisse — et
+   ajoute son propre thème sombre, dans un `@media (prefers-color-scheme: dark)` qui les
+   redéclare sous `html:not(.dark-mode)`. Ce sélecteur-là est plus spécifique qu'un `html` nu :
+   un branchement écrit sur `html` seul serait bien appliqué en clair, et entièrement recouvert
+   en sombre. D'où la liste ci-dessous, qui reprend le même sélecteur ; à spécificité égale et
+   chargée après, elle l'emporte dans les deux modes. Le sombre du site vient alors de
+   `tokens.css` seul, comme sur les deux autres parties : un endroit à relire, pas deux.
+
+   (`.dark-mode` est la classe que poserait le bouton de bascule de `TOGGLE`, que l'on n'a pas :
+   le `:not()` est donc toujours vrai ici. Il n'est là que pour peser le même poids.) */
+html, html:not(.dark-mode) {
+  /* Page */
+  --page-background-color: var(--bg);
+  --page-foreground-color: var(--text);
+  --page-link-color: var(--water);
+  --page-visited-link-color: var(--water);
+  --page-external-link-color: var(--water);
+
+  /* Index alphabétiques */
+  --index-odd-item-bg-color: var(--surface);
+  --index-even-item-bg-color: var(--bg);
+  --index-header-color: var(--gold);
+  --index-separator-color: var(--line);
+
+  /* En-têtes et titres */
+  --header-background-color: var(--surface);
+  --header-separator-color: var(--line);
+  --group-header-separator-color: var(--line);
+  --group-header-color: var(--gold);
+  --title-background-color: var(--surface);
+  --title-separator-color: var(--line);
+  --footer-foreground-color: var(--muted);
+  --citation-label-color: var(--bronze);
+  --glow-color: var(--gold);
+
+  --blockquote-background-color: var(--surface);
+  --blockquote-border-color: var(--gold);
+  --scrollbar-thumb-color: var(--line);
+  --scrollbar-background-color: var(--surface);
+
+  /* Icônes de l'arbre et des listes de fichiers */
+  --icon-background-color: var(--gold);
+  --icon-foreground-color: var(--surface);
+  --icon-folder-open-fill-color: var(--surface-2);
+  --icon-folder-fill-color: var(--surface-2);
+  --icon-folder-border-color: var(--bronze);
+  --icon-doc-fill-color: var(--surface-2);
+  --icon-doc-border-color: var(--bronze);
+
+  /* Listes de membres (résumé) */
+  --memdecl-background-color: var(--surface);
+  --memdecl-foreground-color: var(--muted);
+  --memdecl-template-color: var(--bronze);
+  --memdecl-border-color: var(--line);
+
+  /* Membres détaillés */
+  --memdef-border-color: var(--line);
+  --memdef-title-background-color: var(--surface-2);
+  --memdef-proto-background-color: var(--surface);
+  --memdef-proto-text-color: var(--text);
+  --memdef-param-name-color: var(--burgundy);
+  --memdef-template-color: var(--bronze);
+
+  /* Tableaux : mêmes en-têtes discrets que sur le reste du site */
+  --table-cell-border-color: var(--line);
+  --table-header-background-color: var(--surface-2);
+  --table-header-foreground-color: var(--muted);
+
+  /* Étiquettes (static, inline, virtual…) */
+  --label-background-color: var(--surface-2);
+  --label-left-top-border-color: var(--line);
+  --label-right-bottom-border-color: var(--line);
+  --label-foreground-color: var(--bronze);
+
+  /* Arbre de navigation, fil d'Ariane, menu */
+  --nav-background-color: var(--surface);
+  --nav-foreground-color: var(--muted);
+  --nav-border-color: var(--line);
+  --nav-breadcrumb-separator-color: var(--line);
+  --nav-breadcrumb-active-bg: var(--surface-2);
+  --nav-breadcrumb-color: var(--muted);
+  --nav-splitbar-bg-color: var(--surface-2);
+  --nav-splitbar-handle-color: var(--line);
+  --nav-text-normal-color: var(--text);
+  --nav-menu-button-color: var(--muted);
+  --nav-menu-background-color: var(--surface);
+  --nav-menu-foreground-color: var(--muted);
+  --nav-menu-active-bg: var(--surface-2);
+  --nav-menu-active-color: var(--text);
+  --nav-arrow-color: var(--muted);
+  --nav-arrow-selected-color: var(--gold);
+
+  --sync-icon-border-color: var(--line);
+  --sync-icon-background-color: var(--surface);
+  --sync-icon-selected-background-color: var(--surface-2);
+  --sync-icon-color: var(--muted);
+  --sync-icon-selected-color: var(--gold);
+
+  /* Sommaire de page */
+  --toc-background-color: var(--surface);
+  --toc-border-color: var(--line);
+  --toc-header-color: var(--gold);
+
+  /* Recherche */
+  --search-background-color: var(--surface);
+  --search-foreground-color: var(--muted);
+  --search-active-color: var(--text);
+  --search-filter-background-color: var(--surface);
+  --search-filter-foreground-color: var(--text);
+  --search-filter-border-color: var(--line);
+  --search-filter-highlight-text-color: var(--surface);
+  --search-filter-highlight-bg-color: var(--gold);
+  --search-results-foreground-color: var(--text);
+  --search-results-background-color: var(--surface);
+  --search-results-border-color: var(--line);
+  --search-box-border-color: var(--line);
+  --search-close-icon-bg-color: var(--surface-2);
+  --search-close-icon-fg-color: var(--muted);
+
+  /* Coloration syntaxique : tirée de la palette, pour tenir aussi bien en clair qu'en sombre */
+  --code-keyword-color: var(--green);
+  --code-type-keyword-color: var(--bronze);
+  --code-flow-keyword-color: var(--gold);
+  --code-comment-color: var(--muted);
+  --code-preprocessor-color: var(--bronze);
+  --code-string-literal-color: var(--water);
+  --code-char-literal-color: var(--water);
+  --code-xml-cdata-color: var(--text);
+  --code-vhdl-digit-color: var(--burgundy);
+  --code-vhdl-char-color: var(--water);
+  --code-vhdl-keyword-color: var(--green);
+  --code-vhdl-logic-color: var(--burgundy);
+
+  /* Extraits de code */
+  --fragment-foreground-color: var(--text);
+  --fragment-background-color: var(--surface-2);
+  --fragment-border-color: var(--line);
+  --fragment-lineno-border-color: var(--line);
+  --fragment-lineno-background-color: var(--surface);
+  --fragment-lineno-foreground-color: var(--muted);
+  --fragment-lineno-link-fg-color: var(--water);
+  --fragment-lineno-link-bg-color: var(--surface);
+  --fragment-lineno-link-hover-fg-color: var(--text);
+  --fragment-lineno-link-hover-bg-color: var(--surface-2);
+  --fragment-copy-ok-color: var(--green);
+
+  /* Infobulles */
+  --tooltip-foreground-color: var(--text);
+  --tooltip-background-color: var(--surface);
+  --tooltip-arrow-background-color: var(--surface);
+  --tooltip-border-color: var(--line);
+  --tooltip-doc-color: var(--muted);
+  --tooltip-declaration-color: var(--bronze);
+  --tooltip-link-color: var(--water);
+  --tooltip-shadow: var(--shadow);
+  --fold-line-color: var(--line);
+
+  /* Fontes */
+  --font-family-normal: var(--font-text);
+  --font-family-monospace: var(--font-mono);
+  --font-family-nav: var(--font-text);
+  --font-family-title: var(--font-titre);
+  --font-family-toc: var(--font-text);
+  --font-family-search: var(--font-text);
+  --font-family-tooltip: var(--font-text);
+
+  /* Encadrés (\warning, \note, \bug…) : un filet de couleur sur le fond des panneaux */
+  --warning-color-bg: var(--surface);
+  --warning-color-hl: var(--burgundy);
+  --warning-color-text: var(--text);
+  --note-color-bg: var(--surface);
+  --note-color-hl: var(--water);
+  --note-color-text: var(--text);
+  --todo-color-bg: var(--surface);
+  --todo-color-hl: var(--gold);
+  --todo-color-text: var(--text);
+  --test-color-bg: var(--surface);
+  --test-color-hl: var(--green);
+  --test-color-text: var(--text);
+  --deprecated-color-bg: var(--surface);
+  --deprecated-color-hl: var(--muted);
+  --deprecated-color-text: var(--text);
+  --bug-color-bg: var(--surface);
+  --bug-color-hl: var(--burgundy);
+  --bug-color-text: var(--text);
+  --invariant-color-bg: var(--surface);
+  --invariant-color-hl: var(--bronze);
+  --invariant-color-text: var(--text);
+  --satisfies-color-bg: var(--surface);
+  --satisfies-color-hl: var(--green);
+  --verifies-color-bg: var(--surface);
+  --verifies-color-hl: var(--green);
+}
+
+/* Le bandeau de titre, au ton des cartouches du reste du site. */
+#titlearea { border-bottom: 1px solid var(--line); }
+#projectname { font-family: var(--font-titre); font-weight: 600; letter-spacing: .04em; }
+#projectnumber { color: var(--gold); font-size: .6em; }
+#projectbrief { color: var(--muted); }
+
+/* Les couleurs restées en dur dans la feuille des onglets de Doxygen. */
+.sm-dox a.current { color: var(--gold); }
+.sm-dox a.disabled { color: var(--muted); }
+.sm-dox ul { border: 1px solid var(--line); box-shadow: var(--shadow); }
+.sm-dox > li > ul::before { border-color: transparent transparent var(--line) transparent; }
+.sm-dox span.scroll-up:hover, .sm-dox span.scroll-down:hover { background: var(--surface-2); }
+.sm-dox.sm-vertical a:hover, .sm-dox.sm-vertical a:focus,
+.sm-dox.sm-vertical a:active, .sm-dox.sm-vertical a.highlighted { background: var(--surface-2); }
+.sm-dox.sm-vertical ul a:hover, .sm-dox.sm-vertical ul a:focus,
+.sm-dox.sm-vertical ul a:active, .sm-dox.sm-vertical ul a.highlighted { background: var(--surface-2); }
+
+/* Le pied de page, du même gris que celui des deux autres sous-sites. */
+#nav-path li.footer, address.footer { color: var(--muted); }

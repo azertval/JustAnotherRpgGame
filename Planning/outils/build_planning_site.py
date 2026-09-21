@@ -36,10 +36,13 @@ import mini_markdown  # noqa: E402
 from planning_model import FILIERES, LOT_FILE_RE, PlanningError, load_planning, progress  # noqa: E402
 
 PLANNING_ROOT = Path(__file__).resolve().parents[1]
+# La charte du site publié (palette, barre d'en-tête, feuilles) : partagée avec la référence de
+# code et la page qualité, elle vit à la racine du dépôt et se recopie telle quelle dans `assets/`.
+CHARTE = PLANNING_ROOT.parent / 'Site'
 # Sections du dossier, dans l'ordre du menu. `versions/` a ses propres pages.
 SECTIONS = [('versions', 'Versions'), ('vision', 'Vision'), ('referentiels', 'Référentiels'),
             ('standards', 'Standards')]
-SKIPPED_DIRS = {'outils', 'site', '__pycache__', '.pytest_cache'}
+SKIPPED_DIRS = {'outils', '__pycache__', '.pytest_cache'}
 ETATS = {
     'livre': 'livré', 'en-cours': 'en cours', 'prochain': 'prochain', 'pret': 'prêt',
     'en-attente': 'en attente', 'abandonne': 'abandonné',
@@ -103,8 +106,11 @@ class Site:
         docs = self.docs_url if '://' in self.docs_url else posixpath.normpath(
             posixpath.join(self.rel(page, '.'), self.docs_url))
         docs = docs.rstrip('/')
-        external = (f'<a class="external" href="{esc(docs)}/">Documentation ↗</a>'
-                    f'<a class="external" href="{esc(docs)}/qualite/">Qualité ↗</a>')
+        # Les trois parties du site, dans le même ordre et sous les mêmes libellés partout ; la
+        # part courante est marquée. On ne quitte pas le site en suivant ces liens : on y navigue.
+        external = (f'<a href="{esc(docs)}/">Documentation</a>'
+                    f'<a class="active" href="{esc(self.rel(page, "index.html"))}">Planification</a>'
+                    f'<a href="{esc(docs)}/qualite/">Qualité</a>')
         aside = f'<aside class="sidebar">{sidebar}</aside>' if sidebar else ''
         stamp = datetime.now(timezone.utc).strftime('%Y-%m-%d')
         commit = f' · <code>{esc(self.commit[:9])}</code>' if self.commit else ''
@@ -114,7 +120,7 @@ class Site:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)} — Planification</title>
-<link rel="stylesheet" href="{esc(self.rel(page, 'assets/style.css'))}">
+<link rel="stylesheet" href="{esc(self.rel(page, 'assets/theme.css'))}">
 </head>
 <body>
 <header class="topbar">
@@ -440,9 +446,10 @@ class Site:
     def copy_static(self):
         assets = self.out / 'assets'
         assets.mkdir(parents=True, exist_ok=True)
-        for source in (self.planning.root / 'site').iterdir():
-            if source.is_file():
-                shutil.copy2(source, assets / source.name)
+        # `theme.css` importe les deux autres ; `reference.css` et `header.html` ne servent qu'à la
+        # référence de code, et n'ont rien à faire ici.
+        for name in ('theme.css', 'tokens.css', 'topbar.css', 'site.js'):
+            shutil.copy2(CHARTE / name, assets / name)
         # Maquettes et illustrations : tout ce qui n'est ni texte source ni outil suit son chemin.
         for source in self.planning.root.rglob('*'):
             relative = source.relative_to(self.planning.root)
