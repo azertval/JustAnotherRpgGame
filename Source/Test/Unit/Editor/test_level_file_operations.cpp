@@ -67,18 +67,18 @@ TEST_F(LevelFileOps, CreeUnNiveauValide) {
  * \castest{<b>Une carte creee avec un lieu a ses deux couches.</b><br/>
  * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Créer une carte 12 × 8 au lieu `martpart`.<br/>2. La relire.<br/>
- * \tattendu Une couche de sol `sol` au lieu `martpart`, une couche de décor `relief`.
+ * \tetapes 1. Créer une carte 12 × 8 au lieu `bourg`.<br/>2. La relire.<br/>
+ * \tattendu Une couche de sol `sol` au lieu `bourg`, une couche de décor `relief`.
  * }
  */
 TEST_F(LevelFileOps, UneCarteCreeeAvecUnLieuASesDeuxCouches) {
     const hmi::LevelFileOperations ops(dir);
-    const hmi::FileOperationResult result = ops.create("Echoppe", 12, 8, "martpart");
+    const hmi::FileOperationResult result = ops.create("Echoppe", 12, 8, "bourg");
     ASSERT_TRUE(result.ok()) << result.error;
 
     const core::LevelLoadResult lu = core::LevelLoader::loadFromFile(result.path);
     ASSERT_TRUE(lu.ok()) << lu.error;
-    EXPECT_EQ(hmi::scenePlaceOf(*lu.level), "martpart");
+    EXPECT_EQ(hmi::scenePlaceOf(*lu.level), "bourg");
     int sols = 0;
     int decors = 0;
     for (const core::TileLayer& couche : lu.level->layers()) {
@@ -94,16 +94,16 @@ TEST_F(LevelFileOps, UneCarteCreeeAvecUnLieuASesDeuxCouches) {
  * \castest{<b>Les lieux proposes ont un manifeste.</b><br/>
  * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Lister les lieux de `Source/Elements`.<br/>
- * \tattendu `coliseum` et `martpart` en font partie, triés ; chacun a son `manifest.json`.
+ * \tetapes 1. Lister les lieux de la racine d'essai.<br/>
+ * \tattendu `bourg` et `hameau` en font partie, triés ; chacun a son `manifest.json`.
  * }
  */
 TEST(ScenePlacesTest, LesLieuxProposesOntUnManifeste) {
-    const std::filesystem::path donnees = std::filesystem::path(JADG_LEVELS_DIR).parent_path();
+    const std::filesystem::path donnees{JADG_EDITOR_DATA_DIR};
     const std::vector<std::string> lieux = hmi::scenePlaces(donnees);
     EXPECT_TRUE(std::ranges::is_sorted(lieux));
-    EXPECT_NE(std::ranges::find(lieux, "coliseum"), lieux.end());
-    EXPECT_NE(std::ranges::find(lieux, "martpart"), lieux.end());
+    EXPECT_NE(std::ranges::find(lieux, "bourg"), lieux.end());
+    EXPECT_NE(std::ranges::find(lieux, "hameau"), lieux.end());
     for (const std::string& lieu : lieux) {
         EXPECT_TRUE(
             std::filesystem::is_regular_file(donnees / "Assets" / "Scene" / lieu / "manifest.json"))

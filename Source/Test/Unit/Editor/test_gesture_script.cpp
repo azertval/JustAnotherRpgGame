@@ -5,14 +5,14 @@
  * @file test_gesture_script.cpp
  * @brief Tests de l'éditeur sans fenêtre (`LOT-EDITOR-13`) : un scénario `--apply` par outil,
  *        comparé à un fichier attendu, les gestes refusés, et l'acceptation du lot — une rue de
- *        Martpart effacée puis retracée rend la carte livrée, octet pour octet.
+ *        la carte d'essai effacée puis retracée la rend, octet pour octet.
  *
  * Les scénarios vivent dans `Source/Test/Fixtures/Gestures/` : `<outil>.json` rejoué sur
  * `terrain.json` doit rendre `<outil>.attendu.json`. Un changement voulu se régénère par l'éditeur
  * lui-même, puis se relit en diff :
  *
  * @code
- * LevelEditor --data Source/Elements --apply Source/Test/Fixtures/Gestures/paint.json
+ * LevelEditor --data Source/Test/Fixtures/EditorData --apply Source/Test/Fixtures/Gestures/paint.json
  *     Source/Test/Fixtures/Gestures/terrain.json
  *     --output Source/Test/Fixtures/Gestures/paint.attendu.json
  * @endcode
@@ -41,8 +41,10 @@ namespace {
 
 using nlohmann::json;
 
+// La racine d'essai de l'éditeur (`LOT-123`) : ces scénarios se rejouaient sur la planche et
+// la carte LIVRÉES, que la table rase du `LOT-102` emporte.
 [[nodiscard]] std::filesystem::path dataRoot() {
-    return std::filesystem::path(JADG_LEVELS_DIR).parent_path();
+    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
 }
 
 [[nodiscard]] std::filesystem::path gestures() {
@@ -87,7 +89,7 @@ struct Terrain {
 [[nodiscard]] Terrain terrain() {
     core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(gestures() / "terrain.json");
     EXPECT_TRUE(loaded.ok()) << loaded.error;
-    Terrain carte{.lieu = hmi::loadPlaceAssets(dataRoot(), "martpart"),
+    Terrain carte{.lieu = hmi::loadPlaceAssets(dataRoot(), "bourg"),
                   .draft = core::LevelDraft::fromLevel(*loaded.level),
                   .annexe = {}};
     carte.draft.setPieceManifest(
@@ -168,29 +170,29 @@ TEST(GestureScriptTest, LaMesureEtLesNotesRendentLeurCompteRendu) {
 }
 
 /**
- * @brief Acceptation du lot : la rue d'Arenarea, à Martpart, effacée puis retracée par
- *        `--apply` — pavés, seuils, façade, portes, fenêtres, lanternes — rend la carte livrée.
+ * @brief Acceptation du lot : la rue du nord de la carte d'essai, effacée puis retracée par
+ *        `--apply` — pavés, seuils, façade, portes, fenêtres, lanternes — rend la carte.
  *
  * Les gestes sont ceux de la main dans la fenêtre : une sélection gommée par couche, un rectangle
  * de pavés, un trait par variante de pavé, une ligne de façade, un trait de fenêtres, de portes et
- * de lanternes. Qu'ils rendent le fichier que le script des quartiers avait écrit montre que les
- * outils posent la pièce, le type de sa case et la collision comme la carte livrée les porte.
- * \castest{<b>Une rue de Martpart refaite par --apply rend la carte livrée.</b><br/>
+ * de lanternes. Qu'ils rendent le fichier tel qu'il est sur disque montre que les outils posent
+ * la pièce, le type de sa case et la collision comme la carte les porte.
+ * \castest{<b>Une rue refaite par --apply rend la carte, octet pour octet.</b><br/>
  * \tcat Unitaire · Editeur · Sans fenetre<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Rejouer `Fixtures/Gestures/martpart-rue.json` sur `capital/martpart`.<br/>
- * \tattendu Dix gestes, dix pas d'annulation ; le texte égale `martpart.json` octet pour octet.
+ * \tetapes 1. Rejouer `Fixtures/Gestures/rue.json` sur `bourg/place`.<br/>
+ * \tattendu Dix gestes, dix pas d'annulation ; le texte égale `place.json` octet pour octet.
  * }
  */
-TEST(GestureScriptTest, UneRueDeMartpartRefaiteRendLaCarteLivree) {
+TEST(GestureScriptTest, UneRueRefaiteRendLaCarteALOctet) {
     std::filesystem::path carte;
     const hmi::GestureFileResult rendu =
-        hmi::applyGestureFile(gestures() / "martpart-rue.json", {}, dataRoot(), carte);
+        hmi::applyGestureFile(gestures() / "rue.json", {}, dataRoot(), carte);
     ASSERT_TRUE(rendu.script.ok()) << rendu.script.error;
-    EXPECT_EQ(rendu.mapId, "capital/martpart");
+    EXPECT_EQ(rendu.mapId, "bourg/place");
     EXPECT_EQ(rendu.script.gestures, 10U);
     EXPECT_EQ(rendu.script.steps, 10U);
-    EXPECT_EQ(rendu.mapText, lire(dataRoot() / "Levels" / "capital" / "martpart.json"));
+    EXPECT_EQ(rendu.mapText, lire(dataRoot() / "Levels" / "bourg" / "place.json"));
 }
 
 /**

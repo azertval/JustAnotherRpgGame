@@ -4,7 +4,7 @@
 /**
  * @file test_brush_gesture.cpp
  * @brief Tests des coups de pinceau — type, pièce, gomme — sur le brouillon (`LOT-EDITOR-03`,
- *        `EX-EDIT-064`, `EX-EDIT-065`), dont l'acceptation du lot sur Martpart.
+ *        `EX-EDIT-064`, `EX-EDIT-065`), dont l'acceptation du lot sur la carte d'essai.
  */
 
 #include <filesystem>
@@ -33,8 +33,10 @@ using core::TileType;
 using hmi::BrushKind;
 using hmi::CanvasBrush;
 
+// La racine d'essai de l'éditeur (`LOT-123`) : ces gestes se jouaient sur une carte LIVRÉE,
+// que la table rase du `LOT-102` emporte. La carte d'essai a la même géométrie.
 [[nodiscard]] std::filesystem::path dataRoot() {
-    return std::filesystem::path(JADG_LEVELS_DIR).parent_path();
+    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
 }
 
 [[nodiscard]] std::string lire(const std::filesystem::path& path) {
@@ -44,20 +46,20 @@ using hmi::CanvasBrush;
     return text.str();
 }
 
-/// Martpart, telle que livrée, avec le manifeste et la table de son lieu.
-struct Martpart {
+/// La carte d'essai, telle que livrée, avec le manifeste et la table de son lieu.
+struct CarteDEssai {
     std::string fichier;
     hmi::PlaceAssets lieu;
     LevelDraft draft;
 };
 
-[[nodiscard]] Martpart martpart() {
-    const std::filesystem::path path = dataRoot() / "Levels" / "capital" / "martpart.json";
+[[nodiscard]] CarteDEssai carteDEssai() {
+    const std::filesystem::path path = dataRoot() / "Levels" / "bourg" / "place.json";
     core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
     EXPECT_TRUE(loaded.ok()) << loaded.error;
-    Martpart carte{.fichier = lire(path),
-                   .lieu = hmi::loadPlaceAssets(dataRoot(), "martpart"),
-                   .draft = LevelDraft::fromLevel(*loaded.level)};
+    CarteDEssai carte{.fichier = lire(path),
+                      .lieu = hmi::loadPlaceAssets(dataRoot(), "bourg"),
+                      .draft = LevelDraft::fromLevel(*loaded.level)};
     EXPECT_TRUE(carte.lieu.manifest.has_value());
     EXPECT_TRUE(carte.lieu.appearance.has_value());
     carte.draft.setPieceManifest(
@@ -66,7 +68,7 @@ struct Martpart {
 }
 
 // Le pinceau de la pièce @p piece, son type tiré de la table du lieu comme au canevas.
-[[nodiscard]] CanvasBrush pinceau(const Martpart& carte, const std::string& piece, bool floor) {
+[[nodiscard]] CanvasBrush pinceau(const CarteDEssai& carte, const std::string& piece, bool floor) {
     return CanvasBrush{.kind = BrushKind::Piece,
                        .type = hmi::pieceCellType(&*carte.lieu.appearance, piece, floor),
                        .piece = piece,
@@ -92,12 +94,12 @@ const CanvasBrush GOMME{.kind = BrushKind::Eraser, .type = {}, .piece = {}, .flo
 }  // namespace
 
 /**
- * @brief Repeindre une rue et une façade de Martpart, sans toucher à la collision, rend un
+ * @brief Repeindre une rue et une façade de la carte d'essai, sans toucher à la collision, rend un
  *        fichier identique à l'original (acceptation du `LOT-EDITOR-03`).
  * \castest{<b>Repeindre une rue et une façade rend le même fichier.</b><br/>
  * \tcat Unitaire · Pinceau<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Ouvrir Martpart.<br/>2. Gommer une case de rue (`street-2`) et un pan de façade
+ * \tetapes 1. Ouvrir la carte d essai.<br/>2. Gommer une case de rue (`street-2`) et un pan de façade
  * (`window-left`), puis les reposer du pinceau de pièce, le décor actif.<br/>3. Écrire le
  * brouillon.<br/>
  * \tattendu Gommées, la rue devient un mur (rien sous les pieds) et la façade libère sa case ;
@@ -105,7 +107,7 @@ const CanvasBrush GOMME{.kind = BrushKind::Eraser, .type = {}, .piece = {}, .flo
  * }
  */
 TEST(BrushGestureTest, RepeindreUneRueEtUneFacadeRendLeMemeFichier) {
-    Martpart carte = martpart();
+    CarteDEssai carte = carteDEssai();
     const std::size_t sol = *hmi::pieceTargetLayer(carte.draft.layers(), true);
     const std::size_t decor = *hmi::pieceTargetLayer(carte.draft.layers(), false);
     const std::optional<GridPosition> rue = premiereCase(carte.draft, sol, "street-2");
@@ -129,19 +131,19 @@ TEST(BrushGestureTest, RepeindreUneRueEtUneFacadeRendLeMemeFichier) {
 }
 
 /**
- * @brief Poser puis gommer un étal 2 × 1 sur la place de Martpart occupe puis libère ses deux
+ * @brief Poser puis gommer un étal 2 × 1 sur la place de la carte d'essai occupe puis libère ses deux
  *        cases, collision comprise (acceptation du `LOT-EDITOR-03`).
- * \castest{<b>Un étal 2 × 1 posé puis gommé sur Martpart.</b><br/>
+ * \castest{<b>Un étal 2 × 1 posé puis gommé sur la carte d'essai.</b><br/>
  * \tcat Unitaire · Pinceau<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Ouvrir Martpart.<br/>2. Poser `feature-1` (2 × 1) sur deux cases libres de la
+ * \tetapes 1. Ouvrir la carte d essai.<br/>2. Poser `feature-1` (2 × 1) sur deux cases libres de la
  * place.<br/>3. Le gommer par sa deuxième case.<br/>
  * \tattendu Posé, ses deux cases arrêtent la vue ; gommé, elles repassent, et le brouillon écrit
  * le fichier livré.
  * }
  */
-TEST(BrushGestureTest, PoserPuisGommerUnEtalSurMartpart) {
-    Martpart carte = martpart();
+TEST(BrushGestureTest, PoserPuisGommerUnEtalSurLaCarteDEssai) {
+    CarteDEssai carte = carteDEssai();
     const std::size_t sol = *hmi::pieceTargetLayer(carte.draft.layers(), true);
     const std::size_t decor = *hmi::pieceTargetLayer(carte.draft.layers(), false);
     // Deux cases voisines de la place, sans relief.
@@ -187,7 +189,7 @@ TEST(BrushGestureTest, PoserPuisGommerUnEtalSurMartpart) {
  * }
  */
 TEST(BrushGestureTest, GlisserUnEtalNeLeDecalePas) {
-    Martpart carte = martpart();
+    CarteDEssai carte = carteDEssai();
     const std::size_t decor = *hmi::pieceTargetLayer(carte.draft.layers(), false);
     const hmi::LayerViewState vue;
     const GridPosition ancre{.column = 20, .row = 20};
@@ -214,7 +216,7 @@ TEST(BrushGestureTest, GlisserUnEtalNeLeDecalePas) {
  * }
  */
 TEST(BrushGestureTest, CoucheVerrouilleeOuAbsenteLeGesteEstRefuse) {
-    Martpart carte = martpart();
+    CarteDEssai carte = carteDEssai();
     const std::size_t decor = *hmi::pieceTargetLayer(carte.draft.layers(), false);
     hmi::LayerViewState vue;
     vue.sync(carte.draft.layers().size());
@@ -246,7 +248,7 @@ TEST(BrushGestureTest, CoucheVerrouilleeOuAbsenteLeGesteEstRefuse) {
  * }
  */
 TEST(BrushGestureTest, SurLaCollisionLePinceauForceEtLaGommeLibere) {
-    Martpart carte = martpart();
+    CarteDEssai carte = carteDEssai();
     const std::size_t sol = *hmi::pieceTargetLayer(carte.draft.layers(), true);
     const GridPosition rue = *premiereCase(carte.draft, sol, "street");
     const hmi::LayerViewState vue;
@@ -266,12 +268,12 @@ TEST(BrushGestureTest, SurLaCollisionLePinceauForceEtLaGommeLibere) {
  * \castest{<b>Un type va sur la couche active, jamais l'entrée.</b><br/>
  * \tcat Unitaire · Pinceau<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Peindre `entry` sur le sol de Martpart.<br/>
+ * \tetapes 1. Peindre `entry` sur le sol de la carte d'essai.<br/>
  * \tattendu Refusé : l'entrée vit dans la grille de collision.
  * }
  */
 TEST(BrushGestureTest, UnTypeVaSurLaCoucheActiveJamaisLEntree) {
-    Martpart carte = martpart();
+    CarteDEssai carte = carteDEssai();
     const std::size_t sol = *hmi::pieceTargetLayer(carte.draft.layers(), true);
     const CanvasBrush entree{
         .kind = BrushKind::Type, .type = TileType::Entry, .piece = {}, .floor = false};

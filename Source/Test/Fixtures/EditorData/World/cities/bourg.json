@@ -1,0 +1,44 @@
+{
+  "id": "bourg",
+  "name": "Le Bourg",
+  "source": "original",
+  "location": "test-city",
+  "start": {
+    "district": "test-city-place",
+    "arrival": "porte-est"
+  },
+  "districts": [
+    {
+      "id": "test-city-place",
+      "map": "bourg/place"
+    },
+    {
+      "id": "test-city-cave",
+      "map": "cave"
+    },
+    {
+      "id": "test-city-nord",
+      "guard": {
+        "map": "bourg/place"
+      }
+    },
+    {
+      "id": "test-city-sud",
+      "guard": {
+        "map": "bourg/place"
+      }
+    },
+    {
+      "id": "test-city-est",
+      "guard": {
+        "map": "bourg/place"
+      }
+    },
+    {
+      "id": "test-city-ouest",
+      "guard": {
+        "map": "cave"
+      }
+    }
+  ]
+}

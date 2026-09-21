@@ -1,0 +1,19 @@
+# Catalogue d'essai des tests de l'éditeur (LOT-123) — fr.
+
+city_block.avenue-de-la-cave = Avenue de la Cave
+city_block.grand-place = Grand-Place
+city_block.halle-aux-grains = Halle aux grains
+city_block.oubliettes = Oubliettes
+city_block.parvis = Parvis
+city_block.porte-de-l-est = Porte de l'Est
+city_block.porte-du-bourg = Porte du Bourg
+city_block.portes-du-sud = Portes du Sud
+city_block.ruelles-du-sud = Ruelles du Sud
+city_block.salle-basse = Salle basse
+dialogue.garde-du-bourg.halte = Halte-là.
+dialogue.garde-du-bourg.halte.partir = Je m'en vais.
+dialogue.garde-du-bourg.halte.pourquoi = Pourquoi ?
+dialogue.garde-du-bourg.pourquoi = Le quartier est fermé.
+map.bourg.place.name = La Place
+map.cave.name = La Cave
+map.donjon.name = Le Donjon

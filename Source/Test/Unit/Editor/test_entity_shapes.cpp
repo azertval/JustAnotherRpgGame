@@ -294,7 +294,7 @@ TEST(EntitesAFormeTest, RemplacerGardeLIdentifiant) {
  * \castest{<b>La liste filtrable des entites.</b><br/>
  * \tcat Unitaire · Entites a forme<br/>
  * \tcrit Mineur<br/>
- * \tetapes 1. Filtrer trois entites par « PORTAL », par « martpart », par « e2 », par rien.<br/>
+ * \tetapes 1. Filtrer trois entites par « PORTAL », par « place », par « e2 », par rien.<br/>
  * 2. Basculer le rang 2 dans une selection {0}, puis l'en retirer.<br/>
  * \tattendu {1} ; {1} ; {1} ; tout ; {0, 2} puis {0}.
  * }
@@ -304,16 +304,16 @@ TEST(EntitesAFormeTest, ListeFiltrableEtSelection) {
         core::MapEntity{.type = "chest", .position = {}},
         core::MapEntity{.type = "portal",
                         .position = {},
-                        .properties = {{"targetMap", std::string{"capital/martpart"}}}},
+                        .properties = {{"targetMap", std::string{"bourg/place"}}}},
         core::MapEntity{.type = "npc", .position = {}}};
     entities[0].id = "e1";
     entities[1].id = "e2";
     entities[2].id = "e3";
     EXPECT_EQ(hmi::filterEntities(entities, "PORTAL"), (std::vector<std::size_t>{1}));
-    EXPECT_EQ(hmi::filterEntities(entities, "martpart"), (std::vector<std::size_t>{1}));
+    EXPECT_EQ(hmi::filterEntities(entities, "place"), (std::vector<std::size_t>{1}));
     EXPECT_EQ(hmi::filterEntities(entities, "e2"), (std::vector<std::size_t>{1}));
     EXPECT_EQ(hmi::filterEntities(entities, "").size(), 3U);
-    EXPECT_EQ(hmi::entityLabel(entities[1]), "capital/martpart");
+    EXPECT_EQ(hmi::entityLabel(entities[1]), "bourg/place");
 
     EXPECT_EQ(hmi::toggledSelection({0}, 2), (std::vector<std::size_t>{0, 2}));
     EXPECT_EQ(hmi::toggledSelection({0, 2}, 2), (std::vector<std::size_t>{0}));
@@ -385,7 +385,8 @@ TEST(EntitesAFormeTest, LaFormationParSesFigurines) {
  */
 TEST(EntitesAFormeTest, AcceptationRedimensionnerLaZoneDuColisee) {
     const core::LevelLoadResult loaded =
-        core::LevelLoader::loadFromFile(std::filesystem::path{JADG_LEVELS_DIR} / "coliseum.json");
+        core::LevelLoader::loadFromFile(std::filesystem::path{JADG_EDITOR_DATA_DIR} / "Levels" /
+                                        "donjon.json");
     ASSERT_TRUE(loaded.ok()) << loaded.error;
     core::LevelDraft map = core::LevelDraft::fromLevel(*loaded.level);
     const auto zoneIndex = static_cast<std::size_t>(
@@ -440,7 +441,7 @@ TEST(EntitesAFormeTest, AcceptationRedimensionnerLaZoneDuColisee) {
     const std::vector<hmi::EditorDiagnostic> lines =
         hmi::editorDiagnostics(map.entities(), {}, {}, {after});
     EXPECT_EQ(countIssues(lines, "outside every combat zone"), 4U);
-    EXPECT_NE(hmi::combatZoneSummary(after).find("sable: 11 x 14"), std::string::npos);
+    EXPECT_NE(hmi::combatZoneSummary(after).find("salle: 11 x 14"), std::string::npos);
 
     map.undo();
     EXPECT_EQ(verdict().zone.columns, 20);

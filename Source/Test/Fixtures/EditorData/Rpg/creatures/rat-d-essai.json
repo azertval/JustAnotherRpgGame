@@ -1,0 +1,33 @@
+{
+  "id": "rat-d-essai",
+  "name": "Rat d'essai",
+  "source": "original",
+  "size": "small",
+  "creatureType": "bête",
+  "alignment": "sans alignement",
+  "abilities": {
+    "strength": 2,
+    "dexterity": 11,
+    "constitution": 9,
+    "intelligence": 2,
+    "wisdom": 10,
+    "charisma": 4
+  },
+  "armorClass": 10,
+  "hitPoints": 1,
+  "hitDice": "1d4-1",
+  "speed": {
+    "walk": 6
+  },
+  "challengeRating": 0,
+  "senses": [
+    "Perception passive 10"
+  ],
+  "languages": [],
+  "actions": [
+    {
+      "name": "Morsure",
+      "text": "Attaque d'arme au corps à corps : +0 au toucher, allonge 1,50 m, une cible. Touché : 1 dégât perforant."
+    }
+  ]
+}

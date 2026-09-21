@@ -18,7 +18,7 @@
       "name": "sol",
       "kind": "ground",
       "note": "Une case par ligne, la pièce nommée.",
-      "scene": "martpart",
+      "scene": "bourg",
       "tiles": [
         {"x": 0, "y": 0, "type": "dirt", "piece": "street"},
         {"x": 1, "y": 0, "type": "dirt", "piece": "street-2"},

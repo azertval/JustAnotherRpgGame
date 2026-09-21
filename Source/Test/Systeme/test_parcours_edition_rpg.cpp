@@ -34,8 +34,11 @@
 
 namespace {
 
+// La racine d essai de l editeur (LOT-123) : ce parcours validait ses entites contre les
+// catalogues LIVRES, que la table rase du LOT-102 emporte. Les catalogues d essai portent ce
+// qu il lui faut -- un dialogue, une rencontre a deux combattants.
 [[nodiscard]] std::filesystem::path elementsRoot() {
-    return std::filesystem::path{JADG_LEVELS_DIR}.parent_path();
+    return std::filesystem::path{JADG_EDITOR_DATA_DIR};
 }
 
 // Pose une entite neuve de la famille @p type, ses proprietes a leur defaut, puis @p properties.
@@ -56,14 +59,14 @@ std::size_t place(core::LevelDraft& draft, std::string_view type, int column, in
 
 /**
  * @brief Parcours complet d'auteur du `LOT-11` : une carte à trois couches et quatre familles
- * d'entités, validée contre les catalogues livrés, enregistrée, rechargée, peuplée.
+ * d'entités, validée contre les catalogues d essai, enregistrée, rechargée, peuplée.
  * \castest{<b>Produire une carte du RPG dans l'editeur, sans JSON ecrit a la main.</b><br/>
  * \tcat Système · Éditeur de niveaux<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Creer une carte, poser l'entree et un couloir de murs dans la collision.<br/>2.
  * Ajouter un sol (qui reprend l'image) puis un decor, peindre l'un et l'autre.<br/>3. Poser un PNJ
- * au dialogue du heraut, un coffre, un point d'arrivee et un portail qui y mene, une rencontre en
- * terrain ouvert et une dans le couloir.<br/>4. Valider contre les catalogues livres et analyser
+ * au dialogue du garde, un coffre, un point d'arrivee et un portail qui y mene, une rencontre en
+ * terrain ouvert et une dans le couloir.<br/>4. Valider contre les catalogues d essai et analyser
  * le terrain.<br/>5. Enregistrer, recharger, construire le graphe du monde et peupler le monde
  * ECS.<br/>6. Tout annuler.<br/>
  * \tattendu Aucune reference cassee ; seule la rencontre du couloir est signalee ; la carte relue
@@ -94,17 +97,17 @@ TEST(ParcoursEditionSysteme, ProduitUneCarteDuRpgSansEcrireDeJson) {
     EXPECT_FALSE(draft.paintLayerTile(*decor, 3, 4, core::TileType::Entry));
 
     // 3. Entites.
-    place(draft, core::NPC_ENTITY_TYPE, 4, 2, {{"dialogue", std::string{"heraut-colisee"}}});
+    place(draft, core::NPC_ENTITY_TYPE, 4, 2, {{"dialogue", std::string{"garde-du-bourg"}}});
     place(draft, "chest", 6, 2);
     place(draft, core::SPAWN_POINT_ENTITY_TYPE, 2, 9, {{"name", std::string{"puits"}}});
     place(draft, core::PORTAL_ENTITY_TYPE, 9, 9,
           {{"targetMap", std::string{"parcours-lot-11"}}, {"arrival", std::string{"puits"}}});
     const std::size_t open =
-        place(draft, "encounter", 5, 6, {{"encounterId", std::string{"colisee-fauves"}}});
+        place(draft, "encounter", 5, 6, {{"encounterId", std::string{"rats-du-donjon"}}});
     const std::size_t corridor =
-        place(draft, "encounter", 15, 6, {{"encounterId", std::string{"colisee-fauves"}}});
+        place(draft, "encounter", 15, 6, {{"encounterId", std::string{"rats-du-donjon"}}});
 
-    // 4. Validation contre les catalogues livres, comme le fait le panneau Entites.
+    // 4. Validation contre les catalogues d essai, comme le fait le panneau Entites.
     core::EntityReferenceContext context;
     for (const core::DialogueGraph& graph :
          core::loadDialogues(elementsRoot() / "World" / "dialogues").dialogues) {

@@ -6,6 +6,20 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **L'éditeur debout sur une base vide (LOT-123).** `LevelEditor --check` ne tient plus l'absence
+  de carte pour une erreur : il dit « no map under … », « checked 0 maps », et rend **0** — la table
+  rase du `LOT-102` videra `Levels/` sans faire rougir la CI. Le `README.md` du dossier des
+  niveaux est nommé son **gardien** : git ne gardant pas un dossier vide, le retirer ferait
+  retomber la fenêtre, en silence, sur la copie de la construction. Surtout, les tests de l'éditeur
+  ne lisent plus les cartes livrées : une **racine de données d'essai** complète
+  (`Source/Test/Fixtures/EditorData/`) porte trois cartes — une dans un sous-dossier, une reliée à
+  elle dans les deux sens, une troisième avec sa zone de combat et ses entrées d'arène —, une
+  planche synthétique, une ville, ses quartiers d'atlas, un dialogue, une rencontre, leurs textes.
+  Vingt-deux tests unitaires, deux tests d'intégration et le parcours système l'ouvrent désormais,
+  ainsi que le scénario `--apply` de référence et les deux mesures de l'éditeur. Aucun test n'a été
+  supprimé ; `test_shipped_maps` garde son objet — **toute** carte livrée s'ouvre et se réenregistre
+  à l'octet — et admet qu'il n'y en ait aucune.
+
 - **L'éditeur entre au planning.** Un audit de l'éditeur de cartes face au planning par versions
   (`Planning/standards/audit-editeur.md`) : ce qu'il sait faire, ce que la table rase, l'arborescence
   d'assets par niveaux et la 2D HD lui cassent, ce que chaque version du jeu demandera aux cartes.

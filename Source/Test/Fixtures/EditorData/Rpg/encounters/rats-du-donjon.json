@@ -1,0 +1,23 @@
+{
+  "id": "rats-du-donjon",
+  "name": "Les rats du donjon",
+  "source": "original",
+  "escapable": true,
+  "combatants": [
+    {
+      "creatureId": "rat-d-essai",
+      "columnOffset": 0,
+      "rowOffset": -1
+    },
+    {
+      "creatureId": "rat-d-essai",
+      "columnOffset": 1,
+      "rowOffset": -1
+    },
+    {
+      "creatureId": "rat-d-essai",
+      "columnOffset": -1,
+      "rowOffset": -1
+    }
+  ]
+}

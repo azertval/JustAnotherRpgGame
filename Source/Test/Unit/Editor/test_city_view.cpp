@@ -3,9 +3,12 @@
 
 /**
  * @file test_city_view.cpp
- * @brief Tests de la **vue de ville** (`LOT-EDITOR-09`, `EX-EDIT-090`) : les quartiers de la
- *        Capitale, leurs cadres, et celui qu'un clic ouvre. Lus sur les données livrées, jamais
- *        récrits.
+ * @brief Tests de la **vue de ville** (`LOT-EDITOR-09`, `EX-EDIT-090`) : les quartiers d'une ville,
+ *        leurs cadres, et celui qu'un clic ouvre.
+ *
+ * Lus sur la racine d'essai de l'éditeur (`LOT-123`), jamais récrits : ce test lisait la Capitale
+ * **livrée**, que la table rase du `LOT-102` emporte. Sa ville d'essai a la même forme — un
+ * quartier où l'on marche, avec sa carte et son cadre, et quatre que ferme une porte gardée.
  */
 
 #include <algorithm>
@@ -19,7 +22,7 @@
 namespace {
 
 [[nodiscard]] std::filesystem::path elements() {
-    return std::filesystem::path(JADG_LEVELS_DIR).parent_path();
+    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
 }
 
 [[nodiscard]] const hmi::CityDistrictView* quartier(const hmi::CityView& ville,
@@ -31,38 +34,36 @@ namespace {
 }  // namespace
 
 /**
- * @brief La Capitale se voit par quartiers : ceux où l'on marche d'abord, avec leur cadre et leur
+ * @brief Une ville se voit par quartiers : ceux où l'on marche d'abord, avec leur cadre et leur
  *        carte, puis ceux que ferme une porte gardée.
- * \castest{<b>La Capitale se voit par quartiers.</b><br/>
+ * \castest{<b>Une ville se voit par quartiers.</b><br/>
  * \tcat Unitaire · Le monde<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Bâtir la vue de la ville `capital` sur les données livrées.<br/>
- * \tattendu La vue porte le plan de la ville et ses six quartiers ; Martpart et Arenarea ont
- * une carte présente et un cadre ; les autres n'ont qu'une porte gardée, et viennent après.
+ * \tetapes 1. Bâtir la vue de la ville `bourg`.<br/>
+ * \tattendu La vue porte le plan de la ville et ses cinq quartiers ; la Place a une carte
+ * présente et un cadre ; les autres n'ont qu'une porte gardée, et viennent après.
  * }
  */
-TEST(VueDeVille, LaCapitaleSeVoitParQuartiers) {
-    const hmi::CityView ville = hmi::buildCityView(elements(), "capital");
+TEST(VueDeVille, UneVilleSeVoitParQuartiers) {
+    const hmi::CityView ville = hmi::buildCityView(elements(), "bourg");
     ASSERT_TRUE(ville.ok()) << ville.error;
-    EXPECT_EQ(ville.location, "central-empire-the-capital-city");
-    EXPECT_EQ(ville.image, "city-central-empire-the-capital-city.jpg");
+    EXPECT_EQ(ville.location, "test-city");
+    EXPECT_EQ(ville.image, "city-test-city.jpg");
     ASSERT_GE(ville.districts.size(), 2U);
 
-    const hmi::CityDistrictView* const martpart =
-        quartier(ville, "central-empire-the-capital-city-martpart");
-    ASSERT_NE(martpart, nullptr);
-    EXPECT_EQ(martpart->mapId, "capital/martpart");
-    EXPECT_TRUE(martpart->mapExists);
-    EXPECT_TRUE(martpart->framed);
-    EXPECT_FALSE(martpart->name.empty());
-    EXPECT_NE(martpart->name, martpart->id);  // l'atlas le nomme
+    const hmi::CityDistrictView* const place = quartier(ville, "test-city-place");
+    ASSERT_NE(place, nullptr);
+    EXPECT_EQ(place->mapId, "bourg/place");
+    EXPECT_TRUE(place->mapExists);
+    EXPECT_TRUE(place->framed);
+    EXPECT_FALSE(place->name.empty());
+    EXPECT_NE(place->name, place->id);  // l'atlas le nomme
 
-    const hmi::CityDistrictView* const dweomer =
-        quartier(ville, "central-empire-the-capital-city-dweomer");
-    ASSERT_NE(dweomer, nullptr);
-    EXPECT_TRUE(dweomer->mapId.empty());
-    EXPECT_EQ(dweomer->guardMapId, "capital/martpart");
-    EXPECT_FALSE(dweomer->mapExists);
+    const hmi::CityDistrictView* const nord = quartier(ville, "test-city-nord");
+    ASSERT_NE(nord, nullptr);
+    EXPECT_TRUE(nord->mapId.empty());
+    EXPECT_EQ(nord->guardMapId, "bourg/place");
+    EXPECT_FALSE(nord->mapExists);
 
     // Les quartiers où l'on marche passent devant : ce sont ceux qu'on ouvre.
     const auto sansCarte = std::ranges::find_if(
@@ -76,18 +77,18 @@ TEST(VueDeVille, LaCapitaleSeVoitParQuartiers) {
  * \castest{<b>Un clic sur le plan désigne un quartier.</b><br/>
  * \tcat Unitaire · Le monde<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Pointer le centre du cadre de Martpart, puis un coin du plan.<br/>
- * \tattendu Le premier point désigne Martpart, le second ne désigne rien.
+ * \tetapes 1. Pointer le centre du cadre de la Place, puis un coin du plan.<br/>
+ * \tattendu Le premier point désigne la Place, le second ne désigne rien.
  * }
  */
 TEST(VueDeVille, UnClicSurLePlanDesigneUnQuartier) {
-    const hmi::CityView ville = hmi::buildCityView(elements(), "capital");
+    const hmi::CityView ville = hmi::buildCityView(elements(), "bourg");
     ASSERT_TRUE(ville.ok()) << ville.error;
 
     const std::optional<std::size_t> vise =
-        hmi::districtAt(ville, hmi::MapPoint{.x = 0.702, .y = 0.505});
+        hmi::districtAt(ville, hmi::MapPoint{.x = 0.70, .y = 0.50});
     ASSERT_TRUE(vise.has_value());
-    EXPECT_EQ(ville.districts[*vise].id, "central-empire-the-capital-city-martpart");
+    EXPECT_EQ(ville.districts[*vise].id, "test-city-place");
 
     EXPECT_FALSE(hmi::districtAt(ville, hmi::MapPoint{.x = 0.01, .y = 0.99}).has_value());
 }
@@ -99,9 +100,8 @@ TEST(VueDeVille, UnClicSurLePlanDesigneUnQuartier) {
  * \tcat Unitaire · Le monde<br/>
  * \tcrit Mineur<br/>
  * \tetapes 1. Bâtir la vue d'une ville qui n'existe pas.<br/>2. Demander la ville de
- * `capital/martpart`, puis celle du Colisée.<br/>
- * \tattendu La vue porte une erreur nommée ; Martpart est de `capital`, le Colisée d'aucune
- * ville.
+ * `bourg/place`, puis celle d'une carte hors ville.<br/>
+ * \tattendu La vue porte une erreur nommée ; la Place est du `bourg`, le Donjon d'aucune ville.
  * }
  */
 TEST(VueDeVille, UneVilleInconnueLeDit) {
@@ -109,7 +109,7 @@ TEST(VueDeVille, UneVilleInconnueLeDit) {
     EXPECT_FALSE(aucune.ok());
     EXPECT_NE(aucune.error.find("atlantide"), std::string::npos);
 
-    EXPECT_EQ(hmi::cityOfMap(elements(), "capital/martpart"), "capital");
-    EXPECT_EQ(hmi::cityOfMap(elements(), "coliseum"), "");
+    EXPECT_EQ(hmi::cityOfMap(elements(), "bourg/place"), "bourg");
+    EXPECT_EQ(hmi::cityOfMap(elements(), "donjon"), "");
     EXPECT_FALSE(hmi::cityIds(elements()).empty());
 }

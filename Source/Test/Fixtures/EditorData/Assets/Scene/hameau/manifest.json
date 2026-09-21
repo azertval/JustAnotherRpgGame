@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "disposition": "hameau",
+  "tile": [
+    68,
+    42
+  ],
+  "textures": {
+    "scene/hameau/street": {
+      "file": "street.png",
+      "class": "floor",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        42
+      ],
+      "anchor": [
+        34,
+        0
+      ]
+    },
+    "scene/hameau/square": {
+      "file": "square.png",
+      "class": "floor",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        42
+      ],
+      "anchor": [
+        34,
+        0
+      ]
+    },
+    "scene/hameau/wall-left": {
+      "file": "wall-left.png",
+      "class": "tall",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        100
+      ],
+      "anchor": [
+        34,
+        58
+      ]
+    },
+    "scene/hameau/wall-corner": {
+      "file": "wall-corner.png",
+      "class": "tall",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        100
+      ],
+      "anchor": [
+        34,
+        58
+      ]
+    }
+  }
+}

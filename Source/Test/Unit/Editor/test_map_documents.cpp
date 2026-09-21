@@ -17,13 +17,13 @@
  * \tcat Unitaire · Le monde<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Demander le libellé d'une carte de sous-dossier, propre puis modifiée.<br/>
- * \tattendu `martpart`, puis `martpart *` ; une carte sans identifiant se dit `untitled`.
+ * \tattendu `place`, puis `place *` ; une carte sans identifiant se dit `untitled`.
  * }
  */
 TEST(CartesEnOnglets, UnOngletDitSaCarteEtSesModifications) {
-    EXPECT_EQ(hmi::documentLabel("capital/martpart", false), "martpart");
-    EXPECT_EQ(hmi::documentLabel("capital/martpart", true), "martpart *");
-    EXPECT_EQ(hmi::documentLabel("coliseum", false), "coliseum");
+    EXPECT_EQ(hmi::documentLabel("bourg/place", false), "place");
+    EXPECT_EQ(hmi::documentLabel("bourg/place", true), "place *");
+    EXPECT_EQ(hmi::documentLabel("donjon", false), "donjon");
     EXPECT_EQ(hmi::documentLabel("", true), "untitled *");
 }
 
@@ -38,13 +38,13 @@ TEST(CartesEnOnglets, UnOngletDitSaCarteEtSesModifications) {
  * }
  */
 TEST(CartesEnOnglets, UneCarteDejaOuverteNeSouvrePasDeuxFois) {
-    const std::vector<hmi::OpenDocument> ouvertes{{.mapId = "coliseum", .dirty = false},
-                                                  {.mapId = "capital/martpart", .dirty = true},
+    const std::vector<hmi::OpenDocument> ouvertes{{.mapId = "donjon", .dirty = false},
+                                                  {.mapId = "bourg/place", .dirty = true},
                                                   {.mapId = "", .dirty = true}};
-    EXPECT_EQ(hmi::documentOf(ouvertes, "capital/martpart"), 1U);
-    EXPECT_FALSE(hmi::documentOf(ouvertes, "capital/arenarea").has_value());
+    EXPECT_EQ(hmi::documentOf(ouvertes, "bourg/place"), 1U);
+    EXPECT_FALSE(hmi::documentOf(ouvertes, "bourg/absente").has_value());
     EXPECT_FALSE(hmi::documentOf(ouvertes, "").has_value());
-    EXPECT_EQ(hmi::dirtyDocuments(ouvertes), (std::vector<std::string>{"capital/martpart", ""}));
+    EXPECT_EQ(hmi::dirtyDocuments(ouvertes), (std::vector<std::string>{"bourg/place", ""}));
 }
 
 /**

@@ -28,6 +28,12 @@ namespace hmi {
  * @p sourceData, le `Source/Elements` de l'arbre qui a construit l'éditeur, s'il existe sur ce
  * poste ; sinon @p executableDirectory, où la construction recopie les données.
  *
+ * Ce qui fait reconnaître l'arbre des sources, c'est la **présence** de son dossier `Levels/`, pas
+ * son contenu : un dossier **sans aucune carte** est un arbre des sources légitime (`LOT-123`,
+ * table rase du `LOT-102`). Git ne gardant pas un dossier vide, c'est `Levels/README.md` qui le
+ * tient dans le dépôt — le retirer ferait retomber la fenêtre sur la copie de la construction,
+ * en silence.
+ *
  * @param arguments           Les arguments de la ligne de commande, sans le programme.
  * @param executableDirectory Le dossier de l'exécutable.
  * @param sourceData          Le dossier des données de l'arbre des sources ; vide s'il est

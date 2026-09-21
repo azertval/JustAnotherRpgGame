@@ -6,7 +6,7 @@
  * @brief Le canevas de l'éditeur peint le lieu comme le jeu le dessine (`LOT-EDITOR-02`).
  *
  * Comparer les listes de primitives ne prouve pas que `QPainter` pose les ancres, l'échelle des
- * pièces et leurs miroirs comme le GPU (acceptation du lot) : ce test rend **la même carte livrée,
+ * pièces et leurs miroirs comme le GPU (acceptation du lot) : ce test rend **la même carte,
  * avec la même caméra**, une fois par le rendu QRhi du jeu (`hmi::WorldSceneRenderer`, hors
  * écran), une fois par le peintre de l'éditeur (`hmi::renderComposedScene`), et compare les deux
  * images pixel à pixel, à une tolérance près. Les deux images sont écrites à côté de l'exécutable
@@ -16,6 +16,9 @@
  * plus proche d'une pièce agrandie de 68 à 86 pixels peut choisir le texel voisin. Une ancre
  * fausse, une échelle fausse ou un ordre de dessin faux, eux, déplacent des pans entiers de l'image
  * et dépassent la tolérance.
+ *
+ * Les cartes sont celles de la racine d'essai de l'éditeur (`LOT-123`) ; c'étaient les cartes
+ * **livrées**, que la table rase du `LOT-102` emporte.
  */
 
 #include <QColor>
@@ -53,12 +56,16 @@ constexpr float CLEAR[4] = {1.0F, 0.0F, 1.0F, 1.0F};
 /// Écart par canal au-delà duquel deux pixels diffèrent vraiment.
 constexpr int CHANNEL_TOLERANCE = 48;
 /// Part des pixels qui peuvent différer : les arêtes des quads (voir l'en-tête du fichier). Mesuré
-/// le 18 septembre 2026 : 0,06 % au pire (la place du marché de Martpart) ; 2 % avec un
+/// le 18 septembre 2026 : 0,06 % au pire (la place du marché de la carte d'essai) ; 2 % avec un
 /// `drawImage` agrandi, qui ouvrait des jours entre les losanges du sol.
 constexpr double DIFFERING_PIXELS_TOLERANCE = 0.005;
 
+[[nodiscard]] std::filesystem::path dataRoot() {
+    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
+}
+
 [[nodiscard]] std::filesystem::path assets() {
-    return std::filesystem::path(JADG_ASSETS_DIR);
+    return dataRoot() / "Assets";
 }
 
 [[nodiscard]] std::unique_ptr<QRhi> createOffscreenRhi() {
@@ -140,10 +147,10 @@ struct Comparison {
     return result;
 }
 
-[[nodiscard]] hmi::WorldSceneSnapshot deliveredMap(const std::string& relativePath,
-                                                   const std::string& place) {
+[[nodiscard]] hmi::WorldSceneSnapshot mapOnDisk(const std::string& relativePath,
+                                                const std::string& place) {
     core::LevelLoadResult map =
-        core::LevelLoader::loadFromFile(std::filesystem::path(JADG_LEVELS_DIR) / relativePath);
+        core::LevelLoader::loadFromFile(dataRoot() / "Levels" / relativePath);
     hmi::PlaceAppearanceResult table =
         hmi::PlaceAppearance::loadFromFile(assets() / "Scene" / place / "appearance.json");
     if (!map.ok() || !table.ok()) {
@@ -191,44 +198,44 @@ void expectSamePicture(QRhi& rhi, const hmi::WorldSceneSnapshot& snapshot, core:
 }  // namespace
 
 /**
- * @brief Martpart peinte par l'éditeur égale, à une tolérance près, le rendu GPU du jeu.
- * \castest{<b>Le canevas de l'editeur peint Martpart comme le jeu la dessine.</b><br/>
+ * @brief La Place peinte par l'éditeur égale, à une tolérance près, le rendu GPU du jeu.
+ * \castest{<b>Le canevas de l'editeur peint une carte comme le jeu la dessine.</b><br/>
  * \tcat Unitaire · Editeur · Canevas<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Composer Martpart livree, ses PNJ compris.<br/>
- *          2. La rendre hors ecran par le rendu QRhi du jeu, cadree sur trois points (place du
- *             marche, coin nord, porte est).<br/>
+ * \tetapes 1. Composer la carte d'essai, ses PNJ compris.<br/>
+ *          2. La rendre hors ecran par le rendu QRhi du jeu, cadree sur trois points (grand-
+ *             place, coin nord, porte est).<br/>
  *          3. La peindre par le peintre QPainter de l'editeur avec la meme camera.<br/>
  * \tattendu Pour chaque cadrage, moins de 0,5 % des pixels different de plus de 48 sur un canal ;
  *           l'image est peinte sur plus de la moitie de sa surface.
  * }
  */
-TEST(ScenePainterTest, MartpartPeinteEgaleLeRenduDuJeu) {
+TEST(ScenePainterTest, UneCartePeinteEgaleLeRenduDuJeu) {
     const std::unique_ptr<QRhi> rhi = createOffscreenRhi();
     if (!rhi) {
         GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
     }
-    const hmi::WorldSceneSnapshot martpart = deliveredMap("capital/martpart.json", "martpart");
-    expectSamePicture(*rhi, martpart, {22.0F, 20.0F}, "martpart-place");
-    expectSamePicture(*rhi, martpart, {6.0F, 4.0F}, "martpart-nord");
-    expectSamePicture(*rhi, martpart, {44.0F, 30.0F}, "martpart-porte-est");
+    const hmi::WorldSceneSnapshot place = mapOnDisk("bourg/place.json", "bourg");
+    expectSamePicture(*rhi, place, {22.0F, 20.0F}, "place-centre");
+    expectSamePicture(*rhi, place, {6.0F, 4.0F}, "place-nord");
+    expectSamePicture(*rhi, place, {44.0F, 30.0F}, "place-porte-est");
 }
 
 /**
- * @brief Le Colisée, et ses pièces larges et miroirs, peint comme dans le jeu.
- * \castest{<b>Le canevas de l'editeur peint le Colisee comme le jeu le dessine.</b><br/>
+ * @brief La seconde carte, et ses pièces larges et miroirs, peinte comme dans le jeu.
+ * \castest{<b>Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.</b><br/>
  * \tcat Unitaire · Editeur · Canevas<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Composer le Colisee livre.<br/>
- *          2. Le rendre par le jeu et par l'editeur, cadre sur la porte.<br/>
+ * \tetapes 1. Composer le donjon.<br/>
+ *          2. Le rendre par le jeu et par l'editeur, cadre sur sa porte.<br/>
  * \tattendu Moins de 0,5 % des pixels different au-dela de la tolerance.
  * }
  */
-TEST(ScenePainterTest, LeColiseePeintEgaleLeRenduDuJeu) {
+TEST(ScenePainterTest, LaSecondeCartePeinteEgaleLeRenduDuJeu) {
     const std::unique_ptr<QRhi> rhi = createOffscreenRhi();
     if (!rhi) {
         GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
     }
-    expectSamePicture(*rhi, deliveredMap("coliseum.json", "coliseum"), {19.5F, 30.5F},
-                      "colisee-porte");
+    expectSamePicture(*rhi, mapOnDisk("donjon.json", "bourg"), {19.5F, 30.5F},
+                      "donjon-porte");
 }

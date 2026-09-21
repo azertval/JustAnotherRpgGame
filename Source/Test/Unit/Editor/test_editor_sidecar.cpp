@@ -52,16 +52,16 @@ private:
  * \castest{<b>L'annexe vit à côté de la carte.</b><br/>
  * \tcat Unitaire · Notes d'auteur<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Nommer l'annexe de `capital/martpart.json`.<br/>2. Lister un dossier de cartes qui
+ * \tetapes 1. Nommer l'annexe de `bourg/place.json`.<br/>2. Lister un dossier de cartes qui
  * contient une carte et son annexe.<br/>
- * \tattendu `capital/martpart.editor.json` ; le navigateur ne liste que la carte.
+ * \tattendu `bourg/place.editor.json` ; le navigateur ne liste que la carte.
  * }
  */
 TEST(EditorSidecarTest, LAnnexeVitACoteDeLaCarte) {
-    EXPECT_EQ(hmi::sidecarPath(std::filesystem::path("capital") / "martpart.json"),
-              std::filesystem::path("capital") / "martpart.editor.json");
-    EXPECT_TRUE(hmi::isSidecarFile("martpart.editor.json"));
-    EXPECT_FALSE(hmi::isSidecarFile("martpart.json"));
+    EXPECT_EQ(hmi::sidecarPath(std::filesystem::path("bourg") / "place.json"),
+              std::filesystem::path("bourg") / "place.editor.json");
+    EXPECT_TRUE(hmi::isSidecarFile("place.editor.json"));
+    EXPECT_FALSE(hmi::isSidecarFile("place.json"));
 
     const DossierTemporaire dossier("liste");
     const hmi::LevelFileOperations operations(dossier.chemin());

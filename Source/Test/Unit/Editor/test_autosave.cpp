@@ -30,11 +30,11 @@ protected:
         std::filesystem::remove_all(dir, error);
     }
 
-    static hmi::AutosaveRecord martpart() {
+    static hmi::AutosaveRecord laPlace() {
         return hmi::AutosaveRecord{
-            .mapId = "capital/martpart",
-            .levelPath = "Levels/capital/martpart.json",
-            .draftJson = R"({"name": "Martpart", "note": "é \"guillemets\""})"};
+            .mapId = "bourg/place",
+            .levelPath = "Levels/bourg/place.json",
+            .draftJson = R"({"name": "La Place", "note": "é \"guillemets\""})"};
     }
 };
 
@@ -45,16 +45,16 @@ protected:
  * \castest{<b>Un brouillon sauvegardé automatiquement se relit à l'identique.</b><br/>
  * \tcat Unitaire · Éditeur, reprise après plantage<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Écrire le brouillon de Martpart.<br/>2. Lister les brouillons en attente.<br/>
+ * \tetapes 1. Écrire le brouillon de la Place.<br/>2. Lister les brouillons en attente.<br/>
  * 3. Vérifier qu'il revient tel quel.<br/>
  * }
  */
 TEST_F(AutosaveTest, UnBrouillonSeRelitALIdentique) {
     const hmi::AutosaveStore store(dir);
-    ASSERT_TRUE(store.write(martpart()));
+    ASSERT_TRUE(store.write(laPlace()));
     const std::vector<hmi::AutosaveRecord> pending = store.pending();
     ASSERT_EQ(pending.size(), 1U);
-    EXPECT_EQ(pending.front(), martpart());
+    EXPECT_EQ(pending.front(), laPlace());
 }
 
 /**
@@ -63,12 +63,12 @@ TEST_F(AutosaveTest, UnBrouillonSeRelitALIdentique) {
  * \castest{<b>Le nom du fichier de reprise aplatit le sous-dossier de la carte.</b><br/>
  * \tcat Unitaire · Éditeur, reprise après plantage<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Nommer le fichier de `capital/martpart`, puis d'un identifiant vide.<br/>
+ * \tetapes 1. Nommer le fichier de `bourg/place`, puis d'un identifiant vide.<br/>
  * }
  */
 TEST_F(AutosaveTest, LeNomDeFichierEstPlat) {
-    EXPECT_EQ(hmi::autosaveFileName("capital/martpart"), "capital~martpart.autosave.json");
-    EXPECT_EQ(hmi::autosaveFileName("coliseum"), "coliseum.autosave.json");
+    EXPECT_EQ(hmi::autosaveFileName("bourg/place"), "bourg~place.autosave.json");
+    EXPECT_EQ(hmi::autosaveFileName("donjon"), "donjon.autosave.json");
     EXPECT_EQ(hmi::autosaveFileName(""), "untitled.autosave.json");
 }
 
@@ -85,9 +85,9 @@ TEST_F(AutosaveTest, LeNomDeFichierEstPlat) {
  */
 TEST_F(AutosaveTest, ReecrireRemplaceEtRetirerVide) {
     const hmi::AutosaveStore store(dir);
-    hmi::AutosaveRecord record = martpart();
+    hmi::AutosaveRecord record = laPlace();
     ASSERT_TRUE(store.write(record));
-    record.draftJson = R"({"name": "Martpart 2"})";
+    record.draftJson = R"({"name": "La Place 2"})";
     ASSERT_TRUE(store.write(record));
 
     const std::vector<hmi::AutosaveRecord> pending = store.pending();
@@ -132,16 +132,16 @@ TEST_F(AutosaveTest, UnFichierIlliblesEstIgnore) {
  * \castest{<b>La version écartée par un choix de l'auteur est gardée de côté.</b><br/>
  * \tcat Unitaire · Éditeur, garde de fichier modifié sur disque<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Mettre de côté la version disque de Martpart.<br/>2. Relire la copie.<br/>
+ * \tetapes 1. Mettre de côté la version disque de la Place.<br/>2. Relire la copie.<br/>
  * 3. Vérifier qu'elle n'est pas proposée à la reprise.<br/>
  * }
  */
 TEST_F(AutosaveTest, UneVersionEcarteeEstGardeeDeCote) {
     const hmi::AutosaveStore store(dir);
     const std::optional<std::filesystem::path> kept =
-        store.keepAside("capital/martpart", "disk", "20260918-142501", "contenu disque");
+        store.keepAside("bourg/place", "disk", "20260918-142501", "contenu disque");
     ASSERT_TRUE(kept.has_value());
-    EXPECT_EQ(kept->filename().string(), "capital~martpart.disk.20260918-142501.json");
+    EXPECT_EQ(kept->filename().string(), "bourg~place.disk.20260918-142501.json");
     EXPECT_EQ(kept->parent_path().filename().string(), "conflicts");
     std::ifstream file(*kept, std::ios::binary);
     const std::string content((std::istreambuf_iterator<char>(file)),

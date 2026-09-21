@@ -45,12 +45,12 @@ protected:
  * }
  */
 TEST_F(DiskGuardTest, LEmpreinteSuitLeContenu) {
-    writeFile(R"({"name": "Martpart"})");
+    writeFile(R"({"name": "La Place"})");
     const hmi::FileFingerprint known = hmi::fingerprintFile(file);
     EXPECT_TRUE(known.exists);
-    EXPECT_EQ(known, hmi::fingerprintOf(R"({"name": "Martpart"})"));
+    EXPECT_EQ(known, hmi::fingerprintOf(R"({"name": "La Place"})"));
 
-    writeFile(R"({"name": "Martpart"})");
+    writeFile(R"({"name": "La Place"})");
     EXPECT_EQ(hmi::compareFingerprints(known, hmi::fingerprintFile(file)), hmi::DiskChange::None);
 
     writeFile(R"({"name": "Martparu"})");

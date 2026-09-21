@@ -29,6 +29,12 @@ Cartes du jeu, un fichier **JSON** par carte (`EX-LVL-001`, `EX-LVL-003`).
 > de lot, comme trace, et refusent d'écrire ici. Faire une carte : guide d'usage
 > `Documentation/Editeur/guide-usage.md`.
 
+> **Ce `README.md` est le gardien du dossier (`LOT-123`).** Git ne garde pas un dossier vide : sans
+> lui, un `Levels/` sans aucune carte disparaîtrait du dépôt, et `hmi::resolveDataRoot` cesserait de
+> reconnaître l arbre des sources — la fenêtre se rabattrait en silence sur la copie que la
+> construction refait à côté de l exécutable. Un dossier **sans aucune carte** est un état légitime :
+> `LevelEditor --check` le dit (« 0 map ») et rend 0.
+
 - Le **`name`** d'une carte est une clé de traduction, `map.<identifiant>.name`
   (`map.capital.martpart.name`), que le bandeau du jeu traduit et que chaque catalogue de
   `Localization/` doit porter : `LevelEditor --check` le vérifie (`LOT-EDITOR-07`).

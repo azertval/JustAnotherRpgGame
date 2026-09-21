@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "frame": [
+    48,
+    64
+  ],
+  "wideFrame": [
+    96,
+    64
+  ],
+  "animations": [
+    "idle",
+    "walk",
+    "attack",
+    "hit",
+    "death",
+    "cast"
+  ],
+  "npcs": [
+    "figurant"
+  ]
+}

@@ -4,7 +4,7 @@
 /**
  * @file test_canvas_picking.cpp
  * @brief Le pointage du canevas de l'éditeur (`LOT-EDITOR-02`) : juste aux quatre coins de
- *        Martpart, juste sous un mur haut, et la hauteur réservée en paramètre.
+ *        La carte d'essai, juste sous un mur haut, et la hauteur réservée en paramètre.
  */
 
 #include <array>
@@ -30,17 +30,23 @@
 
 namespace {
 
-[[nodiscard]] std::filesystem::path assets() {
-    return std::filesystem::path(JADG_ASSETS_DIR);
+// La racine d'essai de l'éditeur (`LOT-123`) : ce test pointait une carte LIVRÉE, que la
+// table rase du `LOT-102` emporte.
+[[nodiscard]] std::filesystem::path dataRoot() {
+    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
 }
 
-/// Martpart telle qu'elle est livrée.
-[[nodiscard]] core::Level martpart() {
+[[nodiscard]] std::filesystem::path assets() {
+    return dataRoot() / "Assets";
+}
+
+/// La carte d'essai, telle qu'elle est sur disque.
+[[nodiscard]] core::Level carteDEssai() {
     core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(
-        std::filesystem::path(JADG_LEVELS_DIR) / "capital" / "martpart.json");
+        dataRoot() / "Levels" / "bourg" / "place.json");
     if (!loaded.ok()) {
         // Pas de carte vide à rendre : gtest compte l'exception comme un échec du test.
-        throw std::runtime_error("martpart.json : " + loaded.error);
+        throw std::runtime_error("place.json : " + loaded.error);
     }
     return std::move(*loaded.level);
 }
@@ -58,11 +64,11 @@ namespace {
 }  // namespace
 
 /**
- * @brief Aux quatre coins de Martpart, le centre et les sommets d'une case la désignent.
+ * @brief Aux quatre coins de la carte d'essai, le centre et les sommets d'une case la désignent.
  * \castest{<b>Le pointage iso est juste aux quatre coins de la carte.</b><br/>
  * \tcat Unitaire · Editeur · Canevas<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Projeter Martpart (48 x 40 cases).<br/>
+ * \tetapes 1. Projeter la carte d'essai (48 x 40 cases).<br/>
  *          2. Pointer le centre des quatre cases de coin, puis un point pres de chacun de leurs
  *             sommets, a l'interieur du losange.<br/>
  *          3. Pointer juste au-dela du sommet exterieur de chaque coin.<br/>
@@ -71,7 +77,7 @@ namespace {
  * }
  */
 TEST(CanvasPickingTest, LePointageEstJusteAuxQuatreCoins) {
-    const core::Level map = martpart();
+    const core::Level map = carteDEssai();
     const core::IsoProjection projection(map.tileMap().width(), map.tileMap().height());
     ASSERT_EQ(projection.columns(), 48);
     ASSERT_EQ(projection.rows(), 40);
@@ -101,11 +107,11 @@ TEST(CanvasPickingTest, LePointageEstJusteAuxQuatreCoins) {
 }
 
 /**
- * @brief Sous un mur haut de Martpart, on pointe la case dont le losange est sous le pointeur.
+ * @brief Sous un mur haut de la carte d'essai, on pointe la case dont le losange est sous le pointeur.
  * \castest{<b>Sous un mur haut, le pointage designe la case par son pied.</b><br/>
  * \tcat Unitaire · Editeur · Canevas<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Composer Martpart livree avec la taille des pieces de son manifeste.<br/>
+ * \tetapes 1. Composer la carte d'essai avec la taille des pieces de son manifeste.<br/>
  *          2. Prendre une piece de relief plus haute que deux losanges, et la case juste derriere
  *             elle (colonne - 1, ligne - 1).<br/>
  *          3. Pointer le centre du losange de cette case.<br/>
@@ -114,12 +120,12 @@ TEST(CanvasPickingTest, LePointageEstJusteAuxQuatreCoins) {
  * }
  */
 TEST(CanvasPickingTest, SousUnMurHautOnPointeLaCaseDerriere) {
-    const core::Level map = martpart();
+    const core::Level map = carteDEssai();
     const hmi::PlaceAppearanceResult appearance =
-        hmi::PlaceAppearance::loadFromFile(assets() / "Scene" / "martpart" / "appearance.json");
+        hmi::PlaceAppearance::loadFromFile(assets() / "Scene" / "bourg" / "appearance.json");
     ASSERT_TRUE(appearance.ok()) << appearance.message;
     const core::ScenePieceManifestResult manifest =
-        core::ScenePieceManifest::loadFromFile(assets() / "Scene" / "martpart" / "manifest.json");
+        core::ScenePieceManifest::loadFromFile(assets() / "Scene" / "bourg" / "manifest.json");
     ASSERT_TRUE(manifest.ok()) << manifest.message;
 
     // Des textures sans GPU : une identité par pièce, la taille que déclare le manifeste.
@@ -127,7 +133,7 @@ TEST(CanvasPickingTest, SousUnMurHautOnPointeLaCaseDerriere) {
     std::vector<std::uint8_t> identities(manifest.manifest.pieces().size());
     for (std::size_t index = 0; index < identities.size(); ++index) {
         const core::ScenePiece& piece = manifest.manifest.pieces()[index];
-        textures.byPath["Scene/martpart/" + piece.file] = hmi::SceneTexture{
+        textures.byPath["Scene/bourg/" + piece.file] = hmi::SceneTexture{
             .texture = &identities[index], .width = piece.width, .height = piece.height};
     }
     const hmi::WorldSceneSnapshot snapshot =
@@ -164,7 +170,7 @@ TEST(CanvasPickingTest, SousUnMurHautOnPointeLaCaseDerriere) {
             }
         }
     }
-    EXPECT_TRUE(checked) << "Martpart a au moins un relief haut devant une case";
+    EXPECT_TRUE(checked) << "La carte d'essai a au moins un relief haut devant une case";
 }
 
 /**
@@ -193,7 +199,7 @@ TEST(CanvasPickingTest, LaHauteurSePrendEnParametre) {
  * \castest{<b>Le canevas ne parcourt que les cases visibles.</b><br/>
  * \tcat Unitaire · Editeur · Canevas<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Demander les cases couvertes par la scene entiere de Martpart.<br/>
+ * \tetapes 1. Demander les cases couvertes par la scene entiere de la carte d'essai.<br/>
  *          2. Demander celles d'un petit rectangle autour du centre d'une case.<br/>
  *          3. Faire de meme en vue a plat.<br/>
  * \tattendu La scene entiere couvre toute la grille ; le petit rectangle couvre la case et au

@@ -247,6 +247,11 @@ target_compile_definitions(UnitTests PRIVATE
     # Dossier de fixtures parcouru par les tests parametres (LOT-79) : un catalogue se teste en
     # balayant un dossier, pas en ecrivant un test par entree.
     JADG_TEST_FIXTURES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures"
+    # Racine de donnees des tests de l'EDITEUR (LOT-123) : une racine complete, a la forme de
+    # Source/Elements -- deux cartes reliees, une planche, une ville, un dialogue, une rencontre,
+    # leurs textes. Les tests de l'editeur lisaient les cartes LIVREES ; la table rase du LOT-102
+    # les vide, et ces tests seraient tombes avec elles. Voir Fixtures/EditorData/README.md.
+    JADG_EDITOR_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/EditorData"
     JADG_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
     JADG_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization"
     # Schemas RPG (LOT-32) : le test d'enumerations lit la donnee LIVREE, pas une copie -- une
@@ -350,7 +355,7 @@ endif()
 # Tests d'intégration : plusieurs briques assemblées collaborant de bout en bout.
 add_executable(IntegrationTests
     Support/CrtReports.cpp
-    Integration/test_exploration_carte_livree.cpp
+    Integration/test_exploration_carte.cpp
 )
 
 target_link_libraries(IntegrationTests PRIVATE
@@ -360,10 +365,10 @@ target_link_libraries(IntegrationTests PRIVATE
     project_options
 )
 
-# Chemins (source) des cartes et des assets, pour le test d'intégration « carte livrée → scène ».
+# Racine des données du test d'intégration « carte → scène » : la racine d'essai de l'éditeur
+# (LOT-123). Il ouvrait les cartes LIVRÉES, que la table rase du LOT-102 emporte.
 target_compile_definitions(IntegrationTests PRIVATE
-    JADG_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
-    JADG_ASSETS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Assets")
+    JADG_EDITOR_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/EditorData")
 
 # Tests système : un parcours de jeu complet sur le contenu livré, sans la couche GPU.
 add_executable(SystemTests
@@ -377,9 +382,10 @@ target_link_libraries(SystemTests PRIVATE
     project_options
 )
 
-# Chemin (source) des niveaux : le parcours complet rejoue les niveaux livrés.
+# Racine des données du parcours : la racine d'essai de l'éditeur (LOT-123). Le parcours validait
+# ses entités contre les catalogues LIVRÉS, que la table rase du LOT-102 emporte.
 target_compile_definitions(SystemTests PRIVATE
-    JADG_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels")
+    JADG_EDITOR_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/EditorData")
 
 # Enregistre chaque TEST() aupres de CTest.
 #

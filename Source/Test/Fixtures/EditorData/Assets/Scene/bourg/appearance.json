@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "place": "bourg",
+  "comment": "Ce que le lieu d'essai met sur une case : le SOL vient du type de tuile de la couche sol, le RELIEF nomme sa piece a la case. Fixture du LOT-123.",
+  "floors": {
+    "dirt": [
+      "street",
+      "street-2",
+      "street-3",
+      "corridor-flagstone",
+      "corridor-flagstone-2"
+    ],
+    "solid": [
+      "square",
+      "stone-slab",
+      "stone-slab-worn"
+    ],
+    "bridge": [
+      "alley",
+      "locker-planks"
+    ],
+    "stairs": [
+      "doorstep",
+      "stands-step"
+    ],
+    "sand": [
+      "sand",
+      "sand-2",
+      "sand-3",
+      "sand-blood"
+    ],
+    "grass": [
+      "box-marble",
+      "box-carpet"
+    ],
+    "cliff": [
+      "gate-threshold"
+    ]
+  },
+  "relief": {
+    "wall": [
+      "wall-left"
+    ]
+  }
+}

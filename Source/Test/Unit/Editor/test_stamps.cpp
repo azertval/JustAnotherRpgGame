@@ -5,7 +5,7 @@
  * @file test_stamps.cpp
  * @brief Tests des tampons et des préfabriqués (`LOT-EDITOR-08`) : ce que le découpage prend, ce
  *        que la pose écrit, le miroir, la bibliothèque, les modèles de carte — et l'acceptation :
- *        un étal de Martpart reposé ailleurs avec son marchand.
+ *        un étal de la carte d'essai reposé ailleurs avec son marchand.
  */
 
 #include <algorithm>
@@ -36,11 +36,14 @@ using core::MapEntity;
 using core::TileType;
 using hmi::Stamp;
 
+// La racine d'essai de l'éditeur (`LOT-123`) : ces tampons se prenaient sur les cartes
+// LIVRÉES, que la table rase du `LOT-102` emporte. Les deux cartes d'essai partagent une
+// planche, comme les deux quartiers d'alors : un préfabriqué de l'une se pose sur l'autre.
 [[nodiscard]] std::filesystem::path dataRoot() {
-    return std::filesystem::path(JADG_LEVELS_DIR).parent_path();
+    return std::filesystem::path(JADG_EDITOR_DATA_DIR);
 }
 
-/// Une carte livrée, avec le manifeste de son lieu : le brouillon déduit alors ses emprises.
+/// Une carte du disque, avec le manifeste de son lieu : le brouillon déduit alors ses emprises.
 [[nodiscard]] LevelDraft carte(const std::string& identifiant, const std::string& lieu) {
     const std::filesystem::path path = dataRoot() / "Levels" / (identifiant + ".json");
     core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
@@ -52,8 +55,8 @@ using hmi::Stamp;
     return draft;
 }
 
-[[nodiscard]] LevelDraft martpart() {
-    return carte("capital/martpart", "martpart");
+[[nodiscard]] LevelDraft laPlace() {
+    return carte("bourg/place", "bourg");
 }
 
 /// La couche du tampon nommée @p nom.
@@ -93,7 +96,7 @@ using hmi::Stamp;
     return core::entityIdNumber(id).value_or(0);
 }
 
-/// L'étal du marché de Martpart : `feature-1`, 2 × 1, ancré ici.
+/// L'étal du marché de la Place : `feature-1`, 2 × 1, ancré ici.
 constexpr GridPosition ETAL{.column = 21, .row = 24};
 
 const hmi::LayerViewState LIBRE{};
@@ -105,16 +108,16 @@ const hmi::LayerViewState LIBRE{};
  * \castest{<b>Le tampon prend l'étal entier.</b><br/>
  * \tcat Unitaire · Tampons<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Découper la seule case d'ancrage de l'étal 2 × 1 de Martpart.<br/>
+ * \tetapes 1. Découper la seule case d'ancrage de l'étal 2 × 1 de la carte d'essai.<br/>
  * \tattendu Le tampon fait 2 × 1, nomme l'étal une fois, et dit son lieu.
  * }
  */
 TEST(StampsTest, LeTamponPrendLaPieceEntiere) {
-    const LevelDraft draft = martpart();
+    const LevelDraft draft = laPlace();
     const Stamp stamp = hmi::cutStamp(draft, ETAL, ETAL);
     EXPECT_EQ(stamp.width, 2);
     EXPECT_EQ(stamp.height, 1);
-    EXPECT_EQ(stamp.place, "martpart");
+    EXPECT_EQ(stamp.place, "bourg");
     const hmi::StampLayer& relief = couche(stamp, "relief");
     EXPECT_EQ(relief.pieces.size(), 1U);
     EXPECT_EQ(pieceEn(relief, {.column = 0, .row = 0}), "feature-1");
@@ -132,7 +135,7 @@ TEST(StampsTest, LeTamponPrendLaPieceEntiere) {
  * }
  */
 TEST(StampsTest, UnePieceAncreeDehorsNestPasPrise) {
-    const LevelDraft draft = martpart();
+    const LevelDraft draft = laPlace();
     const GridPosition seconde{.column = ETAL.column + 1, .row = ETAL.row};
     const Stamp stamp = hmi::cutStamp(draft, seconde, seconde);
     EXPECT_EQ(stamp.width, 1);
@@ -145,12 +148,12 @@ TEST(StampsTest, UnePieceAncreeDehorsNestPasPrise) {
  * \castest{<b>Une pose se défait d'un seul pas.</b><br/>
  * \tcat Unitaire · Tampons<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Découper un morceau de Martpart, le reposer ailleurs, puis annuler.<br/>
+ * \tetapes 1. Découper un morceau de la carte d'essai, le reposer ailleurs, puis annuler.<br/>
  * \tattendu Un pas d'annulation de plus, et la carte revient exactement à son état.
  * }
  */
 TEST(StampsTest, UnePoseSeDefaitDUnSeulPas) {
-    LevelDraft draft = martpart();
+    LevelDraft draft = laPlace();
     const Stamp stamp = hmi::cutStamp(draft, ETAL, ETAL);
     const std::string avant = draft.toJson();
     const std::size_t pas = draft.undoDepth();
@@ -176,7 +179,7 @@ TEST(StampsTest, UnePoseSeDefaitDUnSeulPas) {
  * }
  */
 TEST(StampsTest, LeMiroirTransposeLeTampon) {
-    const LevelDraft draft = martpart();
+    const LevelDraft draft = laPlace();
     const GridPosition facade{.column = 12, .row = 21};
     const Stamp stamp = hmi::cutStamp(draft, facade, facade);
     EXPECT_EQ(stamp.width, 1);
@@ -201,7 +204,7 @@ TEST(StampsTest, LeMiroirTransposeLeTampon) {
  * }
  */
 TEST(StampsTest, UnePoseRefuseeNecritRien) {
-    LevelDraft draft = martpart();
+    LevelDraft draft = laPlace();
     const Stamp stamp = hmi::cutStamp(draft, ETAL, ETAL);
     const std::string avant = draft.toJson();
 
@@ -239,7 +242,7 @@ TEST(StampsTest, UnePoseRefuseeNecritRien) {
  * }
  */
 TEST(StampsTest, UnPrefabriqueFaitLAllerRetour) {
-    LevelDraft draft = martpart();
+    LevelDraft draft = laPlace();
     // Un marchand sur l'étal : le tampon emporte l'entité avec la pièce.
     draft.placeEntity(
         MapEntity{.type = "npc",
@@ -256,40 +259,40 @@ TEST(StampsTest, UnPrefabriqueFaitLAllerRetour) {
     const std::filesystem::path racine =
         std::filesystem::temp_directory_path() / "jadg-prefabs-aller-retour";
     std::filesystem::remove_all(racine);
-    EXPECT_EQ(hmi::writePrefab(racine, "martpart", "etal", stamp), "");
-    EXPECT_EQ(hmi::prefabNames(racine, "martpart"), std::vector<std::string>{"etal"});
+    EXPECT_EQ(hmi::writePrefab(racine, "bourg", "etal", stamp), "");
+    EXPECT_EQ(hmi::prefabNames(racine, "bourg"), std::vector<std::string>{"etal"});
 
     std::string error;
-    const std::optional<Stamp> relu = hmi::readPrefab(racine, "martpart", "etal", error);
+    const std::optional<Stamp> relu = hmi::readPrefab(racine, "bourg", "etal", error);
     EXPECT_TRUE(error.empty()) << error;
     ASSERT_TRUE(relu.has_value());
     EXPECT_EQ(*relu, stamp);
 
-    EXPECT_FALSE(hmi::writePrefab(racine, "martpart", "Étal du marché", stamp).empty());
-    EXPECT_FALSE(hmi::writePrefab(racine, "martpart", "etal-vide", Stamp{}).empty());
+    EXPECT_FALSE(hmi::writePrefab(racine, "bourg", "Étal du marché", stamp).empty());
+    EXPECT_FALSE(hmi::writePrefab(racine, "bourg", "etal-vide", Stamp{}).empty());
     std::filesystem::remove_all(racine);
 }
 
 /**
- * @brief Acceptation du `LOT-EDITOR-08` — un étal de Martpart se repose ailleurs avec son
+ * @brief Acceptation du `LOT-EDITOR-08` — un étal de la carte d'essai se repose ailleurs avec son
  *        marchand, qui reçoit un nouvel `id`, et l'annulation le retire en un pas.
- * \castest{<b>Un étal de Martpart se repose sur Arenarea.</b><br/>
+ * \castest{<b>Un étal de la Place se repose sur le Donjon.</b><br/>
  * \tcat Unitaire · Préfabriqués<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Poser un marchand sur l'étal du marché, l'enregistrer comme préfabriqué.
- * 2. Ouvrir Arenarea, poser le préfabriqué. 3. Annuler.<br/>
+ * 2. Ouvrir le Donjon, poser le préfabriqué. 3. Annuler.<br/>
  * \tattendu L'étal et le marchand sont là, le marchand a un identifiant neuf et libre, et un seul
  * `Ctrl+Z` retire tout.
  * }
  */
-TEST(DonneesPrefabriques, UnEtalDeMartpartSeReposeAvecSonMarchand) {
-    LevelDraft source = martpart();
+TEST(DonneesPrefabriques, UnEtalSeReposeAvecSonMarchand) {
+    LevelDraft source = laPlace();
     source.placeEntity(
         MapEntity{.type = "npc",
                   .position = ETAL,
-                  .properties = {{"dialogue", std::string{"sentinelle-ironhand"}},
-                                 {"figure", std::string{"Monsters/ironhand-soldier"}},
-                                 {"name", std::string{"marchand-de-martpart"}}},
+                  .properties = {{"dialogue", std::string{"garde-du-bourg"}},
+                                 {"figure", std::string{"Monsters/sentinelle"}},
+                                 {"name", std::string{"marchand-du-bourg"}}},
                   .id = {},
                   .elevation = 0,
                   .cells = {}});
@@ -300,14 +303,14 @@ TEST(DonneesPrefabriques, UnEtalDeMartpartSeReposeAvecSonMarchand) {
     const std::filesystem::path racine =
         std::filesystem::temp_directory_path() / "jadg-prefabs-etal";
     std::filesystem::remove_all(racine);
-    EXPECT_EQ(hmi::writePrefab(racine, "martpart", "etal-du-marche", etal), "");
+    EXPECT_EQ(hmi::writePrefab(racine, "bourg", "etal-du-marche", etal), "");
     std::string error;
     const std::optional<Stamp> prefabrique =
-        hmi::readPrefab(racine, "martpart", "etal-du-marche", error);
+        hmi::readPrefab(racine, "bourg", "etal-du-marche", error);
     ASSERT_TRUE(prefabrique.has_value()) << error;
 
-    // Arenarea prend ses pièces de la planche de Martpart (LOT-96) : l'étal s'y pose tel quel.
-    LevelDraft cible = carte("capital/arenarea", "martpart");
+    // Le Donjon prend ses pièces de la même planche : l'étal s'y pose tel quel.
+    LevelDraft cible = carte("donjon", "bourg");
     const std::string avant = cible.toJson();
     const std::size_t pas = cible.undoDepth();
     const std::size_t entitesAvant = cible.entities().size();
