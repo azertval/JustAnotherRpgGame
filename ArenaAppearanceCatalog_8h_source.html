@@ -1,3 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -17,10 +29,44 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="guide.html">Guide</a>
+    <a href="specifications.html">Spécifications</a>
+    <a href="lots.html">Lots</a>
+    <a href="cahiertest.html">Cahier de test</a>
+    <a href="manuel.html">Manuel</a>
+    <a href="annotated.html">Classes</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="index.html">Documentation</a>
+    <a href="planning/index.html">Planification</a>
+    <a href="qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
@@ -30,6 +76,18 @@
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -42,15 +100,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','Search',true);
-  $(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -176,84 +225,92 @@ $(function(){initNavTree('ArenaAppearanceCatalog_8h_source.html','',''); });
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#ab6b02ebc7d15780ebbd2463e23a8d785">replaceHero</a>(std::string_view hero, std::string directory);</div>
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span></div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#a9dc3132538268945af654cd544ab813f">applyNpcManifest</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="foldopen" id="foldopen00155" data-start="{" data-end="}">
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#aac0e01f4a75f827056fcde0486e94970">  155</a></span>    [[nodiscard]] <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#aac0e01f4a75f827056fcde0486e94970">heroes</a>() const noexcept {</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#a631755e2317768443b91fc6f6eec2f75">_heroes</a>;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    }</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span></div>
+<div class="foldopen" id="foldopen00162" data-start="{" data-end="}">
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#adec363074f1314c0c5c150954c06ed63">  162</a></span>    [[nodiscard]] <span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#adec363074f1314c0c5c150954c06ed63">scene</a>() const noexcept {</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#a4c32bcc47dfa515b8acf71f40d1003c8">_scene</a>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    }</div>
 </div>
-<div class="foldopen" id="foldopen00158" data-start="{" data-end="}">
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#a5a65215a2c570bee2905e867fe6e565f">  158</a></span>    [[nodiscard]] <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#a5a65215a2c570bee2905e867fe6e565f">gladiators</a>() const noexcept {</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#ae59d275609c4d6e3359aba7648e9f53f">_gladiators</a>;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    }</div>
+<div class="foldopen" id="foldopen00165" data-start="{" data-end="}">
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#aac0e01f4a75f827056fcde0486e94970">  165</a></span>    [[nodiscard]] <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#aac0e01f4a75f827056fcde0486e94970">heroes</a>() const noexcept {</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#a631755e2317768443b91fc6f6eec2f75">_heroes</a>;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    }</div>
 </div>
-<div class="foldopen" id="foldopen00161" data-start="{" data-end="}">
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#aa37d1c44745446f26980ee570d84f526">  161</a></span>    [[nodiscard]] <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#aa37d1c44745446f26980ee570d84f526">paleSlabs</a>() const noexcept {</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#aaab61ea7744324821ebe4132523e94e2">_paleSlabs</a>;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    }</div>
+<div class="foldopen" id="foldopen00168" data-start="{" data-end="}">
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#a5a65215a2c570bee2905e867fe6e565f">  168</a></span>    [[nodiscard]] <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#a5a65215a2c570bee2905e867fe6e565f">gladiators</a>() const noexcept {</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#ae59d275609c4d6e3359aba7648e9f53f">_gladiators</a>;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    }</div>
 </div>
-<div class="foldopen" id="foldopen00164" data-start="{" data-end="}">
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#acb7e8c905b598bab04a1c65e0b1c0e21">  164</a></span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#acb7e8c905b598bab04a1c65e0b1c0e21">heroFrames</a>() const noexcept {</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#ad3fbdb415594a1693d9d1e6eb9e5185b">_heroFrames</a>;</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    }</div>
+<div class="foldopen" id="foldopen00171" data-start="{" data-end="}">
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#aa37d1c44745446f26980ee570d84f526">  171</a></span>    [[nodiscard]] <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#aa37d1c44745446f26980ee570d84f526">paleSlabs</a>() const noexcept {</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#aaab61ea7744324821ebe4132523e94e2">_paleSlabs</a>;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    }</div>
 </div>
-<div class="foldopen" id="foldopen00167" data-start="{" data-end="}">
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#a4b484538e997620e36be580223a9d94f">  167</a></span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#a4b484538e997620e36be580223a9d94f">enemyFrames</a>() const noexcept {</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#aee452ce6cdf045b5dc4a1fcaee0eac08">_enemyFrames</a>;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    }</div>
+<div class="foldopen" id="foldopen00174" data-start="{" data-end="}">
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#acb7e8c905b598bab04a1c65e0b1c0e21">  174</a></span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#acb7e8c905b598bab04a1c65e0b1c0e21">heroFrames</a>() const noexcept {</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#ad3fbdb415594a1693d9d1e6eb9e5185b">_heroFrames</a>;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    }</div>
 </div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structhmi_1_1ArenaAppearanceCatalogResult.html">ArenaAppearanceCatalogResult</a> <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#a50f574b853e2e13b3d2c23c8846c23f3">fromDocument</a>(</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1JsonDocument.html">core::JsonDocument</a>&amp; document);</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#a631755e2317768443b91fc6f6eec2f75">  175</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#a631755e2317768443b91fc6f6eec2f75">_heroes</a>;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#ae59d275609c4d6e3359aba7648e9f53f">  176</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#ae59d275609c4d6e3359aba7648e9f53f">_gladiators</a>;</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#aaab61ea7744324821ebe4132523e94e2">  177</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#aaab61ea7744324821ebe4132523e94e2">_paleSlabs</a>;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#aec02ad6fe3c845d290e84c4f0ea66ed7">  179</a></span>    std::map&lt;std::string, std::string, std::less&lt;&gt;&gt; <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#aec02ad6fe3c845d290e84c4f0ea66ed7">_heroDirectories</a>;</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#ad3fbdb415594a1693d9d1e6eb9e5185b">  180</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#ad3fbdb415594a1693d9d1e6eb9e5185b">_heroFrames</a> = 0;</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#aee452ce6cdf045b5dc4a1fcaee0eac08">  181</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#aee452ce6cdf045b5dc4a1fcaee0eac08">_enemyFrames</a> = 0;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>};</div>
+<div class="foldopen" id="foldopen00177" data-start="{" data-end="}">
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#a4b484538e997620e36be580223a9d94f">  177</a></span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#a4b484538e997620e36be580223a9d94f">enemyFrames</a>() const noexcept {</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#aee452ce6cdf045b5dc4a1fcaee0eac08">_enemyFrames</a>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    }</div>
 </div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span></div>
-<div class="foldopen" id="foldopen00185" data-start="{" data-end="};">
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="structhmi_1_1ArenaAppearanceCatalogResult.html">  185</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1ArenaAppearanceCatalogResult.html">ArenaAppearanceCatalogResult</a> {</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="structhmi_1_1ArenaAppearanceCatalogResult.html#a5a07ca2955c869942c75179b6b004557">  186</a></span>    std::optional&lt;ArenaAppearanceCatalog&gt; <a class="code hl_variable" href="structhmi_1_1ArenaAppearanceCatalogResult.html#a5a07ca2955c869942c75179b6b004557">catalog</a>;</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="structhmi_1_1ArenaAppearanceCatalogResult.html#a8eda5b7c92d9578ee0acd009a0ce9254">  187</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1ArenaAppearanceCatalogResult.html#a8eda5b7c92d9578ee0acd009a0ce9254">error</a>;</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="structhmi_1_1ArenaAppearanceCatalogResult.html#ac159783cd18af395b0532ae9f706fa51">  188</a></span>    <a class="code hl_enumeration" href="namespacehmi.html#a931e4dfdcb2eb27e505c66bc92291f72">ArenaAppearanceError</a> <a class="code hl_variable" href="structhmi_1_1ArenaAppearanceCatalogResult.html#ac159783cd18af395b0532ae9f706fa51">errorCode</a> = <a class="code hl_enumvalue" href="namespacehmi.html#a931e4dfdcb2eb27e505c66bc92291f72a6adf97f83acf6453d4a6a4b1070f3754">ArenaAppearanceError::None</a>;</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
-<div class="foldopen" id="foldopen00190" data-start="{" data-end="}">
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="structhmi_1_1ArenaAppearanceCatalogResult.html#a7c8cd02d0e8a12282e256ba2b924aaf6">  190</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1ArenaAppearanceCatalogResult.html#a7c8cd02d0e8a12282e256ba2b924aaf6">ok</a>() const noexcept {</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structhmi_1_1ArenaAppearanceCatalogResult.html#a5a07ca2955c869942c75179b6b004557">catalog</a>.has_value();</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    }</div>
-</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structhmi_1_1ArenaAppearanceCatalogResult.html">ArenaAppearanceCatalogResult</a> <a class="code hl_function" href="classhmi_1_1ArenaAppearanceCatalog.html#a50f574b853e2e13b3d2c23c8846c23f3">fromDocument</a>(</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1JsonDocument.html">core::JsonDocument</a>&amp; document);</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#a4c32bcc47dfa515b8acf71f40d1003c8">  185</a></span>    std::string <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#a4c32bcc47dfa515b8acf71f40d1003c8">_scene</a>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#a631755e2317768443b91fc6f6eec2f75">  186</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#a631755e2317768443b91fc6f6eec2f75">_heroes</a>;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#ae59d275609c4d6e3359aba7648e9f53f">  187</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#ae59d275609c4d6e3359aba7648e9f53f">_gladiators</a>;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#aaab61ea7744324821ebe4132523e94e2">  188</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#aaab61ea7744324821ebe4132523e94e2">_paleSlabs</a>;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#aec02ad6fe3c845d290e84c4f0ea66ed7">  190</a></span>    std::map&lt;std::string, std::string, std::less&lt;&gt;&gt; <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#aec02ad6fe3c845d290e84c4f0ea66ed7">_heroDirectories</a>;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#ad3fbdb415594a1693d9d1e6eb9e5185b">  191</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#ad3fbdb415594a1693d9d1e6eb9e5185b">_heroFrames</a> = 0;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="classhmi_1_1ArenaAppearanceCatalog.html#aee452ce6cdf045b5dc4a1fcaee0eac08">  192</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="classhmi_1_1ArenaAppearanceCatalog.html#aee452ce6cdf045b5dc4a1fcaee0eac08">_enemyFrames</a> = 0;</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>};</div>
 </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span></div>
+<div class="foldopen" id="foldopen00196" data-start="{" data-end="};">
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno"><a class="line" href="structhmi_1_1ArenaAppearanceCatalogResult.html">  196</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1ArenaAppearanceCatalogResult.html">ArenaAppearanceCatalogResult</a> {</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="structhmi_1_1ArenaAppearanceCatalogResult.html#a5a07ca2955c869942c75179b6b004557">  197</a></span>    std::optional&lt;ArenaAppearanceCatalog&gt; <a class="code hl_variable" href="structhmi_1_1ArenaAppearanceCatalogResult.html#a5a07ca2955c869942c75179b6b004557">catalog</a>;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="structhmi_1_1ArenaAppearanceCatalogResult.html#a8eda5b7c92d9578ee0acd009a0ce9254">  198</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1ArenaAppearanceCatalogResult.html#a8eda5b7c92d9578ee0acd009a0ce9254">error</a>;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="structhmi_1_1ArenaAppearanceCatalogResult.html#ac159783cd18af395b0532ae9f706fa51">  199</a></span>    <a class="code hl_enumeration" href="namespacehmi.html#a931e4dfdcb2eb27e505c66bc92291f72">ArenaAppearanceError</a> <a class="code hl_variable" href="structhmi_1_1ArenaAppearanceCatalogResult.html#ac159783cd18af395b0532ae9f706fa51">errorCode</a> = <a class="code hl_enumvalue" href="namespacehmi.html#a931e4dfdcb2eb27e505c66bc92291f72a6adf97f83acf6453d4a6a4b1070f3754">ArenaAppearanceError::None</a>;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="foldopen" id="foldopen00201" data-start="{" data-end="}">
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="structhmi_1_1ArenaAppearanceCatalogResult.html#a7c8cd02d0e8a12282e256ba2b924aaf6">  201</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1ArenaAppearanceCatalogResult.html#a7c8cd02d0e8a12282e256ba2b924aaf6">ok</a>() const noexcept {</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structhmi_1_1ArenaAppearanceCatalogResult.html#a5a07ca2955c869942c75179b6b004557">catalog</a>.has_value();</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    }</div>
+</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>};</div>
+</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>}  <span class="comment">// namespace hmi</span></div>
 <div class="ttc" id="aGridPosition_8h_html"><div class="ttname"><a href="GridPosition_8h.html">GridPosition.h</a></div><div class="ttdoc">Position entière dans la grille d&#39;un niveau (colonne, ligne).</div></div>
 <div class="ttc" id="aTurnOrder_8h_html"><div class="ttname"><a href="TurnOrder_8h.html">TurnOrder.h</a></div><div class="ttdoc">L&#39;ordre d&#39;initiative : qui joue avant qui, et comment se départagent les égalités (LOT-20,...</div></div>
 <div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html">hmi::ArenaAppearanceCatalog</a></div><div class="ttdoc">Catalogue d&#39;apparence du Colisée : figurines par côté, dalles de sol, chargé depuis Source/Elements/A...</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:98</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a242d9d41756fd2d69f4bd783c223d609"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a242d9d41756fd2d69f4bd783c223d609">hmi::ArenaAppearanceCatalog::sheetDirectory</a></div><div class="ttdeci">std::string sheetDirectory(std::string_view sheet, core::CombatSide side) const</div><div class="ttdoc">Le dossier des bandes d&#39;une figurine, relatif au dossier du Colisée.</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:177</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a4b484538e997620e36be580223a9d94f"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a4b484538e997620e36be580223a9d94f">hmi::ArenaAppearanceCatalog::enemyFrames</a></div><div class="ttdeci">int enemyFrames() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:167</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a50f574b853e2e13b3d2c23c8846c23f3"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a50f574b853e2e13b3d2c23c8846c23f3">hmi::ArenaAppearanceCatalog::fromDocument</a></div><div class="ttdeci">static ArenaAppearanceCatalogResult fromDocument(const core::JsonDocument &amp;document)</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:90</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a5a65215a2c570bee2905e867fe6e565f"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a5a65215a2c570bee2905e867fe6e565f">hmi::ArenaAppearanceCatalog::gladiators</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; gladiators() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:158</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a631755e2317768443b91fc6f6eec2f75"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a631755e2317768443b91fc6f6eec2f75">hmi::ArenaAppearanceCatalog::_heroes</a></div><div class="ttdeci">std::vector&lt; std::string &gt; _heroes</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:175</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a812c8e53901ec0f3616e180ebb923a60"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a812c8e53901ec0f3616e180ebb923a60">hmi::ArenaAppearanceCatalog::figureFor</a></div><div class="ttdeci">FigureAppearance figureFor(std::string_view name, core::CombatSide side) const</div><div class="ttdoc">La figurine d&#39;un combattant, choisie d&#39;après son nom pour rester la même d&#39;un tour à l&#39;autre — sans é...</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:157</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a9dc3132538268945af654cd544ab813f"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a9dc3132538268945af654cd544ab813f">hmi::ArenaAppearanceCatalog::applyNpcManifest</a></div><div class="ttdeci">int applyNpcManifest(const std::filesystem::path &amp;path)</div><div class="ttdoc">Applique les remplacements déclarés par le manifeste des PNJ (Source/Elements/Assets/Npc/manifest....</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:237</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aa37d1c44745446f26980ee570d84f526"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aa37d1c44745446f26980ee570d84f526">hmi::ArenaAppearanceCatalog::paleSlabs</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; paleSlabs() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:161</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aa3ed42b73cf2574449ef73623919787a"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aa3ed42b73cf2574449ef73623919787a">hmi::ArenaAppearanceCatalog::tileAppearance</a></div><div class="ttdeci">ArenaTileAppearance tileAppearance(core::GridPosition cell, int columns, int rows, bool wall) const</div><div class="ttdoc">Le rôle visuel d&#39;une case, dans une grille de columns × rows.</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:119</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aa7e034719a6931f68257f340876874af"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aa7e034719a6931f68257f340876874af">hmi::ArenaAppearanceCatalog::loadFromString</a></div><div class="ttdeci">static ArenaAppearanceCatalogResult loadFromString(std::string_view json)</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:86</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aaab61ea7744324821ebe4132523e94e2"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aaab61ea7744324821ebe4132523e94e2">hmi::ArenaAppearanceCatalog::_paleSlabs</a></div><div class="ttdeci">std::vector&lt; std::string &gt; _paleSlabs</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:177</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aaafbef0722f6a29943192e6fd242a7a4"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aaafbef0722f6a29943192e6fd242a7a4">hmi::ArenaAppearanceCatalog::loadFromFile</a></div><div class="ttdeci">static ArenaAppearanceCatalogResult loadFromFile(const std::filesystem::path &amp;path)</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:114</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aac0e01f4a75f827056fcde0486e94970"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aac0e01f4a75f827056fcde0486e94970">hmi::ArenaAppearanceCatalog::heroes</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; heroes() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:155</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_ab6b02ebc7d15780ebbd2463e23a8d785"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#ab6b02ebc7d15780ebbd2463e23a8d785">hmi::ArenaAppearanceCatalog::replaceHero</a></div><div class="ttdeci">bool replaceHero(std::string_view hero, std::string directory)</div><div class="ttdoc">Fait lire les bandes d&#39;un héros dans un autre dossier — la figurine de remplacement d&#39;un PNJ de l&#39;ate...</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:189</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_acb7e8c905b598bab04a1c65e0b1c0e21"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#acb7e8c905b598bab04a1c65e0b1c0e21">hmi::ArenaAppearanceCatalog::heroFrames</a></div><div class="ttdeci">int heroFrames() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:164</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a242d9d41756fd2d69f4bd783c223d609"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a242d9d41756fd2d69f4bd783c223d609">hmi::ArenaAppearanceCatalog::sheetDirectory</a></div><div class="ttdeci">std::string sheetDirectory(std::string_view sheet, core::CombatSide side) const</div><div class="ttdoc">Le dossier des bandes d&#39;une figurine, relatif au dossier du Colisée.</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:192</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a4b484538e997620e36be580223a9d94f"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a4b484538e997620e36be580223a9d94f">hmi::ArenaAppearanceCatalog::enemyFrames</a></div><div class="ttdeci">int enemyFrames() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:177</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a4c32bcc47dfa515b8acf71f40d1003c8"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a4c32bcc47dfa515b8acf71f40d1003c8">hmi::ArenaAppearanceCatalog::_scene</a></div><div class="ttdeci">std::string _scene</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:185</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a50f574b853e2e13b3d2c23c8846c23f3"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a50f574b853e2e13b3d2c23c8846c23f3">hmi::ArenaAppearanceCatalog::fromDocument</a></div><div class="ttdeci">static ArenaAppearanceCatalogResult fromDocument(const core::JsonDocument &amp;document)</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:102</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a5a65215a2c570bee2905e867fe6e565f"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a5a65215a2c570bee2905e867fe6e565f">hmi::ArenaAppearanceCatalog::gladiators</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; gladiators() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:168</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a631755e2317768443b91fc6f6eec2f75"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a631755e2317768443b91fc6f6eec2f75">hmi::ArenaAppearanceCatalog::_heroes</a></div><div class="ttdeci">std::vector&lt; std::string &gt; _heroes</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:186</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a812c8e53901ec0f3616e180ebb923a60"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a812c8e53901ec0f3616e180ebb923a60">hmi::ArenaAppearanceCatalog::figureFor</a></div><div class="ttdeci">FigureAppearance figureFor(std::string_view name, core::CombatSide side) const</div><div class="ttdoc">La figurine d&#39;un combattant, choisie d&#39;après son nom pour rester la même d&#39;un tour à l&#39;autre — sans é...</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:172</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_a9dc3132538268945af654cd544ab813f"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#a9dc3132538268945af654cd544ab813f">hmi::ArenaAppearanceCatalog::applyNpcManifest</a></div><div class="ttdeci">int applyNpcManifest(const std::filesystem::path &amp;path)</div><div class="ttdoc">Applique les remplacements déclarés par le manifeste des PNJ (Source/Elements/Assets/Npc/manifest....</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:252</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aa37d1c44745446f26980ee570d84f526"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aa37d1c44745446f26980ee570d84f526">hmi::ArenaAppearanceCatalog::paleSlabs</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; paleSlabs() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:171</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aa3ed42b73cf2574449ef73623919787a"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aa3ed42b73cf2574449ef73623919787a">hmi::ArenaAppearanceCatalog::tileAppearance</a></div><div class="ttdeci">ArenaTileAppearance tileAppearance(core::GridPosition cell, int columns, int rows, bool wall) const</div><div class="ttdoc">Le rôle visuel d&#39;une case, dans une grille de columns × rows.</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:134</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aa7e034719a6931f68257f340876874af"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aa7e034719a6931f68257f340876874af">hmi::ArenaAppearanceCatalog::loadFromString</a></div><div class="ttdeci">static ArenaAppearanceCatalogResult loadFromString(std::string_view json)</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:98</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aaab61ea7744324821ebe4132523e94e2"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aaab61ea7744324821ebe4132523e94e2">hmi::ArenaAppearanceCatalog::_paleSlabs</a></div><div class="ttdeci">std::vector&lt; std::string &gt; _paleSlabs</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:188</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aaafbef0722f6a29943192e6fd242a7a4"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aaafbef0722f6a29943192e6fd242a7a4">hmi::ArenaAppearanceCatalog::loadFromFile</a></div><div class="ttdeci">static ArenaAppearanceCatalogResult loadFromFile(const std::filesystem::path &amp;path)</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:129</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aac0e01f4a75f827056fcde0486e94970"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aac0e01f4a75f827056fcde0486e94970">hmi::ArenaAppearanceCatalog::heroes</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; heroes() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:165</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_ab6b02ebc7d15780ebbd2463e23a8d785"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#ab6b02ebc7d15780ebbd2463e23a8d785">hmi::ArenaAppearanceCatalog::replaceHero</a></div><div class="ttdeci">bool replaceHero(std::string_view hero, std::string directory)</div><div class="ttdoc">Fait lire les bandes d&#39;un héros dans un autre dossier — la figurine de remplacement d&#39;un PNJ de l&#39;ate...</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.cpp:204</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_acb7e8c905b598bab04a1c65e0b1c0e21"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#acb7e8c905b598bab04a1c65e0b1c0e21">hmi::ArenaAppearanceCatalog::heroFrames</a></div><div class="ttdeci">int heroFrames() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:174</div></div>
 <div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_ad092f238d7462994ad5a769f6e224ab6"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#ad092f238d7462994ad5a769f6e224ab6">hmi::ArenaAppearanceCatalog::FORMAT_VERSION</a></div><div class="ttdeci">static constexpr int FORMAT_VERSION</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:100</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_ad3fbdb415594a1693d9d1e6eb9e5185b"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#ad3fbdb415594a1693d9d1e6eb9e5185b">hmi::ArenaAppearanceCatalog::_heroFrames</a></div><div class="ttdeci">int _heroFrames</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:180</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_ae59d275609c4d6e3359aba7648e9f53f"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#ae59d275609c4d6e3359aba7648e9f53f">hmi::ArenaAppearanceCatalog::_gladiators</a></div><div class="ttdeci">std::vector&lt; std::string &gt; _gladiators</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:176</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aec02ad6fe3c845d290e84c4f0ea66ed7"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aec02ad6fe3c845d290e84c4f0ea66ed7">hmi::ArenaAppearanceCatalog::_heroDirectories</a></div><div class="ttdeci">std::map&lt; std::string, std::string, std::less&lt;&gt; &gt; _heroDirectories</div><div class="ttdoc">Héros → dossier de remplacement (replaceHero) ; absent : characters/&lt;héros&gt;.</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:179</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aee452ce6cdf045b5dc4a1fcaee0eac08"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aee452ce6cdf045b5dc4a1fcaee0eac08">hmi::ArenaAppearanceCatalog::_enemyFrames</a></div><div class="ttdeci">int _enemyFrames</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:181</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_ad3fbdb415594a1693d9d1e6eb9e5185b"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#ad3fbdb415594a1693d9d1e6eb9e5185b">hmi::ArenaAppearanceCatalog::_heroFrames</a></div><div class="ttdeci">int _heroFrames</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:191</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_adec363074f1314c0c5c150954c06ed63"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#adec363074f1314c0c5c150954c06ed63">hmi::ArenaAppearanceCatalog::scene</a></div><div class="ttdeci">const std::string &amp; scene() const noexcept</div><div class="ttdoc">Le lieu dont l&#39;arène emprunte ses pièces de scène (champ scene du manifeste).</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:162</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_ae59d275609c4d6e3359aba7648e9f53f"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#ae59d275609c4d6e3359aba7648e9f53f">hmi::ArenaAppearanceCatalog::_gladiators</a></div><div class="ttdeci">std::vector&lt; std::string &gt; _gladiators</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:187</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aec02ad6fe3c845d290e84c4f0ea66ed7"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aec02ad6fe3c845d290e84c4f0ea66ed7">hmi::ArenaAppearanceCatalog::_heroDirectories</a></div><div class="ttdeci">std::map&lt; std::string, std::string, std::less&lt;&gt; &gt; _heroDirectories</div><div class="ttdoc">Héros → dossier de remplacement (replaceHero) ; absent : characters/&lt;héros&gt;.</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:190</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaAppearanceCatalog_html_aee452ce6cdf045b5dc4a1fcaee0eac08"><div class="ttname"><a href="classhmi_1_1ArenaAppearanceCatalog.html#aee452ce6cdf045b5dc4a1fcaee0eac08">hmi::ArenaAppearanceCatalog::_enemyFrames</a></div><div class="ttdeci">int _enemyFrames</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:192</div></div>
 <div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
 <div class="ttc" id="anamespacecore_html_a5de8069e593ab57dab3a12c60b40b717"><div class="ttname"><a href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a></div><div class="ttdeci">CombatSide</div><div class="ttdoc">Le camp d&#39;un combattant.</div><div class="ttdef"><b>Definition</b> TurnOrder.h:29</div></div>
 <div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
@@ -272,11 +329,11 @@ $(function(){initNavTree('ArenaAppearanceCatalog_8h_source.html','',''); });
 <div class="ttc" id="anamespacehmi_html_afee4dd05bda0b2293c4a99a73cb7eb8fae41199faa7290c167f70f314c5e6c165"><div class="ttname"><a href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fae41199faa7290c167f70f314c5e6c165">hmi::AnimationCatalogError::ParseError</a></div><div class="ttdeci">@ ParseError</div><div class="ttdoc">JSON malformé, ou racine qui n&#39;est pas un objet.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:32</div></div>
 <div class="ttc" id="astructcore_1_1GridPosition_html"><div class="ttname"><a href="structcore_1_1GridPosition.html">core::GridPosition</a></div><div class="ttdoc">Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.</div><div class="ttdef"><b>Definition</b> GridPosition.h:20</div></div>
 <div class="ttc" id="astructcore_1_1JsonDocument_html"><div class="ttname"><a href="structcore_1_1JsonDocument.html">core::JsonDocument</a></div><div class="ttdoc">Résultat de la lecture de l&#39;enveloppe commune d&#39;un document JSON.</div><div class="ttdef"><b>Definition</b> JsonDocument.h:53</div></div>
-<div class="ttc" id="astructhmi_1_1ArenaAppearanceCatalogResult_html"><div class="ttname"><a href="structhmi_1_1ArenaAppearanceCatalogResult.html">hmi::ArenaAppearanceCatalogResult</a></div><div class="ttdoc">Résultat d&#39;une lecture de catalogue : soit un ArenaAppearanceCatalog, soit une erreur.</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:185</div></div>
-<div class="ttc" id="astructhmi_1_1ArenaAppearanceCatalogResult_html_a5a07ca2955c869942c75179b6b004557"><div class="ttname"><a href="structhmi_1_1ArenaAppearanceCatalogResult.html#a5a07ca2955c869942c75179b6b004557">hmi::ArenaAppearanceCatalogResult::catalog</a></div><div class="ttdeci">std::optional&lt; ArenaAppearanceCatalog &gt; catalog</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:186</div></div>
-<div class="ttc" id="astructhmi_1_1ArenaAppearanceCatalogResult_html_a7c8cd02d0e8a12282e256ba2b924aaf6"><div class="ttname"><a href="structhmi_1_1ArenaAppearanceCatalogResult.html#a7c8cd02d0e8a12282e256ba2b924aaf6">hmi::ArenaAppearanceCatalogResult::ok</a></div><div class="ttdeci">bool ok() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:190</div></div>
-<div class="ttc" id="astructhmi_1_1ArenaAppearanceCatalogResult_html_a8eda5b7c92d9578ee0acd009a0ce9254"><div class="ttname"><a href="structhmi_1_1ArenaAppearanceCatalogResult.html#a8eda5b7c92d9578ee0acd009a0ce9254">hmi::ArenaAppearanceCatalogResult::error</a></div><div class="ttdeci">std::string error</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:187</div></div>
-<div class="ttc" id="astructhmi_1_1ArenaAppearanceCatalogResult_html_ac159783cd18af395b0532ae9f706fa51"><div class="ttname"><a href="structhmi_1_1ArenaAppearanceCatalogResult.html#ac159783cd18af395b0532ae9f706fa51">hmi::ArenaAppearanceCatalogResult::errorCode</a></div><div class="ttdeci">ArenaAppearanceError errorCode</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:188</div></div>
+<div class="ttc" id="astructhmi_1_1ArenaAppearanceCatalogResult_html"><div class="ttname"><a href="structhmi_1_1ArenaAppearanceCatalogResult.html">hmi::ArenaAppearanceCatalogResult</a></div><div class="ttdoc">Résultat d&#39;une lecture de catalogue : soit un ArenaAppearanceCatalog, soit une erreur.</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:196</div></div>
+<div class="ttc" id="astructhmi_1_1ArenaAppearanceCatalogResult_html_a5a07ca2955c869942c75179b6b004557"><div class="ttname"><a href="structhmi_1_1ArenaAppearanceCatalogResult.html#a5a07ca2955c869942c75179b6b004557">hmi::ArenaAppearanceCatalogResult::catalog</a></div><div class="ttdeci">std::optional&lt; ArenaAppearanceCatalog &gt; catalog</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:197</div></div>
+<div class="ttc" id="astructhmi_1_1ArenaAppearanceCatalogResult_html_a7c8cd02d0e8a12282e256ba2b924aaf6"><div class="ttname"><a href="structhmi_1_1ArenaAppearanceCatalogResult.html#a7c8cd02d0e8a12282e256ba2b924aaf6">hmi::ArenaAppearanceCatalogResult::ok</a></div><div class="ttdeci">bool ok() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:201</div></div>
+<div class="ttc" id="astructhmi_1_1ArenaAppearanceCatalogResult_html_a8eda5b7c92d9578ee0acd009a0ce9254"><div class="ttname"><a href="structhmi_1_1ArenaAppearanceCatalogResult.html#a8eda5b7c92d9578ee0acd009a0ce9254">hmi::ArenaAppearanceCatalogResult::error</a></div><div class="ttdeci">std::string error</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:198</div></div>
+<div class="ttc" id="astructhmi_1_1ArenaAppearanceCatalogResult_html_ac159783cd18af395b0532ae9f706fa51"><div class="ttname"><a href="structhmi_1_1ArenaAppearanceCatalogResult.html#ac159783cd18af395b0532ae9f706fa51">hmi::ArenaAppearanceCatalogResult::errorCode</a></div><div class="ttdeci">ArenaAppearanceError errorCode</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:199</div></div>
 <div class="ttc" id="astructhmi_1_1ArenaTileAppearance_html"><div class="ttname"><a href="structhmi_1_1ArenaTileAppearance.html">hmi::ArenaTileAppearance</a></div><div class="ttdoc">Ce qu&#39;une case porte, dérivé de sa seule position dans la grille de combat.</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:52</div></div>
 <div class="ttc" id="astructhmi_1_1ArenaTileAppearance_html_a075570a1dc1ff501100e80b16b48d394"><div class="ttname"><a href="structhmi_1_1ArenaTileAppearance.html#a075570a1dc1ff501100e80b16b48d394">hmi::ArenaTileAppearance::wallFeature</a></div><div class="ttdeci">WallFeature wallFeature</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:54</div></div>
 <div class="ttc" id="astructhmi_1_1ArenaTileAppearance_html_a45b37983a1de87932d4cb10c3985af42"><div class="ttname"><a href="structhmi_1_1ArenaTileAppearance.html#a45b37983a1de87932d4cb10c3985af42">hmi::ArenaTileAppearance::slab</a></div><div class="ttdeci">bool slab</div><div class="ttdoc">Vrai si le sol porte une dalle claire du tileset plutôt que le sable.</div><div class="ttdef"><b>Definition</b> ArenaAppearanceCatalog.h:58</div></div>

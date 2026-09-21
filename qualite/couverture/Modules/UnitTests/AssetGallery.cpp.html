@@ -59,13 +59,13 @@ using json = nlohmann::json;
 }</span>
 
 [[nodiscard]] std::pair&lt;int, int&gt; intPair(const json&amp; object, const char* key, int fallbackX,
-<span style = "background-color:#dfd">                                          int fallbackY) {
+<span style = "background-color:#fdd">                                          int fallbackY) {
     const auto found = object.find(key);</span>
     if (found == object.end() || !found-&gt;is_array() || found-&gt;size() != 2 ||
-<span style = "background-color:#dfd">        !(*found)[0].is_number_integer() || !(*found)[1].is_number_integer()) {</span>
-<span style = "background-color:#fdd">        return {fallbackX, fallbackY};</span>
+<span style = "background-color:#fdd">        !(*found)[0].is_number_integer() || !(*found)[1].is_number_integer()) {
+        return {fallbackX, fallbackY};</span>
     }
-<span style = "background-color:#dfd">    return {(*found)[0].get&lt;int&gt;(), (*found)[1].get&lt;int&gt;()};
+<span style = "background-color:#fdd">    return {(*found)[0].get&lt;int&gt;(), (*found)[1].get&lt;int&gt;()};
 }</span>
 
 /// Largeur et hauteur d'un PNG, lues dans son en-tÃªte IHDR ; (0, 0) si ce n'est pas un PNG lisible.
@@ -188,7 +188,7 @@ void readFigures(const std::filesystem::path&amp; root, const std::string&amp; d
 <span style = "background-color:#dfd">    if (!document.ok()) {
         return;</span>
     }
-<span style = "background-color:#dfd">    const auto figures = [&amp;](const char* title, const char* key, const char* directory,
+<span style = "background-color:#fdd">    const auto figures = [&amp;](const char* title, const char* key, const char* directory,
                              const std::vector&lt;std::string&gt;&amp; animations) {
         AssetGalleryFamily family{.title = title, .directory = "Coliseum", .entries = {}};
         for (const std::string&amp; name : stringList(document.root, key)) {
@@ -202,33 +202,33 @@ void readFigures(const std::filesystem::path&amp; root, const std::string&amp; d
                 if (readAnimatedEntry(</span>
                         entry, root / "Coliseum" / directory / name / (animation + ".anim.json"),
                         catalog.errors)) {
-<span style = "background-color:#dfd">                    family.entries.push_back(std::move(entry));</span>
+<span style = "background-color:#fdd">                    family.entries.push_back(std::move(entry));</span>
                 }
-<span style = "background-color:#dfd">            }</span>
+<span style = "background-color:#fdd">            }</span>
         }
-<span style = "background-color:#dfd">        if (!family.entries.empty()) {
+<span style = "background-color:#fdd">        if (!family.entries.empty()) {
             catalog.families.push_back(std::move(family));</span>
         }
-<span style = "background-color:#dfd">    };
+<span style = "background-color:#fdd">    };
     const std::vector&lt;std::string&gt; animations = stringList(document.root, "animations");
     figures("ColisÃ©e Â· hÃ©ros", "heroes", "characters", animations);
     figures("ColisÃ©e Â· gladiateurs", "gladiators", "enemies", animations);</span>
 
-<span style = "background-color:#dfd">    const auto files = document.root.find("files");
-    if (files == document.root.end() || !files-&gt;is_object()) {</span>
-<span style = "background-color:#fdd">        return;</span>
+<span style = "background-color:#fdd">    const auto files = document.root.find("files");
+    if (files == document.root.end() || !files-&gt;is_object()) {
+        return;</span>
     }
-<span style = "background-color:#dfd">    AssetGalleryFamily pieces{.title = "ColisÃ©e Â· piÃ¨ces", .directory = "Coliseum", .entries = {}};
+<span style = "background-color:#fdd">    AssetGalleryFamily pieces{.title = "ColisÃ©e Â· piÃ¨ces", .directory = "Coliseum", .entries = {}};
     for (const auto&amp; [key, value] : files-&gt;items()) {
         const std::size_t slash = key.find('/');
-        if (slash == std::string::npos || !value.is_object()) {</span>
-<span style = "background-color:#fdd">            continue;</span>
+        if (slash == std::string::npos || !value.is_object()) {
+            continue;</span>
         }
-<span style = "background-color:#dfd">        const std::string folder = key.substr(0, slash);
+<span style = "background-color:#fdd">        const std::string folder = key.substr(0, slash);
         if (folder == "characters" || folder == "enemies") {
             continue;</span>
         }
-<span style = "background-color:#dfd">        const auto [width, height] = intPair(value, "size", 0, 0);
+<span style = "background-color:#fdd">        const auto [width, height] = intPair(value, "size", 0, 0);
         pieces.entries.push_back(AssetGalleryEntry{.family = pieces.title,</span>
                                                    .model = folder,
                                                    .form = stemOf(key.substr(slash + 1)),
@@ -236,12 +236,12 @@ void readFigures(const std::filesystem::path&amp; root, const std::string&amp; d
                                                    .frameWidth = width,
                                                    .frameHeight = height,
                                                    .frames = {}});
-<span style = "background-color:#dfd">    }</span>
+<span style = "background-color:#fdd">    }</span>
     // `nlohmann::json` range ses clÃ©s par ordre alphabÃ©tique : les dossiers se suivent dÃ©jÃ .
-<span style = "background-color:#dfd">    if (!pieces.entries.empty()) {
+<span style = "background-color:#fdd">    if (!pieces.entries.empty()) {
         catalog.families.push_back(std::move(pieces));</span>
     }
-<span style = "background-color:#dfd">}</span>
+<span style = "background-color:#fdd">}</span>
 
 <span style = "background-color:#dfd">[[nodiscard]] int classRank(const std::string&amp; textureClass) {
     if (textureClass == "floor") {
@@ -317,23 +317,18 @@ void readFigures(const std::filesystem::path&amp; root, const std::string&amp; d
 }</span>
 
 <span style = "background-color:#dfd">bool assetGalleryExcludes(std::string_view path) noexcept {
-    const std::size_t slash = path.rfind('/');
-    const std::string_view fileName =</span>
-        slash == std::string_view::npos ? path : path.substr(slash + 1);
-<span style = "background-color:#dfd">    return path == "Coliseum/production_source_atlas.png" || path.starts_with("UI/") ||</span>
-           path.starts_with("Maps/") || path.starts_with("Fonts/") ||
-           (path.starts_with("Scene/") &amp;&amp; fileName.starts_with("planche-"));
-<span style = "background-color:#dfd">}</span>
+    return path.starts_with("UI/") || path.starts_with("Maps/") || path.starts_with("Fonts/");
+}</span>
 
 std::vector&lt;std::string&gt; assetGalleryUnlisted(const std::filesystem::path&amp; assetsRoot,
 <span style = "background-color:#dfd">                                              const AssetGalleryCatalog&amp; catalog) {
     std::set&lt;std::string&gt; listed;
-    for (const AssetGalleryFamily&amp; family : catalog.families) {
-        for (const AssetGalleryEntry&amp; entry : family.entries) {
+    for (const AssetGalleryFamily&amp; family : catalog.families) {</span>
+<span style = "background-color:#fdd">        for (const AssetGalleryEntry&amp; entry : family.entries) {
             listed.insert(entry.path);
         }
-    }
-    std::vector&lt;std::string&gt; unlisted;
+    }</span>
+<span style = "background-color:#dfd">    std::vector&lt;std::string&gt; unlisted;
     std::error_code error;
     for (auto it = std::filesystem::recursive_directory_iterator(assetsRoot, error);
          !error &amp;&amp; it != std::filesystem::recursive_directory_iterator(); it.increment(error)) {

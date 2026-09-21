@@ -1,3 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -17,10 +29,44 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="guide.html">Guide</a>
+    <a href="specifications.html">Spécifications</a>
+    <a href="lots.html">Lots</a>
+    <a href="cahiertest.html">Cahier de test</a>
+    <a href="manuel.html">Manuel</a>
+    <a href="annotated.html">Classes</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="index.html">Documentation</a>
+    <a href="planning/index.html">Planification</a>
+    <a href="qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
@@ -30,6 +76,18 @@
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -42,15 +100,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','Search',true);
-  $(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -184,13 +233,13 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La grille tactique d'une rencontre. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1150"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1019"></a>
 Une seule source de vérité pour « peut-on se tenir ici »</h2>
 <p>Les obstacles viennent de la <b>grille de collision</b> de la carte — <span class="tt"><a class="el" href="classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef">core::Level::tileMap()</a></span> —, jamais d'un masque dessiné pour le combat (<span class="tt">EX-CBT-001</span>). La grille la <b>recopie</b> à la construction : une copie ne peut pas changer sous un tour en cours.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1151"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1020"></a>
 Les propriétés de zone</h2>
 <p>Une couche de la carte qui porte des propriétés libres (<span class="tt">EX-LVL-018</span>) déclare une <b>zone</b> : les cases non vides de cette couche. Une entité <span class="tt">zone</span> en déclare une aussi, rectangle ou ensemble de cases peint (<span class="tt"><a class="el" href="namespacecore.html#acdcfbe0879d84908d423e478039532c3" title="Les cases que couvre la zone entity : ses cases peintes si elle en a, sinon son rectangle (width × he...">core::zoneCells</a></span>, décision D13 de l'éditeur). La grille les relève sans les interpréter, sauf une — <span class="tt">difficultTerrain: true</span>, qui double le coût d'entrée. Les autres (combat interdit, aucun soin, type de dégâts aléatoire) sont lues par ceux qui en ont l'usage (<span class="tt">LOT-50</span>, <span class="tt">LOT-81</span>) au moyen de <span class="tt"><a class="el" href="#a0c816b168810ff9052c1f41225f44186" title="Les propriétés de toutes les zones qui couvrent la case, dans l&#39;ordre des couches.">zonesAt</a></span>, et ce lot n'en invente aucune.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1152"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1021"></a>
 Ce qu'elle ne fait pas</h2>
 <p>Elle ne calcule aucun chemin : c'est <span class="tt"><a class="el" href="namespacecore.html#ad018fcc5c0c0bcabf187d6ae09568067" title="Le meilleur chemin de mover jusqu&#39;à destination, sans limite de budget.">core::findPath</a></span> et <span class="tt"><a class="el" href="classcore_1_1ReachableArea.html" title="Les cases qu&#39;un combattant peut atteindre ce tour-ci, et par où.">core::ReachableArea</a></span>. Elle ne connaît aucun camp : c'est la requête de déplacement qui dit qui l'on peut traverser. Elle n'a pas d'altitude : l'altitude est un <b>attribut</b> du déplacement, jamais une géométrie de la grille (voir <span class="tt"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff" title="Comment un combattant se déplace : au sol, ou en vol.">core::Locomotion</a></span>). </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>

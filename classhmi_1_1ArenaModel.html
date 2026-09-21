@@ -1,3 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -17,10 +29,44 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="guide.html">Guide</a>
+    <a href="specifications.html">Spécifications</a>
+    <a href="lots.html">Lots</a>
+    <a href="cahiertest.html">Cahier de test</a>
+    <a href="manuel.html">Manuel</a>
+    <a href="annotated.html">Classes</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="index.html">Documentation</a>
+    <a href="planning/index.html">Planification</a>
+    <a href="qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
@@ -30,6 +76,18 @@
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -42,15 +100,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','Search',true);
-  $(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -121,7 +170,8 @@ Signals</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab7b34433ab8316cfd1f7a7f8420b5a11" id="r_ab7b34433ab8316cfd1f7a7f8420b5a11"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab7b34433ab8316cfd1f7a7f8420b5a11">ArenaModel</a> (QObject *parent=nullptr)</td></tr>
+<tr class="memitem:abd6c5f16972d1ceb542e31c887ae3339" id="r_abd6c5f16972d1ceb542e31c887ae3339"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abd6c5f16972d1ceb542e31c887ae3339">ArenaModel</a> (QObject *parent=nullptr, std::filesystem::path contentRoot={})</td></tr>
+<tr class="memdesc:abd6c5f16972d1ceb542e31c887ae3339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit la vue-modèle et lit ses catalogues.  <br /></td></tr>
 <tr class="memitem:ab515f2b0d4366005ec69f536e7deb200" id="r_ab515f2b0d4366005ec69f536e7deb200"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab515f2b0d4366005ec69f536e7deb200">~ArenaModel</a> () override</td></tr>
 <tr class="memitem:a7f20d65584128c4760ca2c9ed6f482f2" id="r_a7f20d65584128c4760ca2c9ed6f482f2"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a7f20d65584128c4760ca2c9ed6f482f2">arenaName</a> () const</td></tr>
 <tr class="memitem:a70634985b47dd8d07fb06b5506aa7412" id="r_a70634985b47dd8d07fb06b5506aa7412"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a70634985b47dd8d07fb06b5506aa7412">status</a> () const</td></tr>
@@ -258,6 +308,7 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:a60ce217824cfce4c2a9ba0dee922a20d" id="r_a60ce217824cfce4c2a9ba0dee922a20d"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a60ce217824cfce4c2a9ba0dee922a20d">_contentRoot</a></td></tr>
 <tr class="memitem:a4c81aa1c9cfdf23055369cbb562e89c1" id="r_a4c81aa1c9cfdf23055369cbb562e89c1"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="structhmi_1_1ArenaModel_1_1Catalogs.html">Catalogs</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4c81aa1c9cfdf23055369cbb562e89c1">_catalogs</a></td></tr>
 <tr class="memitem:adaecf8742e9802b1d34fd4ffeaccf077" id="r_adaecf8742e9802b1d34fd4ffeaccf077"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#adaecf8742e9802b1d34fd4ffeaccf077">_cursor</a> {}</td></tr>
 <tr class="memitem:ac54985f21f38b73af60c02fd2c0a6694" id="r_ac54985f21f38b73af60c02fd2c0a6694"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac54985f21f38b73af60c02fd2c0a6694">_selectedAction</a> = 0</td></tr>
@@ -272,16 +323,16 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'arène : composer deux camps, lancer, jouer, rejouer. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1225"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1094"></a>
 Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 <p>Elle tient une <span class="tt"><a class="el" href="classcore_1_1ArenaSession.html" title="Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.">core::ArenaSession</a></span> — la première session de jeu à tenir un <span class="tt"><a class="el" href="classcore_1_1CombatState.html" title="Un combat, du montage de la rencontre à sa fin.">core::CombatState</a></span> — et les catalogues dont l'écran compose son affrontement : le bestiaire (<span class="tt">LOT-33</span>), le personnage de démonstration (<span class="tt">LOT-38</span>), les arènes et les Marques Héroïques. Elle ne décide <b>rien</b> du combat : chaque geste de l'écran devient un appel à la session, et ce que l'écran affiche est relu de la machine à états après chaque geste.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1226"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1095"></a>
 Signal et notification de changement</h2>
 <p><span class="tt"><a class="el" href="#a279bb9f9ff32e8573df589640baa7775">changed</a></span> couvre tout ce que l'interface affiche : la composition, la grille, l'ordre, le journal et l'issue changent ensemble, et les distinguer n'épargnerait aucun rafraîchissement à ces propriétés, toutes relues d'un coup.</p>
 <p>La surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1ArenaViewportItem.html" title="Surface QRhi de la scène de combat du Colisée : la grille, l&#39;enceinte et les figurines,...">hmi::ArenaViewportItem</a></span>, <span class="tt">LOT-86</span> Phase 5+) n'a besoin de reprendre un instantané que lorsque la grille de combat elle-même a pu changer — pas à chaque geste de composition (enrôler, retirer, marquer, régler la graine ou l'IA), qui ne touche encore à aucune session montée. <span class="tt"><a class="el" href="#a6f08373bcc9dc0e0c113b8750a469c9c" title="changed restreint à ce qui peut avoir mué la grille de combat : la surface de rendu (hmi::ArenaViewpo...">combatSceneChanged</a></span>, émis en plus de <span class="tt"><a class="el" href="#a279bb9f9ff32e8573df589640baa7775">changed</a></span> aux seuls gestes qui mutent la grille (<span class="tt"><a class="el" href="classcore_1_1ArenaSession.html#aea7190e8fbf012b1210fa26d1a85f31d" title="Monte l&#39;affrontement : enrôle chaque combattant à sa case ou au prochain point d&#39;entrée libre de son ...">core::ArenaSession::mount</a></span>, un déplacement, une attaque, un retrait, la fin du tour, un rejeu), lui épargne ces recompositions inutiles. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab7b34433ab8316cfd1f7a7f8420b5a11" name="ab7b34433ab8316cfd1f7a7f8420b5a11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7b34433ab8316cfd1f7a7f8420b5a11">&#9670;&#160;</a></span>ArenaModel()</h2>
+<a id="abd6c5f16972d1ceb542e31c887ae3339" name="abd6c5f16972d1ceb542e31c887ae3339"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd6c5f16972d1ceb542e31c887ae3339">&#9670;&#160;</a></span>ArenaModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,8 +343,12 @@ Signal et notification de changement</h2>
         <tr>
           <td class="memname">hmi::ArenaModel::ArenaModel </td>
           <td>(</td>
-          <td class="paramtype">QObject *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
+          <td class="paramtype">QObject *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>contentRoot</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -302,6 +357,15 @@ Signal et notification de changement</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Construit la vue-modèle et lit ses catalogues. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>Parent Qt. </td></tr>
+    <tr><td class="paramname">contentRoot</td><td>Racine du <b>contenu</b> — les arènes (<span class="tt">World/arena</span>) et leurs cartes (<span class="tt">Levels/</span>). Vide : à côté de l'exécutable, comme le jeu. Les tests y mettent la racine d'essai, faute de contenu livré depuis le <span class="tt">LOT-102</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1840,6 +1904,28 @@ Signal et notification de changement</h2>
       <table class="memname">
         <tr>
           <td class="memname">std::unique_ptr&lt;<a class="el" href="structhmi_1_1ArenaModel_1_1Catalogs.html">Catalogs</a>&gt; hmi::ArenaModel::_catalogs</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a60ce217824cfce4c2a9ba0dee922a20d" name="a60ce217824cfce4c2a9ba0dee922a20d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60ce217824cfce4c2a9ba0dee922a20d">&#9670;&#160;</a></span>_contentRoot</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::ArenaModel::_contentRoot</td>
         </tr>
       </table>
   </td>

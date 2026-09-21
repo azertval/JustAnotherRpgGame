@@ -26,6 +26,7 @@ namespace hmi {
 
 namespace {
 
+constexpr const char* FIELD_SCENE = "scene";
 constexpr const char* FIELD_HEROES = "heroes";
 constexpr const char* FIELD_GLADIATORS = "gladiators";
 constexpr const char* FIELD_PALE_SLABS = "paleSlabs";
@@ -81,6 +82,17 @@ constexpr const char* NPC_DIRECTORY_FROM_COLISEUM = "../Npc/";
     return true;
 }</span>
 
+[[nodiscard]] bool readNonEmptyString(const nlohmann::json&amp; root, const char* field,
+<span style = "background-color:#dfd">                                      std::string&amp; out, std::string&amp; error) {
+    if (!root.contains(field) || !root[field].is_string() ||</span>
+        root[field].get&lt;std::string&gt;().empty()) {
+<span style = "background-color:#dfd">        error = std::string("Le champ Â« ") + field + " Â» est absent ou n'est pas un texte.";
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    out = root[field].get&lt;std::string&gt;();
+    return true;
+}</span>
+
 [[nodiscard]] bool readPositiveInt(const nlohmann::json&amp; root, const char* field, int&amp; out,
 <span style = "background-color:#dfd">                                   std::string&amp; error) {
     if (!root.contains(field) || !root[field].is_number_integer() || root[field].get&lt;int&gt;() &lt;= 0) {
@@ -108,6 +120,9 @@ ArenaAppearanceCatalogResult ArenaAppearanceCatalog::fromDocument(
 <span style = "background-color:#dfd">    ArenaAppearanceCatalog catalog;
     std::string error;</span>
 
+<span style = "background-color:#dfd">    if (!readNonEmptyString(root, FIELD_SCENE, catalog._scene, error)) {
+        return failure(error, ArenaAppearanceError::MalformedStructure);</span>
+    }
     if (!readStringArray(root, FIELD_HEROES, catalog._heroes, error) ||
 <span style = "background-color:#dfd">        !readStringArray(root, FIELD_GLADIATORS, catalog._gladiators, error) ||</span>
         !readStringArray(root, FIELD_PALE_SLABS, catalog._paleSlabs, error)) {
@@ -220,8 +235,8 @@ namespace {
 <span style = "background-color:#dfd">        return std::nullopt;</span>
     }
 <span style = "background-color:#dfd">    nlohmann::json&amp; root = document.root;
-    if (!root.contains(FIELD_REPLACES)) {</span>
-<span style = "background-color:#fdd">        return std::nullopt;</span>
+    if (!root.contains(FIELD_REPLACES)) {
+        return std::nullopt;</span>
     }
 <span style = "background-color:#dfd">    if (!root[FIELD_REPLACES].is_object()) {</span>
 <span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING(</span>

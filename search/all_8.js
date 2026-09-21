@@ -2,7 +2,7 @@ var searchData=
 [
   ['8_20—_20les_20compétences_20et_20sorts_20maquette_2010_0',['T3.8 — Les compétences et sorts (maquette 10)',['../lot-87.html#autotoc_md694',1,'']]],
   ['8_20communication_20inter_20systèmes_1',['8. Communication inter-systèmes',['../spec-architecture.html#autotoc_md182',1,'']]],
-  ['8_20décisions_20prises_20et_20questions_20restantes_2',['8. Décisions prises et questions restantes',['../roadmap.html#autotoc_md943',1,'']]],
+  ['8_20décisions_20prises_20et_20questions_20restantes_2',['8. Décisions prises et questions restantes',['../roadmap.html#autotoc_md812',1,'']]],
   ['8_20directions_3',['LOT-06 — Déplacement top-down 8 directions',['../lot-06.html',1,'lots']]],
   ['8_20le_20socle_20du_20module_20lot_20editor_2001_4',['8. Le socle du module (&lt;span class=&quot;tt&quot;&gt;LOT-EDITOR-01&lt;/span&gt;)',['../spec-editeur.html#autotoc_md230',1,'']]],
   ['8_20les_20tours_202_20et_203_20nouvelle_20génération_5',['8. Les tours 2 et 3 (nouvelle génération)',['../lot-91-poc.html#autotoc_md735',1,'']]],
@@ -20,5 +20,6 @@ var searchData=
   ['87_20—_20cahier_20des_20assets_20de_20la_20charte_20v2_17',['LOT-87 — Cahier des assets de la charte v2',['../lot-87-cahier-assets.html',1,'lot-87']]],
   ['87_20—_20charte_20v2_20et_20intégration_20des_20maquettes_18',['LOT-87 — Charte v2 et intégration des maquettes',['../lot-87.html',1,'lots']]],
   ['88_20—_20retrait_20de_20l_20héritage_20_3a_20code_20assets_20et_20spécifications_19',['LOT-88 — Retrait de l&apos;héritage : code, assets et spécifications',['../lot-88.html',1,'lots']]],
-  ['89_20—_20dons_20objets_20magiques_20et_20consommables_20de_20tanares_20',['&lt;span class=&quot;tt&quot;&gt;LOT-89&lt;/span&gt; — Dons, objets magiques et consommables de Tanares',['../roadmap.html#lot-89',1,'']]]
+  ['89_20—_20dons_20objets_20magiques_20et_20consommables_20de_20tanares_20',['&lt;span class=&quot;tt&quot;&gt;LOT-89&lt;/span&gt; — Dons, objets magiques et consommables de Tanares',['../roadmap.html#lot-89',1,'']]],
+  ['897_21',['Tests unitaires (897)',['../cahiertest.html#autotoc_md4',1,'']]]
 ];

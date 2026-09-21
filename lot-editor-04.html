@@ -1,3 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -17,10 +29,44 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="guide.html">Guide</a>
+    <a href="specifications.html">Spécifications</a>
+    <a href="lots.html">Lots</a>
+    <a href="cahiertest.html">Cahier de test</a>
+    <a href="manuel.html">Manuel</a>
+    <a href="annotated.html">Classes</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="index.html">Documentation</a>
+    <a href="planning/index.html">Planification</a>
+    <a href="qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
@@ -30,6 +76,18 @@
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -42,15 +100,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','Search',true);
-  $(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -96,17 +145,17 @@ $(function(){initNavTree('lot-editor-04.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré le 19 septembre 2026</b> (ouvert le même jour), sur la branche <span class="tt">lot-editor-04-outils</span>. Vérification automatisée : construction <span class="tt">/W4 /WX</span> sans avertissement, tests unitaires verts (826, dont deux ignorés comme avant), acceptation sur Martpart ; capture de la fenêtre (barre d'outils à dix outils et miroir, menu Tools). <b>Vérification au clavier et à la souris due</b> : les touches et les clics postés n'atteignent pas Qt (voir plus bas). Prérequis : <span class="tt">LOT-EDITOR-03</span>. Feuille de route : <a class="el" href="roadmap-editeur.html" title="Feuille de route de l&#39;éditeur de cartes">éditeur</a>. Alimente : <span class="tt">LOT-EDITOR-13</span> (sans fenêtre), <span class="tt">LOT-EDITOR-08</span> (tampons). Exigences : <span class="tt">EX-EDIT-066</span> à <span class="tt">EX-EDIT-069</span> (nouvelles) ; <span class="tt">EX-EDIT-014</span> révisée. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1059"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md928"></a>
 Objectif</h1>
 <p>Tracer vite : seau, ligne, pipette, gomme et miroir, plus la mesure en cases et en pieds, les notes d'auteur et l'essai lancé à la case survolée. Chaque outil est une fonction pure, avec un test ; un geste est un pas d'annulation.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1060"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md929"></a>
 Ce que le dépôt contenait à l'ouverture (19 septembre 2026)</h1>
 <ul>
 <li><b>Quatre outils</b> : pinceau, rectangle, sélection, entité, sans touche propre ; la gomme était un bouton de la palette (<span class="tt">LOT-EDITOR-03</span>).</li>
 <li><b>Un glisser du pinceau empilait un pas par case</b> : <span class="tt">applyBrush</span> pousse un pas à chaque appel, et le canevas l'appelait à chaque case survolée. Défaire un trait de vingt cases demandait vingt <span class="tt">Ctrl+Z</span>.</li>
 <li><b>Le fichier annexe <span class="tt">&lt;carte&gt;.editor.json</span></b> était prévu par la feuille de route et déjà écarté par <span class="tt">LevelEditor --check</span> ; le navigateur de cartes et le graphe du monde l'auraient pris pour une carte.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1061"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md930"></a>
 Décisions</h1>
 <ul>
 <li><b>Un geste du brouillon.</b> <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Carte mutable en cours d&#39;édition, distincte de Level (immuable).">core::LevelDraft</a></span> gagne <span class="tt">beginGesture</span> / <span class="tt">endGesture</span> (et <span class="tt"><a class="el" href="classcore_1_1GestureScope.html" title="Un geste ouvert le temps d&#39;une portée (LevelDraft::beginGesture).">core::GestureScope</a></span>) : entre les deux, seule la première mutation qui change la carte empile un pas, un geste sans effet n'en empile aucun, la révision change à chaque mutation comme avant. Du clic au relâchement, un trait du pinceau ou de la gomme est un geste ; la ligne, le seau, le rectangle et leur reflet aussi.</li>
@@ -122,7 +171,7 @@ Décisions</h1>
 <li><b>Une touche par outil</b> : <span class="tt">B</span> pinceau, <span class="tt">R</span> rectangle, <span class="tt">L</span> ligne, <span class="tt">G</span> seau (l'usage des logiciels de dessin), <span class="tt">E</span> gomme, <span class="tt">I</span> pipette, <span class="tt">S</span> sélection, <span class="tt">O</span> entité (objets), <span class="tt">D</span> mesure (distance), <span class="tt">N</span> note ; <span class="tt">M</span> miroir. Les touches ne sont pas remappables : elles sont des raccourcis de <span class="tt">QAction</span>, et un champ de texte les garde pour lui.</li>
 <li><b>Choisir dans la palette, c'est vouloir peindre</b> : depuis la gomme, la pipette, la mesure, la note, la sélection ou l'entité, un choix de la palette rend la main à l'outil du peintre d'avant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1062"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md931"></a>
 Livraison</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -136,7 +185,7 @@ Livraison</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Tests  </td><td class="markdownTableBodyNone"><span class="tt"><a class="el" href="test__paint__tools_8cpp.html" title="Tests des outils du peintre — ligne, seau, pipette, miroir, mesure — et de l&#39;acceptation du LOT-EDITO...">test_paint_tools.cpp</a></span> (7), <span class="tt"><a class="el" href="test__editor__sidecar_8cpp.html" title="Tests du fichier annexe d&#39;une carte, &lt;carte&gt;.editor.json, et de ses notes d&#39;auteur (LOT-EDITOR-04,...">test_editor_sidecar.cpp</a></span> (3), <span class="tt"><a class="el" href="test__level__draft__editing_8cpp.html" title="Tests unitaires de l&#39;édition des couches et des entités d&#39;un brouillon (LOT-11) : création,...">test_level_draft_editing.cpp</a></span> (+1), <span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur Fonction pure,...">test_editor_status.cpp</a></span> (+1) ; <span class="tt">test_level_schema.py</span> ignore les annexes  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1063"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md932"></a>
 Critères d'acceptation</h1>
 <ul>
 <li><b>Tracer une maison de Martpart (sol, murs, porte, seuil) prend moins de dix gestes, sans ouvrir la couche collision ni un formulaire.</b> ✔ <span class="tt">PaintToolsTest.UneMaisonDeMartpartEnMoinsDeDixGestes</span> : sur un terrain vide, le décor actif et le miroir par l'angle, cinq gestes — un rectangle de rue, une ligne de <span class="tt">wall-right</span>, l'angle, une porte, un seuil — posent deux façades, deux portes et deux seuils ; cinq pas d'annulation, la collision égale la déduction, aucune case forcée.</li>
@@ -144,7 +193,7 @@ Critères d'acceptation</h1>
 <li><b>Notes d'auteur dans <span class="tt">&lt;carte&gt;.editor.json</span>.</b> ✔ <span class="tt">EditorSidecarTest</span> : nom de l'annexe, écriture canonique relue à l'identique, clé inconnue gardée, annexe ignorée par le navigateur.</li>
 </ul>
 <p><b>Vérification au clavier et à la souris, due</b> : sur Martpart, <span class="tt">M</span> au-dessus d'un angle de rue, <span class="tt">L</span> et une ligne de mur (le reflet paraît) ; <span class="tt">Alt</span> + clic sur une façade (la palette la montre) ; <span class="tt">G</span> sur la place avec <span class="tt">street-3</span>, puis un seul <span class="tt">Ctrl+Z</span> ; <span class="tt">D</span> entre deux lanternes ; <span class="tt">N</span> sur une case, puis rouvrir la carte (la pastille revient) ; <span class="tt">Shift+P</span> sur une rue. Les touches et les clics postés à la fenêtre n'atteignent pas Qt : même <span class="tt">F9</span>, qui marchait au <span class="tt">LOT-EDITOR-02</span>, n'a rien fait dans la capture. Cette vérification ne se fait pas sans la main de l'auteur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1064"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md933"></a>
 Ce qui reste hors du lot, nommément</h1>
 <ul>
 <li><b>Refléter selon une ligne de la grille</b> : aucune planche n'a la jumelle d'un mur dans cette direction. Le miroir des tampons est au <span class="tt">LOT-EDITOR-08</span>.</li>
@@ -166,7 +215,6 @@ Ce qui reste hors du lot, nommément</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="roadmap-editeur.html">Feuille de route de l'éditeur de cartes</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

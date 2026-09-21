@@ -9,8 +9,8 @@ var searchData=
   ['«_20niveau_20»_20devient_20«_20carte_20»_20partout_6',['Le vocabulaire : « niveau » devient « carte », partout',['../lot-67.html#autotoc_md613',1,'']]],
   ['«_20nouvelle_20partie_20»_20_3a_20un_20échafaudage_20et_20il_20est_20écrit_7',['« Nouvelle partie » : un échafaudage, et il est écrit',['../lot-68.html#autotoc_md620',1,'']]],
   ['«_20oui_20»_8',['« oui »',['../lot-93.html#autotoc_md753',1,'La revue (huit « oui »)'],['../lot-91.html#autotoc_md723',1,'La revue (neuf « oui »)']]],
-  ['«_20peut_20on_20se_20tenir_20ici_20»_9',['« peut on se tenir ici »',['../lot-19.html#autotoc_md450',1,'Une seule source de vérité pour « peut-on se tenir ici »'],['../classcore_1_1BattleGrid.html#autotoc_md1150',1,'Une seule source de vérité pour « peut-on se tenir ici »']]],
-  ['«_20se_20tenir_20ici_20»_10',['Une seule règle pour « se tenir ici »',['../namespacecore.html#autotoc_md1173',1,'']]],
+  ['«_20peut_20on_20se_20tenir_20ici_20»_9',['« peut on se tenir ici »',['../lot-19.html#autotoc_md450',1,'Une seule source de vérité pour « peut-on se tenir ici »'],['../classcore_1_1BattleGrid.html#autotoc_md1019',1,'Une seule source de vérité pour « peut-on se tenir ici »']]],
+  ['«_20se_20tenir_20ici_20»_10',['Une seule règle pour « se tenir ici »',['../namespacecore.html#autotoc_md1042',1,'']]],
   ['«_20spirale_20de_20la_20mort_20»_11',['La « spirale de la mort »',['../guide-boucle.html#autotoc_md42',1,'']]],
   ['«_20une_20seule_20hmilib_20»_12',['Le découpage retenu — et pourquoi il n&apos;est pas « une seule &lt;span class=&quot;tt&quot;&gt;HmiLib&lt;/span&gt; »',['../lot-02.html#autotoc_md321',1,'']]]
 ];

@@ -1,10 +1,8 @@
 var dir_5b9260db83130c4f37c3438064c80de4 =
 [
     [ "test_atlas.cpp", "test__atlas_8cpp.html", null ],
-    [ "test_capital_maps.cpp", "test__capital__maps_8cpp.html", "test__capital__maps_8cpp" ],
     [ "test_city_block.cpp", "test__city__block_8cpp.html", "test__city__block_8cpp" ],
     [ "test_city_plan.cpp", "test__city__plan_8cpp.html", "test__city__plan_8cpp" ],
-    [ "test_coliseum_map.cpp", "test__coliseum__map_8cpp.html", "test__coliseum__map_8cpp" ],
     [ "test_combat_zone.cpp", "test__combat__zone_8cpp.html", "test__combat__zone_8cpp" ],
     [ "test_entity_kinds.cpp", "test__entity__kinds_8cpp.html", "test__entity__kinds_8cpp" ],
     [ "test_exploration_reach.cpp", "test__exploration__reach_8cpp.html", "test__exploration__reach_8cpp" ],

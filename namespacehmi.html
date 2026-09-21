@@ -1,3 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -17,10 +29,44 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="guide.html">Guide</a>
+    <a href="specifications.html">Spécifications</a>
+    <a href="lots.html">Lots</a>
+    <a href="cahiertest.html">Cahier de test</a>
+    <a href="manuel.html">Manuel</a>
+    <a href="annotated.html">Classes</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="index.html">Documentation</a>
+    <a href="planning/index.html">Planification</a>
+    <a href="qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
@@ -30,6 +76,18 @@
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -42,15 +100,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','Search',true);
-  $(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -1169,7 +1218,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a2d572b49065ad901c6e2704b8d515c78" id="r_a2d572b49065ad901c6e2704b8d515c78"><td class="memItemLeft"><a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2d572b49065ad901c6e2704b8d515c78">arenaCamera</a> (const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, int pixelWidth, int pixelHeight)</td></tr>
 <tr class="memdesc:a2d572b49065ad901c6e2704b8d515c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cadrage du Colisée : la scène entière, centrée, dans une surface de <code class="param">pixelWidth</code> × <code class="param">pixelHeight</code> pixels physiques.  <br /></td></tr>
 <tr class="memitem:a11b4cbe2fcfcc3f152293f1bdf5c7f8d" id="r_a11b4cbe2fcfcc3f152293f1bdf5c7f8d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a11b4cbe2fcfcc3f152293f1bdf5c7f8d">assetGalleryExcludes</a> (std::string_view path) noexcept</td></tr>
-<tr class="memdesc:a11b4cbe2fcfcc3f152293f1bdf5c7f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les images livrées qui ne sont pas des assets à montrer, par règle nommée : les planches sources des ateliers (<span class="tt">Scene/…/planche-*.png</span>, <span class="tt">Coliseum/production_source_atlas.png</span>), l'interface (<span class="tt">UI/</span>), les cartes plein écran de l'écran « Carte » (<span class="tt">Maps/</span>, que cet écran montre déjà une à une) et les polices (<span class="tt">Fonts/</span>).  <br /></td></tr>
+<tr class="memdesc:a11b4cbe2fcfcc3f152293f1bdf5c7f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l'interface (<span class="tt">UI/</span>), les cartes plein écran de l'écran « Carte » (<span class="tt">Maps/</span>, que cet écran montre déjà une à une) et les polices (<span class="tt">Fonts/</span>).  <br /></td></tr>
 <tr class="memitem:a3256818dab3b1990ebe3f4da0aed8a34" id="r_a3256818dab3b1990ebe3f4da0aed8a34"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3256818dab3b1990ebe3f4da0aed8a34">assetGalleryUnlisted</a> (const std::filesystem::path &amp;assetsRoot, const <a class="el" href="structhmi_1_1AssetGalleryCatalog.html">AssetGalleryCatalog</a> &amp;catalog)</td></tr>
 <tr class="memdesc:a3256818dab3b1990ebe3f4da0aed8a34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les images livrées (PNG, JPEG) que la galerie ne montre pas et qu'aucune exclusion ne couvre : ce que <span class="tt">EX-CNT-042</span> interdit.  <br /></td></tr>
 <tr class="memitem:a83debe99d4ca04cebc854c1407f3a39e" id="r_a83debe99d4ca04cebc854c1407f3a39e"><td class="memItemLeft"><a class="el" href="structhmi_1_1AssetGalleryBloc.html">AssetGalleryBloc</a>&#160;</td><td class="memItemRight"><a class="el" href="#a83debe99d4ca04cebc854c1407f3a39e">assetGalleryBlocShape</a> (const <a class="el" href="structhmi_1_1AssetGalleryEntry.html">AssetGalleryEntry</a> &amp;entry)</td></tr>
@@ -3632,8 +3681,8 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Les images livrées qui ne sont pas des assets à montrer, par règle nommée : les planches sources des ateliers (<span class="tt">Scene/…/planche-*.png</span>, <span class="tt">Coliseum/production_source_atlas.png</span>), l'interface (<span class="tt">UI/</span>), les cartes plein écran de l'écran « Carte » (<span class="tt">Maps/</span>, que cet écran montre déjà une à une) et les polices (<span class="tt">Fonts/</span>). </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l'interface (<span class="tt">UI/</span>), les cartes plein écran de l'écran « Carte » (<span class="tt">Maps/</span>, que cet écran montre déjà une à une) et les polices (<span class="tt">Fonts/</span>). </p>
+<p>Les planches <b>sources</b> des ateliers n'ont plus de règle : elles ne sont plus versionnées (<span class="tt">Tools/AssetsHD/</span>, hors dépôt), seul l'asset installé entre dans le dépôt (<span class="tt">LOT-102</span>). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">path</td><td>Chemin relatif à la racine des assets, séparateurs <span class="tt">/</span>. </td></tr>
   </table>
@@ -10411,7 +10460,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1246"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1115"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
 <p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>

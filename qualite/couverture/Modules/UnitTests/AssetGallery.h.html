@@ -109,10 +109,12 @@ struct AssetGalleryCatalog {
 };
 
 /**
- * @brief Les images livrÃ©es qui ne sont pas des assets Ã  montrer, par rÃ¨gle nommÃ©e : les planches
- *        sources des ateliers (`Scene/â¦/planche-*.png`, `Coliseum/production_source_atlas.png`),
- *        l'interface (`UI/`), les cartes plein Ã©cran de l'Ã©cran Â« Carte Â» (`Maps/`, que cet Ã©cran
- *        montre dÃ©jÃ  une Ã  une) et les polices (`Fonts/`).
+ * @brief Les images livrÃ©es qui ne sont pas des assets Ã  montrer, par rÃ¨gle nommÃ©e : l'interface
+ *        (`UI/`), les cartes plein Ã©cran de l'Ã©cran Â« Carte Â» (`Maps/`, que cet Ã©cran montre dÃ©jÃ 
+ *        une Ã  une) et les polices (`Fonts/`).
+ *
+ * Les planches **sources** des ateliers n'ont plus de rÃ¨gle : elles ne sont plus versionnÃ©es
+ * (`Tools/AssetsHD/`, hors dÃ©pÃ´t), seul l'asset installÃ© entre dans le dÃ©pÃ´t (`LOT-102`).
  * @param path Chemin relatif Ã  la racine des assets, sÃ©parateurs `/`.
  */
 [[nodiscard]] bool assetGalleryExcludes(std::string_view path) noexcept;

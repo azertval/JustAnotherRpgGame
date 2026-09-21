@@ -10,7 +10,7 @@ var searchData=
   ['savingthrowmodifier_7',['savingThrowModifier',['../namespacecore.html#a5f742da51af4901d06af8def76937d57',1,'core']]],
   ['savingthrows_8',['savingThrows',['../classhmi_1_1CharacterSheetModel.html#ad6bda87999fb7a0dc7aecc3f76085b65',1,'hmi::CharacterSheetModel']]],
   ['scale_9',['scale',['../classhmi_1_1WorldGraphView.html#a99e0337e4acb33a23f91876278c6dec2',1,'hmi::WorldGraphView::scale()'],['../classhmi_1_1Camera2D.html#a05631b448bb3005aee3bbc5658a6058a',1,'hmi::Camera2D::scale()']]],
-  ['scene_10',['scene',['../classcore_1_1Level.html#a84dc92ff487b184e8da96770a8bccf13',1,'core::Level']]],
+  ['scene_10',['scene',['../classcore_1_1Level.html#a84dc92ff487b184e8da96770a8bccf13',1,'core::Level::scene()'],['../classhmi_1_1ArenaAppearanceCatalog.html#adec363074f1314c0c5c150954c06ed63',1,'hmi::ArenaAppearanceCatalog::scene()']]],
   ['sceneimagehandle_11',['sceneImageHandle',['../namespacehmi.html#a71762428929f463c938cf50568054832',1,'hmi']]],
   ['sceneimageof_12',['sceneImageOf',['../namespacehmi.html#ab7a286078c3b760b7c7bcd400c3efc93',1,'hmi']]],
   ['sceneimages_13',['SceneImages',['../classhmi_1_1SceneImages.html#ac9c67c5a1ab03dcf3238494037e310c1',1,'hmi::SceneImages::SceneImages(std::filesystem::path assetsDirectory)'],['../classhmi_1_1SceneImages.html#ab472828e80d490a62c72612c50de3bd3',1,'hmi::SceneImages::SceneImages(const SceneImages &amp;)=delete']]],

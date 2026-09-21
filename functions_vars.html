@@ -1,3 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -17,10 +29,44 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="guide.html">Guide</a>
+    <a href="specifications.html">Spécifications</a>
+    <a href="lots.html">Lots</a>
+    <a href="cahiertest.html">Cahier de test</a>
+    <a href="manuel.html">Manuel</a>
+    <a href="annotated.html">Classes</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="index.html">Documentation</a>
+    <a href="planning/index.html">Planification</a>
+    <a href="qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
@@ -30,6 +76,18 @@
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -42,15 +100,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','Search',true);
-  $(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -154,6 +203,7 @@ $(function(){initNavTree('functions_vars.html','',''); });
 <li>_composed&#160;:&#160;<a class="el" href="classhmi_1_1ArenaSceneRenderer.html#a02dc2b80093547585c6b43efd8ced406">hmi::ArenaSceneRenderer</a>, <a class="el" href="classhmi_1_1AssetGalleryRenderer.html#aff137a7dd064a78aeff0de508519c0e1">hmi::AssetGalleryRenderer</a>, <a class="el" href="classhmi_1_1WorldSceneRenderer.html#a289468f6de877a6557091cb043f580f3">hmi::WorldSceneRenderer</a></li>
 <li>_connected&#160;:&#160;<a class="el" href="classhmi_1_1GamepadNavigator.html#afc162bb8847b8c6e9612fc4014c8503c">hmi::GamepadNavigator</a></li>
 <li>_considered&#160;:&#160;<a class="el" href="classhmi_1_1ComposedScene.html#a26e1b7e6b9bad59ea9654f8b7c923262">hmi::ComposedScene</a></li>
+<li>_contentRoot&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#a60ce217824cfce4c2a9ba0dee922a20d">hmi::ArenaModel</a></li>
 <li>_context&#160;:&#160;<a class="el" href="classhmi_1_1EntityPanel.html#abab0deec54d8351cb2fe1b6399da53c2">hmi::EntityPanel</a>, <a class="el" href="classhmi_1_1SceneResources.html#a96ea2a1d8334695ea611d98ff38e201a">hmi::SceneResources</a>, <a class="el" href="classhmi_1_1TextureCache.html#a81a910d3ef89f8727baa5fcafe381ce6">hmi::TextureCache</a></li>
 <li>_costs&#160;:&#160;<a class="el" href="classcore_1_1ReachableArea.html#acceb25ac5f3321dd2216d34f105b848b">core::ReachableArea</a></li>
 <li>_count&#160;:&#160;<a class="el" href="classcore_1_1ExplorationReach.html#a1d28d47a291ebac53a52735264f007d6">core::ExplorationReach</a></li>
@@ -407,7 +457,7 @@ $(function(){initNavTree('functions_vars.html','',''); });
 <li>_samples&#160;:&#160;<a class="el" href="classhmi_1_1AudioEngine.html#afbf9f3c2b16d4cb8a0187c8c808d5f03">hmi::AudioEngine</a></li>
 <li>_savedRevision&#160;:&#160;<a class="el" href="classhmi_1_1EditorViewport.html#ae21d3ddad2e9c89cf92130cd7a71ecb1">hmi::EditorViewport</a></li>
 <li>_savingThrows&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#ab7104b95c06dffe6ba59996fd46ef4cf">hmi::CharacterSheetModel</a></li>
-<li>_scene&#160;:&#160;<a class="el" href="classcore_1_1Level.html#a60da166feefff2cfefe6a2b2ca8cd838">core::Level</a>, <a class="el" href="classcore_1_1LevelDraft.html#a0cf8062f8459248edfb0a12d3ae341cf">core::LevelDraft</a>, <a class="el" href="classhmi_1_1DraftRenderer.html#ab0e865117967424e741c7163552d57b5">hmi::DraftRenderer</a></li>
+<li>_scene&#160;:&#160;<a class="el" href="classcore_1_1Level.html#a60da166feefff2cfefe6a2b2ca8cd838">core::Level</a>, <a class="el" href="classcore_1_1LevelDraft.html#a0cf8062f8459248edfb0a12d3ae341cf">core::LevelDraft</a>, <a class="el" href="classhmi_1_1ArenaAppearanceCatalog.html#a4c32bcc47dfa515b8acf71f40d1003c8">hmi::ArenaAppearanceCatalog</a>, <a class="el" href="classhmi_1_1DraftRenderer.html#ab0e865117967424e741c7163552d57b5">hmi::DraftRenderer</a></li>
 <li>_sceneRevision&#160;:&#160;<a class="el" href="classhmi_1_1ArenaViewportItem.html#a4d758f84a6f6ac24f0b1ee3cbef7007a">hmi::ArenaViewportItem</a>, <a class="el" href="classhmi_1_1WorldModel.html#aa9a833a6634a208feed602de1352ea34">hmi::WorldModel</a></li>
 <li>_search&#160;:&#160;<a class="el" href="classhmi_1_1PalettePanel.html#aad3f85488e8c5f20569fe7c1253fe1ff">hmi::PalettePanel</a></li>
 <li>_seconds&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a4f7da61a0a05106fa8995fb0f828fdbe">hmi::AssetGalleryItem</a></li>

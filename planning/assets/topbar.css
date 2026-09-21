@@ -1,0 +1,34 @@
+/* SPDX-FileCopyrightText: 2026 Valentin Eloy
+   SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+   La barre d'en-tête, identique sur les trois sous-sites : la marque, les sections du sous-site
+   où l'on se trouve, puis — derrière un filet — les trois sous-sites eux-mêmes. C'est elle qui
+   fait qu'ils se lisent comme un seul site : on n'en sort jamais, on y navigue.
+
+   Chargée par `theme.css` (planification, qualité) et par `doxygen.css` (référence de code). */
+.topbar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px;
+  padding: 12px max(16px, calc((100vw - 1240px) / 2)); border-bottom: 1px solid var(--line);
+  background: var(--surface); position: sticky; top: 0; z-index: 5;
+  font: 16px/1.6 var(--font-text); color: var(--text);
+}
+/* Doxygen mesure la hauteur de son en-tête (`#top`) pour poser l'arbre de navigation et le
+   contenu : une barre décollée du flux fausserait ce calcul. La sienne porte donc `topbar--flux`. */
+.topbar--flux { position: static; padding-left: 16px; padding-right: 16px; }
+.brand {
+  color: var(--text); text-decoration: none; font-weight: 600; letter-spacing: .04em;
+  font-family: var(--font-titre);
+}
+.brand span { color: var(--gold); margin-right: .5em; }
+.topbar nav { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; margin: 0; }
+.topbar nav a, .topbar .links a {
+  padding: 4px 10px; border-radius: 6px; text-decoration: none; color: var(--muted);
+  font-size: .93rem; font-weight: 400;
+}
+.topbar nav a:hover, .topbar .links a:hover { background: var(--surface-2); color: var(--text); }
+.topbar nav a.active, .topbar .links a.active {
+  color: var(--text); background: var(--surface-2); box-shadow: inset 0 -2px 0 var(--gold);
+}
+/* Les trois sous-sites, détachés des sections par un filet : on change de site, pas de page. */
+.topbar .links { display: flex; gap: 4px; padding-left: 12px; border-left: 1px solid var(--line); }
+@media (max-width: 720px) { .topbar .links { border-left: 0; padding-left: 0; } }

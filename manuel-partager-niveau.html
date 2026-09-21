@@ -1,3 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -17,10 +29,44 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="guide.html">Guide</a>
+    <a href="specifications.html">Spécifications</a>
+    <a href="lots.html">Lots</a>
+    <a href="cahiertest.html">Cahier de test</a>
+    <a href="manuel.html">Manuel</a>
+    <a href="annotated.html">Classes</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="index.html">Documentation</a>
+    <a href="planning/index.html">Planification</a>
+    <a href="qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
@@ -30,6 +76,18 @@
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -42,15 +100,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','Search',true);
-  $(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -94,17 +143,17 @@ $(function(){initNavTree('manuel-partager-niveau.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Manuel_2partager-un-niveau"></a></p>
 <p>Ce guide s'adresse aux <b>créateurs de cartes</b> sans connaissance en programmation. Il explique comment créer une carte dans l'éditeur, puis la partager avec le reste de l'équipe via une interface Git graphique — <b>jamais de ligne de commande</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1128"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md997"></a>
 1. Récupérer le projet</h1>
 <ol type="1">
 <li>Installer <a href="https://desktop.github.com/">GitHub Desktop</a> (gratuit).</li>
 <li>Ouvrir GitHub Desktop, se connecter avec un compte GitHub (en créer un si besoin — gratuit).</li>
 <li><b>File → Clone repository</b>, choisir <span class="tt">azertval/JustAnotherRpgGame</span>, puis un dossier sur votre ordinateur. Le bouton <b>Clone</b> télécharge tout le projet.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1129"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md998"></a>
 2. Lancer l'éditeur</h1>
 <p>L'éditeur est un programme à part, livré à côté du jeu : <b><span class="tt">LevelEditor.exe</span></b>, dans le même dossier que <span class="tt">JustAnotherRpgGame.exe</span> — voir <a class="el" href="manuel-telecharger.html" title="Télécharger et lancer le jeu">Télécharger et lancer le jeu</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1130"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md999"></a>
 3. Créer une carte</h1>
 <p>La fenêtre montre la carte ouverte au centre, entourée de quatre panneaux qu'on peut déplacer, redimensionner ou détacher :</p>
 <ul>
@@ -143,7 +192,7 @@ $(function(){initNavTree('manuel-partager-niveau.html','',''); });
 <td class="markdownTableBodyNone">Enregistrer  </td><td class="markdownTableBodyNone"><b>Ctrl+S</b> — un message confirme l'enregistrement, ou explique ce qui manque (par exemple : aucune entrée).  </td></tr>
 </table>
 <p>La carte est enregistrée à côté de l'exécutable, dans le dossier <span class="tt">Levels</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1131"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1000"></a>
 4. Publier votre carte</h1>
 <ol type="1">
 <li>Copiez le fichier de votre carte (<span class="tt">Levels\&lt;nom&gt;.json</span>, à côté de <span class="tt">LevelEditor.exe</span>) dans le dossier <span class="tt">Source/Elements/Levels/</span> de votre copie du projet (celle clonée à l'étape 1).</li>
@@ -151,10 +200,10 @@ $(function(){initNavTree('manuel-partager-niveau.html','',''); });
 <li>En bas à gauche, donnez un court résumé (ex. « Ajout de la carte du port ») et cliquez <b>Commit to main</b>.</li>
 <li>Cliquez <b>Push origin</b> (en haut) : votre carte est envoyée sur GitHub, visible par toute l'équipe.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1132"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1001"></a>
 5. Récupérer les cartes des autres</h1>
 <p>Dans GitHub Desktop, cliquez <b>Fetch origin</b> puis <b>Pull origin</b> : les cartes ajoutées par d'autres membres de l'équipe apparaissent dans votre dossier <span class="tt">Source/Elements/Levels/</span>, prêtes à être ouvertes dans l'éditeur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1133"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1002"></a>
 En cas de problème</h1>
 <ul>
 <li><b>L'enregistrement affiche un message d'erreur</b> : le message précise le problème (par exemple : aucune entrée). Corrigez et recommencez <b>Ctrl+S</b>.</li>
@@ -174,7 +223,6 @@ En cas de problème</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">JustAnotherRpgGame</a></li><li class="navelem"><a href="manuel.html">Manuel utilisateur</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

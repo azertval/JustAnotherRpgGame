@@ -20,6 +20,7 @@
 
 #include &lt;rhi/qrhi.h&gt;
 
+#include "Core/Combat/Arena.h"
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/World/CombatZone.h"
@@ -30,6 +31,7 @@
 #include "HMI/Graphics/ScenePiecePlacement.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/SpriteRenderer.h"
+#include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace hmi {
 
@@ -70,8 +72,8 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, 
     // d'eux a la place d'un heros de la planche de production.
 <span style = "background-color:#dfd">    const int replaced =</span>
         _catalog.applyNpcManifest(_directory.parent_path() / "Npc" / "manifest.json");
-<span style = "background-color:#dfd">    if (replaced &gt; 0) {
-        GRAPHICS_LOG_INFO("Arene : " + std::to_string(replaced) + " heros remplace(s) par un PNJ.");</span>
+<span style = "background-color:#dfd">    if (replaced &gt; 0) {</span>
+<span style = "background-color:#fdd">        GRAPHICS_LOG_INFO("Arene : " + std::to_string(replaced) + " heros remplace(s) par un PNJ.");</span>
     }
 
 <span style = "background-color:#dfd">    const auto declare = [this](const std::string&amp; sheet, core::CombatSide side) {
@@ -96,27 +98,36 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, 
 }</span>
 
 <span style = "background-color:#dfd">void ArenaSceneRenderer::loadBattlefield() {
-    const auto data = _directory.parent_path().parent_path();
-    const auto definition =</span>
-        core::readJsonObjectFromFile(data / "World/arena/arena-of-the-future.json", 1);
-<span style = "background-color:#dfd">    if (!definition.ok()) {</span>
-<span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Arena battlefield definition: " + definition.message);
+    const auto data = _directory.parent_path().parent_path();</span>
+    // La premiere arene qui nomme sa carte et sa zone : aucun nom de contenu n'est ecrit dans le
+    // moteur (LOT-102). Sans arene jouable, le combat se joue sans decor -- ce n'est pas une
+    // panne (`EX-NFR-040`).
+<span style = "background-color:#dfd">    const core::ArenaCatalog arenas = core::loadArenas(data / "World" / "arena");
+    const core::Arena* definition = nullptr;
+    for (const core::Arena&amp; arena : arenas.arenas) {
+        if (!arena.map.empty() &amp;&amp; !arena.zone.empty()) {
+            definition = &amp;arena;
+            break;</span>
+        }
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    if (definition == nullptr) {</span>
+<span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Arena battlefield: aucune arene ne nomme une carte et sa zone.");
         return;</span>
     }
-<span style = "background-color:#dfd">    const auto level = core::LevelLoader::loadFromFile(data / "Levels" /</span>
-                                                       definition.root.value("map", std::string{}));
-<span style = "background-color:#dfd">    if (!level.ok()) {</span>
+<span style = "background-color:#dfd">    const auto level = core::LevelLoader::loadFromFile(data / "Levels" / definition-&gt;map);
+    if (!level.ok()) {</span>
 <span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Arena battlefield: " + level.error);
         return;</span>
     }
 <span style = "background-color:#dfd">    const auto zones = core::combatZonesOf(*level.level);
-    const auto* zone = core::findCombatZone(zones, definition.root.value("zone", std::string{}));
+    const auto* zone = core::findCombatZone(zones, definition-&gt;zone);
     if (zone == nullptr) {</span>
 <span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Arena battlefield: unknown combat zone");
         return;</span>
     }
-<span style = "background-color:#dfd">    const auto appearance = PlaceAppearance::loadFromFile(_directory.parent_path() /</span>
-                                                          "Scene/arena-of-brave/appearance.json");
+    // Le decor est celui que la carte declare, pas un lieu ecrit dans le moteur.
+<span style = "background-color:#dfd">    const auto appearance = PlaceAppearance::loadFromFile(</span>
+        _directory.parent_path() / "Scene" / scenePlaceOf(*level.level) / "appearance.json");
 <span style = "background-color:#dfd">    if (!appearance.ok()) {</span>
 <span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Arena battlefield appearance: " + appearance.message);
         return;</span>

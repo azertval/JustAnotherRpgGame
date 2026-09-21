@@ -11,17 +11,18 @@ var searchData=
   ['5_20audio_8',['5. Audio',['../spec-rendu-technique.html#autotoc_md291',1,'']]],
   ['5_20cinq_20règles_20pour_20durer_9',['5. Cinq règles pour durer',['../roadmap-editeur.html#roadmap-editeur-perennite',1,'']]],
   ['5_20conditions_10',['5. Conditions',['../spec-regles-d20.html#autotoc_md285',1,'']]],
-  ['5_20la_20collision_20de_20numéros_20est_20bloquante_20et_20bien_20plus_20large_20qu_20estimé_11',['9.5 La collision de numéros est bloquante, et bien plus large qu&apos;estimé',['../roadmap.html#autotoc_md953',1,'']]],
+  ['5_20la_20collision_20de_20numéros_20est_20bloquante_20et_20bien_20plus_20large_20qu_20estimé_11',['9.5 La collision de numéros est bloquante, et bien plus large qu&apos;estimé',['../roadmap.html#autotoc_md822',1,'']]],
   ['5_20le_20tour_201_20étape_20e3_12',['5. Le tour 1 (étape E3)',['../lot-91-poc.html#autotoc_md732',1,'']]],
   ['5_20mathématiques_20dans_20core_13',['5. Mathématiques dans Core',['../spec-architecture.html#autotoc_md179',1,'']]],
   ['5_20non_20objectifs_14',['5. Non-objectifs',['../spec-editeur.html#autotoc_md227',1,'']]],
   ['5_20options_20de_20personnage_15',['5. Options de personnage',['../spec-rpg.html#autotoc_md298',1,'']]],
-  ['5_20poser_20les_20entités_16',['5. Poser les entités',['../guide-usage-editeur.html#autotoc_md1032',1,'']]],
-  ['5_20programme_20de_20lots_20proposé_20—_20la_20filière_20contenu_17',['5. Programme de lots proposé — la filière contenu',['../roadmap.html#autotoc_md927',1,'']]],
-  ['5_20récupérer_20les_20cartes_20des_20autres_18',['5. Récupérer les cartes des autres',['../manuel-partager-niveau.html#autotoc_md1132',1,'']]],
+  ['5_20poser_20les_20entités_16',['5. Poser les entités',['../guide-usage-editeur.html#autotoc_md901',1,'']]],
+  ['5_20programme_20de_20lots_20proposé_20—_20la_20filière_20contenu_17',['5. Programme de lots proposé — la filière contenu',['../roadmap.html#autotoc_md796',1,'']]],
+  ['5_20récupérer_20les_20cartes_20des_20autres_18',['5. Récupérer les cartes des autres',['../manuel-partager-niveau.html#autotoc_md1001',1,'']]],
   ['5_20robustesse_19',['5. Robustesse',['../spec-exigences.html#autotoc_md248',1,'']]],
   ['5_20système_20de_20design_20et_20habillage_20',['5. Système de design et habillage',['../spec-interface-ihm.html#autotoc_md262',1,'']]],
   ['50_20—_20le_20colisée_20_3a_20bac_20à_20sable_20de_20combat_21',['LOT-50 — Le Colisée : bac à sable de combat',['../lot-50.html',1,'lots']]],
   ['51_20à_20lot_2065_20—_20une_20classe_20par_20lot_22',['&lt;span class=&quot;tt&quot;&gt;LOT-51&lt;/span&gt; à &lt;span class=&quot;tt&quot;&gt;LOT-65&lt;/span&gt; — une classe par lot',['../roadmap.html#lot-51',1,'']]],
-  ['540_20cases_20forcées_20du_20colisée_20—_20libérées_23',['Les 540 cases forcées du Colisée — libérées',['../lot-editor-03.html#autotoc_md1057',1,'']]]
+  ['53_23',['World (53)',['../cahiertest.html#autotoc_md16',1,'']]],
+  ['540_20cases_20forcées_20du_20colisée_20—_20libérées_24',['Les 540 cases forcées du Colisée — libérées',['../lot-editor-03.html#autotoc_md926',1,'']]]
 ];

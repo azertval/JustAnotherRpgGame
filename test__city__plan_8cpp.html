@@ -1,3 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -17,10 +29,44 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="guide.html">Guide</a>
+    <a href="specifications.html">Spécifications</a>
+    <a href="lots.html">Lots</a>
+    <a href="cahiertest.html">Cahier de test</a>
+    <a href="manuel.html">Manuel</a>
+    <a href="annotated.html">Classes</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="index.html">Documentation</a>
+    <a href="planning/index.html">Planification</a>
+    <a href="qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
@@ -30,6 +76,18 @@
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -42,15 +100,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','Search',true);
-  $(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -104,8 +153,8 @@ $(function(){initNavTree('test__city__plan_8cpp.html','',''); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3402706245216a602b3039e10b74bf9c" id="r_a3402706245216a602b3039e10b74bf9c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3402706245216a602b3039e10b74bf9c">TEST</a> (CityPlanTest, LaCapitaleLivreeSeLit)</td></tr>
-<tr class="memdesc:a3402706245216a602b3039e10b74bf9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">La Capitale livree se lit : douze quartiers, deux cartes, dix portes gardees.  <br /></td></tr>
+<tr class="memitem:ac6a7a780419a836ad5ca0e7eb5b1e2b2" id="r_ac6a7a780419a836ad5ca0e7eb5b1e2b2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac6a7a780419a836ad5ca0e7eb5b1e2b2">TEST</a> (CityPlanTest, UneVilleSeLit)</td></tr>
+<tr class="memdesc:ac6a7a780419a836ad5ca0e7eb5b1e2b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">La ville d'essai se lit : six quartiers, deux cartes, quatre portes gardees.  <br /></td></tr>
 <tr class="memitem:a26d2c3347a28c1f6dcf2f24f82497816" id="r_a26d2c3347a28c1f6dcf2f24f82497816"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a26d2c3347a28c1f6dcf2f24f82497816">TEST_F</a> (CityPlanFileTest, UnQuartierDoitAvoirSoitUneCarteSoitUnePorteGardee)</td></tr>
 <tr class="memdesc:a26d2c3347a28c1f6dcf2f24f82497816"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un quartier qui a a la fois une carte et une porte gardee est refuse.  <br /></td></tr>
 <tr class="memitem:a2144b5850171ac3606240c60ceed77f2" id="r_a2144b5850171ac3606240c60ceed77f2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2144b5850171ac3606240c60ceed77f2">TEST_F</a> (CityPlanFileTest, UnDepartDansUnQuartierSansCarteEstRefuse)</td></tr>
@@ -114,8 +163,8 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le graphe d'une ville jouable (LOT-96) : la lecture, ses refus, et la Capitale livree. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a3402706245216a602b3039e10b74bf9c" name="a3402706245216a602b3039e10b74bf9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3402706245216a602b3039e10b74bf9c">&#9670;&#160;</a></span>TEST()</h2>
+<a id="ac6a7a780419a836ad5ca0e7eb5b1e2b2" name="ac6a7a780419a836ad5ca0e7eb5b1e2b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6a7a780419a836ad5ca0e7eb5b1e2b2">&#9670;&#160;</a></span>TEST()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -128,20 +177,20 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">LaCapitaleLivreeSeLit</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">UneVilleSeLit</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>La Capitale livree se lit : douze quartiers, deux cartes, dix portes gardees. </p>
-<p><b>Cas de test :</b> <b>La Capitale livree se lit, et sa porte de depart s'ouvre.</b><br  />
+<p>La ville d'essai se lit : six quartiers, deux cartes, quatre portes gardees. </p>
+<p><b>Cas de test :</b> <b>Une ville se lit, et sa porte de depart s'ouvre.</b><br  />
  <b>Categorie :</b> Unitaire · Graphe de la ville<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Lire <span class="tt">Source/Elements/World/cities/capital.json</span>.<br  />
+ 1. Lire la ville de la racine d'essai.<br  />
 </p><ol type="1">
 <li>Entrer a sa porte de depart par le chargeur du jeu.<br  />
- <b>Resultat attendu :</b> Douze quartiers, dont Martpart et Arenarea avec leur carte et dix fermes ; le depart est la porte de l'Est de Martpart, et la carte s'y ouvre. </li>
+ <b>Resultat attendu :</b> Six quartiers, dont deux avec leur carte et quatre fermes ; le depart est la porte de l'Est du premier, et la carte s'y ouvre. </li>
 </ol>
 
 </div>

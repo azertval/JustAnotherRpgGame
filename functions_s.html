@@ -1,3 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -17,10 +29,44 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="guide.html">Guide</a>
+    <a href="specifications.html">Spécifications</a>
+    <a href="lots.html">Lots</a>
+    <a href="cahiertest.html">Cahier de test</a>
+    <a href="manuel.html">Manuel</a>
+    <a href="annotated.html">Classes</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="index.html">Documentation</a>
+    <a href="planning/index.html">Planification</a>
+    <a href="qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
@@ -30,6 +76,18 @@
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -42,15 +100,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','Search',true);
-  $(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -102,7 +151,7 @@ $(function(){initNavTree('functions_s.html','',''); });
 <li>savingThrowProficiencies&#160;:&#160;<a class="el" href="structcore_1_1CharacterSheet.html#a74fd59e8a9d1e2de82abdba2792be1ec">core::CharacterSheet</a>, <a class="el" href="structcore_1_1PlayableClass.html#a9aa247a6c21364de033b3690386320ab">core::PlayableClass</a></li>
 <li>savingThrows&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#a38a22274234b22eabee7060c27cc22d4">hmi::CharacterSheetModel</a></li>
 <li>scale&#160;:&#160;<a class="el" href="structcore_1_1Transform.html#a944094d20677cd32afa8804686f9c1a9">core::Transform</a>, <a class="el" href="classhmi_1_1Camera2D.html#a05631b448bb3005aee3bbc5658a6058a">hmi::Camera2D</a>, <a class="el" href="structhmi_1_1MapRenderOptions.html#a12c1d3a694fd0c7e9f54032dfcc2eeb0">hmi::MapRenderOptions</a>, <a class="el" href="classhmi_1_1WorldGraphView.html#a99e0337e4acb33a23f91876278c6dec2">hmi::WorldGraphView</a></li>
-<li>scene()&#160;:&#160;<a class="el" href="classcore_1_1Level.html#a84dc92ff487b184e8da96770a8bccf13">core::Level</a>, <a class="el" href="structcore_1_1LevelData.html#aea7675282327908b0da89291a4634567">core::LevelData</a>, <a class="el" href="structhmi_1_1MapTemplateLayer.html#a5952294b5949b2a6af415f17da21b1a6">hmi::MapTemplateLayer</a></li>
+<li>scene()&#160;:&#160;<a class="el" href="classcore_1_1Level.html#a84dc92ff487b184e8da96770a8bccf13">core::Level</a>, <a class="el" href="structcore_1_1LevelData.html#aea7675282327908b0da89291a4634567">core::LevelData</a>, <a class="el" href="classhmi_1_1ArenaAppearanceCatalog.html#adec363074f1314c0c5c150954c06ed63">hmi::ArenaAppearanceCatalog</a>, <a class="el" href="structhmi_1_1MapTemplateLayer.html#a5952294b5949b2a6af415f17da21b1a6">hmi::MapTemplateLayer</a></li>
 <li>sceneChanged&#160;:&#160;<a class="el" href="structhmi_1_1WorldPlayStep.html#aa510f0f4dcaf30e22367894d5ffd7a27">hmi::WorldPlayStep</a></li>
 <li>SceneImages()&#160;:&#160;<a class="el" href="classhmi_1_1SceneImages.html#ac9c67c5a1ab03dcf3238494037e310c1">hmi::SceneImages</a></li>
 <li>SceneResources()&#160;:&#160;<a class="el" href="classhmi_1_1SceneResources.html#ac70df1fe0f9b99159f00b86d29b386a3">hmi::SceneResources</a></li>

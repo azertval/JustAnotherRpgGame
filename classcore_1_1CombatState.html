@@ -1,3 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -17,10 +29,44 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="guide.html">Guide</a>
+    <a href="specifications.html">Spécifications</a>
+    <a href="lots.html">Lots</a>
+    <a href="cahiertest.html">Cahier de test</a>
+    <a href="manuel.html">Manuel</a>
+    <a href="annotated.html">Classes</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="index.html">Documentation</a>
+    <a href="planning/index.html">Planification</a>
+    <a href="qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
@@ -30,6 +76,18 @@
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -42,15 +100,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','Search',true);
-  $(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -216,10 +265,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un combat, du montage de la rencontre à sa fin. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1155"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1024"></a>
 Le cycle</h2>
 <p><span class="tt"><a class="el" href="#a311f1bd4157e775aaa91f3fc8c43d2bb" title="Jette l&#39;initiative de chacun et ouvre le premier tour.">start</a></span> jette l'initiative de chacun — <b>une fois</b> : l'ordre ne bouge plus (<span class="tt">EX-CBT-010</span>) —, ouvre la fenêtre d'avant le premier tour, puis le premier round. Chaque round parcourt les places de l'ordre ; un repère d'initiative fixe y annonce son crochet, un combattant à terre y est passé, un combattant debout y ouvre son tour, et le combat <b>attend</b> : rien n'avance tant que <span class="tt"><a class="el" href="#a103e0cac46c3818d612fa11dd71e4887" title="Termine explicitement le tour en cours (EX-CBT-012).">endTurn</a></span> n'a pas été appelé (<span class="tt">EX-CBT-012</span>). Épuiser ses ressources ne termine pas le tour — ne rien faire est une décision.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1156"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1025"></a>
 Les trois fins</h2>
 <p>Évaluées après <b>chaque</b> changement, et non à la fin d'un tour : un combat gagné par une attaque d'opportunité pendant le tour d'un ennemi est gagné tout de suite.</p>
 <ul>
@@ -228,10 +277,10 @@ Les trois fins</h2>
 <li><b>fuite</b> — plus aucun allié n'est debout, et au moins un est <b>parti</b>. Ceux qui restent à terre derrière lui sont l'affaire de l'agonie (<span class="tt">LOT-72</span>), pas de l'issue.</li>
 </ul>
 <p>Si un même changement abat les deux camps à la fois, la défaite l'emporte : on ne gagne pas un combat où plus personne ne se tient debout de son côté.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1157"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1026"></a>
 Les changements en cascade</h2>
 <p>Un abonné peut changer l'état pendant qu'on l'avertit : infliger des dégâts qui abattent le combattant dont le tour commence, faire entrer un renfort. Ces conséquences ne sont <b>jamais</b> tirées au milieu d'une annonce : la machine les règle quand l'appel extérieur se termine, une par une et dans un ordre fixe — la fin du combat d'abord, puis le tour d'un combattant qui ne peut plus le jouer, puis la place suivante. Deux abonnés de même crochet sont avertis dans l'ordre de leur abonnement.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1158"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1027"></a>
 Sans héros unique</h2>
 <p>Rien ici ne suppose un personnage seul : les alliés sont un camp, en nombre quelconque, et un test en monte quatre (<span class="tt">LOT-29</span>).</p>
 <p>L'état n'est ni copiable ni déplaçable : les <span class="tt"><a class="el" href="structcore_1_1Mover.html" title="Qui se déplace, comment, et à travers qui.">core::Mover</a></span> qu'il construit et les abonnés qui le reçoivent le désignent par son adresse. </p>

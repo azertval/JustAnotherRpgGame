@@ -1,3 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -17,10 +29,44 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="guide.html">Guide</a>
+    <a href="specifications.html">Spécifications</a>
+    <a href="lots.html">Lots</a>
+    <a href="cahiertest.html">Cahier de test</a>
+    <a href="manuel.html">Manuel</a>
+    <a href="annotated.html">Classes</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="index.html">Documentation</a>
+    <a href="planning/index.html">Planification</a>
+    <a href="qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
@@ -30,6 +76,18 @@
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -42,15 +100,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','Search',true);
-  $(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -240,17 +289,17 @@ $(function(){initNavTree('ArenaSceneComposer_8h_source.html','',''); });
 <div class="ttc" id="anamespacehmi_html_a46b9654e0a27fbe317b1b281d1560182"><div class="ttname"><a href="namespacehmi.html#a46b9654e0a27fbe317b1b281d1560182">hmi::FIGURE_FRAME_WIDTH_PIXELS</a></div><div class="ttdeci">constexpr int FIGURE_FRAME_WIDTH_PIXELS</div><div class="ttdoc">Largeur d&#39;une image des bandes d&#39;animation des figurines (Assets/Npc/manifest.json).</div><div class="ttdef"><b>Definition</b> ScenePieces.h:43</div></div>
 <div class="ttc" id="anamespacehmi_html_a5345cd8ebde1293596b218480d44e233"><div class="ttname"><a href="namespacehmi.html#a5345cd8ebde1293596b218480d44e233">hmi::SCENE_HALF_TILE_WIDTH_PIXELS</a></div><div class="ttdeci">constexpr int SCENE_HALF_TILE_WIDTH_PIXELS</div><div class="ttdoc">Demi-largeur de ce losange : l&#39;abscisse de l&#39;ancre d&#39;une pièce d&#39;une case.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:38</div></div>
 <div class="ttc" id="anamespacehmi_html_a55c481d635af0b56829a8ccc530af04d"><div class="ttname"><a href="namespacehmi.html#a55c481d635af0b56829a8ccc530af04d">hmi::FIGURE_FRAME_HEIGHT_PIXELS</a></div><div class="ttdeci">constexpr int FIGURE_FRAME_HEIGHT_PIXELS</div><div class="ttdoc">Hauteur d&#39;une image de ces bandes.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:45</div></div>
-<div class="ttc" id="anamespacehmi_html_a57f0685fbcb7a858faa871e9620c5fb9"><div class="ttname"><a href="namespacehmi.html#a57f0685fbcb7a858faa871e9620c5fb9">hmi::arenaTexturePaths</a></div><div class="ttdeci">std::vector&lt; std::string &gt; arenaTexturePaths(const ArenaAppearanceCatalog &amp;catalog)</div><div class="ttdoc">Tous les chemins de texture que la composition peut demander pour catalog : sols, pièces d&#39;enceinte,...</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.cpp:238</div></div>
+<div class="ttc" id="anamespacehmi_html_a57f0685fbcb7a858faa871e9620c5fb9"><div class="ttname"><a href="namespacehmi.html#a57f0685fbcb7a858faa871e9620c5fb9">hmi::arenaTexturePaths</a></div><div class="ttdeci">std::vector&lt; std::string &gt; arenaTexturePaths(const ArenaAppearanceCatalog &amp;catalog)</div><div class="ttdoc">Tous les chemins de texture que la composition peut demander pour catalog : sols, pièces d&#39;enceinte,...</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.cpp:242</div></div>
 <div class="ttc" id="anamespacehmi_html_a65b2c16b6aab8dd5aa2fa49fd1cb872b"><div class="ttname"><a href="namespacehmi.html#a65b2c16b6aab8dd5aa2fa49fd1cb872b">hmi::ARENA_FIGURE_FRAME_WIDTH_PIXELS</a></div><div class="ttdeci">constexpr int ARENA_FIGURE_FRAME_WIDTH_PIXELS</div><div class="ttdoc">Largeur d&#39;une image des bandes d&#39;animation de la planche, en pixels (manifest.json,...</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.h:95</div></div>
 <div class="ttc" id="anamespacehmi_html_a65e321902d186ff823f7122c0f3ace7f"><div class="ttname"><a href="namespacehmi.html#a65e321902d186ff823f7122c0f3ace7f">hmi::FIGURE_SCALE</a></div><div class="ttdeci">constexpr float FIGURE_SCALE</div><div class="ttdoc">Agrandissement d&#39;une figurine par rapport à la planche.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:47</div></div>
 <div class="ttc" id="anamespacehmi_html_a6eee874c358054b54267845295a6068c"><div class="ttname"><a href="namespacehmi.html#a6eee874c358054b54267845295a6068c">hmi::ARENA_DEPTH_SLOTS</a></div><div class="ttdeci">constexpr std::int32_t ARENA_DEPTH_SLOTS</div><div class="ttdoc">Nombre de rangs par profondeur : le multiplicateur de depthSortOrder dans le sortOrder.</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.h:123</div></div>
 <div class="ttc" id="anamespacehmi_html_a81d18f4d5de3c46d8c03d57dbefe6167"><div class="ttname"><a href="namespacehmi.html#a81d18f4d5de3c46d8c03d57dbefe6167">hmi::ARENA_SCENE_HALF_TILE_WIDTH_PIXELS</a></div><div class="ttdeci">constexpr int ARENA_SCENE_HALF_TILE_WIDTH_PIXELS</div><div class="ttdoc">Demi-largeur de ce losange : l&#39;abscisse de l&#39;ancre d&#39;une pièce d&#39;une case.</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.h:107</div></div>
 <div class="ttc" id="anamespacehmi_html_a979f7ffd7c87877cb1f65f0d08e4419d"><div class="ttname"><a href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">hmi::TextureHandle</a></div><div class="ttdeci">void * TextureHandle</div><div class="ttdoc">Identité opaque d&#39;une texture liée, du point de vue de la composition.</div><div class="ttdef"><b>Definition</b> RenderLayer.h:89</div></div>
-<div class="ttc" id="anamespacehmi_html_aa0d7669255f79f79f2cd34ed1d8f939d"><div class="ttname"><a href="namespacehmi.html#aa0d7669255f79f79f2cd34ed1d8f939d">hmi::snapshotArenaScene</a></div><div class="ttdeci">ArenaSceneSnapshot snapshotArenaScene(const core::ArenaSession &amp;session)</div><div class="ttdoc">Tire de session l&#39;instantané que la composition dessine (lecture seule).</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.cpp:279</div></div>
-<div class="ttc" id="anamespacehmi_html_aa5e3c79f66ed2e7f47977044cb6d51ba"><div class="ttname"><a href="namespacehmi.html#aa5e3c79f66ed2e7f47977044cb6d51ba">hmi::composeArenaScene</a></div><div class="ttdeci">void composeArenaScene(ComposedScene &amp;scene, const ArenaSceneSnapshot &amp;snapshot, const ArenaAppearanceCatalog &amp;catalog, const ArenaAnimationState &amp;animation, const core::IsoProjection &amp;projection, const ArenaSceneTextures &amp;textures, bool scenery)</div><div class="ttdoc">Compose la scène de combat dans un tampon réutilisé, depuis un instantané.</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.cpp:316</div></div>
+<div class="ttc" id="anamespacehmi_html_aa0d7669255f79f79f2cd34ed1d8f939d"><div class="ttname"><a href="namespacehmi.html#aa0d7669255f79f79f2cd34ed1d8f939d">hmi::snapshotArenaScene</a></div><div class="ttdeci">ArenaSceneSnapshot snapshotArenaScene(const core::ArenaSession &amp;session)</div><div class="ttdoc">Tire de session l&#39;instantané que la composition dessine (lecture seule).</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.cpp:283</div></div>
+<div class="ttc" id="anamespacehmi_html_aa5e3c79f66ed2e7f47977044cb6d51ba"><div class="ttname"><a href="namespacehmi.html#aa5e3c79f66ed2e7f47977044cb6d51ba">hmi::composeArenaScene</a></div><div class="ttdeci">void composeArenaScene(ComposedScene &amp;scene, const ArenaSceneSnapshot &amp;snapshot, const ArenaAppearanceCatalog &amp;catalog, const ArenaAnimationState &amp;animation, const core::IsoProjection &amp;projection, const ArenaSceneTextures &amp;textures, bool scenery)</div><div class="ttdoc">Compose la scène de combat dans un tampon réutilisé, depuis un instantané.</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.cpp:320</div></div>
 <div class="ttc" id="anamespacehmi_html_ab9ad6be84062fc2abf87c40184677eae"><div class="ttname"><a href="namespacehmi.html#ab9ad6be84062fc2abf87c40184677eae">hmi::ARENA_FIGURE_SCALE</a></div><div class="ttdeci">constexpr float ARENA_FIGURE_SCALE</div><div class="ttdoc">Agrandissement de la figurine par rapport à la planche (ArenaTile.ui.qml, 1.25).</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.h:99</div></div>
 <div class="ttc" id="anamespacehmi_html_adf0a8584471498fee2fd58f1b3526335"><div class="ttname"><a href="namespacehmi.html#adf0a8584471498fee2fd58f1b3526335">hmi::SCENE_TILE_HEIGHT_PIXELS</a></div><div class="ttdeci">constexpr int SCENE_TILE_HEIGHT_PIXELS</div><div class="ttdoc">Hauteur de ce losange : il occupe le bas d&#39;une pièce d&#39;une case.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:40</div></div>
-<div class="ttc" id="anamespacehmi_html_ae3ab2165b6e3cf5d2c84394f3a95bf9e"><div class="ttname"><a href="namespacehmi.html#ae3ab2165b6e3cf5d2c84394f3a95bf9e">hmi::arenaDepthSortOrder</a></div><div class="ttdeci">std::int32_t arenaDepthSortOrder(float footWorldY, ArenaDepthSlot slot) noexcept</div><div class="ttdoc">Ordre de tri d&#39;une pièce de la bande de profondeur du Colisée.</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.cpp:234</div></div>
+<div class="ttc" id="anamespacehmi_html_ae3ab2165b6e3cf5d2c84394f3a95bf9e"><div class="ttname"><a href="namespacehmi.html#ae3ab2165b6e3cf5d2c84394f3a95bf9e">hmi::arenaDepthSortOrder</a></div><div class="ttdeci">std::int32_t arenaDepthSortOrder(float footWorldY, ArenaDepthSlot slot) noexcept</div><div class="ttdoc">Ordre de tri d&#39;une pièce de la bande de profondeur du Colisée.</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.cpp:238</div></div>
 <div class="ttc" id="astructcore_1_1GridPosition_html"><div class="ttname"><a href="structcore_1_1GridPosition.html">core::GridPosition</a></div><div class="ttdoc">Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.</div><div class="ttdef"><b>Definition</b> GridPosition.h:20</div></div>
 <div class="ttc" id="astructhmi_1_1ArenaAnimationState_html"><div class="ttname"><a href="structhmi_1_1ArenaAnimationState.html">hmi::ArenaAnimationState</a></div><div class="ttdoc">L&#39;état d&#39;animation des figurines, par combattant.</div><div class="ttdef"><b>Definition</b> ArenaAnimationState.h:34</div></div>
 <div class="ttc" id="astructhmi_1_1ArenaFigureSnapshot_html"><div class="ttname"><a href="structhmi_1_1ArenaFigureSnapshot.html">hmi::ArenaFigureSnapshot</a></div><div class="ttdoc">Ce qu&#39;une figurine dessine d&#39;un combattant, copié de la session.</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.h:166</div></div>
@@ -263,7 +312,7 @@ $(function(){initNavTree('ArenaSceneComposer_8h_source.html','',''); });
 <div class="ttc" id="astructhmi_1_1ArenaSceneSnapshot_html"><div class="ttname"><a href="structhmi_1_1ArenaSceneSnapshot.html">hmi::ArenaSceneSnapshot</a></div><div class="ttdoc">La scène de combat en valeurs : ce que la composition lit, et rien d&#39;autre.</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.h:187</div></div>
 <div class="ttc" id="astructhmi_1_1ArenaSceneSnapshot_html_a182cd45097d1bb0298d28b4d17e80bac"><div class="ttname"><a href="structhmi_1_1ArenaSceneSnapshot.html#a182cd45097d1bb0298d28b4d17e80bac">hmi::ArenaSceneSnapshot::columns</a></div><div class="ttdeci">int columns</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.h:188</div></div>
 <div class="ttc" id="astructhmi_1_1ArenaSceneSnapshot_html_a6c424b10131b03007760f1e7dc104330"><div class="ttname"><a href="structhmi_1_1ArenaSceneSnapshot.html#a6c424b10131b03007760f1e7dc104330">hmi::ArenaSceneSnapshot::operator==</a></div><div class="ttdeci">friend bool operator==(const ArenaSceneSnapshot &amp;, const ArenaSceneSnapshot &amp;)=default</div></div>
-<div class="ttc" id="astructhmi_1_1ArenaSceneSnapshot_html_a863b99fa6816d24a44a25eaef4fc5763"><div class="ttname"><a href="structhmi_1_1ArenaSceneSnapshot.html#a863b99fa6816d24a44a25eaef4fc5763">hmi::ArenaSceneSnapshot::isObstructed</a></div><div class="ttdeci">bool isObstructed(core::GridPosition cell) const noexcept</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.cpp:269</div></div>
+<div class="ttc" id="astructhmi_1_1ArenaSceneSnapshot_html_a863b99fa6816d24a44a25eaef4fc5763"><div class="ttname"><a href="structhmi_1_1ArenaSceneSnapshot.html#a863b99fa6816d24a44a25eaef4fc5763">hmi::ArenaSceneSnapshot::isObstructed</a></div><div class="ttdeci">bool isObstructed(core::GridPosition cell) const noexcept</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.cpp:273</div></div>
 <div class="ttc" id="astructhmi_1_1ArenaSceneSnapshot_html_a8dcc627c3bd9b2ec21b1d5ae0a8d2bd1"><div class="ttname"><a href="structhmi_1_1ArenaSceneSnapshot.html#a8dcc627c3bd9b2ec21b1d5ae0a8d2bd1">hmi::ArenaSceneSnapshot::rows</a></div><div class="ttdeci">int rows</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.h:189</div></div>
 <div class="ttc" id="astructhmi_1_1ArenaSceneSnapshot_html_ac16f4128c6827c9d94514fd070ebea26"><div class="ttname"><a href="structhmi_1_1ArenaSceneSnapshot.html#ac16f4128c6827c9d94514fd070ebea26">hmi::ArenaSceneSnapshot::figures</a></div><div class="ttdeci">std::vector&lt; ArenaFigureSnapshot &gt; figures</div><div class="ttdoc">Les combattants sur la grille, dans l&#39;ordre de CombatState::combatants().</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.h:195</div></div>
 <div class="ttc" id="astructhmi_1_1ArenaSceneSnapshot_html_ac3881c6bae8c35c3df7f881bd2f79fe4"><div class="ttname"><a href="structhmi_1_1ArenaSceneSnapshot.html#ac3881c6bae8c35c3df7f881bd2f79fe4">hmi::ArenaSceneSnapshot::obstructed</a></div><div class="ttdeci">std::vector&lt; bool &gt; obstructed</div><div class="ttdoc">Une entrée par case, ligne par ligne : vrai si la case obstrue le sol (BattleGrid::isObstructed,...</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.h:192</div></div>

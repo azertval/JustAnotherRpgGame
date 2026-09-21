@@ -11,6 +11,7 @@ var classhmi_1_1ArenaAppearanceCatalog =
     [ "loadFromString", "classhmi_1_1ArenaAppearanceCatalog.html#aa7e034719a6931f68257f340876874af", null ],
     [ "paleSlabs", "classhmi_1_1ArenaAppearanceCatalog.html#aa37d1c44745446f26980ee570d84f526", null ],
     [ "replaceHero", "classhmi_1_1ArenaAppearanceCatalog.html#ab6b02ebc7d15780ebbd2463e23a8d785", null ],
+    [ "scene", "classhmi_1_1ArenaAppearanceCatalog.html#adec363074f1314c0c5c150954c06ed63", null ],
     [ "sheetDirectory", "classhmi_1_1ArenaAppearanceCatalog.html#a242d9d41756fd2d69f4bd783c223d609", null ],
     [ "tileAppearance", "classhmi_1_1ArenaAppearanceCatalog.html#aa3ed42b73cf2574449ef73623919787a", null ],
     [ "_enemyFrames", "classhmi_1_1ArenaAppearanceCatalog.html#aee452ce6cdf045b5dc4a1fcaee0eac08", null ],
@@ -19,5 +20,6 @@ var classhmi_1_1ArenaAppearanceCatalog =
     [ "_heroes", "classhmi_1_1ArenaAppearanceCatalog.html#a631755e2317768443b91fc6f6eec2f75", null ],
     [ "_heroFrames", "classhmi_1_1ArenaAppearanceCatalog.html#ad3fbdb415594a1693d9d1e6eb9e5185b", null ],
     [ "_paleSlabs", "classhmi_1_1ArenaAppearanceCatalog.html#aaab61ea7744324821ebe4132523e94e2", null ],
+    [ "_scene", "classhmi_1_1ArenaAppearanceCatalog.html#a4c32bcc47dfa515b8acf71f40d1003c8", null ],
     [ "FORMAT_VERSION", "classhmi_1_1ArenaAppearanceCatalog.html#ad092f238d7462994ad5a769f6e224ab6", null ]
 ];

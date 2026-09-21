@@ -29,8 +29,9 @@ namespace hmi {
 
 namespace {
 
-// Les textures de scene de l'atelier du LOT-92, a cote du dossier du Colisee (comme ../Npc).
-constexpr std::string_view SCENE_DIRECTORY = "../Scene/coliseum/";
+// Les textures de scene du lieu, a cote du dossier du kit d'arene (comme ../Npc). Le lieu vient
+// du manifeste du kit (`scene`), jamais du code : une arene n'est pas forcement le Colisee.
+constexpr std::string_view SCENE_ROOT = "../Scene/";
 
 // Les sols : le sable, ses variantes semees la ou la brique QML posait une dalle claire, la pierre
 // sous l'enceinte, le seuil sous une porte.
@@ -51,9 +52,12 @@ constexpr std::string_view PILLAR = "pillar";
 // Marge basse d'une figurine, en hauteurs de losange (anchors.bottomMargin de ArenaTile.ui.qml).
 constexpr float FIGURE_BOTTOM_MARGIN = 0.42F;
 
-/// Le chemin d'une piece de scene : `../Scene/coliseum/&lt;nom&gt;&lt;suffixe&gt;.png`.
-<span style = "background-color:#dfd">void scenePath(std::string&amp; path, std::string_view name, std::string_view suffix = {}) {
-    path.assign(SCENE_DIRECTORY);
+/// Le chemin d'une piece de scene : `../Scene/&lt;lieu du kit&gt;/&lt;nom&gt;&lt;suffixe&gt;.png`.
+void scenePath(const ArenaAppearanceCatalog&amp; catalog, std::string&amp; path, std::string_view name,
+<span style = "background-color:#dfd">               std::string_view suffix = {}) {
+    path.assign(SCENE_ROOT);
+    path.append(catalog.scene());
+    path.push_back('/');
     path.append(name);
     path.append(suffix);
     path.append(".png");
@@ -122,15 +126,15 @@ void composeTile(const Composer&amp; composer, const ArenaAppearanceCatalog&amp;
 
     // --- Le sol : etire sur la boite du losange, comme l'Image en anchors.fill ---------------
 <span style = "background-color:#dfd">    if (appearance.wall) {
-        scenePath(path, STONE);
+        scenePath(catalog, path, STONE);
     } else if (appearance.gateSpot) {
-        scenePath(path, THRESHOLD);
+        scenePath(catalog, path, THRESHOLD);
     } else if (appearance.slab) {</span>
 <span style = "background-color:#fdd">        scenePath(</span>
-            path,
+            catalog, path,
             SAND_VARIANTS[static_cast&lt;std::size_t&gt;(appearance.slabVariant) % SAND_VARIANTS.size()]);
 <span style = "background-color:#fdd">    } else {</span>
-<span style = "background-color:#dfd">        scenePath(path, SAND);</span>
+<span style = "background-color:#dfd">        scenePath(catalog, path, SAND);</span>
     }
 <span style = "background-color:#dfd">    if (const ArenaTexture&amp; floor = composer.textures.resolve(path); floor.texture != nullptr) {
         SpriteQuad quad;
@@ -147,23 +151,23 @@ void composeTile(const Composer&amp; composer, const ArenaAppearanceCatalog&amp;
     // decore, pas une decoration posee sur un pan.
 <span style = "background-color:#dfd">    const std::string_view edge = edgeSuffix(cell, snapshot.rows);
     if (appearance.gateSpot) {
-        scenePath(path, ARCH, edge);
+        scenePath(catalog, path, ARCH, edge);
     } else {
         switch (appearance.wallFeature) {</span>
             case WallFeature::None:
 <span style = "background-color:#dfd">                return;</span>
             case WallFeature::Corner:
                 // L'angle du fond ferme les deux murs ; les trois autres angles sont des piliers.
-<span style = "background-color:#dfd">                scenePath(path, cell.column == 0 &amp;&amp; cell.row == 0 ? CORNER : PILLAR);
+<span style = "background-color:#dfd">                scenePath(catalog, path, cell.column == 0 &amp;&amp; cell.row == 0 ? CORNER : PILLAR);
                 break;</span>
             case WallFeature::Plain:
-<span style = "background-color:#dfd">                scenePath(path, WALL, edge);
+<span style = "background-color:#dfd">                scenePath(catalog, path, WALL, edge);
                 break;</span>
             case WallFeature::BannerSpot:
-<span style = "background-color:#fdd">                scenePath(path, BANNER, edge);
+<span style = "background-color:#fdd">                scenePath(catalog, path, BANNER, edge);
                 break;</span>
             case WallFeature::TorchSpot:
-<span style = "background-color:#dfd">                scenePath(path, TORCH, edge);</span>
+<span style = "background-color:#dfd">                scenePath(catalog, path, TORCH, edge);</span>
                 break;
         }
     }
@@ -250,7 +254,7 @@ void composeFigure(const Composer&amp; composer, const ArenaAppearanceCatalog&am
     std::vector&lt;std::string&gt; paths;
     std::string path;
     const auto add = [&amp;](std::string_view name, std::string_view suffix = {}) {
-        scenePath(path, name, suffix);
+        scenePath(catalog, path, name, suffix);
         paths.push_back(path);
     };
     add(SAND);

@@ -93,7 +93,7 @@ var searchData=
   ['arenacamera_90',['arenaCamera',['../namespacehmi.html#a2d572b49065ad901c6e2704b8d515c78',1,'hmi']]],
   ['arenadepthsortorder_91',['arenaDepthSortOrder',['../namespacehmi.html#ae3ab2165b6e3cf5d2c84394f3a95bf9e',1,'hmi']]],
   ['arenaentrypoints_92',['arenaEntryPoints',['../namespacecore.html#a91e905d2d65ad1c9a0916752b0fd9b95',1,'core']]],
-  ['arenamodel_93',['ArenaModel',['../classhmi_1_1ArenaModel.html#ab7b34433ab8316cfd1f7a7f8420b5a11',1,'hmi::ArenaModel']]],
+  ['arenamodel_93',['ArenaModel',['../classhmi_1_1ArenaModel.html#abd6c5f16972d1ceb542e31c887ae3339',1,'hmi::ArenaModel']]],
   ['arenaname_94',['arenaName',['../classhmi_1_1ArenaModel.html#a7f20d65584128c4760ca2c9ed6f482f2',1,'hmi::ArenaModel']]],
   ['arenascenerenderer_95',['ArenaSceneRenderer',['../classhmi_1_1ArenaSceneRenderer.html#a56dea0d48315beb28f1a6d777d21cc96',1,'hmi::ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, bool productionMap=false)'],['../classhmi_1_1ArenaSceneRenderer.html#aec6d88d49c765f99720f4595c9f50ffb',1,'hmi::ArenaSceneRenderer::ArenaSceneRenderer(const ArenaSceneRenderer &amp;)=delete']]],
   ['arenasession_96',['ArenaSession',['../classcore_1_1ArenaSession.html#ad4a7fb94266844e128d7a3f0b65b85d8',1,'core::ArenaSession']]],

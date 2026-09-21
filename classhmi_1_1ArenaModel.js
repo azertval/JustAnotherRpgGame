@@ -2,7 +2,7 @@ var classhmi_1_1ArenaModel =
 [
     [ "Fighter", "structhmi_1_1ArenaModel_1_1Fighter.html", "structhmi_1_1ArenaModel_1_1Fighter" ],
     [ "Catalogs", "structhmi_1_1ArenaModel_1_1Catalogs.html", "structhmi_1_1ArenaModel_1_1Catalogs" ],
-    [ "ArenaModel", "classhmi_1_1ArenaModel.html#ab7b34433ab8316cfd1f7a7f8420b5a11", null ],
+    [ "ArenaModel", "classhmi_1_1ArenaModel.html#abd6c5f16972d1ceb542e31c887ae3339", null ],
     [ "~ArenaModel", "classhmi_1_1ArenaModel.html#ab515f2b0d4366005ec69f536e7deb200", null ],
     [ "activeName", "classhmi_1_1ArenaModel.html#aa6040d2c3469f086bfef2c8e14fa4966", null ],
     [ "activeResources", "classhmi_1_1ArenaModel.html#ae5bb010df517754e586fba82af97e3aa", null ],
@@ -69,6 +69,7 @@ var classhmi_1_1ArenaModel =
     [ "withdraw", "classhmi_1_1ArenaModel.html#a53e4578bc24ffdff34ffebbb7b9a2bf8", null ],
     [ "_allies", "classhmi_1_1ArenaModel.html#a833151f8c21cb1d6db9fc4565d06ebeb", null ],
     [ "_catalogs", "classhmi_1_1ArenaModel.html#a4c81aa1c9cfdf23055369cbb562e89c1", null ],
+    [ "_contentRoot", "classhmi_1_1ArenaModel.html#a60ce217824cfce4c2a9ba0dee922a20d", null ],
     [ "_cursor", "classhmi_1_1ArenaModel.html#adaecf8742e9802b1d34fd4ffeaccf077", null ],
     [ "_enemies", "classhmi_1_1ArenaModel.html#add8d1bd31e1308c96a9ffb6d07ae1f35", null ],
     [ "_enemyAi", "classhmi_1_1ArenaModel.html#a1478aa690ab7221967d7e15ac72a6c3a", null ],

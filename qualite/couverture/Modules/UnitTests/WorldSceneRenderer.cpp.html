@@ -116,17 +116,17 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
     return largeur;
 }</span>
 
-<span style = "background-color:#dfd">std::optional&lt;LoadedTexture&gt; WorldSceneRenderer::figureMarker(const std::string&amp; path) {
+<span style = "background-color:#fdd">std::optional&lt;LoadedTexture&gt; WorldSceneRenderer::figureMarker(const std::string&amp; path) {
     const std::string cle = figureMarkerKey(path);
-    if (cle.empty()) {</span>
-<span style = "background-color:#fdd">        return std::nullopt;</span>
+    if (cle.empty()) {
+        return std::nullopt;</span>
     }
-<span style = "background-color:#dfd">    const core::MarkerImage image =</span>
+<span style = "background-color:#fdd">    const core::MarkerImage image =</span>
         core::assetMarker(cle, FIGURE_FRAME_WIDTH_PIXELS, FIGURE_FRAME_HEIGHT_PIXELS);
-<span style = "background-color:#dfd">    if (image.isEmpty()) {</span>
-<span style = "background-color:#fdd">        return std::nullopt;</span>
+<span style = "background-color:#fdd">    if (image.isEmpty()) {
+        return std::nullopt;</span>
     }
-<span style = "background-color:#dfd">    GRAPHICS_LOG_INFO("Lieu : la figurine " + cle + " n'a pas d'image, son marqueur la remplace.");
+<span style = "background-color:#fdd">    GRAPHICS_LOG_INFO("Lieu : la figurine " + cle + " n'a pas d'image, son marqueur la remplace.");
     return createTexture(_resources.context(), image.width, image.height, markerPixelsRgba8(image));
 }</span>
 
@@ -141,14 +141,14 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
 <span style = "background-color:#dfd">        if (!texture.has_value()) {</span>
             // Une figurine sans image se dessine par son marqueur (LOT-39, LOT-96) : la
             // sentinelle se voit avant que l'atelier ne l'ait dessinee.
-<span style = "background-color:#dfd">            if (std::optional&lt;LoadedTexture&gt; marqueur = figureMarker(path)) {
+<span style = "background-color:#fdd">            if (std::optional&lt;LoadedTexture&gt; marqueur = figureMarker(path)) {
                 _textures.byPath[path] = SceneTexture{.texture = marqueur-&gt;handle(),</span>
                                                       .width = marqueur-&gt;width,
                                                       .height = marqueur-&gt;height,
                                                       .frameWidth = marqueur-&gt;width};
-<span style = "background-color:#dfd">                _loaded.push_back(std::move(*marqueur));
-                continue;</span>
-<span style = "background-color:#fdd">            }</span>
+<span style = "background-color:#fdd">                _loaded.push_back(std::move(*marqueur));
+                continue;
+            }</span>
             // La composition retombe sur le damier : une piece manquante se voit, sans planter.
 <span style = "background-color:#fdd">            GRAPHICS_LOG_WARNING(missingTextureWarning(path));
             continue;</span>

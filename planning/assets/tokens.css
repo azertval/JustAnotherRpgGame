@@ -1,0 +1,48 @@
+/* SPDX-FileCopyrightText: 2026 Valentin Eloy
+   SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+   Les jetons de la charte : couleurs, fontes, ombre. La seule source du rendu du site publié.
+
+   Ce fichier ne décrit aucun élément — il ne fait que nommer. Les trois sous-sites de gh-pages
+   le chargent : la référence de code (Doxygen, à la racine), le site de planification
+   (`planning/`) et la page qualité (`qualite/`). Aucun d'eux ne redéfinit une couleur : il
+   emprunte un jeton, sinon la charte n'en est plus une. Doxygen, en particulier, ne reçoit pas
+   d'autre habillage que le branchement de ses propres variables sur ceux-ci (`doxygen.css`).
+
+   Palette tirée de la planche de référence d'Arenarea : ivoire, sable, bronze foncé, bourgogne,
+   or vieilli, vert feuillage, eau sourde. */
+:root {
+  --bg: #f4efe3;
+  --surface: #fbf8f0;
+  --surface-2: #ece4d1;
+  --line: #d6c9a8;
+  --text: #25201a;
+  --muted: #6a6152;
+  --gold: #9a7420;
+  --burgundy: #8a2233;
+  --green: #3f6b34;
+  --water: #2f7f86;
+  --bronze: #5c4a2a;
+  --shadow: 0 1px 2px rgba(60, 45, 10, .08), 0 6px 18px rgba(60, 45, 10, .06);
+  /* Les fontes sont des jetons elles aussi : Doxygen les passe à ses propres variables. */
+  --font-text: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-titre: "Cinzel", "Trajan Pro", Georgia, "Times New Roman", serif;
+  --font-mono: Consolas, "Cascadia Mono", monospace;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #10191b;
+    --surface: #16232a;
+    --surface-2: #1c2d33;
+    --line: #2f4247;
+    --text: #efe6d2;
+    --muted: #a39a84;
+    --gold: #d2ac62;
+    --burgundy: #d0566b;
+    --green: #86b56f;
+    --water: #6dc0c4;
+    --bronze: #b89a63;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 22px rgba(0, 0, 0, .25);
+  }
+}

@@ -274,8 +274,8 @@ void checkGraph(std::string_view mapId, const core::Level&amp; level, const Cont
 <span style = "background-color:#dfd">    std::error_code error;
     for (auto it = std::filesystem::directory_iterator(dataRoot / "World" / "cities", error);
          !error &amp;&amp; it != std::filesystem::directory_iterator(); it.increment(error)) {
-        if (it-&gt;path().extension() != ".json") {</span>
-<span style = "background-color:#fdd">            continue;</span>
+        if (it-&gt;path().extension() != ".json") {
+            continue;</span>
         }
 <span style = "background-color:#dfd">        const core::CityPlanResult city = core::loadCityPlan(it-&gt;path());
         if (city.ok() &amp;&amp; !city.plan.startMap().empty()) {

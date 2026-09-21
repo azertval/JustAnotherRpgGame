@@ -163,7 +163,17 @@ public:
      */
     int applyNpcManifest(const std::filesystem::path&amp; path);
 
-<span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;std::string&gt;&amp; heroes() const noexcept {
+    /**
+     * @brief Le lieu dont l'arÃ¨ne emprunte ses piÃ¨ces de scÃ¨ne (champ `scene` du manifeste).
+     *
+     * La composition lit les sols et l'enceinte dans `../Scene/&lt;lieu&gt;/`, Ã  cÃ´tÃ© du dossier du kit.
+     * Le kit dit donc lui-mÃªme de quelle planche il se sert : rien n'est Ã©crit en dur dans le
+     * moteur (LOT-102).
+     */
+<span style = "background-color:#dfd">    [[nodiscard]] const std::string&amp; scene() const noexcept {
+        return _scene;
+    }
+    [[nodiscard]] const std::vector&lt;std::string&gt;&amp; heroes() const noexcept {
         return _heroes;
     }
     [[nodiscard]] const std::vector&lt;std::string&gt;&amp; gladiators() const noexcept {
@@ -183,6 +193,7 @@ private:
     [[nodiscard]] static ArenaAppearanceCatalogResult fromDocument(
         const core::JsonDocument&amp; document);
 
+    std::string _scene;
     std::vector&lt;std::string&gt; _heroes;
     std::vector&lt;std::string&gt; _gladiators;
     std::vector&lt;std::string&gt; _paleSlabs;

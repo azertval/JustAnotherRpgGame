@@ -1,3 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -17,10 +29,44 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="guide.html">Guide</a>
+    <a href="specifications.html">Spécifications</a>
+    <a href="lots.html">Lots</a>
+    <a href="cahiertest.html">Cahier de test</a>
+    <a href="manuel.html">Manuel</a>
+    <a href="annotated.html">Classes</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="index.html">Documentation</a>
+    <a href="planning/index.html">Planification</a>
+    <a href="qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
@@ -30,6 +76,18 @@
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -42,15 +100,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','Search',true);
-  $(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -234,10 +283,10 @@ $(function(){initNavTree('ArenaSceneRenderer_8h_source.html','',''); });
 <div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_a1b9f25cf12ab90353a6715b871374d11"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#a1b9f25cf12ab90353a6715b871374d11">hmi::ArenaSceneRenderer::created</a></div><div class="ttdeci">bool created() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.h:110</div></div>
 <div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_a1c945d7cf491124dcd5626a6653f3a0e"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#a1c945d7cf491124dcd5626a6653f3a0e">hmi::ArenaSceneRenderer::_pendingUploads</a></div><div class="ttdeci">QRhiResourceUpdateBatch * _pendingUploads</div><div class="ttdoc">Lot des téléversements de création, en attente du premier render — ou de release.</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.h:190</div></div>
 <div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_a2181ba95ba6e072456572eabbb56f47d"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#a2181ba95ba6e072456572eabbb56f47d">hmi::ArenaSceneRenderer::_resources</a></div><div class="ttdeci">SceneResources _resources</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.h:193</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_a3bfbdd2a46aa772f05af8202cad69c2a"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#a3bfbdd2a46aa772f05af8202cad69c2a">hmi::ArenaSceneRenderer::loadTextures</a></div><div class="ttdeci">void loadTextures()</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:141</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_a56dea0d48315beb28f1a6d777d21cc96"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#a56dea0d48315beb28f1a6d777d21cc96">hmi::ArenaSceneRenderer::ArenaSceneRenderer</a></div><div class="ttdeci">ArenaSceneRenderer(std::filesystem::path coliseumDirectory, bool productionMap=false)</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:44</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_a59c3cd6297d47d1e78f8196cdafbf63a"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#a59c3cd6297d47d1e78f8196cdafbf63a">hmi::ArenaSceneRenderer::render</a></div><div class="ttdeci">void render(QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target, float realDeltaSeconds, const float *clear)</div><div class="ttdoc">Dessine une image dans target : efface à clear, puis la scène cadrée entière.</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:240</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_a5ff7db5698888e27afea03d5bb2d58e4"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#a5ff7db5698888e27afea03d5bb2d58e4">hmi::ArenaSceneRenderer::~ArenaSceneRenderer</a></div><div class="ttdeci">~ArenaSceneRenderer()</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:117</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_a3bfbdd2a46aa772f05af8202cad69c2a"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#a3bfbdd2a46aa772f05af8202cad69c2a">hmi::ArenaSceneRenderer::loadTextures</a></div><div class="ttdeci">void loadTextures()</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:152</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_a56dea0d48315beb28f1a6d777d21cc96"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#a56dea0d48315beb28f1a6d777d21cc96">hmi::ArenaSceneRenderer::ArenaSceneRenderer</a></div><div class="ttdeci">ArenaSceneRenderer(std::filesystem::path coliseumDirectory, bool productionMap=false)</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:46</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_a59c3cd6297d47d1e78f8196cdafbf63a"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#a59c3cd6297d47d1e78f8196cdafbf63a">hmi::ArenaSceneRenderer::render</a></div><div class="ttdeci">void render(QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target, float realDeltaSeconds, const float *clear)</div><div class="ttdoc">Dessine une image dans target : efface à clear, puis la scène cadrée entière.</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:251</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_a5ff7db5698888e27afea03d5bb2d58e4"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#a5ff7db5698888e27afea03d5bb2d58e4">hmi::ArenaSceneRenderer::~ArenaSceneRenderer</a></div><div class="ttdeci">~ArenaSceneRenderer()</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:128</div></div>
 <div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_a634d660e77b8cd0745b0b6c88b45c7fc"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#a634d660e77b8cd0745b0b6c88b45c7fc">hmi::ArenaSceneRenderer::_battlefieldScene</a></div><div class="ttdeci">ComposedScene _battlefieldScene</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.h:174</div></div>
 <div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_a6406f3e3ea4543f45cfc85f7faadfe30"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#a6406f3e3ea4543f45cfc85f7faadfe30">hmi::ArenaSceneRenderer::_bandFrameWidths</a></div><div class="ttdeci">std::map&lt; std::string, int &gt; _bandFrameWidths</div><div class="ttdoc">Largeur d&#39;image des bandes dessinées (idle.png, death.png), par chemin sous _directory,...</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.h:180</div></div>
 <div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_a67931499a02511e00d24b33edc32aec8"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#a67931499a02511e00d24b33edc32aec8">hmi::ArenaSceneRenderer::operator=</a></div><div class="ttdeci">ArenaSceneRenderer &amp; operator=(const ArenaSceneRenderer &amp;)=delete</div></div>
@@ -254,20 +303,20 @@ $(function(){initNavTree('ArenaSceneRenderer_8h_source.html','',''); });
 <div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_abc5b0b2897753622f6694b2de12e42d7"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#abc5b0b2897753622f6694b2de12e42d7">hmi::ArenaSceneRenderer::snapshot</a></div><div class="ttdeci">const ArenaSceneSnapshot &amp; snapshot() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.h:129</div></div>
 <div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_abfaeb27c9547c5be2e62a9d3ba1748bf"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#abfaeb27c9547c5be2e62a9d3ba1748bf">hmi::ArenaSceneRenderer::textures</a></div><div class="ttdeci">const ArenaSceneTextures &amp; textures() const noexcept</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.h:156</div></div>
 <div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_ac042916570c07e60d766789e6e3483de"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#ac042916570c07e60d766789e6e3483de">hmi::ArenaSceneRenderer::_rhi</a></div><div class="ttdeci">QRhi * _rhi</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.h:188</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_ac78fc626b74f6d52cda20125d83c835a"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#ac78fc626b74f6d52cda20125d83c835a">hmi::ArenaSceneRenderer::loadBattlefieldTextures</a></div><div class="ttdeci">void loadBattlefieldTextures(const RhiContext &amp;context)</div><div class="ttdoc">Charge les pièces du champ de bataille et compose sa scène.</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:174</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_ac78fc626b74f6d52cda20125d83c835a"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#ac78fc626b74f6d52cda20125d83c835a">hmi::ArenaSceneRenderer::loadBattlefieldTextures</a></div><div class="ttdeci">void loadBattlefieldTextures(const RhiContext &amp;context)</div><div class="ttdoc">Charge les pièces du champ de bataille et compose sa scène.</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:185</div></div>
 <div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_acfac35e49caa17bba11a806637edb2ee"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#acfac35e49caa17bba11a806637edb2ee">hmi::ArenaSceneRenderer::_catalog</a></div><div class="ttdeci">ArenaAppearanceCatalog _catalog</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.h:177</div></div>
 <div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_ad348c5d761e754762db1206bb29de223"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#ad348c5d761e754762db1206bb29de223">hmi::ArenaSceneRenderer::_battlefield</a></div><div class="ttdeci">std::optional&lt; WorldSceneSnapshot &gt; _battlefield</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.h:171</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_ade033f3bf3a3a4ae86ce509c2183b8bc"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#ade033f3bf3a3a4ae86ce509c2183b8bc">hmi::ArenaSceneRenderer::loadBattlefield</a></div><div class="ttdeci">void loadBattlefield()</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:87</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_ae6d35aab7141037ba8112d047f5e85f6"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#ae6d35aab7141037ba8112d047f5e85f6">hmi::ArenaSceneRenderer::release</a></div><div class="ttdeci">void release() noexcept</div><div class="ttdoc">Libère toutes les ressources GPU, dans l&#39;ordre. Sans effet si rien n&#39;est créé.</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:200</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_ae85fe8c7d406e9e9e5690838bf26a2c4"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#ae85fe8c7d406e9e9e5690838bf26a2c4">hmi::ArenaSceneRenderer::ensureResources</a></div><div class="ttdeci">bool ensureResources(QRhi *rhi)</div><div class="ttdoc">Garantit que les ressources existent sur rhi.</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:121</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_ade033f3bf3a3a4ae86ce509c2183b8bc"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#ade033f3bf3a3a4ae86ce509c2183b8bc">hmi::ArenaSceneRenderer::loadBattlefield</a></div><div class="ttdeci">void loadBattlefield()</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:89</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_ae6d35aab7141037ba8112d047f5e85f6"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#ae6d35aab7141037ba8112d047f5e85f6">hmi::ArenaSceneRenderer::release</a></div><div class="ttdeci">void release() noexcept</div><div class="ttdoc">Libère toutes les ressources GPU, dans l&#39;ordre. Sans effet si rien n&#39;est créé.</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:211</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_ae85fe8c7d406e9e9e5690838bf26a2c4"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#ae85fe8c7d406e9e9e5690838bf26a2c4">hmi::ArenaSceneRenderer::ensureResources</a></div><div class="ttdeci">bool ensureResources(QRhi *rhi)</div><div class="ttdoc">Garantit que les ressources existent sur rhi.</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:132</div></div>
 <div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_aec6d88d49c765f99720f4595c9f50ffb"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#aec6d88d49c765f99720f4595c9f50ffb">hmi::ArenaSceneRenderer::ArenaSceneRenderer</a></div><div class="ttdeci">ArenaSceneRenderer(const ArenaSceneRenderer &amp;)=delete</div></div>
-<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_af609d92a5a1af3018846643e3cf8d3f6"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#af609d92a5a1af3018846643e3cf8d3f6">hmi::ArenaSceneRenderer::setSnapshot</a></div><div class="ttdeci">void setSnapshot(ArenaSceneSnapshot snapshot)</div><div class="ttdoc">Remplace la scène à dessiner.</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:219</div></div>
+<div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_af609d92a5a1af3018846643e3cf8d3f6"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#af609d92a5a1af3018846643e3cf8d3f6">hmi::ArenaSceneRenderer::setSnapshot</a></div><div class="ttdeci">void setSnapshot(ArenaSceneSnapshot snapshot)</div><div class="ttdoc">Remplace la scène à dessiner.</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:230</div></div>
 <div class="ttc" id="aclasshmi_1_1ArenaSceneRenderer_html_af8355dd72e7a89c831316a04ec71176e"><div class="ttname"><a href="classhmi_1_1ArenaSceneRenderer.html#af8355dd72e7a89c831316a04ec71176e">hmi::ArenaSceneRenderer::_loaded</a></div><div class="ttdeci">std::vector&lt; LoadedTexture &gt; _loaded</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.h:194</div></div>
 <div class="ttc" id="aclasshmi_1_1Camera2D_html"><div class="ttname"><a href="classhmi_1_1Camera2D.html">hmi::Camera2D</a></div><div class="ttdoc">Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu.</div><div class="ttdef"><b>Definition</b> Camera2D.h:27</div></div>
 <div class="ttc" id="aclasshmi_1_1ComposedScene_html"><div class="ttname"><a href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></div><div class="ttdoc">Liste ordonnée des primitives d&#39;une image, indépendante de Direct3D.</div><div class="ttdef"><b>Definition</b> ComposedScene.h:119</div></div>
 <div class="ttc" id="aclasshmi_1_1SceneResources_html"><div class="ttname"><a href="classhmi_1_1SceneResources.html">hmi::SceneResources</a></div><div class="ttdoc">Lot de sprites, atlas et registre de textures — créés ensemble, libérés ensemble, dans le bon ordre.</div><div class="ttdef"><b>Definition</b> SceneResources.h:44</div></div>
 <div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
-<div class="ttc" id="anamespacehmi_html_a2d572b49065ad901c6e2704b8d515c78"><div class="ttname"><a href="namespacehmi.html#a2d572b49065ad901c6e2704b8d515c78">hmi::arenaCamera</a></div><div class="ttdeci">Camera2D arenaCamera(const core::IsoProjection &amp;projection, int pixelWidth, int pixelHeight)</div><div class="ttdoc">Le cadrage du Colisée : la scène entière, centrée, dans une surface de pixelWidth × pixelHeight pixel...</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:32</div></div>
+<div class="ttc" id="anamespacehmi_html_a2d572b49065ad901c6e2704b8d515c78"><div class="ttname"><a href="namespacehmi.html#a2d572b49065ad901c6e2704b8d515c78">hmi::arenaCamera</a></div><div class="ttdeci">Camera2D arenaCamera(const core::IsoProjection &amp;projection, int pixelWidth, int pixelHeight)</div><div class="ttdoc">Le cadrage du Colisée : la scène entière, centrée, dans une surface de pixelWidth × pixelHeight pixel...</div><div class="ttdef"><b>Definition</b> ArenaSceneRenderer.cpp:34</div></div>
 <div class="ttc" id="astructcore_1_1GridPosition_html"><div class="ttname"><a href="structcore_1_1GridPosition.html">core::GridPosition</a></div><div class="ttdoc">Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.</div><div class="ttdef"><b>Definition</b> GridPosition.h:20</div></div>
 <div class="ttc" id="astructhmi_1_1ArenaSceneSnapshot_html"><div class="ttname"><a href="structhmi_1_1ArenaSceneSnapshot.html">hmi::ArenaSceneSnapshot</a></div><div class="ttdoc">La scène de combat en valeurs : ce que la composition lit, et rien d&#39;autre.</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.h:187</div></div>
 <div class="ttc" id="astructhmi_1_1ArenaSceneTextures_html"><div class="ttname"><a href="structhmi_1_1ArenaSceneTextures.html">hmi::ArenaSceneTextures</a></div><div class="ttdoc">Les textures du Colisée, adressées par leur chemin relatif à Source/Elements/Assets/Coliseum/ (&quot;....</div><div class="ttdef"><b>Definition</b> ArenaSceneComposer.h:151</div></div>

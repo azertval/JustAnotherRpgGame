@@ -1,3 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -17,10 +29,44 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="guide.html">Guide</a>
+    <a href="specifications.html">Spécifications</a>
+    <a href="lots.html">Lots</a>
+    <a href="cahiertest.html">Cahier de test</a>
+    <a href="manuel.html">Manuel</a>
+    <a href="annotated.html">Classes</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="index.html">Documentation</a>
+    <a href="planning/index.html">Planification</a>
+    <a href="qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
@@ -30,6 +76,18 @@
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -42,15 +100,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','Search',true);
-  $(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -154,17 +203,17 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ce qui dessine le Colisée : ressources GPU, textures de la planche, animation des figurines, et la passe qui soumet la scène composée. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1214"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1083"></a>
 Pourquoi pas directement dans l'item Qt Quick</h2>
 <p><span class="tt"><a class="el" href="classhmi_1_1ArenaViewportItem.html" title="Surface QRhi de la scène de combat du Colisée : la grille, l&#39;enceinte et les figurines,...">hmi::ArenaViewportItem</a></span> n'est qu'un hôte : un <span class="tt">QQuickRhiItemRenderer</span> ne s'exécute que dans une fenêtre Qt Quick, et ses accesseurs (<span class="tt"><a class="el" href="#a0aa7fd703d2d54de7b460083dca8df41">rhi()</a></span>, <span class="tt">renderTarget()</span>) n'existent pas hors d'elle. Tout ce qui peut casser — l'ordre de création, l'ordre de libération, la recréation sur une autre interface QRhi — vit donc ici, où un test hors écran le fait tourner sur un vrai <span class="tt">QRhi</span> Direct3D 11 sans fenêtre (<span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">test_arena_scene_renderer.cpp</a></span>). L'item se contente de relayer ses trois appels.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1215"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1084"></a>
 Les trois temps, et les deux fils</h2>
 <ol type="1">
 <li><span class="tt">ensureResources(rhi)</span> — <b>fil de rendu</b>, depuis <span class="tt">initialize()</span>. Crée les ressources si elles n'existent pas, ou les <b>libère puis recrée</b> si l'interface QRhi a changé (fenêtre changée, graphe de scène reconstruit) : une ressource de l'ancienne interface ne doit plus servir.</li>
 <li><span class="tt">setSnapshot(snapshot)</span> — depuis <span class="tt">synchronize()</span>, <b>fil graphique bloqué</b>. Reçoit la scène <b>en valeurs</b> (<span class="tt"><a class="el" href="structhmi_1_1ArenaSceneSnapshot.html" title="La scène de combat en valeurs : ce que la composition lit, et rien d&#39;autre.">hmi::ArenaSceneSnapshot</a></span>) : aucun pointeur vers la session ne franchit la frontière entre les fils.</li>
 <li><span class="tt">render(...)</span> — <b>fil de rendu</b>. Avance l'animation, compose, trie, soumet.</li>
 </ol>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1216"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1085"></a>
 L'ordre de libération</h2>
 <p>Les textures de la planche et le damier meurent <b>avant</b> <span class="tt"><a class="el" href="classhmi_1_1SceneResources.html" title="Lot de sprites, atlas et registre de textures — créés ensemble, libérés ensemble, dans le bon ordre.">hmi::SceneResources</a></span>, qui libère ensuite sa propre grappe dans l'ordre qu'elle fixe (le lot de sprites, qui porte le pipeline, en dernier). Le lot de téléversements de création, s'il n'a jamais été soumis, est rendu à QRhi. Le destructeur fait la même chose : le renderer de Qt Quick est détruit sur le fil de rendu, son <span class="tt">QRhi</span> encore vivant. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>

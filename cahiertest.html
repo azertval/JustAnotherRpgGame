@@ -1,3 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -17,10 +29,44 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="guide.html">Guide</a>
+    <a href="specifications.html">Spécifications</a>
+    <a href="lots.html">Lots</a>
+    <a href="cahiertest.html">Cahier de test</a>
+    <a href="manuel.html">Manuel</a>
+    <a href="annotated.html">Classes</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="index.html">Documentation</a>
+    <a href="planning/index.html">Planification</a>
+    <a href="qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
@@ -30,6 +76,18 @@
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -42,15 +100,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','Search',true);
-  $(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -93,9 +142,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>913 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>900 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (910)</h1>
+Tests unitaires (897)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -207,7 +256,7 @@ Vérifie que <span class="tt">core::combatantsInArea(combat, boule)</span> vaut 
 Vérifie que <span class="tt">entrees</span> vaut <span class="tt">attendu</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaTest.LaPremiereCarteSeChargeEtAccueilleLesDeuxCamps</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__arena_8cpp.html" title="Tests unitaires du Colisée (LOT-50) : points d&#39;entrée, catalogues, montage, attaques et attaque d&#39;opp...">Source/Test/Unit/Core/Combat/test_arena.cpp</a>:185</span></sub>  </td><td class="markdownTableBodyNone">La premiere carte de Source/Elements/Levels se charge et accueille les deux camps ; les arenes et les huit Marques Heroiques se chargent.  </td><td class="markdownTableBodyNone">1. Charger le catalogue des arenes livre et les Marques Heroiques.<br  />
+<sub><span class="tt"><a class="el" href="test__arena_8cpp.html" title="Tests unitaires du Colisée (LOT-50) : points d&#39;entrée, catalogues, montage, attaques et attaque d&#39;opp...">Source/Test/Unit/Core/Combat/test_arena.cpp</a>:185</span></sub>  </td><td class="markdownTableBodyNone">La carte que nomme la premiere arene jouable se charge et accueille les deux camps ; les arenes et les huit Marques Heroiques se chargent.  </td><td class="markdownTableBodyNone">1. Charger le catalogue des arenes d'essai et les Marques Heroiques.<br  />
 2. Charger la carte que la premiere arene nomme.<br  />
 3. Lire ses points d'entree et verifier qu'aucun n'est dans un mur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">arenes.errors.empty()</span> est vrai.<br  />
 Vérifie que <span class="tt">marques.errors.empty()</span> est vrai.<br  />
@@ -3295,13 +3344,13 @@ Vérifie que <span class="tt">peints</span> vaut <span class="tt">static_cast&lt
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>ScenePieceManifestTest.LeManifesteDeMartpartSeLit</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__scene__piece__manifest_8cpp.html" title="Le manifeste des pièces d&#39;un lieu, lu dans Core (LOT-EDITOR-02, constat A9).">Source/Test/Unit/Core/Resources/test_scene_piece_manifest.cpp</a>:29</span></sub>  </td><td class="markdownTableBodyNone">Le manifeste des pieces de Martpart se lit dans Core.  </td><td class="markdownTableBodyNone">1. Lire <span class="tt">Assets/Scene/martpart/manifest.json</span>.<br  />
+<td class="markdownTableBodyNone"><b>ScenePieceManifestTest.LeManifesteDUnLieuSeLit</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__scene__piece__manifest_8cpp.html" title="Le manifeste des pièces d&#39;un lieu, lu dans Core (LOT-EDITOR-02, constat A9).">Source/Test/Unit/Core/Resources/test_scene_piece_manifest.cpp</a>:29</span></sub>  </td><td class="markdownTableBodyNone">Le manifeste des pieces d'un lieu se lit dans Core.  </td><td class="markdownTableBodyNone">1. Lire le manifeste du lieu d'essai.<br  />
  2. Chercher une piece de sol, une piece large et son miroir.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">read.ok()</span> est vrai.<br  />
-Vérifie que <span class="tt">manifest.place()</span> vaut <span class="tt">"martpart"</span>.<br  />
+Vérifie que <span class="tt">manifest.place()</span> vaut <span class="tt">"bourg"</span>.<br  />
 Vérifie que <span class="tt">manifest.pieces().empty()</span> est faux.<br  />
 Vérifie que <span class="tt">street</span> diffère de <span class="tt">nullptr</span>.<br  />
-Vérifie que <span class="tt">street-&gt;key</span> vaut <span class="tt">"scene/martpart/street"</span>.<br  />
+Vérifie que <span class="tt">street-&gt;key</span> vaut <span class="tt">"scene/bourg/street"</span>.<br  />
 Vérifie que <span class="tt">street-&gt;file</span> vaut <span class="tt">"street.png"</span>.<br  />
 Vérifie que <span class="tt">street-&gt;pieceClass</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461af3f6d0343d56ce88ce7958170ed05cb3" title="Un losange de sol, posé à plat.">core::ScenePieceClass::Floor</a></span>.<br  />
 Vérifie que <span class="tt">street-&gt;footprintColumns</span> vaut <span class="tt">1</span>.<br  />
@@ -3319,8 +3368,8 @@ Vérifie que <span class="tt">front-&gt;mirrorOf</span> vaut <span class="tt">"f
 Vérifie que <span class="tt">manifest.find(front-&gt;mirrorOf)</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">manifest.find("piece-inconnue")</span> vaut <span class="tt">nullptr</span>.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>ScenePieceManifestTest.ChaquePieceLivreeASonImage</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__scene__piece__manifest_8cpp.html" title="Le manifeste des pièces d&#39;un lieu, lu dans Core (LOT-EDITOR-02, constat A9).">Source/Test/Unit/Core/Resources/test_scene_piece_manifest.cpp</a>:73</span></sub>  </td><td class="markdownTableBodyNone">Toute piece declaree par un lieu livre a son image.  </td><td class="markdownTableBodyNone">1. Lire les manifestes du Colisee et de Martpart.<br  />
+<td class="markdownTableBodyNone"><b>ScenePieceManifestTest.ChaquePieceDeclareeASonImage</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__scene__piece__manifest_8cpp.html" title="Le manifeste des pièces d&#39;un lieu, lu dans Core (LOT-EDITOR-02, constat A9).">Source/Test/Unit/Core/Resources/test_scene_piece_manifest.cpp</a>:73</span></sub>  </td><td class="markdownTableBodyNone">Toute piece declaree par un lieu a son image.  </td><td class="markdownTableBodyNone">1. Lire les manifestes des deux lieux d'essai.<br  />
  2. Chercher le fichier de chaque piece dans le dossier du lieu.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">read.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">std::filesystem::is_regular_file(sceneDirectory(place) / piece.file)</span> est vrai.<br  />
 Vérifie que <span class="tt">piece.footprintColumns</span> est supérieur ou égal à <span class="tt">1</span>.<br  />
@@ -4121,7 +4170,7 @@ Vérifie que <span class="tt">timestep.advance(0.0f)</span> vaut <span class="tt
 Vérifie que <span class="tt">timestep.advance(STEP)</span> vaut <span class="tt">1</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
-World (66)</h3>
+World (53)</h3>
 <p><b><span class="tt"><a class="el" href="test__atlas_8cpp.html" title="Tests de l&#39;atlas des régions (LOT-37) : les treize régions chargent, le graphe tient,...">test_atlas.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4218,72 +4267,6 @@ Vérifie que <span class="tt">part.species.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">somme</span> est supérieur ou égal à <span class="tt">97</span>.<br  />
 Vérifie que <span class="tt">somme</span> est inférieur ou égal à <span class="tt">103</span>.  </td></tr>
 </table>
-<p><b><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">test_capital_maps.cpp</a></span></b></p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>CapitalMapTest.LaCarteLivreeSeCharge</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:150</span></sub>  </td><td class="markdownTableBodyNone">Chaque quartier livre se charge a sa taille, avec son lieu et une camera qui suit.  </td><td class="markdownTableBodyNone">1. Charger <span class="tt">Source/Elements/Levels/capital/&lt;quartier&gt;.json</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">carte.name()</span> vaut <span class="tt">quartier.cleDuNom</span>.<br  />
-Vérifie que <span class="tt">carte.tileMap().width()</span> vaut <span class="tt">quartier.largeur</span>.<br  />
-Vérifie que <span class="tt">carte.tileMap().height()</span> vaut <span class="tt">quartier.hauteur</span>.<br  />
-Vérifie que <span class="tt">hmi::scenePlaceOf(carte)</span> vaut <span class="tt">quartier.lieu</span>.<br  />
-Vérifie que <span class="tt">entreeDe(carte).column</span> diffère de <span class="tt">-1</span>.<br  />
-Vérifie que <span class="tt"><a class="el" href="namespacecore.html#aff87ea49873961eace1706efc69c8a49" title="Relève ce qu&#39;une carte lue porte de fautif et que le graphe ne peut pas voir.">core::validateWorldMap</a>(quartier.carte, carte).empty()</span> est vrai.  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>CapitalMapTest.ChaquePieceNommeeExisteSurLaPlanche</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:173</span></sub>  </td><td class="markdownTableBodyNone">Toute piece qu'un quartier demande existe dans Assets/Scene/\&lt;lieu\&gt;/.  </td><td class="markdownTableBodyNone">1. Tirer l'instantane du quartier avec la table d'apparence livree.<br  />
- 2. Verifier que chaque chemin de texture demande existe sur le disque.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">chemins.size()</span> est strictement supérieur à <span class="tt">10U</span>.<br  />
-Vérifie que <span class="tt">std::filesystem::exists(ASSETS / chemin)</span> est vrai.  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>CapitalMapTest.ToutLeQuartierSeParcourtDepuisSonEntree</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:194</span></sub>  </td><td class="markdownTableBodyNone">Chaque case franchissable d'un quartier est atteinte depuis son entree, et porte un sol.  </td><td class="markdownTableBodyNone">1. Remplir la carte depuis la tuile d'entree, en ne passant que par le franchissable.<br  />
- 2. Comparer aux cases franchissables de la carte.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">vues.contains({colonne, ligne})</span> est vrai.<br  />
-Vérifie que <span class="tt">instantane.floorAt({colonne, ligne}).empty()</span> est faux.  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>CapitalMapTest.ChaquePointDArriveeEstFranchissable</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:229</span></sub>  </td><td class="markdownTableBodyNone">Aucun point d'arrivee d'un quartier n'est dans un mur.  </td><td class="markdownTableBodyNone">1. Relever les entites <span class="tt">spawnPoint</span> de chaque quartier.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">carte.tileMap().isSolid(entite.position.column, entite.position.row)</span> est faux.<br  />
-Vérifie que <span class="tt">points</span> est strictement supérieur à <span class="tt">0</span>.  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>CapitalMapTest.LesIlotsSontDansLaCarteEtNommes</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:255</span></sub>  </td><td class="markdownTableBodyNone">Les ilots d'un quartier sont dans sa carte, et nommes en francais et en anglais.  </td><td class="markdownTableBodyNone">1. Lire les ilots de chaque quartier.<br  />
- 2. Chercher <span class="tt">city_block.&lt;nom&gt;</span> dans <span class="tt">fr.lang</span> et <span class="tt">en.lang</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">ilots.size()</span> est supérieur ou égal à <span class="tt">3U</span>.<br  />
-Vérifie que <span class="tt">ilot.origin.column</span> est supérieur ou égal à <span class="tt">0</span>.<br  />
-Vérifie que <span class="tt">ilot.origin.row</span> est supérieur ou égal à <span class="tt">0</span>.<br  />
-Vérifie que <span class="tt">ilot.origin.column + ilot.columns</span> est inférieur ou égal à <span class="tt">carte.tileMap().width()</span>.<br  />
-Vérifie que <span class="tt">ilot.origin.row + ilot.rows</span> est inférieur ou égal à <span class="tt">carte.tileMap().height()</span>.<br  />
-Vérifie que <span class="tt">francais.find(cle)</span> diffère de <span class="tt">std::string::npos</span>.<br  />
-Vérifie que <span class="tt">anglais.find(cle)</span> diffère de <span class="tt">std::string::npos</span>.<br  />
-Vérifie que <span class="tt">std::ranges::any_of( ilots, [entree](const <a class="el" href="structcore_1_1CityBlock.html" title="Un îlot : un nom, et un rectangle de cases.">core::CityBlock</a>&amp; ilot) { return ilot.contains(entree); })</span> est vrai.  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>CapitalTravelTest.MartpartArenareaMartpartRameneALaBonneCase</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:296</span></sub>  </td><td class="markdownTableBodyNone">L'avenue se parcourt aller et retour, par points d'arrivee nommes, et la carte quittee est conservee.  </td><td class="markdownTableBodyNone">1. Entrer a Martpart par le chargeur du jeu, sur le dossier des niveaux livre.<br  />
- 2. Franchir le portail vers Arenarea, puis celui du retour.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">voyage.enter("capital/martpart", "")</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69" title="Le personnage est sur la carte demandée, à son point d&#39;arrivée.">core::TravelResult::Moved</a></span>.<br  />
-Vérifie que <span class="tt">martpart</span> diffère de <span class="tt">nullptr</span>.<br  />
-Vérifie que <span class="tt">aller.column</span> diffère de <span class="tt">-1</span>.<br  />
-Vérifie que <span class="tt">voyage.cross(aller, drapeaux)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69" title="Le personnage est sur la carte demandée, à son point d&#39;arrivée.">core::TravelResult::Moved</a></span>.<br  />
-Vérifie que <span class="tt">voyage.currentMapId()</span> vaut <span class="tt">"capital/arenarea"</span>.<br  />
-Vérifie que <span class="tt">arenarea</span> diffère de <span class="tt">nullptr</span>.<br  />
-Vérifie que <span class="tt">voyage.position()</span> vaut <span class="tt"><a class="el" href="namespacecore.html#ac14b74fcacf52610f218bb5dba010762">core::arrivalPointAt</a>(*arenarea, "martpart")</span>.<br  />
-Vérifie que <span class="tt">retour.column</span> diffère de <span class="tt">-1</span>.<br  />
-Vérifie que <span class="tt">voyage.cross(retour, drapeaux)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69" title="Le personnage est sur la carte demandée, à son point d&#39;arrivée.">core::TravelResult::Moved</a></span>.<br  />
-Vérifie que <span class="tt">voyage.currentMapId()</span> vaut <span class="tt">"capital/martpart"</span>.<br  />
-Vérifie que <span class="tt">voyage.position()</span> vaut <span class="tt"><a class="el" href="namespacecore.html#ac14b74fcacf52610f218bb5dba010762">core::arrivalPointAt</a>(*martpart, "arenarea")</span>.<br  />
-Vérifie que <span class="tt">voyage.currentMap()</span> vaut <span class="tt">martpart</span>.<br  />
-Vérifie que <span class="tt">voyage.loadedMapCount()</span> vaut <span class="tt">2U</span>.  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>CapitalGuardTest.ChaqueQuartierFermeASaSentinelle</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__capital__maps_8cpp.html" title="Les cartes des quartiers de la Capitale, telles qu&#39;elles sont LIVREES (LOT-96) : elles se chargent,...">Source/Test/Unit/Core/World/test_capital_maps.cpp</a>:334</span></sub>  </td><td class="markdownTableBodyNone">Les dix portes gardees ont chacune leur sentinelle Ironhand, qui ouvre un dialogue du catalogue.  </td><td class="markdownTableBodyNone">1. Lire la Capitale livree et le catalogue des dialogues.<br  />
- 2. Pour chaque quartier ferme, relever les PNJ de sa carte de garde qui le gardent.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">ville.ok()</span> est vrai.<br  />
-Vérifie que <span class="tt">lu.ok()</span> est vrai.<br  />
-Vérifie que <span class="tt">dialogues.find(dialogue)</span> diffère de <span class="tt">nullptr</span>.<br  />
-Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1c839cebf18adf167ae9ac5452d179b6" title="La clé du marqueur d&#39;une figurine qui n&#39;a pas d&#39;image (LOT-39, LOT-96).">hmi::figureMarkerKey</a>( <a class="el" href="namespacehmi.html#ab7381540071701283f2f87b282a68eb5" title="Le chemin d&#39;une bande de figurine, relatif au dossier des assets.">hmi::figureStripPath</a>(texteDe(entite, core::NPC_FIGURE_PROPERTY), "idle")) .empty()</span> est faux.<br  />
-Vérifie que <span class="tt">position.column == 0 \|\| position.row == 0 \|\| position.column == grille.width() - 1 \|\| position.row == grille.height() - 1</span> est vrai.<br  />
-Vérifie que <span class="tt">grille.isSolid(position.column, position.row)</span> est faux.<br  />
-Vérifie que <span class="tt">sentinelles</span> vaut <span class="tt">0</span>.<br  />
-Vérifie que <span class="tt">sentinelles</span> vaut <span class="tt">1</span>.<br  />
-Vérifie que <span class="tt">fermes</span> vaut <span class="tt">10</span>.  </td></tr>
-</table>
 <p><b><span class="tt"><a class="el" href="test__city__block_8cpp.html" title="Les ilots d&#39;un quartier, lus sur sa carte (LOT-96).">test_city_block.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4306,18 +4289,18 @@ Vérifie que <span class="tt">ilots[0].contains({2, 7})</span> est faux.  </td><
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>CityPlanTest.LaCapitaleLivreeSeLit</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__city__plan_8cpp.html" title="Le graphe d&#39;une ville jouable (LOT-96) : la lecture, ses refus, et la Capitale livree.">Source/Test/Unit/Core/World/test_city_plan.cpp</a>:51</span></sub>  </td><td class="markdownTableBodyNone">La Capitale livree se lit, et sa porte de depart s'ouvre.  </td><td class="markdownTableBodyNone">1. Lire <span class="tt">Source/Elements/World/cities/capital.json</span>.<br  />
+<td class="markdownTableBodyNone"><b>CityPlanTest.UneVilleSeLit</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__city__plan_8cpp.html" title="Le graphe d&#39;une ville jouable (LOT-96) : la lecture, ses refus, et la Capitale livree.">Source/Test/Unit/Core/World/test_city_plan.cpp</a>:51</span></sub>  </td><td class="markdownTableBodyNone">Une ville se lit, et sa porte de depart s'ouvre.  </td><td class="markdownTableBodyNone">1. Lire la ville de la racine d'essai.<br  />
  2. Entrer a sa porte de depart par le chargeur du jeu.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lue.ok()</span> est vrai.<br  />
-Vérifie que <span class="tt">capitale.location</span> vaut <span class="tt">"central-empire-the-capital-city"</span>.<br  />
-Vérifie que <span class="tt">capitale.districts.size()</span> vaut <span class="tt">12U</span>.<br  />
+Vérifie que <span class="tt">capitale.location</span> vaut <span class="tt">"test-city"</span>.<br  />
+Vérifie que <span class="tt">capitale.districts.size()</span> vaut <span class="tt">6U</span>.<br  />
 Vérifie que <span class="tt">cartes</span> vaut <span class="tt">2</span>.<br  />
-Vérifie que <span class="tt">gardees</span> vaut <span class="tt">10</span>.<br  />
-Vérifie que <span class="tt">capitale.startMap()</span> vaut <span class="tt">"capital/martpart"</span>.<br  />
+Vérifie que <span class="tt">gardees</span> vaut <span class="tt">4</span>.<br  />
+Vérifie que <span class="tt">capitale.startMap()</span> vaut <span class="tt">"bourg/place"</span>.<br  />
 Vérifie que <span class="tt">capitale.startArrival</span> vaut <span class="tt">"porte-est"</span>.<br  />
-Vérifie que <span class="tt">arenarea</span> diffère de <span class="tt">nullptr</span>.<br  />
-Vérifie que <span class="tt">arenarea-&gt;id</span> vaut <span class="tt">"central-empire-the-capital-city-arenarea"</span>.<br  />
-Vérifie que <span class="tt">capitale.districtOfMap("coliseum")</span> vaut <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">cave</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">cave-&gt;id</span> vaut <span class="tt">"test-city-cave"</span>.<br  />
+Vérifie que <span class="tt">capitale.districtOfMap("donjon")</span> vaut <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">voyage.enter(capitale.startMap(), capitale.startArrival)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69" title="Le personnage est sur la carte demandée, à son point d&#39;arrivée.">core::TravelResult::Moved</a></span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>CityPlanFileTest.UnQuartierDoitAvoirSoitUneCarteSoitUnePorteGardee</b> (Majeur)<br  />
@@ -4332,56 +4315,6 @@ Vérifie que <span class="tt">aucun.error.find("« b »")</span> diffère de <sp
 Vérifie que <span class="tt">ferme.plan.startMap().empty()</span> est vrai.<br  />
 <span class="tt">EXPECT_NO_THROW(absent = <a class="el" href="namespacecore.html#aaecd848d6b8b1fee4c49ef3e9dcb36c3" title="Lit une ville jouable.">core::loadCityPlan</a>(dir / "inexistant.json"))</span><br  />
 Vérifie que <span class="tt">absent.ok()</span> est faux.  </td></tr>
-</table>
-<p><b><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">test_coliseum_map.cpp</a></span></b></p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>ColiseumMapTest.LaCarteLivreeSeCharge</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:64</span></sub>  </td><td class="markdownTableBodyNone">coliseum.json se charge : 40 x 34 cases, un sol, un relief, et un lieu nomme.  </td><td class="markdownTableBodyNone">1. Charger <span class="tt">Source/Elements/Levels/coliseum.json</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">carte.name()</span> vaut <span class="tt">"map.coliseum.name"</span>.<br  />
-Vérifie que <span class="tt">carte.tileMap().width()</span> vaut <span class="tt">40</span>.<br  />
-Vérifie que <span class="tt">carte.tileMap().height()</span> vaut <span class="tt">34</span>.<br  />
-Vérifie que <span class="tt">hmi::scenePlaceOf(carte)</span> vaut <span class="tt">"coliseum"</span>.<br  />
-Vérifie que <span class="tt">sol</span> est vrai.<br  />
-Vérifie que <span class="tt">relief</span> est vrai.<br  />
-Vérifie que <span class="tt">carte.tileMap().isSolid(colonne, ligne)</span> est faux.  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>ColiseumMapTest.LeGrapheLivreNePorteAucunDefaut</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:102</span></sub>  </td><td class="markdownTableBodyNone">Aucun portail orphelin, aucun point d'arrivee en double dans les cartes livrees.  </td><td class="markdownTableBodyNone">1. Lire le graphe du dossier des niveaux livre.<br  />
- 2. Le valider, puis valider la carte du Colisee elle-meme.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacecore.html#aff87ea49873961eace1706efc69c8a49" title="Relève ce qu&#39;une carte lue porte de fautif et que le graphe ne peut pas voir.">core::validateWorldMap</a>("coliseum", colisee()).empty()</span> est vrai.<br  />
-Vérifie que <span class="tt">noeud</span> diffère de <span class="tt">nullptr</span>.<br  />
-Vérifie que <span class="tt">noeud-&gt;arrivalPoints</span> vaut <span class="tt">(std::vector&lt;std::string&gt;{"porte", "sable"})</span>.  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>ColiseumMapTest.ChaquePnjNommeUnDialogueEtUneFigurineQuiExistent</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:130</span></sub>  </td><td class="markdownTableBodyNone">Les cinq PNJ du Colisee ont un dialogue du catalogue et une figurine de l'atelier.  </td><td class="markdownTableBodyNone">1. Relever les entites <span class="tt">npc</span> de la carte.<br  />
- 2. Verifier chaque dialogue contre le catalogue, chaque figurine contre <span class="tt">Assets/Npc/</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalogue.errors.empty()</span> est vrai.<br  />
-Vérifie que <span class="tt">catalogue.find(dialogue)</span> diffère de <span class="tt">nullptr</span>.<br  />
-Vérifie que <span class="tt">figurine.empty()</span> est faux.<br  />
-Vérifie que <span class="tt">std::filesystem::exists(ASSETS / "Npc" / figurine / "idle.png")</span> est vrai.<br  />
-Vérifie que <span class="tt">carte.tileMap().isSolid(entite.position.column, entite.position.row)</span> est faux.<br  />
-Vérifie que <span class="tt">pnj</span> vaut <span class="tt">5</span>.  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>ColiseumMapTest.ChaquePieceNommeeExisteSurLaPlanche</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:164</span></sub>  </td><td class="markdownTableBodyNone">Toute piece assignee a une case existe dans Assets/Scene/coliseum/.  </td><td class="markdownTableBodyNone">1. Tirer l'instantane du Colisee avec la table d'apparence livree.<br  />
- 2. Verifier que chaque chemin de texture qu'il demande existe sur le disque.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">table.ok()</span> est vrai.<br  />
-Vérifie que <span class="tt">table.appearance.place()</span> vaut <span class="tt">"coliseum"</span>.<br  />
-Vérifie que <span class="tt">chemins.size()</span> est strictement supérieur à <span class="tt">20U</span>.<br  />
-Vérifie que <span class="tt">std::filesystem::exists(ASSETS / chemin)</span> est vrai.  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>ColiseumMapTest.ToutLeColiseeSeParcourtDepuisSaPorte</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:191</span></sub>  </td><td class="markdownTableBodyNone">Depuis la porte, on atteint le sable, les deux vestiaires, les tribunes et la loge.  </td><td class="markdownTableBodyNone">1. Remplir la carte depuis la case d'entree, en ne passant que par le franchissable.<br  />
- 2. Verifier qu'une case de chaque lieu est atteinte, et qu'aucune case atteinte n'est hors du batiment.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">vues.contains({colonne, ligne})</span> est vrai.<br  />
-Vérifie que <span class="tt">table.ok()</span> est vrai.<br  />
-Vérifie que <span class="tt">instantane.floorAt({colonne, ligne}).empty()</span> est faux.  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>ColiseumMapTest.LesPointsDEntreeDesDeuxCampsSontDansLeSable</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__coliseum__map_8cpp.html" title="La carte du Colisee, telle qu&#39;elle est LIVREE (LOT-09) : elle se charge, elle se tient,...">Source/Test/Unit/Core/World/test_coliseum_map.cpp</a>:252</span></sub>  </td><td class="markdownTableBodyNone">Les huit points d'entree d'arene sont sur le sable, quatre par camp.  </td><td class="markdownTableBodyNone">1. Relever les entites <span class="tt">arenaEntry</span> de la carte.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">entite.position.column</span> est supérieur ou égal à <span class="tt">10</span>.<br  />
-Vérifie que <span class="tt">entite.position.column</span> est inférieur ou égal à <span class="tt">29</span>.<br  />
-Vérifie que <span class="tt">entite.position.row</span> est supérieur ou égal à <span class="tt">10</span>.<br  />
-Vérifie que <span class="tt">entite.position.row</span> est inférieur ou égal à <span class="tt">23</span>.<br  />
-Vérifie que <span class="tt">allies</span> vaut <span class="tt">4</span>.<br  />
-Vérifie que <span class="tt">ennemis</span> vaut <span class="tt">4</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__combat__zone_8cpp.html" title="Tests de la zone de combat (LOT-09) : la session joue sur la zone declaree, et les cases du dehors lu...">test_combat_zone.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -6464,8 +6397,8 @@ Vérifie que <span class="tt">driver.snapshot().frameOf(HERO)</span> vaut <span 
 Vérifie que <span class="tt">driver.snapshot().figures.empty()</span> est vrai.<br  />
 Vérifie que <span class="tt">driver.actionOf(HERO)</span> vaut <span class="tt">ArenaFigureAction::Idle</span>.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>ArenaAnimationDriverTest.PlanchesLivreesValides</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__animation__driver_8cpp.html" title="Tests unitaires du pilote d&#39;animation des figurines du Colisée (Phase 4 du LOT-86) : transition idle ...">Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp</a>:229</span></sub>  </td><td class="markdownTableBodyNone">Les <span class="tt">.anim.json</span> du Colisée sont valides.  </td><td class="markdownTableBodyNone">1. Lire <span class="tt">characters/bram</span> (cinq actions). 2. Lire <span class="tt">enemies/archer</span> (idle seul).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">std::filesystem::exists(characters)</span> est vrai.<br  />
+<td class="markdownTableBodyNone"><b>ArenaAnimationDriverTest.PlanchesDUnKitValides</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__arena__animation__driver_8cpp.html" title="Tests unitaires du pilote d&#39;animation des figurines du Colisée (Phase 4 du LOT-86) : transition idle ...">Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp</a>:229</span></sub>  </td><td class="markdownTableBodyNone">Les <span class="tt">.anim.json</span> d'un kit d'arène sont valides.  </td><td class="markdownTableBodyNone">1. Lire un héros (cinq actions). 2. Lire un gladiateur au repos seul.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">std::filesystem::exists(characters)</span> est vrai.<br  />
 Vérifie que <span class="tt">hero.errors.empty()</span> est vrai.<br  />
 Vérifie que <span class="tt">hero.clips.idle</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">hero.clips.walk</span> diffère de <span class="tt">nullptr</span>.<br  />
@@ -6473,11 +6406,11 @@ Vérifie que <span class="tt">hero.clips.attack</span> diffère de <span class="
 Vérifie que <span class="tt">hero.clips.hit</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">hero.clips.death</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">std::filesystem::exists(enemy)</span> est vrai.<br  />
-Vérifie que <span class="tt">archer.errors.empty()</span> est vrai.<br  />
-Vérifie que <span class="tt">archer.clips.idle</span> diffère de <span class="tt">nullptr</span>.<br  />
-Vérifie que <span class="tt">archer.clips.attack</span> vaut <span class="tt">nullptr</span>.<br  />
-Vérifie que <span class="tt">archer.clips.hit</span> vaut <span class="tt">nullptr</span>.<br  />
-Vérifie que <span class="tt">archer.clips.death</span> vaut <span class="tt">nullptr</span>.  </td></tr>
+Vérifie que <span class="tt">tireur.errors.empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">tireur.clips.idle</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">tireur.clips.attack</span> vaut <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">tireur.clips.hit</span> vaut <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">tireur.clips.death</span> vaut <span class="tt">nullptr</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">test_arena_appearance_catalog.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -6485,39 +6418,39 @@ Vérifie que <span class="tt">archer.clips.death</span> vaut <span class="tt">nu
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaAppearanceCatalogTest.LectureDeReference</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:44</span></sub>  </td><td class="markdownTableBodyNone">Le catalogue de reference se lit sans erreur.  </td><td class="markdownTableBodyNone">1. Lire REFERENCE_JSON.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog.heroes().size()</span> vaut <span class="tt">4U</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:45</span></sub>  </td><td class="markdownTableBodyNone">Le catalogue de reference se lit sans erreur.  </td><td class="markdownTableBodyNone">1. Lire REFERENCE_JSON.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog.heroes().size()</span> vaut <span class="tt">4U</span>.<br  />
 Vérifie que <span class="tt">catalog.gladiators().size()</span> vaut <span class="tt">4U</span>.<br  />
 Vérifie que <span class="tt">catalog.paleSlabs().size()</span> vaut <span class="tt">10U</span>.<br  />
 Vérifie que <span class="tt">catalog.heroFrames()</span> vaut <span class="tt">5</span>.<br  />
 Vérifie que <span class="tt">catalog.enemyFrames()</span> vaut <span class="tt">8</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaAppearanceCatalogTest.ChampsInvalidesRefuses</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:62</span></sub>  </td><td class="markdownTableBodyNone">Un catalogue dont un champ obligatoire manque, est vide ou mal type est refuse.  </td><td class="markdownTableBodyNone">1. Lire des variantes du JSON de reference, chacune avec un defaut.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:63</span></sub>  </td><td class="markdownTableBodyNone">Un catalogue dont un champ obligatoire manque, est vide ou mal type est refuse.  </td><td class="markdownTableBodyNone">1. Lire des variantes du JSON de reference, chacune avec un defaut.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
 Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a931e4dfdcb2eb27e505c66bc92291f72aa809debdbe0cae246d363461916d924d">hmi::ArenaAppearanceError::MalformedStructure</a></span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaAppearanceCatalogTest.LesAnglesPortentUneColonne</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:88</span></sub>  </td><td class="markdownTableBodyNone">Sur une grille 10 x 8 murée, les quatre angles portent <span class="tt">WallFeature::Corner</span>.  </td><td class="markdownTableBodyNone">1. Lire le role des quatre coins, wall = vrai.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">role.wall</span> est vrai.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:91</span></sub>  </td><td class="markdownTableBodyNone">Sur une grille 10 x 8 murée, les quatre angles portent <span class="tt">WallFeature::Corner</span>.  </td><td class="markdownTableBodyNone">1. Lire le role des quatre coins, wall = vrai.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">role.wall</span> est vrai.<br  />
 Vérifie que <span class="tt">role.wallFeature</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9da4795fe7ae9a1a208f6f8a3348ae8da45671f70ac97ff86643523f29eb4d3b9">hmi::WallFeature::Corner</a></span>.<br  />
 Vérifie que <span class="tt">role.gateSpot</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaAppearanceCatalogTest.LaBanniereTousLesCinqPas</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:112</span></sub>  </td><td class="markdownTableBodyNone">Sur une grille 10 x 8, la banniere est aux colonnes multiples de 5 des bords haut et bas, hors angle ; les autres cases de ces bords sont un pan de mur ordinaire.  </td><td class="markdownTableBodyNone">1. Lire le role de chaque case murée des lignes 0 et 7.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">role.wallFeature</span> vaut <span class="tt">attendu</span>.  </td></tr>
+<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:115</span></sub>  </td><td class="markdownTableBodyNone">Sur une grille 10 x 8, la banniere est aux colonnes multiples de 5 des bords haut et bas, hors angle ; les autres cases de ces bords sont un pan de mur ordinaire.  </td><td class="markdownTableBodyNone">1. Lire le role de chaque case murée des lignes 0 et 7.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">role.wallFeature</span> vaut <span class="tt">attendu</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaAppearanceCatalogTest.LaTorcheTousLesQuatrePas</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:137</span></sub>  </td><td class="markdownTableBodyNone">Sur une grille 10 x 8, la torche est aux lignes valant 2 modulo 4 des bords gauche et droit, hors angle ; les autres cases de ces bords sont un pan de mur ordinaire.  </td><td class="markdownTableBodyNone">1. Lire le role de chaque case muree des colonnes 0 et 9.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">role.wallFeature</span> vaut <span class="tt">attendu</span>.  </td></tr>
+<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:140</span></sub>  </td><td class="markdownTableBodyNone">Sur une grille 10 x 8, la torche est aux lignes valant 2 modulo 4 des bords gauche et droit, hors angle ; les autres cases de ces bords sont un pan de mur ordinaire.  </td><td class="markdownTableBodyNone">1. Lire le role de chaque case muree des colonnes 0 et 9.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">role.wallFeature</span> vaut <span class="tt">attendu</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaAppearanceCatalogTest.LaPorteEstSurLeBordSeulement</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:162</span></sub>  </td><td class="markdownTableBodyNone">Sur une grille 10 x 8, toute case non muree du bord porte <span class="tt">gateSpot</span>, aucune case interieure ne le porte.  </td><td class="markdownTableBodyNone">1. Lire le role de la case (0, 3) et de la case (4, 4), wall = faux.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bord.gateSpot</span> est vrai.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:165</span></sub>  </td><td class="markdownTableBodyNone">Sur une grille 10 x 8, toute case non muree du bord porte <span class="tt">gateSpot</span>, aucune case interieure ne le porte.  </td><td class="markdownTableBodyNone">1. Lire le role de la case (0, 3) et de la case (4, 4), wall = faux.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bord.gateSpot</span> est vrai.<br  />
 Vérifie que <span class="tt">bord.wall</span> est faux.<br  />
 Vérifie que <span class="tt">interieur.gateSpot</span> est faux.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaAppearanceCatalogTest.LaDalleSuitLaFormuleQml</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:185</span></sub>  </td><td class="markdownTableBodyNone">Le sol d'une case non muree porte une dalle quand <span class="tt">(colonne*3 + ligne*5 + colonne*ligne) % 7 == 0</span>, a l'indice <span class="tt">(colonne*3 + ligne*5) % 10</span>.  </td><td class="markdownTableBodyNone">1. Calculer le role de chaque case interieure d'une grille 10 x 8.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:188</span></sub>  </td><td class="markdownTableBodyNone">Le sol d'une case non muree porte une dalle quand <span class="tt">(colonne*3 + ligne*5 + colonne*ligne) % 7 == 0</span>, a l'indice <span class="tt">(colonne*3 + ligne*5) % 10</span>.  </td><td class="markdownTableBodyNone">1. Calculer le role de chaque case interieure d'une grille 10 x 8.<br  />
 2. Comparer a la formule transcrite de la scene QML.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">role.slab</span> vaut <span class="tt">slabAttendu</span>.<br  />
 Vérifie que <span class="tt">role.slabVariant</span> vaut <span class="tt">(column * 3 + row * 5) % 10</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaAppearanceCatalogTest.LaFigurineEstDeterministeEtDependDuCote</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:215</span></sub>  </td><td class="markdownTableBodyNone">Deux appels avec le meme nom et le meme cote rendent la meme figurine ; un allie choisit parmi les heros, un ennemi parmi les gladiateurs.  </td><td class="markdownTableBodyNone">1. Demander la figurine de « Gorlak » comme allie, puis comme ennemi, deux fois chacune.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">allie1.sheet</span> vaut <span class="tt">allie2.sheet</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:218</span></sub>  </td><td class="markdownTableBodyNone">Deux appels avec le meme nom et le meme cote rendent la meme figurine ; un allie choisit parmi les heros, un ennemi parmi les gladiateurs.  </td><td class="markdownTableBodyNone">1. Demander la figurine de « Gorlak » comme allie, puis comme ennemi, deux fois chacune.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">allie1.sheet</span> vaut <span class="tt">allie2.sheet</span>.<br  />
 Vérifie que <span class="tt">std::find(catalog.heroes().begin(), catalog.heroes().end(), allie1.sheet)</span> diffère de <span class="tt">catalog.heroes().end()</span>.<br  />
 Vérifie que <span class="tt">allie1.frameCount</span> vaut <span class="tt">catalog.heroFrames()</span>.<br  />
 Vérifie que <span class="tt">ennemi1.sheet</span> vaut <span class="tt">ennemi2.sheet</span>.<br  />
@@ -6525,15 +6458,15 @@ Vérifie que <span class="tt">std::find(catalog.gladiators().begin(), catalog.gl
 Vérifie que <span class="tt">ennemi1.frameCount</span> vaut <span class="tt">catalog.enemyFrames()</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaAppearanceCatalogTest.LaFigurineSuitLaFormuleQml</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:245</span></sub>  </td><td class="markdownTableBodyNone">Pour plusieurs noms, l'indice de figurine vaut <span class="tt">(longueur*7 + code du premier caractere) % taille du roster</span>.  </td><td class="markdownTableBodyNone">1. Calculer la figurine attendue pour plusieurs noms.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:248</span></sub>  </td><td class="markdownTableBodyNone">Pour plusieurs noms, l'indice de figurine vaut <span class="tt">(longueur*7 + code du premier caractere) % taille du roster</span>.  </td><td class="markdownTableBodyNone">1. Calculer la figurine attendue pour plusieurs noms.<br  />
 2. Comparer a la formule transcrite de la scene QML.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog.figureFor(nom, core::CombatSide::Allies).sheet</span> vaut <span class="tt">catalog.heroes()[static_cast&lt;std::size_t&gt;(indiceAttendu)]</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaAppearanceCatalogTest.NomVideRendLaPremiereFigurine</b> (Mineur)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:269</span></sub>  </td><td class="markdownTableBodyNone">Un combattant sans nom rend la figurine d'indice 0.  </td><td class="markdownTableBodyNone">1. Demander la figurine d'un nom vide, des deux cotes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog.figureFor("", <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">core::CombatSide::Allies</a>).sheet</span> vaut <span class="tt">catalog.heroes().front()</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:272</span></sub>  </td><td class="markdownTableBodyNone">Un combattant sans nom rend la figurine d'indice 0.  </td><td class="markdownTableBodyNone">1. Demander la figurine d'un nom vide, des deux cotes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog.figureFor("", <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">core::CombatSide::Allies</a>).sheet</span> vaut <span class="tt">catalog.heroes().front()</span>.<br  />
 Vérifie que <span class="tt">catalog.figureFor("", <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717af181304e789fd0882df5cb02d232fc69">core::CombatSide::Enemies</a>).sheet</span> vaut <span class="tt">catalog.gladiators().front()</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>ArenaAppearanceCatalogTest.ManifesteLivreValide</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:284</span></sub>  </td><td class="markdownTableBodyNone"><span class="tt">Source/Elements/Assets/Coliseum/manifest.json</span> se lit sans erreur.  </td><td class="markdownTableBodyNone">1. Lire le manifeste livre depuis les sources.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">std::filesystem::exists(path)</span> est vrai.<br  />
+<td class="markdownTableBodyNone"><b>ArenaAppearanceCatalogTest.ManifesteDUnKitValide</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:287</span></sub>  </td><td class="markdownTableBodyNone">Le manifeste du kit d'arene d'essai se lit sans erreur.  </td><td class="markdownTableBodyNone">1. Lire le manifeste livre depuis les sources.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">std::filesystem::exists(path)</span> est vrai.<br  />
 Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">result.catalog-&gt;heroes().empty()</span> est faux.<br  />
 Vérifie que <span class="tt">result.catalog-&gt;gladiators().empty()</span> est faux.<br  />
@@ -6542,7 +6475,7 @@ Vérifie que <span class="tt">result.catalog-&gt;heroFrames()</span> est stricte
 Vérifie que <span class="tt">result.catalog-&gt;enemyFrames()</span> est strictement supérieur à <span class="tt">0</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaAppearanceCatalogTest.UnHerosRemplaceLitSesBandesAilleurs</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:309</span></sub>  </td><td class="markdownTableBodyNone"><span class="tt">replaceHero</span> change le dossier rendu par <span class="tt">figureFor</span>/<span class="tt">sheetDirectory</span>, rien d'autre.  </td><td class="markdownTableBodyNone">1. Lire le dossier par defaut d'un heros et d'un gladiateur.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:312</span></sub>  </td><td class="markdownTableBodyNone"><span class="tt">replaceHero</span> change le dossier rendu par <span class="tt">figureFor</span>/<span class="tt">sheetDirectory</span>, rien d'autre.  </td><td class="markdownTableBodyNone">1. Lire le dossier par defaut d'un heros et d'un gladiateur.<br  />
  2. Remplacer ce heros par <span class="tt">../Npc/anariel</span>, puis tenter un nom inconnu.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">avant.directory</span> vaut <span class="tt">"characters/" + avant.sheet</span>.<br  />
 Vérifie que <span class="tt">catalog.figureFor("Gorlak", <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717af181304e789fd0882df5cb02d232fc69">core::CombatSide::Enemies</a>).directory</span> vaut <span class="tt">"enemies/" + catalog.figureFor("Gorlak", <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717af181304e789fd0882df5cb02d232fc69">core::CombatSide::Enemies</a>).sheet</span>.<br  />
 Vérifie que <span class="tt">catalog.replaceHero(avant.sheet, "../Npc/anariel")</span> est vrai.<br  />
@@ -6555,7 +6488,7 @@ Vérifie que <span class="tt">catalog.replaceHero("inconnu", "../Npc/inconnu")</
 Vérifie que <span class="tt">catalog.sheetDirectory("inconnu", <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">core::CombatSide::Allies</a>)</span> vaut <span class="tt">"characters/inconnu"</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaAppearanceCatalogTest.LeManifesteDesPnjRemplaceLesHerosNommes</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:341</span></sub>  </td><td class="markdownTableBodyNone"><span class="tt">applyNpcManifest</span> : un heros remplace par entree valide, une entree inconnue ou sans slug ignoree, un fichier absent sans effet.  </td><td class="markdownTableBodyNone">1. Appliquer un chemin inexistant.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__appearance__catalog_8cpp.html" title="Tests unitaires du catalogue d&#39;apparence du Colisée (Phase 2 du LOT-86 : rôle de case et figurine,...">Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp</a>:344</span></sub>  </td><td class="markdownTableBodyNone"><span class="tt">applyNpcManifest</span> : un heros remplace par entree valide, une entree inconnue ou sans slug ignoree, un fichier absent sans effet.  </td><td class="markdownTableBodyNone">1. Appliquer un chemin inexistant.<br  />
  2. Ecrire un manifeste avec <span class="tt">kaelith_voss</span> -&gt; <span class="tt">anariel</span>, un heros inconnu et un slug vide ; l'appliquer.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog.applyNpcManifest(manifest)</span> vaut <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt">catalog.sheetDirectory("kaelith_voss", <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">core::CombatSide::Allies</a>)</span> vaut <span class="tt">"characters/kaelith_voss"</span>.<br  />
 Vérifie que <span class="tt">catalog.applyNpcManifest(manifest)</span> vaut <span class="tt">1</span>.<br  />
@@ -6568,20 +6501,20 @@ Vérifie que <span class="tt">catalog.sheetDirectory("bram", <a class="el" href=
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaSceneComposerTest.NombreDeQuadsParCalque</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:206</span></sub>  </td><td class="markdownTableBodyNone">La scene composee compte exactement les quads attendus, par calque.  </td><td class="markdownTableBodyNone">1. Monter cinq combattants sur la piste 5x4.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:207</span></sub>  </td><td class="markdownTableBodyNone">La scene composee compte exactement les quads attendus, par calque.  </td><td class="markdownTableBodyNone">1. Monter cinq combattants sur la piste 5x4.<br  />
  2. Composer la scene.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">onLayer(scene, RenderLayer::Tile).size()</span> vaut <span class="tt">static_cast&lt;std::size_t&gt;(FLOOR_QUADS)</span>.<br  />
 Vérifie que <span class="tt">onLayer(scene, RenderLayer::Object).size()</span> vaut <span class="tt">static_cast&lt;std::size_t&gt;(STRUCTURE_QUADS)</span>.<br  />
 Vérifie que <span class="tt">onLayer(scene, RenderLayer::Player).size()</span> vaut <span class="tt">5U</span>.<br  />
 Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">static_cast&lt;std::size_t&gt;(FLOOR_QUADS + STRUCTURE_QUADS + 5)</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaSceneComposerTest.OrdreDesCalques</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:226</span></sub>  </td><td class="markdownTableBodyNone">Le sol est dessine sous tout ; la bande de profondeur est triee par pied.  </td><td class="markdownTableBodyNone">1. Composer la scene (triee).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">quads.size()</span> vaut <span class="tt">static_cast&lt;std::size_t&gt;(FLOOR_QUADS + STRUCTURE_QUADS + 5)</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:227</span></sub>  </td><td class="markdownTableBodyNone">Le sol est dessine sous tout ; la bande de profondeur est triee par pied.  </td><td class="markdownTableBodyNone">1. Composer la scene (triee).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">quads.size()</span> vaut <span class="tt">static_cast&lt;std::size_t&gt;(FLOOR_QUADS + STRUCTURE_QUADS + 5)</span>.<br  />
 Vérifie que <span class="tt">quads[index].layer</span> vaut <span class="tt">RenderLayer::Tile</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a0f6ab0e99f196e8793e69035b8f4bf98" title="Le calque appartient-il à la bande de profondeur ?">hmi::sortsByDepth</a>(quads[index].layer)</span> est vrai.<br  />
 Vérifie que <span class="tt">quads[index - 1].sortOrder</span> est inférieur ou égal à <span class="tt">quads[index].sortOrder</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaSceneComposerTest.ProfondeurAuPiedDeLaCase</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:252</span></sub>  </td><td class="markdownTableBodyNone">La profondeur suit le pied de la case.  </td><td class="markdownTableBodyNone">1. Composer la scene.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:253</span></sub>  </td><td class="markdownTableBodyNone">La profondeur suit le pied de la case.  </td><td class="markdownTableBodyNone">1. Composer la scene.<br  />
  2. Reperer la figurine de Bram (1, 1), le pan (1, 0), le pan (1, 3) et le pan a torche (4, 2).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">found</span> diffère de <span class="tt">quads.end()</span>.<br  />
 Vérifie que <span class="tt">bram</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">back</span> diffère de <span class="tt">nullptr</span>.<br  />
@@ -6592,7 +6525,7 @@ Vérifie que <span class="tt">indexOf(back)</span> est strictement inférieur à
 Vérifie que <span class="tt">indexOf(bram)</span> est strictement inférieur à <span class="tt">indexOf(front)</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaSceneComposerTest.LeDecorSePoseParSonAncreDansLeBonSens</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:306</span></sub>  </td><td class="markdownTableBodyNone">Le decor de l'atelier des textures (LOT-92) est pose par son ancre, dans le bon sens.  </td><td class="markdownTableBodyNone">1. Composer la piste 5x4.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:307</span></sub>  </td><td class="markdownTableBodyNone">Le decor de l'atelier des textures (LOT-92) est pose par son ancre, dans le bon sens.  </td><td class="markdownTableBodyNone">1. Composer la piste 5x4.<br  />
  2. Relever la piece et le sol de (1, 0), (0, 1), (0, 0), (4, 3), (0, 2).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">found</span> diffère de <span class="tt">composed.quads().end()</span>.<br  />
 Vérifie que <span class="tt">is(back, "wall-right")</span> est vrai.<br  />
 Vérifie que <span class="tt">is(side, "wall-left")</span> est vrai.<br  />
@@ -6606,7 +6539,7 @@ Vérifie que <span class="tt">is(pieceAt({.column = 0, .row = 2}, RenderLayer::O
 Vérifie que <span class="tt">is(pieceAt({.column = 0, .row = 2}, RenderLayer::Tile), "gate-threshold")</span> est vrai.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaSceneComposerTest.ATerreEtSorti</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:358</span></sub>  </td><td class="markdownTableBodyNone">Down compose une figurine, Withdrawn aucune.  </td><td class="markdownTableBodyNone">1. Demarrer le combat.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:359</span></sub>  </td><td class="markdownTableBodyNone">Down compose une figurine, Withdrawn aucune.  </td><td class="markdownTableBodyNone">1. Demarrer le combat.<br  />
  2. Abattre Bram (allie) et Orc (ennemi), faire sortir Cid.<br  />
  3. Composer la scene.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">session.start()</span> est vrai.<br  />
 Vérifie que <span class="tt">combat.withdraw(idOf(session, "Cid"))</span> vaut <span class="tt"><a class="el" href="namespacecore.html#ae1ab268fb5658f04b32b785790e7c082af62dedad685b570f499b61e94084dab2">core::WithdrawResult::Withdrawn</a></span>.<br  />
@@ -6626,7 +6559,7 @@ Vérifie que <span class="tt">cid</span> diffère de <span class="tt">eve</span>
 Vérifie que <span class="tt">withTexture(scene, cid)</span> vaut <span class="tt">nullptr</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaSceneComposerTest.ImageCouranteBornee</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:405</span></sub>  </td><td class="markdownTableBodyNone">L'image courante vient de ArenaAnimationState, bornee a la bande.  </td><td class="markdownTableBodyNone">1. Donner l'image 3 a Eve et l'image 99 a Rat.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:406</span></sub>  </td><td class="markdownTableBodyNone">L'image courante vient de ArenaAnimationState, bornee a la bande.  </td><td class="markdownTableBodyNone">1. Donner l'image 3 a Eve et l'image 99 a Rat.<br  />
  2. Composer la scene.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">eve</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">eve-&gt;sprite.u0</span> vaut <span class="tt">144.0f / 240.0f</span> (comparaison flottante).<br  />
 Vérifie que <span class="tt">eve-&gt;sprite.u1</span> vaut <span class="tt">192.0f / 240.0f</span> (comparaison flottante).<br  />
@@ -6636,13 +6569,13 @@ Vérifie que <span class="tt">rat-&gt;sprite.u0</span> vaut <span class="tt">7.0
 Vérifie que <span class="tt">rat-&gt;sprite.a</span> vaut <span class="tt">1.0f</span> (comparaison flottante).  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaSceneComposerTest.RepliSurLeDamier</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:435</span></sub>  </td><td class="markdownTableBodyNone">Repli sur le damier, puis rien.  </td><td class="markdownTableBodyNone">1. Composer sans aucune texture chargee, damier fourni.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:436</span></sub>  </td><td class="markdownTableBodyNone">Repli sur le damier, puis rien.  </td><td class="markdownTableBodyNone">1. Composer sans aucune texture chargee, damier fourni.<br  />
  2. Composer sans aucune texture ni damier.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">fallback.size()</span> vaut <span class="tt">static_cast&lt;std::size_t&gt;(FLOOR_QUADS + STRUCTURE_QUADS + 5)</span>.<br  />
 Vérifie que <span class="tt">std::all_of(fallback.quads().begin(), fallback.quads().end(), [&amp;](const <a class="el" href="structhmi_1_1ComposedQuad.html" title="Une primitive prête à soumettre, avec tout ce qui détermine quand la dessiner.">hmi::ComposedQuad</a>&amp; quad) { return quad.texture == onlyMissing.missing.texture; })</span> est vrai.<br  />
 Vérifie que <span class="tt">empty.size()</span> vaut <span class="tt">0U</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaSceneComposerTest.LectureSeule</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:461</span></sub>  </td><td class="markdownTableBodyNone">La composition est une lecture seule (EX-ARCH-012).  </td><td class="markdownTableBodyNone">1. Demarrer le combat, relever phase, tour actif, journal et positions.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:462</span></sub>  </td><td class="markdownTableBodyNone">La composition est une lecture seule (EX-ARCH-012).  </td><td class="markdownTableBodyNone">1. Demarrer le combat, relever phase, tour actif, journal et positions.<br  />
  2. Composer deux fois.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">session.start()</span> est vrai.<br  />
 Vérifie que <span class="tt">session.combat().phase()</span> vaut <span class="tt">phase</span>.<br  />
 Vérifie que <span class="tt">session.combat().activeCombatant()</span> vaut <span class="tt">active</span>.<br  />
@@ -6656,7 +6589,7 @@ Vérifie que <span class="tt">a.sprite.x</span> vaut <span class="tt">b.sprite.x
 Vérifie que <span class="tt">a.sprite.y</span> vaut <span class="tt">b.sprite.y</span> (comparaison flottante).  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaSceneComposerTest.InstantaneSurvitALaSession</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:506</span></sub>  </td><td class="markdownTableBodyNone">L'instantane en valeurs survit a sa session (LOT-86 Phase 5).  </td><td class="markdownTableBodyNone">1. Abattre Bram, faire sortir Cid, tirer l'instantane.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:507</span></sub>  </td><td class="markdownTableBodyNone">L'instantane en valeurs survit a sa session (LOT-86 Phase 5).  </td><td class="markdownTableBodyNone">1. Abattre Bram, faire sortir Cid, tirer l'instantane.<br  />
  2. Detruire une copie de la session, composer l'instantane.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">session.start()</span> est vrai.<br  />
 Vérifie que <span class="tt">session.combat().withdraw(idOf(session, "Cid"))</span> vaut <span class="tt"><a class="el" href="namespacecore.html#ae1ab268fb5658f04b32b785790e7c082af62dedad685b570f499b61e94084dab2">core::WithdrawResult::Withdrawn</a></span>.<br  />
 Vérifie que <span class="tt">ephemeral-&gt;mount(affrontement()).refusals.empty()</span> est vrai.<br  />
@@ -6679,14 +6612,14 @@ Vérifie que <span class="tt">a.sprite.u0</span> vaut <span class="tt">b.sprite.
 Vérifie que <span class="tt">a.sprite.a</span> vaut <span class="tt">b.sprite.a</span> (comparaison flottante).  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaSceneComposerTest.ListeDesTexturesCouvreLaComposition</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:565</span></sub>  </td><td class="markdownTableBodyNone">La liste des textures couvre tout ce que la composition demande.  </td><td class="markdownTableBodyNone">1. Lier chaque chemin de arenaTexturePaths a une texture, et le damier a une autre.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:566</span></sub>  </td><td class="markdownTableBodyNone">La liste des textures couvre tout ce que la composition demande.  </td><td class="markdownTableBodyNone">1. Lier chaque chemin de arenaTexturePaths a une texture, et le damier a une autre.<br  />
  2. Composer la piste avec un allie a terre.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">std::adjacent_find(sorted.begin(), sorted.end())</span> vaut <span class="tt">sorted.end()</span>.<br  />
 Vérifie que <span class="tt">session.start()</span> est vrai.<br  />
 Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">static_cast&lt;std::size_t&gt;(FLOOR_QUADS + STRUCTURE_QUADS + 5)</span>.<br  />
 Vérifie que <span class="tt">std::none_of( scene.quads().begin(), scene.quads().end(), [&amp;](const <a class="el" href="structhmi_1_1ComposedQuad.html" title="Une primitive prête à soumettre, avec tout ce qui détermine quand la dessiner.">hmi::ComposedQuad</a>&amp; quad) { return quad.texture == listed.missing.texture; })</span> est vrai.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaSceneComposerTest.UneFigurineDeRemplacementSuitSaPropreDecoupe</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:600</span></sub>  </td><td class="markdownTableBodyNone">Un heros remplace se dessine depuis <span class="tt">../Npc/&lt;slug&gt;</span> ; une bande large (96 px) donne un quad deux fois plus large, centre au meme endroit, et sa derniere image a terre.  </td><td class="markdownTableBodyNone">1. Remplacer la figurine de Bram par <span class="tt">../Npc/anariel</span>, avec <span class="tt">idle.png</span> 288x64 (frameWidth 48) et <span class="tt">death.png</span> 576x64 (frameWidth 96).<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__composer_8cpp.html" title="Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads,...">Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp</a>:601</span></sub>  </td><td class="markdownTableBodyNone">Un heros remplace se dessine depuis <span class="tt">../Npc/&lt;slug&gt;</span> ; une bande large (96 px) donne un quad deux fois plus large, centre au meme endroit, et sa derniere image a terre.  </td><td class="markdownTableBodyNone">1. Remplacer la figurine de Bram par <span class="tt">../Npc/anariel</span>, avec <span class="tt">idle.png</span> 288x64 (frameWidth 48) et <span class="tt">death.png</span> 576x64 (frameWidth 96).<br  />
  2. Composer debout a l'image 5, puis a terre.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">appearance.replaceHero(sheet, "../Npc/anariel")</span> est vrai.<br  />
 Vérifie que <span class="tt">session.start()</span> est vrai.<br  />
 Vérifie que <span class="tt">repos</span> diffère de <span class="tt">nullptr</span>.<br  />
@@ -6706,7 +6639,7 @@ Vérifie que <span class="tt">mort-&gt;sprite.x + mort-&gt;sprite.width / 2.0f</
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaSceneRendererTest.CreationLiberationRecreation</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp</a>:159</span></sub>  </td><td class="markdownTableBodyNone">Le cycle de vie des ressources QRhi de l'arene est sur.  </td><td class="markdownTableBodyNone">1. Creer les ressources sur une interface QRhi hors ecran, sans jamais dessiner.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp</a>:160</span></sub>  </td><td class="markdownTableBodyNone">Le cycle de vie des ressources QRhi de l'arene est sur.  </td><td class="markdownTableBodyNone">1. Creer les ressources sur une interface QRhi hors ecran, sans jamais dessiner.<br  />
  2. Liberer, puis liberer encore.<br  />
  3. Recreer, dessiner une image, detruire le rendu avant l'interface.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">renderer.catalog().heroes().empty()</span> est faux.<br  />
 Vérifie que <span class="tt">renderer.ensureResources(nullptr)</span> est faux.<br  />
@@ -6717,7 +6650,7 @@ Vérifie que <span class="tt">renderer.rhi()</span> vaut <span class="tt">rhi.ge
 Vérifie que <span class="tt">renderer.textures().byPath.size()</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a57f0685fbcb7a858faa871e9620c5fb9" title="Tous les chemins de texture que la composition peut demander pour catalog : sols, pièces d&#39;enceinte,...">hmi::arenaTexturePaths</a>(renderer.catalog()).size()</span>.<br  />
 Vérifie que <span class="tt">renderer.textures().missing.texture</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
-Vérifie que <span class="tt">renderer.textures().resolve("../Scene/coliseum/sand.png").texture</span> vaut <span class="tt">sand</span>.<br  />
+Vérifie que <span class="tt">renderer.textures().resolve("../Scene/bourg/sand.png").texture</span> vaut <span class="tt">sand</span>.<br  />
 Vérifie que <span class="tt">renderer.created()</span> est faux.<br  />
 Vérifie que <span class="tt">renderer.rhi()</span> vaut <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">renderer.textures().byPath.empty()</span> est vrai.<br  />
@@ -6725,7 +6658,7 @@ Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vra
 Vérifie que <span class="tt">image.size()</span> vaut <span class="tt">QSize(TARGET_SIZE, TARGET_SIZE)</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaSceneRendererTest.SceneNonVideSurUneGrilleDeTest</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp</a>:212</span></sub>  </td><td class="markdownTableBodyNone">La scene de l'arene devient des pixels.  </td><td class="markdownTableBodyNone">1. Tirer l'instantane de la piste 5x4 (quatre combattants), puis detruire la session.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp</a>:213</span></sub>  </td><td class="markdownTableBodyNone">La scene de l'arene devient des pixels.  </td><td class="markdownTableBodyNone">1. Tirer l'instantane de la piste 5x4 (quatre combattants), puis detruire la session.<br  />
 2. Dessiner une image hors ecran et la relire.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
 Vérifie que <span class="tt">renderer.animating()</span> est vrai.<br  />
 Vérifie que <span class="tt">image.size()</span> vaut <span class="tt">QSize(TARGET_SIZE, TARGET_SIZE)</span>.<br  />
@@ -6739,7 +6672,7 @@ Vérifie que <span class="tt">renderer.composed().size()</span> vaut <span class
 Vérifie que <span class="tt">paintedPixels(empty)</span> vaut <span class="tt">0U</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaSceneRendererTest.RecreationSurUneAutreInterface</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp</a>:259</span></sub>  </td><td class="markdownTableBodyNone">Le rendu de l'arene se recree sur une nouvelle interface QRhi.  </td><td class="markdownTableBodyNone">1. Creer et dessiner sur une premiere interface.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp</a>:260</span></sub>  </td><td class="markdownTableBodyNone">Le rendu de l'arene se recree sur une nouvelle interface QRhi.  </td><td class="markdownTableBodyNone">1. Creer et dessiner sur une premiere interface.<br  />
 2. Appeler ensureResources avec une seconde interface, puis dessiner dessus.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">renderer.ensureResources(first.get())</span> est vrai.<br  />
 Vérifie que <span class="tt">paintedPixels(renderFrame(*first, renderer, firstTarget))</span> est strictement supérieur à <span class="tt">0U</span>.<br  />
 Vérifie que <span class="tt">renderer.ensureResources(second.get())</span> est vrai.<br  />
@@ -6749,7 +6682,7 @@ Vérifie que <span class="tt">paintedPixels(renderFrame(*second, renderer, secon
 Vérifie que <span class="tt">renderer.composed().size()</span> vaut <span class="tt">PISTE_QUADS</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaSceneRendererTest.LeCadrageRameneChaqueCaseAElleMeme</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp</a>:291</span></sub>  </td><td class="markdownTableBodyNone">Le centre de chaque case, projete a l'ecran par le cadrage du rendu, redevient la meme case.  </td><td class="markdownTableBodyNone">1. Pour plusieurs grilles et surfaces (zoom entier et zoom inferieur a 1), cadrer par arenaCamera.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp</a>:292</span></sub>  </td><td class="markdownTableBodyNone">Le centre de chaque case, projete a l'ecran par le cadrage du rendu, redevient la meme case.  </td><td class="markdownTableBodyNone">1. Pour plusieurs grilles et surfaces (zoom entier et zoom inferieur a 1), cadrer par arenaCamera.<br  />
 2. Projeter le centre de chaque case a l'ecran, puis revenir au monde et a la case.<br  />
 3. Revenir d'un coin de la surface, hors de la scene.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">screen.x</span> est supérieur ou égal à <span class="tt">0.0f</span>.<br  />
 Vérifie que <span class="tt">screen.x</span> est inférieur ou égal à <span class="tt">static_cast&lt;float&gt;(cas.width)</span>.<br  />
@@ -6761,27 +6694,26 @@ Vérifie que <span class="tt">cell-&gt;row</span> vaut <span class="tt">row</spa
 Vérifie que <span class="tt">projection.worldToTile(camera.screenToWorld({0.0f, 0.0f})).has_value()</span> est faux.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaSceneRendererTest.CaptureDeLArenePourRelecture</b> (Mineur)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp</a>:333</span></sub>  </td><td class="markdownTableBodyNone">Capture de l'arène pour relecture à l'œil (LOT-92).  </td><td class="markdownTableBodyNone">1. Définir JADG_ARENA_CAPTURE, lancer ce test.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp</a>:334</span></sub>  </td><td class="markdownTableBodyNone">Capture de l'arène pour relecture à l'œil (LOT-92).  </td><td class="markdownTableBodyNone">1. Définir JADG_ARENA_CAPTURE, lancer ce test.<br  />
 2. Ouvrir l'image.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
 Vérifie que <span class="tt">image.isNull()</span> est faux.<br  />
 Vérifie que <span class="tt">image.save(destination)</span> est vrai.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>ArenaSceneRendererTest.ProductionBattleUsesArenaOfBraveMapAndEntries</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp</a>:387</span></sub>  </td><td class="markdownTableBodyNone">Le combat utilise le décor et les départs de la nouvelle arène.  </td><td class="markdownTableBodyNone">Charger la zone sable, monter deux concurrents et rendre la scène.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
+<td class="markdownTableBodyNone"><b>ArenaSceneRendererTest.LeCombatUtiliseLeDecorEtLesDepartsDeLaZone</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp</a>:388</span></sub>  </td><td class="markdownTableBodyNone">Le combat utilise le décor et les départs de la nouvelle arène.  </td><td class="markdownTableBodyNone">Charger la zone sable, monter deux concurrents et rendre la scène.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">zone</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">zone-&gt;columns</span> vaut <span class="tt">20</span>.<br  />
 Vérifie que <span class="tt">zone-&gt;rows</span> vaut <span class="tt">14</span>.<br  />
-Vérifie que <span class="tt"><a class="el" href="namespacecore.html#a2f8f6aa025b66709486f9e1e585ac334" title="Relève ce qui empêche une zone d&#39;être une grille tactique (EX-NFR-040).">core::validateCombatZones</a>("capital/arena-of-brave", *loaded.level).empty()</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacecore.html#a2f8f6aa025b66709486f9e1e585ac334" title="Relève ce qui empêche une zone d&#39;être une grille tactique (EX-NFR-040).">core::validateCombatZones</a>("donjon", *loaded.level).empty()</span> est vrai.<br  />
 Vérifie que <span class="tt">mounted.refusals.empty()</span> est vrai.<br  />
 Vérifie que <span class="tt">snapshot.figures.size()</span> vaut <span class="tt">2U</span>.<br  />
 Vérifie que <span class="tt">snapshot.figures[0].anchor.column</span> vaut <span class="tt">1</span>.<br  />
 Vérifie que <span class="tt">snapshot.figures[1].anchor.column</span> vaut <span class="tt">18</span>.<br  />
 Vérifie que <span class="tt">rhi</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
-Vérifie que <span class="tt">renderer.composed().quads().size()</span> est strictement supérieur à <span class="tt">7700U</span>.<br  />
+Vérifie que <span class="tt">renderer.composed().quads().size()</span> est strictement supérieur à <span class="tt">280U</span>.<br  />
 Vérifie que <span class="tt">quad.texture</span> diffère de <span class="tt">renderer.textures().missing.texture</span>.<br  />
-Vérifie que <span class="tt">quad.texture</span> diffère de <span class="tt">texture.texture</span>.<br  />
-Vérifie que <span class="tt">image.save("arena-of-brave-combat.png")</span> est vrai.<br  />
+Vérifie que <span class="tt">image.save("salle-combat.png")</span> est vrai.<br  />
 Vérifie que <span class="tt">session.start()</span> est vrai.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__asset__gallery_8cpp.html" title="Tests unitaires de la galerie des assets (outil de débug) : forme des blocs, disposition,...">test_asset_gallery.cpp</a></span></b></p>
@@ -6839,26 +6771,25 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aab46d733154
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aab46d733154ad31db3d8fa8af5afd259" title="L&#39;image jouée au temps seconds : en boucle, ou jouée une fois puis tenue ASSET_GALLERY_ONE_SHOT_HOLD_...">hmi::assetGalleryFrameRank</a>(unique, 1.05)</span> vaut <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aab46d733154ad31db3d8fa8af5afd259" title="L&#39;image jouée au temps seconds : en boucle, ou jouée une fois puis tenue ASSET_GALLERY_ONE_SHOT_HOLD_...">hmi::assetGalleryFrameRank</a>(entry("fixe", 16, 16), 3.0)</span> vaut <span class="tt">0</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>AssetGalleryTest.AssetsLivres</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__asset__gallery_8cpp.html" title="Tests unitaires de la galerie des assets (outil de débug) : forme des blocs, disposition,...">Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp</a>:184</span></sub>  </td><td class="markdownTableBodyNone">La galerie lit les assets livrés.  </td><td class="markdownTableBodyNone">1. Lire le catalogue de Source/Elements/Assets.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">npcs</span> diffère de <span class="tt">nullptr</span>.<br  />
+<td class="markdownTableBodyNone"><b>AssetGalleryTest.AssetsDEssai</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__asset__gallery_8cpp.html" title="Tests unitaires de la galerie des assets (outil de débug) : forme des blocs, disposition,...">Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp</a>:184</span></sub>  </td><td class="markdownTableBodyNone">La galerie lit les assets d'une racine.  </td><td class="markdownTableBodyNone">1. Lire le catalogue de la racine d'essai.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">npcs</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">attack</span> diffère de <span class="tt">npcs-&gt;entries.end()</span>.<br  />
 Vérifie que <span class="tt">attack-&gt;frameWidth</span> vaut <span class="tt">96</span>.<br  />
 Vérifie que <span class="tt">attack-&gt;frameCount()</span> vaut <span class="tt">8</span>.<br  />
 Vérifie que <span class="tt">attack-&gt;loop</span> est faux.<br  />
-Vérifie que <span class="tt">familyNamed(catalog, "Colisée · pièces")</span> diffère de <span class="tt">nullptr</span>.<br  />
-Vérifie que <span class="tt">familyNamed(catalog, "Scène · martpart")</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">familyNamed(catalog, "Monstres")</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">familyNamed(catalog, "Scène · bourg")</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">std::filesystem::is_regular_file(root / value.path)</span> est vrai.<br  />
 Vérifie que <span class="tt">value.frameWidth</span> est strictement supérieur à <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt">value.frameHeight</span> est strictement supérieur à <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt">hmi::layoutAssetGallery(catalog).blocs.empty()</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>AssetGalleryTest.ToutAssetLivreEstDansLaGalerie</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__asset__gallery_8cpp.html" title="Tests unitaires de la galerie des assets (outil de débug) : forme des blocs, disposition,...">Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp</a>:226</span></sub>  </td><td class="markdownTableBodyNone">Aucun asset livré n'échappe à la galerie.  </td><td class="markdownTableBodyNone">1. Lire le catalogue de Source/Elements/Assets. 2. Parcourir toutes les images livrées.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d" title="Les images livrées qui ne sont pas des assets à montrer, par règle nommée : les planches sources des ...">hmi::assetGalleryExcludes</a>("Scene/martpart/planche-1.png")</span> est vrai.<br  />
-Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d" title="Les images livrées qui ne sont pas des assets à montrer, par règle nommée : les planches sources des ...">hmi::assetGalleryExcludes</a>("Coliseum/production_source_atlas.png")</span> est vrai.<br  />
-Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d" title="Les images livrées qui ne sont pas des assets à montrer, par règle nommée : les planches sources des ...">hmi::assetGalleryExcludes</a>("UI/background/menu-scene.png")</span> est vrai.<br  />
-Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d" title="Les images livrées qui ne sont pas des assets à montrer, par règle nommée : les planches sources des ...">hmi::assetGalleryExcludes</a>("Maps/world.jpg")</span> est vrai.<br  />
-Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d" title="Les images livrées qui ne sont pas des assets à montrer, par règle nommée : les planches sources des ...">hmi::assetGalleryExcludes</a>("Scene/martpart/street.png")</span> est faux.<br  />
-Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d" title="Les images livrées qui ne sont pas des assets à montrer, par règle nommée : les planches sources des ...">hmi::assetGalleryExcludes</a>("Npc/anariel/portrait.png")</span> est faux.  </td></tr>
+<sub><span class="tt"><a class="el" href="test__asset__gallery_8cpp.html" title="Tests unitaires de la galerie des assets (outil de débug) : forme des blocs, disposition,...">Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp</a>:226</span></sub>  </td><td class="markdownTableBodyNone">Aucun asset livré n'échappe à la galerie.  </td><td class="markdownTableBodyNone">1. Lire le catalogue de Source/Elements/Assets. 2. Parcourir toutes les images livrées.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d" title="Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l&#39;interface (UI/),...">hmi::assetGalleryExcludes</a>("UI/background/menu-scene.png")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d" title="Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l&#39;interface (UI/),...">hmi::assetGalleryExcludes</a>("Maps/world.jpg")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d" title="Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l&#39;interface (UI/),...">hmi::assetGalleryExcludes</a>("Fonts/Cinzel.ttf")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d" title="Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l&#39;interface (UI/),...">hmi::assetGalleryExcludes</a>("Regions/central-empire/capital/martpart/Scene/street.png")</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d" title="Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l&#39;interface (UI/),...">hmi::assetGalleryExcludes</a>("Npc/figurant/portrait.png")</span> est faux.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>AssetGalleryTest.FigurinesDeMonstres</b> (Majeur)<br  />
 <sub><span class="tt"><a class="el" href="test__asset__gallery_8cpp.html" title="Tests unitaires de la galerie des assets (outil de débug) : forme des blocs, disposition,...">Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp</a>:256</span></sub>  </td><td class="markdownTableBodyNone">Une figurine Grande sans sort paraît dans la galerie.  </td><td class="markdownTableBodyNone">1. Écrire un dossier Monsters/ : un manifeste qui nomme idle et cast, un lion qui n'a que idle, en cellules de 96 × 96. 2. Lire le catalogue.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog.errors.empty()</span> est vrai.<br  />
@@ -6879,7 +6810,7 @@ Vérifie que <span class="tt">idle.loop</span> est vrai.  </td></tr>
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>AssetGalleryRendererTest.ChargementEtLiberation</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__asset__gallery__renderer_8cpp.html" title="Le rendu de la galerie des assets hors écran : ne charger que ce qui est voulu, étaler les chargement...">Source/Test/Unit/HMI/Graphics/test_asset_gallery_renderer.cpp</a>:111</span></sub>  </td><td class="markdownTableBodyNone">La galerie ne garde que les textures voulues.  </td><td class="markdownTableBodyNone">1. Dessiner la figure au repos d'anariel. 2. Ne plus rien vouloir, 1 s puis 1,5 s.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
+<sub><span class="tt"><a class="el" href="test__asset__gallery__renderer_8cpp.html" title="Le rendu de la galerie des assets hors écran : ne charger que ce qui est voulu, étaler les chargement...">Source/Test/Unit/HMI/Graphics/test_asset_gallery_renderer.cpp</a>:111</span></sub>  </td><td class="markdownTableBodyNone">La galerie ne garde que les textures voulues.  </td><td class="markdownTableBodyNone">1. Dessiner la figure au repos d'un PNJ. 2. Ne plus rien vouloir, 1 s puis 1,5 s.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
 Vérifie que <span class="tt">renderer.cachedTextureCount()</span> vaut <span class="tt">1U</span>.<br  />
 Vérifie que <span class="tt">paintedPixels(image)</span> est strictement supérieur à <span class="tt">100U</span>.<br  />
 Vérifie que <span class="tt">renderer.cachedTextureCount()</span> vaut <span class="tt">1U</span>.<br  />
@@ -6889,7 +6820,7 @@ Vérifie que <span class="tt">renderer.cachedTextureCount()</span> vaut <span cl
 <sub><span class="tt"><a class="el" href="test__asset__gallery__renderer_8cpp.html" title="Le rendu de la galerie des assets hors écran : ne charger que ce qui est voulu, étaler les chargement...">Source/Test/Unit/HMI/Graphics/test_asset_gallery_renderer.cpp</a>:141</span></sub>  </td><td class="markdownTableBodyNone">Les chargements s'étalent, un fichier absent ne bloque rien.  </td><td class="markdownTableBodyNone">1. Vouloir 30 textures d'un coup. 2. Dessiner une texture absente.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
 Vérifie que <span class="tt">renderer.cachedTextureCount()</span> vaut <span class="tt">static_cast&lt;std::size_t&gt;(<a class="el" href="classhmi_1_1AssetGalleryRenderer.html#a278c3a154a2a3f62a34aeb9e57ad7cdd">hmi::AssetGalleryRenderer::UPLOADS_PER_FRAME</a>)</span>.<br  />
 Vérifie que <span class="tt">renderer.loading()</span> est vrai.<br  />
-Vérifie que <span class="tt">renderer.cachedTextureCount()</span> vaut <span class="tt">30U</span>.<br  />
+Vérifie que <span class="tt">renderer.cachedTextureCount()</span> vaut <span class="tt">28U</span>.<br  />
 Vérifie que <span class="tt">renderer.loading()</span> est faux.<br  />
 Vérifie que <span class="tt">absent.ensureResources(rhi.get())</span> est vrai.<br  />
 Vérifie que <span class="tt">absent.cachedTextureCount()</span> vaut <span class="tt">1U</span>.<br  />
@@ -7001,8 +6932,8 @@ Vérifie que <span class="tt">static_cast&lt;float&gt;(cadrePetit.pixelHeight)</
 Vérifie que <span class="tt">cadrePetit.focus.x + cadrePetit.focus.y</span> est strictement inférieur à <span class="tt">15.0F + 14.0F</span>.<br  />
 Vérifie que <span class="tt">cadrePetit.focus.x - cadrePetit.focus.y</span> vaut <span class="tt">15.0F - 14.0F</span>, à <span class="tt">0.01F</span> près.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>CityBlockRenderTest.LaPlaceDuMarcheDevientUneImage</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__city__block__render_8cpp.html" title="L&#39;ilot vu sur le plan (LOT-96) : son cadrage, et son image hors ecran.">Source/Test/Unit/HMI/Graphics/test_city_block_render.cpp</a>:66</span></sub>  </td><td class="markdownTableBodyNone">Un ilot de Martpart se dessine hors ecran, a la taille de son cadrage.  </td><td class="markdownTableBodyNone">1. Charger <span class="tt">capital/martpart.json</span>, sa table d'apparence et son ilot « place du marche ».<br  />
+<td class="markdownTableBodyNone"><b>CityBlockRenderTest.UnIlotDevientUneImage</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__city__block__render_8cpp.html" title="L&#39;ilot vu sur le plan (LOT-96) : son cadrage, et son image hors ecran.">Source/Test/Unit/HMI/Graphics/test_city_block_render.cpp</a>:67</span></sub>  </td><td class="markdownTableBodyNone">Un ilot d'un lieu se dessine hors ecran, a la taille de son cadrage.  </td><td class="markdownTableBodyNone">1. Charger une carte de ville, sa table d'apparence et son plus grand ilot.<br  />
  2. Le dessiner hors ecran.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lu.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">table.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">place</span> diffère de <span class="tt">ilots.end()</span>.<br  />
@@ -7453,7 +7384,7 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#af0d1719f81a
 <td class="markdownTableBodyNone"><b>WorldSceneRendererTest.CreationLiberationRecreation</b> (Bloquant)<br  />
 <sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:134</span></sub>  </td><td class="markdownTableBodyNone">Le cycle de vie des ressources QRhi d'un lieu est sur.  </td><td class="markdownTableBodyNone">1. Creer les ressources hors ecran, sans dessiner.<br  />
  2. Liberer, puis liberer encore.<br  />
- 3. Recreer, dessiner une image du Colisee livre, detruire le rendu avant l'interface.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">renderer.ensureResources(nullptr)</span> est faux.<br  />
+ 3. Recreer, dessiner une image d'un lieu, detruire le rendu avant l'interface.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">renderer.ensureResources(nullptr)</span> est faux.<br  />
 Vérifie que <span class="tt">renderer.created()</span> est faux.<br  />
 Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
 Vérifie que <span class="tt">renderer.created()</span> est vrai.<br  />
@@ -7471,8 +7402,8 @@ Vérifie que <span class="tt">renderer.requested().empty()</span> est vrai.<br  
 Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
 Vérifie que <span class="tt">image.size()</span> vaut <span class="tt">QSize(TARGET_SIZE, TARGET_SIZE)</span>.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>WorldSceneRendererTest.LeColiseeLivreDevientDesPixels</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:194</span></sub>  </td><td class="markdownTableBodyNone">Le Colisee livre se dessine, sans une seule piece manquante.  </td><td class="markdownTableBodyNone">1. Charger <span class="tt">coliseum.json</span> et la table d'apparence du lieu.<br  />
+<td class="markdownTableBodyNone"><b>WorldSceneRendererTest.UnLieuDevientDesPixels</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:194</span></sub>  </td><td class="markdownTableBodyNone">Le donjon d'essai se dessine, sans une seule piece manquante.  </td><td class="markdownTableBodyNone">1. Charger la carte du donjon d'essai et la table d'apparence du lieu.<br  />
  2. Dessiner une image hors ecran, cadree sur le heros a la porte.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
 Vérifie que <span class="tt">image.size()</span> vaut <span class="tt">QSize(TARGET_SIZE, TARGET_SIZE)</span>.<br  />
 Vérifie que <span class="tt">renderer.composed().size()</span> est strictement supérieur à <span class="tt">700U</span>.<br  />
@@ -7494,9 +7425,9 @@ Vérifie que <span class="tt">petiteVue.zoom()</span> vaut <span class="tt">2.0F
 Vérifie que <span class="tt">petiteVue.center().x</span> vaut <span class="tt">petite.sceneSize().x / 2.0F</span>, à <span class="tt">0.001F</span> près.<br  />
 Vérifie que <span class="tt">petiteVue.center().y</span> vaut <span class="tt">petite.sceneSize().y / 2.0F</span>, à <span class="tt">0.001F</span> près.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>WorldSceneRendererTest.LesQuartiersLivresDeviennentDesPixels</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:276</span></sub>  </td><td class="markdownTableBodyNone">Les deux quartiers livres se dessinent sans une piece sur le damier, et la sentinelle sous les traits du soldat Ironhand.  </td><td class="markdownTableBodyNone">1. Charger <span class="tt">capital/martpart.json</span> et <span class="tt">capital/arenarea.json</span>, et la table de Martpart.<br  />
- 2. Dessiner chacun hors ecran, cadre sur une porte gardee, le heros a cote.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">table.ok()</span> est vrai.<br  />
+<td class="markdownTableBodyNone"><b>WorldSceneRendererTest.DeuxLieuxDeviennentDesPixels</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:276</span></sub>  </td><td class="markdownTableBodyNone">Deux lieux se dessinent sans une piece sur le damier, sentinelles sous les traits de leur figurine.  </td><td class="markdownTableBodyNone">1. Charger deux cartes d'essai, et la table du lieu.<br  />
+ 2. Dessiner chacune hors ecran, cadre sur une sentinelle, le heros a cote.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">table.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">carte.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">figurines.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">renderer.ensureResources(rhi.get())</span> est vrai.<br  />
@@ -7506,8 +7437,8 @@ Vérifie que <span class="tt">soldat-&gt;second.texture</span> diffère de <span
 Vérifie que <span class="tt">soldat-&gt;second.texture</span> diffère de <span class="tt">renderer.textures().missing.texture</span>.<br  />
 Vérifie que <span class="tt">paintedPixels(image)</span> est strictement supérieur à <span class="tt">static_cast&lt;std::size_t&gt;(TARGET_SIZE * TARGET_SIZE / 4)</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>WorldSceneRendererTest.ArenaOfBraveMapsRoundTripAndRenderWithInstalledKit</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:344</span></sub>  </td><td class="markdownTableBodyNone">Les trois cartes se sauvegardent et se rendent avec le kit livré.  </td><td class="markdownTableBodyNone">Charger et enregistrer chaque carte ; comparer les textures du jeu et de l’éditeur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">rhi</span> diffère de <span class="tt">nullptr</span>.<br  />
+<td class="markdownTableBodyNone"><b>WorldSceneRendererTest.LesCartesSeSauvegardentEtSeRendentAvecLeurKit</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:342</span></sub>  </td><td class="markdownTableBodyNone">Les trois cartes se sauvegardent et se rendent avec leur kit.  </td><td class="markdownTableBodyNone">Charger et enregistrer chaque carte ; comparer les textures du jeu et de l’éditeur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">rhi</span> diffère de <span class="tt">nullptr</span>.<br  />
 Vérifie que <span class="tt">table.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">saved.ok()</span> est vrai.<br  />
@@ -7520,10 +7451,10 @@ Vérifie que <span class="tt">editor.depthOffset</span> vaut <span class="tt">gp
 Vérifie que <span class="tt">editor.anchor.has_value()</span> vaut <span class="tt">gpu.anchor.has_value()</span>.<br  />
 Vérifie que <span class="tt">editor.anchor-&gt;x</span> vaut <span class="tt">gpu.anchor-&gt;x</span> (comparaison flottante).<br  />
 Vérifie que <span class="tt">editor.anchor-&gt;y</span> vaut <span class="tt">gpu.anchor-&gt;y</span> (comparaison flottante).<br  />
-Vérifie que <span class="tt">image.save(QString::fromStdString(name + "-renderer.png"))</span> est vrai.  </td></tr>
+Vérifie que <span class="tt">image.save(QString::fromStdString( std::string(name).substr(std::string(name).find('/') + 1) + "-renderer.png"))</span> est vrai.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>WorldSceneRendererTest.ArenaOfBravePortalsUseRealWorldTravel</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:397</span></sub>  </td><td class="markdownTableBodyNone">Tous les portails de l’arène se traversent.  </td><td class="markdownTableBodyNone">Entrer dans chaque carte et traverser chaque portail avec WorldTravel.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">travel.enter(id, {})</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69" title="Le personnage est sur la carte demandée, à son point d&#39;arrivée.">core::TravelResult::Moved</a></span>.<br  />
+<td class="markdownTableBodyNone"><b>WorldSceneRendererTest.TousLesPortailsSeTraversent</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__world__scene__renderer_8cpp.html" title="Le rendu QRhi d&#39;un lieu qu&#39;on parcourt (LOT-09), hors écran : cycle de vie des ressources,...">Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp</a>:397</span></sub>  </td><td class="markdownTableBodyNone">Tous les portails des cartes se traversent.  </td><td class="markdownTableBodyNone">Entrer dans chaque carte et traverser chaque portail avec WorldTravel.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">travel.enter(id, {})</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69" title="Le personnage est sur la carte demandée, à son point d&#39;arrivée.">core::TravelResult::Moved</a></span>.<br  />
 Vérifie que <span class="tt">travel.enter(id, {})</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69" title="Le personnage est sur la carte demandée, à son point d&#39;arrivée.">core::TravelResult::Moved</a></span>.<br  />
 Vérifie que <span class="tt">travel.cross(entity.position, flags)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69" title="Le personnage est sur la carte demandée, à son point d&#39;arrivée.">core::TravelResult::Moved</a></span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a>(travel.currentMap()-&gt;tileMap().tile(pos.column, pos.row))</span> est faux.<br  />
@@ -8225,7 +8156,7 @@ Runtime (3)</h3>
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaModelTest.LaReactionSeBasculeDepuisLaBarre</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__model_8cpp.html" title="Tests de la vue-modèle du Colisée (LOT-24) : un combat joué par les seuls gestes du clavier et de la ...">Source/Test/Unit/HMI/Runtime/test_arena_model.cpp</a>:53</span></sub>  </td><td class="markdownTableBodyNone">La derniere action du tour est la reaction : la confirmer fait laisser passer les attaques d'opportunite, la confirmer encore les fait saisir ; les actions du Manuel se choisissent au numero et en boucle.  </td><td class="markdownTableBodyNone">1. Lancer ; lire les actions.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__model_8cpp.html" title="Tests de la vue-modèle du Colisée (LOT-24) : un combat joué par les seuls gestes du clavier et de la ...">Source/Test/Unit/HMI/Runtime/test_arena_model.cpp</a>:55</span></sub>  </td><td class="markdownTableBodyNone">La derniere action du tour est la reaction : la confirmer fait laisser passer les attaques d'opportunite, la confirmer encore les fait saisir ; les actions du Manuel se choisissent au numero et en boucle.  </td><td class="markdownTableBodyNone">1. Lancer ; lire les actions.<br  />
 2. Choisir la derniere, confirmer, relire ; confirmer encore.<br  />
 3. Passer a l'action suivante depuis la derniere.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">actions.size()</span> est supérieur ou égal à <span class="tt">5</span>.<br  />
 Vérifie que <span class="tt">actions[derniere - 3].toMap().value("kind").toString()</span> vaut <span class="tt">"dodge"</span>.<br  />
@@ -8239,7 +8170,7 @@ Vérifie que <span class="tt">arena.turnActions()[derniere].toMap().value("label
 Vérifie que <span class="tt">arena.turnActions()[0].toMap().value("selected").toBool()</span> est vrai.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ArenaModelTest.LeSurvolPoseLeCurseur</b> (Majeure)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__model_8cpp.html" title="Tests de la vue-modèle du Colisée (LOT-24) : un combat joué par les seuls gestes du clavier et de la ...">Source/Test/Unit/HMI/Runtime/test_arena_model.cpp</a>:91</span></sub>  </td><td class="markdownTableBodyNone">pointCursor pose le curseur sur la case survolee, et ignore ce qui n'en est pas une.  </td><td class="markdownTableBodyNone">1. Avant le combat, pointer une case.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__model_8cpp.html" title="Tests de la vue-modèle du Colisée (LOT-24) : un combat joué par les seuls gestes du clavier et de la ...">Source/Test/Unit/HMI/Runtime/test_arena_model.cpp</a>:93</span></sub>  </td><td class="markdownTableBodyNone">pointCursor pose le curseur sur la case survolee, et ignore ce qui n'en est pas une.  </td><td class="markdownTableBodyNone">1. Avant le combat, pointer une case.<br  />
 2. Lancer ; pointer l'ennemi le plus proche depuis une autre case.<br  />
 3. Pointer hors de la grille.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">arena.cursorColumn()</span> vaut <span class="tt">colonneInitiale</span>.<br  />
 Vérifie que <span class="tt">arena.cursorRow()</span> vaut <span class="tt">ligneInitiale</span>.<br  />
@@ -8250,7 +8181,7 @@ Vérifie que <span class="tt">arena.cursorColumn()</span> vaut <span class="tt">
 Vérifie que <span class="tt">arena.cursorRow()</span> vaut <span class="tt">ligne</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ArenaModelTest.LeCalqueDeLaGrilleDecritCombattantsEtCasesAtteignables</b> (Majeure)<br  />
-<sub><span class="tt"><a class="el" href="test__arena__model_8cpp.html" title="Tests de la vue-modèle du Colisée (LOT-24) : un combat joué par les seuls gestes du clavier et de la ...">Source/Test/Unit/HMI/Runtime/test_arena_model.cpp</a>:126</span></sub>  </td><td class="markdownTableBodyNone">fighters decrit chaque combattant sur la grille et garde secrets les points de vie ennemis ; reachableCells ne liste que des cases libres.  </td><td class="markdownTableBodyNone">1. Avant le combat, lire les deux listes.<br  />
+<sub><span class="tt"><a class="el" href="test__arena__model_8cpp.html" title="Tests de la vue-modèle du Colisée (LOT-24) : un combat joué par les seuls gestes du clavier et de la ...">Source/Test/Unit/HMI/Runtime/test_arena_model.cpp</a>:128</span></sub>  </td><td class="markdownTableBodyNone">fighters decrit chaque combattant sur la grille et garde secrets les points de vie ennemis ; reachableCells ne liste que des cases libres.  </td><td class="markdownTableBodyNone">1. Avant le combat, lire les deux listes.<br  />
 2. Lancer ; lire les combattants et les cases atteignables.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">arena.fighters().isEmpty()</span> est vrai.<br  />
 Vérifie que <span class="tt">arena.reachableCells().isEmpty()</span> est vrai.<br  />
 Vérifie que <span class="tt">fighters.size()</span> vaut <span class="tt">2</span>.<br  />
@@ -8339,7 +8270,6 @@ Vérifie que <span class="tt">draft.layers().empty()</span> est vrai.  </td></tr
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">JustAnotherRpgGame</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>
