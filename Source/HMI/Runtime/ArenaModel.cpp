@@ -77,7 +77,10 @@ void logErrors(const std::string& prefix, const std::vector<std::string>& errors
 
 }  // namespace
 
-ArenaModel::ArenaModel(QObject* parent) : QObject(parent), _catalogs(std::make_unique<Catalogs>()) {
+ArenaModel::ArenaModel(QObject* parent, std::filesystem::path contentRoot)
+    : QObject(parent),
+      _contentRoot(contentRoot.empty() ? executableDirectory() : std::move(contentRoot)),
+      _catalogs(std::make_unique<Catalogs>()) {
     // Ce qui change le combat change aussi ce que le curseur montre.
     connect(this, &ArenaModel::changed, this, &ArenaModel::cursorChanged);
     loadCatalogs();
@@ -102,7 +105,7 @@ void ArenaModel::loadCatalogs() {
 
     loadCharacterCatalog();
 
-    c.arenas = core::loadArenas(root / "World" / "arena");
+    c.arenas = core::loadArenas(_contentRoot / "World" / "arena");
     logErrors("Arene : catalogue, ", c.arenas.errors);
     c.marks = core::loadHeroicMarks(root / "Rpg" / "rules" / "heroic-marks.json");
     logErrors("Arene : marques heroiques, ", c.marks.errors);
@@ -148,7 +151,7 @@ bool ArenaModel::loadPlayableLevel() {
         return false;
     }
     const core::LevelLoadResult loaded =
-        core::LevelLoader::loadFromFile(executableDirectory() / "Levels" / c.playable->map);
+        core::LevelLoader::loadFromFile(_contentRoot / "Levels" / c.playable->map);
     if (!loaded.ok()) {
         HMI_LOG_WARNING("Arene : carte " + c.playable->map + ", " + loaded.error);
         c.problems << QStringLiteral("carte illisible : ") + toQt(loaded.error);

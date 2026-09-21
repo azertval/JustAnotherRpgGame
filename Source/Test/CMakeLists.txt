@@ -65,10 +65,6 @@ add_executable(UnitTests
     Unit/Core/World/test_world_graph.cpp
     Unit/Core/World/test_world_travel.cpp
     Unit/Core/World/test_exploration_session.cpp
-    # La carte du Colisee LIVREE (LOT-09) : contenu, pas moteur.
-    Unit/Core/World/test_coliseum_map.cpp
-    # Les quartiers de la Capitale LIVRES (LOT-96) : contenu, pas moteur.
-    Unit/Core/World/test_capital_maps.cpp
     Unit/Core/World/test_city_plan.cpp
     Unit/Core/World/test_city_block.cpp
     Unit/Core/World/test_combat_zone.cpp
@@ -306,6 +302,12 @@ if(TARGET JadgRuntime)
         project_warnings
         project_options
     )
+    # Le CONTENU que la vue-modele de l'arene ouvre : la racine d'essai (LOT-123), depuis que la
+    # table rase du LOT-102 a emporte les arenes et leurs cartes. Ses catalogues de REGLES, eux,
+    # restent ceux que le jeu deploie a cote de l'executable : ils n'ont pas bouge.
+    target_compile_definitions(RuntimeTests PRIVATE
+        JADG_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/GameData")
+
     # Absent quand JustAnotherRpgGame n'est pas construit (BUILD_EDITOR_QT=OFF) : add_dependencies
     # exige que la cible existe deja, contrairement a target_link_libraries.
     if(TARGET JustAnotherRpgGame)

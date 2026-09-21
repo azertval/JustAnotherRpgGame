@@ -145,18 +145,10 @@ qt_add_resources(JadgUi "JadgUiMaps"
     FILES ${_jadg_map_art}
 )
 
-# Les pieces du Colisee (LOT-50) : decoupees de la planche de production par
-# scripts/extract_coliseum_atlas.py sous Source/Elements/Assets/Coliseum/, et embarquees par le
-# meme mecanisme, a l'endroit ou `../../Elements/Assets/Coliseum/` les cherche depuis
-# Source/Ui/Controls/. La planche elle-meme (la source, 2,8 Mo) n'est pas embarquee : seules ses
-# pieces le sont.
-file(GLOB_RECURSE _jadg_coliseum_art CONFIGURE_DEPENDS
-    "${PROJECT_SOURCE_DIR}/Source/Elements/Assets/Coliseum/*/*.png")
-qt_add_resources(JadgUi "JadgUiColiseum"
-    PREFIX "/qt/qml/Jadg/Elements/Assets/Coliseum"
-    BASE "${PROJECT_SOURCE_DIR}/Source/Elements/Assets/Coliseum"
-    FILES ${_jadg_coliseum_art}
-)
+# La table rase du LOT-102 a emporte les pieces du Colisee, et avec elles la ressource
+# « JadgUiColiseum » qui les embarquait : plus aucun QML ne les lisait depuis que le rendu de
+# l'arene passe par QRhi (LOT-86, phase 7), qui charge ses pieces depuis le disque. Le kit d'une
+# arene HD reviendra par la nouvelle arborescence (LOT-106), pas par une ressource Qt.
 
 # --- Éditer un écran sans rien reconstruire (EX-IHM-100) --------------------------------------
 #
