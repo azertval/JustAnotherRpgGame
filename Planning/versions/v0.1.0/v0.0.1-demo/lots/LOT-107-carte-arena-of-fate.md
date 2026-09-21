@@ -16,6 +16,8 @@ criteres = [
   "`LevelEditor --check` passe : aucune case inatteignable, aucun portail sans arrivée, aucune référence morte.",
   "La carte tient 60 images par seconde à 1080p sur le poste de référence.",
   "L'onglet « Carte » montre la zone et la position du joueur.",
+  "Les 14 statues et les 4 tribunes d'honneur sont posées et nommées ; `--check` ne relève aucune référence morte vers elles.",
+  "Les vestiaires et la prison sont deux chemins distincts vers l'escalier de la porte du triomphe, tous deux atteignables ; l'escalier des catacombes est posé et condamné.",
 ]
 maquettes = ["../maquettes/plan-arena-of-fate.svg"]
 +++
@@ -31,6 +33,45 @@ et elle puise d'abord dans le kit d'Arenarea, puis dans celui de la Capitale.
 ## Conception
 
 La carte comprend une **pré-carte** d'abord, montée avec les pièces déjà présentes dans `Tools/AssetsHD/Colisee/` (sols, murs, angles, gardiens) : elle éprouve la chaîne et le rendu HD avant que le reste des pièces existe. Puis la carte finale : le sable (zone de combat), l'enceinte, le vestiaire A où arrive le condamné, le vestiaire B, le couloir, la porte vers Arenarea.
+
+### Le tracé, d'après la DA
+
+L'arène est dessinée **à la manière du Colisée de Rome** ([DA complète au référentiel](../../../../referentiels/central-empire/capitale.md#larena-of-fate--architecture-et-iconographie-da-de-lauteur-21-sept-2026)).
+La carte fait **34 × 24 cases**, mais **seuls le sable et le niveau −1 se parcourent** : les trois
+anneaux qui les entourent sont du décor en hauteur, posé une fois, et ne coûtent aucune case
+d'atteignabilité.
+
+| Anneau | Cases | Parcouru ? | Ce qu'il porte |
+|---|---|---|---|
+| Sable | ovale de **22 × 14** | **oui** — c'est la zone de combat | dalle de fond en 3 variantes, marques au sol |
+| Podium | 1 case, 2 de haut | non | mur de marbre, balustrade ; infranchissable des deux côtés |
+| Coursive des dieux | 1 case | non | **14 socles à statue** répartis régulièrement, braseros entre eux |
+| Gradins | 3 à 5 cases | non | **4 secteurs de peuple**, chacun percé d'une **tribune d'honneur** avec son **drapeau** devant ; enceinte à arcades et attique en fond |
+
+Les **14 statues** se répartissent sur la coursive, régulièrement, face au sable ; les **4 tribunes**
+sont dans l'anneau suivant et ne se disputent donc aucune place avec elles. L'ordre autour de
+l'ovale est fixé par la DA (D-18) : la **loge impériale** sur le grand axe côté parvis — celle que
+le combattant voit en levant les yeux —, les **Forces alliées** en face, **Arcanum** et **Forces de
+Darkall** sur le petit axe. Ni statue d'Ungod ni loge du Culte : ils sont deux niveaux plus bas.
+
+### Le niveau −1 : vestiaires et prison
+
+Sous les tribunes, un second niveau se parcourt, et il tient **deux quartiers qui ne communiquent
+pas entre eux** :
+
+- les **vestiaires des gladiateurs** — ceux qui combattent de leur plein gré ; le portail vers le
+  **parvis d'Arenarea** est au bout de leur couloir ;
+- la **prison** — les **condamnés à mort envoyés au jeu dans l'arène** : cellules à grille, corps
+  de garde, la salle où le maître d'arène vient chercher le condamné.
+
+Les deux couloirs débouchent sur le même **escalier de la porte du triomphe**, qui monte au sable ;
+la **porte des morts** est en face. Dans la quête de la démo, le condamné arrive par la prison et
+son adversaire par les vestiaires : les deux chemins doivent donc être distincts et tous deux
+atteignables.
+
+Au fond de la prison, l'**escalier des catacombes** descend au niveau −2. Il est posé sur la carte
+et **condamné** : c'est le crochet du `LOT-157`. Le contrôle de l'éditeur doit l'accepter comme
+porte sans arrivée — sinon la carte est marquée d'un portail mort.
 
 ![Plan de principe](../maquettes/plan-arena-of-fate.svg)
 
