@@ -144,6 +144,43 @@ void scanPieceCell(const core::TileLayer& layer, const PlaceAssets& assets,
     }
 }
 
+// Les cases dont le LIEU ne dit rien : celles qui ne nomment aucune piece et dont la table ne
+// couvre pas le type (LOT-128). Elles ne sont plus invisibles -- elles prennent le rendu de
+// maquette --, mais sur une carte qu'on veut habillee, c'est un trou d'habillage, pas un choix.
+void checkUncoveredTypes(const core::Level& level, const PlaceAssets& assets,
+                         const std::string& place, Findings& findings) {
+    if (place.empty() || !assets.appearance) {
+        return;  // une carte sans lieu EST une maquette : il n'y a rien a signaler.
+    }
+    std::map<core::TileType, std::vector<core::GridPosition>> uncovered;
+    for (const core::TileLayer& layer : level.layers()) {
+        if (!core::isVisualLayerKind(layer.kind)) {
+            continue;
+        }
+        const bool floor = layer.kind == core::LayerKind::Ground;
+        for (int row = 0; row < layer.tiles.height(); ++row) {
+            for (int column = 0; column < layer.tiles.width(); ++column) {
+                const core::GridPosition cell{.column = column, .row = row};
+                const core::TileType type = layer.tiles.tile(column, row);
+                if (type == core::TileType::Empty || !layer.pieceAt(column, row).empty()) {
+                    continue;
+                }
+                const std::string_view piece = floor ? assets.appearance->floorPiece(type, cell)
+                                                     : assets.appearance->reliefPiece(type, cell);
+                if (piece.empty() && floor) {
+                    uncovered[type].push_back(cell);
+                }
+            }
+        }
+    }
+    for (const auto& [type, cells] : uncovered) {
+        findings.addCells(MapCheckSeverity::Warning, cells,
+                          "tile type \"" + core::tileTypeName(type) +
+                              "\" is not covered by Assets/Scene/" + place +
+                              "/appearance.json (shown as a mock-up)");
+    }
+}
+
 void checkPieces(const core::Level& level, const PlaceAssets& assets, const std::string& place,
                  Findings& findings) {
     PieceScan scan;
@@ -176,6 +213,7 @@ void checkPieces(const core::Level& level, const PlaceAssets& assets, const std:
     }
     findings.addCells(MapCheckSeverity::Warning, overlapping,
                       "two piece footprints cover the same cell");
+    checkUncoveredTypes(level, assets, place, findings);
 }
 
 // --- Collision -------------------------------------------------------------------------------
