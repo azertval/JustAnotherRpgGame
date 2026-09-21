@@ -85,6 +85,16 @@ void paintLine(QPainter& painter, const LineQuad& quad, float opacity) {
     painter.drawPolygon(band);
 }
 
+void paintPoly(QPainter& painter, const PolyQuad& quad, float opacity) {
+    const QPolygonF shape{{quad.x[0], quad.y[0]},
+                          {quad.x[1], quad.y[1]},
+                          {quad.x[2], quad.y[2]},
+                          {quad.x[3], quad.y[3]}};
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(tintOf(quad.r, quad.g, quad.b, quad.a * opacity));
+    painter.drawPolygon(shape);
+}
+
 }  // namespace
 
 void paintComposedScene(QPainter& painter, const ComposedScene& scene,
@@ -100,16 +110,25 @@ void paintComposedScene(QPainter& painter, const ComposedScene& scene,
         if (extra <= 0.0F) {
             continue;
         }
-        if (quad.kind == QuadKind::Sprite) {
-            if (visible && !intersects(*visible, spriteQuadBounds(quad.sprite))) {
-                continue;
-            }
-            paintSprite(painter, quad.sprite, image, extra);
-        } else {
-            if (visible && !intersects(*visible, lineQuadBounds(quad.line))) {
-                continue;
-            }
-            paintLine(painter, quad.line, extra);
+        switch (quad.kind) {
+            case QuadKind::Sprite:
+                if (visible && !intersects(*visible, spriteQuadBounds(quad.sprite))) {
+                    continue;
+                }
+                paintSprite(painter, quad.sprite, image, extra);
+                break;
+            case QuadKind::Line:
+                if (visible && !intersects(*visible, lineQuadBounds(quad.line))) {
+                    continue;
+                }
+                paintLine(painter, quad.line, extra);
+                break;
+            case QuadKind::Poly:
+                if (visible && !intersects(*visible, polyQuadBounds(quad.poly))) {
+                    continue;
+                }
+                paintPoly(painter, quad.poly, extra);
+                break;
         }
     }
 }

@@ -27,7 +27,8 @@ class QPainter;
  *
  * Une différence assumée : la **teinte** RVB d'un quad texturé n'est pas appliquée (le jeu ne
  * teinte aucune pièce de lieu) ; seul un quad à teinte unie (`hmi::SceneImages::solid`) se peint
- * en aplat de sa couleur.
+ * en aplat de sa couleur. Un `hmi::PolyQuad` (`LOT-128`) se peint toujours ainsi : il n'a pas
+ * d'autre contenu que sa teinte.
  */
 
 namespace hmi {

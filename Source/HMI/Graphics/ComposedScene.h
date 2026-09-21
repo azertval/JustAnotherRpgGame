@@ -27,6 +27,8 @@ enum class QuadKind {
     Sprite,
     /// `hmi::LineQuad` : segment épais, orienté librement.
     Line,
+    /// `hmi::PolyQuad` : quadrilatère à quatre sommets libres, d'une seule teinte (`LOT-128`).
+    Poly,
 };
 
 /**
@@ -53,6 +55,8 @@ struct ComposedQuad {
     SpriteQuad sprite{};
     /// Primitive segment, valide si `kind == QuadKind::Line`.
     LineQuad line{};
+    /// Primitive à quatre sommets libres, valide si `kind == QuadKind::Poly`.
+    PolyQuad poly{};
 };
 
 /**
@@ -174,6 +178,17 @@ public:
     bool addLine(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
                  const LineQuad& quad);
 
+    /**
+     * @brief Ajoute un quadrilatère à quatre sommets libres à la scène, s'il est visible.
+     * @param layer     Calque de dessin.
+     * @param texture   Texture liée (l'aplat blanc, en pratique).
+     * @param sortOrder Tri fin à l'intérieur du calque et de la texture.
+     * @param quad      Primitive à composer (unités monde).
+     * @return `true` si la primitive a été conservée, `false` si le culling l'a écartée.
+     */
+    bool addPoly(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
+                 const PolyQuad& quad);
+
     /// Ordonne la scène (calque, puis texture, puis `sortOrder`), de façon **stable**.
     void sort();
 
@@ -232,6 +247,13 @@ private:
  * @return Son rectangle englobant.
  */
 [[nodiscard]] core::Rect lineQuadBounds(const LineQuad& quad) noexcept;
+
+/**
+ * @brief Boîte englobante d'un quadrilatère à sommets libres, en unités monde.
+ * @param quad Primitive à borner.
+ * @return Son rectangle englobant.
+ */
+[[nodiscard]] core::Rect polyQuadBounds(const PolyQuad& quad) noexcept;
 
 
 }  // namespace hmi

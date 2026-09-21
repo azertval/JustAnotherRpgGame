@@ -28,10 +28,16 @@ void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projecti
             current = composed.texture;
             open = true;
         }
-        if (composed.kind == QuadKind::Sprite) {
-            batch.draw(composed.sprite);
-        } else {
-            batch.draw(composed.line);
+        switch (composed.kind) {
+            case QuadKind::Sprite:
+                batch.draw(composed.sprite);
+                break;
+            case QuadKind::Line:
+                batch.draw(composed.line);
+                break;
+            case QuadKind::Poly:
+                batch.draw(composed.poly);
+                break;
         }
     }
 

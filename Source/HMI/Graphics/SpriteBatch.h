@@ -98,6 +98,14 @@ public:
      */
     void draw(const LineQuad& line);
 
+    /**
+     * @brief Ajoute un quadrilatère à quatre sommets libres au lot courant (`LOT-128`).
+     * @param poly Quadrilatère à dessiner (unités monde, UV normalisées, teinte). Ses sommets sont
+     *             repris tels quels : c'est à la composition de les donner dans l'ordre du
+     *             pourtour.
+     */
+    void draw(const PolyQuad& poly);
+
     /// Termine le lot : fige la plage de quads enregistrée. Un lot vide n'émettra aucun dessin.
     void end();
 
