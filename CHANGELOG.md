@@ -6,6 +6,16 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Une assertion Debug ne bloque plus un programme sans fenêtre.** Une assertion de la CRT ou de
+  la bibliothèque standard ouvrait une boîte « Microsoft Visual C++ Runtime Library » et attendait
+  un clic : `LevelEditor --check`, la fenêtre de l'éditeur au démarrage et `UnitTests.exe`
+  restaient bloqués, sans un mot dans leur journal — sur le poste comme dans un job de CI. Les
+  rapports de la CRT vont désormais sur la **sortie d'erreur** (`hmi::routeCrtReportsToStderr`),
+  où ils nomment leur fichier et leur ligne, et le programme poursuit son chemin d'erreur habituel,
+  minidump compris. `scripts/build.ps1` refuse par ailleurs de construire un répertoire Ninja qui a
+  perdu ses dépendances d'en-têtes (`.ninja_deps`) : une structure modifiée n'y serait recompilée
+  que d'un côté, et le binaire corromprait sa pile sans rien dire.
+
 - **Le monde dans l'éditeur : onglets, liens, ville (LOT-EDITOR-09).** Les cartes s'ouvrent
   désormais en **onglets** — chacun son brouillon, son historique, son cadrage et sa sauvegarde
   automatique ; ouvrir une carte déjà ouverte y revient, ouvrir n'écrase plus rien, et c'est

@@ -5,6 +5,9 @@
 include(GoogleTest)
 
 add_executable(UnitTests
+    # Les assertions de la CRT (Debug) vont sur stderr, jamais dans une boîte modale : sans ce
+    # fichier, un test qui en lève une attend un clic -- sur le poste comme en CI.
+    Support/CrtReports.cpp
     # L'arborescence des tests unitaires reflète celle des sources (Source/) :
     # le test de Source/<Module>/<X> vit sous Unit/<Module>/test_<x>.cpp.
     Unit/Core/test_core.cpp
@@ -342,6 +345,7 @@ endif()
 
 # Tests d'intégration : plusieurs briques assemblées collaborant de bout en bout.
 add_executable(IntegrationTests
+    Support/CrtReports.cpp
     Integration/test_exploration_carte_livree.cpp
 )
 

@@ -115,6 +115,40 @@ function Enter-X64Environment {
     Write-Host "Environnement MSVC x64 établi ($vsPath)." -ForegroundColor DarkGray
 }
 
+<#
+.SYNOPSIS
+    Vérifie que Ninja garde encore les dépendances d'en-têtes de ce répertoire de build.
+
+.DESCRIPTION
+    Ninja n'apprend les en-têtes qu'un fichier inclut qu'en le compilant, et les garde dans
+    « .ninja_deps ». Si ce journal est perdu — recompaction refusée, construction interrompue,
+    disque plein —, une modification d'en-tête ne recompile plus ses consommateurs : des objets
+    compilés contre deux versions d'une même structure se lient alors ensemble, et le binaire
+    corrompt sa pile au premier appel, sans que rien ne l'annonce. C'est une journée perdue ;
+    autant la voir venir.
+
+    Le signe : des objets déjà construits (« .ninja_log ») sans journal de dépendances à côté.
+#>
+function Assert-NinjaDepsIntact {
+    param([string]$BuildDir)
+
+    $log = Join-Path $BuildDir '.ninja_log'
+    $deps = Join-Path $BuildDir '.ninja_deps'
+    if (-not (Test-Path $log)) {
+        return  # rien n'a encore été construit ici : la prochaine compilation écrira les deux.
+    }
+    $depsSize = if (Test-Path $deps) { (Get-Item $deps).Length } else { 0 }
+    if ($depsSize -gt 0) {
+        return
+    }
+    throw @"
+Ninja a perdu les dépendances d'en-têtes de $BuildDir (.ninja_deps absent ou vide).
+Une construction incrémentale y mêlerait des objets compilés contre des en-têtes différents : le
+binaire planterait, ou corromprait sa pile sans rien dire. Relancer avec -Clean :
+    powershell -File scripts/build.ps1 -Preset $Preset -Clean
+"@
+}
+
 function Invoke-Step {
     param([string]$Label, [scriptblock]$Action)
 
@@ -141,6 +175,12 @@ $configurePreset = if ($Preset -eq 'vs-release') { 'vs' } else { $Preset }
 $buildDir = Join-Path $repoRoot "build\$configurePreset"
 if ($Clean -and (Test-Path $buildDir)) {
     Invoke-Step "Nettoyage de $buildDir" { Remove-Item -Recurse -Force $buildDir; $global:LASTEXITCODE = 0 }
+}
+
+# Un répertoire de build dont Ninja a perdu les dépendances produit des binaires incohérents :
+# mieux vaut refuser que construire à faux (voir Assert-NinjaDepsIntact).
+if ($configurePreset -like 'ninja*') {
+    Assert-NinjaDepsIntact -BuildDir $buildDir
 }
 
 Push-Location $repoRoot
