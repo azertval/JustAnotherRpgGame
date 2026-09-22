@@ -33,9 +33,11 @@ namespace {
 /// @return L'entier de @p text, s'il est ecrit en entier et sans rien d'autre.
 [[nodiscard]] std::optional<int> entier(std::string_view text) {
     int valeur = 0;
-    const char* const fin = text.data() + text.size();
-    const std::from_chars_result lu = std::from_chars(text.data(), fin, valeur);
-    if (lu.ec != std::errc{} || lu.ptr != fin) {
+    // NOLINTNEXTLINE(bugprone-suspicious-stringview-data-usage): la paire data()/size() borne la
+    // lecture, from_chars ne depasse jamais la vue.
+    const std::from_chars_result lu =
+        std::from_chars(text.data(), text.data() + text.size(), valeur);
+    if (lu.ec != std::errc{} || lu.ptr != text.data() + text.size()) {
         return std::nullopt;
     }
     return valeur;

@@ -243,7 +243,8 @@ QPixmap LevelBrowserPanel::thumbnailFor(const std::filesystem::path& path) {
     const core::LevelLoadResult level = core::LevelLoader::loadFromFile(path);
     if (level.ok()) {
         const QImage rendered =
-            renderMap(*level.level, _dir.parent_path(), MapRenderOptions{.scale = THUMBNAIL_SCALE});
+            renderMap(*level.level, _dir.parent_path(),
+                     MapRenderOptions{.bands = {}, .scale = THUMBNAIL_SCALE});
         if (!rendered.isNull()) {
             thumbnail = QPixmap::fromImage(rendered.scaled(
                 THUMBNAIL_SIDE, THUMBNAIL_SIDE, Qt::KeepAspectRatio, Qt::SmoothTransformation));
@@ -265,7 +266,7 @@ void LevelBrowserPanel::refreshCity() {
         }
     }
     const int chosen = _ui->cityChooser->currentIndex();
-    if (chosen < 0 || chosen >= static_cast<int>(cities.size())) {
+    if (chosen < 0 || std::cmp_greater_equal(chosen, cities.size())) {
         _ui->city->setCity(CityView{}, dataRoot);
         return;
     }
@@ -317,7 +318,7 @@ void LevelBrowserPanel::onNew() {
     }
     connect(templateCombo, &QComboBox::currentIndexChanged, &dialog, [&](int) {
         const int chosen = templateCombo->currentData().toInt();
-        if (chosen >= 0 && chosen < static_cast<int>(models.size())) {
+        if (chosen >= 0 && std::cmp_less(chosen, models.size())) {
             widthSpin->setValue(models[static_cast<std::size_t>(chosen)].width);
             heightSpin->setValue(models[static_cast<std::size_t>(chosen)].height);
         }
@@ -339,7 +340,7 @@ void LevelBrowserPanel::onNew() {
     const QString name = nameEdit->text();
     const LevelFileOperations ops(_dir);
     const int chosen = templateCombo->currentData().toInt();
-    const MapTemplate* const model = chosen >= 0 && chosen < static_cast<int>(models.size())
+    const MapTemplate* const model = chosen >= 0 && std::cmp_less(chosen, models.size())
                                          ? &models[static_cast<std::size_t>(chosen)]
                                          : nullptr;
     const FileOperationResult result =

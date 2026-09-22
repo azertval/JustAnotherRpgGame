@@ -6,6 +6,15 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Les 71 alertes ouvertes de Code scanning (clang-tidy) résolues.** Table de glyphes de
+  `MaquetteTokens` en initialisateurs désignés, calcul d'indice de pixel factorisé et fonctions de
+  peinture séparées ; `Stamps.cpp` découpé (`cutStamp`, `pasteStamp`, `stampBodyFromJson` en
+  sous-fonctions), messages d'erreur en littéraux bruts, concaténations en `append()` ;
+  comparaisons signé/non signé remplacées par `std::cmp_less`/`std::cmp_greater_equal` dans
+  `LevelBrowserPanel` et `MapPropertiesDialog` ; `MainWindow::_tabs` initialisé dans la liste,
+  `offerRecovery` scindée par brouillon ; copies évitées (`editorDataRoot()` par référence),
+  déplacement automatique restauré dans `MapRender` ; aucun changement de comportement.
+
 - **Le guide poussé à fond, le manuel remis d'aplomb, le cahier de test navigable.** Les treize
   pages déjà refondues du guide reçoivent trente figures SVG — l'accumulateur du pas de temps fixe,
   le *sparse set* de l'ECS, la pile du routeur, le cycle d'un tour, l'évaluation de l'IA, la ligne
