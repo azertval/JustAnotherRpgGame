@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789958574660,
+  "lastUpdate": 1790044757346,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -680,6 +680,70 @@ window.BENCHMARK_DATA = {
             "value": 269.8241874637339,
             "unit": "us/iter",
             "extra": "iterations: 6892\ncpu: 283.3901625072548 us\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "2f46f3125f78187d31e996c6d3eea38bc2ba9688",
+          "message": "docs(site) : une seule charte pour les trois parties du site publié (#107)\n\nLe site de gh-pages avait trois rendus pour trois générateurs : le bleu et\nblanc de Doxygen à la racine, l'ivoire de la planification sous planning/, et\nune troisième palette écrite à la main dans la page qualité.\n\nSite/ tient désormais ce qu'ils ont en commun :\n\n- tokens.css : la palette, les fontes et le thème sombre, écrits une fois ;\n- topbar.css : la barre d'en-tête, mêmes libellés et même ordre partout, avec\n  la partie courante marquée ;\n- theme.css : l'habillage des pages écrites ici (planification, qualité) ;\n- reference.css et header.html : la référence de code. La première rebranche\n  les ~140 variables CSS de Doxygen sur les jetons, le second porte la barre à\n  la place des onglets de Doxygen (DISABLE_INDEX).\n\nDeux points ont demandé d'y regarder de près. HTML_COLORSTYLE passe à\nAUTO_LIGHT : en LIGHT, Doxygen résout ses variables à la génération et écrit\nses couleurs en dur, ne laissant rien à rebrancher. Et son bloc sombre\nredéclare ces variables sous html:not(.dark-mode), plus spécifique qu'un html\nnu : reference.css reprend le même sélecteur, sans quoi le branchement serait\nappliqué en clair et entièrement recouvert en sombre.\n\nLa barre de Doxygen est posée dans #top, dont navtree.js mesure la hauteur\npour placer l'arbre et le contenu ; elle n'est donc pas sticky, à la\ndifférence des deux autres.\n\nAucun contenu ne change, et plus aucune couleur ne s'écrit ailleurs que dans\nSite/tokens.css.\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-21T19:53:19Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/2f46f3125f78187d31e996c6d3eea38bc2ba9688"
+        },
+        "date": 1790044753791,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "ReachableAreaDashing",
+            "value": 101491.02343749661,
+            "unit": "ns/iter",
+            "extra": "iterations: 12800\ncpu: 101318.359375 ns\nthreads: 1"
+          },
+          {
+            "name": "FindPathAcrossGrid",
+            "value": 138679.12499999793,
+            "unit": "ns/iter",
+            "extra": "iterations: 11200\ncpu: 139508.92857142858 ns\nthreads: 1"
+          },
+          {
+            "name": "LineOfSightAcrossGrid",
+            "value": 37784.709821428056,
+            "unit": "ns/iter",
+            "extra": "iterations: 35840\ncpu: 37928.989955357145 ns\nthreads: 1"
+          },
+          {
+            "name": "CoverFromWithInterposed",
+            "value": 104695.57999999779,
+            "unit": "ns/iter",
+            "extra": "iterations: 10000\ncpu: 115625 ns\nthreads: 1"
+          },
+          {
+            "name": "PlanTurnFourVersusFour",
+            "value": 698954.0923399705,
+            "unit": "ns/iter",
+            "extra": "iterations: 1906\ncpu: 655823.7145855194 ns\nthreads: 1"
+          },
+          {
+            "name": "LoadTestLevel",
+            "value": 1523289.9999999744,
+            "unit": "ns/iter",
+            "extra": "iterations: 1000\ncpu: 1671875 ns\nthreads: 1"
+          },
+          {
+            "name": "ComposeTestMap",
+            "value": 302.83955606145105,
+            "unit": "us/iter",
+            "extra": "iterations: 5271\ncpu: 263.82564978182506 us\nthreads: 1"
           }
         ]
       }
