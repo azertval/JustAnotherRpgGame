@@ -224,6 +224,22 @@ les mêmes trois objets.
 
 ![L'écran du marchand, dessiné mais pas encore alimenté : trois panneaux « Marchandises », « Bourse », « Votre sac » aux lignes en tirets, à 1280 × 720](captures/jeu-merchant.jpg)
 
+Le marchand n'est pas seul dans ce cas, et les deux autres montrent bien ce que le tiret permet :
+juger une **disposition** avant d'avoir la donnée qui la remplira.
+
+![Le journal de quêtes sur panneaux sombres : la liste « Quêtes » à gauche, « Détail » et « Objectifs » à droite, toutes leurs lignes en tirets, à 1280 × 720](captures/jeu-journal.jpg)
+
+Le journal se juge déjà sur une question de conception que nulle donnée ne changera : la liste des
+quêtes occupe une colonne entière, et le détail se partage en deux avec les objectifs. C'est
+vérifiable aujourd'hui, et ce serait bien plus coûteux à corriger une fois les quêtes écrites
+(`LOT-116`).
+
+![L'écran de l'équipe de mercenaires sur parchemin : les quatre médaillons de carrière, les six places de membres dont une seule occupée, la base principale et ses bâtiments, les hauts faits et les trésors, à 1280 × 720](captures/jeu-company.jpg)
+
+L'équipe de mercenaires est le cas extrême : presque tout y est en attente, et l'écran reste
+pourtant utile — il montre que **six** places de membres tiennent sans que la disposition se
+déforme, alors que la décision de cadrage n'en promettait que quatre.
+
 ### `hmi::SheetRowModel` — les parties répétitives
 
 `QAbstractListModel` de lignes `hmi::SheetRow` (`id`, `label`, `value`), rôles `rowId`, `label`,

@@ -28,7 +28,7 @@ une carte se fait-elle vite et juste ? Depuis le [LOT-EDITOR-01](../../Planning/
 ## Architecture de l'information : ce qui informe reste, ce qui commande est unique
 
 Ces choix ne sont plus des exigences (`EX-IHM-060` et `061` sont retirées au `LOT-EDITOR-01` :
-l'agencement de l'éditeur se décide dans sa feuille de route), mais ils restent en place.
+l'agencement de l'éditeur se décide lot par lot), mais ils restent en place.
 
 ### Une barre d'état structurée
 
@@ -61,37 +61,66 @@ View porte en tête les seules commandes de **vue** (recadrer, grille), et chaqu
 qu'une entrée, sa bascule de visibilité ; Undo/Redo/Copy/Paste dispatchent via
 `hmi::EditContextTarget`, interface qu'implémente `hmi::EditorViewport`.
 
-## Deux identités, deux règles d'échelle (LOT-66)
+## Deux échelles, et pourquoi l'une est réelle et l'autre entière
 
-La règle tient en une phrase : **l'éditeur suit les réglages du système, les écrans du jeu sont
-une image agrandie d'un facteur entier.**
+C'est le point de cette page qui se retient le plus mal, parce que le mot « échelle » y désigne
+**deux mécanismes différents**, réglés séparément, dans le même fichier `Source/Ui/Theme/Tokens.qml`.
 
-`hmi::identityScaleFor` décide de ce facteur depuis la hauteur **logique** de la
-fenêtre — jamais la hauteur réelle : Qt applique la mise à l'échelle du système par-dessus, et
-multiplier une seconde fois donnerait une interface deux fois trop grande sur un écran réglé à
-200 %. La division est entière et non arrondie : une fenêtre de 700 px passerait sinon à l'échelle 2,
-pour laquelle il manque 20 px, et la dernière entrée du menu disparaîtrait sous le bord.
+| | `Tokens.uiScale` | `Tokens.scale` |
+|---|---|---|
+| Type | **réel** | **entier**, borné à `[1, 3]` |
+| Ce qu'il met à l'échelle | les **écrans** : typographie, espacements, traits | le **viewport** de la scène |
+| Valeur de conception | `1` (Qt Design Studio dessine à 1080p) | `2` (ce qu'affiche Qt Design Studio) |
+| Calculé par | `Main.qml`, depuis la taille de la fenêtre | `hmi::identityScaleFor`, depuis sa hauteur |
 
-Les grandeurs des écrans du jeu (`Source/Ui/Theme/Tokens.qml`) s'écrivent **en pixels à
-l'échelle 1**. En pixels et non en points : un point vaut une fraction variable de pixel
-selon l'écran, et le facteur entier n'aurait alors plus rien d'entier.
+![Les deux échelles : uiScale, un réel tiré du plus petit des deux rapports de la fenêtre à 1920 × 1080 et multiplié une seule fois dans Tokens.qml, et le facteur entier du viewport obtenu par division entière de la hauteur par 360 puis borné à 3 ; les deux lisent la hauteur logique, jamais la hauteur réelle](figures/design-echelle.svg)
 
-**Et le facteur se borne à l'écran, pas à la fenêtre** (`EX-IHM-081`,
-`hmi::identityScaleForDisplay`). Dériver le facteur de la seule
-hauteur de fenêtre en faisait une boucle sans point fixe : le facteur grossit les grandeurs
-d'habillage, qui grossissent la taille minimale des écrans, qui grossit la fenêtre — laquelle
-relance le calcul un cran plus haut, sans que rien ne redescende jamais. La zone d'affichage
-disponible, elle, ne dépend d'aucune décision de l'application : c'est ce qui ferme la boucle.
+### `Tokens.uiScale` : réel, parce que la charte v2 est peinte
 
-### Pourquoi le facteur reste entier après la sortie du pixel art
+Les grandeurs des écrans sont écrites **à 1080p** — `fontBody: 18`, `gapLarge: 32` — puis
+multipliées **une seule fois**, ici, par `uiScale`. Un écran ne multiplie jamais lui-même : c'est
+ce qui permet de dessiner dans Qt Design Studio à `uiScale = 1` et d'y lire les tailles exactes.
 
-Le `LOT-68` l'exigeait parce que le filtrage au plus proche voisin ne sait pas rendre une bordure
-d'un pixel et demi. Cette raison a disparu avec la charte parchemin, qui peint anticrénelé. Le
-facteur reste pourtant entier, pour une **seconde** raison, elle intacte : les longueurs de
-l'habillage sont des **entiers de pixels**. À 1,5×, le trait d'une unité et le filet d'une unité
-s'arrondissent tous deux à 2 px — la réserve de parchemin qui les sépare disparaît, et
-l'encadrement se lit comme une bordure épaisse. Une échelle fractionnaire ne serait donc pas
-*floue* : elle serait **fausse**, et silencieuse.
+Le facteur vaut le **plus petit** des deux rapports de la fenêtre à 1920 × 1080, avec un plancher à
+0,5. Le plus petit, et non le plus grand : sur une fenêtre plus large que 16:9, prendre le rapport
+de largeur ferait déborder l'interface en hauteur. Mieux vaut une marge qu'un rognage — une marge
+se voit et ne coûte rien, un bord rogné emporte une valeur ou un bouton.
+
+Il est **réel** parce que la charte v2 est peinte et anticrénelée : ses cadres *9-patch*
+s'échantillonnent à n'importe quel facteur. La contrainte d'entier qui valait pour le pixel art n'a
+plus d'objet ici.
+
+### `Tokens.scale` : entier, parce que le viewport est fait de pixels
+
+Le viewport, lui, garde un facteur **entier**, et ce n'est pas une survivance : ses tuiles sont des
+**pixels**. À 1,5×, un trait d'une unité et un filet d'une unité s'arrondissent tous **deux** à
+2 px — la réserve qui les séparait disparaît, et l'encadrement se lit comme une bordure épaisse. Le
+résultat ne serait pas *flou* : il serait **faux**, et silencieux.
+
+`hmi::identityScaleFor(hauteur)` divise la hauteur par 360, **en division entière**, puis borne à
+`IDENTITY_MAX_SCALE` (3). La division entière et non un arrondi : une fenêtre de 700 px passerait
+sinon à l'échelle 2, pour laquelle il manque 20 px, et la dernière entrée d'un menu disparaîtrait
+sous le bord.
+
+### Ce que les deux partagent : la hauteur **logique**
+
+Toutes deux lisent la hauteur **logique** de la fenêtre, jamais la hauteur réelle. Qt applique déjà
+la mise à l'échelle du système (150 %, 200 %) par-dessus une disposition exprimée en unités
+logiques : multiplier une seconde fois par le rapport de pixels du périphérique donnerait une
+interface **deux fois trop grande** sur un écran réglé à 200 %.
+
+Pour la même raison, les grandeurs de `Tokens.qml` sont en **pixels** et non en points : un point
+vaut une fraction variable de pixel selon l'écran, et un facteur entier appliqué à une grandeur
+variable n'aurait plus rien d'entier.
+
+### La boucle que le facteur entier a failli créer
+
+Le facteur du viewport se borne à l'**écran**, pas à la fenêtre (`EX-IHM-081`,
+`hmi::identityScaleForDisplay`). Le dériver de la seule hauteur de fenêtre en faisait une boucle
+sans point fixe : le facteur grossit les grandeurs d'habillage, qui grossissent la taille minimale
+des écrans, qui grossit la fenêtre — laquelle relance le calcul un cran plus haut, sans que rien ne
+redescende jamais. La zone d'affichage disponible, elle, ne dépend d'**aucune** décision de
+l'application : c'est ce qui ferme la boucle.
 
 ## Voir aussi
 - [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md) — le socle applicatif Qt, les surfaces de rendu QRhi, la boucle et les entrées.

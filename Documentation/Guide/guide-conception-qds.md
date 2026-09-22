@@ -49,6 +49,13 @@ vôtre :
 Le suffixe `Form` n'est pas décoratif : sans lui, les deux fichiers déclareraient un type du même
 nom et le module refuserait de se charger.
 
+![Le formulaire et son jumeau côte à côte : le formulaire déclare ses propriétés et ses signaux sans importer Jadg.Runtime, le jumeau l'instancie et le branche aux types C++ ; en regard, ce que Qt Design Studio détruit en silence dans un Form, et les doublures qui permettent d'ouvrir l'atelier sans plugin C++](figures/qds-deux-fichiers.svg)
+
+Lue de gauche à droite, la figure dit la division du travail : le formulaire **déclare** ce qu'il
+sait afficher — une valeur, un signal émis quand on clique — et le jumeau **répond** à ces
+déclarations en les reliant aux types C++. Le formulaire ne sait pas d'où vient le volume ; le
+jumeau ne sait pas à quoi ressemble un curseur.
+
 **Pourquoi cette séparation.** Un `.ui.qml` est le sous-ensemble **déclaratif** de QML — celui que
 Design Studio sait relire *et réenregistrer* sans l'abîmer. Ce qu'il n'y comprend pas, il le
 **perd**, sans avertir. La règle ne vise donc pas le style, mais ce que l'outil détruirait :
