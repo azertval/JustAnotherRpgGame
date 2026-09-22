@@ -23,6 +23,15 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   l'arborescence par niveaux (`Common/`, `Regions/`), et le **gabarit de la commande d'une zone**
   (`Planning/standards/gabarit-commande-zone.md`) passe les dix familles en revue et suit chaque pièce
   de sa commande à la galerie.
+  
+- **Les 71 alertes ouvertes de Code scanning (clang-tidy) résolues.** Table de glyphes de
+  `MaquetteTokens` en initialisateurs désignés, calcul d'indice de pixel factorisé et fonctions de
+  peinture séparées ; `Stamps.cpp` découpé (`cutStamp`, `pasteStamp`, `stampBodyFromJson` en
+  sous-fonctions), messages d'erreur en littéraux bruts, concaténations en `append()` ;
+  comparaisons signé/non signé remplacées par `std::cmp_less`/`std::cmp_greater_equal` dans
+  `LevelBrowserPanel` et `MapPropertiesDialog` ; `MainWindow::_tabs` initialisé dans la liste,
+  `offerRecovery` scindée par brouillon ; copies évitées (`editorDataRoot()` par référence),
+  déplacement automatique restauré dans `MapRender` ; aucun changement de comportement.
 
 - **Le guide poussé à fond, le manuel remis d'aplomb, le cahier de test navigable.** Les treize
   pages déjà refondues du guide reçoivent trente figures SVG — l'accumulateur du pas de temps fixe,

@@ -103,13 +103,18 @@ void ArenaSceneRenderer::loadBattlefield() {
         GRAPHICS_LOG_WARNING("Arena battlefield: aucune arene ne nomme une carte et sa zone.");
         return;
     }
-    const auto level = core::LevelLoader::loadFromFile(data / "Levels" / definition->map);
+    loadBattlefieldFrom(*definition);
+}
+
+void ArenaSceneRenderer::loadBattlefieldFrom(const core::Arena& definition) {
+    const auto data = _directory.parent_path().parent_path();
+    const auto level = core::LevelLoader::loadFromFile(data / "Levels" / definition.map);
     if (!level.ok()) {
         GRAPHICS_LOG_WARNING("Arena battlefield: " + level.error);
         return;
     }
     const auto zones = core::combatZonesOf(*level.level);
-    const auto* zone = core::findCombatZone(zones, definition->zone);
+    const auto* zone = core::findCombatZone(zones, definition.zone);
     if (zone == nullptr) {
         GRAPHICS_LOG_WARNING("Arena battlefield: unknown combat zone");
         return;

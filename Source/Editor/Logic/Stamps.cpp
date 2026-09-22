@@ -13,6 +13,7 @@
 #include <stdexcept>
 #include <system_error>
 #include <utility>
+#include <variant>
 
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelDraft.h"
@@ -56,7 +57,15 @@ public:
 
 void writeProperties(const core::PropertyMap& properties, Json& object) {
     for (const auto& [key, value] : properties) {
-        std::visit([&object, &key](const auto& held) { object[key] = held; }, value);
+        if (const auto* held = std::get_if<bool>(&value)) {
+            object[key] = *held;
+        } else if (const auto* heldInt = std::get_if<std::int64_t>(&value)) {
+            object[key] = *heldInt;
+        } else if (const auto* heldDouble = std::get_if<double>(&value)) {
+            object[key] = *heldDouble;
+        } else if (const auto* heldString = std::get_if<std::string>(&value)) {
+            object[key] = *heldString;
+        }
     }
 }
 
@@ -129,28 +138,16 @@ struct Rect {
 }
 
 [[nodiscard]] std::size_t typeIndex(const Rect& rect, core::GridPosition cell) {
-    return static_cast<std::size_t>(cell.row - rect.top) * static_cast<std::size_t>(rect.width()) +
+    return (static_cast<std::size_t>(cell.row - rect.top) *
+            static_cast<std::size_t>(rect.width())) +
            static_cast<std::size_t>(cell.column - rect.left);
 }
 
-}  // namespace
-
-// --- Decouper ------------------------------------------------------------------------------------
-
-Stamp cutStamp(const core::LevelDraft& draft, core::GridPosition first, core::GridPosition last) {
-    const core::TileMap& root = draft.tileMap();
-    Rect rect = normalized(first, last);
-    rect.left = std::max(rect.left, 0);
-    rect.top = std::max(rect.top, 0);
-    rect.right = std::min(rect.right, root.width() - 1);
-    rect.bottom = std::min(rect.bottom, root.height() - 1);
-    if (rect.width() <= 0 || rect.height() <= 0) {
-        return Stamp{};
-    }
-
-    // Les pieces ancrees dans le rectangle l'agrandissent jusqu'a leur emprise entiere : un etal
-    // 2 x 1 choisi au bord ne perd pas sa moitie droite (voir l'en-tete).
-    const std::vector<core::TileLayer>& layers = draft.layers();
+// Les pieces ancrees dans le rectangle l'agrandissent jusqu'a leur emprise entiere : un etal
+// 2 x 1 choisi au bord ne perd pas sa moitie droite (voir l'en-tete).
+void growRectForAnchoredPieces(const core::LevelDraft& draft,
+                                const std::vector<core::TileLayer>& layers,
+                                const core::TileMap& root, Rect& rect) {
     for (const core::TileLayer& layer : layers) {
         if (!core::isVisualLayerKind(layer.kind)) {
             continue;
@@ -169,6 +166,87 @@ Stamp cutStamp(const core::LevelDraft& draft, core::GridPosition first, core::Gr
     }
     rect.right = std::min(rect.right, root.width() - 1);
     rect.bottom = std::min(rect.bottom, root.height() - 1);
+}
+
+[[nodiscard]] StampLayer extractLayer(const core::TileLayer& layer, const Rect& rect,
+                                       core::GridPosition origin, int width, int height) {
+    StampLayer taken;
+    taken.name = layer.name;
+    taken.kind = layer.kind;
+    taken.types.assign(static_cast<std::size_t>(width) * static_cast<std::size_t>(height),
+                        core::TileType::Empty);
+    for (int row = rect.top; row <= rect.bottom; ++row) {
+        for (int column = rect.left; column <= rect.right; ++column) {
+            const core::GridPosition cell{.column = column, .row = row};
+            taken.types[typeIndex(rect, cell)] = layer.tiles.tile(column, row);
+            const std::string_view piece = layer.pieceAt(column, row);
+            if (!piece.empty()) {
+                taken.pieces.push_back(
+                    StampPiece{.anchor = core::GridPosition{.column = column - origin.column,
+                                                            .row = row - origin.row},
+                               .piece = std::string{piece},
+                               .type = layer.tiles.tile(column, row)});
+            }
+        }
+    }
+    return taken;
+}
+
+[[nodiscard]] std::vector<core::MapEntity> extractEntities(const core::LevelDraft& draft,
+                                                             const Rect& rect,
+                                                             core::GridPosition origin) {
+    std::vector<core::MapEntity> taken;
+    for (const core::MapEntity& entity : draft.entities()) {
+        if (!rect.contains(entity.position)) {
+            continue;
+        }
+        core::MapEntity copy = entity;
+        copy.id.clear();  // chaque pose en donne un neuf (decision D8).
+        copy.position = core::GridPosition{.column = entity.position.column - origin.column,
+                                           .row = entity.position.row - origin.row};
+        for (core::GridPosition& cell : copy.cells) {
+            cell = core::GridPosition{.column = cell.column - origin.column,
+                                      .row = cell.row - origin.row};
+        }
+        taken.push_back(std::move(copy));
+    }
+    return taken;
+}
+
+[[nodiscard]] std::vector<StampForcedCell> extractForced(const core::LevelDraft& draft,
+                                                          const core::TileMap& root,
+                                                          const Rect& rect,
+                                                          core::GridPosition origin) {
+    std::vector<StampForcedCell> taken;
+    for (const core::GridPosition forced : draft.forcedCollision()) {
+        if (!rect.contains(forced)) {
+            continue;
+        }
+        taken.push_back(
+            StampForcedCell{.cell = core::GridPosition{.column = forced.column - origin.column,
+                                                       .row = forced.row - origin.row},
+                            .type = root.tile(forced.column, forced.row)});
+    }
+    return taken;
+}
+
+}  // namespace
+
+// --- Decouper ------------------------------------------------------------------------------------
+
+Stamp cutStamp(const core::LevelDraft& draft, core::GridPosition first, core::GridPosition last) {
+    const core::TileMap& root = draft.tileMap();
+    Rect rect = normalized(first, last);
+    rect.left = std::max(rect.left, 0);
+    rect.top = std::max(rect.top, 0);
+    rect.right = std::min(rect.right, root.width() - 1);
+    rect.bottom = std::min(rect.bottom, root.height() - 1);
+    if (rect.width() <= 0 || rect.height() <= 0) {
+        return Stamp{};
+    }
+
+    const std::vector<core::TileLayer>& layers = draft.layers();
+    growRectForAnchoredPieces(draft, layers, root, rect);
 
     Stamp stamp;
     stamp.width = rect.width();
@@ -180,53 +258,11 @@ Stamp cutStamp(const core::LevelDraft& draft, core::GridPosition first, core::Gr
         if (!core::isVisualLayerKind(layer.kind)) {
             continue;
         }
-        StampLayer taken;
-        taken.name = layer.name;
-        taken.kind = layer.kind;
-        taken.types.assign(
-            static_cast<std::size_t>(stamp.width) * static_cast<std::size_t>(stamp.height),
-            core::TileType::Empty);
-        for (int row = rect.top; row <= rect.bottom; ++row) {
-            for (int column = rect.left; column <= rect.right; ++column) {
-                const core::GridPosition cell{.column = column, .row = row};
-                taken.types[typeIndex(rect, cell)] = layer.tiles.tile(column, row);
-                const std::string_view piece = layer.pieceAt(column, row);
-                if (!piece.empty()) {
-                    taken.pieces.push_back(
-                        StampPiece{.anchor = core::GridPosition{.column = column - origin.column,
-                                                                .row = row - origin.row},
-                                   .piece = std::string{piece},
-                                   .type = layer.tiles.tile(column, row)});
-                }
-            }
-        }
-        stamp.layers.push_back(std::move(taken));
+        stamp.layers.push_back(extractLayer(layer, rect, origin, stamp.width, stamp.height));
     }
 
-    for (const core::MapEntity& entity : draft.entities()) {
-        if (!rect.contains(entity.position)) {
-            continue;
-        }
-        core::MapEntity taken = entity;
-        taken.id.clear();  // chaque pose en donne un neuf (decision D8).
-        taken.position = core::GridPosition{.column = entity.position.column - origin.column,
-                                            .row = entity.position.row - origin.row};
-        for (core::GridPosition& cell : taken.cells) {
-            cell = core::GridPosition{.column = cell.column - origin.column,
-                                      .row = cell.row - origin.row};
-        }
-        stamp.entities.push_back(std::move(taken));
-    }
-
-    for (const core::GridPosition forced : draft.forcedCollision()) {
-        if (!rect.contains(forced)) {
-            continue;
-        }
-        stamp.forced.push_back(
-            StampForcedCell{.cell = core::GridPosition{.column = forced.column - origin.column,
-                                                       .row = forced.row - origin.row},
-                            .type = root.tile(forced.column, forced.row)});
-    }
+    stamp.entities = extractEntities(draft, rect, origin);
+    stamp.forced = extractForced(draft, root, rect, origin);
     return stamp;
 }
 
@@ -254,7 +290,7 @@ Stamp mirrorStamp(const Stamp& stamp, const core::ScenePieceManifest* manifest) 
         for (int row = 0; row < stamp.height; ++row) {
             for (int column = 0; column < stamp.width; ++column) {
                 const std::size_t source =
-                    static_cast<std::size_t>(row) * static_cast<std::size_t>(stamp.width) +
+                    (static_cast<std::size_t>(row) * static_cast<std::size_t>(stamp.width)) +
                     static_cast<std::size_t>(column);
                 if (source >= layer.types.size()) {
                     continue;
@@ -313,25 +349,16 @@ namespace {
     return std::nullopt;
 }
 
-}  // namespace
+struct PasteTargets {
+    std::string refusal;
+    std::vector<std::size_t> indices;
+};
 
-StampPasteResult pasteStamp(core::LevelDraft& draft, const Stamp& stamp, core::GridPosition at,
-                            const LayerViewState& view) {
-    StampPasteResult result;
-    if (stamp.empty()) {
-        result.refusal = "nothing to paste.";
-        return result;
-    }
-    const core::TileMap& root = draft.tileMap();
-    if (at.column > root.width() - 1 || at.row > root.height() - 1 ||
-        at.column + stamp.width <= 0 || at.row + stamp.height <= 0) {
-        result.refusal = "the stamp would fall outside the map.";
-        return result;
-    }
-
-    // Toutes les couches d'abord : un refus ne doit rien avoir ecrit.
-    std::vector<std::size_t> targets;
-    targets.reserve(stamp.layers.size());
+// Toutes les couches d'abord : un refus ne doit rien avoir ecrit.
+[[nodiscard]] PasteTargets resolvePasteTargets(const core::LevelDraft& draft, const Stamp& stamp,
+                                               const LayerViewState& view) {
+    PasteTargets result;
+    result.indices.reserve(stamp.layers.size());
     const bool hasVisual = std::ranges::any_of(draft.layers(), [](const core::TileLayer& layer) {
         return core::isVisualLayerKind(layer.kind);
     });
@@ -345,11 +372,14 @@ StampPasteResult pasteStamp(core::LevelDraft& draft, const Stamp& stamp, core::G
             result.refusal = "layer \"" + draft.layers()[*target].name + "\" is locked.";
             return result;
         }
-        targets.push_back(*target);
+        result.indices.push_back(*target);
     }
+    return result;
+}
 
-    // Un seul geste : toute la pose se defait d'un Ctrl+Z (EX-EDIT-066).
-    const core::GestureScope gesture(draft);
+[[nodiscard]] bool pasteLayers(core::LevelDraft& draft, const Stamp& stamp,
+                               core::GridPosition at, const core::TileMap& root,
+                               const std::vector<std::size_t>& targets) {
     bool changed = false;
     for (std::size_t index = 0; index < stamp.layers.size(); ++index) {
         const StampLayer& layer = stamp.layers[index];
@@ -360,7 +390,7 @@ StampPasteResult pasteStamp(core::LevelDraft& draft, const Stamp& stamp, core::G
         for (int row = 0; row < stamp.height; ++row) {
             for (int column = 0; column < stamp.width; ++column) {
                 const std::size_t source =
-                    static_cast<std::size_t>(row) * static_cast<std::size_t>(stamp.width) +
+                    (static_cast<std::size_t>(row) * static_cast<std::size_t>(stamp.width)) +
                     static_cast<std::size_t>(column);
                 if (source < layer.types.size()) {
                     block[static_cast<std::size_t>(row)][static_cast<std::size_t>(column)] =
@@ -378,7 +408,13 @@ StampPasteResult pasteStamp(core::LevelDraft& draft, const Stamp& stamp, core::G
             changed = draft.placePiece(targets[index], anchor, piece.piece, piece.type) || changed;
         }
     }
+    return changed;
+}
 
+[[nodiscard]] bool pasteEntities(core::LevelDraft& draft, const Stamp& stamp,
+                                 core::GridPosition at, const core::TileMap& root,
+                                 std::vector<std::size_t>& placedIndices) {
+    bool changed = false;
     for (const core::MapEntity& entity : stamp.entities) {
         core::MapEntity placed = entity;
         placed.position = core::GridPosition{.column = at.column + entity.position.column,
@@ -395,12 +431,17 @@ StampPasteResult pasteStamp(core::LevelDraft& draft, const Stamp& stamp, core::G
             }
         }
         if (const std::optional<std::size_t> index = draft.placeEntity(std::move(placed))) {
-            result.entities.push_back(*index);
+            placedIndices.push_back(*index);
             changed = true;
         }
     }
+    return changed;
+}
 
-    // Les cases forcees en dernier : la collision des cases posees vient d'etre deduite.
+// Les cases forcees en dernier : la collision des cases posees vient d'etre deduite.
+[[nodiscard]] bool pasteForcedCells(core::LevelDraft& draft, const Stamp& stamp,
+                                    core::GridPosition at, const core::TileMap& root) {
+    bool changed = false;
     for (const StampForcedCell& forced : stamp.forced) {
         const core::GridPosition cell{.column = at.column + forced.cell.column,
                                       .row = at.row + forced.cell.row};
@@ -412,6 +453,36 @@ StampPasteResult pasteStamp(core::LevelDraft& draft, const Stamp& stamp, core::G
             changed = true;
         }
     }
+    return changed;
+}
+
+}  // namespace
+
+StampPasteResult pasteStamp(core::LevelDraft& draft, const Stamp& stamp, core::GridPosition at,
+                            const LayerViewState& view) {
+    StampPasteResult result;
+    if (stamp.empty()) {
+        result.refusal = "nothing to paste.";
+        return result;
+    }
+    const core::TileMap& root = draft.tileMap();
+    if (at.column > root.width() - 1 || at.row > root.height() - 1 ||
+        at.column + stamp.width <= 0 || at.row + stamp.height <= 0) {
+        result.refusal = "the stamp would fall outside the map.";
+        return result;
+    }
+
+    PasteTargets targets = resolvePasteTargets(draft, stamp, view);
+    if (!targets.refusal.empty()) {
+        result.refusal = std::move(targets.refusal);
+        return result;
+    }
+
+    // Un seul geste : toute la pose se defait d'un Ctrl+Z (EX-EDIT-066).
+    const core::GestureScope gesture(draft);
+    bool changed = pasteLayers(draft, stamp, at, root, targets.indices);
+    changed = pasteEntities(draft, stamp, at, root, result.entities) || changed;
+    changed = pasteForcedCells(draft, stamp, at, root) || changed;
 
     result.changed = changed;
     return result;
@@ -427,11 +498,12 @@ std::string stampLabel(const Stamp& stamp) {
     }
     std::string label = std::to_string(stamp.width) + " × " + std::to_string(stamp.height);
     if (pieces > 0) {
-        label += " · " + std::to_string(pieces) + (pieces == 1 ? " piece" : " pieces");
+        label.append(" · ").append(std::to_string(pieces)).append(pieces == 1 ? " piece" : " pieces");
     }
     if (!stamp.entities.empty()) {
-        label += " · " + std::to_string(stamp.entities.size()) +
-                 (stamp.entities.size() == 1 ? " entity" : " entities");
+        label.append(" · ")
+            .append(std::to_string(stamp.entities.size()))
+            .append(stamp.entities.size() == 1 ? " entity" : " entities");
     }
     return label;
 }
@@ -508,81 +580,108 @@ nlohmann::json stampToJson(const Stamp& stamp) {
 
 namespace {
 
+[[nodiscard]] StampLayer layerFromJson(const Json& layerJson, std::size_t cells) {
+    StampLayer layer;
+    layer.name = layerJson.value("name", std::string{});
+    const std::string kind = layerJson.value("kind", std::string{"ground"});
+    layer.kind = kind == "decor" ? core::LayerKind::Decor : core::LayerKind::Ground;
+    const auto types = layerJson.find("types");
+    if (types == layerJson.end() || !types->is_array() || types->size() != cells) {
+        throw StampInvalid("layer \"" + layer.name + "\": \"types\" must hold width × height names");
+    }
+    for (const Json& type : *types) {
+        layer.types.push_back(typeOf(type));
+    }
+    const auto pieces = layerJson.find("pieces");
+    if (pieces != layerJson.end()) {
+        if (!pieces->is_array()) {
+            throw StampInvalid(R"("pieces" must be a list)");
+        }
+        for (const Json& pieceJson : *pieces) {
+            layer.pieces.push_back(StampPiece{.anchor = cellOf(pieceJson.at("at")),
+                                              .piece = pieceJson.value("piece", std::string{}),
+                                              .type = typeOf(pieceJson.at("type"))});
+        }
+    }
+    return layer;
+}
+
+[[nodiscard]] std::vector<StampLayer> layersFromJson(const Json& json, std::size_t cells) {
+    std::vector<StampLayer> layers;
+    const auto found = json.find("layers");
+    if (found == json.end()) {
+        return layers;
+    }
+    if (!found->is_array()) {
+        throw StampInvalid(R"("layers" must be a list)");
+    }
+    for (const Json& layerJson : *found) {
+        layers.push_back(layerFromJson(layerJson, cells));
+    }
+    return layers;
+}
+
+[[nodiscard]] core::MapEntity entityFromJson(const Json& entityJson) {
+    core::MapEntity entity;
+    entity.type = entityJson.value("type", std::string{});
+    entity.position = core::GridPosition{.column = entityJson.value("x", 0),
+                                         .row = entityJson.value("y", 0)};
+    entity.elevation = entityJson.value("elevation", 0);
+    const auto cellList = entityJson.find("cells");
+    if (cellList != entityJson.end() && cellList->is_array()) {
+        for (const Json& cell : *cellList) {
+            entity.cells.push_back(cellOf(cell));
+        }
+    }
+    readProperties(entityJson, entity.properties);
+    return entity;
+}
+
+[[nodiscard]] std::vector<core::MapEntity> entitiesFromJson(const Json& json) {
+    std::vector<core::MapEntity> entities;
+    const auto found = json.find("entities");
+    if (found == json.end()) {
+        return entities;
+    }
+    if (!found->is_array()) {
+        throw StampInvalid(R"("entities" must be a list)");
+    }
+    for (const Json& entityJson : *found) {
+        entities.push_back(entityFromJson(entityJson));
+    }
+    return entities;
+}
+
+[[nodiscard]] std::vector<StampForcedCell> forcedFromJson(const Json& json) {
+    std::vector<StampForcedCell> forced;
+    const auto found = json.find("forced");
+    if (found == json.end()) {
+        return forced;
+    }
+    if (!found->is_array()) {
+        throw StampInvalid(R"("forced" must be a list)");
+    }
+    for (const Json& cell : *found) {
+        forced.push_back(
+            StampForcedCell{.cell = cellOf(cell.at("at")), .type = typeOf(cell.at("type"))});
+    }
+    return forced;
+}
+
 // Le corps d'un tampon, partage par le prefabrique et le modele de carte : tout sauf l'en-tete.
 [[nodiscard]] Stamp stampBodyFromJson(const Json& json) {
     Stamp stamp;
     stamp.width = json.value("width", 0);
     stamp.height = json.value("height", 0);
     if (stamp.width <= 0 || stamp.height <= 0) {
-        throw StampInvalid("\"width\" and \"height\" must be positive");
+        throw StampInvalid(R"("width" and "height" must be positive)");
     }
     stamp.place = json.value("place", std::string{});
     const std::size_t cells =
         static_cast<std::size_t>(stamp.width) * static_cast<std::size_t>(stamp.height);
-    const auto layers = json.find("layers");
-    if (layers != json.end()) {
-        if (!layers->is_array()) {
-            throw StampInvalid("\"layers\" must be a list");
-        }
-        for (const Json& layerJson : *layers) {
-            StampLayer layer;
-            layer.name = layerJson.value("name", std::string{});
-            const std::string kind = layerJson.value("kind", std::string{"ground"});
-            layer.kind = kind == "decor" ? core::LayerKind::Decor : core::LayerKind::Ground;
-            const auto types = layerJson.find("types");
-            if (types == layerJson.end() || !types->is_array() || types->size() != cells) {
-                throw StampInvalid("layer \"" + layer.name +
-                                   "\": \"types\" must hold width × height names");
-            }
-            for (const Json& type : *types) {
-                layer.types.push_back(typeOf(type));
-            }
-            const auto pieces = layerJson.find("pieces");
-            if (pieces != layerJson.end()) {
-                if (!pieces->is_array()) {
-                    throw StampInvalid("\"pieces\" must be a list");
-                }
-                for (const Json& pieceJson : *pieces) {
-                    layer.pieces.push_back(
-                        StampPiece{.anchor = cellOf(pieceJson.at("at")),
-                                   .piece = pieceJson.value("piece", std::string{}),
-                                   .type = typeOf(pieceJson.at("type"))});
-                }
-            }
-            stamp.layers.push_back(std::move(layer));
-        }
-    }
-    const auto entities = json.find("entities");
-    if (entities != json.end()) {
-        if (!entities->is_array()) {
-            throw StampInvalid("\"entities\" must be a list");
-        }
-        for (const Json& entityJson : *entities) {
-            core::MapEntity entity;
-            entity.type = entityJson.value("type", std::string{});
-            entity.position = core::GridPosition{.column = entityJson.value("x", 0),
-                                                 .row = entityJson.value("y", 0)};
-            entity.elevation = entityJson.value("elevation", 0);
-            const auto cellList = entityJson.find("cells");
-            if (cellList != entityJson.end() && cellList->is_array()) {
-                for (const Json& cell : *cellList) {
-                    entity.cells.push_back(cellOf(cell));
-                }
-            }
-            readProperties(entityJson, entity.properties);
-            stamp.entities.push_back(std::move(entity));
-        }
-    }
-    const auto forced = json.find("forced");
-    if (forced != json.end()) {
-        if (!forced->is_array()) {
-            throw StampInvalid("\"forced\" must be a list");
-        }
-        for (const Json& cell : *forced) {
-            stamp.forced.push_back(
-                StampForcedCell{.cell = cellOf(cell.at("at")), .type = typeOf(cell.at("type"))});
-        }
-    }
+    stamp.layers = layersFromJson(json, cells);
+    stamp.entities = entitiesFromJson(json);
+    stamp.forced = forcedFromJson(json);
     return stamp;
 }
 
@@ -703,21 +802,21 @@ std::optional<MapTemplate> mapTemplateFromJson(const nlohmann::json& json, std::
         model.width = json.value("width", 0);
         model.height = json.value("height", 0);
         if (model.id.empty()) {
-            throw StampInvalid("\"id\" is missing");
+            throw StampInvalid(R"("id" is missing)");
         }
         if (model.width <= 0 || model.height <= 0) {
-            throw StampInvalid("\"width\" and \"height\" must be positive");
+            throw StampInvalid(R"("width" and "height" must be positive)");
         }
         const auto layers = json.find("layers");
         if (layers == json.end() || !layers->is_array() || layers->empty()) {
-            throw StampInvalid("\"layers\" must list at least one layer");
+            throw StampInvalid(R"("layers" must list at least one layer)");
         }
         for (const Json& layerJson : *layers) {
             MapTemplateLayer layer;
             layer.name = layerJson.value("name", std::string{});
             const std::string kind = layerJson.value("kind", std::string{"ground"});
             if (kind != "ground" && kind != "decor") {
-                throw StampInvalid("a template layer is \"ground\" or \"decor\"");
+                throw StampInvalid(R"(a template layer is "ground" or "decor")");
             }
             layer.kind = kind == "decor" ? core::LayerKind::Decor : core::LayerKind::Ground;
             layer.scene = layerJson.value("scene", false);

@@ -135,7 +135,7 @@ QImage renderStamp(const Stamp& stamp, const std::filesystem::path& dataRoot,
     if (!level.ok()) {
         return {};
     }
-    const QImage image =
+    QImage image =
         renderMap(*level.level, dataRoot,
                   MapRenderOptions{
                       .bands = IsoBandOpacity{}, .scale = 1.0, .background = QColor(0, 0, 0, 0)});
