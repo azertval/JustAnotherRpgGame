@@ -3,7 +3,7 @@ id = "LOT-103"
 titre = "Le rendu HD"
 version = "0.0.1"
 filiere = "moteur"
-statut = "en-cours"
+statut = "livre"
 taille = "M"
 resume = "Le moteur affiche une pièce HD à la bonne taille, entière et sans scintillement : l'échelle de l'art devient une donnée du lieu."
 prerequis = ["LOT-101"]
@@ -105,13 +105,12 @@ fait écrire au test 96 images de la maquette, la caméra glissant d'un quart de
 `scripts/build_hd_mockup.py --travelling <dossier>` les assemble en animation de 960 × 540 à
 l'échelle 1.
 
+Livré le 22 septembre 2026, **PR #112**. Le contrôle visuel du travelling (critère 3) a été fait
+par l'auteur le même jour : la maquette ne scintille pas.
+
 ## Ce qui reste
 
-Réalisé le 22 septembre 2026, **PR #112** (brouillon jusqu'au contrôle visuel).
-
-- **Le contrôle visuel du travelling** par l'auteur (critère 3) : le lot reste `en-cours` jusque-là
-  ([définition de livré](../../../../standards/definition-de-livre.md)). Pour le refaire :
-  `$env:JADG_TRAVELLING_DIR = "build\lot-103-travelling"`, lancer
+- Pour refaire le travelling : `$env:JADG_TRAVELLING_DIR = "build\lot-103-travelling"`, lancer
   `UnitTests.exe --gtest_filter=HdMockupRender.WritesASlowTravellingForTheAuthor`, puis
   `python scripts/build_hd_mockup.py --travelling build\lot-103-travelling`.
 - Les mesures de performance nocturnes : les mipmaps ajoutent un tiers de mémoire par texture
