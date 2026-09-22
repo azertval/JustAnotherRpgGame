@@ -126,6 +126,8 @@ usés), l'angle rentrant et l'angle sortant — 2,2 Mio, 6 % du budget de la sou
 n'y sont pas : les bandes de foule sont en pixel art et se refont, et l'emprise des deux gardiens
 se décide avec l'inventaire du [LOT-106](LOT-106-assets-hd-arena-of-fate.md).
 
+Livré le 22 septembre 2026, **PR #111**.
+
 ## Ce qui reste
 
 - Les sources du Colisée sont dans `Tools/AssetsHD/Colisee/`, pas sous le même arbre que leur zone
