@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" font-family="Georgia, serif" font-size="14">
+  <rect width="880" height="400" fill="#fbf8f0"/>
+  <text x="20" y="30" font-size="16" font-weight="600" fill="#25201a">Fronts d'une touche : deux instantanés, quatre relevés</text>
+  <text x="20" y="52" font-size="13" fill="#6a6152">Chaque colonne est un relevé, ouvert par beginFrame() qui recopie « courant » vers « précédent ».</text>
+
+  <!-- En-têtes de colonnes -->
+  <g font-weight="600" fill="#25201a" text-anchor="middle">
+    <text x="330" y="90">relevé 1</text>
+    <text x="470" y="90">relevé 2</text>
+    <text x="610" y="90">relevé 3</text>
+    <text x="750" y="90">relevé 4</text>
+  </g>
+  <g stroke="#d6c9a8">
+    <line x1="260" y1="100" x2="820" y2="100"/>
+    <line x1="400" y1="100" x2="400" y2="330"/>
+    <line x1="540" y1="100" x2="540" y2="330"/>
+    <line x1="680" y1="100" x2="680" y2="330"/>
+  </g>
+
+  <!-- Lignes -->
+  <g fill="#25201a">
+    <text x="20" y="130">touche tenue (physique)</text>
+    <text x="20" y="176" font-family="Consolas, monospace" font-size="13">_keysPrevious</text>
+    <text x="20" y="206" font-family="Consolas, monospace" font-size="13">_keysCurrent</text>
+    <text x="20" y="256" font-family="Consolas, monospace" font-size="13">keyDown</text>
+    <text x="20" y="286" font-family="Consolas, monospace" font-size="13">keyPressed  (front montant)</text>
+    <text x="20" y="316" font-family="Consolas, monospace" font-size="13">keyReleased (front descendant)</text>
+  </g>
+
+  <!-- Signal physique : bas, haut, haut, bas -->
+  <path d="M262,136 L400,136 L400,116 L680,116 L680,136 L818,136" stroke="#9a7420" stroke-width="2" fill="none"/>
+
+  <!-- Valeurs par colonne -->
+  <g font-family="Consolas, monospace" font-size="13" text-anchor="middle">
+    <g fill="#6a6152">
+      <text x="330" y="176">faux</text><text x="470" y="176">faux</text><text x="610" y="176">vrai</text><text x="750" y="176">vrai</text>
+      <text x="330" y="206">faux</text><text x="470" y="206">vrai</text><text x="610" y="206">vrai</text><text x="750" y="206">faux</text>
+    </g>
+    <g fill="#25201a">
+      <text x="330" y="256">faux</text><text x="470" y="256" fill="#3f6b34" font-weight="600">vrai</text><text x="610" y="256" fill="#3f6b34" font-weight="600">vrai</text><text x="750" y="256">faux</text>
+      <text x="330" y="286">faux</text><text x="470" y="286" fill="#3f6b34" font-weight="600">vrai</text><text x="610" y="286">faux</text><text x="750" y="286">faux</text>
+      <text x="330" y="316">faux</text><text x="470" y="316">faux</text><text x="610" y="316">faux</text><text x="750" y="316" fill="#8a2233" font-weight="600">vrai</text>
+    </g>
+  </g>
+
+  <rect x="20" y="346" width="840" height="40" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="362" font-size="13" fill="#25201a">keyPressed = courant ET NON précédent ; keyReleased = précédent ET NON courant ; keyDown = courant.</text>
+  <text x="32" y="379" font-size="13" fill="#6a6152">releaseAll() met les deux instantanés à faux : aucun front parasite au retour d'un Alt+Tab.</text>
+</svg>

@@ -12,6 +12,10 @@ dans le dépôt.
 
 Demande Pillow (présent dans l'environnement `uv` des scripts) et un build : `scripts/build.ps1`.
 
+L'éditeur se photographie sur la racine de données d'essai (`Source/Test/Fixtures/GameData`,
+sans un seul asset du jeu) : la fenêtre ouverte sur deux cartes, puis les rendus sans fenêtre
+d'une carte — habillée, en plan de principe, un calque à la fois.
+
 Usage :
   python Documentation/outils/capture_screens.py --bin build/ninja/bin
 """
@@ -26,6 +30,16 @@ from PIL import Image
 DOCS_ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = DOCS_ROOT / 'Guide' / 'captures'
 # Les écrans du jeu, par le nom que connaît `ScreenStack.qml`.
+TEST_DATA = DOCS_ROOT.parent / 'Source' / 'Test' / 'Fixtures' / 'GameData'
+# La fenêtre de l'éditeur, ouverte sur une carte d'essai : identifiant de carte -> nom de la capture.
+EDITOR_MAPS = {'donjon': 'editeur-fenetre-donjon', 'bourg/place': 'editeur-fenetre-place'}
+# Les rendus sans fenêtre (`LevelEditor --render`) : nom de la capture -> (carte, options).
+EDITOR_RENDERS = {
+    'editeur-rendu-place': ('bourg/place', []),
+    'editeur-rendu-place-sol': ('bourg/place', ['--layers', 'floors']),
+    'editeur-rendu-place-collision': ('bourg/place', ['--layers', 'floors,collision']),
+    'editeur-rendu-donjon-plan': ('donjon', ['--plan']),
+}
 GAME_SCREENS = ['MainMenu', 'Options', 'Credits', 'Pause', 'GameView', 'CharacterSheet', 'Skills',
                 'Inventory', 'Journal', 'WorldMap', 'Dialogue', 'Merchant', 'Company', 'CombatHud',
                 'Arena', 'AssetGallery']
@@ -52,6 +66,19 @@ def capture(command, target, cwd):
         return True
 
 
+def render(editor, map_id, options, target, cwd):
+    with tempfile.TemporaryDirectory() as folder:
+        raw = Path(folder) / 'render.png'
+        command = [str(editor), '--render', '--data', str(TEST_DATA), '--output', str(raw)] + options + [map_id]
+        result = subprocess.run(command, cwd=cwd, timeout=120, capture_output=True, check=False)
+        if result.returncode != 0 or not raw.is_file():
+            print(f'  échec ({result.returncode}) : {" ".join(command)}', file=sys.stderr)
+            return False
+        shrink(raw, target)
+        print(f'  {target.relative_to(DOCS_ROOT)}')
+        return True
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     parser.add_argument('--bin', required=True, help='dossier des exécutables (build/ninja/bin)')
@@ -67,9 +94,14 @@ def main(argv=None):
             continue
         target = OUTPUT / f'jeu-{screen.lower()}.jpg'
         failures += not capture([str(game), f'--screen={screen}', '--window-size=1280x720'], target, binaries)
+    editor = binaries / 'LevelEditor.exe'
     if not args.only or 'Editor' in args.only:
-        editor = binaries / 'LevelEditor.exe'
         failures += not capture([str(editor)] + args.editor_args, OUTPUT / 'editeur-fenetre.jpg', binaries)
+        for map_id, name in EDITOR_MAPS.items():
+            failures += not capture([str(editor), '--data', str(TEST_DATA), f'--map={map_id}'],
+                                    OUTPUT / f'{name}.jpg', binaries)
+        for name, (map_id, options) in EDITOR_RENDERS.items():
+            failures += not render(editor, map_id, options, OUTPUT / f'{name}.jpg', binaries)
     return 1 if failures else 0
 
 

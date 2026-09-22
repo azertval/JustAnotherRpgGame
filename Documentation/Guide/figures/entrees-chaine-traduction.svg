@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" font-family="Georgia, serif" font-size="14">
+  <rect width="880" height="520" fill="#fbf8f0"/>
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+    <marker id="fg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3f6b34"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="30" font-size="16" font-weight="600" fill="#25201a">D'une touche à une intention : les tables de traduction</text>
+
+  <!-- Colonne 1 : sources physiques -->
+  <text x="20" y="66" font-weight="600" fill="#6a6152">Source physique</text>
+  <g fill="#ece4d1" stroke="#d6c9a8">
+    <rect x="20" y="80" width="190" height="64" rx="8"/>
+    <rect x="20" y="170" width="190" height="64" rx="8"/>
+    <rect x="20" y="300" width="190" height="64" rx="8"/>
+    <rect x="20" y="390" width="190" height="64" rx="8"/>
+  </g>
+  <g fill="#25201a">
+    <text x="32" y="104">Clavier (jeu)</text>
+    <text x="32" y="124" font-family="Consolas, monospace" font-size="13" fill="#6a6152">QKeyEvent</text>
+    <text x="32" y="194">Clavier (éditeur)</text>
+    <text x="32" y="214" font-family="Consolas, monospace" font-size="13" fill="#6a6152">QKeyEvent, QEvent::FocusOut</text>
+    <text x="32" y="324">Manette (jeu)</text>
+    <text x="32" y="344" font-family="Consolas, monospace" font-size="13" fill="#6a6152">XInputGetState, 60 fois/s</text>
+    <text x="32" y="414">Souris (éditeur)</text>
+    <text x="32" y="434" font-family="Consolas, monospace" font-size="13" fill="#6a6152">QMouseEvent, QWheelEvent</text>
+  </g>
+
+  <!-- Colonne 2 : traducteurs -->
+  <text x="270" y="66" font-weight="600" fill="#6a6152">Traduction (HMI)</text>
+  <g fill="#fbf8f0" stroke="#9a7420">
+    <rect x="270" y="80" width="300" height="64" rx="8"/>
+    <rect x="270" y="170" width="300" height="64" rx="8"/>
+    <rect x="270" y="260" width="300" height="104" rx="8"/>
+    <rect x="270" y="390" width="300" height="64" rx="8"/>
+  </g>
+  <g fill="#25201a">
+    <text x="282" y="102">Jumeau QML de l'écran</text>
+    <text x="282" y="122" font-family="Consolas, monospace" font-size="13">GameView.qml : Keys.onPressed</text>
+    <text x="282" y="138" font-size="13" fill="#6a6152">touches tenues → direction normalisée</text>
+    <text x="282" y="192" font-family="Consolas, monospace" font-size="13">hmi::qtKeyToHmiKey(Qt::Key)</text>
+    <text x="282" y="210" font-family="Consolas, monospace" font-size="13">→ hmi::Key (code VK Win32)</text>
+    <text x="282" y="226" font-size="13" fill="#6a6152">hmiKeyToQtKey : l'inverse, pour les QAction</text>
+    <text x="282" y="282" font-family="Consolas, monospace" font-size="13">hmi::GamepadPoller::poll(InputState&amp;)</text>
+    <text x="282" y="302" font-size="13">piste 1 : D-pad, stick, A, B, Start</text>
+    <text x="282" y="318" font-size="13" fill="#6a6152">→ onGamepadKeyDown(Key) (menus, fixe)</text>
+    <text x="282" y="338" font-size="13">piste 2 : dix boutons bruts</text>
+    <text x="282" y="354" font-size="13" fill="#6a6152">→ onGamepadButtonDown(GamepadButton)</text>
+    <text x="282" y="412" font-family="Consolas, monospace" font-size="13">InputState::onMouseMove / onMouseButtonDown</text>
+    <text x="282" y="432" font-family="Consolas, monospace" font-size="13">onMouseWheel / onCharTyped</text>
+  </g>
+
+  <!-- Colonne 3 : consommateurs -->
+  <text x="630" y="66" font-weight="600" fill="#6a6152">Ce que lit la logique</text>
+  <g fill="#ece4d1" stroke="#d6c9a8">
+    <rect x="630" y="80" width="230" height="64" rx="8"/>
+    <rect x="630" y="170" width="230" height="64" rx="8"/>
+    <rect x="630" y="260" width="230" height="104" rx="8"/>
+    <rect x="630" y="390" width="230" height="64" rx="8"/>
+  </g>
+  <g fill="#25201a">
+    <text x="642" y="102" font-family="Consolas, monospace" font-size="13">core::ExplorationIntent</text>
+    <text x="642" y="122" font-family="Consolas, monospace" font-size="13">{ move, interact }</text>
+    <text x="642" y="138" font-size="13" fill="#3f6b34">consommée par le pas suivant</text>
+    <text x="642" y="192" font-family="Consolas, monospace" font-size="13">hmi::EditorKeyBindings</text>
+    <text x="642" y="212" font-size="13">action d'éditeur ← touche</text>
+    <text x="642" y="228" font-size="13" fill="#6a6152">keybindings.json, section « editeur »</text>
+    <text x="642" y="282" font-family="Consolas, monospace" font-size="13">keyPressed(Key)</text>
+    <text x="642" y="298" font-size="13" fill="#6a6152">= clavier OU manette (piste 1)</text>
+    <text x="642" y="322" font-family="Consolas, monospace" font-size="13">GamepadNavigator::pressed</text>
+    <text x="642" y="338" font-size="13" fill="#6a6152">("up", "a", "lb"…), piste 2,</text>
+    <text x="642" y="354" font-size="13" fill="#6a6152">répétée par ButtonRepeat</text>
+    <text x="642" y="412" font-family="Consolas, monospace" font-size="13">mouseButtonPressed, wheelDelta</text>
+    <text x="642" y="432" font-family="Consolas, monospace" font-size="13">typedCharacters()</text>
+  </g>
+
+  <!-- Flèches -->
+  <g stroke="#6a6152" stroke-width="1.5" fill="none">
+    <path d="M210,112 L268,112" marker-end="url(#f)"/>
+    <path d="M210,202 L268,202" marker-end="url(#f)"/>
+    <path d="M210,332 L268,312" marker-end="url(#f)"/>
+    <path d="M210,422 L268,422" marker-end="url(#f)"/>
+    <path d="M570,202 L628,202" marker-end="url(#f)"/>
+    <path d="M570,312 L628,290" marker-end="url(#f)"/>
+    <path d="M570,340 L628,334" marker-end="url(#f)"/>
+    <path d="M570,422 L628,422" marker-end="url(#f)"/>
+  </g>
+  <path d="M570,112 L628,112" stroke="#3f6b34" stroke-width="1.5" fill="none" marker-end="url(#fg)"/>
+  <text x="576" y="104" font-size="12" fill="#3f6b34">WorldModel::setMove</text>
+
+  <!-- Frontière Core -->
+  <line x1="20" y1="478" x2="860" y2="478" stroke="#d6c9a8"/>
+  <text x="20" y="502" font-size="13" fill="#8a2233">Core ne voit que la colonne de droite : jamais un code de touche, jamais un événement Qt (EX-CTRL-010, EX-NFR-010).</text>
+</svg>

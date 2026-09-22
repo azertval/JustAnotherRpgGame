@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="Georgia, serif" font-size="14">
+  <rect width="880" height="470" fill="#fbf8f0"/>
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+  </defs>
+  <text x="20" y="30" font-size="16" font-weight="600" fill="#25201a">La projection isométrique : de la case (c, r) au losange, et où se pose une pièce</text>
+
+  <!-- Grille source -->
+  <text x="20" y="66" font-weight="600" fill="#6a6152">Grille (colonne c, ligne r)</text>
+  <g stroke="#d6c9a8" fill="#fbf8f0">
+    <rect x="30" y="80" width="50" height="50"/><rect x="80" y="80" width="50" height="50"/><rect x="130" y="80" width="50" height="50"/>
+    <rect x="30" y="130" width="50" height="50"/><rect x="80" y="130" width="50" height="50"/><rect x="130" y="130" width="50" height="50"/>
+    <rect x="30" y="180" width="50" height="50"/><rect x="80" y="180" width="50" height="50"/><rect x="130" y="180" width="50" height="50"/>
+  </g>
+  <rect x="80" y="130" width="50" height="50" fill="#2f7f86" stroke="#25201a"/>
+  <text x="90" y="160" font-family="Consolas, monospace" font-size="13" fill="#fbf8f0">(1,1)</text>
+  <text x="30" y="250" font-size="13" fill="#6a6152">c → droite, r → bas (EX-ARCH-020)</text>
+  <text x="30" y="268" font-size="13" fill="#6a6152">(c, r) entier = coin haut-gauche</text>
+
+  <path d="M200,155 L250,155" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#f)"/>
+  <text x="196" y="145" font-family="Consolas, monospace" font-size="12" fill="#25201a">gridToWorld</text>
+
+  <!-- Losanges monde -->
+  <text x="270" y="66" font-weight="600" fill="#6a6152">Monde (unités monde, y vers le bas)</text>
+  <!-- 3x3 diamonds, L=100, H=62, origin (420, 80) -->
+  <g stroke="#d6c9a8" fill="#fbf8f0">
+    <!-- row 0 -->
+    <path d="M420,80 L470,111 L420,142 L370,111 z"/>
+    <path d="M470,111 L520,142 L470,173 L420,142 z"/>
+    <path d="M520,142 L570,173 L520,204 L470,173 z"/>
+    <!-- row 1 -->
+    <path d="M370,111 L420,142 L370,173 L320,142 z"/>
+    <path d="M470,173 L520,204 L470,235 L420,204 z"/>
+    <!-- row 2 -->
+    <path d="M320,142 L370,173 L320,204 L270,173 z"/>
+    <path d="M370,173 L420,204 L370,235 L320,204 z"/>
+    <path d="M420,204 L470,235 L420,266 L370,235 z"/>
+  </g>
+  <path d="M420,142 L470,173 L420,204 L370,173 z" fill="#2f7f86" stroke="#25201a"/>
+  <text x="404" y="178" font-family="Consolas, monospace" font-size="13" fill="#fbf8f0">(1,1)</text>
+  <!-- annotations sommets -->
+  <circle cx="420" cy="142" r="4" fill="#9a7420"/>
+  <text x="428" y="138" font-size="12" fill="#9a7420">sommet haut = ancre (c, r)</text>
+  <circle cx="420" cy="204" r="4" fill="#8a2233"/>
+  <text x="428" y="222" font-size="12" fill="#8a2233">sommet bas = pied (c+1, r+1)</text>
+  <!-- L et H -->
+  <path d="M370,290 L470,290" stroke="#6a6152" stroke-width="1" marker-end="url(#f)"/>
+  <text x="405" y="308" font-size="13" fill="#25201a">L</text>
+  <path d="M600,142 L600,204" stroke="#6a6152" stroke-width="1" marker-end="url(#f)"/>
+  <text x="608" y="178" font-size="13" fill="#25201a">H = 0,62 L</text>
+
+  <!-- Formules -->
+  <rect x="20" y="330" width="420" height="120" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="352" font-weight="600" fill="#25201a">core::IsoProjection::gridToWorld</text>
+  <text x="32" y="378" font-family="Consolas, monospace" font-size="13" fill="#25201a">x = originX + L/2 + (c − r) · L/2</text>
+  <text x="32" y="398" font-family="Consolas, monospace" font-size="13" fill="#25201a">y = originY       + (c + r) · H/2</text>
+  <text x="32" y="422" font-size="13" fill="#6a6152">affine, inversible : worldToGrid, worldToTile</text>
+  <text x="32" y="440" font-size="13" fill="#6a6152">profondeur d'une case : depth = c + r</text>
+
+  <!-- Pièce debout -->
+  <text x="640" y="66" font-weight="600" fill="#6a6152">Une pièce posée par son ancre</text>
+  <rect x="690" y="90" width="120" height="180" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="700" y="110" font-size="12" fill="#6a6152">PNG de la pièce</text>
+  <path d="M750,196 L810,233 L750,270 L690,233 z" fill="#3f6b34" stroke="#25201a"/>
+  <circle cx="750" cy="196" r="4" fill="#9a7420"/>
+  <text x="640" y="300" font-size="13" fill="#25201a">Le losange occupe les 42 px du bas ;</text>
+  <text x="640" y="318" font-size="13" fill="#25201a">ce qui dépasse monte au-dessus de la case.</text>
+  <rect x="460" y="330" width="400" height="120" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="472" y="352" font-weight="600" fill="#25201a">hmi::standingPieceQuad</text>
+  <text x="472" y="378" font-family="Consolas, monospace" font-size="13" fill="#25201a">quad.x = ancre.x − anchor.x · u</text>
+  <text x="472" y="398" font-family="Consolas, monospace" font-size="13" fill="#25201a">quad.y = ancre.y − anchor.y · u</text>
+  <text x="472" y="422" font-size="13" fill="#6a6152">u = unités monde par pixel d'art ;</text>
+  <text x="472" y="440" font-size="13" fill="#6a6152">anchor = (34, hauteur − 42) sauf manifeste</text>
+</svg>

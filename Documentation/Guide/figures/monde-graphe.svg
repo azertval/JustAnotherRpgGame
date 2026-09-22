@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="560" fill="#fbf8f0"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3f6b34"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="28" font-weight="600" font-size="15" fill="#25201a">Du monde à la case : cinq échelons, cinq fichiers, et ce que le jeu en lit</text>
+
+  <!-- Colonnes d'en-tête -->
+  <text x="20" y="56" font-size="12" fill="#6a6152">ÉCHELON</text>
+  <text x="250" y="56" font-size="12" fill="#6a6152">DONNÉE ET LECTEUR</text>
+  <text x="560" y="56" font-size="12" fill="#6a6152">CE QUI RELIE À L'ÉCHELON SUIVANT</text>
+
+  <!-- 1. Monde / régions -->
+  <rect x="20" y="66" width="210" height="72" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="88" font-weight="600" fill="#25201a">Monde : 13 régions</text>
+  <text x="32" y="108" font-family="Consolas, monospace" font-size="12" fill="#25201a">core::Region</text>
+  <text x="32" y="126" font-size="12" fill="#6a6152">7 statistiques, population, voisins</text>
+  <text x="250" y="88" font-family="Consolas, monospace" font-size="12" fill="#25201a">World/regions/*.json</text>
+  <text x="250" y="108" font-family="Consolas, monospace" font-size="12" fill="#25201a">core::loadAtlas → core::Atlas</text>
+  <text x="250" y="126" font-size="12" fill="#6a6152">connexe : Atlas::unreachableFrom vide</text>
+  <text x="560" y="88" font-size="12" fill="#25201a">neighbors : le graphe des régions</text>
+  <text x="560" y="108" font-size="12" fill="#25201a">locations : les lieux qu'elle porte</text>
+
+  <path d="M125,138 L125,160" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- 2. Lieu -->
+  <rect x="20" y="162" width="210" height="72" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="184" font-weight="600" fill="#25201a">Lieu : 94 fiches d'atlas</text>
+  <text x="32" y="204" font-family="Consolas, monospace" font-size="12" fill="#25201a">core::Location</text>
+  <text x="32" y="222" font-size="12" fill="#6a6152">une ville, un quartier, un site</text>
+  <text x="250" y="184" font-family="Consolas, monospace" font-size="12" fill="#25201a">World/locations/*.json</text>
+  <text x="250" y="204" font-size="12" fill="#25201a">positions à part, écran « Carte » :</text>
+  <text x="250" y="222" font-family="Consolas, monospace" font-size="12" fill="#25201a">Maps/world-maps.json (hmi::readWorldMaps)</text>
+  <text x="560" y="184" font-size="12" fill="#25201a">un lieu-ville a un plan ;</text>
+  <text x="560" y="204" font-size="12" fill="#25201a">un lieu-quartier est un CityDistrict</text>
+
+  <path d="M125,234 L125,256" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- 3. Ville / quartiers -->
+  <rect x="20" y="258" width="210" height="72" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="280" font-weight="600" fill="#25201a">Ville : ses quartiers</text>
+  <text x="32" y="300" font-family="Consolas, monospace" font-size="12" fill="#25201a">core::CityPlan, CityDistrict</text>
+  <text x="32" y="318" font-size="12" fill="#6a6152">départ = quartier + point d'arrivée</text>
+  <text x="250" y="280" font-family="Consolas, monospace" font-size="12" fill="#25201a">World/cities/&lt;ville&gt;.json</text>
+  <text x="250" y="300" font-family="Consolas, monospace" font-size="12" fill="#25201a">core::loadCityPlan → CityPlanResult</text>
+  <text x="250" y="318" font-size="12" fill="#6a6152">« Nouvelle partie » : WorldModel::startNewGame</text>
+  <text x="560" y="280" font-size="12" fill="#25201a">map : la carte où l'on marche, OU</text>
+  <text x="560" y="300" font-size="12" fill="#25201a">guard.map : la carte voisine dont</text>
+  <text x="560" y="318" font-size="12" fill="#25201a">une sentinelle (npc, guards) ferme la porte</text>
+
+  <path d="M125,330 L125,352" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- 4. Carte -->
+  <rect x="20" y="354" width="210" height="90" rx="8" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="32" y="376" font-weight="600" fill="#25201a">Carte : où l'on marche</text>
+  <text x="32" y="396" font-family="Consolas, monospace" font-size="12" fill="#25201a">core::Level</text>
+  <text x="32" y="414" font-size="12" fill="#6a6152">identifiant = chemin relatif</text>
+  <text x="32" y="432" font-family="Consolas, monospace" font-size="12" fill="#6a6152">central-empire/capital/martpart</text>
+  <text x="250" y="376" font-family="Consolas, monospace" font-size="12" fill="#25201a">Levels/**/*.json</text>
+  <text x="250" y="396" font-family="Consolas, monospace" font-size="12" fill="#25201a">core::loadWorldGraph (statique, éditeur)</text>
+  <text x="250" y="414" font-family="Consolas, monospace" font-size="12" fill="#25201a">core::WorldTravel (joué, à la demande)</text>
+  <text x="250" y="432" font-size="12" fill="#6a6152">validateWorldGraph : tout portail mène quelque part</text>
+  <text x="560" y="376" font-size="12" fill="#25201a">portal (targetMap, arrival, requiresFlag)</text>
+  <text x="560" y="396" font-size="12" fill="#25201a">→ spawnPoint (name) d'une autre carte :</text>
+  <text x="560" y="414" font-size="12" fill="#25201a">les arêtes du graphe du monde,</text>
+  <text x="560" y="432" font-size="12" fill="#25201a">toujours par nom, jamais par coordonnée</text>
+
+  <path d="M125,444 L125,466" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- 5. Rectangles sur la carte -->
+  <rect x="20" y="468" width="210" height="72" rx="8" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="32" y="490" font-weight="600" fill="#25201a">Rectangles nommés</text>
+  <text x="32" y="510" font-family="Consolas, monospace" font-size="12" fill="#25201a">core::CityBlock (îlot)</text>
+  <text x="32" y="528" font-family="Consolas, monospace" font-size="12" fill="#25201a">core::CombatZone (sable)</text>
+  <text x="250" y="490" font-size="12" fill="#25201a">Des entités de la carte elle-même</text>
+  <text x="250" y="510" font-size="12" fill="#25201a">(case = coin haut-gauche, width, height) :</text>
+  <text x="250" y="528" font-size="12" fill="#6a6152">rien à part qui puisse diverger du terrain</text>
+  <text x="560" y="490" font-size="12" fill="#25201a">l'îlot cadre l'écran « Carte » ;</text>
+  <text x="560" y="510" font-size="12" fill="#25201a">la zone devient la grille tactique :</text>
+  <text x="560" y="528" font-family="Consolas, monospace" font-size="12" fill="#25201a">cropLevelToZone → core::ArenaSession</text>
+
+  <!-- Bandeau vertical : ce que l'écran Carte montre -->
+  <path d="M850,66 L850,540" stroke="#2f7f86" stroke-width="2" fill="none"/>
+  <text transform="translate(866,300) rotate(90)" text-anchor="middle" font-size="12" fill="#2f7f86">écran « Carte » : monde → région → ville → quartier → îlot</text>
+</svg>

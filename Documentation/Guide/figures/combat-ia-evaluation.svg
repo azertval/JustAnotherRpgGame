@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="520" fill="#fbf8f0"/>
+  <defs>
+    <marker id="ia" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="30" font-size="15" font-weight="600" fill="#25201a">core::planTurn : chaque candidat reçoit un score en entiers, puis une clé lexicographique le classe</text>
+
+  <!-- Les candidats -->
+  <rect x="20" y="56" width="260" height="150" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="78" font-weight="600" fill="#25201a">Les candidats examinés</text>
+  <text x="32" y="100" font-size="12" fill="#25201a">pour chaque case de fin (ReachableArea)</text>
+  <text x="32" y="116" font-size="12" fill="#25201a">et la case de départ :</text>
+  <text x="44" y="136" font-size="12" fill="#25201a">· attaquer : chaque cible × chaque attaque</text>
+  <text x="44" y="152" font-size="12" fill="#25201a">· tenir, esquiver, se désengager</text>
+  <text x="32" y="176" font-size="12" fill="#25201a">plus, faute d'attaque : se précipiter</text>
+  <text x="32" y="192" font-size="12" fill="#25201a">au plus loin du chemin d'approche</text>
+
+  <!-- L'espérance -->
+  <rect x="300" y="56" width="560" height="150" rx="8" fill="#fbf8f0" stroke="#9a7420" stroke-width="1.5"/>
+  <text x="312" y="78" font-weight="600" fill="#25201a">Ce que la table sait (Guide du Maître) — en entiers, jamais un flottant</text>
+  <g font-family="Consolas, monospace" font-size="12" fill="#25201a">
+    <text x="312" y="102">requiredRoll   = CA de la cible (abri compris) − bonus d'attaque</text>
+    <text x="312" y="120">hitChance      = faces qui touchent, en 400èmes (carré d'un 20ème : avantage)</text>
+    <text x="312" y="138">expectedDamage = hitChance × dégâts moyens (demi-points)</text>
+    <text x="312" y="156">               + criticalChance × moyenne des dés seuls   → 800èmes de point</text>
+  </g>
+  <text x="312" y="182" font-size="12" fill="#6a6152">La cible ne livre que sa CA et son état ensanglanté (isBloodied) : jamais ses PV, ni ses résistances.</text>
+  <text x="312" y="198" font-size="12" fill="#6a6152">Case d'où frapper choisie avec l'abri (coverFrom) et la vue (hasLineOfSight) du jet réel.</text>
+
+  <!-- Le score -->
+  <rect x="20" y="230" width="840" height="96" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="252" font-weight="600" fill="#25201a">Le score d'un candidat, pondéré par le profil (behaviors.json, poids en pour cent)</text>
+  <g font-family="Consolas, monospace" font-size="12" fill="#25201a">
+    <text x="32" y="276">score = expectedDamage × (damageDealt + bloodiedTarget + focusFire × alliés au contact + protectBloodiedAlly)</text>
+    <text x="32" y="294">      − menace(case) × threatTaken (ou threatWhenBloodied) − opportunités(chemin) × opportunityTaken</text>
+    <text x="32" y="312">      − cases restantes jusqu'à l'ennemi × approachPerTile</text>
+  </g>
+
+  <!-- La clé -->
+  <path d="M440,326 L440,348" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#ia)"/>
+  <rect x="20" y="350" width="840" height="150" rx="8" fill="#fbf8f0" stroke="#8a2233" stroke-width="1.5"/>
+  <text x="32" y="372" font-weight="600" fill="#8a2233">La clé de comparaison (Cle::meilleureQue) : lexicographique, le score n'arrive qu'en quatrième</text>
+  <g font-size="12" fill="#25201a">
+    <text x="32" y="396"><tspan font-weight="600">1.</tspan> le moins d'excès de menaces : ennemis qui frappent la case <tspan font-weight="600">au contact, sans bouger</tspan>, au-delà de toleratedThreats — l'anti-suicide</text>
+    <text x="32" y="416"><tspan font-weight="600">2.</tspan> attaquer plutôt que ne pas attaquer</text>
+    <text x="32" y="436"><tspan font-weight="600">3.</tspan> progresser : laisser moins de chemin jusqu'à l'ennemi que la case de départ — l'anti-blocage</text>
+    <text x="32" y="456"><tspan font-weight="600">4.</tspan> le score le plus haut</text>
+    <text x="32" y="476"><tspan font-weight="600">5.</tspan> le moins de déplacement ; à égalité parfaite, le premier candidat examiné reste (cases par indice, cibles par identifiant)</text>
+  </g>
+  <text x="32" y="496" font-size="12" fill="#6a6152">Le plan retenu se joue par les actions de la session, les mêmes que celles du joueur (EX-CBT-050), après une ligne au journal.</text>
+</svg>

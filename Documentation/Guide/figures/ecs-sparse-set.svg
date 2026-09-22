@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="440" fill="#fbf8f0"/>
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+    <marker id="fr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a2233"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="28" font-weight="600" fill="#25201a">core::ComponentPool&lt;Interactable&gt; — avant et après remove(B) (swap-and-pop)</text>
+
+  <!-- AVANT -->
+  <rect x="20" y="48" width="410" height="360" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="34" y="72" font-weight="600" fill="#25201a">Avant : A, B, C ont chacune un Interactable</text>
+
+  <text x="34" y="104" fill="#6a6152">_sparse (indexé par Entity::index)</text>
+  <g font-family="Consolas, monospace" font-size="13">
+    <g fill="#fbf8f0" stroke="#d6c9a8">
+      <rect x="34" y="112" width="56" height="30"/><rect x="90" y="112" width="56" height="30"/><rect x="146" y="112" width="56" height="30"/><rect x="202" y="112" width="56" height="30"/>
+    </g>
+    <g fill="#25201a" text-anchor="middle">
+      <text x="62" y="132">0</text><text x="118" y="132">1</text><text x="174" y="132">2</text><text x="230" y="132" fill="#6a6152">∅</text>
+    </g>
+    <g fill="#6a6152" text-anchor="middle" font-size="12">
+      <text x="62" y="158">A (0)</text><text x="118" y="158">B (1)</text><text x="174" y="158">C (2)</text><text x="230" y="158">D (3)</text>
+    </g>
+  </g>
+
+  <text x="34" y="200" fill="#6a6152">_entities (dense)</text>
+  <g font-family="Consolas, monospace" font-size="13">
+    <g fill="#fbf8f0" stroke="#d6c9a8">
+      <rect x="34" y="208" width="56" height="30"/><rect x="90" y="208" width="56" height="30"/><rect x="146" y="208" width="56" height="30"/>
+    </g>
+    <g fill="#25201a" text-anchor="middle">
+      <text x="62" y="228">A</text><text x="118" y="228">B</text><text x="174" y="228">C</text>
+    </g>
+  </g>
+  <text x="34" y="266" fill="#6a6152">_components (dense, contigu)</text>
+  <g font-family="Consolas, monospace" font-size="13">
+    <g fill="#fbf8f0" stroke="#d6c9a8">
+      <rect x="34" y="274" width="56" height="30"/><rect x="90" y="274" width="56" height="30"/><rect x="146" y="274" width="56" height="30"/>
+    </g>
+    <g fill="#25201a" text-anchor="middle">
+      <text x="62" y="294">Ia</text><text x="118" y="294">Ib</text><text x="174" y="294">Ic</text>
+    </g>
+  </g>
+  <g fill="#6a6152" text-anchor="middle" font-size="12">
+    <text x="62" y="322">pos. 0</text><text x="118" y="322">pos. 1</text><text x="174" y="322">pos. 2</text>
+  </g>
+  <!-- flèches sparse -> dense -->
+  <g stroke="#6a6152" stroke-width="1.2" fill="none">
+    <path d="M62,142 L62,206" marker-end="url(#f)"/>
+    <path d="M118,142 L118,206" marker-end="url(#f)"/>
+    <path d="M174,142 L174,206" marker-end="url(#f)"/>
+  </g>
+  <text x="34" y="360" fill="#25201a">has(B) : _sparse[1] = 1 et _entities[1] == B → vrai</text>
+  <text x="34" y="380" fill="#25201a">get(B) : _components[_sparse[1]] — temps constant</text>
+
+  <!-- APRÈS -->
+  <rect x="450" y="48" width="410" height="360" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="464" y="72" font-weight="600" fill="#25201a">Après remove(B) : C a pris la place de B</text>
+
+  <text x="464" y="104" fill="#6a6152">_sparse</text>
+  <g font-family="Consolas, monospace" font-size="13">
+    <g fill="#fbf8f0" stroke="#d6c9a8">
+      <rect x="464" y="112" width="56" height="30"/><rect x="520" y="112" width="56" height="30"/><rect x="576" y="112" width="56" height="30"/><rect x="632" y="112" width="56" height="30"/>
+    </g>
+    <g fill="#25201a" text-anchor="middle">
+      <text x="492" y="132">0</text><text x="548" y="132" fill="#8a2233">∅</text><text x="604" y="132" fill="#3f6b34">1</text><text x="660" y="132" fill="#6a6152">∅</text>
+    </g>
+    <g fill="#6a6152" text-anchor="middle" font-size="12">
+      <text x="492" y="158">A (0)</text><text x="548" y="158">B (1)</text><text x="604" y="158">C (2)</text><text x="660" y="158">D (3)</text>
+    </g>
+  </g>
+
+  <text x="464" y="200" fill="#6a6152">_entities</text>
+  <g font-family="Consolas, monospace" font-size="13">
+    <g fill="#fbf8f0" stroke="#d6c9a8">
+      <rect x="464" y="208" width="56" height="30"/><rect x="520" y="208" width="56" height="30"/>
+    </g>
+    <rect x="576" y="208" width="56" height="30" fill="none" stroke="#8a2233" stroke-dasharray="4 3"/>
+    <g fill="#25201a" text-anchor="middle">
+      <text x="492" y="228">A</text><text x="548" y="228" fill="#3f6b34">C</text><text x="604" y="228" fill="#8a2233">pop</text>
+    </g>
+  </g>
+  <text x="464" y="266" fill="#6a6152">_components</text>
+  <g font-family="Consolas, monospace" font-size="13">
+    <g fill="#fbf8f0" stroke="#d6c9a8">
+      <rect x="464" y="274" width="56" height="30"/><rect x="520" y="274" width="56" height="30"/>
+    </g>
+    <rect x="576" y="274" width="56" height="30" fill="none" stroke="#8a2233" stroke-dasharray="4 3"/>
+    <g fill="#25201a" text-anchor="middle">
+      <text x="492" y="294">Ia</text><text x="548" y="294" fill="#3f6b34">Ic</text><text x="604" y="294" fill="#8a2233">pop</text>
+    </g>
+  </g>
+  <g stroke="#6a6152" stroke-width="1.2" fill="none">
+    <path d="M492,142 L492,206" marker-end="url(#f)"/>
+    <path d="M604,142 C604,180 560,180 552,206" marker-end="url(#f)"/>
+  </g>
+  <g fill="#25201a">
+    <text x="464" y="340">1. _components[1] = _components[2] ; _entities[1] = C</text>
+    <text x="464" y="360">2. _sparse[C.index] = 1 ; pop_back() ; _sparse[B.index] = ∅</text>
+    <text x="464" y="380" fill="#8a2233">Ordre d'itération changé, tableau dense sans trou : O(1)</text>
+  </g>
+
+  <text x="20" y="428" font-size="12" fill="#6a6152">∅ = INVALID_POSITION. Un handle périmé de B (même index, ancienne génération) échoue dans has() : l'égalité d'Entity compare aussi la génération.</text>
+</svg>

@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="520" fill="#fbf8f0"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a2233"/>
+    </marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3f6b34"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="28" font-weight="600" font-size="15" fill="#25201a">core::ExplorationSession::update(intention, secondes) — un pas, trois temps, dans cet ordre</text>
+
+  <!-- Entrée -->
+  <rect x="20" y="52" width="160" height="96" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="74" font-weight="600" fill="#25201a">ExplorationIntent</text>
+  <text x="32" y="96" font-family="Consolas, monospace" font-size="12" fill="#25201a">move : Vector2 (|v| ≤ 1)</text>
+  <text x="32" y="114" font-family="Consolas, monospace" font-size="12" fill="#25201a">interact : bool</text>
+  <text x="32" y="138" font-size="12" fill="#6a6152">clavier ou manette, déjà normalisé</text>
+
+  <!-- Gardes -->
+  <rect x="20" y="168" width="160" height="80" rx="8" fill="#fbf8f0" stroke="#8a2233"/>
+  <text x="32" y="190" font-weight="600" fill="#8a2233">Rien ne se passe si</text>
+  <text x="32" y="210" font-size="12" fill="#25201a">· la carte est gelée (freeze)</text>
+  <text x="32" y="227" font-size="12" fill="#25201a">· aucune carte n'est chargée</text>
+  <text x="32" y="244" font-size="12" fill="#25201a">· secondes ≤ 0</text>
+
+  <path d="M180,100 L212,100" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- 1. walk -->
+  <rect x="214" y="52" width="200" height="196" rx="8" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="226" y="74" font-weight="600" fill="#25201a">1. walk — marcher</text>
+  <text x="226" y="96" font-size="12" fill="#25201a">pas = 4 cases/s × secondes</text>
+  <text x="226" y="114" font-size="12" fill="#25201a">facing := move (si non nul)</text>
+  <text x="226" y="138" font-size="12" fill="#25201a">Axe par axe : X puis Y ;</text>
+  <text x="226" y="155" font-size="12" fill="#25201a">un mur pris en biais fait glisser.</text>
+  <text x="226" y="179" font-size="12" fill="#25201a">fits(point) : les 4 coins du</text>
+  <text x="226" y="196" font-size="12" fill="#25201a">gabarit (± 0,3 case) dans la carte</text>
+  <text x="226" y="213" font-size="12" fill="#25201a">et sur une case non solide</text>
+  <text x="226" y="230" font-family="Consolas, monospace" font-size="12" fill="#6a6152">tileMap().isSolid(c, l)</text>
+
+  <path d="M414,150 L446,150" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- 2. crossPortal -->
+  <rect x="448" y="52" width="200" height="196" rx="8" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="460" y="74" font-weight="600" fill="#25201a">2. crossPortal — franchir</text>
+  <text x="460" y="96" font-size="12" fill="#25201a">Seulement si la case a changé</text>
+  <text x="460" y="113" font-size="12" fill="#25201a">depuis le pas précédent (_lastCell) :</text>
+  <text x="460" y="130" font-size="12" fill="#25201a">un portail se franchit en y arrivant.</text>
+  <text x="460" y="154" font-family="Consolas, monospace" font-size="12" fill="#25201a">portalAt(carte, case) ?</text>
+  <text x="460" y="172" font-family="Consolas, monospace" font-size="12" fill="#25201a">travel.cross(case, flags)</text>
+  <text x="460" y="196" font-size="12" fill="#3f6b34">Moved → héros au centre de l'arrivée</text>
+  <text x="460" y="213" font-size="12" fill="#8a2233">Locked → PortalLocked(drapeau)</text>
+  <text x="460" y="230" font-size="12" fill="#8a2233">Unreadable/Unknown → PortalBroken</text>
+
+  <path d="M648,150 L680,150" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- 3. resolveInteraction -->
+  <rect x="682" y="52" width="178" height="196" rx="8" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="694" y="74" font-weight="600" fill="#25201a">3. interagir (si interact)</text>
+  <text x="694" y="96" font-family="Consolas, monospace" font-size="12" fill="#25201a">aimedCell(case, facing)</text>
+  <text x="694" y="114" font-family="Consolas, monospace" font-size="12" fill="#25201a">findInteractionTarget</text>
+  <text x="694" y="132" font-family="Consolas, monospace" font-size="12" fill="#25201a">interact(cible, flags)</text>
+  <text x="694" y="156" font-size="12" fill="#25201a">puis l'entité d'origine :</text>
+  <text x="694" y="174" font-size="12" fill="#25201a">PNJ à dialogue → Dialogue</text>
+  <text x="694" y="191" font-size="12" fill="#25201a">rencontre → Encounter</text>
+  <text x="694" y="208" font-size="12" fill="#25201a">sinon → Interacted(type)</text>
+  <text x="694" y="232" font-size="12" fill="#6a6152">coffre : drapeau levé une fois</text>
+
+  <!-- Grille illustrative du gabarit -->
+  <text x="20" y="286" font-weight="600" fill="#25201a">Le gabarit du héros</text>
+  <g stroke="#d6c9a8" fill="#fbf8f0">
+    <rect x="20" y="296" width="44" height="44"/><rect x="64" y="296" width="44" height="44"/><rect x="108" y="296" width="44" height="44"/>
+    <rect x="20" y="340" width="44" height="44"/><rect x="64" y="340" width="44" height="44"/><rect x="108" y="340" width="44" height="44"/>
+    <rect x="20" y="384" width="44" height="44"/><rect x="64" y="384" width="44" height="44"/><rect x="108" y="384" width="44" height="44"/>
+  </g>
+  <rect x="20" y="296" width="44" height="44" fill="#6a6152"/>
+  <rect x="108" y="384" width="44" height="44" fill="#6a6152"/>
+  <rect x="72.8" y="348.8" width="26.4" height="26.4" fill="none" stroke="#9a7420" stroke-width="2"/>
+  <circle cx="86" cy="362" r="4" fill="#9a7420"/>
+  <text x="166" y="314" font-size="12" fill="#25201a">Le héros tient dans une case (demi-côté 0,3) :</text>
+  <text x="166" y="331" font-size="12" fill="#25201a">un couloir d'une case se franchit sans frotter.</text>
+  <text x="166" y="352" font-size="12" fill="#25201a">Deux murs en diagonale ferment le passage : le</text>
+  <text x="166" y="369" font-size="12" fill="#25201a">gabarit ne passe jamais par un coin. C'est la règle</text>
+  <text x="166" y="386" font-size="12" fill="#25201a">de core::ExplorationReach (quatre voisins).</text>
+  <text x="166" y="410" font-size="12" fill="#6a6152">Position continue : {1,5 ; 2,5} = centre de la case (1, 2).</text>
+
+  <!-- Événements -->
+  <rect x="448" y="276" width="412" height="152" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="460" y="298" font-weight="600" fill="#25201a">Ce que le pas rend : vector&lt;ExplorationEvent&gt;</text>
+  <text x="460" y="320" font-family="Consolas, monospace" font-size="12" fill="#3f6b34">MapEntered   value = carte, cell = arrivée</text>
+  <text x="460" y="338" font-family="Consolas, monospace" font-size="12" fill="#8a2233">PortalLocked value = drapeau exigé</text>
+  <text x="460" y="356" font-family="Consolas, monospace" font-size="12" fill="#8a2233">PortalBroken value = carte cible</text>
+  <text x="460" y="374" font-family="Consolas, monospace" font-size="12" fill="#2f7f86">Dialogue     value = dialogue du PNJ</text>
+  <text x="460" y="392" font-family="Consolas, monospace" font-size="12" fill="#2f7f86">Encounter    value = rencontre</text>
+  <text x="460" y="410" font-family="Consolas, monospace" font-size="12" fill="#25201a">Interacted   value = type (chest, sign…)</text>
+
+  <path d="M771,248 L771,274" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <path d="M548,248 L548,274" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- Qui joue les événements -->
+  <text x="20" y="466" font-weight="600" fill="#25201a">Qui les joue</text>
+  <text x="20" y="486" font-size="12" fill="#25201a">La session ne fait rien d'elle-même : hmi::WorldModel relit la liste à chaque pas fixe (16 ms) et émet</text>
+  <text x="20" y="503" font-size="12" fill="#25201a">dialogueRequested, encounterRequested, portalLocked… — c'est l'écran qui ouvre le dialogue ou gèle la carte.</text>
+</svg>

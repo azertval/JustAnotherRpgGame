@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="430" fill="#fbf8f0"/>
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+    <marker id="fr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a2233"/>
+    </marker>
+    <marker id="fg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3f6b34"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="30" font-size="15" font-weight="600" fill="#25201a">Le contrôle d'une carte : bien écrite, puis jouable</text>
+  <text x="20" y="50" font-family="Consolas, monospace" font-size="12" fill="#6a6152">hmi::checkAllMaps(dataRoot) → pour chaque carte de Levels/ : checkMapFile(mapId, file, dataRoot, context)</text>
+
+  <!-- Contexte -->
+  <rect x="20" y="70" width="200" height="120" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="94" font-weight="600" fill="#25201a">Lu une fois, pour toutes</text>
+  <text x="32" y="112" font-family="Consolas, monospace" font-size="12" fill="#6a6152">ContentContext</text>
+  <g font-size="12" fill="#25201a">
+    <text x="32" y="134">EditorReferences (catalogues,</text>
+    <text x="32" y="150">graphe du monde, figurines)</text>
+    <text x="32" y="166">TranslationCatalogs</text>
+    <text x="32" y="182">namedArrivals (carte, nom)</text>
+  </g>
+
+  <!-- Étape 1 : format -->
+  <rect x="250" y="70" width="290" height="160" rx="8" fill="#fbf8f0" stroke="#9a7420" stroke-width="1.5"/>
+  <text x="262" y="94" font-weight="600" fill="#25201a">1. Le format (MapFormat.h)</text>
+  <text x="262" y="112" font-size="12" fill="#6a6152">la carte est-elle bien écrite ?</text>
+  <g font-size="12" fill="#25201a">
+    <text x="262" y="134">version v4, écriture canonique</text>
+    <text x="262" y="150">portails, points d'arrivée, zones</text>
+    <text x="262" y="166">pièces présentes au manifeste</text>
+    <text x="262" y="182">collision = déduction + forcées</text>
+    <text x="262" y="198">identifiants d'entité uniques</text>
+    <text x="262" y="218" fill="#6a6152">(core::validateWorldGraph, validateWorldMap)</text>
+  </g>
+
+  <!-- Étape 2 : contenu -->
+  <rect x="570" y="70" width="290" height="160" rx="8" fill="#fbf8f0" stroke="#9a7420" stroke-width="1.5"/>
+  <text x="582" y="94" font-weight="600" fill="#25201a">2. Le contenu (ContentCheck.h)</text>
+  <text x="582" y="112" font-size="12" fill="#6a6152">la carte se joue-t-elle ?</text>
+  <g font-size="12" fill="#25201a">
+    <text x="582" y="134">textes : clés dans chaque catalogue</text>
+    <text x="582" y="150">références des entités (validateMapEntities)</text>
+    <text x="582" y="166">terrain : rencontres, zones de combat</text>
+    <text x="582" y="182">atteignabilité depuis l'entrée (ExplorationReach)</text>
+    <text x="582" y="198">graphe : portail sans retour, arrivée orpheline</text>
+    <text x="582" y="218" fill="#6a6152">une variante se contrôle sur les cases de sa base</text>
+  </g>
+
+  <g stroke="#6a6152" stroke-width="1.5" fill="none">
+    <path d="M220,130 L248,130" marker-end="url(#f)"/>
+    <path d="M540,150 L568,150" marker-end="url(#f)"/>
+  </g>
+
+  <!-- Constats -->
+  <rect x="250" y="260" width="610" height="60" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="262" y="284" font-weight="600" fill="#25201a">Des constats, dans l'ordre : textes, références, terrain, atteignabilité, graphe</text>
+  <text x="262" y="304" font-family="Consolas, monospace" font-size="12" fill="#25201a">MapCheckFinding { severity, mapId, cell?, message, entityId? }   →   "capital/martpart (12, 3): error: …"</text>
+  <g stroke="#6a6152" stroke-width="1.5" fill="none">
+    <path d="M395,230 L395,258" marker-end="url(#f)"/>
+    <path d="M715,230 L715,258" marker-end="url(#f)"/>
+  </g>
+
+  <!-- Deux consommateurs -->
+  <rect x="250" y="350" width="290" height="66" rx="6" fill="#fbf8f0" stroke="#8a2233"/>
+  <text x="262" y="372" font-weight="600" fill="#8a2233">LevelEditor --check (CI)</text>
+  <text x="262" y="390" font-size="12" fill="#25201a">une ligne par constat ; sortie 1 à la première erreur,</text>
+  <text x="262" y="406" font-size="12" fill="#25201a">un avertissement ne fait pas échouer</text>
+
+  <rect x="570" y="350" width="290" height="66" rx="6" fill="#fbf8f0" stroke="#3f6b34"/>
+  <text x="582" y="372" font-weight="600" fill="#3f6b34">Panneau « Problems » (fenêtre)</text>
+  <text x="582" y="390" font-size="12" fill="#25201a">même bilan, sur les cartes enregistrées ; double-clic :</text>
+  <text x="582" y="406" font-size="12" fill="#25201a">ouvrir la carte, sélectionner l'entité, cerner la case</text>
+
+  <g stroke-width="1.5" fill="none">
+    <path d="M395,320 L395,348" stroke="#8a2233" marker-end="url(#fr)"/>
+    <path d="M715,320 L715,348" stroke="#3f6b34" marker-end="url(#fg)"/>
+  </g>
+</svg>

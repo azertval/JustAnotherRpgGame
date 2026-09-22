@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" font-family="Georgia, serif" font-size="14">
+  <rect width="880" height="520" fill="#fbf8f0"/>
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+    <marker id="fr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a2233"/>
+    </marker>
+  </defs>
+  <text x="20" y="30" font-size="16" font-weight="600" fill="#25201a">Une image du jeu Qt Quick : deux fils, une frontière, trois temps</text>
+
+  <!-- Fil graphique -->
+  <rect x="20" y="60" width="400" height="430" rx="10" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="84" font-weight="600" fill="#25201a">Fil graphique (GUI)</text>
+  <g fill="#fbf8f0" stroke="#9a7420">
+    <rect x="40" y="100" width="360" height="56" rx="6"/>
+    <rect x="40" y="176" width="360" height="72" rx="6"/>
+    <rect x="40" y="268" width="360" height="56" rx="6"/>
+  </g>
+  <g fill="#25201a">
+    <text x="52" y="122">Simulation au pas fixe</text>
+    <text x="52" y="142" font-family="Consolas, monospace" font-size="13" fill="#6a6152">hmi::WorldModel, core::ExplorationSession</text>
+    <text x="52" y="198">Instantané en valeurs</text>
+    <text x="52" y="218" font-family="Consolas, monospace" font-size="13" fill="#6a6152">hmi::snapshotWorldScene / snapshotArenaScene</text>
+    <text x="52" y="238" font-size="13" fill="#6a6152">aucun pointeur vers la carte ni la session</text>
+    <text x="52" y="290">Numéro de scène</text>
+    <text x="52" y="310" font-family="Consolas, monospace" font-size="13" fill="#6a6152">sceneRevision : ne reprendre que si changé</text>
+  </g>
+  <g stroke="#6a6152" stroke-width="1.5" fill="none">
+    <path d="M220,156 L220,174" marker-end="url(#f)"/>
+    <path d="M220,248 L220,266" marker-end="url(#f)"/>
+  </g>
+  <rect x="40" y="350" width="360" height="120" rx="6" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="52" y="372" font-weight="600" fill="#25201a">Le calque QML par-dessus</text>
+  <text x="52" y="394" font-size="13" fill="#25201a">curseur, chemin, invites : posés avec le cadrage</text>
+  <text x="52" y="412" font-size="13" fill="#25201a">publié par l'item (tileWidth, originX, cellAt),</text>
+  <text x="52" y="430" font-size="13" fill="#8a2233">jamais un recalcul en QML.</text>
+
+  <!-- Frontière -->
+  <rect x="430" y="60" width="30" height="430" fill="#d6c9a8"/>
+  <text x="445" y="275" font-size="13" fill="#25201a" transform="rotate(-90 445 275)" text-anchor="middle">synchronize() — fil graphique bloqué</text>
+  <path d="M400,212 L468,212" stroke="#8a2233" stroke-width="2" fill="none" marker-end="url(#fr)"/>
+  <text x="404" y="204" font-size="12" fill="#8a2233">valeurs</text>
+
+  <!-- Fil de rendu -->
+  <rect x="470" y="60" width="390" height="430" rx="10" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="482" y="84" font-weight="600" fill="#25201a">Fil de rendu (QQuickRhiItemRenderer)</text>
+  <g fill="#fbf8f0" stroke="#9a7420">
+    <rect x="490" y="100" width="350" height="56" rx="6"/>
+    <rect x="490" y="176" width="350" height="56" rx="6"/>
+    <rect x="490" y="252" width="350" height="92" rx="6"/>
+    <rect x="490" y="364" width="350" height="106" rx="6"/>
+  </g>
+  <g fill="#25201a">
+    <text x="502" y="122">1. initialize() → ensureResources(rhi)</text>
+    <text x="502" y="142" font-family="Consolas, monospace" font-size="13" fill="#6a6152">SceneResources::create, textures (lot d'upload)</text>
+    <text x="502" y="198">2. synchronize() → setSnapshot(valeurs)</text>
+    <text x="502" y="218" font-family="Consolas, monospace" font-size="13" fill="#6a6152">ne touche pas au GPU</text>
+    <text x="502" y="274">3. render() → composition, pure</text>
+    <text x="502" y="294" font-family="Consolas, monospace" font-size="13" fill="#6a6152">worldCamera / arenaCamera → visibleBounds</text>
+    <text x="502" y="312" font-family="Consolas, monospace" font-size="13" fill="#6a6152">composeWorldScene → ComposedScene (culling)</text>
+    <text x="502" y="330" font-family="Consolas, monospace" font-size="13" fill="#6a6152">ComposedScene::sort</text>
+    <text x="502" y="386">3'. soumission, GPU</text>
+    <text x="502" y="406" font-family="Consolas, monospace" font-size="13" fill="#6a6152">SpriteBatch::beginFrame</text>
+    <text x="502" y="424" font-family="Consolas, monospace" font-size="13" fill="#6a6152">submitComposedScene : begin/draw/end par texture</text>
+    <text x="502" y="442" font-family="Consolas, monospace" font-size="13" fill="#6a6152">SpriteBatch::submit : upload, une passe, effacement</text>
+    <text x="502" y="460" font-size="13" fill="#3f6b34">testable hors écran sur un QRhi sans fenêtre</text>
+  </g>
+  <g stroke="#6a6152" stroke-width="1.5" fill="none">
+    <path d="M665,156 L665,174" marker-end="url(#f)"/>
+    <path d="M665,232 L665,250" marker-end="url(#f)"/>
+    <path d="M665,344 L665,362" marker-end="url(#f)"/>
+  </g>
+  <text x="20" y="510" font-size="13" fill="#6a6152">Le canevas de l'éditeur partage le temps 3 (composition) et remplace 3' par hmi::paintComposedScene (QPainter).</text>
+</svg>
