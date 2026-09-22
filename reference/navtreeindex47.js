@@ -1,5 +1,12 @@
 var NAVTREEINDEX47 =
 {
+"test__stamps_8cpp.html#ab8da5e3ef0b1d6f7447beecf15bb2d4e":[4,0,0,7,4,1,25,2],
+"test__stamps_8cpp.html#addcbab611a7a5b8fc0937f6ed674d92f":[4,0,0,7,4,1,25,4],
+"test__stamps_8cpp.html#af987ba418b25878f2d72e4a798c183fe":[4,0,0,7,4,1,25,8],
+"test__tactical__terrain_8cpp.html":[4,0,0,7,4,0,0,13],
+"test__tactical__terrain_8cpp.html#a069bd4f12a38c53379863199f2284692":[4,0,0,7,4,0,0,13,4],
+"test__tactical__terrain_8cpp.html#a0972435e88bfc89356621f46cbc614ca":[4,0,0,7,4,0,0,13,7],
+"test__tactical__terrain_8cpp.html#a39a742c7cd0d22ad5180a0c89f6d2701":[4,0,0,7,4,0,0,13,0],
 "test__tactical__terrain_8cpp.html#a4a5876f498c8e45e124d7e342cff5b5b":[4,0,0,7,4,0,0,13,3],
 "test__tactical__terrain_8cpp.html#a4e8d25d0bb94631576de95b81ec9ef82":[4,0,0,7,4,0,0,13,5],
 "test__tactical__terrain_8cpp.html#a5ec7c6ebc16978b88bd763cf4493a636":[4,0,0,7,4,0,0,13,6],

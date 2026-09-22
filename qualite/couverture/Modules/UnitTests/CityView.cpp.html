@@ -50,6 +50,7 @@ namespace {
 <span style = "background-color:#fdd">std::vector&lt;std::string&gt; worldRegionIds(const std::filesystem::path&amp; dataRoot) {
     std::vector&lt;std::string&gt; ids;
     const WorldMaps maps = readWorldMaps(readText(dataRoot / "Maps" / "world-maps.json"));
+    ids.reserve(maps.regions.size());
     for (const auto&amp; [id, region] : maps.regions) {
         ids.push_back(id);
     }

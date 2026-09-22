@@ -167,7 +167,8 @@ Public Attributes</h2></td></tr>
 <li><span class="tt">Npc/manifest.json</span> : chaque PNJ × chaque animation, d'après son <span class="tt">.anim.json</span>, et son portrait ;</li>
 <li><span class="tt">Monsters/manifest.json</span> : les figurines de l'atelier des monstres (LOT-93), de même forme ; une bête sans sort n'a pas de <span class="tt">cast</span>, et une Grande a ses cellules de 96 × 96 ;</li>
 <li><span class="tt">Coliseum/manifest.json</span> : héros × animations, gladiateurs, puis les pièces de la planche ;</li>
-<li><span class="tt">Scene/&lt;disposition&gt;/manifest.json</span> : les textures de l'atelier (LOT-92), par classe.</li>
+<li><span class="tt">Scene/&lt;disposition&gt;/manifest.json</span> : les textures de l'atelier (LOT-92), par classe ;</li>
+<li>l'arborescence par niveaux (LOT-102), où la chaîne HD installe (LOT-104) : chaque <span class="tt">manifest.json</span> sous <span class="tt">Common/</span> et <span class="tt">Regions/</span>, dans l'ordre de son chemin — les <span class="tt">textures</span> d'un dossier <span class="tt">Scene/</span> en une famille titrée par son lieu (« Scène · central-empire/capital/arenarea »), les PNJ d'un dossier <span class="tt">Characters/</span> en une famille « Figurines · » suivie du dossier.</li>
 </ul>
 <p>Tout asset livré doit y paraître (<span class="tt">EX-CNT-042</span>) : <span class="tt"><a class="el" href="namespacehmi.html#a3256818dab3b1990ebe3f4da0aed8a34" title="Les images livrées (PNG, JPEG) que la galerie ne montre pas et qu&#39;aucune exclusion ne couvre : ce que...">hmi::assetGalleryUnlisted</a></span> nomme ceux qui n'y sont pas, et un test l'exige vide.</p>
 <p>Un manifeste illisible est une erreur <b>nommée</b>, jamais un arrêt : la galerie montre le reste. </p>

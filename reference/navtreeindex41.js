@@ -1,5 +1,11 @@
 var NAVTREEINDEX41 =
 {
+"structhmi_1_1MaquetteTokenRequest.html#a48ede4c6810d3c8902fa8ecd8ad29ec0":[2,0,2,131,1],
+"structhmi_1_1MaquetteTokenRequest.html#a48ede4c6810d3c8902fa8ecd8ad29ec0":[3,0,1,131,1],
+"structhmi_1_1MaquetteTokenRequest.html#ac20a81244ac98722bcc94983be0e1b2c":[2,0,2,131,0],
+"structhmi_1_1MaquetteTokenRequest.html#ac20a81244ac98722bcc94983be0e1b2c":[3,0,1,131,0],
+"structhmi_1_1MaquetteTokenSnapshot.html":[2,0,2,149],
+"structhmi_1_1MaquetteTokenSnapshot.html":[3,0,1,149],
 "structhmi_1_1MaquetteTokenSnapshot.html#a65c4c1d1c1390ea45f3d8c2566b30a32":[2,0,2,149,3],
 "structhmi_1_1MaquetteTokenSnapshot.html#a65c4c1d1c1390ea45f3d8c2566b30a32":[3,0,1,149,3],
 "structhmi_1_1MaquetteTokenSnapshot.html#a68d37d214364a6958bb8896c9c6179ad":[2,0,2,149,0],
@@ -243,11 +249,5 @@ var NAVTREEINDEX41 =
 "structhmi_1_1SceneChangeChoice.html":[2,0,2,87],
 "structhmi_1_1SceneChangeChoice.html":[3,0,1,87],
 "structhmi_1_1SceneChangeChoice.html#a7452ab58a5f0a4b3fa8c171f696b7381":[2,0,2,87,1],
-"structhmi_1_1SceneChangeChoice.html#a7452ab58a5f0a4b3fa8c171f696b7381":[3,0,1,87,1],
-"structhmi_1_1SceneChangeChoice.html#a8cb6cc2063f454360bf2b5ef6daa1f91":[2,0,2,87,0],
-"structhmi_1_1SceneChangeChoice.html#a8cb6cc2063f454360bf2b5ef6daa1f91":[3,0,1,87,0],
-"structhmi_1_1ScenePieceTextures.html":[2,0,2,141],
-"structhmi_1_1ScenePieceTextures.html":[3,0,1,141],
-"structhmi_1_1ScenePieceTextures.html#a0915ac2c83ced0bab7bea8a193dc94f3":[2,0,2,141,4],
-"structhmi_1_1ScenePieceTextures.html#a0915ac2c83ced0bab7bea8a193dc94f3":[3,0,1,141,4]
+"structhmi_1_1SceneChangeChoice.html#a7452ab58a5f0a4b3fa8c171f696b7381":[3,0,1,87,1]
 };

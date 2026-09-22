@@ -1,5 +1,11 @@
 var NAVTREEINDEX42 =
 {
+"structhmi_1_1SceneChangeChoice.html#a8cb6cc2063f454360bf2b5ef6daa1f91":[2,0,2,87,0],
+"structhmi_1_1SceneChangeChoice.html#a8cb6cc2063f454360bf2b5ef6daa1f91":[3,0,1,87,0],
+"structhmi_1_1ScenePieceTextures.html":[2,0,2,141],
+"structhmi_1_1ScenePieceTextures.html":[3,0,1,141],
+"structhmi_1_1ScenePieceTextures.html#a0915ac2c83ced0bab7bea8a193dc94f3":[2,0,2,141,4],
+"structhmi_1_1ScenePieceTextures.html#a0915ac2c83ced0bab7bea8a193dc94f3":[3,0,1,141,4],
 "structhmi_1_1ScenePieceTextures.html#a34f4bb97c124acb80a4a73e0a348c53f":[2,0,2,141,2],
 "structhmi_1_1ScenePieceTextures.html#a34f4bb97c124acb80a4a73e0a348c53f":[3,0,1,141,2],
 "structhmi_1_1ScenePieceTextures.html#a56dea4108fc0ff04439355227a88506f":[2,0,2,141,3],
@@ -243,11 +249,5 @@ var NAVTREEINDEX42 =
 "structhmi_1_1WorldGraphLayout.html#acdfdc518625d5edaaf9b20046765071e":[2,0,2,67,0],
 "structhmi_1_1WorldGraphLayout.html#acdfdc518625d5edaaf9b20046765071e":[3,0,1,67,0],
 "structhmi_1_1WorldGraphLayout.html#ad1dd839cd1c8dc313ab4fb23fae55624":[2,0,2,67,2],
-"structhmi_1_1WorldGraphLayout.html#ad1dd839cd1c8dc313ab4fb23fae55624":[3,0,1,67,2],
-"structhmi_1_1WorldGraphLayoutEdge.html":[2,0,2,66],
-"structhmi_1_1WorldGraphLayoutEdge.html":[3,0,1,66],
-"structhmi_1_1WorldGraphLayoutEdge.html#a11036d789ba8ffe3c5c9ba71159af6f7":[2,0,2,66,5],
-"structhmi_1_1WorldGraphLayoutEdge.html#a11036d789ba8ffe3c5c9ba71159af6f7":[3,0,1,66,5],
-"structhmi_1_1WorldGraphLayoutEdge.html#a51a564077282681c5810eccd6a706279":[2,0,2,66,6],
-"structhmi_1_1WorldGraphLayoutEdge.html#a51a564077282681c5810eccd6a706279":[3,0,1,66,6]
+"structhmi_1_1WorldGraphLayout.html#ad1dd839cd1c8dc313ab4fb23fae55624":[3,0,1,67,2]
 };

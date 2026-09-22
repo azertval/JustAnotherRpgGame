@@ -253,50 +253,103 @@ void readFigures(const std::filesystem::path&amp; root, const std::string&amp; d
 <span style = "background-color:#dfd">    return textureClass == "wide" ? 2 : 3;
 }</span>
 
+/**
+ * @brief Les piÃ¨ces d'un manifeste de scÃ¨ne, en une famille rangÃ©e par classe.
+ * @param directory Dossier du manifeste, relatif Ã  la racine des assets, sÃ©parateurs `/`.
+ */
+void readSceneFamily(const std::filesystem::path&amp; root, const std::string&amp; directory,
+<span style = "background-color:#dfd">                     const std::string&amp; title, AssetGalleryCatalog&amp; catalog) {</span>
+    // Le manifeste des piÃ¨ces se lit dans Core depuis le LOT-EDITOR-02 (constat A9) : la galerie,
+    // l'Ã©diteur et demain la collision dÃ©duite lisent la mÃªme emprise.
+<span style = "background-color:#dfd">    const std::filesystem::path path = root / directory / "manifest.json";
+    const core::ScenePieceManifestResult read = core::ScenePieceManifest::loadFromFile(path);
+    if (!read.ok()) {</span>
+<span style = "background-color:#fdd">        if (read.error != core::ScenePieceManifestError::FileNotFound) {
+            catalog.errors.push_back(path.generic_string() + " : " + read.message);</span>
+        }
+<span style = "background-color:#fdd">        return;</span>
+    }
+<span style = "background-color:#dfd">    AssetGalleryFamily family{.title = title, .directory = directory, .entries = {}};
+    for (const core::ScenePiece&amp; piece : read.manifest.pieces()) {
+        family.entries.push_back(AssetGalleryEntry{</span>
+            .family = family.title,
+            .model = piece.className.empty() ? std::string("autre") : piece.className,
+            .form = piece.name,
+            .path = directory + "/" + piece.file,
+            .frameWidth = piece.width,
+            .frameHeight = piece.height,
+            .frames = {},
+            .footprintColumns = piece.footprintColumns,
+            .footprintRows = piece.footprintRows,
+            .anchorX = piece.anchorX,
+            .anchorY = piece.anchorY});
+<span style = "background-color:#dfd">    }
+    std::ranges::stable_sort(family.entries,
+                             [](const AssetGalleryEntry&amp; left, const AssetGalleryEntry&amp; right) {
+                                 return classRank(left.model) &lt; classRank(right.model);
+                             });
+    if (!family.entries.empty()) {
+        catalog.families.push_back(std::move(family));</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
 <span style = "background-color:#dfd">void readScenes(const std::filesystem::path&amp; root, AssetGalleryCatalog&amp; catalog) {
-    std::vector&lt;std::filesystem::path&gt; dispositions;
+    std::vector&lt;std::string&gt; dispositions;
     std::error_code error;
     for (const auto&amp; item : std::filesystem::directory_iterator(root / "Scene", error)) {
         if (item.is_directory()) {
-            dispositions.push_back(item.path());
+            dispositions.push_back(item.path().filename().string());
         }
     }
     std::ranges::sort(dispositions);
-    for (const std::filesystem::path&amp; directory : dispositions) {</span>
-        // Le manifeste des piÃ¨ces se lit dans Core depuis le LOT-EDITOR-02 (constat A9) : la
-        // galerie, l'Ã©diteur et demain la collision dÃ©duite lisent la mÃªme emprise.
-<span style = "background-color:#dfd">        const core::ScenePieceManifestResult read =</span>
-            core::ScenePieceManifest::loadFromFile(directory / "manifest.json");
-<span style = "background-color:#dfd">        if (!read.ok()) {</span>
-<span style = "background-color:#fdd">            if (read.error != core::ScenePieceManifestError::FileNotFound) {
-                catalog.errors.push_back((directory / "manifest.json").generic_string() + " : " +</span>
-                                         read.message);
+    for (const std::string&amp; name : dispositions) {
+        readSceneFamily(root, "Scene/" + name, "ScÃ¨ne Â· " + name, catalog);
+    }
+}</span>
+
+/**
+ * @brief L'arborescence par niveaux : chaque `manifest.json` sous `Common/` et `Regions/`, dans
+ *        l'ordre de son chemin.
+ *
+ * Un manifeste qui dÃ©clare des `textures` est un dossier `Scene/` ; un manifeste qui dÃ©clare des
+ * `animations` est un dossier `Characters/`, dont les PNJ ont la forme de l'atelier
+ * (`readFigures`). Les manifestes des niveaux encore vides n'ajoutent aucune famille.
+ */
+<span style = "background-color:#dfd">void readTree(const std::filesystem::path&amp; root, AssetGalleryCatalog&amp; catalog) {
+    std::vector&lt;std::filesystem::path&gt; manifests;
+    for (const char* tree : {"Common", "Regions"}) {
+        std::error_code error;
+        for (auto it = std::filesystem::recursive_directory_iterator(root / tree, error);
+             !error &amp;&amp; it != std::filesystem::recursive_directory_iterator(); it.increment(error)) {
+            if (it-&gt;is_regular_file() &amp;&amp; it-&gt;path().filename() == "manifest.json") {
+                manifests.push_back(it-&gt;path());
             }
+        }
+    }
+    std::ranges::sort(manifests, [](const auto&amp; left, const auto&amp; right) {
+        return left.generic_string() &lt; right.generic_string();
+    });
+    for (const std::filesystem::path&amp; path : manifests) {
+        const core::JsonDocument document = readManifest(path, catalog.errors);
+        if (!document.ok()) {</span>
 <span style = "background-color:#fdd">            continue;</span>
         }
-<span style = "background-color:#dfd">        const std::string name = directory.filename().string();</span>
-        AssetGalleryFamily family{
-<span style = "background-color:#dfd">            .title = "ScÃ¨ne Â· " + name, .directory = "Scene/" + name, .entries = {}};
-        for (const core::ScenePiece&amp; piece : read.manifest.pieces()) {
-            family.entries.push_back(AssetGalleryEntry{</span>
-                .family = family.title,
-                .model = piece.className.empty() ? std::string("autre") : piece.className,
-                .form = piece.name,
-                .path = family.directory + "/" + piece.file,
-                .frameWidth = piece.width,
-                .frameHeight = piece.height,
-                .frames = {},
-                .footprintColumns = piece.footprintColumns,
-                .footprintRows = piece.footprintRows,
-                .anchorX = piece.anchorX,
-                .anchorY = piece.anchorY});
-<span style = "background-color:#dfd">        }
-        std::ranges::stable_sort(family.entries,
-                                 [](const AssetGalleryEntry&amp; left, const AssetGalleryEntry&amp; right) {
-                                     return classRank(left.model) &lt; classRank(right.model);
-                                 });
-        if (!family.entries.empty()) {
-            catalog.families.push_back(std::move(family));</span>
+<span style = "background-color:#dfd">        const std::filesystem::path directory = path.parent_path();
+        const std::string relative = std::filesystem::relative(directory, root).generic_string();
+        if (document.root.contains("textures")) {</span>
+            // Le lieu, sans le prÃ©fixe `Regions/` ni le dossier `Scene` : ce qui le nomme dans
+            // l'atlas (Â« ScÃ¨ne Â· central-empire/capital/arenarea/arena-of-fate Â»). Le commun du
+            // monde range ses piÃ¨ces par sorte (Â« ScÃ¨ne Â· Common/Terrain Â»).
+<span style = "background-color:#dfd">            std::string place = relative;
+            if (place.ends_with("/Scene")) {
+                place.erase(place.size() - std::string_view("/Scene").size());</span>
+            }
+<span style = "background-color:#dfd">            if (place.starts_with("Regions/")) {
+                place.erase(0, std::string_view("Regions/").size());</span>
+            }
+<span style = "background-color:#dfd">            readSceneFamily(root, relative, "ScÃ¨ne Â· " + place, catalog);
+        } else if (document.root.contains("animations")) {
+            readFigures(root, relative, "Figurines Â· " + relative, catalog);</span>
         }
 <span style = "background-color:#dfd">    }
 }</span>
@@ -313,6 +366,7 @@ void readFigures(const std::filesystem::path&amp; root, const std::string&amp; d
     readFigures(assetsRoot, "Monsters", "Monstres", catalog);
     readColiseum(assetsRoot, catalog);
     readScenes(assetsRoot, catalog);
+    readTree(assetsRoot, catalog);
     return catalog;
 }</span>
 
@@ -323,12 +377,12 @@ void readFigures(const std::filesystem::path&amp; root, const std::string&amp; d
 std::vector&lt;std::string&gt; assetGalleryUnlisted(const std::filesystem::path&amp; assetsRoot,
 <span style = "background-color:#dfd">                                              const AssetGalleryCatalog&amp; catalog) {
     std::set&lt;std::string&gt; listed;
-    for (const AssetGalleryFamily&amp; family : catalog.families) {</span>
-<span style = "background-color:#fdd">        for (const AssetGalleryEntry&amp; entry : family.entries) {
+    for (const AssetGalleryFamily&amp; family : catalog.families) {
+        for (const AssetGalleryEntry&amp; entry : family.entries) {
             listed.insert(entry.path);
         }
-    }</span>
-<span style = "background-color:#dfd">    std::vector&lt;std::string&gt; unlisted;
+    }
+    std::vector&lt;std::string&gt; unlisted;
     std::error_code error;
     for (auto it = std::filesystem::recursive_directory_iterator(assetsRoot, error);
          !error &amp;&amp; it != std::filesystem::recursive_directory_iterator(); it.increment(error)) {

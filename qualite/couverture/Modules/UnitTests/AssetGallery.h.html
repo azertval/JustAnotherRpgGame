@@ -91,7 +91,11 @@ struct AssetGalleryFamily {
  * - `Monsters/manifest.json` : les figurines de l'atelier des monstres (LOT-93), de mÃªme forme ;
  *   une bÃªte sans sort n'a pas de `cast`, et une Grande a ses cellules de 96 Ã 96 ;
  * - `Coliseum/manifest.json` : hÃ©ros Ã animations, gladiateurs, puis les piÃ¨ces de la planche ;
- * - `Scene/&lt;disposition&gt;/manifest.json` : les textures de l'atelier (LOT-92), par classe.
+ * - `Scene/&lt;disposition&gt;/manifest.json` : les textures de l'atelier (LOT-92), par classe ;
+ * - l'arborescence par niveaux (LOT-102), oÃ¹ la chaÃ®ne HD installe (LOT-104) : chaque
+ *   `manifest.json` sous `Common/` et `Regions/`, dans l'ordre de son chemin â les `textures` d'un
+ *   dossier `Scene/` en une famille titrÃ©e par son lieu (Â« ScÃ¨ne Â· central-empire/capital/arenarea Â»),
+ *   les PNJ d'un dossier `Characters/` en une famille Â« Figurines Â· Â» suivie du dossier.
  *
  * Tout asset livrÃ© doit y paraÃ®tre (`EX-CNT-042`) : `hmi::assetGalleryUnlisted` nomme ceux qui n'y
  * sont pas, et un test l'exige vide.

@@ -37,6 +37,10 @@ class QRhiCommandBuffer;
 class QRhiRenderTarget;
 class QRhiResourceUpdateBatch;
 
+namespace core {
+struct Arena;
+}  // namespace core
+
 /**
  * @file HMI/Graphics/ArenaSceneRenderer.h
  * @brief Le rendu QRhi de la scÃ¨ne de combat du ColisÃ©e, cÃ´tÃ© **fil de rendu** (`LOT-86` Phase 5).
@@ -179,6 +183,8 @@ private:
     /// @param context Le contexte QRhi oÃ¹ crÃ©er les textures.
     void loadBattlefieldTextures(const RhiContext&amp; context);
     void loadBattlefield();
+    /// La suite de loadBattlefield, une fois l'arÃ¨ne jouable trouvÃ©e.
+    void loadBattlefieldFrom(const core::Arena&amp; definition);
     std::optional&lt;WorldSceneSnapshot&gt; _battlefield;
 <span style = "background-color:#dfd">    core::GridPosition _battlefieldOrigin{};</span>
     ScenePieceTextures _battlefieldTextures;

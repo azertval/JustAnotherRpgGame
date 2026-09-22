@@ -3961,6 +3961,7 @@
     <includes id="TextureLoader_8h" name="TextureLoader.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/TextureLoader.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <class kind="class">hmi::ArenaSceneRenderer</class>
+    <namespace>core</namespace>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -11008,6 +11009,13 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__asset__gallery_8cpp.html</anchorfile>
+      <anchor>a63ef2c2da92a6aff057bcb49d1dcacf3</anchor>
+      <arglist>(AssetGalleryTest, ArborescenceParNiveaux)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__asset__gallery_8cpp.html</anchorfile>
       <anchor>a2be843154aabf3dd5680a730677072da</anchor>
       <arglist>(AssetGalleryTest, FigurinesDeMonstres)</arglist>
     </member>
@@ -14432,6 +14440,13 @@
       <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
       <anchor>ade033f3bf3a3a4ae86ce509c2183b8bc</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>loadBattlefieldFrom</name>
+      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
+      <anchor>a31519b73a64f0cebe6603a87846278e3</anchor>
+      <arglist>(const core::Arena &amp;definition)</arglist>
     </member>
     <member kind="variable" protection="private">
       <type>std::optional&lt; WorldSceneSnapshot &gt;</type>
@@ -32205,6 +32220,13 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
+      <name>offerRecoveryFor</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>a9c9274dc9abbc1c76f6978f59a84c49d</anchor>
+      <arglist>(const AutosaveRecord &amp;record)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
       <name>watchLevelFile</name>
       <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
       <anchor>ac0d739fb55c5d22f269ca98284ef5a00</anchor>
@@ -36032,13 +36054,6 @@
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>QColor</type>
-      <name>tileColor</name>
-      <anchorfile>classhmi_1_1SceneImages.html</anchorfile>
-      <anchor>a3c4847c7b7690d75651fe62cf63b7074</anchor>
-      <arglist>(core::TileType type) const</arglist>
-    </member>
-    <member kind="function">
       <type>const QImage *</type>
       <name>marker</name>
       <anchorfile>classhmi_1_1SceneImages.html</anchorfile>
@@ -36058,6 +36073,13 @@
       <anchorfile>classhmi_1_1SceneImages.html</anchorfile>
       <anchor>a81100b0f242ad215cd4f81d6f74d9cd2</anchor>
       <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static QColor</type>
+      <name>tileColor</name>
+      <anchorfile>classhmi_1_1SceneImages.html</anchorfile>
+      <anchor>a7c931eeb9157782f5dda88d4823ba636</anchor>
+      <arglist>(core::TileType type)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>int</type>
@@ -46781,6 +46803,20 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>ae9e2f73076197cc924df1d25fb7fdf31</anchor>
       <arglist>(std::string_view path)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>paintDisc</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a23e6d1527defb8076054d4d1897d4e56</anchor>
+      <arglist>(core::MarkerImage &amp;image, int size, core::MarkerColor disc, core::MarkerColor rim)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>paintLetter</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a74353ba2cd27ca3e69b428d89b587f28</anchor>
+      <arglist>(core::MarkerImage &amp;image, int size, char letterChar, core::MarkerColor letterColor)</arglist>
     </member>
     <member kind="function">
       <type>core::MarkerImage</type>

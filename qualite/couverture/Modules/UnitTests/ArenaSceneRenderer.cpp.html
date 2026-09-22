@@ -114,13 +114,18 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, 
 <span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Arena battlefield: aucune arene ne nomme une carte et sa zone.");
         return;</span>
     }
-<span style = "background-color:#dfd">    const auto level = core::LevelLoader::loadFromFile(data / "Levels" / definition-&gt;map);
+<span style = "background-color:#dfd">    loadBattlefieldFrom(*definition);
+}</span>
+
+<span style = "background-color:#dfd">void ArenaSceneRenderer::loadBattlefieldFrom(const core::Arena&amp; definition) {
+    const auto data = _directory.parent_path().parent_path();
+    const auto level = core::LevelLoader::loadFromFile(data / "Levels" / definition.map);
     if (!level.ok()) {</span>
 <span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Arena battlefield: " + level.error);
         return;</span>
     }
 <span style = "background-color:#dfd">    const auto zones = core::combatZonesOf(*level.level);
-    const auto* zone = core::findCombatZone(zones, definition-&gt;zone);
+    const auto* zone = core::findCombatZone(zones, definition.zone);
     if (zone == nullptr) {</span>
 <span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Arena battlefield: unknown combat zone");
         return;</span>

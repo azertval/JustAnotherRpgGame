@@ -42,7 +42,7 @@ struct CrashDumpSettings {
 };
 
 /// Pause entre deux essais de la tentative de dernier recours (writeDumpJob), en millisecondes.
-constexpr DWORD kMiniDumpRetryPauseMs = 50;
+constexpr DWORD MINI_DUMP_RETRY_PAUSE_MS = 50;
 
 <span style = "background-color:#fdd">CrashDumpSettings&amp; settings() {
     static CrashDumpSettings instance;
@@ -231,7 +231,7 @@ BOOL CALLBACK skipUnreadableMemory(PVOID param, const PMINIDUMP_CALLBACK_INPUT i
         job-&gt;onlyThread = attempt.onlyThread;
         for (int attemptTry = 0; attemptTry &lt; attempt.tries; ++attemptTry) {
             if (attemptTry &gt; 0) {</span>
-<span style = "background-color:#fdd">                Sleep(kMiniDumpRetryPauseMs);</span>
+<span style = "background-color:#fdd">                Sleep(MINI_DUMP_RETRY_PAUSE_MS);</span>
             }
 <span style = "background-color:#dfd">            LARGE_INTEGER start{};
             SetFilePointerEx(job-&gt;file, start, nullptr, FILE_BEGIN);

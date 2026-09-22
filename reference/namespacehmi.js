@@ -692,6 +692,8 @@ var namespacehmi =
     [ "npcFigures", "namespacehmi.html#a7a8f2888417ba2cd0c8440905f9e209a", null ],
     [ "paintArea", "namespacehmi.html#ada2a18a45109679e891c69b3afdcdcf1", null ],
     [ "paintComposedScene", "namespacehmi.html#a13d39d2941050cdcde712bd03062a037", null ],
+    [ "paintDisc", "namespacehmi.html#a23e6d1527defb8076054d4d1897d4e56", null ],
+    [ "paintLetter", "namespacehmi.html#a74353ba2cd27ca3e69b428d89b587f28", null ],
     [ "paintsWithBrush", "namespacehmi.html#a52671ff2dc84b7e7e8d8c5daa415ab97", null ],
     [ "paintTypeBlock", "namespacehmi.html#a0e0956e7e96a74928e44f3f75a32061b", null ],
     [ "panelFocusCatalog", "namespacehmi.html#ad532ff719e53686ef85d80516e85089e", null ],

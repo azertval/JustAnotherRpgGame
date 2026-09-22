@@ -259,6 +259,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:af7619309516080cce3bbd5faa4d5020a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit le brouillon modifié, ou retire le fichier de reprise d'un brouillon redevenu propre.  <br /></td></tr>
 <tr class="memitem:aa28e8e28e6d9ee14ea3bd4c76700090a" id="r_aa28e8e28e6d9ee14ea3bd4c76700090a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa28e8e28e6d9ee14ea3bd4c76700090a">offerRecovery</a> ()</td></tr>
 <tr class="memdesc:aa28e8e28e6d9ee14ea3bd4c76700090a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Au démarrage : propose de reprendre les brouillons laissés par une session interrompue.  <br /></td></tr>
+<tr class="memitem:a9c9274dc9abbc1c76f6978f59a84c49d" id="r_a9c9274dc9abbc1c76f6978f59a84c49d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9c9274dc9abbc1c76f6978f59a84c49d">offerRecoveryFor</a> (const <a class="el" href="structhmi_1_1AutosaveRecord.html">AutosaveRecord</a> &amp;record)</td></tr>
+<tr class="memdesc:a9c9274dc9abbc1c76f6978f59a84c49d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propose la reprise d'un unique brouillon (offerRecovery, un par cycle de boucle).  <br /></td></tr>
 <tr class="memitem:ac0d739fb55c5d22f269ca98284ef5a00" id="r_ac0d739fb55c5d22f269ca98284ef5a00"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac0d739fb55c5d22f269ca98284ef5a00">watchLevelFile</a> ()</td></tr>
 <tr class="memdesc:ac0d739fb55c5d22f269ca98284ef5a00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surveille les fichiers de <b>toutes</b> les cartes ouvertes (à refaire après un remplacement de fichier, une ouverture ou un renommage).  <br /></td></tr>
 <tr class="memitem:a21acdde1725808677884e5337e5cb790" id="r_a21acdde1725808677884e5337e5cb790"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a21acdde1725808677884e5337e5cb790">checkDiskChange</a> ()</td></tr>
@@ -1136,6 +1138,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Au démarrage : propose de reprendre les brouillons laissés par une session interrompue. </p>
+
+</div>
+</div>
+<a id="a9c9274dc9abbc1c76f6978f59a84c49d" name="a9c9274dc9abbc1c76f6978f59a84c49d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c9274dc9abbc1c76f6978f59a84c49d">&#9670;&#160;</a></span>offerRecoveryFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::offerRecoveryFor </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1AutosaveRecord.html">AutosaveRecord</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>record</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Propose la reprise d'un unique brouillon (offerRecovery, un par cycle de boucle). </p>
 
 </div>
 </div>

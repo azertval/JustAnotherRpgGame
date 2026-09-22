@@ -1,5 +1,12 @@
 var NAVTREEINDEX45 =
 {
+"test__entity__manager_8cpp.html":[4,0,0,7,4,0,3,2],
+"test__entity__manager_8cpp.html#a34a624133f4f1ed4ed2a42c6713ff65d":[4,0,0,7,4,0,3,2,1],
+"test__entity__manager_8cpp.html#a607bb103ce5fb7937abd2b65d950e2ac":[4,0,0,7,4,0,3,2,2],
+"test__entity__manager_8cpp.html#a6904b058beaf6948a61a5142b4261598":[4,0,0,7,4,0,3,2,0],
+"test__entity__manager_8cpp.html#a7f62984dbba4075e16f3c312b96a7c3c":[4,0,0,7,4,0,3,2,4],
+"test__entity__manager_8cpp.html#a9bb3385d9f695a59abfdd10eb5090d13":[4,0,0,7,4,0,3,2,5],
+"test__entity__manager_8cpp.html#aac6c3d07db1fb947b7c46f7b02669f61":[4,0,0,7,4,0,3,2,3],
 "test__entity__markers_8cpp.html":[4,0,0,7,4,2,2,11],
 "test__entity__markers_8cpp.html#a0bbbe06c96a2aa1c5e69e6cbc8ab8bd2":[4,0,0,7,4,2,2,11,3],
 "test__entity__markers_8cpp.html#a0ee08c496c62f9e41e1c43f759722dc9":[4,0,0,7,4,2,2,11,1],
@@ -242,12 +249,5 @@ var NAVTREEINDEX45 =
 "test__level__file__operations_8cpp.html#ad67ac8305af02c7245a71b1cf3557b2d":[4,0,0,7,4,1,14,1],
 "test__level__file__operations_8cpp.html#ad8013bbede77ac0774de05c0834d2279":[4,0,0,7,4,1,14,3],
 "test__level__file__operations_8cpp.html#ad859ebb492f6e6ce614b986c83dd2817":[4,0,0,7,4,1,14,6],
-"test__level__loader_8cpp.html":[4,0,0,7,4,0,5,6],
-"test__level__loader_8cpp.html#a5dab79a0244d45df9c561ca640365f9b":[4,0,0,7,4,0,5,6,3],
-"test__level__loader_8cpp.html#a75bfce8c1b98aca22e2b1964ec6d0a0f":[4,0,0,7,4,0,5,6,1],
-"test__level__loader_8cpp.html#a932cf81afd2a7f7eded781818324755b":[4,0,0,7,4,0,5,6,2],
-"test__level__loader_8cpp.html#adafdf138dfda2dd039f068697ec7bcfa":[4,0,0,7,4,0,5,6,0],
-"test__level__loader_8cpp.html#aea53ffeadb806b0c33eb08fa5b8d1157":[4,0,0,7,4,0,5,6,4],
-"test__level__name__validation_8cpp.html":[4,0,0,7,4,1,15],
-"test__level__name__validation_8cpp.html#a3aaf8e790a2c101597b41dfed99ec2ee":[4,0,0,7,4,1,15,3]
+"test__level__loader_8cpp.html":[4,0,0,7,4,0,5,6]
 };

@@ -7,5 +7,7 @@ var MaquetteTokens_8cpp =
     [ "hmi::maquetteTokenKindKey", "namespacehmi.html#ade7f026f18f8a669a33137bc366eaf7a", null ],
     [ "hmi::maquetteTokenLetter", "namespacehmi.html#a2f659dd064f455af6db2c2a353c0129f", null ],
     [ "hmi::maquetteTokenPath", "namespacehmi.html#ad766917c4985ed530aef7546f2a1d11f", null ],
+    [ "hmi::paintDisc", "namespacehmi.html#a23e6d1527defb8076054d4d1897d4e56", null ],
+    [ "hmi::paintLetter", "namespacehmi.html#a74353ba2cd27ca3e69b428d89b587f28", null ],
     [ "hmi::parseMaquetteTokenPath", "namespacehmi.html#ae9e2f73076197cc924df1d25fb7fdf31", null ]
 ];

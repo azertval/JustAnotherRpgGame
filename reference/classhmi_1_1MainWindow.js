@@ -29,6 +29,7 @@ var classhmi_1_1MainWindow =
     [ "keepAside", "classhmi_1_1MainWindow.html#a5e2887cd1592ff97d25ae5f65861b7a0", null ],
     [ "linkMaps", "classhmi_1_1MainWindow.html#a30829a0bd77305efc186112fb943e9bf", null ],
     [ "offerRecovery", "classhmi_1_1MainWindow.html#aa28e8e28e6d9ee14ea3bd4c76700090a", null ],
+    [ "offerRecoveryFor", "classhmi_1_1MainWindow.html#a9c9274dc9abbc1c76f6978f59a84c49d", null ],
     [ "openDocuments", "classhmi_1_1MainWindow.html#a4831bf2cadbae48e5eea255e4d96a2c2", null ],
     [ "openMap", "classhmi_1_1MainWindow.html#afce00287835527ce6456eee989ff9901", null ],
     [ "openMapPropertiesDialog", "classhmi_1_1MainWindow.html#aa67430d76b05a861aa300ab23965578d", null ],

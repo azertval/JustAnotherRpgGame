@@ -88,7 +88,7 @@ public:
     }
 
     /// @return La couleur d'un type de tuile : le centre de sa case dans l'atlas.
-    [[nodiscard]] QColor tileColor(core::TileType type) const;
+    [[nodiscard]] static QColor tileColor(core::TileType type);
 
     /// @return Le marqueur de la clÃ© d'asset @p key (`LOT-39`), `nullptr` si la clÃ© est refusÃ©e.
     [[nodiscard]] const QImage* marker(const std::string&amp; key);

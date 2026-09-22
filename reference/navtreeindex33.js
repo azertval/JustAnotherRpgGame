@@ -1,5 +1,11 @@
 var NAVTREEINDEX33 =
 {
+"structcore_1_1InventoryStack.html#af896e96e7f8c432601f8fa7c78cbf5bc":[2,0,1,172,0],
+"structcore_1_1InventoryStack.html#af896e96e7f8c432601f8fa7c78cbf5bc":[3,0,0,172,0],
+"structcore_1_1Item.html":[2,0,1,169],
+"structcore_1_1Item.html":[3,0,0,169],
+"structcore_1_1Item.html#a014f98742a22400fb3796c9630ca1ec3":[2,0,1,169,2],
+"structcore_1_1Item.html#a014f98742a22400fb3796c9630ca1ec3":[3,0,0,169,2],
 "structcore_1_1Item.html#a0b91779ef06a6a38eb688d2e83902c7a":[2,0,1,169,8],
 "structcore_1_1Item.html#a0b91779ef06a6a38eb688d2e83902c7a":[3,0,0,169,8],
 "structcore_1_1Item.html#a3134994c82c50a53f462dcad4dcc8187":[2,0,1,169,9],
@@ -243,11 +249,5 @@ var NAVTREEINDEX33 =
 "structcore_1_1PieceFootprint.html#aab21fd5d766c5ef6e89e6d0ebc3c7497":[2,0,1,111,1],
 "structcore_1_1PieceFootprint.html#aab21fd5d766c5ef6e89e6d0ebc3c7497":[3,0,0,111,1],
 "structcore_1_1PlayableClass.html":[2,0,1,136],
-"structcore_1_1PlayableClass.html":[3,0,0,136],
-"structcore_1_1PlayableClass.html#a028057f581a62cc7bbaccba44edb81d2":[2,0,1,136,5],
-"structcore_1_1PlayableClass.html#a028057f581a62cc7bbaccba44edb81d2":[3,0,0,136,5],
-"structcore_1_1PlayableClass.html#a23270e0ac3ca8992ea7d917861fe08ee":[2,0,1,136,0],
-"structcore_1_1PlayableClass.html#a23270e0ac3ca8992ea7d917861fe08ee":[3,0,0,136,0],
-"structcore_1_1PlayableClass.html#a5ec31462412f02fbeb85a9384f4ce6a5":[2,0,1,136,8],
-"structcore_1_1PlayableClass.html#a5ec31462412f02fbeb85a9384f4ce6a5":[3,0,0,136,8]
+"structcore_1_1PlayableClass.html":[3,0,0,136]
 };
