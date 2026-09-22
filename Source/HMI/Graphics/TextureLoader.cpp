@@ -23,9 +23,9 @@ std::optional<DecodedImage> decodeImageFile(const std::filesystem::path& path) {
                              "'");
         return std::nullopt;
     }
-    // Format_RGBA8888 : quatre octets R,G,B,A en mémoire, alpha NON prémultiplié — le même ordre
-    // mémoire que QRhiTexture::RGBA8, et cohérent avec le mélange du pipeline de SpriteBatch
-    // (SrcAlpha, pas One) : aucune conversion de canal nécessaire.
+    // Format_RGBA8888 : quatre octets R,G,B,A en mémoire, alpha droit — le même ordre mémoire que
+    // QRhiTexture::RGBA8. La prémultiplication se fait à la création de la texture, pas ici :
+    // l'image décodée reste celle du fichier, que `encodeImageFile` réécrit à l'identique.
     const QImage image = source.convertToFormat(QImage::Format_RGBA8888);
 
     DecodedImage decoded;
@@ -101,7 +101,8 @@ bool encodeImageFile(const std::filesystem::path& path, const DecodedImage& imag
 
 // Crée une texture GPU à partir de pixels RGBA déjà décodés.
 std::optional<LoadedTexture> createTexture(const RhiContext& context, int width, int height,
-                                           const std::vector<std::uint32_t>& pixels) {
+                                           const std::vector<std::uint32_t>& pixels,
+                                           TextureFiltering filtering) {
     if (width <= 0 || height <= 0) {
         return std::nullopt;
     }
@@ -116,11 +117,16 @@ std::optional<LoadedTexture> createTexture(const RhiContext& context, int width,
         return std::nullopt;
     }
 
+    // Les mipmaps s'engendrent sur le GPU : QRhi 6 les garantit sur tous ses backends.
+    const bool mipmapped = filtering == TextureFiltering::Smooth;
+    const QSize size(width, height);
     LoadedTexture result;
     result.width = width;
     result.height = height;
-    result.texture.reset(
-        context.rhi->newTexture(QRhiTexture::RGBA8, QSize(width, height), 1, QRhiTexture::Flags{}));
+    result.texture.reset(context.rhi->newTexture(
+        QRhiTexture::RGBA8, size, 1,
+        mipmapped ? QRhiTexture::MipMapped | QRhiTexture::UsedWithGenerateMips
+                  : QRhiTexture::Flags{}));
     if (!result.texture->create()) {
         GRAPHICS_LOG_WARNING("TextureLoader : echec de creation de la texture GPU");
         return std::nullopt;
@@ -133,8 +139,14 @@ std::optional<LoadedTexture> createTexture(const RhiContext& context, int width,
     // une memoire qui ne lui appartient pas. D'ou la copie, payee une fois par texture chargee.
     QImage owned(width, height, QImage::Format_RGBA8888);
     std::memcpy(owned.bits(), pixels.data(), pixels.size() * sizeof(std::uint32_t));
+    // Premultiplie (EX-VIS-008) : meme ordre d'octets, R,G,B deja multiplies par A. C'est aussi ce
+    // qui rend juste la moyenne des mipmaps sur un bord adouci.
+    owned.convertTo(QImage::Format_RGBA8888_Premultiplied);
     QRhiTextureUploadDescription upload({0, 0, QRhiTextureSubresourceUploadDescription(owned)});
     context.updates->uploadTexture(result.texture.get(), upload);
+    if (mipmapped) {
+        context.updates->generateMips(result.texture.get());
+    }
     return result;
 }
 
@@ -145,7 +157,8 @@ std::optional<LoadedTexture> loadTextureFromFile(const RhiContext& context,
     if (!decoded) {
         return std::nullopt;
     }
-    return createTexture(context, decoded->width, decoded->height, decoded->pixels);
+    return createTexture(context, decoded->width, decoded->height, decoded->pixels,
+                         TextureFiltering::Smooth);
 }
 
 }  // namespace hmi

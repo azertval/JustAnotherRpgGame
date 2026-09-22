@@ -1,5 +1,9 @@
 {
   "version": 1,
+  "tile": [
+    256,
+    159
+  ],
   "comment": "Vide : heros, peuples, betes et monstres sans region (LOT-102).",
   "frame": [
     192,

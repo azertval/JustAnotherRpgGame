@@ -30,6 +30,14 @@ inline constexpr std::string_view ENTITY_MARKER_UNKNOWN_ID = "inconnu";
 ///        Le marqueur occupe exactement la case de l'entité, comme une tuile.
 inline constexpr int ENTITY_MARKER_SIZE_PIXELS = 16;
 
+/// @brief Définition de l'image engendrée du marqueur d'une **figurine** sans image (`LOT-96`),
+///        en pixels : une case de large, un tiers plus haute. C'est la définition d'un dessin
+///        engendré, pas une taille d'art : le marqueur se dessine une case de large quelle que soit
+///        l'échelle du lieu (`hmi::artTileWidth`, `LOT-103`).
+inline constexpr int FIGURE_MARKER_WIDTH_PIXELS = 48;
+/// @brief Hauteur de cette image.
+inline constexpr int FIGURE_MARKER_HEIGHT_PIXELS = 64;
+
 /**
  * @brief La clé d'asset du marqueur d'un type d'entité de carte.
  *

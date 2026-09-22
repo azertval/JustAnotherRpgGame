@@ -26,48 +26,92 @@
 #include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/RenderLayer.h"
-#include "HMI/Graphics/ScenePiecePlacement.h"
 #include "HMI/Graphics/ScenePieces.h"
+#include "HMI/Graphics/SceneTextureTraits.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace {
 
+/// Rapport du losange de la projection par défaut.
+constexpr float RATIO = core::ARENA_DIAMOND_RATIO;
+
 /**
- * @brief Le placement historique reste inchangé.
- * \castest{<b>Le placement historique reste inchangé.</b><br/>
- * \tcat Unitaire · Rendu du Colisée<br/>
- * \tcrit Critique<br/>
- * \tetapes Lire un manifeste sans placementVersion et composer une pièce.<br/>
- * \tattendu Aucune ancre explicite et coordonnées historiques conservées.
+ * @brief Une pièce se met à l'échelle de **son lieu** : le losange que déclare son manifeste occupe
+ *        celui de la case (`LOT-103`).
+ * \castest{<b>Une piece prend l'echelle que son lieu declare.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Poser une piece de 512 x 400 d'un lieu qui declare un losange de 256 x 159, sur une
+ * case de 100 unites.<br/>
+ * \tattendu La piece mesure 200 x 156,25 unites ; son ancre par defaut est le milieu du losange du
+ * bas.
  * }
  */
-TEST(ScenePiecePlacement, PreservesLegacyPlacementWithoutOptIn) {
-    const nlohmann::json manifest = {
-        {"textures", {{"wall", {{"file", "wall.png"}, {"anchor", {128, 162.5}}}}}}};
-    EXPECT_FALSE(hmi::scenePieceAnchor(manifest, "wall.png"));
-    const hmi::SceneTexture texture{.width = 256, .height = 256};
-    const auto quad = hmi::standingPieceQuad(texture, {100, 200}, 2);
-    EXPECT_FLOAT_EQ(quad.x, 32);
-    EXPECT_FLOAT_EQ(quad.y, -228);
+TEST(ScenePiecePlacement, APieceTakesTheScaleItsPlaceDeclares) {
+    const hmi::SceneTexture texture{.width = 512, .height = 400, .artTile = {256.0F, 159.0F}};
+    const auto quad = hmi::standingPieceQuad(texture, {1000, 500}, 100.0F, RATIO);
+    EXPECT_FLOAT_EQ(quad.width, 200.0F);
+    EXPECT_FLOAT_EQ(quad.height, 156.25F);
+    // Ancre par défaut : (128, 400 - 159) pixels, soit (50, 94,140625) unités.
+    EXPECT_FLOAT_EQ(quad.x, 1000.0F - 50.0F);
+    EXPECT_FLOAT_EQ(quad.y, 500.0F - (241.0F * 100.0F / 256.0F));
 }
 
 /**
- * @brief Une ancre fractionnaire aligne la pièce.
+ * @brief Le même lieu livré deux fois plus fin se dessine à la même taille : l'échelle est une
+ *        donnée, pas une constante.
+ * \castest{<b>Un lieu plus fin se dessine a la meme taille.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Poser la meme piece a 256 px de losange, puis a 512 px, deux fois plus grande.<br/>
+ * \tattendu Les deux quads sont identiques.
+ * }
+ */
+TEST(ScenePiecePlacement, AFinerPlaceDrawsAtTheSameSize) {
+    const hmi::SceneTexture coarse{.width = 256, .height = 300, .artTile = {256.0F, 159.0F}};
+    const hmi::SceneTexture fine{.width = 512, .height = 600, .artTile = {512.0F, 318.0F}};
+    const auto a = hmi::standingPieceQuad(coarse, {10, 20}, 5.375F, RATIO);
+    const auto b = hmi::standingPieceQuad(fine, {10, 20}, 5.375F, RATIO);
+    EXPECT_FLOAT_EQ(a.x, b.x);
+    EXPECT_FLOAT_EQ(a.y, b.y);
+    EXPECT_FLOAT_EQ(a.width, b.width);
+    EXPECT_FLOAT_EQ(a.height, b.height);
+}
+
+/**
+ * @brief Sans échelle déclarée, une pièce se suppose d'une case de large.
+ * \castest{<b>Une piece sans echelle declaree a la largeur d'une case.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Poser une piece de 256 x 256 sans losange declare, sur une case de 512 unites.<br/>
+ * \tattendu Elle occupe exactement la largeur de la case.
+ * }
+ */
+TEST(ScenePiecePlacement, WithoutADeclaredScaleAPieceIsOneCellWide) {
+    const hmi::SceneTexture texture{.width = 256, .height = 256};
+    const auto quad = hmi::standingPieceQuad(texture, {100, 200}, 512.0F, RATIO);
+    EXPECT_FLOAT_EQ(quad.width, 512.0F);
+    EXPECT_FLOAT_EQ(quad.x, 100.0F - 256.0F);
+}
+
+/**
+ * @brief Une ancre fractionnaire aligne la pièce, et se lit **sans** opt-in depuis le `LOT-103`.
  * \castest{<b>Une ancre fractionnaire aligne la pièce.</b><br/>
  * \tcat Unitaire · Rendu du Colisée<br/>
  * \tcrit Critique<br/>
- * \tetapes Lire une origine fractionnaire puis composer la pièce.<br/>
+ * \tetapes Lire une origine fractionnaire d'un manifeste sans placementVersion puis composer la
+ * pièce.<br/>
  * \tattendu Ancrage exact et dimensions inchangées.
  * }
  */
 TEST(ScenePiecePlacement, AlignsFractionalOriginWithoutChangingDimensions) {
     const nlohmann::json manifest = {
-        {"placementVersion", 1},
         {"textures", {{"corner", {{"file", "corner.png"}, {"anchor", {128, 162.5}}}}}}};
     const auto anchor = hmi::scenePieceAnchor(manifest, "corner.png");
     ASSERT_TRUE(anchor);
-    const hmi::SceneTexture texture{.width = 256, .height = 256, .anchor = anchor};
-    const auto quad = hmi::standingPieceQuad(texture, {100, 200}, 2);
+    const hmi::SceneTexture texture{
+        .width = 256, .height = 256, .anchor = anchor, .artTile = {256.0F, 159.0F}};
+    const auto quad = hmi::standingPieceQuad(texture, {100, 200}, 512.0F, RATIO);
     EXPECT_FLOAT_EQ(quad.x + anchor->x * 2, 100);
     EXPECT_FLOAT_EQ(quad.y + anchor->y * 2, 200);
     EXPECT_FLOAT_EQ(quad.width, 512);
@@ -86,9 +130,77 @@ TEST(ScenePiecePlacement, AlignsFractionalOriginWithoutChangingDimensions) {
  */
 TEST(ScenePiecePlacement, RejectsMalformedAnchor) {
     const nlohmann::json manifest = {
-        {"placementVersion", 1},
         {"textures", {{"wall", {{"file", "wall.png"}, {"anchor", {"128", 162}}}}}}};
     EXPECT_FALSE(hmi::scenePieceAnchor(manifest, "wall.png"));
+}
+
+/**
+ * @brief Le losange d'art se lit dans le manifeste, et un losange mal formé ne dit rien.
+ * \castest{<b>Le losange d'art se lit dans le manifeste.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes Lire `tile` d'un manifeste valide, absent, nul et non numerique.<br/>
+ * \tattendu (256, 159) pour le premier, (0, 0) pour les trois autres.
+ * }
+ */
+TEST(ScenePiecePlacement, ReadsTheArtTileOfAManifest) {
+    const core::Vector2 tile = hmi::manifestArtTile(nlohmann::json::parse(R"({"tile":[256,159]})"));
+    EXPECT_FLOAT_EQ(tile.x, 256.0F);
+    EXPECT_FLOAT_EQ(tile.y, 159.0F);
+    for (const char* text : {R"({})", R"({"tile":[0,159]})", R"({"tile":["a",1]})"}) {
+        EXPECT_FLOAT_EQ(hmi::manifestArtTile(nlohmann::json::parse(text)).x, 0.0F) << text;
+    }
+}
+
+/**
+ * @brief Une figurine de 192 × 256 s'affiche **entière**, à l'échelle de son art (`LOT-103`).
+ * \castest{<b>Une figurine de 192 x 256 s'affiche entiere.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Poser l'image 2 d'une bande de six cellules de 192 x 256, a l'echelle d'un losange de
+ * 256, sur une case de 100 unites.<br/>
+ * \tattendu Le quad lit toute la hauteur de la cellule (v de 0 a 1), mesure 75 x 100 unites et
+ * lit la troisieme cellule.
+ * }
+ */
+TEST(ScenePiecePlacement, AFigureOf192By256IsDrawnWhole) {
+    const hmi::SceneTexture band{.width = 192 * 6,
+                                 .height = 256,
+                                 .frameWidth = 192,
+                                 .frameHeight = 256,
+                                 .artTile = {256.0F, 159.0F}};
+    ASSERT_EQ(hmi::frameCountOf(band), 6);
+    const auto quad = hmi::figureQuad(band, 2, 500.0F, 400.0F, 100.0F);
+    EXPECT_FLOAT_EQ(quad.v0, 0.0F);
+    EXPECT_FLOAT_EQ(quad.v1, 1.0F);
+    EXPECT_FLOAT_EQ(quad.width, 75.0F);
+    EXPECT_FLOAT_EQ(quad.height, 100.0F);
+    EXPECT_FLOAT_EQ(quad.u0, 2.0F / 6.0F);
+    EXPECT_FLOAT_EQ(quad.u1, 3.0F / 6.0F);
+    EXPECT_FLOAT_EQ(quad.y + quad.height, 400.0F);
+    EXPECT_FLOAT_EQ(quad.x + (quad.width / 2.0F), 500.0F);
+}
+
+/**
+ * @brief Une grande créature de 384 × 384 s'affiche entière, une fois et demie une case.
+ * \castest{<b>Une creature de 384 x 384 s'affiche entiere.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Poser une bande de quatre cellules de 384 x 384 a l'echelle d'un losange de 256.<br/>
+ * \tattendu Le quad lit toute la cellule et mesure 1,5 case de cote.
+ * }
+ */
+TEST(ScenePiecePlacement, ACreatureOf384By384IsDrawnWhole) {
+    const hmi::SceneTexture band{.width = 384 * 4,
+                                 .height = 384,
+                                 .frameWidth = 384,
+                                 .frameHeight = 384,
+                                 .artTile = {256.0F, 159.0F}};
+    const auto quad = hmi::figureQuad(band, 3, 0.0F, 0.0F, 100.0F);
+    EXPECT_FLOAT_EQ(quad.v1, 1.0F);
+    EXPECT_FLOAT_EQ(quad.u1, 1.0F);
+    EXPECT_FLOAT_EQ(quad.width, 150.0F);
+    EXPECT_FLOAT_EQ(quad.height, 150.0F);
 }
 
 /**
@@ -403,22 +515,21 @@ TEST(WorldSceneComposerTest, UnePieceLargeSeTrieAuPiedDeSonEmprise) {
 }
 
 /**
- * @brief La profondeur exige un manifeste de placement valide.
- * \castest{<b>La profondeur exige un manifeste de placement valide.</b><br/>
+ * @brief La profondeur exige une ancre valide.
+ * \castest{<b>La profondeur exige une ancre valide.</b><br/>
  * \tcat Unitaire · Rendu du Colisée<br/>
  * \tcrit Critique<br/>
- * \tetapes Lire une pièce valide, une inconnue et un manifeste historique.<br/>
+ * \tetapes Lire une pièce valide, une inconnue et une pièce sans ancre.<br/>
  * \tattendu Profondeur présente uniquement pour la pièce valide.
  * }
  */
-TEST(ScenePiecePlacement, DepthRequiresOptInAndValidAnchor) {
-    const auto manifest = nlohmann::json::parse(R"({"placementVersion":1,"textures":{
-        "bad":{"file":3},"gate":{"file":"gate.png","anchor":[12,96],"depthOffset":4.5}}})");
+TEST(ScenePiecePlacement, DepthRequiresAValidAnchor) {
+    const auto manifest = nlohmann::json::parse(R"({"textures":{
+        "bad":{"file":3},"gate":{"file":"gate.png","anchor":[12,96],"depthOffset":4.5},
+        "loose":{"file":"loose.png","depthOffset":2}}})");
     EXPECT_EQ(hmi::scenePieceDepthOffset(manifest, "gate.png"), 4.5F);
     EXPECT_FALSE(hmi::scenePieceDepthOffset(manifest, "unknown.png"));
-    auto legacy = manifest;
-    legacy.erase("placementVersion");
-    EXPECT_FALSE(hmi::scenePieceDepthOffset(legacy, "gate.png"));
+    EXPECT_FALSE(hmi::scenePieceDepthOffset(manifest, "loose.png"));
 }
 
 // --- Le rendu de maquette (LOT-128) ---------------------------------------------------------
@@ -722,16 +833,16 @@ TEST(MaquetteRenderTest, LesCheminsContiennentLesJetons) {
     collision.setTile(0, 0, core::TileType::Grass);
     collision.setTile(1, 0, core::TileType::Grass);
     core::LevelData donnees{.name = "maquette", .tileMap = std::move(collision)};
-    donnees.entities.push_back(core::MapEntity{.type = "encounter",
-                                               .position = {.column = 1, .row = 0},
-                                               .properties = {{"encounterId",
-                                                               std::string{"wolves"}}}});
+    donnees.entities.push_back(
+        core::MapEntity{.type = "encounter",
+                        .position = {.column = 1, .row = 0},
+                        .properties = {{"encounterId", std::string{"wolves"}}}});
 
     const hmi::WorldSceneSnapshot instantane =
         hmi::snapshotWorldScene(core::Level{std::move(donnees)}, hmi::PlaceAppearance{}, {});
     const std::vector<std::string> chemins = hmi::worldTexturePaths(instantane);
 
-    EXPECT_NE(std::ranges::find(chemins,
-                                hmi::maquetteTokenPath(hmi::MaquetteTokenKind::Hostile, 'W')),
-              chemins.end());
+    EXPECT_NE(
+        std::ranges::find(chemins, hmi::maquetteTokenPath(hmi::MaquetteTokenKind::Hostile, 'W')),
+        chemins.end());
 }

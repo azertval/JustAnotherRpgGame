@@ -52,7 +52,9 @@ Item {
         source: root.blockImage
         fillMode: Image.PreserveAspectFit
         asynchronous: true
-        smooth: false
+        // L'îlot est peint en 2D HD (LOT-103) : réduit à la taille du panneau, il se lisse.
+        smooth: true
+        mipmap: true
     }
 
     Text {

@@ -6,6 +6,23 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-103 — Le rendu HD.** Le moteur affiche une pièce HD à la bonne taille, entière et sans
+  scintillement. L'**échelle de l'art devient une donnée du lieu** : le manifeste déclare son losange
+  (`"tile": [256, 159]`), `hmi::readSceneTextureTraits` le lit avec la découpe et l'ancre — une seule
+  lecture pour le jeu, l'arène et l'éditeur, qui en faisaient trois —, et `SCENE_TILE_WIDTH_PIXELS`,
+  `FIGURE_FRAME_*`, `FIGURE_SCALE`, les 135 px des îlots et la cellule de 68 px de la galerie
+  disparaissent ; un lieu livré deux fois plus fin se dessine à la même taille. `SceneTexture` gagne
+  `frameHeight` : une figurine de 192 × 256 et une créature de 384 × 384 s'affichent **entières**,
+  sans agrandissement. Toute texture est **prémultipliée** au chargement, et l'art peint reçoit ses
+  **mipmaps** et un échantillonneur **bilinéaire** ; seule une image engendrée (damier, aplat,
+  marqueur) reste au plus proche. Le **zoom est libre** : une case occupe la hauteur de la fenêtre
+  divisée par 10,8 (100 px à 1080p, 200 à 2160p, la même étendue de monde), et `fitZoom` ne
+  s'arrondit plus. Les dalles débordent d'1/256 de case, sans quoi leur bord adouci dessinait un
+  treillis sombre sur tout le sol. `scripts/build_hd_mockup.py` installe la maquette du `LOT-101` en
+  données d'essai, et `test_hd_mockup_render` la fait rendre par le moteur à 1080p et à 2160p, puis
+  la compare aux deux vues montées à la main, sous un seuil qui attrape chaque défaut provoqué ;
+  un travelling s'écrit à la demande pour le contrôle visuel du scintillement.
+
 - **LOT-104 — La chaîne de production des assets HD.** Du brut du générateur à l'asset installé,
   une commande et rien à la main : `scripts/install_hd_asset.py` lit le descripteur `install.json`
   posé à côté des sources (`Tools/AssetsHD/`, désormais versionné, les images restant hors du dépôt),

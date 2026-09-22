@@ -19,8 +19,9 @@
 
 namespace {
 
+/// Une forme d'un lieu qui déclare un losange de @p tile pixels d'art (68 : l'ancienne planche).
 hmi::AssetGalleryEntry entry(const std::string& model, int width, int height, int columns = 1,
-                             int rows = 1) {
+                             int rows = 1, int tile = 68) {
     hmi::AssetGalleryEntry value;
     value.family = "essai";
     value.model = model;
@@ -30,6 +31,7 @@ hmi::AssetGalleryEntry entry(const std::string& model, int width, int height, in
     value.frameHeight = height;
     value.footprintColumns = columns;
     value.footprintRows = rows;
+    value.tilePixels = tile;
     return value;
 }
 
@@ -89,6 +91,33 @@ TEST(AssetGalleryTest, FormeDesBlocs) {
     const hmi::AssetGalleryBloc piece = hmi::assetGalleryBlocShape(entry("piece", 435, 255));
     EXPECT_EQ(piece.columns, 9);
     EXPECT_EQ(piece.rows, 6);
+}
+
+/**
+ * @brief Une case de la galerie vaut le losange **du lieu** de la forme : une figurine HD tient
+ *        dans le même bloc qu'une figurine de l'ancienne planche (`LOT-103`).
+ * \castest{<b>La galerie mesure chaque forme au losange de son lieu.</b><br/>
+ * \tcat Unitaire · Galerie des assets<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Calculer le bloc d'une figurine 192 x 256 et d'une creature 384 x 384 a un losange
+ * de 256, puis d'une figurine 192 x 256 sans losange declare.<br/>
+ * \tattendu 3 x 3, 4 x 4 ; sans losange, la figurine se suppose d'une case de large.
+ * }
+ */
+TEST(AssetGalleryTest, UneCaseVautLeLosangeDuLieu) {
+    const hmi::AssetGalleryBloc figure =
+        hmi::assetGalleryBlocShape(entry("figure", 192, 256, 1, 1, 256));
+    EXPECT_EQ(figure.columns, 3);
+    EXPECT_EQ(figure.rows, 3);
+
+    const hmi::AssetGalleryBloc creature =
+        hmi::assetGalleryBlocShape(entry("creature", 384, 384, 1, 1, 256));
+    EXPECT_EQ(creature.columns, 4);
+    EXPECT_EQ(creature.rows, 4);
+
+    const hmi::AssetGalleryEntry sansLosange = entry("figure", 192, 256, 1, 1, 0);
+    EXPECT_EQ(sansLosange.tileWidthPixels(), 192);
+    EXPECT_EQ(hmi::assetGalleryBlocShape(sansLosange).columns, 3);
 }
 
 /**

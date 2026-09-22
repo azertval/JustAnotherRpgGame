@@ -125,6 +125,22 @@ void PlaceAppearance::adoptManifest(const core::ScenePieceManifest& manifest) {
         if (piece.footprintColumns > 1 || piece.footprintRows > 1) {
             _footprints.insert_or_assign(piece.name, piece.footprint());
         }
+        // Ce qui monte au-dessus du sommet haut de l'emprise : l'ancre, a defaut le haut de
+        // l'image au-dessus du losange de sa case. En largeurs de case, au losange du lieu -- a
+        // defaut la largeur de la piece sur son emprise, comme le rendu le suppose.
+        if (piece.height > 0) {
+            const float tileWidth =
+                manifest.tileWidth() > 0
+                    ? static_cast<float>(manifest.tileWidth())
+                    : static_cast<float>(std::max(1, piece.width)) /
+                          static_cast<float>(std::max(1, piece.footprintColumns));
+            const float tileHeight = manifest.tileHeight() > 0
+                                         ? static_cast<float>(manifest.tileHeight())
+                                         : tileWidth * _diamondRatio;
+            const float above = piece.anchorY >= 0 ? static_cast<float>(piece.anchorY)
+                                                   : static_cast<float>(piece.height) - tileHeight;
+            _maximumRise = std::max(_maximumRise, above / tileWidth);
+        }
     }
     // Un nom courant n'est jamais un alias : il designe la piece qui le porte aujourd'hui.
     for (const core::ScenePiece& piece : manifest.pieces()) {

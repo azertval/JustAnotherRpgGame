@@ -3,14 +3,14 @@
 
 /**
  * @file test_rhi_offscreen.cpp
- * @brief Non-régression **visuelle** du portage QRhi (`EX-REN-050`,
- *        `EX-ARCH-022`) : rendu **hors écran** d'un motif témoin, relu pixel par pixel.
+ * @brief Non-régression **visuelle** du pipeline QRhi (`EX-REN-050`, `EX-ARCH-022`) : rendu
+ *        **hors écran** de motifs témoins, relus pixel par pixel.
  *
- * C'est le seul test qui protège vraiment l'objectif du portage. Le risque dominant du lot est
- * qu'un rendu devenu **flou** passe toute la CI : tout compile, tous les tests logiques passent, et
- * seul l'œil verrait la différence. Un agrandissement au filtrage *nearest* produit des blocs de
- * couleur **exactement** égaux au texel source ; le moindre filtrage linéaire introduirait des
- * teintes intermédiaires aux frontières, que les assertions ci-dessous refusent.
+ * Le filtrage suit la nature de l'image (`LOT-103`), et chacune a son témoin : une image
+ * **engendrée** (`TextureFiltering::Sharp`) agrandie reste en blocs **exactement** égaux au texel
+ * source ; l'art **peint** (`TextureFiltering::Smooth`) réduit se moyenne par ses mipmaps au lieu
+ * de scintiller, et sa transparence est **prémultipliée**. Chacun de ces défauts passerait toute la
+ * CI logique : seul l'œil — ou ce test — le verrait.
  *
  * Le test s'exécute sur une interface QRhi hors écran (aucune fenêtre) et se **saute** proprement
  * si aucune n'est disponible sur la machine (`EX-NFR-004` borne ce qui est automatisable).
@@ -81,12 +81,126 @@ std::unique_ptr<QRhi> createOffscreenRhi() {
     return nullptr;
 }
 
+/**
+ * @brief Dessine un quad de @p source couvrant toute une cible de @p targetSize de côté, effacée à
+ *        @p clear, et relit la cible.
+ */
+QImage drawFullQuad(QRhi& rhi, int sourceSize, const std::vector<std::uint32_t>& pixels,
+                    hmi::TextureFiltering filtering, int targetSize, const float* clear) {
+    const std::unique_ptr<QRhiTexture> target(
+        rhi.newTexture(QRhiTexture::RGBA8, QSize(targetSize, targetSize), 1,
+                       QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
+    EXPECT_TRUE(target->create());
+    const std::unique_ptr<QRhiTextureRenderTarget> renderTarget(
+        rhi.newTextureRenderTarget({{target.get()}}));
+    const std::unique_ptr<QRhiRenderPassDescriptor> pass(
+        renderTarget->newCompatibleRenderPassDescriptor());
+    renderTarget->setRenderPassDescriptor(pass.get());
+    EXPECT_TRUE(renderTarget->create());
+
+    hmi::SpriteBatch batch(&rhi);
+    QRhiCommandBuffer* commandBuffer = nullptr;
+    EXPECT_EQ(rhi.beginOffscreenFrame(&commandBuffer), QRhi::FrameOpSuccess);
+    hmi::RhiContext context;
+    context.rhi = &rhi;
+    context.updates = rhi.nextResourceUpdateBatch();
+    const std::optional<hmi::LoadedTexture> source =
+        hmi::createTexture(context, sourceSize, sourceSize, pixels, filtering);
+    EXPECT_TRUE(source.has_value());
+
+    hmi::SpriteQuad quad;
+    quad.width = static_cast<float>(targetSize);
+    quad.height = static_cast<float>(targetSize);
+    quad.u1 = 1.0f;
+    quad.v1 = 1.0f;
+    batch.beginFrame();
+    batch.begin(pixelProjection(targetSize, targetSize), source->handle());
+    batch.draw(quad);
+    batch.end();
+    batch.submit(commandBuffer, renderTarget.get(), context.updates, clear);
+
+    QRhiReadbackResult readback;
+    QRhiResourceUpdateBatch* const readbackBatch = rhi.nextResourceUpdateBatch();
+    readbackBatch->readBackTexture({target.get()}, &readback);
+    commandBuffer->resourceUpdate(readbackBatch);
+    EXPECT_EQ(rhi.endOffscreenFrame(), QRhi::FrameOpSuccess);
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast): QImage lit des `uchar`.
+    return QImage(reinterpret_cast<const uchar*>(readback.data.constData()),
+                  readback.pixelSize.width(), readback.pixelSize.height(), QImage::Format_RGBA8888)
+        .copy();
+}
+
 }  // namespace
 
 /**
- * @brief Un quad agrandi d'un facteur entier reste **net** : chaque texel devient un bloc de
- * couleur uniforme, sans la moindre teinte intermédiaire.
- * \castest{<b>Le rendu QRhi conserve le pixel art net a zoom entier.</b><br/>
+ * @brief L'art peint réduit au quart se **moyenne** par ses mipmaps : un damier d'un pixel devient
+ *        un gris uniforme, là où le plus proche voisin ne garderait qu'une case sur quatre — et
+ *        scintillerait au moindre déplacement.
+ * \castest{<b>L'art peint reduit ne scintille pas : ses mipmaps le moyennent.</b><br/>
+ * \tcat Unitaire · Rendu QRhi<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Creer une texture lissee de 64 x 64, damier noir et blanc d'un pixel.<br/>
+ * 2. La dessiner reduite dans une cible de 16 x 16.<br/>
+ * \tattendu Chaque pixel de la cible est un gris moyen (entre 96 et 160), jamais noir ni blanc.
+ * }
+ */
+TEST(RhiOffscreenTest, LArtPeintReduitSeMoyenneParSesMipmaps) {
+    const std::unique_ptr<QRhi> rhi = createOffscreenRhi();
+    if (!rhi) {
+        GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
+    }
+    constexpr int SIDE = 64;
+    std::vector<std::uint32_t> checker(static_cast<std::size_t>(SIDE) * SIDE);
+    for (int y = 0; y < SIDE; ++y) {
+        for (int x = 0; x < SIDE; ++x) {
+            checker[(static_cast<std::size_t>(y) * SIDE) + x] =
+                (x + y) % 2 == 0 ? rgba(0, 0, 0, 255) : rgba(255, 255, 255, 255);
+        }
+    }
+    const float clear[4] = {1.0f, 0.0f, 0.0f, 1.0f};
+    const QImage rendered =
+        drawFullQuad(*rhi, SIDE, checker, hmi::TextureFiltering::Smooth, 16, clear);
+    ASSERT_EQ(rendered.size(), QSize(16, 16));
+    for (int y = 0; y < 16; ++y) {
+        for (int x = 0; x < 16; ++x) {
+            const QColor pixel = rendered.pixelColor(x, y);
+            EXPECT_GE(pixel.green(), 96) << "pixel (" << x << ", " << y << ')';
+            EXPECT_LE(pixel.green(), 160) << "pixel (" << x << ", " << y << ')';
+        }
+    }
+}
+
+/**
+ * @brief La transparence est **prémultipliée** : un rouge à demi transparent sur un fond bleu
+ *        donne un pourpre à parts égales, pas un rouge plein fondu dans du bleu.
+ * \castest{<b>Une texture a demi transparente se melange en alpha premultiplie.</b><br/>
+ * \tcat Unitaire · Rendu QRhi<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Dessiner une texture rouge d'alpha 128 sur un fond bleu.<br/>
+ * \tattendu Rouge et bleu valent chacun la moitie, a deux niveaux pres.
+ * }
+ */
+TEST(RhiOffscreenTest, LaTransparenceEstPremultipliee) {
+    const std::unique_ptr<QRhi> rhi = createOffscreenRhi();
+    if (!rhi) {
+        GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
+    }
+    const std::vector<std::uint32_t> halfRed(16, rgba(255, 0, 0, 128));
+    const float clear[4] = {0.0f, 0.0f, 1.0f, 1.0f};
+    for (const hmi::TextureFiltering filtering :
+         {hmi::TextureFiltering::Sharp, hmi::TextureFiltering::Smooth}) {
+        const QImage rendered = drawFullQuad(*rhi, 4, halfRed, filtering, 8, clear);
+        const QColor pixel = rendered.pixelColor(4, 4);
+        EXPECT_NEAR(pixel.red(), 128, 2);
+        EXPECT_EQ(pixel.green(), 0);
+        EXPECT_NEAR(pixel.blue(), 127, 2);
+    }
+}
+
+/**
+ * @brief Une image engendrée agrandie d'un facteur entier reste **nette** : chaque texel devient
+ * un bloc de couleur uniforme, sans la moindre teinte intermédiaire.
+ * \castest{<b>Le rendu QRhi garde nette une image engendree agrandie.</b><br/>
  * \tcat Unitaire · Rendu QRhi<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Rendre hors ecran une texture temoin 4x4 agrandie 4 fois.<br/>2. Relire les pixels

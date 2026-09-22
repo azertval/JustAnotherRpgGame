@@ -1,5 +1,9 @@
 {
   "version": 1,
+  "tile": [
+    256,
+    159
+  ],
   "comment": "Vide : les figurines de l'Arena of Fate (LOT-106, LOT-113).",
   "frame": [
     192,
