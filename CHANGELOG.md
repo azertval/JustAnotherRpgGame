@@ -6,6 +6,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **La documentation quitte Doxygen, et tous les lots livrés entrent au planning.** Les pages
+  (guide, spécifications, cahier de test, manuel) sont désormais du **Markdown nu**, rendu par le
+  moteur et la charte du site de planification (`Documentation/outils/build_docs_site.py`) : plus un
+  `@ref`, une exigence se déclare par une puce `- **EX-…** —` et se cite en code, un symbole
+  `core::…` cité dans le guide mène à sa page de référence. **Doxygen ne garde que le code**,
+  publié sous `reference/` comme annexe du guide. Le **manuel** devient l'entrée « Prendre en main »
+  du guide, qui gagne cinq pages (monde, règles, combat, données, outils) et une page « Écrire la
+  documentation ». Le **cahier de test** devient un dossier — une page par domaine, un cas par
+  fiche, filtrable par criticité — au lieu d'une page de 640 Ko. Les 47 epics de l'ancienne feuille
+  de route et les 13 lots de l'éditeur deviennent des **fiches de la version 0.0.0 « Fondation du
+  moteur »** dans `Planning/` (identifiants d'époque conservés, annexes déplacées à côté) ; les deux
+  feuilles de route sont archivées sous `Planning/vision/archives/`, et `lint_lots.py` part avec
+  elles. Nouveaux garde-fous : `Documentation/outils/lint_docs.py` (commandes Doxygen, liens et
+  ancres morts, pages orphelines, lots cités inexistants) en CI, et 17 captures d'écran refaites par
+  `Documentation/outils/capture_screens.py`.
 - **Une carte se dessine et se joue sans texture (LOT-128).** Jusqu'ici, une carte qui ne nommait
   aucun lieu était un **écran uniforme** : ni sol ni mur, on butait sans savoir pourquoi, et
   `EX-EXP-005` — « une carte lisible sans qu'aucun fichier d'image ne soit présent » — n'était pas

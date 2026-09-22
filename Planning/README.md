@@ -48,11 +48,13 @@ de leurs prérequis, les fiches, les maquettes et les référentiels.
 
 ## Et l'ancienne feuille de route ?
 
-`Planning/vision/archives/feuille-de-route-jeu.md` est **figée** : elle reste l'histoire des lots `LOT-01` à `LOT-96`,
-dont les dossiers gardent ce que leur réalisation a tranché. Les lots qu'elle annonçait et qui
+L'[ancienne feuille de route du jeu](vision/archives/feuille-de-route-jeu.md) est **archivée** :
+elle reste l'histoire des lots `LOT-01` à `LOT-96`. Ceux qui ont été livrés sont des fiches de la
+[version 0.0.0 — Fondation du moteur](versions/v0.0.0/v0.0.0-fondation/README.md), sous leur
+identifiant d'époque. Les lots qu'elle annonçait et qui
 n'ont pas été livrés sont **repris** ici sous de nouveaux numéros, à partir de `LOT-100` ; chaque
 fiche dit ce qu'elle reprend (`reprend = [...]`), et la
 [table de correspondance](vision/correspondance-ancienne-roadmap.md) donne la vue d'ensemble.
-La feuille de route de l'**éditeur** (`Documentation/Editeur/`) est **close** elle aussi : elle garde l'histoire
-des `LOT-EDITOR-01` à `14`. Ce que l'éditeur doit encore apprendre pour que les cartes de chaque version se
+La [feuille de route de l'**éditeur**](vision/archives/feuille-de-route-editeur.md) est archivée
+elle aussi ; ses lots `LOT-EDITOR-01` à `14` sont des fiches de la même version 0.0.0. Ce que l'éditeur doit encore apprendre pour que les cartes de chaque version se
 dessinent est ici, dans la filière `editeur`, d'après [son audit](standards/audit-editeur.md).

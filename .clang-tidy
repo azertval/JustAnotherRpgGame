@@ -28,7 +28,7 @@ Checks: >
 # LOT-58 : seule bugprone-* est bloquante (voir --warnings-as-errors dans le job `clang-tidy` de
 # ci.yml) -- les autres familles (cppcoreguidelines-*, modernize-*, performance-*, readability-*)
 # restent en avertissement, consignees mais non bloquantes (triage complet hors budget de ce lot,
-# cf. Documentation/Lot/LOT-58-verification-release-analyse/tache-03-clang-tidy.md).
+# cf. Planning/vision/archives/feuille-de-route-jeu.md, rubrique LOT-58).
 #
 # Exclusions bugprone-* (triage LOT-58, passe complete sur Source/ hors Test) :
 #  - easily-swappable-parameters : 38 remontees, toutes sur des paires de parametres deliberees du
@@ -47,7 +47,7 @@ Checks: >
 #    check ne sait pas relier un accesseur bool nomme a l'etat de l'optional qu'il enveloppe.
 #
 # Exclusions hors bugprone-* (triage complet, passe sur Source/ hors Test -- ce triage est
-# consigne dans Documentation/Lot/LOT-58-verification-release-analyse/tache-03-clang-tidy.md,
+# consigne dans les archives de la feuille de route (rubrique LOT-58),
 # section « Etat du triage », meme si la correction elle-meme depasse le lot d'origine) :
 #  - pro-bounds-avoid-unchecked-container-access (155 remontees) et pro-bounds-constant-array-index
 #    (55) : quasi totalite sur `conteneur[i]`/`tableau[i]` avec `i` borne par une boucle

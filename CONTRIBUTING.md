@@ -140,8 +140,8 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
    `python scripts/extract_release_notes.py vX.Y.Z` — le workflow lit **cette** section du
    CHANGELOG (`--notes-file`) et **échoue** si elle est absente.
 4. Merger, puis poser le tag sur le commit de merge : `git tag vX.Y.Z && git push origin vX.Y.Z`.
-- **Documentation et site qualité** (`docs.yml`) : à chaque merge, publie sur **`gh-pages`** la
-  Doxygen (racine du site) et la page **qualité** (`/qualite/`) : couverture de `main` par domaine
+- **Documentation et site qualité** (`docs.yml`) : à chaque merge, publie sur **`gh-pages`**
+  les pages (racine du site), la référence Doxygen (`/reference/`) et la page **qualité** (`/qualite/`) : couverture de `main` par domaine
   et son rapport détaillé, dernières mesures de performance de la nuit et leurs courbes. Republiée
   chaque matin pour y faire entrer les mesures de la nuit. Le **site de planification**
   (`/planning/`) est engendré au même moment depuis `Planning/`
@@ -166,7 +166,7 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
    `ci.yml`). Seules les violations `bugprone-*` font échouer la CI ; les autres familles
    (`cppcoreguidelines-*`, `modernize-*`, `performance-*`, `readability-*`) restent visibles mais
    non bloquantes (triage complet hors périmètre du `LOT-58`, voir
-   `Documentation/Lot/LOT-58-verification-release-analyse/tache-03-clang-tidy.md`).
+   `Planning/vision/archives/feuille-de-route-jeu.md`, rubrique `LOT-58`).
 6. Le `CHANGELOG.md` (section `## [Non publié]`) consigne l'apport de la PR — vérifié en CI
    (`changelog.yml`) ; sinon, label `no-changelog`.
 7. Si `QT_VERSION_MINIMUM` (`Source/HMI/CMakeLists.txt`) a changé, `env.QT_VERSION` de `ci.yml` et

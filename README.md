@@ -75,7 +75,7 @@ système) — voir le **Cahier de test**.
 
 | Dossier | Rôle |
 |---------|------|
-| `Documentation/` | Documentation publiée en site **Doxygen** : `Specification/` (specs & conventions), `Lot/` (lots de travail et feuille de route), `Manuel/` (manuel utilisateur), `SourceBook/` (corpus d'entrée), **Guide du développeur**, **Cahier de test**, et référence de code. |
+| `Documentation/` | Les pages du site, en **Markdown nu** : `Guide/` (guide du développeur, manuel utilisateur en tête), `Specification/` (exigences et conventions), `CahierTest/` (engendré depuis les tests), `SourceBook/` (corpus d'entrée, non versionné) ; `outils/` les rend et les contrôle. Doxygen ne fait plus que la référence du code, annexe du guide. |
 | `Site/` | La **charte du site publié** : palette, fontes et barre d'en-tête, partagées par la Doxygen, la planification et la page qualité. Aucune couleur ne s'écrit ailleurs — voir [`Site/README.md`](Site/README.md). |
 | `Source/` | Code source, réparti par fonction. |
 | `scripts/` | Build, contrôles de CI, ateliers d'extraction et de découpe d'assets. |
@@ -137,7 +137,7 @@ n'apparaissent qu'en Release.
 ## Process d'implémentation
 
 Le travail avance par **lots** (un incrément livrable par lot), décrits dans
-`Documentation/Lot/` (un `epic.md` + des `tache-NN.md`).
+`Planning/versions/<version>/lots/` (une fiche par lot, en-tête TOML puis récit).
 
 - **Branches** : `main` est **protégée** (aucun push direct). Une **branche par lot**
   (`lot/LOT-XX-nom`) ; correctifs isolés en `fix/…`, documentation seule en `docs/…`.
@@ -164,7 +164,8 @@ Les mêmes contrôles qu'en intégration continue, tous lançables **depuis la r
 python scripts/lint_exigences.py           # identifiants EX-… : ni doublon, ni orphelin
 python scripts/lint_exigences.py --next    # prochain numéro libre, par catégorie
 python scripts/generate_cahier_test.py --check   # cahier de test à jour
-python scripts/build_docs.py               # documentation Doxygen (WARN_AS_ERROR)
+python scripts/build_docs.py               # référence du code, Doxygen (WARN_AS_ERROR)
+python Documentation/outils/build_docs_site.py --out build/site   # les pages du site
 ```
 
 > `build_docs.py` existe parce que Doxygen résout les chemins de son fichier de configuration
@@ -192,7 +193,7 @@ de `docs` (`docs.yml`, informatif).
 | **CI** (`ci.yml`) | `clang-tidy` | PR vers `main` | Analyse statique sur le diff de la PR ; `bugprone-*` bloquant, le reste consigné (LOT-58). |
 | **CI** (`ci.yml`) | `format` | PR vers `main` | `clang-format --dry-run --Werror`, version épinglée (LOT-58). |
 | **CI** (`ci.yml`) | `lint-exigences` | PR vers `main` | Identifiants `EX-…`, graphe des lots, cahier de test, catalogues et assets. |
-| **Documentation** (`docs.yml`) | `docs` | Push sur `main` | Génère la **Doxygen** (garde-fou `WARN_AS_ERROR`) et la publie sur la branche `gh-pages` (site en ligne). |
+| **Documentation** (`docs.yml`) | `docs` | Push sur `main` | Assemble le site — pages, référence Doxygen (`WARN_AS_ERROR`), planification, qualité — et le publie sur `gh-pages`. |
 | **Release** (`release.yml`) | `rolling-debug` | Push sur `main` | Compile un exécutable **Debug autonome** et publie la préversion roulante **`debug-latest`** pour les non-développeurs. |
 | **Release** (`release.yml`) | `versioned-release` | Tag `vX.Y.Z` | Publie une **release versionnée** (non préversion) avec les exécutables **Debug et Release**, chacun autonome. |
 
