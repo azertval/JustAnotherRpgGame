@@ -3,7 +3,7 @@ id = "LOT-128"
 titre = "Les cartes maquettes : dessiner et jouer sans texture"
 version = "0.0.1"
 filiere = "editeur"
-statut = "en-cours"
+statut = "livre"
 taille = "L"
 resume = "Une carte se dessine d'abord par sa physique — sols, murs, eau, portails, jetons — et se **joue** telle quelle, dans l'éditeur comme dans le jeu ; les textures viennent après, sans rien refaire."
 prerequis = ["LOT-100"]
@@ -215,6 +215,16 @@ Six phases ; chacune se construit et se teste seule.
 
 La recette est le critère : l'auteur redessine Martpart en maquette, en moins d'une séance, et la
 joue.
+
+Livré le 22 septembre 2026, **PR #108**.
+
+## Ce qui reste à l'auteur
+
+Tout est écrit et vérifié par les tests, **sauf le premier critère**, qui ne peut l'être que par
+l'auteur : redessiner le plan de Martpart en maquette, en moins d'une séance, le jouer par `F5`,
+puis lui donner son lieu par `Change sheet…`. C'est la recette du lot, et elle vaut aussi pour la
+vérification à la souris due depuis les lots de l'éditeur. Le reste — rendu, jetons, `--check`,
+`--plan`, parité jeu/éditeur, `EX-EXP-005` — tient par les tests.
 
 ## Périmètre
 
