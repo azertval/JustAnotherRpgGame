@@ -107,6 +107,8 @@ l'échelle 1.
 
 ## Ce qui reste
 
+Réalisé le 22 septembre 2026, **PR #112** (brouillon jusqu'au contrôle visuel).
+
 - **Le contrôle visuel du travelling** par l'auteur (critère 3) : le lot reste `en-cours` jusque-là
   ([définition de livré](../../../../standards/definition-de-livre.md)). Pour le refaire :
   `$env:JADG_TRAVELLING_DIR = "build\lot-103-travelling"`, lancer
