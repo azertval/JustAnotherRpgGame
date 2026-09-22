@@ -211,8 +211,89 @@ En résumé : **journaliser** un événement (« la carte du Colisée a été ch
 humain qui lira le journal plus tard ; **asserter** une condition (« cette entité doit être vivante
 ici ») protège contre un bug du code, et n'a de sens qu'en développement.
 
+## Quand le journal s'arrête net : le rapport de plantage
+
+Un journal documente ce qui est arrivé **jusqu'au** plantage. Il ne dit jamais *où* le programme
+est mort : la dernière ligne écrite est celle d'avant, et elle est le plus souvent anodine. C'est ce
+manque que comble le **minidump** (`Source/HMI/Platform/CrashDump.h`) : il garde la pile de chaque
+thread et le contexte de l'exception, et, ouvert dans Visual Studio avec les symboles de la **même
+version**, montre la ligne fautive.
+
+Rien n'est envoyé nulle part. Le fichier reste dans `Crashes/`, à côté de l'exécutable, comme
+`Logs/`.
+
+### `hmi::installCrashDumpWriter`
+
+À appeler **une fois, au plus tôt dans `main`**, et — c'est le détail qui compte — **après**
+l'installation du journal : le chemin du dump est consigné dans le journal avant la sortie, ce qui
+est la seule façon pour l'utilisateur de savoir qu'un fichier l'attend.
+
+Elle couvre plus que l'exception structurée non attrapée (violation d'accès, division par zéro).
+Trois autres fins anormales, qui ne sont **pas** des exceptions structurées, sont converties en une
+exception maison (`kFatalErrorExceptionCode`, « JADG ») que le même filtre sait écrire :
+
+| Fin anormale | Cas typique |
+|---|---|
+| `std::terminate` | une exception C++ non attrapée |
+| appel d'une fonction **virtuelle pure** | un objet utilisé pendant sa construction ou sa destruction |
+| **paramètre invalide** passé à la CRT | un indice hors bornes sur une fonction de la bibliothèque C |
+
+Le processus se termine ensuite **sans** la boîte de dialogue du rapport d'erreurs Windows — qui,
+sur une machine de CI, n'attend qu'un clic qui ne viendra jamais.
+
+### `hmi::writeMiniDump` : quatre tentatives, de la plus riche à la plus pauvre
+
+Écrire un dump est une opération qui peut **échouer dans un processus déjà mourant**. La fonction
+tente donc quatre écritures, de la plus complète à la plus réduite :
+
+1. le dump **riche**, avec la mémoire référencée par les piles ;
+2. et 3. des dumps réduits, qui gardent piles et contexte mais abandonnent l'état étendu du
+   processeur ;
+4. le **seul thread du plantage**.
+
+La dernière tentative mérite son explication, parce qu'elle vient d'une panne réellement
+diagnostiquée en CI. Une pile illisible — un thread quelconque, sans rapport avec le plantage —
+fait échouer **tout** le dump : l'API ne saute pas le thread fautif, elle abandonne. Se replier sur
+le seul thread du plantage contourne exactement ce cas. Et cette dernière tentative est en outre
+**réessayée**, parce que l'échec observé s'est révélé être un aléa et non un refus stable.
+
+`GetLastError()` ne rend que la raison de la **dernière** tentative, ce qui rend une panne de ce
+genre indéchiffrable. D'où `hmi::lastMiniDumpAttemptErrors`, qui rend le relevé **tentative par
+tentative** ; c'est un outil de diagnostic pur, que le test de minidump affiche quand il échoue. La
+règle qui en découle, apprise à ses dépens : devant un test de minidump rouge, **lire le relevé**,
+jamais relancer le job.
+
+### `hmi::routeCrtReportsToStderr`
+
+En Debug, une assertion de la bibliothèque standard (`_STL_VERIFY`, `assert`) ouvre une boîte
+modale « Microsoft Visual C++ Runtime Library » et **attend un clic**. Un programme sans fenêtre —
+`LevelEditor --check`, `UnitTests.exe`, un job de CI — s'arrête alors pour toujours, sans un mot
+dans son journal : le symptôme est un *timeout*, et rien n'indique la cause.
+
+Routées vers `stderr`, les mêmes assertions nomment leur **fichier et leur ligne**, puis la CRT
+poursuit sa route habituelle, que `installCrashDumpWriter` sait conclure par un minidump. La
+fonction est appelée par `installCrashDumpWriter` ; les exécutables de test, qui n'ont pas de
+bootstrap d'application, l'appellent eux-mêmes (`Source/Test/Support/CrtReports.cpp`).
+
+### Le nom du fichier, et pourquoi la version y figure
+
+`hmi::crashDumpFileName` compose `<application>_<version>_<AAAAMMJJ_HHMMSS>.dmp`. La version n'est
+pas décorative : un minidump ne se lit qu'avec les symboles **du binaire exact** qui l'a produit, et
+c'est elle qui permet de retrouver la bonne archive `<nom>-symbols.zip` sans ouvrir le fichier. Tout
+caractère hors `[A-Za-z0-9.-]` devient `_`, pour qu'une version comme `0.1.0+dev` reste un nom de
+fichier sûr.
+
+### Prouver que la chaîne marche : `--crash-test`
+
+Un dispositif de plantage qui n'a jamais planté n'est pas un dispositif : c'est une intention.
+`hmi::triggerCrashForTest` déclenche volontairement une violation d'accès, et l'option
+`--crash-test` du jeu l'expose. Le test de fumée de la release la lance sur l'**archive livrée** —
+pas sur un build local — pour prouver que c'est bien le zip téléchargé qui écrit son dump.
+
 ## Voir aussi
 - `core::Logger`, `core::LogLevel`, `core::ILogSink`, `core::ConsoleLogSink`, `core::MemoryLogSink`.
+- `hmi::installCrashDumpWriter`, `hmi::writeMiniDump`, `hmi::crashDumpFileName`,
+  `hmi::routeCrtReportsToStderr`.
 - `core::formatLogLine`, `core::parseLogLevel`, `core::defaultLogger`.
 - `JADG_ASSERT`, `core::setAssertionHandler`.
 - [Boucle de jeu et pas de temps fixe](guide-boucle.md) — la règle « jamais de log dans le chemin exécuté à chaque pas fixe ».

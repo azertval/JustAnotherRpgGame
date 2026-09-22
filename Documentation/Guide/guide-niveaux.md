@@ -89,6 +89,42 @@ sans cas particulier. `core::isVisualLayerTileType` dit ce qui se peint sur une 
 tout le terrain, mais pas l'`Entry`, qui porte une **règle** et n'a de sens que dans la grille de
 collision.
 
+### La collision se déduit : `core::deriveCollision` (v4)
+
+Jusqu'à la v3, cette grille racine se **peignait à part**, et rien ne la tenait d'accord avec les
+pièces posées : un mur dessiné pouvait se traverser, et le défaut ne se voyait qu'en jouant. Depuis
+le `LOT-EDITOR-12`, elle se **déduit** de ce que la carte montre (`EX-LVL-020`), puis s'écrit dans
+le fichier — si bien que le jeu continue de la lire sans avoir besoin du manifeste des pièces.
+
+`core::deriveCollision` donne à chaque case la contribution **la plus forte** parmi :
+
+1. chaque **pièce** nommée par une couche visuelle dont l'**emprise** couvre la case
+   (`core::footprintCells`) : son type tactique, lu au manifeste du lieu ;
+2. chaque case de couche visuelle **sans pièce** — ou dont la pièce est inconnue du manifeste —
+   mais d'un type non vide : la règle du type, mur et matière pleine arrêtant la vue, eau profonde
+   et falaise arrêtant le pas ;
+3. une case que **rien** ne couvre, sur aucune couche : du vide, qui arrête la vue. On ne se tient
+   pas là où il n'y a pas de sol.
+
+La plus forte, et non la dernière écrite : l'ordre des couches ne doit pas pouvoir **affaiblir** une
+collision. Un tapis posé par-dessus un mur ne le rend pas franchissable.
+
+Le résultat est un `core::CollisionDerivation`, qui ne porte pas que la grille : il **relève** aussi
+ce qu'il a rencontré sans pouvoir le jouer — `unplayed`, les cases dont la contribution la plus
+forte est une gêne ou un abri (déduits vides, faute de règle qui les joue encore), et
+`unknownPieces`, les cases nommant une pièce que le manifeste ne connaît pas. Ces relevés sont ce
+que `LevelEditor --check` rapporte : la déduction ne se tait pas sur ce qu'elle a dû ignorer.
+
+L'**entrée** n'est pas déduite — c'est un repère posé dans la grille, que l'appelant replace après
+coup.
+
+### Les cases forcées : l'auteur garde le dernier mot
+
+Une déduction qui ne se corrige pas serait une camisole. La carte porte donc une liste `forced` :
+les cases où l'auteur s'écarte sciemment de la règle. `LevelEditor --check` vérifie que le fichier
+**égale** la déduction, cases forcées mises à part — et c'est exactement la propriété utile : tout
+écart est soit délibéré et listé, soit un défaut signalé.
+
 ### Entités et propriétés libres
 
 `core::MapEntity` est ce qui n'est **pas** une tuile : un `type` libre (`"npc"`, `"chest"`,
@@ -118,20 +154,25 @@ chemin) et `loadFromString` (depuis du texte déjà en mémoire, pratique pour l
 
 ```json
 {
-  "version": 3,
-  "name": "Village",
+  "version": 4,
+  "name": "map.village.name",
   "width": 12,
   "height": 8,
+  "nextEntityId": 13,
+  "properties": { "region": "central-empire" },
   "tiles": [
     { "x": 1, "y": 1, "type": "entry" },
-    { "x": 4, "y": 4, "type": "wall", "texture": "puits" }
+    { "x": 4, "y": 4, "type": "wall" }
   ],
+  "forced": [ { "x": 9, "y": 7 } ],
   "layers": [
     { "name": "sol", "kind": "ground", "scene": "village",
-      "tiles": [{ "x": 4, "y": 4, "type": "dirt" }] }
+      "tiles": [{ "x": 4, "y": 4, "type": "dirt", "piece": "chemin" }] },
+    { "name": "relief", "kind": "decor",
+      "tiles": [{ "x": 4, "y": 4, "type": "wall", "piece": "puits" }] }
   ],
   "entities": [
-    { "type": "npc", "x": 6, "y": 3, "dialogue": "bonjour" }
+    { "id": "e7", "type": "npc", "x": 6, "y": 3, "dialogue": "bonjour" }
   ]
 }
 ```
@@ -139,23 +180,35 @@ chemin) et `loadFromString` (depuis du texte déjà en mémoire, pratique pour l
 (exemple illustratif, repris de [`niveaux.md`](../Specification/niveaux.md) — les cartes réelles sont dans
 `Source/Elements/Levels/`, par exemple `coliseum.json`). À lire ainsi :
 
-- `version` est le numéro de format (`core::LEVEL_FORMAT_VERSION`, aujourd'hui `3`, `EX-LVL-005`) ;
+- `version` est le numéro de format (`core::LEVEL_FORMAT_VERSION`, aujourd'hui `4`, `EX-LVL-005`) ;
   un fichier sans ce champ se lit comme la version initiale, un fichier d'une version **supérieure**
   est refusé plutôt que lu au mieux ;
-- `name`, `width`, `height` décrivent la carte et les dimensions de sa grille ;
-- `tiles` est une **liste éparse** : seules les cases **non vides** sont listées, chacune par ses
-  coordonnées `x`/`y` (colonne/ligne) et son `type`. Une case absente de la liste est
-  implicitement `Empty`. Une tuile peut porter `"texture"`, sa pièce assignée ;
-- `layers` et `entities` sont **optionnels** : une carte sans couche garde sa grille unique, promue
-  `Legacy`, et ressort de l'écrivain **telle qu'elle est entrée**.
+- `name` est une **clé de traduction** (`map.<id>.name`), pas un libellé : un nom de carte s'affiche
+  au joueur, et passe donc par le catalogue comme tout autre texte ;
+- `width`, `height` donnent les dimensions de la grille ;
+- `tiles` est la **collision**, en **liste éparse** : seules les cases **non vides** sont listées,
+  chacune par ses coordonnées `x`/`y` (colonne/ligne) et son `type`. Une case absente est
+  implicitement `Empty`. C'est ce tableau que la déduction produit, et que le jeu lit tel quel ;
+- `forced` liste les cases où l'auteur s'est écarté de la déduction ;
+- `layers` porte les couches **visibles** ; chaque case y porte son `type` et, facultativement, sa
+  `piece`. En v3, l'assignation s'écrivait `"texture"` sur la grille racine : elle est **lue** dans
+  une carte v3 et rangée comme pièce de la couche de décor, mais **refusée** dans une v4 — deux
+  façons d'écrire la même chose est exactement ce qu'un numéro de version sert à supprimer ;
+- `entities` porte les entités, chacune avec un `id` **unique** dans la carte (`nextEntityId` donne
+  le prochain libre). L'identifiant existe pour qu'on puisse **désigner** une entité — la citer
+  depuis une quête, la renommer, la remplacer — sans dépendre de sa position, qui bouge ;
+- `properties` sont les propriétés libres de la carte elle-même (région, ambiance) ;
+- `layers`, `entities`, `forced` et `properties` sont **optionnels** : une carte sans couche garde
+  sa grille unique, promue `Legacy`, et ressort de l'écrivain **telle qu'elle est entrée**.
 
 ### Validation
 
 Le chargement **valide** le contenu (`EX-LVL-004`) avant de produire un `Level` utilisable :
 tuiles toutes dans les bornes de la grille, aucune case dupliquée, type de tuile connu, couches aux
-dimensions de la carte, pas de couche `collision` déclarée, et **exactement une** tuile `Entry`
-(une carte sans entrée, ou avec deux, est une erreur de contenu, pas une situation ambiguë à
-tolérer).
+dimensions de la carte, pas de couche `collision` déclarée, **exactement une** tuile `Entry` (une
+carte sans entrée, ou avec deux, est une erreur de contenu, pas une situation ambiguë à tolérer),
+aucun `id` d'entité en double, et, pour une variante, une base qui existe et n'est pas elle-même
+une variante.
 
 En cas d'échec — JSON malformé, champ manquant, type de tuile inconnu, échec d'une des validations
 ci-dessus — le chargeur ne lève **jamais d'exception** vers l'appelant (`EX-NFR-040`) : il renvoie
@@ -167,6 +220,23 @@ choix — résultat récupérable plutôt qu'exception — garde la gestion d'er
 site d'appel, cohérent avec le reste du moteur qui ne s'appuie pas sur les exceptions pour son flux
 de contrôle normal.
 
+### Variantes, hauteur réservée, écriture canonique
+
+Trois ajouts de la v4 méritent d'être connus, ne serait-ce que pour ne pas s'étonner de les
+rencontrer :
+
+- **Variante** (`core::LevelVariant`) — une carte peut déclarer une `base` et n'écrire que ses
+  **écarts**. Une place de marché le jour et la nuit sont la même carte à deux habillages : les
+  dupliquer, c'est prendre le risque d'en corriger une seule. Une variante ne peut pas avoir pour
+  base une autre variante — une chaîne de différences ne se relit plus.
+- **Hauteur réservée** — `floor` par couche, `elevation` par case et par entité. Les champs sont
+  lus, écrits et préservés, mais **aucune règle ne les joue** (`EX-LVL-024`). Ils sont là pour que
+  les cartes dessinées aujourd'hui n'aient pas à être reprises le jour où le relief comptera.
+- **Écriture canonique** (`core::LevelWriter`, `EX-LVL-005`) — charger puis réenregistrer une carte
+  intacte rend le **même fichier, octet pour octet** : champs dans un ordre fixe, une case par
+  ligne. Sans cela, chaque ouverture dans l'éditeur produirait un diff, et une revue de carte
+  deviendrait illisible.
+
 ## Qui lit la carte
 
 Le `Level` n'est, en lui-même, qu'une donnée : il ne bouge pas et ne s'affiche pas.
@@ -176,8 +246,13 @@ niveaux (`<dossier>/<identifiant>.json`) quand un portail en désigne une autre.
 
 Point important : la `TileMap` racine reste la **source de vérité** de tout ce qui touche à la
 **collision**. L'exploration interroge directement `isSolid(colonne, ligne)` sur `tileMap()`,
-jamais une couche visuelle ni ce que le rendu en a tiré. Repeindre le sol ne change donc rien à ce
-qui bloque ; seul le masque de collision le fait.
+jamais une couche visuelle ni ce que le rendu en a tiré.
+
+Attention toutefois à ne pas en tirer la conclusion d'avant la v4. Repeindre le sol **change**
+désormais ce qui bloque, puisque la collision se déduit des pièces posées — mais le changement
+passe par l'éditeur, qui redéduit et réécrit la grille racine. Au **chargement**, la grille lue
+fait toujours foi, et le jeu n'a jamais à déduire quoi que ce soit. C'est la distinction à garder :
+la déduction est un geste d'**édition**, la lecture reste un simple accès.
 
 ## Voir aussi
 - `core::Level`, `core::LevelData`, `core::TileMap`, `core::TileType`, `core::TileLayer`,
