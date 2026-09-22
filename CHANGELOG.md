@@ -6,6 +6,9 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-103 — livré.** L'auteur a fait le contrôle visuel du travelling, dernier critère du lot :
+  la maquette ne scintille pas. La fiche passe à `livre`.
+
 - **Éditeur — le rendu sans texture s'étoffe.** Une carte maquette ne disposait que de douze types
   de tuile : pavé et ruelle se confondaient, et rien ne disait un étal, un gradin, une colonne ou un
   arbre. Vingt types s'ajoutent au format (`core::TileType`) et à la palette *Types*, rangés par
