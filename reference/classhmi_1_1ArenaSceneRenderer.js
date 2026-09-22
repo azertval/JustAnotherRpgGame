@@ -21,7 +21,6 @@ var classhmi_1_1ArenaSceneRenderer =
     [ "textures", "classhmi_1_1ArenaSceneRenderer.html#abfaeb27c9547c5be2e62a9d3ba1748bf", null ],
     [ "_animated", "classhmi_1_1ArenaSceneRenderer.html#ab52ccbc75e892f4b0f515302b54c8b2b", null ],
     [ "_animation", "classhmi_1_1ArenaSceneRenderer.html#a7bff94596cf7d792501a8a1a40217dfd", null ],
-    [ "_bandFrameWidths", "classhmi_1_1ArenaSceneRenderer.html#a6406f3e3ea4543f45cfc85f7faadfe30", null ],
     [ "_battlefield", "classhmi_1_1ArenaSceneRenderer.html#ad348c5d761e754762db1206bb29de223", null ],
     [ "_battlefieldOrigin", "classhmi_1_1ArenaSceneRenderer.html#a7d6bdc1e0facfa06e0263608ce5de88b", null ],
     [ "_battlefieldScene", "classhmi_1_1ArenaSceneRenderer.html#a634d660e77b8cd0745b0b6c88b45c7fc", null ],

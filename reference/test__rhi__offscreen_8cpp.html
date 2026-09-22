@@ -143,7 +143,7 @@ $(function(){initNavTree('test__rhi__offscreen_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Non-régression <b>visuelle</b> du portage QRhi (<span class="tt">EX-REN-050</span>, <span class="tt">EX-ARCH-022</span>) : rendu <b>hors écran</b> d'un motif témoin, relu pixel par pixel.  
+<p>Non-régression <b>visuelle</b> du pipeline QRhi (<span class="tt">EX-REN-050</span>, <span class="tt">EX-ARCH-022</span>) : rendu <b>hors écran</b> de motifs témoins, relus pixel par pixel.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QImage&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
@@ -158,18 +158,83 @@ $(function(){initNavTree('test__rhi__offscreen_8cpp.html','',''); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a56d9141450c2a04c284448c96d85ecc4" id="r_a56d9141450c2a04c284448c96d85ecc4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a56d9141450c2a04c284448c96d85ecc4">TEST</a> (RhiOffscreenTest, LArtPeintReduitSeMoyenneParSesMipmaps)</td></tr>
+<tr class="memdesc:a56d9141450c2a04c284448c96d85ecc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'art peint réduit au quart se <b>moyenne</b> par ses mipmaps : un damier d'un pixel devient un gris uniforme, là où le plus proche voisin ne garderait qu'une case sur quatre — et scintillerait au moindre déplacement.  <br /></td></tr>
+<tr class="memitem:aad1daeb157e47c98e4606afad45cb6bc" id="r_aad1daeb157e47c98e4606afad45cb6bc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aad1daeb157e47c98e4606afad45cb6bc">TEST</a> (RhiOffscreenTest, LaTransparenceEstPremultipliee)</td></tr>
+<tr class="memdesc:aad1daeb157e47c98e4606afad45cb6bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">La transparence est <b>prémultipliée</b> : un rouge à demi transparent sur un fond bleu donne un pourpre à parts égales, pas un rouge plein fondu dans du bleu.  <br /></td></tr>
 <tr class="memitem:a78f7c3c3342efcbb39b2edb042ef2945" id="r_a78f7c3c3342efcbb39b2edb042ef2945"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a78f7c3c3342efcbb39b2edb042ef2945">TEST</a> (RhiOffscreenTest, ZoomEntierResteNetEnFiltrageNearest)</td></tr>
-<tr class="memdesc:a78f7c3c3342efcbb39b2edb042ef2945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un quad agrandi d'un facteur entier reste <b>net</b> : chaque texel devient un bloc de couleur uniforme, sans la moindre teinte intermédiaire.  <br /></td></tr>
+<tr class="memdesc:a78f7c3c3342efcbb39b2edb042ef2945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une image engendrée agrandie d'un facteur entier reste <b>nette</b> : chaque texel devient un bloc de couleur uniforme, sans la moindre teinte intermédiaire.  <br /></td></tr>
 <tr class="memitem:a1e18f301a4206b2f188fee815a56a832" id="r_a1e18f301a4206b2f188fee815a56a832"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1e18f301a4206b2f188fee815a56a832">TEST</a> (RhiOffscreenTest, TeinteMultiplieeEtEffacementConserve)</td></tr>
 <tr class="memdesc:a1e18f301a4206b2f188fee815a56a832"><td class="mdescLeft">&#160;</td><td class="mdescRight">La teinte du quad multiplie la texture échantillonnée, et le fond d'effacement subsiste là où rien n'est dessiné — les deux invariants de composition du pipeline porté.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Non-régression <b>visuelle</b> du portage QRhi (<span class="tt">EX-REN-050</span>, <span class="tt">EX-ARCH-022</span>) : rendu <b>hors écran</b> d'un motif témoin, relu pixel par pixel. </p>
-<p>C'est le seul test qui protège vraiment l'objectif du portage. Le risque dominant du lot est qu'un rendu devenu <b>flou</b> passe toute la CI : tout compile, tous les tests logiques passent, et seul l'œil verrait la différence. Un agrandissement au filtrage <em>nearest</em> produit des blocs de couleur <b>exactement</b> égaux au texel source ; le moindre filtrage linéaire introduirait des teintes intermédiaires aux frontières, que les assertions ci-dessous refusent.</p>
+<div class="textblock"><p>Non-régression <b>visuelle</b> du pipeline QRhi (<span class="tt">EX-REN-050</span>, <span class="tt">EX-ARCH-022</span>) : rendu <b>hors écran</b> de motifs témoins, relus pixel par pixel. </p>
+<p>Le filtrage suit la nature de l'image (<span class="tt">LOT-103</span>), et chacune a son témoin : une image <b>engendrée</b> (<span class="tt">TextureFiltering::Sharp</span>) agrandie reste en blocs <b>exactement</b> égaux au texel source ; l'art <b>peint</b> (<span class="tt">TextureFiltering::Smooth</span>) réduit se moyenne par ses mipmaps au lieu de scintiller, et sa transparence est <b>prémultipliée</b>. Chacun de ces défauts passerait toute la CI logique : seul l'œil — ou ce test — le verrait.</p>
 <p>Le test s'exécute sur une interface QRhi hors écran (aucune fenêtre) et se <b>saute</b> proprement si aucune n'est disponible sur la machine (<span class="tt">EX-NFR-004</span> borne ce qui est automatisable). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a56d9141450c2a04c284448c96d85ecc4" name="a56d9141450c2a04c284448c96d85ecc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56d9141450c2a04c284448c96d85ecc4">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">RhiOffscreenTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LArtPeintReduitSeMoyenneParSesMipmaps</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'art peint réduit au quart se <b>moyenne</b> par ses mipmaps : un damier d'un pixel devient un gris uniforme, là où le plus proche voisin ne garderait qu'une case sur quatre — et scintillerait au moindre déplacement. </p>
+<p><b>Cas de test :</b> <b>L'art peint reduit ne scintille pas : ses mipmaps le moyennent.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu QRhi<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Creer une texture lissee de 64 x 64, damier noir et blanc d'un pixel.<br  />
+</p><ol type="1">
+<li>La dessiner reduite dans une cible de 16 x 16.<br  />
+ <b>Resultat attendu :</b> Chaque pixel de la cible est un gris moyen (entre 96 et 160), jamais noir ni blanc. </li>
+</ol>
+
+</div>
+</div>
+<a id="aad1daeb157e47c98e4606afad45cb6bc" name="aad1daeb157e47c98e4606afad45cb6bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad1daeb157e47c98e4606afad45cb6bc">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">RhiOffscreenTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaTransparenceEstPremultipliee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La transparence est <b>prémultipliée</b> : un rouge à demi transparent sur un fond bleu donne un pourpre à parts égales, pas un rouge plein fondu dans du bleu. </p>
+<p><b>Cas de test :</b> <b>Une texture a demi transparente se melange en alpha premultiplie.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu QRhi<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Dessiner une texture rouge d'alpha 128 sur un fond bleu.<br  />
+ <b>Resultat attendu :</b> Rouge et bleu valent chacun la moitie, a deux niveaux pres. </p>
+
+</div>
+</div>
 <a id="a1e18f301a4206b2f188fee815a56a832" name="a1e18f301a4206b2f188fee815a56a832"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e18f301a4206b2f188fee815a56a832">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e18f301a4206b2f188fee815a56a832">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,7 +264,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a78f7c3c3342efcbb39b2edb042ef2945" name="a78f7c3c3342efcbb39b2edb042ef2945"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78f7c3c3342efcbb39b2edb042ef2945">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a78f7c3c3342efcbb39b2edb042ef2945">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -217,8 +282,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Un quad agrandi d'un facteur entier reste <b>net</b> : chaque texel devient un bloc de couleur uniforme, sans la moindre teinte intermédiaire. </p>
-<p><b>Cas de test :</b> <b>Le rendu QRhi conserve le pixel art net a zoom entier.</b><br  />
+<p>Une image engendrée agrandie d'un facteur entier reste <b>nette</b> : chaque texel devient un bloc de couleur uniforme, sans la moindre teinte intermédiaire. </p>
+<p><b>Cas de test :</b> <b>Le rendu QRhi garde nette une image engendree agrandie.</b><br  />
  <b>Categorie :</b> Unitaire · Rendu QRhi<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />

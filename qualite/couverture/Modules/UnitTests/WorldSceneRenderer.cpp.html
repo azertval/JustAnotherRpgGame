@@ -21,38 +21,27 @@
 #include &lt;rhi/qrhi.h&gt;
 
 #include "Core/Resources/AssetMarker.h"
-#include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/MissingTexture.h"
-#include "HMI/Graphics/ScenePiecePlacement.h"
+#include "HMI/Graphics/SceneTextureTraits.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 
 namespace hmi {
 
-namespace {
-
-/// Le chemin du `.anim.json` d'une bande : `idle.png` -&gt; `idle.anim.json`.
-<span style = "background-color:#dfd">[[nodiscard]] std::filesystem::path animationDescriptionOf(const std::filesystem::path&amp; band) {
-    std::filesystem::path description = band;
-    description.replace_extension();
-    description += ".anim.json";
-    return description;
-}</span>
-
-}  // namespace
-
 Camera2D worldCamera(const core::IsoProjection&amp; projection, core::Vector2 focus, int pixelWidth,
-<span style = "background-color:#dfd">                     int pixelHeight) {
+<span style = "background-color:#dfd">                     int pixelHeight, float tilePixels) {
     const int width = std::max(1, pixelWidth);
     const int height = std::max(1, pixelHeight);
     Camera2D camera(width, height);</span>
 
-    // Un agrandissement ENTIER, jamais un cadrage ajuste : le pixel art se brouille des qu'on le
-    // met a l'echelle 0,62. L'art est dessine pour 720 lignes ; au-dela, on double.
-<span style = "background-color:#dfd">    camera.setZoom(static_cast&lt;float&gt;(std::max(1, height / WORLD_ART_HEIGHT_PIXELS)));</span>
+    // Un facteur LIBRE, fixe par la definition (EX-REN-013) : une case occupe la hauteur de la vue
+    // divisee par 10,8. L'art est toujours reduit, jamais agrandi, et filtre par mipmaps : aucune
+    // grille de pixels n'est plus a proteger.
+<span style = "background-color:#dfd">    const float onScreen = tilePixels &gt; 0.0F ? tilePixels : worldTilePixels(height);
+    camera.setZoom(onScreen / (projection.tileWidth() * Camera2D::PIXELS_PER_UNIT));</span>
 
     // Le point suivi, ramene dans la scene : la vue ne montre pas le vide autour de la carte. Sur
     // un axe ou la scene est plus petite que la vue, elle reste centree. La scene occupe
@@ -111,27 +100,13 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
     return true;
 }</span>
 
-<span style = "background-color:#dfd">int WorldSceneRenderer::bandFrameWidth(const std::string&amp; path) {
-    const auto connue = _bandFrameWidths.find(path);
-    if (connue != _bandFrameWidths.end()) {
-        return connue-&gt;second;</span>
-    }
-    // Seules les figurines ont un `.anim.json` ; une piece de decor n'en a pas, et son absence est
-    // un cas legitime, pas une anomalie.
-<span style = "background-color:#dfd">    const AnimationDescriptionResult lue =</span>
-        AnimationCatalog::loadFromFile(animationDescriptionOf(_directory / path));
-<span style = "background-color:#dfd">    const int largeur = lue.ok() ? lue.description-&gt;frameWidth : 0;
-    _bandFrameWidths.emplace(path, largeur);
-    return largeur;
-}</span>
-
 <span style = "background-color:#fdd">std::optional&lt;LoadedTexture&gt; WorldSceneRenderer::figureMarker(const std::string&amp; path) {
     const std::string cle = figureMarkerKey(path);
     if (cle.empty()) {
         return std::nullopt;</span>
     }
 <span style = "background-color:#fdd">    const core::MarkerImage image =</span>
-        core::assetMarker(cle, FIGURE_FRAME_WIDTH_PIXELS, FIGURE_FRAME_HEIGHT_PIXELS);
+        core::assetMarker(cle, FIGURE_MARKER_WIDTH_PIXELS, FIGURE_MARKER_HEIGHT_PIXELS);
 <span style = "background-color:#fdd">    if (image.isEmpty()) {
         return std::nullopt;</span>
     }
@@ -162,7 +137,7 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
             loadTextureFromFile(_resources.context(), _directory / path);
 <span style = "background-color:#dfd">        if (!texture.has_value()) {</span>
             // Une figurine sans image se dessine par son marqueur (LOT-39, LOT-96) : la
-            // sentinelle se voit avant que l'atelier ne l'ait dessinee.
+            // sentinelle se voit avant que l'atelier ne l'ait dessinee. Une case de large.
 <span style = "background-color:#fdd">            if (std::optional&lt;LoadedTexture&gt; marqueur = figureMarker(path)) {
                 _textures.byPath[path] = SceneTexture{.texture = marqueur-&gt;handle(),</span>
                                                       .width = marqueur-&gt;width,
@@ -175,21 +150,10 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
 <span style = "background-color:#fdd">            GRAPHICS_LOG_WARNING(missingTextureWarning(path));
             continue;</span>
         }
-<span style = "background-color:#dfd">        _textures.byPath[path] = SceneTexture{.texture = texture-&gt;handle(),</span>
-                                              .width = texture-&gt;width,
-                                              .height = texture-&gt;height,
-                                              .frameWidth = bandFrameWidth(path)};
-<span style = "background-color:#dfd">        if (path.starts_with("Scene/")) {
-            const auto file = _directory / path;
-            const auto document =</span>
-                core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
-<span style = "background-color:#dfd">            if (document.ok()) {
-                _textures.byPath[path].anchor =</span>
-                    scenePieceAnchor(document.root, file.filename().string());
-<span style = "background-color:#dfd">                _textures.byPath[path].depthOffset =</span>
-                    scenePieceDepthOffset(document.root, file.filename().string());
-            }
-<span style = "background-color:#dfd">        }
+        // Decoupe, echelle et ancre : ce que ses fichiers voisins disent de l'image (LOT-103).
+<span style = "background-color:#dfd">        SceneTexture&amp; loaded = _textures.byPath[path] = SceneTexture{</span>
+            .texture = texture-&gt;handle(), .width = texture-&gt;width, .height = texture-&gt;height};
+<span style = "background-color:#dfd">        applySceneTextureTraits(loaded, readSceneTextureTraits(_directory, path));
         _loaded.push_back(std::move(*texture));
     }
 }</span>
@@ -238,9 +202,9 @@ void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarg
     composeWorldScene(_composed, _snapshot, projection, _textures);
     _composed.sort();</span>
 
-<span style = "background-color:#dfd">    const QSize pixels = target-&gt;pixelSize();</span>
-    const Camera2D camera =
-<span style = "background-color:#dfd">        worldCamera(projection, projection.gridToWorld(_focus), pixels.width(), pixels.height());</span>
+<span style = "background-color:#dfd">    const QSize pixels = target-&gt;pixelSize();
+    const Camera2D camera = worldCamera(projection, projection.gridToWorld(_focus), pixels.width(),</span>
+                                        pixels.height(), _tilePixels);
 
 <span style = "background-color:#dfd">    SpriteBatch&amp; sprites = _resources.sprites();
     sprites.beginFrame();

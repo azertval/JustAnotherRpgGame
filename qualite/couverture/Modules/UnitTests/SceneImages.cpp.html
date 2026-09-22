@@ -18,13 +18,12 @@
 
 #include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion
 #include "Core/Resources/AssetMarker.h"
-#include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
-#include "HMI/Graphics/ScenePiecePlacement.h"
+#include "HMI/Graphics/SceneTextureTraits.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/HmiLog.h"
 
@@ -52,14 +51,6 @@ namespace {
         return image;
     }();
     return solid;
-}</span>
-
-/// Le chemin du `.anim.json` d'une bande : `idle.png` -&gt; `idle.anim.json`.
-<span style = "background-color:#dfd">[[nodiscard]] std::filesystem::path animationDescriptionOf(const std::filesystem::path&amp; band) {
-    std::filesystem::path description = band;
-    description.replace_extension();
-    description += ".anim.json";
-    return description;
 }</span>
 
 <span style = "background-color:#dfd">[[nodiscard]] SceneTexture textureOf(const QImage&amp; image, int frameWidth) {
@@ -113,13 +104,6 @@ SceneImages::SceneImages(std::filesystem::path assetsDirectory)
     return found == _images.end() ? nullptr : &amp;found-&gt;second;
 }</span>
 
-<span style = "background-color:#dfd">int SceneImages::bandFrameWidth(const std::string&amp; path) const {</span>
-    // Seules les figurines ont un `.anim.json` ; une piÃ¨ce de dÃ©cor n'en a pas.
-<span style = "background-color:#dfd">    const AnimationDescriptionResult read =</span>
-        AnimationCatalog::loadFromFile(animationDescriptionOf(_directory / path));
-<span style = "background-color:#dfd">    return read.ok() ? read.description-&gt;frameWidth : 0;
-}</span>
-
 <span style = "background-color:#dfd">void SceneImages::ensure(const std::vector&lt;std::string&gt;&amp; paths) {
     for (const std::string&amp; path : paths) {
         if (!_requested.insert(path).second) {</span>
@@ -127,9 +111,8 @@ SceneImages::SceneImages(std::filesystem::path assetsDirectory)
         }
         // Un jeton n'est pas un fichier : il se peint (LOT-128, decision D2). La meme image, au
         // pixel pres, que celle que le jeu televerse.
-<span style = "background-color:#dfd">        if (const core::MarkerImage token =</span>
-                maquetteTokenImage(path, MAQUETTE_TOKEN_SIZE_PIXELS);
-<span style = "background-color:#dfd">            !token.isEmpty()) {
+<span style = "background-color:#dfd">        if (const core::MarkerImage token = maquetteTokenImage(path, MAQUETTE_TOKEN_SIZE_PIXELS);
+            !token.isEmpty()) {
             QImage&amp; stored = _images[path] =</span>
                 fromRgba8(token.width, token.height, markerPixelsRgba8(token));
 <span style = "background-color:#dfd">            _textures.byPath[path] = textureOf(stored, 0);
@@ -139,25 +122,17 @@ SceneImages::SceneImages(std::filesystem::path assetsDirectory)
         if (!loaded.isNull()) {
             QImage&amp; stored = _images[path] =</span>
                 loaded.convertToFormat(QImage::Format_ARGB32_Premultiplied);
-<span style = "background-color:#dfd">            _textures.byPath[path] = textureOf(stored, bandFrameWidth(path));
-            if (path.starts_with("Scene/")) {
-                const auto file = _directory / path;
-                const auto document =</span>
-                    core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
-<span style = "background-color:#dfd">                if (document.ok()) {
-                    _textures.byPath[path].anchor =</span>
-                        scenePieceAnchor(document.root, file.filename().string());
-<span style = "background-color:#dfd">                    _textures.byPath[path].depthOffset =</span>
-                        scenePieceDepthOffset(document.root, file.filename().string());
-                }
-<span style = "background-color:#dfd">            }
-            continue;</span>
+            // Decoupe, echelle et ancre : les memes traits que le jeu lit (LOT-103).
+<span style = "background-color:#dfd">            _textures.byPath[path] = textureOf(stored, 0);
+            applySceneTextureTraits(_textures.byPath[path],</span>
+                                    readSceneTextureTraits(_directory, path));
+<span style = "background-color:#dfd">            continue;</span>
         }
         // Une figurine sans image se dessine par son marqueur, comme en jeu (LOT-39, LOT-96).
 <span style = "background-color:#fdd">        const std::string key = figureMarkerKey(path);
         if (!key.empty()) {
             const core::MarkerImage marker =</span>
-                core::assetMarker(key, FIGURE_FRAME_WIDTH_PIXELS, FIGURE_FRAME_HEIGHT_PIXELS);
+                core::assetMarker(key, FIGURE_MARKER_WIDTH_PIXELS, FIGURE_MARKER_HEIGHT_PIXELS);
 <span style = "background-color:#fdd">            if (!marker.isEmpty()) {
                 QImage&amp; stored = _images[path] =</span>
                     fromRgba8(marker.width, marker.height, markerPixelsRgba8(marker));

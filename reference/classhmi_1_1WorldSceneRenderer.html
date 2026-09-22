@@ -166,6 +166,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1a51e2e9c6648dbffe27496ab0e25c43" id="r_a1a51e2e9c6648dbffe27496ab0e25c43"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1a51e2e9c6648dbffe27496ab0e25c43">setFocus</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> focusCells) noexcept</td></tr>
 <tr class="memdesc:a1a51e2e9c6648dbffe27496ab0e25c43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le point suivi par la caméra, en cases (position continue du héros).  <br /></td></tr>
 <tr class="memitem:ab0160a58f9a4c26eef4ea0d7ae44e08d" id="r_ab0160a58f9a4c26eef4ea0d7ae44e08d"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab0160a58f9a4c26eef4ea0d7ae44e08d">focus</a> () const noexcept</td></tr>
+<tr class="memitem:afba0dba07f75c1abd5e307c4d2286d71" id="r_afba0dba07f75c1abd5e307c4d2286d71"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afba0dba07f75c1abd5e307c4d2286d71">setTilePixels</a> (float tilePixels) noexcept</td></tr>
+<tr class="memdesc:afba0dba07f75c1abd5e307c4d2286d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Impose la largeur d'une case à l'écran, en pixels ; 0 rend la règle de la définition (<span class="tt"><a class="el" href="namespacehmi.html#a44337da72a19b007b1c90bade791dfdf" title="Le cadrage d&#39;un lieu : la caméra suit le héros, et ne sort pas de la carte.">hmi::worldCamera</a></span>).  <br /></td></tr>
 <tr class="memitem:a6aab3318c68d4afcb4ae3f9c72f03e9e" id="r_a6aab3318c68d4afcb4ae3f9c72f03e9e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6aab3318c68d4afcb4ae3f9c72f03e9e">render</a> (QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target, const float *clear)</td></tr>
 <tr class="memdesc:a6aab3318c68d4afcb4ae3f9c72f03e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine une image dans <code class="param">target</code> : efface à <code class="param">clear</code>, puis le lieu cadré sur le héros.  <br /></td></tr>
 <tr class="memitem:a83e800ebffc8614f304d885d208af073" id="r_a83e800ebffc8614f304d885d208af073"><td class="memItemLeft">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a83e800ebffc8614f304d885d208af073">composed</a> () const noexcept</td></tr>
@@ -176,8 +178,6 @@ Public Member Functions</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:ae28a3765bdefd7b8fd594e5451c8f6cd" id="r_ae28a3765bdefd7b8fd594e5451c8f6cd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae28a3765bdefd7b8fd594e5451c8f6cd">ensureTextures</a> (const std::vector&lt; std::string &gt; &amp;paths)</td></tr>
 <tr class="memdesc:ae28a3765bdefd7b8fd594e5451c8f6cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les textures de <code class="param">paths</code> qui manquent encore. Sur le fil de rendu.  <br /></td></tr>
-<tr class="memitem:ac78c706f2c61547833c83587899679cc" id="r_ac78c706f2c61547833c83587899679cc"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac78c706f2c61547833c83587899679cc">bandFrameWidth</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:ac78c706f2c61547833c83587899679cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">La largeur d'image d'une bande d'animation, lue de son <span class="tt">.anim.json</span> s'il y en a un.  <br /></td></tr>
 <tr class="memitem:abe6d8325e53bf390059ab20353dffc17" id="r_abe6d8325e53bf390059ab20353dffc17"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abe6d8325e53bf390059ab20353dffc17">figureMarker</a> (const std::string &amp;path)</td></tr>
 <tr class="memdesc:abe6d8325e53bf390059ab20353dffc17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le marqueur d'une figurine sans image (<span class="tt"><a class="el" href="namespacehmi.html#a1c839cebf18adf167ae9ac5452d179b6" title="La clé du marqueur d&#39;une figurine qui n&#39;a pas d&#39;image (LOT-39, LOT-96).">hmi::figureMarkerKey</a></span>), rien pour une autre piece.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -186,10 +186,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a79a6e0883e9d0d60b08d9d3da0a37412" id="r_a79a6e0883e9d0d60b08d9d3da0a37412"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a79a6e0883e9d0d60b08d9d3da0a37412">_directory</a></td></tr>
 <tr class="memitem:a8d15970c710d2e6994517b60386f2b54" id="r_a8d15970c710d2e6994517b60386f2b54"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8d15970c710d2e6994517b60386f2b54">_snapshot</a></td></tr>
 <tr class="memitem:a216cc6693ad9bd6d25f9a1e8d641541b" id="r_a216cc6693ad9bd6d25f9a1e8d641541b"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a216cc6693ad9bd6d25f9a1e8d641541b">_focus</a> {}</td></tr>
+<tr class="memitem:a4cf1db8ceec9f90e9cb30ffb3eced6fe" id="r_a4cf1db8ceec9f90e9cb30ffb3eced6fe"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a4cf1db8ceec9f90e9cb30ffb3eced6fe">_tilePixels</a> = 0.0F</td></tr>
 <tr class="memitem:a289468f6de877a6557091cb043f580f3" id="r_a289468f6de877a6557091cb043f580f3"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#a289468f6de877a6557091cb043f580f3">_composed</a></td></tr>
 <tr class="memitem:a3cea47c68f6026b218ef345a0f994fad" id="r_a3cea47c68f6026b218ef345a0f994fad"><td class="memItemLeft">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3cea47c68f6026b218ef345a0f994fad">_requested</a></td></tr>
 <tr class="memdesc:a3cea47c68f6026b218ef345a0f994fad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chemins déjà tentés : une pièce absente ne doit pas être redemandée à chaque image.  <br /></td></tr>
-<tr class="memitem:a8e06d2ed4df0c3f89ae0e8ab9c78bf90" id="r_a8e06d2ed4df0c3f89ae0e8ab9c78bf90"><td class="memItemLeft">std::map&lt; std::string, int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8e06d2ed4df0c3f89ae0e8ab9c78bf90">_bandFrameWidths</a></td></tr>
 <tr class="memitem:ad8fbf932e14dc05a5a69aeecc0f3015f" id="r_ad8fbf932e14dc05a5a69aeecc0f3015f"><td class="memItemLeft">QRhi *&#160;</td><td class="memItemRight"><a class="el" href="#ad8fbf932e14dc05a5a69aeecc0f3015f">_rhi</a> = nullptr</td></tr>
 <tr class="memitem:af8df5bd0d75e490d61fe2fcc67a40d04" id="r_af8df5bd0d75e490d61fe2fcc67a40d04"><td class="memItemLeft">QRhiResourceUpdateBatch *&#160;</td><td class="memItemRight"><a class="el" href="#af8df5bd0d75e490d61fe2fcc67a40d04">_pendingUploads</a> = nullptr</td></tr>
 <tr class="memitem:a3641d1e54b87aa51e5e14775e66c1fd4" id="r_a3641d1e54b87aa51e5e14775e66c1fd4"><td class="memItemLeft"><a class="el" href="classhmi_1_1SceneResources.html">SceneResources</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3641d1e54b87aa51e5e14775e66c1fd4">_resources</a></td></tr>
@@ -277,33 +277,6 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="ac78c706f2c61547833c83587899679cc" name="ac78c706f2c61547833c83587899679cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac78c706f2c61547833c83587899679cc">&#9670;&#160;</a></span>bandFrameWidth()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::WorldSceneRenderer::bandFrameWidth </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>La largeur d'image d'une bande d'animation, lue de son <span class="tt">.anim.json</span> s'il y en a un. </p>
-
-</div>
-</div>
 <a id="a83e800ebffc8614f304d885d208af073" name="a83e800ebffc8614f304d885d208af073"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a83e800ebffc8614f304d885d208af073">&#9670;&#160;</a></span>composed()</h2>
 
@@ -629,6 +602,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="afba0dba07f75c1abd5e307c4d2286d71" name="afba0dba07f75c1abd5e307c4d2286d71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afba0dba07f75c1abd5e307c4d2286d71">&#9670;&#160;</a></span>setTilePixels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldSceneRenderer::setTilePixels </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>tilePixels</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Impose la largeur d'une case à l'écran, en pixels ; 0 rend la règle de la définition (<span class="tt"><a class="el" href="namespacehmi.html#a44337da72a19b007b1c90bade791dfdf" title="Le cadrage d&#39;un lieu : la caméra suit le héros, et ne sort pas de la carte.">hmi::worldCamera</a></span>). </p>
+
+</div>
+</div>
 <a id="a01ec4e99e298b44936479112517db503" name="a01ec4e99e298b44936479112517db503"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a01ec4e99e298b44936479112517db503">&#9670;&#160;</a></span>snapshot()</h2>
 
@@ -680,28 +680,6 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a8e06d2ed4df0c3f89ae0e8ab9c78bf90" name="a8e06d2ed4df0c3f89ae0e8ab9c78bf90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e06d2ed4df0c3f89ae0e8ab9c78bf90">&#9670;&#160;</a></span>_bandFrameWidths</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::map&lt;std::string, int&gt; hmi::WorldSceneRenderer::_bandFrameWidths</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a289468f6de877a6557091cb043f580f3" name="a289468f6de877a6557091cb043f580f3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a289468f6de877a6557091cb043f580f3">&#9670;&#160;</a></span>_composed</h2>
 
@@ -960,6 +938,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> hmi::WorldSceneRenderer::_textures</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4cf1db8ceec9f90e9cb30ffb3eced6fe" name="a4cf1db8ceec9f90e9cb30ffb3eced6fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cf1db8ceec9f90e9cb30ffb3eced6fe">&#9670;&#160;</a></span>_tilePixels</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::WorldSceneRenderer::_tilePixels = 0.0F</td>
         </tr>
       </table>
   </td>

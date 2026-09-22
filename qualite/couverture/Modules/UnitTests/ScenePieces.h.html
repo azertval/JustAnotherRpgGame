@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include &lt;algorithm&gt;
 #include &lt;cstdint&gt;
 #include &lt;functional&gt;
 #include &lt;map&gt;
@@ -22,53 +23,81 @@
 #include &lt;string_view&gt;
 
 #include "Core/Levels/GridPosition.h"
+#include "Core/Math/Rect.h"
 #include "Core/Math/Vector2.h"
 #include "HMI/Graphics/Quad.h"
 #include "HMI/Graphics/RenderLayer.h"
 
 /**
  * @file HMI/Graphics/ScenePieces.h
- * @brief La gÃ©omÃ©trie des **piÃ¨ces de l'atelier des textures** (`LOT-92`), commune au ColisÃ©e en
- *        combat et aux lieux qu'on parcourt (`LOT-09`).
+ * @brief La gÃ©omÃ©trie des **piÃ¨ces de scÃ¨ne**, commune Ã  l'arÃ¨ne et aux lieux qu'on parcourt.
  *
- * L'atelier livre, pour chaque lieu, une planche dÃ©coupÃ©e en piÃ¨ces : un losange de 68 Ã 42 pixels
- * d'art (le rapport 0,62 d'`core::IsoProjection`), chaque piÃ¨ce posÃ©e par son **ancre**, le sommet
- * haut du losange de son emprise. Une piÃ¨ce d'une case a donc la largeur du losange, dont les 42
- * pixels du bas ; ce qui dÃ©passe monte au-dessus de la case.
+ * Un lieu livre ses piÃ¨ces avec un manifeste (`LOT-104`) : chaque piÃ¨ce est posÃ©e par son
+ * **ancre**, le sommet haut du losange de son emprise, et le manifeste dÃ©clare le losange de sol
+ * de l'art (`"tile": [256, 159]`, `EX-VIS-008`). C'est de ce losange que vient l'Ã©chelle d'une
+ * piÃ¨ce Ã  l'Ã©cran : une piÃ¨ce dont le losange fait 256 pixels d'art occupe exactement la largeur
+ * d'une case de la projection. Aucune taille d'art n'est Ã©crite ici (`LOT-103`) : un lieu livrÃ©
+ * plus fin ou plus grossier se dessine Ã  la bonne taille sans toucher au code.
  *
- * Ces constantes vivaient dans `hmi::ArenaSceneComposer`, qui fut le premier Ã  les lire. Le monde
- * explorÃ© lit les mÃªmes planches : les garder en deux copies ferait de leur Ã©galitÃ© une
- * coÃ¯ncidence.
+ * Ce que les fichiers voisins disent d'une image â dÃ©coupe, Ã©chelle, ancre â se lit par
+ * `hmi::readSceneTextureTraits` (`SceneTextureTraits.h`).
  */
 
 namespace hmi {
 
-/// Largeur du losange des textures de scÃ¨ne de l'atelier, en pixels d'art.
-inline constexpr int SCENE_TILE_WIDTH_PIXELS = 68;
-/// Demi-largeur de ce losange : l'abscisse de l'ancre d'une piÃ¨ce d'une case.
-inline constexpr int SCENE_HALF_TILE_WIDTH_PIXELS = SCENE_TILE_WIDTH_PIXELS / 2;
-/// Hauteur de ce losange : il occupe le bas d'une piÃ¨ce d'une case.
-inline constexpr int SCENE_TILE_HEIGHT_PIXELS = 42;
-
-/// Largeur d'une image des bandes d'animation des figurines (`Assets/Npc/manifest.json`).
-inline constexpr int FIGURE_FRAME_WIDTH_PIXELS = 48;
-/// Hauteur d'une image de ces bandes.
-inline constexpr int FIGURE_FRAME_HEIGHT_PIXELS = 64;
-/// Agrandissement d'une figurine par rapport Ã  la planche.
-inline constexpr float FIGURE_SCALE = 1.25F;
-
-/// @brief Une texture liable et ses dimensions en pixels (pour normaliser les UV).
+/// @brief Une texture liable, ses dimensions en pixels et ce que ses fichiers voisins disent
+/// d'elle.
 struct SceneTexture {
 <span style = "background-color:#dfd">    TextureHandle texture = nullptr;</span>
     int width = 0;
     int height = 0;
     /// Largeur d'une image si la texture est une bande d'animation ; 0 sinon.
 <span style = "background-color:#dfd">    int frameWidth = 0;</span>
-    /// Origine explicite des pieces modulaires, en pixels d'art du PNG.
+    /// Hauteur d'une image de la bande ; 0 : la hauteur de la texture.
+<span style = "background-color:#dfd">    int frameHeight = 0;</span>
+    /// Origine explicite de la piÃ¨ce, en pixels d'art du PNG.
 <span style = "background-color:#dfd">    std::optional&lt;core::Vector2&gt; anchor{};</span>
     /// Somme des coordonnees locales du pied utilise pour le tri, en cases.
 <span style = "background-color:#dfd">    std::optional&lt;float&gt; depthOffset{};</span>
+    /// Le losange de sol de l'art, en pixels (`tile` du manifeste) ; (0, 0) s'il n'est pas dÃ©clarÃ©.
+<span style = "background-color:#dfd">    core::Vector2 artTile{};</span>
 };
+
+/**
+ * @brief La largeur, en pixels d'art, d'une case de la projection : ce que le manifeste dÃ©clare.
+ *
+ * Ã dÃ©faut, l'image se mesure Ã  elle-mÃªme, sans supposer aucune taille d'art : une piÃ¨ce se
+ * suppose **une case de large** (une piÃ¨ce d'une case a la largeur de son losange), une bande
+ * d'animation **une case de haut** â sa cellule est commune Ã  toutes ses bandes, lÃ  oÃ¹ sa largeur
+ * double pour une attaque, et elle vaut une case dans l'ancien standard (64 pour 68) comme dans le
+ * nouveau (256 pour 256). Un lieu livrÃ© dÃ©clare toujours son losange
+ * (`scripts/check_hd_assets.py`).
+ */
+<span style = "background-color:#dfd">[[nodiscard]] inline float artTileWidth(const SceneTexture&amp; texture) noexcept {
+    if (texture.artTile.x &gt; 0.0F) {
+        return texture.artTile.x;</span>
+    }
+<span style = "background-color:#dfd">    if (texture.frameHeight &gt; 0) {
+        return static_cast&lt;float&gt;(texture.frameHeight);</span>
+    }
+<span style = "background-color:#dfd">    return static_cast&lt;float&gt;(</span>
+        std::max(1, texture.frameWidth &gt; 0 ? texture.frameWidth : texture.width));
+<span style = "background-color:#dfd">}</span>
+
+/// @return La hauteur, en pixels d'art, du losange d'une case ; Ã  dÃ©faut, la largeur Ã @p ratio.
+<span style = "background-color:#dfd">[[nodiscard]] inline float artTileHeight(const SceneTexture&amp; texture, float ratio) noexcept {
+    return texture.artTile.y &gt; 0.0F ? texture.artTile.y : artTileWidth(texture) * ratio;
+}</span>
+
+/// @return La largeur d'une image de la bande, la texture entiÃ¨re pour une image fixe.
+<span style = "background-color:#dfd">[[nodiscard]] inline int frameWidthOf(const SceneTexture&amp; texture) noexcept {
+    return texture.frameWidth &gt; 0 ? texture.frameWidth : texture.width;
+}</span>
+
+/// @return La hauteur d'une image de la bande, la texture entiÃ¨re pour une image fixe.
+<span style = "background-color:#dfd">[[nodiscard]] inline int frameHeightOf(const SceneTexture&amp; texture) noexcept {
+    return texture.frameHeight &gt; 0 ? std::min(texture.frameHeight, texture.height) : texture.height;
+}</span>
 
 /**
  * @brief Les textures d'un lieu, adressÃ©es par leur **chemin** tel que la composition l'Ã©crit.
@@ -106,27 +135,94 @@ struct ScenePieceTextures {
 };
 
 /**
- * @brief Pose une piÃ¨ce **debout** d'une case par son ancre.
+ * @brief Pose une piÃ¨ce **debout** par son ancre, Ã  l'Ã©chelle de son lieu.
  *
- * @param texture La piÃ¨ce Ã  poser, dÃ©jÃ  chargÃ©e (sa taille donne le quad).
+ * @param texture   La piÃ¨ce Ã  poser, dÃ©jÃ  chargÃ©e (sa taille donne le quad).
  * @param topVertex Sommet haut du losange de la case, en unitÃ©s monde.
- * @param unitsPerScenePixel UnitÃ©s monde par pixel d'art (un losange de `SCENE_TILE_WIDTH_PIXELS`
- *                           occupe la largeur du losange de la projection).
+ * @param tileWidth Largeur du losange de la projection, en unitÃ©s monde : le losange de l'art
+ *                  (`hmi::artTileWidth`) s'y ramÃ¨ne.
+ * @param ratio     Rapport hauteur / largeur du losange, pour l'ancre par dÃ©faut d'une piÃ¨ce qui
+ *                  n'en dÃ©clare pas (le bas de l'image est le losange de sa case).
  * @return Le quad Ã  ajouter Ã  la scÃ¨ne ; sa texture est nulle si la piÃ¨ce ne se dessine pas.
  */
 [[nodiscard]] inline SpriteQuad standingPieceQuad(const SceneTexture&amp; texture,
-                                                  core::Vector2 topVertex,
-<span style = "background-color:#dfd">                                                  float unitsPerScenePixel) {
+                                                  core::Vector2 topVertex, float tileWidth,
+<span style = "background-color:#dfd">                                                  float ratio) {
     SpriteQuad quad;
-    const auto height = static_cast&lt;float&gt;(texture.height);
-    const core::Vector2 anchor = texture.anchor.value_or(</span>
-        core::Vector2{static_cast&lt;float&gt;(SCENE_HALF_TILE_WIDTH_PIXELS),
-                      height - static_cast&lt;float&gt;(SCENE_TILE_HEIGHT_PIXELS)});
-<span style = "background-color:#dfd">    quad.x = topVertex.x - anchor.x * unitsPerScenePixel;
-    quad.y = topVertex.y - anchor.y * unitsPerScenePixel;
-    quad.width = static_cast&lt;float&gt;(texture.width) * unitsPerScenePixel;
-    quad.height = height * unitsPerScenePixel;
+    const float art = artTileWidth(texture);
+    const float unitsPerPixel = tileWidth / art;
+    const auto height = static_cast&lt;float&gt;(texture.height);</span>
+    const core::Vector2 anchor =
+<span style = "background-color:#dfd">        texture.anchor.value_or(core::Vector2{art / 2.0F, height - artTileHeight(texture, ratio)});
+    quad.x = topVertex.x - anchor.x * unitsPerPixel;
+    quad.y = topVertex.y - anchor.y * unitsPerPixel;
+    quad.width = static_cast&lt;float&gt;(texture.width) * unitsPerPixel;
+    quad.height = height * unitsPerPixel;
     return quad;
+}</span>
+
+/**
+ * @brief DÃ©bord d'une dalle de sol au-delÃ  de son losange, de chaque cÃ´tÃ©, en largeurs de case.
+ *
+ * Une dalle HD a le bord adouci (alpha continu, `EX-VIS-008`) : deux losanges jointifs Ã  l'arÃªte
+ * prÃ¨s laissent passer, lÃ  oÃ¹ chacun n'est qu'Ã  demi opaque, le fond sous la couture â un treillis
+ * sombre sur tout le sol. La maquette du `LOT-101` dÃ©bordait d'un pixel d'art sur 256 ; le moteur
+ * en fait autant, exprimÃ© en fraction de case (`LOT-103`).
+ */
+inline constexpr float FLOOR_SEAM_OVERLAP = 1.0F / 256.0F;
+
+/**
+ * @brief Le quad d'une dalle de sol : la boÃ®te de son losange, Ã©largie de `FLOOR_SEAM_OVERLAP`.
+ * @param bounds La boÃ®te du losange de la case (`core::IsoProjection::tileBounds`).
+ */
+<span style = "background-color:#dfd">[[nodiscard]] inline SpriteQuad floorQuad(const core::Rect&amp; bounds) noexcept {</span>
+    // Le meme debord relatif sur les deux axes : le losange grandit sans changer de rapport.
+<span style = "background-color:#dfd">    const float grow = FLOOR_SEAM_OVERLAP * 2.0F;
+    SpriteQuad quad;
+    quad.width = bounds.size.x * (1.0F + grow);
+    quad.height = bounds.size.y * (1.0F + grow);
+    quad.x = bounds.position.x - ((quad.width - bounds.size.x) / 2.0F);
+    quad.y = bounds.position.y - ((quad.height - bounds.size.y) / 2.0F);
+    return quad;
+}</span>
+
+/// @return Le nombre d'images de la bande @p texture (au moins 1).
+<span style = "background-color:#dfd">[[nodiscard]] inline int frameCountOf(const SceneTexture&amp; texture) noexcept {
+    const int frameWidth = frameWidthOf(texture);
+    return frameWidth &gt; 0 ? std::max(1, texture.width / frameWidth) : 1;
+}</span>
+
+/**
+ * @brief Pose une **figurine** : l'image @p frame de sa bande, **entiÃ¨re**, Ã  l'Ã©chelle de son art.
+ *
+ * La cellule se lit dans la bande (`frameWidth` et `frameHeight` de son `.anim.json`) : une
+ * figurine de 192 Ã 256 et une crÃ©ature de 384 Ã 384 s'affichent entiÃ¨res, sans hauteur supposÃ©e.
+ * L'art est livrÃ© Ã  sa taille finale (`EX-VIS-008`) : aucun agrandissement ne s'y ajoute.
+ *
+ * @param texture   La bande, dÃ©jÃ  chargÃ©e.
+ * @param frame     Rang de l'image dans la bande, dÃ©jÃ  ramenÃ© dans `[0, frameCountOf(texture))`.
+ * @param centerX   Abscisse du centre de la cellule, en unitÃ©s monde.
+ * @param bottomY   OrdonnÃ©e du bas de la cellule, en unitÃ©s monde.
+ * @param tileWidth Largeur du losange de la projection, en unitÃ©s monde.
+ */
+[[nodiscard]] inline SpriteQuad figureQuad(const SceneTexture&amp; texture, int frame, float centerX,
+<span style = "background-color:#dfd">                                           float bottomY, float tileWidth) {
+    const float unitsPerPixel = tileWidth / artTileWidth(texture);
+    const int frameWidth = frameWidthOf(texture);
+    const int frameHeight = frameHeightOf(texture);
+    SpriteQuad quad;
+    quad.width = static_cast&lt;float&gt;(frameWidth) * unitsPerPixel;
+    quad.height = static_cast&lt;float&gt;(frameHeight) * unitsPerPixel;
+    quad.x = centerX - (quad.width / 2.0F);
+    quad.y = bottomY - quad.height;
+    if (texture.width &gt; 0 &amp;&amp; texture.height &gt; 0) {
+        const auto width = static_cast&lt;float&gt;(texture.width);
+        quad.u0 = static_cast&lt;float&gt;(frame * frameWidth) / width;
+        quad.u1 = static_cast&lt;float&gt;((frame + 1) * frameWidth) / width;
+        quad.v0 = 0.0F;
+        quad.v1 = static_cast&lt;float&gt;(frameHeight) / static_cast&lt;float&gt;(texture.height);</span>
+    }
+<span style = "background-color:#dfd">    return quad;
 }</span>
 
 }  // namespace hmi</pre>

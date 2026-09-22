@@ -162,8 +162,8 @@ $(function(){initNavTree('test__world__scene__composer_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="MaquettePalette_8h_source.html">HMI/Graphics/MaquettePalette.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RenderLayer_8h_source.html">HMI/Graphics/RenderLayer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ScenePiecePlacement_8h_source.html">HMI/Graphics/ScenePiecePlacement.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ScenePieces_8h_source.html">HMI/Graphics/ScenePieces.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="SceneTextureTraits_8h_source.html">HMI/Graphics/SceneTextureTraits.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
@@ -182,8 +182,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7556eaa6accbc6c4a13f5424eb93cc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce nommée sur une case de <b>sol</b> l'emporte sur la table ; un ancien nom se montre sous le nom courant (format v4, <span class="tt">LOT-EDITOR-12</span>).  <br /></td></tr>
 <tr class="memitem:a635e2755bc4cfa9ee321162ebe959f1f" id="r_a635e2755bc4cfa9ee321162ebe959f1f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a635e2755bc4cfa9ee321162ebe959f1f">TEST</a> (WorldSceneComposerTest, UnePieceLargeSeTrieAuPiedDeSonEmprise)</td></tr>
 <tr class="memdesc:a635e2755bc4cfa9ee321162ebe959f1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce <b>large</b> se trie au pied de son emprise, pas de sa case d'ancrage (constat A4).  <br /></td></tr>
-<tr class="memitem:a610cdd2b87be5c70fd4813b5b94580fa" id="r_a610cdd2b87be5c70fd4813b5b94580fa"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a610cdd2b87be5c70fd4813b5b94580fa">TEST</a> (ScenePiecePlacement, DepthRequiresOptInAndValidAnchor)</td></tr>
-<tr class="memdesc:a610cdd2b87be5c70fd4813b5b94580fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">La profondeur exige un manifeste de placement valide.  <br /></td></tr>
+<tr class="memitem:aafd2a49e40673331a3c61dbd242f9dd7" id="r_aafd2a49e40673331a3c61dbd242f9dd7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aafd2a49e40673331a3c61dbd242f9dd7">TEST</a> (ScenePiecePlacement, DepthRequiresAValidAnchor)</td></tr>
+<tr class="memdesc:aafd2a49e40673331a3c61dbd242f9dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">La profondeur exige une ancre valide.  <br /></td></tr>
 <tr class="memitem:ae8cd32e1e6942aa912e6f9033548c020" id="r_ae8cd32e1e6942aa912e6f9033548c020"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae8cd32e1e6942aa912e6f9033548c020">TEST</a> (MaquetteRenderTest, UneCarteSansLieuSeComposeEnLosangesDeCouleur)</td></tr>
 <tr class="memdesc:ae8cd32e1e6942aa912e6f9033548c020"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte sans lieu se compose en losanges de couleur, un par case, a la teinte de son type : c'est le rendu de maquette.  <br /></td></tr>
 <tr class="memitem:aeb89fab5296bd03b69dd87113352de18" id="r_aeb89fab5296bd03b69dd87113352de18"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aeb89fab5296bd03b69dd87113352de18">TEST</a> (MaquetteRenderTest, UnTypeNonCouvertParLeLieuPrendLaMaquette)</td></tr>
@@ -439,8 +439,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a610cdd2b87be5c70fd4813b5b94580fa" name="a610cdd2b87be5c70fd4813b5b94580fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a610cdd2b87be5c70fd4813b5b94580fa">&#9670;&#160;</a></span>TEST() <span class="overload">[9/16]</span></h2>
+<a id="aafd2a49e40673331a3c61dbd242f9dd7" name="aafd2a49e40673331a3c61dbd242f9dd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafd2a49e40673331a3c61dbd242f9dd7">&#9670;&#160;</a></span>TEST() <span class="overload">[9/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -453,17 +453,17 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">DepthRequiresOptInAndValidAnchor</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">DepthRequiresAValidAnchor</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>La profondeur exige un manifeste de placement valide. </p>
-<p><b>Cas de test :</b> <b>La profondeur exige un manifeste de placement valide.</b><br  />
+<p>La profondeur exige une ancre valide. </p>
+<p><b>Cas de test :</b> <b>La profondeur exige une ancre valide.</b><br  />
  <b>Categorie :</b> Unitaire · Rendu du Colisée<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- Lire une pièce valide, une inconnue et un manifeste historique.<br  />
+ Lire une pièce valide, une inconnue et une pièce sans ancre.<br  />
  <b>Resultat attendu :</b> Profondeur présente uniquement pour la pièce valide. </p>
 
 </div>

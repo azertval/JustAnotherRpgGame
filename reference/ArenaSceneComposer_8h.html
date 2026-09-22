@@ -143,7 +143,7 @@ $(function(){initNavTree('ArenaSceneComposer_8h.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>La scène de combat du Colisée composée en primitives, <b>sans GPU</b> : ce que dessinait <span class="tt">ArenaScene.ui.qml</span>/<span class="tt">ArenaTile.ui.qml</span> (<span class="tt">LOT-50</span>), prêt pour <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence et échantillonnage nearest (pixel ar...">hmi::SpriteBatch</a></span>.  
+<p>La scène de combat du Colisée composée en primitives, <b>sans GPU</b> : ce que dessinait <span class="tt">ArenaScene.ui.qml</span>/<span class="tt">ArenaTile.ui.qml</span> (<span class="tt">LOT-50</span>), prêt pour <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence prémultipliée et un échantillonnage ...">hmi::SpriteBatch</a></span>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
@@ -162,8 +162,6 @@ $(function(){initNavTree('ArenaSceneComposer_8h.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:hmi_3A_3AArenaTexture" id="r_hmi_3A_3AArenaTexture"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ArenaTexture.html">hmi::ArenaTexture</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une texture liable et ses dimensions en pixels (pour normaliser les UV).  <a href="structhmi_1_1ArenaTexture.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AArenaSceneTextures" id="r_hmi_3A_3AArenaSceneTextures"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ArenaSceneTextures.html">hmi::ArenaSceneTextures</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les textures du Colisée, adressées par leur chemin relatif à <span class="tt">Source/Elements/Assets/Coliseum/</span> (<span class="tt">"../Scene/coliseum/sand.png"</span>, <span class="tt">"characters/bram/idle.png"</span>).  <a href="structhmi_1_1ArenaSceneTextures.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AArenaFigureSnapshot" id="r_hmi_3A_3AArenaFigureSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ArenaFigureSnapshot.html">hmi::ArenaFigureSnapshot</a></td></tr>
@@ -176,6 +174,11 @@ Namespaces</h2></td></tr>
 <tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
 <tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
 <tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a0ac25499fc66ce0fd6f586b705271ef4" id="r_a0ac25499fc66ce0fd6f586b705271ef4"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a0ac25499fc66ce0fd6f586b705271ef4">hmi::ArenaTexture</a> = <a class="el" href="structhmi_1_1SceneTexture.html">SceneTexture</a></td></tr>
+<tr class="memdesc:a0ac25499fc66ce0fd6f586b705271ef4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une texture de l'arène : la même que celle d'un lieu (<span class="tt"><a class="el" href="structhmi_1_1SceneTexture.html" title="Une texture liable, ses dimensions en pixels et ce que ses fichiers voisins disent d&#39;elle.">hmi::SceneTexture</a></span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -203,25 +206,13 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a65b2c16b6aab8dd5aa2fa49fd1cb872b" id="r_a65b2c16b6aab8dd5aa2fa49fd1cb872b"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a65b2c16b6aab8dd5aa2fa49fd1cb872b">hmi::ARENA_FIGURE_FRAME_WIDTH_PIXELS</a> = <a class="el" href="namespacehmi.html#a46b9654e0a27fbe317b1b281d1560182">FIGURE_FRAME_WIDTH_PIXELS</a></td></tr>
-<tr class="memdesc:a65b2c16b6aab8dd5aa2fa49fd1cb872b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur d'une image des bandes d'animation de la planche, en pixels (<span class="tt">manifest.json</span>, <span class="tt">frame</span>), quand la bande n'en déclare pas d'autre (<span class="tt"><a class="el" href="structhmi_1_1ArenaTexture.html#a54b06c2d1e41c3fdeba90bcdbdcbae1f" title="Largeur d&#39;une image si la texture est une bande d&#39;animation (frameWidth de son .anim....">ArenaTexture::frameWidth</a></span>).  <br /></td></tr>
-<tr class="memitem:a0752b5fe488b44093f9b2b6bc67f66fb" id="r_a0752b5fe488b44093f9b2b6bc67f66fb"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a0752b5fe488b44093f9b2b6bc67f66fb">hmi::ARENA_FIGURE_FRAME_HEIGHT_PIXELS</a> = <a class="el" href="namespacehmi.html#a55c481d635af0b56829a8ccc530af04d">FIGURE_FRAME_HEIGHT_PIXELS</a></td></tr>
-<tr class="memdesc:a0752b5fe488b44093f9b2b6bc67f66fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur d'une image des bandes d'animation, en pixels.  <br /></td></tr>
-<tr class="memitem:ab9ad6be84062fc2abf87c40184677eae" id="r_ab9ad6be84062fc2abf87c40184677eae"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ab9ad6be84062fc2abf87c40184677eae">hmi::ARENA_FIGURE_SCALE</a> = <a class="el" href="namespacehmi.html#a65e321902d186ff823f7122c0f3ace7f">FIGURE_SCALE</a></td></tr>
-<tr class="memdesc:ab9ad6be84062fc2abf87c40184677eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agrandissement de la figurine par rapport à la planche (<span class="tt">ArenaTile.ui.qml</span>, <span class="tt">1.25</span>).  <br /></td></tr>
 <tr class="memitem:a285a9d5f6120f739e72d9195791c8d22" id="r_a285a9d5f6120f739e72d9195791c8d22"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a285a9d5f6120f739e72d9195791c8d22">hmi::ARENA_DOWN_ENEMY_ALPHA</a> = 0.45f</td></tr>
 <tr class="memdesc:a285a9d5f6120f739e72d9195791c8d22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opacité d'un ennemi à terre (<span class="tt">ArenaTile.ui.qml</span>, <span class="tt">0.45</span>).  <br /></td></tr>
-<tr class="memitem:a3538a35944c598123f10fb71bd0ed21b" id="r_a3538a35944c598123f10fb71bd0ed21b"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a3538a35944c598123f10fb71bd0ed21b">hmi::ARENA_SCENE_TILE_WIDTH_PIXELS</a> = <a class="el" href="namespacehmi.html#a19b85f07e8096e377cfde7ed43902c89">SCENE_TILE_WIDTH_PIXELS</a></td></tr>
-<tr class="memdesc:a3538a35944c598123f10fb71bd0ed21b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur du losange des textures de scène de l'atelier (<span class="tt">LOT-92</span>), en pixels d'art : 68 × 42, le rapport 0,62 d'<span class="tt"><a class="el" href="classcore_1_1IsoProjection.html" title="La projection isométrique d&#39;une grille de combat de columns × rows cases.">core::IsoProjection</a></span>.  <br /></td></tr>
-<tr class="memitem:a81d18f4d5de3c46d8c03d57dbefe6167" id="r_a81d18f4d5de3c46d8c03d57dbefe6167"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a81d18f4d5de3c46d8c03d57dbefe6167">hmi::ARENA_SCENE_HALF_TILE_WIDTH_PIXELS</a> = <a class="el" href="namespacehmi.html#a5345cd8ebde1293596b218480d44e233">SCENE_HALF_TILE_WIDTH_PIXELS</a></td></tr>
-<tr class="memdesc:a81d18f4d5de3c46d8c03d57dbefe6167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demi-largeur de ce losange : l'abscisse de l'ancre d'une pièce d'une case.  <br /></td></tr>
-<tr class="memitem:a07630c5687b7a33051770a6bf84123f4" id="r_a07630c5687b7a33051770a6bf84123f4"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a07630c5687b7a33051770a6bf84123f4">hmi::ARENA_SCENE_TILE_HEIGHT_PIXELS</a> = <a class="el" href="namespacehmi.html#adf0a8584471498fee2fd58f1b3526335">SCENE_TILE_HEIGHT_PIXELS</a></td></tr>
-<tr class="memdesc:a07630c5687b7a33051770a6bf84123f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur de ce losange, en pixels d'art : il occupe le bas d'une pièce d'une case.  <br /></td></tr>
 <tr class="memitem:a6eee874c358054b54267845295a6068c" id="r_a6eee874c358054b54267845295a6068c"><td class="memItemLeft">constexpr std::int32_t&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a6eee874c358054b54267845295a6068c">hmi::ARENA_DEPTH_SLOTS</a> = 4</td></tr>
 <tr class="memdesc:a6eee874c358054b54267845295a6068c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de rangs par profondeur : le multiplicateur de <span class="tt"><a class="el" href="namespacehmi.html#a551d45820ca5a6e720a6a89e1c70c120" title="Ordre de profondeur d&#39;une primitive, à partir du pied de son quad.">depthSortOrder</a></span> dans le <span class="tt">sortOrder</span>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>La scène de combat du Colisée composée en primitives, <b>sans GPU</b> : ce que dessinait <span class="tt">ArenaScene.ui.qml</span>/<span class="tt">ArenaTile.ui.qml</span> (<span class="tt">LOT-50</span>), prêt pour <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence et échantillonnage nearest (pixel ar...">hmi::SpriteBatch</a></span>. </p>
+<div class="textblock"><p>La scène de combat du Colisée composée en primitives, <b>sans GPU</b> : ce que dessinait <span class="tt">ArenaScene.ui.qml</span>/<span class="tt">ArenaTile.ui.qml</span> (<span class="tt">LOT-50</span>), prêt pour <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence prémultipliée et un échantillonnage ...">hmi::SpriteBatch</a></span>. </p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md76"></a>
 Ce qui va où</h2>
 <table class="markdownTable">

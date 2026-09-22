@@ -1577,12 +1577,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:af799f9a001af9c8b79f0bcba667414f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rapport hauteur / largeur du losange : celui des tuiles de la planche du Colisée.  <br /></td></tr>
 <tr class="memitem:a0809421c57413530edb434f979be6c91" id="r_a0809421c57413530edb434f979be6c91"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a0809421c57413530edb434f979be6c91">ARENA_WALL_RISE</a> = 0.85f</td></tr>
 <tr class="memdesc:a0809421c57413530edb434f979be6c91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur réservée aux murs au-dessus du losange du fond, en largeurs de losange.  <br /></td></tr>
-<tr class="memitem:a22d5d53f02f772ded5473ac549669522" id="r_a22d5d53f02f772ded5473ac549669522"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a22d5d53f02f772ded5473ac549669522">ARENA_SHEET_TILE_WIDTH_PIXELS</a> = 86.0f</td></tr>
-<tr class="memdesc:a22d5d53f02f772ded5473ac549669522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur, en pixels, d'une tuile de la planche du Colisée (<span class="tt">ArenaTile.ui.qml</span>).  <br /></td></tr>
-<tr class="memitem:a1a4c329aaeb417effaeae4ebc3e4044c" id="r_a1a4c329aaeb417effaeae4ebc3e4044c"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a1a4c329aaeb417effaeae4ebc3e4044c">ARENA_PIXELS_PER_UNIT</a> = 16.0f</td></tr>
-<tr class="memdesc:a1a4c329aaeb417effaeae4ebc3e4044c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels par unité monde (<span class="tt">EX-ARCH-021</span>, <span class="tt"><a class="el" href="classhmi_1_1Camera2D.html#a3d1d52a7653c7a3dca5eb2e5a5990f88" title="Nombre de pixels par unité monde (EX-ARCH-021).">hmi::Camera2D::PIXELS_PER_UNIT</a></span>), recopié ici parce que <span class="tt">Core</span> ne voit pas <span class="tt">HMI</span>.  <br /></td></tr>
-<tr class="memitem:a9bbed90b2580e314ee6fb37cca5eee7d" id="r_a9bbed90b2580e314ee6fb37cca5eee7d"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a9bbed90b2580e314ee6fb37cca5eee7d">ARENA_TILE_WIDTH_UNITS</a></td></tr>
-<tr class="memdesc:a9bbed90b2580e314ee6fb37cca5eee7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur par défaut du losange, en unités monde : au zoom 1, une tuile de la planche s'affiche à sa taille native.  <br /></td></tr>
+<tr class="memitem:a9bbed90b2580e314ee6fb37cca5eee7d" id="r_a9bbed90b2580e314ee6fb37cca5eee7d"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a9bbed90b2580e314ee6fb37cca5eee7d">ARENA_TILE_WIDTH_UNITS</a> = 5.375f</td></tr>
+<tr class="memdesc:a9bbed90b2580e314ee6fb37cca5eee7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur par défaut du losange, en unités monde.  <br /></td></tr>
 <tr class="memitem:a76f9939825ea1936f1fd120f9435d447" id="r_a76f9939825ea1936f1fd120f9435d447"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a76f9939825ea1936f1fd120f9435d447">TACTICAL_PARTY_SIZE</a> = 4</td></tr>
 <tr class="memdesc:a76f9939825ea1936f1fd120f9435d447"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille du groupe du joueur que la zone doit accueillir en plus de la rencontre.  <br /></td></tr>
 <tr class="memitem:a09870e7e7f6b1612e7df8a564562af6e" id="r_a09870e7e7f6b1612e7df8a564562af6e"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a09870e7e7f6b1612e7df8a564562af6e">TACTICAL_AREA_RADIUS</a> = 6</td></tr>
@@ -11427,30 +11423,6 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
-<a id="a1a4c329aaeb417effaeae4ebc3e4044c" name="a1a4c329aaeb417effaeae4ebc3e4044c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a4c329aaeb417effaeae4ebc3e4044c">&#9670;&#160;</a></span>ARENA_PIXELS_PER_UNIT</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float core::ARENA_PIXELS_PER_UNIT = 16.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Pixels par unité monde (<span class="tt">EX-ARCH-021</span>, <span class="tt"><a class="el" href="classhmi_1_1Camera2D.html#a3d1d52a7653c7a3dca5eb2e5a5990f88" title="Nombre de pixels par unité monde (EX-ARCH-021).">hmi::Camera2D::PIXELS_PER_UNIT</a></span>), recopié ici parce que <span class="tt">Core</span> ne voit pas <span class="tt">HMI</span>. </p>
-
-</div>
-</div>
 <a id="a6bb32367b37b63b19cbbcb5d0aeabd31" name="a6bb32367b37b63b19cbbcb5d0aeabd31"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6bb32367b37b63b19cbbcb5d0aeabd31">&#9670;&#160;</a></span>ARENA_RANK_PROPERTY</h2>
 
@@ -11473,30 +11445,6 @@ Déterministe, et c'est le point</h2>
 
 <p>Propriété d'un point d'entrée : son rang dans l'ordre d'appel. </p>
 <p>Deux rangs égaux se départagent par la position (ligne, puis colonne) — l'ordre de la donnée, jamais celui de la mémoire. </p>
-
-</div>
-</div>
-<a id="a22d5d53f02f772ded5473ac549669522" name="a22d5d53f02f772ded5473ac549669522"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22d5d53f02f772ded5473ac549669522">&#9670;&#160;</a></span>ARENA_SHEET_TILE_WIDTH_PIXELS</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float core::ARENA_SHEET_TILE_WIDTH_PIXELS = 86.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Largeur, en pixels, d'une tuile de la planche du Colisée (<span class="tt">ArenaTile.ui.qml</span>). </p>
 
 </div>
 </div>
@@ -11534,7 +11482,7 @@ Déterministe, et c'est le point</h2>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float core::ARENA_TILE_WIDTH_UNITS</td>
+          <td class="memname">float core::ARENA_TILE_WIDTH_UNITS = 5.375f</td>
         </tr>
       </table>
   </td>
@@ -11543,12 +11491,9 @@ Déterministe, et c'est le point</h2>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">                                          =</div>
-<div class="line"><a class="code hl_variable" href="#a22d5d53f02f772ded5473ac549669522">ARENA_SHEET_TILE_WIDTH_PIXELS</a> / <a class="code hl_variable" href="#a1a4c329aaeb417effaeae4ebc3e4044c">ARENA_PIXELS_PER_UNIT</a></div>
-<div class="ttc" id="anamespacecore_html_a1a4c329aaeb417effaeae4ebc3e4044c"><div class="ttname"><a href="#a1a4c329aaeb417effaeae4ebc3e4044c">core::ARENA_PIXELS_PER_UNIT</a></div><div class="ttdeci">constexpr float ARENA_PIXELS_PER_UNIT</div><div class="ttdoc">Pixels par unité monde (EX-ARCH-021, hmi::Camera2D::PIXELS_PER_UNIT), recopié ici parce que Core ne v...</div><div class="ttdef"><b>Definition</b> IsoProjection.h:59</div></div>
-<div class="ttc" id="anamespacecore_html_a22d5d53f02f772ded5473ac549669522"><div class="ttname"><a href="#a22d5d53f02f772ded5473ac549669522">core::ARENA_SHEET_TILE_WIDTH_PIXELS</a></div><div class="ttdeci">constexpr float ARENA_SHEET_TILE_WIDTH_PIXELS</div><div class="ttdoc">Largeur, en pixels, d&#39;une tuile de la planche du Colisée (ArenaTile.ui.qml).</div><div class="ttdef"><b>Definition</b> IsoProjection.h:55</div></div>
-</div><!-- fragment -->
-<p>Largeur par défaut du losange, en unités monde : au zoom 1, une tuile de la planche s'affiche à sa taille native. </p>
+
+<p>Largeur par défaut du losange, en unités monde. </p>
+<p>Une convention du repère, et rien d'autre : elle valait la tuile de 86 pixels de l'ancienne planche du Colisée au zoom 1. Depuis le <span class="tt">LOT-103</span>, ni l'échelle de l'art — que chaque lieu déclare dans son manifeste (<span class="tt">EX-VIS-008</span>) — ni la taille d'une case à l'écran — que la caméra tire de la définition (<span class="tt">EX-REN-013</span>) — n'en dépendent : la changer ne changerait aucune image. </p>
 
 </div>
 </div>

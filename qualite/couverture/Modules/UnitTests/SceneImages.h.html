@@ -97,8 +97,6 @@ public:
     [[nodiscard]] const QImage* image(const std::string&amp; path);
 
 private:
-    [[nodiscard]] int bandFrameWidth(const std::string&amp; path) const;
-
     std::filesystem::path _directory;
     std::map&lt;std::string, QImage&gt; _images;
     std::map&lt;std::string, QImage&gt; _markers;

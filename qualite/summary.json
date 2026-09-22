@@ -1,11 +1,11 @@
 {
-  "generated": "2026-09-22 19:11 UTC",
-  "commit": "7fdd68c2e",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/35769404017",
+  "generated": "2026-09-22 20:25 UTC",
+  "commit": "b55256fe9",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/35778407454",
   "coverage": {
-    "percent": 90.51,
-    "covered": 26836,
-    "valid": 29650,
+    "percent": 90.55,
+    "covered": 26964,
+    "valid": 29779,
     "files": 252,
     "areas": [
       {
@@ -58,9 +58,9 @@
       },
       {
         "name": "Core/Resources",
-        "covered": 315,
-        "valid": 347,
-        "percent": 90.78
+        "covered": 325,
+        "valid": 357,
+        "percent": 91.04
       },
       {
         "name": "Core/Rpg",
@@ -88,9 +88,9 @@
       },
       {
         "name": "Editor/Ui",
-        "covered": 338,
-        "valid": 450,
-        "percent": 75.11
+        "covered": 322,
+        "valid": 434,
+        "percent": 74.19
       },
       {
         "name": "HMI/Audio",
@@ -106,9 +106,9 @@
       },
       {
         "name": "HMI/Graphics",
-        "covered": 2778,
-        "valid": 3165,
-        "percent": 87.77
+        "covered": 2850,
+        "valid": 3238,
+        "percent": 88.02
       },
       {
         "name": "HMI/Input",

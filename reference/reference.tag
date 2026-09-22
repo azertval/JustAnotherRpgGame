@@ -3626,13 +3626,12 @@
     <includes id="SceneImages_8h" name="SceneImages.h" local="yes" import="no" module="no" objc="no">Editor/Ui/SceneImages.h</includes>
     <includes id="Sprite_8h" name="Sprite.h" local="yes" import="no" module="no" objc="no">Core/Ecs/Components/Sprite.h</includes>
     <includes id="AssetMarker_8h" name="AssetMarker.h" local="yes" import="no" module="no" objc="no">Core/Resources/AssetMarker.h</includes>
-    <includes id="AnimationCatalog_8h" name="AnimationCatalog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/AnimationCatalog.h</includes>
     <includes id="EntityMarkers_8h" name="EntityMarkers.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/EntityMarkers.h</includes>
     <includes id="MaquettePalette_8h" name="MaquettePalette.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquettePalette.h</includes>
     <includes id="MaquetteTokens_8h" name="MaquetteTokens.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquetteTokens.h</includes>
     <includes id="MissingTexture_8h" name="MissingTexture.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MissingTexture.h</includes>
     <includes id="ProceduralAtlas_8h" name="ProceduralAtlas.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ProceduralAtlas.h</includes>
-    <includes id="ScenePiecePlacement_8h" name="ScenePiecePlacement.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePiecePlacement.h</includes>
+    <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
     <namespace>hmi</namespace>
@@ -3920,7 +3919,6 @@
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
     <includes id="RenderLayer_8h" name="RenderLayer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RenderLayer.h</includes>
     <includes id="ScenePieces_8h" name="ScenePieces.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePieces.h</includes>
-    <class kind="struct">hmi::ArenaTexture</class>
     <class kind="struct">hmi::ArenaSceneTextures</class>
     <class kind="struct">hmi::ArenaFigureSnapshot</class>
     <class kind="struct">hmi::ArenaSceneSnapshot</class>
@@ -3940,7 +3938,7 @@
     <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
     <includes id="MissingTexture_8h" name="MissingTexture.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MissingTexture.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
-    <includes id="ScenePiecePlacement_8h" name="ScenePiecePlacement.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePiecePlacement.h</includes>
+    <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
     <includes id="SpriteBatch_8h" name="SpriteBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SpriteBatch.h</includes>
     <includes id="SpriteRenderer_8h" name="SpriteRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SpriteRenderer.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
@@ -3979,6 +3977,7 @@
     <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
     <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
     <includes id="AnimationCatalog_8h" name="AnimationCatalog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/AnimationCatalog.h</includes>
+    <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4246,18 +4245,11 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
-    <name>ScenePiecePlacement.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>ScenePiecePlacement_8h.html</filename>
-    <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
-    <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
     <name>ScenePieces.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
     <filename>ScenePieces_8h.html</filename>
     <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
+    <includes id="Rect_8h" name="Rect.h" local="yes" import="no" module="no" objc="no">Core/Math/Rect.h</includes>
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
     <includes id="Quad_8h" name="Quad.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Quad.h</includes>
     <includes id="RenderLayer_8h" name="RenderLayer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RenderLayer.h</includes>
@@ -4281,6 +4273,24 @@
     <filename>SceneResources_8h.html</filename>
     <includes id="RhiContext_8h" name="RhiContext.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RhiContext.h</includes>
     <class kind="class">hmi::SceneResources</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>SceneTextureTraits.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
+    <filename>SceneTextureTraits_8cpp.html</filename>
+    <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
+    <includes id="AnimationCatalog_8h" name="AnimationCatalog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/AnimationCatalog.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>SceneTextureTraits.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
+    <filename>SceneTextureTraits_8h.html</filename>
+    <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
+    <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
+    <includes id="ScenePieces_8h" name="ScenePieces.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePieces.h</includes>
+    <class kind="struct">hmi::SceneTextureTraits</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4447,12 +4457,11 @@
     <filename>WorldSceneRenderer_8cpp.html</filename>
     <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
     <includes id="AssetMarker_8h" name="AssetMarker.h" local="yes" import="no" module="no" objc="no">Core/Resources/AssetMarker.h</includes>
-    <includes id="AnimationCatalog_8h" name="AnimationCatalog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/AnimationCatalog.h</includes>
     <includes id="EntityMarkers_8h" name="EntityMarkers.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/EntityMarkers.h</includes>
     <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
     <includes id="MaquetteTokens_8h" name="MaquetteTokens.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquetteTokens.h</includes>
     <includes id="MissingTexture_8h" name="MissingTexture.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MissingTexture.h</includes>
-    <includes id="ScenePiecePlacement_8h" name="ScenePiecePlacement.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePiecePlacement.h</includes>
+    <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
     <includes id="SpriteBatch_8h" name="SpriteBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SpriteBatch.h</includes>
     <includes id="SpriteRenderer_8h" name="SpriteRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SpriteRenderer.h</includes>
     <namespace>hmi</namespace>
@@ -10974,6 +10983,13 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__asset__gallery_8cpp.html</anchorfile>
+      <anchor>a1762eb3b718c4991319cf69063fa6fe6</anchor>
+      <arglist>(AssetGalleryTest, UneCaseVautLeLosangeDuLieu)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__asset__gallery_8cpp.html</anchorfile>
       <anchor>af44dcfa3dce199f84ce4f3c6fe93338f</anchor>
       <arglist>(AssetGalleryTest, DispositionEnBandes)</arglist>
     </member>
@@ -11140,8 +11156,8 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__camera2d_8cpp.html</anchorfile>
-      <anchor>a09e8e1cce3f58cfbed72766c3fd93afd</anchor>
-      <arglist>(Camera2DTest, FitZoomEntierPourPetitNiveau)</arglist>
+      <anchor>a0911d4af9f73f656ee62c9feb8ea25ed</anchor>
+      <arglist>(Camera2DTest, FitZoomRemplitSansArrondi)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -11271,6 +11287,35 @@
       <anchorfile>test__entity__markers_8cpp.html</anchorfile>
       <anchor>aab1c2aa8b83190dc9523a65de91d3882</anchor>
       <arglist>(EntityMarkersTest, PixelsEmpaquetesEnRgba8)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_hd_mockup_render.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
+    <filename>test__hd__mockup__render_8cpp.html</filename>
+    <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__hd__mockup__render_8cpp.html</anchorfile>
+      <anchor>ad3e293db397d35d99453578278af7d25</anchor>
+      <arglist>(HdMockupRender, MatchesTheHandMadeMockupAt1080p)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__hd__mockup__render_8cpp.html</anchorfile>
+      <anchor>a6a76af3ed1d19449a3665904b62dce5b</anchor>
+      <arglist>(HdMockupRender, MatchesTheHandMadeMockupAt2160p)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__hd__mockup__render_8cpp.html</anchorfile>
+      <anchor>a50726984168df10b2b9959d985967b83</anchor>
+      <arglist>(HdMockupRender, WritesASlowTravellingForTheAuthor)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -11622,6 +11667,20 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__rhi__offscreen_8cpp.html</anchorfile>
+      <anchor>a56d9141450c2a04c284448c96d85ecc4</anchor>
+      <arglist>(RhiOffscreenTest, LArtPeintReduitSeMoyenneParSesMipmaps)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__rhi__offscreen_8cpp.html</anchorfile>
+      <anchor>aad1daeb157e47c98e4606afad45cb6bc</anchor>
+      <arglist>(RhiOffscreenTest, LaTransparenceEstPremultipliee)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__rhi__offscreen_8cpp.html</anchorfile>
       <anchor>a78f7c3c3342efcbb39b2edb042ef2945</anchor>
       <arglist>(RhiOffscreenTest, ZoomEntierResteNetEnFiltrageNearest)</arglist>
     </member>
@@ -11668,8 +11727,8 @@
     <includes id="MaquettePalette_8h" name="MaquettePalette.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquettePalette.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
     <includes id="RenderLayer_8h" name="RenderLayer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RenderLayer.h</includes>
-    <includes id="ScenePiecePlacement_8h" name="ScenePiecePlacement.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePiecePlacement.h</includes>
     <includes id="ScenePieces_8h" name="ScenePieces.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePieces.h</includes>
+    <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <member kind="function">
       <type></type>
@@ -11724,8 +11783,8 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
-      <anchor>a610cdd2b87be5c70fd4813b5b94580fa</anchor>
-      <arglist>(ScenePiecePlacement, DepthRequiresOptInAndValidAnchor)</arglist>
+      <anchor>aafd2a49e40673331a3c61dbd242f9dd7</anchor>
+      <arglist>(ScenePiecePlacement, DepthRequiresAValidAnchor)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -14491,13 +14550,6 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
-      <type>std::map&lt; std::string, int &gt;</type>
-      <name>_bandFrameWidths</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a6406f3e3ea4543f45cfc85f7faadfe30</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
       <type>ArenaAnimationDriver</type>
       <name>_animation</name>
       <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
@@ -14990,38 +15042,6 @@
       <name>_journal</name>
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
       <anchor>a95fa6187920a6c5fbebd02b9c44603da</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::ArenaTexture</name>
-    <filename>structhmi_1_1ArenaTexture.html</filename>
-    <member kind="variable">
-      <type>TextureHandle</type>
-      <name>texture</name>
-      <anchorfile>structhmi_1_1ArenaTexture.html</anchorfile>
-      <anchor>ad85a99e2fb9a298f7cc81852b5ae6779</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>width</name>
-      <anchorfile>structhmi_1_1ArenaTexture.html</anchorfile>
-      <anchor>a7043c5af674a5fc1adb4fe0847a14a9d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>height</name>
-      <anchorfile>structhmi_1_1ArenaTexture.html</anchorfile>
-      <anchor>adfd3a466c8dd0e3838d24e1652d1344a</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>frameWidth</name>
-      <anchorfile>structhmi_1_1ArenaTexture.html</anchorfile>
-      <anchor>a54b06c2d1e41c3fdeba90bcdbdcbae1f</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -15621,10 +15641,24 @@
       <anchor>a541d54f340743e9def03fec1e5e3df64</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>tilePixels</name>
+      <anchorfile>structhmi_1_1AssetGalleryDrawnBloc.html</anchorfile>
+      <anchor>aa4853c73f4237dc2b514592678970cbb</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::AssetGalleryEntry</name>
     <filename>structhmi_1_1AssetGalleryEntry.html</filename>
+    <member kind="function">
+      <type>int</type>
+      <name>tileWidthPixels</name>
+      <anchorfile>structhmi_1_1AssetGalleryEntry.html</anchorfile>
+      <anchor>a42cda529dee0b7c743ca3a3e272d568e</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
     <member kind="function">
       <type>int</type>
       <name>frameCount</name>
@@ -15723,6 +15757,13 @@
       <anchor>a8400f5306937f900ea70f16655ea98bd</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>tilePixels</name>
+      <anchorfile>structhmi_1_1AssetGalleryEntry.html</anchorfile>
+      <anchor>aef097ef678e1b769342127e4957fec0b</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::AssetGalleryFamily</name>
@@ -15761,9 +15802,9 @@
     </member>
     <member kind="variable">
       <type>float</type>
-      <name>artScale</name>
+      <name>pixelScale</name>
       <anchorfile>structhmi_1_1AssetGalleryFrame.html</anchorfile>
-      <anchor>aeaec0892b8bbd0fc350f673ced821210</anchor>
+      <anchor>ab99e0edde145e55c4a6214c63249c6d6</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -34680,6 +34721,13 @@
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
+      <type>float</type>
+      <name>maximumRise</name>
+      <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
+      <anchor>acc91a094a349d947bd427f942a2b797c</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>std::string_view</type>
       <name>floorPiece</name>
       <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
@@ -34761,6 +34809,13 @@
       <name>_diamondRatio</name>
       <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
       <anchor>af763c816e1e8954bfef164a0768f7406</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>float</type>
+      <name>_maximumRise</name>
+      <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
+      <anchor>aaabb3470cb158eec8e85268270f9a347</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -36081,13 +36136,6 @@
       <anchor>a7c931eeb9157782f5dda88d4823ba636</anchor>
       <arglist>(core::TileType type)</arglist>
     </member>
-    <member kind="function" protection="private">
-      <type>int</type>
-      <name>bandFrameWidth</name>
-      <anchorfile>classhmi_1_1SceneImages.html</anchorfile>
-      <anchor>a43dfc00bd2e64b8d49d59d0bfbe22952</anchor>
-      <arglist>(const std::string &amp;path) const</arglist>
-    </member>
     <member kind="variable" protection="private">
       <type>std::filesystem::path</type>
       <name>_directory</name>
@@ -36265,6 +36313,20 @@
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
+      <type>int</type>
+      <name>tileWidth</name>
+      <anchorfile>classcore_1_1ScenePieceManifest.html</anchorfile>
+      <anchor>adf5ffe89065ca7bcfd21e0b5a3f2e378</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>tileHeight</name>
+      <anchorfile>classcore_1_1ScenePieceManifest.html</anchorfile>
+      <anchor>a9966c63f75656e73fb3bce0ff8817d97</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>const std::vector&lt; ScenePiece &gt; &amp;</type>
       <name>pieces</name>
       <anchorfile>classcore_1_1ScenePieceManifest.html</anchorfile>
@@ -36311,6 +36373,20 @@
       <name>_place</name>
       <anchorfile>classcore_1_1ScenePieceManifest.html</anchorfile>
       <anchor>a55c7fea9b7513cf6c37b3def80e6a488</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_tileWidth</name>
+      <anchorfile>classcore_1_1ScenePieceManifest.html</anchorfile>
+      <anchor>a6b62a13afce50c574a65c78a58173106</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_tileHeight</name>
+      <anchorfile>classcore_1_1ScenePieceManifest.html</anchorfile>
+      <anchor>aceedae6ba52f413aa3df686153c6446b</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -36572,6 +36648,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>int</type>
+      <name>frameHeight</name>
+      <anchorfile>structhmi_1_1SceneTexture.html</anchorfile>
+      <anchor>a659e328eea7d74588c5affd879357670</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::optional&lt; core::Vector2 &gt;</type>
       <name>anchor</name>
       <anchorfile>structhmi_1_1SceneTexture.html</anchorfile>
@@ -36583,6 +36666,52 @@
       <name>depthOffset</name>
       <anchorfile>structhmi_1_1SceneTexture.html</anchorfile>
       <anchor>a17230b3f5eb95e15e3a986f7c4884cfd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::Vector2</type>
+      <name>artTile</name>
+      <anchorfile>structhmi_1_1SceneTexture.html</anchorfile>
+      <anchor>afa5dd9e332869d52fbf30f56f45cc97f</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::SceneTextureTraits</name>
+    <filename>structhmi_1_1SceneTextureTraits.html</filename>
+    <member kind="variable">
+      <type>int</type>
+      <name>frameWidth</name>
+      <anchorfile>structhmi_1_1SceneTextureTraits.html</anchorfile>
+      <anchor>a2dc1ead5b982039007f23fb1df9f5e9b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>frameHeight</name>
+      <anchorfile>structhmi_1_1SceneTextureTraits.html</anchorfile>
+      <anchor>aedcade86d1c5b97bd7debceffafcbc41</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::Vector2</type>
+      <name>artTile</name>
+      <anchorfile>structhmi_1_1SceneTextureTraits.html</anchorfile>
+      <anchor>a83630372340fa93d225b85c615c0f8c4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; core::Vector2 &gt;</type>
+      <name>anchor</name>
+      <anchorfile>structhmi_1_1SceneTextureTraits.html</anchorfile>
+      <anchor>aa19a25181ae8c7d58eb94aa04a0c4a91</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; float &gt;</type>
+      <name>depthOffset</name>
+      <anchorfile>structhmi_1_1SceneTextureTraits.html</anchorfile>
+      <anchor>ac9331d65bf9badf18f6e56c547bd97e1</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -37545,9 +37674,16 @@
     </member>
     <member kind="variable" protection="private">
       <type>std::unique_ptr&lt; QRhiSampler &gt;</type>
-      <name>_sampler</name>
+      <name>_sharpSampler</name>
       <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
-      <anchor>a051d302fd795217053cf51e5710ef8ae</anchor>
+      <anchor>afe6606855052f49ad23feded824a23f6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiSampler &gt;</type>
+      <name>_smoothSampler</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>a55cb70edf2b067a26b1195c8697ab784</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -40858,6 +40994,13 @@
     </member>
     <member kind="function">
       <type>void</type>
+      <name>setTilePixels</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>afba0dba07f75c1abd5e307c4d2286d71</anchor>
+      <arglist>(float tilePixels) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
       <name>render</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
       <anchor>a6aab3318c68d4afcb4ae3f9c72f03e9e</anchor>
@@ -40892,13 +41035,6 @@
       <arglist>(const std::vector&lt; std::string &gt; &amp;paths)</arglist>
     </member>
     <member kind="function" protection="private">
-      <type>int</type>
-      <name>bandFrameWidth</name>
-      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
-      <anchor>ac78c706f2c61547833c83587899679cc</anchor>
-      <arglist>(const std::string &amp;path)</arglist>
-    </member>
-    <member kind="function" protection="private">
       <type>std::optional&lt; LoadedTexture &gt;</type>
       <name>figureMarker</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
@@ -40927,6 +41063,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
+      <type>float</type>
+      <name>_tilePixels</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a4cf1db8ceec9f90e9cb30ffb3eced6fe</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
       <type>ComposedScene</type>
       <name>_composed</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
@@ -40938,13 +41081,6 @@
       <name>_requested</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
       <anchor>a3cea47c68f6026b218ef345a0f994fad</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::map&lt; std::string, int &gt;</type>
-      <name>_bandFrameWidths</name>
-      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
-      <anchor>a8e06d2ed4df0c3f89ae0e8ab9c78bf90</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -41061,6 +41197,13 @@
       <name>place</name>
       <anchorfile>structhmi_1_1WorldSceneSnapshot.html</anchorfile>
       <anchor>a5853266b18d8062e8cbe6287485f8e80</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>maximumRise</name>
+      <anchorfile>structhmi_1_1WorldSceneSnapshot.html</anchorfile>
+      <anchor>aa915bb857eb15549fc09510c5a587306</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -44204,20 +44347,6 @@
     </member>
     <member kind="variable">
       <type>constexpr float</type>
-      <name>ARENA_SHEET_TILE_WIDTH_PIXELS</name>
-      <anchorfile>namespacecore.html</anchorfile>
-      <anchor>a22d5d53f02f772ded5473ac549669522</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr float</type>
-      <name>ARENA_PIXELS_PER_UNIT</name>
-      <anchorfile>namespacecore.html</anchorfile>
-      <anchor>a1a4c329aaeb417effaeae4ebc3e4044c</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr float</type>
       <name>ARENA_TILE_WIDTH_UNITS</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a9bbed90b2580e314ee6fb37cca5eee7d</anchor>
@@ -44734,7 +44863,6 @@
     <class kind="struct">hmi::FigureAppearance</class>
     <class kind="class">hmi::ArenaAppearanceCatalog</class>
     <class kind="struct">hmi::ArenaAppearanceCatalogResult</class>
-    <class kind="struct">hmi::ArenaTexture</class>
     <class kind="struct">hmi::ArenaSceneTextures</class>
     <class kind="struct">hmi::ArenaFigureSnapshot</class>
     <class kind="struct">hmi::ArenaSceneSnapshot</class>
@@ -44769,6 +44897,7 @@
     <class kind="struct">hmi::SceneTexture</class>
     <class kind="struct">hmi::ScenePieceTextures</class>
     <class kind="class">hmi::SceneResources</class>
+    <class kind="struct">hmi::SceneTextureTraits</class>
     <class kind="class">hmi::SpriteBatch</class>
     <class kind="class">hmi::TextureAtlas</class>
     <class kind="class">hmi::TextureCache</class>
@@ -44853,6 +44982,13 @@
       <name>QuadOpacity</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>ad39e4163a49fc5ba81aab9827d83118e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>SceneTexture</type>
+      <name>ArenaTexture</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a0ac25499fc66ce0fd6f586b705271ef4</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -45181,6 +45317,15 @@
       <enumvalue file="namespacehmi.html" anchor="a9b5452f2d3a1019a3229b90a4f000919a636da1d35e805b00eae0fcd8333f9234">Player</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a9b5452f2d3a1019a3229b90a4f000919a71ff71526d15db86eb50fcac245d183b">UI</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a9b5452f2d3a1019a3229b90a4f000919a94f3616c83f30ab5a328e602bbb7d751">EditorOverlay</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>TextureFiltering</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a30e21236d068bfdc0078d392e42b752d</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacehmi.html" anchor="a30e21236d068bfdc0078d392e42b752da60c17eb98355db0fe5ce016db6c6f444">Sharp</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a30e21236d068bfdc0078d392e42b752dae510cdf33cd497134b47b9316314d4b4">Smooth</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -46689,8 +46834,8 @@
       <type>CityBlockFraming</type>
       <name>cityBlockFraming</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a29f71bfe160f714ec7d916e9fc3b867e</anchor>
-      <arglist>(const core::IsoProjection &amp;projection, const core::CityBlock &amp;block)</arglist>
+      <anchor>a1f8eaf007494e0de0c7bc1e70c2db3b2</anchor>
+      <arglist>(const core::IsoProjection &amp;projection, const core::CityBlock &amp;block, float maximumRise, float tilePixels=CITY_BLOCK_TILE_PIXELS)</arglist>
     </member>
     <member kind="function">
       <type>QImage</type>
@@ -46882,25 +47027,95 @@
       <arglist>(RenderLayer layer) noexcept</arglist>
     </member>
     <member kind="function">
-      <type>std::optional&lt; core::Vector2 &gt;</type>
-      <name>scenePieceAnchor</name>
+      <type>float</type>
+      <name>artTileWidth</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a6187ab6b560ce90d2d348e8bf85605ed</anchor>
-      <arglist>(const nlohmann::json &amp;root, std::string_view filename)</arglist>
+      <anchor>acf7d466bf233ec8793a6ce809dff494f</anchor>
+      <arglist>(const SceneTexture &amp;texture) noexcept</arglist>
     </member>
     <member kind="function">
-      <type>std::optional&lt; float &gt;</type>
-      <name>scenePieceDepthOffset</name>
+      <type>float</type>
+      <name>artTileHeight</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>af0d1719f81afaef4f0523f60d0f48cbd</anchor>
-      <arglist>(const nlohmann::json &amp;root, std::string_view filename)</arglist>
+      <anchor>a688b39b1850e66b5bfd6a536d3ef5a5a</anchor>
+      <arglist>(const SceneTexture &amp;texture, float ratio) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>frameWidthOf</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a14e18713fd61522fc5a30946267f2fe5</anchor>
+      <arglist>(const SceneTexture &amp;texture) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>frameHeightOf</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ae67a7efaa5cb116e48427d0aab5280a6</anchor>
+      <arglist>(const SceneTexture &amp;texture) noexcept</arglist>
     </member>
     <member kind="function">
       <type>SpriteQuad</type>
       <name>standingPieceQuad</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>aefe5a3c767ba4b0482688df953007fe1</anchor>
-      <arglist>(const SceneTexture &amp;texture, core::Vector2 topVertex, float unitsPerScenePixel)</arglist>
+      <anchor>a1f72cd993b8b51f1869050354b8ce2b8</anchor>
+      <arglist>(const SceneTexture &amp;texture, core::Vector2 topVertex, float tileWidth, float ratio)</arglist>
+    </member>
+    <member kind="function">
+      <type>SpriteQuad</type>
+      <name>floorQuad</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>acaace1eccd01216a1c63742c15e251c9</anchor>
+      <arglist>(const core::Rect &amp;bounds) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>frameCountOf</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>abd7514508f0600ea89fee975080faa96</anchor>
+      <arglist>(const SceneTexture &amp;texture) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>SpriteQuad</type>
+      <name>figureQuad</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a851ee9d5cbca4f7ee5fd39dd24d02110</anchor>
+      <arglist>(const SceneTexture &amp;texture, int frame, float centerX, float bottomY, float tileWidth)</arglist>
+    </member>
+    <member kind="function">
+      <type>core::Vector2</type>
+      <name>manifestArtTile</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a9d953b4ec44e750589868717d7667f89</anchor>
+      <arglist>(const nlohmann::json &amp;manifest)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; core::Vector2 &gt;</type>
+      <name>scenePieceAnchor</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>af12e7bd41f7453be0b683a11740da4f0</anchor>
+      <arglist>(const nlohmann::json &amp;manifest, std::string_view filename)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; float &gt;</type>
+      <name>scenePieceDepthOffset</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>acb862d75330ab11fcab40122e0709c69</anchor>
+      <arglist>(const nlohmann::json &amp;manifest, std::string_view filename)</arglist>
+    </member>
+    <member kind="function">
+      <type>SceneTextureTraits</type>
+      <name>readSceneTextureTraits</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ac055c7562f1faff774ce612b51ebf13d</anchor>
+      <arglist>(const std::filesystem::path &amp;assetsDirectory, std::string_view path)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>applySceneTextureTraits</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a6a1fc28e49220af6145d632ed9fe40bf</anchor>
+      <arglist>(SceneTexture &amp;texture, const SceneTextureTraits &amp;traits)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -46934,8 +47149,8 @@
       <type>std::optional&lt; LoadedTexture &gt;</type>
       <name>createTexture</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a4e6bdeca2a66b069fe3b093ee6670f0e</anchor>
-      <arglist>(const RhiContext &amp;context, int width, int height, const std::vector&lt; std::uint32_t &gt; &amp;pixels)</arglist>
+      <anchor>abe2668cca55466d08f41f3c72f3dda5e</anchor>
+      <arglist>(const RhiContext &amp;context, int width, int height, const std::vector&lt; std::uint32_t &gt; &amp;pixels, TextureFiltering filtering=TextureFiltering::Sharp)</arglist>
     </member>
     <member kind="function">
       <type>std::optional&lt; LoadedTexture &gt;</type>
@@ -47036,6 +47251,13 @@
       <arglist>(const WorldSceneSnapshot &amp;snapshot, const core::IsoProjection &amp;projection, const ScenePieceTextures &amp;textures, WorldComposeOptions options={})</arglist>
     </member>
     <member kind="function">
+      <type>float</type>
+      <name>worldTilePixels</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>add2056a8ef137e4eeeca4a1344fbdc82</anchor>
+      <arglist>(int pixelHeight) noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>WorldSceneSource</type>
       <name>worldSceneSource</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -47046,8 +47268,8 @@
       <type>Camera2D</type>
       <name>worldCamera</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a8efa2a96919dd4bc6675ddc5e0f292ad</anchor>
-      <arglist>(const core::IsoProjection &amp;projection, core::Vector2 focus, int pixelWidth, int pixelHeight)</arglist>
+      <anchor>a44337da72a19b007b1c90bade791dfdf</anchor>
+      <arglist>(const core::IsoProjection &amp;projection, core::Vector2 focus, int pixelWidth, int pixelHeight, float tilePixels=0.0F)</arglist>
     </member>
     <member kind="function">
       <type>constexpr bool</type>
@@ -47589,52 +47811,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>constexpr int</type>
-      <name>ARENA_FIGURE_FRAME_WIDTH_PIXELS</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a65b2c16b6aab8dd5aa2fa49fd1cb872b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr int</type>
-      <name>ARENA_FIGURE_FRAME_HEIGHT_PIXELS</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a0752b5fe488b44093f9b2b6bc67f66fb</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr float</type>
-      <name>ARENA_FIGURE_SCALE</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>ab9ad6be84062fc2abf87c40184677eae</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>constexpr float</type>
       <name>ARENA_DOWN_ENEMY_ALPHA</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a285a9d5f6120f739e72d9195791c8d22</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr int</type>
-      <name>ARENA_SCENE_TILE_WIDTH_PIXELS</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a3538a35944c598123f10fb71bd0ed21b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr int</type>
-      <name>ARENA_SCENE_HALF_TILE_WIDTH_PIXELS</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a81d18f4d5de3c46d8c03d57dbefe6167</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr int</type>
-      <name>ARENA_SCENE_TILE_HEIGHT_PIXELS</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a07630c5687b7a33051770a6bf84123f4</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -47667,6 +47847,13 @@
     </member>
     <member kind="variable">
       <type>constexpr float</type>
+      <name>CITY_BLOCK_TILE_PIXELS</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ac5685001ff877c46a20353b7ab1581cc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr float</type>
       <name>DEPTH_SUBDIVISIONS_PER_UNIT</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a0591a2b20237a29c762b324a7ce0d7db</anchor>
@@ -47695,9 +47882,30 @@
     </member>
     <member kind="variable">
       <type>constexpr int</type>
+      <name>FIGURE_MARKER_WIDTH_PIXELS</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a801f08adca1e98026ef017093099229d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
+      <name>FIGURE_MARKER_HEIGHT_PIXELS</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ad62487d1ec9ecc1772ed1ea86fafbb38</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
       <name>MAQUETTE_TOKEN_SIZE_PIXELS</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a0727f3ff13f8d698e840bf7f44a899a6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr float</type>
+      <name>MAQUETTE_TOKEN_TILE_FRACTION</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a3a1d4a71d831ef9fd0ed8c307a59fc6e</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -47715,45 +47923,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>constexpr int</type>
-      <name>SCENE_TILE_WIDTH_PIXELS</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a19b85f07e8096e377cfde7ed43902c89</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr int</type>
-      <name>SCENE_HALF_TILE_WIDTH_PIXELS</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a5345cd8ebde1293596b218480d44e233</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr int</type>
-      <name>SCENE_TILE_HEIGHT_PIXELS</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>adf0a8584471498fee2fd58f1b3526335</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr int</type>
-      <name>FIGURE_FRAME_WIDTH_PIXELS</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a46b9654e0a27fbe317b1b281d1560182</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr int</type>
-      <name>FIGURE_FRAME_HEIGHT_PIXELS</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a55c481d635af0b56829a8ccc530af04d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>constexpr float</type>
-      <name>FIGURE_SCALE</name>
+      <name>FLOOR_SEAM_OVERLAP</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a65e321902d186ff823f7122c0f3ace7f</anchor>
+      <anchor>ac8defcd53d2643e64d9985a898796481</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -47764,10 +47937,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>constexpr int</type>
-      <name>WORLD_ART_HEIGHT_PIXELS</name>
+      <type>constexpr float</type>
+      <name>WORLD_VIEW_HEIGHT_IN_TILES</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a010839751f5f86ba20ee3221f0c0c09e</anchor>
+      <anchor>a00f1d57e59825bdaab90daa68edbd08b</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -48313,10 +48486,11 @@
     <file>QuadRecorder.h</file>
     <file>RenderLayer.h</file>
     <file>RhiContext.h</file>
-    <file>ScenePiecePlacement.h</file>
     <file>ScenePieces.h</file>
     <file>SceneResources.cpp</file>
     <file>SceneResources.h</file>
+    <file>SceneTextureTraits.cpp</file>
+    <file>SceneTextureTraits.h</file>
     <file>SpriteBatch.cpp</file>
     <file>SpriteBatch.h</file>
     <file>SpriteRenderer.cpp</file>
@@ -48351,6 +48525,7 @@
     <file>test_city_block_render.cpp</file>
     <file>test_depth_sort.cpp</file>
     <file>test_entity_markers.cpp</file>
+    <file>test_hd_mockup_render.cpp</file>
     <file>test_image_encode.cpp</file>
     <file>test_maquette_tokens.cpp</file>
     <file>test_missing_texture.cpp</file>

@@ -182,7 +182,7 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le canevas de l'éditeur peint le lieu comme le jeu le dessine (<span class="tt">LOT-EDITOR-02</span>). </p>
 <p>Comparer les listes de primitives ne prouve pas que <span class="tt">QPainter</span> pose les ancres, l'échelle des pièces et leurs miroirs comme le GPU (acceptation du lot) : ce test rend <b>la même carte, avec la même caméra</b>, une fois par le rendu QRhi du jeu (<span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>, hors écran), une fois par le peintre de l'éditeur (<span class="tt"><a class="el" href="namespacehmi.html#a7e2e49094a1e633ea842459409c9c13b" title="Rend scene hors écran, cadrée par camera, sur un fond clear — l&#39;image que le jeu dessinerait avec la ...">hmi::renderComposedScene</a></span>), et compare les deux images pixel à pixel, à une tolérance près. Les deux images sont écrites à côté de l'exécutable (<span class="tt">editor-captures/</span>) pour être relues à l'œil.</p>
-<p>La tolérance est celle de deux rasteriseurs : sur l'arête d'un quad étiré, l'échantillonnage au plus proche d'une pièce agrandie de 68 à 86 pixels peut choisir le texel voisin. Une ancre fausse, une échelle fausse ou un ordre de dessin faux, eux, déplacent des pans entiers de l'image et dépassent la tolérance.</p>
+<p>La tolérance est celle de deux rasteriseurs qui ne filtrent pas pareil : le GPU lisse l'art peint (<span class="tt">LOT-103</span>), le peintre de l'éditeur l'échantillonne encore au plus proche (<span class="tt">LOT-125</span>), et l'arête de chaque pièce en porte un liseré. Une ancre fausse, une échelle fausse ou un ordre de dessin faux, eux, déplacent des pans entiers de l'image et dépassent la tolérance.</p>
 <p>Les cartes sont celles de la racine d'essai de l'éditeur (<span class="tt">LOT-123</span>) ; c'étaient les cartes <b>livrées</b>, que la table rase du <span class="tt">LOT-102</span> emporte. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ab431c4ccbea8cd004a24c4e75c33d163" name="ab431c4ccbea8cd004a24c4e75c33d163"></a>
@@ -212,7 +212,7 @@ Functions</h2></td></tr>
  1. Composer le donjon.<br  />
 </p><ol type="1">
 <li>Le rendre par le jeu et par l'editeur, cadre sur sa porte.<br  />
- <b>Resultat attendu :</b> Moins de 0,5 % des pixels different au-dela de la tolerance. </li>
+ <b>Resultat attendu :</b> Moins de 2,5 % des pixels different au-dela de la tolerance. </li>
 </ol>
 
 </div>
@@ -246,7 +246,7 @@ Functions</h2></td></tr>
 <li>La rendre hors ecran par le rendu QRhi du jeu, cadree sur trois points (grand- place, coin nord, porte est).<br  />
 </li>
 <li>La peindre par le peintre QPainter de l'editeur avec la meme camera.<br  />
- <b>Resultat attendu :</b> Pour chaque cadrage, moins de 0,5 % des pixels different de plus de 48 sur un canal ; l'image est peinte sur plus de la moitie de sa surface. </li>
+ <b>Resultat attendu :</b> Pour chaque cadrage, moins de 2,5 % des pixels different de plus de 48 sur un canal ; l'image est peinte sur plus de la moitie de sa surface. </li>
 </ol>
 
 </div>
@@ -277,7 +277,7 @@ Functions</h2></td></tr>
  <b>Etapes :</b><br  />
  1. Batir en memoire une carte sans lieu : sols, eau, enceinte de murs, quatre entites.<br  />
 2. La rendre hors ecran par le rendu QRhi du jeu, puis par le peintre de l'editeur.<br  />
- <b>Resultat attendu :</b> L'image est peinte sur plus de la moitie de sa surface &ndash; rien n'est reste vide &ndash;, et moins de 0,5 % des pixels different entre les deux rendus. </p>
+ <b>Resultat attendu :</b> L'image est peinte sur plus de la moitie de sa surface &ndash; rien n'est reste vide &ndash;, et moins de 2,5 % des pixels different entre les deux rendus. </p>
 
 </div>
 </div>

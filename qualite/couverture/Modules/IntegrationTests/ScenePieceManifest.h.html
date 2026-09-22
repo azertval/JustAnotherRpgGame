@@ -154,6 +154,17 @@ public:
         return _place;
     }</span>
 
+    /// @return Largeur, en pixels d'art, du losange de sol du lieu (`tile`, `EX-VIS-008`) : 0 si le
+    ///         manifeste ne la dÃ©clare pas.
+<span style = "background-color:#dfd">    [[nodiscard]] int tileWidth() const noexcept {
+        return _tileWidth;
+    }</span>
+
+    /// @return Hauteur de ce losange, en pixels d'art ; 0 si non dÃ©clarÃ©e.
+<span style = "background-color:#dfd">    [[nodiscard]] int tileHeight() const noexcept {
+        return _tileHeight;
+    }</span>
+
     /// @return Les piÃ¨ces, dans l'ordre oÃ¹ le manifeste les Ã©crit.
 <span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;ScenePiece&gt;&amp; pieces() const noexcept {
         return _pieces;
@@ -167,6 +178,8 @@ private:
     [[nodiscard]] static ScenePieceManifestResult fromDocument(const JsonDocument&amp; document);
 
     std::string _place;
+    int _tileWidth = 0;
+    int _tileHeight = 0;
     std::vector&lt;ScenePiece&gt; _pieces;
 };
 

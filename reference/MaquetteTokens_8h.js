@@ -17,5 +17,6 @@ var MaquetteTokens_8h =
     [ "hmi::maquetteTokenLetter", "namespacehmi.html#a2f659dd064f455af6db2c2a353c0129f", null ],
     [ "hmi::maquetteTokenPath", "namespacehmi.html#ad766917c4985ed530aef7546f2a1d11f", null ],
     [ "hmi::parseMaquetteTokenPath", "namespacehmi.html#ae9e2f73076197cc924df1d25fb7fdf31", null ],
-    [ "hmi::MAQUETTE_TOKEN_SIZE_PIXELS", "namespacehmi.html#a0727f3ff13f8d698e840bf7f44a899a6", null ]
+    [ "hmi::MAQUETTE_TOKEN_SIZE_PIXELS", "namespacehmi.html#a0727f3ff13f8d698e840bf7f44a899a6", null ],
+    [ "hmi::MAQUETTE_TOKEN_TILE_FRACTION", "namespacehmi.html#a3a1d4a71d831ef9fd0ed8c307a59fc6e", null ]
 ];

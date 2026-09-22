@@ -62,17 +62,15 @@ inline constexpr float ARENA_DIAMOND_RATIO = 0.62f;
 /// Hauteur rÃ©servÃ©e aux murs au-dessus du losange du fond, en largeurs de losange.
 inline constexpr float ARENA_WALL_RISE = 0.85f;
 
-/// Largeur, en pixels, d'une tuile de la planche du ColisÃ©e (`ArenaTile.ui.qml`).
-inline constexpr float ARENA_SHEET_TILE_WIDTH_PIXELS = 86.0f;
-
-/// Pixels par unitÃ© monde (`EX-ARCH-021`, `hmi::Camera2D::PIXELS_PER_UNIT`), recopiÃ© ici parce que
-/// `Core` ne voit pas `HMI`.
-inline constexpr float ARENA_PIXELS_PER_UNIT = 16.0f;
-
-/// Largeur par dÃ©faut du losange, en unitÃ©s monde : au zoom 1, une tuile de la planche s'affiche Ã 
-/// sa taille native.
-inline constexpr float ARENA_TILE_WIDTH_UNITS =
-    ARENA_SHEET_TILE_WIDTH_PIXELS / ARENA_PIXELS_PER_UNIT;
+/**
+ * @brief Largeur par dÃ©faut du losange, en unitÃ©s monde.
+ *
+ * Une convention du repÃ¨re, et rien d'autre : elle valait la tuile de 86 pixels de l'ancienne
+ * planche du ColisÃ©e au zoom 1. Depuis le `LOT-103`, ni l'Ã©chelle de l'art â que chaque lieu
+ * dÃ©clare dans son manifeste (`EX-VIS-008`) â ni la taille d'une case Ã  l'Ã©cran â que la camÃ©ra
+ * tire de la dÃ©finition (`EX-REN-013`) â n'en dÃ©pendent : la changer ne changerait aucune image.
+ */
+inline constexpr float ARENA_TILE_WIDTH_UNITS = 5.375f;
 
 /**
  * @brief La projection isomÃ©trique d'une grille de combat de `columns` Ã `rows` cases.

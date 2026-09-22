@@ -793,7 +793,7 @@
       "id": "LOT-103",
       "titre": "Le rendu HD",
       "version": "0.0.1",
-      "etat": "prochain",
+      "etat": "en-cours",
       "rang": 1,
       "debloque": 95,
       "prerequis": [
@@ -816,7 +816,7 @@
       "id": "LOT-105",
       "titre": "Assets HD — le kit commun de la Capitale",
       "version": "0.0.1",
-      "etat": "pret",
+      "etat": "prochain",
       "rang": 2,
       "debloque": 95,
       "prerequis": [

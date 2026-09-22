@@ -150,10 +150,10 @@ $(function(){initNavTree('structhmi_1_1AssetGalleryFrame.html','','structhmi_1_1
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ac1b7a00c05ff59bbd28c99a19e847baa" id="r_ac1b7a00c05ff59bbd28c99a19e847baa"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ac1b7a00c05ff59bbd28c99a19e847baa">cellPixels</a> = 68.0f</td></tr>
+<tr class="memitem:ac1b7a00c05ff59bbd28c99a19e847baa" id="r_ac1b7a00c05ff59bbd28c99a19e847baa"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ac1b7a00c05ff59bbd28c99a19e847baa">cellPixels</a> = 100.0f</td></tr>
 <tr class="memdesc:ac1b7a00c05ff59bbd28c99a19e847baa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels de la cible par case.  <br /></td></tr>
-<tr class="memitem:aeaec0892b8bbd0fc350f673ced821210" id="r_aeaec0892b8bbd0fc350f673ced821210"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aeaec0892b8bbd0fc350f673ced821210">artScale</a> = 1.0f</td></tr>
-<tr class="memdesc:aeaec0892b8bbd0fc350f673ced821210"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels de la cible par pixel d'art.  <br /></td></tr>
+<tr class="memitem:ab99e0edde145e55c4a6214c63249c6d6" id="r_ab99e0edde145e55c4a6214c63249c6d6"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ab99e0edde145e55c4a6214c63249c6d6">pixelScale</a> = 1.0f</td></tr>
+<tr class="memdesc:ab99e0edde145e55c4a6214c63249c6d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels de la cible par pixel de l'élément, zoom compris : l'épaisseur d'un trait.  <br /></td></tr>
 <tr class="memitem:a89b2649772ed2a910f02f660f097736c" id="r_a89b2649772ed2a910f02f660f097736c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1AssetGalleryDrawnBloc.html">AssetGalleryDrawnBloc</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a89b2649772ed2a910f02f660f097736c">drawn</a></td></tr>
 <tr class="memitem:a2739396cf1ad041260d0ec8f51a1dd99" id="r_a2739396cf1ad041260d0ec8f51a1dd99"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2739396cf1ad041260d0ec8f51a1dd99">wanted</a></td></tr>
 <tr class="memdesc:a2739396cf1ad041260d0ec8f51a1dd99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures à garder en mémoire : celles des blocs dessinés et préchargés.  <br /></td></tr>
@@ -164,22 +164,6 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>Ce que le fil graphique remet au rendu pour une image : <b>des valeurs</b>. </p>
 <p>La disposition et la visibilité se décident côté item (<span class="tt"><a class="el" href="namespacehmi.html#aa873ff843c8cc02b063bb5f908cd92fd" title="Dispose le catalogue : une bande par famille, une ligne par modèle, et au-delà de maximumColumns case...">hmi::layoutAssetGallery</a></span>, <span class="tt"><a class="el" href="namespacehmi.html#a321807271cf7156d657e478bb442d8a8">hmi::assetGalleryVisibility</a></span>) ; le rendu ne fait que charger ce qu'on lui demande de garder et dessiner ce qu'on lui demande de dessiner. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="aeaec0892b8bbd0fc350f673ced821210" name="aeaec0892b8bbd0fc350f673ced821210"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeaec0892b8bbd0fc350f673ced821210">&#9670;&#160;</a></span>artScale</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float hmi::AssetGalleryFrame::artScale = 1.0f</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Pixels de la cible par pixel d'art. </p>
-
-</div>
-</div>
 <a id="ac1b7a00c05ff59bbd28c99a19e847baa" name="ac1b7a00c05ff59bbd28c99a19e847baa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac1b7a00c05ff59bbd28c99a19e847baa">&#9670;&#160;</a></span>cellPixels</h2>
 
@@ -187,7 +171,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float hmi::AssetGalleryFrame::cellPixels = 68.0f</td>
+          <td class="memname">float hmi::AssetGalleryFrame::cellPixels = 100.0f</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -207,6 +191,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab99e0edde145e55c4a6214c63249c6d6" name="ab99e0edde145e55c4a6214c63249c6d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab99e0edde145e55c4a6214c63249c6d6">&#9670;&#160;</a></span>pixelScale</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::AssetGalleryFrame::pixelScale = 1.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pixels de la cible par pixel de l'élément, zoom compris : l'épaisseur d'un trait. </p>
 
 </div>
 </div>

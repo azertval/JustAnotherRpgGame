@@ -49,8 +49,9 @@ class QRhiTexture;
 namespace hmi {
 
 /**
- * @brief Dessine des quads texturÃ©s au travers de QRhi, avec transparence et Ã©chantillonnage
- *        *nearest* (pixel art).
+ * @brief Dessine des quads texturÃ©s au travers de QRhi, avec transparence **prÃ©multipliÃ©e** et un
+ *        Ã©chantillonnage qui suit la nature de chaque texture : bilinÃ©aire avec mipmaps pour l'art
+ *        peint, au plus proche pour une image engendrÃ©e (`EX-ARCH-022`, `LOT-103`).
  *
  * Usage inchangÃ© pour les appelants : `begin(projection, texture)`, un ou plusieurs `draw(quad)`,
  * puis `end()`. Ce qui change est **quand** le GPU voit ces quads.
@@ -177,7 +178,10 @@ private:
     std::unique_ptr&lt;QRhiBuffer&gt; _vertexBuffer;
     std::unique_ptr&lt;QRhiBuffer&gt; _indexBuffer;
     std::unique_ptr&lt;QRhiBuffer&gt; _uniformBuffer;
-    std::unique_ptr&lt;QRhiSampler&gt; _sampler;
+    /// Au plus proche, sans mipmap : les images engendrÃ©es (`TextureFiltering::Sharp`).
+    std::unique_ptr&lt;QRhiSampler&gt; _sharpSampler;
+    /// BilinÃ©aire avec mipmaps : l'art peint (`TextureFiltering::Smooth`).
+    std::unique_ptr&lt;QRhiSampler&gt; _smoothSampler;
     std::unique_ptr&lt;QRhiGraphicsPipeline&gt; _pipeline;
     /// Descripteur de la passe pour laquelle `_pipeline` a Ã©tÃ© construit : un changement de cible
     /// (redimensionnement du widget, changement de fenÃªtre) impose de le reconstruire.

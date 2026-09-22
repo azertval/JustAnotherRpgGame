@@ -80,17 +80,10 @@ struct Composer {
     ComposedScene&amp; scene;
     const core::IsoProjection&amp; projection;
     const ArenaSceneTextures&amp; textures;
-    /// Unites monde par pixel de planche : une tuile de 86 px occupe la largeur du losange.
-    float unitsPerPixel;
-    /// Unites monde par pixel d'art de l'atelier : un losange de 68 px occupe sa largeur.
-    float unitsPerScenePixel;
 
     /**
-     * @brief Une piece de scene d'une case, posee par son ancre : le sommet haut du losange de sa
-     *        case tombe sur le pixel (34, hauteur - 42) de la texture.
-     *
-     * C'est l'`anchor` du manifeste de l'atelier (LOT-92) pour une emprise d'une case : la texture
-     * a la largeur du losange, le losange en occupe les 42 pixels du bas, le reste monte au-dessus.
+     * @brief Une piece de scene d'une case, posee par son ancre et a l'echelle de son lieu : le
+     *        losange que son manifeste declare occupe celui de la case (`hmi::standingPieceQuad`).
      */
     void addStanding(RenderLayer layer, std::string_view path, core::Vector2 topVertex,
 <span style = "background-color:#dfd">                     std::int32_t sortOrder) const {
@@ -98,16 +91,10 @@ struct Composer {
         if (texture.texture == nullptr) {
             return;</span>
         }
-<span style = "background-color:#dfd">        const auto height = static_cast&lt;float&gt;(texture.height);
-        SpriteQuad quad;
-        quad.x = topVertex.x -</span>
-                 (static_cast&lt;float&gt;(ARENA_SCENE_HALF_TILE_WIDTH_PIXELS) * unitsPerScenePixel);
-<span style = "background-color:#dfd">        quad.y = topVertex.y - ((height - static_cast&lt;float&gt;(ARENA_SCENE_TILE_HEIGHT_PIXELS)) *</span>
-                                unitsPerScenePixel);
-<span style = "background-color:#dfd">        quad.width = static_cast&lt;float&gt;(texture.width) * unitsPerScenePixel;
-        quad.height = height * unitsPerScenePixel;
-        scene.addSprite(layer, texture.texture, sortOrder, quad);
-    }</span>
+<span style = "background-color:#dfd">        scene.addSprite(layer, texture.texture, sortOrder,</span>
+                        standingPieceQuad(texture, topVertex, projection.tileWidth(),
+                                          projection.tileHeight() / projection.tileWidth()));
+<span style = "background-color:#dfd">    }</span>
 };
 
 <span style = "background-color:#dfd">[[nodiscard]] core::Vector2 gridPoint(int column, int row) {
@@ -137,13 +124,8 @@ void composeTile(const Composer&amp; composer, const ArenaAppearanceCatalog&amp;
 <span style = "background-color:#dfd">        scenePath(catalog, path, SAND);</span>
     }
 <span style = "background-color:#dfd">    if (const ArenaTexture&amp; floor = composer.textures.resolve(path); floor.texture != nullptr) {
-        SpriteQuad quad;
-        quad.x = bounds.position.x;
-        quad.y = bounds.position.y;
-        quad.width = bounds.size.x;
-        quad.height = tileHeight;
         composer.scene.addSprite(RenderLayer::Tile, floor.texture, core::IsoProjection::depth(cell),</span>
-                                 quad);
+                                 floorQuad(bounds));
     }
 
     // --- L'enceinte : une piece debout par case, triee au pied de la case --------------------
@@ -194,21 +176,21 @@ void composeFigure(const Composer&amp; composer, const ArenaAppearanceCatalog&am
         return;</span>
     }
 
-    // La bande dit sa propre decoupe : sa largeur d'image (48 par defaut, 96 pour les bandes
-    // larges des PNJ de l'atelier) et, avec sa largeur totale, son nombre d'images. Le compte du
-    // manifeste ne sert que si la texture est inconnue.
-<span style = "background-color:#dfd">    const int frameWidthPixels =</span>
-        texture.frameWidth &gt; 0 ? texture.frameWidth : ARENA_FIGURE_FRAME_WIDTH_PIXELS;
-<span style = "background-color:#dfd">    const int frameCount = texture.width &gt; 0 ? std::max(1, texture.width / frameWidthPixels)</span>
-                                             : std::max(1, figure.frameCount);
+    // La bande dit sa propre decoupe : sa cellule (`.anim.json`) et, avec sa largeur totale, son
+    // nombre d'images. Une bande sans description se decoupe au compte du manifeste.
+<span style = "background-color:#dfd">    ArenaTexture band = texture;
+    if (band.frameWidth &lt;= 0 &amp;&amp; figure.frameCount &gt; 1 &amp;&amp; band.width &gt; 0) {
+        band.frameWidth = std::max(1, band.width / figure.frameCount);</span>
+    }
+<span style = "background-color:#dfd">    const int frameCount = frameCountOf(band);</span>
 
     // A terre, la figurine s'arrete sur la derniere image ; debout, elle suit l'animation, ramenee
     // dans sa bande.
 <span style = "background-color:#dfd">    const int frame =</span>
         down ? frameCount - 1 : std::clamp(animation.frameOf(combatant.id), 0, frameCount - 1);
 
-    // Une emprise de n cases : une figurine centree dessus, n fois plus grande, au pied de
-    // l'emprise.
+    // Une emprise de n cases : une figurine centree dessus, au pied de l'emprise. Elle n'est plus
+    // agrandie n fois : une grande creature est livree a sa taille (384 x 384, EX-VIS-008).
 <span style = "background-color:#dfd">    const core::GridPosition anchor = combatant.anchor;
     const int footprint = std::max(1, combatant.footprint);
     const auto extent = static_cast&lt;float&gt;(footprint);</span>
@@ -221,22 +203,9 @@ void composeFigure(const Composer&amp; composer, const ArenaAppearanceCatalog&am
             .y;
 <span style = "background-color:#dfd">    const float tileHeight = composer.projection.tileHeight();</span>
 
-    // Une image plus large que 48 px garde son pied au centre de sa cellule : le quad s'elargit
-    // autour du meme centre.
-<span style = "background-color:#dfd">    const float scale = composer.unitsPerPixel * ARENA_FIGURE_SCALE * extent;
-    SpriteQuad quad;
-    quad.width = static_cast&lt;float&gt;(frameWidthPixels) * scale;
-    quad.height = static_cast&lt;float&gt;(ARENA_FIGURE_FRAME_HEIGHT_PIXELS) * scale;
-    quad.x = center.x - (quad.width / 2.0F);
-    quad.y = footY - (tileHeight * FIGURE_BOTTOM_MARGIN * extent) - quad.height;
-    if (texture.width &gt; 0 &amp;&amp; texture.height &gt; 0) {
-        const auto frameWidth = static_cast&lt;float&gt;(frameWidthPixels);
-        quad.u0 = static_cast&lt;float&gt;(frame) * frameWidth / static_cast&lt;float&gt;(texture.width);
-        quad.u1 = static_cast&lt;float&gt;(frame + 1) * frameWidth / static_cast&lt;float&gt;(texture.width);
-        quad.v0 = 0.0F;
-        quad.v1 = std::min(1.0F, static_cast&lt;float&gt;(ARENA_FIGURE_FRAME_HEIGHT_PIXELS) /</span>
-                                     static_cast&lt;float&gt;(texture.height));
-    }
+    SpriteQuad quad =
+<span style = "background-color:#dfd">        figureQuad(band, frame, center.x, footY - (tileHeight * FIGURE_BOTTOM_MARGIN * extent),</span>
+                   composer.projection.tileWidth());
 <span style = "background-color:#dfd">    if (down &amp;&amp; !ally) {
         quad.a = ARENA_DOWN_ENEMY_ALPHA;</span>
     }
@@ -332,13 +301,7 @@ void composeArenaScene(ComposedScene&amp; scene, const ArenaSceneSnapshot&amp; s
                        const ArenaAppearanceCatalog&amp; catalog, const ArenaAnimationState&amp; animation,
                        const core::IsoProjection&amp; projection, const ArenaSceneTextures&amp; textures,
 <span style = "background-color:#dfd">                       bool scenery) {
-    const Composer composer{</span>
-        .scene = scene,
-        .projection = projection,
-        .textures = textures,
-<span style = "background-color:#dfd">        .unitsPerPixel = projection.tileWidth() / core::ARENA_SHEET_TILE_WIDTH_PIXELS,</span>
-        .unitsPerScenePixel =
-<span style = "background-color:#dfd">            projection.tileWidth() / static_cast&lt;float&gt;(ARENA_SCENE_TILE_WIDTH_PIXELS)};</span>
+    const Composer composer{.scene = scene, .projection = projection, .textures = textures};</span>
     // Un seul tampon de chemin pour toute la scene : apres la premiere image, plus d'allocation.
 <span style = "background-color:#dfd">    std::string path;</span>
 

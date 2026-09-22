@@ -54,8 +54,8 @@ namespace hmi {
  *
  * La **seule** gÃ©omÃ©trie de l'arÃ¨ne Ã  l'Ã©cran : le rendu la soumet, et l'Ã©lÃ©ment Qt Quick
  * (`hmi::ArenaViewportItem`) s'en sert pour poser le calque d'interface et traduire le pointeur en
- * case. Deux cadrages recalculÃ©s chacun de leur cÃ´tÃ© ne tombent jamais au mÃªme pixel â le zoom est
- * arrondi Ã  l'entier (`Camera2D::fitZoom`).
+ * case. Deux cadrages recalculÃ©s chacun de leur cÃ´tÃ© ne tombent jamais au mÃªme pixel. Le zoom est
+ * celui qui fait tenir la scÃ¨ne, **sans arrondi** (`Camera2D::fitZoom`, `LOT-103`).
  */
 [[nodiscard]] Camera2D arenaCamera(const core::IsoProjection&amp; projection, int pixelWidth,
                                    int pixelHeight);
@@ -192,9 +192,6 @@ private:
 
     std::filesystem::path _directory;
     ArenaAppearanceCatalog _catalog;
-    /// Largeur d'image des bandes dessinÃ©es (`idle.png`, `death.png`), par chemin sous
-    /// `_directory`, lue avec leurs clips : `ArenaTexture::frameWidth` Ã  la crÃ©ation des textures.
-    std::map&lt;std::string, int&gt; _bandFrameWidths;
     ArenaAnimationDriver _animation;
     ArenaSceneSnapshot _snapshot;
     /// Les combattants dont l'animation est pilotÃ©e : ceux de l'instantanÃ© courant.

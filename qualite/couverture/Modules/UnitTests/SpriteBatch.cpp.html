@@ -100,12 +100,18 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
     initial-&gt;uploadStaticBuffer(_indexBuffer.get(), indices.data());
     _pendingIndexUpload = initial;</span>
 
-    // Echantillonnage *nearest* (pixel art net), bords fixes : l'invariant de nettete du portage
-    // (EX-ARCH-022). Aucun mipmap -- une texture de pixel art ne se filtre pas.
-<span style = "background-color:#dfd">    _sampler.reset(_rhi-&gt;newSampler(QRhiSampler::Nearest, QRhiSampler::Nearest, QRhiSampler::None,</span>
-                                    QRhiSampler::ClampToEdge, QRhiSampler::ClampToEdge));
-<span style = "background-color:#dfd">    if (!_sampler-&gt;create()) {</span>
-<span style = "background-color:#fdd">        throw std::runtime_error("SpriteBatch : echec de creation de l'echantillonneur");</span>
+    // Deux echantillonneurs, selon la nature de l'image (EX-ARCH-022), bords fixes l'un et l'autre.
+    // Au plus proche, sans mipmap : une image engendree dont chaque pixel est voulu (damier, aplat,
+    // marqueur). Bilineaire entre les niveaux de mipmaps : l'art peint, toujours reduit a l'ecran,
+    // qui scintillerait au plus proche (EX-VIS-008, LOT-103).
+<span style = "background-color:#dfd">    _sharpSampler.reset(_rhi-&gt;newSampler(QRhiSampler::Nearest, QRhiSampler::Nearest,</span>
+                                         QRhiSampler::None, QRhiSampler::ClampToEdge,
+                                         QRhiSampler::ClampToEdge));
+<span style = "background-color:#dfd">    _smoothSampler.reset(_rhi-&gt;newSampler(QRhiSampler::Linear, QRhiSampler::Linear,</span>
+                                          QRhiSampler::Linear, QRhiSampler::ClampToEdge,
+                                          QRhiSampler::ClampToEdge));
+<span style = "background-color:#dfd">    if (!_sharpSampler-&gt;create() || !_smoothSampler-&gt;create()) {</span>
+<span style = "background-color:#fdd">        throw std::runtime_error("SpriteBatch : echec de creation des echantillonneurs");</span>
     }
 
 <span style = "background-color:#dfd">    _uniformStride = _rhi-&gt;ubufAligned(PROJECTION_BYTES);
@@ -163,12 +169,17 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
     if (found != _bindings.end()) {
         return found-&gt;second.get();</span>
     }
+    // La texture dit sa nature : `hmi::createTexture` ne donne une chaine de mipmaps qu'a l'art
+    // peint (`TextureFiltering::Smooth`).
+<span style = "background-color:#dfd">    QRhiSampler* const sampler = texture-&gt;flags().testFlag(QRhiTexture::MipMapped)</span>
+                                     ? _smoothSampler.get()
+                                     : _sharpSampler.get();
 <span style = "background-color:#dfd">    auto bindings = std::unique_ptr&lt;QRhiShaderResourceBindings&gt;(_rhi-&gt;newShaderResourceBindings());
     bindings-&gt;setBindings({</span>
         QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
             0, QRhiShaderResourceBinding::VertexStage, _uniformBuffer.get(), PROJECTION_BYTES),
         QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
-                                                  texture, _sampler.get()),
+                                                  texture, sampler),
     });
 <span style = "background-color:#dfd">    if (!bindings-&gt;create()) {</span>
 <span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("SpriteBatch : echec de creation des liaisons de ressources");
@@ -194,7 +205,7 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
             QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
                 0, QRhiShaderResourceBinding::VertexStage, _uniformBuffer.get(), PROJECTION_BYTES),
             QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
-                                                      nullptr, _sampler.get()),
+                                                      nullptr, _sharpSampler.get()),
         });
 <span style = "background-color:#dfd">        if (!_layoutBindings-&gt;create()) {</span>
 <span style = "background-color:#fdd">            GRAPHICS_LOG_WARNING("SpriteBatch : echec de creation des liaisons de reference");
@@ -225,10 +236,11 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
     pipeline-&gt;setDepthTest(false);
     pipeline-&gt;setDepthWrite(false);</span>
 
-    // Fusion alpha, alpha NON premultiplie -- meme equation que l'etat Direct3D 11 d'origine.
+    // Fusion alpha PREMULTIPLIE (EX-VIS-008) : toute texture l'est au televersement, et le shader
+    // premultiplie la teinte. Un bord adouci et ses mipmaps se melangent alors sans frange sombre.
 <span style = "background-color:#dfd">    QRhiGraphicsPipeline::TargetBlend blend;
     blend.enable = true;
-    blend.srcColor = QRhiGraphicsPipeline::SrcAlpha;
+    blend.srcColor = QRhiGraphicsPipeline::One;
     blend.dstColor = QRhiGraphicsPipeline::OneMinusSrcAlpha;
     blend.opColor = QRhiGraphicsPipeline::Add;
     blend.srcAlpha = QRhiGraphicsPipeline::One;

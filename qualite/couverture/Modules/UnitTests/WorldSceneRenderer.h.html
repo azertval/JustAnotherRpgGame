@@ -56,19 +56,22 @@ namespace hmi {
 /**
  * @brief Le cadrage d'un lieu : la camÃ©ra **suit** le hÃ©ros, et ne sort pas de la carte.
  *
- * Le ColisÃ©e ne tient pas dans un Ã©cran : le cadrage entier de l'arÃ¨ne ne convient
- * plus. L'agrandissement est **entier** â le pixel art se brouille dÃ¨s qu'on le met Ã  une Ã©chelle
- * fractionnaire â, l'art Ã©tant dessinÃ© pour 720 lignes ; au-delÃ , on double. La camÃ©ra se centre
- * ensuite sur le point suivi, puis se ramÃ¨ne dans la scÃ¨ne : sur un axe oÃ¹ la scÃ¨ne est plus petite
- * que la vue, elle reste centrÃ©e, faute de quoi la carte collerait Ã  un bord.
+ * Un lieu ne tient pas dans un Ã©cran : le cadrage entier de l'arÃ¨ne ne convient pas. Le facteur est
+ * **libre** et fixÃ© par la dÃ©finition (`EX-REN-013`) : une case occupe Ã  l'Ã©cran la hauteur de la
+ * surface divisÃ©e par 10,8 (`hmi::worldTilePixels`), si bien que 1080p et 2160p cadrent la mÃªme
+ * Ã©tendue de monde. La camÃ©ra se centre ensuite sur le point suivi, puis se ramÃ¨ne dans la scÃ¨ne :
+ * sur un axe oÃ¹ la scÃ¨ne est plus petite que la vue, elle reste centrÃ©e, faute de quoi la carte
+ * collerait Ã  un bord.
  *
  * @param projection  La projection du lieu.
  * @param focus       Le point suivi, en unitÃ©s monde (le hÃ©ros).
  * @param pixelWidth  Largeur de la surface, en pixels physiques.
  * @param pixelHeight Hauteur de la surface.
+ * @param tilePixels  Largeur d'une case Ã  l'Ã©cran, en pixels, quand l'appelant l'impose (l'image
+ *                    d'un Ã®lot, `hmi::renderCityBlock`) ; 0 : celle que donne la dÃ©finition.
  */
 [[nodiscard]] Camera2D worldCamera(const core::IsoProjection&amp; projection, core::Vector2 focus,
-                                   int pixelWidth, int pixelHeight);
+                                   int pixelWidth, int pixelHeight, float tilePixels = 0.0F);
 
 /**
  * @brief Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la
@@ -122,6 +125,12 @@ public:
         return _focus;
     }
 
+    /// @brief Impose la largeur d'une case Ã  l'Ã©cran, en pixels ; 0 rend la rÃ¨gle de la
+    ///        dÃ©finition (`hmi::worldCamera`).
+<span style = "background-color:#dfd">    void setTilePixels(float tilePixels) noexcept {
+        _tilePixels = tilePixels;
+    }</span>
+
     /// @brief Dessine une image dans @p target : efface Ã  @p clear, puis le lieu cadrÃ© sur le
     /// hÃ©ros.
     void render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target, const float* clear);
@@ -143,18 +152,16 @@ public:
 private:
     /// Charge les textures de @p paths qui manquent encore. Sur le fil de rendu.
     void ensureTextures(const std::vector&lt;std::string&gt;&amp; paths);
-    /// La largeur d'image d'une bande d'animation, lue de son `.anim.json` s'il y en a un.
-    [[nodiscard]] int bandFrameWidth(const std::string&amp; path);
     /// Le marqueur d'une figurine sans image (`hmi::figureMarkerKey`), rien pour une autre piece.
     [[nodiscard]] std::optional&lt;LoadedTexture&gt; figureMarker(const std::string&amp; path);
 
     std::filesystem::path _directory;
     WorldSceneSnapshot _snapshot;
-<span style = "background-color:#dfd">    core::Vector2 _focus{};</span>
+<span style = "background-color:#dfd">    core::Vector2 _focus{};
+    float _tilePixels = 0.0F;</span>
     ComposedScene _composed;
     /// Chemins dÃ©jÃ  tentÃ©s : une piÃ¨ce absente ne doit pas Ãªtre redemandÃ©e Ã  chaque image.
     std::set&lt;std::string&gt; _requested;
-    std::map&lt;std::string, int&gt; _bandFrameWidths;
 
 <span style = "background-color:#dfd">    QRhi* _rhi = nullptr;
     QRhiResourceUpdateBatch* _pendingUploads = nullptr;</span>

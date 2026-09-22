@@ -12,6 +12,7 @@ var dir_9c2c1d58a156aa8e30c089ae7a4e31f9 =
     [ "test_city_block_render.cpp", "test__city__block__render_8cpp.html", "test__city__block__render_8cpp" ],
     [ "test_depth_sort.cpp", "test__depth__sort_8cpp.html", "test__depth__sort_8cpp" ],
     [ "test_entity_markers.cpp", "test__entity__markers_8cpp.html", "test__entity__markers_8cpp" ],
+    [ "test_hd_mockup_render.cpp", "test__hd__mockup__render_8cpp.html", "test__hd__mockup__render_8cpp" ],
     [ "test_image_encode.cpp", "test__image__encode_8cpp.html", "test__image__encode_8cpp" ],
     [ "test_maquette_tokens.cpp", "test__maquette__tokens_8cpp.html", "test__maquette__tokens_8cpp" ],
     [ "test_missing_texture.cpp", "test__missing__texture_8cpp.html", "test__missing__texture_8cpp" ],

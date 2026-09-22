@@ -6,7 +6,11 @@ var classcore_1_1ScenePieceManifest =
     [ "loadFromString", "classcore_1_1ScenePieceManifest.html#a7517f6483f0ee8b55fe5c44cafb8efb0", null ],
     [ "pieces", "classcore_1_1ScenePieceManifest.html#a6395b628d5e55a75bd2a62bff6421a05", null ],
     [ "place", "classcore_1_1ScenePieceManifest.html#a6ea382802f3c340421cc2acebf28da0c", null ],
+    [ "tileHeight", "classcore_1_1ScenePieceManifest.html#a9966c63f75656e73fb3bce0ff8817d97", null ],
+    [ "tileWidth", "classcore_1_1ScenePieceManifest.html#adf5ffe89065ca7bcfd21e0b5a3f2e378", null ],
     [ "_pieces", "classcore_1_1ScenePieceManifest.html#ac98b1e9fb3d0fb154910f386c813c9ac", null ],
     [ "_place", "classcore_1_1ScenePieceManifest.html#a55c7fea9b7513cf6c37b3def80e6a488", null ],
+    [ "_tileHeight", "classcore_1_1ScenePieceManifest.html#aceedae6ba52f413aa3df686153c6446b", null ],
+    [ "_tileWidth", "classcore_1_1ScenePieceManifest.html#a6b62a13afce50c574a65c78a58173106", null ],
     [ "FORMAT_VERSION", "classcore_1_1ScenePieceManifest.html#a1749193ae1b438c94d4fc80c2b5e6aba", null ]
 ];

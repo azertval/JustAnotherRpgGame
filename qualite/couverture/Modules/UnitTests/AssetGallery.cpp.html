@@ -29,6 +29,7 @@
 #include "Core/Data/JsonDocument.h"
 #include "Core/Resources/ScenePieceManifest.h"
 #include "HMI/Graphics/AnimationCatalog.h"
+#include "HMI/Graphics/SceneTextureTraits.h"
 
 namespace hmi {
 
@@ -153,6 +154,7 @@ void readFigures(const std::filesystem::path&amp; root, const std::string&amp; d
     }
     std::ranges::sort(models);
     const std::vector&lt;std::string&gt; animations = stringList(document.root, "animations");
+    const auto tile = static_cast&lt;int&gt;(manifestArtTile(document.root).x);
     for (const std::string&amp; model : models) {
         const std::string folder = std::string{directory}.append("/").append(model).append("/");
         for (const std::string&amp; animation : animations) {
@@ -160,7 +162,8 @@ void readFigures(const std::filesystem::path&amp; root, const std::string&amp; d
                                     .model = model,
                                     .form = animation,
                                     .path = folder + animation + ".png",
-                                    .frames = {}};
+                                    .frames = {},
+                                    .tilePixels = tile};
             if (readAnimatedEntry(entry, root / directory / model / (animation + ".anim.json"),</span>
                                   catalog.errors)) {
 <span style = "background-color:#dfd">                family.entries.push_back(std::move(entry));</span>
@@ -174,7 +177,8 @@ void readFigures(const std::filesystem::path&amp; root, const std::string&amp; d
                                                        .path = folder + "portrait.png",
                                                        .frameWidth = width,
                                                        .frameHeight = height,
-                                                       .frames = {}});
+                                                       .frames = {},
+                                                       .tilePixels = tile});
         }
 <span style = "background-color:#dfd">    }
     if (!family.entries.empty()) {
@@ -282,7 +286,8 @@ void readSceneFamily(const std::filesystem::path&amp; root, const std::string&am
             .footprintColumns = piece.footprintColumns,
             .footprintRows = piece.footprintRows,
             .anchorX = piece.anchorX,
-            .anchorY = piece.anchorY});
+            .anchorY = piece.anchorY,
+            .tilePixels = read.manifest.tileWidth()});
 <span style = "background-color:#dfd">    }
     std::ranges::stable_sort(family.entries,
                              [](const AssetGalleryEntry&amp; left, const AssetGalleryEntry&amp; right) {
@@ -354,8 +359,10 @@ void readSceneFamily(const std::filesystem::path&amp; root, const std::string&am
 <span style = "background-color:#dfd">    }
 }</span>
 
-<span style = "background-color:#dfd">[[nodiscard]] int ceilCells(int pixels) {
-    return pixels &lt;= 0 ? 0 : (pixels + ASSET_GALLERY_CELL_PIXELS - 1) / ASSET_GALLERY_CELL_PIXELS;
+/// Le nombre de cases que couvrent @p pixels d'art, une case valant @p tilePixels.
+<span style = "background-color:#dfd">[[nodiscard]] int ceilCells(int pixels, int tilePixels) {
+    const int tile = std::max(1, tilePixels);
+    return pixels &lt;= 0 ? 0 : (pixels + tile - 1) / tile;
 }</span>
 
 }  // namespace
@@ -411,8 +418,9 @@ std::vector&lt;std::string&gt; assetGalleryUnlisted(const std::filesystem::path&
     const int footprintColumns = std::max(1, entry.footprintColumns);
     const int footprintRows = std::max(1, entry.footprintRows);</span>
     // Le dessin monte au-dessus du bas de l'emprise ; en largeur, il est centrÃ© sur elle.
-<span style = "background-color:#dfd">    const int inner = std::max(footprintColumns, ceilCells(entry.frameWidth));
-    const int above = std::max(footprintRows, ceilCells(entry.frameHeight));
+<span style = "background-color:#dfd">    const int tile = entry.tileWidthPixels();
+    const int inner = std::max(footprintColumns, ceilCells(entry.frameWidth, tile));
+    const int above = std::max(footprintRows, ceilCells(entry.frameHeight, tile));
     AssetGalleryBloc bloc;
     bloc.columns = inner + 2;
     bloc.rows = above + 2;

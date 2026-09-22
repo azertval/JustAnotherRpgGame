@@ -3,7 +3,6 @@ var classhmi_1_1SceneImages =
     [ "SceneImages", "classhmi_1_1SceneImages.html#ac9c67c5a1ab03dcf3238494037e310c1", null ],
     [ "SceneImages", "classhmi_1_1SceneImages.html#ab472828e80d490a62c72612c50de3bd3", null ],
     [ "atlas", "classhmi_1_1SceneImages.html#a8ddc8d2183a9136092e36e7117402cb0", null ],
-    [ "bandFrameWidth", "classhmi_1_1SceneImages.html#a43dfc00bd2e64b8d49d59d0bfbe22952", null ],
     [ "ensure", "classhmi_1_1SceneImages.html#ad9192d4912cc726cc1078ac317405beb", null ],
     [ "image", "classhmi_1_1SceneImages.html#a44a181d848cdb4d35756403b07fe141e", null ],
     [ "marker", "classhmi_1_1SceneImages.html#a10f1ad80edf914b649f02139d254ae09", null ],

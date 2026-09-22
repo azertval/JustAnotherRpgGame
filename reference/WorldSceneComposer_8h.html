@@ -198,6 +198,8 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:add2056a8ef137e4eeeca4a1344fbdc82" id="r_add2056a8ef137e4eeeca4a1344fbdc82"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#add2056a8ef137e4eeeca4a1344fbdc82">hmi::worldTilePixels</a> (int pixelHeight) noexcept</td></tr>
+<tr class="memdesc:add2056a8ef137e4eeeca4a1344fbdc82"><td class="mdescLeft">&#160;</td><td class="mdescRight">La largeur d'une case à l'écran, en pixels, pour une vue de <code class="param">pixelHeight</code> de haut.  <br /></td></tr>
 <tr class="memitem:abb8a82bb9f00e792f78590f1c2bd788a" id="r_abb8a82bb9f00e792f78590f1c2bd788a"><td class="memItemLeft">std::int32_t&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#abb8a82bb9f00e792f78590f1c2bd788a">hmi::worldDepthSortOrder</a> (float footWorldY, <a class="el" href="namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63ca">WorldDepthSlot</a> slot) noexcept</td></tr>
 <tr class="memdesc:abb8a82bb9f00e792f78590f1c2bd788a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ordre de tri d'une pièce du lieu.  <br /></td></tr>
 <tr class="memitem:a774a0ed2f31b521df4cf536fbfb7543f" id="r_a774a0ed2f31b521df4cf536fbfb7543f"><td class="memItemLeft"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a774a0ed2f31b521df4cf536fbfb7543f">hmi::maquetteMarks</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, bool maquette)</td></tr>
@@ -226,8 +228,8 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:a7156a1bc50d513bacc4cf9f6bd64916b" id="r_a7156a1bc50d513bacc4cf9f6bd64916b"><td class="memItemLeft">constexpr std::int32_t&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a7156a1bc50d513bacc4cf9f6bd64916b">hmi::WORLD_DEPTH_SLOTS</a> = 2</td></tr>
 <tr class="memdesc:a7156a1bc50d513bacc4cf9f6bd64916b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de rangs par profondeur.  <br /></td></tr>
-<tr class="memitem:a010839751f5f86ba20ee3221f0c0c09e" id="r_a010839751f5f86ba20ee3221f0c0c09e"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a010839751f5f86ba20ee3221f0c0c09e">hmi::WORLD_ART_HEIGHT_PIXELS</a> = 720</td></tr>
-<tr class="memdesc:a010839751f5f86ba20ee3221f0c0c09e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur d'écran pour laquelle l'art est dessiné : l'agrandissement est 1 jusque-là, 2 au double (<span class="tt"><a class="el" href="namespacehmi.html#a8efa2a96919dd4bc6675ddc5e0f292ad" title="Le cadrage d&#39;un lieu : la caméra suit le héros, et ne sort pas de la carte.">hmi::worldCamera</a></span>).  <br /></td></tr>
+<tr class="memitem:a00f1d57e59825bdaab90daa68edbd08b" id="r_a00f1d57e59825bdaab90daa68edbd08b"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a00f1d57e59825bdaab90daa68edbd08b">hmi::WORLD_VIEW_HEIGHT_IN_TILES</a> = 10.8F</td></tr>
+<tr class="memdesc:a00f1d57e59825bdaab90daa68edbd08b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur de la vue, en largeurs de case (<span class="tt">EX-REN-013</span>) : une case occupe à l'écran la hauteur de la fenêtre divisée par 10,8 — 100 px à 1080p, 200 px à 2160p.  <br /></td></tr>
 <tr class="memitem:a344f40841fd17a0ce2a36213b84514c9" id="r_a344f40841fd17a0ce2a36213b84514c9"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a344f40841fd17a0ce2a36213b84514c9">hmi::WORLD_FIGURE_BOTTOM_MARGIN</a> = 0.42F</td></tr>
 <tr class="memdesc:a344f40841fd17a0ce2a36213b84514c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marge basse d'une figurine, en hauteurs de losange — la même que dans l'arène.  <br /></td></tr>
 <tr class="memitem:a2048c2024daad5842f0d26bbde67482b" id="r_a2048c2024daad5842f0d26bbde67482b"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a2048c2024daad5842f0d26bbde67482b">hmi::SCENE_PLACE_PROPERTY</a> = &quot;scene&quot;</td></tr>
@@ -235,8 +237,8 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un <b>lieu qu'on parcourt</b> composé en primitives, sans GPU : le jumeau d'<span class="tt">hmi::ArenaSceneComposer</span> pour la carte du jeu (<span class="tt">LOT-09</span>). </p>
-<p>Le lieu et l'arène se dessinent par le <b>même</b> code : même projection isométrique (<span class="tt"><a class="el" href="classcore_1_1IsoProjection.html" title="La projection isométrique d&#39;une grille de combat de columns × rows cases.">core::IsoProjection</a></span>), mêmes planches de l'atelier des textures (<span class="tt">LOT-92</span>, <span class="tt"><a class="el" href="ScenePieces_8h.html" title="La géométrie des pièces de l&#39;atelier des textures (LOT-92), commune au Colisée en combat et aux lieux...">ScenePieces.h</a></span>), même tri par profondeur. Ce qui change est la <b>source</b> : l'arène lit une grille de combat, le lieu lit une carte (<span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">core::Level</a></span>) — ses couches, les pièces qu'elles nomment, ses entités.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md91"></a>
+<p>Le lieu et l'arène se dessinent par le <b>même</b> code : même projection isométrique (<span class="tt"><a class="el" href="classcore_1_1IsoProjection.html" title="La projection isométrique d&#39;une grille de combat de columns × rows cases.">core::IsoProjection</a></span>), mêmes planches de l'atelier des textures (<span class="tt">LOT-92</span>, <span class="tt"><a class="el" href="ScenePieces_8h.html" title="La géométrie des pièces de scène, commune à l&#39;arène et aux lieux qu&#39;on parcourt.">ScenePieces.h</a></span>), même tri par profondeur. Ce qui change est la <b>source</b> : l'arène lit une grille de combat, le lieu lit une carte (<span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">core::Level</a></span>) — ses couches, les pièces qu'elles nomment, ses entités.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md92"></a>
 Ce qui va où</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -245,7 +247,7 @@ Ce qui va où</h2>
 <td class="markdownTableBodyNone">sol (type de tuile de la couche « sol » → table du lieu)  </td><td class="markdownTableBodyNone"><span class="tt">RenderLayer::Tile</span>  </td><td class="markdownTableBodyNone">profondeur de  </td></tr>
 </table>
 <p>case | | relief (pièce nommée à la case, ou type de la couche « décor ») | <span class="tt">RenderLayer::Object</span> | pied de la case | | figurine (héros, PNJ) | <span class="tt">RenderLayer::Player</span> | pied de sa case |</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md92"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md93"></a>
 Par instantané, comme l'arène</h2>
 <p>La composition ne lit qu'un <span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html" title="Le lieu en valeurs : ce que la composition lit, et rien d&#39;autre.">hmi::WorldSceneSnapshot</a></span> — des <b>valeurs</b>, aucun pointeur vers la carte ni vers la session. C'est ce qui lui permet de tourner sur le fil de rendu de Qt Quick, l'instantané étant pris dans <span class="tt">synchronize()</span> pendant que le fil graphique est bloqué. </p>
 </div></div><!-- contents -->

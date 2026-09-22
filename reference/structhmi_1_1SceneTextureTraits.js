@@ -1,0 +1,8 @@
+var structhmi_1_1SceneTextureTraits =
+[
+    [ "anchor", "structhmi_1_1SceneTextureTraits.html#aa19a25181ae8c7d58eb94aa04a0c4a91", null ],
+    [ "artTile", "structhmi_1_1SceneTextureTraits.html#a83630372340fa93d225b85c615c0f8c4", null ],
+    [ "depthOffset", "structhmi_1_1SceneTextureTraits.html#ac9331d65bf9badf18f6e56c547bd97e1", null ],
+    [ "frameHeight", "structhmi_1_1SceneTextureTraits.html#aedcade86d1c5b97bd7debceffafcbc41", null ],
+    [ "frameWidth", "structhmi_1_1SceneTextureTraits.html#a2dc1ead5b982039007f23fb1df9f5e9b", null ]
+];

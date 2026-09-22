@@ -94,8 +94,9 @@ void addGrid(ComposedScene&amp; scene, TextureHandle white, const AssetGalleryDr
 // Le quad de l'image courante d'un bloc, posÃ© sur son emprise. Une texture en Ã©chec (le damier
 // de remplacement) se montre entiÃ¨re, sans dÃ©coupe en images.
 [[nodiscard]] SpriteQuad artQuad(const LoadedTexture&amp; texture, bool failed,
-                                 const AssetGalleryDrawnBloc&amp; bloc, float artScale,
-<span style = "background-color:#dfd">                                 Area footprint) {
+<span style = "background-color:#dfd">                                 const AssetGalleryDrawnBloc&amp; bloc, float cell, Area footprint) {</span>
+    // L'art a l'echelle de son lieu : le losange que son manifeste declare occupe une case.
+<span style = "background-color:#dfd">    const float artScale = cell / static_cast&lt;float&gt;(std::max(1, bloc.tilePixels));
     const int frameWidth =</span>
         failed || bloc.frameWidth &lt;= 0 ? texture.width : std::min(bloc.frameWidth, texture.width);
 <span style = "background-color:#dfd">    const int frameHeight = failed || bloc.frameHeight &lt;= 0</span>
@@ -208,7 +209,7 @@ AssetGalleryRenderer::AssetGalleryRenderer(std::filesystem::path assetsRoot)
     _composed.clear();
     const TextureHandle white = _white.handle();
     const float cell = std::max(1.0F, _frame.cellPixels);
-    const float line = std::max(1.0F, std::floor(_frame.artScale));</span>
+    const float line = std::max(1.0F, std::floor(_frame.pixelScale));</span>
 
 <span style = "background-color:#dfd">    std::int32_t order = 0;
     for (const AssetGalleryDrawnBloc&amp; bloc : _frame.drawn) {
@@ -235,7 +236,7 @@ AssetGalleryRenderer::AssetGalleryRenderer(std::filesystem::path assetsRoot)
             const bool failed = cached-&gt;second.failed || cached-&gt;second.texture.texture == nullptr;
             const LoadedTexture&amp; texture = failed ? _missing : cached-&gt;second.texture;
             if (texture.texture != nullptr &amp;&amp; texture.width &gt; 0 &amp;&amp; texture.height &gt; 0) {
-                const SpriteQuad quad = artQuad(texture, failed, bloc, _frame.artScale,</span>
+                const SpriteQuad quad = artQuad(texture, failed, bloc, cell,</span>
                                                 Area{.x = footprintX,
                                                      .y = footprintY,
                                                      .width = footprintWidth,

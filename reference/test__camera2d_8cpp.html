@@ -167,12 +167,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:ae2179c844b3f7524cff7b02e0cad488d"><td class="mdescLeft">&#160;</td><td class="mdescRight">La matrice de projection envoie le centre de la caméra à l'origine du clip space.  <br /></td></tr>
 <tr class="memitem:a53f875977ce1115431503ec3ccb00d6c" id="r_a53f875977ce1115431503ec3ccb00d6c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a53f875977ce1115431503ec3ccb00d6c">TEST</a> (Camera2DTest, BordEcranVersBordClip)</td></tr>
 <tr class="memdesc:a53f875977ce1115431503ec3ccb00d6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un coin de l'écran correspond à un bord du clip space (±1).  <br /></td></tr>
-<tr class="memitem:a09e8e1cce3f58cfbed72766c3fd93afd" id="r_a09e8e1cce3f58cfbed72766c3fd93afd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a09e8e1cce3f58cfbed72766c3fd93afd">TEST</a> (Camera2DTest, FitZoomEntierPourPetitNiveau)</td></tr>
-<tr class="memdesc:a09e8e1cce3f58cfbed72766c3fd93afd"><td class="mdescLeft">&#160;</td><td class="mdescRight">fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit niveau).  <br /></td></tr>
+<tr class="memitem:a0911d4af9f73f656ee62c9feb8ea25ed" id="r_a0911d4af9f73f656ee62c9feb8ea25ed"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0911d4af9f73f656ee62c9feb8ea25ed">TEST</a> (Camera2DTest, FitZoomRemplitSansArrondi)</td></tr>
+<tr class="memdesc:a0911d4af9f73f656ee62c9feb8ea25ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">fitZoom remplit la surface sans arrondir, même au-dessus de 1 (<span class="tt">LOT-103</span>).  <br /></td></tr>
 <tr class="memitem:ad3337cce29ff92f989bed5ad7b77b5c4" id="r_ad3337cce29ff92f989bed5ad7b77b5c4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad3337cce29ff92f989bed5ad7b77b5c4">TEST</a> (Camera2DTest, FitZoomFractionnairePourGrandNiveau)</td></tr>
 <tr class="memdesc:ad3337cce29ff92f989bed5ad7b77b5c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">fitZoom devient fractionnaire pour un niveau plus grand que la surface disponible.  <br /></td></tr>
 <tr class="memitem:a00d50b67f81e6de6a8cc1364b9ec2f8c" id="r_a00d50b67f81e6de6a8cc1364b9ec2f8c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a00d50b67f81e6de6a8cc1364b9ec2f8c">TEST</a> (Camera2DTest, FitZoomAppliqueLaMarge)</td></tr>
-<tr class="memdesc:a00d50b67f81e6de6a8cc1364b9ec2f8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">fitZoom applique la marge avant l'arrondi.  <br /></td></tr>
+<tr class="memdesc:a00d50b67f81e6de6a8cc1364b9ec2f8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">fitZoom applique la marge telle quelle.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection). </p>
@@ -346,49 +346,18 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>fitZoom applique la marge avant l'arrondi. </p>
-<p><b>Cas de test :</b> <b>fitZoom applique la marge avant l'arrondi.</b><br  />
+<p>fitZoom applique la marge telle quelle. </p>
+<p><b>Cas de test :</b> <b>fitZoom applique la marge telle quelle.</b><br  />
  <b>Categorie :</b> Unitaire · Camera2 D<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> fitZoom applique la marge avant l'arrondi. </p>
-
-</div>
-</div>
-<a id="a09e8e1cce3f58cfbed72766c3fd93afd" name="a09e8e1cce3f58cfbed72766c3fd93afd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09e8e1cce3f58cfbed72766c3fd93afd">&#9670;&#160;</a></span>TEST() <span class="overload">[7/10]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">Camera2DTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FitZoomEntierPourPetitNiveau</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit niveau). </p>
-<p><b>Cas de test :</b> <b>fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit niveau).</b><br  />
- <b>Categorie :</b> Unitaire · Camera2 D<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit niveau). </p>
+ 1. Cadrer 16 x 16 unites dans 1280 x 1280 pixels, sans marge puis a 0,85.<br  />
+ <b>Resultat attendu :</b> 5 sans marge, 4,25 avec : la marge multiplie le facteur, rien ne l'arrondit. </p>
 
 </div>
 </div>
 <a id="ad3337cce29ff92f989bed5ad7b77b5c4" name="ad3337cce29ff92f989bed5ad7b77b5c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3337cce29ff92f989bed5ad7b77b5c4">&#9670;&#160;</a></span>TEST() <span class="overload">[8/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3337cce29ff92f989bed5ad7b77b5c4">&#9670;&#160;</a></span>TEST() <span class="overload">[7/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -414,6 +383,35 @@ Functions</h2></td></tr>
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
  <b>Resultat attendu :</b> fitZoom devient fractionnaire pour un niveau plus grand que la surface disponible. </p>
+
+</div>
+</div>
+<a id="a0911d4af9f73f656ee62c9feb8ea25ed" name="a0911d4af9f73f656ee62c9feb8ea25ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0911d4af9f73f656ee62c9feb8ea25ed">&#9670;&#160;</a></span>TEST() <span class="overload">[8/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">Camera2DTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FitZoomRemplitSansArrondi</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fitZoom remplit la surface sans arrondir, même au-dessus de 1 (<span class="tt">LOT-103</span>). </p>
+<p><b>Cas de test :</b> <b>fitZoom remplit la surface sans arrondi a l'entier.</b><br  />
+ <b>Categorie :</b> Unitaire · Camera2 D<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Cadrer un niveau de 14 x 8 unites dans une fenetre de 1280 x 720, marge 0,85.<br  />
+ <b>Resultat attendu :</b> Le facteur vaut exactement 0,85 fois le plus petit rapport, sans arrondi : la grille du pixel art n'est plus a proteger (EX-ARCH-022). </p>
 
 </div>
 </div>

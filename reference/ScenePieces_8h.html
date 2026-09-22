@@ -143,15 +143,17 @@ $(function(){initNavTree('ScenePieces_8h.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>La géométrie des <b>pièces de l'atelier des textures</b> (<span class="tt">LOT-92</span>), commune au Colisée en combat et aux lieux qu'on parcourt (<span class="tt">LOT-09</span>).  
+<p>La géométrie des <b>pièces de scène</b>, commune à l'arène et aux lieux qu'on parcourt.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;string_view&gt;</code><br />
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Rect_8h_source.html">Core/Math/Rect.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Vector2_8h_source.html">Core/Math/Vector2.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Quad_8h_source.html">HMI/Graphics/Quad.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RenderLayer_8h_source.html">HMI/Graphics/RenderLayer.h</a>&quot;</code><br />
@@ -161,7 +163,7 @@ $(function(){initNavTree('ScenePieces_8h.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3ASceneTexture" id="r_hmi_3A_3ASceneTexture"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneTexture.html">hmi::SceneTexture</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une texture liable et ses dimensions en pixels (pour normaliser les UV).  <a href="structhmi_1_1SceneTexture.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une texture liable, ses dimensions en pixels et ce que ses fichiers voisins disent d'elle.  <a href="structhmi_1_1SceneTexture.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AScenePieceTextures" id="r_hmi_3A_3AScenePieceTextures"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ScenePieceTextures.html">hmi::ScenePieceTextures</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les textures d'un lieu, adressées par leur <b>chemin</b> tel que la composition l'écrit.  <a href="structhmi_1_1ScenePieceTextures.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -171,28 +173,28 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aefe5a3c767ba4b0482688df953007fe1" id="r_aefe5a3c767ba4b0482688df953007fe1"><td class="memItemLeft"><a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aefe5a3c767ba4b0482688df953007fe1">hmi::standingPieceQuad</a> (const <a class="el" href="structhmi_1_1SceneTexture.html">SceneTexture</a> &amp;texture, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> topVertex, float unitsPerScenePixel)</td></tr>
-<tr class="memdesc:aefe5a3c767ba4b0482688df953007fe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose une pièce <b>debout</b> d'une case par son ancre.  <br /></td></tr>
+<tr class="memitem:acf7d466bf233ec8793a6ce809dff494f" id="r_acf7d466bf233ec8793a6ce809dff494f"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#acf7d466bf233ec8793a6ce809dff494f">hmi::artTileWidth</a> (const <a class="el" href="structhmi_1_1SceneTexture.html">SceneTexture</a> &amp;texture) noexcept</td></tr>
+<tr class="memdesc:acf7d466bf233ec8793a6ce809dff494f"><td class="mdescLeft">&#160;</td><td class="mdescRight">La largeur, en pixels d'art, d'une case de la projection : ce que le manifeste déclare.  <br /></td></tr>
+<tr class="memitem:a688b39b1850e66b5bfd6a536d3ef5a5a" id="r_a688b39b1850e66b5bfd6a536d3ef5a5a"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a688b39b1850e66b5bfd6a536d3ef5a5a">hmi::artTileHeight</a> (const <a class="el" href="structhmi_1_1SceneTexture.html">SceneTexture</a> &amp;texture, float ratio) noexcept</td></tr>
+<tr class="memitem:a14e18713fd61522fc5a30946267f2fe5" id="r_a14e18713fd61522fc5a30946267f2fe5"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a14e18713fd61522fc5a30946267f2fe5">hmi::frameWidthOf</a> (const <a class="el" href="structhmi_1_1SceneTexture.html">SceneTexture</a> &amp;texture) noexcept</td></tr>
+<tr class="memitem:ae67a7efaa5cb116e48427d0aab5280a6" id="r_ae67a7efaa5cb116e48427d0aab5280a6"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ae67a7efaa5cb116e48427d0aab5280a6">hmi::frameHeightOf</a> (const <a class="el" href="structhmi_1_1SceneTexture.html">SceneTexture</a> &amp;texture) noexcept</td></tr>
+<tr class="memitem:a1f72cd993b8b51f1869050354b8ce2b8" id="r_a1f72cd993b8b51f1869050354b8ce2b8"><td class="memItemLeft"><a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a1f72cd993b8b51f1869050354b8ce2b8">hmi::standingPieceQuad</a> (const <a class="el" href="structhmi_1_1SceneTexture.html">SceneTexture</a> &amp;texture, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> topVertex, float tileWidth, float ratio)</td></tr>
+<tr class="memdesc:a1f72cd993b8b51f1869050354b8ce2b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose une pièce <b>debout</b> par son ancre, à l'échelle de son lieu.  <br /></td></tr>
+<tr class="memitem:acaace1eccd01216a1c63742c15e251c9" id="r_acaace1eccd01216a1c63742c15e251c9"><td class="memItemLeft"><a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#acaace1eccd01216a1c63742c15e251c9">hmi::floorQuad</a> (const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;bounds) noexcept</td></tr>
+<tr class="memdesc:acaace1eccd01216a1c63742c15e251c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le quad d'une dalle de sol : la boîte de son losange, élargie de <span class="tt"><a class="el" href="namespacehmi.html#ac8defcd53d2643e64d9985a898796481" title="Débord d&#39;une dalle de sol au-delà de son losange, de chaque côté, en largeurs de case.">FLOOR_SEAM_OVERLAP</a></span>.  <br /></td></tr>
+<tr class="memitem:abd7514508f0600ea89fee975080faa96" id="r_abd7514508f0600ea89fee975080faa96"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#abd7514508f0600ea89fee975080faa96">hmi::frameCountOf</a> (const <a class="el" href="structhmi_1_1SceneTexture.html">SceneTexture</a> &amp;texture) noexcept</td></tr>
+<tr class="memitem:a851ee9d5cbca4f7ee5fd39dd24d02110" id="r_a851ee9d5cbca4f7ee5fd39dd24d02110"><td class="memItemLeft"><a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a851ee9d5cbca4f7ee5fd39dd24d02110">hmi::figureQuad</a> (const <a class="el" href="structhmi_1_1SceneTexture.html">SceneTexture</a> &amp;texture, int frame, float centerX, float bottomY, float tileWidth)</td></tr>
+<tr class="memdesc:a851ee9d5cbca4f7ee5fd39dd24d02110"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose une <b>figurine</b> : l'image <code class="param">frame</code> de sa bande, <b>entière</b>, à l'échelle de son art.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a19b85f07e8096e377cfde7ed43902c89" id="r_a19b85f07e8096e377cfde7ed43902c89"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a19b85f07e8096e377cfde7ed43902c89">hmi::SCENE_TILE_WIDTH_PIXELS</a> = 68</td></tr>
-<tr class="memdesc:a19b85f07e8096e377cfde7ed43902c89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur du losange des textures de scène de l'atelier, en pixels d'art.  <br /></td></tr>
-<tr class="memitem:a5345cd8ebde1293596b218480d44e233" id="r_a5345cd8ebde1293596b218480d44e233"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a5345cd8ebde1293596b218480d44e233">hmi::SCENE_HALF_TILE_WIDTH_PIXELS</a> = <a class="el" href="namespacehmi.html#a19b85f07e8096e377cfde7ed43902c89">SCENE_TILE_WIDTH_PIXELS</a> / 2</td></tr>
-<tr class="memdesc:a5345cd8ebde1293596b218480d44e233"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demi-largeur de ce losange : l'abscisse de l'ancre d'une pièce d'une case.  <br /></td></tr>
-<tr class="memitem:adf0a8584471498fee2fd58f1b3526335" id="r_adf0a8584471498fee2fd58f1b3526335"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#adf0a8584471498fee2fd58f1b3526335">hmi::SCENE_TILE_HEIGHT_PIXELS</a> = 42</td></tr>
-<tr class="memdesc:adf0a8584471498fee2fd58f1b3526335"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur de ce losange : il occupe le bas d'une pièce d'une case.  <br /></td></tr>
-<tr class="memitem:a46b9654e0a27fbe317b1b281d1560182" id="r_a46b9654e0a27fbe317b1b281d1560182"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a46b9654e0a27fbe317b1b281d1560182">hmi::FIGURE_FRAME_WIDTH_PIXELS</a> = 48</td></tr>
-<tr class="memdesc:a46b9654e0a27fbe317b1b281d1560182"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur d'une image des bandes d'animation des figurines (<span class="tt">Assets/Npc/manifest.json</span>).  <br /></td></tr>
-<tr class="memitem:a55c481d635af0b56829a8ccc530af04d" id="r_a55c481d635af0b56829a8ccc530af04d"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a55c481d635af0b56829a8ccc530af04d">hmi::FIGURE_FRAME_HEIGHT_PIXELS</a> = 64</td></tr>
-<tr class="memdesc:a55c481d635af0b56829a8ccc530af04d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur d'une image de ces bandes.  <br /></td></tr>
-<tr class="memitem:a65e321902d186ff823f7122c0f3ace7f" id="r_a65e321902d186ff823f7122c0f3ace7f"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a65e321902d186ff823f7122c0f3ace7f">hmi::FIGURE_SCALE</a> = 1.25F</td></tr>
-<tr class="memdesc:a65e321902d186ff823f7122c0f3ace7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agrandissement d'une figurine par rapport à la planche.  <br /></td></tr>
+<tr class="memitem:ac8defcd53d2643e64d9985a898796481" id="r_ac8defcd53d2643e64d9985a898796481"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ac8defcd53d2643e64d9985a898796481">hmi::FLOOR_SEAM_OVERLAP</a> = 1.0F / 256.0F</td></tr>
+<tr class="memdesc:ac8defcd53d2643e64d9985a898796481"><td class="mdescLeft">&#160;</td><td class="mdescRight">Débord d'une dalle de sol au-delà de son losange, de chaque côté, en largeurs de case.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>La géométrie des <b>pièces de l'atelier des textures</b> (<span class="tt">LOT-92</span>), commune au Colisée en combat et aux lieux qu'on parcourt (<span class="tt">LOT-09</span>). </p>
-<p>L'atelier livre, pour chaque lieu, une planche découpée en pièces : un losange de 68 × 42 pixels d'art (le rapport 0,62 d'<span class="tt"><a class="el" href="classcore_1_1IsoProjection.html" title="La projection isométrique d&#39;une grille de combat de columns × rows cases.">core::IsoProjection</a></span>), chaque pièce posée par son <b>ancre</b>, le sommet haut du losange de son emprise. Une pièce d'une case a donc la largeur du losange, dont les 42 pixels du bas ; ce qui dépasse monte au-dessus de la case.</p>
-<p>Ces constantes vivaient dans <span class="tt">hmi::ArenaSceneComposer</span>, qui fut le premier à les lire. Le monde exploré lit les mêmes planches : les garder en deux copies ferait de leur égalité une coïncidence. </p>
+<div class="textblock"><p>La géométrie des <b>pièces de scène</b>, commune à l'arène et aux lieux qu'on parcourt. </p>
+<p>Un lieu livre ses pièces avec un manifeste (<span class="tt">LOT-104</span>) : chaque pièce est posée par son <b>ancre</b>, le sommet haut du losange de son emprise, et le manifeste déclare le losange de sol de l'art (<span class="tt">"tile": [256, 159]</span>, <span class="tt">EX-VIS-008</span>). C'est de ce losange que vient l'échelle d'une pièce à l'écran : une pièce dont le losange fait 256 pixels d'art occupe exactement la largeur d'une case de la projection. Aucune taille d'art n'est écrite ici (<span class="tt">LOT-103</span>) : un lieu livré plus fin ou plus grossier se dessine à la bonne taille sans toucher au code.</p>
+<p>Ce que les fichiers voisins disent d'une image — découpe, échelle, ancre — se lit par <span class="tt"><a class="el" href="namespacehmi.html#ac055c7562f1faff774ce612b51ebf13d" title="Lit les traits de l&#39;image path.">hmi::readSceneTextureTraits</a></span> (<span class="tt"><a class="el" href="SceneTextureTraits_8h.html" title="Ce que les fichiers voisins d&#39;une image de scène disent d&#39;elle : sa découpe, son échelle,...">SceneTextureTraits.h</a></span>). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

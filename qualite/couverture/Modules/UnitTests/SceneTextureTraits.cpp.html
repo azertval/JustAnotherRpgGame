@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>SceneTextureTraits.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "HMI/Graphics/SceneTextureTraits.h"
+
+#include &lt;cmath&gt;
+#include &lt;string&gt;
+#include &lt;system_error&gt;
+
+#include "HMI/Graphics/AnimationCatalog.h"
+
+namespace hmi {
+
+namespace {
+
+/// Version la plus Ã©levÃ©e des manifestes lus.
+constexpr int MANIFEST_VERSION = 1;
+
+/// L'entrÃ©e de manifeste qui cite @p filename, `nullptr` si aucune.
+[[nodiscard]] const nlohmann::json* entryOf(const nlohmann::json&amp; manifest,
+<span style = "background-color:#dfd">                                            std::string_view filename) {
+    const auto textures = manifest.find("textures");
+    if (!manifest.is_object() || textures == manifest.end() || !textures-&gt;is_object()) {</span>
+<span style = "background-color:#fdd">        return nullptr;</span>
+    }
+<span style = "background-color:#dfd">    for (const nlohmann::json&amp; entry : *textures) {
+        const auto file = entry.find("file");
+        if (entry.is_object() &amp;&amp; file != entry.end() &amp;&amp; file-&gt;is_string() &amp;&amp;</span>
+            file-&gt;get&lt;std::string&gt;() == filename) {
+<span style = "background-color:#dfd">            return &amp;entry;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return nullptr;
+}</span>
+
+/// Le manifeste de @p directory, s'il se lit.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;nlohmann::json&gt; manifestOf(const std::filesystem::path&amp; directory) {
+    std::error_code error;
+    const std::filesystem::path path = directory / "manifest.json";
+    if (!std::filesystem::is_regular_file(path, error)) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    core::JsonDocument document = core::readJsonObjectFromFile(path, MANIFEST_VERSION);
+    if (!document.ok()) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return std::move(document.root);
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">core::Vector2 manifestArtTile(const nlohmann::json&amp; manifest) {
+    const auto tile = manifest.is_object() ? manifest.find("tile") : manifest.end();</span>
+    if (tile == manifest.end() || !tile-&gt;is_array() || tile-&gt;size() != 2 ||
+<span style = "background-color:#dfd">        !(*tile)[0].is_number() || !(*tile)[1].is_number()) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    const auto width = (*tile)[0].get&lt;float&gt;();
+    const auto height = (*tile)[1].get&lt;float&gt;();
+    if (!std::isfinite(width) || !std::isfinite(height) || width &lt;= 0.0F || height &lt;= 0.0F) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    return {width, height};
+}</span>
+
+std::optional&lt;core::Vector2&gt; scenePieceAnchor(const nlohmann::json&amp; manifest,
+<span style = "background-color:#dfd">                                              std::string_view filename) {
+    const nlohmann::json* const entry = entryOf(manifest, filename);
+    if (entry == nullptr) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const auto anchor = entry-&gt;find("anchor");</span>
+    if (anchor == entry-&gt;end() || !anchor-&gt;is_array() || anchor-&gt;size() != 2 ||
+<span style = "background-color:#dfd">        !(*anchor)[0].is_number() || !(*anchor)[1].is_number()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const auto x = (*anchor)[0].get&lt;float&gt;();
+    const auto y = (*anchor)[1].get&lt;float&gt;();
+    if (!std::isfinite(x) || !std::isfinite(y)) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return core::Vector2{x, y};
+}</span>
+
+std::optional&lt;float&gt; scenePieceDepthOffset(const nlohmann::json&amp; manifest,
+<span style = "background-color:#dfd">                                           std::string_view filename) {
+    if (!scenePieceAnchor(manifest, filename)) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const nlohmann::json&amp; entry = *entryOf(manifest, filename);
+    const auto offset = entry.find("depthOffset");
+    if (offset == entry.end() || !offset-&gt;is_number()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const auto value = offset-&gt;get&lt;float&gt;();
+    return std::isfinite(value) ? std::optional&lt;float&gt;{value} : std::nullopt;
+}</span>
+
+SceneTextureTraits readSceneTextureTraits(const std::filesystem::path&amp; assetsDirectory,
+<span style = "background-color:#dfd">                                          std::string_view path) {
+    SceneTextureTraits traits;
+    const std::filesystem::path file = assetsDirectory / std::filesystem::path(path);</span>
+
+    // La dÃ©coupe d'une bande : seules les figurines ont un `.anim.json`, et son absence n'est pas
+    // une anomalie.
+<span style = "background-color:#dfd">    std::filesystem::path description = file;
+    description.replace_extension();
+    description += ".anim.json";
+    if (const AnimationDescriptionResult read = AnimationCatalog::loadFromFile(description);
+        read.ok()) {
+        traits.frameWidth = read.description-&gt;frameWidth;
+        traits.frameHeight = read.description-&gt;frameHeight;
+    }</span>
+
+    // La piÃ¨ce : son manifeste est dans son dossier. La figurine : un dossier plus haut, celui de
+    // l'atelier qui la range (`Characters/`, `Npc/`).
+<span style = "background-color:#dfd">    const std::string filename = file.filename().string();
+    if (const std::optional&lt;nlohmann::json&gt; manifest = manifestOf(file.parent_path())) {
+        traits.artTile = manifestArtTile(*manifest);
+        traits.anchor = scenePieceAnchor(*manifest, filename);
+        traits.depthOffset = scenePieceDepthOffset(*manifest, filename);
+    }
+    if (traits.artTile.x &lt;= 0.0F) {
+        if (const std::optional&lt;nlohmann::json&gt; parent =</span>
+                manifestOf(file.parent_path().parent_path())) {
+<span style = "background-color:#dfd">            traits.artTile = manifestArtTile(*parent);
+        }</span>
+    }
+<span style = "background-color:#dfd">    return traits;
+}</span>
+
+<span style = "background-color:#dfd">void applySceneTextureTraits(SceneTexture&amp; texture, const SceneTextureTraits&amp; traits) {
+    texture.frameWidth = traits.frameWidth;
+    texture.frameHeight = traits.frameHeight;
+    texture.artTile = traits.artTile;
+    texture.anchor = traits.anchor;
+    texture.depthOffset = traits.depthOffset;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

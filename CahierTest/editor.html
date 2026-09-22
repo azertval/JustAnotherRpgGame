@@ -1003,21 +1003,21 @@
 <ul><li>Vérifie que <code>table.ok()</code> est vrai.</li><li>Vérifie que <code>hmi::pieceCellType(&amp;table.appearance, &quot;street-2&quot;, true)</code> vaut <code>core::TileType::Dirt</code>.</li><li>Vérifie que <code>hmi::pieceCellType(&amp;table.appearance, &quot;stall&quot;, false)</code> vaut <code>core::TileType::Wall</code>.</li><li>Vérifie que <code>hmi::pieceCellType(&amp;table.appearance, &quot;cobble&quot;, true)</code> vaut <code>core::TileType::Empty</code>.</li><li>Vérifie que <code>hmi::pieceCellType(&amp;table.appearance, &quot;old-wall&quot;, false)</code> vaut <code>core::TileType::Solid</code>.</li><li>Vérifie que <code>hmi::pieceCellType(nullptr, &quot;street&quot;, true)</code> vaut <code>core::TileType::Empty</code>.</li></ul>
 </section><h2 id="test-scene-paintercpp">test_scene_painter.cpp</h2>
 <section class="case" data-crit="Bloquant"><h3 id="scenepaintertestunecartepeinteegalelerendudujeu">ScenePainterTest.UneCartePeinteEgaleLeRenduDuJeu</h3>
-<p><em>Bloquant · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_scene_painter.cpp:205</code></p>
+<p><em>Bloquant · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_scene_painter.cpp:216</code></p>
 <p>Le canevas de l'editeur peint une carte comme le jeu la dessine.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Composer la carte d'essai, ses PNJ compris.</li><li>La rendre hors ecran par le rendu QRhi du jeu, cadree sur trois points (grand- place, coin nord, porte est).</li><li>La peindre par le peintre QPainter de l'editeur avec la meme camera.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Pour chaque cadrage, moins de 0,5 % des pixels different de plus de 48 sur un canal ; l'image est peinte sur plus de la moitie de sa surface.</li></ul>
+<ul><li>Pour chaque cadrage, moins de 2,5 % des pixels different de plus de 48 sur un canal ; l'image est peinte sur plus de la moitie de sa surface.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="scenepaintertestlasecondecartepeinteegalelerendudujeu">ScenePainterTest.LaSecondeCartePeinteEgaleLeRenduDuJeu</h3>
-<p><em>Majeur · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_scene_painter.cpp:229</code></p>
+<p><em>Majeur · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_scene_painter.cpp:240</code></p>
 <p>Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Composer le donjon.</li><li>Le rendre par le jeu et par l'editeur, cadre sur sa porte.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Moins de 0,5 % des pixels different au-dela de la tolerance.</li></ul>
+<ul><li>Moins de 2,5 % des pixels different au-dela de la tolerance.</li></ul>
 </section><section class="case" data-crit="Bloquant"><h3 id="scenepaintertestunecartesansaucuneimagesevoitdanslesdeuxrendus">ScenePainterTest.UneCarteSansAucuneImageSeVoitDansLesDeuxRendus</h3>
-<p><em>Bloquant · Unitaire · Rendu de maquette</em> — <code>Source/Test/Unit/Editor/test_scene_painter.cpp:293</code></p>
+<p><em>Bloquant · Unitaire · Rendu de maquette</em> — <code>Source/Test/Unit/Editor/test_scene_painter.cpp:303</code></p>
 <p>Une carte sans aucun fichier d'image se voit, pareillement dans les deux rendus.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Batir en memoire une carte sans lieu : sols, eau, enceinte de murs, quatre entites.</li><li>La rendre hors ecran par le rendu QRhi du jeu, puis par le peintre de l'editeur.</li></ol>
@@ -1297,7 +1297,7 @@
 <ul><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;bourg/place&quot;, {})</code> vaut <code>&quot;from-place&quot;</code>.</li><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;bourg/place&quot;, {&quot;from-place&quot;})</code> vaut <code>&quot;from-place-2&quot;</code>.</li><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;donjon&quot;, {&quot;from-donjon&quot;, &quot;from-donjon-2&quot;})</code> vaut <code>&quot;from-donjon-3&quot;</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-world.html"><span>Précédent</span>Core · World</a><a class="next" href="hmi-audio.html"><span>Suivant</span>HMI · Audio</a></nav><p class="source">Source : <code>Documentation/CahierTest/editor.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>7fdd68c2e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>b55256fe9</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

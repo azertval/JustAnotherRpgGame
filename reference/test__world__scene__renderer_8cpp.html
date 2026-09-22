@@ -272,14 +272,16 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La caméra suit le héros et ne sort pas de la carte. </p>
-<p><b>Cas de test :</b> <b>Le cadrage d'un lieu suit le heros, borne a la scene, a un agrandissement entier.</b><br  />
+<p><b>Cas de test :</b> <b>Le cadrage d'un lieu suit le heros, borne a la scene, une case a la hauteur de la vue divisee par 10,8.</b><br  />
  <b>Categorie :</b> Unitaire · Rendu QRhi d'un lieu<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
  1. Cadrer une grande carte sur son centre, puis sur un coin.<br  />
 </p><ol type="1">
 <li>Cadrer une carte plus petite que la vue.<br  />
- <b>Resultat attendu :</b> Au centre, la camera est sur le heros ; au coin, elle s'arrete au bord de la scene ; une petite carte reste centree. L'agrandissement est entier &ndash; le pixel art ne se met pas a l'echelle 0,62. </li>
+</li>
+<li>Cadrer la meme carte a 1080p et a 2160p.<br  />
+ <b>Resultat attendu :</b> Au centre, la camera est sur le heros ; au coin, elle s'arrete au bord de la scene ; une petite carte reste centree. Une case occupe 720 / 10,8 pixels a 720p, 100 a 1080p, 200 a 2160p, et les deux dernieres vues cadrent la meme etendue (EX-REN-013). </li>
 </ol>
 
 </div>

@@ -11,6 +11,7 @@ var structhmi_1_1WorldSceneSnapshot =
     [ "floors", "structhmi_1_1WorldSceneSnapshot.html#a07a1eb5f4f5b3137b943484975173f06", null ],
     [ "footprints", "structhmi_1_1WorldSceneSnapshot.html#ae4f535da56bbd58b7c4308f19566bf39", null ],
     [ "marks", "structhmi_1_1WorldSceneSnapshot.html#a575f623efd821f68adab02944b81eebf", null ],
+    [ "maximumRise", "structhmi_1_1WorldSceneSnapshot.html#aa915bb857eb15549fc09510c5a587306", null ],
     [ "place", "structhmi_1_1WorldSceneSnapshot.html#a5853266b18d8062e8cbe6287485f8e80", null ],
     [ "relief", "structhmi_1_1WorldSceneSnapshot.html#a213f244b1a103b590845ed397e41ee24", null ],
     [ "reliefTypes", "structhmi_1_1WorldSceneSnapshot.html#ab45a159d8d5c079335271f789aabd2df", null ],

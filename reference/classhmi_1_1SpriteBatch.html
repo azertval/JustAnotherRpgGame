@@ -143,7 +143,7 @@ $(function(){initNavTree('classhmi_1_1SpriteBatch.html','','classhmi_1_1SpriteBa
 </div><!--header-->
 <div class="contents">
 
-<p>Dessine des quads texturés au travers de QRhi, avec transparence et échantillonnage <em>nearest</em> (pixel art).  
+<p>Dessine des quads texturés au travers de QRhi, avec transparence <b>prémultipliée</b> et un échantillonnage qui suit la nature de chaque texture : bilinéaire avec mipmaps pour l'art peint, au plus proche pour une image engendrée (<span class="tt">EX-ARCH-022</span>, <span class="tt">LOT-103</span>).  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="SpriteBatch_8h_source.html">SpriteBatch.h</a>&gt;</code></p>
@@ -196,7 +196,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a4f2bab919482e653fef21843490599fb" id="r_a4f2bab919482e653fef21843490599fb"><td class="memItemLeft">std::unique_ptr&lt; QRhiBuffer &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4f2bab919482e653fef21843490599fb">_vertexBuffer</a></td></tr>
 <tr class="memitem:ab45c9014b548b8282baec8a22a2d32db" id="r_ab45c9014b548b8282baec8a22a2d32db"><td class="memItemLeft">std::unique_ptr&lt; QRhiBuffer &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab45c9014b548b8282baec8a22a2d32db">_indexBuffer</a></td></tr>
 <tr class="memitem:aa28fbb8420ffd82a0c198bead9d83426" id="r_aa28fbb8420ffd82a0c198bead9d83426"><td class="memItemLeft">std::unique_ptr&lt; QRhiBuffer &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa28fbb8420ffd82a0c198bead9d83426">_uniformBuffer</a></td></tr>
-<tr class="memitem:a051d302fd795217053cf51e5710ef8ae" id="r_a051d302fd795217053cf51e5710ef8ae"><td class="memItemLeft">std::unique_ptr&lt; QRhiSampler &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a051d302fd795217053cf51e5710ef8ae">_sampler</a></td></tr>
+<tr class="memitem:afe6606855052f49ad23feded824a23f6" id="r_afe6606855052f49ad23feded824a23f6"><td class="memItemLeft">std::unique_ptr&lt; QRhiSampler &gt;&#160;</td><td class="memItemRight"><a class="el" href="#afe6606855052f49ad23feded824a23f6">_sharpSampler</a></td></tr>
+<tr class="memdesc:afe6606855052f49ad23feded824a23f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Au plus proche, sans mipmap : les images engendrées (<span class="tt"><a class="el" href="namespacehmi.html#a30e21236d068bfdc0078d392e42b752da60c17eb98355db0fe5ce016db6c6f444" title="Au plus proche, sans mipmap : une image engendrée dont chaque pixel est voulu — le damier de repli,...">TextureFiltering::Sharp</a></span>).  <br /></td></tr>
+<tr class="memitem:a55cb70edf2b067a26b1195c8697ab784" id="r_a55cb70edf2b067a26b1195c8697ab784"><td class="memItemLeft">std::unique_ptr&lt; QRhiSampler &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a55cb70edf2b067a26b1195c8697ab784">_smoothSampler</a></td></tr>
+<tr class="memdesc:a55cb70edf2b067a26b1195c8697ab784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bilinéaire avec mipmaps : l'art peint (<span class="tt"><a class="el" href="namespacehmi.html#a30e21236d068bfdc0078d392e42b752dae510cdf33cd497134b47b9316314d4b4" title="Bilinéaire avec mipmaps : l&#39;art peint, toujours réduit à l&#39;écran, qui scintillerait au plus proche (E...">TextureFiltering::Smooth</a></span>).  <br /></td></tr>
 <tr class="memitem:aa90eaad9d5b0b0c66a8aa5097405ecf8" id="r_aa90eaad9d5b0b0c66a8aa5097405ecf8"><td class="memItemLeft">std::unique_ptr&lt; QRhiGraphicsPipeline &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa90eaad9d5b0b0c66a8aa5097405ecf8">_pipeline</a></td></tr>
 <tr class="memitem:afbed412aa1ed69cb7f2ff6578ab10d3c" id="r_afbed412aa1ed69cb7f2ff6578ab10d3c"><td class="memItemLeft">QRhiRenderPassDescriptor *&#160;</td><td class="memItemRight"><a class="el" href="#afbed412aa1ed69cb7f2ff6578ab10d3c">_pipelinePass</a> = nullptr</td></tr>
 <tr class="memdesc:afbed412aa1ed69cb7f2ff6578ab10d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descripteur de la passe pour laquelle <span class="tt"><a class="el" href="#aa90eaad9d5b0b0c66a8aa5097405ecf8">_pipeline</a></span> a été construit : un changement de cible (redimensionnement du widget, changement de fenêtre) impose de le reconstruire.  <br /></td></tr>
@@ -224,7 +227,7 @@ Static Private Attributes</h2></td></tr>
 <tr class="memdesc:a57fd718a658a079c6ef72e34f95ce06c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de quads couverts par le tampon d'indices, et donc par un seul appel de dessin.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dessine des quads texturés au travers de QRhi, avec transparence et échantillonnage <em>nearest</em> (pixel art). </p>
+<div class="textblock"><p>Dessine des quads texturés au travers de QRhi, avec transparence <b>prémultipliée</b> et un échantillonnage qui suit la nature de chaque texture : bilinéaire avec mipmaps pour l'art peint, au plus proche pour une image engendrée (<span class="tt">EX-ARCH-022</span>, <span class="tt">LOT-103</span>). </p>
 <p>Usage inchangé pour les appelants : <span class="tt">begin(projection, texture)</span>, un ou plusieurs <span class="tt">draw(quad)</span>, puis <span class="tt"><a class="el" href="#aac9e3e6a4b2e84a4b24b617d6b4ce58d" title="Termine le lot : fige la plage de quads enregistrée. Un lot vide n&#39;émettra aucun dessin.">end()</a></span>. Ce qui change est <b>quand</b> le GPU voit ces quads.</p>
 <p><b>Deux phases, contrairement à la version Direct3D 11.</b> QRhi interdit de téléverser un tampon pendant une passe de rendu : impossible donc de réécrire le tampon de sommets entre deux <span class="tt">drawIndexed</span>, comme le faisait <span class="tt">Map(WRITE_DISCARD)</span>. La classe <b>enregistre</b> donc toute l'image côté CPU — sommets accumulés bout à bout, plus une liste de lots (texture, projection, plage de quads) — et n'émet quoi que ce soit qu'au <span class="tt"><a class="el" href="#a271469045e5d3087caadd4dcaf4ebbe1" title="Téléverse l&#39;image enregistrée et l&#39;émet en une passe de rendu.">submit()</a></span> final : un téléversement unique, puis une passe contenant un appel de dessin par lot. Le découpage en lots, et donc le nombre d'appels, est <b>strictement le même</b> qu'avant : c'est <span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html" title="Liste ordonnée des primitives d&#39;une image, indépendante de Direct3D.">hmi::ComposedScene</a></span> qui le décide, pas ce fichier.</p>
 <p>La projection est portée <b>par lot</b> et non par image : le HUD (<span class="tt">EX-REN-047</span>) se dessine en coordonnées écran dans la même image que le monde. Elle transite par un tampon uniforme adressé à décalage dynamique, un emplacement par lot. </p>
@@ -938,8 +941,8 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a051d302fd795217053cf51e5710ef8ae" name="a051d302fd795217053cf51e5710ef8ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a051d302fd795217053cf51e5710ef8ae">&#9670;&#160;</a></span>_sampler</h2>
+<a id="afe6606855052f49ad23feded824a23f6" name="afe6606855052f49ad23feded824a23f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe6606855052f49ad23feded824a23f6">&#9670;&#160;</a></span>_sharpSampler</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -948,7 +951,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unique_ptr&lt;QRhiSampler&gt; hmi::SpriteBatch::_sampler</td>
+          <td class="memname">std::unique_ptr&lt;QRhiSampler&gt; hmi::SpriteBatch::_sharpSampler</td>
         </tr>
       </table>
   </td>
@@ -957,6 +960,32 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Au plus proche, sans mipmap : les images engendrées (<span class="tt"><a class="el" href="namespacehmi.html#a30e21236d068bfdc0078d392e42b752da60c17eb98355db0fe5ce016db6c6f444" title="Au plus proche, sans mipmap : une image engendrée dont chaque pixel est voulu — le damier de repli,...">TextureFiltering::Sharp</a></span>). </p>
+
+</div>
+</div>
+<a id="a55cb70edf2b067a26b1195c8697ab784" name="a55cb70edf2b067a26b1195c8697ab784"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55cb70edf2b067a26b1195c8697ab784">&#9670;&#160;</a></span>_smoothSampler</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;QRhiSampler&gt; hmi::SpriteBatch::_smoothSampler</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bilinéaire avec mipmaps : l'art peint (<span class="tt"><a class="el" href="namespacehmi.html#a30e21236d068bfdc0078d392e42b752dae510cdf33cd497134b47b9316314d4b4" title="Bilinéaire avec mipmaps : l&#39;art peint, toujours réduit à l&#39;écran, qui scintillerait au plus proche (E...">TextureFiltering::Smooth</a></span>). </p>
 
 </div>
 </div>

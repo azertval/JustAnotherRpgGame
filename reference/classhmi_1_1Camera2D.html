@@ -192,7 +192,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Caméra 2D orthographique : projette le monde vers l'écran pour le rendu. </p>
-<p>La caméra est centrée sur une position <b>en unités monde</b> et applique l'échelle <b>16 pixels/unité</b> (<span class="tt">EX-ARCH-021</span>), avec l'origine écran en haut-gauche et l'axe Y vers le bas (convention du projet). Un facteur de <b>zoom</b> (de préférence entier pour la netteté du pixel art, <span class="tt">EX-ARCH-022</span>) multiplie cette échelle. La caméra est un objet de <b>présentation</b> : elle lit des positions monde mais ne modifie jamais l'ECS. </p>
+<p>La caméra est centrée sur une position <b>en unités monde</b> et applique l'échelle <b>16 pixels/unité</b> (<span class="tt">EX-ARCH-021</span>), avec l'origine écran en haut-gauche et l'axe Y vers le bas (convention du projet). Un facteur de <b>zoom</b>, libre (<span class="tt">EX-ARCH-022</span>, <span class="tt">EX-REN-013</span>), multiplie cette échelle. La caméra est un objet de <b>présentation</b> : elle lit des positions monde mais ne modifie jamais l'ECS. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8e28425fba642a6e08de0fcdf53b0ce7" name="a8e28425fba642a6e08de0fcdf53b0ce7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8e28425fba642a6e08de0fcdf53b0ce7">&#9670;&#160;</a></span>Camera2D()</h2>
@@ -294,7 +294,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Facteur de zoom ajustant un contenu à une surface disponible, sans zone hors champ. </p>
-<p>Entier (<span class="tt">std::floor</span>) tant que le facteur brut est supérieur ou égal à 1 — netteté pixel art, <span class="tt">EX-ARCH-022</span> (préférence, pas une règle absolue) ; <b>fractionnaire</b> uniquement lorsque nécessaire pour que le contenu entier tienne dans la surface disponible (<span class="tt">EX-REN-013</span>, <span class="tt">EX-EDIT-013</span>) : sans cette exception, un contenu plus grand que la surface resterait partiellement hors champ, faute de pouvoir descendre sous le zoom ×1.</p>
+<p>Le facteur est celui qui fait tenir le contenu, <b>sans arrondi</b> (<span class="tt">EX-REN-013</span>, <span class="tt">EX-EDIT-013</span>). Il s'arrondissait à l'entier au-dessus de 1 pour la netteté du pixel art ; l'art de scène est désormais peint et filtré par mipmaps (<span class="tt">EX-ARCH-022</span>, <span class="tt">LOT-103</span>), et l'arrondi ne faisait plus que laisser des bords vides.</p>
 <p>Fonction <b>pure</b>, partagée par le cadrage automatique de l'éditeur et celui du jeu (aucune règle dupliquée entre les deux écrans, LOT-16). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">availableWidth</td><td>Largeur disponible, en pixels (&gt; 0). </td></tr>
@@ -470,7 +470,7 @@ Private Attributes</h2></td></tr>
 <p>Règle le facteur de zoom. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"><a class="el" href="#a1397b9e7944fb98ea697948a5f2ca378">zoom</a></td><td>Multiplicateur d'échelle (&gt; 0 ; entier recommandé). </td></tr>
+    <tr><td class="paramname"><a class="el" href="#a1397b9e7944fb98ea697948a5f2ca378">zoom</a></td><td>Multiplicateur d'échelle (&gt; 0). </td></tr>
   </table>
   </dd>
 </dl>

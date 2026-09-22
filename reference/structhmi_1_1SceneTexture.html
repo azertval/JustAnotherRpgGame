@@ -143,7 +143,7 @@ $(function(){initNavTree('structhmi_1_1SceneTexture.html','','structhmi_1_1Scene
 </div><!--header-->
 <div class="contents">
 
-<p>Une texture liable et ses dimensions en pixels (pour normaliser les UV).  
+<p>Une texture liable, ses dimensions en pixels et ce que ses fichiers voisins disent d'elle.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="ScenePieces_8h_source.html">ScenePieces.h</a>&gt;</code></p>
@@ -155,13 +155,17 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ae761b4446a4602a38ac767ada3c51094" id="r_ae761b4446a4602a38ac767ada3c51094"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ae761b4446a4602a38ac767ada3c51094">height</a> = 0</td></tr>
 <tr class="memitem:ad404c3bd7bf83d1cc2d5a6ff97d7cdcb" id="r_ad404c3bd7bf83d1cc2d5a6ff97d7cdcb"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad404c3bd7bf83d1cc2d5a6ff97d7cdcb">frameWidth</a> = 0</td></tr>
 <tr class="memdesc:ad404c3bd7bf83d1cc2d5a6ff97d7cdcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur d'une image si la texture est une bande d'animation ; 0 sinon.  <br /></td></tr>
+<tr class="memitem:a659e328eea7d74588c5affd879357670" id="r_a659e328eea7d74588c5affd879357670"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a659e328eea7d74588c5affd879357670">frameHeight</a> = 0</td></tr>
+<tr class="memdesc:a659e328eea7d74588c5affd879357670"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur d'une image de la bande ; 0 : la hauteur de la texture.  <br /></td></tr>
 <tr class="memitem:a6f9741a21b10bf0edde05b2cb4e78b0d" id="r_a6f9741a21b10bf0edde05b2cb4e78b0d"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6f9741a21b10bf0edde05b2cb4e78b0d">anchor</a> {}</td></tr>
-<tr class="memdesc:a6f9741a21b10bf0edde05b2cb4e78b0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Origine explicite des pieces modulaires, en pixels d'art du PNG.  <br /></td></tr>
+<tr class="memdesc:a6f9741a21b10bf0edde05b2cb4e78b0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Origine explicite de la pièce, en pixels d'art du PNG.  <br /></td></tr>
 <tr class="memitem:a17230b3f5eb95e15e3a986f7c4884cfd" id="r_a17230b3f5eb95e15e3a986f7c4884cfd"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a17230b3f5eb95e15e3a986f7c4884cfd">depthOffset</a> {}</td></tr>
 <tr class="memdesc:a17230b3f5eb95e15e3a986f7c4884cfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Somme des coordonnees locales du pied utilise pour le tri, en cases.  <br /></td></tr>
+<tr class="memitem:afa5dd9e332869d52fbf30f56f45cc97f" id="r_afa5dd9e332869d52fbf30f56f45cc97f"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#afa5dd9e332869d52fbf30f56f45cc97f">artTile</a> {}</td></tr>
+<tr class="memdesc:afa5dd9e332869d52fbf30f56f45cc97f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le losange de sol de l'art, en pixels (<span class="tt">tile</span> du manifeste) ; (0, 0) s'il n'est pas déclaré.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Une texture liable et ses dimensions en pixels (pour normaliser les UV). </p>
+<div class="textblock"><p>Une texture liable, ses dimensions en pixels et ce que ses fichiers voisins disent d'elle. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a6f9741a21b10bf0edde05b2cb4e78b0d" name="a6f9741a21b10bf0edde05b2cb4e78b0d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6f9741a21b10bf0edde05b2cb4e78b0d">&#9670;&#160;</a></span>anchor</h2>
@@ -175,7 +179,23 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Origine explicite des pieces modulaires, en pixels d'art du PNG. </p>
+<p>Origine explicite de la pièce, en pixels d'art du PNG. </p>
+
+</div>
+</div>
+<a id="afa5dd9e332869d52fbf30f56f45cc97f" name="afa5dd9e332869d52fbf30f56f45cc97f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa5dd9e332869d52fbf30f56f45cc97f">&#9670;&#160;</a></span>artTile</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::SceneTexture::artTile {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le losange de sol de l'art, en pixels (<span class="tt">tile</span> du manifeste) ; (0, 0) s'il n'est pas déclaré. </p>
 
 </div>
 </div>
@@ -192,6 +212,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Somme des coordonnees locales du pied utilise pour le tri, en cases. </p>
+
+</div>
+</div>
+<a id="a659e328eea7d74588c5affd879357670" name="a659e328eea7d74588c5affd879357670"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a659e328eea7d74588c5affd879357670">&#9670;&#160;</a></span>frameHeight</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::SceneTexture::frameHeight = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hauteur d'une image de la bande ; 0 : la hauteur de la texture. </p>
 
 </div>
 </div>

@@ -143,7 +143,7 @@ $(function(){initNavTree('structhmi_1_1DecodedImage.html','','structhmi_1_1Decod
 </div><!--header-->
 <div class="contents">
 
-<p>Pixels RGBA décodés d'un fichier image, alpha <b>non prémultiplié</b> (cohérent avec le mélange du pipeline de <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence et échantillonnage nearest (pixel ar...">SpriteBatch</a></span>, <span class="tt">SrcAlpha</span>/<span class="tt">OneMinusSrcAlpha</span>), au format <span class="tt">RGBA8</span>.  
+<p>Pixels RGBA décodés d'un fichier image, alpha <b>droit</b>, au format <span class="tt">RGBA8</span> : l'image telle que le fichier la porte.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="TextureLoader_8h_source.html">TextureLoader.h</a>&gt;</code></p>
@@ -155,7 +155,8 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aba74a5cfbd117d38f4d96921cafe3107" id="r_aba74a5cfbd117d38f4d96921cafe3107"><td class="memItemLeft">std::vector&lt; std::uint32_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aba74a5cfbd117d38f4d96921cafe3107">pixels</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Pixels RGBA décodés d'un fichier image, alpha <b>non prémultiplié</b> (cohérent avec le mélange du pipeline de <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence et échantillonnage nearest (pixel ar...">SpriteBatch</a></span>, <span class="tt">SrcAlpha</span>/<span class="tt">OneMinusSrcAlpha</span>), au format <span class="tt">RGBA8</span>. </p>
+<div class="textblock"><p>Pixels RGBA décodés d'un fichier image, alpha <b>droit</b>, au format <span class="tt">RGBA8</span> : l'image telle que le fichier la porte. </p>
+<p><span class="tt"><a class="el" href="namespacehmi.html#abe2668cca55466d08f41f3c72f3dda5e" title="Crée une texture GPU à partir de pixels RGBA déjà décodés.">createTexture</a></span> la prémultiplie au téléversement. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a861d73079486cec7e373717bacffcc9d" name="a861d73079486cec7e373717bacffcc9d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a861d73079486cec7e373717bacffcc9d">&#9670;&#160;</a></span>height</h2>

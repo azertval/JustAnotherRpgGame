@@ -28,7 +28,7 @@
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/PlaceAppearance.h"
-#include "HMI/Graphics/ScenePiecePlacement.h"
+#include "HMI/Graphics/SceneTextureTraits.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
@@ -85,9 +85,7 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, 
             message += error;
             GRAPHICS_LOG_WARNING(message);
         }</span>
-<span style = "background-color:#dfd">        _bandFrameWidths[directory + "/idle.png"] = load.idleFrameWidth;
-        _bandFrameWidths[directory + "/death.png"] = load.deathFrameWidth;
-        _animation.setFigureAnimations(sheet, std::move(load.clips));
+<span style = "background-color:#dfd">        _animation.setFigureAnimations(sheet, std::move(load.clips));
     };
     for (const std::string&amp; hero : _catalog.heroes()) {
         declare(hero, core::CombatSide::Allies);
@@ -185,13 +183,11 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, 
 <span style = "background-color:#fdd">            GRAPHICS_LOG_WARNING(missingTextureWarning(path));
             continue;</span>
         }
-<span style = "background-color:#dfd">        const auto band = _bandFrameWidths.find(path);
-        _textures.byPath[path] =</span>
-            ArenaTexture{.texture = texture-&gt;handle(),
-                         .width = texture-&gt;width,
-                         .height = texture-&gt;height,
-                         .frameWidth = band != _bandFrameWidths.end() ? band-&gt;second : 0};
-<span style = "background-color:#dfd">        _loaded.push_back(std::move(*texture));
+        // Decoupe, echelle et ancre : ce que ses fichiers voisins disent de l'image (LOT-103).
+<span style = "background-color:#dfd">        ArenaTexture&amp; loaded = _textures.byPath[path] = ArenaTexture{</span>
+            .texture = texture-&gt;handle(), .width = texture-&gt;width, .height = texture-&gt;height};
+<span style = "background-color:#dfd">        applySceneTextureTraits(loaded, readSceneTextureTraits(_directory, path));
+        _loaded.push_back(std::move(*texture));
     }
     if (_battlefield) {
         loadBattlefieldTextures(context);</span>
@@ -208,12 +204,8 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, 
         }
         SceneTexture descriptor{
 <span style = "background-color:#dfd">            .texture = texture-&gt;handle(), .width = texture-&gt;width, .height = texture-&gt;height};
-        const auto manifest = core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
-        if (manifest.ok()) {
-            descriptor.anchor = scenePieceAnchor(manifest.root, file.filename().string());
-            descriptor.depthOffset = scenePieceDepthOffset(manifest.root, file.filename().string());</span>
-        }
-<span style = "background-color:#dfd">        _battlefieldTextures.byPath[path] = descriptor;
+        applySceneTextureTraits(descriptor, readSceneTextureTraits(_directory.parent_path(), path));
+        _battlefieldTextures.byPath[path] = descriptor;
         _loaded.push_back(std::move(*texture));
     }
     _battlefieldTextures.missing = {</span>

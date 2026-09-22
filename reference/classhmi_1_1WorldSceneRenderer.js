@@ -3,7 +3,6 @@ var classhmi_1_1WorldSceneRenderer =
     [ "WorldSceneRenderer", "classhmi_1_1WorldSceneRenderer.html#af205fa50b073c51799e3b2afcaf331e3", null ],
     [ "~WorldSceneRenderer", "classhmi_1_1WorldSceneRenderer.html#a08d587730ca8f5097ca017f69ea2e388", null ],
     [ "WorldSceneRenderer", "classhmi_1_1WorldSceneRenderer.html#a2b5b96d0104c88b3fb25b9c6b8ac29eb", null ],
-    [ "bandFrameWidth", "classhmi_1_1WorldSceneRenderer.html#ac78c706f2c61547833c83587899679cc", null ],
     [ "composed", "classhmi_1_1WorldSceneRenderer.html#a83e800ebffc8614f304d885d208af073", null ],
     [ "created", "classhmi_1_1WorldSceneRenderer.html#a4dfef69bdd871d6ca41447ab840f238a", null ],
     [ "ensureResources", "classhmi_1_1WorldSceneRenderer.html#a79799fc66af87ee0b4407f54c5c87bdd", null ],
@@ -17,9 +16,9 @@ var classhmi_1_1WorldSceneRenderer =
     [ "rhi", "classhmi_1_1WorldSceneRenderer.html#ad87c56a7fbbc2e1f735eeeadb5377e1a", null ],
     [ "setFocus", "classhmi_1_1WorldSceneRenderer.html#a1a51e2e9c6648dbffe27496ab0e25c43", null ],
     [ "setSnapshot", "classhmi_1_1WorldSceneRenderer.html#a6a619fc7364338cf5933d31dcb1ca84b", null ],
+    [ "setTilePixels", "classhmi_1_1WorldSceneRenderer.html#afba0dba07f75c1abd5e307c4d2286d71", null ],
     [ "snapshot", "classhmi_1_1WorldSceneRenderer.html#a01ec4e99e298b44936479112517db503", null ],
     [ "textures", "classhmi_1_1WorldSceneRenderer.html#ad6ccf005d98a3a82dc22e75fd27ec0f6", null ],
-    [ "_bandFrameWidths", "classhmi_1_1WorldSceneRenderer.html#a8e06d2ed4df0c3f89ae0e8ab9c78bf90", null ],
     [ "_composed", "classhmi_1_1WorldSceneRenderer.html#a289468f6de877a6557091cb043f580f3", null ],
     [ "_directory", "classhmi_1_1WorldSceneRenderer.html#a79a6e0883e9d0d60b08d9d3da0a37412", null ],
     [ "_focus", "classhmi_1_1WorldSceneRenderer.html#a216cc6693ad9bd6d25f9a1e8d641541b", null ],
@@ -31,5 +30,6 @@ var classhmi_1_1WorldSceneRenderer =
     [ "_rhi", "classhmi_1_1WorldSceneRenderer.html#ad8fbf932e14dc05a5a69aeecc0f3015f", null ],
     [ "_snapshot", "classhmi_1_1WorldSceneRenderer.html#a8d15970c710d2e6994517b60386f2b54", null ],
     [ "_solid", "classhmi_1_1WorldSceneRenderer.html#ace4820029eeb81a93aebddd80ae92cf9", null ],
-    [ "_textures", "classhmi_1_1WorldSceneRenderer.html#a4b8adcaabf36c1c7ab71cd8d411eba99", null ]
+    [ "_textures", "classhmi_1_1WorldSceneRenderer.html#a4b8adcaabf36c1c7ab71cd8d411eba99", null ],
+    [ "_tilePixels", "classhmi_1_1WorldSceneRenderer.html#a4cf1db8ceec9f90e9cb30ffb3eced6fe", null ]
 ];

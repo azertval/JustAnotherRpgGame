@@ -150,6 +150,7 @@ $(function(){initNavTree('structhmi_1_1AssetGalleryEntry.html','','structhmi_1_1
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a42cda529dee0b7c743ca3a3e272d568e" id="r_a42cda529dee0b7c743ca3a3e272d568e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a42cda529dee0b7c743ca3a3e272d568e">tileWidthPixels</a> () const noexcept</td></tr>
 <tr class="memitem:a207b84ad72b9617788d62401a5a4f80f" id="r_a207b84ad72b9617788d62401a5a4f80f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a207b84ad72b9617788d62401a5a4f80f">frameCount</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -177,6 +178,8 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a041e14950d2e2d7f441927ebe7e813c9" id="r_a041e14950d2e2d7f441927ebe7e813c9"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a041e14950d2e2d7f441927ebe7e813c9">anchorX</a> = -1</td></tr>
 <tr class="memdesc:a041e14950d2e2d7f441927ebe7e813c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ancre du manifeste des scènes, en pixels de texture ; (-1, -1) si le manifeste n'en a pas.  <br /></td></tr>
 <tr class="memitem:a8400f5306937f900ea70f16655ea98bd" id="r_a8400f5306937f900ea70f16655ea98bd"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8400f5306937f900ea70f16655ea98bd">anchorY</a> = -1</td></tr>
+<tr class="memitem:aef097ef678e1b769342127e4957fec0b" id="r_aef097ef678e1b769342127e4957fec0b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aef097ef678e1b769342127e4957fec0b">tilePixels</a> = 0</td></tr>
+<tr class="memdesc:aef097ef678e1b769342127e4957fec0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur d'une case, en pixels d'art : le losange que déclare le manifeste (<span class="tt">tile</span>) ; 0 s'il n'en déclare pas, et la forme se suppose d'une case de large (<span class="tt"><a class="el" href="#a42cda529dee0b7c743ca3a3e272d568e">tileWidthPixels</a></span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une forme d'un modèle : un clip d'une figure, une variante de texture, une pièce. </p>
@@ -205,6 +208,32 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le nombre d'images jouées (au moins 1). </dd></dl>
+
+</div>
+</div>
+<a id="a42cda529dee0b7c743ca3a3e272d568e" name="a42cda529dee0b7c743ca3a3e272d568e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42cda529dee0b7c743ca3a3e272d568e">&#9670;&#160;</a></span>tileWidthPixels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryEntry::tileWidthPixels </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La largeur d'une case en pixels d'art, jamais nulle. </dd></dl>
 
 </div>
 </div>
@@ -408,6 +437,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Chemin de la texture, relatif à la racine des assets, séparateurs <span class="tt">/</span>. </p>
+
+</div>
+</div>
+<a id="aef097ef678e1b769342127e4957fec0b" name="aef097ef678e1b769342127e4957fec0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef097ef678e1b769342127e4957fec0b">&#9670;&#160;</a></span>tilePixels</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryEntry::tilePixels = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Largeur d'une case, en pixels d'art : le losange que déclare le manifeste (<span class="tt">tile</span>) ; 0 s'il n'en déclare pas, et la forme se suppose d'une case de large (<span class="tt"><a class="el" href="#a42cda529dee0b7c743ca3a3e272d568e">tileWidthPixels</a></span>). </p>
 
 </div>
 </div>

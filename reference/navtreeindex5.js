@@ -1,5 +1,6 @@
 var NAVTREEINDEX5 =
 {
+"classcore_1_1EntityManager.html#a937aabf7ba0a10ba6c946a075ef55a8a":[3,0,0,92,3],
 "classcore_1_1EntityManager.html#ab174963453832efe0d7fe31442b066e0":[2,0,1,92,2],
 "classcore_1_1EntityManager.html#ab174963453832efe0d7fe31442b066e0":[3,0,0,92,2],
 "classcore_1_1EntityManager.html#ad9feb93ceee916b183731570b9d49b10":[2,0,1,92,5],
@@ -248,6 +249,5 @@ var NAVTREEINDEX5 =
 "classcore_1_1LevelDraft.html#a0017cadc8caea0b43ba08b120ce76bb0":[3,0,0,105,64],
 "classcore_1_1LevelDraft.html#a003ed4fa8fab2d4d6dc0f60e12ea670e":[2,0,1,105,2],
 "classcore_1_1LevelDraft.html#a003ed4fa8fab2d4d6dc0f60e12ea670e":[3,0,0,105,2],
-"classcore_1_1LevelDraft.html#a00ca9003b47f9e9aa47adb784018ce61":[2,0,1,105,20],
-"classcore_1_1LevelDraft.html#a00ca9003b47f9e9aa47adb784018ce61":[3,0,0,105,20]
+"classcore_1_1LevelDraft.html#a00ca9003b47f9e9aa47adb784018ce61":[2,0,1,105,20]
 };

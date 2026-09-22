@@ -34,9 +34,9 @@ namespace hmi {
                              "'");
 <span style = "background-color:#dfd">        return std::nullopt;</span>
     }
-    // Format_RGBA8888 : quatre octets R,G,B,A en mÃ©moire, alpha NON prÃ©multipliÃ© â le mÃªme ordre
-    // mÃ©moire que QRhiTexture::RGBA8, et cohÃ©rent avec le mÃ©lange du pipeline de SpriteBatch
-    // (SrcAlpha, pas One) : aucune conversion de canal nÃ©cessaire.
+    // Format_RGBA8888 : quatre octets R,G,B,A en mÃ©moire, alpha droit â le mÃªme ordre mÃ©moire que
+    // QRhiTexture::RGBA8. La prÃ©multiplication se fait Ã  la crÃ©ation de la texture, pas ici :
+    // l'image dÃ©codÃ©e reste celle du fichier, que `encodeImageFile` rÃ©Ã©crit Ã  l'identique.
 <span style = "background-color:#dfd">    const QImage image = source.convertToFormat(QImage::Format_RGBA8888);</span>
 
 <span style = "background-color:#dfd">    DecodedImage decoded;
@@ -112,7 +112,8 @@ bool savePngAtomically(const QImage&amp; output, const std::filesystem::path&amp
 
 // CrÃ©e une texture GPU Ã  partir de pixels RGBA dÃ©jÃ  dÃ©codÃ©s.
 std::optional&lt;LoadedTexture&gt; createTexture(const RhiContext&amp; context, int width, int height,
-<span style = "background-color:#dfd">                                           const std::vector&lt;std::uint32_t&gt;&amp; pixels) {
+                                           const std::vector&lt;std::uint32_t&gt;&amp; pixels,
+<span style = "background-color:#dfd">                                           TextureFiltering filtering) {
     if (width &lt;= 0 || height &lt;= 0) {</span>
 <span style = "background-color:#fdd">        return std::nullopt;</span>
     }
@@ -127,11 +128,16 @@ std::optional&lt;LoadedTexture&gt; createTexture(const RhiContext&amp; context, 
         return std::nullopt;</span>
     }
 
-<span style = "background-color:#dfd">    LoadedTexture result;
+    // Les mipmaps s'engendrent sur le GPU : QRhi 6 les garantit sur tous ses backends.
+<span style = "background-color:#dfd">    const bool mipmapped = filtering == TextureFiltering::Smooth;
+    const QSize size(width, height);
+    LoadedTexture result;
     result.width = width;
     result.height = height;
-    result.texture.reset(</span>
-        context.rhi-&gt;newTexture(QRhiTexture::RGBA8, QSize(width, height), 1, QRhiTexture::Flags{}));
+    result.texture.reset(context.rhi-&gt;newTexture(</span>
+        QRhiTexture::RGBA8, size, 1,
+        mipmapped ? QRhiTexture::MipMapped | QRhiTexture::UsedWithGenerateMips
+                  : QRhiTexture::Flags{}));
 <span style = "background-color:#dfd">    if (!result.texture-&gt;create()) {</span>
 <span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("TextureLoader : echec de creation de la texture GPU");
         return std::nullopt;</span>
@@ -143,10 +149,16 @@ std::optional&lt;LoadedTexture&gt; createTexture(const RhiContext&amp; context, 
     // entre-temps. Une QImage construite sur le pointeur brut ne copierait rien : le lot lirait
     // une memoire qui ne lui appartient pas. D'ou la copie, payee une fois par texture chargee.
 <span style = "background-color:#dfd">    QImage owned(width, height, QImage::Format_RGBA8888);
-    std::memcpy(owned.bits(), pixels.data(), pixels.size() * sizeof(std::uint32_t));
+    std::memcpy(owned.bits(), pixels.data(), pixels.size() * sizeof(std::uint32_t));</span>
+    // Premultiplie (EX-VIS-008) : meme ordre d'octets, R,G,B deja multiplies par A. C'est aussi ce
+    // qui rend juste la moyenne des mipmaps sur un bord adouci.
+<span style = "background-color:#dfd">    owned.convertTo(QImage::Format_RGBA8888_Premultiplied);
     QRhiTextureUploadDescription upload({0, 0, QRhiTextureSubresourceUploadDescription(owned)});
     context.updates-&gt;uploadTexture(result.texture.get(), upload);
-    return result;
+    if (mipmapped) {
+        context.updates-&gt;generateMips(result.texture.get());</span>
+    }
+<span style = "background-color:#dfd">    return result;
 }</span>
 
 // DÃ©code un fichier image puis crÃ©e la texture GPU correspondante.
@@ -156,8 +168,9 @@ std::optional&lt;LoadedTexture&gt; loadTextureFromFile(const RhiContext&amp; con
     if (!decoded) {
         return std::nullopt;</span>
     }
-<span style = "background-color:#dfd">    return createTexture(context, decoded-&gt;width, decoded-&gt;height, decoded-&gt;pixels);
-}</span>
+<span style = "background-color:#dfd">    return createTexture(context, decoded-&gt;width, decoded-&gt;height, decoded-&gt;pixels,</span>
+                         TextureFiltering::Smooth);
+<span style = "background-color:#dfd">}</span>
 
 }  // namespace hmi</pre>
         <hr />

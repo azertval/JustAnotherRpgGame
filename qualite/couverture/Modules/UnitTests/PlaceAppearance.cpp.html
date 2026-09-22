@@ -136,6 +136,22 @@ constexpr std::string_view FIELD_RELIEF = "relief";
         if (piece.footprintColumns &gt; 1 || piece.footprintRows &gt; 1) {
             _footprints.insert_or_assign(piece.name, piece.footprint());</span>
         }
+        // Ce qui monte au-dessus du sommet haut de l'emprise : l'ancre, a defaut le haut de
+        // l'image au-dessus du losange de sa case. En largeurs de case, au losange du lieu -- a
+        // defaut la largeur de la piece sur son emprise, comme le rendu le suppose.
+<span style = "background-color:#dfd">        if (piece.height &gt; 0) {
+            const float tileWidth =</span>
+                manifest.tileWidth() &gt; 0
+                    ? static_cast&lt;float&gt;(manifest.tileWidth())
+                    : static_cast&lt;float&gt;(std::max(1, piece.width)) /
+                          static_cast&lt;float&gt;(std::max(1, piece.footprintColumns));
+<span style = "background-color:#dfd">            const float tileHeight = manifest.tileHeight() &gt; 0</span>
+                                         ? static_cast&lt;float&gt;(manifest.tileHeight())
+                                         : tileWidth * _diamondRatio;
+<span style = "background-color:#dfd">            const float above = piece.anchorY &gt;= 0 ? static_cast&lt;float&gt;(piece.anchorY)</span>
+                                                   : static_cast&lt;float&gt;(piece.height) - tileHeight;
+<span style = "background-color:#dfd">            _maximumRise = std::max(_maximumRise, above / tileWidth);</span>
+        }
 <span style = "background-color:#dfd">    }</span>
     // Un nom courant n'est jamais un alias : il designe la piece qui le porte aujourd'hui.
 <span style = "background-color:#dfd">    for (const core::ScenePiece&amp; piece : manifest.pieces()) {

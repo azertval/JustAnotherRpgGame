@@ -75,9 +75,19 @@ enum class WorldDepthSlot : std::int32_t {
 /// Nombre de rangs par profondeur.
 inline constexpr std::int32_t WORLD_DEPTH_SLOTS = 2;
 
-/// Hauteur d'Ã©cran pour laquelle l'art est dessinÃ© : l'agrandissement est 1 jusque-lÃ , 2 au double
-/// (`hmi::worldCamera`). Ici plutÃ´t qu'avec le rendu GPU : l'essai de l'Ã©diteur cadre comme le jeu.
-inline constexpr int WORLD_ART_HEIGHT_PIXELS = 720;
+/// Hauteur de la vue, en largeurs de case (`EX-REN-013`) : une case occupe Ã  l'Ã©cran la hauteur de
+/// la fenÃªtre divisÃ©e par 10,8 â 100 px Ã  1080p, 200 px Ã  2160p. Toutes les dÃ©finitions cadrent
+/// donc la mÃªme Ã©tendue de monde : un Ã©cran plus fin montre le mÃªme jeu, plus finement.
+inline constexpr float WORLD_VIEW_HEIGHT_IN_TILES = 10.8F;
+
+/**
+ * @brief La largeur d'une case Ã  l'Ã©cran, en pixels, pour une vue de @p pixelHeight de haut.
+ *
+ * Ici plutÃ´t qu'avec le rendu GPU : l'essai de l'Ã©diteur cadre comme le jeu.
+ */
+<span style = "background-color:#dfd">[[nodiscard]] inline float worldTilePixels(int pixelHeight) noexcept {
+    return static_cast&lt;float&gt;(pixelHeight &gt; 0 ? pixelHeight : 1) / WORLD_VIEW_HEIGHT_IN_TILES;
+}</span>
 
 /// Marge basse d'une figurine, en hauteurs de losange â la mÃªme que dans l'arÃ¨ne.
 inline constexpr float WORLD_FIGURE_BOTTOM_MARGIN = 0.42F;
@@ -173,6 +183,9 @@ struct WorldSceneSnapshot {
     int rows = 0;
     /// Le lieu, qui nomme le dossier de planches : `Assets/Scene/&lt;place&gt;/`.
     std::string place;
+    /// La plus haute Ã©lÃ©vation d'une piÃ¨ce du lieu au-dessus du losange de sa case, en largeurs de
+    /// case (`hmi::PlaceAppearance::maximumRise`) : ce qu'un cadrage doit rÃ©server au-dessus.
+    float maximumRise = 0.0F;
     std::vector&lt;std::string&gt; floors;
     std::vector&lt;std::string&gt; relief;
     /// Le **type** de chaque case, une entrÃ©e par case, ligne par ligne : ce que le rendu de

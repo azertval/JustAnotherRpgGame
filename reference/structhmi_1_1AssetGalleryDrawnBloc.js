@@ -11,6 +11,7 @@ var structhmi_1_1AssetGalleryDrawnBloc =
     [ "path", "structhmi_1_1AssetGalleryDrawnBloc.html#a3fbbdaf475eed5262e602536374afcc9", null ],
     [ "rows", "structhmi_1_1AssetGalleryDrawnBloc.html#a241907f0607f384e00333b23a8019396", null ],
     [ "selected", "structhmi_1_1AssetGalleryDrawnBloc.html#a541d54f340743e9def03fec1e5e3df64", null ],
+    [ "tilePixels", "structhmi_1_1AssetGalleryDrawnBloc.html#aa4853c73f4237dc2b514592678970cbb", null ],
     [ "x", "structhmi_1_1AssetGalleryDrawnBloc.html#ad6272b5c97a15ae03c66e82e6cd3f8f9", null ],
     [ "y", "structhmi_1_1AssetGalleryDrawnBloc.html#aab78337700dbdaba6a2c2ec02c5460dc", null ]
 ];

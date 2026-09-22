@@ -28,8 +28,9 @@ var WorldSceneComposer_8h =
     [ "hmi::worldDepthSortOrder", "namespacehmi.html#abb8a82bb9f00e792f78590f1c2bd788a", null ],
     [ "hmi::worldSceneSource", "namespacehmi.html#a2bc9cad778cbd7211055de83a826e032", null ],
     [ "hmi::worldTexturePaths", "namespacehmi.html#a07929611bf03ab59a2de588feb90ad7d", null ],
+    [ "hmi::worldTilePixels", "namespacehmi.html#add2056a8ef137e4eeeca4a1344fbdc82", null ],
     [ "hmi::SCENE_PLACE_PROPERTY", "namespacehmi.html#a2048c2024daad5842f0d26bbde67482b", null ],
-    [ "hmi::WORLD_ART_HEIGHT_PIXELS", "namespacehmi.html#a010839751f5f86ba20ee3221f0c0c09e", null ],
     [ "hmi::WORLD_DEPTH_SLOTS", "namespacehmi.html#a7156a1bc50d513bacc4cf9f6bd64916b", null ],
-    [ "hmi::WORLD_FIGURE_BOTTOM_MARGIN", "namespacehmi.html#a344f40841fd17a0ce2a36213b84514c9", null ]
+    [ "hmi::WORLD_FIGURE_BOTTOM_MARGIN", "namespacehmi.html#a344f40841fd17a0ce2a36213b84514c9", null ],
+    [ "hmi::WORLD_VIEW_HEIGHT_IN_TILES", "namespacehmi.html#a00f1d57e59825bdaab90daa68edbd08b", null ]
 ];

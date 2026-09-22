@@ -170,8 +170,14 @@ namespace {
 <span style = "background-color:#dfd">    if (const auto disposition = document.root.find("disposition");
         disposition != document.root.end() &amp;&amp; disposition-&gt;is_string()) {
         result.manifest._place = disposition-&gt;get&lt;std::string&gt;();
+    }</span>
+    // L'Ã©chelle de l'art est une donnÃ©e du lieu (LOT-103) : un losange non positif ne dit rien.
+<span style = "background-color:#dfd">    if (const auto [width, height] = intPair(document.root, "tile", {0, 0});
+        width &gt; 0 &amp;&amp; height &gt; 0) {
+        result.manifest._tileWidth = width;
+        result.manifest._tileHeight = height;</span>
     }
-    for (const auto&amp; [key, value] : textures-&gt;items()) {</span>
+<span style = "background-color:#dfd">    for (const auto&amp; [key, value] : textures-&gt;items()) {</span>
         // Une entrÃ©e sans image est ignorÃ©e, pas fatale : les autres piÃ¨ces restent utilisables.
 <span style = "background-color:#dfd">        if (!value.is_object() || !value.contains("file") || !value["file"].is_string()) {
             continue;</span>
