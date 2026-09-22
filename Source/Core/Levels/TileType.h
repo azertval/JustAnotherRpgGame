@@ -17,6 +17,9 @@ namespace core {
  * d'arrivée par défaut du héros sur la carte. Le reste est le vocabulaire du **terrain** en vue de
  * dessus (`EX-EXP-005`, `LOT-08`) : `Grass`, `Dirt`, `Sand`, `Water` et `DeepWater` (sols, les
  * quatre premiers traversables), `Wall` et `Cliff` (obstacles), `Bridge` et `Stairs` (passages).
+ * Les vingt derniers étoffent ce vocabulaire pour qu'une carte **sans texture** se dessine avec
+ * précision : sols (pavé, ruelle, plancher, dallage, neige), terrains difficiles, végétation,
+ * mobilier, bâti vu de dessus et dangers. Leur règle de pas est `core::tacticalOfTileType`.
  *
  * Ce qui **agit** sur une carte — PNJ, coffres, portails, rencontres — n'est pas un type de tuile
  * mais une entité (`core::MapEntity`, `EX-LVL-017`) : une grille ne retient qu'un type par case.
@@ -47,6 +50,47 @@ enum class TileType {
     /// Escalier : liaison verticale d'une carte à l'autre, traversable. Ce qu'il **relie** est une
     /// donnée du graphe de cartes (`LOT-09`), jamais du type de tuile.
     Stairs,
+    // --- Vocabulaire de la maquette : ce qu'une carte sans texture doit pouvoir dire ---
+    /// Pavé : le sol des rues et des places.
+    Pavement,
+    /// Ruelle : un pavé étroit et plus sombre, qu'une maquette doit distinguer de la rue.
+    Alley,
+    /// Plancher : le sol de bois d'un intérieur, d'un quai, d'une estrade.
+    Planks,
+    /// Dallage : le sol de pierre taillée d'un temple, d'une cour, d'une salle.
+    Flagstone,
+    /// Neige : un sol extérieur, traversable.
+    Snow,
+    /// Boue : terrain **difficile** (pas encore joué : traversable comme un sol).
+    Mud,
+    /// Éboulis : terrain **difficile**, comme la boue.
+    Rubble,
+    /// Porte : un passage dans un mur, traversable.
+    Door,
+    /// Buisson : végétation basse, terrain **difficile**.
+    Bush,
+    /// Arbre : arrête le pas et la vue.
+    Tree,
+    /// Rocher : arrête le pas, on voit par-dessus.
+    Rock,
+    /// Palissade, barrière : arrête le pas, on voit par-dessus.
+    Fence,
+    /// Muret : un **abri** (pas encore joué : traversable).
+    LowWall,
+    /// Étal, auvent : arrête le pas, on voit par-dessus.
+    Stall,
+    /// Caisses, tonneaux, mobilier : arrête le pas, on voit par-dessus.
+    Crate,
+    /// Colonne, statue, socle : arrête le pas et la vue.
+    Column,
+    /// Toit : le bâti vu de dessus ; arrête le pas et la vue.
+    Roof,
+    /// Gradins : arrêtent le pas et la vue.
+    Tiers,
+    /// Fosse, ravin, vide : arrête le pas, on voit par-dessus.
+    Pit,
+    /// Lave : arrête le pas, on voit par-dessus.
+    Lava,
 };
 
 /**
@@ -62,7 +106,7 @@ enum class TileType {
  * lui-même les points à mettre à jour), et un énumérateur sentinelle les obligerait tous à traiter
  * un cas qui ne décrit aucune tuile.
  */
-inline constexpr int TILE_TYPE_COUNT = static_cast<int>(TileType::Stairs) + 1;
+inline constexpr int TILE_TYPE_COUNT = static_cast<int>(TileType::Lava) + 1;
 
 /**
  * @brief Indique si un type de tuile bloque le déplacement de manière **statique**.
@@ -72,11 +116,49 @@ inline constexpr int TILE_TYPE_COUNT = static_cast<int>(TileType::Stairs) + 1;
  *       endroit à changer, ce qui est précisément l'intérêt de l'y mettre plutôt que de parsemer
  *       le code de tests « sauf si c'est de l'eau ».
  * @param type Type de tuile.
- * @return `true` pour la matière pleine (`Solid`, `Wall`, `Cliff`) et pour l'eau profonde.
+ * @return `true` pour la matière pleine (`Solid`, `Wall`, `Cliff`), l'eau profonde, et tout type
+ *         que `core::tacticalOfTileType` dit infranchissable (arbre, rocher, palissade, étal,
+ *         caisses, colonne, toit, gradins, fosse, lave). Le muret et les terrains difficiles
+ *         restent traversables tant que l'abri et la gêne ne sont pas joués.
  */
 [[nodiscard]] constexpr bool isSolid(TileType type) noexcept {
-    return type == TileType::Solid || type == TileType::Wall || type == TileType::Cliff ||
-           type == TileType::DeepWater;
+    switch (type) {
+        case TileType::Solid:
+        case TileType::Wall:
+        case TileType::Cliff:
+        case TileType::DeepWater:
+        case TileType::Tree:
+        case TileType::Rock:
+        case TileType::Fence:
+        case TileType::Stall:
+        case TileType::Crate:
+        case TileType::Column:
+        case TileType::Roof:
+        case TileType::Tiers:
+        case TileType::Pit:
+        case TileType::Lava:
+            return true;
+        case TileType::Empty:
+        case TileType::Entry:
+        case TileType::Grass:
+        case TileType::Dirt:
+        case TileType::Sand:
+        case TileType::Water:
+        case TileType::Bridge:
+        case TileType::Stairs:
+        case TileType::Pavement:
+        case TileType::Alley:
+        case TileType::Planks:
+        case TileType::Flagstone:
+        case TileType::Snow:
+        case TileType::Mud:
+        case TileType::Rubble:
+        case TileType::Door:
+        case TileType::Bush:
+        case TileType::LowWall:
+            return false;
+    }
+    return false;
 }
 
 }  // namespace core

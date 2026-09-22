@@ -109,6 +109,26 @@ inline constexpr int LAYER_KIND_COUNT = static_cast<int>(LayerKind::Legacy) + 1;
         case TileType::Cliff:
         case TileType::Bridge:
         case TileType::Stairs:
+        case TileType::Pavement:
+        case TileType::Alley:
+        case TileType::Planks:
+        case TileType::Flagstone:
+        case TileType::Snow:
+        case TileType::Mud:
+        case TileType::Rubble:
+        case TileType::Door:
+        case TileType::Bush:
+        case TileType::Tree:
+        case TileType::Rock:
+        case TileType::Fence:
+        case TileType::LowWall:
+        case TileType::Stall:
+        case TileType::Crate:
+        case TileType::Column:
+        case TileType::Roof:
+        case TileType::Tiers:
+        case TileType::Pit:
+        case TileType::Lava:
             return true;
         case TileType::Entry:
             return false;

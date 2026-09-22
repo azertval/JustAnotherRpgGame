@@ -6,6 +6,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Éditeur — le rendu sans texture s'étoffe.** Une carte maquette ne disposait que de douze types
+  de tuile : pavé et ruelle se confondaient, et rien ne disait un étal, un gradin, une colonne ou un
+  arbre. Vingt types s'ajoutent au format (`core::TileType`) et à la palette *Types*, rangés par
+  famille : sols (`pavement`, `alley`, `planks`, `flagstone`, `snow`), terrain difficile (`mud`,
+  `rubble`, `bush`), obstacles (`tree`, `rock`, `pit`, `lava`), bâti et mobilier (`roof`,
+  `column`, `tiers`, `fence`, `lowWall`, `stall`, `crate`) et passage (`door`). Chacun a sa règle
+  de pas, déduite comme celle d'une pièce (`core::tacticalOfTileType`) : l'arbre, la colonne, le toit
+  et les gradins arrêtent le pas et la vue, le rocher, la palissade, l'étal, les caisses, la fosse
+  et la lave seulement le pas ; boue, éboulis, buisson et muret restent traversables, et `--check`
+  avertit qu'ils ne sont pas encore joués. La maquette donne à chaque type **sa teinte** — celle de
+  la légende des plans de principe pour le pavé, la ruelle, les étals, les gradins et le marbre — et
+  **sa forme** (`hmi::maquetteShape`) : un bloc d'une hauteur et d'une emprise propres, une colonne
+  étroite de deux cases sur son socle, une palissade basse, un toit d'une case et demie. La terre
+  battue et l'escalier changent de teinte, pour laisser au pavé et à la ruelle celles des plans.
+
 - **LOT-103 — Le rendu HD.** Le moteur affiche une pièce HD à la bonne taille, entière et sans
   scintillement. L'**échelle de l'art devient une donnée du lieu** : le manifeste déclare son losange
   (`"tile": [256, 159]`), `hmi::readSceneTextureTraits` le lit avec la découpe et l'ancre — une seule
