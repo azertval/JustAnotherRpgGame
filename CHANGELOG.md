@@ -6,6 +6,24 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-104 — La chaîne de production des assets HD.** Du brut du générateur à l'asset installé,
+  une commande et rien à la main : `scripts/install_hd_asset.py` lit le descripteur `install.json`
+  posé à côté des sources (`Tools/AssetsHD/`, désormais versionné, les images restant hors du dépôt),
+  **détoure** (voile d'alpha effacé, intérieur remis à 255, îlots retirés), **découpe** une planche
+  en ses morceaux et les nomme dans l'ordre de lecture, **réduit** à l'échelle du standard en alpha
+  prémultiplié — jamais agrandi —, **ancre** chaque pièce debout à ses deux pointes de socle lues sur
+  l'enveloppe basse de l'art, et **inscrit** l'image au manifeste du dossier `Scene/` visé, avec sa
+  famille et l'empreinte de sa source (`--check` rejoue et compare, `--measure` n'écrit rien). Les
+  **18 pièces du Colisée** (sable, pavé, bordures, murs à arcades U et V, angles rentrant et sortant)
+  s'installent ainsi dans `arena-of-fate/Scene/` sans une retouche, à un arc par case dans les murs
+  comme dans les angles. En CI, `scripts/check_hd_assets.py` refuse toute image qu'aucun manifeste ne
+  cite, tout fichier cité absent, toute pièce hors des bornes du standard (PNG RGBA 8 bits, taille
+  déclarée, 4096 px, dalle au losange exact, ancre dans l'image), et toute zone au-delà de **40 Mio**
+  — le poids de chaque zone s'écrit dans le résumé du job. La **galerie de débug** lit désormais
+  l'arborescence par niveaux (`Common/`, `Regions/`), et le **gabarit de la commande d'une zone**
+  (`Planning/standards/gabarit-commande-zone.md`) passe les dix familles en revue et suit chaque pièce
+  de sa commande à la galerie.
+  
 - **Les 71 alertes ouvertes de Code scanning (clang-tidy) résolues.** Table de glyphes de
   `MaquetteTokens` en initialisateurs désignés, calcul d'indice de pixel factorisé et fonctions de
   peinture séparées ; `Stamps.cpp` découpé (`cutStamp`, `pasteStamp`, `stampBodyFromJson` en

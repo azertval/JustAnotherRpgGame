@@ -1,6 +1,6 @@
 # HMI · Graphics
 
-Tests unitaires — **156 cas** (18 bloquants, 57 critiques, 74 majeurs, 7 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **157 cas** (19 bloquants, 57 critiques, 74 majeurs, 7 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -11,7 +11,7 @@ Tests unitaires — **156 cas** (18 bloquants, 57 critiques, 74 majeurs, 7 mineu
 | [`test_arena_appearance_catalog.cpp`](#test-arena-appearance-catalogcpp) | 13 | 4 | 2 | 6 | 1 |
 | [`test_arena_scene_composer.cpp`](#test-arena-scene-composercpp) | 11 | 5 | - | 6 | - |
 | [`test_arena_scene_renderer.cpp`](#test-arena-scene-renderercpp) | 6 | 2 | 3 | - | 1 |
-| [`test_asset_gallery.cpp`](#test-asset-gallerycpp) | 7 | 3 | - | 4 | - |
+| [`test_asset_gallery.cpp`](#test-asset-gallerycpp) | 8 | 4 | - | 4 | - |
 | [`test_asset_gallery_renderer.cpp`](#test-asset-gallery-renderercpp) | 2 | 1 | - | 1 | - |
 | [`test_cache_registry.cpp`](#test-cache-registrycpp) | 5 | - | 5 | - | - |
 | [`test_camera2d.cpp`](#test-camera2dcpp) | 10 | - | - | 9 | 1 |
@@ -1018,7 +1018,7 @@ Le combat utilise le décor et les départs de la nouvelle arène.
 
 ### AssetGalleryTest.FormeDesBlocs
 
-*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:57`
+*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:58`
 
 Un bloc contient son dessin, marge comprise.
 
@@ -1047,7 +1047,7 @@ Un bloc contient son dessin, marge comprise.
 
 ### AssetGalleryTest.DispositionEnBandes
 
-*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:95`
+*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:96`
 
 La galerie se dispose en bandes, lignes et colonnes.
 
@@ -1077,7 +1077,7 @@ La galerie se dispose en bandes, lignes et colonnes.
 
 ### AssetGalleryTest.VisibiliteParLaVue
 
-*Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:141`
+*Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:142`
 
 Seuls les blocs à l'écran sont dessinés.
 
@@ -1093,7 +1093,7 @@ Seuls les blocs à l'écran sont dessinés.
 
 ### AssetGalleryTest.ImageJouee
 
-*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:161`
+*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:162`
 
 L'image jouée suit le temps.
 
@@ -1112,7 +1112,7 @@ L'image jouée suit le temps.
 
 ### AssetGalleryTest.AssetsDEssai
 
-*Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:184`
+*Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:185`
 
 La galerie lit les assets d'une racine.
 
@@ -1136,7 +1136,7 @@ La galerie lit les assets d'une racine.
 
 ### AssetGalleryTest.ToutAssetLivreEstDansLaGalerie
 
-*Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:226`
+*Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:227`
 
 Aucun asset livré n'échappe à la galerie.
 
@@ -1152,9 +1152,37 @@ Aucun asset livré n'échappe à la galerie.
 - Vérifie que `hmi::assetGalleryExcludes("Regions/central-empire/capital/martpart/Scene/street.png")` est faux.
 - Vérifie que `hmi::assetGalleryExcludes("Npc/figurant/portrait.png")` est faux.
 
+### AssetGalleryTest.ArborescenceParNiveaux
+
+*Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:257`
+
+Les pièces de l'arborescence par niveaux paraissent dans la galerie.
+
+**Étapes**
+
+1. Écrire `Regions/r/ville/zone/Scene/manifest.json` avec un mur 3 × 1, et `Common/Terrain/manifest.json` sans pièce. 2. Lire le catalogue. 3. Chercher les images non listées.
+
+**Résultat attendu**
+
+- Vérifie que `catalog.errors.empty()` est vrai.
+- Vérifie que `unlisted.empty()` est vrai.
+- Vérifie que `catalog.families.size()` vaut `1U`.
+- Vérifie que `family.title` vaut `"Scène · r/ville/zone"`.
+- Vérifie que `family.directory` vaut `"Regions/r/ville/zone/Scene"`.
+- Vérifie que `family.entries.size()` vaut `1U`.
+- Vérifie que `wall.form` vaut `"wall-arcade-u"`.
+- Vérifie que `wall.model` vaut `"wide"`.
+- Vérifie que `wall.path` vaut `"Regions/r/ville/zone/Scene/wall-arcade-u.png"`.
+- Vérifie que `wall.frameWidth` vaut `426`.
+- Vérifie que `wall.frameHeight` vaut `539`.
+- Vérifie que `wall.footprintColumns` vaut `3`.
+- Vérifie que `wall.footprintRows` vaut `1`.
+- Vérifie que `wall.anchorX` vaut `6`.
+- Vérifie que `wall.anchorY` vaut `295`.
+
 ### AssetGalleryTest.FigurinesDeMonstres
 
-*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:256`
+*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:308`
 
 Une figurine Grande sans sort paraît dans la galerie.
 

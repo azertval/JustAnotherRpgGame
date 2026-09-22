@@ -107,7 +107,15 @@ __pycache__/
 
 # Fabrique : références envoyées au générateur, strictement locales.
 # Seuls leurs chemins et empreintes sont versionnés dans request.json.
-/Tools/
+# Exception (LOT-104) : sous Tools/AssetsHD/, le descripteur d'installation (`install.json`) et la
+# commande d'une zone (`*.md`) sont versionnés -- ce sont eux qui disent ce que devient chaque
+# source ; les images, elles, restent hors du dépôt.
+/Tools/*
+!/Tools/AssetsHD/
+/Tools/AssetsHD/**
+!/Tools/AssetsHD/**/
+!/Tools/AssetsHD/**/install.json
+!/Tools/AssetsHD/**/*.md
 
 # Captures du test de parite peintre / GPU (test_scene_painter) : deux images par cadrage, ecrites
 # a cote de l'executable pour etre relues a l'oeil. Une sortie de test, regeneree a chaque
