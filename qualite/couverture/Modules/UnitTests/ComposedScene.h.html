@@ -38,6 +38,8 @@ enum class QuadKind {
     Sprite,
     /// `hmi::LineQuad` : segment Ã©pais, orientÃ© librement.
     Line,
+    /// `hmi::PolyQuad` : quadrilatÃ¨re Ã  quatre sommets libres, d'une seule teinte (`LOT-128`).
+    Poly,
 };
 
 /**
@@ -64,6 +66,8 @@ struct ComposedQuad {
     SpriteQuad sprite{};
     /// Primitive segment, valide si `kind == QuadKind::Line`.
     LineQuad line{};
+    /// Primitive Ã  quatre sommets libres, valide si `kind == QuadKind::Poly`.
+    PolyQuad poly{};
 };
 
 /**
@@ -185,6 +189,17 @@ public:
     bool addLine(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
                  const LineQuad&amp; quad);
 
+    /**
+     * @brief Ajoute un quadrilatÃ¨re Ã  quatre sommets libres Ã  la scÃ¨ne, s'il est visible.
+     * @param layer     Calque de dessin.
+     * @param texture   Texture liÃ©e (l'aplat blanc, en pratique).
+     * @param sortOrder Tri fin Ã  l'intÃ©rieur du calque et de la texture.
+     * @param quad      Primitive Ã  composer (unitÃ©s monde).
+     * @return `true` si la primitive a Ã©tÃ© conservÃ©e, `false` si le culling l'a Ã©cartÃ©e.
+     */
+    bool addPoly(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
+                 const PolyQuad&amp; quad);
+
     /// Ordonne la scÃ¨ne (calque, puis texture, puis `sortOrder`), de faÃ§on **stable**.
     void sort();
 
@@ -243,6 +258,13 @@ private:
  * @return Son rectangle englobant.
  */
 [[nodiscard]] core::Rect lineQuadBounds(const LineQuad&amp; quad) noexcept;
+
+/**
+ * @brief BoÃ®te englobante d'un quadrilatÃ¨re Ã  sommets libres, en unitÃ©s monde.
+ * @param quad Primitive Ã  borner.
+ * @return Son rectangle englobant.
+ */
+[[nodiscard]] core::Rect polyQuadBounds(const PolyQuad&amp; quad) noexcept;
 
 
 }  // namespace hmi</pre>

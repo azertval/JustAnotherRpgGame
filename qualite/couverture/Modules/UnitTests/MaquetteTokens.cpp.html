@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>MaquetteTokens.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "HMI/Graphics/MaquetteTokens.h"
+
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;cctype&gt;
+#include &lt;cstdint&gt;
+
+namespace hmi {
+
+namespace {
+
+constexpr std::string_view TOKEN_ROOT = "Token/";
+constexpr std::string_view TOKEN_EXTENSION = ".png";
+
+/// Hauteur d'un glyphe, en pixels de la table ci-dessous.
+constexpr int GLYPH_ROWS = 7;
+/// Largeur d'un glyphe : chaque ligne tient sur cinq bits, le bit de poids fort a gauche.
+constexpr int GLYPH_COLUMNS = 5;
+
+/// Les trente-six glyphes que porte un jeton, plus le point d'interrogation du nom illisible.
+///
+/// Une table plutot qu'une police : une police est un fichier, et un jeton doit se peindre quand
+/// AUCUN fichier n'est present (EX-EXP-005). Trente-sept caracteres de sept octets tiennent ici.
+struct Glyph {
+    char character;
+    std::array&lt;std::uint8_t, GLYPH_ROWS&gt; rows;
+};
+
+constexpr std::array&lt;Glyph, 37&gt; GLYPHS = {{
+    {'A', {0x0E, 0x11, 0x11, 0x1F, 0x11, 0x11, 0x11}},
+    {'B', {0x1E, 0x11, 0x11, 0x1E, 0x11, 0x11, 0x1E}},
+    {'C', {0x0E, 0x11, 0x10, 0x10, 0x10, 0x11, 0x0E}},
+    {'D', {0x1E, 0x11, 0x11, 0x11, 0x11, 0x11, 0x1E}},
+    {'E', {0x1F, 0x10, 0x10, 0x1E, 0x10, 0x10, 0x1F}},
+    {'F', {0x1F, 0x10, 0x10, 0x1E, 0x10, 0x10, 0x10}},
+    {'G', {0x0E, 0x11, 0x10, 0x17, 0x11, 0x11, 0x0F}},
+    {'H', {0x11, 0x11, 0x11, 0x1F, 0x11, 0x11, 0x11}},
+    {'I', {0x0E, 0x04, 0x04, 0x04, 0x04, 0x04, 0x0E}},
+    {'J', {0x01, 0x01, 0x01, 0x01, 0x01, 0x11, 0x0E}},
+    {'K', {0x11, 0x12, 0x14, 0x18, 0x14, 0x12, 0x11}},
+    {'L', {0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x1F}},
+    {'M', {0x11, 0x1B, 0x15, 0x15, 0x11, 0x11, 0x11}},
+    {'N', {0x11, 0x19, 0x15, 0x13, 0x11, 0x11, 0x11}},
+    {'O', {0x0E, 0x11, 0x11, 0x11, 0x11, 0x11, 0x0E}},
+    {'P', {0x1E, 0x11, 0x11, 0x1E, 0x10, 0x10, 0x10}},
+    {'Q', {0x0E, 0x11, 0x11, 0x11, 0x15, 0x12, 0x0D}},
+    {'R', {0x1E, 0x11, 0x11, 0x1E, 0x14, 0x12, 0x11}},
+    {'S', {0x0F, 0x10, 0x10, 0x0E, 0x01, 0x01, 0x1E}},
+    {'T', {0x1F, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04}},
+    {'U', {0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x0E}},
+    {'V', {0x11, 0x11, 0x11, 0x11, 0x11, 0x0A, 0x04}},
+    {'W', {0x11, 0x11, 0x11, 0x15, 0x15, 0x1B, 0x11}},
+    {'X', {0x11, 0x11, 0x0A, 0x04, 0x0A, 0x11, 0x11}},
+    {'Y', {0x11, 0x11, 0x0A, 0x04, 0x04, 0x04, 0x04}},
+    {'Z', {0x1F, 0x01, 0x02, 0x04, 0x08, 0x10, 0x1F}},
+    {'0', {0x0E, 0x11, 0x13, 0x15, 0x19, 0x11, 0x0E}},
+    {'1', {0x04, 0x0C, 0x04, 0x04, 0x04, 0x04, 0x0E}},
+    {'2', {0x0E, 0x11, 0x01, 0x02, 0x04, 0x08, 0x1F}},
+    {'3', {0x1F, 0x02, 0x04, 0x02, 0x01, 0x11, 0x0E}},
+    {'4', {0x02, 0x06, 0x0A, 0x12, 0x1F, 0x02, 0x02}},
+    {'5', {0x1F, 0x10, 0x1E, 0x01, 0x01, 0x11, 0x0E}},
+    {'6', {0x06, 0x08, 0x10, 0x1E, 0x11, 0x11, 0x0E}},
+    {'7', {0x1F, 0x01, 0x02, 0x04, 0x08, 0x08, 0x08}},
+    {'8', {0x0E, 0x11, 0x11, 0x0E, 0x11, 0x11, 0x0E}},
+    {'9', {0x0E, 0x11, 0x11, 0x0F, 0x01, 0x02, 0x0C}},
+    {'?', {0x0E, 0x11, 0x01, 0x02, 0x04, 0x00, 0x04}},
+}};
+
+/// Ecart entre deux lettres, en pixels de glyphe.
+constexpr int GLYPH_SPACING = 1;
+
+<span style = "background-color:#dfd">[[nodiscard]] const std::array&lt;std::uint8_t, GLYPH_ROWS&gt;&amp; glyphOf(char character) {
+    for (const Glyph&amp; glyph : GLYPHS) {
+        if (glyph.character == character) {
+            return glyph.rows;</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+<span style = "background-color:#fdd">    return GLYPHS.back().rows;  // le point d'interrogation</span>
+<span style = "background-color:#dfd">}</span>
+
+[[nodiscard]] core::MarkerColor toMarkerColor(const MaquetteColor&amp; color, float light,
+<span style = "background-color:#dfd">                                              std::uint8_t alpha) {
+    const auto channel = [light](float value) {
+        const float scaled = value * light * 255.0F;
+        return static_cast&lt;std::uint8_t&gt;(scaled &lt; 0.0F ? 0.0F : (scaled &gt; 255.0F ? 255.0F : scaled));
+    };
+    return core::MarkerColor{</span>
+        .r = channel(color.r), .g = channel(color.g), .b = channel(color.b), .a = alpha};
+<span style = "background-color:#dfd">}</span>
+
+/// La lettre se pose en clair sur un jeton sombre, en sombre sur un jeton clair : sans ce choix,
+/// la moitie des jetons auraient une lettre illisible.
+<span style = "background-color:#dfd">[[nodiscard]] core::MarkerColor letterColorFor(const MaquetteColor&amp; color) {
+    const float luminance = (0.299F * color.r) + (0.587F * color.g) + (0.114F * color.b);
+    return luminance &gt; 0.55F ? core::MarkerColor{.r = 20, .g = 22, .b = 26, .a = 255}</span>
+                             : core::MarkerColor{.r = 245, .g = 242, .b = 235, .a = 255};
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">MaquetteColor maquetteTokenColor(MaquetteTokenKind kind) noexcept {
+    switch (kind) {</span>
+        case MaquetteTokenKind::Player:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x49b265);</span>
+        case MaquetteTokenKind::Talker:
+<span style = "background-color:#dfd">            return maquetteColorOf(0xe0bb3f);</span>
+        case MaquetteTokenKind::Neutral:
+<span style = "background-color:#dfd">            return maquetteColorOf(0xa9a79e);</span>
+        case MaquetteTokenKind::Hostile:
+<span style = "background-color:#dfd">            return maquetteColorOf(0xb33a3a);</span>
+        case MaquetteTokenKind::Object:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x6f86a3);</span>
+        case MaquetteTokenKind::Portal:
+<span style = "background-color:#dfd">            return maquetteColorOf(0xd2ac62);</span>
+    }
+<span style = "background-color:#fdd">    return MaquetteColor{};</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">std::string_view maquetteTokenKindKey(MaquetteTokenKind kind) noexcept {
+    switch (kind) {</span>
+        case MaquetteTokenKind::Player:
+<span style = "background-color:#dfd">            return "player";</span>
+        case MaquetteTokenKind::Talker:
+<span style = "background-color:#dfd">            return "talker";</span>
+        case MaquetteTokenKind::Neutral:
+<span style = "background-color:#dfd">            return "neutral";</span>
+        case MaquetteTokenKind::Hostile:
+<span style = "background-color:#dfd">            return "hostile";</span>
+        case MaquetteTokenKind::Object:
+<span style = "background-color:#dfd">            return "object";</span>
+        case MaquetteTokenKind::Portal:
+<span style = "background-color:#dfd">            return "portal";</span>
+    }
+<span style = "background-color:#fdd">    return "neutral";</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">char maquetteTokenLetter(std::string_view name) noexcept {
+    for (const char character : name) {
+        const auto raw = static_cast&lt;unsigned char&gt;(character);
+        if (std::isalnum(raw) != 0) {
+            return static_cast&lt;char&gt;(std::toupper(raw));</span>
+        }
+<span style = "background-color:#dfd">    }
+    return '?';
+}</span>
+
+<span style = "background-color:#dfd">std::string maquetteTokenPath(MaquetteTokenKind kind, char letter) {
+    std::string path{TOKEN_ROOT};
+    path.append(maquetteTokenKindKey(kind));
+    path.push_back('/');
+    path.push_back(maquetteTokenLetter(std::string_view{&amp;letter, 1}));
+    path.append(TOKEN_EXTENSION);
+    return path;
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;MaquetteTokenRequest&gt; parseMaquetteTokenPath(std::string_view path) {
+    if (!path.starts_with(TOKEN_ROOT) || !path.ends_with(TOKEN_EXTENSION)) {
+        return std::nullopt;</span>
+    }
+    const std::string_view body =
+<span style = "background-color:#dfd">        path.substr(TOKEN_ROOT.size(), path.size() - TOKEN_ROOT.size() - TOKEN_EXTENSION.size());
+    const std::size_t slash = body.find('/');
+    if (slash == std::string_view::npos || body.size() != slash + 2) {
+        return std::nullopt;  // une seule lettre, pas davantage</span>
+    }
+<span style = "background-color:#dfd">    const std::string_view kindKey = body.substr(0, slash);</span>
+    for (const MaquetteTokenKind kind :
+<span style = "background-color:#dfd">         {MaquetteTokenKind::Player, MaquetteTokenKind::Talker, MaquetteTokenKind::Neutral,
+          MaquetteTokenKind::Hostile, MaquetteTokenKind::Object, MaquetteTokenKind::Portal}) {
+        if (maquetteTokenKindKey(kind) == kindKey) {
+            return MaquetteTokenRequest{.kind = kind, .letter = body.back()};</span>
+        }
+<span style = "background-color:#dfd">    }
+    return std::nullopt;
+}</span>
+
+<span style = "background-color:#dfd">core::MarkerImage maquetteTokenImage(const MaquetteTokenRequest&amp; request, int size) {
+    if (size &lt;= 0) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    const MaquetteColor tint = maquetteTokenColor(request.kind);
+    const core::MarkerColor disc = toMarkerColor(tint, 1.0F, 255);
+    const core::MarkerColor rim = toMarkerColor(tint, 0.45F, 255);
+    const core::MarkerColor letter = letterColorFor(tint);</span>
+
+<span style = "background-color:#dfd">    core::MarkerImage image;
+    image.width = size;
+    image.height = size;
+    image.pixels.assign(static_cast&lt;std::size_t&gt;(size) * static_cast&lt;std::size_t&gt;(size),</span>
+                        core::MarkerColor{.r = 0, .g = 0, .b = 0, .a = 0});
+
+    // Le disque, cerne : le cercle plein se lit a toute taille, le cerne le detache d'un sol de
+    // teinte voisine.
+<span style = "background-color:#dfd">    const float centre = static_cast&lt;float&gt;(size - 1) / 2.0F;
+    const float radius = static_cast&lt;float&gt;(size) / 2.0F;
+    const float rimRadius = radius - (static_cast&lt;float&gt;(size) * 0.14F);
+    for (int y = 0; y &lt; size; ++y) {
+        for (int x = 0; x &lt; size; ++x) {
+            const float dx = static_cast&lt;float&gt;(x) - centre;
+            const float dy = static_cast&lt;float&gt;(y) - centre;
+            const float distance = (dx * dx) + (dy * dy);
+            if (distance &gt; radius * radius) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            image.pixels[static_cast&lt;std::size_t&gt;((y * size) + x)] =</span>
+                distance &gt; rimRadius * rimRadius ? rim : disc;
+<span style = "background-color:#dfd">        }
+    }</span>
+
+    // La lettre, au plus grand entier qui tienne dans le disque.
+<span style = "background-color:#dfd">    const int scale = std::max(1, size / 11);
+    const int glyphWidth = GLYPH_COLUMNS * scale;
+    const int glyphHeight = GLYPH_ROWS * scale;
+    const int originX = (size - glyphWidth) / 2;
+    const int originY = (size - glyphHeight) / 2;
+    const std::array&lt;std::uint8_t, GLYPH_ROWS&gt;&amp; rows = glyphOf(request.letter);
+    for (int row = 0; row &lt; GLYPH_ROWS; ++row) {
+        for (int column = 0; column &lt; GLYPH_COLUMNS; ++column) {
+            const auto bit = static_cast&lt;std::uint8_t&gt;(1U &lt;&lt; (GLYPH_COLUMNS - 1 - column));
+            if ((rows[static_cast&lt;std::size_t&gt;(row)] &amp; bit) == 0) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            for (int dy = 0; dy &lt; scale; ++dy) {
+                for (int dx = 0; dx &lt; scale; ++dx) {
+                    const int x = originX + (column * scale) + dx;
+                    const int y = originY + (row * scale) + dy;
+                    if (x &lt; 0 || y &lt; 0 || x &gt;= size || y &gt;= size) {</span>
+<span style = "background-color:#fdd">                        continue;</span>
+                    }
+<span style = "background-color:#dfd">                    image.pixels[static_cast&lt;std::size_t&gt;((y * size) + x)] = letter;
+                }
+            }
+        }
+    }
+    return image;
+}</span>
+
+core::MarkerImage maquetteTextImage(std::string_view text, int scale,
+<span style = "background-color:#dfd">                                    core::MarkerColor color) {
+    const int step = std::max(1, scale);
+    if (text.empty()) {</span>
+<span style = "background-color:#fdd">        return {};</span>
+    }
+<span style = "background-color:#dfd">    const auto letters = static_cast&lt;int&gt;(text.size());
+    core::MarkerImage image;
+    image.width = ((GLYPH_COLUMNS + GLYPH_SPACING) * letters - GLYPH_SPACING) * step;
+    image.height = GLYPH_ROWS * step;
+    image.pixels.assign(</span>
+        static_cast&lt;std::size_t&gt;(image.width) * static_cast&lt;std::size_t&gt;(image.height),
+        core::MarkerColor{.r = 0, .g = 0, .b = 0, .a = 0});
+
+<span style = "background-color:#dfd">    for (int letter = 0; letter &lt; letters; ++letter) {
+        const auto raw = static_cast&lt;unsigned char&gt;(text[static_cast&lt;std::size_t&gt;(letter)]);
+        if (raw == ' ') {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::array&lt;std::uint8_t, GLYPH_ROWS&gt;&amp; rows =</span>
+            glyphOf(static_cast&lt;char&gt;(std::toupper(raw)));
+<span style = "background-color:#dfd">        const int originX = letter * (GLYPH_COLUMNS + GLYPH_SPACING) * step;
+        for (int row = 0; row &lt; GLYPH_ROWS; ++row) {
+            for (int column = 0; column &lt; GLYPH_COLUMNS; ++column) {
+                const auto bit = static_cast&lt;std::uint8_t&gt;(1U &lt;&lt; (GLYPH_COLUMNS - 1 - column));
+                if ((rows[static_cast&lt;std::size_t&gt;(row)] &amp; bit) == 0) {
+                    continue;</span>
+                }
+<span style = "background-color:#dfd">                for (int dy = 0; dy &lt; step; ++dy) {
+                    for (int dx = 0; dx &lt; step; ++dx) {
+                        const int x = originX + (column * step) + dx;
+                        const int y = (row * step) + dy;
+                        image.pixels[static_cast&lt;std::size_t&gt;((y * image.width) + x)] = color;
+                    }
+                }
+            }
+        }
+    }
+    return image;
+}</span>
+
+<span style = "background-color:#dfd">core::MarkerImage maquetteTokenImage(std::string_view path, int size) {
+    const std::optional&lt;MaquetteTokenRequest&gt; request = parseMaquetteTokenPath(path);
+    return request ? maquetteTokenImage(*request, size) : core::MarkerImage{};
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

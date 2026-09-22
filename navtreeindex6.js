@@ -1,5 +1,10 @@
 var NAVTREEINDEX6 =
 {
+"classcore_1_1Level.html#a7783acfe25a83f5df8e60c257ece69d9":[15,0,0,104,17],
+"classcore_1_1Level.html#a84dc92ff487b184e8da96770a8bccf13":[14,0,1,104,10],
+"classcore_1_1Level.html#a84dc92ff487b184e8da96770a8bccf13":[15,0,0,104,10],
+"classcore_1_1Level.html#aacf0835d90f20472e7dadc3289845b25":[14,0,1,104,1],
+"classcore_1_1Level.html#aacf0835d90f20472e7dadc3289845b25":[15,0,0,104,1],
 "classcore_1_1Level.html#ac541499dd87c8d922ccc8df81c061d35":[14,0,1,104,5],
 "classcore_1_1Level.html#ac541499dd87c8d922ccc8df81c061d35":[15,0,0,104,5],
 "classcore_1_1Level.html#acc8bfe2ec16a5dc689378b98ca957871":[14,0,1,104,19],
@@ -244,10 +249,5 @@ var NAVTREEINDEX6 =
 "classcore_1_1Logger.html#af2c50f8b7488ee353dab6c98cc836b05":[15,0,0,77,13],
 "classcore_1_1MemoryLogSink.html":[14,0,1,78],
 "classcore_1_1MemoryLogSink.html":[15,0,0,78],
-"classcore_1_1MemoryLogSink.html#a34745d0fc5199fe9680d70e545232b17":[14,0,1,78,2],
-"classcore_1_1MemoryLogSink.html#a34745d0fc5199fe9680d70e545232b17":[15,0,0,78,2],
-"classcore_1_1MemoryLogSink.html#a7e1c23f28325a73a36c7b837759c0c05":[14,0,1,78,3],
-"classcore_1_1MemoryLogSink.html#a7e1c23f28325a73a36c7b837759c0c05":[15,0,0,78,3],
-"classcore_1_1MemoryLogSink.html#a8c422dc38e0585f9874b738437e4e5e8":[14,0,1,78,4],
-"classcore_1_1MemoryLogSink.html#a8c422dc38e0585f9874b738437e4e5e8":[15,0,0,78,4]
+"classcore_1_1MemoryLogSink.html#a34745d0fc5199fe9680d70e545232b17":[14,0,1,78,2]
 };

@@ -170,6 +170,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:adf3e122b7b78551672d6e8642941383d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un quad au lot courant.  <br /></td></tr>
 <tr class="memitem:afb2cf10826482b3ad8d503a829a8ed5b" id="r_afb2cf10826482b3ad8d503a829a8ed5b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afb2cf10826482b3ad8d503a829a8ed5b">draw</a> (const <a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a> &amp;line)</td></tr>
 <tr class="memdesc:afb2cf10826482b3ad8d503a829a8ed5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un segment épais (orienté librement) au lot courant.  <br /></td></tr>
+<tr class="memitem:a50b96c3162fe6f5d3c78b4ff9f482f5f" id="r_a50b96c3162fe6f5d3c78b4ff9f482f5f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a50b96c3162fe6f5d3c78b4ff9f482f5f">draw</a> (const <a class="el" href="structhmi_1_1PolyQuad.html">PolyQuad</a> &amp;poly)</td></tr>
+<tr class="memdesc:a50b96c3162fe6f5d3c78b4ff9f482f5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un quadrilatère à quatre sommets libres au lot courant (<span class="tt">LOT-128</span>).  <br /></td></tr>
 <tr class="memitem:aac9e3e6a4b2e84a4b24b617d6b4ce58d" id="r_aac9e3e6a4b2e84a4b24b617d6b4ce58d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aac9e3e6a4b2e84a4b24b617d6b4ce58d">end</a> ()</td></tr>
 <tr class="memdesc:aac9e3e6a4b2e84a4b24b617d6b4ce58d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Termine le lot : fige la plage de quads enregistrée. Un lot vide n'émettra aucun dessin.  <br /></td></tr>
 <tr class="memitem:a271469045e5d3087caadd4dcaf4ebbe1" id="r_a271469045e5d3087caadd4dcaf4ebbe1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a271469045e5d3087caadd4dcaf4ebbe1">submit</a> (QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target, QRhiResourceUpdateBatch *updates, const float *clear)</td></tr>
@@ -413,7 +415,7 @@ Static Private Attributes</h2></td></tr>
 </div>
 </div>
 <a id="afb2cf10826482b3ad8d503a829a8ed5b" name="afb2cf10826482b3ad8d503a829a8ed5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb2cf10826482b3ad8d503a829a8ed5b">&#9670;&#160;</a></span>draw() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afb2cf10826482b3ad8d503a829a8ed5b">&#9670;&#160;</a></span>draw() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -437,8 +439,33 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a50b96c3162fe6f5d3c78b4ff9f482f5f" name="a50b96c3162fe6f5d3c78b4ff9f482f5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50b96c3162fe6f5d3c78b4ff9f482f5f">&#9670;&#160;</a></span>draw() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::SpriteBatch::draw </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PolyQuad.html">PolyQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>poly</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajoute un quadrilatère à quatre sommets libres au lot courant (<span class="tt">LOT-128</span>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">poly</td><td>Quadrilatère à dessiner (unités monde, UV normalisées, teinte). Ses sommets sont repris tels quels : c'est à la composition de les donner dans l'ordre du pourtour. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="adf3e122b7b78551672d6e8642941383d" name="adf3e122b7b78551672d6e8642941383d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf3e122b7b78551672d6e8642941383d">&#9670;&#160;</a></span>draw() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adf3e122b7b78551672d6e8642941383d">&#9670;&#160;</a></span>draw() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

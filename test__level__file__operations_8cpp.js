@@ -8,5 +8,6 @@ var test__level__file__operations_8cpp =
     [ "TEST_F", "test__level__file__operations_8cpp.html#aca91cb54e8a29f21e49a8d13bb2eef14", null ],
     [ "TEST_F", "test__level__file__operations_8cpp.html#ad859ebb492f6e6ce614b986c83dd2817", null ],
     [ "TEST_F", "test__level__file__operations_8cpp.html#a88ecd94bb63d2c6851e23c2689105ae9", null ],
-    [ "TEST_F", "test__level__file__operations_8cpp.html#ad09925ad74140da2dce94c19b7e80c53", null ]
+    [ "TEST_F", "test__level__file__operations_8cpp.html#ad09925ad74140da2dce94c19b7e80c53", null ],
+    [ "TEST_F", "test__level__file__operations_8cpp.html#a2b3f559bdebb2e0dde66da41bed15c22", null ]
 ];

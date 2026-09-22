@@ -210,11 +210,11 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Vue-modèle des options : lit et persiste les réglages, et <b>publie</b> leur changement. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1110"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1114"></a>
 La règle qui gouverne cette classe</h2>
 <p><span class="tt">EX-IHM-083</span> : <b>tout réglage exposé doit atteindre le moteur</b>. Une case à cocher qui ne fait rien est pire qu'une case absente — elle fait croire à un réglage, et l'utilisateur cherche ensuite pourquoi il n'a pas d'effet.</p>
 <p>Cette classe ne fait donc que deux choses : persister, et prévenir. C'est l'application qui <b>branche</b> chaque signal sur ce qu'il doit atteindre — le moteur audio, la fenêtre, les traducteurs. Le faire ici obligerait la présentation à connaître le moteur, et c'est précisément la frontière que le lot établit.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1111"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1115"></a>
 Ce qui s'applique quand</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">

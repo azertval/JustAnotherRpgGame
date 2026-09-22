@@ -1,6 +1,7 @@
 var classhmi_1_1ComposedScene =
 [
     [ "addLine", "classhmi_1_1ComposedScene.html#a84dc1784abf8931b638de5929894ad54", null ],
+    [ "addPoly", "classhmi_1_1ComposedScene.html#abb3918ab48d60da10aa29c112bba55f4", null ],
     [ "addSprite", "classhmi_1_1ComposedScene.html#a24314ca8a9469380b010d79d9e1eb604", null ],
     [ "batchCount", "classhmi_1_1ComposedScene.html#a751bbaba08ad6bd4f8104723af3b95df", null ],
     [ "clear", "classhmi_1_1ComposedScene.html#ab51e478d9d4ad48ceeaac4f1e384d1ae", null ],

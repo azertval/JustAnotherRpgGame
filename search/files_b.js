@@ -20,12 +20,15 @@ var searchData=
   ['maprender_2eh_17',['MapRender.h',['../MapRender_8h.html',1,'']]],
   ['maptexts_2ecpp_18',['MapTexts.cpp',['../MapTexts_8cpp.html',1,'']]],
   ['maptexts_2eh_19',['MapTexts.h',['../MapTexts_8h.html',1,'']]],
-  ['mathutils_2eh_20',['MathUtils.h',['../MathUtils_8h.html',1,'']]],
-  ['memorylogsink_2eh_21',['MemoryLogSink.h',['../MemoryLogSink_8h.html',1,'']]],
-  ['minimap_2ecpp_22',['MiniMap.cpp',['../MiniMap_8cpp.html',1,'']]],
-  ['minimap_2eh_23',['MiniMap.h',['../MiniMap_8h.html',1,'']]],
-  ['missingtexture_2ecpp_24',['MissingTexture.cpp',['../MissingTexture_8cpp.html',1,'']]],
-  ['missingtexture_2eh_25',['MissingTexture.h',['../MissingTexture_8h.html',1,'']]],
-  ['multiclassing_2ecpp_26',['Multiclassing.cpp',['../Multiclassing_8cpp.html',1,'']]],
-  ['multiclassing_2eh_27',['Multiclassing.h',['../Multiclassing_8h.html',1,'']]]
+  ['maquettepalette_2eh_20',['MaquettePalette.h',['../MaquettePalette_8h.html',1,'']]],
+  ['maquettetokens_2ecpp_21',['MaquetteTokens.cpp',['../MaquetteTokens_8cpp.html',1,'']]],
+  ['maquettetokens_2eh_22',['MaquetteTokens.h',['../MaquetteTokens_8h.html',1,'']]],
+  ['mathutils_2eh_23',['MathUtils.h',['../MathUtils_8h.html',1,'']]],
+  ['memorylogsink_2eh_24',['MemoryLogSink.h',['../MemoryLogSink_8h.html',1,'']]],
+  ['minimap_2ecpp_25',['MiniMap.cpp',['../MiniMap_8cpp.html',1,'']]],
+  ['minimap_2eh_26',['MiniMap.h',['../MiniMap_8h.html',1,'']]],
+  ['missingtexture_2ecpp_27',['MissingTexture.cpp',['../MissingTexture_8cpp.html',1,'']]],
+  ['missingtexture_2eh_28',['MissingTexture.h',['../MissingTexture_8h.html',1,'']]],
+  ['multiclassing_2ecpp_29',['Multiclassing.cpp',['../Multiclassing_8cpp.html',1,'']]],
+  ['multiclassing_2eh_30',['Multiclassing.h',['../Multiclassing_8h.html',1,'']]]
 ];

@@ -146,6 +146,7 @@ $(function(){initNavTree('test__map__render_8cpp.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QColor&gt;</code><br />
 <code>#include &lt;QImage&gt;</code><br />
+<code>#include &lt;QRect&gt;</code><br />
 <code>#include &lt;cstdlib&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
@@ -163,12 +164,43 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa546d760541f1d8a0c046e774184092a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les bandes de <span class="tt">--layers</span> se lisent par leur nom ; un nom inconnu est refusé.  <br /></td></tr>
 <tr class="memitem:a213928bdfe720281e215d07270b1fb43" id="r_a213928bdfe720281e215d07270b1fb43"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a213928bdfe720281e215d07270b1fb43">TEST</a> (MapRenderTest, RenderEcritUneImageParCarte)</td></tr>
 <tr class="memdesc:a213928bdfe720281e215d07270b1fb43"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">--render</span> écrit une image par carte, nommée d'après son identifiant.  <br /></td></tr>
+<tr class="memitem:ab2ccc50483654b01e4a026af0b858638" id="r_ab2ccc50483654b01e4a026af0b858638"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab2ccc50483654b01e4a026af0b858638">TEST</a> (MapRenderTest, LePlanCoucheLesBlocsEtLegende)</td></tr>
+<tr class="memdesc:ab2ccc50483654b01e4a026af0b858638"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">--plan</span> rend la carte au vocabulaire des plans de principe : blocs couchés à plat et légende, ce qui donne une image différente du rendu ordinaire (<span class="tt">LOT-128</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests de <span class="tt">LevelEditor --render</span> (<span class="tt">LOT-EDITOR-13</span>) : une carte livrée rendue hors écran, sans fenêtre, par le peintre du canevas. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ab2ccc50483654b01e4a026af0b858638" name="ab2ccc50483654b01e4a026af0b858638"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2ccc50483654b01e4a026af0b858638">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LePlanCoucheLesBlocsEtLegende</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">--plan</span> rend la carte au vocabulaire des plans de principe : blocs couchés à plat et légende, ce qui donne une image différente du rendu ordinaire (<span class="tt">LOT-128</span>). </p>
+<p><b>Cas de test :</b> <b>&ndash;plan couche les blocs et ajoute une legende.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Sans fenetre<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Rendre une carte de maquette, une fois ordinairement, une fois en plan.<br  />
+ <b>Resultat attendu :</b> Deux images de meme taille mais differentes ; le coin haut gauche, vide dans le rendu ordinaire, porte la legende du plan. </p>
+
+</div>
+</div>
 <a id="aa546d760541f1d8a0c046e774184092a" name="aa546d760541f1d8a0c046e774184092a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa546d760541f1d8a0c046e774184092a">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa546d760541f1d8a0c046e774184092a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -197,7 +229,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a213928bdfe720281e215d07270b1fb43" name="a213928bdfe720281e215d07270b1fb43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a213928bdfe720281e215d07270b1fb43">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a213928bdfe720281e215d07270b1fb43">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -226,7 +258,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a05bcc0659f58a73f6f4f0fa62ddb77cb" name="a05bcc0659f58a73f6f4f0fa62ddb77cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05bcc0659f58a73f6f4f0fa62ddb77cb">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a05bcc0659f58a73f6f4f0fa62ddb77cb">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

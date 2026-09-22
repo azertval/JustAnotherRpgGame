@@ -8,6 +8,6 @@ var searchData=
   ['high_5',['High',['../namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aa655d20c1ca69519ca647684edbb2db35',1,'core']]],
   ['hit_6',['Hit',['../namespacehmi.html#ad5ace887c9d040dd9cd8b5649a5ab9b3aebfe5e1791db03c4cd6ab95801e0977d',1,'hmi']]],
   ['hitpoints_7',['HitPoints',['../namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6af379b3194b7b06ec46708bf4fcec93c4',1,'core']]],
-  ['hostile_8',['Hostile',['../namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7aa62a927d0ab6a08f916aa9f5ec0306e4',1,'core']]],
+  ['hostile_8',['Hostile',['../namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7aa62a927d0ab6a08f916aa9f5ec0306e4',1,'core::Hostile'],['../namespacehmi.html#a9dbe00de1bc58b0fc3cc63b38ec7569eaa62a927d0ab6a08f916aa9f5ec0306e4',1,'hmi::Hostile']]],
   ['huge_9',['Huge',['../namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204aa2ad65f28a717b0fd2be860a0d8e5c3e',1,'core']]]
 ];

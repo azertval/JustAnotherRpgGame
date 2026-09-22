@@ -172,6 +172,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a463023789fa5cc0f7c5cae1fb2b62976"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les cartes livrées passent le contrôle : c'est ce que la CI exige.  <br /></td></tr>
 <tr class="memitem:aff37e7cbd695fa3919a228475999d1cb" id="r_aff37e7cbd695fa3919a228475999d1cb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aff37e7cbd695fa3919a228475999d1cb">TEST</a> (MapFormatTest, ChaqueDefautSortEtLeControleEchoue)</td></tr>
 <tr class="memdesc:aff37e7cbd695fa3919a228475999d1cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte fautive fait sortir chaque sorte de défaut, et <span class="tt">--check</span> échoue.  <br /></td></tr>
+<tr class="memitem:a129cbc9add6872dd5a7630ddbb73cc72" id="r_a129cbc9add6872dd5a7630ddbb73cc72"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a129cbc9add6872dd5a7630ddbb73cc72">TEST</a> (MapFormatTest, UnTypeNonCouvertParLeLieuEstSignale)</td></tr>
+<tr class="memdesc:a129cbc9add6872dd5a7630ddbb73cc72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un type de tuile que la table du lieu ne couvre pas n'est plus invisible : il prend le rendu de maquette, et <span class="tt">--check</span> le dit (<span class="tt">LOT-128</span>).  <br /></td></tr>
 <tr class="memitem:adc51ab9b4ae285e27d067a157c2bc4d6" id="r_adc51ab9b4ae285e27d067a157c2bc4d6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adc51ab9b4ae285e27d067a157c2bc4d6">TEST</a> (MapFormatTest, MigrerRendUneCarteQueLeControleAccepte)</td></tr>
 <tr class="memdesc:adc51ab9b4ae285e27d067a157c2bc4d6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">--migrate</span> réécrit une carte en place, et la carte migrée passe le contrôle.  <br /></td></tr>
 <tr class="memitem:a64b02c3f5911e62ef4b9f043489ed771" id="r_a64b02c3f5911e62ef4b9f043489ed771"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a64b02c3f5911e62ef4b9f043489ed771">TEST</a> (MapFormatTest, SansCommandeLEditeurOuvreSaFenetre)</td></tr>
@@ -183,7 +185,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Tests de la garde du format v4 (<span class="tt">LOT-EDITOR-12</span>) : migration d'une carte, contrôle de toutes, entrée sans fenêtre de l'éditeur. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a11a8c863aa513894e22163f2127c42a5" name="a11a8c863aa513894e22163f2127c42a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11a8c863aa513894e22163f2127c42a5">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a11a8c863aa513894e22163f2127c42a5">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,7 +217,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aff37e7cbd695fa3919a228475999d1cb" name="aff37e7cbd695fa3919a228475999d1cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff37e7cbd695fa3919a228475999d1cb">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aff37e7cbd695fa3919a228475999d1cb">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,7 +247,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8d735e8632d39a00cc43a2e6832c578a" name="a8d735e8632d39a00cc43a2e6832c578a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d735e8632d39a00cc43a2e6832c578a">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d735e8632d39a00cc43a2e6832c578a">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,7 +277,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a6b32f5a144d98be38b03de2c495a84c9" name="a6b32f5a144d98be38b03de2c495a84c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b32f5a144d98be38b03de2c495a84c9">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b32f5a144d98be38b03de2c495a84c9">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -305,7 +307,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a463023789fa5cc0f7c5cae1fb2b62976" name="a463023789fa5cc0f7c5cae1fb2b62976"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a463023789fa5cc0f7c5cae1fb2b62976">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a463023789fa5cc0f7c5cae1fb2b62976">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -334,7 +336,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="adc51ab9b4ae285e27d067a157c2bc4d6" name="adc51ab9b4ae285e27d067a157c2bc4d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc51ab9b4ae285e27d067a157c2bc4d6">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adc51ab9b4ae285e27d067a157c2bc4d6">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -364,7 +366,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a64b02c3f5911e62ef4b9f043489ed771" name="a64b02c3f5911e62ef4b9f043489ed771"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64b02c3f5911e62ef4b9f043489ed771">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a64b02c3f5911e62ef4b9f043489ed771">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -389,6 +391,35 @@ Functions</h2></td></tr>
  <b>Etapes :</b><br  />
  1. Passer <span class="tt">--crash-test</span> seul.<br  />
  <b>Resultat attendu :</b> Aucun code de sortie : la fenêtre s'ouvre. </p>
+
+</div>
+</div>
+<a id="a129cbc9add6872dd5a7630ddbb73cc72" name="a129cbc9add6872dd5a7630ddbb73cc72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a129cbc9add6872dd5a7630ddbb73cc72">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapFormatTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnTypeNonCouvertParLeLieuEstSignale</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un type de tuile que la table du lieu ne couvre pas n'est plus invisible : il prend le rendu de maquette, et <span class="tt">--check</span> le dit (<span class="tt">LOT-128</span>). </p>
+<p><b>Cas de test :</b> <b>Un type absent de la table du lieu est signale par le controle.</b><br  />
+ cat Unitaire · Format v4<br  />
+ crit Majeur<br  />
+ etapes 1. Ecrire une carte du lieu d'essai portant une case d'eau, que sa table ne couvre pas.<br  />
+2. La controler.<br  />
+ attendu Un avertissement nomme le type et la table ; aucune erreur ne vise le type. </p>
 
 </div>
 </div>

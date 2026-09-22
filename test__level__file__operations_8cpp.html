@@ -153,6 +153,7 @@ $(function(){initNavTree('test__level__file__operations_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="TileLayer_8h_source.html">Core/Levels/TileLayer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelFileOperations_8h_source.html">Editor/Logic/LevelFileOperations.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MapFormat_8h_source.html">Editor/Logic/MapFormat.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
@@ -161,6 +162,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:ad67ac8305af02c7245a71b1cf3557b2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créer un niveau écrit sur disque un fichier <b>valide</b> et l'expose immédiatement dans la liste : la création part d'un <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Carte mutable en cours d&#39;édition, distincte de Level (immuable).">core::LevelDraft</a></span> vide passé par la validation, jamais d'un fichier vide qui échouerait au premier chargement.  <br /></td></tr>
 <tr class="memitem:ad09925ad74140da2dce94c19b7e80c53" id="r_ad09925ad74140da2dce94c19b7e80c53"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad09925ad74140da2dce94c19b7e80c53">TEST_F</a> (LevelFileOps, UneCarteCreeeAvecUnLieuASesDeuxCouches)</td></tr>
 <tr class="memdesc:ad09925ad74140da2dce94c19b7e80c53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte créée avec un lieu naît comme les cartes livrées (<span class="tt">LOT-EDITOR-06</span>) : on la fait ensuite entièrement dans l'éditeur.  <br /></td></tr>
+<tr class="memitem:a2b3f559bdebb2e0dde66da41bed15c22" id="r_a2b3f559bdebb2e0dde66da41bed15c22"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2b3f559bdebb2e0dde66da41bed15c22">TEST_F</a> (LevelFileOps, UneCarteCreeeSansLieuASesDeuxCouches)</td></tr>
+<tr class="memdesc:a2b3f559bdebb2e0dde66da41bed15c22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte créée <b>sans lieu</b> a elle aussi ses deux couches (<span class="tt">LOT-128</span>) : sans elles, <span class="tt">Change sheet…</span> refuserait de l'habiller plus tard, et la maquette serait un cul-de-sac.  <br /></td></tr>
 <tr class="memitem:a9423a3f90e4424d0f413e035c38d0044" id="r_a9423a3f90e4424d0f413e035c38d0044"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9423a3f90e4424d0f413e035c38d0044">TEST</a> (ScenePlacesTest, LesLieuxProposesOntUnManifeste)</td></tr>
 <tr class="memdesc:a9423a3f90e4424d0f413e035c38d0044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les lieux qu'une nouvelle carte peut prendre sont les planches qui ont un manifeste.  <br /></td></tr>
 <tr class="memitem:a8c629c3aea97ecc02804a4844945a032" id="r_a8c629c3aea97ecc02804a4844945a032"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8c629c3aea97ecc02804a4844945a032">TEST_F</a> (LevelFileOps, LaPlusPetiteCarteFaitUneCase)</td></tr>
@@ -207,7 +210,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad67ac8305af02c7245a71b1cf3557b2d" name="ad67ac8305af02c7245a71b1cf3557b2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad67ac8305af02c7245a71b1cf3557b2d">&#9670;&#160;</a></span>TEST_F() <span class="overload">[1/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad67ac8305af02c7245a71b1cf3557b2d">&#9670;&#160;</a></span>TEST_F() <span class="overload">[1/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -237,7 +240,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a84e4befacc22f243237f14b14908b7e8" name="a84e4befacc22f243237f14b14908b7e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84e4befacc22f243237f14b14908b7e8">&#9670;&#160;</a></span>TEST_F() <span class="overload">[2/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a84e4befacc22f243237f14b14908b7e8">&#9670;&#160;</a></span>TEST_F() <span class="overload">[2/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -267,7 +270,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad8013bbede77ac0774de05c0834d2279" name="ad8013bbede77ac0774de05c0834d2279"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8013bbede77ac0774de05c0834d2279">&#9670;&#160;</a></span>TEST_F() <span class="overload">[3/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8013bbede77ac0774de05c0834d2279">&#9670;&#160;</a></span>TEST_F() <span class="overload">[3/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -297,7 +300,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8c629c3aea97ecc02804a4844945a032" name="a8c629c3aea97ecc02804a4844945a032"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c629c3aea97ecc02804a4844945a032">&#9670;&#160;</a></span>TEST_F() <span class="overload">[4/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c629c3aea97ecc02804a4844945a032">&#9670;&#160;</a></span>TEST_F() <span class="overload">[4/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -327,7 +330,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aca91cb54e8a29f21e49a8d13bb2eef14" name="aca91cb54e8a29f21e49a8d13bb2eef14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca91cb54e8a29f21e49a8d13bb2eef14">&#9670;&#160;</a></span>TEST_F() <span class="overload">[5/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aca91cb54e8a29f21e49a8d13bb2eef14">&#9670;&#160;</a></span>TEST_F() <span class="overload">[5/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -357,7 +360,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad859ebb492f6e6ce614b986c83dd2817" name="ad859ebb492f6e6ce614b986c83dd2817"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad859ebb492f6e6ce614b986c83dd2817">&#9670;&#160;</a></span>TEST_F() <span class="overload">[6/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad859ebb492f6e6ce614b986c83dd2817">&#9670;&#160;</a></span>TEST_F() <span class="overload">[6/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -387,7 +390,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a88ecd94bb63d2c6851e23c2689105ae9" name="a88ecd94bb63d2c6851e23c2689105ae9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88ecd94bb63d2c6851e23c2689105ae9">&#9670;&#160;</a></span>TEST_F() <span class="overload">[7/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a88ecd94bb63d2c6851e23c2689105ae9">&#9670;&#160;</a></span>TEST_F() <span class="overload">[7/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -417,7 +420,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad09925ad74140da2dce94c19b7e80c53" name="ad09925ad74140da2dce94c19b7e80c53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad09925ad74140da2dce94c19b7e80c53">&#9670;&#160;</a></span>TEST_F() <span class="overload">[8/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad09925ad74140da2dce94c19b7e80c53">&#9670;&#160;</a></span>TEST_F() <span class="overload">[8/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -443,6 +446,35 @@ Functions</h2></td></tr>
  1. Créer une carte 12 × 8 au lieu <span class="tt">bourg</span>.<br  />
 2. La relire.<br  />
  <b>Resultat attendu :</b> Une couche de sol <span class="tt">sol</span> au lieu <span class="tt">bourg</span>, une couche de décor <span class="tt">relief</span>. </p>
+
+</div>
+</div>
+<a id="a2b3f559bdebb2e0dde66da41bed15c22" name="a2b3f559bdebb2e0dde66da41bed15c22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b3f559bdebb2e0dde66da41bed15c22">&#9670;&#160;</a></span>TEST_F() <span class="overload">[9/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">LevelFileOps</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneCarteCreeeSansLieuASesDeuxCouches</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une carte créée <b>sans lieu</b> a elle aussi ses deux couches (<span class="tt">LOT-128</span>) : sans elles, <span class="tt">Change sheet…</span> refuserait de l'habiller plus tard, et la maquette serait un cul-de-sac. </p>
+<p><b>Cas de test :</b> <b>Une carte creee sans lieu a ses deux couches, et aucun lieu.</b><br  />
+ cat Unitaire · Opérations sur fichiers de niveau<br  />
+ crit Bloquant<br  />
+ etapes 1. Créer une carte 12 × 8 sans lieu.<br  />
+2. La relire.<br  />
+ attendu Une couche de sol et une de décor ; aucune propriété <span class="tt">scene</span> ; la case de l'entrée porte un sol. </p>
 
 </div>
 </div>

@@ -18,16 +18,23 @@
 #include &lt;array&gt;
 #include &lt;cctype&gt;
 #include &lt;cstddef&gt;
+#include &lt;optional&gt;
 #include &lt;set&gt;
 #include &lt;utility&gt;
 #include &lt;variant&gt;
 
+#include "Core/Combat/Arena.h"
+#include "Core/Combat/CombatTransition.h"
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/MapEntity.h"
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Rpg/Dialogue.h"
+#include "Core/World/CityBlock.h"
+#include "Core/World/CombatZone.h"
+#include "Core/World/EntityKinds.h"
+#include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 
 namespace hmi {
@@ -65,9 +72,9 @@ constexpr std::array&lt;std::string_view, 2&gt; FIGURE_DIRECTORIES = {"Npc/", "M
         if (couche.kind == kind) {
             return &amp;couche;</span>
         }
-<span style = "background-color:#dfd">    }</span>
-<span style = "background-color:#fdd">    return nullptr;</span>
-<span style = "background-color:#dfd">}</span>
+<span style = "background-color:#dfd">    }
+    return nullptr;
+}</span>
 
 // La piece d'une case : celle que la couche nomme, sous son nom courant, a defaut celle que la
 // table du lieu donne a son type.
@@ -86,11 +93,221 @@ constexpr std::array&lt;std::string_view, 2&gt; FIGURE_DIRECTORIES = {"Npc/", "M
     return {column, row};
 }</span>
 
+// Les quatre sommets du losange d'une case, dans l'ordre du pourtour : haut, droite, bas, gauche.
+struct DiamondVertices {
+    std::array&lt;float, 4&gt; x{};
+    std::array&lt;float, 4&gt; y{};
+};
+
+<span style = "background-color:#dfd">[[nodiscard]] DiamondVertices diamondOf(const core::Rect&amp; bounds) {
+    const float halfWidth = bounds.size.x / 2.0F;
+    const float halfHeight = bounds.size.y / 2.0F;
+    const float left = bounds.position.x;
+    const float top = bounds.position.y;
+    return DiamondVertices{</span>
+        .x = {left + halfWidth, left + bounds.size.x, left + halfWidth, left},
+        .y = {top, top + halfHeight, top + bounds.size.y, top + halfHeight}};
+<span style = "background-color:#dfd">}</span>
+
+// Eclairement des trois faces d'un bloc : le dessus prend la lumiere, la face gauche moins, la
+// droite le moins. Sans cet ecart, trois quads de la MEME teinte ne se distinguent pas et le bloc
+// redevient une tache plate -- exactement ce que l'extrusion doit eviter.
+constexpr float BLOCK_TOP_LIGHT = 1.0F;
+constexpr float BLOCK_LEFT_LIGHT = 0.74F;
+constexpr float BLOCK_RIGHT_LIGHT = 0.54F;
+
+<span style = "background-color:#dfd">[[nodiscard]] PolyQuad tintedQuad(const MaquetteColor&amp; tint, float light) {
+    PolyQuad quad;
+    quad.r = tint.r * light;
+    quad.g = tint.g * light;
+    quad.b = tint.b * light;
+    return quad;
+}</span>
+
+// Le losange plat d'une case, a la teinte de son type : le sol de maquette.
+void composeMaquetteDiamond(ComposedScene&amp; scene, const core::IsoProjection&amp; projection,
+                            const ScenePieceTextures&amp; textures, core::GridPosition cell,
+<span style = "background-color:#dfd">                            core::TileType type) {
+    const DiamondVertices diamond = diamondOf(projection.tileBounds(cell));
+    PolyQuad quad = tintedQuad(maquetteColor(type), BLOCK_TOP_LIGHT);
+    quad.x = diamond.x;
+    quad.y = diamond.y;
+    scene.addPoly(RenderLayer::Tile, textures.solid.texture, core::IsoProjection::depth(cell),</span>
+                  quad);
+<span style = "background-color:#dfd">}</span>
+
+// Le BLOC d'une case de matiere pleine : trois faces, haut d'une case (decision D6).
+//
+// Sur le calque du DECOR, et trie au pied de la case comme une piece de relief : c'est ce qui le
+// fait masquer ce qui est derriere lui, figurines comprises. Un bloc pose sur le calque des tuiles
+// passerait sous le heros quel que soit leur ordre, et le mur cesserait d'etre un mur.
+void composeMaquetteBlock(ComposedScene&amp; scene, const core::IsoProjection&amp; projection,
+                          const ScenePieceTextures&amp; textures, core::GridPosition cell,
+<span style = "background-color:#dfd">                          core::TileType type) {
+    const core::Rect bounds = projection.tileBounds(cell);
+    const DiamondVertices base = diamondOf(bounds);
+    const float height = bounds.size.y;  // une case de haut : la hauteur du losange
+    const MaquetteColor tint = maquetteColor(type);
+    const float footY = projection</span>
+                            .gridToWorld(gridPoint(static_cast&lt;float&gt;(cell.column),
+                                                   static_cast&lt;float&gt;(cell.row)))
+                            .y;
+<span style = "background-color:#dfd">    const std::int32_t order = worldDepthSortOrder(footY, WorldDepthSlot::Relief);
+    const auto raised = [height](float y) { return y - height; };</span>
+
+    // Face gauche : arete gauche -&gt; bas, puis les deux memes sommets remontes.
+<span style = "background-color:#dfd">    PolyQuad leftFace = tintedQuad(tint, BLOCK_LEFT_LIGHT);
+    leftFace.x = {base.x[3], base.x[2], base.x[2], base.x[3]};
+    leftFace.y = {base.y[3], base.y[2], raised(base.y[2]), raised(base.y[3])};
+    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, leftFace);</span>
+
+    // Face droite : bas -&gt; arete droite.
+<span style = "background-color:#dfd">    PolyQuad rightFace = tintedQuad(tint, BLOCK_RIGHT_LIGHT);
+    rightFace.x = {base.x[2], base.x[1], base.x[1], base.x[2]};
+    rightFace.y = {base.y[2], base.y[1], raised(base.y[1]), raised(base.y[2])};
+    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, rightFace);</span>
+
+    // Dessus : le losange de la case, remonte d'une hauteur.
+<span style = "background-color:#dfd">    PolyQuad topFace = tintedQuad(tint, BLOCK_TOP_LIGHT);
+    topFace.x = base.x;
+    for (std::size_t i = 0; i &lt; 4; ++i) {
+        topFace.y[i] = raised(base.y[i]);
+    }
+    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, topFace);
+}</span>
+
+// Epaisseur d'un trace de maquette, en hauteurs de losange : assez fin pour ne pas couvrir le sol,
+// assez epais pour se voir a l'echelle ou l'on lit une carte entiere.
+constexpr float TRACE_THICKNESS = 0.09F;
+
+// Un jeton : l'image engendree du disque a lettre, posee au centre de sa case.
+//
+// Sur le calque de l'INTERFACE EN SCENE, comme les traces, et non dans la bande de profondeur ou
+// vit la figurine qu'il remplace (decision de realisation D7). Un jeton n'est pas un objet du
+// monde : c'est une marque sur un plan, et une marque a demi cachee par le mur d'en face ne dit
+// plus ou est le PNJ -- ce qui est precisement son seul travail.
+void composeToken(ComposedScene&amp; scene, const core::IsoProjection&amp; projection,
+                  const ScenePieceTextures&amp; textures, const MaquetteTokenSnapshot&amp; token,
+<span style = "background-color:#dfd">                  float unitsPerScenePixel) {</span>
+    // Sans repli sur le damier : un jeton est peint ou n'est pas la. C'est aussi ce qui fait qu'un
+    // rendu qui ignore les jetons -- l'arriere-plan de combat de l'arene -- n'en herite pas.
+<span style = "background-color:#dfd">    const SceneTexture* const texture =</span>
+        textures.find(maquetteTokenPath(token.kind, token.letter));
+<span style = "background-color:#dfd">    if (texture == nullptr || texture-&gt;texture == nullptr) {
+        return;</span>
+    }
+    const core::Vector2 centre =
+<span style = "background-color:#dfd">        projection.gridToWorld(gridPoint(static_cast&lt;float&gt;(token.cell.column) + 0.5F,</span>
+                                         static_cast&lt;float&gt;(token.cell.row) + 0.5F));
+<span style = "background-color:#dfd">    const float side = static_cast&lt;float&gt;(MAQUETTE_TOKEN_SIZE_PIXELS) * unitsPerScenePixel;
+    const float footY = projection</span>
+                            .gridToWorld(gridPoint(static_cast&lt;float&gt;(token.cell.column),
+                                                   static_cast&lt;float&gt;(token.cell.row)))
+                            .y;
+<span style = "background-color:#dfd">    const std::int32_t order = worldDepthSortOrder(footY, WorldDepthSlot::Figure);</span>
+
+<span style = "background-color:#dfd">    SpriteQuad quad;
+    quad.x = centre.x - (side / 2.0F);</span>
+    // Le disque repose sur le centre de la case, legerement releve : il se tient dessus, il n'y
+    // flotte pas.
+<span style = "background-color:#dfd">    quad.y = centre.y - side + (projection.tileHeight() * 0.18F);
+    quad.width = side;
+    quad.height = side;
+    scene.addSprite(RenderLayer::UI, texture-&gt;texture, order, quad);</span>
+
+<span style = "background-color:#dfd">    if (!token.arrow) {
+        return;</span>
+    }
+    // La fleche d'un portail : un fut et une pointe, au-dessus du jeton. La sortie se voit d'un
+    // coup d'oeil, avant meme qu'on lise la lettre.
+<span style = "background-color:#dfd">    const MaquetteColor gold = maquetteTokenColor(MaquetteTokenKind::Portal);
+    const float top = quad.y - (side * 0.12F);
+    const float headHeight = side * 0.38F;
+    const float headHalf = side * 0.30F;
+    const float shaftHalf = side * 0.10F;</span>
+
+<span style = "background-color:#dfd">    PolyQuad shaft = tintedQuad(gold, 1.0F);
+    shaft.x = {centre.x - shaftHalf, centre.x + shaftHalf, centre.x + shaftHalf,</span>
+               centre.x - shaftHalf};
+<span style = "background-color:#dfd">    shaft.y = {top - headHeight, top - headHeight, top, top};
+    scene.addPoly(RenderLayer::UI, textures.solid.texture, order, shaft);</span>
+
+    // La pointe : un quad dont deux sommets coincident, donc un triangle.
+<span style = "background-color:#dfd">    PolyQuad head = tintedQuad(gold, 1.0F);
+    head.x = {centre.x, centre.x + headHalf, centre.x, centre.x - headHalf};
+    head.y = {top - headHeight - headHeight, top - headHeight, top - headHeight,</span>
+              top - headHeight};
+<span style = "background-color:#dfd">    scene.addPoly(RenderLayer::UI, textures.solid.texture, order, head);
+}</span>
+
+// Un trace : le contour du losange de chaque case d'une zone, ou la ligne brisee d'un trajet.
+void composeTrace(ComposedScene&amp; scene, const core::IsoProjection&amp; projection,
+<span style = "background-color:#fdd">                  const ScenePieceTextures&amp; textures, const MaquetteTraceSnapshot&amp; trace) {
+    if (textures.solid.texture == nullptr || trace.cells.empty()) {
+        return;</span>
+    }
+<span style = "background-color:#fdd">    const float thickness = projection.tileHeight() * TRACE_THICKNESS;
+    const auto segment = [&amp;](core::Vector2 from, core::Vector2 to, std::int32_t order) {
+        LineQuad line;
+        line.ax = from.x;
+        line.ay = from.y;
+        line.bx = to.x;
+        line.by = to.y;
+        line.thickness = thickness;
+        line.r = trace.color.r;
+        line.g = trace.color.g;
+        line.b = trace.color.b;
+        scene.addLine(RenderLayer::UI, textures.solid.texture, order, line);
+    };</span>
+
+<span style = "background-color:#fdd">    if (trace.shape == MaquetteTraceShape::Path) {
+        for (std::size_t i = 1; i &lt; trace.cells.size(); ++i) {
+            const auto centreOf = [&amp;projection](core::GridPosition cell) {
+                return projection.gridToWorld(gridPoint(static_cast&lt;float&gt;(cell.column) + 0.5F,</span>
+                                                        static_cast&lt;float&gt;(cell.row) + 0.5F));
+<span style = "background-color:#fdd">            };
+            segment(centreOf(trace.cells[i - 1]), centreOf(trace.cells[i]),</span>
+                    core::IsoProjection::depth(trace.cells[i]));
+<span style = "background-color:#fdd">        }
+        return;</span>
+    }
+<span style = "background-color:#fdd">    for (const core::GridPosition cell : trace.cells) {
+        const DiamondVertices diamond = diamondOf(projection.tileBounds(cell));
+        const std::int32_t order = core::IsoProjection::depth(cell);
+        for (std::size_t i = 0; i &lt; 4; ++i) {
+            const std::size_t next = (i + 1) % 4;
+            segment(core::Vector2{diamond.x[i], diamond.y[i]},</span>
+                    core::Vector2{diamond.x[next], diamond.y[next]}, order);
+<span style = "background-color:#fdd">        }
+    }
+}</span>
+
+// Le rendu de maquette d'une case (LOT-128). C'est ce qui se dessine quand AUCUNE piece n'est
+// nommee -- carte sans lieu, ou type que la table du lieu ne couvre pas : les deux manques sont le
+// meme cas.
+void composeMaquetteCell(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; snapshot,
+                         const core::IsoProjection&amp; projection, const ScenePieceTextures&amp; textures,
+<span style = "background-color:#dfd">                         core::GridPosition cell, bool flatBlocks) {
+    if (textures.solid.texture == nullptr) {
+        return;  // sans aplat, rien a teinter : on ne dessine pas plutot que de dessiner faux.</span>
+    }
+<span style = "background-color:#dfd">    const core::TileType type = snapshot.typeAt(cell);
+    if (type == core::TileType::Empty) {
+        return;  // une case vide n'est pas du sol : elle ne se dessine pas, comme avant.</span>
+    }
+<span style = "background-color:#dfd">    if (maquetteExtrudes(type) &amp;&amp; !flatBlocks) {
+        composeMaquetteBlock(scene, projection, textures, cell, type);
+        return;</span>
+    }
+<span style = "background-color:#dfd">    composeMaquetteDiamond(scene, projection, textures, cell, type);
+}</span>
+
 void composeFloor(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; snapshot,
                   const core::IsoProjection&amp; projection, const ScenePieceTextures&amp; textures,
-<span style = "background-color:#dfd">                  core::GridPosition cell) {
+<span style = "background-color:#dfd">                  core::GridPosition cell, bool flatBlocks) {
     const std::string_view piece = snapshot.floorAt(cell);
     if (piece.empty()) {
+        composeMaquetteCell(scene, snapshot, projection, textures, cell, flatBlocks);
         return;</span>
     }
 <span style = "background-color:#dfd">    const SceneTexture&amp; texture = textures.resolve(piecePath(snapshot.place, piece));
@@ -109,10 +326,17 @@ void composeFloor(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; snapsh
 
 void composeRelief(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; snapshot,
                    const core::IsoProjection&amp; projection, const ScenePieceTextures&amp; textures,
-<span style = "background-color:#dfd">                   core::GridPosition cell, float unitsPerScenePixel) {
+<span style = "background-color:#dfd">                   core::GridPosition cell, float unitsPerScenePixel, bool flatBlocks) {
     const std::string_view piece = snapshot.reliefAt(cell);
-    if (piece.empty()) {
-        return;</span>
+    if (piece.empty()) {</span>
+        // Un mur se peint aussi souvent sur la couche decor que sur le sol : il doit s'y extruder
+        // pareillement, sans quoi une carte maquettee a la maniere des modeles livres serait vide
+        // (LOT-128). Un type de decor qui ne bloque pas n'a, lui, pas de forme a prendre.
+<span style = "background-color:#dfd">        const core::TileType type = snapshot.reliefTypeAt(cell);
+        if (textures.solid.texture != nullptr &amp;&amp; maquetteExtrudes(type) &amp;&amp; !flatBlocks) {</span>
+<span style = "background-color:#fdd">            composeMaquetteBlock(scene, projection, textures, cell, type);</span>
+        }
+<span style = "background-color:#dfd">        return;</span>
     }
 <span style = "background-color:#dfd">    const SceneTexture&amp; texture = textures.resolve(piecePath(snapshot.place, piece));
     if (texture.texture == nullptr) {</span>
@@ -199,8 +423,151 @@ void composeFigure(ComposedScene&amp; scene, const core::IsoProjection&amp; proj
     return index &lt; relief.size() ? std::string_view{relief[index]} : std::string_view{};
 }</span>
 
+<span style = "background-color:#dfd">core::TileType WorldSceneSnapshot::typeAt(core::GridPosition cell) const {
+    if (!inGrid(cell, columns, rows)) {</span>
+<span style = "background-color:#fdd">        return core::TileType::Empty;</span>
+    }
+<span style = "background-color:#dfd">    const std::size_t index = indexOf(cell, columns);
+    return index &lt; types.size() ? types[index] : core::TileType::Empty;
+}</span>
+
+<span style = "background-color:#dfd">core::TileType WorldSceneSnapshot::reliefTypeAt(core::GridPosition cell) const {
+    if (!inGrid(cell, columns, rows)) {</span>
+<span style = "background-color:#fdd">        return core::TileType::Empty;</span>
+    }
+<span style = "background-color:#dfd">    const std::size_t index = indexOf(cell, columns);
+    return index &lt; reliefTypes.size() ? reliefTypes[index] : core::TileType::Empty;
+}</span>
+
 <span style = "background-color:#dfd">std::string scenePlaceOf(const core::Level&amp; level) {
     return scenePlaceOf(level.layers());
+}</span>
+
+namespace {
+
+// La valeur texte d'une propriete d'entite, vide si elle manque ou n'est pas un texte.
+<span style = "background-color:#dfd">[[nodiscard]] std::string_view textProperty(const core::MapEntity&amp; entity, std::string_view key) {
+    const auto found = entity.properties.find(std::string{key});
+    if (found == entity.properties.end()) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    const std::string* value = std::get_if&lt;std::string&gt;(&amp;found-&gt;second);
+    return value != nullptr ? std::string_view{*value} : std::string_view{};
+}</span>
+
+// Le nom d'ou le jeton tire sa lettre : ce que le canevas ecrit deja a cote de l'entite -- la carte
+// cible d'un portail, le dialogue d'un PNJ, le nom d'un point d'arrivee --, a defaut son TYPE.
+//
+// Surtout pas son identifiant : ils s'ecrivent tous `e&lt;numero&gt;`, et tous les jetons porteraient un
+// `E`. Le type, lui, distingue au moins un coffre (`C`) d'un PNJ (`N`).
+<span style = "background-color:#dfd">[[nodiscard]] std::string_view tokenName(const core::MapEntity&amp; entity) {
+    const core::EntityKind* const kind = core::findEntityKind(entity.type);
+    if (kind != nullptr &amp;&amp; !kind-&gt;labelProperty.empty()) {
+        const std::string_view label = textProperty(entity, kind-&gt;labelProperty);
+        if (!label.empty()) {
+            return label;</span>
+        }
+    }
+<span style = "background-color:#dfd">    return entity.type;
+}</span>
+
+// La nature du jeton d'une entite ponctuelle, ou rien si elle n'en merite pas (decision D3).
+//
+// Rien n'est ajoute au format pour cette table : `core::MapEntity` n'a aucune notion d'hostilite,
+// et la condition de quete n'existera qu'au LOT-116. Le jaune se regle donc sur Â« ce PNJ porte un
+// dialogue Â», et le LOT-116 le rebranchera sur la quete -- une ligne, pas une decision a reprendre.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;MaquetteTokenKind&gt; tokenKindOf(const core::MapEntity&amp; entity) {
+    if (entity.type == core::NPC_ENTITY_TYPE) {</span>
+        // Un PNJ qui porte deja sa figurine se dessine par elle : pas de jeton par-dessus.
+<span style = "background-color:#dfd">        if (!textProperty(entity, core::NPC_FIGURE_PROPERTY).empty()) {
+            return std::nullopt;</span>
+        }
+<span style = "background-color:#dfd">        return textProperty(entity, core::NPC_DIALOGUE_PROPERTY).empty()</span>
+                   ? MaquetteTokenKind::Neutral
+                   : MaquetteTokenKind::Talker;
+    }
+<span style = "background-color:#dfd">    if (entity.type == core::ENCOUNTER_ENTITY_TYPE) {
+        return MaquetteTokenKind::Hostile;</span>
+    }
+<span style = "background-color:#dfd">    if (entity.type == core::ARENA_ENTRY_ENTITY_TYPE) {
+        return textProperty(entity, core::ARENA_SIDE_PROPERTY) == "enemies"</span>
+                   ? MaquetteTokenKind::Hostile
+                   : MaquetteTokenKind::Player;
+    }
+<span style = "background-color:#dfd">    if (entity.type == core::SPAWN_POINT_ENTITY_TYPE) {
+        return MaquetteTokenKind::Player;</span>
+    }
+<span style = "background-color:#dfd">    if (entity.type == core::PORTAL_ENTITY_TYPE) {
+        return MaquetteTokenKind::Portal;</span>
+    }
+<span style = "background-color:#dfd">    if (entity.type == "chest" || entity.type == "sign") {
+        return MaquetteTokenKind::Object;</span>
+    }
+<span style = "background-color:#dfd">    return std::nullopt;
+}</span>
+
+// Les cases d'un rectangle nomme par `width` et `height` depuis la case de l'entite.
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;core::GridPosition&gt; rectangleCells(const core::MapEntity&amp; entity) {
+    const auto extent = [&amp;entity](std::string_view key) {
+        const auto found = entity.properties.find(std::string{key});
+        if (found == entity.properties.end()) {</span>
+<span style = "background-color:#fdd">            return 1;</span>
+        }
+<span style = "background-color:#dfd">        const std::int64_t* value = std::get_if&lt;std::int64_t&gt;(&amp;found-&gt;second);
+        return value != nullptr ? static_cast&lt;int&gt;(std::max&lt;std::int64_t&gt;(1, *value)) : 1;
+    };
+    const int width = extent(core::SHAPE_WIDTH_PROPERTY);
+    const int height = extent(core::SHAPE_HEIGHT_PROPERTY);
+    std::vector&lt;core::GridPosition&gt; cells;
+    cells.reserve(static_cast&lt;std::size_t&gt;(width) * static_cast&lt;std::size_t&gt;(height));
+    for (int row = 0; row &lt; height; ++row) {
+        for (int column = 0; column &lt; width; ++column) {
+            cells.push_back(core::GridPosition{.column = entity.position.column + column,</span>
+                                               .row = entity.position.row + row});
+<span style = "background-color:#dfd">        }
+    }
+    return cells;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">MaquetteMarks maquetteMarks(const std::vector&lt;core::MapEntity&gt;&amp; entities, bool maquette) {
+    MaquetteMarks marks;
+    for (const core::MapEntity&amp; entity : entities) {
+        if (const std::optional&lt;MaquetteTokenKind&gt; kind = tokenKindOf(entity)) {
+            marks.tokens.push_back(</span>
+                MaquetteTokenSnapshot{.kind = *kind,
+                                      .letter = maquetteTokenLetter(tokenName(entity)),
+                                      .cell = entity.position,
+                                      .arrow = maquette &amp;&amp; *kind == MaquetteTokenKind::Portal});
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (!maquette) {
+            continue;  // une carte finie ne montre pas ses declencheurs</span>
+        }
+<span style = "background-color:#dfd">        if (entity.type == core::COMBAT_ZONE_ENTITY_TYPE) {
+            marks.traces.push_back(MaquetteTraceSnapshot{.shape = MaquetteTraceShape::Outline,</span>
+                                                         .color = maquetteColorOf(0xb33a3a),
+                                                         .cells = rectangleCells(entity)});
+<span style = "background-color:#dfd">        } else if (entity.type == core::CITY_BLOCK_ENTITY_TYPE) {</span>
+<span style = "background-color:#fdd">            marks.traces.push_back(MaquetteTraceSnapshot{.shape = MaquetteTraceShape::Outline,</span>
+                                                         .color = maquetteColorOf(0xd2ac62),
+                                                         .cells = rectangleCells(entity)});
+<span style = "background-color:#dfd">        } else if (entity.type == core::ZONE_ENTITY_TYPE) {</span>
+<span style = "background-color:#fdd">            marks.traces.push_back(MaquetteTraceSnapshot{.shape = MaquetteTraceShape::Outline,</span>
+                                                         .color = maquetteColorOf(0xefe6d2),
+                                                         .cells = core::zoneCells(entity)});
+<span style = "background-color:#dfd">        } else if (entity.type == core::ROUTE_ENTITY_TYPE) {
+            std::vector&lt;core::GridPosition&gt; points = entity.cells;
+            if (points.empty() || points.front() != entity.position) {</span>
+<span style = "background-color:#fdd">                points.insert(points.begin(), entity.position);</span>
+            }
+<span style = "background-color:#dfd">            marks.traces.push_back(MaquetteTraceSnapshot{.shape = MaquetteTraceShape::Path,</span>
+                                                         .color = maquetteColorOf(0xefe6d2),
+                                                         .cells = std::move(points)});
+<span style = "background-color:#dfd">        }
+    }
+    return marks;
 }</span>
 
 std::vector&lt;WorldFigureSnapshot&gt; npcFigures(const std::vector&lt;core::MapEntity&gt;&amp; entities,
@@ -213,8 +580,8 @@ std::vector&lt;WorldFigureSnapshot&gt; npcFigures(const std::vector&lt;core::Map
 <span style = "background-color:#dfd">        const auto found = entity.properties.find(std::string{core::NPC_FIGURE_PROPERTY});
         const std::string* figure =</span>
             found != entity.properties.end() ? std::get_if&lt;std::string&gt;(&amp;found-&gt;second) : nullptr;
-<span style = "background-color:#dfd">        if (figure == nullptr || figure-&gt;empty()) {</span>
-<span style = "background-color:#fdd">            continue;  // Un PNJ sans figurine ne se dessine pas : il n'est pas encore dessinÃ©.</span>
+<span style = "background-color:#dfd">        if (figure == nullptr || figure-&gt;empty()) {
+            continue;  // Un PNJ sans figurine ne se dessine pas : il n'est pas encore dessinÃ©.</span>
         }
 <span style = "background-color:#dfd">        figures.push_back(</span>
             WorldFigureSnapshot{.figure = *figure,
@@ -259,25 +626,33 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource&amp; source,
     snapshot.columns = std::max(0, grilleSol.width());
     snapshot.rows = std::max(0, grilleSol.height());
     snapshot.place = scenePlaceOf(source.layers);
-    if (snapshot.place.empty()) {</span>
-<span style = "background-color:#fdd">        snapshot.place = appearance.place();</span>
+    if (snapshot.place.empty()) {
+        snapshot.place = appearance.place();</span>
     }
 <span style = "background-color:#dfd">    snapshot.figures = std::move(figures);</span>
+    // Une carte qui ne nomme aucun lieu est une maquette : ses declencheurs s'y voient.
+<span style = "background-color:#dfd">    snapshot.marks = maquetteMarks(source.entities, snapshot.place.empty());</span>
 
 <span style = "background-color:#dfd">    const auto cases =</span>
         static_cast&lt;std::size_t&gt;(snapshot.columns) * static_cast&lt;std::size_t&gt;(snapshot.rows);
 <span style = "background-color:#dfd">    snapshot.floors.assign(cases, std::string{});
-    snapshot.relief.assign(cases, std::string{});</span>
+    snapshot.relief.assign(cases, std::string{});
+    snapshot.types.assign(cases, core::TileType::Empty);
+    snapshot.reliefTypes.assign(cases, core::TileType::Empty);</span>
 
 <span style = "background-color:#dfd">    for (int row = 0; row &lt; snapshot.rows; ++row) {
         for (int column = 0; column &lt; snapshot.columns; ++column) {
             const core::GridPosition cell{.column = column, .row = row};
-            const std::size_t index = indexOf(cell, snapshot.columns);
+            const std::size_t index = indexOf(cell, snapshot.columns);</span>
+            // Le type de la case vient de la MEME grille que son sol : ce qui se dessine en
+            // maquette est ce que la couche de sol dit, jamais une autre.
+<span style = "background-color:#dfd">            snapshot.types[index] = grilleSol.tile(column, row);
             snapshot.floors[index] =</span>
                 sol != nullptr
                     ? pieceAt(*sol, cell, appearance, true)
                     : std::string{appearance.floorPiece(grilleSol.tile(column, row), cell)};
 <span style = "background-color:#dfd">            if (decor != nullptr &amp;&amp; decor-&gt;tiles.inBounds(column, row)) {
+                snapshot.reliefTypes[index] = decor-&gt;tiles.tile(column, row);
                 snapshot.relief[index] = pieceAt(*decor, cell, appearance, false);</span>
                 const core::PieceFootprint emprise =
 <span style = "background-color:#dfd">                    appearance.pieceFootprint(snapshot.relief[index]);
@@ -339,12 +714,18 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource&amp; source,
         // charger une texture au milieu d'une image.
 <span style = "background-color:#dfd">        uniques.insert(figureStripPath(figure.figure, "idle"));
         uniques.insert(figureStripPath(figure.figure, "walk"));
+    }</span>
+    // Les jetons s'adressent comme des planches : un chemin de plus, que le rendu peindra au lieu
+    // de le charger (LOT-128, decision D2).
+<span style = "background-color:#dfd">    for (const MaquetteTokenSnapshot&amp; token : snapshot.marks.tokens) {
+        uniques.insert(maquetteTokenPath(token.kind, token.letter));
     }
     return {uniques.begin(), uniques.end()};
 }</span>
 
 void composeWorldScene(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; snapshot,
-<span style = "background-color:#dfd">                       const core::IsoProjection&amp; projection, const ScenePieceTextures&amp; textures) {
+                       const core::IsoProjection&amp; projection, const ScenePieceTextures&amp; textures,
+<span style = "background-color:#dfd">                       WorldComposeOptions options) {
     const float unitsPerPixel = projection.tileWidth() / core::ARENA_SHEET_TILE_WIDTH_PIXELS;
     const float unitsPerScenePixel =</span>
         projection.tileWidth() / static_cast&lt;float&gt;(SCENE_TILE_WIDTH_PIXELS);
@@ -352,20 +733,28 @@ void composeWorldScene(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; s
 <span style = "background-color:#dfd">    for (int row = 0; row &lt; snapshot.rows; ++row) {
         for (int column = 0; column &lt; snapshot.columns; ++column) {
             const core::GridPosition cell{.column = column, .row = row};
-            composeFloor(scene, snapshot, projection, textures, cell);
-            composeRelief(scene, snapshot, projection, textures, cell, unitsPerScenePixel);
-        }
+            composeFloor(scene, snapshot, projection, textures, cell, options.flatBlocks);
+            composeRelief(scene, snapshot, projection, textures, cell, unitsPerScenePixel,</span>
+                          options.flatBlocks);
+<span style = "background-color:#dfd">        }
     }
     for (const WorldFigureSnapshot&amp; figure : snapshot.figures) {
         composeFigure(scene, projection, textures, figure, unitsPerPixel);
     }
-}</span>
+    for (const MaquetteTokenSnapshot&amp; token : snapshot.marks.tokens) {
+        composeToken(scene, projection, textures, token, unitsPerScenePixel);
+    }
+    for (const MaquetteTraceSnapshot&amp; trace : snapshot.marks.traces) {</span>
+<span style = "background-color:#fdd">        composeTrace(scene, projection, textures, trace);
+    }</span>
+<span style = "background-color:#dfd">}</span>
 
 ComposedScene composeWorldScene(const WorldSceneSnapshot&amp; snapshot,
                                 const core::IsoProjection&amp; projection,
-<span style = "background-color:#dfd">                                const ScenePieceTextures&amp; textures) {
+                                const ScenePieceTextures&amp; textures,
+<span style = "background-color:#dfd">                                WorldComposeOptions options) {
     ComposedScene scene;
-    composeWorldScene(scene, snapshot, projection, textures);
+    composeWorldScene(scene, snapshot, projection, textures, options);
     scene.sort();
     return scene;
 }</span>

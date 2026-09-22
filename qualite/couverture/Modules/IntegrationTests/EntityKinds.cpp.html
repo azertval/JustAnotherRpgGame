@@ -1,0 +1,386 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>EntityKinds.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/World/EntityKinds.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cstdint&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;utility&gt;
+#include &lt;variant&gt;
+
+#include "Core/Combat/Arena.h"
+#include "Core/Combat/BattleGrid.h"
+#include "Core/Combat/CombatTransition.h"
+#include "Core/Rpg/Dialogue.h"
+#include "Core/World/CityBlock.h"
+#include "Core/World/CombatZone.h"
+
+namespace core {
+
+namespace {
+
+// Proprietes lues par core::encounterTriggerFor (CombatTransition.cpp) : ecrites en dur la-bas, et
+// nommees ici une seule fois pour la table.
+constexpr std::string_view ENCOUNTER_ID_PROPERTY = "encounterId";
+constexpr std::string_view ENCOUNTER_RESPAWNS_PROPERTY = "respawns";
+
+[[nodiscard]] EntityPropertySpec choice(std::string_view key, EntityChoiceSource source,
+<span style = "background-color:#dfd">                                        bool required) {
+    return EntityPropertySpec{.key = key,</span>
+                              .kind = EntityPropertyKind::Choice,
+                              .source = source,
+                              .fixedChoices = {},
+                              .required = required,
+                              .defaultValue = std::string{}};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] EntityPropertySpec text(std::string_view key, bool required) {
+    return EntityPropertySpec{.key = key,</span>
+                              .kind = EntityPropertyKind::Text,
+                              .source = EntityChoiceSource::Fixed,
+                              .fixedChoices = {},
+                              .required = required,
+                              .defaultValue = std::string{}};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] EntityPropertySpec boolean(std::string_view key) {
+    return EntityPropertySpec{.key = key,</span>
+                              .kind = EntityPropertyKind::Boolean,
+                              .source = EntityChoiceSource::Fixed,
+                              .fixedChoices = {},
+                              .required = false,
+                              .defaultValue = false};
+<span style = "background-color:#dfd">}</span>
+
+// Un entier requis, borne par le bas, qui vaut son minimum a la creation.
+[[nodiscard]] EntityPropertySpec atLeast(std::string_view key, std::int64_t minimum,
+<span style = "background-color:#dfd">                                         bool required = true) {
+    return EntityPropertySpec{.key = key,</span>
+                              .kind = EntityPropertyKind::Integer,
+                              .source = EntityChoiceSource::Fixed,
+                              .fixedChoices = {},
+                              .required = required,
+                              .defaultValue = minimum,
+                              .minimum = minimum};
+<span style = "background-color:#dfd">}</span>
+
+// Vrai si @p value a le type qu'attend @p kind.
+<span style = "background-color:#dfd">[[nodiscard]] bool hasExpectedType(const PropertyValue&amp; value, EntityPropertyKind kind) {
+    switch (kind) {</span>
+        case EntityPropertyKind::Text:
+        case EntityPropertyKind::Choice:
+<span style = "background-color:#dfd">            return std::holds_alternative&lt;std::string&gt;(value);</span>
+        case EntityPropertyKind::Integer:
+<span style = "background-color:#dfd">            return std::holds_alternative&lt;std::int64_t&gt;(value);</span>
+        case EntityPropertyKind::Boolean:
+<span style = "background-color:#dfd">            return std::holds_alternative&lt;bool&gt;(value);</span>
+    }
+<span style = "background-color:#fdd">    return false;</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string textOf(const PropertyMap&amp; properties, std::string_view key) {
+    const auto found = properties.find(std::string{key});
+    if (found == properties.end()) {</span>
+<span style = "background-color:#fdd">        return {};</span>
+    }
+<span style = "background-color:#dfd">    const auto* const text = std::get_if&lt;std::string&gt;(&amp;found-&gt;second);
+    return text != nullptr ? *text : std::string{};
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">const EntityPropertySpec* EntityKind::find(std::string_view key) const {
+    const auto found = std::ranges::find(properties, key, &amp;EntityPropertySpec::key);
+    return found != properties.end() ? &amp;*found : nullptr;
+}</span>
+
+<span style = "background-color:#dfd">const std::vector&lt;EntityKind&gt;&amp; knownEntityKinds() {</span>
+    // Construite une seule fois. L'ordre est celui de la liste de l'editeur : ce qu'on pose le plus
+    // souvent d'abord.
+<span style = "background-color:#dfd">    static const std::vector&lt;EntityKind&gt; familles = {</span>
+        // Coffre et panneau (LOT-10) : aucune propriete lue par le gameplay aujourd'hui. Le contenu
+        // d'un coffre arrive avec le butin (LOT-26) ; la table ne l'invente pas avant.
+        EntityKind{.type = "chest", .properties = {}},
+        EntityKind{.type = "sign", .properties = {}},
+        // PNJ (LOT-15) : un figurant sans dialogue est legal, d'ou `required = false`. Sa figurine
+        // (LOT-91) : un PNJ sans figurine se parle et ne se dessine pas (LOT-09). La sentinelle
+        // d'une porte gardee (LOT-96) nomme le quartier qu'elle ferme, par sa fiche d'atlas.
+        EntityKind{.type = NPC_ENTITY_TYPE,
+                   .properties = {choice(NPC_DIALOGUE_PROPERTY, EntityChoiceSource::Dialogues,
+                                         /*required=*/false),
+                                  choice(NPC_FIGURE_PROPERTY, EntityChoiceSource::Figures,
+                                         /*required=*/false),
+                                  choice(NPC_GUARDED_DISTRICT_PROPERTY,
+                                         EntityChoiceSource::Locations, /*required=*/false)},
+                   .labelProperty = NPC_DIALOGUE_PROPERTY,
+                   .figureProperty = NPC_FIGURE_PROPERTY},
+        // Rencontre (LOT-18) : sans rencontre nommee, le declencheur n'en est pas un.
+        EntityKind{.type = ENCOUNTER_ENTITY_TYPE,
+                   .properties = {choice(ENCOUNTER_ID_PROPERTY, EntityChoiceSource::Encounters,
+                                         /*required=*/true),
+                                  boolean(ENCOUNTER_RESPAWNS_PROPERTY)},
+                   .labelProperty = ENCOUNTER_ID_PROPERTY},
+        // Portail et point d'arrivee (LOT-11, traverses au LOT-09). Le drapeau exige n'est pas
+        // requis : un portail ordinaire s'ouvre toujours.
+        EntityKind{.type = PORTAL_ENTITY_TYPE,
+                   .properties = {choice(PORTAL_TARGET_MAP_PROPERTY, EntityChoiceSource::Maps,
+                                         /*required=*/true),
+                                  choice(PORTAL_ARRIVAL_PROPERTY, EntityChoiceSource::ArrivalPoints,
+                                         /*required=*/true),
+                                  choice(PORTAL_REQUIRED_FLAG_PROPERTY, EntityChoiceSource::Flags,
+                                         /*required=*/false)},
+                   .labelProperty = PORTAL_TARGET_MAP_PROPERTY},
+        EntityKind{.type = SPAWN_POINT_ENTITY_TYPE,
+                   .properties = {text(SPAWN_POINT_NAME_PROPERTY, /*required=*/true)},
+                   .labelProperty = SPAWN_POINT_NAME_PROPERTY},
+        // Zone de combat (LOT-09) : le rectangle nomme ou l'on se bat, et lui seul (EX-LVL-018).
+        EntityKind{.type = COMBAT_ZONE_ENTITY_TYPE,
+                   .properties = {text(COMBAT_ZONE_NAME_PROPERTY, /*required=*/true),
+                                  atLeast(COMBAT_ZONE_WIDTH_PROPERTY, 1),
+                                  atLeast(COMBAT_ZONE_HEIGHT_PROPERTY, 1)},
+                   .shape = EntityShape::Rectangle,
+                   .labelProperty = COMBAT_ZONE_NAME_PROPERTY},
+        // Ilot d'un quartier (LOT-96) : le rectangle nomme que le plan de la ville montre.
+        EntityKind{.type = CITY_BLOCK_ENTITY_TYPE,
+                   .properties = {text(CITY_BLOCK_NAME_PROPERTY, /*required=*/true),
+                                  atLeast(CITY_BLOCK_WIDTH_PROPERTY, 1),
+                                  atLeast(CITY_BLOCK_HEIGHT_PROPERTY, 1)},
+                   .shape = EntityShape::Rectangle,
+                   .labelProperty = CITY_BLOCK_NAME_PROPERTY},
+        // Zone de regles (D13, lue par BattleGrid) : un rectangle ou des cases peintes. Sa taille
+        // n'est pas requise -- une zone peinte n'en a pas. Le nom n'est lu par personne : il sert a
+        // la reconnaitre dans la liste.
+        EntityKind{.type = ZONE_ENTITY_TYPE,
+                   .properties = {text(ZONE_NAME_PROPERTY, /*required=*/false),
+                                  boolean(DIFFICULT_TERRAIN_PROPERTY),
+                                  atLeast(ZONE_WIDTH_PROPERTY, 1, /*required=*/false),
+                                  atLeast(ZONE_HEIGHT_PROPERTY, 1, /*required=*/false)},
+                   .shape = EntityShape::Area,
+                   .labelProperty = ZONE_NAME_PROPERTY},
+        // Trajet (LOT-70, LOT-82) : ses horaires viendront avec l'horloge du LOT-70.
+        EntityKind{.type = ROUTE_ENTITY_TYPE,
+                   .properties = {text(ROUTE_NAME_PROPERTY, /*required=*/true),
+                                  boolean(ROUTE_LOOP_PROPERTY)},
+                   .shape = EntityShape::Path,
+                   .labelProperty = ROUTE_NAME_PROPERTY},
+        // Entree d'arene (LOT-50).
+        EntityKind{.type = ARENA_ENTRY_ENTITY_TYPE,
+                   .properties = {EntityPropertySpec{.key = ARENA_SIDE_PROPERTY,
+                                                     .kind = EntityPropertyKind::Choice,
+                                                     .source = EntityChoiceSource::Fixed,
+                                                     .fixedChoices = {"allies", "enemies"},
+                                                     .required = true,
+                                                     .defaultValue = std::string{"allies"}},
+                                  atLeast(ARENA_RANK_PROPERTY, 1)},
+                   .labelProperty = ARENA_SIDE_PROPERTY},
+    };
+<span style = "background-color:#dfd">    return familles;
+}</span>
+
+<span style = "background-color:#dfd">const EntityKind* findEntityKind(std::string_view type) {
+    const auto found = std::ranges::find(knownEntityKinds(), type, &amp;EntityKind::type);
+    return found != knownEntityKinds().end() ? &amp;*found : nullptr;
+}</span>
+
+<span style = "background-color:#dfd">MapEntity makeEntity(const EntityKind&amp; kind, GridPosition position) {
+    MapEntity entity{.type = std::string{kind.type}, .position = position, .properties = {}};
+    for (const EntityPropertySpec&amp; spec : kind.properties) {
+        entity.properties.emplace(std::string{spec.key}, spec.defaultValue);
+    }
+    return entity;
+}</span>
+
+<span style = "background-color:#dfd">std::set&lt;std::string, std::less&lt;&gt;&gt; arrivalPointNames(const std::vector&lt;MapEntity&gt;&amp; entities) {
+    std::set&lt;std::string, std::less&lt;&gt;&gt; names;
+    for (const MapEntity&amp; entity : entities) {
+        if (entity.type != SPAWN_POINT_ENTITY_TYPE) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (std::string name = textOf(entity.properties, SPAWN_POINT_NAME_PROPERTY);
+            !name.empty()) {
+            names.insert(std::move(name));
+        }
+    }
+    return names;
+}</span>
+
+namespace {
+
+// Defaut d'une propriete de choix non vide : la valeur n'est pas dans la liste que la source
+// designe. Rien pour une valeur admise.
+[[nodiscard]] std::optional&lt;EntityIssueCode&gt; choiceIssue(const MapEntity&amp; entity,
+                                                         const EntityPropertySpec&amp; spec,
+                                                         const std::string&amp; text,
+<span style = "background-color:#dfd">                                                         const EntityReferenceContext&amp; context) {
+    switch (spec.source) {</span>
+        case EntityChoiceSource::Fixed:
+<span style = "background-color:#dfd">            if (std::ranges::find(spec.fixedChoices, std::string_view{text}) ==</span>
+                spec.fixedChoices.end()) {
+<span style = "background-color:#dfd">                return EntityIssueCode::InvalidChoice;</span>
+            }
+<span style = "background-color:#dfd">            break;</span>
+        case EntityChoiceSource::Dialogues:
+<span style = "background-color:#dfd">            if (!context.dialogues.contains(text)) {
+                return EntityIssueCode::UnknownDialogue;</span>
+            }
+<span style = "background-color:#dfd">            break;</span>
+        case EntityChoiceSource::Encounters:
+<span style = "background-color:#dfd">            if (!context.encounters.contains(text)) {
+                return EntityIssueCode::UnknownEncounter;</span>
+            }
+<span style = "background-color:#dfd">            break;</span>
+        case EntityChoiceSource::Maps:
+<span style = "background-color:#dfd">            if (!context.arrivalPointsByMap.contains(text)) {
+                return EntityIssueCode::UnknownTargetMap;</span>
+            }
+<span style = "background-color:#dfd">            break;</span>
+        case EntityChoiceSource::ArrivalPoints: {
+            // Un point d'arrivee ne se juge que dans une carte connue : une carte inconnue
+            // est deja signalee, et la signaler deux fois n'apprendrait rien.
+<span style = "background-color:#dfd">            const auto target = context.arrivalPointsByMap.find(</span>
+                textOf(entity.properties, PORTAL_TARGET_MAP_PROPERTY));
+<span style = "background-color:#dfd">            if (target != context.arrivalPointsByMap.end() &amp;&amp; !target-&gt;second.contains(text)) {
+                return EntityIssueCode::UnknownArrivalPoint;</span>
+            }
+<span style = "background-color:#dfd">            break;</span>
+<span style = "background-color:#fdd">        }</span>
+        case EntityChoiceSource::Figures:
+<span style = "background-color:#dfd">            if (!context.figures.contains(text)) {
+                return EntityIssueCode::UnknownFigure;</span>
+            }
+<span style = "background-color:#dfd">            break;</span>
+        case EntityChoiceSource::Flags:
+<span style = "background-color:#dfd">            if (!context.flags.contains(text)) {
+                return EntityIssueCode::UnsetFlag;</span>
+            }
+<span style = "background-color:#dfd">            break;</span>
+        case EntityChoiceSource::Locations:
+<span style = "background-color:#dfd">            if (!context.locations.contains(text)) {
+                return EntityIssueCode::UnknownLocation;</span>
+            }
+<span style = "background-color:#dfd">            break;</span>
+        case EntityChoiceSource::Items:
+<span style = "background-color:#fdd">            if (!context.items.contains(text)) {
+                return EntityIssueCode::UnknownItem;</span>
+            }
+<span style = "background-color:#fdd">            break;</span>
+        case EntityChoiceSource::EntityRefs:
+<span style = "background-color:#fdd">            if (!context.entityRefs.contains(text)) {
+                return EntityIssueCode::UnknownEntityRef;</span>
+            }
+            break;
+    }
+<span style = "background-color:#dfd">    return std::nullopt;
+}</span>
+
+// Defaut d'une propriete de l'entite au regard de sa specification, avec la valeur a citer.
+// Rien pour une propriete conforme, ou facultative et absente.
+[[nodiscard]] std::optional&lt;std::pair&lt;EntityIssueCode, std::string&gt;&gt; propertyIssue(
+    const MapEntity&amp; entity, const EntityPropertySpec&amp; spec,
+<span style = "background-color:#dfd">    const EntityReferenceContext&amp; context) {
+    const auto found = entity.properties.find(std::string{spec.key});
+    if (found == entity.properties.end()) {
+        if (spec.required) {
+            return std::pair{EntityIssueCode::MissingProperty, std::string{}};</span>
+        }
+<span style = "background-color:#dfd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    if (!hasExpectedType(found-&gt;second, spec.kind)) {
+        return std::pair{EntityIssueCode::WrongValueType, std::string{}};</span>
+    }
+<span style = "background-color:#dfd">    if (const auto* const integer = std::get_if&lt;std::int64_t&gt;(&amp;found-&gt;second)) {
+        if (*integer &lt; spec.minimum || *integer &gt; spec.maximum) {
+            return std::pair{EntityIssueCode::OutOfRange, std::to_string(*integer)};</span>
+        }
+<span style = "background-color:#dfd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const auto* const text = std::get_if&lt;std::string&gt;(&amp;found-&gt;second);
+    if (text == nullptr) {
+        return std::nullopt;  // booleen du bon type : rien d'autre a verifier.</span>
+    }
+<span style = "background-color:#dfd">    if (text-&gt;empty()) {
+        if (spec.required) {
+            return std::pair{EntityIssueCode::MissingProperty, std::string{}};</span>
+        }
+<span style = "background-color:#dfd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    if (spec.kind != EntityPropertyKind::Choice) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    if (const std::optional&lt;EntityIssueCode&gt; code = choiceIssue(entity, spec, *text, context)) {
+        return std::pair{*code, *text};</span>
+    }
+<span style = "background-color:#dfd">    return std::nullopt;
+}</span>
+
+}  // namespace
+
+std::vector&lt;EntityIssue&gt; validateMapEntities(const std::vector&lt;MapEntity&gt;&amp; entities,
+<span style = "background-color:#dfd">                                             const EntityReferenceContext&amp; context) {
+    std::vector&lt;EntityIssue&gt; issues;
+    const auto report = [&amp;issues](std::size_t index, EntityIssueCode code, std::string_view key,
+                                  std::string value) {
+        issues.push_back(EntityIssue{.entityIndex = index,</span>
+                                     .code = code,
+                                     .key = std::string{key},
+                                     .value = std::move(value)});
+<span style = "background-color:#dfd">    };</span>
+
+    // Noms de points d'arrivee deja vus : le SECOND porteur d'un nom est signale, jamais le
+    // premier.
+<span style = "background-color:#dfd">    std::set&lt;std::string, std::less&lt;&gt;&gt; seenArrivals;</span>
+
+<span style = "background-color:#dfd">    for (std::size_t index = 0; index &lt; entities.size(); ++index) {
+        const MapEntity&amp; entity = entities[index];
+        const EntityKind* const kind = findEntityKind(entity.type);
+        if (kind == nullptr) {
+            report(index, EntityIssueCode::UnknownType, {}, entity.type);
+            continue;</span>
+        }
+
+<span style = "background-color:#dfd">        for (const EntityPropertySpec&amp; spec : kind-&gt;properties) {
+            if (auto issue = propertyIssue(entity, spec, context)) {
+                report(index, issue-&gt;first, spec.key, std::move(issue-&gt;second));
+            }
+        }</span>
+
+<span style = "background-color:#dfd">        if (entity.type == SPAWN_POINT_ENTITY_TYPE) {
+            const std::string name = textOf(entity.properties, SPAWN_POINT_NAME_PROPERTY);
+            if (!name.empty() &amp;&amp; !seenArrivals.insert(name).second) {
+                report(index, EntityIssueCode::DuplicateArrivalPoint, SPAWN_POINT_NAME_PROPERTY,</span>
+                       name);
+            }
+<span style = "background-color:#dfd">        }
+    }
+    return issues;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

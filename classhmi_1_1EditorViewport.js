@@ -91,7 +91,6 @@ var classhmi_1_1EditorViewport =
     [ "paintIsoCollisionMask", "classhmi_1_1EditorViewport.html#a4be1561deb9d0fd70f61887e93d2b113", null ],
     [ "paintIsoGrid", "classhmi_1_1EditorViewport.html#afa1b29b54cd3a06ed1b7c68b03d6394c", null ],
     [ "paintIsoOverlays", "classhmi_1_1EditorViewport.html#a8e6c450a47851464b7409e7245457ff7", null ],
-    [ "paintIsoTypeColors", "classhmi_1_1EditorViewport.html#a14de0ee41a9aa43351ed3c36fcc3a0f6", null ],
     [ "paintMirrorAxis", "classhmi_1_1EditorViewport.html#a8c9bb4c6af8f6f2dc6c880c688f83665", null ],
     [ "paintNotes", "classhmi_1_1EditorViewport.html#afcbbe47bf9021c1020cfba5ddc856b1e", null ],
     [ "paintPlaytest", "classhmi_1_1EditorViewport.html#a336dfc55a240f816a2870182ba2d9711", null ],

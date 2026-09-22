@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-22 05:29 UTC",
-  "commit": "2f46f3125",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/35690861744",
+  "generated": "2026-09-22 07:16 UTC",
+  "commit": "711ae9f51",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/35696980927",
   "coverage": {
-    "percent": 90.36,
-    "covered": 25644,
-    "valid": 28379,
-    "files": 250,
+    "percent": 90.48,
+    "covered": 26710,
+    "valid": 29521,
+    "files": 252,
     "areas": [
       {
         "name": "Core",
@@ -82,15 +82,15 @@
       },
       {
         "name": "Editor/Logic",
-        "covered": 4006,
-        "valid": 4708,
-        "percent": 85.09
+        "covered": 4034,
+        "valid": 4735,
+        "percent": 85.2
       },
       {
         "name": "Editor/Ui",
-        "covered": 249,
-        "valid": 382,
-        "percent": 65.18
+        "covered": 338,
+        "valid": 450,
+        "percent": 75.11
       },
       {
         "name": "HMI/Audio",
@@ -106,9 +106,9 @@
       },
       {
         "name": "HMI/Graphics",
-        "covered": 2325,
-        "valid": 2671,
-        "percent": 87.05
+        "covered": 2725,
+        "valid": 3115,
+        "percent": 87.48
       },
       {
         "name": "HMI/Input",
@@ -138,51 +138,51 @@
   },
   "benchmarks": {
     "suite": "Combat et niveaux (Release, windows-2022)",
-    "runs": 12,
-    "date": "2026-09-22 02:39 UTC",
-    "commit": "2f46f3125",
+    "runs": 13,
+    "date": "2026-09-22 06:59 UTC",
+    "commit": "711ae9f51",
     "benches": [
       {
         "name": "ReachableAreaDashing",
-        "value": 101491.02343749661,
+        "value": 156815.93749999732,
         "unit": "ns/iter",
-        "change_percent": 4.3
+        "change_percent": 54.5
       },
       {
         "name": "FindPathAcrossGrid",
-        "value": 138679.12499999793,
+        "value": 217657.1532211364,
         "unit": "ns/iter",
-        "change_percent": 1.0
+        "change_percent": 57.0
       },
       {
         "name": "LineOfSightAcrossGrid",
-        "value": 37784.709821428056,
+        "value": 57173.06085139341,
         "unit": "ns/iter",
-        "change_percent": 4.3
+        "change_percent": 51.3
       },
       {
         "name": "CoverFromWithInterposed",
-        "value": 104695.57999999779,
+        "value": 163074.9888392862,
         "unit": "ns/iter",
-        "change_percent": 6.5
+        "change_percent": 55.8
       },
       {
         "name": "PlanTurnFourVersusFour",
-        "value": 698954.0923399705,
+        "value": 1180887.9687499995,
         "unit": "ns/iter",
-        "change_percent": 3.8
+        "change_percent": 69.0
       },
       {
         "name": "LoadTestLevel",
-        "value": 1523289.9999999744,
+        "value": 2671517.5847457102,
         "unit": "ns/iter",
-        "change_percent": null
+        "change_percent": 75.4
       },
       {
         "name": "ComposeTestMap",
-        "value": 302.83955606145105,
+        "value": 550.9304539975998,
         "unit": "us/iter",
-        "change_percent": null
+        "change_percent": 81.9
       }
     ]
   },

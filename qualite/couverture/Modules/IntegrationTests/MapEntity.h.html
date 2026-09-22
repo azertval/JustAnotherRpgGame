@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>MapEntity.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/LevelProperties.h"
+
+/**
+ * @file Core/Levels/MapEntity.h
+ * @brief EntitÃ© placÃ©e sur une carte : PNJ, coffre, panneau, portail, dÃ©clencheur (`LOT-04`).
+ */
+
+namespace core {
+
+/**
+ * @brief Une entitÃ© de carte â ce qui n'est **pas** une tuile.
+ *
+ * La grille ne porte qu'un `core::TileType` par case, sans mÃ©tadonnÃ©e : un PNJ a un nom et un
+ * dialogue, un coffre un contenu et un Ã©tat Â« dÃ©jÃ  ouvert Â», un portail une carte cible et un
+ * point d'arrivÃ©e. Des vecteurs annexes indexÃ©s par position, un par famille, obligeraient Ã 
+ * ajouter un vecteur Ã  chaque famille nouvelle. Une **liste d'objets Ã  propriÃ©tÃ©s** les porte
+ * toutes.
+ *
+ * `Core` ne connaÃ®t **aucune** sÃ©mantique de `type` : c'est une chaÃ®ne, interprÃ©tÃ©e par le
+ * gameplay (`LOT-10` et suivants). Le chargeur ne valide donc pas qu'un type existe â une entitÃ©
+ * inconnue est une erreur de conception tolÃ©rÃ©e, pas une carte invalide (`EX-NFR-040`).
+ */
+struct MapEntity {
+    /// Type de l'entitÃ©, libre : `"npc"`, `"chest"`, `"sign"`, `"portal"`, `"encounter"`â¦
+    std::string type;
+    /// Case occupÃ©e par l'entitÃ© â pour une zone peinte, sa case de rÃ©fÃ©rence.
+    GridPosition position{};
+    /// PropriÃ©tÃ©s libres (`core::PropertyMap`), y compris les clÃ©s que le chargeur n'a pas
+    /// reconnues â elles sont rÃ©Ã©mises telles quelles Ã  l'Ã©criture.
+<span style = "background-color:#dfd">    PropertyMap properties{};</span>
+    // Les champs du format v4 viennent APRES les trois d'origine : une initialisation positionnelle
+    // `{type, position, properties}` garde son sens. Un champ ajoutÃ© en tÃªte la dÃ©calerait sans
+    // erreur de compilation â un type `"chest"` deviendrait un identifiant.
+    /// Identifiant court, unique dans la carte, donnÃ© par l'Ã©diteur et **jamais rÃ©employÃ©**
+    /// (format v4, dÃ©cision D8, `EX-LVL-021`). QuÃªtes, drapeaux et sauvegardes citent l'entitÃ© par
+    /// `carte#id` : dÃ©placer un coffre ne casse plus rien. Vide pour une entitÃ© lue d'une carte
+    /// antÃ©rieure Ã  la v4, jusqu'Ã  sa migration.
+<span style = "background-color:#dfd">    std::string id{};</span>
+    /// Hauteur de l'entitÃ©. **RÃ©servÃ©e** (dÃ©cision D11) : lue, gardÃ©e, rÃ©Ã©crite, jamais jouÃ©e.
+<span style = "background-color:#dfd">    int elevation = 0;</span>
+    /// Forme **peinte** d'une zone (dÃ©cision D13) : les cases qu'elle couvre. Vide pour une entitÃ©
+    /// ponctuelle ou une zone rectangle (propriÃ©tÃ©s `width` et `height`).
+<span style = "background-color:#dfd">    std::vector&lt;GridPosition&gt; cells{};</span>
+
+    /// Deux entitÃ©s sont Ã©gales si tout l'est, identifiant compris : ce que compare un tampon
+    /// relu (`LOT-EDITOR-08`) ou un test qui vÃ©rifie qu'une carte n'a pas bougÃ©.
+    [[nodiscard]] bool operator==(const MapEntity&amp;) const = default;
+};
+
+/// @return L'identifiant que l'Ã©diteur donne Ã  la @p number-iÃ¨me entitÃ© d'une carte : `e&lt;number&gt;`.
+[[nodiscard]] std::string entityIdFor(int number);
+
+/// @return Le numÃ©ro d'un identifiant de la forme `e&lt;number&gt;`, ou `std::nullopt` pour un autre.
+[[nodiscard]] std::optional&lt;int&gt; entityIdNumber(std::string_view id) noexcept;
+
+/**
+ * @brief Type d'entitÃ© d'une **zone** de rÃ¨gles : un rectangle (`width` Ã `height` depuis sa case)
+ *        ou un ensemble de cases peint (`MapEntity::cells`), dont les propriÃ©tÃ©s s'appliquent Ã 
+ *        chaque case couverte (dÃ©cision D13, `EX-LVL-022`, lue par `core::BattleGrid::zonesAt`).
+ */
+inline constexpr std::string_view ZONE_ENTITY_TYPE = "zone";
+
+/// @brief PropriÃ©tÃ© d'une zone rectangle : sa largeur, en cases.
+inline constexpr std::string_view ZONE_WIDTH_PROPERTY = "width";
+/// @brief PropriÃ©tÃ© d'une zone rectangle : sa hauteur, en cases.
+inline constexpr std::string_view ZONE_HEIGHT_PROPERTY = "height";
+
+/**
+ * @brief Les cases que couvre la zone @p entity : ses cases peintes si elle en a, sinon son
+ *        rectangle (`width` Ã `height`, 1 Ã 1 par dÃ©faut) depuis sa case.
+ */
+[[nodiscard]] std::vector&lt;GridPosition&gt; zoneCells(const MapEntity&amp; entity);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

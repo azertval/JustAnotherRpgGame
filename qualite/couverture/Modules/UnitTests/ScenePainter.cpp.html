@@ -37,7 +37,7 @@ namespace {
            image-&gt;pixel(0, 0) == 0xFFFFFFFFU;
 <span style = "background-color:#dfd">}</span>
 
-<span style = "background-color:#fdd">[[nodiscard]] QColor tintOf(float r, float g, float b, float a) {
+<span style = "background-color:#dfd">[[nodiscard]] QColor tintOf(float r, float g, float b, float a) {
     return QColor::fromRgbF(r, g, b, a);
 }</span>
 
@@ -96,6 +96,16 @@ namespace {
     painter.drawPolygon(band);
 }</span>
 
+<span style = "background-color:#dfd">void paintPoly(QPainter&amp; painter, const PolyQuad&amp; quad, float opacity) {
+    const QPolygonF shape{{quad.x[0], quad.y[0]},</span>
+                          {quad.x[1], quad.y[1]},
+                          {quad.x[2], quad.y[2]},
+                          {quad.x[3], quad.y[3]}};
+<span style = "background-color:#dfd">    painter.setPen(Qt::NoPen);
+    painter.setBrush(tintOf(quad.r, quad.g, quad.b, quad.a * opacity));
+    painter.drawPolygon(shape);
+}</span>
+
 }  // namespace
 
 void paintComposedScene(QPainter&amp; painter, const ComposedScene&amp; scene,
@@ -111,16 +121,25 @@ void paintComposedScene(QPainter&amp; painter, const ComposedScene&amp; scene,
         if (extra &lt;= 0.0F) {</span>
 <span style = "background-color:#fdd">            continue;</span>
         }
-<span style = "background-color:#dfd">        if (quad.kind == QuadKind::Sprite) {
-            if (visible &amp;&amp; !intersects(*visible, spriteQuadBounds(quad.sprite))) {
-                continue;</span>
-            }
-<span style = "background-color:#dfd">            paintSprite(painter, quad.sprite, image, extra);
-        } else {</span>
-<span style = "background-color:#fdd">            if (visible &amp;&amp; !intersects(*visible, lineQuadBounds(quad.line))) {
-                continue;</span>
-            }
-<span style = "background-color:#fdd">            paintLine(painter, quad.line, extra);</span>
+<span style = "background-color:#dfd">        switch (quad.kind) {</span>
+            case QuadKind::Sprite:
+<span style = "background-color:#dfd">                if (visible &amp;&amp; !intersects(*visible, spriteQuadBounds(quad.sprite))) {
+                    continue;</span>
+                }
+<span style = "background-color:#dfd">                paintSprite(painter, quad.sprite, image, extra);
+                break;</span>
+            case QuadKind::Line:
+<span style = "background-color:#fdd">                if (visible &amp;&amp; !intersects(*visible, lineQuadBounds(quad.line))) {
+                    continue;</span>
+                }
+<span style = "background-color:#fdd">                paintLine(painter, quad.line, extra);
+                break;</span>
+            case QuadKind::Poly:
+<span style = "background-color:#dfd">                if (visible &amp;&amp; !intersects(*visible, polyQuadBounds(quad.poly))) {
+                    continue;</span>
+                }
+<span style = "background-color:#dfd">                paintPoly(painter, quad.poly, extra);</span>
+                break;
         }
 <span style = "background-color:#dfd">    }
 }</span>

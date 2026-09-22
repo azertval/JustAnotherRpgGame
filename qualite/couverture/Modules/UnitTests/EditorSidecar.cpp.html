@@ -43,6 +43,8 @@ constexpr std::string_view SIDECAR_SUFFIX = ".editor.json";
     switch (state) {</span>
         case MapState::Generated:
 <span style = "background-color:#dfd">            return "generated";</span>
+        case MapState::Blockout:
+<span style = "background-color:#dfd">            return "blockout";</span>
         case MapState::Retouched:
 <span style = "background-color:#dfd">            return "retouched";</span>
         case MapState::Finished:
@@ -66,6 +68,8 @@ constexpr std::string_view SIDECAR_SUFFIX = ".editor.json";
     switch (state) {</span>
         case MapState::Generated:
 <span style = "background-color:#fdd">            return "Generated";</span>
+        case MapState::Blockout:
+<span style = "background-color:#dfd">            return "Blockout";</span>
         case MapState::Retouched:
 <span style = "background-color:#fdd">            return "Retouched";</span>
         case MapState::Finished:
@@ -77,8 +81,8 @@ constexpr std::string_view SIDECAR_SUFFIX = ".editor.json";
 }</span>
 
 <span style = "background-color:#dfd">const std::vector&lt;MapState&gt;&amp; knownMapStates() {
-    static const std::vector&lt;MapState&gt; states{MapState::Generated, MapState::Retouched,</span>
-                                              MapState::Finished};
+    static const std::vector&lt;MapState&gt; states{MapState::Generated, MapState::Blockout,</span>
+                                              MapState::Retouched, MapState::Finished};
 <span style = "background-color:#dfd">    return states;
 }</span>
 

@@ -157,22 +157,25 @@ FileOperationResult LevelFileOperations::create(const std::string&amp; name, int
 <span style = "background-color:#fdd">        addNameTranslation(target, trimmed);
         return FileOperationResult::success(target);</span>
     }
-<span style = "background-color:#dfd">    if (!place.empty()) {</span>
-        // Les couches des cartes livrÃ©es. Le sol nomme le lieu ; la collision est celle que la
-        // dÃ©duction donne Ã  une carte vide : le vide arrÃªte la vue (dÃ©cision D10).
-<span style = "background-color:#dfd">        const std::optional&lt;std::size_t&gt; ground = draft.addLayer(core::LayerKind::Ground, "sol");
-        draft.setLayerProperty(*ground, std::string{SCENE_PLACE_PROPERTY}, place);
-        draft.addLayer(core::LayerKind::Decor, "relief");
-        draft.paintRegion(0, 0,</span>
-                          std::vector&lt;std::vector&lt;core::TileType&gt;&gt;(
-                              static_cast&lt;std::size_t&gt;(height),
-                              std::vector&lt;core::TileType&gt;(static_cast&lt;std::size_t&gt;(width),
-                                                          core::TileType::Wall)));
-        // L'entrÃ©e ne se tient pas dans le vide : sa case reÃ§oit un sol de terre, que la table du
-        // lieu traduit en piÃ¨ce.
-<span style = "background-color:#dfd">        draft.paintLayerTile(*ground, 0, height - 1, core::TileType::Dirt);</span>
+    // Les couches, TOUJOURS, lieu ou pas (LOT-128) : une carte maquettÃ©e doit pouvoir recevoir son
+    // lieu plus tard par Â« Change sheetâ¦ Â», et cette conversion exige des couches. Une carte neuve
+    // sans couche Ã©tait un cul-de-sac silencieux. Le lieu, lui, ne se nomme que s'il y en a un.
+<span style = "background-color:#dfd">    const std::optional&lt;std::size_t&gt; ground = draft.addLayer(core::LayerKind::Ground, "sol");
+    if (!place.empty()) {
+        draft.setLayerProperty(*ground, std::string{SCENE_PLACE_PROPERTY}, place);</span>
     }
-<span style = "background-color:#dfd">    draft.setEntry(0, height - 1);
+<span style = "background-color:#dfd">    draft.addLayer(core::LayerKind::Decor, "relief");</span>
+    // La collision est celle que la dÃ©duction donne Ã  une carte pleine : le mur arrÃªte la vue
+    // (dÃ©cision D10 de l'Ã©diteur).
+<span style = "background-color:#dfd">    draft.paintRegion(0, 0,</span>
+                      std::vector&lt;std::vector&lt;core::TileType&gt;&gt;(
+                          static_cast&lt;std::size_t&gt;(height),
+                          std::vector&lt;core::TileType&gt;(static_cast&lt;std::size_t&gt;(width),
+                                                      core::TileType::Wall)));
+    // L'entrÃ©e ne se tient pas dans le vide : sa case reÃ§oit un sol de terre, que la table du lieu
+    // traduit en piÃ¨ce, et que la maquette peint en couleur.
+<span style = "background-color:#dfd">    draft.paintLayerTile(*ground, 0, height - 1, core::TileType::Dirt);
+    draft.setEntry(0, height - 1);
     core::LevelLoadResult validated = draft.toLevel();
     if (!validated.ok()) {</span>
 <span style = "background-color:#fdd">        return FileOperationResult::failure("Niveau invalide : " + validated.error);</span>

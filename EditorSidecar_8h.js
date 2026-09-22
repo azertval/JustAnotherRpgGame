@@ -6,6 +6,7 @@ var EditorSidecar_8h =
     [ "hmi::MapState", "namespacehmi.html#a5329d365328d797b903f9f92f964d564", [
       [ "hmi::MapState::Unset", "namespacehmi.html#a5329d365328d797b903f9f92f964d564ac9f88e098f6fe4e4e112eeb05ccb9671", null ],
       [ "hmi::MapState::Generated", "namespacehmi.html#a5329d365328d797b903f9f92f964d564a5c5f06440fcb85cd5c8cfafe32e34b78", null ],
+      [ "hmi::MapState::Blockout", "namespacehmi.html#a5329d365328d797b903f9f92f964d564a91154212ef65672bbc870d4b7bb142c5", null ],
       [ "hmi::MapState::Retouched", "namespacehmi.html#a5329d365328d797b903f9f92f964d564ab128707466a11095d88ad0a3449c421f", null ],
       [ "hmi::MapState::Finished", "namespacehmi.html#a5329d365328d797b903f9f92f964d564a8f3d10eb21bd36347c258679eba9e92b", null ]
     ] ],

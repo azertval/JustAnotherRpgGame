@@ -1,9 +1,10 @@
 var WorldSceneComposer_8cpp =
 [
-    [ "hmi::composeWorldScene", "namespacehmi.html#a634bad2a915ba6f49caae2a158329bb3", null ],
-    [ "hmi::composeWorldScene", "namespacehmi.html#a14ab42dad3be10394bd6892a8ce39ef4", null ],
+    [ "hmi::composeWorldScene", "namespacehmi.html#a888058bfce2a151c10776afeaabbb179", null ],
+    [ "hmi::composeWorldScene", "namespacehmi.html#a5878150edf69cce4f7f785e2fb4be5f1", null ],
     [ "hmi::figureMarkerKey", "namespacehmi.html#a1c839cebf18adf167ae9ac5452d179b6", null ],
     [ "hmi::figureStripPath", "namespacehmi.html#ab7381540071701283f2f87b282a68eb5", null ],
+    [ "hmi::maquetteMarks", "namespacehmi.html#a774a0ed2f31b521df4cf536fbfb7543f", null ],
     [ "hmi::npcFigures", "namespacehmi.html#a7a8f2888417ba2cd0c8440905f9e209a", null ],
     [ "hmi::scenePlaceOf", "namespacehmi.html#abbf2a2d38ba582981388654fde028bae", null ],
     [ "hmi::scenePlaceOf", "namespacehmi.html#ab66963a68c69c0957d096fbab448d6a4", null ],

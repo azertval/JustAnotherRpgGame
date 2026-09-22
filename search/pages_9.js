@@ -18,10 +18,11 @@ var searchData=
   ['90_20—_20le_20plan_20pénombral_15',['&lt;span class=&quot;tt&quot;&gt;LOT-90&lt;/span&gt; — Le plan pénombral',['../roadmap.html#lot-90',1,'']]],
   ['91_20—_20atelier_20des_20pnj_20_3a_20les_20figurines_20du_20character_20compendium_16',['LOT-91 — Atelier des PNJ : les figurines du Character Compendium',['../lot-91.html',1,'lots']]],
   ['91_20—_20preuve_20de_20concept_20_3a_20cinq_20planches_20à_20la_20main_17',['LOT-91 — Preuve de concept : cinq planches à la main',['../lot-91-poc.html',1,'lot-91']]],
-  ['92_20—_20atelier_20des_20textures_20_3a_20le_20style_20de_20la_20scène_20par_20maquette_20une_20planche_20par_20lieu_18',['LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu',['../lot-92.html',1,'']]],
-  ['93_20—_20atelier_20des_20monstres_20_3a_20les_20figurines_20du_20bestiaire_20depuis_20le_20texte_20seul_19',['LOT-93 — Atelier des monstres : les figurines du bestiaire, depuis le texte seul',['../lot-93.html',1,'lots']]],
-  ['94_20',['11. L&apos;écran « Carte » : le monde, une région, une ville (LOT-94)',['../spec-interface-ihm.html#ihm-carte',1,'']]],
-  ['94_20—_20les_20images_20du_20corpus_20quittent_20le_20dépôt_20l_20écran_20«_20carte_20»_20revient_20sur_20les_20cartes_20de_20l_20auteur_20_3a_20monde_20région_20ville_21',['LOT-94 — Les images du corpus quittent le dépôt ; l&apos;écran « Carte » revient sur les cartes de l&apos;auteur : monde, région, ville',['../lot-94.html',1,'lots']]],
-  ['94_20noms_20ont_20mis_20au_20jour_22',['Cinq défauts du lexique que les 94 noms ont mis au jour',['../lot-33.html#autotoc_md521',1,'']]],
-  ['96_20—_20martpart_20et_20arenarea_20se_20parcourent_20_3a_20le_20graphe_20des_20quartiers_23',['LOT-96 — Martpart et Arenarea se parcourent : le graphe des quartiers',['../lot-96.html',1,'lots']]]
+  ['919_18',['Tests unitaires (919)',['../cahiertest.html#autotoc_md4',1,'']]],
+  ['92_20—_20atelier_20des_20textures_20_3a_20le_20style_20de_20la_20scène_20par_20maquette_20une_20planche_20par_20lieu_19',['LOT-92 — Atelier des textures : le style de la scène par maquette, une planche par lieu',['../lot-92.html',1,'']]],
+  ['93_20—_20atelier_20des_20monstres_20_3a_20les_20figurines_20du_20bestiaire_20depuis_20le_20texte_20seul_20',['LOT-93 — Atelier des monstres : les figurines du bestiaire, depuis le texte seul',['../lot-93.html',1,'lots']]],
+  ['94_21',['11. L&apos;écran « Carte » : le monde, une région, une ville (LOT-94)',['../spec-interface-ihm.html#ihm-carte',1,'']]],
+  ['94_20—_20les_20images_20du_20corpus_20quittent_20le_20dépôt_20l_20écran_20«_20carte_20»_20revient_20sur_20les_20cartes_20de_20l_20auteur_20_3a_20monde_20région_20ville_22',['LOT-94 — Les images du corpus quittent le dépôt ; l&apos;écran « Carte » revient sur les cartes de l&apos;auteur : monde, région, ville',['../lot-94.html',1,'lots']]],
+  ['94_20noms_20ont_20mis_20au_20jour_23',['Cinq défauts du lexique que les 94 noms ont mis au jour',['../lot-33.html#autotoc_md521',1,'']]],
+  ['96_20—_20martpart_20et_20arenarea_20se_20parcourent_20_3a_20le_20graphe_20des_20quartiers_24',['LOT-96 — Martpart et Arenarea se parcourent : le graphe des quartiers',['../lot-96.html',1,'lots']]]
 ];

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['où_0',['Une rencontre dit QUI, jamais OÙ',['../lot-18.html#autotoc_md437',1,'']]],
-  ['où_1',['où',['../lot-38.html#autotoc_md564',1,'Ce que la fiche calcule, et où'],['../ArenaSceneComposer_8h.html#autotoc_md1078',1,'Ce qui va où'],['../WorldSceneComposer_8h.html#autotoc_md1089',1,'Ce qui va où']]],
+  ['où_1',['où',['../lot-38.html#autotoc_md564',1,'Ce que la fiche calcule, et où'],['../ArenaSceneComposer_8h.html#autotoc_md1078',1,'Ce qui va où'],['../WorldSceneComposer_8h.html#autotoc_md1093',1,'Ce qui va où']]],
   ['où_20ça_20s_20insère_20dans_20la_20boucle_2',['Où ça s&apos;insère dans la boucle',['../guide-ecrans.html#autotoc_md74',1,'']]],
   ['où_20chacune_20vit_3',['où chacune vit',['../lot-23.html#autotoc_md488',1,'Les règles du Guide, et où chacune vit'],['../lot-21.html#autotoc_md469',1,'Les règles du Manuel, et où chacune vit'],['../lot-22.html#autotoc_md478',1,'Les règles du Manuel, et où chacune vit']]],
   ['où_20chaque_20règle_20vit_4',['Ce que dit le Manuel, et où chaque règle vit',['../Attack_8h.html#autotoc_md1015',1,'']]],
@@ -15,7 +15,7 @@ var searchData=
   ['où_20le_20combat_20est_20tenu_12',['Le premier lieu où le combat est tenu',['../lot-50.html#autotoc_md587',1,'']]],
   ['où_20lire_20la_20suite_13',['Où lire la suite',['../roadmap.html#autotoc_md803',1,'']]],
   ['où_20on_20les_20lit_14',['Trois décisions de règle, écrites là où on les lit',['../lot-13.html#autotoc_md408',1,'']]],
-  ['où_20passe_20la_20frontière_15',['Où passe la frontière',['../classhmi_1_1CharacterSheetModel.html#autotoc_md1100',1,'']]],
+  ['où_20passe_20la_20frontière_15',['Où passe la frontière',['../classhmi_1_1CharacterSheetModel.html#autotoc_md1104',1,'']]],
   ['où_20s_20écrit_20une_20couleur_16',['Les jetons : le seul endroit où s&apos;écrit une couleur',['../guide-conception-qds.html#autotoc_md50',1,'']]],
   ['où_20va_20le_20geste_17',['Où va le geste',['../BrushGesture_8h.html#autotoc_md1061',1,'']]],
   ['où_20viennent_20les_20formules_18',['D&apos;où viennent les formules',['../IsoProjection_8h.html#autotoc_md1035',1,'']]],
@@ -34,7 +34,7 @@ var searchData=
   ['on_20les_20lit_31',['Trois décisions de règle, écrites là où on les lit',['../lot-13.html#autotoc_md408',1,'']]],
   ['on_20peut_20défaire_32',['&lt;a class=&quot;el&quot; href=&quot;classcore_1_1LevelDraft.html&quot; title=&quot;core::LevelDraft&quot;&gt;core::LevelDraft&lt;/a&gt; : une carte qu&apos;on peut défaire',['../guide-editeur.html#autotoc_md86',1,'']]],
   ['on_20relève_20dessus_33',['La maquette : cinq planches, et ce qu&apos;on relève dessus',['../lot-38.html#autotoc_md558',1,'']]],
-  ['on_20retrouve_20ce_20qu_20il_20reste_20à_20brancher_34',['Comment on retrouve ce qu&apos;il reste à brancher',['../classhmi_1_1PendingData.html#autotoc_md1114',1,'']]],
+  ['on_20retrouve_20ce_20qu_20il_20reste_20à_20brancher_34',['Comment on retrouve ce qu&apos;il reste à brancher',['../classhmi_1_1PendingData.html#autotoc_md1118',1,'']]],
   ['on_20se_20tenir_20ici_20»_35',['on se tenir ici »',['../lot-19.html#autotoc_md450',1,'Une seule source de vérité pour « peut-on se tenir ici »'],['../classcore_1_1BattleGrid.html#autotoc_md1019',1,'Une seule source de vérité pour « peut-on se tenir ici »']]],
   ['on_20voit_20n_20est_20pas_20ce_20qui_20bloque_36',['Couches : ce qu&apos;on voit n&apos;est pas ce qui bloque',['../guide-niveaux.html#autotoc_md143',1,'']]],
   ['onglets_37',['Onglets',['../lot-87-cahier-assets.html#lot-87-cahier-tab',1,'']]],

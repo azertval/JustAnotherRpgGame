@@ -121,6 +121,7 @@ var guide =
         [ "Peindre par lot sans dupliquer la logique de peinture : <a class=\"el\" href=\"classcore_1_1LevelDraft.html#a7fb667e044067f5e9bf16f747d3f5f8e\" title=\"core::LevelDraft::paintRegion\">LevelDraft::paintRegion</a>", "guide-editeur.html#autotoc_md91", null ]
       ] ],
       [ "Annuler/refaire : pourquoi des instantanés complets", "guide-editeur.html#autotoc_md92", null ],
+      [ "Maquetter, jouer, puis habiller", "guide-editeur.html#guide-editeur-maquette", null ],
       [ "Essai immédiat : jouer sans quitter l'éditeur", "guide-editeur.html#autotoc_md93", null ],
       [ "Enregistrer : valider avant d'écrire, jamais l'inverse", "guide-editeur.html#autotoc_md94", null ],
       [ "Garde-fous contre la perte de travail", "guide-editeur.html#autotoc_md95", null ],

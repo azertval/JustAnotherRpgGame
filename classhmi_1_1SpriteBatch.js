@@ -10,6 +10,7 @@ var classhmi_1_1SpriteBatch =
     [ "bindingsFor", "classhmi_1_1SpriteBatch.html#a80b62c1341b00df41de0d4df48207a74", null ],
     [ "closeBatch", "classhmi_1_1SpriteBatch.html#a84a3a7057dab5bee8408b368cacfe612", null ],
     [ "draw", "classhmi_1_1SpriteBatch.html#afb2cf10826482b3ad8d503a829a8ed5b", null ],
+    [ "draw", "classhmi_1_1SpriteBatch.html#a50b96c3162fe6f5d3c78b4ff9f482f5f", null ],
     [ "draw", "classhmi_1_1SpriteBatch.html#adf3e122b7b78551672d6e8642941383d", null ],
     [ "end", "classhmi_1_1SpriteBatch.html#aac9e3e6a4b2e84a4b24b617d6b4ce58d", null ],
     [ "ensurePipeline", "classhmi_1_1SpriteBatch.html#a45fd2a054df485079239ce58d99c29d6", null ],

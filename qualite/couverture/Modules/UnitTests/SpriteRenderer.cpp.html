@@ -39,10 +39,16 @@ void submitComposedScene(SpriteBatch&amp; batch, const DirectX::XMFLOAT4X4&amp; 
             current = composed.texture;
             open = true;</span>
         }
-<span style = "background-color:#dfd">        if (composed.kind == QuadKind::Sprite) {
-            batch.draw(composed.sprite);
-        } else {</span>
-<span style = "background-color:#fdd">            batch.draw(composed.line);</span>
+<span style = "background-color:#dfd">        switch (composed.kind) {</span>
+            case QuadKind::Sprite:
+<span style = "background-color:#dfd">                batch.draw(composed.sprite);
+                break;</span>
+            case QuadKind::Line:
+<span style = "background-color:#fdd">                batch.draw(composed.line);
+                break;</span>
+            case QuadKind::Poly:
+<span style = "background-color:#dfd">                batch.draw(composed.poly);</span>
+                break;
         }
 <span style = "background-color:#dfd">    }</span>
 

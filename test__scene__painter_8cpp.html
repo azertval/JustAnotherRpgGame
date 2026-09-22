@@ -159,9 +159,12 @@ $(function(){initNavTree('test__scene__painter_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapEntity_8h_source.html">Core/Levels/MapEntity.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SceneImages_8h_source.html">Editor/Ui/SceneImages.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ScenePainter_8h_source.html">Editor/Ui/ScenePainter.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Camera2D_8h_source.html">HMI/Graphics/Camera2D.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MaquetteTokens_8h_source.html">HMI/Graphics/MaquetteTokens.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneRenderer_8h_source.html">HMI/Graphics/WorldSceneRenderer.h</a>&quot;</code><br />
@@ -172,6 +175,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:afaa7b37a2a0fe201d74afd14cf8a1fe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">La Place peinte par l'éditeur égale, à une tolérance près, le rendu GPU du jeu.  <br /></td></tr>
 <tr class="memitem:ab431c4ccbea8cd004a24c4e75c33d163" id="r_ab431c4ccbea8cd004a24c4e75c33d163"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab431c4ccbea8cd004a24c4e75c33d163">TEST</a> (ScenePainterTest, LaSecondeCartePeinteEgaleLeRenduDuJeu)</td></tr>
 <tr class="memdesc:ab431c4ccbea8cd004a24c4e75c33d163"><td class="mdescLeft">&#160;</td><td class="mdescRight">La seconde carte, et ses pièces larges et miroirs, peinte comme dans le jeu.  <br /></td></tr>
+<tr class="memitem:a1df04479d9f5e2d6b937c013b686eebb" id="r_a1df04479d9f5e2d6b937c013b686eebb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1df04479d9f5e2d6b937c013b686eebb">TEST</a> (ScenePainterTest, UneCarteSansAucuneImageSeVoitDansLesDeuxRendus)</td></tr>
+<tr class="memdesc:a1df04479d9f5e2d6b937c013b686eebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte <b>sans un seul fichier d'image</b> se voit, dans le jeu comme dans l'éditeur, et les deux en donnent la même image (<span class="tt">EX-EXP-005</span>, <span class="tt">LOT-128</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le canevas de l'éditeur peint le lieu comme le jeu le dessine (<span class="tt">LOT-EDITOR-02</span>). </p>
@@ -180,7 +185,7 @@ Functions</h2></td></tr>
 <p>Les cartes sont celles de la racine d'essai de l'éditeur (<span class="tt">LOT-123</span>) ; c'étaient les cartes <b>livrées</b>, que la table rase du <span class="tt">LOT-102</span> emporte. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ab431c4ccbea8cd004a24c4e75c33d163" name="ab431c4ccbea8cd004a24c4e75c33d163"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab431c4ccbea8cd004a24c4e75c33d163">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab431c4ccbea8cd004a24c4e75c33d163">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -212,7 +217,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afaa7b37a2a0fe201d74afd14cf8a1fe9" name="afaa7b37a2a0fe201d74afd14cf8a1fe9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afaa7b37a2a0fe201d74afd14cf8a1fe9">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afaa7b37a2a0fe201d74afd14cf8a1fe9">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -242,6 +247,36 @@ Functions</h2></td></tr>
 <li>La peindre par le peintre QPainter de l'editeur avec la meme camera.<br  />
  <b>Resultat attendu :</b> Pour chaque cadrage, moins de 0,5 % des pixels different de plus de 48 sur un canal ; l'image est peinte sur plus de la moitie de sa surface. </li>
 </ol>
+
+</div>
+</div>
+<a id="a1df04479d9f5e2d6b937c013b686eebb" name="a1df04479d9f5e2d6b937c013b686eebb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1df04479d9f5e2d6b937c013b686eebb">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ScenePainterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneCarteSansAucuneImageSeVoitDansLesDeuxRendus</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une carte <b>sans un seul fichier d'image</b> se voit, dans le jeu comme dans l'éditeur, et les deux en donnent la même image (<span class="tt">EX-EXP-005</span>, <span class="tt">LOT-128</span>). </p>
+<p><b>Cas de test :</b> <b>Une carte sans aucun fichier d'image se voit, pareillement dans les deux rendus.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu de maquette<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Batir en memoire une carte sans lieu : sols, eau, enceinte de murs, quatre entites.<br  />
+2. La rendre hors ecran par le rendu QRhi du jeu, puis par le peintre de l'editeur.<br  />
+ <b>Resultat attendu :</b> L'image est peinte sur plus de la moitie de sa surface &ndash; rien n'est reste vide &ndash;, et moins de 0,5 % des pixels different entre les deux rendus. </p>
 
 </div>
 </div>

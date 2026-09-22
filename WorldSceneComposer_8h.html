@@ -152,8 +152,11 @@ $(function(){initNavTree('WorldSceneComposer_8h.html','',''); });
 <code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PieceFootprint_8h_source.html">Core/Levels/PieceFootprint.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Vector2_8h_source.html">Core/Math/Vector2.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MaquettePalette_8h_source.html">HMI/Graphics/MaquettePalette.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MaquetteTokens_8h_source.html">HMI/Graphics/MaquetteTokens.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ScenePieces_8h_source.html">HMI/Graphics/ScenePieces.h</a>&quot;</code><br />
 </div>
 <p><a href="WorldSceneComposer_8h_source.html">Go to the source code of this file.</a></p>
@@ -162,10 +165,18 @@ $(function(){initNavTree('WorldSceneComposer_8h.html','',''); });
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3AWorldFigureSnapshot" id="r_hmi_3A_3AWorldFigureSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldFigureSnapshot.html">hmi::WorldFigureSnapshot</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine à dessiner sur la carte : sa planche, son image, où elle est.  <a href="structhmi_1_1WorldFigureSnapshot.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AMaquetteTokenSnapshot" id="r_hmi_3A_3AMaquetteTokenSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteTokenSnapshot.html">hmi::MaquetteTokenSnapshot</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un <b>jeton</b> posé sur une case : ce qui tient lieu de figurine tant qu'il n'y en a pas (<span class="tt">LOT-128</span>, décision D3).  <a href="structhmi_1_1MaquetteTokenSnapshot.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AMaquetteTraceSnapshot" id="r_hmi_3A_3AMaquetteTraceSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteTraceSnapshot.html">hmi::MaquetteTraceSnapshot</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un <b>tracé</b> de maquette : le contour d'une zone, ou le trajet d'un PNJ.  <a href="structhmi_1_1MaquetteTraceSnapshot.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AMaquetteMarks" id="r_hmi_3A_3AMaquetteMarks"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteMarks.html">hmi::MaquetteMarks</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les marques de maquette d'une carte : ses jetons et ses tracés.  <a href="structhmi_1_1MaquetteMarks.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AWorldSceneSnapshot" id="r_hmi_3A_3AWorldSceneSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lieu <b>en valeurs</b> : ce que la composition lit, et rien d'autre.  <a href="structhmi_1_1WorldSceneSnapshot.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AWorldSceneSource" id="r_hmi_3A_3AWorldSceneSource"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldSceneSource.html">hmi::WorldSceneSource</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la composition lit d'une carte : sa grille racine, ses couches et ses entités.  <a href="structhmi_1_1WorldSceneSource.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AWorldComposeOptions" id="r_hmi_3A_3AWorldComposeOptions"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldComposeOptions.html">hmi::WorldComposeOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'appelant peut changer à la composition — rien, par défaut.  <a href="structhmi_1_1WorldComposeOptions.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -179,11 +190,17 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa666df2f48cd16f38212c093999248769">hmi::Figure</a>
  }</td></tr>
 <tr class="memdesc:a71e0c7e2c54951699d44b5c6f88f63ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang d'une pièce dans une même profondeur : le relief, puis la figurine posée dessus.  <a href="namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63ca">More...</a><br /></td></tr>
+<tr class="memitem:ac92a2fbe73cf9a4cb73991b10456e28c" id="r_ac92a2fbe73cf9a4cb73991b10456e28c"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ac92a2fbe73cf9a4cb73991b10456e28c">hmi::MaquetteTraceShape</a> { <a class="el" href="namespacehmi.html#ac92a2fbe73cf9a4cb73991b10456e28ca606b51cc1c9d0b4af394419a22f2ff1f">hmi::Outline</a>
+, <a class="el" href="namespacehmi.html#ac92a2fbe73cf9a4cb73991b10456e28caac70412e939d72a9234cdebb1af5867b">hmi::Path</a>
+ }</td></tr>
+<tr class="memdesc:ac92a2fbe73cf9a4cb73991b10456e28c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un tracé de maquette dessine.  <a href="namespacehmi.html#ac92a2fbe73cf9a4cb73991b10456e28c">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:abb8a82bb9f00e792f78590f1c2bd788a" id="r_abb8a82bb9f00e792f78590f1c2bd788a"><td class="memItemLeft">std::int32_t&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#abb8a82bb9f00e792f78590f1c2bd788a">hmi::worldDepthSortOrder</a> (float footWorldY, <a class="el" href="namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63ca">WorldDepthSlot</a> slot) noexcept</td></tr>
 <tr class="memdesc:abb8a82bb9f00e792f78590f1c2bd788a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ordre de tri d'une pièce du lieu.  <br /></td></tr>
+<tr class="memitem:a774a0ed2f31b521df4cf536fbfb7543f" id="r_a774a0ed2f31b521df4cf536fbfb7543f"><td class="memItemLeft"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a774a0ed2f31b521df4cf536fbfb7543f">hmi::maquetteMarks</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, bool maquette)</td></tr>
+<tr class="memdesc:a774a0ed2f31b521df4cf536fbfb7543f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les marques que <code class="param">entities</code> méritent.  <br /></td></tr>
 <tr class="memitem:a2bc9cad778cbd7211055de83a826e032" id="r_a2bc9cad778cbd7211055de83a826e032"><td class="memTemplParams" colspan="2">template&lt;class Map&gt; </td></tr>
 <tr class="memitem:a2bc9cad778cbd7211055de83a826e032 template"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSource.html">WorldSceneSource</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a2bc9cad778cbd7211055de83a826e032">hmi::worldSceneSource</a> (const Map &amp;map)</td></tr>
 <tr class="memitem:ab66963a68c69c0957d096fbab448d6a4" id="r_ab66963a68c69c0957d096fbab448d6a4"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ab66963a68c69c0957d096fbab448d6a4">hmi::scenePlaceOf</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers)</td></tr>
@@ -199,10 +216,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ab7381540071701283f2f87b282a68eb5" id="r_ab7381540071701283f2f87b282a68eb5"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ab7381540071701283f2f87b282a68eb5">hmi::figureStripPath</a> (std::string_view figure, std::string_view clip)</td></tr>
 <tr class="memdesc:ab7381540071701283f2f87b282a68eb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chemin d'une bande de figurine, relatif au dossier des assets.  <br /></td></tr>
 <tr class="memitem:a07929611bf03ab59a2de588feb90ad7d" id="r_a07929611bf03ab59a2de588feb90ad7d"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a07929611bf03ab59a2de588feb90ad7d">hmi::worldTexturePaths</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot)</td></tr>
-<tr class="memitem:a634bad2a915ba6f49caae2a158329bb3" id="r_a634bad2a915ba6f49caae2a158329bb3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a634bad2a915ba6f49caae2a158329bb3">hmi::composeWorldScene</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures)</td></tr>
-<tr class="memdesc:a634bad2a915ba6f49caae2a158329bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose le lieu dans un tampon réutilisé.  <br /></td></tr>
-<tr class="memitem:a14ab42dad3be10394bd6892a8ce39ef4" id="r_a14ab42dad3be10394bd6892a8ce39ef4"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a14ab42dad3be10394bd6892a8ce39ef4">hmi::composeWorldScene</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures)</td></tr>
-<tr class="memdesc:a14ab42dad3be10394bd6892a8ce39ef4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose le lieu dans une scène neuve, <b>triée</b> — commodité des tests et des captures.  <br /></td></tr>
+<tr class="memitem:a888058bfce2a151c10776afeaabbb179" id="r_a888058bfce2a151c10776afeaabbb179"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a888058bfce2a151c10776afeaabbb179">hmi::composeWorldScene</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures, <a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a> options={})</td></tr>
+<tr class="memdesc:a888058bfce2a151c10776afeaabbb179"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose le lieu dans un tampon réutilisé.  <br /></td></tr>
+<tr class="memitem:a5878150edf69cce4f7f785e2fb4be5f1" id="r_a5878150edf69cce4f7f785e2fb4be5f1"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a5878150edf69cce4f7f785e2fb4be5f1">hmi::composeWorldScene</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures, <a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a> options={})</td></tr>
+<tr class="memdesc:a5878150edf69cce4f7f785e2fb4be5f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose le lieu dans une scène neuve, <b>triée</b> — commodité des tests et des captures.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -218,7 +235,7 @@ Variables</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un <b>lieu qu'on parcourt</b> composé en primitives, sans GPU : le jumeau d'<span class="tt">hmi::ArenaSceneComposer</span> pour la carte du jeu (<span class="tt">LOT-09</span>). </p>
 <p>Le lieu et l'arène se dessinent par le <b>même</b> code : même projection isométrique (<span class="tt"><a class="el" href="classcore_1_1IsoProjection.html" title="La projection isométrique d&#39;une grille de combat de columns × rows cases.">core::IsoProjection</a></span>), mêmes planches de l'atelier des textures (<span class="tt">LOT-92</span>, <span class="tt"><a class="el" href="ScenePieces_8h.html" title="La géométrie des pièces de l&#39;atelier des textures (LOT-92), commune au Colisée en combat et aux lieux...">ScenePieces.h</a></span>), même tri par profondeur. Ce qui change est la <b>source</b> : l'arène lit une grille de combat, le lieu lit une carte (<span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">core::Level</a></span>) — ses couches, les pièces qu'elles nomment, ses entités.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1089"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1093"></a>
 Ce qui va où</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -227,7 +244,7 @@ Ce qui va où</h2>
 <td class="markdownTableBodyNone">sol (type de tuile de la couche « sol » → table du lieu)  </td><td class="markdownTableBodyNone"><span class="tt">RenderLayer::Tile</span>  </td><td class="markdownTableBodyNone">profondeur de  </td></tr>
 </table>
 <p>case | | relief (pièce nommée à la case, ou type de la couche « décor ») | <span class="tt">RenderLayer::Object</span> | pied de la case | | figurine (héros, PNJ) | <span class="tt">RenderLayer::Player</span> | pied de sa case |</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1090"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1094"></a>
 Par instantané, comme l'arène</h2>
 <p>La composition ne lit qu'un <span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html" title="Le lieu en valeurs : ce que la composition lit, et rien d&#39;autre.">hmi::WorldSceneSnapshot</a></span> — des <b>valeurs</b>, aucun pointeur vers la carte ni vers la session. C'est ce qui lui permet de tourner sur le fil de rendu de Qt Quick, l'instantané étant pris dans <span class="tt">synchronize()</span> pendant que le fil graphique est bloqué. </p>
 </div></div><!-- contents -->

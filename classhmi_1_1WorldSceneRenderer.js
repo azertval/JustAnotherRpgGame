@@ -30,5 +30,6 @@ var classhmi_1_1WorldSceneRenderer =
     [ "_resources", "classhmi_1_1WorldSceneRenderer.html#a3641d1e54b87aa51e5e14775e66c1fd4", null ],
     [ "_rhi", "classhmi_1_1WorldSceneRenderer.html#ad8fbf932e14dc05a5a69aeecc0f3015f", null ],
     [ "_snapshot", "classhmi_1_1WorldSceneRenderer.html#a8d15970c710d2e6994517b60386f2b54", null ],
+    [ "_solid", "classhmi_1_1WorldSceneRenderer.html#ace4820029eeb81a93aebddd80ae92cf9", null ],
     [ "_textures", "classhmi_1_1WorldSceneRenderer.html#a4b8adcaabf36c1c7ab71cd8d411eba99", null ]
 ];

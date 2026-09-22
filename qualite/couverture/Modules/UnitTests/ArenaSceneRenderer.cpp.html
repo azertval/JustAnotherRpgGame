@@ -197,8 +197,8 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, 
     for (const auto&amp; path : worldTexturePaths(*_battlefield)) {
         const auto file = _directory.parent_path() / path;
         auto texture = loadTextureFromFile(context, file);
-        if (!texture) {</span>
-<span style = "background-color:#fdd">            GRAPHICS_LOG_WARNING(missingTextureWarning(path));
+        if (!texture) {
+            GRAPHICS_LOG_WARNING(missingTextureWarning(path));
             continue;</span>
         }
         SceneTexture descriptor{

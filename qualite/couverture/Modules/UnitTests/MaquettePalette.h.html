@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>MaquettePalette.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include "Core/Levels/TileType.h"
+
+/**
+ * @file HMI/Graphics/MaquettePalette.h
+ * @brief La palette du **rendu de maquette** : la teinte de chaque type de tuile quand aucune
+ *        piÃ¨ce ne l'habille (`LOT-128`, dÃ©cision D5).
+ *
+ * ## Pourquoi dans le code, et pas dans un fichier
+ *
+ * La maquette doit se dessiner quand **aucun** fichier d'asset n'est prÃ©sent (`EX-EXP-005`) :
+ * c'est toute sa raison d'Ãªtre. Une palette chargÃ©e depuis le disque rÃ©introduirait exactement la
+ * dÃ©pendance que le lot supprime. C'est un **standard** â comme l'Ã©chelle ou le rapport du losange
+ * â, pas du contenu : elle vit donc ici, en-tÃªte seul, sans allocation ni chargement.
+ *
+ * ## Pourquoi pas les couleurs de l'atlas procÃ©dural
+ *
+ * `hmi::regionForTile` donne des teintes vives, faites pour qu'un dÃ©veloppeur distingue douze types
+ * sur un canevas de travail. Une maquette n'est pas un canevas de travail : c'est une **image de la
+ * carte**, qu'on regarde en jouant. Les teintes sont donc celles des plans de principe du planning
+ * (`Planning/versions/.../maquettes/plan-*.svg`), sourdes et accordÃ©es entre elles.
+ *
+ * Les douze types gÃ©nÃ©riques ne diront jamais un gradin d'un podium (dÃ©cision D4) : la maquette
+ * *se lit comme* le plan du planning, elle ne s'y superpose pas.
+ */
+
+namespace hmi {
+
+/// @brief Une teinte de maquette, en composantes `[0, 1]` â ce que les primitives attendent.
+struct MaquetteColor {
+    float r = 1.0F;
+    float g = 1.0F;
+    float b = 1.0F;
+
+    [[nodiscard]] friend constexpr bool operator==(const MaquetteColor&amp;,
+                                                   const MaquetteColor&amp;) noexcept = default;
+};
+
+/// @brief Une teinte depuis son Ã©criture hexadÃ©cimale Ã  six chiffres (`0x3f6b34`).
+<span style = "background-color:#dfd">[[nodiscard]] constexpr MaquetteColor maquetteColorOf(unsigned int rgb) noexcept {
+    return MaquetteColor{.r = static_cast&lt;float&gt;((rgb &gt;&gt; 16U) &amp; 0xFFU) / 255.0F,</span>
+                         .g = static_cast&lt;float&gt;((rgb &gt;&gt; 8U) &amp; 0xFFU) / 255.0F,
+                         .b = static_cast&lt;float&gt;(rgb &amp; 0xFFU) / 255.0F};
+<span style = "background-color:#dfd">}</span>
+
+/**
+ * @brief La teinte de maquette d'un type de tuile.
+ *
+ * `switch` exhaustif et sans `default` : ajouter un type au vocabulaire du terrain fait dÃ©signer ce
+ * point par le compilateur, plutÃ´t que de laisser la case nouvelle se peindre en blanc sans que
+ * personne ne s'en aperÃ§oive.
+ * @param type Type de tuile ; `Empty` n'est jamais dessinÃ© â sa teinte n'est lÃ  que pour la
+ *             complÃ©tude du `switch`.
+ * @return Sa teinte.
+ */
+<span style = "background-color:#dfd">[[nodiscard]] constexpr MaquetteColor maquetteColor(core::TileType type) noexcept {
+    switch (type) {</span>
+        case core::TileType::Empty:
+<span style = "background-color:#fdd">            return maquetteColorOf(0x000000);</span>
+        case core::TileType::Solid:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x8d8272);</span>
+        case core::TileType::Entry:
+<span style = "background-color:#fdd">            return maquetteColorOf(0xd9c7a3);</span>
+        case core::TileType::Grass:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x3f6b34);</span>
+        case core::TileType::Dirt:
+<span style = "background-color:#dfd">            return maquetteColorOf(0xd9c7a3);</span>
+        case core::TileType::Sand:
+<span style = "background-color:#dfd">            return maquetteColorOf(0xc9a86a);</span>
+        case core::TileType::Water:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x2f7f86);</span>
+        case core::TileType::DeepWater:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x1d4f57);</span>
+        case core::TileType::Wall:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x6b5a43);</span>
+        case core::TileType::Cliff:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x5a5346);</span>
+        case core::TileType::Bridge:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x8e6f45);</span>
+        case core::TileType::Stairs:
+<span style = "background-color:#dfd">            return maquetteColorOf(0xc9b48a);</span>
+    }
+<span style = "background-color:#fdd">    return MaquetteColor{};</span>
+<span style = "background-color:#dfd">}</span>
+
+/**
+ * @brief Une case de ce type se dessine-t-elle en **bloc extrudÃ©** plutÃ´t qu'en losange plat ?
+ *
+ * La matiÃ¨re pleine â bÃ¢tie (`Wall`), gÃ©nÃ©rique (`Solid`) ou naturelle (`Cliff`) â doit se **lire**
+ * comme un obstacle et masquer ce qui est derriÃ¨re elle. `DeepWater` bloque le pas
+ * (`core::isSolid`) mais n'est pas de la matiÃ¨re : elle reste un losange plat, plus sombre que
+ * l'eau vive, et on voit par-dessus.
+ * @param type Type de tuile.
+ * @return `true` pour `Wall`, `Solid` et `Cliff`.
+ */
+<span style = "background-color:#dfd">[[nodiscard]] constexpr bool maquetteExtrudes(core::TileType type) noexcept {
+    return type == core::TileType::Wall || type == core::TileType::Solid ||</span>
+           type == core::TileType::Cliff;
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

@@ -323,7 +323,7 @@ Classes</h2></td></tr>
 <tr class="memitem:RunInGameChoice" id="r_RunInGameChoice"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'auteur a choisi pour l'essai.  <a href="structhmi_1_1RunInGameChoice.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SceneImages" id="r_SceneImages"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SceneImages.html">SceneImages</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cache des images du canevas : ce que <span class="tt"><a class="el" href="#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="#a634bad2a915ba6f49caae2a158329bb3" title="Compose le lieu dans un tampon réutilisé.">hmi::composeWorldScene</a></span> adresse par chemin.  <a href="classhmi_1_1SceneImages.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cache des images du canevas : ce que <span class="tt"><a class="el" href="#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé.">hmi::composeWorldScene</a></span> adresse par chemin.  <a href="classhmi_1_1SceneImages.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldGraphView" id="r_WorldGraphView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldGraphView.html">WorldGraphView</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint un <span class="tt"><a class="el" href="structcore_1_1WorldGraph.html" title="Les cartes et leurs portails.">core::WorldGraph</a></span> disposé par <span class="tt"><a class="el" href="#a05055b81b0f1c8241eeef2c9e9d3a588" title="Dispose graph : nœuds sur un cercle, fantômes et flèches regroupées.">hmi::layoutWorldGraph</a></span>.  <a href="classhmi_1_1WorldGraphView.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AudioEngine" id="r_AudioEngine"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AudioEngine.html">AudioEngine</a></td></tr>
@@ -403,6 +403,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compteurs d'une image composée, pour l'observabilité du volume soumis (<span class="tt">EX-NFR-005</span>).  <a href="structhmi_1_1SceneStatistics.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ComposedScene" id="r_ComposedScene"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste <b>ordonnée</b> des primitives d'une image, indépendante de Direct3D.  <a href="classhmi_1_1ComposedScene.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MaquetteColor" id="r_MaquetteColor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteColor.html">MaquetteColor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une teinte de maquette, en composantes <span class="tt">[0, 1]</span> — ce que les primitives attendent.  <a href="structhmi_1_1MaquetteColor.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MaquetteTokenRequest" id="r_MaquetteTokenRequest"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteTokenRequest.html">MaquetteTokenRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un chemin de jeton désigne, ou rien si <code class="param">path</code> n'en est pas un.  <a href="structhmi_1_1MaquetteTokenRequest.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PlaceAppearance" id="r_PlaceAppearance"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La table d'un lieu : type de tuile → pièces, pour le sol et pour le relief.  <a href="classhmi_1_1PlaceAppearance.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PlaceAppearanceResult" id="r_PlaceAppearanceResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PlaceAppearanceResult.html">PlaceAppearanceResult</a></td></tr>
@@ -411,6 +415,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels d'un atlas généré en mémoire, au format <span class="tt">R8G8B8A8_UNORM</span> (ordre mémoire R,G,B,A).  <a href="structhmi_1_1ProceduralAtlasImage.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SpriteQuad" id="r_SpriteQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un quad texturé à dessiner : rectangle en <b>unités monde</b>, région de texture (coordonnées normalisées) et teinte.  <a href="structhmi_1_1SpriteQuad.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PolyQuad" id="r_PolyQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PolyQuad.html">PolyQuad</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un quadrilatère à <b>quatre sommets libres</b>, en unités monde, d'une seule teinte — la primitive du <b>rendu de maquette</b> (<span class="tt">LOT-128</span>, décision D1).  <a href="structhmi_1_1PolyQuad.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LineQuad" id="r_LineQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un segment épais à dessiner : deux extrémités en <b>unités monde</b>, une épaisseur (perpendiculaire au segment, unités monde) et une teinte.  <a href="structhmi_1_1LineQuad.html#details">More...</a><br /></td></tr>
 <tr class="memitem:QuadRecorder" id="r_QuadRecorder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1QuadRecorder.html">QuadRecorder</a></td></tr>
@@ -435,10 +441,18 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture GPU chargée (RAII).  <a href="structhmi_1_1LoadedTexture.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldFigureSnapshot" id="r_WorldFigureSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine à dessiner sur la carte : sa planche, son image, où elle est.  <a href="structhmi_1_1WorldFigureSnapshot.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MaquetteTokenSnapshot" id="r_MaquetteTokenSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteTokenSnapshot.html">MaquetteTokenSnapshot</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un <b>jeton</b> posé sur une case : ce qui tient lieu de figurine tant qu'il n'y en a pas (<span class="tt">LOT-128</span>, décision D3).  <a href="structhmi_1_1MaquetteTokenSnapshot.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MaquetteTraceSnapshot" id="r_MaquetteTraceSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteTraceSnapshot.html">MaquetteTraceSnapshot</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un <b>tracé</b> de maquette : le contour d'une zone, ou le trajet d'un PNJ.  <a href="structhmi_1_1MaquetteTraceSnapshot.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MaquetteMarks" id="r_MaquetteMarks"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les marques de maquette d'une carte : ses jetons et ses tracés.  <a href="structhmi_1_1MaquetteMarks.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldSceneSnapshot" id="r_WorldSceneSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lieu <b>en valeurs</b> : ce que la composition lit, et rien d'autre.  <a href="structhmi_1_1WorldSceneSnapshot.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldSceneSource" id="r_WorldSceneSource"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldSceneSource.html">WorldSceneSource</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la composition lit d'une carte : sa grille racine, ses couches et ses entités.  <a href="structhmi_1_1WorldSceneSource.html#details">More...</a><br /></td></tr>
+<tr class="memitem:WorldComposeOptions" id="r_WorldComposeOptions"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'appelant peut changer à la composition — rien, par défaut.  <a href="structhmi_1_1WorldComposeOptions.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldSceneRenderer" id="r_WorldSceneRenderer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldSceneRenderer.html">WorldSceneRenderer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène composée.  <a href="classhmi_1_1WorldSceneRenderer.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ButtonRepeat" id="r_ButtonRepeat"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ButtonRepeat.html">ButtonRepeat</a></td></tr>
@@ -598,10 +612,14 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:aa4f5968d7b564d555f29fdc5d2fc9585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action d'éditeur logique, remappable indépendamment de la touche physique.  <a href="#aa4f5968d7b564d555f29fdc5d2fc9585">More...</a><br /></td></tr>
-<tr class="memitem:a5329d365328d797b903f9f92f964d564" id="r_a5329d365328d797b903f9f92f964d564"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a5329d365328d797b903f9f92f964d564">MapState</a> { <a class="el" href="#a5329d365328d797b903f9f92f964d564ac9f88e098f6fe4e4e112eeb05ccb9671">Unset</a>
+<tr class="memitem:a5329d365328d797b903f9f92f964d564" id="r_a5329d365328d797b903f9f92f964d564"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a5329d365328d797b903f9f92f964d564">MapState</a> { <br />
+&#160;&#160;<a class="el" href="#a5329d365328d797b903f9f92f964d564ac9f88e098f6fe4e4e112eeb05ccb9671">Unset</a>
 , <a class="el" href="#a5329d365328d797b903f9f92f964d564a5c5f06440fcb85cd5c8cfafe32e34b78">Generated</a>
+, <a class="el" href="#a5329d365328d797b903f9f92f964d564a91154212ef65672bbc870d4b7bb142c5">Blockout</a>
 , <a class="el" href="#a5329d365328d797b903f9f92f964d564ab128707466a11095d88ad0a3449c421f">Retouched</a>
-, <a class="el" href="#a5329d365328d797b903f9f92f964d564a8f3d10eb21bd36347c258679eba9e92b">Finished</a>
+, <br />
+&#160;&#160;<a class="el" href="#a5329d365328d797b903f9f92f964d564a8f3d10eb21bd36347c258679eba9e92b">Finished</a>
+<br />
  }</td></tr>
 <tr class="memdesc:a5329d365328d797b903f9f92f964d564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où en est une carte (<span class="tt">LOT-EDITOR-09</span>, <span class="tt">EX-EDIT-092</span>) : ce que le navigateur montre, et le tableau de bord du monde le jour où il y aura cent cartes.  <a href="#a5329d365328d797b903f9f92f964d564">More...</a><br /></td></tr>
 <tr class="memitem:a02048ad8ad69a87a10e8307ac2bd68dd" id="r_a02048ad8ad69a87a10e8307ac2bd68dd"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> { <br />
@@ -763,8 +781,20 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:a9bcda977efbe65c2ab28905feb685040"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que devient un bloc pour une caméra donnée.  <a href="#a9bcda977efbe65c2ab28905feb685040">More...</a><br /></td></tr>
 <tr class="memitem:aa9ff839f9bcc1bb899b24cb8026ab2b3" id="r_aa9ff839f9bcc1bb899b24cb8026ab2b3"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aa9ff839f9bcc1bb899b24cb8026ab2b3">QuadKind</a> { <a class="el" href="#aa9ff839f9bcc1bb899b24cb8026ab2b3a51f2b7b14433aa22c67d1f4fc18943cd">Sprite</a>
 , <a class="el" href="#aa9ff839f9bcc1bb899b24cb8026ab2b3a4803e6b9e63dabf04de980788d6a13c4">Line</a>
+, <a class="el" href="#aa9ff839f9bcc1bb899b24cb8026ab2b3a7462cd846ee2e800d33ac6250a8ff4af">Poly</a>
  }</td></tr>
 <tr class="memdesc:aa9ff839f9bcc1bb899b24cb8026ab2b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nature d'une primitive composée : rectangle aligné aux axes, ou segment épais orienté.  <a href="#aa9ff839f9bcc1bb899b24cb8026ab2b3">More...</a><br /></td></tr>
+<tr class="memitem:a9dbe00de1bc58b0fc3cc63b38ec7569e" id="r_a9dbe00de1bc58b0fc3cc63b38ec7569e"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569e">MaquetteTokenKind</a> { <br />
+&#160;&#160;<a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569ea636da1d35e805b00eae0fcd8333f9234">Player</a>
+, <a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569ea16fac5c577b214661a62e26a8f8fa33f">Talker</a>
+, <a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569eae9bb5320b3890b6747c91b5a71ae5a01">Neutral</a>
+, <a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569eaa62a927d0ab6a08f916aa9f5ec0306e4">Hostile</a>
+, <br />
+&#160;&#160;<a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569ea497031794414a552435f90151ac3b54b">Object</a>
+, <a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569ea3e9b3ac6f082ec46a2d1d3f1f1647456">Portal</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a9dbe00de1bc58b0fc3cc63b38ec7569e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un jeton dit de son entité — sa <b>couleur</b> (décision D3).  <a href="#a9dbe00de1bc58b0fc3cc63b38ec7569e">More...</a><br /></td></tr>
 <tr class="memitem:a8d47401595625329c52d918c550d2957" id="r_a8d47401595625329c52d918c550d2957"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a8d47401595625329c52d918c550d2957">PlaceAppearanceError</a> : std::uint8_t { <br />
 &#160;&#160;<a class="el" href="#a8d47401595625329c52d918c550d2957a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="#a8d47401595625329c52d918c550d2957a2767828026039e8ba7b38973cbb701f2">FileNotFound</a>
@@ -791,6 +821,10 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a71e0c7e2c54951699d44b5c6f88f63caa666df2f48cd16f38212c093999248769">Figure</a>
  }</td></tr>
 <tr class="memdesc:a71e0c7e2c54951699d44b5c6f88f63ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang d'une pièce dans une même profondeur : le relief, puis la figurine posée dessus.  <a href="#a71e0c7e2c54951699d44b5c6f88f63ca">More...</a><br /></td></tr>
+<tr class="memitem:ac92a2fbe73cf9a4cb73991b10456e28c" id="r_ac92a2fbe73cf9a4cb73991b10456e28c"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac92a2fbe73cf9a4cb73991b10456e28c">MaquetteTraceShape</a> { <a class="el" href="#ac92a2fbe73cf9a4cb73991b10456e28ca606b51cc1c9d0b4af394419a22f2ff1f">Outline</a>
+, <a class="el" href="#ac92a2fbe73cf9a4cb73991b10456e28caac70412e939d72a9234cdebb1af5867b">Path</a>
+ }</td></tr>
+<tr class="memdesc:ac92a2fbe73cf9a4cb73991b10456e28c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un tracé de maquette dessine.  <a href="#ac92a2fbe73cf9a4cb73991b10456e28c">More...</a><br /></td></tr>
 <tr class="memitem:a7bd1f14c12b142d5227ad2560e7c5e88" id="r_a7bd1f14c12b142d5227ad2560e7c5e88"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a> { <br />
 &#160;&#160;<a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a258f49887ef8d14ac268c92b02503aaa">Up</a>
 , <a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a08a38277b0309070706f6652eeae9a53">Down</a>
@@ -1239,10 +1273,34 @@ Functions</h2></td></tr>
 <tr class="memdesc:af7d9b42fc7c496a35a24169feddc6ab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boîte englobante d'un rectangle texturé, en unités monde.  <br /></td></tr>
 <tr class="memitem:adbdaec090bf424bf2ec812fb1587c782" id="r_adbdaec090bf424bf2ec812fb1587c782"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#adbdaec090bf424bf2ec812fb1587c782">lineQuadBounds</a> (const <a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a> &amp;quad) noexcept</td></tr>
 <tr class="memdesc:adbdaec090bf424bf2ec812fb1587c782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boîte englobante d'un segment épais, en unités monde.  <br /></td></tr>
+<tr class="memitem:a07a3626eba992f82e38a9534f4170fc7" id="r_a07a3626eba992f82e38a9534f4170fc7"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a07a3626eba992f82e38a9534f4170fc7">polyQuadBounds</a> (const <a class="el" href="structhmi_1_1PolyQuad.html">PolyQuad</a> &amp;quad) noexcept</td></tr>
+<tr class="memdesc:a07a3626eba992f82e38a9534f4170fc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boîte englobante d'un quadrilatère à sommets libres, en unités monde.  <br /></td></tr>
 <tr class="memitem:a7325b66a46c59c65277b90fcdff97d00" id="r_a7325b66a46c59c65277b90fcdff97d00"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a7325b66a46c59c65277b90fcdff97d00">entityMarkerKey</a> (std::string_view entityType)</td></tr>
 <tr class="memdesc:a7325b66a46c59c65277b90fcdff97d00"><td class="mdescLeft">&#160;</td><td class="mdescRight">La clé d'asset du marqueur d'un type d'entité de carte.  <br /></td></tr>
 <tr class="memitem:abb5b5c18732cf5389e71bb864df46380" id="r_abb5b5c18732cf5389e71bb864df46380"><td class="memItemLeft">std::vector&lt; std::uint32_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abb5b5c18732cf5389e71bb864df46380">markerPixelsRgba8</a> (const <a class="el" href="structcore_1_1MarkerImage.html">core::MarkerImage</a> &amp;image)</td></tr>
 <tr class="memdesc:abb5b5c18732cf5389e71bb864df46380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pixels d'un marqueur au format que <span class="tt"><a class="el" href="#a4e6bdeca2a66b069fe3b093ee6670f0e" title="Crée une texture GPU à partir de pixels RGBA déjà décodés.">hmi::createTexture</a></span> attend : un <span class="tt">std::uint32_t</span> par pixel, <span class="tt">R | G&lt;&lt;8 | B&lt;&lt;16 | A&lt;&lt;24</span> (RGBA8 petit-boutiste), ligne par ligne depuis le haut.  <br /></td></tr>
+<tr class="memitem:aa7d25fd4aa9bba5308563cf224f4977e" id="r_aa7d25fd4aa9bba5308563cf224f4977e"><td class="memItemLeft">constexpr <a class="el" href="structhmi_1_1MaquetteColor.html">MaquetteColor</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa7d25fd4aa9bba5308563cf224f4977e">maquetteColorOf</a> (unsigned int rgb) noexcept</td></tr>
+<tr class="memdesc:aa7d25fd4aa9bba5308563cf224f4977e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une teinte depuis son écriture hexadécimale à six chiffres (<span class="tt">0x3f6b34</span>).  <br /></td></tr>
+<tr class="memitem:ac9a5002afda4ff75f1362e0c1e9032b6" id="r_ac9a5002afda4ff75f1362e0c1e9032b6"><td class="memItemLeft">constexpr <a class="el" href="structhmi_1_1MaquetteColor.html">MaquetteColor</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac9a5002afda4ff75f1362e0c1e9032b6">maquetteColor</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) noexcept</td></tr>
+<tr class="memdesc:ac9a5002afda4ff75f1362e0c1e9032b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">La teinte de maquette d'un type de tuile.  <br /></td></tr>
+<tr class="memitem:a5eba850ea51228d1e09a6d4e1ffc7087" id="r_a5eba850ea51228d1e09a6d4e1ffc7087"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a5eba850ea51228d1e09a6d4e1ffc7087">maquetteExtrudes</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) noexcept</td></tr>
+<tr class="memdesc:a5eba850ea51228d1e09a6d4e1ffc7087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une case de ce type se dessine-t-elle en <b>bloc extrudé</b> plutôt qu'en losange plat ?  <br /></td></tr>
+<tr class="memitem:a7e28c46424c3e42b110004f742df0023" id="r_a7e28c46424c3e42b110004f742df0023"><td class="memItemLeft"><a class="el" href="structhmi_1_1MaquetteColor.html">MaquetteColor</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7e28c46424c3e42b110004f742df0023">maquetteTokenColor</a> (<a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569e">MaquetteTokenKind</a> kind) noexcept</td></tr>
+<tr class="memdesc:a7e28c46424c3e42b110004f742df0023"><td class="mdescLeft">&#160;</td><td class="mdescRight">La teinte d'une nature de jeton.  <br /></td></tr>
+<tr class="memitem:ade7f026f18f8a669a33137bc366eaf7a" id="r_ade7f026f18f8a669a33137bc366eaf7a"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ade7f026f18f8a669a33137bc366eaf7a">maquetteTokenKindKey</a> (<a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569e">MaquetteTokenKind</a> kind) noexcept</td></tr>
+<tr class="memdesc:ade7f026f18f8a669a33137bc366eaf7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le mot que le chemin d'un jeton écrit pour <code class="param">kind</code> (<span class="tt">player</span>, <span class="tt">talker</span>…).  <br /></td></tr>
+<tr class="memitem:a2f659dd064f455af6db2c2a353c0129f" id="r_a2f659dd064f455af6db2c2a353c0129f"><td class="memItemLeft">char&#160;</td><td class="memItemRight"><a class="el" href="#a2f659dd064f455af6db2c2a353c0129f">maquetteTokenLetter</a> (std::string_view name) noexcept</td></tr>
+<tr class="memdesc:a2f659dd064f455af6db2c2a353c0129f"><td class="mdescLeft">&#160;</td><td class="mdescRight">La lettre que porte un jeton, tirée d'un nom.  <br /></td></tr>
+<tr class="memitem:ad766917c4985ed530aef7546f2a1d11f" id="r_ad766917c4985ed530aef7546f2a1d11f"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ad766917c4985ed530aef7546f2a1d11f">maquetteTokenPath</a> (<a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569e">MaquetteTokenKind</a> kind, char letter)</td></tr>
+<tr class="memdesc:ad766917c4985ed530aef7546f2a1d11f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chemin d'un jeton, tel que la composition l'adresse : <span class="tt">Token/&lt;nature&gt;/&lt;lettre&gt;.png</span>.  <br /></td></tr>
+<tr class="memitem:ae9e2f73076197cc924df1d25fb7fdf31" id="r_ae9e2f73076197cc924df1d25fb7fdf31"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1MaquetteTokenRequest.html">MaquetteTokenRequest</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae9e2f73076197cc924df1d25fb7fdf31">parseMaquetteTokenPath</a> (std::string_view path)</td></tr>
+<tr class="memdesc:ae9e2f73076197cc924df1d25fb7fdf31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit un chemin de jeton (<span class="tt">Token/hostile/W.png</span>).  <br /></td></tr>
+<tr class="memitem:aba3001846f6b53fb2a35dd7cd922852a" id="r_aba3001846f6b53fb2a35dd7cd922852a"><td class="memItemLeft"><a class="el" href="structcore_1_1MarkerImage.html">core::MarkerImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#aba3001846f6b53fb2a35dd7cd922852a">maquetteTokenImage</a> (const <a class="el" href="structhmi_1_1MaquetteTokenRequest.html">MaquetteTokenRequest</a> &amp;request, int size)</td></tr>
+<tr class="memdesc:aba3001846f6b53fb2a35dd7cd922852a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint le jeton de <code class="param">request</code> : un disque plein cerné, sa lettre au centre.  <br /></td></tr>
+<tr class="memitem:a6f06dd0cabd34efe05e28cb3f63c4201" id="r_a6f06dd0cabd34efe05e28cb3f63c4201"><td class="memItemLeft"><a class="el" href="structcore_1_1MarkerImage.html">core::MarkerImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6f06dd0cabd34efe05e28cb3f63c4201">maquetteTextImage</a> (std::string_view text, int scale, <a class="el" href="structcore_1_1MarkerColor.html">core::MarkerColor</a> color)</td></tr>
+<tr class="memdesc:a6f06dd0cabd34efe05e28cb3f63c4201"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint <code class="param">text</code> avec la <b>même table de glyphes</b> que les jetons.  <br /></td></tr>
+<tr class="memitem:a904c7708e37f4ded30aec80229b56e68" id="r_a904c7708e37f4ded30aec80229b56e68"><td class="memItemLeft"><a class="el" href="structcore_1_1MarkerImage.html">core::MarkerImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#a904c7708e37f4ded30aec80229b56e68">maquetteTokenImage</a> (std::string_view path, int size)</td></tr>
+<tr class="memdesc:a904c7708e37f4ded30aec80229b56e68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comme ci-dessus, depuis un chemin ; image vide si <code class="param">path</code> n'est pas un chemin de jeton.  <br /></td></tr>
 <tr class="memitem:aa0d169ee450492a9aa3795d23e95e4ba" id="r_aa0d169ee450492a9aa3795d23e95e4ba"><td class="memItemLeft"><a class="el" href="structhmi_1_1ProceduralAtlasImage.html">ProceduralAtlasImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa0d169ee450492a9aa3795d23e95e4ba">buildMissingTextureImage</a> (int size=<a class="el" href="#a75cfef1e5eb0b5569ebd42c004d73ce3">MISSING_TEXTURE_SIZE</a>)</td></tr>
 <tr class="memdesc:aa0d169ee450492a9aa3795d23e95e4ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère, en mémoire, la texture de repli « asset manquant » : un damier magenta/noir.  <br /></td></tr>
 <tr class="memitem:a23394f99f0606e53aafbeca5ed51496b" id="r_a23394f99f0606e53aafbeca5ed51496b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a23394f99f0606e53aafbeca5ed51496b">missingTextureWarning</a> (const std::string &amp;fileName)</td></tr>
@@ -1277,6 +1335,8 @@ Functions</h2></td></tr>
 <tr class="memitem:abb8a82bb9f00e792f78590f1c2bd788a" id="r_abb8a82bb9f00e792f78590f1c2bd788a"><td class="memItemLeft">std::int32_t&#160;</td><td class="memItemRight"><a class="el" href="#abb8a82bb9f00e792f78590f1c2bd788a">worldDepthSortOrder</a> (float footWorldY, <a class="el" href="#a71e0c7e2c54951699d44b5c6f88f63ca">WorldDepthSlot</a> slot) noexcept</td></tr>
 <tr class="memdesc:abb8a82bb9f00e792f78590f1c2bd788a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ordre de tri d'une pièce du lieu.  <br /></td></tr>
 <tr class="memitem:abbf2a2d38ba582981388654fde028bae" id="r_abbf2a2d38ba582981388654fde028bae"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#abbf2a2d38ba582981388654fde028bae">scenePlaceOf</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level)</td></tr>
+<tr class="memitem:a774a0ed2f31b521df4cf536fbfb7543f" id="r_a774a0ed2f31b521df4cf536fbfb7543f"><td class="memItemLeft"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a>&#160;</td><td class="memItemRight"><a class="el" href="#a774a0ed2f31b521df4cf536fbfb7543f">maquetteMarks</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, bool maquette)</td></tr>
+<tr class="memdesc:a774a0ed2f31b521df4cf536fbfb7543f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les marques que <code class="param">entities</code> méritent.  <br /></td></tr>
 <tr class="memitem:a7a8f2888417ba2cd0c8440905f9e209a" id="r_a7a8f2888417ba2cd0c8440905f9e209a"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7a8f2888417ba2cd0c8440905f9e209a">npcFigures</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, int frame)</td></tr>
 <tr class="memdesc:a7a8f2888417ba2cd0c8440905f9e209a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines des PNJ d'une carte, dans l'ordre des entités.  <br /></td></tr>
 <tr class="memitem:ab66963a68c69c0957d096fbab448d6a4" id="r_ab66963a68c69c0957d096fbab448d6a4"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab66963a68c69c0957d096fbab448d6a4">scenePlaceOf</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers)</td></tr>
@@ -1289,10 +1349,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a1c839cebf18adf167ae9ac5452d179b6" id="r_a1c839cebf18adf167ae9ac5452d179b6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1c839cebf18adf167ae9ac5452d179b6">figureMarkerKey</a> (std::string_view path)</td></tr>
 <tr class="memdesc:a1c839cebf18adf167ae9ac5452d179b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">La clé du marqueur d'une figurine qui n'a pas d'image (<span class="tt">LOT-39</span>, <span class="tt">LOT-96</span>).  <br /></td></tr>
 <tr class="memitem:a07929611bf03ab59a2de588feb90ad7d" id="r_a07929611bf03ab59a2de588feb90ad7d"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a07929611bf03ab59a2de588feb90ad7d">worldTexturePaths</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot)</td></tr>
-<tr class="memitem:a634bad2a915ba6f49caae2a158329bb3" id="r_a634bad2a915ba6f49caae2a158329bb3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a634bad2a915ba6f49caae2a158329bb3">composeWorldScene</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures)</td></tr>
-<tr class="memdesc:a634bad2a915ba6f49caae2a158329bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose le lieu dans un tampon réutilisé.  <br /></td></tr>
-<tr class="memitem:a14ab42dad3be10394bd6892a8ce39ef4" id="r_a14ab42dad3be10394bd6892a8ce39ef4"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#a14ab42dad3be10394bd6892a8ce39ef4">composeWorldScene</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures)</td></tr>
-<tr class="memdesc:a14ab42dad3be10394bd6892a8ce39ef4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose le lieu dans une scène neuve, <b>triée</b> — commodité des tests et des captures.  <br /></td></tr>
+<tr class="memitem:a888058bfce2a151c10776afeaabbb179" id="r_a888058bfce2a151c10776afeaabbb179"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a888058bfce2a151c10776afeaabbb179">composeWorldScene</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures, <a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a> options={})</td></tr>
+<tr class="memdesc:a888058bfce2a151c10776afeaabbb179"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose le lieu dans un tampon réutilisé.  <br /></td></tr>
+<tr class="memitem:a5878150edf69cce4f7f785e2fb4be5f1" id="r_a5878150edf69cce4f7f785e2fb4be5f1"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5878150edf69cce4f7f785e2fb4be5f1">composeWorldScene</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures, <a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a> options={})</td></tr>
+<tr class="memdesc:a5878150edf69cce4f7f785e2fb4be5f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose le lieu dans une scène neuve, <b>triée</b> — commodité des tests et des captures.  <br /></td></tr>
 <tr class="memitem:a2bc9cad778cbd7211055de83a826e032" id="r_a2bc9cad778cbd7211055de83a826e032"><td class="memTemplParams" colspan="2">template&lt;class Map&gt; </td></tr>
 <tr class="memitem:a2bc9cad778cbd7211055de83a826e032 template"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSource.html">WorldSceneSource</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2bc9cad778cbd7211055de83a826e032">worldSceneSource</a> (const Map &amp;map)</td></tr>
 <tr class="memitem:a8efa2a96919dd4bc6675ddc5e0f292ad" id="r_a8efa2a96919dd4bc6675ddc5e0f292ad"><td class="memItemLeft"><a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8efa2a96919dd4bc6675ddc5e0f292ad">worldCamera</a> (const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> focus, int pixelWidth, int pixelHeight)</td></tr>
@@ -1471,6 +1531,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:a249d58aea3867379fa41929b4a43c0ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifiant retenu quand le type d'entité ne laisse <b>aucun</b> caractère utilisable (type vide, ou fait uniquement de ponctuation) : <span class="tt">marker/inconnu</span>.  <br /></td></tr>
 <tr class="memitem:a510e2271c15e392be6bcc4c19432a586" id="r_a510e2271c15e392be6bcc4c19432a586"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a510e2271c15e392be6bcc4c19432a586">ENTITY_MARKER_SIZE_PIXELS</a> = 16</td></tr>
 <tr class="memdesc:a510e2271c15e392be6bcc4c19432a586"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté d'un marqueur d'entité, en pixels : <b>une case</b> (<span class="tt"><a class="el" href="classhmi_1_1Camera2D.html#a3d1d52a7653c7a3dca5eb2e5a5990f88" title="Nombre de pixels par unité monde (EX-ARCH-021).">Camera2D::PIXELS_PER_UNIT</a></span>).  <br /></td></tr>
+<tr class="memitem:a0727f3ff13f8d698e840bf7f44a899a6" id="r_a0727f3ff13f8d698e840bf7f44a899a6"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a0727f3ff13f8d698e840bf7f44a899a6">MAQUETTE_TOKEN_SIZE_PIXELS</a> = 44</td></tr>
+<tr class="memdesc:a0727f3ff13f8d698e840bf7f44a899a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté d'un jeton, en pixels d'art de planche (le losange en fait 68, <span class="tt"><a class="el" href="ScenePieces_8h.html" title="La géométrie des pièces de l&#39;atelier des textures (LOT-92), commune au Colisée en combat et aux lieux...">ScenePieces.h</a></span>).  <br /></td></tr>
 <tr class="memitem:a75cfef1e5eb0b5569ebd42c004d73ce3" id="r_a75cfef1e5eb0b5569ebd42c004d73ce3"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a75cfef1e5eb0b5569ebd42c004d73ce3">MISSING_TEXTURE_SIZE</a> = 16</td></tr>
 <tr class="memdesc:a75cfef1e5eb0b5569ebd42c004d73ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, du damier de repli généré par défaut (une case, <span class="tt">EX-ARCH-021</span>).  <br /></td></tr>
 <tr class="memitem:a7cc024ad45faf8aabf192a70d2090ac6" id="r_a7cc024ad45faf8aabf192a70d2090ac6"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a7cc024ad45faf8aabf192a70d2090ac6">MISSING_TEXTURE_CHECKER_SIZE</a> = 4</td></tr>
@@ -2342,9 +2404,81 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a5329d365328d797b903f9f92f964d564a5c5f06440fcb85cd5c8cfafe32e34b78" name="a5329d365328d797b903f9f92f964d564a5c5f06440fcb85cd5c8cfafe32e34b78"></a>Generated&#160;</td><td class="fielddoc"><p>Sortie du générateur, ou posée par un modèle : personne ne l'a encore regardée. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="a5329d365328d797b903f9f92f964d564a91154212ef65672bbc870d4b7bb142c5" name="a5329d365328d797b903f9f92f964d564a91154212ef65672bbc870d4b7bb142c5"></a>Blockout&#160;</td><td class="fielddoc"><p><b>Maquettée</b> (<span class="tt">LOT-128</span>) : sa physique est tracée — où l'on marche, ce qui bloque, qui est où, par où l'on sort — et elle se joue telle quelle, sans une seule pièce. </p>
+<p>L'état de départ normal d'une carte, avant qu'un lieu ne l'habille. </p>
+</td></tr>
 <tr><td class="fieldname"><a id="a5329d365328d797b903f9f92f964d564ab128707466a11095d88ad0a3449c421f" name="a5329d365328d797b903f9f92f964d564ab128707466a11095d88ad0a3449c421f"></a>Retouched&#160;</td><td class="fielddoc"><p>Retouchée à la main, mais pas terminée. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a5329d365328d797b903f9f92f964d564a8f3d10eb21bd36347c258679eba9e92b" name="a5329d365328d797b903f9f92f964d564a8f3d10eb21bd36347c258679eba9e92b"></a>Finished&#160;</td><td class="fielddoc"><p>Finie : elle se joue telle quelle. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a9dbe00de1bc58b0fc3cc63b38ec7569e" name="a9dbe00de1bc58b0fc3cc63b38ec7569e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dbe00de1bc58b0fc3cc63b38ec7569e">&#9670;&#160;</a></span>MaquetteTokenKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569e">hmi::MaquetteTokenKind</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qu'un jeton dit de son entité — sa <b>couleur</b> (décision D3). </p>
+<p>La couleur se déduit de ce que le format dit déjà : aucune propriété n'est ajoutée pour elle. <span class="tt"><a class="el" href="structcore_1_1MapEntity.html" title="Une entité de carte — ce qui n&#39;est pas une tuile.">core::MapEntity</a></span> n'a pas de notion d'hostilité, et la condition de quête n'existera qu'au <span class="tt">LOT-116</span> ; le jaune se règle donc, pour l'instant, sur « ce PNJ porte un dialogue ». </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a9dbe00de1bc58b0fc3cc63b38ec7569ea636da1d35e805b00eae0fcd8333f9234" name="a9dbe00de1bc58b0fc3cc63b38ec7569ea636da1d35e805b00eae0fcd8333f9234"></a>Player&#160;</td><td class="fielddoc"><p>Le joueur : l'entrée de la carte, un point d'apparition, une entrée d'arène alliée. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9dbe00de1bc58b0fc3cc63b38ec7569ea16fac5c577b214661a62e26a8f8fa33f" name="a9dbe00de1bc58b0fc3cc63b38ec7569ea16fac5c577b214661a62e26a8f8fa33f"></a>Talker&#160;</td><td class="fielddoc"><p>Un PNJ qui parle — il porte un dialogue. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9dbe00de1bc58b0fc3cc63b38ec7569eae9bb5320b3890b6747c91b5a71ae5a01" name="a9dbe00de1bc58b0fc3cc63b38ec7569eae9bb5320b3890b6747c91b5a71ae5a01"></a>Neutral&#160;</td><td class="fielddoc"><p>Un PNJ muet : il est là, il ne dit rien. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9dbe00de1bc58b0fc3cc63b38ec7569eaa62a927d0ab6a08f916aa9f5ec0306e4" name="a9dbe00de1bc58b0fc3cc63b38ec7569eaa62a927d0ab6a08f916aa9f5ec0306e4"></a>Hostile&#160;</td><td class="fielddoc"><p>Ce qui en veut au joueur : une rencontre, une entrée d'arène adverse. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9dbe00de1bc58b0fc3cc63b38ec7569ea497031794414a552435f90151ac3b54b" name="a9dbe00de1bc58b0fc3cc63b38ec7569ea497031794414a552435f90151ac3b54b"></a>Object&#160;</td><td class="fielddoc"><p>Ce qui se ramasse ou se lit : un coffre, un panneau. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9dbe00de1bc58b0fc3cc63b38ec7569ea3e9b3ac6f082ec46a2d1d3f1f1647456" name="a9dbe00de1bc58b0fc3cc63b38ec7569ea3e9b3ac6f082ec46a2d1d3f1f1647456"></a>Portal&#160;</td><td class="fielddoc"><p>Un portail — la sortie. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ac92a2fbe73cf9a4cb73991b10456e28c" name="ac92a2fbe73cf9a4cb73991b10456e28c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac92a2fbe73cf9a4cb73991b10456e28c">&#9670;&#160;</a></span>MaquetteTraceShape</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ac92a2fbe73cf9a4cb73991b10456e28c">hmi::MaquetteTraceShape</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qu'un tracé de maquette dessine. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac92a2fbe73cf9a4cb73991b10456e28ca606b51cc1c9d0b4af394419a22f2ff1f" name="ac92a2fbe73cf9a4cb73991b10456e28ca606b51cc1c9d0b4af394419a22f2ff1f"></a>Outline&#160;</td><td class="fielddoc"><p>Le contour du losange de <b>chaque</b> case citée : une zone, quelle que soit sa forme. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac92a2fbe73cf9a4cb73991b10456e28caac70412e939d72a9234cdebb1af5867b" name="ac92a2fbe73cf9a4cb73991b10456e28caac70412e939d72a9234cdebb1af5867b"></a>Path&#160;</td><td class="fielddoc"><p>Une ligne brisée reliant les centres des cases citées, dans l'ordre : un trajet. </p>
 </td></tr>
 </table>
 
@@ -2467,6 +2601,8 @@ Variables</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa9ff839f9bcc1bb899b24cb8026ab2b3a51f2b7b14433aa22c67d1f4fc18943cd" name="aa9ff839f9bcc1bb899b24cb8026ab2b3a51f2b7b14433aa22c67d1f4fc18943cd"></a>Sprite&#160;</td><td class="fielddoc"><p><span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">hmi::SpriteQuad</a></span> : rectangle aligné sur les axes. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="aa9ff839f9bcc1bb899b24cb8026ab2b3a4803e6b9e63dabf04de980788d6a13c4" name="aa9ff839f9bcc1bb899b24cb8026ab2b3a4803e6b9e63dabf04de980788d6a13c4"></a>Line&#160;</td><td class="fielddoc"><p><span class="tt"><a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">hmi::LineQuad</a></span> : segment épais, orienté librement. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa9ff839f9bcc1bb899b24cb8026ab2b3a7462cd846ee2e800d33ac6250a8ff4af" name="aa9ff839f9bcc1bb899b24cb8026ab2b3a7462cd846ee2e800d33ac6250a8ff4af"></a>Poly&#160;</td><td class="fielddoc"><p><span class="tt"><a class="el" href="structhmi_1_1PolyQuad.html" title="Un quadrilatère à quatre sommets libres, en unités monde, d&#39;une seule teinte — la primitive du rendu ...">hmi::PolyQuad</a></span> : quadrilatère à quatre sommets libres, d'une seule teinte (<span class="tt">LOT-128</span>). </p>
 </td></tr>
 </table>
 
@@ -4849,8 +4985,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a634bad2a915ba6f49caae2a158329bb3" name="a634bad2a915ba6f49caae2a158329bb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a634bad2a915ba6f49caae2a158329bb3">&#9670;&#160;</a></span>composeWorldScene() <span class="overload">[1/2]</span></h2>
+<a id="a888058bfce2a151c10776afeaabbb179" name="a888058bfce2a151c10776afeaabbb179"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a888058bfce2a151c10776afeaabbb179">&#9670;&#160;</a></span>composeWorldScene() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4873,7 +5009,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a></td>          <td class="paramname"><span class="paramname"><em>options</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -4883,8 +5024,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a14ab42dad3be10394bd6892a8ce39ef4" name="a14ab42dad3be10394bd6892a8ce39ef4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14ab42dad3be10394bd6892a8ce39ef4">&#9670;&#160;</a></span>composeWorldScene() <span class="overload">[2/2]</span></h2>
+<a id="a5878150edf69cce4f7f785e2fb4be5f1" name="a5878150edf69cce4f7f785e2fb4be5f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5878150edf69cce4f7f785e2fb4be5f1">&#9670;&#160;</a></span>composeWorldScene() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4905,7 +5046,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a></td>          <td class="paramname"><span class="paramname"><em>options</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -7765,6 +7911,368 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ac9a5002afda4ff75f1362e0c1e9032b6" name="ac9a5002afda4ff75f1362e0c1e9032b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9a5002afda4ff75f1362e0c1e9032b6">&#9670;&#160;</a></span>maquetteColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1MaquetteColor.html">MaquetteColor</a> hmi::maquetteColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La teinte de maquette d'un type de tuile. </p>
+<p><span class="tt">switch</span> exhaustif et sans <span class="tt">default</span> : ajouter un type au vocabulaire du terrain fait désigner ce point par le compilateur, plutôt que de laisser la case nouvelle se peindre en blanc sans que personne ne s'en aperçoive. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile ; <span class="tt">Empty</span> n'est jamais dessiné — sa teinte n'est là que pour la complétude du <span class="tt">switch</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Sa teinte. </dd></dl>
+
+</div>
+</div>
+<a id="aa7d25fd4aa9bba5308563cf224f4977e" name="aa7d25fd4aa9bba5308563cf224f4977e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7d25fd4aa9bba5308563cf224f4977e">&#9670;&#160;</a></span>maquetteColorOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1MaquetteColor.html">MaquetteColor</a> hmi::maquetteColorOf </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>rgb</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Une teinte depuis son écriture hexadécimale à six chiffres (<span class="tt">0x3f6b34</span>). </p>
+
+</div>
+</div>
+<a id="a5eba850ea51228d1e09a6d4e1ffc7087" name="a5eba850ea51228d1e09a6d4e1ffc7087"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5eba850ea51228d1e09a6d4e1ffc7087">&#9670;&#160;</a></span>maquetteExtrudes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::maquetteExtrudes </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Une case de ce type se dessine-t-elle en <b>bloc extrudé</b> plutôt qu'en losange plat ? </p>
+<p>La matière pleine — bâtie (<span class="tt">Wall</span>), générique (<span class="tt">Solid</span>) ou naturelle (<span class="tt">Cliff</span>) — doit se <b>lire</b> comme un obstacle et masquer ce qui est derrière elle. <span class="tt">DeepWater</span> bloque le pas (<span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span>) mais n'est pas de la matière : elle reste un losange plat, plus sombre que l'eau vive, et on voit par-dessus. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> pour <span class="tt">Wall</span>, <span class="tt">Solid</span> et <span class="tt">Cliff</span>. </dd></dl>
+
+</div>
+</div>
+<a id="a774a0ed2f31b521df4cf536fbfb7543f" name="a774a0ed2f31b521df4cf536fbfb7543f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a774a0ed2f31b521df4cf536fbfb7543f">&#9670;&#160;</a></span>maquetteMarks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a> hmi::maquetteMarks </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>entities</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>maquette</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les marques que <code class="param">entities</code> méritent. </p>
+<p>Les <b>jetons</b> se posent toujours : une entité sans figurine est invisible autrement, sur une carte habillée comme sur une maquette. Les <b>tracés</b> — contours de zone, trajets — et les flèches de portail ne paraissent qu'en maquette : une carte finie ne montre pas ses déclencheurs.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entities</td><td>Les entités de la carte. </td></tr>
+    <tr><td class="paramname">maquette</td><td>Vrai si la carte ne nomme aucun lieu. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6f06dd0cabd34efe05e28cb3f63c4201" name="a6f06dd0cabd34efe05e28cb3f63c4201"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f06dd0cabd34efe05e28cb3f63c4201">&#9670;&#160;</a></span>maquetteTextImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1MarkerImage.html">core::MarkerImage</a> hmi::maquetteTextImage </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>text</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>scale</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1MarkerColor.html">core::MarkerColor</a></td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Peint <code class="param">text</code> avec la <b>même table de glyphes</b> que les jetons. </p>
+<p><span class="tt">LevelEditor --render</span> tourne <b>sans <span class="tt">QApplication</span></b> (<span class="tt">LOT-EDITOR-13</span>, décision D9) : il n'a donc aucune police à sa disposition, et <span class="tt">QPainter::drawText</span> y échoue. La légende du plan de principe (<span class="tt">--plan</span>) écrit par conséquent ses libellés avec les glyphes des jetons — ce qui, au passage, lui donne la typographie des pastilles qu'elle légende.</p>
+<p>Les lettres sont <b>mises en majuscules</b> ; l'espace laisse un blanc, et tout caractère hors de la table donne <span class="tt">?</span>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>Le libellé. </td></tr>
+    <tr><td class="paramname">scale</td><td>Pixels par pixel de glyphe (au moins 1). </td></tr>
+    <tr><td class="paramname">color</td><td>La teinte des lettres. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'image du libellé, fond transparent ; vide si <code class="param">text</code> l'est. </dd></dl>
+
+</div>
+</div>
+<a id="a7e28c46424c3e42b110004f742df0023" name="a7e28c46424c3e42b110004f742df0023"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e28c46424c3e42b110004f742df0023">&#9670;&#160;</a></span>maquetteTokenColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1MaquetteColor.html">MaquetteColor</a> hmi::maquetteTokenColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569e">MaquetteTokenKind</a></td>          <td class="paramname"><span class="paramname"><em>kind</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La teinte d'une nature de jeton. </p>
+
+</div>
+</div>
+<a id="aba3001846f6b53fb2a35dd7cd922852a" name="aba3001846f6b53fb2a35dd7cd922852a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba3001846f6b53fb2a35dd7cd922852a">&#9670;&#160;</a></span>maquetteTokenImage() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1MarkerImage.html">core::MarkerImage</a> hmi::maquetteTokenImage </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1MaquetteTokenRequest.html">MaquetteTokenRequest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>request</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Peint le jeton de <code class="param">request</code> : un disque plein cerné, sa lettre au centre. </p>
+<p>Déterministe : la même demande donne toujours la même image, sur toute plateforme — c'est ce qui permet au test de comparer le jeu et l'éditeur pixel à pixel. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">request</td><td>Nature et lettre. </td></tr>
+    <tr><td class="paramname">size</td><td>Côté de l'image, en pixels ; 0 ou moins rend une image vide. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a904c7708e37f4ded30aec80229b56e68" name="a904c7708e37f4ded30aec80229b56e68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a904c7708e37f4ded30aec80229b56e68">&#9670;&#160;</a></span>maquetteTokenImage() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1MarkerImage.html">core::MarkerImage</a> hmi::maquetteTokenImage </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>path</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comme ci-dessus, depuis un chemin ; image vide si <code class="param">path</code> n'est pas un chemin de jeton. </p>
+
+</div>
+</div>
+<a id="ade7f026f18f8a669a33137bc366eaf7a" name="ade7f026f18f8a669a33137bc366eaf7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade7f026f18f8a669a33137bc366eaf7a">&#9670;&#160;</a></span>maquetteTokenKindKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view hmi::maquetteTokenKindKey </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569e">MaquetteTokenKind</a></td>          <td class="paramname"><span class="paramname"><em>kind</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le mot que le chemin d'un jeton écrit pour <code class="param">kind</code> (<span class="tt">player</span>, <span class="tt">talker</span>…). </p>
+
+</div>
+</div>
+<a id="a2f659dd064f455af6db2c2a353c0129f" name="a2f659dd064f455af6db2c2a353c0129f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f659dd064f455af6db2c2a353c0129f">&#9670;&#160;</a></span>maquetteTokenLetter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char hmi::maquetteTokenLetter </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La lettre que porte un jeton, tirée d'un nom. </p>
+<p>Le <b>premier caractère alphanumérique</b> de <code class="param">name</code>, en majuscule — <span class="tt">market-mother</span> donne <span class="tt">M</span>, comme les pastilles des plans du planning. Un nom sans rien d'utilisable donne <span class="tt">?</span>. </p>
+
+</div>
+</div>
+<a id="ad766917c4985ed530aef7546f2a1d11f" name="ad766917c4985ed530aef7546f2a1d11f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad766917c4985ed530aef7546f2a1d11f">&#9670;&#160;</a></span>maquetteTokenPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::maquetteTokenPath </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569e">MaquetteTokenKind</a></td>          <td class="paramname"><span class="paramname"><em>kind</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>letter</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le chemin d'un jeton, tel que la composition l'adresse : <span class="tt">Token/&lt;nature&gt;/&lt;lettre&gt;.png</span>. </p>
+
+</div>
+</div>
 <a id="abb5b5c18732cf5389e71bb864df46380" name="abb5b5c18732cf5389e71bb864df46380"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abb5b5c18732cf5389e71bb864df46380">&#9670;&#160;</a></span>markerPixelsRgba8()</h2>
 
@@ -8535,6 +9043,33 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Les dossiers de <span class="tt">--levels=&lt;dossier&gt;;&lt;dossier&gt;</span>, dans l'ordre, sans les vides. </dd></dl>
+
+</div>
+</div>
+<a id="ae9e2f73076197cc924df1d25fb7fdf31" name="ae9e2f73076197cc924df1d25fb7fdf31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9e2f73076197cc924df1d25fb7fdf31">&#9670;&#160;</a></span>parseMaquetteTokenPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1MaquetteTokenRequest.html">MaquetteTokenRequest</a> &gt; hmi::parseMaquetteTokenPath </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit un chemin de jeton (<span class="tt">Token/hostile/W.png</span>). </p>
 
 </div>
 </div>
@@ -9407,6 +9942,40 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le dossier temporaire de l'essai complet : <span class="tt">&lt;temp&gt;/JustAnotherRpgGame-playtest</span>. </dd></dl>
+
+</div>
+</div>
+<a id="a07a3626eba992f82e38a9534f4170fc7" name="a07a3626eba992f82e38a9534f4170fc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07a3626eba992f82e38a9534f4170fc7">&#9670;&#160;</a></span>polyQuadBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Rect.html">core::Rect</a> hmi::polyQuadBounds </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PolyQuad.html">PolyQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>quad</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Boîte englobante d'un quadrilatère à sommets libres, en unités monde. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">quad</td><td>Primitive à borner. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Son rectangle englobant. </dd></dl>
 
 </div>
 </div>
@@ -10460,7 +11029,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1115"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1119"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
 <p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>
@@ -10641,6 +11210,7 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <li><span class="tt">--render [carte…]</span> : les cartes nommées (identifiant ou chemin), toutes à défaut ;</li>
 <li><span class="tt">--output &lt;fichier.png | dossier&gt;</span> : un fichier pour une carte unique, sinon un dossier où chaque carte s'écrit <span class="tt">capital-martpart.png</span> (défaut : le dossier courant) ;</li>
 <li><span class="tt">--layers floors,relief,figures,collision</span> : les bandes (défaut : les trois premières) ;</li>
+<li><span class="tt">--plan</span> : le plan de principe — losanges plats, pastilles, légende ;</li>
 <li><span class="tt">--scale &lt;s&gt;</span> : l'échelle ;</li>
 <li><span class="tt">--data &lt;racine&gt;</span> : la racine des données (défaut : <code class="param">defaultDataRoot</code>).</li>
 </ul>
@@ -13296,6 +13866,30 @@ template&lt;class Map&gt; </div>
 </div><div class="memdoc">
 
 <p>Version du format d'un modèle de carte (champ <span class="tt">version</span>). </p>
+
+</div>
+</div>
+<a id="a0727f3ff13f8d698e840bf7f44a899a6" name="a0727f3ff13f8d698e840bf7f44a899a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0727f3ff13f8d698e840bf7f44a899a6">&#9670;&#160;</a></span>MAQUETTE_TOKEN_SIZE_PIXELS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::MAQUETTE_TOKEN_SIZE_PIXELS = 44</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Côté d'un jeton, en pixels d'art de planche (le losange en fait 68, <span class="tt"><a class="el" href="ScenePieces_8h.html" title="La géométrie des pièces de l&#39;atelier des textures (LOT-92), commune au Colisée en combat et aux lieux...">ScenePieces.h</a></span>). </p>
 
 </div>
 </div>

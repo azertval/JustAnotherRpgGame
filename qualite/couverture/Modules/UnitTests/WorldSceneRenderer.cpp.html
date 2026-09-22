@@ -24,6 +24,7 @@
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ScenePiecePlacement.h"
 #include "HMI/Graphics/SpriteBatch.h"
@@ -96,6 +97,14 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
 <span style = "background-color:#dfd">        _missing = std::move(*missing);
         _textures.missing = SceneTexture{</span>
             .texture = _missing.handle(), .width = _missing.width, .height = _missing.height};
+<span style = "background-color:#dfd">    }</span>
+    // L'aplat du rendu de maquette : un pixel blanc, que la teinte de chaque primitive colore
+    // (LOT-128). Un seul pixel, donc une seule texture pour toutes les cases d'une carte nue.
+<span style = "background-color:#dfd">    if (std::optional&lt;LoadedTexture&gt; solid =</span>
+            createTexture(_resources.context(), 1, 1, {0xFFFFFFFFU})) {
+<span style = "background-color:#dfd">        _solid = std::move(*solid);
+        _textures.solid = SceneTexture{</span>
+            .texture = _solid.handle(), .width = _solid.width, .height = _solid.height};
 <span style = "background-color:#dfd">    }
     _resources.setFrameUpdates(nullptr);
     GRAPHICS_LOG_INFO("Lieu : ressources QRhi creees (" + std::string(rhi-&gt;backendName()) + ").");
@@ -136,7 +145,20 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
 <span style = "background-color:#dfd">        if (!_requested.insert(path).second) {
             continue;</span>
         }
-<span style = "background-color:#dfd">        std::optional&lt;LoadedTexture&gt; texture =</span>
+        // Un jeton n'est pas un fichier : il se peint (LOT-128, decision D2). La meme image, au
+        // pixel pres, que celle que l'editeur dessine.
+<span style = "background-color:#dfd">        if (const core::MarkerImage token = maquetteTokenImage(path, MAQUETTE_TOKEN_SIZE_PIXELS);
+            !token.isEmpty()) {
+            if (std::optional&lt;LoadedTexture&gt; painted = createTexture(</span>
+                    _resources.context(), token.width, token.height, markerPixelsRgba8(token))) {
+<span style = "background-color:#dfd">                _textures.byPath[path] = SceneTexture{.texture = painted-&gt;handle(),</span>
+                                                      .width = painted-&gt;width,
+                                                      .height = painted-&gt;height};
+<span style = "background-color:#dfd">                _loaded.push_back(std::move(*painted));
+            }
+            continue;
+        }
+        std::optional&lt;LoadedTexture&gt; texture =</span>
             loadTextureFromFile(_resources.context(), _directory / path);
 <span style = "background-color:#dfd">        if (!texture.has_value()) {</span>
             // Une figurine sans image se dessine par son marqueur (LOT-39, LOT-96) : la
@@ -178,8 +200,10 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
 <span style = "background-color:#dfd">    _composed.clear();
     _textures.byPath.clear();
     _textures.missing = SceneTexture{};
+    _textures.solid = SceneTexture{};
     _loaded.clear();
     _missing = LoadedTexture{};
+    _solid = LoadedTexture{};
     _requested.clear();
     if (_pendingUploads != nullptr) {</span>
 <span style = "background-color:#fdd">        _pendingUploads-&gt;release();

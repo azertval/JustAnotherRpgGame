@@ -151,6 +151,8 @@ $(function(){initNavTree('structhmi_1_1WorldSceneSnapshot.html','','structhmi_1_
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a2b717139245b148aa15cf831e841731d" id="r_a2b717139245b148aa15cf831e841731d"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a2b717139245b148aa15cf831e841731d">floorAt</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell) const</td></tr>
 <tr class="memitem:a3c086c039001eafcaab43b72e6aacf6d" id="r_a3c086c039001eafcaab43b72e6aacf6d"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a3c086c039001eafcaab43b72e6aacf6d">reliefAt</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell) const</td></tr>
+<tr class="memitem:aa7aa1702dce9b63f47aa8788efea7f2c" id="r_aa7aa1702dce9b63f47aa8788efea7f2c"><td class="memItemLeft"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa7aa1702dce9b63f47aa8788efea7f2c">typeAt</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell) const</td></tr>
+<tr class="memitem:ad0e471b53f0deb4636867d3228d48ae9" id="r_ad0e471b53f0deb4636867d3228d48ae9"><td class="memItemLeft"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad0e471b53f0deb4636867d3228d48ae9">reliefTypeAt</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell) const</td></tr>
 <tr class="memitem:a3f6c0391bfc11e05301d320ae3f0630a" id="r_a3f6c0391bfc11e05301d320ae3f0630a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a3f6c0391bfc11e05301d320ae3f0630a">operator==</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;) const =default</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -162,8 +164,14 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a5853266b18d8062e8cbe6287485f8e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lieu, qui nomme le dossier de planches : <span class="tt">Assets/Scene/&lt;<a class="el" href="#a5853266b18d8062e8cbe6287485f8e80" title="Le lieu, qui nomme le dossier de planches : Assets/Scene/&lt;place&gt;/.">place</a>&gt;/</span>.  <br /></td></tr>
 <tr class="memitem:a07a1eb5f4f5b3137b943484975173f06" id="r_a07a1eb5f4f5b3137b943484975173f06"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a07a1eb5f4f5b3137b943484975173f06">floors</a></td></tr>
 <tr class="memitem:a213f244b1a103b590845ed397e41ee24" id="r_a213f244b1a103b590845ed397e41ee24"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a213f244b1a103b590845ed397e41ee24">relief</a></td></tr>
+<tr class="memitem:ae0f651c3b0f53c67f6ab6c7c711a0616" id="r_ae0f651c3b0f53c67f6ab6c7c711a0616"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae0f651c3b0f53c67f6ab6c7c711a0616">types</a></td></tr>
+<tr class="memdesc:ae0f651c3b0f53c67f6ab6c7c711a0616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <b>type</b> de chaque case, une entrée par case, ligne par ligne : ce que le rendu de maquette dessine là où aucune pièce n'est nommée (<span class="tt">LOT-128</span>).  <br /></td></tr>
+<tr class="memitem:ab45a159d8d5c079335271f789aabd2df" id="r_ab45a159d8d5c079335271f789aabd2df"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab45a159d8d5c079335271f789aabd2df">reliefTypes</a></td></tr>
+<tr class="memdesc:ab45a159d8d5c079335271f789aabd2df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le type de chaque case de la couche <b>décor</b>, même disposition.  <br /></td></tr>
 <tr class="memitem:ae4f535da56bbd58b7c4308f19566bf39" id="r_ae4f535da56bbd58b7c4308f19566bf39"><td class="memItemLeft">std::map&lt; std::string, <a class="el" href="structcore_1_1PieceFootprint.html">core::PieceFootprint</a>, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae4f535da56bbd58b7c4308f19566bf39">footprints</a></td></tr>
 <tr class="memitem:a37330b8f96036726b4e3ea1030de098d" id="r_a37330b8f96036726b4e3ea1030de098d"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a37330b8f96036726b4e3ea1030de098d">figures</a></td></tr>
+<tr class="memitem:a575f623efd821f68adab02944b81eebf" id="r_a575f623efd821f68adab02944b81eebf"><td class="memItemLeft"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a>&#160;</td><td class="memItemRight"><a class="el" href="#a575f623efd821f68adab02944b81eebf">marks</a></td></tr>
+<tr class="memdesc:a575f623efd821f68adab02944b81eebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les jetons et les tracés de maquette (<span class="tt">LOT-128</span>), déjà choisis par <span class="tt"><a class="el" href="namespacehmi.html#a774a0ed2f31b521df4cf536fbfb7543f" title="Les marques que entities méritent.">maquetteMarks</a></span>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le lieu <b>en valeurs</b> : ce que la composition lit, et rien d'autre. </p>
@@ -246,6 +254,58 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ad0e471b53f0deb4636867d3228d48ae9" name="ad0e471b53f0deb4636867d3228d48ae9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0e471b53f0deb4636867d3228d48ae9">&#9670;&#160;</a></span>reliefTypeAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> hmi::WorldSceneSnapshot::reliefTypeAt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le type de <code class="param">cell</code> sur la couche décor, <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07">core::TileType::Empty</a></span> hors grille. </dd></dl>
+
+</div>
+</div>
+<a id="aa7aa1702dce9b63f47aa8788efea7f2c" name="aa7aa1702dce9b63f47aa8788efea7f2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7aa1702dce9b63f47aa8788efea7f2c">&#9670;&#160;</a></span>typeAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> hmi::WorldSceneSnapshot::typeAt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le type de <code class="param">cell</code>, <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07">core::TileType::Empty</a></span> hors grille. </dd></dl>
+
+</div>
+</div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a95e88a2e9b961547d3a734ccc985b626" name="a95e88a2e9b961547d3a734ccc985b626"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a95e88a2e9b961547d3a734ccc985b626">&#9670;&#160;</a></span>columns</h2>
@@ -317,6 +377,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a575f623efd821f68adab02944b81eebf" name="a575f623efd821f68adab02944b81eebf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a575f623efd821f68adab02944b81eebf">&#9670;&#160;</a></span>marks</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a> hmi::WorldSceneSnapshot::marks</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les jetons et les tracés de maquette (<span class="tt">LOT-128</span>), déjà choisis par <span class="tt"><a class="el" href="namespacehmi.html#a774a0ed2f31b521df4cf536fbfb7543f" title="Les marques que entities méritent.">maquetteMarks</a></span>. </p>
+
+</div>
+</div>
 <a id="a5853266b18d8062e8cbe6287485f8e80" name="a5853266b18d8062e8cbe6287485f8e80"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5853266b18d8062e8cbe6287485f8e80">&#9670;&#160;</a></span>place</h2>
 
@@ -347,6 +423,23 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ab45a159d8d5c079335271f789aabd2df" name="ab45a159d8d5c079335271f789aabd2df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab45a159d8d5c079335271f789aabd2df">&#9670;&#160;</a></span>reliefTypes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&gt; hmi::WorldSceneSnapshot::reliefTypes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le type de chaque case de la couche <b>décor</b>, même disposition. </p>
+<p>Un mur s'y peint aussi souvent que sur le sol, et il doit s'y extruder pareillement. </p>
+
+</div>
+</div>
 <a id="a4743f05edf51069ee2f6a2e693b646be" name="a4743f05edf51069ee2f6a2e693b646be"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4743f05edf51069ee2f6a2e693b646be">&#9670;&#160;</a></span>rows</h2>
 
@@ -358,6 +451,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae0f651c3b0f53c67f6ab6c7c711a0616" name="ae0f651c3b0f53c67f6ab6c7c711a0616"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0f651c3b0f53c67f6ab6c7c711a0616">&#9670;&#160;</a></span>types</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&gt; hmi::WorldSceneSnapshot::types</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le <b>type</b> de chaque case, une entrée par case, ligne par ligne : ce que le rendu de maquette dessine là où aucune pièce n'est nommée (<span class="tt">LOT-128</span>). </p>
 
 </div>
 </div>
