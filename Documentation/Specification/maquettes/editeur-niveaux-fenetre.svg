@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="600" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — la fenêtre de LevelEditor : palette, couches, canevas isométrique, navigateur, Problems</text>
+
+  <rect x="20" y="36" width="840" height="470" fill="#ece4d1" stroke="#25201a"/>
+  <rect x="20" y="36" width="840" height="18" fill="#d6c9a8"/>
+  <g font-size="10" fill="#25201a"><text x="28" y="49">File</text><text x="56" y="49">Edit</text><text x="86" y="49">Tools</text><text x="120" y="49">Map</text><text x="150" y="49">View</text><text x="182" y="49">Help</text></g>
+  <rect x="20" y="54" width="840" height="20" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <g font-size="10" fill="#25201a">
+    <rect x="26" y="57" width="42" height="14" fill="#9a7420"/><text x="30" y="68" fill="#fbf8f0">Brush</text>
+    <text x="76" y="68">Rectangle · Line · Bucket · Eraser · Pipette · Selection · Entity · Shape · Measure · Note</text>
+    <text x="480" y="68">| Save · Playtest · Run in game · Undo · Redo ·</text>
+    <rect x="708" y="57" width="52" height="14" fill="#9a7420"/><text x="712" y="68" fill="#fbf8f0">Iso view</text>
+    <text x="768" y="68">Mirror</text>
+  </g>
+
+  <rect x="24" y="80" width="170" height="150" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="30" y="94" font-size="11" font-weight="600" fill="#25201a">Palette</text>
+  <g font-size="10"><rect x="30" y="99" width="40" height="14" fill="#9a7420"/><text x="34" y="110" fill="#fbf8f0">Pieces</text><text x="78" y="110" fill="#6a6152">Types</text><text x="116" y="110" fill="#6a6152">Prefabs</text></g>
+  <rect x="30" y="118" width="158" height="12" fill="#ece4d1" stroke="#d6c9a8"/><text x="34" y="127" font-size="9" fill="#6a6152">search: fountain</text>
+  <text x="30" y="144" font-size="9" fill="#25201a" font-weight="600">Floors</text>
+  <g stroke="#d6c9a8"><path d="M46,158 l14,9 l-14,9 l-14,-9 z" fill="#d6c9a8"/><path d="M80,158 l14,9 l-14,9 l-14,-9 z" fill="#ece4d1"/><path d="M114,158 l14,9 l-14,9 l-14,-9 z" fill="#d6c9a8"/></g>
+  <text x="30" y="188" font-size="9" fill="#25201a" font-weight="600">Standing · Wide</text>
+  <g stroke="#6a6152"><rect x="34" y="194" width="22" height="28" fill="#9a7420"/><rect x="66" y="194" width="34" height="28" fill="#2f7f86"/><rect x="110" y="200" width="22" height="22" fill="#3f6b34"/></g>
+  <text x="140" y="212" font-size="9" fill="#8a2233">damier :</text><text x="140" y="222" font-size="9" fill="#8a2233">pièce absente</text>
+
+  <rect x="24" y="236" width="170" height="96" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="30" y="250" font-size="11" font-weight="600" fill="#25201a">Layers</text>
+  <g font-size="10" fill="#25201a"><text x="30" y="266">☑ relief (decor) · locked</text><text x="30" y="280">☑ sol (ground · arenarea)</text><text x="30" y="294">☑ collision — masque</text></g>
+  <text x="30" y="312" font-size="9" fill="#6a6152">Opacity ──●── 100 % · Dimmed</text>
+  <text x="30" y="326" font-size="9" fill="#6a6152">Add ground · Add decor · Move · Remove</text>
+
+  <rect x="24" y="338" width="170" height="80" fill="#6a6152" stroke="#d6c9a8"/>
+  <text x="30" y="352" font-size="11" font-weight="600" fill="#fbf8f0">Overview</text>
+  <path d="M109,360 l50,31 l-50,31 l-50,-31 z" fill="#d6c9a8"/>
+  <rect x="94" y="372" width="36" height="24" fill="none" stroke="#9a7420" stroke-width="1.5"/>
+
+  <rect x="200" y="80" width="470" height="338" fill="#25201a"/>
+  <rect x="200" y="80" width="90" height="16" fill="#6a6152"/><text x="206" y="92" font-size="9" fill="#fbf8f0">arenarea *</text>
+  <rect x="290" y="80" width="80" height="16" fill="#25201a" stroke="#6a6152"/><text x="296" y="92" font-size="9" fill="#d6c9a8">martpart</text>
+  <g stroke="#6a6152" fill="none">
+    <path d="M435,130 l180,112 l-180,112 l-180,-112 z"/>
+    <path d="M435,130 l-180,112 M435,130 l180,112 M255,242 l180,112 M615,242 l-180,112"/>
+    <path d="M480,158 l-135,84 M525,186 l-135,84 M570,214 l-135,84 M390,158 l135,84 M345,186 l135,84 M300,214 l135,84"/>
+  </g>
+  <g fill="#d6c9a8" fill-opacity="0.35"><path d="M435,242 l45,28 l-45,28 l-45,-28 z"/><path d="M480,214 l45,28 l-45,28 l-45,-28 z"/><path d="M390,214 l45,28 l-45,28 l-45,-28 z"/></g>
+  <rect x="412" y="176" width="46" height="60" fill="#9a7420" stroke="#fbf8f0"/>
+  <text x="418" y="210" font-size="9" fill="#25201a">fontaine</text>
+  <text x="418" y="222" font-size="8" fill="#25201a">3 × 3</text>
+  <path d="M525,186 l45,28 l-45,28 l-45,-28 z" fill="none" stroke="#9a7420" stroke-width="2"/>
+  <text x="560" y="180" font-size="9" fill="#9a7420">case survolée (12, 4)</text>
+  <circle cx="345" cy="298" r="8" fill="#3f6b34" stroke="#fbf8f0"/><text x="341" y="302" font-size="8" fill="#fbf8f0">E</text>
+  <circle cx="525" cy="298" r="8" fill="#9a7420" stroke="#fbf8f0"/><text x="521" y="302" font-size="8" fill="#25201a">M</text>
+  <path d="M480,270 l45,28 l-45,28 l-45,-28 z" fill="none" stroke="#8a2233" stroke-dasharray="3 2"/>
+  <text x="470" y="330" font-size="9" fill="#8a2233">zone de combat</text>
+  <path d="M435,110 L435,380" stroke="#2f7f86" stroke-dasharray="6 4"/>
+  <text x="440" y="374" font-size="9" fill="#2f7f86">axe du miroir</text>
+  <rect x="204" y="402" width="462" height="14" fill="#6a6152"/>
+  <text x="208" y="412" font-size="9" fill="#fbf8f0">Cell 12,4 · sol: floor-pave-02 · relief: — · collision: open · 3 forced cells · Brush · Zoom 53 % · Iso</text>
+
+  <rect x="676" y="80" width="180" height="170" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="682" y="94" font-size="11" font-weight="600" fill="#25201a">Maps</text>
+  <g font-size="10"><rect x="682" y="99" width="30" height="14" fill="#9a7420"/><text x="686" y="110" fill="#fbf8f0">List</text><text x="720" y="110" fill="#6a6152">Graph</text><text x="760" y="110" fill="#6a6152">City</text></g>
+  <rect x="682" y="118" width="168" height="12" fill="#ece4d1" stroke="#d6c9a8"/><text x="686" y="127" font-size="9" fill="#6a6152">search… · state: any · thumbnails</text>
+  <g font-size="10" fill="#25201a">
+    <rect x="682" y="136" width="168" height="14" fill="#ece4d1"/><text x="686" y="147">central-empire/capital/arenarea · retouched</text>
+    <text x="686" y="163">central-empire/capital/martpart · blockout</text>
+    <text x="686" y="179">…/arenarea/arena-of-fate · blockout</text>
+  </g>
+  <text x="682" y="200" font-size="9" fill="#6a6152">New · Rename · Duplicate · Delete</text>
+  <g font-size="9" fill="#25201a"><rect x="682" y="210" width="60" height="12" fill="#d6c9a8"/><text x="686" y="219">Graph:</text><text x="746" y="219">portails, rouges si cassés</text></g>
+  <text x="682" y="236" font-size="9" fill="#25201a">City: quartiers sur le plan, gris s'ils manquent</text>
+
+  <rect x="676" y="256" width="180" height="162" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="682" y="270" font-size="11" font-weight="600" fill="#25201a">Entities · Inspector</text>
+  <g font-size="10" fill="#25201a"><text x="682" y="288">e7 · npc · « la mère »</text><text x="682" y="302">e9 · portal → martpart</text><text x="682" y="316">e12 · combatZone · 8×6</text></g>
+  <rect x="682" y="324" width="168" height="1" fill="#d6c9a8"/>
+  <g font-size="9" fill="#25201a"><text x="682" y="340">dialogue  [ mere-martpart ▾ ]</text><text x="682" y="354">figure    [ citizen-woman ▾ ]</text><text x="682" y="368">arrival   [ from-arenarea ▾ ]</text></g>
+  <text x="682" y="386" font-size="9" fill="#8a2233">⚠ référence inconnue : signalée, pas bloquante</text>
+  <text x="682" y="402" font-size="9" fill="#6a6152">formulaire tiré du schéma (EX-EDIT-073)</text>
+
+  <rect x="24" y="424" width="832" height="66" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="30" y="438" font-size="11" font-weight="600" fill="#25201a">Problems</text>
+  <text x="100" y="438" font-size="9" fill="#6a6152">Check all maps · Errors only · 3 maps checked as saved: 1 error, 2 warnings</text>
+  <g font-size="9" fill="#25201a">
+    <text x="30" y="454" font-weight="600">Severity</text><text x="90" y="454" font-weight="600">Map</text><text x="300" y="454" font-weight="600">Cell</text><text x="360" y="454" font-weight="600">Problem</text>
+    <text x="30" y="468" fill="#8a2233">error</text><text x="90" y="468">central-empire/capital/martpart</text><text x="300" y="468">(3, 9)</text><text x="360" y="468">portal targets unknown arrival "from-arenarea" on arenarea</text>
+    <text x="30" y="482" fill="#9a7420">warning</text><text x="90" y="482">central-empire/capital/arenarea</text><text x="300" y="482">(12, 4)</text><text x="360" y="482">encounter e4: reachable area too small for 4 + 3 fighters</text>
+  </g>
+  <rect x="20" y="490" width="840" height="16" fill="#d6c9a8"/>
+  <text x="26" y="502" font-size="9" fill="#25201a">Paint: left click/drag · Alt+click: pick · Ctrl+Z/Y: undo/redo · double-click a problem: open the map, select the entity, frame its cell</text>
+
+  <g fill="#6a6152" font-size="11">
+    <text x="20" y="530">Comparer à la capture réelle (editeur-fenetre.jpg) : la fenêtre existe avec ces six panneaux ; elle s'ouvre aujourd'hui sur une carte vierge,</text>
+    <text x="20" y="546">sans lieu (base vide, LOT-102), et sa palette « Pieces » attend les planches HD (LOT-105 à LOT-110). La maquette montre l'éditeur avec une</text>
+    <text x="20" y="562">carte de quartier ouverte : ce qu'il doit montrer et signaler, pas son style — outil interne, style Fusion, textes anglais (décision D7).</text>
+    <text x="20" y="578">Le canevas montre la carte comme le jeu la joue (EX-EDIT-059) ; le losange sous le pointeur désigne la case, pas l'image (EX-EDIT-060).</text>
+  </g>
+</svg>

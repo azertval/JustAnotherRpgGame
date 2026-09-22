@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="560" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — les couches d'une carte au format v4, et ce que le fichier en écrit</text>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/></marker>
+  </defs>
+
+  <g transform="translate(60,70)">
+    <text x="-20" y="-10" font-weight="600" fill="#25201a">entités</text>
+    <path d="M120,0 l120,74 l-120,74 l-120,-74 z" fill="none" stroke="#d6c9a8" stroke-dasharray="3 3"/>
+    <circle cx="80" cy="60" r="9" fill="#9a7420" stroke="#25201a"/><text x="76" y="64" font-size="8" fill="#25201a">M</text>
+    <text x="94" y="52" font-size="10" fill="#25201a">e7 · npc</text>
+    <circle cx="160" cy="90" r="9" fill="#8a2233" stroke="#25201a"/><text x="156" y="94" font-size="8" fill="#fbf8f0">R</text>
+    <path d="M150,60 l40,25 l-40,25 l-40,-25 z" fill="none" stroke="#8a2233" stroke-dasharray="3 2"/>
+    <text x="196" y="96" font-size="10" fill="#8a2233">e12 · zone</text>
+  </g>
+  <g transform="translate(60,170)">
+    <text x="-20" y="-10" font-weight="600" fill="#25201a">décor (decor)</text>
+    <path d="M120,0 l120,74 l-120,74 l-120,-74 z" fill="none" stroke="#d6c9a8"/>
+    <rect x="96" y="14" width="48" height="60" fill="#9a7420" stroke="#25201a"/>
+    <text x="100" y="48" font-size="9" fill="#25201a">puits</text>
+    <path d="M120,56 l24,15 l-24,15 l-24,-15 z M144,71 l24,15 l-24,15 l-24,-15 z M120,86 l24,15 l-24,15 l-24,-15 z M96,71 l24,15 l-24,15 l-24,-15 z" fill="none" stroke="#8a2233"/>
+    <text x="150" y="122" font-size="10" fill="#8a2233">emprise 2 × 2, ancrée sur une case</text>
+  </g>
+  <g transform="translate(60,270)">
+    <text x="-20" y="-10" font-weight="600" fill="#25201a">sol (ground)</text>
+    <g stroke="#d6c9a8"><path d="M120,0 l120,74 l-120,74 l-120,-74 z" fill="#ece4d1"/><path d="M120,0 l24,15 l-24,15 l-24,-15 z" fill="#d6c9a8"/><path d="M144,15 l24,15 l-24,15 l-24,-15 z" fill="#d6c9a8"/><path d="M96,15 l24,15 l-24,15 l-24,-15 z" fill="#d6c9a8"/><path d="M120,30 l24,15 l-24,15 l-24,-15 z" fill="#2f7f86" fill-opacity="0.4"/></g>
+    <text x="250" y="40" font-size="10" fill="#6a6152">une pièce par case ; scene = « village »</text>
+  </g>
+  <g transform="translate(60,370)">
+    <text x="-20" y="-10" font-weight="600" fill="#25201a">collision (racine)</text>
+    <g stroke="#d6c9a8"><path d="M120,0 l120,74 l-120,74 l-120,-74 z" fill="#fbf8f0"/></g>
+    <g fill="#6a6152"><path d="M120,56 l24,15 l-24,15 l-24,-15 z"/><path d="M144,71 l24,15 l-24,15 l-24,-15 z"/><path d="M120,86 l24,15 l-24,15 l-24,-15 z"/><path d="M96,71 l24,15 l-24,15 l-24,-15 z"/></g>
+    <path d="M120,30 l24,15 l-24,15 l-24,-15 z" fill="#2f7f86" fill-opacity="0.4" stroke="#6a6152"/>
+    <path d="M72,30 l24,15 l-24,15 l-24,-15 z" fill="#3f6b34" fill-opacity="0.5"/>
+    <path d="M192,45 l24,15 l-24,15 l-24,-15 z" fill="none" stroke="#8a2233" stroke-width="2"/>
+    <text x="250" y="30" font-size="10" fill="#6a6152">déduite des pièces (core::deriveCollision, EX-LVL-020)</text>
+    <text x="250" y="46" font-size="10" fill="#3f6b34">entrée (entry) : une et une seule</text>
+    <text x="250" y="62" font-size="10" fill="#8a2233">case forcée : l'auteur s'écarte de la déduction</text>
+    <text x="250" y="78" font-size="10" fill="#6a6152">puits → wall ; eau → water (franchissable)</text>
+  </g>
+  <path d="M180,142 L180,160" stroke="#6a6152" marker-end="url(#a)"/><path d="M180,242 L180,260" stroke="#6a6152" marker-end="url(#a)"/><path d="M180,342 L180,360" stroke="#6a6152" marker-end="url(#a)"/>
+
+  <rect x="480" y="56" width="380" height="440" fill="#ece4d1" stroke="#d6c9a8"/>
+  <g font-family="Consolas, monospace" font-size="11" fill="#25201a">
+    <text x="490" y="74">{</text>
+    <text x="490" y="90">  "version": 4, "name": "map.village.name",</text>
+    <text x="490" y="106">  "width": 12, "height": 8, "nextEntityId": 13,</text>
+    <text x="490" y="122">  "properties": { "region": "central-empire" },</text>
+    <text x="490" y="142" fill="#6a6152">  // la collision : ce que le jeu lit sans manifeste</text>
+    <text x="490" y="158">  "tiles": [ {"x":1,"y":1,"type":"entry"},</text>
+    <text x="490" y="174">             {"x":4,"y":4,"type":"wall"}, … ],</text>
+    <text x="490" y="190">  "forced": [ {"x":9,"y":7} ],</text>
+    <text x="490" y="210" fill="#6a6152">  // les couches visibles : ce qu'on voit</text>
+    <text x="490" y="226">  "layers": [</text>
+    <text x="490" y="242">    { "name":"sol", "kind":"ground", "scene":"village",</text>
+    <text x="490" y="258">      "tiles":[ {"x":1,"y":1,"type":"dirt","piece":"chemin"} ] },</text>
+    <text x="490" y="274">    { "name":"relief", "kind":"decor",</text>
+    <text x="490" y="290">      "tiles":[ {"x":4,"y":4,"type":"wall","piece":"puits"} ] }</text>
+    <text x="490" y="306">  ],</text>
+    <text x="490" y="326" fill="#6a6152">  // les entités : un identifiant, un type, des propriétés</text>
+    <text x="490" y="342">  "entities": [</text>
+    <text x="490" y="358">    { "id":"e7", "type":"npc", "x":6, "y":3,</text>
+    <text x="490" y="374">      "dialogue":"bonjour" },</text>
+    <text x="490" y="390">    { "id":"e12", "type":"zone", "x":2, "y":6,</text>
+    <text x="490" y="406">      "cells":[{"x":2,"y":6},{"x":3,"y":7}],</text>
+    <text x="490" y="422">      "difficultTerrain": true }</text>
+    <text x="490" y="438">  ]</text>
+    <text x="490" y="454">}</text>
+  </g>
+  <text x="490" y="482" font-size="10" fill="#6a6152">écriture canonique : champs dans cet ordre, une case par ligne (EX-LVL-005)</text>
+
+  <g fill="#25201a" font-size="12">
+    <text x="20" y="520">Le type d'une case garde le sens des règles (herbe, mur, eau) ; la pièce est ce qu'on voit (EX-LVL-019). Une case sans pièce se dessine</text>
+    <text x="20" y="538">à la couleur de son type (carte maquette, LOT-128) : la physique se joue avant l'habillage. La hauteur est réservée, non jouée (EX-LVL-024).</text>
+  </g>
+</svg>

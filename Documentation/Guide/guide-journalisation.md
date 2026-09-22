@@ -1,4 +1,4 @@
-# Journalisation et assertions {#guide-journalisation}
+# Journalisation et assertions
 
 Cette page explique à quoi sert un système de journalisation (« logging ») dans un jeu, et comment
 celui de ce moteur est construit. Tout vit dans `Source/Core/Diagnostics`, plus un petit en-tête de
@@ -21,7 +21,7 @@ faits pour un usage **ultérieur** et humain (diagnostic après coup), sans jama
 programme ; une assertion vérifie un invariant **immédiatement** et signale un **bug** s'il est
 violé.
 
-## Les niveaux de gravité : \ref core::LogLevel "core::LogLevel"
+## Les niveaux de gravité : `core::LogLevel`
 
 Tous les messages ne se valent pas : un message peut être un détail de mise au point sans intérêt
 en usage normal, ou au contraire signaler une erreur qu'il faut voir absolument. `core::LogLevel`
@@ -39,7 +39,7 @@ généralement tout voir (`Trace` et au-dessus) ; pour une session de test plus 
 `Warning` et `Error` évite de noyer les messages importants dans le bruit des détails `Trace`/`Info`.
 C'est le rôle du `Logger`, ci-dessous.
 
-## \ref core::Logger "core::Logger" : filtrer puis diffuser
+## `core::Logger` : filtrer puis diffuser
 
 `core::Logger` a exactement deux responsabilités, séparées volontairement de toute écriture réelle
 sur un support (fichier, console, etc.) :
@@ -124,12 +124,12 @@ journal verbeux en ne gardant que la catégorie qui intéresse un diagnostic pr�
 
 Le commentaire de `Core/CoreLog.h` le rappelle explicitement : ces macros sont **à réserver aux
 événements de cycle de vie** (démarrage, chargement d'un niveau, création d'une ressource) — **jamais
-dans un chemin exécuté à chaque frame ou à chaque pas fixe** (@ref guide-boucle). Un jeu tourne à
+dans un chemin exécuté à chaque frame ou à chaque pas fixe** ([Boucle de jeu et pas de temps fixe](guide-boucle.md)). Un jeu tourne à
 60 pas par seconde ; journaliser à cette fréquence, même avec un niveau filtré, resterait coûteux
 (construction de chaînes, appel de fonction, éventuelle écriture) et pourrait à lui seul dégrader le
 *framerate* — le symptôme inverse de ce que la journalisation est censée aider à diagnostiquer.
 
-## Le format d'une ligne : \ref core::formatLogLine "core::formatLogLine"
+## Le format d'une ligne : `core::formatLogLine`
 
 `core::formatLogLine(timestamp, level, category, file, line, message)` compose une ligne de la
 forme :
@@ -147,7 +147,7 @@ Deux détails valent d'être notés :
   `formatLogLine`, plutôt que lu directement à l'intérieur de la fonction de formatage. Cela rend
   `formatLogLine` **pure** et testable : un test peut lui passer un horodatage fixe et vérifier la
   ligne produite **exactement**, sans dépendre de l'heure réelle à laquelle le test s'exécute — un
-  cas particulier du principe déjà rencontré en @ref guide-boucle (isoler ce qui dépend du temps
+  cas particulier du principe déjà rencontré en [Boucle de jeu et pas de temps fixe](guide-boucle.md) (isoler ce qui dépend du temps
   réel derrière un paramètre injecté, pas une lecture directe de l'horloge système).
 
 ## Configurer le niveau minimal au lancement
@@ -186,12 +186,12 @@ niveau en tête de chaque ligne, dans un fichier horodaté (`Logs/session_<date>
 toucher à ce que `Core` a déjà collecté. En Release, aucun sink mémoire n'est enregistré : le bouton
 signale simplement des journaux indisponibles.
 
-## Assertions : \ref JADG_ASSERT "JADG_ASSERT", un outil différent
+## Assertions : `JADG_ASSERT`, un outil différent
 
 Une **assertion** vérifie qu'une condition, censée être **toujours vraie** si le code est correct
 (une précondition, un invariant), l'est effectivement à un point précis de l'exécution — sa
 violation signale un **bug** dans le programme lui-même, pas un événement à consigner pour
-information. C'est déjà ce que `ComponentPool`/`World` utilisent abondamment (@ref guide-ecs) :
+information. C'est déjà ce que `ComponentPool`/`World` utilisent abondamment ([ECS : entités, composants, systèmes](guide-ecs.md)) :
 `JADG_ASSERT(has(entity), "...")` avant d'accéder à un composant, par exemple.
 
 Deux différences fondamentales avec la journalisation :
@@ -211,9 +211,90 @@ En résumé : **journaliser** un événement (« la carte du Colisée a été ch
 humain qui lira le journal plus tard ; **asserter** une condition (« cette entité doit être vivante
 ici ») protège contre un bug du code, et n'a de sens qu'en développement.
 
+## Quand le journal s'arrête net : le rapport de plantage
+
+Un journal documente ce qui est arrivé **jusqu'au** plantage. Il ne dit jamais *où* le programme
+est mort : la dernière ligne écrite est celle d'avant, et elle est le plus souvent anodine. C'est ce
+manque que comble le **minidump** (`Source/HMI/Platform/CrashDump.h`) : il garde la pile de chaque
+thread et le contexte de l'exception, et, ouvert dans Visual Studio avec les symboles de la **même
+version**, montre la ligne fautive.
+
+Rien n'est envoyé nulle part. Le fichier reste dans `Crashes/`, à côté de l'exécutable, comme
+`Logs/`.
+
+### `hmi::installCrashDumpWriter`
+
+À appeler **une fois, au plus tôt dans `main`**, et — c'est le détail qui compte — **après**
+l'installation du journal : le chemin du dump est consigné dans le journal avant la sortie, ce qui
+est la seule façon pour l'utilisateur de savoir qu'un fichier l'attend.
+
+Elle couvre plus que l'exception structurée non attrapée (violation d'accès, division par zéro).
+Trois autres fins anormales, qui ne sont **pas** des exceptions structurées, sont converties en une
+exception maison (`kFatalErrorExceptionCode`, « JADG ») que le même filtre sait écrire :
+
+| Fin anormale | Cas typique |
+|---|---|
+| `std::terminate` | une exception C++ non attrapée |
+| appel d'une fonction **virtuelle pure** | un objet utilisé pendant sa construction ou sa destruction |
+| **paramètre invalide** passé à la CRT | un indice hors bornes sur une fonction de la bibliothèque C |
+
+Le processus se termine ensuite **sans** la boîte de dialogue du rapport d'erreurs Windows — qui,
+sur une machine de CI, n'attend qu'un clic qui ne viendra jamais.
+
+### `hmi::writeMiniDump` : quatre tentatives, de la plus riche à la plus pauvre
+
+Écrire un dump est une opération qui peut **échouer dans un processus déjà mourant**. La fonction
+tente donc quatre écritures, de la plus complète à la plus réduite :
+
+1. le dump **riche**, avec la mémoire référencée par les piles ;
+2. et 3. des dumps réduits, qui gardent piles et contexte mais abandonnent l'état étendu du
+   processeur ;
+4. le **seul thread du plantage**.
+
+La dernière tentative mérite son explication, parce qu'elle vient d'une panne réellement
+diagnostiquée en CI. Une pile illisible — un thread quelconque, sans rapport avec le plantage —
+fait échouer **tout** le dump : l'API ne saute pas le thread fautif, elle abandonne. Se replier sur
+le seul thread du plantage contourne exactement ce cas. Et cette dernière tentative est en outre
+**réessayée**, parce que l'échec observé s'est révélé être un aléa et non un refus stable.
+
+`GetLastError()` ne rend que la raison de la **dernière** tentative, ce qui rend une panne de ce
+genre indéchiffrable. D'où `hmi::lastMiniDumpAttemptErrors`, qui rend le relevé **tentative par
+tentative** ; c'est un outil de diagnostic pur, que le test de minidump affiche quand il échoue. La
+règle qui en découle, apprise à ses dépens : devant un test de minidump rouge, **lire le relevé**,
+jamais relancer le job.
+
+### `hmi::routeCrtReportsToStderr`
+
+En Debug, une assertion de la bibliothèque standard (`_STL_VERIFY`, `assert`) ouvre une boîte
+modale « Microsoft Visual C++ Runtime Library » et **attend un clic**. Un programme sans fenêtre —
+`LevelEditor --check`, `UnitTests.exe`, un job de CI — s'arrête alors pour toujours, sans un mot
+dans son journal : le symptôme est un *timeout*, et rien n'indique la cause.
+
+Routées vers `stderr`, les mêmes assertions nomment leur **fichier et leur ligne**, puis la CRT
+poursuit sa route habituelle, que `installCrashDumpWriter` sait conclure par un minidump. La
+fonction est appelée par `installCrashDumpWriter` ; les exécutables de test, qui n'ont pas de
+bootstrap d'application, l'appellent eux-mêmes (`Source/Test/Support/CrtReports.cpp`).
+
+### Le nom du fichier, et pourquoi la version y figure
+
+`hmi::crashDumpFileName` compose `<application>_<version>_<AAAAMMJJ_HHMMSS>.dmp`. La version n'est
+pas décorative : un minidump ne se lit qu'avec les symboles **du binaire exact** qui l'a produit, et
+c'est elle qui permet de retrouver la bonne archive `<nom>-symbols.zip` sans ouvrir le fichier. Tout
+caractère hors `[A-Za-z0-9.-]` devient `_`, pour qu'une version comme `0.1.0+dev` reste un nom de
+fichier sûr.
+
+### Prouver que la chaîne marche : `--crash-test`
+
+Un dispositif de plantage qui n'a jamais planté n'est pas un dispositif : c'est une intention.
+`hmi::triggerCrashForTest` déclenche volontairement une violation d'accès, et l'option
+`--crash-test` du jeu l'expose. Le test de fumée de la release la lance sur l'**archive livrée** —
+pas sur un build local — pour prouver que c'est bien le zip téléchargé qui écrit son dump.
+
 ## Voir aussi
 - `core::Logger`, `core::LogLevel`, `core::ILogSink`, `core::ConsoleLogSink`, `core::MemoryLogSink`.
+- `hmi::installCrashDumpWriter`, `hmi::writeMiniDump`, `hmi::crashDumpFileName`,
+  `hmi::routeCrtReportsToStderr`.
 - `core::formatLogLine`, `core::parseLogLevel`, `core::defaultLogger`.
 - `JADG_ASSERT`, `core::setAssertionHandler`.
-- @ref guide-boucle — la règle « jamais de log dans le chemin exécuté à chaque pas fixe ».
-- @ref guide-ecs — usage concret des assertions pour les préconditions du `World`/`ComponentPool`.
+- [Boucle de jeu et pas de temps fixe](guide-boucle.md) — la règle « jamais de log dans le chemin exécuté à chaque pas fixe ».
+- [ECS : entités, composants, systèmes](guide-ecs.md) — usage concret des assertions pour les préconditions du `World`/`ComponentPool`.

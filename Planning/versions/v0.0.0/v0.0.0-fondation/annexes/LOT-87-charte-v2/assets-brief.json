@@ -1,0 +1,3629 @@
+{
+  "$schema": "./assets-brief.schema.json",
+  "version": 1,
+  "lot": "LOT-87",
+  "designResolution": [1920, 1080],
+  "installRoot": "Source/Elements/Assets/UI",
+  "references": "Planning/versions/v0.0.0/v0.0.0-fondation/annexes/LOT-87-charte-v2/references",
+  "tokens": "Source/Ui/Theme/Tokens.qml",
+  "materials": {
+    "dark": {
+      "tokens": ["panel", "panelRaised", "panelEdge", "goldLight", "gem", "gemLight"],
+      "prompt": "Material: near-black lacquered surfaces ({panel}, raised {panelRaised}) rimmed with bright gold ({panelEdge}, highlights {goldLight}); garnet enamel accents ({gem}, lit {gemLight})."
+    },
+    "parchment": {
+      "tokens": ["background", "surface", "surfaceAlt", "text", "accent", "border", "gem", "gemShadow"],
+      "prompt": "Material: aged parchment ({surface}, shadowed {background}, light {surfaceAlt}), sepia ink ({text}), antique gold and brass ({accent}, {border}), garnet accents ({gem}, shadow {gemShadow})."
+    },
+    "scene": {
+      "tokens": ["panel", "panelEdge", "gem"],
+      "prompt": "Painted illustration, full bleed. Keep the darkest values near {panel}, the warm highlights toward {panelEdge} and any banner cloth toward {gem}, so that dark gold-rimmed panels sit naturally on top."
+    },
+    "neutral": {
+      "tokens": [],
+      "prompt": "Material: pure greyscale with alpha only, no hue whatsoever: the game tints it."
+    }
+  },
+  "prompt": {
+    "style": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece.",
+    "noLettering": "Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in {titleFamily} (titles) and {bodyFamily} (body).",
+    "lettering": "The only lettering allowed is the one described below, in carved Roman capitals in the spirit of {titleFamily}; no other text.",
+    "canvas": "Canvas exactly {width} x {height} px, {background}.",
+    "three-slice": "Horizontal 3-slice piece: the end ornaments lie inside {left} px from the left and {right} px from the right; the section between them is uniform and repeats seamlessly along the width; the full height is kept as drawn.",
+    "nine-patch": "9-patch piece: every corner ornament lies inside {left} px from the left, {right} px from the right, {top} px from the top and {bottom} px from the bottom; between them the edges are uniform and repeat seamlessly, and the centre is plain and seamlessly repeatable.",
+    "fixed": "Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+    "tile": "Seamlessly tileable in both directions, no visible seam, no focal feature.",
+    "cover": "Full-screen background, composed for 16:9, safe to crop 10 % on either side."
+  },
+  "pieces": [
+    {
+      "key": "ui/background/menu-scene",
+      "name": "Scène du menu et des crédits",
+      "material": "scene",
+      "size": [1920, 1080],
+      "display": "cover",
+      "transparent": false,
+      "description": "Vallée au couchant, cité fortifiée au centre-droit, compagnie de quatre aventuriers de dos sur un promontoire à droite, étendard grenat à gauche. Le tiers gauche reste calme et sombre : la colonne du menu et le logo s'y posent.",
+      "prompt": "Epic painted landscape at golden-hour sunset: a river valley with a walled castle city on a hill centre-right, misty mountains, dramatic clouds; four adventurers seen from behind on a rocky outcrop in the right third (archer, armoured warrior, fur-clad dwarf, hooded mage with a glowing staff), a campfire and lantern at the bottom right. The left third is darker and quiet, with a tall garnet war standard at the far left edge, leaving room for a menu column.",
+      "mockups": [
+        {
+          "file": "06_Main_Menu_Mockup.png",
+          "zone": [0, 0, 1672, 941],
+          "shows": "scène entière, derrière le logo, le menu et le profil"
+        },
+        {
+          "file": "07_Credit_Mockup.png",
+          "zone": [0, 0, 1672, 941],
+          "shows": "même scène, cadrée à droite, derrière le panneau des crédits"
+        }
+      ],
+      "screens": ["T3.1", "T3.3"],
+      "fallback": ["panel"]
+    },
+    {
+      "key": "ui/background/options-backdrop",
+      "name": "Décor flouté des options",
+      "material": "scene",
+      "size": [1920, 1080],
+      "display": "cover",
+      "transparent": false,
+      "description": "Paysage de forêt et de citadelle, flou et assombri, sans point focal : il ne doit rien disputer au panneau des réglages. Peut être obtenu en floutant la scène du menu hors du jeu, tant que le résultat est déclaré sous cette clé.",
+      "prompt": "Out-of-focus painted landscape of a forested valley and a distant citadel, heavy gaussian-like blur, darkened by about 40 %, low contrast, no focal point, warm dusk light.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [0, 0, 1536, 1024],
+          "shows": "décor derrière le panneau des options"
+        }
+      ],
+      "screens": ["T3.2", "T3.9"],
+      "fallback": ["panel"]
+    },
+    {
+      "key": "ui/background/parchment-tile",
+      "name": "Parchemin répétable",
+      "material": "parchment",
+      "size": [512, 512],
+      "display": "tile",
+      "transparent": false,
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "repeat"
+      },
+      "description": "Champ de parchemin vieilli, taches et fibres, sans pli ni motif reconnaissable : il se répète sous les documents du personnage.",
+      "prompt": "Seamless aged parchment texture: fibres, faint stains and foxing, very subtle cracks, even lighting, no folds, no burns, no drawings, no focal feature.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [1110, 880, 1470, 960],
+          "shows": "champ nu sous la liste des compétences"
+        },
+        {
+          "file": "09_MercenaryScreen_Mockup.png",
+          "zone": [40, 605, 470, 640],
+          "shows": "champ nu entre deux rangées de membres"
+        }
+      ],
+      "screens": ["T3.4", "T3.5", "T3.7", "T3.8", "T3.9"],
+      "fallback": ["surface"]
+    },
+    {
+      "key": "ui/background/leather-tile",
+      "name": "Cuir sombre répétable",
+      "material": "parchment",
+      "size": [512, 512],
+      "display": "tile",
+      "transparent": false,
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "repeat"
+      },
+      "description": "Le fond sombre et usé sur lequel est posée la feuille — cuir tanné ou pierre patinée, sans relief marqué.",
+      "prompt": "Seamless dark worn leather texture, deep brown-black with grey scuffs, soft grain, even lighting, no stitching, no emboss, no focal feature.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [0, 1000, 1536, 1024],
+          "shows": "bande sombre sous la feuille"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [0, 922, 1672, 941],
+          "shows": "bande sombre sous la feuille"
+        }
+      ],
+      "screens": ["T3.4", "T3.5", "T3.7", "T3.8"],
+      "fallback": ["background"]
+    },
+    {
+      "key": "ui/frame/panel-dark",
+      "name": "Panneau sombre à filets d'or",
+      "material": "dark",
+      "size": [512, 512],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 112,
+        "top": 112,
+        "right": 112,
+        "bottom": 112
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "repeat"
+      },
+      "description": "Grand panneau laqué presque noir, double filet d'or, coins ornés de filigranes qui débordent vers l'extérieur. Porte les réglages, les crédits, la pause et le journal.",
+      "prompt": "Large rectangular panel: near-black lacquered centre with a faint grain, framed by a double bright gold filet; each corner carries an ornate gold filigree bracket that slightly overhangs outward.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [430, 110, 1430, 940],
+          "shows": "panneau des réglages"
+        },
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [95, 65, 440, 890],
+          "shows": "colonne des onglets"
+        },
+        {
+          "file": "07_Credit_Mockup.png",
+          "zone": [380, 170, 1290, 830],
+          "shows": "panneau des crédits"
+        }
+      ],
+      "screens": ["T3.2", "T3.3", "T3.9"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/frame/panel-parchment",
+      "name": "Feuille de parchemin rivetée",
+      "material": "parchment",
+      "size": [768, 768],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 128,
+        "top": 128,
+        "right": 128,
+        "bottom": 128
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "repeat"
+      },
+      "states": [
+        {
+          "id": "plain",
+          "label": "simple",
+          "prompt": "no binding"
+        },
+        {
+          "id": "bound",
+          "label": "reliée",
+          "prompt": "a worn garnet leather binding strip runs along the whole left edge, inside the left margin"
+        }
+      ],
+      "description": "La feuille entière d'un document du personnage : bord déchiré et bruni, liseré d'or, rivets de laiton aux coins. Variante reliée : une bande de cuir grenat le long du bord gauche (maquette 03).",
+      "prompt": "Full document sheet: aged parchment with a torn, browned deckle edge, a thin antique gold inner border, and a brass rivet at each corner.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [15, 15, 1525, 1000],
+          "shows": "feuille de la fiche, reliée à gauche"
+        },
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [15, 15, 540, 1010],
+          "shows": "panneau de l'équipement"
+        },
+        {
+          "file": "09_MercenaryScreen_Mockup.png",
+          "zone": [15, 15, 1655, 925],
+          "shows": "feuille de l'équipe"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [15, 10, 1655, 925],
+          "shows": "feuille des compétences"
+        }
+      ],
+      "screens": ["T3.4", "T3.5", "T3.7", "T3.8", "T3.9"],
+      "fallback": ["surface", "border"]
+    },
+    {
+      "key": "ui/frame/subpanel-dark",
+      "name": "Sous-panneau sombre",
+      "material": "dark",
+      "size": [256, 256],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 48,
+        "top": 48,
+        "right": 48,
+        "bottom": 48
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "repeat"
+      },
+      "description": "Encart sombre à filet d'or simple, petits fleurons d'angle. Sections des options, quêtes et journal du HUD, encart de profil, barre de navigation, info-bulle de la carte.",
+      "prompt": "Small inset panel: near-black raised centre, single thin bright gold filet, a tiny gold fleuron at each corner.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [460, 160, 918, 345],
+          "shows": "section « Langue »"
+        },
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [1398, 278, 1658, 485],
+          "shows": "panneau des quêtes"
+        },
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [20, 678, 400, 835],
+          "shows": "journal de combat"
+        },
+        {
+          "file": "06_Main_Menu_Mockup.png",
+          "zone": [1355, 30, 1630, 100],
+          "shows": "encart de profil"
+        },
+        {
+          "file": "08_Map_Mockup.png",
+          "zone": [1030, 918, 1478, 1015],
+          "shows": "barre de navigation"
+        },
+        {
+          "file": "08_Map_Mockup.png",
+          "zone": [940, 487, 1122, 535],
+          "shows": "info-bulle d'un lieu"
+        }
+      ],
+      "screens": ["T3.1", "T3.2", "T3.6", "T4.1"],
+      "fallback": ["panelRaised", "panelEdge"]
+    },
+    {
+      "key": "ui/frame/subpanel-parchment",
+      "name": "Sous-panneau parchemin",
+      "material": "parchment",
+      "size": [256, 256],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 40,
+        "top": 40,
+        "right": 40,
+        "bottom": 40
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "repeat"
+      },
+      "states": [
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "resting state"
+        },
+        {
+          "id": "empty",
+          "label": "vide",
+          "prompt": "centre washed out and faded, border dashed-looking and dimmer"
+        }
+      ],
+      "description": "Encart de parchemin plus clair, liseré brun doré fin, coins légèrement ornés. Cartes de bâtiment, entrées d'attaque, colonne d'identité, légende de la carte.",
+      "prompt": "Small inset panel on parchment: slightly lighter parchment centre, thin brown-gold border line, discreet ornamental corner ticks.",
+      "mockups": [
+        {
+          "file": "09_MercenaryScreen_Mockup.png",
+          "zone": [508, 455, 728, 578],
+          "shows": "carte « Quartiers de l'équipe »"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [48, 188, 465, 300],
+          "shows": "entrée « Épée longue »"
+        },
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [548, 140, 1080, 540],
+          "shows": "colonne d'identité"
+        },
+        {
+          "file": "08_Map_Mockup.png",
+          "zone": [15, 578, 230, 928],
+          "shows": "légende"
+        }
+      ],
+      "screens": ["T3.4", "T3.6", "T3.7", "T3.8"],
+      "fallback": ["surfaceAlt", "border"]
+    },
+    {
+      "key": "ui/frame/item-card",
+      "name": "Cadre de fiche d'objet",
+      "material": "parchment",
+      "size": [512, 768],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 96,
+        "top": 160,
+        "right": 96,
+        "bottom": 96
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "repeat"
+      },
+      "description": "Colonne de parchemin encadrée d'un liseré d'or, bandeau sombre en tête pour le nom de l'objet, fanion grenat en coin supérieur droit (posé à part : `ui/ornament/crest-pennant`).",
+      "prompt": "Tall parchment card with an antique gold frame and brass corner caps; the top 128 px hold a dark horizontal band framed in gold, left empty for a title.",
+      "mockups": [
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [1090, 20, 1520, 1010],
+          "shows": "fiche de l'objet sélectionné"
+        }
+      ],
+      "screens": ["T3.5", "T3.9"],
+      "fallback": ["surface", "border"]
+    },
+    {
+      "key": "ui/frame/school-row",
+      "name": "Rangée d'école de magie",
+      "material": "dark",
+      "size": [512, 96],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 96,
+        "top": 24,
+        "right": 48,
+        "bottom": 24
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "states": [
+        {
+          "id": "abjuration",
+          "label": "abjuration",
+          "prompt": "deep sapphire blue lacquer"
+        },
+        {
+          "id": "conjuration",
+          "label": "invocation",
+          "prompt": "dark ember red lacquer"
+        },
+        {
+          "id": "divination",
+          "label": "divination",
+          "prompt": "dark violet lacquer"
+        },
+        {
+          "id": "enchantment",
+          "label": "enchantement",
+          "prompt": "dark ochre gold lacquer"
+        },
+        {
+          "id": "evocation",
+          "label": "évocation",
+          "prompt": "dark burnt orange lacquer"
+        },
+        {
+          "id": "illusion",
+          "label": "illusion",
+          "prompt": "dark teal lacquer"
+        },
+        {
+          "id": "necromancy",
+          "label": "nécromancie",
+          "prompt": "dark plum lacquer"
+        },
+        {
+          "id": "transmutation",
+          "label": "transmutation",
+          "prompt": "dark emerald green lacquer"
+        },
+        {
+          "id": "thaumaturgy",
+          "label": "thaumaturgie",
+          "prompt": "charcoal grey lacquer"
+        }
+      ],
+      "description": "Rangée laquée teintée par école, filet d'or, bout droit en pointe. Le médaillon d'école se pose par-dessus à gauche.",
+      "prompt": "Horizontal lacquered strip with a thin gold rim and a slightly pointed right end; a darker circular socket shadow at the left where a medallion will sit.",
+      "mockups": [
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [510, 155, 1140, 228],
+          "shows": "rangée « Abjuration »"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [510, 237, 1140, 305],
+          "shows": "rangée « Invocation »"
+        }
+      ],
+      "screens": ["T3.8"],
+      "fallback": ["panelRaised", "panelEdge"]
+    },
+    {
+      "key": "ui/plate/title-garnet",
+      "name": "Plaque de titre grenat",
+      "material": "dark",
+      "size": [768, 120],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 160,
+        "top": 0,
+        "right": 160,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Plaque d'émail grenat à relief, bordée d'or, avec une agrafe ornementale de chaque côté. Titre d'écran en `Cinzel`.",
+      "prompt": "Horizontal title plate of garnet enamel with a subtle brushed texture, bordered by gold; each end carries an ornate gold clasp with a small spike; the middle section is plain and uniform.",
+      "mockups": [
+        {
+          "file": "07_Credit_Mockup.png",
+          "zone": [615, 110, 1055, 210],
+          "shows": "plaque « Crédits »"
+        },
+        {
+          "file": "09_MercenaryScreen_Mockup.png",
+          "zone": [120, 20, 690, 90],
+          "shows": "plaque « Équipe de mercenaires »"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [130, 12, 480, 72],
+          "shows": "plaque « Compétences »"
+        }
+      ],
+      "screens": ["T3.3", "T3.7", "T3.8"],
+      "fallback": ["gem", "panelEdge"]
+    },
+    {
+      "key": "ui/plate/title-black",
+      "name": "Plaque de titre noire",
+      "material": "parchment",
+      "size": [640, 96],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 120,
+        "top": 0,
+        "right": 120,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Plaque d'ébène à filet d'or posée sur le parchemin, bouts en pointe ouvragée.",
+      "prompt": "Horizontal title plate of black lacquered wood with a thin gold filet, both ends shaped into ornate gold arrow-like finials; the middle section is plain and uniform.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [545, 65, 1062, 132],
+          "shows": "plaque « Character Identity »"
+        },
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [1108, 55, 1432, 110],
+          "shows": "plaque « Compétences »"
+        },
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [1120, 100, 1500, 160],
+          "shows": "nom de l'objet"
+        },
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [190, 35, 445, 78],
+          "shows": "nom du personnage actif"
+        },
+        {
+          "file": "08_Map_Mockup.png",
+          "zone": [115, 30, 512, 120],
+          "shows": "titre « Imperial Tanares » et sous-titre"
+        }
+      ],
+      "screens": ["T3.4", "T3.5", "T3.6", "T4.1"],
+      "fallback": ["panel", "accent"]
+    },
+    {
+      "key": "ui/plate/section-banner",
+      "name": "Bandeau de section",
+      "material": "parchment",
+      "size": [512, 56],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 64,
+        "top": 0,
+        "right": 64,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Ruban sombre court, petit losange d'or à gauche, pointe à droite. Intertitres des documents.",
+      "prompt": "Short dark ribbon banner with a gold edge line, a small gold diamond stud at the left end and a notched point at the right end; uniform middle.",
+      "mockups": [
+        {
+          "file": "09_MercenaryScreen_Mockup.png",
+          "zone": [495, 110, 730, 146],
+          "shows": "« Base principale »"
+        },
+        {
+          "file": "09_MercenaryScreen_Mockup.png",
+          "zone": [55, 412, 295, 444],
+          "shows": "« Membres de l'équipe »"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [45, 155, 195, 184],
+          "shows": "« Attaques »"
+        },
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [640, 550, 830, 585],
+          "shows": "« Points de vie »"
+        }
+      ],
+      "screens": ["T3.4", "T3.6", "T3.7", "T3.8"],
+      "fallback": ["panel", "accent"]
+    },
+    {
+      "key": "ui/plate/section-bar",
+      "name": "Barre de section large",
+      "material": "dark",
+      "size": [1024, 56],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 48,
+        "top": 0,
+        "right": 96,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Barre sombre pleine largeur de colonne, filet d'or, pointe à droite ; porte un titre à gauche et une valeur à droite.",
+      "prompt": "Wide dark header bar with a bright gold top and bottom filet, a small gold star stud at the left end and a long pointed gold tip at the right end; uniform middle.",
+      "mockups": [
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [505, 97, 1142, 146],
+          "shows": "« Sorts — Emplacements de sort »"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [1170, 97, 1598, 142],
+          "shows": "« Détail du sort »"
+        },
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [460, 160, 918, 205],
+          "shows": "tête de la section « Langue »"
+        }
+      ],
+      "screens": ["T3.2", "T3.8"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/plate/field-tag",
+      "name": "Étiquette de champ",
+      "material": "parchment",
+      "size": [192, 40],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 16,
+        "top": 0,
+        "right": 40,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Petite étiquette sombre en flèche vers la droite, qui nomme un champ de la fiche.",
+      "prompt": "Small dark label tag with a thin gold edge, square left end and an arrow-shaped right end; uniform middle.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [575, 155, 718, 192],
+          "shows": "« Nom : »"
+        },
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [655, 225, 785, 252],
+          "shows": "« Classe : »"
+        }
+      ],
+      "screens": ["T3.4"],
+      "fallback": ["panel", "accent"]
+    },
+    {
+      "key": "ui/plate/logo",
+      "name": "Logotype du jeu",
+      "material": "dark",
+      "size": [1024, 640],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[532, 332], [450, 282]],
+      "lettering": true,
+      "description": "Le titre « Just Another RPG Game » en capitales dorées en relief sur un étendard grenat déchiré, adossé à un anneau de boussole. Seule pièce du cahier qui porte des lettres : un logotype est un dessin, et le nom du jeu ne se traduit pas.",
+      "prompt": "Game logotype: the words 'JUST ANOTHER' above 'RPG GAME' in carved, bevelled gold Roman capitals in the spirit of Cinzel, with a red gem set between the two lines; behind them a torn garnet cloth banner and a large gold compass ring with a four-pointed star.",
+      "mockups": [
+        {
+          "file": "06_Main_Menu_Mockup.png",
+          "zone": [110, 25, 640, 345],
+          "shows": "logo du menu"
+        },
+        {
+          "file": "07_Credit_Mockup.png",
+          "zone": [95, 5, 530, 285],
+          "shows": "logo des crédits"
+        }
+      ],
+      "screens": ["T3.1", "T3.3"],
+      "fallback": ["gem", "goldLight"]
+    },
+    {
+      "key": "ui/plate/quote",
+      "name": "Plaque de citation",
+      "material": "dark",
+      "size": [512, 56],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 64,
+        "top": 0,
+        "right": 64,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Cartouche sombre étroit, fleuron d'or à chaque bout ; porte une citation en `loreFamily`.",
+      "prompt": "Narrow dark cartouche with a thin gold filet and a round gold fleuron at each end; uniform middle.",
+      "mockups": [
+        {
+          "file": "06_Main_Menu_Mockup.png",
+          "zone": [28, 858, 392, 910],
+          "shows": "« Chaque choix façonne une nouvelle histoire »"
+        }
+      ],
+      "screens": ["T3.1"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/plate/compass-bar",
+      "name": "Bandeau de boussole",
+      "material": "dark",
+      "size": [768, 48],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 96,
+        "top": 0,
+        "right": 96,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Réglette sombre à graduations d'or et agrafes aux bouts ; les points cardinaux défilent par-dessus.",
+      "prompt": "Horizontal dark bar with fine gold tick marks along the bottom edge, a gold chevron marker at the exact centre top, and ornate gold end clasps; the tick pattern repeats evenly.",
+      "mockups": [
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [585, 35, 1082, 78],
+          "shows": "boussole du HUD"
+        },
+        {
+          "file": "08_Map_Mockup.png",
+          "zone": [578, 38, 938, 80],
+          "shows": "boussole de la carte"
+        }
+      ],
+      "screens": ["T3.6", "T4.1"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/plate/status-bar",
+      "name": "Barre d'état",
+      "material": "dark",
+      "size": [512, 48],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 24,
+        "top": 0,
+        "right": 64,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Barre sombre basse, bout droit en pointe : date, heure et lieu.",
+      "prompt": "Low dark bar with a thin gold top filet, flat left end, pointed right end with a small gold stud; uniform middle.",
+      "mockups": [
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [0, 870, 388, 915],
+          "shows": "« Jour 3, 10:24 — Forêt de la Brume »"
+        },
+        {
+          "file": "08_Map_Mockup.png",
+          "zone": [22, 965, 395, 1020],
+          "shows": "même barre sur la carte"
+        }
+      ],
+      "screens": ["T3.6", "T4.1"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/plate/parchment-ribbon",
+      "name": "Ruban de parchemin",
+      "material": "parchment",
+      "size": [512, 48],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 64,
+        "top": 0,
+        "right": 64,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Ruban de parchemin aux bouts roulés : indicateur de mode du HUD.",
+      "prompt": "Horizontal parchment ribbon with rolled, slightly curled ends and a thin brown edge; uniform middle.",
+      "mockups": [
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [1368, 872, 1662, 910],
+          "shows": "« Exploration · Tactique · Aventure »"
+        }
+      ],
+      "screens": ["T4.1"],
+      "fallback": ["surface", "border"]
+    },
+    {
+      "key": "ui/tab/ribbon",
+      "name": "Ruban d'onglet",
+      "material": "dark",
+      "size": [256, 56],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 48,
+        "top": 0,
+        "right": 48,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "states": [
+        {
+          "id": "active",
+          "label": "actif",
+          "prompt": "garnet enamel face, bright gold rim"
+        },
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "near-black face, gold rim"
+        },
+        {
+          "id": "disabled",
+          "label": "désactivé",
+          "prompt": "near-black face, dull bronze rim, flattened"
+        }
+      ],
+      "description": "Onglet en ruban à bouts biseautés : grenat pour l'actif, sombre sinon.",
+      "prompt": "Tab ribbon with bevelled ends and a gold rim; uniform middle.",
+      "mockups": [
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [560, 68, 1068, 112],
+          "shows": "« Tous », « Équipement »…"
+        },
+        {
+          "file": "09_MercenaryScreen_Mockup.png",
+          "zone": [775, 28, 1532, 84],
+          "shows": "« Équipe », « Recrutement »…"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [505, 18, 1332, 66],
+          "shows": "mêmes onglets, écran des compétences"
+        }
+      ],
+      "screens": ["T3.5", "T3.7", "T3.8"],
+      "fallback": ["gem", "panel", "panelEdge"]
+    },
+    {
+      "key": "ui/tab/segment",
+      "name": "Segment d'onglet",
+      "material": "parchment",
+      "size": [320, 56],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 32,
+        "top": 0,
+        "right": 32,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "states": [
+        {
+          "id": "active",
+          "label": "actif",
+          "prompt": "garnet enamel face"
+        },
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "light parchment face"
+        }
+      ],
+      "description": "Bouton segmenté à deux positions sur parchemin : grenat actif, parchemin clair inactif.",
+      "prompt": "Segmented tab with softly rounded ends and a gold border; uniform middle.",
+      "mockups": [
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [48, 100, 472, 148],
+          "shows": "« Attaques & Sortilèges » / « Compétences »"
+        }
+      ],
+      "screens": ["T3.8"],
+      "fallback": ["gem", "surfaceAlt", "border"]
+    },
+    {
+      "key": "ui/button/menu",
+      "name": "Bouton de menu",
+      "material": "dark",
+      "size": [480, 72],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 96,
+        "top": 0,
+        "right": 48,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "states": [
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "near-black face, gold rim"
+        },
+        {
+          "id": "hover",
+          "label": "survol",
+          "prompt": "near-black face, brighter gold rim, faint warm glow"
+        },
+        {
+          "id": "active",
+          "label": "actif",
+          "prompt": "garnet enamel face with a lit centre, bright gold rim"
+        },
+        {
+          "id": "disabled",
+          "label": "désactivé",
+          "prompt": "near-black face, dull bronze rim, flattened"
+        }
+      ],
+      "description": "Bouton long à bouts biseautés, douille ronde à gauche pour l'icône. Actif : émail grenat. Sert aussi aux onglets verticaux des options, qui ont la même forme.",
+      "prompt": "Long button with bevelled pointed ends and an ornate gold rim; at the left end a round gold socket (about 64 px) left empty for an icon; uniform middle.",
+      "mockups": [
+        {
+          "file": "06_Main_Menu_Mockup.png",
+          "zone": [150, 355, 540, 428],
+          "shows": "« Continuer », actif"
+        },
+        {
+          "file": "06_Main_Menu_Mockup.png",
+          "zone": [163, 433, 527, 503],
+          "shows": "« Nouvelle partie », normal"
+        },
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [112, 195, 432, 258],
+          "shows": "onglet « Général », actif"
+        },
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [115, 265, 420, 327],
+          "shows": "onglet « Graphismes », normal"
+        }
+      ],
+      "screens": ["T3.1", "T3.2"],
+      "fallback": ["panel", "gemLight", "panelEdge"]
+    },
+    {
+      "key": "ui/button/primary",
+      "name": "Bouton primaire",
+      "material": "dark",
+      "size": [280, 56],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 48,
+        "top": 0,
+        "right": 48,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "states": [
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "resting state"
+        },
+        {
+          "id": "hover",
+          "label": "survol",
+          "prompt": "gold rim brightened, faint warm inner glow"
+        },
+        {
+          "id": "pressed",
+          "label": "enfoncé",
+          "prompt": "face slightly darker and inset by 2 px, rim unchanged"
+        },
+        {
+          "id": "disabled",
+          "label": "désactivé",
+          "prompt": "desaturated, gold turned to dull bronze, face flattened"
+        }
+      ],
+      "description": "Bouton d'émail grenat à cadre d'or ouvragé.",
+      "prompt": "Button of garnet enamel with an ornate gold frame; uniform middle.",
+      "mockups": [
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [1138, 752, 1452, 812],
+          "shows": "« Équiper »"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [743, 860, 915, 897],
+          "shows": "« Gestion des sorts »"
+        }
+      ],
+      "screens": ["T3.5", "T3.8", "T3.9"],
+      "fallback": ["gem", "gemLight", "panelEdge"]
+    },
+    {
+      "key": "ui/button/secondary",
+      "name": "Bouton secondaire",
+      "material": "dark",
+      "size": [280, 56],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 48,
+        "top": 0,
+        "right": 48,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "states": [
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "resting state"
+        },
+        {
+          "id": "hover",
+          "label": "survol",
+          "prompt": "gold rim brightened, faint warm inner glow"
+        },
+        {
+          "id": "pressed",
+          "label": "enfoncé",
+          "prompt": "face slightly darker and inset by 2 px, rim unchanged"
+        },
+        {
+          "id": "disabled",
+          "label": "désactivé",
+          "prompt": "desaturated, gold turned to dull bronze, face flattened"
+        }
+      ],
+      "description": "Bouton sombre à cadre d'or.",
+      "prompt": "Button of near-black lacquer with a gold frame; uniform middle.",
+      "mockups": [
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [1143, 815, 1447, 870],
+          "shows": "« Jeter »"
+        },
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [898, 878, 1057, 937],
+          "shows": "« Trier »"
+        },
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [973, 772, 1187, 815],
+          "shows": "« Gérer mes données »"
+        }
+      ],
+      "screens": ["T3.2", "T3.5", "T3.9"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/button/apply",
+      "name": "Bouton Appliquer",
+      "material": "dark",
+      "size": [280, 56],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 48,
+        "top": 0,
+        "right": 48,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "states": [
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "resting state"
+        },
+        {
+          "id": "hover",
+          "label": "survol",
+          "prompt": "gold rim brightened, faint warm inner glow"
+        },
+        {
+          "id": "pressed",
+          "label": "enfoncé",
+          "prompt": "face slightly darker and inset by 2 px, rim unchanged"
+        },
+        {
+          "id": "disabled",
+          "label": "désactivé",
+          "prompt": "desaturated, gold turned to dull bronze, face flattened"
+        }
+      ],
+      "description": "Plaque verte : c'est la plaque qui dit « valider », la coche est crème.",
+      "prompt": "Button of dark emerald enamel with a gold frame and pointed ends; uniform middle.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [1218, 866, 1402, 920],
+          "shows": "« Appliquer »"
+        }
+      ],
+      "screens": ["T3.2"],
+      "fallback": ["success", "panelEdge"]
+    },
+    {
+      "key": "ui/button/cancel",
+      "name": "Bouton Annuler",
+      "material": "dark",
+      "size": [280, 56],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 48,
+        "top": 0,
+        "right": 48,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "states": [
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "resting state"
+        },
+        {
+          "id": "hover",
+          "label": "survol",
+          "prompt": "gold rim brightened, faint warm inner glow"
+        },
+        {
+          "id": "pressed",
+          "label": "enfoncé",
+          "prompt": "face slightly darker and inset by 2 px, rim unchanged"
+        },
+        {
+          "id": "disabled",
+          "label": "désactivé",
+          "prompt": "desaturated, gold turned to dull bronze, face flattened"
+        }
+      ],
+      "description": "Plaque rouge sombre.",
+      "prompt": "Button of dark blood-red enamel with a gold frame and pointed ends; uniform middle.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [1032, 866, 1212, 920],
+          "shows": "« Annuler »"
+        }
+      ],
+      "screens": ["T3.2"],
+      "fallback": ["danger", "panelEdge"]
+    },
+    {
+      "key": "ui/button/default",
+      "name": "Bouton Par défaut",
+      "material": "dark",
+      "size": [280, 56],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 48,
+        "top": 0,
+        "right": 48,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "states": [
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "resting state"
+        },
+        {
+          "id": "hover",
+          "label": "survol",
+          "prompt": "gold rim brightened, faint warm inner glow"
+        },
+        {
+          "id": "pressed",
+          "label": "enfoncé",
+          "prompt": "face slightly darker and inset by 2 px, rim unchanged"
+        },
+        {
+          "id": "disabled",
+          "label": "désactivé",
+          "prompt": "desaturated, gold turned to dull bronze, face flattened"
+        }
+      ],
+      "description": "Plaque bleu nuit, pour les actions neutres de réinitialisation.",
+      "prompt": "Button of midnight-blue enamel with a gold frame and rounded ends; uniform middle.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [466, 866, 672, 920],
+          "shows": "« Par défaut »"
+        }
+      ],
+      "screens": ["T3.2"],
+      "fallback": ["info", "panelEdge"]
+    },
+    {
+      "key": "ui/button/back",
+      "name": "Bouton Retour",
+      "material": "dark",
+      "size": [320, 72],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 96,
+        "top": 0,
+        "right": 48,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "states": [
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "resting state"
+        },
+        {
+          "id": "hover",
+          "label": "survol",
+          "prompt": "gold rim brightened, faint warm inner glow"
+        },
+        {
+          "id": "pressed",
+          "label": "enfoncé",
+          "prompt": "face slightly darker and inset by 2 px, rim unchanged"
+        },
+        {
+          "id": "disabled",
+          "label": "désactivé",
+          "prompt": "desaturated, gold turned to dull bronze, face flattened"
+        }
+      ],
+      "description": "Bouton grenat en flèche vers la gauche, douille pour l'icône de retour.",
+      "prompt": "Button of garnet enamel whose left end is an ornate gold arrow point and whose right end is a gold clasp; a small empty gold socket near the left for an icon; uniform middle.",
+      "mockups": [
+        {
+          "file": "07_Credit_Mockup.png",
+          "zone": [38, 772, 302, 843],
+          "shows": "« Retour »"
+        }
+      ],
+      "screens": ["T3.3", "T3.8"],
+      "fallback": ["gem", "panelEdge"]
+    },
+    {
+      "key": "ui/button/round",
+      "name": "Bouton rond",
+      "material": "dark",
+      "size": [64, 64],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[40, 40], [64, 64]],
+      "states": [
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "resting state"
+        },
+        {
+          "id": "hover",
+          "label": "survol",
+          "prompt": "gold rim brightened, faint warm inner glow"
+        },
+        {
+          "id": "pressed",
+          "label": "enfoncé",
+          "prompt": "face slightly darker and inset by 2 px, rim unchanged"
+        },
+        {
+          "id": "disabled",
+          "label": "désactivé",
+          "prompt": "desaturated, gold turned to dull bronze, face flattened"
+        }
+      ],
+      "description": "Bouton circulaire sombre cerclé d'or : zoom de la carte, raccourcis du HUD, ajout d'un sort.",
+      "prompt": "Circular button: near-black domed face with a gold ring rim, empty centre for an icon.",
+      "mockups": [
+        {
+          "file": "08_Map_Mockup.png",
+          "zone": [1432, 248, 1475, 285],
+          "shows": "zoom « + »"
+        },
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [1418, 790, 1485, 860],
+          "shows": "raccourci « sac »"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [1108, 180, 1132, 205],
+          "shows": "« + » d'une école"
+        }
+      ],
+      "screens": ["T3.6", "T3.8", "T4.1"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/button/chip",
+      "name": "Pastille de sort",
+      "material": "dark",
+      "size": [192, 40],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 24,
+        "top": 0,
+        "right": 24,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "states": [
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "resting state"
+        },
+        {
+          "id": "selected",
+          "label": "sélectionné",
+          "prompt": "brighter rim, lit face"
+        },
+        {
+          "id": "disabled",
+          "label": "désactivé",
+          "prompt": "faded, rim dull bronze"
+        }
+      ],
+      "description": "Pastille allongée sombre à filet d'or, bouts arrondis : un sort préparé dans sa rangée d'école.",
+      "prompt": "Elongated pill with rounded ends, dark translucent face and a thin gold rim; uniform middle.",
+      "mockups": [
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [757, 182, 862, 218],
+          "shows": "« Bouclier »"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [925, 257, 1040, 293],
+          "shows": "« Invisibilité », estompé"
+        }
+      ],
+      "screens": ["T3.8"],
+      "fallback": ["panelRaised", "panelEdge"]
+    },
+    {
+      "key": "ui/control/checkbox",
+      "name": "Case à cocher",
+      "material": "dark",
+      "size": [48, 48],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[28, 28]],
+      "states": [
+        {
+          "id": "checked",
+          "label": "cochée",
+          "prompt": "a bold hand-drawn gold check mark inside"
+        },
+        {
+          "id": "unchecked",
+          "label": "décochée",
+          "prompt": "empty inset"
+        },
+        {
+          "id": "disabled",
+          "label": "désactivée",
+          "prompt": "empty inset, frame dull grey-bronze"
+        }
+      ],
+      "description": "Case carrée à cadre d'or ; coche d'or.",
+      "prompt": "Square checkbox with a gold frame and dark inset.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [478, 421, 505, 449],
+          "shows": "cochée"
+        },
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [478, 490, 505, 517],
+          "shows": "décochée"
+        },
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [1013, 587, 1040, 615],
+          "shows": "désactivée"
+        }
+      ],
+      "screens": ["T3.2"],
+      "fallback": ["panel", "panelEdge", "goldLight"]
+    },
+    {
+      "key": "ui/control/slider-track",
+      "name": "Rail de curseur",
+      "material": "dark",
+      "size": [256, 24],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 24,
+        "top": 0,
+        "right": 24,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Rail sombre creusé à bouts d'or ; le remplissage est un aplat `panelEdge` dessiné par-dessus.",
+      "prompt": "Thin horizontal groove, dark inset with a gold edge, small gold end caps; uniform middle.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [622, 578, 840, 600],
+          "shows": "« Taille de l'interface »"
+        }
+      ],
+      "screens": ["T3.2"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/control/slider-handle",
+      "name": "Poignée de curseur",
+      "material": "dark",
+      "size": [40, 40],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[24, 24]],
+      "states": [
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "resting"
+        },
+        {
+          "id": "hover",
+          "label": "survol",
+          "prompt": "brighter, faint glow"
+        }
+      ],
+      "description": "Poignée ronde d'or à cabochon.",
+      "prompt": "Round gold slider knob with a small domed centre.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [815, 576, 840, 601],
+          "shows": "poignée à 100 %"
+        }
+      ],
+      "screens": ["T3.2"],
+      "fallback": ["panelEdge", "goldLight"]
+    },
+    {
+      "key": "ui/control/combo",
+      "name": "Liste déroulante",
+      "material": "dark",
+      "size": [320, 48],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 24,
+        "top": 0,
+        "right": 56,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "states": [
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "resting"
+        },
+        {
+          "id": "hover",
+          "label": "survol",
+          "prompt": "brighter frame"
+        },
+        {
+          "id": "open",
+          "label": "ouverte",
+          "prompt": "frame lit, triangle pointing up"
+        },
+        {
+          "id": "disabled",
+          "label": "désactivée",
+          "prompt": "dull frame, grey triangle"
+        }
+      ],
+      "description": "Champ sombre à cadre d'or, flèche d'or à droite dans la marge fixe.",
+      "prompt": "Dropdown field: dark inset with a thin gold frame and a small gold downward triangle at the right end; uniform middle.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [703, 211, 909, 249],
+          "shows": "« Français »"
+        },
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [1182, 480, 1378, 516],
+          "shows": "« Solo »"
+        }
+      ],
+      "screens": ["T3.2"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/control/combo-popup",
+      "name": "Liste ouverte",
+      "material": "dark",
+      "size": [320, 256],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 24,
+        "top": 16,
+        "right": 24,
+        "bottom": 24
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "repeat"
+      },
+      "description": "Le panneau des choix d'une liste ouverte. Aucune maquette ne le montre : il prolonge le champ fermé.",
+      "prompt": "Dropdown list panel: dark inset with a thin gold frame, square top edge meant to attach under a field.",
+      "mockups": [],
+      "derivedFrom": "ui/control/combo",
+      "screens": ["T3.2"],
+      "fallback": ["panelRaised", "panelEdge"]
+    },
+    {
+      "key": "ui/control/divider-gold",
+      "name": "Séparateur d'or",
+      "material": "dark",
+      "size": [512, 16],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 48,
+        "top": 0,
+        "right": 48,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Filet d'or fin qui s'amincit aux bouts.",
+      "prompt": "Thin horizontal gold rule that tapers to fine points at both ends; uniform middle.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [463, 203, 918, 210],
+          "shows": "sous « Langue »"
+        },
+        {
+          "file": "07_Credit_Mockup.png",
+          "zone": [412, 278, 797, 288],
+          "shows": "sous « Développement »"
+        }
+      ],
+      "screens": ["T3.2", "T3.3", "T3.8"],
+      "fallback": ["panelEdge"]
+    },
+    {
+      "key": "ui/control/focus-fleuron",
+      "name": "Fleuron de focus",
+      "material": "dark",
+      "size": [48, 48],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[24, 24], [40, 40]],
+      "description": "Losange d'or facetté : la marque du focus (`EX-IHM-071`), posée devant l'élément courant.",
+      "prompt": "Faceted gold diamond fleuron with a darker inner lozenge, like a jewel setting.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [462, 157, 504, 201],
+          "shows": "losange de l'intertitre « Langue »"
+        },
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [1408, 330, 1438, 358],
+          "shows": "losange de la quête active"
+        }
+      ],
+      "screens": ["T3.1", "T3.2", "T3.9"],
+      "fallback": ["goldLight", "panelEdge"]
+    },
+    {
+      "key": "ui/control/pip",
+      "name": "Pastille de maîtrise",
+      "material": "parchment",
+      "size": [32, 32],
+      "display": "fixed",
+      "transparent": true,
+      "states": [
+        {
+          "id": "empty",
+          "label": "vide",
+          "prompt": "hollow parchment centre"
+        },
+        {
+          "id": "filled",
+          "label": "pleine",
+          "prompt": "filled with polished garnet"
+        }
+      ],
+      "description": "Cercle creux cerclé de laiton ; plein quand la compétence est maîtrisée ou la quête active.",
+      "prompt": "Small round brass-rimmed pip.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [1113, 125, 1141, 153],
+          "shows": "maîtrise d'« Acrobatics », vide"
+        },
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [1410, 410, 1435, 436],
+          "shows": "quête « Les pillards », vide"
+        }
+      ],
+      "screens": ["T3.4", "T4.1"],
+      "fallback": ["border", "gem"]
+    },
+    {
+      "key": "ui/control/ruled-line",
+      "name": "Ligne de champ",
+      "material": "parchment",
+      "size": [512, 32],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 16,
+        "top": 0,
+        "right": 48,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Ligne d'encre sépia sous une valeur, terminée par un petit fleuron à droite.",
+      "prompt": "Thin sepia ink rule along the bottom, ending at the right with a tiny ink fleuron; uniform middle.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [716, 318, 1040, 342],
+          "shows": "ligne du niveau"
+        }
+      ],
+      "screens": ["T3.4"],
+      "fallback": ["text"]
+    },
+    {
+      "key": "ui/control/value-box",
+      "name": "Case de valeur",
+      "material": "parchment",
+      "size": [64, 40],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 8,
+        "top": 8,
+        "right": 8,
+        "bottom": 8
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "repeat"
+      },
+      "description": "Petite case de parchemin clair, bord brun, pour un bonus.",
+      "prompt": "Small light parchment box with a thin brown border and a faint inner shadow.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [1432, 128, 1478, 160],
+          "shows": "bonus d'« Acrobatics »"
+        }
+      ],
+      "screens": ["T3.4"],
+      "fallback": ["surfaceAlt", "border"]
+    },
+    {
+      "key": "ui/medallion/ability",
+      "name": "Anneau de caractéristique",
+      "material": "parchment",
+      "size": [160, 160],
+      "display": "fixed",
+      "transparent": true,
+      "description": "Anneau d'or à pointes ouvragées, centre de parchemin où s'écrivent l'abréviation et la valeur.",
+      "prompt": "Round gold medallion ring with ornate spiked filigree around it and small blue gems at the base; empty light parchment disc in the centre.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [118, 118, 272, 248],
+          "shows": "« STR 10 »"
+        },
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [365, 118, 515, 248],
+          "shows": "« DEX 16 »"
+        },
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [385, 440, 540, 578],
+          "shows": "« CHA 13 »"
+        }
+      ],
+      "screens": ["T3.4"],
+      "fallback": ["accent", "surfaceAlt"]
+    },
+    {
+      "key": "ui/medallion/derived-stat",
+      "name": "Anneau de statistique dérivée",
+      "material": "parchment",
+      "size": [120, 120],
+      "display": "fixed",
+      "transparent": true,
+      "description": "Anneau plus simple que celui des caractéristiques : CA, initiative, vitesse, perception.",
+      "prompt": "Round dark iron ring with a gold inner rim and small studs, empty light parchment disc in the centre.",
+      "mockups": [
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [55, 735, 172, 838],
+          "shows": "« CA 16 »"
+        },
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [295, 735, 410, 838],
+          "shows": "« Vitesse 9 m »"
+        }
+      ],
+      "screens": ["T3.5"],
+      "fallback": ["accent", "surfaceAlt"]
+    },
+    {
+      "key": "ui/medallion/icon-ring",
+      "name": "Douille d'icône",
+      "material": "dark",
+      "size": [96, 96],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[48, 48], [72, 72], [96, 96]],
+      "description": "Disque sombre cerclé d'or qui reçoit une icône. Réduit selon l'écran.",
+      "prompt": "Round dark enamel disc with a bevelled gold ring, empty centre for an icon.",
+      "mockups": [
+        {
+          "file": "07_Credit_Mockup.png",
+          "zone": [415, 244, 467, 292],
+          "shows": "section « Développement »"
+        },
+        {
+          "file": "09_MercenaryScreen_Mockup.png",
+          "zone": [1227, 150, 1295, 217],
+          "shows": "haut fait « Premiers pas »"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [54, 193, 132, 272],
+          "shows": "attaque « Épée longue »"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [1187, 320, 1236, 370],
+          "shows": "propriété « Type de dégâts »"
+        }
+      ],
+      "screens": ["T3.3", "T3.7", "T3.8"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/medallion/portrait-round",
+      "name": "Cadre de portrait rond",
+      "material": "parchment",
+      "size": [260, 260],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[96, 96], [120, 120], [260, 260]],
+      "states": [
+        {
+          "id": "filled",
+          "label": "occupé",
+          "prompt": "transparent centre"
+        },
+        {
+          "id": "empty",
+          "label": "libre",
+          "prompt": "centre filled with faded parchment and an engraved empty-bust silhouette"
+        }
+      ],
+      "description": "Cadre rond d'or à gemmes, centre transparent : le portrait se pose dessous.",
+      "prompt": "Round ornate gold portrait frame with small garnet gems at the cardinal points; the inner disc is fully transparent.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [158, 200, 468, 505],
+          "shows": "portrait de la fiche"
+        },
+        {
+          "file": "09_MercenaryScreen_Mockup.png",
+          "zone": [65, 463, 180, 582],
+          "shows": "membre « Kaelith »"
+        },
+        {
+          "file": "09_MercenaryScreen_Mockup.png",
+          "zone": [205, 645, 315, 752],
+          "shows": "emplacement libre"
+        },
+        {
+          "file": "06_Main_Menu_Mockup.png",
+          "zone": [1356, 28, 1446, 110],
+          "shows": "profil du menu"
+        }
+      ],
+      "screens": ["T3.1", "T3.4", "T3.7"],
+      "fallback": ["accent", "gem"]
+    },
+    {
+      "key": "ui/medallion/portrait-square",
+      "name": "Cadre de portrait carré",
+      "material": "dark",
+      "size": [220, 220],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[96, 96], [120, 120]],
+      "states": [
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "resting"
+        },
+        {
+          "id": "active",
+          "label": "actif",
+          "prompt": "garnet glow along the inner filet"
+        }
+      ],
+      "description": "Cadre carré sombre à coins d'or, centre transparent : membres du groupe, cible, interlocuteur.",
+      "prompt": "Square portrait frame of dark iron with ornate gold corners and a thin gold inner filet; the inner square is fully transparent.",
+      "mockups": [
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [28, 222, 142, 322],
+          "shows": "membre du groupe"
+        },
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [1110, 712, 1197, 812],
+          "shows": "cible « Bandit »"
+        }
+      ],
+      "screens": ["T3.9", "T4.1"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/medallion/portrait-hud",
+      "name": "Portrait du personnage actif",
+      "material": "dark",
+      "size": [220, 220],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[112, 112], [180, 180]],
+      "description": "Grand cadre rond d'or et de grenat à pastille de niveau en bas à gauche (posée à part).",
+      "prompt": "Large round portrait frame: garnet enamel outer ring with gold filigree spikes, thin gold inner ring; fully transparent centre.",
+      "mockups": [
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [18, 12, 205, 212],
+          "shows": "Kaelith Voss, HUD"
+        },
+        {
+          "file": "08_Map_Mockup.png",
+          "zone": [1118, 18, 1228, 122],
+          "shows": "encart du personnage"
+        }
+      ],
+      "screens": ["T3.6", "T4.1"],
+      "fallback": ["gem", "panelEdge"]
+    },
+    {
+      "key": "ui/medallion/level-pip",
+      "name": "Pastille de niveau",
+      "material": "dark",
+      "size": [48, 48],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48]],
+      "description": "Petit disque sombre cerclé d'or où s'écrit le niveau.",
+      "prompt": "Small round dark disc with a gold rim.",
+      "mockups": [
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [25, 158, 82, 207],
+          "shows": "niveau 5 du HUD"
+        },
+        {
+          "file": "09_MercenaryScreen_Mockup.png",
+          "zone": [68, 545, 102, 578],
+          "shows": "niveau d'un membre"
+        }
+      ],
+      "screens": ["T3.7", "T4.1"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/medallion/minimap-ring",
+      "name": "Anneau de mini-carte",
+      "material": "dark",
+      "size": [260, 260],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[196, 196], [260, 260]],
+      "description": "Anneau d'or à points cardinaux gravés en losange (sans lettre : N, E, S, O sont posés en texte), centre transparent.",
+      "prompt": "Round ornate gold ring with four small diamond-shaped cartouches at north, east, south and west (left blank); fully transparent centre.",
+      "mockups": [
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [1398, 22, 1658, 268],
+          "shows": "mini-carte du HUD"
+        },
+        {
+          "file": "08_Map_Mockup.png",
+          "zone": [1268, 132, 1462, 322],
+          "shows": "mini-carte"
+        }
+      ],
+      "screens": ["T3.6", "T4.1"],
+      "fallback": ["panelEdge", "goldLight"]
+    },
+    {
+      "key": "ui/medallion/action-wheel",
+      "name": "Roue d'action",
+      "material": "dark",
+      "size": [160, 160],
+      "display": "fixed",
+      "transparent": true,
+      "description": "Grand disque grenat cerclé d'or ouvragé, à gauche de la barre d'actions ; l'icône de l'action courante s'y pose.",
+      "prompt": "Large round garnet enamel disc with an ornate gold ring and small spikes; empty centre.",
+      "mockups": [
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [425, 758, 562, 892],
+          "shows": "roue d'action (arc)"
+        }
+      ],
+      "screens": ["T4.1"],
+      "fallback": ["gem", "gemLight", "panelEdge"]
+    },
+    {
+      "key": "ui/slot/item",
+      "name": "Case d'objet",
+      "material": "dark",
+      "size": [96, 96],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[80, 80], [96, 96]],
+      "states": [
+        {
+          "id": "empty",
+          "label": "vide",
+          "prompt": "resting state"
+        },
+        {
+          "id": "hover",
+          "label": "survolée",
+          "prompt": "frame brighter"
+        },
+        {
+          "id": "selected",
+          "label": "sélectionnée",
+          "prompt": "frame bright gold with a soft inner glow"
+        },
+        {
+          "id": "equipped",
+          "label": "équipée",
+          "prompt": "frame with a small garnet gem at the top edge"
+        }
+      ],
+      "description": "Case carrée sombre à cadre d'or biseauté.",
+      "prompt": "Square item slot: dark recessed inset with a bevelled antique gold frame.",
+      "mockups": [
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [573, 140, 672, 242],
+          "shows": "épée longue, sélectionnée"
+        },
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [573, 668, 672, 762],
+          "shows": "case vide"
+        },
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [66, 153, 167, 255],
+          "shows": "emplacement de tête"
+        }
+      ],
+      "screens": ["T3.5", "T3.9"],
+      "fallback": ["panel", "accent"]
+    },
+    {
+      "key": "ui/slot/rarity",
+      "name": "Liseré de rareté",
+      "material": "dark",
+      "size": [96, 96],
+      "display": "fixed",
+      "transparent": true,
+      "states": [
+        {
+          "id": "common",
+          "label": "commun",
+          "prompt": "pale grey-silver border"
+        },
+        {
+          "id": "uncommon",
+          "label": "peu courant",
+          "prompt": "green border"
+        },
+        {
+          "id": "rare",
+          "label": "rare",
+          "prompt": "blue border"
+        },
+        {
+          "id": "very-rare",
+          "label": "très rare",
+          "prompt": "violet border"
+        },
+        {
+          "id": "legendary",
+          "label": "légendaire",
+          "prompt": "orange-gold border"
+        }
+      ],
+      "description": "Liseré transparent posé sur la case : la rareté d'un objet se lit sans texte. Aucune maquette ne le montre ; la fiche de l'objet nomme « Peu courant ».",
+      "prompt": "Thin coloured inner border for a square slot, fully transparent elsewhere, soft glow inward.",
+      "mockups": [],
+      "derivedFrom": "ui/slot/item",
+      "screens": ["T3.5"],
+      "fallback": ["panelEdge"]
+    },
+    {
+      "key": "ui/slot/quantity-pip",
+      "name": "Pastille de quantité",
+      "material": "dark",
+      "size": [40, 28],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 8,
+        "top": 0,
+        "right": 8,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Petite plaque sombre en bas à droite de la case, qui porte un nombre.",
+      "prompt": "Tiny dark rounded plaque with a thin gold edge; uniform middle.",
+      "mockups": [
+        {
+          "file": "09_MercenaryScreen_Mockup.png",
+          "zone": [1318, 843, 1370, 870],
+          "shows": "« 2 450 »"
+        },
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [825, 212, 862, 238],
+          "shows": "« 24 »"
+        }
+      ],
+      "screens": ["T3.5", "T3.7"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/slot/action",
+      "name": "Case d'action",
+      "material": "dark",
+      "size": [80, 80],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[64, 64]],
+      "states": [
+        {
+          "id": "normal",
+          "label": "normal",
+          "prompt": "resting"
+        },
+        {
+          "id": "active",
+          "label": "active",
+          "prompt": "bright gold frame with a warm glow"
+        },
+        {
+          "id": "disabled",
+          "label": "désactivée",
+          "prompt": "dull bronze frame, darkened"
+        }
+      ],
+      "description": "Case de la barre d'actions, cadre d'or ; son numéro de raccourci est du texte en dessous.",
+      "prompt": "Square action slot with a dark inset and a bevelled gold frame.",
+      "mockups": [
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [568, 793, 637, 857],
+          "shows": "action 1, active"
+        },
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [638, 793, 700, 857],
+          "shows": "action 2"
+        }
+      ],
+      "screens": ["T4.1"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/gauge/track",
+      "name": "Fond de jauge",
+      "material": "dark",
+      "size": [512, 28],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 40,
+        "top": 0,
+        "right": 40,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Rail creux sombre, embouts d'or en pointe ; le remplissage se pose dedans.",
+      "prompt": "Horizontal gauge housing: dark recessed channel with a gold rim and pointed ornate gold end caps; uniform middle.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [590, 602, 1030, 642],
+          "shows": "points de vie"
+        },
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [590, 728, 1030, 768],
+          "shows": "expérience"
+        },
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [205, 80, 520, 115],
+          "shows": "vie du HUD"
+        },
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [638, 808, 1042, 838],
+          "shows": "poids"
+        }
+      ],
+      "screens": ["T3.4", "T3.5", "T3.6", "T4.1"],
+      "fallback": ["panel", "panelEdge"]
+    },
+    {
+      "key": "ui/gauge/fill-sheen",
+      "name": "Relief de remplissage",
+      "material": "neutral",
+      "size": [256, 20],
+      "display": "nine-patch",
+      "transparent": true,
+      "margins": {
+        "left": 4,
+        "top": 0,
+        "right": 4,
+        "bottom": 0
+      },
+      "tileMode": {
+        "horizontal": "repeat",
+        "vertical": "stretch"
+      },
+      "description": "Relief en niveaux de gris seulement (reflet haut, ombre basse), posé sur un aplat coloré par les jetons : la couleur d'un remplissage ne vient jamais d'une image (`EX-IHM-075`).",
+      "prompt": "Greyscale-only glossy sheen overlay for a gauge fill: a soft white highlight band along the top, a soft dark band along the bottom, transparent in between; no hue at all.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [618, 612, 915, 634],
+          "shows": "remplissage rouge des points de vie"
+        }
+      ],
+      "screens": ["T3.4", "T3.5", "T3.6", "T4.1"],
+      "fallback": ["gemLight", "goldLight"]
+    },
+    {
+      "key": "ui/ornament/wax-seal",
+      "name": "Sceau de cire",
+      "material": "parchment",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[84, 84], [120, 120]],
+      "description": "Sceau de cire grenat frappé d'une esperluette dragonne.",
+      "prompt": "Red wax seal with irregular edges, stamped with a dragon-shaped ampersand emblem, soft cast shadow within the canvas.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [618, 858, 738, 968],
+          "shows": "sceau de la fiche"
+        },
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [48, 858, 132, 940],
+          "shows": "sceau de l'équipement"
+        }
+      ],
+      "screens": ["T3.4", "T3.5"],
+      "fallback": ["gem", "gemShadow"]
+    },
+    {
+      "key": "ui/ornament/crossed-crest",
+      "name": "Écusson croisé",
+      "material": "parchment",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[80, 80], [112, 112]],
+      "description": "Écu de laiton sur deux épées croisées.",
+      "prompt": "Small brass heater shield over two crossed swords, engraved compass emblem on the shield.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [758, 778, 862, 902],
+          "shows": "sous la colonne d'identité"
+        },
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [412, 848, 502, 938],
+          "shows": "pied de l'équipement"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [52, 812, 122, 888],
+          "shows": "à côté de la devise"
+        }
+      ],
+      "screens": ["T3.4", "T3.5", "T3.8"],
+      "fallback": ["accent", "border"]
+    },
+    {
+      "key": "ui/ornament/signature-flourish",
+      "name": "Paraphe",
+      "material": "parchment",
+      "size": [256, 64],
+      "display": "fixed",
+      "transparent": true,
+      "description": "Le trait de plume sous une signature, sans le nom : le nom est posé en `loreFamily`, parce qu'il change avec le personnage.",
+      "prompt": "A single elegant sepia ink pen flourish, a long underline swash with a loop, no letters.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [845, 905, 1030, 935],
+          "shows": "sous « Kaelith Voss »"
+        }
+      ],
+      "screens": ["T3.4", "T3.5"],
+      "fallback": ["text"]
+    },
+    {
+      "key": "ui/ornament/compass-watermark",
+      "name": "Boussole en filigrane",
+      "material": "parchment",
+      "size": [512, 512],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[160, 160], [240, 240], [400, 400]],
+      "states": [
+        {
+          "id": "parchment",
+          "label": "sur parchemin",
+          "prompt": "faint sepia ink lines"
+        },
+        {
+          "id": "dark",
+          "label": "sur panneau",
+          "prompt": "faint dark bronze lines, barely lighter than near-black"
+        }
+      ],
+      "description": "Rose des vents gravée, très pâle, en fond de document ou de colonne.",
+      "prompt": "Engraved compass rose with sixteen points and concentric rings, drawn as a very faint low-contrast watermark, transparent background.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [105, 565, 505, 935],
+          "shows": "sous les caractéristiques"
+        },
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [1132, 262, 1292, 412],
+          "shows": "fiche d'objet"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [1478, 712, 1645, 900],
+          "shows": "détail du sort"
+        },
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [135, 625, 375, 865],
+          "shows": "colonne des onglets"
+        }
+      ],
+      "screens": ["T3.2", "T3.4", "T3.5", "T3.8"],
+      "fallback": ["background", "panelRaised"]
+    },
+    {
+      "key": "ui/ornament/compass-rose",
+      "name": "Rose des vents",
+      "material": "dark",
+      "size": [192, 192],
+      "display": "fixed",
+      "transparent": true,
+      "description": "Rose des vents d'or et de bronze sur anneau bleu nuit, lettres cardinales absentes (posées en texte).",
+      "prompt": "Ornate compass rose: eight-pointed gold and bronze star over a midnight-blue ring with gold graduations; no letters.",
+      "mockups": [
+        {
+          "file": "08_Map_Mockup.png",
+          "zone": [226, 698, 372, 852],
+          "shows": "boussole de la carte"
+        }
+      ],
+      "screens": ["T3.6"],
+      "fallback": ["panelEdge", "info"]
+    },
+    {
+      "key": "ui/ornament/corner",
+      "name": "Coin ornemental",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[64, 64], [96, 96]],
+      "description": "Filigrane d'or d'angle, posé sur les coins d'un panneau quand le 9-patch n'en porte pas assez.",
+      "prompt": "Top-left corner ornament of gold filigree scrolls and a small spike; transparent elsewhere. The game mirrors it for the other corners.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [92, 818, 168, 892],
+          "shows": "coin bas-gauche des onglets"
+        },
+        {
+          "file": "07_Credit_Mockup.png",
+          "zone": [1232, 158, 1296, 222],
+          "shows": "coin haut-droit"
+        }
+      ],
+      "screens": ["T3.2", "T3.3"],
+      "fallback": ["panelEdge", "goldLight"]
+    },
+    {
+      "key": "ui/ornament/divider-star",
+      "name": "Étoile de séparateur",
+      "material": "dark",
+      "size": [64, 32],
+      "display": "fixed",
+      "transparent": true,
+      "description": "L'étoile centrale d'un séparateur : un 9-patch n'a pas de milieu fixe, l'étoile se pose donc entre deux séparateurs d'or.",
+      "prompt": "Small four-pointed gold star with short tapering gold rays left and right.",
+      "mockups": [
+        {
+          "file": "07_Credit_Mockup.png",
+          "zone": [812, 783, 852, 818],
+          "shows": "sous la citation des crédits"
+        }
+      ],
+      "screens": ["T3.3"],
+      "fallback": ["panelEdge", "goldLight"]
+    },
+    {
+      "key": "ui/ornament/crest-shield",
+      "name": "Écu grenat",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[96, 96], [128, 128]],
+      "description": "Écu d'émail grenat à l'esperluette dragonne d'or : l'emblème posé devant un titre d'écran.",
+      "prompt": "Heater shield of garnet enamel with a gold rim and a gold dragon-shaped ampersand emblem.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [104, 68, 182, 172],
+          "shows": "devant « Options »"
+        },
+        {
+          "file": "09_MercenaryScreen_Mockup.png",
+          "zone": [32, 18, 127, 138],
+          "shows": "devant le titre de l'équipe"
+        },
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [24, 8, 112, 98],
+          "shows": "devant « Compétences »"
+        },
+        {
+          "file": "08_Map_Mockup.png",
+          "zone": [20, 20, 110, 125],
+          "shows": "devant le titre de la carte"
+        }
+      ],
+      "screens": ["T3.2", "T3.6", "T3.7", "T3.8"],
+      "fallback": ["gem", "panelEdge"]
+    },
+    {
+      "key": "ui/ornament/crest-pennant",
+      "name": "Fanion grenat",
+      "material": "parchment",
+      "size": [128, 160],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[96, 120], [128, 160]],
+      "description": "Fanion d'étoffe grenat à pointe, esperluette d'or, suspendu au bord supérieur d'une feuille.",
+      "prompt": "Hanging pennant of garnet cloth with a V-cut bottom, gold fringe line and a gold dragon-shaped ampersand emblem.",
+      "mockups": [
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [28, 22, 112, 132],
+          "shows": "coin haut-gauche de l'équipement"
+        },
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [1418, 22, 1505, 132],
+          "shows": "fiche d'objet"
+        },
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [253, 12, 377, 142],
+          "shows": "tête de la fiche"
+        }
+      ],
+      "screens": ["T3.4", "T3.5"],
+      "fallback": ["gem", "accent"]
+    },
+    {
+      "key": "ui/ornament/hourglass",
+      "name": "Sablier",
+      "material": "parchment",
+      "size": [64, 64],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32]],
+      "description": "Sablier de laiton : temps d'incantation, durées.",
+      "prompt": "Small brass hourglass with sand, front view.",
+      "mockups": [
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [1395, 480, 1415, 518],
+          "shows": "« 1 action »"
+        }
+      ],
+      "screens": ["T3.8"],
+      "fallback": ["accent", "border"]
+    },
+    {
+      "key": "ui/ornament/day-dial",
+      "name": "Cadran du jour",
+      "material": "dark",
+      "size": [64, 64],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32]],
+      "states": [
+        {
+          "id": "day",
+          "label": "jour",
+          "prompt": "radiant sun with straight rays"
+        },
+        {
+          "id": "dusk",
+          "label": "crépuscule",
+          "prompt": "half sun on a horizon line"
+        },
+        {
+          "id": "night",
+          "label": "nuit",
+          "prompt": "crescent moon with two small stars"
+        }
+      ],
+      "description": "Soleil ou lune d'or : le moment de la journée, à côté de l'heure.",
+      "prompt": "Small gold celestial dial icon.",
+      "mockups": [
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [15, 872, 50, 908],
+          "shows": "soleil, « Jour 3, 10:24 »"
+        },
+        {
+          "file": "08_Map_Mockup.png",
+          "zone": [38, 972, 78, 1012],
+          "shows": "même cadran"
+        }
+      ],
+      "screens": ["T3.6", "T4.1"],
+      "fallback": ["goldLight", "panelEdge"]
+    },
+    {
+      "key": "ui/icon/menu",
+      "name": "Entrées du menu",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "continue",
+          "label": "Continuer",
+          "prompt": "a play triangle",
+          "mockup": {
+            "file": "06_Main_Menu_Mockup.png",
+            "zone": [183, 365, 245, 415]
+          }
+        },
+        {
+          "id": "new-game",
+          "label": "Nouvelle partie",
+          "prompt": "a quill over a scroll",
+          "mockup": {
+            "file": "06_Main_Menu_Mockup.png",
+            "zone": [190, 443, 245, 490]
+          }
+        },
+        {
+          "id": "load-game",
+          "label": "Charger une partie",
+          "prompt": "an open folder",
+          "mockup": {
+            "file": "06_Main_Menu_Mockup.png",
+            "zone": [190, 520, 245, 566]
+          }
+        },
+        {
+          "id": "options",
+          "label": "Options",
+          "prompt": "a cogwheel",
+          "mockup": {
+            "file": "06_Main_Menu_Mockup.png",
+            "zone": [190, 596, 245, 642]
+          }
+        },
+        {
+          "id": "credits",
+          "label": "Crédits",
+          "prompt": "an open book",
+          "mockup": {
+            "file": "06_Main_Menu_Mockup.png",
+            "zone": [190, 672, 245, 718]
+          }
+        },
+        {
+          "id": "quit",
+          "label": "Quitter",
+          "prompt": "a door with an exit arrow",
+          "mockup": {
+            "file": "06_Main_Menu_Mockup.png",
+            "zone": [190, 750, 245, 796]
+          }
+        }
+      ],
+      "description": "Icônes d'or des six entrées du menu principal.",
+      "prompt": "Engraved gold emblem icon, bold readable silhouette at 32 px, subtle relief, transparent background.",
+      "mockups": [
+        {
+          "file": "06_Main_Menu_Mockup.png",
+          "zone": [150, 355, 540, 805],
+          "shows": "colonne du menu"
+        }
+      ],
+      "screens": ["T3.1"],
+      "fallback": ["textOnPanel"]
+    },
+    {
+      "key": "ui/icon/options-tab",
+      "name": "Onglets des options",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "general",
+          "label": "Général",
+          "prompt": "a cogwheel",
+          "mockup": {
+            "file": "05_Options_Mockup.png",
+            "zone": [140, 203, 192, 248]
+          }
+        },
+        {
+          "id": "graphics",
+          "label": "Graphismes",
+          "prompt": "a monitor",
+          "mockup": {
+            "file": "05_Options_Mockup.png",
+            "zone": [140, 275, 195, 320]
+          }
+        },
+        {
+          "id": "audio",
+          "label": "Audio",
+          "prompt": "a speaker with sound waves",
+          "mockup": {
+            "file": "05_Options_Mockup.png",
+            "zone": [140, 345, 195, 392]
+          }
+        },
+        {
+          "id": "game",
+          "label": "Jeu",
+          "prompt": "a gamepad",
+          "mockup": {
+            "file": "05_Options_Mockup.png",
+            "zone": [140, 418, 195, 462]
+          }
+        },
+        {
+          "id": "controls",
+          "label": "Commandes",
+          "prompt": "a keyboard",
+          "mockup": {
+            "file": "05_Options_Mockup.png",
+            "zone": [140, 488, 195, 532]
+          }
+        },
+        {
+          "id": "accessibility",
+          "label": "Accessibilité",
+          "prompt": "a standing human figure",
+          "mockup": {
+            "file": "05_Options_Mockup.png",
+            "zone": [145, 558, 192, 605]
+          }
+        }
+      ],
+      "description": "Les six onglets de la maquette 05 — et non huit, comme le plan l'annonçait.",
+      "prompt": "Engraved gold emblem icon, bold readable silhouette at 32 px, subtle relief, transparent background.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [112, 195, 432, 612],
+          "shows": "colonne des onglets"
+        }
+      ],
+      "screens": ["T3.2"],
+      "fallback": ["textOnPanel"]
+    },
+    {
+      "key": "ui/icon/options-section",
+      "name": "Sections des options",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "language",
+          "label": "Langue",
+          "prompt": "a speech bubble",
+          "mockup": {
+            "file": "05_Options_Mockup.png",
+            "zone": [463, 157, 504, 201]
+          }
+        },
+        {
+          "id": "interface",
+          "label": "Interface",
+          "prompt": "a pointing gauntlet",
+          "mockup": {
+            "file": "05_Options_Mockup.png",
+            "zone": [463, 368, 504, 412]
+          }
+        },
+        {
+          "id": "save",
+          "label": "Sauvegarde",
+          "prompt": "a bookmark ribbon",
+          "mockup": {
+            "file": "05_Options_Mockup.png",
+            "zone": [463, 635, 504, 680]
+          }
+        },
+        {
+          "id": "difficulty",
+          "label": "Difficulté",
+          "prompt": "a raised fist",
+          "mockup": {
+            "file": "05_Options_Mockup.png",
+            "zone": [943, 155, 985, 200]
+          }
+        },
+        {
+          "id": "network",
+          "label": "Réseau",
+          "prompt": "two crossed banners",
+          "mockup": {
+            "file": "05_Options_Mockup.png",
+            "zone": [943, 422, 985, 466]
+          }
+        },
+        {
+          "id": "privacy",
+          "label": "Confidentialité",
+          "prompt": "a padlock",
+          "mockup": {
+            "file": "05_Options_Mockup.png",
+            "zone": [943, 653, 985, 698]
+          }
+        }
+      ],
+      "description": "L'emblème logé dans le losange de chaque intertitre des options.",
+      "prompt": "Engraved gold emblem icon, bold readable silhouette at 32 px, subtle relief, transparent background.",
+      "mockups": [
+        {
+          "file": "05_Options_Mockup.png",
+          "zone": [460, 150, 1390, 700],
+          "shows": "intertitres des six sections"
+        }
+      ],
+      "screens": ["T3.2"],
+      "fallback": ["goldLight"]
+    },
+    {
+      "key": "ui/icon/skill",
+      "name": "Compétences",
+      "material": "parchment",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "acrobatics",
+          "label": "Acrobaties",
+          "prompt": "a tumbling figure",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 119, 1192, 159]
+          }
+        },
+        {
+          "id": "animal-handling",
+          "label": "Dressage",
+          "prompt": "a paw print",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 160, 1192, 200]
+          }
+        },
+        {
+          "id": "arcana",
+          "label": "Arcanes",
+          "prompt": "a radiant eye in a sunburst",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 202, 1192, 242]
+          }
+        },
+        {
+          "id": "athletics",
+          "label": "Athlétisme",
+          "prompt": "a dumbbell",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 243, 1192, 283]
+          }
+        },
+        {
+          "id": "deception",
+          "label": "Tromperie",
+          "prompt": "a theatre mask",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 285, 1192, 325]
+          }
+        },
+        {
+          "id": "history",
+          "label": "Histoire",
+          "prompt": "an open tome",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 326, 1192, 366]
+          }
+        },
+        {
+          "id": "insight",
+          "label": "Intuition",
+          "prompt": "a watchful eye",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 367, 1192, 407]
+          }
+        },
+        {
+          "id": "intimidation",
+          "label": "Intimidation",
+          "prompt": "a roaring face",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 409, 1192, 449]
+          }
+        },
+        {
+          "id": "investigation",
+          "label": "Investigation",
+          "prompt": "a magnifying glass",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 450, 1192, 490]
+          }
+        },
+        {
+          "id": "medicine",
+          "label": "Médecine",
+          "prompt": "a cross",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 492, 1192, 532]
+          }
+        },
+        {
+          "id": "nature",
+          "label": "Nature",
+          "prompt": "a leaf",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 533, 1192, 573]
+          }
+        },
+        {
+          "id": "perception",
+          "label": "Perception",
+          "prompt": "an eye with lashes",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 574, 1192, 614]
+          }
+        },
+        {
+          "id": "performance",
+          "label": "Représentation",
+          "prompt": "a lyre",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 616, 1192, 656]
+          }
+        },
+        {
+          "id": "persuasion",
+          "label": "Persuasion",
+          "prompt": "two speech bubbles",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 657, 1192, 697]
+          }
+        },
+        {
+          "id": "religion",
+          "label": "Religion",
+          "prompt": "a radiant sun symbol",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 699, 1192, 739]
+          }
+        },
+        {
+          "id": "sleight-of-hand",
+          "label": "Escamotage",
+          "prompt": "an open hand",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 740, 1192, 780]
+          }
+        },
+        {
+          "id": "stealth",
+          "label": "Discrétion",
+          "prompt": "a hooded head",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 781, 1192, 821]
+          }
+        },
+        {
+          "id": "survival",
+          "label": "Survie",
+          "prompt": "a campfire",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [1148, 823, 1192, 863]
+          }
+        }
+      ],
+      "description": "Les dix-huit compétences, glyphe clair dans un disque noir, comme sur la maquette 03.",
+      "prompt": "Light parchment-coloured glyph inside a solid black disc with a thin brass rim, bold readable silhouette at 32 px, transparent background outside the disc.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [1110, 120, 1480, 865],
+          "shows": "liste des compétences"
+        }
+      ],
+      "screens": ["T3.4"],
+      "fallback": ["text"]
+    },
+    {
+      "key": "ui/icon/ability",
+      "name": "Caractéristiques",
+      "material": "parchment",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "strength",
+          "label": "Force",
+          "prompt": "a flexed arm"
+        },
+        {
+          "id": "dexterity",
+          "label": "Dextérité",
+          "prompt": "a feather"
+        },
+        {
+          "id": "constitution",
+          "label": "Constitution",
+          "prompt": "a heart inside a shield"
+        },
+        {
+          "id": "intelligence",
+          "label": "Intelligence",
+          "prompt": "an open book with a star"
+        },
+        {
+          "id": "wisdom",
+          "label": "Sagesse",
+          "prompt": "an owl"
+        },
+        {
+          "id": "charisma",
+          "label": "Charisme",
+          "prompt": "a crown"
+        }
+      ],
+      "description": "Les six caractéristiques. La maquette 03 les écrit en abréviations dans les médaillons, sans icône : les icônes servent aux listes où la place manque (compétences, jets).",
+      "prompt": "Sepia ink engraved emblem, bold silhouette at 32 px, transparent background.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [30, 118, 540, 578],
+          "shows": "les six médaillons de caractéristique"
+        }
+      ],
+      "screens": ["T3.4"],
+      "fallback": ["text"]
+    },
+    {
+      "key": "ui/icon/poi",
+      "name": "Points d'intérêt de la carte",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "city",
+          "label": "Ville / Cité",
+          "prompt": "a city with towers",
+          "mockup": {
+            "file": "08_Map_Mockup.png",
+            "zone": [40, 624, 72, 648]
+          }
+        },
+        {
+          "id": "fortress",
+          "label": "Forteresse",
+          "prompt": "a fortress keep",
+          "mockup": {
+            "file": "08_Map_Mockup.png",
+            "zone": [40, 648, 72, 672]
+          }
+        },
+        {
+          "id": "dungeon",
+          "label": "Donjon / Ruines",
+          "prompt": "a ruined tower",
+          "mockup": {
+            "file": "08_Map_Mockup.png",
+            "zone": [40, 673, 72, 697]
+          }
+        },
+        {
+          "id": "camp",
+          "label": "Camp",
+          "prompt": "a tent",
+          "mockup": {
+            "file": "08_Map_Mockup.png",
+            "zone": [40, 697, 72, 721]
+          }
+        },
+        {
+          "id": "main-quest",
+          "label": "Quête principale",
+          "prompt": "an exclamation mark in a gold diamond",
+          "mockup": {
+            "file": "08_Map_Mockup.png",
+            "zone": [40, 721, 72, 745]
+          }
+        },
+        {
+          "id": "side-quest",
+          "label": "Quête secondaire",
+          "prompt": "an exclamation mark in a blue diamond",
+          "mockup": {
+            "file": "08_Map_Mockup.png",
+            "zone": [40, 746, 72, 770]
+          }
+        },
+        {
+          "id": "point-of-interest",
+          "label": "Point d'intérêt",
+          "prompt": "a small white pearl",
+          "mockup": {
+            "file": "08_Map_Mockup.png",
+            "zone": [40, 770, 72, 794]
+          }
+        },
+        {
+          "id": "port",
+          "label": "Port",
+          "prompt": "an anchor",
+          "mockup": {
+            "file": "08_Map_Mockup.png",
+            "zone": [425, 155, 458, 186]
+          }
+        }
+      ],
+      "description": "Les marqueurs de la légende de la carte, plus le port, visible sur la carte mais absent de la légende.",
+      "prompt": "Black silhouette map marker on a small gold-rimmed tag, readable at 24 px, transparent background.",
+      "mockups": [
+        {
+          "file": "08_Map_Mockup.png",
+          "zone": [15, 578, 230, 928],
+          "shows": "légende"
+        }
+      ],
+      "screens": ["T3.6"],
+      "fallback": ["text"]
+    },
+    {
+      "key": "ui/icon/nav",
+      "name": "Navigation",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "map",
+          "label": "Carte",
+          "prompt": "a folded map",
+          "mockup": {
+            "file": "08_Map_Mockup.png",
+            "zone": [1058, 938, 1112, 988]
+          }
+        },
+        {
+          "id": "quests",
+          "label": "Quêtes",
+          "prompt": "a quill and scroll",
+          "mockup": {
+            "file": "08_Map_Mockup.png",
+            "zone": [1143, 938, 1195, 988]
+          }
+        },
+        {
+          "id": "inventory",
+          "label": "Inventaire",
+          "prompt": "a backpack",
+          "mockup": {
+            "file": "08_Map_Mockup.png",
+            "zone": [1225, 938, 1280, 988]
+          }
+        },
+        {
+          "id": "company",
+          "label": "Équipe",
+          "prompt": "three heads",
+          "mockup": {
+            "file": "08_Map_Mockup.png",
+            "zone": [1310, 938, 1365, 988]
+          }
+        },
+        {
+          "id": "options",
+          "label": "Options",
+          "prompt": "a cogwheel",
+          "mockup": {
+            "file": "08_Map_Mockup.png",
+            "zone": [1395, 938, 1448, 988]
+          }
+        }
+      ],
+      "description": "La barre de navigation de la carte, et les raccourcis du HUD.",
+      "prompt": "Engraved gold emblem icon, bold readable silhouette at 32 px, subtle relief, transparent background.",
+      "mockups": [
+        {
+          "file": "08_Map_Mockup.png",
+          "zone": [1030, 918, 1478, 1015],
+          "shows": "barre de navigation"
+        },
+        {
+          "file": "01_InGame_HUD_Mockup.png",
+          "zone": [1410, 790, 1660, 860],
+          "shows": "raccourcis du HUD"
+        }
+      ],
+      "screens": ["T3.6", "T4.1"],
+      "fallback": ["textOnPanel"]
+    },
+    {
+      "key": "ui/icon/school",
+      "name": "Écoles de magie",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "abjuration",
+          "label": "Abjuration",
+          "prompt": "a blue shield",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [518, 150, 600, 230]
+          }
+        },
+        {
+          "id": "conjuration",
+          "label": "Invocation",
+          "prompt": "a red flame pyramid",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [518, 230, 600, 310]
+          }
+        },
+        {
+          "id": "divination",
+          "label": "Divination",
+          "prompt": "a violet eye",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [518, 308, 600, 388]
+          }
+        },
+        {
+          "id": "enchantment",
+          "label": "Enchantement",
+          "prompt": "a golden mask shield",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [518, 388, 600, 468]
+          }
+        },
+        {
+          "id": "evocation",
+          "label": "Évocation",
+          "prompt": "an orange flame",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [518, 468, 600, 548]
+          }
+        },
+        {
+          "id": "illusion",
+          "label": "Illusion",
+          "prompt": "a teal swirl of mirrors",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [518, 548, 600, 628]
+          }
+        },
+        {
+          "id": "necromancy",
+          "label": "Nécromancie",
+          "prompt": "a violet skull",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [518, 625, 600, 705]
+          }
+        },
+        {
+          "id": "transmutation",
+          "label": "Transmutation",
+          "prompt": "a green alchemical mask",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [518, 705, 600, 785]
+          }
+        },
+        {
+          "id": "thaumaturgy",
+          "label": "Thaumaturgie",
+          "prompt": "a white radiant star",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [518, 785, 600, 865]
+          }
+        }
+      ],
+      "description": "Neuf médaillons émaillés de la couleur de leur école : les huit écoles du jeu de règles, et la thaumaturgie de la maquette 10.",
+      "prompt": "Round enamel medallion with a bevelled rim in the school's colour and a glowing emblem in the centre, transparent background.",
+      "mockups": [
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [510, 150, 605, 865],
+          "shows": "médaillons des neuf rangées"
+        }
+      ],
+      "screens": ["T3.8"],
+      "fallback": ["panelEdge"]
+    },
+    {
+      "key": "ui/icon/inventory-category",
+      "name": "Catégories d'inventaire",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "all",
+          "label": "Tous",
+          "prompt": "four small squares"
+        },
+        {
+          "id": "equipment",
+          "label": "Équipement",
+          "prompt": "a breastplate"
+        },
+        {
+          "id": "consumables",
+          "label": "Consommables",
+          "prompt": "a potion flask"
+        },
+        {
+          "id": "misc",
+          "label": "Divers",
+          "prompt": "a pouch"
+        }
+      ],
+      "description": "Les quatre filtres de l'inventaire. La maquette 04 les écrit en toutes lettres : les icônes servent à la largeur 1280 × 720, où les libellés ne tiennent plus.",
+      "prompt": "Engraved gold emblem icon, bold readable silhouette at 32 px, subtle relief, transparent background.",
+      "mockups": [
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [560, 68, 1068, 112],
+          "shows": "onglets de filtre"
+        }
+      ],
+      "screens": ["T3.5"],
+      "fallback": ["textOnPanel"]
+    },
+    {
+      "key": "ui/icon/credits-section",
+      "name": "Sections des crédits",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "development",
+          "label": "Développement",
+          "prompt": "a group of people",
+          "mockup": {
+            "file": "07_Credit_Mockup.png",
+            "zone": [415, 244, 467, 292]
+          }
+        },
+        {
+          "id": "art-direction",
+          "label": "Direction artistique",
+          "prompt": "a painter's palette",
+          "mockup": {
+            "file": "07_Credit_Mockup.png",
+            "zone": [415, 475, 467, 527]
+          }
+        },
+        {
+          "id": "story",
+          "label": "Scénario & Univers",
+          "prompt": "a quill",
+          "mockup": {
+            "file": "07_Credit_Mockup.png",
+            "zone": [840, 242, 892, 294]
+          }
+        },
+        {
+          "id": "audio",
+          "label": "Audio",
+          "prompt": "a cogwheel with a note",
+          "mockup": {
+            "file": "07_Credit_Mockup.png",
+            "zone": [840, 398, 892, 450]
+          }
+        },
+        {
+          "id": "other",
+          "label": "Autres contributions",
+          "prompt": "a star",
+          "mockup": {
+            "file": "07_Credit_Mockup.png",
+            "zone": [840, 580, 892, 632]
+          }
+        }
+      ],
+      "description": "Les cinq sections des crédits.",
+      "prompt": "Engraved gold emblem icon, bold readable silhouette at 32 px, subtle relief, transparent background.",
+      "mockups": [
+        {
+          "file": "07_Credit_Mockup.png",
+          "zone": [400, 230, 1260, 640],
+          "shows": "têtes des cinq sections"
+        }
+      ],
+      "screens": ["T3.3"],
+      "fallback": ["goldLight"]
+    },
+    {
+      "key": "ui/icon/spell-property",
+      "name": "Propriétés d'un sort",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "damage-type",
+          "label": "Type de dégâts",
+          "prompt": "a flame",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [1188, 321, 1236, 369]
+          }
+        },
+        {
+          "id": "range",
+          "label": "Portée",
+          "prompt": "a bow and arrow",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [1188, 371, 1236, 419]
+          }
+        },
+        {
+          "id": "damage",
+          "label": "Dégâts",
+          "prompt": "a starburst impact",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [1188, 423, 1236, 471]
+          }
+        },
+        {
+          "id": "casting-time",
+          "label": "Temps d'incantation",
+          "prompt": "an hourglass",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [1188, 474, 1236, 522]
+          }
+        },
+        {
+          "id": "components",
+          "label": "Composants",
+          "prompt": "an open grimoire",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [1188, 525, 1236, 573]
+          }
+        },
+        {
+          "id": "special-effects",
+          "label": "Effets spéciaux",
+          "prompt": "a spiral",
+          "mockup": {
+            "file": "10_Skills_Mockup.png",
+            "zone": [1188, 580, 1236, 628]
+          }
+        }
+      ],
+      "description": "Les rubriques du détail d'un sort.",
+      "prompt": "Engraved gold emblem icon, bold readable silhouette at 32 px, subtle relief, transparent background.",
+      "mockups": [
+        {
+          "file": "10_Skills_Mockup.png",
+          "zone": [1180, 320, 1620, 630],
+          "shows": "détail du sort"
+        }
+      ],
+      "screens": ["T3.8"],
+      "fallback": ["goldLight"]
+    },
+    {
+      "key": "ui/icon/resource",
+      "name": "Ressources",
+      "material": "parchment",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "health",
+          "label": "Points de vie",
+          "prompt": "a garnet heart in a gold frame",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [580, 545, 640, 600]
+          }
+        },
+        {
+          "id": "experience",
+          "label": "Expérience",
+          "prompt": "a laurel wreath around a small star",
+          "mockup": {
+            "file": "03_Character_Sheet_Mockup.png",
+            "zone": [580, 670, 640, 725]
+          }
+        },
+        {
+          "id": "weight",
+          "label": "Poids",
+          "prompt": "a tied leather sack",
+          "mockup": {
+            "file": "04_Inventory_Equipment_Mockup.png",
+            "zone": [568, 775, 632, 838]
+          }
+        },
+        {
+          "id": "gold",
+          "label": "Pièces d'or",
+          "prompt": "a stack of gold coins",
+          "mockup": {
+            "file": "04_Inventory_Equipment_Mockup.png",
+            "zone": [575, 872, 640, 937]
+          }
+        }
+      ],
+      "description": "Ce que mesurent les jauges et les compteurs.",
+      "prompt": "Painted emblem icon with gold and garnet accents, bold silhouette at 32 px, transparent background.",
+      "mockups": [
+        {
+          "file": "03_Character_Sheet_Mockup.png",
+          "zone": [575, 540, 1035, 770],
+          "shows": "jauges de la fiche"
+        },
+        {
+          "file": "04_Inventory_Equipment_Mockup.png",
+          "zone": [565, 770, 1060, 940],
+          "shows": "poids et or"
+        }
+      ],
+      "screens": ["T3.4", "T3.5", "T3.7"],
+      "fallback": ["gem", "goldLight"]
+    },
+    {
+      "key": "ui/icon/company-stat",
+      "name": "Compteurs de l'équipe",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "career-points",
+          "label": "Points de carrière",
+          "prompt": "an eight-pointed star",
+          "mockup": {
+            "file": "09_MercenaryScreen_Mockup.png",
+            "zone": [64, 284, 113, 338]
+          }
+        },
+        {
+          "id": "team-level",
+          "label": "Niveau d'équipe",
+          "prompt": "a shield",
+          "mockup": {
+            "file": "09_MercenaryScreen_Mockup.png",
+            "zone": [190, 284, 238, 338]
+          }
+        },
+        {
+          "id": "prestige",
+          "label": "Prestige",
+          "prompt": "a crown",
+          "mockup": {
+            "file": "09_MercenaryScreen_Mockup.png",
+            "zone": [300, 284, 348, 338]
+          }
+        },
+        {
+          "id": "fame",
+          "label": "Renommée",
+          "prompt": "a laurel wreath",
+          "mockup": {
+            "file": "09_MercenaryScreen_Mockup.png",
+            "zone": [393, 284, 440, 338]
+          }
+        }
+      ],
+      "description": "Les quatre compteurs de la compagnie.",
+      "prompt": "Engraved gold emblem icon, bold readable silhouette at 32 px, subtle relief, transparent background.",
+      "mockups": [
+        {
+          "file": "09_MercenaryScreen_Mockup.png",
+          "zone": [55, 275, 470, 395],
+          "shows": "compteurs"
+        }
+      ],
+      "screens": ["T3.7"],
+      "fallback": ["goldLight"]
+    }
+  ],
+  "excluded": [
+    {
+      "what": "Carte du monde",
+      "mockups": ["08_Map_Mockup.png"],
+      "reason": "plus d'écran de carte du monde (LOT-94) ; celle du LOT-42 se génère dans le style du jeu, jamais extraite du corpus"
+    },
+    {
+      "what": "Portraits",
+      "mockups": ["03_Character_Sheet_Mockup.png", "01_InGame_HUD_Mockup.png", "09_MercenaryScreen_Mockup.png"],
+      "reason": "les 172 jetons ronds du corpus (LOT-38) servent de portraits de démonstration"
+    },
+    {
+      "what": "Icônes d'objets, d'armes et d'armures",
+      "mockups": ["04_Inventory_Equipment_Mockup.png"],
+      "reason": "assets d'entité du LOT-39 (familles item, weapon, armor), servis par un marqueur tant que l'illustration n'est pas livrée : ils ne sont pas de l'interface"
+    },
+    {
+      "what": "Scène et grille tactique du HUD",
+      "mockups": ["01_InGame_HUD_Mockup.png", "02_InGame_HUD_Asset_CheatSheet.png"],
+      "reason": "le viewport est rendu en pixel art par le moteur ; la maquette fixe le cadre, pas la scène (T4.1)"
+    },
+    {
+      "what": "Illustrations des bâtiments et de la base",
+      "mockups": ["09_MercenaryScreen_Mockup.png"],
+      "reason": "des données de la compagnie (LOT-45, LOT-83), servies par PendingData jusque-là ; elles entreront au cahier avec leur lot"
+    },
+    {
+      "what": "Planche 02 (pack d'assets HUD)",
+      "mockups": ["02_InGame_HUD_Asset_CheatSheet.png"],
+      "reason": "planche de présentation d'un pack SVG/QML/CSS écarté (T5.1) ; ses pièces sont reprises depuis les maquettes d'écran, qui les montrent en situation"
+    }
+  ]
+}

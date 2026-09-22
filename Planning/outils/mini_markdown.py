@@ -9,6 +9,13 @@ dépendance d'exécution), et le site de planification n'en vaut pas une. Sont r
 paragraphes, listes à puces et numérotées (imbriquées par indentation), cases à cocher, tableaux,
 blocs de code, citations, filets, et en ligne : gras, italique, code, liens, images. Rien d'autre :
 une construction non reconnue sort en paragraphe, lisible, jamais en erreur.
+
+Trois conventions servent les pages de `Documentation/`, rendues par le même moteur :
+
+- une image seule dans son paragraphe devient une **figure**, légendée par son texte alternatif ;
+- une puce qui s'ouvre sur un identifiant en gras (`- **EX-CBT-001** — …`) porte cet identifiant
+  pour **ancre** : c'est ainsi qu'une exigence se déclare et se cite (`combat.md#EX-CBT-001`) ;
+- une citation qui s'ouvre sur `**Note**`, `**Attention**` ou `**Astuce**` devient un encadré.
 """
 import html
 import re
@@ -20,6 +27,9 @@ BOLD_RE = re.compile(r'\*\*(.+?)\*\*')
 ITALIC_RE = re.compile(r'(?<![\*\w])\*(?!\s)(.+?)(?<!\s)\*(?![\*\w])')
 LIST_RE = re.compile(r'^(\s*)([-*]|\d+\.)\s+(.*)$')
 HEADING_RE = re.compile(r'^(#{1,6})\s+(.*?)\s*(?:\{#([\w-]+)\})?\s*$')
+ITEM_ID_RE = re.compile(r'^\*\*([A-Z]+(?:-[A-Z]+)*-\d+)\*\*')
+FIGURE_RE = re.compile(r'^!\[([^\]]*)\]\(([^)\s]+)\)$')
+CALLOUTS = {'note': 'note', 'attention': 'warning', 'astuce': 'tip'}
 TABLE_RULE_RE = re.compile(r'^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$')
 
 
@@ -40,6 +50,8 @@ def render_inline(text, link=None):
 
     text = INLINE_CODE_RE.sub(lambda m: keep(f'<code>{html.escape(m.group(1))}</code>'), text)
     text = html.escape(text, quote=False)
+    # Quatre balises sans attribut passent : le saut de ligne d'une cellule, la touche, l'indice.
+    text = re.sub(r'&lt;(/?)(br|kbd|sub|sup)\s*/?&gt;', r'<\1\2>', text)
     text = IMAGE_RE.sub(
         lambda m: keep(f'<img src="{html.escape(link(m.group(2)))}" alt="{m.group(1)}" loading="lazy">'), text)
     text = LINK_RE.sub(lambda m: f'<a href="{html.escape(link(m.group(2)))}">{m.group(1)}</a>', text)
@@ -92,7 +104,9 @@ def render(text, link=None):
                 content = f'<input type="checkbox" disabled{checked}> ' + inline(box.group(2))
                 items.append(f'<li class="task">{content}')
             else:
-                items.append('<li>' + inline(content))
+                identified = ITEM_ID_RE.match(content)
+                anchor = f' id="{identified.group(1)}" class="identified"' if identified else ''
+                items.append(f'<li{anchor}>' + inline(content))
         return f'<{tag}>' + ''.join(item + '</li>' for item in items) + f'</{tag}>', i
 
     while index < len(lines):
@@ -102,13 +116,15 @@ def render(text, link=None):
             index += 1
             continue
         if stripped.startswith('```'):
+            language = re.sub(r'[^\w+-]', '', stripped[3:])
             index += 1
             block = []
             while index < len(lines) and not lines[index].strip().startswith('```'):
                 block.append(lines[index])
                 index += 1
             index += 1
-            out.append('<pre><code>' + html.escape('\n'.join(block)) + '</code></pre>')
+            css = f' class="language-{language}"' if language else ''
+            out.append(f'<pre><code{css}>' + html.escape('\n'.join(block)) + '</code></pre>')
             continue
         heading = HEADING_RE.match(line)
         if heading:
@@ -129,7 +145,10 @@ def render(text, link=None):
                 block.append(re.sub(r'^\s*>\s?', '', lines[index]))
                 index += 1
             inner, _ = render('\n'.join(block), link)
-            out.append(f'<blockquote>{inner}</blockquote>')
+            kind = re.match(r'\*\*(\w+)\*\*', block[0].strip())
+            callout = CALLOUTS.get(kind.group(1).lower()) if kind else None
+            css = f' class="callout {callout}"' if callout else ''
+            out.append(f'<blockquote{css}>{inner}</blockquote>')
             continue
         if '|' in line and index + 1 < len(lines) and TABLE_RULE_RE.match(lines[index + 1]):
             header = split_row(line)
@@ -154,5 +173,11 @@ def render(text, link=None):
                 and not LIST_RE.match(lines[index]) and not lines[index].strip().startswith(('```', '>')):
             block.append(lines[index].strip())
             index += 1
+        figure = FIGURE_RE.match(' '.join(block))
+        if figure:
+            target = html.escape((link or (lambda t: t))(figure.group(2)))
+            out.append(f'<figure><a href="{target}"><img src="{target}" alt="{html.escape(figure.group(1))}" '
+                       f'loading="lazy"></a><figcaption>{inline(figure.group(1))}</figcaption></figure>')
+            continue
         out.append('<p>' + inline(' '.join(block)) + '</p>')
     return '\n'.join(out), headings

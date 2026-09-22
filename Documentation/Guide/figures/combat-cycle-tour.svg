@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="560" fill="#fbf8f0"/>
+  <defs>
+    <marker id="fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+    <marker id="flr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a2233"/>
+    </marker>
+    <marker id="flv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3f6b34"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="30" font-size="15" font-weight="600" fill="#25201a">core::CombatState : les phases d'un combat, et le crochet annoncé à chaque passage</text>
+
+  <!-- Setup -->
+  <rect x="20" y="60" width="150" height="70" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="82" font-family="Consolas, monospace" font-weight="600" fill="#25201a">Setup</text>
+  <text x="32" y="100" font-size="12" fill="#6a6152">enlist, place,</text>
+  <text x="32" y="116" font-size="12" fill="#6a6152">subscribe, marqueurs</text>
+
+  <!-- Starting -->
+  <rect x="220" y="60" width="150" height="70" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="232" y="82" font-family="Consolas, monospace" font-weight="600" fill="#25201a">Starting</text>
+  <text x="232" y="100" font-size="12" fill="#6a6152">initiatives jetées,</text>
+  <text x="232" y="116" font-size="12" fill="#6a6152">round = 0</text>
+
+  <!-- RoundStart -->
+  <rect x="420" y="60" width="160" height="70" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="432" y="82" font-family="Consolas, monospace" font-weight="600" fill="#25201a">RoundStart</text>
+  <text x="432" y="100" font-size="12" fill="#6a6152">round + 1, compteurs</text>
+  <text x="432" y="116" font-size="12" fill="#6a6152">Round vidés</text>
+
+  <!-- TurnActive -->
+  <rect x="640" y="60" width="220" height="140" rx="8" fill="#fbf8f0" stroke="#9a7420" stroke-width="1.5"/>
+  <text x="652" y="82" font-family="Consolas, monospace" font-weight="600" fill="#25201a">TurnActive</text>
+  <text x="652" y="100" font-size="12" fill="#6a6152">economy.refresh() du porteur</text>
+  <text x="652" y="122" font-size="12" fill="#25201a">move · spend · declareAttack</text>
+  <text x="652" y="140" font-size="12" fill="#25201a">(resolveAttack, dodge, dash…)</text>
+  <text x="652" y="162" font-size="12" fill="#25201a">le combat attend :</text>
+  <text x="652" y="180" font-size="12" font-weight="600" fill="#8a2233">rien n'avance sans endTurn()</text>
+
+  <!-- TurnEnd -->
+  <rect x="640" y="260" width="220" height="70" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="652" y="282" font-family="Consolas, monospace" font-weight="600" fill="#25201a">TurnEnd</text>
+  <text x="652" y="300" font-size="12" fill="#6a6152">compteurs Turn vidés,</text>
+  <text x="652" y="316" font-size="12" fill="#6a6152">acteurs flottants intercalés</text>
+
+  <!-- Ended -->
+  <rect x="220" y="380" width="360" height="90" rx="8" fill="#ece4d1" stroke="#8a2233"/>
+  <text x="232" y="402" font-family="Consolas, monospace" font-weight="600" fill="#25201a">Ended</text>
+  <text x="232" y="422" font-size="12" fill="#25201a">victoire : plus aucun ennemi debout</text>
+  <text x="232" y="438" font-size="12" fill="#25201a">défaite : plus aucun allié debout, aucun parti</text>
+  <text x="232" y="454" font-size="12" fill="#25201a">fuite : plus aucun allié debout, au moins un parti</text>
+
+  <!-- transitions -->
+  <g stroke="#6a6152" stroke-width="1.5" fill="none">
+    <path d="M170,95 L218,95" marker-end="url(#fl)"/>
+    <path d="M370,95 L418,95" marker-end="url(#fl)"/>
+    <path d="M580,95 L638,95" marker-end="url(#fl)"/>
+    <path d="M750,200 L750,258" marker-end="url(#fl)"/>
+    <path d="M640,295 L600,295 L600,150 L638,150" marker-end="url(#fl)"/>
+    <path d="M700,330 L700,350 L500,350 L500,132" marker-end="url(#fl)"/>
+  </g>
+  <g font-size="12" fill="#25201a">
+    <text x="176" y="88" font-family="Consolas, monospace">start()</text>
+    <text x="376" y="88">1er round</text>
+    <text x="586" y="88">place</text>
+    <text x="756" y="235" font-family="Consolas, monospace">endTurn()</text>
+    <text x="606" y="146">place suivante</text>
+    <text x="606" y="162" font-family="Consolas, monospace">slotAfter</text>
+    <text x="506" y="345">round fini : round suivant</text>
+  </g>
+
+  <!-- crochets annoncés -->
+  <g font-family="Consolas, monospace" font-size="12" fill="#9a7420">
+    <text x="232" y="150">BeforeFirstTurn</text>
+    <text x="432" y="150">RoundStart</text>
+    <text x="432" y="166">InitiativeCount (repère)</text>
+    <text x="652" y="218">TurnStart</text>
+    <text x="652" y="348">TurnEnd</text>
+    <text x="232" y="490">CombatEnded</text>
+  </g>
+
+  <!-- fin : évaluée après chaque changement -->
+  <g stroke="#8a2233" stroke-width="1.5" fill="none" stroke-dasharray="5 4">
+    <path d="M400,200 L400,378" marker-end="url(#flr)"/>
+  </g>
+  <text x="140" y="240" font-size="12" fill="#8a2233">les trois fins sont évaluées</text>
+  <text x="140" y="256" font-size="12" fill="#8a2233">après chaque changement</text>
+  <text x="140" y="272" font-size="12" fill="#8a2233">(applyDamage, withdraw…),</text>
+  <text x="140" y="288" font-size="12" fill="#8a2233">pas seulement en fin de tour</text>
+
+  <!-- settle -->
+  <rect x="20" y="500" width="840" height="46" rx="8" fill="#fbf8f0" stroke="#3f6b34"/>
+  <text x="32" y="520" font-size="12" fill="#3f6b34" font-weight="600">settle(), en sortant de l'appel extérieur, dans cet ordre et une conséquence à la fois :</text>
+  <text x="32" y="537" font-size="12" fill="#3f6b34">1. la fin du combat · 2. le tour d'un combattant qui ne tient plus debout se termine · 3. la place suivante (step)</text>
+</svg>

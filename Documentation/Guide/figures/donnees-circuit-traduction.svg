@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="620" fill="#fbf8f0"/>
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+    <marker id="fe" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2f7f86"/>
+    </marker>
+  </defs>
+  <text x="20" y="30" font-size="17" font-weight="600" fill="#25201a">Deux circuits de traduction : la chrome des écrans, et le vocabulaire des règles</text>
+
+  <!-- Circuit 1 : qsTr -->
+  <rect x="20" y="52" width="840" height="270" rx="8" fill="none" stroke="#9a7420" stroke-dasharray="6 4"/>
+  <text x="34" y="74" font-weight="600" fill="#9a7420">1. La chrome des écrans : le français est la langue source</text>
+
+  <rect x="34" y="92" width="190" height="82" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="46" y="112" font-weight="600" fill="#25201a">Le QML</text>
+  <text x="46" y="132" font-family="Consolas, monospace" font-size="12" fill="#25201a">qsTr("Nouvelle partie")</text>
+  <text x="46" y="150" font-size="12" fill="#6a6152">une chaîne littérale, lisible</text>
+  <text x="46" y="166" font-size="12" fill="#6a6152">dans Qt Design Studio</text>
+
+  <path d="M224,133 L252,133" stroke="#6a6152" stroke-width="1.5" marker-end="url(#f)"/>
+  <rect x="254" y="92" width="150" height="82" rx="6" fill="#fbf8f0" stroke="#25201a"/>
+  <text x="266" y="112" font-weight="600" fill="#25201a">lupdate</text>
+  <text x="266" y="132" font-size="12" fill="#25201a">cible update_translations</text>
+  <text x="266" y="150" font-size="12" fill="#25201a">à la main, -no-obsolete</text>
+  <text x="266" y="166" font-size="12" fill="#6a6152">relit QML et C++</text>
+
+  <path d="M404,133 L432,133" stroke="#6a6152" stroke-width="1.5" marker-end="url(#f)"/>
+  <rect x="434" y="92" width="190" height="82" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="446" y="112" font-weight="600" fill="#25201a">Le catalogue versionné</text>
+  <text x="446" y="132" font-family="Consolas, monospace" font-size="12" fill="#25201a">Localization/jadg_en.ts</text>
+  <text x="446" y="150" font-size="12" fill="#25201a">source → translation, XML</text>
+  <text x="446" y="166" font-size="12" fill="#6a6152">édité dans Qt Linguist</text>
+
+  <path d="M624,133 L652,133" stroke="#6a6152" stroke-width="1.5" marker-end="url(#f)"/>
+  <rect x="654" y="92" width="190" height="82" rx="6" fill="#fbf8f0" stroke="#25201a"/>
+  <text x="666" y="112" font-weight="600" fill="#25201a">lrelease</text>
+  <text x="666" y="132" font-size="12" fill="#25201a">compile en .qm, embarqué</text>
+  <text x="666" y="150" font-size="12" fill="#25201a">dans la ressource /i18n</text>
+  <text x="666" y="166" font-size="12" fill="#6a6152">à chaque construction</text>
+
+  <path d="M749,174 L749,202" stroke="#6a6152" stroke-width="1.5" marker-end="url(#f)"/>
+  <rect x="654" y="204" width="190" height="60" rx="6" fill="#25201a"/>
+  <text x="749" y="228" font-size="12" fill="#fbf8f0" text-anchor="middle">QTranslator installé :</text>
+  <text x="749" y="248" font-size="12" fill="#fbf8f0" text-anchor="middle">« New game » à l'écran</text>
+
+  <rect x="34" y="204" width="590" height="100" rx="6" fill="none" stroke="#3f6b34"/>
+  <text x="46" y="226" font-weight="600" fill="#3f6b34">Ce qui garde le catalogue</text>
+  <text x="46" y="246" font-size="12" fill="#25201a">check_translations.py refuse une traduction inachevée, une entrée disparue, des marqueurs %1</text>
+  <text x="46" y="262" font-size="12" fill="#25201a">différents, un espace de bord perdu — sur le fichier versionné (lint), puis après lupdate (build),</text>
+  <text x="46" y="278" font-size="12" fill="#25201a">ce second passage prouvant que le catalogue est à jour du code.</text>
+  <text x="46" y="296" font-size="12" fill="#6a6152">seed_translations.py a amorcé jadg_en.ts depuis en.lang, une fois, sans rien deviner (LOT-86).</text>
+
+  <!-- Circuit 2 : .lang -->
+  <rect x="20" y="340" width="840" height="262" rx="8" fill="none" stroke="#2f7f86" stroke-dasharray="6 4"/>
+  <text x="34" y="362" font-weight="600" fill="#2f7f86">2. Le vocabulaire des règles : une clé calculée, un catalogue maison</text>
+
+  <rect x="34" y="380" width="190" height="82" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="46" y="400" font-weight="600" fill="#25201a">Une vue-modèle</text>
+  <text x="46" y="420" font-family="Consolas, monospace" font-size="12" fill="#25201a">"rpg.ability." + id</text>
+  <text x="46" y="438" font-size="12" fill="#6a6152">clé calculée : qsTr ne sait</text>
+  <text x="46" y="454" font-size="12" fill="#6a6152">pas l'extraire</text>
+
+  <path d="M224,421 L252,421" stroke="#2f7f86" stroke-width="1.5" marker-end="url(#fe)"/>
+  <rect x="254" y="380" width="150" height="82" rx="6" fill="#fbf8f0" stroke="#25201a"/>
+  <text x="266" y="400" font-weight="600" fill="#25201a">hmi::ruleLabel</text>
+  <text x="266" y="420" font-size="12" fill="#25201a">(clé, langue)</text>
+  <text x="266" y="438" font-size="12" fill="#6a6152">HMI/Runtime/RuleLabels</text>
+
+  <path d="M404,421 L432,421" stroke="#2f7f86" stroke-width="1.5" marker-end="url(#fe)"/>
+  <rect x="434" y="380" width="190" height="82" rx="6" fill="#fbf8f0" stroke="#25201a"/>
+  <text x="446" y="400" font-weight="600" fill="#25201a">hmi::Localization::text</text>
+  <text x="446" y="420" font-size="12" fill="#25201a">langue active → langue par</text>
+  <text x="446" y="436" font-size="12" fill="#25201a">défaut (fr) → la clé elle-même</text>
+  <text x="446" y="454" font-size="12" fill="#6a6152">jamais une chaîne vide</text>
+
+  <path d="M624,421 L652,421" stroke="#2f7f86" stroke-width="1.5" marker-end="url(#fe)"/>
+  <rect x="654" y="380" width="190" height="82" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="666" y="400" font-weight="600" fill="#25201a">Les catalogues .lang</text>
+  <text x="666" y="420" font-family="Consolas, monospace" font-size="12" fill="#25201a">fr.lang, en.lang</text>
+  <text x="666" y="438" font-size="12" fill="#25201a">clé = valeur, UTF-8, # commente</text>
+  <text x="666" y="454" font-size="12" fill="#6a6152">à côté de l'exécutable</text>
+
+  <rect x="34" y="484" width="810" height="104" rx="6" fill="none" stroke="#3f6b34"/>
+  <text x="46" y="506" font-weight="600" fill="#3f6b34">Ce qui garde le vocabulaire</text>
+  <text x="46" y="526" font-size="12" fill="#25201a">rpg.glossary.csv (2 084 entrées, extrait du corpus) est la table d'autorité : une seule traduction par terme</text>
+  <text x="46" y="542" font-size="12" fill="#25201a">de règle dans tout le jeu. check_glossary.py vérifie que chaque clé de règle des .lang (condition., damage.,</text>
+  <text x="46" y="558" font-size="12" fill="#25201a">school., ability., skill.…) porte un terme du lexique, traduit comme le lexique le dit — accents compris.</text>
+  <text x="46" y="578" font-size="12" fill="#6a6152">C'est pourquoi ces libellés ne sont pas des qsTr dispersés dans les écrans : le lexique ne tiendrait plus.</text>
+</svg>

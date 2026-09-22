@@ -20,8 +20,18 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 FRONT_MATTER_RE = re.compile(r'\A\+\+\+\r?\n(.*?)\r?\n\+\+\+\r?\n?(.*)\Z', re.DOTALL)
-LOT_ID_RE = re.compile(r'^LOT-\d{3}$')
-LOT_FILE_RE = re.compile(r'^(LOT-\d{3})-[a-z0-9]+(?:-[a-z0-9]+)*\.md$')
+# Trois générations d'identifiants, toutes gardées : un numéro ne se réattribue ni ne se renomme.
+# `LOT-NN` et `LOT-EDITOR-NN` sont ceux de la version 0.0.0 (l'ancienne feuille de route et celle de
+# l'éditeur) ; tout lot né depuis porte trois chiffres.
+LOT_ID_RE = re.compile(r'^LOT-(?:EDITOR-\d{2}|\d{2,3})$')
+LOT_FILE_RE = re.compile(r'^(LOT-(?:EDITOR-\d{2}|\d{2,3}))-[a-z0-9]+(?:-[a-z0-9]+)*\.md$')
+
+
+def lot_sort_key(lot_id):
+    """Ordre des numéros, et non des chaînes : `LOT-50` avant `LOT-100`, l'éditeur à la suite."""
+    number = re.search(r'(\d+)$', lot_id)
+    return ('EDITOR' in lot_id, int(number.group(1)) if number else 0, lot_id)
+
 
 FILIERES = {
     'standard': 'Standard et outillage',
@@ -31,6 +41,7 @@ FILIERES = {
     'quete': 'Quêtes et dialogues',
     'moteur': 'Moteur',
     'regles': 'Règles et données',
+    'donnees': 'Corpus et extraction',
     'interface': 'Interface',
     'editeur': 'Éditeur de cartes',
     'version': 'Recette et version',
@@ -231,7 +242,7 @@ def compute_order(planning):
         ready = [i for i in remaining if all(p in simulated or p not in lots for p in lots[i].prerequis)]
         if not ready:  # cycle : les lots restants gardent le rang 0
             break
-        ready.sort(key=lambda i: (version_rank.get(lots[i].version, 999), -lots[i].debloque, i))
+        ready.sort(key=lambda i: (version_rank.get(lots[i].version, 999), -lots[i].debloque, lot_sort_key(i)))
         chosen = ready[0]
         rank += 1
         lots[chosen].rang = rank

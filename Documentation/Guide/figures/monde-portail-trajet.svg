@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="Segoe UI, system-ui, sans-serif" font-size="13">
+  <rect width="900" height="480" fill="#fbf8f0"/>
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+    <marker id="fr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a2233"/>
+    </marker>
+  </defs>
+
+  <!-- Carte source -->
+  <rect x="20" y="20" width="230" height="200" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="44" font-weight="600" fill="#25201a">Carte source</text>
+  <text x="32" y="62" font-family="Consolas, monospace" font-size="12" fill="#6a6152">bourg/place</text>
+  <g stroke="#d6c9a8" fill="#fbf8f0">
+    <rect x="40" y="80" width="36" height="36"/><rect x="76" y="80" width="36" height="36"/><rect x="112" y="80" width="36" height="36"/>
+    <rect x="40" y="116" width="36" height="36"/><rect x="76" y="116" width="36" height="36"/><rect x="112" y="116" width="36" height="36"/>
+  </g>
+  <rect x="40" y="116" width="36" height="36" fill="#2f7f86" stroke="#25201a"/>
+  <circle cx="130" cy="134" r="9" fill="#9a7420"/>
+  <path d="M120,134 L82,134" stroke="#25201a" stroke-width="1.5" marker-end="url(#f)"/>
+  <text x="156" y="130" font-size="12" fill="#25201a">héros</text>
+  <text x="32" y="176" font-family="Consolas, monospace" font-size="12" fill="#25201a">portal (0, 4)</text>
+  <text x="32" y="193" font-family="Consolas, monospace" font-size="12" fill="#25201a">targetMap: "cave"</text>
+  <text x="32" y="210" font-family="Consolas, monospace" font-size="12" fill="#25201a">arrival: "place"</text>
+
+  <!-- Carte cible -->
+  <rect x="650" y="20" width="230" height="200" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="662" y="44" font-weight="600" fill="#25201a">Carte cible</text>
+  <text x="662" y="62" font-family="Consolas, monospace" font-size="12" fill="#6a6152">cave</text>
+  <g stroke="#d6c9a8" fill="#fbf8f0">
+    <rect x="690" y="80" width="36" height="36"/><rect x="726" y="80" width="36" height="36"/><rect x="762" y="80" width="36" height="36"/>
+    <rect x="690" y="116" width="36" height="36"/><rect x="726" y="116" width="36" height="36"/><rect x="762" y="116" width="36" height="36"/>
+  </g>
+  <rect x="726" y="80" width="36" height="36" fill="#3f6b34" stroke="#25201a"/>
+  <circle cx="744" cy="98" r="9" fill="#9a7420"/>
+  <text x="662" y="176" font-family="Consolas, monospace" font-size="12" fill="#25201a">spawnPoint</text>
+  <text x="662" y="193" font-family="Consolas, monospace" font-size="12" fill="#25201a">name: "place"</text>
+  <text x="662" y="210" font-size="12" fill="#6a6152">héros posé au centre de la case</text>
+
+  <!-- Chaîne de décisions -->
+  <text x="290" y="36" font-weight="600" fill="#25201a">core::WorldTravel::cross(case, drapeaux)</text>
+  <g fill="#fbf8f0" stroke="#9a7420">
+    <rect x="290" y="50" width="320" height="40" rx="6"/>
+    <rect x="290" y="112" width="320" height="40" rx="6"/>
+    <rect x="290" y="174" width="320" height="40" rx="6"/>
+    <rect x="290" y="258" width="320" height="40" rx="6"/>
+    <rect x="290" y="320" width="320" height="40" rx="6"/>
+  </g>
+  <g fill="#25201a">
+    <text x="302" y="75">1. portalAt : un portail sur cette case ?</text>
+    <text x="302" y="137">2. requiresFlag levé dans WorldFlags ?</text>
+    <text x="302" y="199">3. targetMap renseignée ?</text>
+    <text x="302" y="283">4. enter : carte en mémoire, sinon MapLoader</text>
+    <text x="302" y="345">5. arrivalPointAt : le point nommé existe ?</text>
+  </g>
+  <text x="290" y="246" font-weight="600" fill="#25201a">core::WorldTravel::enter(carte, arrivée)</text>
+  <g stroke="#6a6152" stroke-width="1.5" fill="none">
+    <path d="M450,90 L450,110" marker-end="url(#f)"/>
+    <path d="M450,152 L450,172" marker-end="url(#f)"/>
+    <path d="M450,214 L450,230" marker-end="url(#f)"/>
+    <path d="M450,298 L450,318" marker-end="url(#f)"/>
+    <path d="M450,360 L450,392" marker-end="url(#f)"/>
+  </g>
+
+  <!-- Sorties -->
+  <g stroke="#8a2233" stroke-width="1.5" fill="none">
+    <path d="M290,70 L262,70 L262,420" />
+    <path d="M290,132 L262,132"/>
+    <path d="M290,194 L262,194"/>
+    <path d="M290,278 L262,278"/>
+    <path d="M290,340 L262,340"/>
+    <path d="M262,420 L282,420" marker-end="url(#fr)"/>
+  </g>
+  <g font-size="12" fill="#8a2233">
+    <text x="170" y="250">non : NoPortal</text>
+    <text x="170" y="268">non : Locked</text>
+    <text x="126" y="300">vide ou illisible :</text>
+    <text x="126" y="316">UnreadableMap</text>
+    <text x="126" y="348">inconnu :</text>
+    <text x="126" y="364">UnknownArrival</text>
+  </g>
+  <rect x="284" y="396" width="332" height="64" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="296" y="418" fill="#8a2233">Refus : rien ne bouge, lastIssue() dit pourquoi</text>
+  <text x="296" y="438" fill="#3f6b34">Moved : carte courante et position changées</text>
+  <text x="296" y="454" font-size="12" fill="#6a6152">la carte quittée reste en mémoire, telle quelle</text>
+
+  <path d="M616,428 C700,428 744,330 744,124" stroke="#3f6b34" stroke-width="1.5" fill="none" marker-end="url(#f)"/>
+  <text x="700" y="300" font-size="12" fill="#3f6b34">MapEntered</text>
+</svg>

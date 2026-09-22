@@ -1,14 +1,15 @@
 # La charte du site publié
 
-Le site publié sur `gh-pages` a trois parties, engendrées par trois outils différents :
+Le site publié sur `gh-pages` a quatre parties, engendrées par trois outils différents :
 
 | Adresse | Ce qu'elle porte | Qui l'engendre |
 |---|---|---|
-| `/` | La documentation et la référence de code | Doxygen, par [`scripts/build_docs.py`](../scripts/build_docs.py) |
+| `/` | Les pages : accueil, guide, spécifications, cahier de test | [`Documentation/outils/build_docs_site.py`](../Documentation/outils/build_docs_site.py) |
+| `/reference/` | La référence de code, annexe du guide | Doxygen, par [`scripts/build_docs.py`](../scripts/build_docs.py) |
 | `/planning/` | La planification : versions, lots, référentiels | [`Planning/outils/build_planning_site.py`](../Planning/outils/build_planning_site.py) |
 | `/qualite/` | Couverture de code et mesures de performance | [`scripts/build_quality_site.py`](../scripts/build_quality_site.py) |
 
-Trois outils, mais **un seul site** : ce dossier tient ce qu'ils ont en commun — la palette, les
+Quatre parties, mais **un seul site** : ce dossier tient ce qu'ils ont en commun — la palette, les
 fontes et la barre d'en-tête. Aucun des trois ne choisit une couleur ; chacun emprunte un jeton.
 C'est la seule règle, et elle se vérifie à l'œil : une couleur écrite ailleurs qu'ici est un écart.
 
@@ -18,10 +19,11 @@ C'est la seule règle, et elle se vérifie à l'œil : une couleur écrite aille
 |---|---|---|
 | `tokens.css` | Les jetons : couleurs (clair et sombre), fontes, ombre. Ne décrit aucun élément. | les trois |
 | `topbar.css` | La barre d'en-tête commune : marque, sections, les trois parties du site. | les trois |
-| `theme.css` | L'habillage des pages écrites ici (titres, tables, cartouches, badges, graphe). Importe les deux précédents. | planification, qualité |
+| `theme.css` | L'habillage des pages écrites ici (titres, tables, cartouches, badges, graphe, figures, encadrés, cartes de cas de test). Importe les deux précédents. | documentation, planification, qualité |
 | `reference.css` | Le branchement des ~140 variables CSS de Doxygen sur les jetons. | référence de code |
 | `header.html` | Le gabarit d'en-tête de Doxygen, qui porte la barre. | référence de code |
-| `site.js` | Les filtres des tables (recherche, listes déroulantes). | planification |
+| `site.js` | Les filtres des tables (recherche, listes déroulantes). | documentation, planification |
+| `docs.js` | La recherche de la barre d'en-tête et le filtre des cas de test. | documentation |
 
 La référence de code ne charge **pas** `theme.css` : ses pages ont leur propre structure, que des
 règles d'élément (`table`, `h2`, `a`) défigureraient. Elle prend les mêmes jetons et la même barre,
@@ -39,12 +41,16 @@ deux endroits à relire.
 
 ```
 python scripts/build_docs.py                                          # la référence de code
-python Planning/outils/build_planning_site.py --out build/site/planning
+python Documentation/outils/build_docs_site.py --out build/site \
+    --tagfile Documentation/generated/html/reference.tag              # les pages (remplace build/site)
+python Planning/outils/build_planning_site.py --out build/site/planning --docs-url ../
 python scripts/build_quality_site.py --site build/site               # la page qualité
 ```
 
-Les trois écrivent dans des dossiers séparés ; seuls les liens d'une partie à l'autre (la barre
-d'en-tête) demandent que les trois soient assemblées, ce que fait
+La référence se pose ensuite sous `build/site/reference/` (copie de `Documentation/generated/html/`).
+
+Chacun écrit dans son dossier ; seuls les liens d'une partie à l'autre (la barre
+d'en-tête) demandent que les parties soient assemblées, ce que fait
 [`docs.yml`](../.github/workflows/docs.yml) à la publication.
 
 ## Monter Doxygen de version

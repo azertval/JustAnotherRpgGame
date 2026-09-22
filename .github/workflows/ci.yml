@@ -683,19 +683,11 @@ jobs:
         if: ${{ !cancelled() }}
         run: python3 scripts/lint_exigences.py
 
-      # Garde-fou de la feuille de route : elle est l'unique source de verite des lots a venir,
-      # et un document de 2 500 lignes derive. Ce lint refuse un cycle de prerequis, un lien
-      # declare d'un seul cote, un lot absent du tableau d'ordre, un compte annonce faux, une
-      # exigence revendiquee deux fois, ou un diagramme qui trace une fleche que rien ne declare.
-      - name: Lint du graphe de lots
-        id: lots
-        if: ${{ !cancelled() }}
-        run: python3 scripts/lint_lots.py
-
-      # La planification (Planning/) est la source des lots a venir depuis le 20 septembre 2026 ; la
-      # feuille de route ci-dessus est figee. Ce lint refuse une fiche de lot illisible, un prerequis
-      # inconnu ou cyclique, un lot qui attend une version ulterieure, un lot livre avant ses
-      # prerequis, une maquette ou un lien qui ne mene nulle part.
+      # La planification (Planning/) est la source de TOUS les lots : ceux a venir, et, depuis la
+      # refonte de la documentation, les lots livres (version 0.0.0) ; les deux anciennes feuilles de
+      # route sont archivees sous Planning/vision/archives/. Ce lint refuse une fiche de lot
+      # illisible, un prerequis inconnu ou cyclique, un lot qui attend une version ulterieure, un lot
+      # livre avant ses prerequis, une maquette ou un lien qui ne mene nulle part.
       - name: Lint de la planification
         id: planning
         if: ${{ !cancelled() }}
@@ -721,6 +713,15 @@ jobs:
         id: designer
         if: ${{ !cancelled() }}
         run: python3 scripts/check_qml_designer_compat.py
+
+      # Les pages (guide, specifications, cahier de test) sont du Markdown nu que rend
+      # Documentation/outils/build_docs_site.py. Ce lint refuse une commande Doxygen restee dans une
+      # page, un lien ou une ancre qui ne mene nulle part, une page qu'aucun sommaire ne cite, un
+      # lot cite qui n'existe pas.
+      - name: Lint de la documentation
+        id: docs_pages
+        if: ${{ !cancelled() }}
+        run: python3 Documentation/outils/lint_docs.py
 
       - name: Cahier de test a jour
         id: cahier
@@ -858,11 +859,11 @@ jobs:
         env:
           OUTCOMES: |
             Identifiants d'exigences=${{ steps.exigences.outcome }}
-            Graphe de lots=${{ steps.lots.outcome }}
             Planification=${{ steps.planning.outcome }}
             Version de Qt CMake / CI=${{ steps.qt_pin.outcome }}
             Séparation conception / code=${{ steps.ui_layers.outcome }}
             Contrat Qt Design Studio=${{ steps.designer.outcome }}
+            Pages de documentation=${{ steps.docs_pages.outcome }}
             Cahier de test à jour=${{ steps.cahier.outcome }}
             Lexique de règles=${{ steps.glossary.outcome }}
             Manifeste du corpus=${{ steps.corpus.outcome }}
@@ -969,6 +970,12 @@ jobs:
       - name: Generate documentation
         id: doxygen
         run: python3 scripts/build_docs.py
+
+      # Les pages : le meme generateur que la publication, pour qu'une page qui ne se rend pas
+      # casse la PR et non le site.
+      - name: Generate the pages
+        id: pages
+        run: python3 Documentation/outils/build_docs_site.py --out "$RUNNER_TEMP/site"
 
       - name: Resume du job
         if: ${{ !cancelled() }}

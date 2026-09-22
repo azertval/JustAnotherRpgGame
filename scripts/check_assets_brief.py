@@ -54,7 +54,7 @@ import sys
 from pathlib import Path
 
 RACINE = Path(__file__).resolve().parent.parent
-LOT = RACINE / "Documentation" / "Lot" / "LOT-87-charte-v2"
+LOT = RACINE / "Planning" / "versions" / "v0.0.0" / "v0.0.0-fondation" / "annexes" / "LOT-87-charte-v2"
 CAHIER = LOT / "assets-brief.json"
 SCHEMA = LOT / "assets-brief.schema.json"
 PAGE = LOT / "assets-brief.md"

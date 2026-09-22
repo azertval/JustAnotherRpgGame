@@ -1,19 +1,21 @@
-# Vision & périmètre {#spec-vision}
+# Vision & périmètre
 
-> Statut : **en cours**. Le premier jalon, le *vertical slice* dans la Capitale, concrétise ces
-> objectifs un à un ; la [feuille de route](@ref roadmap) dit lesquels restent, et quel lot les
-> porte.
+> Statut : **en cours**. Le moteur qui porte ces objectifs est livré (version `0.0.0`,
+> « Fondation du moteur ») ; le premier jalon jouable est la **démo** `0.0.1` — deux quartiers de la
+> Capitale, un donjon, une quête. La [planification](../../Planning/README.md) dit quel lot porte
+> quoi, et dans quel ordre.
 
 ## Concept
 
-**RPG 2D en vue de dessus**, à monde de cartes connectées. Le joueur dirige un personnage qui
+**RPG 2D en vue isométrique**, à monde de cartes connectées. Le joueur dirige un personnage qui
 explore en **temps réel** (déplacement libre 8 directions, interaction avec les PNJ, les coffres
 et les portails) et affronte les rencontres en **combat tactique au tour par tour** sur la grille
 de la carte, régi par un système **d20**.
 
 - **Genre** : action-RPG d'exploration + combat tactique.
-- **Perspective** : 2D, vue de dessus, décor en tuiles multi-couches (sol / décor / collision) ;
-  la scène se **dessine en isométrique** (§Identités visuelles).
+- **Perspective** : 2D **isométrique**, décor en tuiles multi-couches (sol / décor / collision).
+  La carte se **pense** en grille orthogonale — une case, des voisins, un parcours — et se
+  **dessine** en losanges (§Identités visuelles) : c'est la même carte, vue autrement.
 - **Session type** : progression continue dans un monde persistant, sauvegardée.
 - **Public** : joueurs appréciant l'exploration et la réflexion tactique.
 - **Plateforme** : Windows (bureau), rendu Qt QRhi (Direct3D 11).
@@ -45,7 +47,7 @@ leur **rôle** : la scène est du monde, et son échelle est celle du lieu ; l'i
 joueur, et son échelle est celle de la fenêtre. La frontière entre les deux est écrite, pas laissée
 à l'œil.
 
-- \anchor EX-VIS-008 **EX-VIS-008** — La **scène** — sols, murs, objets du monde et figurines —
+- **EX-VIS-008** — La **scène** — sols, murs, objets du monde et figurines —
   doit être **peinte en isométrie haute définition** : losange de sol de **256 × 159 pixels d'art**
   (rapport 0,62, celui d'`core::IsoProjection`), figurine humanoïde de **170 px** dans une cellule
   de **192 × 256** dont la ligne de sol est à `y = 252` (cellule large **384 × 256** pour l'attaque
@@ -64,7 +66,7 @@ joueur, et son échelle est celle de la fenêtre. La frontière entre les deux e
   Les figurines de l'atelier des PNJ (`LOT-91`) sont de la scène, à l'échelle de son sol.
   > **Ce que l'exigence ne dit pas encore.** Le nombre d'images par animation reste ouvert : il se
   > tranche sur l'essai de marche du `LOT-101`, et aucune figurine ne se produit en série avant.
-- \anchor EX-VIS-009 **EX-VIS-009** — L'**interface** — écrans, panneaux, HUD, et tout ce qui
+- **EX-VIS-009** — L'**interface** — écrans, panneaux, HUD, et tout ce qui
   **renseigne le joueur par-dessus la scène** (curseur, chemin, portées, texte ancré) — doit porter
   la **charte v2** (`EX-IHM-070`) : images produites à 1080p et échantillonnées à tout facteur,
   polices vectorielles embarquées (`EX-REN-032`). Aucun élément de l'interface n'est de l'art de
@@ -85,33 +87,33 @@ joueur, et son échelle est celle de la fenêtre. La frontière entre les deux e
 5. Victoire : retour à l'exploration, l'ennemi retiré de la carte durablement, butin et expérience
    acquis. Défaite : reprise à la dernière sauvegarde.
 
-## Objectifs (*vertical slice*)
+## Objectifs du moteur
 
-- \anchor EX-VIS-001 **EX-VIS-001** — Le jeu doit proposer un personnage jouable se déplaçant
-  librement en 8 directions sur une carte en tuiles vue de dessus.
-- \anchor EX-VIS-002 **EX-VIS-002** — Le jeu doit relier plusieurs cartes par des portails, avec
+- **EX-VIS-001** — Le jeu doit proposer un personnage jouable se déplaçant
+  librement en 8 directions sur une carte en tuiles, dessinée en isométrie.
+- **EX-VIS-002** — Le jeu doit relier plusieurs cartes par des portails, avec
   retour possible au point de départ.
-- \anchor EX-VIS-003 **EX-VIS-003** — Le jeu doit permettre de dialoguer avec un PNJ, dialogue à
+- **EX-VIS-003** — Le jeu doit permettre de dialoguer avec un PNJ, dialogue à
   choix et conditions.
-- \anchor EX-VIS-004 **EX-VIS-004** — Le jeu doit résoudre un combat tactique complet au tour par
+- **EX-VIS-004** — Le jeu doit résoudre un combat tactique complet au tour par
   tour : initiative, déplacement à portée, attaque au d20 contre une classe d'armure, fin de
   rencontre.
-- \anchor EX-VIS-005 **EX-VIS-005** — Toute résolution chiffrée doit être **déterministe à graine
+- **EX-VIS-005** — Toute résolution chiffrée doit être **déterministe à graine
   fixée** : un combat rejoué produit exactement les mêmes jets (`EX-NFR-002`).
 
 ## Objectifs produit (au-delà du moteur)
 
-- \anchor EX-VIS-006 **EX-VIS-006** — Le projet doit fournir un **éditeur de cartes** permettant à
+- **EX-VIS-006** — Le projet doit fournir un **éditeur de cartes** permettant à
   des membres non-développeurs de créer du contenu sans coder : couches, entités, portails
   (`LOT-11`).
-- \anchor EX-VIS-007 **EX-VIS-007** — Toute règle chiffrée (classes, sorts, objets, ennemis) doit
+- **EX-VIS-007** — Toute règle chiffrée (classes, sorts, objets, ennemis) doit
   être **définie en données** (JSON), jamais codée en dur dans le C++ : c'est ce qui rend
   l'équilibrage possible sans recompiler.
 
-## Hors périmètre (*vertical slice*)
+## Hors périmètre
 
 - Multijoueur, réseau.
-- Groupe de plusieurs personnages jouables (prévu, mais **après** le slice — cf. décision 3).
+- Groupe de plusieurs personnages jouables (prévu, mais **après** la démo `0.0.1` — cf. décision 3).
 - Génération procédurale de cartes ou de donjons.
 - Édition collaborative en temps réel dans l'éditeur.
 - Portabilité hors Windows.
@@ -124,4 +126,5 @@ Ces objectifs sont détaillés dans [`gameplay.md`](gameplay.md), [`controles.md
 [`editeur-niveaux.md`](editeur-niveaux.md), [`architecture.md`](architecture.md) et, pour le
 RPG, [`exploration.md`](exploration.md), [`regles-d20.md`](regles-d20.md), [`rpg.md`](rpg.md),
 [`combat.md`](combat.md), [`inventaire.md`](inventaire.md) et [`contenu.md`](contenu.md). Chaque
-lot de `../Lot/` référence les exigences `EX-…` qu'il couvre.
+[fiche de lot](../../Planning/README.md) référence les exigences `EX-…` qu'elle couvre, et le site
+en tire la liste inverse : pour une exigence, les lots, le code et les tests qui la citent.

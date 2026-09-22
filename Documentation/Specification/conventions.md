@@ -1,4 +1,4 @@
-# Conventions de code {#spec-conventions}
+# Conventions de code
 
 Règles à respecter dès la première ligne, pour garder un code cohérent et une documentation Doxygen exploitable. Le squelette existant (`Source/Core`, `Source/HMI`) suit déjà ces règles.
 
@@ -214,7 +214,7 @@ Le code livré compile **sans aucun avertissement**. Un avertissement légitime 
 
 ## 12. Identifiants d'exigences (EX-…)
 Les exigences sont identifiées par un code `EX-<CAT>-<NNN>` (ex. `EX-ARCH-011`),
-déclaré dans les [spécifications](@ref specifications) et référencé depuis les
+déclaré dans les [spécifications](README.md) et référencé depuis les
 lots **et** le code. Ces identifiants sont **stables** : ils servent de handles
 permanents.
 
@@ -227,9 +227,10 @@ Règles :
   un numéro libre. Aucune renumérotation.
 
 Mise en œuvre :
-- Chaque exigence est déclarée par une **ancre Doxygen** :
-  `- \anchor EX-CAT-NNN **EX-CAT-NNN** — …`. Elle est alors référençable par
-  `@ref EX-CAT-NNN` (un renvoi cassé fait échouer la génération, cf. §11).
+- Chaque exigence est déclarée par une **puce qui s'ouvre sur son identifiant en gras** :
+  `- **EX-CAT-NNN** — …`. Le site en fait une ancre : elle se cite par un lien
+  (`[EX-CAT-NNN](combat.md#EX-CAT-NNN)`) ou, plus simplement, en code (`` `EX-CAT-NNN` ``), que le
+  site relie de lui-même à la déclaration. Un lien cassé fait échouer `lint_docs.py`.
 - Le script `scripts/lint_exigences.py` vérifie en CI l'**unicité** des
   déclarations et l'absence de **référence orpheline** ; `python
   scripts/lint_exigences.py --next` affiche le prochain numéro libre par catégorie.

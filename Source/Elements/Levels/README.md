@@ -14,13 +14,13 @@ Cartes du jeu, un fichier **JSON** par carte (`EX-LVL-001`, `EX-LVL-003`).
 > **Format v4, au `LOT-EDITOR-12`.** Toute carte écrite ici est gardée en CI par
 > `LevelEditor --data Source/Elements --check`, et une carte d'un format antérieur se migre par
 > `LevelEditor --migrate`.
-> Schéma : `Documentation/Editeur/level.schema.json` ; spécification :
+> Schéma : `Documentation/Specification/level.schema.json` ; spécification :
 > `Documentation/Specification/niveaux.md`.
 
 > **L'éditeur fait foi, au `LOT-EDITOR-06`.** Ces cartes se modifient dans `LevelEditor` — à la
 > souris, ou par `LevelEditor --apply` —, qui ouvre ce dossier-ci et non la copie de la
 > construction. Aucun script n'y écrit. Faire une carte : guide d'usage
-> `Documentation/Editeur/guide-usage.md`.
+> `Documentation/Guide/Manuel/utiliser-l-editeur.md`.
 
 > **Ce `README.md` est le gardien du dossier (`LOT-123`).** Git ne garde pas un dossier vide : sans
 > lui, un `Levels/` sans aucune carte disparaîtrait du dépôt, et `hmi::resolveDataRoot` cesserait de

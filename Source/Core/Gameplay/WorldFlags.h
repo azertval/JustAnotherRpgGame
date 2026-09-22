@@ -27,7 +27,7 @@ namespace core {
  * conception.
  *
  * L'état vit donc **à côté** des entités, dans un ensemble qui survit au chargement de carte et
- * que la sauvegarde ([LOT-17](@ref lot-17)) sérialisera telle quelle.
+ * que la sauvegarde (`LOT-17`) sérialisera telle quelle.
  *
  * Les clés sont des chaînes plutôt qu'un type fermé : le `LOT-16` y écrira des drapeaux de quête
  * que ce lot ne peut pas énumérer, et une énumération obligerait chaque lot suivant à modifier ce

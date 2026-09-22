@@ -49,21 +49,21 @@ $extrastylesheet
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
 
 <header class="topbar topbar--flux">
-  <a class="brand" href="$relpath^index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <a class="brand" href="$relpath^../index.html"><span>Just Another RPG Game</span> Documentation</a>
   <nav>
-    <a href="$relpath^index.html">Accueil</a>
-    <a href="$relpath^guide.html">Guide</a>
-    <a href="$relpath^specifications.html">Spécifications</a>
-    <a href="$relpath^lots.html">Lots</a>
-    <a href="$relpath^cahiertest.html">Cahier de test</a>
-    <a href="$relpath^manuel.html">Manuel</a>
+    <a href="$relpath^../index.html">Accueil</a>
+    <a href="$relpath^../Guide/index.html">Guide</a>
+    <a href="$relpath^../Specification/index.html">Spécifications</a>
+    <a href="$relpath^../CahierTest/index.html">Cahier de test</a>
+    <a href="$relpath^index.html">Référence du code</a>
     <a href="$relpath^annotated.html">Classes</a>
+    <a href="$relpath^namespaces.html">Espaces de noms</a>
     <a href="$relpath^files.html">Fichiers</a>
   </nav>
   <div class="links">
-    <a class="active" href="$relpath^index.html">Documentation</a>
-    <a href="$relpath^planning/index.html">Planification</a>
-    <a href="$relpath^qualite/index.html">Qualité</a>
+    <a class="active" href="$relpath^../index.html">Documentation</a>
+    <a href="$relpath^../planning/index.html">Planification</a>
+    <a href="$relpath^../qualite/index.html">Qualité</a>
   </div>
 </header>
 <script type="text/javascript">
@@ -72,7 +72,8 @@ $extrastylesheet
 (function() {
   var here = location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.topbar nav a').forEach(function(link) {
-    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
   });
 })();
 </script>

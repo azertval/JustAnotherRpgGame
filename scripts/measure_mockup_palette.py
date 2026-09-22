@@ -5,7 +5,7 @@
 
 Meme regle que le `LOT-66` sur les feuilles de personnage : **une couleur se releve, elle ne se
 choisit pas a vue**. Chaque role nouveau de `Source/Ui/Theme/Tokens.qml` est mesure ici sur une
-zone nommee d'une maquette de `Documentation/Lot/LOT-87-charte-v2/references/`, et la valeur
+zone nommee d'une maquette de `Planning/versions/v0.0.0/v0.0.0-fondation/annexes/LOT-87-charte-v2/references/`, et la valeur
 ecrite dans les jetons est celle que ce script imprime. Rejouer le script rejoue le releve.
 
 Deux mesures, parce qu'une maquette porte deux sortes de matiere :

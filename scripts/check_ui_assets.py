@@ -4,7 +4,7 @@
 
 `Source/Elements/Assets/UI/` ne porte qu'une provenance, cataloguee par `illustrations.json` : les
 illustrations **produites** par un generateur d'images a partir du cahier des assets
-(`Documentation/Lot/LOT-87-charte-v2/assets-brief.json`, T2.4), `provenance: "produced"`, qui
+(`Planning/versions/v0.0.0/v0.0.0-fondation/annexes/LOT-87-charte-v2/assets-brief.json`, T2.4), `provenance: "produced"`, qui
 portent la cle du cahier (`cahier`), le prompt tel qu'envoye et sa date.
 
 **Une illustration d'interface est produite, jamais extraite** (`EX-IHM-076`, `LOT-94`). Le plan
@@ -51,7 +51,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 UI = ROOT / "Source" / "Elements" / "Assets" / "UI"
 MANIFEST = UI / "illustrations.json"
-CAHIER = ROOT / "Documentation" / "Lot" / "LOT-87-charte-v2" / "assets-brief.json"
+CAHIER = ROOT / "Planning" / "versions" / "v0.0.0" / "v0.0.0-fondation" / "annexes" / "LOT-87-charte-v2" / "assets-brief.json"
 # Les cartes de l'ecran « Carte » (LOT-94, LOT-95) : peintes par l'auteur, sous Assets/Maps/, avec
 # leur propre manifeste, que scripts/check_map_assets.py recoupe.
 MAPS_MANIFEST = ROOT / "Source" / "Elements" / "Assets" / "Maps" / "manifest.json"

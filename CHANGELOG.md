@@ -6,6 +6,62 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Le guide poussé à fond, le manuel remis d'aplomb, le cahier de test navigable.** Les treize
+  pages déjà refondues du guide reçoivent trente figures SVG — l'accumulateur du pas de temps fixe,
+  le *sparse set* de l'ECS, la pile du routeur, le cycle d'un tour, l'évaluation de l'IA, la ligne
+  de vue et l'abri, la résolution d'une clé d'asset, l'ordre de tri, la projection isométrique, le
+  document et les gestes de l'éditeur — et `capture_screens.py` photographie désormais l'éditeur
+  sur la racine de données d'essai. Les pages restées en arrière sont reprises à leur tour :
+  **guide-audio** documente chaque fonction de `hmi::AudioEngine` (le préchargement qui ne peut pas
+  être paresseux, le tourniquet de trois instances, l'état muet qu'il faut pouvoir forcer) ;
+  **guide-design-ihm** ne décrivait qu'une règle d'échelle héritée du pixel art alors qu'il y en a
+  **deux**, un réel pour les écrans peints et un entier pour le viewport, et dit pourquoi chacune a
+  son type ; **guide-niveaux** décrivait le **format v3** — il passe en **v4** : collision
+  **déduite** des pièces posées, cases forcées, relevés `unplayed` et `unknownPieces`, identifiants
+  d'entités, variantes, hauteur réservée, écriture canonique ; **guide-journalisation** gagne le
+  **rapport de plantage** que le plan du guide lui attribuait sans qu'il le couvre — les quatre
+  tentatives d'écriture du minidump et pourquoi la dernière se replie sur le seul thread fautif, le
+  relevé par tentative qu'il faut lire au lieu de relancer le job, les assertions CRT routées vers
+  `stderr`. Le **manuel** promettait un monde qui n'existe plus depuis la table rase du `LOT-102` —
+  une partie ouverte à Martpart, une avenue vers Arenarea, un héraut au Colisée — alors que
+  « Nouvelle partie » affiche *« La ville de départ ne s'ouvre pas »* : il dit maintenant l'état
+  réel, châssis fini et contenu à revenir, et reçoit huit captures, lui qui n'en avait aucune. Le
+  **cahier de test** ouvre chaque page de domaine sur un sommaire — un fichier de test par ligne,
+  ses cas et leur criticité, chaque ligne menant à sa section — et son index explique enfin comment
+  **écrire un bloc `\castest`**, et ce que le cahier ne dit pas.
+
+- **Les spécifications reprises, et onze maquettes qui les argumentent.** Chaque page de
+  `Documentation/Specification/` porte désormais un **statut exact** : celles qui annonçaient « à
+  faire (LOT-77 écrit ce document) » disent ce qui est livré, ce qui manque et quel lot le porte —
+  le combat est livré dans l'arène et reste à porter sur la carte, la fiche de personnage est là
+  mais pas la progression, le mécanisme des catalogues est en place et c'est le contenu qui
+  manque. Onze **maquettes** SVG entrent dans les pages qu'elles argumentent : la grille tactique
+  avec ses portées, sa ligne de vue et son abri ; la tenaille et les zones d'effet ; la projection
+  isométrique et l'échelle HD ; l'ordre de dessin et sa clé de tri ; les couches du format v4 en
+  regard du JSON qu'elles écrivent ; le portail et la zone de combat sur une carte ; le châssis des
+  écrans du RPG, le HUD d'exploration, l'interface de combat et l'écran « Carte » ; la fenêtre de
+  l'éditeur et ses six panneaux. L'index des spécifications est réécrit — les documents groupés par
+  thème, la table des familles `EX-…` et la page qui déclare chacune, ce qu'une exigence bien écrite
+  doit dire — et perd ses dernières consignes d'époque Doxygen (`@subpage`, ancres `{#spec-…}`) et
+  son renvoi à `lint_lots.py`, supprimé. Corrections au passage : la perspective annoncée est
+  l'**isométrie** et non plus la « vue de dessus », les renvois aux lots renumérotés par la refonte
+  du 20 septembre mènent à leurs fiches vivantes, et le chemin mort `../Lot/` disparaît.
+
+- **La documentation quitte Doxygen, et tous les lots livrés entrent au planning.** Les pages
+  (guide, spécifications, cahier de test, manuel) sont désormais du **Markdown nu**, rendu par le
+  moteur et la charte du site de planification (`Documentation/outils/build_docs_site.py`) : plus un
+  `@ref`, une exigence se déclare par une puce `- **EX-…** —` et se cite en code, un symbole
+  `core::…` cité dans le guide mène à sa page de référence. **Doxygen ne garde que le code**,
+  publié sous `reference/` comme annexe du guide. Le **manuel** devient l'entrée « Prendre en main »
+  du guide, qui gagne cinq pages (monde, règles, combat, données, outils) et une page « Écrire la
+  documentation ». Le **cahier de test** devient un dossier — une page par domaine, un cas par
+  fiche, filtrable par criticité — au lieu d'une page de 640 Ko. Les 47 epics de l'ancienne feuille
+  de route et les 13 lots de l'éditeur deviennent des **fiches de la version 0.0.0 « Fondation du
+  moteur »** dans `Planning/` (identifiants d'époque conservés, annexes déplacées à côté) ; les deux
+  feuilles de route sont archivées sous `Planning/vision/archives/`, et `lint_lots.py` part avec
+  elles. Nouveaux garde-fous : `Documentation/outils/lint_docs.py` (commandes Doxygen, liens et
+  ancres morts, pages orphelines, lots cités inexistants) en CI, et 17 captures d'écran refaites par
+  `Documentation/outils/capture_screens.py`.
 - **Une carte se dessine et se joue sans texture (LOT-128).** Jusqu'ici, une carte qui ne nommait
   aucun lieu était un **écran uniforme** : ni sol ni mur, on butait sans savoir pourquoi, et
   `EX-EXP-005` — « une carte lisible sans qu'aucun fichier d'image ne soit présent » — n'était pas

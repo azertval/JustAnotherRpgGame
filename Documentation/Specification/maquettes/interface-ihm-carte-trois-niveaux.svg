@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="470" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — l'écran « Carte » à trois niveaux (EX-IHM-106), les mêmes commandes partout</text>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/></marker>
+  </defs>
+
+  <rect x="20" y="44" width="264" height="180" fill="#25201a" stroke="#9a7420"/>
+  <rect x="28" y="52" width="248" height="140" fill="#ece4d1"/>
+  <path d="M40,160 C80,90 140,70 190,80 C240,90 260,130 250,170 C200,190 100,190 40,160 z" fill="#d6c9a8" stroke="#6a6152"/>
+  <path d="M120,100 C150,90 190,100 200,130 C180,150 130,150 120,100 z" fill="#3f6b34" fill-opacity="0.35" stroke="#3f6b34"/>
+  <g stroke="#25201a"><circle cx="160" cy="122" r="6" fill="#9a7420"/><circle cx="90" cy="140" r="5" fill="#fbf8f0"/><circle cx="220" cy="100" r="5" fill="#fbf8f0"/><circle cx="70" cy="100" r="5" fill="#fbf8f0"/></g>
+  <circle cx="160" cy="122" r="10" fill="none" stroke="#8a2233" stroke-width="2"/>
+  <rect x="150" y="128" width="78" height="12" fill="#25201a"/><text x="154" y="138" font-size="9" fill="#fbf8f0">Empire central</text>
+  <rect x="28" y="196" width="248" height="22" fill="#25201a"/>
+  <text x="34" y="211" font-size="10" fill="#9a7420">Tanares · le monde connu · 13 régions</text>
+  <text x="20" y="240" font-weight="600" fill="#25201a">1. Le monde</text>
+  <text x="20" y="256" font-size="11" fill="#6a6152">un repère par région, posé par le jeu</text>
+
+  <rect x="308" y="44" width="264" height="180" fill="#25201a" stroke="#9a7420"/>
+  <rect x="316" y="52" width="248" height="140" fill="#ece4d1"/>
+  <path d="M330,180 C340,90 420,60 500,80 C540,110 550,160 520,185 z" fill="#3f6b34" fill-opacity="0.25" stroke="#3f6b34"/>
+  <g stroke="#25201a"><circle cx="430" cy="120" r="6" fill="#9a7420"/><circle cx="380" cy="150" r="4" fill="#fbf8f0"/><circle cx="480" cy="100" r="4" fill="#fbf8f0"/><circle cx="500" cy="150" r="4" fill="#fbf8f0"/><circle cx="360" cy="100" r="4" fill="#fbf8f0"/></g>
+  <circle cx="430" cy="120" r="10" fill="none" stroke="#8a2233" stroke-width="2"/>
+  <rect x="440" y="126" width="60" height="12" fill="#25201a"/><text x="444" y="136" font-size="9" fill="#fbf8f0">la Capitale</text>
+  <rect x="316" y="196" width="248" height="22" fill="#25201a"/>
+  <text x="322" y="211" font-size="10" fill="#9a7420">Empire central · 9 lieux · ▸ liste</text>
+  <text x="308" y="240" font-weight="600" fill="#25201a">2. La région</text>
+  <text x="308" y="256" font-size="11" fill="#6a6152">les lieux de l'atlas ; sans position : dans la liste seule</text>
+
+  <rect x="596" y="44" width="264" height="180" fill="#25201a" stroke="#9a7420"/>
+  <rect x="604" y="52" width="248" height="140" fill="#ece4d1"/>
+  <g fill="#d6c9a8" stroke="#6a6152">
+    <rect x="620" y="70" width="60" height="40"/><rect x="690" y="70" width="70" height="40"/><rect x="770" y="70" width="60" height="40"/>
+    <rect x="620" y="120" width="70" height="50"/><rect x="700" y="120" width="60" height="50"/><rect x="770" y="120" width="60" height="50"/>
+  </g>
+  <rect x="690" y="70" width="70" height="40" fill="#9a7420" fill-opacity="0.4" stroke="#8a2233" stroke-width="2"/>
+  <text x="696" y="94" font-size="9" fill="#25201a">Arenarea</text>
+  <text x="626" y="148" font-size="9" fill="#25201a">Martpart</text>
+  <text x="776" y="94" font-size="9" fill="#6a6152">(porte gardée)</text>
+  <rect x="604" y="196" width="248" height="22" fill="#25201a"/>
+  <text x="610" y="211" font-size="10" fill="#9a7420">La Capitale · quartiers · ▸ liste</text>
+  <text x="596" y="240" font-weight="600" fill="#25201a">3. Le plan de la ville</text>
+  <text x="596" y="256" font-size="11" fill="#6a6152">les quartiers aux cadres de world-maps.json</text>
+
+  <path d="M284,110 L306,110" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M572,110 L594,110" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <text x="270" y="100" font-size="10" fill="#9a7420">ouvrir</text><text x="558" y="100" font-size="10" fill="#9a7420">ouvrir</text>
+  <path d="M306,130 L284,130" stroke="#6a6152" stroke-width="1.5" marker-end="url(#a)"/>
+  <path d="M594,130 L572,130" stroke="#6a6152" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="262" y="146" font-size="10" fill="#6a6152">remonter</text><text x="550" y="146" font-size="10" fill="#6a6152">remonter</text>
+
+  <rect x="20" y="284" width="840" height="30" fill="#25201a" stroke="#9a7420"/>
+  <g font-size="11" fill="#fbf8f0">
+    <text x="32" y="303">← → : repère voisin</text><text x="180" y="303">↑ ↓ : liste des lieux</text><text x="330" y="303">Entrée / A : ouvrir</text><text x="470" y="303">Échap / B : remonter</text><text x="620" y="303">+ − : agrandir</text><text x="730" y="303">glisser : déplacer</text>
+  </g>
+  <text x="20" y="336" font-size="12" fill="#25201a">Une seule grammaire pour les trois niveaux, au clavier, à la manette et à la souris ; un niveau = un formulaire <tspan font-family="Consolas, monospace">.ui.qml</tspan> (EX-IHM-100).</text>
+
+  <g fill="#25201a" font-size="12">
+    <text x="20" y="366" font-weight="600">Ce que la maquette impose</text>
+    <text x="20" y="386">— aucun nom peint sur l'image : les libellés viennent du jeu, dans sa langue (EX-IHM-107) ;</text>
+    <text x="20" y="404">— les positions sont des fractions de l'image, tenues dans <tspan font-family="Consolas, monospace">Source/Elements/Maps/world-maps.json</tspan>, jamais dans l'atlas ;</text>
+    <text x="20" y="422">— on s'oriente, on ne voyage pas : aucun déplacement du héros depuis cet écran (le voyage est le LOT-171).</text>
+  </g>
+  <text x="20" y="452" font-size="11" fill="#6a6152">Comparer à la capture réelle du niveau monde (jeu-worldmap.jpg) : les treize repères et le cartouche de la région sont en place ; le plan de la ville attend le LOT-121.</text>
+</svg>

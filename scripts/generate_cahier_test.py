@@ -2,31 +2,38 @@
 # SPDX-FileCopyrightText: 2026 Valentin Eloy
 # SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 
-"""Génère Documentation/CahierTest.md à partir des blocs ``\\castest{...}`` du code de test.
-
-Le Cahier de test agrégeait auparavant tous les cas de test sur une seule page plate (mécanisme
-Doxygen ``\\xrefitem``, sans aucune section) — illisible dès que le nombre de tests dépasse
-quelques dizaines (321 aujourd'hui). Ce script reconstruit une page structurée, avec des titres
-Markdown reflétant l'arborescence réelle de ``Source/Test/`` (Unitaire/Intégration/Système, puis
-module), que Doxygen transforme en arbre de navigation repliable (comme toute autre page du site).
+"""Génère le cahier de test (`Documentation/CahierTest/`) depuis les blocs ``\\castest{...}`` du code.
 
 Les blocs ``\\castest{...}`` restent la source de vérité unique (un seul endroit à maintenir, au
-plus près du test qu'ils décrivent) ; ce script ne fait que les collecter et les réorganiser.
+plus près du test qu'ils décrivent) ; ce script ne fait que les collecter et les réorganiser en
+pages de Markdown nu, que le site de documentation rend (`Documentation/outils/build_docs_site.py`) :
+
+- ``README.md`` : le mode d'emploi du cahier et sa synthèse — cas par domaine et par criticité ;
+- une page par domaine de ``Source/Test/`` (``core-combat.md``, ``hmi-graphics.md``,
+  ``integration.md``…), où chaque fichier de test est une section et chaque cas une fiche :
+  identifiant GoogleTest, criticité, catégorie, emplacement, objet, étapes, résultat attendu.
+
+Une page unique de 640 Ko en tableaux de quatre colonnes ne se lisait pas ; un cas par fiche, un
+domaine par page, et le site filtre les fiches par texte et par criticité.
 
 Les deux modes échouent si un test du dépôt n'a **pas** de bloc ``\\castest{}``
 (``find_undocumented_tests``) : sans ce contrôle, un test jamais documenté n'apparaît d'aucun
 côté de la comparaison ``--check``, qui le valide donc en silence.
 
 Usage :
-  python scripts/generate_cahier_test.py            # régénère Documentation/CahierTest.md
-  python scripts/generate_cahier_test.py --check     # vérifie que le fichier est à jour (CI)
+  python scripts/generate_cahier_test.py            # régénère Documentation/CahierTest/
+  python scripts/generate_cahier_test.py --check     # vérifie que le dossier est à jour (CI)
 """
 import os
 import re
 import sys
 
+sys.path.insert(0, os.path.join('Planning', 'outils'))
+
+import mini_markdown  # noqa: E402  (chemin ajoute juste au-dessus)
+
 TEST_ROOT = 'Source/Test'
-OUTPUT_PATH = 'Documentation/CahierTest.md'
+OUTPUT_DIR = 'Documentation/CahierTest'
 
 # Déclaration d'un test GoogleTest, sous ses trois formes. `TEST_F`/`TEST_P` prennent en premier
 # argument la *fixture*, dont GoogleTest tire justement le nom de la suite : le premier groupe
@@ -207,12 +214,7 @@ def clean_fragment(text, keep_breaks=False):
     text = BR_RE.sub('<br/>' if keep_breaks else ' ', text)
     text = re.sub(r'[ \t]+', ' ', text).strip()
     text = re.sub(r'(<br/>\s*)+$', '', text)  # pas de saut de ligne final superflu
-    # Un `\` littéral (ex. littéral C++ `L'\xE9'`) serait lu par Doxygen comme le début d'une
-    # commande (`\xE9` -> "commande inconnue", erreur bloquante avec WARN_AS_ERROR) : échapper
-    # AVANT le pipe, pour ne pas ré-échapper le `\` que l'échappement du pipe introduirait.
-    text = text.replace('\\', '\\\\')
-    # Un `|` littéral casserait la cellule du tableau Markdown.
-    return text.replace('|', '\\|')
+    return text
 
 
 def parse_castest_content(raw_content):
@@ -285,110 +287,138 @@ def find_undocumented_tests(root):
     return undocumented
 
 
-def group_key(relative_dir):
-    """Éclate un chemin de dossier relatif à TEST_ROOT en (categorie, sous-dossiers...)."""
-    parts = [part for part in relative_dir.replace('\\', '/').split('/') if part not in ('', '.')]
-    return tuple(parts)
-
-
 CATEGORY_TITLES = {
     'Unit': 'Tests unitaires',
     'Integration': "Tests d'intégration",
     'Systeme': 'Tests système',
 }
+CRITICITES = ('Bloquant', 'Critique', 'Majeur', 'Mineur')
 
 
-TABLE_HEADER = ('| Titre (criticité) | Brief | Étapes | Résultat attendu |\n'
-                '|---|---|---|---|')
+def domain_of(case):
+    """(fichier de page, titre, catégorie) du domaine d'un cas, d'après son dossier de test."""
+    relative_dir = os.path.relpath(os.path.dirname(case['path']), TEST_ROOT)
+    parts = [part for part in relative_dir.replace('\\', '/').split('/') if part not in ('', '.')]
+    category = parts[0] if parts else 'Unit'
+    if category != 'Unit':
+        return category.lower(), CATEGORY_TITLES.get(category, category), category
+    inner = parts[1:3] or ['racine']
+    return '-'.join(part.lower() for part in inner), ' · '.join(inner), category
 
 
-def render_row(case):
-    # Colonne 1 : l'identifiant GoogleTest (retrouvable tel quel dans le code / le rapport ctest)
-    # et la criticité ; la référence fichier:ligne en petit, pour remonter au test en un clic d'œil.
-    title_cell = (f"**{case['suite']}.{case['name']}** ({case.get('crit', '?')})"
-                  f"<br/><sub>`{case['path']}:{case['line']}`</sub>")
-    brief = case['title']
-    etapes = case.get('etapes', '')
-    # État attendu : les assertions GoogleTest réellement vérifiées par le test (extraites du
-    # corps de la fonction), traduites en français — pas une phrase qui ne ferait souvent que
-    # reformuler le brief, pas du code brut non plus.
-    assertions = case.get('assertions') or []
-    if assertions:
-        attendu = '<br/>'.join(clean_fragment(translate_assertion(a)) for a in assertions)
-    else:
-        attendu = case.get('attendu') or '*(aucune assertion trouvée)*'
-    return f"| {title_cell} | {brief} | {etapes} | {attendu} |"
+def criticite_of(case):
+    return next((c for c in CRITICITES if c.lower() in case.get('crit', '').lower()), 'Majeur')
 
 
-def render_table(cases):
-    return '\n'.join([TABLE_HEADER] + [render_row(case) for case in cases])
+def render_case(case):
+    lines = [f"### {case['suite']}.{case['name']}", '']
+    category = case.get('cat', '').strip()
+    facts = ' · '.join(part for part in (criticite_of(case), category) if part)
+    lines += [f"*{facts}* — `{case['path']}:{case['line']}`", '', case['title'], '']
+    etapes = [re.sub(r'^\d+\.\s*', '', step.strip()) for step in case.get('etapes', '').split('<br/>')]
+    etapes = [step for step in etapes if step]
+    if etapes:
+        lines += ['**Étapes**', ''] + [f'{number}. {step}' for number, step in enumerate(etapes, 1)] + ['']
+    # Résultat attendu : les assertions GoogleTest réellement vérifiées par le test (extraites du
+    # corps de la fonction), traduites en français — pas une phrase qui reformulerait l'objet.
+    assertions = [clean_fragment(translate_assertion(a)) for a in case.get('assertions') or []]
+    if not assertions and case.get('attendu'):
+        assertions = [case['attendu']]
+    lines += ['**Résultat attendu**', '']
+    lines += [f'- {assertion}' for assertion in assertions] or ['- *(aucune assertion trouvée)*']
+    lines.append('')
+    return lines
 
 
-def render_markdown(cases):
-    by_category = {}
+def render_domain(title, category, cases):
+    counts = {c: sum(1 for case in cases if criticite_of(case) == c) for c in CRITICITES}
+    summary = ', '.join(f'{count} {name.lower()}{"s" if count > 1 else ""}'
+                        for name, count in counts.items() if count)
+    lines = [f'# {title}', '',
+             f'{CATEGORY_TITLES.get(category, category)} — **{len(cases)} cas** ({summary}). '
+             f'[Retour à la synthèse](README.md).', '']
+    by_file = {}
     for case in cases:
-        relative_dir = os.path.relpath(os.path.dirname(case['path']), TEST_ROOT)
-        key = group_key(relative_dir)
-        by_category.setdefault(key[0], {}).setdefault(key[1:], []).append(case)
+        by_file.setdefault(os.path.basename(case['path']), []).append(case)
 
-    total = len(cases)
-    lines = [
-        '# Cahier de test {#cahiertest}',
-        '',
-        f'**{total} cas de test**, générés depuis les blocs `\\castest{{...}}` du code par '
-        '`scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire '
-        'du test concerné puis relancer le script). Organisés ici selon l\'arborescence de '
-        '`Source/Test/` pour rester lisibles page par page.',
-        '',
-    ]
+    # Sommaire de la page : un domaine porte jusqu'a deux cents fiches, et sans cette
+    # table il fallait derouler la page pour savoir quels fichiers de test il couvre.
+    # Les ancres sont celles que le moteur du site calcule pour les titres `##`
+    # ci-dessous -- d'ou `mini_markdown.slugify`, plutot qu'une seconde regle a tenir
+    # d'accord avec la premiere.
+    lines += ['## Ce que cette page couvre', '',
+              '| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |',
+              '|---|---|---|---|---|---|']
+    for filename in sorted(by_file):
+        group = by_file[filename]
+        per = {c: sum(1 for case in group if criticite_of(case) == c) for c in CRITICITES}
+        cells = ' | '.join(str(per[c]) if per[c] else '-' for c in CRITICITES)
+        lines.append(f'| [`{filename}`](#{mini_markdown.slugify(filename)}) '
+                     f'| {len(group)} | {cells} |')
+    lines.append('')
 
-    for category in ('Unit', 'Integration', 'Systeme'):
-        if category not in by_category:
-            continue
-        subgroups = by_category[category]
-        category_total = sum(len(items) for items in subgroups.values())
-        lines.append(f'## {CATEGORY_TITLES[category]} ({category_total})')
-        lines.append('')
-
-        if category == 'Unit':
-            # Deux niveaux : namespace racine (Core/HMI) puis module (Ecs, Editor, ...).
-            top_levels = {}
-            for subpath, items in subgroups.items():
-                top = subpath[0] if subpath else '(racine)'
-                top_levels.setdefault(top, {}).setdefault(subpath[1:], []).extend(items)
-            for top in sorted(top_levels):
-                lines.append(f'### {top}')
-                lines.append('')
-                modules = top_levels[top]
-                for module_path in sorted(modules, key=lambda p: p or ('',)):
-                    module_name = module_path[0] if module_path else None
-                    items = modules[module_path]
-                    if module_name:
-                        lines.append(f'#### {module_name} ({len(items)})')
-                        lines.append('')
-                    by_file = {}
-                    for case in items:
-                        by_file.setdefault(os.path.basename(case['path']), []).append(case)
-                    for filename in sorted(by_file):
-                        lines.append(f'**`{filename}`**')
-                        lines.append('')
-                        lines.append(render_table(by_file[filename]))
-                        lines.append('')
-        else:
-            # Integration/Systeme : pas de sous-dossiers, un groupe par fichier de test.
-            by_file = {}
-            for items in subgroups.values():
-                for case in items:
-                    by_file.setdefault(os.path.basename(case['path']), []).append(case)
-            for filename in sorted(by_file):
-                items = by_file[filename]
-                subtitle = items[0].get('cat', filename).split('·')[-1].strip()
-                lines.append(f'### {subtitle} — `{filename}` ({len(items)})')
-                lines.append('')
-                lines.append(render_table(items))
-                lines.append('')
-
+    for filename in sorted(by_file):
+        lines += [f'## {filename}', '']
+        for case in by_file[filename]:
+            lines += render_case(case)
     return '\n'.join(lines).rstrip() + '\n'
+
+
+CASTEST_HOWTO = "## Ajouter un cas\n\nUn test **sans** bloc `\\castest{}` fait échouer la CI : le cahier est exhaustif par construction,\nsinon il ne vaut rien — un cahier partiel laisse croire que ce qui n'y figure pas n'est pas testé.\nLe bloc se met dans le commentaire du test, juste au-dessus de sa déclaration :\n\n```cpp\n/**\n * @brief Un 20 naturel touche quelle que soit la CA, et double les des de degats.\n * \\castest{<b>Un 20 naturel touche une CA hors d'atteinte, est un critique, et double les des\n * de degats sans doubler le modificateur.</b><br/>\n * \\tcat Unitaire · Combat<br/>\n * \\tcrit Bloquant<br/>\n * \\tetapes 1. L'heroine (+5, 1d8+3) attaque un gobelin a la CA 40.<br/>2. Le d20 est force\n * a 20.<br/>\n * \\tattendu Touche et critique ; deux d8 lances, modificateur 3.\n * }\n */\nTEST(AttackTest, UnVingtNaturelToucheEtDoubleLesDes) {\n```\n\n| Champ | Ce qu'il porte |\n|---|---|\n| `<b>…</b>` | L'**objet** du cas, en une phrase : ce que le test établit, pas ce qu'il fait. |\n| `\\tcat` | La **catégorie**, telle qu'elle paraîtra sur la fiche. |\n| `\\tcrit` | La **criticité**, parmi les quatre du tableau ci-dessus. |\n| `\\tetapes` | Les **étapes**, numérotées, séparées par `<br/>`. |\n| `\\tattendu` | Le **résultat attendu**, en français. |\n\nLe **résultat attendu** d'une fiche n'est toutefois pas recopié de `\\tattendu` quand le test porte\ndes assertions : le générateur lit les assertions GoogleTest du corps de la fonction et les\ntraduit. Une fiche dit donc ce que le test **vérifie réellement**, et non ce que son auteur a écrit\nqu'il vérifiait — les deux divergent au premier remaniement, et c'est toujours le commentaire qui a\ntort. `\\tattendu` ne sert que de repli, pour un cas dont aucune assertion ne se laisse traduire.\n\n## Ce que le cahier ne dit pas\n\nIl recense ce qui est **vérifié automatiquement**, et cela seul. Une règle du jeu qu'aucun test ne\ncouvre n'y laisse aucune trace — l'absence d'une fiche n'est donc pas la preuve qu'un comportement\nest libre, seulement qu'il n'est pas gardé. Ce qui **doit** être vrai se lit dans les\n[spécifications](../Specification/README.md) ; ce cahier dit ce qui est tenu."
+
+
+def render_readme(domains):
+    total = sum(len(cases) for _, _, cases in domains.values())
+    lines = [
+        '# Cahier de test', '',
+        f'**{total} cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les '
+        'blocs `\\castest{…}` écrits au-dessus de chaque test par `scripts/generate_cahier_test.py` : il ne '
+        's\'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un '
+        'cahier périmé, et refuse un test sans bloc.', '',
+        '## Lire une fiche', '',
+        'Chaque cas porte l\'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel dans le code et '
+        'dans le rapport `ctest`), sa **criticité**, sa **catégorie**, son **emplacement** '
+        '(`fichier:ligne`), son objet en une phrase, ses **étapes**, et le **résultat attendu** — les '
+        'assertions réellement vérifiées par le test, traduites en français.', '',
+        '| Criticité | Ce qu\'un échec signifie |', '|---|---|',
+        '| **Bloquant** | Le jeu ne démarre pas, corrompt une donnée ou fausse une règle : rien ne se livre. |',
+        '| **Critique** | Une fonction centrale rend un résultat faux ; la version ne sort pas en l\'état. |',
+        '| **Majeur** | Un comportement attendu manque ou dévie, avec contournement possible. |',
+        '| **Mineur** | Un confort, un message, une valeur par défaut. |', '',
+        '## Synthèse par domaine', '',
+        '| Domaine | Type | Cas | ' + ' | '.join(CRITICITES) + ' |',
+        '|---|---|---|' + '---|' * len(CRITICITES),
+    ]
+    totals = {c: 0 for c in CRITICITES}
+    for slug in sorted(domains, key=lambda key: (list(CATEGORY_TITLES).index(domains[key][1])
+                                                 if domains[key][1] in CATEGORY_TITLES else 9, key)):
+        title, category, cases = domains[slug]
+        counts = [sum(1 for case in cases if criticite_of(case) == c) for c in CRITICITES]
+        for name, count in zip(CRITICITES, counts):
+            totals[name] += count
+        lines.append(f'| [{title}]({slug}.md) | {CATEGORY_TITLES.get(category, category)} | {len(cases)} | '
+                     + ' | '.join(str(count or '—') for count in counts) + ' |')
+    lines.append(f'| **Total** | | **{total}** | ' + ' | '.join(f'**{totals[c]}**' for c in CRITICITES) + ' |')
+    lines += ['', '## Lancer les tests', '',
+              '```', 'powershell -File scripts/build.ps1      # compile (préréglage ninja)',
+              'ctest --preset ninja                     # exécute tous les cas',
+              'ctest --preset ninja -R AttackTest       # une suite', '```', '',
+              'Un cas qui échoue se retrouve ici par son identifiant (la recherche du site le trouve), '
+              'et dans le code par l\'emplacement que donne sa fiche.', '']
+    lines += ['', CASTEST_HOWTO, '']
+    return '\n'.join(lines)
+
+
+def render_all(cases):
+    """Le contenu de chaque fichier du cahier : {nom de fichier: texte}."""
+    domains = {}
+    for case in cases:
+        slug, title, category = domain_of(case)
+        domains.setdefault(slug, (title, category, []))[2].append(case)
+    files = {'README.md': render_readme(domains)}
+    for slug, (title, category, items) in domains.items():
+        files[f'{slug}.md'] = render_domain(title, category, items)
+    return files
 
 
 def main():
@@ -411,21 +441,35 @@ def main():
               file=sys.stderr)
         return 1
 
-    rendered = render_markdown(cases)
+    files = render_all(cases)
+    existing = set()
+    if os.path.isdir(OUTPUT_DIR):
+        existing = {name for name in os.listdir(OUTPUT_DIR) if name.endswith('.md')}
 
     if '--check' in sys.argv:
-        with open(OUTPUT_PATH, encoding='utf-8') as handle:
-            current = handle.read()
-        if current != rendered:
-            print(f'{OUTPUT_PATH} n\'est pas a jour : relancer '
+        stale = sorted(existing - set(files))
+        for name, rendered in files.items():
+            path = os.path.join(OUTPUT_DIR, name)
+            current = None
+            if os.path.isfile(path):
+                with open(path, encoding='utf-8') as handle:
+                    current = handle.read()
+            if current != rendered:
+                stale.append(name)
+        if stale:
+            print(f'{OUTPUT_DIR} n\'est pas a jour ({", ".join(sorted(set(stale)))}) : relancer '
                   '"python scripts/generate_cahier_test.py".', file=sys.stderr)
             return 1
-        print(f'Cahier de test a jour ({len(cases)} cas de test).')
+        print(f'Cahier de test a jour ({len(cases)} cas de test, {len(files)} pages).')
         return 0
 
-    with open(OUTPUT_PATH, 'w', encoding='utf-8', newline='\n') as handle:
-        handle.write(rendered)
-    print(f'{OUTPUT_PATH} regenere ({len(cases)} cas de test).')
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    for name in existing - set(files):
+        os.remove(os.path.join(OUTPUT_DIR, name))
+    for name, rendered in files.items():
+        with open(os.path.join(OUTPUT_DIR, name), 'w', encoding='utf-8', newline='\n') as handle:
+            handle.write(rendered)
+    print(f'{OUTPUT_DIR} regenere ({len(cases)} cas de test, {len(files)} pages).')
     return 0
 
 
