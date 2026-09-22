@@ -1,13 +1,26 @@
 # Exploration
 
-> Statut : **en cours** (`LOT-06` livré : déplacement libre en 8 directions). Dépend de
+> Statut : **en cours.** Le déplacement, la collision et l'orientation sont livrés (`LOT-06`), le
+> vocabulaire de terrain aussi (`LOT-08`), et les portails relient les cartes (`LOT-09`). Ce qui
+> manque est le **déclenchement d'une rencontre sur la carte** (`LOT-118`). Dépend de
 > [`architecture.md`](architecture.md) (conventions de monde) et de
 > [`niveaux.md`](niveaux.md) (couche de collision).
 
-L'exploration est la moitié « temps réel » du jeu : un personnage parcourt une carte en vue de
-dessus, sans tour ni initiative, jusqu'à ce qu'une rencontre bascule la partie en combat tactique
-(`LOT-18`). Ce document porte les exigences de ce déplacement — ce que le combat en fera, à la case
-et au tour, relève de sa propre spécification.
+L'exploration est la moitié « temps réel » du jeu : un personnage parcourt une carte, sans tour ni
+initiative, jusqu'à ce qu'une rencontre bascule la partie en combat tactique (`LOT-18`). Ce document
+porte les exigences de ce déplacement — ce que le combat en fera, à la case et au tour, relève de
+sa propre spécification.
+
+Deux mécanismes font sortir le joueur d'une carte, et ce sont les seuls : le **portail**, qui mène à
+une autre carte, et la **rencontre**, qui fige le temps sans changer de lieu. La maquette ci-dessous
+les montre sur une carte réelle de la démo.
+
+![Maquette d'une carte d'exploration : le portail qui nomme sa carte cible et son point d'arrivée plutôt que des coordonnées, la paire aller-retour vers la carte voisine, le déclencheur de rencontre, et la zone de combat de 11 × 3 cases découpée autour de lui dans laquelle la grille tactique se monte](maquettes/exploration-portail-zone-combat.svg)
+
+Ce que la maquette rend visible : un portail **nomme** sa destination — une carte et un point
+d'arrivée — au lieu de pointer des coordonnées, ce qui permet de redimensionner la carte cible sans
+casser l'arrivée ; et la bascule en combat ne **déplace** personne, elle découpe une grille là où
+le joueur se trouve déjà.
 
 ## 1. Déplacement
 

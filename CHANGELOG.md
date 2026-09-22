@@ -6,6 +6,23 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Les spécifications reprises, et onze maquettes qui les argumentent.** Chaque page de
+  `Documentation/Specification/` porte désormais un **statut exact** : celles qui annonçaient « à
+  faire (LOT-77 écrit ce document) » disent ce qui est livré, ce qui manque et quel lot le porte —
+  le combat est livré dans l'arène et reste à porter sur la carte, la fiche de personnage est là
+  mais pas la progression, le mécanisme des catalogues est en place et c'est le contenu qui
+  manque. Onze **maquettes** SVG entrent dans les pages qu'elles argumentent : la grille tactique
+  avec ses portées, sa ligne de vue et son abri ; la tenaille et les zones d'effet ; la projection
+  isométrique et l'échelle HD ; l'ordre de dessin et sa clé de tri ; les couches du format v4 en
+  regard du JSON qu'elles écrivent ; le portail et la zone de combat sur une carte ; le châssis des
+  écrans du RPG, le HUD d'exploration, l'interface de combat et l'écran « Carte » ; la fenêtre de
+  l'éditeur et ses six panneaux. L'index des spécifications est réécrit — les documents groupés par
+  thème, la table des familles `EX-…` et la page qui déclare chacune, ce qu'une exigence bien écrite
+  doit dire — et perd ses dernières consignes d'époque Doxygen (`@subpage`, ancres `{#spec-…}`) et
+  son renvoi à `lint_lots.py`, supprimé. Corrections au passage : la perspective annoncée est
+  l'**isométrie** et non plus la « vue de dessus », les renvois aux lots renumérotés par la refonte
+  du 20 septembre mènent à leurs fiches vivantes, et le chemin mort `../Lot/` disparaît.
+
 - **La documentation quitte Doxygen, et tous les lots livrés entrent au planning.** Les pages
   (guide, spécifications, cahier de test, manuel) sont désormais du **Markdown nu**, rendu par le
   moteur et la charte du site de planification (`Documentation/outils/build_docs_site.py`) : plus un

@@ -1,7 +1,9 @@
 # Règles d20
 
-> Statut : **à faire** (`LOT-77` écrit ce document ; `LOT-12`, `LOT-70` et `LOT-72` l'implémentent).
-> Dépend de [`vision.md`](vision.md) (cadrage : règles **d20 maison**) et de
+> Statut : **livré.** Le dé, le jet, la difficulté, l'avantage et le désavantage, les
+> caractéristiques et leurs modificateurs sont écrits et testés (`LOT-12`), et le hasard est
+> déterministe à graine fixée (`EX-NFR-002`). Restent les **conditions** attachées à l'agonie et à
+> la mort (`LOT-137`). Dépend de [`vision.md`](vision.md) (cadrage : règles **d20 maison**) et de
 > [`contenu.md`](contenu.md) (les valeurs sont des données, pas du code).
 
 Le cadrage acté avant le `LOT-01` est **des règles d20 maison, compatibles SRD dans leur structure,

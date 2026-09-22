@@ -1,8 +1,11 @@
 # Contenu et données
 
-> Statut : **à faire** (`LOT-77` écrit ce document ; la filière `LOT-30` → `LOT-84` l'applique).
-> Dépend de [`vision.md`](vision.md) (le catalogue en JSON d'`EX-VIS-007`) et de
-> [`architecture.md`](architecture.md) (frontière `Core` / `HMI`).
+> Statut : **socle livré, contenu à peupler.** La chaîne d'extraction du corpus (`LOT-30`), les
+> schémas (`LOT-32`), le chargement des catalogues (`LOT-79`), le bestiaire de base (`LOT-33`),
+> l'équipement (`LOT-34`) et les espèces et classes (`LOT-36`) sont livrés : le **mécanisme** est en
+> place et testé. Ce qui reste est du **contenu** — les tables de progression complètes (`LOT-304`)
+> et les sorts du Manuel (`LOT-305`). Dépend de [`vision.md`](vision.md) (le catalogue en JSON
+> d'`EX-VIS-007`) et de [`architecture.md`](architecture.md) (frontière `Core` / `HMI`).
 
 Le jeu visé est un **bac à sable dans un univers complet** : treize régions, seize classes, treize
 espèces, cent-soixante-seize créatures. Aucune de ces valeurs ne peut vivre dans du C++ — ni en

@@ -4,8 +4,10 @@
 > entités, montre le graphe du monde, avertit d'un terrain tactique invalide, et joue la carte en
 > cours avec le moteur du jeu. Dépend de [`niveaux.md`](niveaux.md).
 
-> **Refonte décidée le 18 septembre 2026.** L'éditeur devient un module à part, refait lot par lot
-> selon la [feuille de route de l'éditeur](../../Planning/vision/archives/feuille-de-route-editeur.md). Cette page reste sa
+> **Refonte décidée le 18 septembre 2026.** L'éditeur est devenu un module à part, refait lot par
+> lot. Sa feuille de route propre a été **close le 21 septembre 2026** : ses quatorze lots
+> `LOT-EDITOR` sont des fiches de la version `0.0.0`, et ce qu'il doit encore apprendre est la
+> filière `editeur` du [planning](../../Planning/README.md). Cette page reste sa
 > spécification ; chaque `LOT-EDITOR` révise les exigences qu'il touche. Le
 > [LOT-EDITOR-01](../../Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-EDITOR-01-socle.md) a déplacé le code dans `Source/Editor`, fait de l'éditeur un
 > outil interne (style Fusion, textes anglais, sans charte) et ajouté la section 8.
@@ -14,6 +16,21 @@
 Permettre la **création et la modification des cartes sans écrire de code ni de JSON**, afin que
 des membres de l'équipe **non-développeurs** (game design, level design) contribuent directement
 au contenu du jeu.
+
+Les vingt sections qui suivent détaillent l'outil panneau par panneau ; la maquette d'ensemble
+ci-dessous dit d'abord à quoi elles se rapportent.
+
+![Maquette de la fenêtre de LevelEditor : la palette de pièces à gauche avec la liste des couches, le canevas isométrique au centre montrant la carte comme le jeu la joue, le navigateur de cartes et l'inspecteur d'entités à droite, et le panneau Problems en bas listant erreurs et avertissements par carte et par case](maquettes/editeur-niveaux-fenetre.svg)
+
+Six panneaux, et une règle qui les relie : **ce que l'éditeur montre est ce que le jeu jouera**
+(`EX-EDIT-059`). Le canevas compose la scène avec le même code que le jeu, le losange sous le
+pointeur désigne une **case** et non une image (`EX-EDIT-060`), et un problème du panneau du bas
+s'ouvre d'un double-clic sur la carte, l'entité et la case concernées.
+
+> **Note** — La maquette montre l'éditeur avec un quartier ouvert. L'outil existe aujourd'hui avec
+> ces six panneaux, mais s'ouvre sur une base vide (`LOT-102`) et sa palette attend les planches HD
+> (`LOT-105` → `LOT-110`). Le style, lui, n'est pas une question ouverte : outil interne, Fusion,
+> textes anglais.
 
 ## 1. Exigences fonctionnelles
 - **EX-EDIT-001** — L'éditeur doit permettre de créer et modifier une carte

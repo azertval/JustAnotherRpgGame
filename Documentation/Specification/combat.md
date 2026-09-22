@@ -1,7 +1,11 @@
 # Combat tactique
 
-> Statut : **à faire** (`LOT-77` écrit ce document ; `LOT-18` → `LOT-24`, `LOT-72` et `LOT-74`
-> l'implémentent). Dépend de [`regles-d20.md`](regles-d20.md) (le jet, les conditions) et de
+> Statut : **livré dans l'arène, à porter sur la carte.** La mécanique entière — bascule,
+> initiative, économie d'actions, déplacement, ligne de vue, abri, zones, attaque, IA — est écrite
+> et testée (`LOT-18` → `LOT-24`), et se joue aujourd'hui dans le Colisée (`LOT-50`). Ce qui reste
+> tient en trois lots : la rencontre déclenchée **sur la carte d'exploration** (`LOT-118`), les
+> écrans de fin (`LOT-119`), l'agonie et la mort (`LOT-137`). Dépend de
+> [`regles-d20.md`](regles-d20.md) (le jet, les conditions) et de
 > [`exploration.md`](exploration.md) (la couche de collision, l'orientation).
 
 Ce document concrétise [`EX-VIS-004`](vision.md#EX-VIS-004) — « résoudre un combat tactique complet au
@@ -41,6 +45,17 @@ c'est le **temps**, pas le lieu.
   action.
 
 ## 3. L'espace
+
+Trois exigences se partagent une seule question : **où peut-on aller, et qui peut-on atteindre ?**
+Elles se lisent mieux ensemble, sur la grille qu'elles décrivent — une case de 1,5 m, dérivée de la
+couche de collision, et jamais une seconde carte posée à côté de la première.
+
+![Maquette de la grille tactique : les cases atteignables calculées par un parcours qui contourne le mur, le terrain difficile compté double, la ligne de vue tracée en demi-cases et coupée par le mur, et le muret qui laisse voir tout en donnant un abri partiel](maquettes/combat-grille-portee.svg)
+
+Ce que la maquette montre et qu'une phrase peine à dire : le joueur **voit** le coût avant de
+s'engager. Les cases atteignables sont peintes, le chemin suit le détour imposé par le mur, et le
+curseur annonce le jet à atteindre. Une portée annoncée après le geste ne serait pas de la
+tactique, seulement une sanction.
 
 - **EX-CBT-020** — Le déplacement d'un tour est borné par une **portée en cases**
   calculée par un **parcours sur la grille**, et non par une distance à vol d'oiseau : un mur entre
@@ -92,6 +107,18 @@ c'est le **temps**, pas le lieu.
   en coexister avec celle-ci — deux définitions qui coexistent, c'est la plus ancienne qui gagne.
 
 ## 6. L'adversaire
+
+Deux mécaniques décident du **placement** — ce pour quoi le déplacement du tour précédent existe :
+la prise en tenaille, qui récompense l'encerclement, et les zones d'effet, qui punissent
+l'agglutinement. Toutes deux se tranchent géométriquement, donc identiquement pour le joueur et
+pour l'adversaire.
+
+![Maquette de la prise en tenaille et des zones d'effet : à gauche, deux alliés dont la ligne traverse la case de la cible par deux côtés opposés donnent l'avantage, alors que deux côtés adjacents ne le donnent pas ; à droite, un cône et une sphère dont on ne retient que les cases couvertes à moitié et que l'origine atteint en ligne droite](maquettes/combat-tenaille-zone.svg)
+
+Le point commun des deux moitiés de cette maquette est qu'elles sont **décidables sans jugement** :
+un test de côtés opposés, un seuil de demi-case, une ligne droite jusqu'à l'origine. C'est la
+condition pour qu'une règle de placement soit à la fois enseignable au joueur, exécutable par l'IA
+et rejouable par un test.
 
 - **EX-CBT-050** — L'intelligence artificielle choisit **dans les mêmes actions
   que le joueur**, avec les **mêmes informations** : pas d'action réservée aux monstres, pas de

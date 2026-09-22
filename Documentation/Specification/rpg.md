@@ -1,8 +1,11 @@
 # Personnage et progression
 
-> Statut : **à faire** (`LOT-77` écrit ce document ; `LOT-13`, `LOT-25`, `LOT-36`, `LOT-43`,
-> `LOT-47`, `LOT-51` → `LOT-65` et `LOT-74` l'implémentent). Dépend de
-> [`regles-d20.md`](regles-d20.md) et de [`contenu.md`](contenu.md).
+> Statut : **fiche livrée, progression à venir.** La fiche de personnage, ses caractéristiques
+> calculées, les espèces, les historiques et les options de création sont livrés (`LOT-13`,
+> `LOT-36`, `LOT-38`, `LOT-43`). Ce qui manque est ce qui **fait évoluer** un personnage : le socle
+> de classe (`LOT-131`), les quatre classes de la démo (`LOT-132` → `LOT-135`), puis l'expérience
+> et les niveaux (`LOT-200`). Dépend de [`regles-d20.md`](regles-d20.md) et de
+> [`contenu.md`](contenu.md).
 
 Le personnage est l'agrégat que tout le reste du jeu consulte. Ce document dit ce qu'il agrège, d'où
 viennent les valeurs, et comment une classe s'ajoute sans que le moteur ait à la connaître — ce

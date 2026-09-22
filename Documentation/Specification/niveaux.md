@@ -7,6 +7,17 @@
 > `Documentation/Specification/level.schema.json`.
 
 ## 1. Représentation des cartes
+
+Une carte est faite de **couches empilées** et d'une **collision** qui, elle, n'est pas une couche
+comme les autres : elle se déduit des pièces posées, et l'auteur ne la corrige qu'au cas par cas.
+La maquette montre cet empilement et, en regard, ce que le fichier en écrit.
+
+![Maquette des couches d'une carte au format v4 : le sol, le décor et les entités empilés au-dessus de la collision déduite des pièces, avec une case forcée là où l'auteur s'écarte de la déduction, et le JSON correspondant écrit de façon canonique](maquettes/niveaux-couches-format-v4.svg)
+
+Deux idées de ce dessin commandent tout le reste du document : le **type** d'une case porte le sens
+des règles — herbe, mur, eau —, tandis que la **pièce** ne porte que ce qu'on voit ; et la collision
+se **déduit**, si bien qu'une carte reste jouable avant d'être habillée.
+
 - **EX-LVL-001** — Une carte doit être décrite par un **fichier de données**
   externe (pas en dur dans le code), placé dans `Source/Elements/Levels`.
 - **EX-LVL-002** — Le format doit décrire au minimum : dimensions de la grille,

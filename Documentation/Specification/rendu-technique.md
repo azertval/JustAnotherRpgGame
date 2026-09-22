@@ -13,6 +13,17 @@
   icône ; aucun écran n'en contraint la taille (`EX-IHM-080`).
 
 ## 2. Rendu 2D
+
+Tout ce chapitre repose sur une seule convention géométrique : la scène est **peinte en isométrie**,
+et le losange de sol a un rapport hauteur/largeur de **0,62**. De là découlent l'échelle de l'art,
+la façon dont une figurine se pose sur sa case, et le facteur d'affichage déduit de la fenêtre.
+
+![Maquette de la projection isométrique : le losange de 256 × 159 pixels d'art et les deux formules qui donnent le centre d'une case, la figurine de 170 px posée par le pied dans sa cellule de 192 × 256, et la même étendue de monde cadrée à 1080p comme à 2160p avec l'art toujours réduit, jamais agrandi](maquettes/rendu-technique-projection-iso.svg)
+
+> **Note** — Cette maquette dessine la **cible** du standard 2D HD, pas l'état du code : le rendu
+> porte encore le losange de 68 × 42 px et le zoom entier hérités du pixel art. Le `LOT-103` lit
+> l'échelle dans le manifeste du lieu et libère le zoom.
+
 - **EX-REN-010** — Le rendu doit dessiner une carte à partir des **pièces de la
   planche de son lieu** (`EX-VIS-008`) : une pièce de sol par case, une pièce de relief là où la
   carte en pose une, la table d'apparence du lieu décidant laquelle.
@@ -30,10 +41,17 @@
   soit 100 px à 1080p et 200 px à 2160p. Toutes les définitions cadrent donc la **même étendue de
   monde** — 19,2 losanges de large, 17,4 de haut — et un écran plus fin montre le même jeu plus
   finement, jamais plus de jeu.
+
+Les deux exigences qui suivent décident **qui passe devant qui**. Elles se complètent : le calque
+tranche entre familles (le curseur est toujours au-dessus du sol), la profondeur tranche à
+l'intérieur de la famille où le monde se dessine.
+
+![Maquette de l'ordre de dessin : la pile de calques du fond vers l'interface, la bande de profondeur qui réunit sol, objets et figurines, un mur, un arbre et un héros triés par la hauteur de leur pied à l'écran, et la clé de tri qui multiplie la profondeur par quatre pour y loger le rang de la pièce](maquettes/rendu-technique-ordre-de-tri.svg)
+
 - **EX-REN-014** — Le rendu doit gérer un ordre de dessin par **calques**,
   défini par un **ordonnancement unique et explicite** (`hmi::RenderLayer`) dont aucun calque
   concurrent ne peut s'écarter : sol, objets et figurines, puis interface et aides d'édition.
-- **EX-REN-018** — En vue de dessus, l'ordre de dessin des acteurs et du décor
+- **EX-REN-018** — Dans la scène isométrique, l'ordre de dessin des acteurs et du décor
   traversé doit venir de leur **profondeur**, et non de leur calque : une entité passe devant ce qui
   est plus haut qu'elle à l'écran, derrière ce qui est plus bas. La profondeur se lit au **pied** du
   sprite — le bord bas, point de contact avec le sol — et non à son coin haut. Ces calques forment

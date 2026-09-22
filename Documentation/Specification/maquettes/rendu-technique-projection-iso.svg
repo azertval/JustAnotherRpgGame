@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="540" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — la projection isométrique et l'échelle HD : du losange d'art à la case à l'écran</text>
+
+  <text x="20" y="56" font-weight="600" fill="#25201a">1. Le losange, rapport 0,62</text>
+  <g transform="translate(40,70)">
+    <path d="M128,0 L256,79 L128,158 L0,79 z" fill="#ece4d1" stroke="#25201a" stroke-width="1.5"/>
+    <g fill="#25201a" font-size="11">
+      <text x="118" y="-6">(c, r)</text><text x="262" y="83">(c+1, r)</text><text x="-58" y="83">(c, r+1)</text><text x="98" y="176">(c+1, r+1)</text>
+    </g>
+    <path d="M0,170 L256,170" stroke="#6a6152"/><text x="96" y="186" font-size="11" fill="#6a6152">L = 256 px d'art</text>
+    <path d="M272,0 L272,158" stroke="#6a6152"/><text x="278" y="84" font-size="11" fill="#6a6152">H = 0,62 L = 159 px</text>
+    <circle cx="128" cy="79" r="3" fill="#8a2233"/><text x="134" y="74" font-size="10" fill="#8a2233">centre</text>
+  </g>
+  <g font-family="Consolas, monospace" font-size="11" fill="#25201a">
+    <text x="40" y="280">monde.x = originX + L/2 + (c − r) · L/2</text>
+    <text x="40" y="296">monde.y = originY       + (c + r) · H/2</text>
+  </g>
+  <text x="40" y="318" font-size="11" fill="#6a6152">core::IsoProjection — la même formule pour la grille tactique, le lieu et le canevas de l'éditeur.</text>
+
+  <text x="440" y="56" font-weight="600" fill="#25201a">2. La figurine dans sa cellule</text>
+  <g transform="translate(460,70)">
+    <rect x="0" y="0" width="96" height="128" fill="#ece4d1" stroke="#25201a"/>
+    <rect x="30" y="34" width="36" height="88" rx="14" fill="#9a7420"/>
+    <circle cx="48" cy="28" r="12" fill="#9a7420"/>
+    <path d="M0,126 L96,126" stroke="#8a2233" stroke-width="1.5"/>
+    <text x="102" y="130" font-size="10" fill="#8a2233">ligne de sol y = 252</text>
+    <text x="102" y="20" font-size="11" fill="#25201a">cellule 192 × 256</text>
+    <text x="102" y="36" font-size="11" fill="#25201a">figurine 170 px de haut</text>
+    <text x="102" y="52" font-size="11" fill="#6a6152">attaque, sort : 384 × 256</text>
+    <text x="102" y="68" font-size="11" fill="#6a6152">grande créature : 384 × 384</text>
+    <text x="102" y="92" font-size="11" fill="#6a6152">posée par le pied au centre</text>
+    <text x="102" y="108" font-size="11" fill="#6a6152">du losange (EX-REN-011)</text>
+  </g>
+  <text x="440" y="230" font-size="11" fill="#6a6152">(dessin à l'échelle ½ : la cellule fait deux fois cette taille)</text>
+
+  <text x="20" y="352" font-weight="600" fill="#25201a">3. L'échelle à l'écran : une case = hauteur de la fenêtre / 10,8 (EX-REN-013)</text>
+  <g transform="translate(40,366)">
+    <rect x="0" y="0" width="192" height="108" fill="#25201a"/>
+    <path d="M96,44 L106,50.2 L96,56.4 L86,50.2 z" fill="#ece4d1"/>
+    <text x="4" y="14" font-size="10" fill="#fbf8f0">1920 × 1080</text>
+    <text x="4" y="100" font-size="10" fill="#d6c9a8">une case : 100 px</text>
+    <text x="0" y="126" font-size="11" fill="#25201a">art 256 px → réduit ×0,39</text>
+  </g>
+  <g transform="translate(300,366)">
+    <rect x="0" y="0" width="192" height="108" fill="#25201a"/>
+    <path d="M96,44 L106,50.2 L96,56.4 L86,50.2 z" fill="#ece4d1"/>
+    <text x="4" y="14" font-size="10" fill="#fbf8f0">3840 × 2160</text>
+    <text x="4" y="100" font-size="10" fill="#d6c9a8">une case : 200 px</text>
+    <text x="0" y="126" font-size="11" fill="#25201a">art 256 px → réduit ×0,78</text>
+  </g>
+  <g fill="#25201a" font-size="12">
+    <text x="540" y="380">Les deux fenêtres cadrent la même</text>
+    <text x="540" y="396">étendue : 19,2 losanges de large,</text>
+    <text x="540" y="412">17,4 de haut. Un écran plus fin</text>
+    <text x="540" y="428">montre le même jeu, plus finement.</text>
+    <text x="540" y="452" fill="#8a2233">L'art est toujours réduit, jamais</text>
+    <text x="540" y="468" fill="#8a2233">agrandi : bilinéaire + mipmaps.</text>
+  </g>
+  <text x="40" y="516" font-size="11" fill="#6a6152">État du code : le rendu porte encore 68 × 42 px par losange, 48 × 64 par image de figurine et un zoom entier (`ScenePieces.h`, `Camera2D`) ; le LOT-103 lit</text>
+  <text x="40" y="532" font-size="11" fill="#6a6152">l'échelle dans le manifeste du lieu (« tile ») et libère le zoom. Cette maquette dessine la cible du standard 2D HD, pas l'état courant.</text>
+</svg>

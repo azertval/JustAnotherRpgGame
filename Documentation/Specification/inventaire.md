@@ -1,8 +1,10 @@
 # Inventaire et économie
 
-> Statut : **à faire** (`LOT-77` écrit ce document ; `LOT-14`, `LOT-26`, `LOT-34` et `LOT-82`
-> l'implémentent). Dépend de [`rpg.md`](rpg.md) (l'agrégat de fiche) et de
-> [`contenu.md`](contenu.md) (le catalogue d'objets).
+> Statut : **possession et équipement livrés, économie à venir.** L'inventaire, les emplacements
+> d'équipement et le catalogue d'objets sont livrés et testés (`LOT-14`, `LOT-34`). Le butin, les
+> marchands et la monnaie qui circule attendent la version `0.2.0` (`LOT-201`). Dépend de
+> [`rpg.md`](rpg.md) (l'agrégat de fiche) et de [`contenu.md`](contenu.md) (le catalogue
+> d'objets).
 
 Ce que le personnage porte, ce qu'il en fait, et ce que cela vaut. Le monde étant un bac à sable de
 treize régions, l'économie doit se **déduire des données de région** plutôt que d'être réglée marchand

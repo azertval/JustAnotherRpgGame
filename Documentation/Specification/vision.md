@@ -1,19 +1,21 @@
 # Vision & périmètre
 
-> Statut : **en cours**. Le premier jalon, le *vertical slice* dans la Capitale, concrétise ces
-> objectifs un à un ; la [feuille de route](../../Planning/vision/archives/feuille-de-route-jeu.md) dit lesquels restent, et quel lot les
-> porte.
+> Statut : **en cours**. Le moteur qui porte ces objectifs est livré (version `0.0.0`,
+> « Fondation du moteur ») ; le premier jalon jouable est la **démo** `0.0.1` — deux quartiers de la
+> Capitale, un donjon, une quête. La [planification](../../Planning/README.md) dit quel lot porte
+> quoi, et dans quel ordre.
 
 ## Concept
 
-**RPG 2D en vue de dessus**, à monde de cartes connectées. Le joueur dirige un personnage qui
+**RPG 2D en vue isométrique**, à monde de cartes connectées. Le joueur dirige un personnage qui
 explore en **temps réel** (déplacement libre 8 directions, interaction avec les PNJ, les coffres
 et les portails) et affronte les rencontres en **combat tactique au tour par tour** sur la grille
 de la carte, régi par un système **d20**.
 
 - **Genre** : action-RPG d'exploration + combat tactique.
-- **Perspective** : 2D, vue de dessus, décor en tuiles multi-couches (sol / décor / collision) ;
-  la scène se **dessine en isométrique** (§Identités visuelles).
+- **Perspective** : 2D **isométrique**, décor en tuiles multi-couches (sol / décor / collision).
+  La carte se **pense** en grille orthogonale — une case, des voisins, un parcours — et se
+  **dessine** en losanges (§Identités visuelles) : c'est la même carte, vue autrement.
 - **Session type** : progression continue dans un monde persistant, sauvegardée.
 - **Public** : joueurs appréciant l'exploration et la réflexion tactique.
 - **Plateforme** : Windows (bureau), rendu Qt QRhi (Direct3D 11).
@@ -85,10 +87,10 @@ joueur, et son échelle est celle de la fenêtre. La frontière entre les deux e
 5. Victoire : retour à l'exploration, l'ennemi retiré de la carte durablement, butin et expérience
    acquis. Défaite : reprise à la dernière sauvegarde.
 
-## Objectifs (*vertical slice*)
+## Objectifs du moteur
 
 - **EX-VIS-001** — Le jeu doit proposer un personnage jouable se déplaçant
-  librement en 8 directions sur une carte en tuiles vue de dessus.
+  librement en 8 directions sur une carte en tuiles, dessinée en isométrie.
 - **EX-VIS-002** — Le jeu doit relier plusieurs cartes par des portails, avec
   retour possible au point de départ.
 - **EX-VIS-003** — Le jeu doit permettre de dialoguer avec un PNJ, dialogue à
@@ -108,10 +110,10 @@ joueur, et son échelle est celle de la fenêtre. La frontière entre les deux e
   être **définie en données** (JSON), jamais codée en dur dans le C++ : c'est ce qui rend
   l'équilibrage possible sans recompiler.
 
-## Hors périmètre (*vertical slice*)
+## Hors périmètre
 
 - Multijoueur, réseau.
-- Groupe de plusieurs personnages jouables (prévu, mais **après** le slice — cf. décision 3).
+- Groupe de plusieurs personnages jouables (prévu, mais **après** la démo `0.0.1` — cf. décision 3).
 - Génération procédurale de cartes ou de donjons.
 - Édition collaborative en temps réel dans l'éditeur.
 - Portabilité hors Windows.
@@ -124,4 +126,5 @@ Ces objectifs sont détaillés dans [`gameplay.md`](gameplay.md), [`controles.md
 [`editeur-niveaux.md`](editeur-niveaux.md), [`architecture.md`](architecture.md) et, pour le
 RPG, [`exploration.md`](exploration.md), [`regles-d20.md`](regles-d20.md), [`rpg.md`](rpg.md),
 [`combat.md`](combat.md), [`inventaire.md`](inventaire.md) et [`contenu.md`](contenu.md). Chaque
-lot de `../Lot/` référence les exigences `EX-…` qu'il couvre.
+[fiche de lot](../../Planning/README.md) référence les exigences `EX-…` qu'elle couvre, et le site
+en tire la liste inverse : pour une exigence, les lots, le code et les tests qui la citent.

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="470" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — l'ordre de dessin : calques souverains, bande de profondeur triée au pied</text>
+
+  <g transform="translate(20,50)">
+    <g font-size="12" fill="#25201a">
+      <rect x="0" y="0" width="200" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="17">Editor — aides d'édition</text>
+      <rect x="0" y="30" width="200" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="47">UI — curseur, chemin, portées</text>
+      <rect x="0" y="60" width="200" height="56" fill="#9a7420" fill-opacity="0.25" stroke="#9a7420" stroke-width="2"/>
+      <text x="8" y="77">Player</text><text x="8" y="107">Object</text>
+      <text x="70" y="92" font-size="11" fill="#8a2233">bande de profondeur</text>
+      <rect x="0" y="120" width="200" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="137">Tile — le sol</text>
+      <rect x="0" y="150" width="200" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="167">Shadow</text>
+      <rect x="0" y="180" width="200" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="197">Background</text>
+    </g>
+    <text x="210" y="17" font-size="11" fill="#6a6152">dessiné en dernier, par-dessus tout</text>
+    <text x="210" y="197" font-size="11" fill="#6a6152">dessiné en premier</text>
+    <text x="0" y="226" font-size="11" fill="#25201a">hmi::RenderLayer, ordre unique et explicite (EX-REN-014)</text>
+  </g>
+
+  <g transform="translate(400,50)">
+    <g stroke="#d6c9a8" fill="none">
+      <path d="M180,0 l150,93 l-150,93 l-150,-93 z"/>
+      <path d="M105,46 l75,47 M255,46 l-75,47 M30,93 l75,46 M330,93 l-75,46 M105,140 l75,-47 M255,140 l-75,-47"/>
+    </g>
+    <rect x="96" y="40" width="46" height="64" fill="#6a6152" stroke="#25201a"/><text x="100" y="76" font-size="9" fill="#fbf8f0">arbre</text>
+    <path d="M118,104 L118,112" stroke="#8a2233" stroke-width="2"/><text x="124" y="114" font-size="9" fill="#8a2233">pied : y = 104</text>
+    <rect x="164" y="76" width="32" height="56" fill="#9a7420" stroke="#25201a"/><text x="166" y="108" font-size="9" fill="#25201a">héros</text>
+    <path d="M180,132 L180,140" stroke="#8a2233" stroke-width="2"/><text x="186" y="142" font-size="9" fill="#8a2233">pied : y = 132</text>
+    <rect x="212" y="20" width="60" height="70" fill="#2f7f86" stroke="#25201a"/><text x="218" y="60" font-size="9" fill="#fbf8f0">mur (2 × 1)</text>
+    <path d="M242,90 L242,98" stroke="#8a2233" stroke-width="2"/><text x="248" y="100" font-size="9" fill="#8a2233">pied de l'emprise : y = 90</text>
+    <text x="0" y="214" font-size="12" fill="#25201a">Ordre dans la bande : mur (90) → arbre (104) → héros (132).</text>
+    <text x="0" y="232" font-size="12" fill="#25201a">Le héros passe devant l'arbre parce que son pied est plus bas</text>
+    <text x="0" y="250" font-size="12" fill="#25201a">à l'écran ; une pièce large se trie au pied de son emprise</text>
+    <text x="0" y="268" font-size="12" fill="#25201a">(core::footprintCells, EX-LVL-019).</text>
+  </g>
+
+  <g fill="#25201a" font-size="12">
+    <text x="20" y="330" font-weight="600">La clé de tri d'une primitive de la bande (LOT-86)</text>
+    <text x="20" y="352" font-family="Consolas, monospace" font-size="12">clé = profondeur(pied, au pixel) × 4 + rang</text>
+    <text x="20" y="374">rang : 0 sol, 1 relief, 2 figurine posée dessus, 3 jeton — deux pièces sur la même case gardent un ordre constant</text>
+    <text x="20" y="392">d'une image à l'autre (tri stable, EX-REN-018). Le tri par profondeur passe avant le regroupement par texture : une image</text>
+    <text x="20" y="410">peut mêler plusieurs textures (EX-REN-043). Hors de la bande, le calque seul décide.</text>
+  </g>
+  <text x="20" y="444" font-size="11" fill="#6a6152">La même composition (hmi::composeWorldScene) est lue par le GPU du jeu (SpriteBatch sur QRhi) et par le QPainter de l'éditeur :</text>
+  <text x="20" y="460" font-size="11" fill="#6a6152">un test compare les deux listes de primitives, jetons compris (EX-NFR-004, EX-EDIT-059).</text>
+</svg>

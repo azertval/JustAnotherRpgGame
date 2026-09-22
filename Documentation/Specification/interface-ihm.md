@@ -29,6 +29,25 @@ maintenable, à fenêtres réglables. `Core` demeure indépendant de la présent
   > doit y lire un joueur de RPG (points de vie, initiative, actions restantes) est le sujet de l'IHM de combat du
   > `LOT-24` ; l'exigence garde donc son critère — *ce dont le joueur a besoin pour décider* — et
   > cesse d'en fixer la liste, que chaque lot ajusterait sinon en la contredisant.
+
+Le critère d'`EX-IHM-003` — *ce dont le joueur a besoin pour décider* — se juge sur pièces, et les
+deux maquettes ci-dessous sont ces pièces. Elles ne **réintroduisent pas** la liste que l'exigence a
+retirée : elles montrent, pour chacun des deux modes, ce qu'un joueur doit pouvoir lire sans ouvrir
+d'écran. Ce qu'elles fixent est le **contenu**, jamais la position au pixel près.
+
+![Maquette de l'affichage tête haute en exploration : portrait, niveau et points de vie, mini-carte du lieu, quête suivie et son étape, journal contextuel, entrées des écrans du RPG, et l'emplacement du groupe réservé mais vide](maquettes/interface-ihm-hud-exploration.svg)
+
+En exploration, la **barre d'action est absente** : elle n'apparaît qu'avec le combat. Et la case du
+groupe, que la version `0.0.2` remplira, est **réservée** plutôt que grisée — un réglage inopérant
+coûte plus de confiance qu'il n'apporte d'information (`EX-IHM-072`).
+
+![Maquette de l'interface de combat pendant le tour du joueur : la piste d'initiative, la barre des quatre ressources du tour, la fiche de la cible sans ses points de vie exacts, le journal qui restitue chaque jet avec ses modificateurs, et sur la grille les cases atteignables, le chemin, la ligne de vue et l'abri](maquettes/interface-ihm-combat.svg)
+
+En combat s'ajoute exactement ce que le tour rend décidable : l'ordre stable (`EX-CBT-010`), les
+quatre ressources consommables une fois (`EX-CBT-011`), la fin de tour explicite (`EX-CBT-012`), et
+les aides de grille (`EX-CBT-020`, `EX-CBT-021`). La cible montre ce que le joueur **sait** d'elle —
+« ensanglanté », pas un nombre de points de vie que rien ne lui a appris.
+
 - **EX-IHM-004** — Le jeu doit offrir un **écran de pause** suspendant
   réellement la simulation, sans consommer de pas de temps fixe, navigable au clavier, à la souris
   et à la manette comme le reste de l'interface, et passant par le catalogue de traduction
@@ -112,7 +131,8 @@ et des constantes locales à chaque widget.
 
 ## 6. Architecture de l'information
 Depuis le `LOT-EDITOR-01`, l'agencement de l'éditeur (panneaux, barre d'état, barre d'outils) se
-décide dans sa [feuille de route](../../Planning/vision/archives/feuille-de-route-editeur.md) ; une seule règle reste commune.
+décide lot par lot, dans la filière `editeur` du [planning](../../Planning/README.md) ; une seule
+règle reste commune.
 
 - **EX-IHM-062** — Un même **état** ou une même **commande** ne doit être exposé
   qu'à **un seul endroit** de l'interface, **raccourci clavier compris** : deux contrôles pilotant la
@@ -304,6 +324,12 @@ quatre lots à venir les remplissent chacun de leur côté (`LOT-38`, `LOT-42`, 
 différemment, se ferment différemment et se naviguent différemment : le défaut ne se voit sur aucun
 d'eux pris isolément, et sur les quatre ensemble il n'est plus rattrapable sans les refaire.
 
+![Maquette du châssis commun des écrans du RPG, ici la fiche de personnage : la scène assombrie derrière, un titre, les onglets des écrans voisins atteignables sans repasser par le menu, la zone de contenu, le pied d'actions, et la marque explicite de l'élément focalisé](maquettes/interface-ihm-chassis-rpg.svg)
+
+La maquette fixe ce que le châssis **garantit** — un titre, un contenu, un pied d'actions, le même
+va-et-vient entre écrans, une règle de superposition déclarée — et non la position au pixel près,
+qui se règle dans Qt Design Studio.
+
 - **EX-IHM-090** — Les écrans du **RPG** doivent partager un **châssis** unique :
   le même cadre (panneau, titre, zone de contenu, pied d'actions), la même ouverture et la même
   fermeture, le même passage d'un écran à l'autre **sans repasser par le menu**, et le même parcours
@@ -429,6 +455,8 @@ du commerce, et c'est la bonne.
 Le `LOT-94` avait retiré la carte du monde avec les deux images du corpus qui la portaient. Elle
 revient sur des cartes **peintes par l'auteur** — le monde, les treize régions de l'atlas, les plans
 de la Capitale impériale et de Fisherman's Wharf —, en 1 920 × 1 080 et **sans lettrage**.
+
+![Maquette de l'écran « Carte » : le monde, une région et le plan d'une ville, et le repère par lequel on descend d'un niveau au suivant, les noms étant posés par le jeu et non peints sur l'image](maquettes/interface-ihm-carte-trois-niveaux.svg)
 
 - **EX-IHM-106** — L'écran « Carte » a **trois niveaux** — le monde, une région,
   le plan d'une ville — et l'on passe de l'un à l'autre par un **repère** : une région sur le monde,
