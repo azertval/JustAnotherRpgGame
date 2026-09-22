@@ -130,7 +130,8 @@ constexpr int REFACTOR_STATUS_TIMEOUT_MS = 5000;
 
 }  // namespace
 
-MainWindow::MainWindow(bool crashAfterAutosave) : _crashAfterAutosave(crashAfterAutosave) {
+MainWindow::MainWindow(bool crashAfterAutosave)
+    : _tabs(new QTabWidget), _crashAfterAutosave(crashAfterAutosave) {
     // Le dossier des données dans le titre : on sait où l'enregistrement écrit (LOT-EDITOR-06).
     setWindowTitle(QStringLiteral("Just Another RPG Game — Editor — %1")
                        .arg(QString::fromStdWString(hmi::editorDataRoot().wstring())));
@@ -139,7 +140,6 @@ MainWindow::MainWindow(bool crashAfterAutosave) : _crashAfterAutosave(crashAfter
     // Les cartes ouvertes en onglets (LOT-EDITOR-09) : un canevas par onglet, celui de l'onglet
     // actif étant `_viewport`. Le dernier onglet ne se ferme pas — la fenêtre a toujours un
     // canevas, et rien ici n'a de cas « aucune carte ouverte ».
-    _tabs = new QTabWidget;
     _tabs->setDocumentMode(true);
     _tabs->setMovable(true);
     _tabs->setTabsClosable(true);
@@ -967,7 +967,7 @@ void MainWindow::goToCitation(const Citation& citation) {
 // -----------------------------------------------
 
 void MainWindow::refreshPrefabs(bool force) {
-    const std::filesystem::path root = editorDataRoot();
+    const std::filesystem::path& root = editorDataRoot();
     const std::string place = _viewport->place();
     if (!force && place == _prefabPlace) {
         return;  // le brouillon change a chaque geste, pas la bibliotheque.
@@ -982,7 +982,8 @@ void MainWindow::refreshPrefabs(bool force) {
             HMI_LOG_WARNING("Prefabriques : " + error);
             continue;
         }
-        const std::string key = place + "/" + name;
+        std::string key = place;
+        key.append("/").append(name);
         const auto cached = _prefabThumbnails.find(key);
         if (cached == _prefabThumbnails.end()) {
             const QImage image = renderStamp(*stamp, root, place, PREFAB_THUMBNAIL_SIDE);
@@ -1012,7 +1013,7 @@ void MainWindow::saveSelectionAsPrefab() {
     if (!accepted || name.isEmpty()) {
         return;
     }
-    const std::filesystem::path root = editorDataRoot();
+    const std::filesystem::path& root = editorDataRoot();
     const std::string place = _viewport->place();
     const std::string error = writePrefab(root, place, name.toStdString(), stamp);
     if (!error.empty()) {
@@ -1520,51 +1521,55 @@ void MainWindow::writeAutosave() {
 
 void MainWindow::offerRecovery() {
     for (const AutosaveRecord& record : _autosave->pending()) {
-        const QString map = QString::fromStdString(record.mapId);
-        QMessageBox box(QMessageBox::Warning, QStringLiteral("Recover unsaved draft"),
-                        QStringLiteral("The editor did not close normally. An unsaved draft of "
-                                       "map \"%1\" was found.\n\nRecover it? If you discard "
-                                       "it, it is set aside, not deleted.")
-                            .arg(map),
-                        QMessageBox::NoButton, this);
-        QPushButton* const recoverButton =
-            box.addButton(QStringLiteral("Recover"), QMessageBox::AcceptRole);
-        box.addButton(QStringLiteral("Discard"), QMessageBox::DestructiveRole);
-        box.setDefaultButton(recoverButton);
-        box.exec();
-        const bool recover = box.clickedButton() == recoverButton;
-        // Chaque brouillon repris prend son onglet (LOT-EDITOR-09) : plus besoin de les mettre de
-        // côté faute de place, comme quand une seule carte s'ouvrait.
-        if (recover) {
-            const bool blank = _viewport->mapId().empty() && !_viewport->isDirty();
-            EditorViewport* const view = blank ? _viewport : addDocument();
-            if (view->restoreDraft(record.mapId, record.draftJson)) {
-                _autosavedMapIds[view] = record.mapId;
-                watchLevelFile();
-                refreshDocumentLabels();
-                continue;
-            }
-            if (!blank) {
-                static_cast<void>(closeDocument(_tabs->indexOf(view)));
-            }
+        offerRecoveryFor(record);
+    }
+}
+
+void MainWindow::offerRecoveryFor(const AutosaveRecord& record) {
+    const QString map = QString::fromStdString(record.mapId);
+    QMessageBox box(QMessageBox::Warning, QStringLiteral("Recover unsaved draft"),
+                    QStringLiteral("The editor did not close normally. An unsaved draft of "
+                                   "map \"%1\" was found.\n\nRecover it? If you discard "
+                                   "it, it is set aside, not deleted.")
+                        .arg(map),
+                    QMessageBox::NoButton, this);
+    QPushButton* const recoverButton =
+        box.addButton(QStringLiteral("Recover"), QMessageBox::AcceptRole);
+    box.addButton(QStringLiteral("Discard"), QMessageBox::DestructiveRole);
+    box.setDefaultButton(recoverButton);
+    box.exec();
+    const bool recover = box.clickedButton() == recoverButton;
+    // Chaque brouillon repris prend son onglet (LOT-EDITOR-09) : plus besoin de les mettre de
+    // côté faute de place, comme quand une seule carte s'ouvrait.
+    if (recover) {
+        const bool blank = _viewport->mapId().empty() && !_viewport->isDirty();
+        EditorViewport* const view = blank ? _viewport : addDocument();
+        if (view->restoreDraft(record.mapId, record.draftJson)) {
+            _autosavedMapIds[view] = record.mapId;
+            watchLevelFile();
+            refreshDocumentLabels();
+            return;
         }
-        const std::optional<std::filesystem::path> kept =
-            _autosave->keepAside(record.mapId, "draft", timestamp(), record.draftJson);
-        if (!kept) {
-            HMI_LOG_WARNING("Editeur : brouillon de reprise laisse en place : " + record.mapId);
-            continue;  // rien n'est retiré tant qu'il n'est pas à l'abri.
+        if (!blank) {
+            static_cast<void>(closeDocument(_tabs->indexOf(view)));
         }
-        _autosave->discard(record.mapId);
-        HMI_LOG_INFO("Editeur : brouillon de reprise mis de cote : " + kept->string());
-        if (recover) {
-            QMessageBox::warning(this, QStringLiteral("Recover unsaved draft"),
-                                 QStringLiteral("The draft of map \"%1\" cannot be read as a map. "
-                                                "It was set aside in:\n%2")
-                                     .arg(map, displayPath(*kept)));
-        } else {
-            showTransientStatusMessage(
-                QStringLiteral("Draft of %1 set aside: %2").arg(map, displayPath(*kept)), 8000);
-        }
+    }
+    const std::optional<std::filesystem::path> kept =
+        _autosave->keepAside(record.mapId, "draft", timestamp(), record.draftJson);
+    if (!kept) {
+        HMI_LOG_WARNING("Editeur : brouillon de reprise laisse en place : " + record.mapId);
+        return;  // rien n'est retiré tant qu'il n'est pas à l'abri.
+    }
+    _autosave->discard(record.mapId);
+    HMI_LOG_INFO("Editeur : brouillon de reprise mis de cote : " + kept->string());
+    if (recover) {
+        QMessageBox::warning(this, QStringLiteral("Recover unsaved draft"),
+                             QStringLiteral("The draft of map \"%1\" cannot be read as a map. "
+                                            "It was set aside in:\n%2")
+                                 .arg(map, displayPath(*kept)));
+    } else {
+        showTransientStatusMessage(
+            QStringLiteral("Draft of %1 set aside: %2").arg(map, displayPath(*kept)), 8000);
     }
 }
 

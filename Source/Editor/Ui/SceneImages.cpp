@@ -75,7 +75,7 @@ TextureHandle SceneImages::solid() noexcept {
     return sceneImageHandle(&solidImage());
 }
 
-QColor SceneImages::tileColor(core::TileType type) const {
+QColor SceneImages::tileColor(core::TileType type) {
     // La palette de maquette, et non le pixel central de l'atlas procedural (LOT-128, decision
     // D5) : la vignette de la palette montre desormais la couleur que la case prendra vraiment.
     const MaquetteColor tint = maquetteColor(type);

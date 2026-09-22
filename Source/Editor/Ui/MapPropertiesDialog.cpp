@@ -12,6 +12,8 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
+#include <utility>
+
 namespace hmi {
 
 namespace {
@@ -60,9 +62,9 @@ std::optional<MapPropertiesChoice> askMapProperties(QWidget* parent, const QStri
                                          static_cast<int>(mapStateLabel(known).size())));
     }
     state->setCurrentIndex(0);
-    for (int index = 0; index < static_cast<int>(knownMapStates().size()); ++index) {
-        if (knownMapStates()[static_cast<std::size_t>(index)] == current.state) {
-            state->setCurrentIndex(index + 1);
+    for (std::size_t index = 0; index < knownMapStates().size(); ++index) {
+        if (knownMapStates()[index] == current.state) {
+            state->setCurrentIndex(static_cast<int>(index) + 1);
         }
     }
     form->addRow(QStringLiteral("State"), state);
@@ -80,7 +82,7 @@ std::optional<MapPropertiesChoice> askMapProperties(QWidget* parent, const QStri
     return MapPropertiesChoice{
         .region = region->currentText().trimmed().toStdString(),
         .ambience = ambience->text().trimmed().toStdString(),
-        .state = chosen >= 0 && chosen < static_cast<int>(knownMapStates().size())
+        .state = chosen >= 0 && std::cmp_less(chosen, knownMapStates().size())
                      ? knownMapStates()[static_cast<std::size_t>(chosen)]
                      : MapState::Unset};
 }

@@ -31,7 +31,7 @@ struct CrashDumpSettings {
 };
 
 /// Pause entre deux essais de la tentative de dernier recours (writeDumpJob), en millisecondes.
-constexpr DWORD kMiniDumpRetryPauseMs = 50;
+constexpr DWORD MINI_DUMP_RETRY_PAUSE_MS = 50;
 
 CrashDumpSettings& settings() {
     static CrashDumpSettings instance;
@@ -220,7 +220,7 @@ DWORD WINAPI writeDumpJob(LPVOID parameter) {
         job->onlyThread = attempt.onlyThread;
         for (int attemptTry = 0; attemptTry < attempt.tries; ++attemptTry) {
             if (attemptTry > 0) {
-                Sleep(kMiniDumpRetryPauseMs);
+                Sleep(MINI_DUMP_RETRY_PAUSE_MS);
             }
             LARGE_INTEGER start{};
             SetFilePointerEx(job->file, start, nullptr, FILE_BEGIN);
