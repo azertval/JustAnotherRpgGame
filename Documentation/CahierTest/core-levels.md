@@ -1,6 +1,6 @@
 # Core · Levels
 
-Tests unitaires — **117 cas** (24 critiques, 76 majeurs, 17 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **119 cas** (24 critiques, 78 majeurs, 17 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -15,7 +15,7 @@ Tests unitaires — **117 cas** (24 critiques, 76 majeurs, 17 mineurs). [Retour 
 | [`test_level_loader.cpp`](#test-level-loadercpp) | 5 | - | 1 | 4 | - |
 | [`test_level_writer.cpp`](#test-level-writercpp) | 4 | - | - | 3 | 1 |
 | [`test_map_layers.cpp`](#test-map-layerscpp) | 14 | - | - | 12 | 2 |
-| [`test_rpg_terrain.cpp`](#test-rpg-terraincpp) | 4 | - | 2 | 2 | - |
+| [`test_rpg_terrain.cpp`](#test-rpg-terraincpp) | 6 | - | 2 | 4 | - |
 | [`test_tile_type_name.cpp`](#test-tile-type-namecpp) | 3 | - | 2 | 1 | - |
 
 ## test_format_v4.cpp
@@ -2114,7 +2114,7 @@ Une couche 'collision' declaree est refusee.
 
 ### TerrainRpgTest.AllerRetourSurChaqueTypeDeTerrain
 
-*Critique · Unitaire · Terrain RPG* — `Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:49`
+*Critique · Unitaire · Terrain RPG* — `Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:50`
 
 Chaque type de terrain survit a l'aller-retour de format.
 
@@ -2132,7 +2132,7 @@ Chaque type de terrain survit a l'aller-retour de format.
 
 ### TerrainRpgTest.FranchissabiliteDeChaqueTerrain
 
-*Critique · Unitaire · Terrain RPG* — `Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:76`
+*Critique · Unitaire · Terrain RPG* — `Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:77`
 
 La franchissabilite de chaque terrain est celle que son nom promet.
 
@@ -2154,7 +2154,7 @@ La franchissabilite de chaque terrain est celle que son nom promet.
 
 ### TerrainRpgTest.LaRiveDistingueLesDeuxEaux
 
-*Majeur · Unitaire · Terrain RPG* — `Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:100`
+*Majeur · Unitaire · Terrain RPG* — `Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:101`
 
 L'eau peu profonde se traverse, l'eau profonde non.
 
@@ -2168,7 +2168,7 @@ L'eau peu profonde se traverse, l'eau profonde non.
 
 ### TerrainRpgTest.BorneDeLEnumerationDerivee
 
-*Majeur · Unitaire · Terrain RPG* — `Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:114`
+*Majeur · Unitaire · Terrain RPG* — `Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:115`
 
 La borne de l'enumeration reste derivee du dernier type.
 
@@ -2179,10 +2179,34 @@ La borne de l'enumeration reste derivee du dernier type.
 
 **Résultat attendu**
 
-- Vérifie que `core::TILE_TYPE_COUNT` vaut `static_cast<int>(core::TileType::Stairs) + 1`.
-- Vérifie que `core::TILE_TYPE_COUNT` vaut `12`.
+- Vérifie que `core::TILE_TYPE_COUNT` vaut `static_cast<int>(core::TileType::Lava) + 1`.
+- Vérifie que `core::TILE_TYPE_COUNT` vaut `32`.
 - Vérifie que `name.empty()` est faux.
 - Vérifie que `std::adjacent_find(sorted.begin(), sorted.end())` vaut `sorted.end()`.
+
+### TerrainRpgTest.AllerRetourSurChaqueTypeDeTuile
+
+*Majeur* — `Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:145`
+
+Chaque type de tuile survit a l'aller-retour de format. cat Unitaire · Terrain RPG crit Critique etapes 1. Pour chaque type de tuile hors vide et entree, charger une carte qui le porte. 2. La reserialiser puis la recharger. attendu La case porte toujours le meme type.
+
+**Résultat attendu**
+
+- Vérifie que `loaded.ok()` est vrai.
+- Vérifie que `reloaded.ok()` est vrai.
+- Vérifie que `reloaded.level->tileMap().tile(2, 0)` vaut `type`.
+
+### TerrainRpgTest.IsSolidSAccordeAvecLaCollisionDeduite
+
+*Majeur* — `Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:171`
+
+isSolid et la collision deduite s'accordent sur chaque type. cat Unitaire · Terrain RPG crit Critique etapes 1. Pour chaque type de tuile, comparer isSolid a isSolid de sa collision deduite. attendu Les deux s'accordent ; arbre, colonne, toit et gradins arretent aussi la vue (mur), rocher, palissade, etal, caisses, fosse et lave seulement le pas (falaise).
+
+**Résultat attendu**
+
+- Vérifie que `core::isSolid(type)` vaut `core::isSolid(core::canonicalCollisionTile(type))`.
+- Vérifie que `core::canonicalCollisionTile(type)` vaut `core::TileType::Wall`.
+- Vérifie que `core::canonicalCollisionTile(type)` vaut `core::TileType::Cliff`.
 
 ## test_tile_type_name.cpp
 

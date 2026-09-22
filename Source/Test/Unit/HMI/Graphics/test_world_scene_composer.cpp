@@ -21,6 +21,7 @@
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
+#include "Core/Levels/TileTypeName.h"
 #include "Core/Resources/ScenePieceManifest.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/MaquettePalette.h"
@@ -721,6 +722,92 @@ TEST(MaquetteRenderTest, LEauProfondeNeSExtrudePas) {
     const hmi::MaquetteColor vive = hmi::maquetteColor(core::TileType::Water);
     const hmi::MaquetteColor profonde = hmi::maquetteColor(core::TileType::DeepWater);
     EXPECT_LT(profonde.r + profonde.g + profonde.b, vive.r + vive.g + vive.b);
+}
+
+/**
+ * @brief Le vocabulaire de la maquette se distingue sans texture : deux types ne partagent jamais
+ *        une teinte, et la fosse et la lave restent plates comme l'eau profonde.
+ * \castest{<b>Deux types de tuile ne partagent jamais une teinte de maquette.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Relever la teinte de maquette de chaque type, hors case vide.<br/>2. Interroger la
+ * forme de la fosse, de la lave, de la colonne et de la palissade.<br/>
+ * \tattendu Les teintes sont toutes distinctes ; fosse et lave sont plates ; la colonne est plus
+ * haute et plus etroite qu'un mur, la palissade plus basse.
+ * }
+ */
+TEST(MaquetteRenderTest, ChaqueTypeASaTeinteEtSaForme) {
+    std::vector<hmi::MaquetteColor> vues;
+    for (int raw = 0; raw < core::TILE_TYPE_COUNT; ++raw) {
+        const auto type = static_cast<core::TileType>(raw);
+        if (type == core::TileType::Empty) {
+            continue;
+        }
+        const hmi::MaquetteColor teinte = hmi::maquetteColor(type);
+        // L'entree n'est jamais une couche visuelle : elle partage a dessein le pave des plans.
+        if (type != core::TileType::Entry) {
+            EXPECT_EQ(std::find(vues.begin(), vues.end(), teinte), vues.end())
+                << core::tileTypeName(type) << " partage sa teinte";
+            vues.push_back(teinte);
+        }
+    }
+
+    EXPECT_FALSE(hmi::maquetteExtrudes(core::TileType::Pit));
+    EXPECT_FALSE(hmi::maquetteExtrudes(core::TileType::Lava));
+    const hmi::MaquetteShape mur = hmi::maquetteShape(core::TileType::Wall);
+    const hmi::MaquetteShape colonne = hmi::maquetteShape(core::TileType::Column);
+    const hmi::MaquetteShape palissade = hmi::maquetteShape(core::TileType::Fence);
+    EXPECT_GT(colonne.height, mur.height);
+    EXPECT_LT(colonne.footprint, mur.footprint);
+    EXPECT_GT(palissade.height, 0.0F);
+    EXPECT_LT(palissade.height, mur.height);
+}
+
+/**
+ * @brief Une colonne se compose en bloc etroit de deux cases de haut, sur un socle qui couvre sa
+ *        case : sans lui, un trou entourerait le bloc.
+ * \castest{<b>Une colonne se compose en bloc etroit, sur son socle.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Composer une carte d'une seule case de colonne, sans lieu.<br/>
+ * \tattendu Un socle sur le calque des tuiles, trois faces sur le calque du decor ; le sommet
+ * monte de deux hauteurs de losange, et le bloc tient dans la case sans en toucher les pointes.
+ * }
+ */
+TEST(MaquetteRenderTest, UneColonneSeComposeEnBlocEtroitSurSonSocle) {
+    core::TileMap collision{1, 1};
+    collision.setTile(0, 0, core::TileType::Column);
+    const core::Level carte{core::LevelData{.name = "colonne", .tileMap = std::move(collision)}};
+
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(carte, hmi::PlaceAppearance{}, {});
+    const core::IsoProjection projection = projectionDe(instantane);
+    hmi::ScenePieceTextures resolues;
+    resolues.solid = hmi::SceneTexture{.texture = aplat(), .width = 1, .height = 1};
+    const hmi::ComposedScene scene = hmi::composeWorldScene(instantane, projection, resolues);
+
+    ASSERT_EQ(scene.size(), 4U);
+    int socles = 0;
+    const core::Rect bounds = projection.tileBounds({.column = 0, .row = 0});
+    float plusHaut = bounds.position.y;
+    for (const hmi::ComposedQuad& quad : scene.quads()) {
+        if (quad.layer == hmi::RenderLayer::Tile) {
+            ++socles;
+            continue;
+        }
+        EXPECT_EQ(quad.layer, hmi::RenderLayer::Object);
+        for (std::size_t i = 0; i < 4; ++i) {
+            EXPECT_GT(quad.poly.x[i], bounds.position.x);
+            EXPECT_LT(quad.poly.x[i], bounds.position.x + bounds.size.x);
+            plusHaut = std::min(plusHaut, quad.poly.y[i]);
+        }
+    }
+    EXPECT_EQ(socles, 1);
+    const float hauteur = bounds.size.y * hmi::maquetteShape(core::TileType::Column).height;
+    const float dessusDuSommet =
+        bounds.position.y +
+        (bounds.size.y / 2.0F) * (1.0F - hmi::maquetteShape(core::TileType::Column).footprint);
+    EXPECT_FLOAT_EQ(plusHaut, dessusDuSommet - hauteur);
 }
 
 /**

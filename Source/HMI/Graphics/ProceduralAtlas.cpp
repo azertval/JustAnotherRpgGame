@@ -59,9 +59,9 @@ std::uint32_t tileColor(int tileIndex) {
         pack(155, 120, 75, 255),   // (2,4) Bridge : bois
         pack(110, 70, 20, 255),    // (3,4) brun fonce (libre)
         pack(180, 175, 165, 255),  // (4,4) Stairs : pierre claire
-        pack(0, 0, 0, 255),
-        // Ligne 5 (libre)
-        pack(0, 0, 0, 255),
+        pack(30, 25, 20, 255),     // (5,4) Pit : fosse
+        // Ligne 5
+        pack(210, 80, 30, 255),  // (0,5) Lava : lave
         pack(0, 0, 0, 255),
         pack(0, 0, 0, 255),
         pack(0, 0, 0, 255),

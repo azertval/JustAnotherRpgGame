@@ -933,11 +933,20 @@ Ce que la maquette montre :
 |---|---|
 | une case qui ne nomme aucune pièce | un **losange plein**, à la teinte de son type (`hmi::maquetteColor`) |
 | `wall`, `solid`, `cliff` | un **bloc** de trois faces, haut d'une case, qui masque ce qui est derrière |
-| `deepWater` | un losange plat, plus sombre que l'eau vive : elle arrête le pas, elle n'arrête pas la vue |
+| `tree`, `column` | un bloc **étroit** de deux cases de haut, sur un socle plus sombre |
+| `roof`, `tiers` | un bloc d'une case et demie : le bâti vu de dessus, les gradins |
+| `stall`, `rock`, `crate`, `fence`, `lowWall`, `bush` | un bloc **bas**, de la hauteur d'un étal à celle d'un buisson |
+| `deepWater`, `pit`, `lava` | un losange plat : ils arrêtent le pas, ils n'arrêtent pas la vue |
 | une entité sans figurine | un **jeton** rond à lettre — vert le joueur, jaune le PNJ qui parle, rouge l'hostile, gris le PNJ muet, gris-bleu coffre et panneau, or le portail |
 | un portail | son jeton, surmonté d'une **flèche** |
 | une zone, un îlot, une zone de combat | le **contour** de chacune de ses cases |
 | un trajet | la **ligne brisée** de ses points de passage |
+
+La palette *Types* range les types par famille : **Ground** (dont pavé, ruelle, plancher, dallage,
+neige), **Rough ground** (boue, éboulis, buisson : terrain difficile, pas encore joué),
+**Obstacle**, **Building** (toit, colonne, gradins, palissade, muret, étal, caisses) et
+**Crossing** (pont, escalier, porte). Pavé, ruelle, étals, gradins et marbre prennent la teinte de
+la légende des plans de principe.
 
 Les jetons paraissent dès qu'une figurine manque, maquette ou non. Contours, trajets et flèches ne
 paraissent, eux, que sur une carte **sans lieu** : une carte finie ne montre pas ses déclencheurs.

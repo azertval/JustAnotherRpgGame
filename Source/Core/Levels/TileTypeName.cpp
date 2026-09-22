@@ -51,6 +51,46 @@ std::string tileTypeName(TileType type) {
             return "bridge";
         case TileType::Stairs:
             return "stairs";
+        case TileType::Pavement:
+            return "pavement";
+        case TileType::Alley:
+            return "alley";
+        case TileType::Planks:
+            return "planks";
+        case TileType::Flagstone:
+            return "flagstone";
+        case TileType::Snow:
+            return "snow";
+        case TileType::Mud:
+            return "mud";
+        case TileType::Rubble:
+            return "rubble";
+        case TileType::Door:
+            return "door";
+        case TileType::Bush:
+            return "bush";
+        case TileType::Tree:
+            return "tree";
+        case TileType::Rock:
+            return "rock";
+        case TileType::Fence:
+            return "fence";
+        case TileType::LowWall:
+            return "lowWall";
+        case TileType::Stall:
+            return "stall";
+        case TileType::Crate:
+            return "crate";
+        case TileType::Column:
+            return "column";
+        case TileType::Roof:
+            return "roof";
+        case TileType::Tiers:
+            return "tiers";
+        case TileType::Pit:
+            return "pit";
+        case TileType::Lava:
+            return "lava";
     }
     return "empty";  // inatteignable : le switch ci-dessus couvre tout l'enum.
 }

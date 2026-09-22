@@ -1,6 +1,6 @@
 # HMI · Graphics
 
-Tests unitaires — **168 cas** (26 bloquants, 56 critiques, 78 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **170 cas** (26 bloquants, 56 critiques, 80 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -28,7 +28,7 @@ Tests unitaires — **168 cas** (26 bloquants, 56 critiques, 78 majeurs, 8 mineu
 | [`test_render_culling.cpp`](#test-render-cullingcpp) | 10 | - | 5 | 4 | 1 |
 | [`test_rhi_offscreen.cpp`](#test-rhi-offscreencpp) | 4 | 2 | 1 | 1 | - |
 | [`test_texture_atlas.cpp`](#test-texture-atlascpp) | 1 | - | 1 | - | - |
-| [`test_world_scene_composer.cpp`](#test-world-scene-composercpp) | 25 | 3 | 12 | 10 | - |
+| [`test_world_scene_composer.cpp`](#test-world-scene-composercpp) | 27 | 3 | 12 | 12 | - |
 | [`test_world_scene_renderer.cpp`](#test-world-scene-renderercpp) | 6 | 3 | 3 | - | - |
 
 ## test_animation_catalog.cpp
@@ -2628,7 +2628,7 @@ tile(colonne, ligne) renvoie un rectangle de 16x16 pixels à l'origine attendue.
 
 ### ScenePiecePlacement.APieceTakesTheScaleItsPlaceDeclares
 
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:41`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:42`
 
 Une piece prend l'echelle que son lieu declare.
 
@@ -2645,7 +2645,7 @@ Une piece prend l'echelle que son lieu declare.
 
 ### ScenePiecePlacement.AFinerPlaceDrawsAtTheSameSize
 
-*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:63`
+*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:64`
 
 Un lieu plus fin se dessine a la meme taille.
 
@@ -2662,7 +2662,7 @@ Un lieu plus fin se dessine a la meme taille.
 
 ### ScenePiecePlacement.WithoutADeclaredScaleAPieceIsOneCellWide
 
-*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:83`
+*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:84`
 
 Une piece sans echelle declaree a la largeur d'une case.
 
@@ -2677,7 +2677,7 @@ Une piece sans echelle declaree a la largeur d'une case.
 
 ### ScenePiecePlacement.AlignsFractionalOriginWithoutChangingDimensions
 
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:99`
+*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:100`
 
 Une ancre fractionnaire aligne la pièce.
 
@@ -2696,7 +2696,7 @@ Une ancre fractionnaire aligne la pièce.
 
 ### ScenePiecePlacement.RejectsMalformedAnchor
 
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:124`
+*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:125`
 
 Une ancre invalide est ignorée.
 
@@ -2710,7 +2710,7 @@ Une ancre invalide est ignorée.
 
 ### ScenePiecePlacement.ReadsTheArtTileOfAManifest
 
-*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:139`
+*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:140`
 
 Le losange d'art se lit dans le manifeste.
 
@@ -2726,7 +2726,7 @@ Le losange d'art se lit dans le manifeste.
 
 ### ScenePiecePlacement.AFigureOf192By256IsDrawnWhole
 
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:157`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:158`
 
 Une figurine de 192 x 256 s'affiche entiere.
 
@@ -2748,7 +2748,7 @@ Une figurine de 192 x 256 s'affiche entiere.
 
 ### ScenePiecePlacement.ACreatureOf384By384IsDrawnWhole
 
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:186`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:187`
 
 Une creature de 384 x 384 s'affiche entiere.
 
@@ -2765,7 +2765,7 @@ Une creature de 384 x 384 s'affiche entiere.
 
 ### ScenePiecePlacement.ProjectionIsOptInAndRejectsInvalidRatios
 
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:208`
+*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:209`
 
 La projection explicite est contrôlée.
 
@@ -2784,7 +2784,7 @@ La projection explicite est contrôlée.
 
 ### WorldSceneComposerTest.LInstantaneTireLeSolDuTypeEtLeReliefDeLaCase
 
-*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:295`
+*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:296`
 
 Le sol vient du type de tuile, le relief de la piece nommee a la case.
 
@@ -2810,7 +2810,7 @@ Le sol vient du type de tuile, le relief de la piece nommee a la case.
 
 ### WorldSceneComposerTest.LesCheminsCouvrentLeLieuEtLesFigurines
 
-*Majeur · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:328`
+*Majeur · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:329`
 
 La liste des textures a charger couvre exactement ce que la composition resout.
 
@@ -2832,7 +2832,7 @@ La liste des textures a charger couvre exactement ce que la composition resout.
 
 ### WorldSceneComposerTest.LaCompositionPoseChaquePieceSurSonCalque
 
-*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:357`
+*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:358`
 
 Sol, relief et figurine tombent sur les calques Tile, Object et Player.
 
@@ -2849,7 +2849,7 @@ Sol, relief et figurine tombent sur les calques Tile, Object et Player.
 
 ### WorldSceneComposerTest.UneFigurineSansImageAUneCleDeMarqueur
 
-*Majeur · Unitaire · Rendu du lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:407`
+*Majeur · Unitaire · Rendu du lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:408`
 
 La cle du marqueur d'une figurine se tire de son chemin de bande.
 
@@ -2869,7 +2869,7 @@ La cle du marqueur d'une figurine se tire de son chemin de bande.
 
 ### WorldSceneComposerTest.UneFigurineSeNommeParSlugOuParDossier
 
-*Majeur · Unitaire · Scène du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:430`
+*Majeur · Unitaire · Scène du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:431`
 
 Le soldat Ironhand se lit dans les monstres, Anariel dans les PNJ.
 
@@ -2885,7 +2885,7 @@ Le soldat Ironhand se lit dans les monstres, Anariel dans les PNJ.
 
 ### WorldSceneComposerTest.LaPieceNommeeLEmporteSousSonNomCourant
 
-*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:449`
+*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:450`
 
 La pièce nommée l'emporte, sous son nom courant.
 
@@ -2902,7 +2902,7 @@ La pièce nommée l'emporte, sous son nom courant.
 
 ### WorldSceneComposerTest.UnePieceLargeSeTrieAuPiedDeSonEmprise
 
-*Majeur · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:478`
+*Majeur · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:479`
 
 Une pièce large se trie au pied de son emprise.
 
@@ -2919,7 +2919,7 @@ Une pièce large se trie au pied de son emprise.
 
 ### ScenePiecePlacement.DepthRequiresAValidAnchor
 
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:519`
+*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:520`
 
 La profondeur exige une ancre valide.
 
@@ -2935,7 +2935,7 @@ La profondeur exige une ancre valide.
 
 ### MaquetteRenderTest.UneCarteSansLieuSeComposeEnLosangesDeCouleur
 
-*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:564`
+*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:565`
 
 Une carte sans lieu se compose en losanges de couleur.
 
@@ -2957,7 +2957,7 @@ Une carte sans lieu se compose en losanges de couleur.
 
 ### MaquetteRenderTest.UnTypeNonCouvertParLeLieuPrendLaMaquette
 
-*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:601`
+*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:602`
 
 Un type absent de la table du lieu prend le rendu de maquette.
 
@@ -2976,7 +2976,7 @@ Un type absent de la table du lieu prend le rendu de maquette.
 
 ### MaquetteRenderTest.SansAplatRienNEstCompose
 
-*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:643`
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:644`
 
 Sans aplat, la maquette ne compose rien.
 
@@ -2990,7 +2990,7 @@ Sans aplat, la maquette ne compose rien.
 
 ### MaquetteRenderTest.UnMurSeComposeEnBlocDeTroisFaces
 
-*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:662`
+*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:663`
 
 Un mur se compose en bloc de trois faces, haut d'une case.
 
@@ -3009,7 +3009,7 @@ Un mur se compose en bloc de trois faces, haut d'une case.
 
 ### MaquetteRenderTest.LEauProfondeNeSExtrudePas
 
-*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:708`
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:709`
 
 L'eau profonde reste un losange plat, plus sombre que l'eau vive.
 
@@ -3025,9 +3025,49 @@ L'eau profonde reste un losange plat, plus sombre que l'eau vive.
 - Vérifie que `hmi::maquetteExtrudes(core::TileType::Cliff)` est vrai.
 - Vérifie que `profonde.r + profonde.g + profonde.b` est strictement inférieur à `vive.r + vive.g + vive.b`.
 
+### MaquetteRenderTest.ChaqueTypeASaTeinteEtSaForme
+
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:730`
+
+Deux types de tuile ne partagent jamais une teinte de maquette.
+
+**Étapes**
+
+1. Relever la teinte de maquette de chaque type, hors case vide.
+2. Interroger la forme de la fosse, de la lave, de la colonne et de la palissade.
+
+**Résultat attendu**
+
+- Vérifie que `std::find(vues.begin(), vues.end(), teinte)` vaut `vues.end()`.
+- Vérifie que `hmi::maquetteExtrudes(core::TileType::Pit)` est faux.
+- Vérifie que `hmi::maquetteExtrudes(core::TileType::Lava)` est faux.
+- Vérifie que `colonne.height` est strictement supérieur à `mur.height`.
+- Vérifie que `colonne.footprint` est strictement inférieur à `mur.footprint`.
+- Vérifie que `palissade.height` est strictement supérieur à `0.0F`.
+- Vérifie que `palissade.height` est strictement inférieur à `mur.height`.
+
+### MaquetteRenderTest.UneColonneSeComposeEnBlocEtroitSurSonSocle
+
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:769`
+
+Une colonne se compose en bloc etroit, sur son socle.
+
+**Étapes**
+
+1. Composer une carte d'une seule case de colonne, sans lieu.
+
+**Résultat attendu**
+
+- Vérifie que `scene.size()` vaut `4U`.
+- Vérifie que `quad.layer` vaut `hmi::RenderLayer::Object`.
+- Vérifie que `quad.poly.x[i]` est strictement supérieur à `bounds.position.x`.
+- Vérifie que `quad.poly.x[i]` est strictement inférieur à `bounds.position.x + bounds.size.x`.
+- Vérifie que `socles` vaut `1`.
+- Vérifie que `plusHaut` vaut `dessusDuSommet - hauteur` (comparaison flottante).
+
 ### MaquetteRenderTest.LaCouleurDuJetonSeDeduitDeLEntite
 
-*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:730`
+*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:817`
 
 La couleur d'un jeton se deduit de ce que le format dit deja.
 
@@ -3056,7 +3096,7 @@ La couleur d'un jeton se deduit de ce que le format dit deja.
 
 ### MaquetteRenderTest.LesTracesNeParaissentQuEnMaquette
 
-*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:780`
+*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:867`
 
 Une carte habillee garde ses jetons mais perd ses traces.
 
@@ -3078,7 +3118,7 @@ Une carte habillee garde ses jetons mais perd ses traces.
 
 ### MaquetteRenderTest.LesCheminsContiennentLesJetons
 
-*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:823`
+*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:910`
 
 Les chemins de textures d'une carte contiennent ceux de ses jetons.
 

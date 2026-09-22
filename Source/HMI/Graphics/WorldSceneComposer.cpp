@@ -103,6 +103,8 @@ struct DiamondVertices {
 constexpr float BLOCK_TOP_LIGHT = 1.0F;
 constexpr float BLOCK_LEFT_LIGHT = 0.74F;
 constexpr float BLOCK_RIGHT_LIGHT = 0.54F;
+// Le socle d'un bloc etroit (colonne, arbre, caisses), au sol autour de lui.
+constexpr float BLOCK_BASE_LIGHT = 0.45F;
 
 [[nodiscard]] PolyQuad tintedQuad(const MaquetteColor& tint, float light) {
     PolyQuad quad;
@@ -115,16 +117,30 @@ constexpr float BLOCK_RIGHT_LIGHT = 0.54F;
 // Le losange plat d'une case, a la teinte de son type : le sol de maquette.
 void composeMaquetteDiamond(ComposedScene& scene, const core::IsoProjection& projection,
                             const ScenePieceTextures& textures, core::GridPosition cell,
-                            core::TileType type) {
+                            core::TileType type, float light) {
     const DiamondVertices diamond = diamondOf(projection.tileBounds(cell));
-    PolyQuad quad = tintedQuad(maquetteColor(type), BLOCK_TOP_LIGHT);
+    PolyQuad quad = tintedQuad(maquetteColor(type), light);
     quad.x = diamond.x;
     quad.y = diamond.y;
     scene.addPoly(RenderLayer::Tile, textures.solid.texture, core::IsoProjection::depth(cell),
                   quad);
 }
 
-// Le BLOC d'une case de matiere pleine : trois faces, haut d'une case (decision D6).
+// Le losange d'une case, reduit autour de son centre a la fraction @p footprint.
+[[nodiscard]] DiamondVertices shrunk(const DiamondVertices& diamond, float footprint) {
+    const float centreX = diamond.x[0];
+    const float centreY = diamond.y[1];
+    DiamondVertices result;
+    for (std::size_t i = 0; i < 4; ++i) {
+        result.x[i] = centreX + ((diamond.x[i] - centreX) * footprint);
+        result.y[i] = centreY + ((diamond.y[i] - centreY) * footprint);
+    }
+    return result;
+}
+
+// Le BLOC d'une case de matiere pleine ou de mobilier : trois faces, de la hauteur et de l'emprise
+// que son type lui donne (`maquetteShape`) -- un mur fait une case de haut (decision D6), une
+// colonne deux sur une base etroite, une palissade moins d'une demi-case.
 //
 // Sur le calque du DECOR, et trie au pied de la case comme une piece de relief : c'est ce qui le
 // fait masquer ce qui est derriere lui, figurines comprises. Un bloc pose sur le calque des tuiles
@@ -133,8 +149,9 @@ void composeMaquetteBlock(ComposedScene& scene, const core::IsoProjection& proje
                           const ScenePieceTextures& textures, core::GridPosition cell,
                           core::TileType type) {
     const core::Rect bounds = projection.tileBounds(cell);
-    const DiamondVertices base = diamondOf(bounds);
-    const float height = bounds.size.y;  // une case de haut : la hauteur du losange
+    const MaquetteShape shape = maquetteShape(type);
+    const DiamondVertices base = shrunk(diamondOf(bounds), shape.footprint);
+    const float height = bounds.size.y * shape.height;  // en hauteurs de losange
     const MaquetteColor tint = maquetteColor(type);
     const float footY =
         projection
@@ -280,10 +297,15 @@ void composeMaquetteCell(ComposedScene& scene, const WorldSceneSnapshot& snapsho
         return;  // une case vide n'est pas du sol : elle ne se dessine pas, comme avant.
     }
     if (maquetteExtrudes(type) && !flatBlocks) {
+        if (maquetteShape(type).footprint < 1.0F) {
+            // Un bloc qui n'occupe pas toute sa case laisserait un trou autour de lui : son socle,
+            // plus sombre, dit la case sans le confondre avec un sol voisin.
+            composeMaquetteDiamond(scene, projection, textures, cell, type, BLOCK_BASE_LIGHT);
+        }
         composeMaquetteBlock(scene, projection, textures, cell, type);
         return;
     }
-    composeMaquetteDiamond(scene, projection, textures, cell, type);
+    composeMaquetteDiamond(scene, projection, textures, cell, type, BLOCK_TOP_LIGHT);
 }
 
 void composeFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
@@ -311,7 +333,8 @@ void composeRelief(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
     if (piece.empty()) {
         // Un mur se peint aussi souvent sur la couche decor que sur le sol : il doit s'y extruder
         // pareillement, sans quoi une carte maquettee a la maniere des modeles livres serait vide
-        // (LOT-128). Un type de decor qui ne bloque pas n'a, lui, pas de forme a prendre.
+        // (LOT-128). Le mobilier (caisses, etals, buissons) s'y extrude de meme ; un type de decor
+        // plat n'a, lui, pas de forme a prendre.
         const core::TileType type = snapshot.reliefTypeAt(cell);
         if (textures.solid.texture != nullptr && maquetteExtrudes(type) && !flatBlocks) {
             composeMaquetteBlock(scene, projection, textures, cell, type);

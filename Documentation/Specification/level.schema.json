@@ -20,7 +20,9 @@
     },
     "tileType": {
       "enum": ["empty", "solid", "entry", "grass", "dirt", "sand", "water", "deepWater", "wall",
-               "cliff", "bridge", "stairs"]
+               "cliff", "bridge", "stairs", "pavement", "alley", "planks", "flagstone", "snow",
+               "mud", "rubble", "door", "bush", "tree", "rock", "fence", "lowWall", "stall",
+               "crate", "column", "roof", "tiers", "pit", "lava"]
     },
     "collisionTile": {
       "description": "Une case de la grille de collision. Pas de pièce ici : la pièce se nomme sur sa couche.",

@@ -38,10 +38,26 @@ PieceTactical tacticalOfTileType(TileType type) noexcept {
     switch (type) {
         case TileType::Solid:
         case TileType::Wall:
+        case TileType::Tree:
+        case TileType::Column:
+        case TileType::Roof:
+        case TileType::Tiers:
             return PieceTactical::Solid;
         case TileType::DeepWater:
         case TileType::Cliff:
+        case TileType::Rock:
+        case TileType::Fence:
+        case TileType::Stall:
+        case TileType::Crate:
+        case TileType::Pit:
+        case TileType::Lava:
             return PieceTactical::Obstacle;
+        case TileType::Mud:
+        case TileType::Rubble:
+        case TileType::Bush:
+            return PieceTactical::Difficult;
+        case TileType::LowWall:
+            return PieceTactical::Cover;
         case TileType::Empty:
         case TileType::Entry:
         case TileType::Grass:
@@ -50,6 +66,12 @@ PieceTactical tacticalOfTileType(TileType type) noexcept {
         case TileType::Water:
         case TileType::Bridge:
         case TileType::Stairs:
+        case TileType::Pavement:
+        case TileType::Alley:
+        case TileType::Planks:
+        case TileType::Flagstone:
+        case TileType::Snow:
+        case TileType::Door:
             return PieceTactical::Open;
     }
     return PieceTactical::Open;

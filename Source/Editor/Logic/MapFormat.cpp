@@ -259,7 +259,7 @@ void checkCollision(const core::Level& level, const PlaceAssets& assets, Finding
     findings.addCells(MapCheckSeverity::Warning, uselessForced,
                       "forced cell agrees with the derivation: it no longer needs forcing");
     findings.addCells(MapCheckSeverity::Warning, derived.unplayed,
-                      "difficult or cover piece: not played yet, derived as open");
+                      "difficult or cover piece or tile: not played yet, derived as open");
 }
 
 // --- Entités, réserve de hauteur -------------------------------------------------------------
