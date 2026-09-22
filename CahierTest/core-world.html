@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core · World — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1 active" href="core-world.html">Core · World</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-atlascpp">test_atlas.cpp</a><a class="toc depth-2" href="#test-city-blockcpp">test_city_block.cpp</a><a class="toc depth-2" href="#test-city-plancpp">test_city_plan.cpp</a><a class="toc depth-2" href="#test-combat-zonecpp">test_combat_zone.cpp</a><a class="toc depth-2" href="#test-entity-kindscpp">test_entity_kinds.cpp</a><a class="toc depth-2" href="#test-exploration-reachcpp">test_exploration_reach.cpp</a><a class="toc depth-2" href="#test-exploration-sessioncpp">test_exploration_session.cpp</a><a class="toc depth-2" href="#test-world-graphcpp">test_world_graph.cpp</a><a class="toc depth-2" href="#test-world-travelcpp">test_world_travel.cpp</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="core-world">Core · World</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">53 cas</span></div>
+<p>Tests unitaires — <strong>53 cas</strong> (1 bloquant, 26 critiques, 23 majeurs, 3 mineurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-atlascpp"><code>test_atlas.cpp</code></a></td><td>13</td><td>-</td><td>8</td><td>4</td><td>1</td></tr><tr><td><a href="#test-city-blockcpp"><code>test_city_block.cpp</code></a></td><td>1</td><td>-</td><td>-</td><td>1</td><td>-</td></tr><tr><td><a href="#test-city-plancpp"><code>test_city_plan.cpp</code></a></td><td>3</td><td>-</td><td>1</td><td>2</td><td>-</td></tr><tr><td><a href="#test-combat-zonecpp"><code>test_combat_zone.cpp</code></a></td><td>3</td><td>-</td><td>3</td><td>-</td><td>-</td></tr><tr><td><a href="#test-entity-kindscpp"><code>test_entity_kinds.cpp</code></a></td><td>9</td><td>1</td><td>-</td><td>7</td><td>1</td></tr><tr><td><a href="#test-exploration-reachcpp"><code>test_exploration_reach.cpp</code></a></td><td>3</td><td>-</td><td>2</td><td>1</td><td>-</td></tr><tr><td><a href="#test-exploration-sessioncpp"><code>test_exploration_session.cpp</code></a></td><td>4</td><td>-</td><td>3</td><td>1</td><td>-</td></tr><tr><td><a href="#test-world-graphcpp"><code>test_world_graph.cpp</code></a></td><td>10</td><td>-</td><td>5</td><td>4</td><td>1</td></tr><tr><td><a href="#test-world-travelcpp"><code>test_world_travel.cpp</code></a></td><td>7</td><td>-</td><td>4</td><td>3</td><td>-</td></tr></tbody></table></div>
+<h2 id="test-atlascpp">test_atlas.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="atlastestlestreizeregionsetleurslieuxchargentsanserreur">AtlasTest.LesTreizeRegionsEtLeursLieuxChargentSansErreur</h3>
+<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:57</code></p>
+<p>Les treize regions et leurs cent sept lieux se chargent tous.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger Source/Elements/World.</li><li>Compter les regions, les lieux et les erreurs rapportees.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>atlas().errors.empty()</code> est vrai.</li><li>Vérifie que <code>atlas().regions.size()</code> vaut <code>REGIONS_DU_LIVRE</code>.</li><li>Vérifie que <code>atlas().locations.size()</code> vaut <code>LIEUX_DU_LIVRE</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="atlastestchaqueregionportesesseptaxes">AtlasTest.ChaqueRegionPorteSesSeptAxes</h3>
+<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:74</code></p>
+<p>Chaque region porte les sept statistiques regionales.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour chaque region, lire les sept axes de l'encart.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>axe.appraisals.empty()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="atlastestlencartdelempirecentralestrejouedepuislelivre">AtlasTest.LEncartDeLEmpireCentralEstRejoueDepuisLeLivre</h3>
+<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:96</code></p>
+<p>L'encart de l'Empire central concorde avec le Sourcebook.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Comparer les sept notes de l'Empire central aux valeurs lues sur la page imprimee 90.</li><li>Comparer l'effectif et la part de la premiere espece au bloc d'introduction.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>empire</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>empire-&gt;statistic(note.axis).grade()</code> vaut <code>note.grade</code>.</li><li>Vérifie que <code>empire-&gt;statistic(note.axis).varies()</code> est faux.</li><li>Vérifie que <code>empire-&gt;population.total.has_value()</code> est vrai.</li><li>Vérifie que <code>*empire-&gt;population.total</code> vaut <code>2300000</code>.</li><li>Vérifie que <code>empire-&gt;population.species.empty()</code> est faux.</li><li>Vérifie que <code>empire-&gt;population.species.front().species</code> vaut <code>&quot;human&quot;</code>.</li><li>Vérifie que <code>empire-&gt;population.species.front().percent</code> vaut <code>84</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="atlastestuneregionnonuniformeportesesdeuxappreciations">AtlasTest.UneRegionNonUniformePorteSesDeuxAppreciations</h3>
+<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:136</code></p>
+<p>Une region non uniforme porte ses deux appreciations avec leur portee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire la liberte civique du Benenet imperial et la criminalite des Domaines straviens.</li><li>Verifier les deux notes et les deux portees de chacune.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>benenet</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>liberte.appraisals.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>liberte.varies()</code> est vrai.</li><li>Vérifie que <code>liberte.appraisals[0].grade</code> vaut <code>core::RegionGrade::Low</code>.</li><li>Vérifie que <code>liberte.appraisals[0].scope</code> vaut <code>&quot;south&quot;</code>.</li><li>Vérifie que <code>liberte.appraisals[1].grade</code> vaut <code>core::RegionGrade::High</code>.</li><li>Vérifie que <code>liberte.appraisals[1].scope</code> vaut <code>&quot;north&quot;</code>.</li><li>Vérifie que <code>stravian</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>crime.appraisals.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>crime.appraisals[0].grade</code> vaut <code>core::RegionGrade::Low</code>.</li><li>Vérifie que <code>crime.appraisals[0].scope</code> vaut <code>&quot;underground&quot;</code>.</li><li>Vérifie que <code>crime.appraisals[1].grade</code> vaut <code>core::RegionGrade::High</code>.</li><li>Vérifie que <code>crime.appraisals[1].scope</code> vaut <code>&quot;surface&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="atlastestuneregionuniformeneporteaucuneportee">AtlasTest.UneRegionUniformeNePorteAucunePortee</h3>
+<p><em>Mineur · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:173</code></p>
+<p>Une region uniforme ne nomme aucune portee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour chaque axe ne portant qu'une appreciation, lire sa portee.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>axe.appraisals.front().scope.empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="atlastestlacapitaleetsesdouzequartierssontrejouesdepuislelivre">AtlasTest.LaCapitaleEtSesDouzeQuartiersSontRejouesDepuisLeLivre</h3>
+<p><em>Majeur · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:195</code></p>
+<p>La Capitale et ses douze quartiers sont des lieux de l'Empire central.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Resoudre la Capitale et chacun des douze quartiers, noms recopies du PDF.</li><li>Verifier leur region et une phrase de Martpart et d'Arenarea lue sur la page.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>ville</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>ville-&gt;region</code> vaut <code>&quot;central-empire&quot;</code>.</li><li>Vérifie que <code>ville-&gt;description.find(&quot;Approximately 680,000&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>lieu</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>lieu-&gt;region</code> vaut <code>&quot;central-empire&quot;</code>.</li><li>Vérifie que <code>lieu-&gt;description.empty()</code> est faux.</li><li>Vérifie que <code>atlas().findLocation(capitale + &quot;-martpart&quot;)-&gt;description.find( &quot;Lantern-lit stalls and culturally blended architecture adorn cobblestone&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>atlas().findLocation(capitale + &quot;-arenarea&quot;)-&gt;description.find( &quot;Famed for the Arena of Fate&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="atlastestaucunlieusansregion">AtlasTest.AucunLieuSansRegion</h3>
+<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:233</code></p>
+<p>Aucun lieu n'est orphelin de region.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour chaque lieu, resoudre la region qu'il declare.</li><li>Verifier que cette region le cite en retour.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>region</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>std::ranges::find(region-&gt;locations, lieu.id)</code> diffère de <code>region-&gt;locations.end()</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="atlastesttoutlieuciteparuneregionexiste">AtlasTest.ToutLieuCiteParUneRegionExiste</h3>
+<p><em>Majeur · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:252</code></p>
+<p>Toute region ne cite que des lieux existants.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour chaque region, resoudre chacun des lieux qu'elle cite.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>atlas().findLocation(identifiant)</code> diffère de <code>nullptr</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="atlastestlevoisinageestsymetriqueetlegrapheconnexe">AtlasTest.LeVoisinageEstSymetriqueEtLeGrapheConnexe</h3>
+<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:270</code></p>
+<p>Le voisinage des regions est symetrique et le graphe connexe.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour chaque arete, verifier que la region voisine declare la reciproque.</li><li>Parcourir le graphe depuis la premiere region.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>autre</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>std::ranges::find(autre-&gt;neighbors, region.id)</code> diffère de <code>autre-&gt;neighbors.end()</code>.</li><li>Vérifie que <code>atlas().regions.empty()</code> est faux.</li><li>Vérifie que <code>atlas().unreachableFrom(atlas().regions.front().id).empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="atlastestuneregioncoupeedugrapheestsignalee">AtlasTest.UneRegionCoupeeDuGrapheEstSignalee</h3>
+<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:295</code></p>
+<p>Le controle de connexite sait echouer.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Retirer les aretes de Yama, dans une copie de l'atlas.</li><li>Relancer le parcours depuis une autre region.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>ampute.regions.size()</code> est supérieur ou égal à <code>2U</code>.</li><li>Vérifie que <code>cible</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>depart</code> diffère de <code>isolee</code>.</li><li>Vérifie que <code>std::ranges::find(perdues, isolee)</code> diffère de <code>perdues.end()</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="atlastestlesnotesdumoteurcoincidentaveccellesduschema">AtlasTest.LesNotesDuMoteurCoincidentAvecCellesDuSchema</h3>
+<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:334</code></p>
+<p>Les notes et les axes du moteur coincident avec region.schema.json.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire le schema LIVRE.</li><li>Y chercher les cinq notes et les sept axes que le moteur nomme.</li><li>Verifier qu'une note hors des cinq est refusee.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>flux.is_open()</code> est vrai.</li><li>Vérifie que <code>schema.find(&#x27;&quot;&#x27; + std::string{nom} + &#x27;&quot;&#x27;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>core::regionGradeFromName(nom)</code> vaut <code>std::optional&lt;core::RegionGrade&gt;{static_cast&lt;core::RegionGrade&gt;(rang)}</code>.</li><li>Vérifie que <code>core::regionGradeFromName(&quot;average&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>schema.find(&#x27;&quot;&#x27; + std::string{nom} + &#x27;&quot;&#x27;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="atlastestundossierabsentestuneerreurpasunmondevide">AtlasTest.UnDossierAbsentEstUneErreurPasUnMondeVide</h3>
+<p><em>Majeur · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:372</code></p>
+<p>Un dossier d'atlas absent produit une erreur, pas un monde vide.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger un dossier qui n'existe pas.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>absent.regions.empty()</code> est vrai.</li><li>Vérifie que <code>absent.errors.empty()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="atlastestlespartsdepopulationrestentplausibles">AtlasTest.LesPartsDePopulationRestentPlausibles</h3>
+<p><em>Majeur · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:388</code></p>
+<p>Les parts de population de chaque region somment a 100 % a l'arrondi pres.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour chaque region, sommer les parts d'espece et la part &lt;&lt; others &gt;&gt;.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>part.percent</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>part.species.empty()</code> est faux.</li><li>Vérifie que <code>somme</code> est supérieur ou égal à <code>97</code>.</li><li>Vérifie que <code>somme</code> est inférieur ou égal à <code>103</code>.</li></ul>
+</section><h2 id="test-city-blockcpp">test_city_block.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="cityblocktestlesilotsselisentetlessaisiesfautivessontecartees">CityBlockTest.LesIlotsSeLisentEtLesSaisiesFautivesSontEcartees</h3>
+<p><em>Majeur · Unitaire · Plan de la ville</em> — <code>Source/Test/Unit/Core/World/test_city_block.cpp:38</code></p>
+<p>Un ilot est un rectangle nomme de la carte ; un ilot sans nom ou vide est ecarte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser sur une carte deux ilots valides, un sans nom, un de largeur nulle, et une entite d'un autre type.</li><li>Lire les ilots ; demander a chacun s'il contient quelques cases.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>ilots.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>ilots[0].name</code> vaut <code>&quot;place&quot;</code>.</li><li>Vérifie que <code>ilots[1].name</code> vaut <code>&quot;ruelles&quot;</code>.</li><li>Vérifie que <code>ilots[0].columns</code> vaut <code>5</code>.</li><li>Vérifie que <code>ilots[0].rows</code> vaut <code>4</code>.</li><li>Vérifie que <code>ilots[0].contains({2, 3})</code> est vrai.</li><li>Vérifie que <code>ilots[0].contains({6, 6})</code> est vrai.</li><li>Vérifie que <code>ilots[0].contains({7, 3})</code> est faux.</li><li>Vérifie que <code>ilots[0].contains({2, 7})</code> est faux.</li></ul>
+</section><h2 id="test-city-plancpp">test_city_plan.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="cityplantestunevilleselit">CityPlanTest.UneVilleSeLit</h3>
+<p><em>Critique · Unitaire · Graphe de la ville</em> — <code>Source/Test/Unit/Core/World/test_city_plan.cpp:51</code></p>
+<p>Une ville se lit, et sa porte de depart s'ouvre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire la ville de la racine d'essai.</li><li>Entrer a sa porte de depart par le chargeur du jeu.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>lue.ok()</code> est vrai.</li><li>Vérifie que <code>capitale.location</code> vaut <code>&quot;test-city&quot;</code>.</li><li>Vérifie que <code>capitale.districts.size()</code> vaut <code>6U</code>.</li><li>Vérifie que <code>cartes</code> vaut <code>2</code>.</li><li>Vérifie que <code>gardees</code> vaut <code>4</code>.</li><li>Vérifie que <code>capitale.startMap()</code> vaut <code>&quot;bourg/place&quot;</code>.</li><li>Vérifie que <code>capitale.startArrival</code> vaut <code>&quot;porte-est&quot;</code>.</li><li>Vérifie que <code>cave</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>cave-&gt;id</code> vaut <code>&quot;test-city-cave&quot;</code>.</li><li>Vérifie que <code>capitale.districtOfMap(&quot;donjon&quot;)</code> vaut <code>nullptr</code>.</li><li>Vérifie que <code>voyage.enter(capitale.startMap(), capitale.startArrival)</code> vaut <code>core::TravelResult::Moved</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="cityplanfiletestunquartierdoitavoirsoitunecartesoituneportegardee">CityPlanFileTest.UnQuartierDoitAvoirSoitUneCarteSoitUnePorteGardee</h3>
+<p><em>Majeur · Unitaire · Graphe de la ville</em> — <code>Source/Test/Unit/Core/World/test_city_plan.cpp:88</code></p>
+<p>Un quartier doit avoir soit une carte, soit une porte gardee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire une ville dont un quartier porte <code>map</code> et <code>guard</code>, puis une autre dont un quartier ne porte ni l'un ni l'autre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>lesDeux.ok()</code> est faux.</li><li>Vérifie que <code>lesDeux.error.find(&quot;« a »&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>aucun.ok()</code> est faux.</li><li>Vérifie que <code>aucun.error.find(&quot;« b »&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="cityplanfiletestundepartdansunquartiersanscarteestrefuse">CityPlanFileTest.UnDepartDansUnQuartierSansCarteEstRefuse</h3>
+<p><em>Majeur · Unitaire · Graphe de la ville</em> — <code>Source/Test/Unit/Core/World/test_city_plan.cpp:114</code></p>
+<p>« Nouvelle partie » doit pouvoir poser le heros : le depart a une carte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire une ville dont le quartier de depart est ferme par une porte gardee.</li><li>Lire un fichier absent.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>ferme.ok()</code> est faux.</li><li>Vérifie que <code>ferme.plan.startMap().empty()</code> est vrai.</li><li><code>EXPECT_NO_THROW(absent = core::loadCityPlan(dir / &quot;inexistant.json&quot;))</code></li><li>Vérifie que <code>absent.ok()</code> est faux.</li></ul>
+</section><h2 id="test-combat-zonecpp">test_combat_zone.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="combatzonetestlacartereduitenestquelazone">CombatZoneTest.LaCarteReduiteNEstQueLaZone</h3>
+<p><em>Critique · Unitaire · Zone de combat</em> — <code>Source/Test/Unit/Core/World/test_combat_zone.cpp:66</code></p>
+<p>La carte reduite a la zone ne porte que la zone, entites translatees.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Declarer une zone « sable » de 4 x 3 en (4, 4) sur une carte de 12 x 10.</li><li>Reduire la carte a la zone.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>zones.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>zones.front()</code> vaut <code>(core::CombatZone{.name = &quot;sable&quot;, .origin = {4, 4}, .columns = 4, .rows = 3})</code>.</li><li>Vérifie que <code>zones.front().contains({4, 4})</code> est vrai.</li><li>Vérifie que <code>zones.front().contains({7, 6})</code> est vrai.</li><li>Vérifie que <code>zones.front().contains({8, 6})</code> est faux.</li><li>Vérifie que <code>core::findCombatZone(zones, &quot;sable&quot;)</code> vaut <code>&amp;zones.front()</code>.</li><li>Vérifie que <code>core::findCombatZone(zones, &quot;&quot;)</code> vaut <code>&amp;zones.front()</code>.</li><li>Vérifie que <code>core::findCombatZone(zones, &quot;tribunes&quot;)</code> vaut <code>nullptr</code>.</li><li>Vérifie que <code>reduite.tileMap().width()</code> vaut <code>4</code>.</li><li>Vérifie que <code>reduite.tileMap().height()</code> vaut <code>3</code>.</li><li>Vérifie que <code>reduite.entities().size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>entite.position</code> vaut <code>(core::GridPosition{1, 1})</code>.</li><li>Vérifie que <code>entite.position</code> vaut <code>(core::GridPosition{0, 2})</code>.</li><li>Vérifie que <code>pnj</code> vaut <code>1</code>.</li><li>Vérifie que <code>reduite.layers().size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>reduite.layers().front().tiles.width()</code> vaut <code>4</code>.</li><li>Vérifie que <code>reduite.layers().front().tiles.tile(0, 0)</code> vaut <code>core::TileType::Wall</code>.</li><li>Vérifie que <code>reduite.layers().front().pieceAt(1, 1)</code> vaut <code>&quot;torch-left&quot;</code>.</li><li>Vérifie que <code>reduite.layers().front().pieces.size()</code> vaut <code>12U</code>.</li><li>Vérifie que <code>reduite.forcedCollision()</code> vaut <code>(std::vector&lt;core::GridPosition&gt;{{2, 1}})</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="combatzonetestlasessionignorelescaseshorszone">CombatZoneTest.LaSessionIgnoreLesCasesHorsZone</h3>
+<p><em>Critique · Unitaire · Zone de combat</em> — <code>Source/Test/Unit/Core/World/test_combat_zone.cpp:127</code></p>
+<p>La grille de combat de la carte reduite ne connait que la zone.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Monter une <a class="ref" href="../reference/classcore_1_1ArenaSession.html"><code>core::ArenaSession</code></a> sur la carte reduite a la zone.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>zones.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>session.combat().grid().width()</code> vaut <code>4</code>.</li><li>Vérifie que <code>session.combat().grid().height()</code> vaut <code>3</code>.</li><li>Vérifie que <code>session.combat().grid().inBounds({4, 0})</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="combatzonetestchaquedefautdezoneestreleveauchargement">CombatZoneTest.ChaqueDefautDeZoneEstReleveAuChargement</h3>
+<p><em>Critique · Unitaire · Zone de combat</em> — <code>Source/Test/Unit/Core/World/test_combat_zone.cpp:149</code></p>
+<p>Une zone degeneree, debordante ou entierement pleine est refusee, avec son code.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Declarer une zone de largeur nulle, une zone qui sort de la carte, une zone entierement muree.</li><li>Valider la carte.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::validateCombatZones(&quot;colisee&quot;, degeneree).size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>core::validateCombatZones(&quot;colisee&quot;, degeneree).front().code</code> vaut <code>WorldIssueCode::CombatZoneDegenerate</code>.</li><li>Vérifie que <code>core::validateCombatZones(&quot;colisee&quot;, debordante).size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>core::validateCombatZones(&quot;colisee&quot;, debordante).front().code</code> vaut <code>WorldIssueCode::CombatZoneOutOfBounds</code>.</li><li>Vérifie que <code>core::validateCombatZones(&quot;colisee&quot;, muree).size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>defaut.code</code> vaut <code>WorldIssueCode::CombatZoneBlocked</code>.</li><li>Vérifie que <code>defaut.value</code> vaut <code>&quot;mur&quot;</code>.</li><li>Vérifie que <code>defaut.position</code> vaut <code>(core::GridPosition{2, 0})</code>.</li><li>Vérifie que <code>core::validateWorldMap(&quot;colisee&quot;, muree).empty()</code> est faux.</li><li>Vérifie que <code>core::validateWorldMap(&quot;colisee&quot;, carte({zone(&quot;sable&quot;, {4, 4}, 4, 3)})).empty()</code> est vrai.</li></ul>
+</section><h2 id="test-entity-kindscpp">test_entity_kinds.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="famillesdentitestestlatablereprendlestypesdugameplay">FamillesDEntitesTest.LaTableReprendLesTypesDuGameplay</h3>
+<p><em>Majeur · Unitaire · Familles d'entites</em> — <code>Source/Test/Unit/Core/World/test_entity_kinds.cpp:62</code></p>
+<p>La table des familles reprend les types du gameplay.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Chercher chaque type lu par le gameplay dans la table.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::findEntityKind(type)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>core::findEntityKind(&quot;dragon&quot;)</code> vaut <code>nullptr</code>.</li><li>Vérifie que <code>core::findEntityKind(core::NPC_ENTITY_TYPE)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>core::findEntityKind(core::NPC_ENTITY_TYPE)-&gt;find(core::NPC_DIALOGUE_PROPERTY)</code> diffère de <code>nullptr</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="famillesdentitestestentiteneuveportesesdefauts">FamillesDEntitesTest.EntiteNeuvePorteSesDefauts</h3>
+<p><em>Mineur · Unitaire · Familles d'entites</em> — <code>Source/Test/Unit/Core/World/test_entity_kinds.cpp:85</code></p>
+<p>Une entite neuve porte ses proprietes par defaut.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Fabriquer une entree d'arene en (3, 4).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>kind</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>made.type</code> vaut <a class="ref" href="../reference/namespacecore.html#a93cf3e3bbcfd17745d5f4084773b1a4a"><code>core::ARENA_ENTRY_ENTITY_TYPE</code></a>.</li><li>Vérifie que <code>made.position</code> vaut <code>(core::GridPosition{.column = 3, .row = 4})</code>.</li><li>Vérifie que <code>made.properties.at(std::string{core::ARENA_SIDE_PROPERTY})</code> vaut <code>core::PropertyValue{std::string{&quot;allies&quot;}}</code>.</li><li>Vérifie que <code>made.properties.at(std::string{core::ARENA_RANK_PROPERTY})</code> vaut <code>core::PropertyValue{std::int64_t{1}}</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="famillesdentitestestcartebienrenseigneeestmuette">FamillesDEntitesTest.CarteBienRenseigneeEstMuette</h3>
+<p><em>Majeur · Unitaire · Familles d'entites</em> — <code>Source/Test/Unit/Core/World/test_entity_kinds.cpp:106</code></p>
+<p>Une carte bien renseignee est muette.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Valider un PNJ, une rencontre, un portail vers un point connu, un point d'arrivee et un PNJ figurant.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::validateMapEntities(entities, context()).empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="famillesdentitestestreferencescasseesnommees">FamillesDEntitesTest.ReferencesCasseesNommees</h3>
+<p><em>Majeur · Unitaire · Familles d'entites</em> — <code>Source/Test/Unit/Core/World/test_entity_kinds.cpp:128</code></p>
+<p>Les references cassees sont nommees.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Valider un PNJ au dialogue inconnu, une rencontre inconnue, un portail vers une carte inconnue et un portail vers un point absent d'une carte connue.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>issues.size()</code> vaut <code>4U</code>.</li><li>Vérifie que <code>issues[0]</code> vaut <code>(core::EntityIssue{.entityIndex = 0, .code = core::EntityIssueCode::UnknownDialogue, .key = &quot;dialogue&quot;, .value = &quot;inconnu&quot;})</code>.</li><li>Vérifie que <code>issues[1].code</code> vaut <code>core::EntityIssueCode::UnknownEncounter</code>.</li><li>Vérifie que <code>issues[2]</code> vaut <code>(core::EntityIssue{.entityIndex = 2, .code = core::EntityIssueCode::UnknownTargetMap, .key = &quot;targetMap&quot;, .value = &quot;nulle-part&quot;})</code>.</li><li>Vérifie que <code>issues[3]</code> vaut <code>(core::EntityIssue{.entityIndex = 3, .code = core::EntityIssueCode::UnknownArrivalPoint, .key = &quot;arrival&quot;, .value = &quot;lisiere&quot;})</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="famillesdentitestestproprietesmalrenseigneessignalees">FamillesDEntitesTest.ProprietesMalRenseigneesSignalees</h3>
+<p><em>Majeur · Unitaire · Familles d'entites</em> — <code>Source/Test/Unit/Core/World/test_entity_kinds.cpp:164</code></p>
+<p>Les proprietes mal renseignees sont signalees.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Valider une rencontre sans rencontre, un portail a cible vide, une entree d'arene au rang textuel et au camp inconnu, et un type inconnu.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>codes(core::validateMapEntities(entities, context()))</code> vaut <code>(std::vector&lt;core::EntityIssueCode&gt;{ core::EntityIssueCode::MissingProperty, core::EntityIssueCode::MissingProperty, core::EntityIssueCode::MissingProperty, core::EntityIssueCode::InvalidChoice, core::EntityIssueCode::WrongValueType, core::EntityIssueCode::UnknownType})</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="famillesdentitestestnomdepointdarriveeunique">FamillesDEntitesTest.NomDePointDArriveeUnique</h3>
+<p><em>Majeur · Unitaire · Familles d'entites</em> — <code>Source/Test/Unit/Core/World/test_entity_kinds.cpp:191</code></p>
+<p>Un nom de point d'arrivee est unique dans la carte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser deux points « puits » et un point « gue ».</li><li>Valider et relever les noms.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>issues.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>issues[0].entityIndex</code> vaut <code>2U</code>.</li><li>Vérifie que <code>issues[0].code</code> vaut <code>core::EntityIssueCode::DuplicateArrivalPoint</code>.</li><li>Vérifie que <code>core::arrivalPointNames(entities)</code> vaut <code>(std::set&lt;std::string, std::less&lt;&gt;&gt;{&quot;gue&quot;, &quot;puits&quot;})</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="famillesdentitestesttoutfamillelueparlejeuestdanslatable">FamillesDEntitesTest.ToutFamilleLueParLeJeuEstDansLaTable</h3>
+<p><em>Bloquant · Unitaire · Familles d'entites</em> — <code>Source/Test/Unit/Core/World/test_entity_kinds.cpp:217</code></p>
+<p>Aucune famille lue par le jeu n'echappe a l'editeur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Relever dans les sources du jeu (Core, HMI, App) chaque constante &lt;code&gt;*_ENTITY_TYPE&lt;/code&gt;.</li><li>Y ajouter les familles interactives (&lt;code&gt;core::knownInteractableKinds&lt;/code&gt;) et chaque type des cartes livrees.</li><li>Chercher chacune dans la table.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>read.size()</code> est supérieur ou égal à <code>11U</code>.</li><li>Vérifie que <code>core::findEntityKind(type)</code> diffère de <code>nullptr</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="famillesdentitestestlatableestcoherenteavecsesformes">FamillesDEntitesTest.LaTableEstCoherenteAvecSesFormes</h3>
+<p><em>Majeur · Unitaire · Familles d'entites</em> — <code>Source/Test/Unit/Core/World/test_entity_kinds.cpp:274</code></p>
+<p>La table des familles est coherente avec ses formes.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Parcourir la table.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>spec</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>spec-&gt;kind</code> vaut <code>core::EntityPropertyKind::Integer</code>.</li><li>Vérifie que <code>spec-&gt;minimum</code> vaut <code>1</code>.</li><li>Vérifie que <code>kind.find(kind.labelProperty)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>kind.find(kind.figureProperty)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>kind.find(kind.figureProperty)-&gt;source</code> vaut <code>core::EntityChoiceSource::Figures</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="famillesdentitestestbornesetcataloguescontroles">FamillesDEntitesTest.BornesEtCataloguesControles</h3>
+<p><em>Majeur · Unitaire · Familles d'entites</em> — <code>Source/Test/Unit/Core/World/test_entity_kinds.cpp:305</code></p>
+<p>Le schema type controle bornes et catalogues.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Une zone de combat de largeur 0 ; une entree d'arene de rang 0.</li><li>Un PNJ a figurine inconnue, gardant un lieu inconnu ; un portail exigeant un drapeau que rien ne pose.</li><li>Les memes, references connues.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>codes(core::validateMapEntities(bounded, references))</code> vaut <code>(std::vector&lt;core::EntityIssueCode&gt;{core::EntityIssueCode::OutOfRange, core::EntityIssueCode::OutOfRange})</code>.</li><li>Vérifie que <code>codes(core::validateMapEntities(referenced, references))</code> vaut <code>(std::vector&lt;core::EntityIssueCode&gt;{core::EntityIssueCode::UnknownFigure, core::EntityIssueCode::UnknownLocation, core::EntityIssueCode::UnsetFlag})</code>.</li><li>Vérifie que <code>core::validateMapEntities(referenced, references).empty()</code> est vrai.</li></ul>
+</section><h2 id="test-exploration-reachcpp">test_exploration_reach.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="explorationreachtestuncouloirsepasseunmurleferme">ExplorationReachTest.UnCouloirSePasseUnMurLeFerme</h3>
+<p><em>Critique · Unitaire · Atteignabilité</em> — <code>Source/Test/Unit/Core/World/test_exploration_reach.cpp:40</code></p>
+<p>Le héros suit un couloir d'une case, jusqu'au mur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Une salle, un couloir d'une case, une salle derrière un mur.</li><li>Parcourir depuis la première salle.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>atteinte.reaches({.column = 5, .row = 3})</code> est vrai.</li><li>Vérifie que <code>atteinte.reaches({.column = 3, .row = 2})</code> est vrai.</li><li>Vérifie que <code>atteinte.reaches({.column = 0, .row = 4})</code> est faux.</li><li>Vérifie que <code>atteinte.reaches({.column = 2, .row = 0})</code> est faux.</li><li>Vérifie que <code>atteinte.reaches({.column = 9, .row = 9})</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="explorationreachtestdeuxmursendiagonalefermentlepassage">ExplorationReachTest.DeuxMursEnDiagonaleFermentLePassage</h3>
+<p><em>Critique · Unitaire · Atteignabilité</em> — <code>Source/Test/Unit/Core/World/test_exploration_reach.cpp:67</code></p>
+<p>On ne passe pas entre deux murs en diagonale.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Deux cases libres qui ne se touchent que par un coin, entre deux murs.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>atteinte.reaches({.column = 0, .row = 0})</code> est vrai.</li><li>Vérifie que <code>atteinte.reaches({.column = 1, .row = 1})</code> est faux.</li><li>Vérifie que <code>atteinte.count()</code> vaut <code>1U</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="explorationreachtestundepartmurenatteintrien">ExplorationReachTest.UnDepartMureNAtteintRien</h3>
+<p><em>Majeur · Unitaire · Atteignabilité</em> — <code>Source/Test/Unit/Core/World/test_exploration_reach.cpp:88</code></p>
+<p>Un départ muré n'atteint rien.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Partir d'un mur, puis de hors de la carte, puis des deux côtés d'un mur.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::ExplorationReach(carte, {{.column = 1, .row = 0}}).count()</code> vaut <code>0U</code>.</li><li>Vérifie que <code>core::ExplorationReach(carte, {{.column = -1, .row = 0}}).count()</code> vaut <code>0U</code>.</li><li>Vérifie que <code>core::ExplorationReach(carte, {{.column = 0, .row = 0}, {.column = 2, .row = 0}}).count()</code> vaut <code>2U</code>.</li></ul>
+</section><h2 id="test-exploration-sessioncpp">test_exploration_session.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="explorationsessiontestleherosmarcheetlemurlarrete">ExplorationSessionTest.LeHerosMarcheEtLeMurLArrete</h3>
+<p><em>Critique · Unitaire · Exploration</em> — <code>Source/Test/Unit/Core/World/test_exploration_session.cpp:108</code></p>
+<p>Le heros marche sur la carte et bute sur le mur, en glissant le long.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Entrer sur une carte muree, marcher vers la droite jusqu'au mur.</li><li>Marcher en diagonale contre ce mur.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>session.start(&quot;place&quot;, &quot;&quot;)</code> est vrai.</li><li>Vérifie que <code>session.heroPoint()</code> vaut <code>(core::CellPoint{1.5F, 1.5F})</code>.</li><li>Vérifie que <code>session.heroPoint().column</code> vaut <code>8.7F</code>, à <code>0.05F</code> près.</li><li>Vérifie que <code>session.heroPoint().row</code> vaut <code>1.5F</code>, à <code>0.001F</code> près.</li><li>Vérifie que <code>session.heroPoint().row</code> est strictement supérieur à <code>avant</code>.</li><li>Vérifie que <code>session.heroPoint().column</code> vaut <code>8.7F</code>, à <code>0.05F</code> près.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="explorationsessiontestunportaildeposeaupointdarriveenomme">ExplorationSessionTest.UnPortailDeposeAuPointDArriveeNomme</h3>
+<p><em>Critique · Unitaire · Exploration</em> — <code>Source/Test/Unit/Core/World/test_exploration_session.cpp:138</code></p>
+<p>Marcher sur un portail depose le heros au point d'arrivee nomme de la cible.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Marcher jusqu'a la case du portail.</li><li>Rester dessus quelques pas.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>session.start(&quot;place&quot;, &quot;&quot;)</code> est vrai.</li><li>Vérifie que <code>vus.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>vus.front().kind</code> vaut <code>ExplorationEventKind::MapEntered</code>.</li><li>Vérifie que <code>vus.front().value</code> vaut <code>&quot;cave&quot;</code>.</li><li>Vérifie que <code>session.mapId()</code> vaut <code>&quot;cave&quot;</code>.</li><li>Vérifie que <code>session.heroPoint()</code> vaut <code>(core::CellPoint{6.5F, 7.5F})</code>.</li><li>Vérifie que <code>session.update(core::ExplorationIntent{.move = {}, .interact = false}, 1.0F / 60.0F) .empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="explorationsessiontestonparleaupnjquelonregarde">ExplorationSessionTest.OnParleAuPnjQueLOnRegarde</h3>
+<p><em>Critique · Unitaire · Exploration</em> — <code>Source/Test/Unit/Core/World/test_exploration_session.cpp:180</code></p>
+<p>L'interaction ouvre le dialogue du PNJ vise, pas celui d'un autre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser deux PNJ de part et d'autre du heros.</li><li>Regarder l'un, interagir ; puis regarder l'autre, interagir.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>session.start(&quot;place&quot;, &quot;&quot;)</code> est vrai.</li><li>Vérifie que <code>vus.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>vus.front().kind</code> vaut <code>ExplorationEventKind::Dialogue</code>.</li><li>Vérifie que <code>vus.front().value</code> vaut <code>&quot;heraut-colisee&quot;</code>.</li><li>Vérifie que <code>vus.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>vus.front().value</code> vaut <code>&quot;myr-marche&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="explorationsessiontestunecartegeleenebougeplus">ExplorationSessionTest.UneCarteGeleeNeBougePlus</h3>
+<p><em>Majeur · Unitaire · Exploration</em> — <code>Source/Test/Unit/Core/World/test_exploration_session.cpp:213</code></p>
+<p>Gelee, la session ne deplace plus le heros et n'ouvre plus rien.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Geler la session, marcher et interagir.</li><li>Degeler, refaire les memes gestes.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>session.start(&quot;place&quot;, &quot;&quot;)</code> est vrai.</li><li>Vérifie que <code>session.heroPoint()</code> vaut <code>core::cellCenter({4, 4})</code>.</li><li>Vérifie que <code>session.update(core::ExplorationIntent{.move = {}, .interact = true}, 1.0F / 60.0F) .empty()</code> est vrai.</li><li>Vérifie que <code>session.heroPoint().column</code> est strictement supérieur à <code>4.5F</code>.</li></ul>
+</section><h2 id="test-world-graphcpp">test_world_graph.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="worldgraphtestunallerretourseresoutdanslesdeuxsens">WorldGraphTest.UnAllerRetourSeResoutDansLesDeuxSens</h3>
+<p><em>Critique · Unitaire · Graphe du monde</em> — <code>Source/Test/Unit/Core/World/test_world_graph.cpp:91</code></p>
+<p>Un aller-retour A -&gt; B -&gt; A se resout dans les deux sens.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire deux cartes, chacune avec un point d'arrivee et un portail vers l'autre.</li><li>Lire les portails sortants et entrants de chaque carte.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>graphe.portals.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>lien.status</code> vaut <code>PortalLinkStatus::Resolved</code>.</li><li>Vérifie que <code>graphe.portalsFrom(&quot;village&quot;).size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>*graphe.portalsFrom(&quot;village&quot;).front()</code> vaut <code>(core::WorldPortalLink{.fromMap = &quot;village&quot;, .position = {3, 1}, .toMap = &quot;foret&quot;, .arrival = &quot;lisiere&quot;, .status = PortalLinkStatus::Resolved})</code>.</li><li>Vérifie que <code>graphe.portalsTo(&quot;village&quot;).size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>graphe.portalsTo(&quot;village&quot;).front()-&gt;fromMap</code> vaut <code>&quot;foret&quot;</code>.</li><li>Vérifie que <code>graphe.unreachableFrom(&quot;village&quot;).empty()</code> est vrai.</li><li>Vérifie que <code>graphe.unreachableFrom(&quot;foret&quot;).empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="worldgraphtestchaquedefautdeportailrecoitsonstatut">WorldGraphTest.ChaqueDefautDePortailRecoitSonStatut</h3>
+<p><em>Critique · Unitaire · Graphe du monde</em> — <code>Source/Test/Unit/Core/World/test_world_graph.cpp:125</code></p>
+<p>Chaque defaut de portail recoit son statut.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire un portail par defaut : cible vide, carte inconnue, carte illisible, arrivee vide, arrivee inconnue.</li><li>Combiner deux defauts (carte illisible et arrivee vide).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>statutUnique(portail(&quot;&quot;, &quot;quai&quot;), cibleSaine)</code> vaut <code>PortalLinkStatus::MissingTarget</code>.</li><li>Vérifie que <code>statutUnique(portail(&quot;&quot;, &quot;&quot;), cibleSaine)</code> vaut <code>PortalLinkStatus::MissingTarget</code>.</li><li>Vérifie que <code>statutUnique(portail(&quot;ailleurs&quot;, &quot;quai&quot;), cibleSaine)</code> vaut <code>PortalLinkStatus::UnknownMap</code>.</li><li>Vérifie que <code>statutUnique(portail(&quot;cible&quot;, &quot;quai&quot;), cibleIllisible)</code> vaut <code>PortalLinkStatus::TargetUnreadable</code>.</li><li>Vérifie que <code>statutUnique(portail(&quot;cible&quot;, &quot;&quot;), cibleIllisible)</code> vaut <code>PortalLinkStatus::TargetUnreadable</code>.</li><li>Vérifie que <code>statutUnique(portail(&quot;cible&quot;, &quot;&quot;), cibleSaine)</code> vaut <code>PortalLinkStatus::MissingArrival</code>.</li><li>Vérifie que <code>statutUnique(portail(&quot;cible&quot;, &quot;gare&quot;), cibleSaine)</code> vaut <code>PortalLinkStatus::UnknownArrival</code>.</li><li>Vérifie que <code>statutUnique(portail(&quot;cible&quot;, &quot;quai&quot;), cibleSaine)</code> vaut <code>PortalLinkStatus::Resolved</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldgraphtestuneproprietenontextuellevautvide">WorldGraphTest.UneProprieteNonTextuelleVautVide</h3>
+<p><em>Majeur · Unitaire · Graphe du monde</em> — <code>Source/Test/Unit/Core/World/test_world_graph.cpp:153</code></p>
+<p>Une propriete non textuelle vaut une propriete vide.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un portail dont la cible est un entier, puis un dont l'arrivee est un booleen.</li><li>Poser un point d'arrivee dont le nom est un entier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>statutUnique(cibleEntiere, cible)</code> vaut <code>PortalLinkStatus::MissingTarget</code>.</li><li>Vérifie que <code>statutUnique(arriveeBooleenne, cible)</code> vaut <code>PortalLinkStatus::MissingArrival</code>.</li><li>Vérifie que <code>graphe.find(&quot;cible&quot;)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>graphe.find(&quot;cible&quot;)-&gt;arrivalPoints</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;quai&quot;})</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="worldgraphtestlespointsdarriveesonttriessansdoublon">WorldGraphTest.LesPointsDArriveeSontTriesSansDoublon</h3>
+<p><em>Mineur · Unitaire · Graphe du monde</em> — <code>Source/Test/Unit/Core/World/test_world_graph.cpp:181</code></p>
+<p>Les points d'arrivee sont tries, sans doublon ni nom vide.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser quatre points d'arrivee dans le desordre, dont un doublon et un nom vide.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>graphe.find(&quot;port&quot;)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>graphe.find(&quot;port&quot;)-&gt;arrivalPoints</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;digue&quot;, &quot;quai&quot;})</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldgraphtestunportailverssaproprecarteestlegal">WorldGraphTest.UnPortailVersSaPropreCarteEstLegal</h3>
+<p><em>Majeur · Unitaire · Graphe du monde</em> — <code>Source/Test/Unit/Core/World/test_world_graph.cpp:198</code></p>
+<p>Un portail vers sa propre carte est legal.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire une carte dont le portail ramene a un de ses propres points d'arrivee.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>graphe.portals.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>graphe.portals.front().status</code> vaut <code>PortalLinkStatus::Resolved</code>.</li><li>Vérifie que <code>graphe.portalsFrom(&quot;donjon&quot;).size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>graphe.portalsTo(&quot;donjon&quot;).size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>graphe.unreachableFrom(&quot;donjon&quot;).empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="worldgraphtestlescartesinjoignablessuiventlesportailsresolus">WorldGraphTest.LesCartesInjoignablesSuiventLesPortailsResolus</h3>
+<p><em>Critique · Unitaire · Graphe du monde</em> — <code>Source/Test/Unit/Core/World/test_world_graph.cpp:218</code></p>
+<p>Les cartes injoignables suivent le sens des portails resolus.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Relier A -&gt; B par un portail resolu, B -&gt; C par un portail casse ; D ne mene qu'a A.</li><li>Demander les cartes injoignables depuis A, puis depuis une carte inexistante.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>graphe.unreachableFrom(&quot;a&quot;)</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;c&quot;, &quot;d&quot;})</code>.</li><li>Vérifie que <code>graphe.unreachableFrom(&quot;d&quot;)</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;c&quot;})</code>.</li><li>Vérifie que <code>graphe.unreachableFrom(&quot;nulle-part&quot;)</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;})</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldgraphtestlordredugrapheestdeterministe">WorldGraphTest.LOrdreDuGrapheEstDeterministe</h3>
+<p><em>Majeur · Unitaire · Graphe du monde</em> — <code>Source/Test/Unit/Core/World/test_world_graph.cpp:242</code></p>
+<p>Le graphe ne depend pas de l'ordre des cartes recues.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire le meme monde avec les cartes dans deux ordres opposes.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>endroit.maps.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>endroit.maps[0].mapId</code> vaut <code>&quot;alpha&quot;</code>.</li><li>Vérifie que <code>endroit.maps[1].mapId</code> vaut <code>&quot;mu&quot;</code>.</li><li>Vérifie que <code>endroit.maps[2].mapId</code> vaut <code>&quot;zeta&quot;</code>.</li><li>Vérifie que <code>endroit.portals.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>endroit.portals[0].fromMap</code> vaut <code>&quot;alpha&quot;</code>.</li><li>Vérifie que <code>endroit.portals[1].position</code> vaut <code>(core::GridPosition{1, 0})</code>.</li><li>Vérifie que <code>endroit.portals[2].position</code> vaut <code>(core::GridPosition{2, 0})</code>.</li><li>Vérifie que <code>endroit.portals</code> vaut <code>envers.portals</code>.</li><li>Vérifie que <code>envers.maps.size()</code> vaut <code>endroit.maps.size()</code>.</li><li>Vérifie que <code>envers.maps[rang].mapId</code> vaut <code>endroit.maps[rang].mapId</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="worldgraphfiletestundossierdeniveauxselitengraphe">WorldGraphFileTest.UnDossierDeNiveauxSeLitEnGraphe</h3>
+<p><em>Critique · Unitaire · Graphe du monde</em> — <code>Source/Test/Unit/Core/World/test_world_graph.cpp:277</code></p>
+<p>Un dossier de niveaux se lit en graphe, carte illisible comprise.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ecrire deux cartes valides reliees par des portails, un fichier JSON malforme, un fichier <code>sequence-*.json</code> et un fichier non JSON.</li><li>Charger le graphe du dossier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>graphe.maps.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>graphe.maps[0].mapId</code> vaut <code>&quot;foret&quot;</code>.</li><li>Vérifie que <code>graphe.maps[1].mapId</code> vaut <code>&quot;grotte&quot;</code>.</li><li>Vérifie que <code>graphe.maps[2].mapId</code> vaut <code>&quot;village&quot;</code>.</li><li>Vérifie que <code>graphe.maps[2].name</code> vaut <code>&quot;Village&quot;</code>.</li><li>Vérifie que <code>graphe.maps[2].loadError.empty()</code> est vrai.</li><li>Vérifie que <code>graphe.maps[1].loadError.empty()</code> est faux.</li><li>Vérifie que <code>graphe.maps[0].arrivalPoints</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;lisiere&quot;})</code>.</li><li>Vérifie que <code>graphe.portals.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>graphe.portals[0].status</code> vaut <code>PortalLinkStatus::Resolved</code>.</li><li>Vérifie que <code>graphe.portals[1].status</code> vaut <code>PortalLinkStatus::Resolved</code>.</li><li>Vérifie que <code>graphe.portals[2].toMap</code> vaut <code>&quot;grotte&quot;</code>.</li><li>Vérifie que <code>graphe.portals[2].status</code> vaut <code>PortalLinkStatus::TargetUnreadable</code>.</li><li>Vérifie que <code>graphe.unreachableFrom(&quot;village&quot;)</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;grotte&quot;})</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="worldgraphfiletestunecartedunsousdossierapouridentifiantsoncheminrelatif">WorldGraphFileTest.UneCarteDUnSousDossierAPourIdentifiantSonCheminRelatif</h3>
+<p><em>Critique · Unitaire · Graphe du monde</em> — <code>Source/Test/Unit/Core/World/test_world_graph.cpp:320</code></p>
+<p>Les cartes d'un sous-dossier entrent au graphe sous leur chemin relatif.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ecrire <code>capital/martpart.json</code> et <code>capital/arenarea.json</code>, reliees par portails, et <code>coliseum.json</code> a la racine.</li><li>Charger le graphe du dossier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>graphe.maps.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>graphe.maps[0].mapId</code> vaut <code>&quot;capital/arenarea&quot;</code>.</li><li>Vérifie que <code>graphe.maps[1].mapId</code> vaut <code>&quot;capital/martpart&quot;</code>.</li><li>Vérifie que <code>graphe.maps[2].mapId</code> vaut <code>&quot;coliseum&quot;</code>.</li><li>Vérifie que <code>graphe.portals.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>graphe.portals[0].status</code> vaut <code>PortalLinkStatus::Resolved</code>.</li><li>Vérifie que <code>graphe.portals[1].status</code> vaut <code>PortalLinkStatus::Resolved</code>.</li><li>Vérifie que <code>core::mapIdOf(dir, dir / &quot;capital&quot; / &quot;martpart.json&quot;)</code> vaut <code>&quot;capital/martpart&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldgraphfiletestundossierabsentdonneungraphevide">WorldGraphFileTest.UnDossierAbsentDonneUnGrapheVide</h3>
+<p><em>Majeur · Unitaire · Graphe du monde</em> — <code>Source/Test/Unit/Core/World/test_world_graph.cpp:354</code></p>
+<p>Un dossier absent donne un graphe vide.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger le graphe d'un dossier qui n'existe pas.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li><code>EXPECT_NO_THROW(graphe = core::loadWorldGraph(dir / &quot;inexistant&quot;))</code></li><li>Vérifie que <code>graphe.maps.empty()</code> est vrai.</li><li>Vérifie que <code>graphe.portals.empty()</code> est vrai.</li></ul>
+</section><h2 id="test-world-travelcpp">test_world_travel.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="worldtraveltestcinqcartesseparcourentdanslesdeuxsens">WorldTravelTest.CinqCartesSeParcourentDansLesDeuxSens</h3>
+<p><em>Critique · Unitaire · Monde parcouru</em> — <code>Source/Test/Unit/Core/World/test_world_travel.cpp:140</code></p>
+<p>Un parcours de cinq cartes, aller et retour, par points d'arrivee nommes.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Entrer sur la premiere carte, puis franchir quatre portails a la file.</li><li>Revenir par les portails de retour jusqu'a la premiere carte.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>voyage.enter(&quot;un&quot;, &quot;&quot;)</code> vaut <code>TravelResult::Moved</code>.</li><li>Vérifie que <code>voyage.position()</code> vaut <code>(core::GridPosition{1, 1})</code>.</li><li>Vérifie que <code>voyage.cross({6, 2}, drapeaux)</code> vaut <code>TravelResult::Moved</code>.</li><li>Vérifie que <code>voyage.currentMapId()</code> vaut <code>attendue</code>.</li><li>Vérifie que <code>voyage.position()</code> vaut <code>(core::GridPosition{3, 3})</code>.</li><li>Vérifie que <code>voyage.cross({0, 3}, drapeaux)</code> vaut <code>TravelResult::Moved</code>.</li><li>Vérifie que <code>voyage.currentMapId()</code> vaut <code>attendue</code>.</li><li>Vérifie que <code>voyage.position()</code> vaut <code>(core::GridPosition{2, 2})</code>.</li><li>Vérifie que <code>voyage.loadedMapCount()</code> vaut <code>5U</code>.</li><li>Vérifie que <code>dossier.lectures(nom)</code> vaut <code>1</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldtraveltestunecasesansportailnestpasunetraversee">WorldTravelTest.UneCaseSansPortailNEstPasUneTraversee</h3>
+<p><em>Majeur · Unitaire · Monde parcouru</em> — <code>Source/Test/Unit/Core/World/test_world_travel.cpp:180</code></p>
+<p>Une case ordinaire ne declenche aucune traversee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Entrer sur une carte, puis tenter de franchir une case vide.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>voyage.enter(&quot;un&quot;, &quot;&quot;)</code> vaut <code>TravelResult::Moved</code>.</li><li>Vérifie que <code>voyage.cross({4, 4}, drapeaux)</code> vaut <code>TravelResult::NoPortal</code>.</li><li>Vérifie que <code>voyage.currentMapId()</code> vaut <code>&quot;un&quot;</code>.</li><li>Vérifie que <code>voyage.position()</code> vaut <code>(core::GridPosition{1, 1})</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="worldtraveltestunportailadrapeaurestefermesansledrapeau">WorldTravelTest.UnPortailADrapeauResteFermeSansLeDrapeau</h3>
+<p><em>Critique · Unitaire · Monde parcouru</em> — <code>Source/Test/Unit/Core/World/test_world_travel.cpp:200</code></p>
+<p>Un portail exigeant un drapeau ne s'ouvre qu'une fois le drapeau pose.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Franchir un portail qui exige un drapeau absent.</li><li>Poser le drapeau, puis franchir le meme portail.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>voyage.enter(&quot;place&quot;, &quot;&quot;)</code> vaut <code>TravelResult::Moved</code>.</li><li>Vérifie que <code>voyage.cross({5, 5}, drapeaux)</code> vaut <code>TravelResult::Locked</code>.</li><li>Vérifie que <code>voyage.currentMapId()</code> vaut <code>&quot;place&quot;</code>.</li><li>Vérifie que <code>voyage.cross({5, 5}, drapeaux)</code> vaut <code>TravelResult::Moved</code>.</li><li>Vérifie que <code>voyage.currentMapId()</code> vaut <code>&quot;repaire&quot;</code>.</li><li>Vérifie que <code>voyage.position()</code> vaut <code>(core::GridPosition{1, 4})</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="worldtraveltestunportailorphelinestrefuseauchargement">WorldTravelTest.UnPortailOrphelinEstRefuseAuChargement</h3>
+<p><em>Critique · Unitaire · Monde parcouru</em> — <code>Source/Test/Unit/Core/World/test_world_travel.cpp:230</code></p>
+<p>Chaque defaut de portail devient un code exploitable au chargement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Batir un dossier ou un portail vise une carte absente et un autre un point d'arrivee absent.</li><li>Valider le graphe.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>defauts.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>defauts[0]</code> vaut <code>(core::WorldIssue{.mapId = &quot;place&quot;, .position = {5, 5}, .code = WorldIssueCode::UnknownTargetMap, .value = &quot;nulle-part&quot;})</code>.</li><li>Vérifie que <code>defauts[1]</code> vaut <code>(core::WorldIssue{.mapId = &quot;place&quot;, .position = {6, 5}, .code = WorldIssueCode::UnknownArrivalPoint, .value = &quot;cave&quot;})</code>.</li><li>Vérifie que <code>defauts[2].code</code> vaut <code>WorldIssueCode::MissingTargetMap</code>.</li><li>Vérifie que <code>voyage.enter(&quot;place&quot;, &quot;&quot;)</code> vaut <code>TravelResult::Moved</code>.</li><li>Vérifie que <code>voyage.cross({5, 5}, core::WorldFlags{})</code> vaut <code>TravelResult::UnreadableMap</code>.</li><li>Vérifie que <code>voyage.lastIssue().has_value()</code> est vrai.</li><li>Vérifie que <code>voyage.lastIssue()-&gt;code</code> vaut <code>WorldIssueCode::UnreadableMap</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldtraveltestunpointdarriveeendoubleestrelevesurlacarte">WorldTravelTest.UnPointDArriveeEnDoubleEstReleveSurLaCarte</h3>
+<p><em>Majeur · Unitaire · Monde parcouru</em> — <code>Source/Test/Unit/Core/World/test_world_travel.cpp:268</code></p>
+<p>Deux points d'arrivee du meme nom sont un defaut de la carte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser deux points d'arrivee « seuil » sur la meme carte.</li><li>Valider la carte lue, puis le graphe.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>defauts.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>defauts.front()</code> vaut <code>(core::WorldIssue{.mapId = &quot;place&quot;, .position = {6, 6}, .code = WorldIssueCode::DuplicateArrivalPoint, .value = &quot;seuil&quot;})</code>.</li><li>Vérifie que <code>premier.has_value()</code> est vrai.</li><li>Vérifie que <code>*premier</code> vaut <code>(core::GridPosition{1, 4})</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldtraveltestunearriveeinconnuerefuselentree">WorldTravelTest.UneArriveeInconnueRefuseLEntree</h3>
+<p><em>Majeur · Unitaire · Monde parcouru</em> — <code>Source/Test/Unit/Core/World/test_world_travel.cpp:294</code></p>
+<p>Entrer par un point d'arrivee absent est refuse, le nom cite.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Entrer sur une carte par un point d'arrivee qu'elle n'offre pas.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>voyage.enter(&quot;un&quot;, &quot;&quot;)</code> vaut <code>TravelResult::Moved</code>.</li><li>Vérifie que <code>voyage.enter(&quot;deux&quot;, &quot;cave&quot;)</code> vaut <code>TravelResult::UnknownArrival</code>.</li><li>Vérifie que <code>voyage.lastIssue().has_value()</code> est vrai.</li><li>Vérifie que <code>voyage.lastIssue()-&gt;code</code> vaut <code>WorldIssueCode::UnknownArrivalPoint</code>.</li><li>Vérifie que <code>voyage.lastIssue()-&gt;value</code> vaut <code>&quot;cave&quot;</code>.</li><li>Vérifie que <code>voyage.currentMapId()</code> vaut <code>&quot;un&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="worldtraveltestlescartesdupremierdossierpassentdevant">WorldTravelTest.LesCartesDuPremierDossierPassentDevant</h3>
+<p><em>Critique · Unitaire · Monde parcouru</em> — <code>Source/Test/Unit/Core/World/test_world_travel.cpp:315</code></p>
+<p>Les cartes du brouillon passent devant celles du jeu.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser deux dossiers, la meme carte dans les deux sous un nom different, et une seconde carte dans le dernier seulement.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>std::filesystem::create_directories(racine / &quot;brouillons&quot;)</code> est vrai.</li><li>Vérifie que <code>std::filesystem::create_directories(racine / &quot;livrees&quot;)</code> est vrai.</li><li>Vérifie que <code>core::LevelWriter::saveToFile(brouillon, racine / &quot;brouillons&quot; / &quot;martpart.json&quot;)</code> est vrai.</li><li>Vérifie que <code>core::LevelWriter::saveToFile(livree, racine / &quot;livrees&quot; / &quot;martpart.json&quot;)</code> est vrai.</li><li>Vérifie que <code>core::LevelWriter::saveToFile(voisine, racine / &quot;livrees&quot; / &quot;arenarea.json&quot;)</code> est vrai.</li><li>Vérifie que <code>retouchee.ok()</code> est vrai.</li><li>Vérifie que <code>retouchee.level-&gt;name()</code> vaut <code>&quot;Martpart retouche&quot;</code>.</li><li>Vérifie que <code>autour.ok()</code> est vrai.</li><li>Vérifie que <code>autour.level-&gt;name()</code> vaut <code>&quot;Arenarea&quot;</code>.</li><li>Vérifie que <code>absente.ok()</code> est faux.</li><li>Vérifie que <code>absente.errorCode</code> vaut <code>core::LevelValidationError::FileNotFound</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-time.html"><span>Précédent</span>Core · Time</a><a class="next" href="editor.html"><span>Suivant</span>Editor</a></nav><p class="source">Source : <code>Documentation/CahierTest/core-world.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

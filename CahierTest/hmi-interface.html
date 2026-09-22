@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HMI · Interface — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1 active" href="hmi-interface.html">HMI · Interface</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-character-sheet-valuescpp">test_character_sheet_values.cpp</a><a class="toc depth-2" href="#test-dialogue-screencpp">test_dialogue_screen.cpp</a><a class="toc depth-2" href="#test-identity-scalecpp">test_identity_scale.cpp</a><a class="toc depth-2" href="#test-rpg-screenscpp">test_rpg_screens.cpp</a><a class="toc depth-2" href="#test-screen-flowcpp">test_screen_flow.cpp</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="hmi-interface">HMI · Interface</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">29 cas</span></div>
+<p>Tests unitaires — <strong>29 cas</strong> (2 bloquants, 10 critiques, 16 majeurs, 1 mineur). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-character-sheet-valuescpp"><code>test_character_sheet_values.cpp</code></a></td><td>6</td><td>-</td><td>2</td><td>3</td><td>1</td></tr><tr><td><a href="#test-dialogue-screencpp"><code>test_dialogue_screen.cpp</code></a></td><td>3</td><td>-</td><td>-</td><td>3</td><td>-</td></tr><tr><td><a href="#test-identity-scalecpp"><code>test_identity_scale.cpp</code></a></td><td>8</td><td>2</td><td>2</td><td>4</td><td>-</td></tr><tr><td><a href="#test-rpg-screenscpp"><code>test_rpg_screens.cpp</code></a></td><td>7</td><td>-</td><td>1</td><td>6</td><td>-</td></tr><tr><td><a href="#test-screen-flowcpp"><code>test_screen_flow.cpp</code></a></td><td>5</td><td>-</td><td>5</td><td>-</td><td>-</td></tr></tbody></table></div>
+<h2 id="test-character-sheet-valuescpp">test_character_sheet_values.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="charactersheetvaluestestlesmodificateurssaffichentavecleursigne">CharacterSheetValuesTest.LesModificateursSAffichentAvecLeurSigne</h3>
+<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:104</code></p>
+<p>Les modificateurs s'affichent signes, les caracteristiques avec leur modificateur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Produire les valeurs d'une fiche de Force 16 et de Charisme 8.</li><li>Lire les deux lignes de caracteristique.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>valeurs.at(&quot;sheet.ability.strength&quot;)</code> vaut <code>&quot;16 (+3)&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.ability.charisma&quot;)</code> vaut <code>&quot;8 (-1)&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.initiative&quot;)</code> vaut <code>&quot;+1&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="charactersheetvaluestestlejetdesauvegardemaitrisecompttelamaitrise">CharacterSheetValuesTest.LeJetDeSauvegardeMaitriseComptteLaMaitrise</h3>
+<p><em>Critique · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:127</code></p>
+<p>Un jet de sauvegarde maitrise porte le bonus de maitrise.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Produire les valeurs d'une fiche maitrisant la sauvegarde de Force.</li><li>Comparer les lignes de Force et de Dexterite.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>valeurs.at(&quot;sheet.proficiency_bonus&quot;)</code> vaut <code>&quot;+2&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.save.strength&quot;)</code> vaut <code>&quot;+5&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.save.dexterity&quot;)</code> vaut <code>&quot;+1&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="charactersheetvaluestestlacompetencemaitriseesesignaleetlaperceptionpassiveenderive">CharacterSheetValuesTest.LaCompetenceMaitriseeSeSignaleEtLaPerceptionPassiveEnDerive</h3>
+<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:149</code></p>
+<p>Une competence maitrisee se signale, et la Perception passive en derive.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Produire les valeurs d'une fiche maitrisant l'Athletisme.</li><li>Lire Athletisme, Discretion et la Perception passive.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>valeurs.at(&quot;sheet.skill.athletics&quot;)</code> vaut <code>&quot;+5 •&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.skill.stealth&quot;)</code> vaut <code>&quot;+1&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.passive_perception&quot;)</code> vaut <code>&quot;11&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="charactersheetvaluestestlespointsdevieselisentcontreleurmaximum">CharacterSheetValuesTest.LesPointsDeVieSeLisentContreLeurMaximum</h3>
+<p><em>Mineur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:172</code></p>
+<p>Les points de vie se lisent contre leur maximum.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Produire les valeurs d'une fiche a 25 points de vie sur 30.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>valeurs.at(&quot;sheet.hit_points&quot;)</code> vaut <code>&quot;25 / 30&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.hit_points_max&quot;)</code> vaut <code>&quot;30&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.speed&quot;)</code> vaut <code>&quot;9 m&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="charactersheetvaluestestsansficheaucunevaleurnestproduite">CharacterSheetValuesTest.SansFicheAucuneValeurNEstProduite</h3>
+<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:194</code></p>
+<p>Sans fiche, aucune valeur n'est produite.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Produire les valeurs d'un contexte sans fiche.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::characterSheetValues({}).empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="charactersheetvaluestestchaquechampdelaficheestalimente">CharacterSheetValuesTest.ChaqueChampDeLaFicheEstAlimente</h3>
+<p><em>Critique · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:213</code></p>
+<p>Chaque champ de la fiche declarant une source est rempli.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire les identifiants de valeur declares par l'ossature de la fiche.</li><li>Produire les valeurs d'une fiche complete.</li><li>Verifier que chaque identifiant declare est produit.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>valeurs.count(champ.valueId) &gt; 0</code> est vrai.</li><li>Vérifie que <code>declares</code> est strictement supérieur à <code>10</code>.</li></ul>
+</section><h2 id="test-dialogue-screencpp">test_dialogue_screen.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="dialoguescreentestunerepliqueannoncelejetdesareponse">DialogueScreenTest.UneRepliqueAnnonceLeJetDeSaReponse</h3>
+<p><em>Majeur · Unitaire · Interface</em> — <code>Source/Test/Unit/HMI/Interface/test_dialogue_screen.cpp:74</code></p>
+<p>L'ecran de dialogue annonce le jet avant le choix.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ouvrir un dialogue de garde hostile.</li><li>Lire les valeurs de l'ecran.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>runner.start()</code> vaut <code>core::DialogueState::AwaitingChoice</code>.</li><li>Vérifie que <code>v.speakerName</code> vaut <code>&quot;&lt;dialogue.garde.speaker&gt;&quot;</code>.</li><li>Vérifie que <code>v.attitude</code> vaut <code>&quot;&lt;dialogue.attitude.hostile&gt;&quot;</code>.</li><li>Vérifie que <code>v.line</code> vaut <code>&quot;&lt;dialogue.garde.halte&gt;&quot;</code>.</li><li>Vérifie que <code>v.replies.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>v.replies[0].id</code> vaut <code>&quot;negocier&quot;</code>.</li><li>Vérifie que <code>v.replies[0].label</code> vaut <code>&quot;&lt;dialogue.garde.halte.negocier&gt;&quot;</code>.</li><li>Vérifie que <code>v.replies[0].value</code> vaut <code>&quot;[&lt;rpg.skill.animal_handling&gt;]&quot;</code>.</li><li>Vérifie que <code>v.replies[1].value</code> vaut <code>&quot;&quot;</code>.</li><li>Vérifie que <code>v.checkOutcome.empty()</code> est vrai.</li><li>Vérifie que <code>v.finished</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="dialoguescreentestlejetserestituesurlarepliquequisuit">DialogueScreenTest.LeJetSeRestitueSurLaRepliqueQuiSuit</h3>
+<p><em>Majeur · Unitaire · Interface</em> — <code>Source/Test/Unit/HMI/Interface/test_dialogue_screen.cpp:108</code></p>
+<p>Le jet se restitue sur la replique qui suit, puis s'efface.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Negocier (bonus +30 contre 10).</li><li>Lire les valeurs.</li><li>Continuer jusqu'a la fin.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>runner.start()</code> vaut <code>core::DialogueState::AwaitingChoice</code>.</li><li>Vérifie que <code>runner.choose(&quot;negocier&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>apres.attitude</code> vaut <code>&quot;&lt;dialogue.attitude.friendly&gt;&quot;</code>.</li><li>Vérifie que <code>apres.checkOutcome</code> vaut <code>&quot;&lt;rpg.skill.animal_handling&gt; : &quot; + total + &quot; contre 10 -- &lt;dialogue.check.success&gt;&quot;</code>.</li><li>Vérifie que <code>apres.replies.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>apres.replies[0].id</code> vaut <code>&quot;continue&quot;</code>.</li><li>Vérifie que <code>apres.replies[0].label</code> vaut <code>&quot;&lt;dialogue.continue&gt;&quot;</code>.</li><li>Vérifie que <code>runner.choose(&quot;continue&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>fin.finished</code> est vrai.</li><li>Vérifie que <code>fin.checkOutcome.empty()</code> est vrai.</li><li>Vérifie que <code>fin.replies.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>fin.replies[0].id</code> vaut <code>std::string(hmi::DIALOGUE_LEAVE_REPLY)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="dialoguescreentestunrefusmontrelerefusetquitter">DialogueScreenTest.UnRefusMontreLeRefusEtQuitter</h3>
+<p><em>Majeur · Unitaire · Interface</em> — <code>Source/Test/Unit/HMI/Interface/test_dialogue_screen.cpp:147</code></p>
+<p>L'ecran montre le refus faute de langue commune.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ouvrir le dialogue du garde avec un interlocuteur qui ne parle que l'elfique.</li><li>Lire les valeurs.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>runner.start()</code> vaut <code>core::DialogueState::Refused</code>.</li><li>Vérifie que <code>v.line</code> vaut <code>&quot;&lt;dialogue.refused&gt;&quot;</code>.</li><li>Vérifie que <code>v.finished</code> est faux.</li><li>Vérifie que <code>v.replies.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>v.replies[0].id</code> vaut <code>std::string(hmi::DIALOGUE_LEAVE_REPLY)</code>.</li><li>Vérifie que <code>v.replies[0].label</code> vaut <code>&quot;&lt;dialogue.leave&gt;&quot;</code>.</li></ul>
+</section><h2 id="test-identity-scalecpp">test_identity_scale.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="identityscaletestfacteurtoujoursborneentreunetleplafond">IdentityScaleTest.FacteurToujoursBorneEntreUnEtLePlafond</h3>
+<p><em>Critique · Unitaire · Echelle de l identite</em> — <code>Source/Test/Unit/HMI/Interface/test_identity_scale.cpp:18</code></p>
+<p>Le facteur reste entier, superieur a 1 et borne par le plafond.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander le facteur pour des hauteurs allant du negatif au tres grand.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scale</code> est supérieur ou égal à <code>1</code>.</li><li>Vérifie que <code>scale</code> est inférieur ou égal à <a class="ref" href="../reference/namespacehmi.html#ae685f3bbb2403ff14aed68781f718fab"><code>hmi::IDENTITY_MAX_SCALE</code></a>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="identityscaletestfacteurmonotoneenhauteur">IdentityScaleTest.FacteurMonotoneEnHauteur</h3>
+<p><em>Majeur · Unitaire · Echelle de l identite</em> — <code>Source/Test/Unit/HMI/Interface/test_identity_scale.cpp:37</code></p>
+<p>Le facteur croit de facon monotone avec la hauteur de fenetre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Parcourir les hauteurs de 0 a 2400 par pas de 1.</li><li>Comparer chaque facteur au precedent.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scale</code> est supérieur ou égal à <code>previous</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="identityscaletestleseuilestatteintpardefautjamaispararrondi">IdentityScaleTest.LeSeuilEstAtteintParDefautJamaisParArrondi</h3>
+<p><em>Critique · Unitaire · Echelle de l identite</em> — <code>Source/Test/Unit/HMI/Interface/test_identity_scale.cpp:59</code></p>
+<p>Une hauteur juste insuffisante ne declenche pas le facteur superieur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander le facteur juste avant et juste apres chaque multiple de la hauteur de base.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::identityScaleFor(threshold)</code> vaut <code>factor</code>.</li><li>Vérifie que <code>hmi::identityScaleFor(threshold - 1)</code> vaut <code>factor - 1 &lt; 1 ? 1 : factor - 1</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="identityscaletesthauteurscourantesdonnentlesfacteursannonces">IdentityScaleTest.HauteursCourantesDonnentLesFacteursAnnonces</h3>
+<p><em>Majeur · Unitaire · Echelle de l identite</em> — <code>Source/Test/Unit/HMI/Interface/test_identity_scale.cpp:79</code></p>
+<p>Les hauteurs d'ecran courantes donnent les facteurs annonces.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander le facteur pour 360, 720, 1080 et 1440 pixels logiques.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::identityScaleFor(360)</code> vaut <code>1</code>.</li><li>Vérifie que <code>hmi::identityScaleFor(720)</code> vaut <code>2</code>.</li><li>Vérifie que <code>hmi::identityScaleFor(1080)</code> vaut <code>3</code>.</li><li>Vérifie que <code>hmi::identityScaleFor(1440)</code> vaut <code>3</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="identityscaletestfacteurborneparlazonedisponible">IdentityScaleTest.FacteurBorneParLaZoneDisponible</h3>
+<p><em>Bloquant · Unitaire · Echelle de l identite</em> — <code>Source/Test/Unit/HMI/Interface/test_identity_scale.cpp:98</code></p>
+<p>Le facteur borne n'excede jamais celui de la zone disponible.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander le facteur borne pour des couples (hauteur de fenetre, zone disponible).</li><li>Comparer au facteur de la seule zone disponible.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>bounded</code> est inférieur ou égal à <code>hmi::identityScaleFor(available)</code>.</li><li>Vérifie que <code>bounded</code> est supérieur ou égal à <code>1</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="identityscaletestunefenetredebordantenegagnepasdefacteur">IdentityScaleTest.UneFenetreDebordanteNeGagnePasDeFacteur</h3>
+<p><em>Bloquant · Unitaire · Echelle de l identite</em> — <code>Source/Test/Unit/HMI/Interface/test_identity_scale.cpp:124</code></p>
+<p>Une fenetre plus haute que l'ecran ne gagne pas de facteur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Zone disponible de 1009 pixels (cas rapporte).</li><li>Demander le facteur pour des hauteurs de fenetre croissantes, jusqu'au-dela de l'ecran.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>ceiling</code> vaut <code>2</code>.</li><li>Vérifie que <code>hmi::identityScaleForDisplay(window, AVAILABLE)</code> vaut <code>ceiling</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="identityscaletestzonedisponibleinconnuelaisselafenetredecider">IdentityScaleTest.ZoneDisponibleInconnueLaisseLaFenetreDecider</h3>
+<p><em>Majeur · Unitaire · Echelle de l identite</em> — <code>Source/Test/Unit/HMI/Interface/test_identity_scale.cpp:146</code></p>
+<p>Une zone disponible inconnue laisse la fenetre decider.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander le facteur borne avec une zone disponible nulle puis negative.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::identityScaleForDisplay(window, 0)</code> vaut <code>hmi::identityScaleFor(window)</code>.</li><li>Vérifie que <code>hmi::identityScaleForDisplay(window, -1)</code> vaut <code>hmi::identityScaleFor(window)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="identityscaletestunepetitefenetregardesonfacteur">IdentityScaleTest.UnePetiteFenetreGardeSonFacteur</h3>
+<p><em>Majeur · Unitaire · Echelle de l identite</em> — <code>Source/Test/Unit/HMI/Interface/test_identity_scale.cpp:164</code></p>
+<p>Une petite fenetre garde son facteur sur un grand ecran.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Zone disponible de 1440 pixels.</li><li>Demander le facteur pour des fenetres de 360 et 720 pixels.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::identityScaleForDisplay(360, 1440)</code> vaut <code>1</code>.</li><li>Vérifie que <code>hmi::identityScaleForDisplay(720, 1440)</code> vaut <code>2</code>.</li><li>Vérifie que <code>hmi::identityScaleForDisplay(1080, 1440)</code> vaut <code>3</code>.</li></ul>
+</section><h2 id="test-rpg-screenscpp">test_rpg_screens.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="rpgscreenstestlecycletraverseleshuitecrans">RpgScreensTest.LeCycleTraverseLesHuitEcrans</h3>
+<p><em>Critique · Unitaire · Ecrans du RPG</em> — <code>Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:43</code></p>
+<p>Le cycle de navigation traverse les huit ecrans et revient au premier.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Partir du premier ecran.</li><li>Appeler nextRpgScreen huit fois en notant chaque ecran atteint.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>rpgScreens().size()</code> vaut <a class="ref" href="../reference/namespacehmi.html#a93db3bafe6aeaebee6e483836f313055"><code>hmi::RPG_SCREEN_COUNT</code></a>.</li><li>Vérifie que <code>visited.size()</code> vaut <a class="ref" href="../reference/namespacehmi.html#a93db3bafe6aeaebee6e483836f313055"><code>hmi::RPG_SCREEN_COUNT</code></a>.</li><li>Vérifie que <code>screen</code> vaut <code>first</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="rpgscreenstestlepasarriereestlinversedupasavant">RpgScreensTest.LePasArriereEstLInverseDuPasAvant</h3>
+<p><em>Majeur · Unitaire · Ecrans du RPG</em> — <code>Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:68</code></p>
+<p>Le pas arriere est l'inverse du pas avant.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour chaque ecran, avancer puis reculer.</li><li>Reculer depuis le premier ecran.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>previousRpgScreen(nextRpgScreen(descriptor.id))</code> vaut <code>descriptor.id</code>.</li><li>Vérifie que <code>nextRpgScreen(previousRpgScreen(descriptor.id))</code> vaut <code>descriptor.id</code>.</li><li>Vérifie que <code>previousRpgScreen(rpgScreens().front().id)</code> vaut <code>rpgScreens().back().id</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="rpgscreenstestlaregledesuperpositionestcelleattendue">RpgScreensTest.LaRegleDeSuperpositionEstCelleAttendue</h3>
+<p><em>Majeur · Unitaire · Ecrans du RPG</em> — <code>Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:87</code></p>
+<p>La regle de superposition est celle attendue pour chacun des huit ecrans.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Interroger pausesGame pour chacun des huit ecrans.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>pausesGame(RpgScreenId::CharacterSheet)</code> est vrai.</li><li>Vérifie que <code>pausesGame(RpgScreenId::Skills)</code> est vrai.</li><li>Vérifie que <code>pausesGame(RpgScreenId::Inventory)</code> est vrai.</li><li>Vérifie que <code>pausesGame(RpgScreenId::QuestJournal)</code> est vrai.</li><li>Vérifie que <code>pausesGame(RpgScreenId::Dialogue)</code> est vrai.</li><li>Vérifie que <code>pausesGame(RpgScreenId::Merchant)</code> est vrai.</li><li>Vérifie que <code>pausesGame(RpgScreenId::Company)</code> est vrai.</li><li>Vérifie que <code>pausesGame(RpgScreenId::WorldMap)</code> est faux.</li><li>Vérifie que <code>pausesGame(RpgScreenId::CombatHud)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="rpgscreenstestchaqueecranestidentifiableetnonvide">RpgScreensTest.ChaqueEcranEstIdentifiableEtNonVide</h3>
+<p><em>Majeur · Unitaire · Ecrans du RPG</em> — <code>Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:115</code></p>
+<p>Chaque ecran a un nom d'objet unique, un titre unique et une ossature non vide.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Collecter noms d'objets et cles de titre.</li><li>Verifier leur unicite et la presence d'au moins un bloc par ecran.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>objectNames.insert(descriptor.objectName).second</code> est vrai.</li><li>Vérifie que <code>titleKeys.insert(descriptor.titleKey).second</code> est vrai.</li><li>Vérifie que <code>descriptor.layout.leftColumn.empty()</code> est faux.</li><li>Vérifie que <code>hmi::rpgScreenDescriptor(descriptor.id).id</code> vaut <code>descriptor.id</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="rpgscreenstestchaqueblocestcoherentavecsongenre">RpgScreensTest.ChaqueBlocEstCoherentAvecSonGenre</h3>
+<p><em>Majeur · Unitaire · Ecrans du RPG</em> — <code>Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:145</code></p>
+<p>Chaque bloc de l'ossature est coherent avec son genre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Parcourir les blocs des deux colonnes de chaque ecran.</li><li>Verifier les dimensions et libelles exiges par chaque genre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>block.fields.empty()</code> est faux.</li><li>Vérifie que <code>field.labelKey[0]</code> diffère de <code>&#x27;\0&#x27;</code>.</li><li>Vérifie que <code>block.columns</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>block.rows</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>block.rows &gt; 0 || !block.valueIds.empty()</code> est vrai.</li><li>Vérifie que <code>block.columns</code> est strictement supérieur à <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="rpgscreenstestchaquecledelossatureexistedanslesdeuxlangues">RpgScreensTest.ChaqueCleDeLOssatureExisteDansLesDeuxLangues</h3>
+<p><em>Majeur · Unitaire · Ecrans du RPG</em> — <code>Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:199</code></p>
+<p>Chaque cle de l'ossature des ecrans du RPG existe en francais et en anglais.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire fr.lang et en.lang.</li><li>Verifier chaque cle de titre, de bloc et de champ, plus les cles du pied d'actions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>fr.empty()</code> est faux.</li><li>Vérifie que <code>en.empty()</code> est faux.</li><li>Vérifie que <code>fr.count(key) &gt; 0</code> est vrai.</li><li>Vérifie que <code>en.count(key) &gt; 0</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="rpgscreenstestlesidentifiantsdevaleursontuniquesparecran">RpgScreensTest.LesIdentifiantsDeValeurSontUniquesParEcran</h3>
+<p><em>Majeur · Unitaire · Ecrans du RPG</em> — <code>Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:254</code></p>
+<p>Les identifiants de valeur sont uniques a l'interieur d'un ecran.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Collecter les identifiants de valeur de chaque ecran.</li><li>Verifier qu'aucun ne se repete dans un meme ecran.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>vus.insert(field.valueId).second</code> est vrai.</li><li>Vérifie que <code>vus.insert(id).second</code> est vrai.</li></ul>
+</section><h2 id="test-screen-flowcpp">test_screen_flow.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="screenflowtesttransitionsautoriseesmenentalecranattendu">ScreenFlowTest.TransitionsAutoriseesMenentALEcranAttendu</h3>
+<p><em>Critique · Unitaire · Machine à états des écrans</em> — <code>Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:25</code></p>
+<p>Chaque transition autorisée mène à l'écran attendu.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Résoudre chacune des transitions autorisées listées.</li><li>Vérifier l'écran résultant.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>resolveTransition(menu, ScreenEvent::OpenGame)-&gt;screen</code> vaut <code>ScreenId::Game</code>.</li><li>Vérifie que <code>resolveTransition(menu, ScreenEvent::OpenOptions)-&gt;screen</code> vaut <code>ScreenId::Options</code>.</li><li>Vérifie que <code>resolveTransition(game, ScreenEvent::OpenMenu)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>resolveTransition(game, ScreenEvent::OpenPause)-&gt;screen</code> vaut <code>ScreenId::Pause</code>.</li><li>Vérifie que <code>resolveTransition(pause, ScreenEvent::ResumePause)-&gt;screen</code> vaut <code>ScreenId::Game</code>.</li><li>Vérifie que <code>resolveTransition(pause, ScreenEvent::QuitPauseToMenu)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>resolveTransition(pause, ScreenEvent::OpenOptions)-&gt;screen</code> vaut <code>ScreenId::Options</code>.</li><li>Vérifie que <code>resolveTransition(optionsFromMenu, ScreenEvent::CloseOptions)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>resolveTransition(optionsFromPause, ScreenEvent::CloseOptions)-&gt;screen</code> vaut <code>ScreenId::Pause</code>.</li><li>Vérifie que <code>resolveTransition(pause, ScreenEvent::QuitPauseToMenu)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>resolveTransition(menu, ScreenEvent::OpenCredits)-&gt;screen</code> vaut <code>ScreenId::Credits</code>.</li><li>Vérifie que <code>resolveTransition(credits, ScreenEvent::CloseCredits)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>resolveTransition(menu, ScreenEvent::OpenRpgScreen)-&gt;screen</code> vaut <code>ScreenId::RpgScreen</code>.</li><li>Vérifie que <code>resolveTransition(game, ScreenEvent::OpenRpgScreen)-&gt;screen</code> vaut <code>ScreenId::RpgScreen</code>.</li><li>Vérifie que <code>resolveTransition(pause, ScreenEvent::OpenRpgScreen)-&gt;screen</code> vaut <code>ScreenId::RpgScreen</code>.</li><li>Vérifie que <code>resolveTransition(menu, ScreenEvent::OpenArena)-&gt;screen</code> vaut <code>ScreenId::Arena</code>.</li><li>Vérifie que <code>resolveTransition(arena, ScreenEvent::CloseArena)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>resolveTransition(arena, ScreenEvent::OpenMenu)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="screenflowtestoptionsrevientverssonecrandorigine">ScreenFlowTest.OptionsRevientVersSonEcranDOrigine</h3>
+<p><em>Critique · Unitaire · Machine à états des écrans</em> — <code>Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:72</code></p>
+<p>Options revient vers son écran d'origine (Menu ou Pause).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ouvrir Options depuis Menu, puis le fermer : vérifier le retour au Menu.</li><li>Ouvrir Options depuis Pause, puis le fermer : vérifier le retour à Pause.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>openedFromMenu.has_value()</code> est vrai.</li><li>Vérifie que <code>resolveTransition(*openedFromMenu, ScreenEvent::CloseOptions)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>openedFromPause.has_value()</code> est vrai.</li><li>Vérifie que <code>resolveTransition(*openedFromPause, ScreenEvent::CloseOptions)-&gt;screen</code> vaut <code>ScreenId::Pause</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="screenflowtesttransitioninterditeestrefusee">ScreenFlowTest.TransitionInterditeEstRefusee</h3>
+<p><em>Critique · Unitaire · Machine à états des écrans</em> — <code>Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:100</code></p>
+<p>Une transition interdite est refusée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Tenter Menu -&gt; Pause directement.</li><li>Tenter Game -&gt; Crédits.</li><li>Tenter Pause -&gt; Colisée.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>resolveTransition(menu, ScreenEvent::OpenPause)</code> vaut <code>std::nullopt</code>.</li><li>Vérifie que <code>resolveTransition(menu, ScreenEvent::ResumePause)</code> vaut <code>std::nullopt</code>.</li><li>Vérifie que <code>resolveTransition(game, ScreenEvent::OpenCredits)</code> vaut <code>std::nullopt</code>.</li><li>Vérifie que <code>resolveTransition(menu, ScreenEvent::CloseRpgScreen)</code> vaut <code>std::nullopt</code>.</li><li>Vérifie que <code>resolveTransition(pause, ScreenEvent::OpenArena)</code> vaut <code>std::nullopt</code>.</li><li>Vérifie que <code>resolveTransition(menu, ScreenEvent::CloseArena)</code> vaut <code>std::nullopt</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="screenflowtestlecoliseerevientsurlacartequandleherautyenvoie">ScreenFlowTest.LeColiseeRevientSurLaCarteQuandLeHerautYEnvoie</h3>
+<p><em>Critique · Unitaire · Machine à états des écrans</em> — <code>Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:128</code></p>
+<p>Le Colisee revient sur la carte quand le heraut y envoie.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ouvrir le Colisee depuis le menu, le refermer.</li><li>L'ouvrir depuis la carte, le refermer.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>depuisLeMenu.has_value()</code> est vrai.</li><li>Vérifie que <code>depuisLeMenu-&gt;screen</code> vaut <code>ScreenId::Arena</code>.</li><li>Vérifie que <code>depuisLeMenu-&gt;arenaReturnTo</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>resolveTransition(*depuisLeMenu, ScreenEvent::CloseArena)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>depuisLaCarte.has_value()</code> est vrai.</li><li>Vérifie que <code>depuisLaCarte-&gt;screen</code> vaut <code>ScreenId::Arena</code>.</li><li>Vérifie que <code>depuisLaCarte-&gt;arenaReturnTo</code> vaut <code>ScreenId::Game</code>.</li><li>Vérifie que <code>resolveTransition(*depuisLaCarte, ScreenEvent::CloseArena)-&gt;screen</code> vaut <code>ScreenId::Game</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="screenflowtestecrandurpgrevientverssonecrandorigine">ScreenFlowTest.EcranDuRpgRevientVersSonEcranDOrigine</h3>
+<p><em>Critique · Unitaire · Machine à états des écrans</em> — <code>Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:158</code></p>
+<p>Un ecran du RPG revient vers son ecran d'origine (Menu, Game ou Pause).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ouvrir un ecran du RPG depuis le menu, le jeu puis la pause.</li><li>Le fermer a chaque fois et verifier l'ecran atteint.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>opened.has_value()</code> est vrai.</li><li>Vérifie que <code>opened-&gt;rpgReturnTo</code> vaut <code>expected</code>.</li><li>Vérifie que <code>resolveTransition(*opened, ScreenEvent::CloseRpgScreen)-&gt;screen</code> vaut <code>expected</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-input.html"><span>Précédent</span>HMI · Input</a><a class="next" href="hmi-localization.html"><span>Suivant</span>HMI · Localization</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-interface.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

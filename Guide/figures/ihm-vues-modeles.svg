@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="440" fill="#fbf8f0"/>
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+    <marker id="fg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3f6b34"/>
+    </marker>
+  </defs>
+
+  <!-- Bandes : qui possède quoi -->
+  <rect x="20" y="20" width="410" height="24" rx="4" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="30" y="37" font-weight="600" fill="#25201a">Développeur — C++, module Jadg.Runtime</text>
+  <rect x="450" y="20" width="410" height="24" rx="4" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="460" y="37" font-weight="600" fill="#25201a">QML — Jadg.App (câblage) et Jadg.Ui (conception)</text>
+
+  <!-- Core -->
+  <rect x="20" y="70" width="190" height="110" rx="8" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="32" y="94" font-weight="600" fill="#25201a">Core, sans Qt</text>
+  <text x="32" y="116" font-family="Consolas, monospace" font-size="12" fill="#25201a">core::CharacterSheet</text>
+  <text x="32" y="134" font-family="Consolas, monospace" font-size="12" fill="#25201a">core::Inventory</text>
+  <text x="32" y="152" font-family="Consolas, monospace" font-size="12" fill="#25201a">core::derivedStatsFor</text>
+  <text x="32" y="172" font-size="12" fill="#6a6152">l'état, les règles</text>
+
+  <!-- Presentation -->
+  <rect x="240" y="70" width="190" height="110" rx="8" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="252" y="94" font-weight="600" fill="#25201a">HMI/Presentation, sans Qt</text>
+  <text x="252" y="116" font-family="Consolas, monospace" font-size="12" fill="#25201a">hmi::characterSheetValues</text>
+  <text x="252" y="134" font-family="Consolas, monospace" font-size="12" fill="#25201a">→ {"sheet.armor_class":</text>
+  <text x="252" y="152" font-family="Consolas, monospace" font-size="12" fill="#25201a">     "15", …}</text>
+  <text x="252" y="172" font-size="12" fill="#6a6152">formate : « +3 », « 32 / 32 »</text>
+
+  <!-- Runtime -->
+  <rect x="20" y="210" width="410" height="110" rx="8" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="32" y="234" font-weight="600" fill="#25201a">HMI/Runtime — la vue-modèle (Qt6::Qml seulement)</text>
+  <text x="32" y="256" font-family="Consolas, monospace" font-size="12" fill="#25201a">hmi::CharacterSheetModel : Q_PROPERTY armorClass, skills…</text>
+  <text x="32" y="274" font-family="Consolas, monospace" font-size="12" fill="#25201a">hmi::SheetRowModel        : rowId / label / value</text>
+  <text x="32" y="292" font-family="Consolas, monospace" font-size="12" fill="#25201a">hmi::PendingData          : « — » tant qu'aucune source</text>
+  <text x="32" y="312" font-size="12" fill="#6a6152">publie et relaie ; ne dessine ni ne formate rien</text>
+
+  <!-- Jumeau -->
+  <rect x="450" y="70" width="410" height="110" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="462" y="94" font-weight="600" fill="#25201a">Le jumeau — Screens/CharacterSheet.qml</text>
+  <text x="462" y="116" font-family="Consolas, monospace" font-size="12" fill="#25201a">CharacterSheetForm {</text>
+  <text x="462" y="134" font-family="Consolas, monospace" font-size="12" fill="#25201a">  armorClass: CharacterSheetModel.armorClass</text>
+  <text x="462" y="152" font-family="Consolas, monospace" font-size="12" fill="#25201a">  Keys.onEscapePressed: ScreenRouter.closeRpgScreen()</text>
+  <text x="462" y="172" font-size="12" fill="#6a6152">d'où viennent les données, ce que font les touches</text>
+
+  <!-- Form -->
+  <rect x="450" y="210" width="410" height="110" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="462" y="234" font-weight="600" fill="#25201a">Le formulaire — Source/Ui/Screens/CharacterSheetForm.ui.qml</text>
+  <text x="462" y="256" font-family="Consolas, monospace" font-size="12" fill="#25201a">property string armorClass: "15"   // valeur d'exemple</text>
+  <text x="462" y="274" font-family="Consolas, monospace" font-size="12" fill="#25201a">StatMedallion { value: root.armorClass; label: "CA" }</text>
+  <text x="462" y="292" font-family="Consolas, monospace" font-size="12" fill="#25201a">font.pixelSize: Tokens.fontBody</text>
+  <text x="462" y="312" font-size="12" fill="#6a6152">déclaratif : Qt Design Studio le réenregistre sans le casser</text>
+
+  <!-- Flèches -->
+  <g stroke="#6a6152" stroke-width="1.5" fill="none">
+    <path d="M210,125 L238,125" marker-end="url(#f)"/>
+    <path d="M335,180 L335,208" marker-end="url(#f)"/>
+    <path d="M430,265 L448,265 L448,140 L448,140" />
+    <path d="M448,140 L448,140 L449,125" marker-end="url(#f)"/>
+    <path d="M655,180 L655,208" marker-end="url(#f)"/>
+  </g>
+  <text x="345" y="200" font-size="12" fill="#6a6152">table de chaînes</text>
+  <text x="662" y="200" font-size="12" fill="#6a6152">pose les valeurs</text>
+
+  <!-- Frontière -->
+  <path d="M440,50 L440,330" stroke="#8a2233" stroke-width="1.5" stroke-dasharray="6 4" fill="none"/>
+  <text x="446" y="345" font-size="12" fill="#8a2233">frontière vérifiée par scripts/check_ui_layers.py (EX-IHM-100 à 105)</text>
+
+  <!-- Atelier -->
+  <rect x="20" y="370" width="840" height="50" rx="8" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="32" y="392" fill="#25201a">Dans Qt Design Studio, le C++ n'existe pas : Source/Ui/Mocks/Jadg/Runtime/ fournit des doublures QML</text>
+  <text x="32" y="410" fill="#25201a">aux mêmes noms et propriétés, pour ouvrir le jumeau avec les valeurs du jeu — sans rien construire.</text>
+  <path d="M225,330 C225,355 300,355 300,368" stroke="#3f6b34" stroke-width="1.5" fill="none" marker-end="url(#fg)"/>
+</svg>

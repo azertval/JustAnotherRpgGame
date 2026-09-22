@@ -1,0 +1,345 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::MapTemplate Struct Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('structhmi_1_1MapTemplate.html','','structhmi_1_1MapTemplate-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::MapTemplate Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Un <b>modèle de carte</b> : ce dont part une carte neuve (<span class="tt">EX-EDIT-087</span>).  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Stamps_8h_source.html">Stamps.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5b776f3bdb4ef4fbecd35be7e51f7617" id="r_a5b776f3bdb4ef4fbecd35be7e51f7617"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5b776f3bdb4ef4fbecd35be7e51f7617">operator==</a> (const <a class="el" href="structhmi_1_1MapTemplate.html">MapTemplate</a> &amp;) const =default</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a2e94d81b5d4cdf672892c73a2a5cf414" id="r_a2e94d81b5d4cdf672892c73a2a5cf414"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a2e94d81b5d4cdf672892c73a2a5cf414">id</a></td></tr>
+<tr class="memdesc:a2e94d81b5d4cdf672892c73a2a5cf414"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'identifiant, celui du fichier : <span class="tt">street</span>.  <br /></td></tr>
+<tr class="memitem:afbbf02d6b3beddc3495e3e59eea9840a" id="r_afbbf02d6b3beddc3495e3e59eea9840a"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#afbbf02d6b3beddc3495e3e59eea9840a">label</a></td></tr>
+<tr class="memdesc:afbbf02d6b3beddc3495e3e59eea9840a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le libellé montré au choix, en anglais : <span class="tt">Street</span>.  <br /></td></tr>
+<tr class="memitem:a04e1ec696caa907178c8acf951261243" id="r_a04e1ec696caa907178c8acf951261243"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a04e1ec696caa907178c8acf951261243">description</a></td></tr>
+<tr class="memdesc:a04e1ec696caa907178c8acf951261243"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'il fait, en une ligne.  <br /></td></tr>
+<tr class="memitem:a7c25efd9fcaf23a9293a58cbdb7c56f3" id="r_a7c25efd9fcaf23a9293a58cbdb7c56f3"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a7c25efd9fcaf23a9293a58cbdb7c56f3">width</a> = 24</td></tr>
+<tr class="memitem:aaacd7cc7d53a5ef5564ca77798056491" id="r_aaacd7cc7d53a5ef5564ca77798056491"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aaacd7cc7d53a5ef5564ca77798056491">height</a> = 24</td></tr>
+<tr class="memitem:a8a99d293b5de70a34ff1024a652ec594" id="r_a8a99d293b5de70a34ff1024a652ec594"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MapTemplateLayer.html">MapTemplateLayer</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8a99d293b5de70a34ff1024a652ec594">layers</a></td></tr>
+<tr class="memitem:a5e3f594582f3c5a917b2408320e8df6d" id="r_a5e3f594582f3c5a917b2408320e8df6d"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5e3f594582f3c5a917b2408320e8df6d">entry</a></td></tr>
+<tr class="memdesc:a5e3f594582f3c5a917b2408320e8df6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case d'entrée de la carte neuve ; par défaut le coin bas gauche.  <br /></td></tr>
+<tr class="memitem:a219bc309f3e5f58462f02887003dd6c1" id="r_a219bc309f3e5f58462f02887003dd6c1"><td class="memItemLeft"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a>&#160;</td><td class="memItemRight"><a class="el" href="#a219bc309f3e5f58462f02887003dd6c1">stamp</a></td></tr>
+<tr class="memdesc:a219bc309f3e5f58462f02887003dd6c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'il pose, coin haut gauche sur la carte ; vide s'il ne pose rien.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Un <b>modèle de carte</b> : ce dont part une carte neuve (<span class="tt">EX-EDIT-087</span>). </p>
+<p>Un modèle ne nomme <b>aucune pièce</b> : il sert à tous les lieux, et une pièce n'existe que dans la planche d'un lieu. Son tampon ne pose donc que des types et, s'il en a, des entités. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a5b776f3bdb4ef4fbecd35be7e51f7617" name="a5b776f3bdb4ef4fbecd35be7e51f7617"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b776f3bdb4ef4fbecd35be7e51f7617">&#9670;&#160;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MapTemplate::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1MapTemplate.html">MapTemplate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a04e1ec696caa907178c8acf951261243" name="a04e1ec696caa907178c8acf951261243"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04e1ec696caa907178c8acf951261243">&#9670;&#160;</a></span>description</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::MapTemplate::description</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce qu'il fait, en une ligne. </p>
+
+</div>
+</div>
+<a id="a5e3f594582f3c5a917b2408320e8df6d" name="a5e3f594582f3c5a917b2408320e8df6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e3f594582f3c5a917b2408320e8df6d">&#9670;&#160;</a></span>entry</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&gt; hmi::MapTemplate::entry</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La case d'entrée de la carte neuve ; par défaut le coin bas gauche. </p>
+<p>Un modèle qui dresse un mur sur ce coin doit en nommer une autre : l'entrée ne se pose pas dans un mur. </p>
+
+</div>
+</div>
+<a id="aaacd7cc7d53a5ef5564ca77798056491" name="aaacd7cc7d53a5ef5564ca77798056491"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaacd7cc7d53a5ef5564ca77798056491">&#9670;&#160;</a></span>height</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::MapTemplate::height = 24</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2e94d81b5d4cdf672892c73a2a5cf414" name="a2e94d81b5d4cdf672892c73a2a5cf414"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e94d81b5d4cdf672892c73a2a5cf414">&#9670;&#160;</a></span>id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::MapTemplate::id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'identifiant, celui du fichier : <span class="tt">street</span>. </p>
+
+</div>
+</div>
+<a id="afbbf02d6b3beddc3495e3e59eea9840a" name="afbbf02d6b3beddc3495e3e59eea9840a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbbf02d6b3beddc3495e3e59eea9840a">&#9670;&#160;</a></span>label</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::MapTemplate::label</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le libellé montré au choix, en anglais : <span class="tt">Street</span>. </p>
+
+</div>
+</div>
+<a id="a8a99d293b5de70a34ff1024a652ec594" name="a8a99d293b5de70a34ff1024a652ec594"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a99d293b5de70a34ff1024a652ec594">&#9670;&#160;</a></span>layers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1MapTemplateLayer.html">MapTemplateLayer</a>&gt; hmi::MapTemplate::layers</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a219bc309f3e5f58462f02887003dd6c1" name="a219bc309f3e5f58462f02887003dd6c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a219bc309f3e5f58462f02887003dd6c1">&#9670;&#160;</a></span>stamp</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a> hmi::MapTemplate::stamp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce qu'il pose, coin haut gauche sur la carte ; vide s'il ne pose rien. </p>
+
+</div>
+</div>
+<a id="a7c25efd9fcaf23a9293a58cbdb7c56f3" name="a7c25efd9fcaf23a9293a58cbdb7c56f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c25efd9fcaf23a9293a58cbdb7c56f3">&#9670;&#160;</a></span>width</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::MapTemplate::width = 24</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/<a class="el" href="Stamps_8h_source.html">Stamps.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="structhmi_1_1MapTemplate.html">MapTemplate</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

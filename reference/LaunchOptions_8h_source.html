@@ -1,0 +1,208 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/LaunchOptions.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LaunchOptions_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LaunchOptions.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LaunchOptions_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &quot;<a class="code" href="GridPosition_8h.html">Core/Levels/GridPosition.h</a>&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="};">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structhmi_1_1GameLaunchOptions.html">   33</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1GameLaunchOptions.html">GameLaunchOptions</a> {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structhmi_1_1GameLaunchOptions.html#aca822a6544938d6aefc4d2b9373ad749">   35</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1GameLaunchOptions.html#aca822a6544938d6aefc4d2b9373ad749">mapId</a>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structhmi_1_1GameLaunchOptions.html#a59e8deda63d609650b1c44174ea66e0c">   37</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1GameLaunchOptions.html#a59e8deda63d609650b1c44174ea66e0c">arrival</a>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structhmi_1_1GameLaunchOptions.html#aff545b62ca2e28ddc14cafb1d259fa61">   39</a></span>    std::optional&lt;core::GridPosition&gt; <a class="code hl_variable" href="structhmi_1_1GameLaunchOptions.html#aff545b62ca2e28ddc14cafb1d259fa61">cell</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structhmi_1_1GameLaunchOptions.html#a3825bab4c995d7744c1edd5fa7342a57">   41</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structhmi_1_1GameLaunchOptions.html#a3825bab4c995d7744c1edd5fa7342a57">flags</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structhmi_1_1GameLaunchOptions.html#ae6a63e80c4b3be63993b7cda74246351">   44</a></span>    std::vector&lt;std::filesystem::path&gt; <a class="code hl_variable" href="structhmi_1_1GameLaunchOptions.html#ae6a63e80c4b3be63993b7cda74246351">levelDirectories</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>};</div>
+</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="namespacehmi.html#a61e621d3e0a60687c0d09c07971eda7f">   48</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="namespacehmi.html#a61e621d3e0a60687c0d09c07971eda7f">LAUNCH_LIST_SEPARATOR</a> = <span class="charliteral">&#39;,&#39;</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="namespacehmi.html#a67fe9f0437e8a901912c4e2cfaf2a4fe">   51</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="namespacehmi.html#a67fe9f0437e8a901912c4e2cfaf2a4fe">LAUNCH_PATH_SEPARATOR</a> = <span class="charliteral">&#39;;&#39;</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>[[nodiscard]] std::vector&lt;std::string&gt; <a class="code hl_function" href="namespacehmi.html#a9db9f6ee72f5136140540bc9b58f08d4">gameLaunchArguments</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1GameLaunchOptions.html">GameLaunchOptions</a>&amp; options);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>[[nodiscard]] std::optional&lt;core::GridPosition&gt; <a class="code hl_function" href="namespacehmi.html#aef0942e7c48316d72395a273318becd2">parseStartCell</a>(std::string_view value);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>[[nodiscard]] std::vector&lt;std::string&gt; <a class="code hl_function" href="namespacehmi.html#a387d159bebe6f50a4f2e6a376161f2cf">parseWorldFlags</a>(std::string_view value);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>[[nodiscard]] std::vector&lt;std::filesystem::path&gt; <a class="code hl_function" href="namespacehmi.html#a613a6276c7f598e007ab8fc0863e299f">parseLevelDirectories</a>(std::string_view value);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aGridPosition_8h_html"><div class="ttname"><a href="GridPosition_8h.html">GridPosition.h</a></div><div class="ttdoc">Position entière dans la grille d&#39;un niveau (colonne, ligne).</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a387d159bebe6f50a4f2e6a376161f2cf"><div class="ttname"><a href="namespacehmi.html#a387d159bebe6f50a4f2e6a376161f2cf">hmi::parseWorldFlags</a></div><div class="ttdeci">std::vector&lt; std::string &gt; parseWorldFlags(std::string_view value)</div><div class="ttdef"><b>Definition</b> LaunchOptions.cpp:93</div></div>
+<div class="ttc" id="anamespacehmi_html_a613a6276c7f598e007ab8fc0863e299f"><div class="ttname"><a href="namespacehmi.html#a613a6276c7f598e007ab8fc0863e299f">hmi::parseLevelDirectories</a></div><div class="ttdeci">std::vector&lt; std::filesystem::path &gt; parseLevelDirectories(std::string_view value)</div><div class="ttdef"><b>Definition</b> LaunchOptions.cpp:106</div></div>
+<div class="ttc" id="anamespacehmi_html_a61e621d3e0a60687c0d09c07971eda7f"><div class="ttname"><a href="namespacehmi.html#a61e621d3e0a60687c0d09c07971eda7f">hmi::LAUNCH_LIST_SEPARATOR</a></div><div class="ttdeci">constexpr char LAUNCH_LIST_SEPARATOR</div><div class="ttdoc">Séparateur des drapeaux de --flags=, et des coordonnées de --at=.</div><div class="ttdef"><b>Definition</b> LaunchOptions.h:48</div></div>
+<div class="ttc" id="anamespacehmi_html_a67fe9f0437e8a901912c4e2cfaf2a4fe"><div class="ttname"><a href="namespacehmi.html#a67fe9f0437e8a901912c4e2cfaf2a4fe">hmi::LAUNCH_PATH_SEPARATOR</a></div><div class="ttdeci">constexpr char LAUNCH_PATH_SEPARATOR</div><div class="ttdoc">Séparateur des dossiers de --levels= : une virgule couperait un chemin qui en porte une,...</div><div class="ttdef"><b>Definition</b> LaunchOptions.h:51</div></div>
+<div class="ttc" id="anamespacehmi_html_a9db9f6ee72f5136140540bc9b58f08d4"><div class="ttname"><a href="namespacehmi.html#a9db9f6ee72f5136140540bc9b58f08d4">hmi::gameLaunchArguments</a></div><div class="ttdeci">std::vector&lt; std::string &gt; gameLaunchArguments(const GameLaunchOptions &amp;options)</div><div class="ttdoc">La ligne de commande du jeu pour options, sans le programme.</div><div class="ttdef"><b>Definition</b> LaunchOptions.cpp:46</div></div>
+<div class="ttc" id="anamespacehmi_html_aef0942e7c48316d72395a273318becd2"><div class="ttname"><a href="namespacehmi.html#aef0942e7c48316d72395a273318becd2">hmi::parseStartCell</a></div><div class="ttdeci">std::optional&lt; core::GridPosition &gt; parseStartCell(std::string_view value)</div><div class="ttdef"><b>Definition</b> LaunchOptions.cpp:80</div></div>
+<div class="ttc" id="astructhmi_1_1GameLaunchOptions_html"><div class="ttname"><a href="structhmi_1_1GameLaunchOptions.html">hmi::GameLaunchOptions</a></div><div class="ttdoc">L&#39;essai complet demandé : la carte, l&#39;endroit, l&#39;état de la partie, et d&#39;où les cartes se lisent.</div><div class="ttdef"><b>Definition</b> LaunchOptions.h:33</div></div>
+<div class="ttc" id="astructhmi_1_1GameLaunchOptions_html_a3825bab4c995d7744c1edd5fa7342a57"><div class="ttname"><a href="structhmi_1_1GameLaunchOptions.html#a3825bab4c995d7744c1edd5fa7342a57">hmi::GameLaunchOptions::flags</a></div><div class="ttdeci">std::vector&lt; std::string &gt; flags</div><div class="ttdoc">Les drapeaux de monde posés avant le premier pas : la carte après une quête.</div><div class="ttdef"><b>Definition</b> LaunchOptions.h:41</div></div>
+<div class="ttc" id="astructhmi_1_1GameLaunchOptions_html_a59e8deda63d609650b1c44174ea66e0c"><div class="ttname"><a href="structhmi_1_1GameLaunchOptions.html#a59e8deda63d609650b1c44174ea66e0c">hmi::GameLaunchOptions::arrival</a></div><div class="ttdeci">std::string arrival</div><div class="ttdoc">Point d&#39;arrivée nommé, vide pour l&#39;entrée de la carte.</div><div class="ttdef"><b>Definition</b> LaunchOptions.h:37</div></div>
+<div class="ttc" id="astructhmi_1_1GameLaunchOptions_html_aca822a6544938d6aefc4d2b9373ad749"><div class="ttname"><a href="structhmi_1_1GameLaunchOptions.html#aca822a6544938d6aefc4d2b9373ad749">hmi::GameLaunchOptions::mapId</a></div><div class="ttdeci">std::string mapId</div><div class="ttdoc">Identifiant de la carte (capital/martpart), tel que le jeu la charge.</div><div class="ttdef"><b>Definition</b> LaunchOptions.h:35</div></div>
+<div class="ttc" id="astructhmi_1_1GameLaunchOptions_html_ae6a63e80c4b3be63993b7cda74246351"><div class="ttname"><a href="structhmi_1_1GameLaunchOptions.html#ae6a63e80c4b3be63993b7cda74246351">hmi::GameLaunchOptions::levelDirectories</a></div><div class="ttdeci">std::vector&lt; std::filesystem::path &gt; levelDirectories</div><div class="ttdoc">Les dossiers où chercher les cartes, dans l&#39;ordre ; le premier est celui des brouillons.</div><div class="ttdef"><b>Definition</b> LaunchOptions.h:44</div></div>
+<div class="ttc" id="astructhmi_1_1GameLaunchOptions_html_aff545b62ca2e28ddc14cafb1d259fa61"><div class="ttname"><a href="structhmi_1_1GameLaunchOptions.html#aff545b62ca2e28ddc14cafb1d259fa61">hmi::GameLaunchOptions::cell</a></div><div class="ttdeci">std::optional&lt; core::GridPosition &gt; cell</div><div class="ttdoc">La case où poser le héros, à la place de l&#39;entrée ou du point d&#39;arrivée.</div><div class="ttdef"><b>Definition</b> LaunchOptions.h:39</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_e63fac7525d4addf9f5e759ec10d14ef.html">Game</a></li><li class="navelem"><a href="LaunchOptions_8h.html">LaunchOptions.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

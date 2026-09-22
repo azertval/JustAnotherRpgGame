@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="560" fill="#fbf8f0"/>
+  <defs>
+    <marker id="fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="30" font-size="15" font-weight="600" fill="#25201a">core::Inventory : ce qui est stocké, et ce qui est recalculé à chaque lecture</text>
+  <text x="20" y="50" fill="#6a6152">Aucune statistique n'est un champ de l'inventaire : une valeur qu'on ne stocke pas ne peut pas dériver.</text>
+
+  <!-- Bloc Inventory -->
+  <rect x="20" y="70" width="480" height="420" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="92" font-weight="600" fill="#25201a">Inventory (stocké : des identifiants de catalogue, EX-INV-001)</text>
+
+  <!-- equipped : 16 emplacements, deux colonnes comme la planche -->
+  <text x="32" y="116" font-family="Consolas, monospace" font-size="12" fill="#6a6152">equipped[16] — l'ordre de la planche 2, colonne gauche puis droite</text>
+  <g font-family="Consolas, monospace" font-size="12">
+    <g fill="#fbf8f0" stroke="#d6c9a8">
+      <rect x="32" y="126" width="220" height="22"/><rect x="32" y="150" width="220" height="22"/>
+      <rect x="32" y="174" width="220" height="22"/><rect x="32" y="198" width="220" height="22"/>
+      <rect x="32" y="222" width="220" height="22"/><rect x="32" y="246" width="220" height="22"/>
+      <rect x="32" y="270" width="220" height="22"/><rect x="32" y="294" width="220" height="22"/>
+      <rect x="264" y="126" width="220" height="22"/><rect x="264" y="150" width="220" height="22"/>
+      <rect x="264" y="174" width="220" height="22"/><rect x="264" y="198" width="220" height="22"/>
+      <rect x="264" y="222" width="220" height="22"/><rect x="264" y="246" width="220" height="22"/>
+      <rect x="264" y="270" width="220" height="22"/><rect x="264" y="294" width="220" height="22"/>
+    </g>
+    <g fill="#25201a">
+      <text x="38" y="141">head        —</text>
+      <text x="38" y="165">neck        amulette</text>
+      <text x="38" y="189">cloak       —</text>
+      <text x="38" y="213">torso       cuir-cloute</text>
+      <text x="38" y="237">belt        —</text>
+      <text x="38" y="261">hands       —</text>
+      <text x="38" y="285">ring-left   —</text>
+      <text x="38" y="309">ring-right  —</text>
+      <text x="270" y="141">main-hand   epee-longue</text>
+      <text x="270" y="165">off-hand    bouclier</text>
+      <text x="270" y="189">ranged      —</text>
+      <text x="270" y="213">ammunition  —</text>
+      <text x="270" y="237">feet        —</text>
+      <text x="270" y="261">bracers     —</text>
+      <text x="270" y="285">pouch       sac-a-dos</text>
+      <text x="270" y="309">trinket     —</text>
+    </g>
+  </g>
+
+  <!-- backpack -->
+  <text x="32" y="340" font-family="Consolas, monospace" font-size="12" fill="#6a6152">backpack — des piles {itemId, quantity}, dans l'ordre de remplissage</text>
+  <rect x="32" y="348" width="452" height="24" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="38" y="365" font-family="Consolas, monospace" font-size="12" fill="#25201a">dague ×1 · torche ×5 · corde-en-chanvre-15-m ×1 · rations-1-jour ×4 · gourde ×1</text>
+
+  <!-- purse -->
+  <text x="32" y="398" font-family="Consolas, monospace" font-size="12" fill="#6a6152">purseCopper — une seule unité, le cuivre</text>
+  <rect x="32" y="406" width="452" height="24" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="38" y="423" font-family="Consolas, monospace" font-size="12" fill="#25201a">4275 pc   (l'écran répartit : 42 po, 7 pa, 5 pc — hmi::splitPurse)</text>
+
+  <text x="32" y="458" font-size="12" fill="#25201a">Gestes : equip / unequip rendent ce qui sort ; addToBackpack empile ;</text>
+  <text x="32" y="476" font-size="12" fill="#25201a">removeFromBackpack rend ce qui a réellement été retiré.</text>
+
+  <!-- Flèche vers derivedStatsFor -->
+  <path d="M500,280 L540,280" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#fl)"/>
+
+  <!-- derivedStatsFor -->
+  <rect x="542" y="70" width="318" height="420" rx="8" fill="#fbf8f0" stroke="#9a7420" stroke-width="1.5"/>
+  <text x="554" y="92" font-weight="600" fill="#25201a">core::derivedStatsFor → DerivedStats</text>
+  <text x="554" y="110" font-size="12" fill="#6a6152">fiche + inventaire + catalogues + règles, à chaque appel</text>
+
+  <g font-size="12" fill="#25201a">
+    <text x="554" y="140" font-weight="600">armorClass = 15</text>
+    <text x="554" y="156">torso → cuir clouté : 12 + DEX +1 (sans plafond)</text>
+    <text x="554" y="172">off-hand → bouclier : +2 (sa catégorie décide,</text>
+    <text x="554" y="188">pas l'emplacement où on l'a mis)</text>
+
+    <text x="554" y="218" font-weight="600">damage = 1d8 slashing, attackAbility = Force</text>
+    <text x="554" y="234">main-hand → épée longue ; corps à corps, sans finesse</text>
+
+    <text x="554" y="264" font-weight="600">carriedWeightGrams = 28 500</text>
+    <text x="554" y="280">équipé + sac, chaque poids lu dans les catalogues</text>
+    <text x="554" y="296">un identifiant inconnu pèse 0 et est listé (unknownIds)</text>
+
+    <text x="554" y="326" font-weight="600">carryingCapacityGrams = 15 × 7 500 = 112 500</text>
+    <text x="554" y="342">rules/encumbrance.json × Force ; seuils 2 500 et 5 000/pt</text>
+    <text x="554" y="358">encumbrance = Unencumbered</text>
+
+    <text x="554" y="388" font-weight="600">speedMeters = 9</text>
+    <text x="554" y="404">−3 m encombré, −6 m fortement, 0 au-delà de la capacité</text>
+  </g>
+  <text x="554" y="440" font-size="12" fill="#3f6b34">Équiper puis retirer, dans n'importe quel ordre,</text>
+  <text x="554" y="456" font-size="12" fill="#3f6b34">redonne exactement les valeurs de départ :</text>
+  <text x="554" y="472" font-size="12" fill="#3f6b34">il n'y a rien à annuler (EX-RPG-002, EX-INV-011).</text>
+
+  <!-- Bandeau du bas -->
+  <rect x="20" y="506" width="840" height="40" rx="8" fill="#25201a"/>
+  <text x="32" y="531" font-size="12" fill="#fbf8f0">Le défaut écarté : ca += 2 à l'équipement, ca -= 2 au retrait — après trois équipements et deux retraits dans le désordre, la CA a dérivé, et rien ne le dit.</text>
+</svg>

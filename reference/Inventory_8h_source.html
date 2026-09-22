@@ -1,0 +1,418 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/Inventory.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('Inventory_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Inventory.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Inventory_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="Ability_8h.html">Core/Rpg/Ability.h</a>&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="Dice_8h.html">Core/Rpg/Dice.h</a>&quot;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="Equipment_8h.html">Core/Rpg/Equipment.h</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="RpgEnums_8h.html">Core/Rpg/RpgEnums.h</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1CharacterSheet.html">CharacterSheet</a>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span></div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structcore_1_1Item.html">   31</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1Item.html">Item</a> {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structcore_1_1Item.html#a80bdeda0a9a449b4068c39c01e48ebfd">   32</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Item.html#a80bdeda0a9a449b4068c39c01e48ebfd">id</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structcore_1_1Item.html#a014f98742a22400fb3796c9630ca1ec3">   33</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Item.html#a014f98742a22400fb3796c9630ca1ec3">name</a>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structcore_1_1Item.html#ad6d6700e5b032ad1db36d0788077c9e8">   34</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Item.html#ad6d6700e5b032ad1db36d0788077c9e8">source</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structcore_1_1Item.html#ae2d01565dde15dc51efe6edf8540ce29">   36</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Item.html#ae2d01565dde15dc51efe6edf8540ce29">category</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structcore_1_1Item.html#ab48a2bf1cf330ff560b9ef686cd600ce">   38</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1Item.html#ab48a2bf1cf330ff560b9ef686cd600ce">price</a> = 0;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structcore_1_1Item.html#a3134994c82c50a53f462dcad4dcc8187">   41</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1Item.html#a3134994c82c50a53f462dcad4dcc8187">weightGrams</a> = 0;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structcore_1_1Item.html#ac478ce0b3683cef9a26c562c3ff5e718">   43</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1Item.html#ac478ce0b3683cef9a26c562c3ff5e718">stackable</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structcore_1_1Item.html#a5e31bf112f66c60ee7e5fc482c645d64">   44</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Item.html#a5e31bf112f66c60ee7e5fc482c645d64">rarity</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structcore_1_1Item.html#a738829051583f957920534d3c35a5488">   45</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1Item.html#a738829051583f957920534d3c35a5488">requiresAttunement</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structcore_1_1Item.html#a0b91779ef06a6a38eb688d2e83902c7a">   46</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Item.html#a0b91779ef06a6a38eb688d2e83902c7a">text</a>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>};</div>
+</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="foldopen" id="foldopen00050" data-start="{" data-end="};">
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structcore_1_1ItemCatalog.html">   50</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1ItemCatalog.html">ItemCatalog</a> {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structcore_1_1ItemCatalog.html#a6ee92cd9077ea5b1cdbbe6616fd8bfd5">   51</a></span>    std::vector&lt;Item&gt; <a class="code hl_variable" href="structcore_1_1ItemCatalog.html#a6ee92cd9077ea5b1cdbbe6616fd8bfd5">items</a>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="structcore_1_1ItemCatalog.html#a6cc859a4c9126eea85bfafbc5965994a">   52</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1ItemCatalog.html#a6cc859a4c9126eea85bfafbc5965994a">errors</a>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Item.html">Item</a>* <a class="code hl_function" href="structcore_1_1ItemCatalog.html#ad9916b9df9842ebd012659eefea5998d">find</a>(std::string_view <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>};</div>
+</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1ItemCatalog.html">ItemCatalog</a> <a class="code hl_function" href="namespacecore.html#a00edce76b901663b3187437ecea2da10">loadItems</a>(<span class="keyword">const</span> std::filesystem::path&amp; itemsDir);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span></div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="};">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structcore_1_1EncumbranceRules.html">   67</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1EncumbranceRules.html">EncumbranceRules</a> {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structcore_1_1EncumbranceRules.html#a3839816c0fedab9cd9c0906469433442">   68</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1EncumbranceRules.html#a3839816c0fedab9cd9c0906469433442">carryingCapacityGramsPerStrength</a> = 0;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structcore_1_1EncumbranceRules.html#ab50acad08027a30928c134fa7769bd3b">   69</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1EncumbranceRules.html#ab50acad08027a30928c134fa7769bd3b">encumberedGramsPerStrength</a> = 0;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structcore_1_1EncumbranceRules.html#aa0ba2b93262161da8432df45d2555c72">   70</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1EncumbranceRules.html#aa0ba2b93262161da8432df45d2555c72">heavilyEncumberedGramsPerStrength</a> = 0;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structcore_1_1EncumbranceRules.html#a1a166405a9deaeacbb1f49dc13a1cfb9">   71</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1EncumbranceRules.html#a1a166405a9deaeacbb1f49dc13a1cfb9">encumberedSpeedPenaltyMeters</a> = 0.0F;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="structcore_1_1EncumbranceRules.html#af6e135349610aa4225b81cb988d3c2cd">   72</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1EncumbranceRules.html#af6e135349610aa4225b81cb988d3c2cd">heavilyEncumberedSpeedPenaltyMeters</a> = 0.0F;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span></div>
+<div class="foldopen" id="foldopen00076" data-start="{" data-end="}">
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="structcore_1_1EncumbranceRules.html#a7aa51ac673e6b51f0b7072ee097947a5">   76</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1EncumbranceRules.html#a7aa51ac673e6b51f0b7072ee097947a5">isLoaded</a>() const noexcept {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1EncumbranceRules.html#a3839816c0fedab9cd9c0906469433442">carryingCapacityGramsPerStrength</a> &gt; 0;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    }</div>
+</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>};</div>
+</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>[[nodiscard]] EncumbranceRules <a class="code hl_function" href="namespacecore.html#a6784f5e1367401de1a0d7d087d7c16a4">loadEncumbranceRules</a>(<span class="keyword">const</span> std::filesystem::path&amp; rulesFile);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span></div>
+<div class="foldopen" id="foldopen00086" data-start="{" data-end="};">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5">   86</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5">EncumbranceLevel</a> {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5ae0c8631adc840f2dc3d7ad58f3353734">   87</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5ae0c8631adc840f2dc3d7ad58f3353734">Unencumbered</a>,       </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5a3352f503cd5d323c5d6588fab6b4d9ae">   88</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5a3352f503cd5d323c5d6588fab6b4d9ae">Encumbered</a>,         </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5a2d24ecea1c4b912db6e8aa635d5d9825">   89</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5a2d24ecea1c4b912db6e8aa635d5d9825">HeavilyEncumbered</a>,  </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5a4fcf3e94521b7db24bd0c3bd6e9201af">   90</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5a4fcf3e94521b7db24bd0c3bd6e9201af">OverCapacity</a>,       </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>};</div>
+</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span></div>
+<div class="foldopen" id="foldopen00099" data-start="{" data-end="};">
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6">   99</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6">EquipmentSlot</a> {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a98921133d10fbdb0fb6dbb7b2648befe">  100</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a98921133d10fbdb0fb6dbb7b2648befe">Head</a>,</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a6833e5c3ce1911011c2bb97d48a0a24b">  101</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a6833e5c3ce1911011c2bb97d48a0a24b">Neck</a>,</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a2cbd779a6d41d9715d259a5d7e8bb93d">  102</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a2cbd779a6d41d9715d259a5d7e8bb93d">Cloak</a>,</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a94b1fe49b616aa3862defa8922c7493d">  103</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a94b1fe49b616aa3862defa8922c7493d">Torso</a>,</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6ad1d0518303e6170ce9bb8bc1bd54248c">  104</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6ad1d0518303e6170ce9bb8bc1bd54248c">Belt</a>,</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6ac0de26eacdb0be95995bddc8d719bc4b">  105</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6ac0de26eacdb0be95995bddc8d719bc4b">Hands</a>,</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a40cfe9b834ee37afb1bb5543c11666c1">  106</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a40cfe9b834ee37afb1bb5543c11666c1">RingLeft</a>,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a2390e3a8317e0d192cdbaebaaa54a716">  107</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a2390e3a8317e0d192cdbaebaaa54a716">RingRight</a>,</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a1f9cdfca2d19bbc92349db7eb1544434">  108</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a1f9cdfca2d19bbc92349db7eb1544434">MainHand</a>,</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a2cc539207caf1a7e1e986b92e4462d7c">  109</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a2cc539207caf1a7e1e986b92e4462d7c">OffHand</a>,</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6ac2f329a17c18a701dbe1e96e03858728">  110</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#ac7c907f80d9ec08c831616af9902aae3ac2f329a17c18a701dbe1e96e03858728">Ranged</a>,</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a18c5b5c7381f5d9eecaa5b06a6bb4960">  111</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a18c5b5c7381f5d9eecaa5b06a6bb4960">Ammunition</a>,</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a0f2e8e047e38898ec859c631576985e7">  112</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a0f2e8e047e38898ec859c631576985e7">Feet</a>,</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6af1df96a16d18cc71cfd4bc442556bf46">  113</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6af1df96a16d18cc71cfd4bc442556bf46">Bracers</a>,</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a4bcdcbebd685f9bc46f03d2c71ae3837">  114</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a4bcdcbebd685f9bc46f03d2c71ae3837">Pouch</a>,</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a9ee4ab45b4b030348971997e4b6a4c37">  115</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a9ee4ab45b4b030348971997e4b6a4c37">Trinket</a>,</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>};</div>
+</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="namespacecore.html#ab6f6a87729df10e41e9fa1e5f74c4d76">  119</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::size_t <a class="code hl_variable" href="namespacecore.html#ab6f6a87729df10e41e9fa1e5f74c4d76">EQUIPMENT_SLOT_COUNT</a> = 16;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>[[nodiscard]] std::string_view <a class="code hl_function" href="namespacecore.html#a6f31013a1f37d04e5e8f8748f7799219">equipmentSlotName</a>(<a class="code hl_enumeration" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6">EquipmentSlot</a> slot);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>[[nodiscard]] std::optional&lt;EquipmentSlot&gt; <a class="code hl_function" href="namespacecore.html#a3c6126ca45164ee5761518aa0ae58ccd">parseEquipmentSlot</a>(std::string_view name);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span></div>
+<div class="foldopen" id="foldopen00127" data-start="{" data-end="};">
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="structcore_1_1InventoryStack.html">  127</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1InventoryStack.html">InventoryStack</a> {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="structcore_1_1InventoryStack.html#af896e96e7f8c432601f8fa7c78cbf5bc">  128</a></span>    std::string <a class="code hl_variable" href="structcore_1_1InventoryStack.html#af896e96e7f8c432601f8fa7c78cbf5bc">itemId</a>;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="structcore_1_1InventoryStack.html#a19c603affe50a67f5c8aa523afc41358">  129</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1InventoryStack.html#a19c603affe50a67f5c8aa523afc41358">quantity</a> = 1;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>};</div>
+</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span></div>
+<div class="foldopen" id="foldopen00147" data-start="{" data-end="};">
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="structcore_1_1Inventory.html">  147</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1Inventory.html">Inventory</a> {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="structcore_1_1Inventory.html#abf787423090884ef88096f21d2828da1">  149</a></span>    std::array&lt;std::string, EQUIPMENT_SLOT_COUNT&gt; <a class="code hl_variable" href="structcore_1_1Inventory.html#abf787423090884ef88096f21d2828da1">equipped</a>{};</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="structcore_1_1Inventory.html#a69466b9692bc8350330186874e3ae038">  151</a></span>    std::vector&lt;InventoryStack&gt; <a class="code hl_variable" href="structcore_1_1Inventory.html#a69466b9692bc8350330186874e3ae038">backpack</a>;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="structcore_1_1Inventory.html#a120cf3f2b69a7f317f5b0dcefd773c0e">  153</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1Inventory.html#a120cf3f2b69a7f317f5b0dcefd773c0e">purseCopper</a> = 0;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span></div>
+<div class="foldopen" id="foldopen00156" data-start="{" data-end="}">
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="structcore_1_1Inventory.html#a1a10659783aa894f79d4e2efa1a8d4ee">  156</a></span>    [[nodiscard]] <span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="structcore_1_1Inventory.html#a1a10659783aa894f79d4e2efa1a8d4ee">at</a>(<a class="code hl_enumeration" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6">EquipmentSlot</a> slot)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1Inventory.html#abf787423090884ef88096f21d2828da1">equipped</a>[<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(slot)];</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    }</div>
+</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span></div>
+<div class="foldopen" id="foldopen00160" data-start="{" data-end="}">
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="structcore_1_1Inventory.html#a6bdd1949358ca49f977163c591dc3d12">  160</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1Inventory.html#a6bdd1949358ca49f977163c591dc3d12">isEquipped</a>(<a class="code hl_enumeration" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6">EquipmentSlot</a> slot)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <span class="keywordflow">return</span> !<a class="code hl_function" href="structcore_1_1Inventory.html#a1a10659783aa894f79d4e2efa1a8d4ee">at</a>(slot).empty();</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    }</div>
+</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>};</div>
+</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>std::string <a class="code hl_function" href="namespacecore.html#a4ba622b6ecedd0e50fd24d0d5b81ebde">equip</a>(Inventory&amp; inventory, <a class="code hl_enumeration" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6">EquipmentSlot</a> slot, std::string itemId);</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>std::string <a class="code hl_function" href="namespacecore.html#a98be44354174d01b7cd1e67bdae8fab5">unequip</a>(Inventory&amp; inventory, <a class="code hl_enumeration" href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6">EquipmentSlot</a> slot);</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespacecore.html#a6f489a122d9d233c3bdbe93d7e8469a7">addToBackpack</a>(Inventory&amp; inventory, <span class="keyword">const</span> std::string&amp; itemId, <span class="keywordtype">int</span> quantity = 1);</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="keywordtype">int</span> <a class="code hl_function" href="namespacecore.html#a8ddb5a787feab8431b23b406bf78fb07">removeFromBackpack</a>(Inventory&amp; inventory, <span class="keyword">const</span> std::string&amp; itemId, <span class="keywordtype">int</span> quantity = 1);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span></div>
+<div class="foldopen" id="foldopen00187" data-start="{" data-end="};">
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="structcore_1_1ItemLookup.html">  187</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1ItemLookup.html">ItemLookup</a> {</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="structcore_1_1ItemLookup.html#adad9bb82572c711303edbfac5990bf83">  188</a></span>    <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1ItemCatalog.html">ItemCatalog</a>* <a class="code hl_variable" href="structcore_1_1ItemLookup.html#adad9bb82572c711303edbfac5990bf83">items</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="structcore_1_1ItemLookup.html#a8de14476fd1b32d8e88d41fd18b4b0da">  189</a></span>    <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1EquipmentCatalog.html">EquipmentCatalog</a>* <a class="code hl_variable" href="structcore_1_1ItemLookup.html#a8de14476fd1b32d8e88d41fd18b4b0da">equipment</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="structcore_1_1ItemLookup.html#a911405483110eb776e74b7d4351dacca">weightGramsOf</a>(std::string_view <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>};</div>
+</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>[[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="namespacecore.html#acdf25cd5af39e26e10f832898b4f011b">carriedWeightGrams</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Inventory.html">Inventory</a>&amp; inventory, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1ItemLookup.html">ItemLookup</a>&amp; lookup);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>[[nodiscard]] std::vector&lt;std::string&gt; <a class="code hl_function" href="namespacecore.html#a35b74fe1ec1287f70d0076ad28812c81">unknownIds</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Inventory.html">Inventory</a>&amp; inventory,</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>                                                  <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1ItemLookup.html">ItemLookup</a>&amp; lookup);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span></div>
+<div class="foldopen" id="foldopen00212" data-start="{" data-end="};">
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="structcore_1_1DerivedStats.html">  212</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1DerivedStats.html">DerivedStats</a> {</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="structcore_1_1DerivedStats.html#abdbaa82fa4aa60cbc2ab3fa591c4999d">  214</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1DerivedStats.html#abdbaa82fa4aa60cbc2ab3fa591c4999d">armorClass</a> = 0;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno"><a class="line" href="structcore_1_1DerivedStats.html#a19069ad5cee5bd2ae14964650bb902d7">  217</a></span>    std::optional&lt;Dice&gt; <a class="code hl_variable" href="structcore_1_1DerivedStats.html#a19069ad5cee5bd2ae14964650bb902d7">damage</a>;</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno"><a class="line" href="structcore_1_1DerivedStats.html#aedd7077c41d1b2e12f52facb4b513833">  218</a></span>    std::optional&lt;DamageType&gt; <a class="code hl_variable" href="structcore_1_1DerivedStats.html#aedd7077c41d1b2e12f52facb4b513833">damageType</a>;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno"><a class="line" href="structcore_1_1DerivedStats.html#a032674d22be164e28116e6c3eab974f6">  220</a></span>    <a class="code hl_enumeration" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> <a class="code hl_variable" href="structcore_1_1DerivedStats.html#a032674d22be164e28116e6c3eab974f6">attackAbility</a> = <a class="code hl_enumvalue" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1a5a455a612047a34ede7a6c564fa67c0a">Ability::Strength</a>;</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno"><a class="line" href="structcore_1_1DerivedStats.html#a5d6bed5c5e676c6c3ffaabe946008d9d">  222</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1DerivedStats.html#a5d6bed5c5e676c6c3ffaabe946008d9d">carriedWeightGrams</a> = 0;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="structcore_1_1DerivedStats.html#a26560863107e78737619098c0c9121d7">  223</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1DerivedStats.html#a26560863107e78737619098c0c9121d7">carryingCapacityGrams</a> = 0;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="structcore_1_1DerivedStats.html#ac9809a3bddea3e08df19f4fe32796bda">  224</a></span>    <a class="code hl_enumeration" href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5">EncumbranceLevel</a> <a class="code hl_variable" href="structcore_1_1DerivedStats.html#ac9809a3bddea3e08df19f4fe32796bda">encumbrance</a> = <a class="code hl_enumvalue" href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5ae0c8631adc840f2dc3d7ad58f3353734">EncumbranceLevel::Unencumbered</a>;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno"><a class="line" href="structcore_1_1DerivedStats.html#ae06361dd7d163ffea7df71549f4cab57">  226</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1DerivedStats.html#ae06361dd7d163ffea7df71549f4cab57">speedMeters</a> = 0.0F;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>};</div>
+</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>[[nodiscard]] <a class="code hl_enumeration" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> <a class="code hl_function" href="namespacecore.html#a322a4b7a467d4c7168e4173641b88459">weaponAttackAbility</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CharacterSheet.html">CharacterSheet</a>&amp; sheet, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Weapon.html">Weapon</a>&amp; weapon);</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1DerivedStats.html">DerivedStats</a> <a class="code hl_function" href="namespacecore.html#a9a5cbcc72fe725bdada14f1b5a38e3d1">derivedStatsFor</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CharacterSheet.html">CharacterSheet</a>&amp; sheet, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Inventory.html">Inventory</a>&amp; inventory,</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                                           <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1ItemLookup.html">ItemLookup</a>&amp; lookup,</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>                                           <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a>&amp; creation,</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>                                           <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1EncumbranceRules.html">EncumbranceRules</a>&amp; carrying);</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aAbility_8h_html"><div class="ttname"><a href="Ability_8h.html">Ability.h</a></div><div class="ttdoc">Les six caractéristiques et leur modificateur (EX-REG-010).</div></div>
+<div class="ttc" id="aDice_8h_html"><div class="ttname"><a href="Dice_8h.html">Dice.h</a></div><div class="ttdoc">Notation de dés NdF+M : analyse, évaluation, bornes (EX-NFR-002).</div></div>
+<div class="ttc" id="aEquipment_8h_html"><div class="ttname"><a href="Equipment_8h.html">Equipment.h</a></div><div class="ttdoc">Armes, armures et le calcul de la classe d&#39;armure (LOT-34).</div></div>
+<div class="ttc" id="aRpgEnums_8h_html"><div class="ttname"><a href="RpgEnums_8h.html">RpgEnums.h</a></div><div class="ttdoc">Les quatre énumérations fermées du RPG : dégâts, conditions, écoles, tailles.</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a00edce76b901663b3187437ecea2da10"><div class="ttname"><a href="namespacecore.html#a00edce76b901663b3187437ecea2da10">core::loadItems</a></div><div class="ttdeci">ItemCatalog loadItems(const std::filesystem::path &amp;itemsDir)</div><div class="ttdoc">Charge les objets depuis leur dossier (Rpg/items/).</div><div class="ttdef"><b>Definition</b> Inventory.cpp:88</div></div>
+<div class="ttc" id="anamespacecore_html_a322a4b7a467d4c7168e4173641b88459"><div class="ttname"><a href="namespacecore.html#a322a4b7a467d4c7168e4173641b88459">core::weaponAttackAbility</a></div><div class="ttdeci">Ability weaponAttackAbility(const CharacterSheet &amp;sheet, const Weapon &amp;weapon)</div><div class="ttdoc">La caractéristique du jet d&#39;attaque avec weapon (Manuel, chapitre 9, « Modificateurs du jet »).</div><div class="ttdef"><b>Definition</b> Inventory.cpp:255</div></div>
+<div class="ttc" id="anamespacecore_html_a35b74fe1ec1287f70d0076ad28812c81"><div class="ttname"><a href="namespacecore.html#a35b74fe1ec1287f70d0076ad28812c81">core::unknownIds</a></div><div class="ttdeci">std::vector&lt; std::string &gt; unknownIds(const Inventory &amp;inventory, const ItemLookup &amp;lookup)</div><div class="ttdoc">Les identifiants que les catalogues ne portent pas — un sac qui en contient ne pèse pas ce qu&#39;il devr...</div><div class="ttdef"><b>Definition</b> Inventory.cpp:237</div></div>
+<div class="ttc" id="anamespacecore_html_a3c6126ca45164ee5761518aa0ae58ccd"><div class="ttname"><a href="namespacecore.html#a3c6126ca45164ee5761518aa0ae58ccd">core::parseEquipmentSlot</a></div><div class="ttdeci">std::optional&lt; EquipmentSlot &gt; parseEquipmentSlot(std::string_view name)</div><div class="ttdoc">Inverse d&#39;equipmentSlotName. std::nullopt si le nom est inconnu — jamais deviné.</div><div class="ttdef"><b>Definition</b> Inventory.cpp:74</div></div>
+<div class="ttc" id="anamespacecore_html_a4ba622b6ecedd0e50fd24d0d5b81ebde"><div class="ttname"><a href="namespacecore.html#a4ba622b6ecedd0e50fd24d0d5b81ebde">core::equip</a></div><div class="ttdeci">std::string equip(Inventory &amp;inventory, EquipmentSlot slot, std::string itemId)</div><div class="ttdoc">Équipe itemId à slot, et rend ce que l&#39;emplacement portait.</div><div class="ttdef"><b>Definition</b> Inventory.cpp:147</div></div>
+<div class="ttc" id="anamespacecore_html_a6784f5e1367401de1a0d7d087d7c16a4"><div class="ttname"><a href="namespacecore.html#a6784f5e1367401de1a0d7d087d7c16a4">core::loadEncumbranceRules</a></div><div class="ttdeci">EncumbranceRules loadEncumbranceRules(const std::filesystem::path &amp;rulesFile)</div><div class="ttdoc">Charge les bornes de charge depuis rules/encumbrance.json.</div><div class="ttdef"><b>Definition</b> Inventory.cpp:129</div></div>
+<div class="ttc" id="anamespacecore_html_a6f31013a1f37d04e5e8f8748f7799219"><div class="ttname"><a href="namespacecore.html#a6f31013a1f37d04e5e8f8748f7799219">core::equipmentSlotName</a></div><div class="ttdeci">std::string_view equipmentSlotName(EquipmentSlot slot)</div><div class="ttdoc">Nom textuel d&#39;un emplacement, tel que la donnée et les clés de traduction l&#39;écrivent.</div><div class="ttdef"><b>Definition</b> Inventory.cpp:65</div></div>
+<div class="ttc" id="anamespacecore_html_a6f489a122d9d233c3bdbe93d7e8469a7"><div class="ttname"><a href="namespacecore.html#a6f489a122d9d233c3bdbe93d7e8469a7">core::addToBackpack</a></div><div class="ttdeci">void addToBackpack(Inventory &amp;inventory, const std::string &amp;itemId, int quantity)</div><div class="ttdoc">Ajoute quantity exemplaires de itemId au sac, en empilant si la ligne existe déjà.</div><div class="ttdef"><b>Definition</b> Inventory.cpp:157</div></div>
+<div class="ttc" id="anamespacecore_html_a8ddb5a787feab8431b23b406bf78fb07"><div class="ttname"><a href="namespacecore.html#a8ddb5a787feab8431b23b406bf78fb07">core::removeFromBackpack</a></div><div class="ttdeci">int removeFromBackpack(Inventory &amp;inventory, const std::string &amp;itemId, int quantity)</div><div class="ttdoc">Retire quantity exemplaires de itemId.</div><div class="ttdef"><b>Definition</b> Inventory.cpp:169</div></div>
+<div class="ttc" id="anamespacecore_html_a97f31c7914a6cfc54cc026a77da58fd1"><div class="ttname"><a href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">core::Ability</a></div><div class="ttdeci">Ability</div><div class="ttdoc">Une des six caractéristiques d&#39;un personnage ou d&#39;une créature (EX-REG-010).</div><div class="ttdef"><b>Definition</b> Ability.h:24</div></div>
+<div class="ttc" id="anamespacecore_html_a97f31c7914a6cfc54cc026a77da58fd1a5a455a612047a34ede7a6c564fa67c0a"><div class="ttname"><a href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1a5a455a612047a34ede7a6c564fa67c0a">core::Ability::Strength</a></div><div class="ttdeci">@ Strength</div><div class="ttdef"><b>Definition</b> Ability.h:25</div></div>
+<div class="ttc" id="anamespacecore_html_a98be44354174d01b7cd1e67bdae8fab5"><div class="ttname"><a href="namespacecore.html#a98be44354174d01b7cd1e67bdae8fab5">core::unequip</a></div><div class="ttdeci">std::string unequip(Inventory &amp;inventory, EquipmentSlot slot)</div><div class="ttdoc">Retire ce que slot porte.</div><div class="ttdef"><b>Definition</b> Inventory.cpp:153</div></div>
+<div class="ttc" id="anamespacecore_html_a9a5cbcc72fe725bdada14f1b5a38e3d1"><div class="ttname"><a href="namespacecore.html#a9a5cbcc72fe725bdada14f1b5a38e3d1">core::derivedStatsFor</a></div><div class="ttdeci">DerivedStats derivedStatsFor(const CharacterSheet &amp;sheet, const Inventory &amp;inventory, const ItemLookup &amp;lookup, const CharacterCreationRules &amp;creation, const EncumbranceRules &amp;carrying)</div><div class="ttdoc">Calcule tout ce que l&#39;équipement porté produit, depuis la fiche et les catalogues.</div><div class="ttdef"><b>Definition</b> Inventory.cpp:270</div></div>
+<div class="ttc" id="anamespacecore_html_ab6f6a87729df10e41e9fa1e5f74c4d76"><div class="ttname"><a href="namespacecore.html#ab6f6a87729df10e41e9fa1e5f74c4d76">core::EQUIPMENT_SLOT_COUNT</a></div><div class="ttdeci">constexpr std::size_t EQUIPMENT_SLOT_COUNT</div><div class="ttdoc">Nombre d&#39;emplacements, pour dimensionner les tableaux qui les indexent.</div><div class="ttdef"><b>Definition</b> Inventory.h:119</div></div>
+<div class="ttc" id="anamespacecore_html_ac7c907f80d9ec08c831616af9902aae3ac2f329a17c18a701dbe1e96e03858728"><div class="ttname"><a href="namespacecore.html#ac7c907f80d9ec08c831616af9902aae3ac2f329a17c18a701dbe1e96e03858728">core::AttackKind::Ranged</a></div><div class="ttdeci">@ Ranged</div><div class="ttdef"><b>Definition</b> Attack.h:63</div></div>
+<div class="ttc" id="anamespacecore_html_acdf25cd5af39e26e10f832898b4f011b"><div class="ttname"><a href="namespacecore.html#acdf25cd5af39e26e10f832898b4f011b">core::carriedWeightGrams</a></div><div class="ttdeci">int carriedWeightGrams(const Inventory &amp;inventory, const ItemLookup &amp;lookup)</div><div class="ttdoc">Le poids total porté, sac et équipement compris, en grammes.</div><div class="ttdef"><b>Definition</b> Inventory.cpp:224</div></div>
+<div class="ttc" id="anamespacecore_html_ad77756d2c98fad50a0b353e7924843a5"><div class="ttname"><a href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5">core::EncumbranceLevel</a></div><div class="ttdeci">EncumbranceLevel</div><div class="ttdoc">État de charge d&#39;un personnage, dans l&#39;ordre croissant de gêne.</div><div class="ttdef"><b>Definition</b> Inventory.h:86</div></div>
+<div class="ttc" id="anamespacecore_html_ad77756d2c98fad50a0b353e7924843a5a2d24ecea1c4b912db6e8aa635d5d9825"><div class="ttname"><a href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5a2d24ecea1c4b912db6e8aa635d5d9825">core::EncumbranceLevel::HeavilyEncumbered</a></div><div class="ttdeci">@ HeavilyEncumbered</div><div class="ttdoc">Au-delà du second : vitesse diminuée davantage, et désavantage.</div><div class="ttdef"><b>Definition</b> Inventory.h:89</div></div>
+<div class="ttc" id="anamespacecore_html_ad77756d2c98fad50a0b353e7924843a5a3352f503cd5d323c5d6588fab6b4d9ae"><div class="ttname"><a href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5a3352f503cd5d323c5d6588fab6b4d9ae">core::EncumbranceLevel::Encumbered</a></div><div class="ttdeci">@ Encumbered</div><div class="ttdoc">Au-delà du premier seuil : vitesse diminuée.</div><div class="ttdef"><b>Definition</b> Inventory.h:88</div></div>
+<div class="ttc" id="anamespacecore_html_ad77756d2c98fad50a0b353e7924843a5a4fcf3e94521b7db24bd0c3bd6e9201af"><div class="ttname"><a href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5a4fcf3e94521b7db24bd0c3bd6e9201af">core::EncumbranceLevel::OverCapacity</a></div><div class="ttdeci">@ OverCapacity</div><div class="ttdoc">Au-delà de la capacité de charge : il ne peut plus porter.</div><div class="ttdef"><b>Definition</b> Inventory.h:90</div></div>
+<div class="ttc" id="anamespacecore_html_ad77756d2c98fad50a0b353e7924843a5ae0c8631adc840f2dc3d7ad58f3353734"><div class="ttname"><a href="namespacecore.html#ad77756d2c98fad50a0b353e7924843a5ae0c8631adc840f2dc3d7ad58f3353734">core::EncumbranceLevel::Unencumbered</a></div><div class="ttdeci">@ Unencumbered</div><div class="ttdoc">Rien ne le ralentit.</div><div class="ttdef"><b>Definition</b> Inventory.h:87</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6">core::EquipmentSlot</a></div><div class="ttdeci">EquipmentSlot</div><div class="ttdoc">Les seize emplacements d&#39;équipement de la planche 2 du corpus.</div><div class="ttdef"><b>Definition</b> Inventory.h:99</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6a0f2e8e047e38898ec859c631576985e7"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a0f2e8e047e38898ec859c631576985e7">core::EquipmentSlot::Feet</a></div><div class="ttdeci">@ Feet</div><div class="ttdef"><b>Definition</b> Inventory.h:112</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6a18c5b5c7381f5d9eecaa5b06a6bb4960"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a18c5b5c7381f5d9eecaa5b06a6bb4960">core::EquipmentSlot::Ammunition</a></div><div class="ttdeci">@ Ammunition</div><div class="ttdef"><b>Definition</b> Inventory.h:111</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6a1f9cdfca2d19bbc92349db7eb1544434"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a1f9cdfca2d19bbc92349db7eb1544434">core::EquipmentSlot::MainHand</a></div><div class="ttdeci">@ MainHand</div><div class="ttdef"><b>Definition</b> Inventory.h:108</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6a2390e3a8317e0d192cdbaebaaa54a716"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a2390e3a8317e0d192cdbaebaaa54a716">core::EquipmentSlot::RingRight</a></div><div class="ttdeci">@ RingRight</div><div class="ttdef"><b>Definition</b> Inventory.h:107</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6a2cbd779a6d41d9715d259a5d7e8bb93d"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a2cbd779a6d41d9715d259a5d7e8bb93d">core::EquipmentSlot::Cloak</a></div><div class="ttdeci">@ Cloak</div><div class="ttdef"><b>Definition</b> Inventory.h:102</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6a2cc539207caf1a7e1e986b92e4462d7c"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a2cc539207caf1a7e1e986b92e4462d7c">core::EquipmentSlot::OffHand</a></div><div class="ttdeci">@ OffHand</div><div class="ttdef"><b>Definition</b> Inventory.h:109</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6a40cfe9b834ee37afb1bb5543c11666c1"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a40cfe9b834ee37afb1bb5543c11666c1">core::EquipmentSlot::RingLeft</a></div><div class="ttdeci">@ RingLeft</div><div class="ttdef"><b>Definition</b> Inventory.h:106</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6a4bcdcbebd685f9bc46f03d2c71ae3837"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a4bcdcbebd685f9bc46f03d2c71ae3837">core::EquipmentSlot::Pouch</a></div><div class="ttdeci">@ Pouch</div><div class="ttdef"><b>Definition</b> Inventory.h:114</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6a6833e5c3ce1911011c2bb97d48a0a24b"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a6833e5c3ce1911011c2bb97d48a0a24b">core::EquipmentSlot::Neck</a></div><div class="ttdeci">@ Neck</div><div class="ttdef"><b>Definition</b> Inventory.h:101</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6a94b1fe49b616aa3862defa8922c7493d"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a94b1fe49b616aa3862defa8922c7493d">core::EquipmentSlot::Torso</a></div><div class="ttdeci">@ Torso</div><div class="ttdef"><b>Definition</b> Inventory.h:103</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6a98921133d10fbdb0fb6dbb7b2648befe"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a98921133d10fbdb0fb6dbb7b2648befe">core::EquipmentSlot::Head</a></div><div class="ttdeci">@ Head</div><div class="ttdef"><b>Definition</b> Inventory.h:100</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6a9ee4ab45b4b030348971997e4b6a4c37"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a9ee4ab45b4b030348971997e4b6a4c37">core::EquipmentSlot::Trinket</a></div><div class="ttdeci">@ Trinket</div><div class="ttdef"><b>Definition</b> Inventory.h:115</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6ac0de26eacdb0be95995bddc8d719bc4b"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6ac0de26eacdb0be95995bddc8d719bc4b">core::EquipmentSlot::Hands</a></div><div class="ttdeci">@ Hands</div><div class="ttdef"><b>Definition</b> Inventory.h:105</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6ad1d0518303e6170ce9bb8bc1bd54248c"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6ad1d0518303e6170ce9bb8bc1bd54248c">core::EquipmentSlot::Belt</a></div><div class="ttdeci">@ Belt</div><div class="ttdef"><b>Definition</b> Inventory.h:104</div></div>
+<div class="ttc" id="anamespacecore_html_af71085608729d9857e7ee3fd17be6cd6af1df96a16d18cc71cfd4bc442556bf46"><div class="ttname"><a href="namespacecore.html#af71085608729d9857e7ee3fd17be6cd6af1df96a16d18cc71cfd4bc442556bf46">core::EquipmentSlot::Bracers</a></div><div class="ttdeci">@ Bracers</div><div class="ttdef"><b>Definition</b> Inventory.h:113</div></div>
+<div class="ttc" id="astructcore_1_1CharacterCreationRules_html"><div class="ttname"><a href="structcore_1_1CharacterCreationRules.html">core::CharacterCreationRules</a></div><div class="ttdoc">Les deux constantes de règle qu&#39;une fiche emploie, lues dans la donnée.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:67</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html"><div class="ttname"><a href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a></div><div class="ttdoc">La fiche d&#39;une créature jouable ou non : héros, PNJ, ennemi.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:102</div></div>
+<div class="ttc" id="astructcore_1_1DerivedStats_html"><div class="ttname"><a href="structcore_1_1DerivedStats.html">core::DerivedStats</a></div><div class="ttdoc">Ce que l&#39;équipement porté produit — recalculé, jamais accumulé.</div><div class="ttdef"><b>Definition</b> Inventory.h:212</div></div>
+<div class="ttc" id="astructcore_1_1DerivedStats_html_a032674d22be164e28116e6c3eab974f6"><div class="ttname"><a href="structcore_1_1DerivedStats.html#a032674d22be164e28116e6c3eab974f6">core::DerivedStats::attackAbility</a></div><div class="ttdeci">Ability attackAbility</div><div class="ttdoc">Caractéristique du jet d&#39;attaque : Force au corps à corps, Dextérité à distance.</div><div class="ttdef"><b>Definition</b> Inventory.h:220</div></div>
+<div class="ttc" id="astructcore_1_1DerivedStats_html_a19069ad5cee5bd2ae14964650bb902d7"><div class="ttname"><a href="structcore_1_1DerivedStats.html#a19069ad5cee5bd2ae14964650bb902d7">core::DerivedStats::damage</a></div><div class="ttdeci">std::optional&lt; Dice &gt; damage</div><div class="ttdoc">Dés de dégâts de l&#39;arme en main directrice.</div><div class="ttdef"><b>Definition</b> Inventory.h:217</div></div>
+<div class="ttc" id="astructcore_1_1DerivedStats_html_a26560863107e78737619098c0c9121d7"><div class="ttname"><a href="structcore_1_1DerivedStats.html#a26560863107e78737619098c0c9121d7">core::DerivedStats::carryingCapacityGrams</a></div><div class="ttdeci">int carryingCapacityGrams</div><div class="ttdef"><b>Definition</b> Inventory.h:223</div></div>
+<div class="ttc" id="astructcore_1_1DerivedStats_html_a5d6bed5c5e676c6c3ffaabe946008d9d"><div class="ttname"><a href="structcore_1_1DerivedStats.html#a5d6bed5c5e676c6c3ffaabe946008d9d">core::DerivedStats::carriedWeightGrams</a></div><div class="ttdeci">int carriedWeightGrams</div><div class="ttdoc">Poids porté, en grammes, et la charge qui en découle.</div><div class="ttdef"><b>Definition</b> Inventory.h:222</div></div>
+<div class="ttc" id="astructcore_1_1DerivedStats_html_abdbaa82fa4aa60cbc2ab3fa591c4999d"><div class="ttname"><a href="structcore_1_1DerivedStats.html#abdbaa82fa4aa60cbc2ab3fa591c4999d">core::DerivedStats::armorClass</a></div><div class="ttdeci">int armorClass</div><div class="ttdoc">Classe d&#39;armure, armure et bouclier compris (core::armorClassFor, LOT-34).</div><div class="ttdef"><b>Definition</b> Inventory.h:214</div></div>
+<div class="ttc" id="astructcore_1_1DerivedStats_html_ac9809a3bddea3e08df19f4fe32796bda"><div class="ttname"><a href="structcore_1_1DerivedStats.html#ac9809a3bddea3e08df19f4fe32796bda">core::DerivedStats::encumbrance</a></div><div class="ttdeci">EncumbranceLevel encumbrance</div><div class="ttdef"><b>Definition</b> Inventory.h:224</div></div>
+<div class="ttc" id="astructcore_1_1DerivedStats_html_ae06361dd7d163ffea7df71549f4cab57"><div class="ttname"><a href="structcore_1_1DerivedStats.html#ae06361dd7d163ffea7df71549f4cab57">core::DerivedStats::speedMeters</a></div><div class="ttdeci">float speedMeters</div><div class="ttdoc">Vitesse une fois la charge retirée, en mètres. Jamais négative.</div><div class="ttdef"><b>Definition</b> Inventory.h:226</div></div>
+<div class="ttc" id="astructcore_1_1DerivedStats_html_aedd7077c41d1b2e12f52facb4b513833"><div class="ttname"><a href="structcore_1_1DerivedStats.html#aedd7077c41d1b2e12f52facb4b513833">core::DerivedStats::damageType</a></div><div class="ttdeci">std::optional&lt; DamageType &gt; damageType</div><div class="ttdef"><b>Definition</b> Inventory.h:218</div></div>
+<div class="ttc" id="astructcore_1_1EncumbranceRules_html"><div class="ttname"><a href="structcore_1_1EncumbranceRules.html">core::EncumbranceRules</a></div><div class="ttdoc">Les bornes de charge, lues dans la donnée (rules/encumbrance.json).</div><div class="ttdef"><b>Definition</b> Inventory.h:67</div></div>
+<div class="ttc" id="astructcore_1_1EncumbranceRules_html_a1a166405a9deaeacbb1f49dc13a1cfb9"><div class="ttname"><a href="structcore_1_1EncumbranceRules.html#a1a166405a9deaeacbb1f49dc13a1cfb9">core::EncumbranceRules::encumberedSpeedPenaltyMeters</a></div><div class="ttdeci">float encumberedSpeedPenaltyMeters</div><div class="ttdef"><b>Definition</b> Inventory.h:71</div></div>
+<div class="ttc" id="astructcore_1_1EncumbranceRules_html_a3839816c0fedab9cd9c0906469433442"><div class="ttname"><a href="structcore_1_1EncumbranceRules.html#a3839816c0fedab9cd9c0906469433442">core::EncumbranceRules::carryingCapacityGramsPerStrength</a></div><div class="ttdeci">int carryingCapacityGramsPerStrength</div><div class="ttdef"><b>Definition</b> Inventory.h:68</div></div>
+<div class="ttc" id="astructcore_1_1EncumbranceRules_html_a7aa51ac673e6b51f0b7072ee097947a5"><div class="ttname"><a href="structcore_1_1EncumbranceRules.html#a7aa51ac673e6b51f0b7072ee097947a5">core::EncumbranceRules::isLoaded</a></div><div class="ttdeci">bool isLoaded() const noexcept</div><div class="ttdef"><b>Definition</b> Inventory.h:76</div></div>
+<div class="ttc" id="astructcore_1_1EncumbranceRules_html_aa0ba2b93262161da8432df45d2555c72"><div class="ttname"><a href="structcore_1_1EncumbranceRules.html#aa0ba2b93262161da8432df45d2555c72">core::EncumbranceRules::heavilyEncumberedGramsPerStrength</a></div><div class="ttdeci">int heavilyEncumberedGramsPerStrength</div><div class="ttdef"><b>Definition</b> Inventory.h:70</div></div>
+<div class="ttc" id="astructcore_1_1EncumbranceRules_html_ab50acad08027a30928c134fa7769bd3b"><div class="ttname"><a href="structcore_1_1EncumbranceRules.html#ab50acad08027a30928c134fa7769bd3b">core::EncumbranceRules::encumberedGramsPerStrength</a></div><div class="ttdeci">int encumberedGramsPerStrength</div><div class="ttdef"><b>Definition</b> Inventory.h:69</div></div>
+<div class="ttc" id="astructcore_1_1EncumbranceRules_html_af6e135349610aa4225b81cb988d3c2cd"><div class="ttname"><a href="structcore_1_1EncumbranceRules.html#af6e135349610aa4225b81cb988d3c2cd">core::EncumbranceRules::heavilyEncumberedSpeedPenaltyMeters</a></div><div class="ttdeci">float heavilyEncumberedSpeedPenaltyMeters</div><div class="ttdef"><b>Definition</b> Inventory.h:72</div></div>
+<div class="ttc" id="astructcore_1_1EquipmentCatalog_html"><div class="ttname"><a href="structcore_1_1EquipmentCatalog.html">core::EquipmentCatalog</a></div><div class="ttdoc">Les deux catalogues chargés, et ce qui n&#39;a pas pu l&#39;être.</div><div class="ttdef"><b>Definition</b> Equipment.h:89</div></div>
+<div class="ttc" id="astructcore_1_1InventoryStack_html"><div class="ttname"><a href="structcore_1_1InventoryStack.html">core::InventoryStack</a></div><div class="ttdoc">Une ligne du sac : un identifiant de catalogue et une quantité.</div><div class="ttdef"><b>Definition</b> Inventory.h:127</div></div>
+<div class="ttc" id="astructcore_1_1InventoryStack_html_a19c603affe50a67f5c8aa523afc41358"><div class="ttname"><a href="structcore_1_1InventoryStack.html#a19c603affe50a67f5c8aa523afc41358">core::InventoryStack::quantity</a></div><div class="ttdeci">int quantity</div><div class="ttdef"><b>Definition</b> Inventory.h:129</div></div>
+<div class="ttc" id="astructcore_1_1InventoryStack_html_af896e96e7f8c432601f8fa7c78cbf5bc"><div class="ttname"><a href="structcore_1_1InventoryStack.html#af896e96e7f8c432601f8fa7c78cbf5bc">core::InventoryStack::itemId</a></div><div class="ttdeci">std::string itemId</div><div class="ttdef"><b>Definition</b> Inventory.h:128</div></div>
+<div class="ttc" id="astructcore_1_1Inventory_html"><div class="ttname"><a href="structcore_1_1Inventory.html">core::Inventory</a></div><div class="ttdoc">Ce qu&#39;un personnage porte : son sac, et ce qu&#39;il a sur lui.</div><div class="ttdef"><b>Definition</b> Inventory.h:147</div></div>
+<div class="ttc" id="astructcore_1_1Inventory_html_a120cf3f2b69a7f317f5b0dcefd773c0e"><div class="ttname"><a href="structcore_1_1Inventory.html#a120cf3f2b69a7f317f5b0dcefd773c0e">core::Inventory::purseCopper</a></div><div class="ttdeci">int purseCopper</div><div class="ttdoc">Bourse, en pièces de cuivre — la même unité que les prix du catalogue.</div><div class="ttdef"><b>Definition</b> Inventory.h:153</div></div>
+<div class="ttc" id="astructcore_1_1Inventory_html_a1a10659783aa894f79d4e2efa1a8d4ee"><div class="ttname"><a href="structcore_1_1Inventory.html#a1a10659783aa894f79d4e2efa1a8d4ee">core::Inventory::at</a></div><div class="ttdeci">const std::string &amp; at(EquipmentSlot slot) const</div><div class="ttdef"><b>Definition</b> Inventory.h:156</div></div>
+<div class="ttc" id="astructcore_1_1Inventory_html_a69466b9692bc8350330186874e3ae038"><div class="ttname"><a href="structcore_1_1Inventory.html#a69466b9692bc8350330186874e3ae038">core::Inventory::backpack</a></div><div class="ttdeci">std::vector&lt; InventoryStack &gt; backpack</div><div class="ttdoc">Le sac, dans l&#39;ordre où il a été rempli.</div><div class="ttdef"><b>Definition</b> Inventory.h:151</div></div>
+<div class="ttc" id="astructcore_1_1Inventory_html_a6bdd1949358ca49f977163c591dc3d12"><div class="ttname"><a href="structcore_1_1Inventory.html#a6bdd1949358ca49f977163c591dc3d12">core::Inventory::isEquipped</a></div><div class="ttdeci">bool isEquipped(EquipmentSlot slot) const</div><div class="ttdef"><b>Definition</b> Inventory.h:160</div></div>
+<div class="ttc" id="astructcore_1_1Inventory_html_abf787423090884ef88096f21d2828da1"><div class="ttname"><a href="structcore_1_1Inventory.html#abf787423090884ef88096f21d2828da1">core::Inventory::equipped</a></div><div class="ttdeci">std::array&lt; std::string, EQUIPMENT_SLOT_COUNT &gt; equipped</div><div class="ttdoc">L&#39;équipement porté, par emplacement : un identifiant de catalogue, ou une chaîne vide.</div><div class="ttdef"><b>Definition</b> Inventory.h:149</div></div>
+<div class="ttc" id="astructcore_1_1ItemCatalog_html"><div class="ttname"><a href="structcore_1_1ItemCatalog.html">core::ItemCatalog</a></div><div class="ttdoc">Le catalogue d&#39;objets, et ce qui n&#39;a pas pu être lu.</div><div class="ttdef"><b>Definition</b> Inventory.h:50</div></div>
+<div class="ttc" id="astructcore_1_1ItemCatalog_html_a6cc859a4c9126eea85bfafbc5965994a"><div class="ttname"><a href="structcore_1_1ItemCatalog.html#a6cc859a4c9126eea85bfafbc5965994a">core::ItemCatalog::errors</a></div><div class="ttdeci">std::vector&lt; std::string &gt; errors</div><div class="ttdef"><b>Definition</b> Inventory.h:52</div></div>
+<div class="ttc" id="astructcore_1_1ItemCatalog_html_a6ee92cd9077ea5b1cdbbe6616fd8bfd5"><div class="ttname"><a href="structcore_1_1ItemCatalog.html#a6ee92cd9077ea5b1cdbbe6616fd8bfd5">core::ItemCatalog::items</a></div><div class="ttdeci">std::vector&lt; Item &gt; items</div><div class="ttdef"><b>Definition</b> Inventory.h:51</div></div>
+<div class="ttc" id="astructcore_1_1ItemCatalog_html_ad9916b9df9842ebd012659eefea5998d"><div class="ttname"><a href="structcore_1_1ItemCatalog.html#ad9916b9df9842ebd012659eefea5998d">core::ItemCatalog::find</a></div><div class="ttdeci">const Item * find(std::string_view id) const</div><div class="ttdef"><b>Definition</b> Inventory.cpp:83</div></div>
+<div class="ttc" id="astructcore_1_1ItemLookup_html"><div class="ttname"><a href="structcore_1_1ItemLookup.html">core::ItemLookup</a></div><div class="ttdoc">Les trois catalogues qu&#39;un inventaire consulte pour peser et pour dériver.</div><div class="ttdef"><b>Definition</b> Inventory.h:187</div></div>
+<div class="ttc" id="astructcore_1_1ItemLookup_html_a8de14476fd1b32d8e88d41fd18b4b0da"><div class="ttname"><a href="structcore_1_1ItemLookup.html#a8de14476fd1b32d8e88d41fd18b4b0da">core::ItemLookup::equipment</a></div><div class="ttdeci">const EquipmentCatalog * equipment</div><div class="ttdef"><b>Definition</b> Inventory.h:189</div></div>
+<div class="ttc" id="astructcore_1_1ItemLookup_html_a911405483110eb776e74b7d4351dacca"><div class="ttname"><a href="structcore_1_1ItemLookup.html#a911405483110eb776e74b7d4351dacca">core::ItemLookup::weightGramsOf</a></div><div class="ttdeci">int weightGramsOf(std::string_view id) const</div><div class="ttdef"><b>Definition</b> Inventory.cpp:185</div></div>
+<div class="ttc" id="astructcore_1_1ItemLookup_html_adad9bb82572c711303edbfac5990bf83"><div class="ttname"><a href="structcore_1_1ItemLookup.html#adad9bb82572c711303edbfac5990bf83">core::ItemLookup::items</a></div><div class="ttdeci">const ItemCatalog * items</div><div class="ttdef"><b>Definition</b> Inventory.h:188</div></div>
+<div class="ttc" id="astructcore_1_1Item_html"><div class="ttname"><a href="structcore_1_1Item.html">core::Item</a></div><div class="ttdoc">Un objet du catalogue qui n&#39;est ni une arme ni une armure : matériel, outil, monture,...</div><div class="ttdef"><b>Definition</b> Inventory.h:31</div></div>
+<div class="ttc" id="astructcore_1_1Item_html_a014f98742a22400fb3796c9630ca1ec3"><div class="ttname"><a href="structcore_1_1Item.html#a014f98742a22400fb3796c9630ca1ec3">core::Item::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> Inventory.h:33</div></div>
+<div class="ttc" id="astructcore_1_1Item_html_a0b91779ef06a6a38eb688d2e83902c7a"><div class="ttname"><a href="structcore_1_1Item.html#a0b91779ef06a6a38eb688d2e83902c7a">core::Item::text</a></div><div class="ttdeci">std::string text</div><div class="ttdef"><b>Definition</b> Inventory.h:46</div></div>
+<div class="ttc" id="astructcore_1_1Item_html_a3134994c82c50a53f462dcad4dcc8187"><div class="ttname"><a href="structcore_1_1Item.html#a3134994c82c50a53f462dcad4dcc8187">core::Item::weightGrams</a></div><div class="ttdeci">int weightGrams</div><div class="ttdoc">Poids en grammes.</div><div class="ttdef"><b>Definition</b> Inventory.h:41</div></div>
+<div class="ttc" id="astructcore_1_1Item_html_a5e31bf112f66c60ee7e5fc482c645d64"><div class="ttname"><a href="structcore_1_1Item.html#a5e31bf112f66c60ee7e5fc482c645d64">core::Item::rarity</a></div><div class="ttdeci">std::string rarity</div><div class="ttdef"><b>Definition</b> Inventory.h:44</div></div>
+<div class="ttc" id="astructcore_1_1Item_html_a738829051583f957920534d3c35a5488"><div class="ttname"><a href="structcore_1_1Item.html#a738829051583f957920534d3c35a5488">core::Item::requiresAttunement</a></div><div class="ttdeci">bool requiresAttunement</div><div class="ttdef"><b>Definition</b> Inventory.h:45</div></div>
+<div class="ttc" id="astructcore_1_1Item_html_a80bdeda0a9a449b4068c39c01e48ebfd"><div class="ttname"><a href="structcore_1_1Item.html#a80bdeda0a9a449b4068c39c01e48ebfd">core::Item::id</a></div><div class="ttdeci">std::string id</div><div class="ttdef"><b>Definition</b> Inventory.h:32</div></div>
+<div class="ttc" id="astructcore_1_1Item_html_ab48a2bf1cf330ff560b9ef686cd600ce"><div class="ttname"><a href="structcore_1_1Item.html#ab48a2bf1cf330ff560b9ef686cd600ce">core::Item::price</a></div><div class="ttdeci">int price</div><div class="ttdoc">Prix en pièces de cuivre — l&#39;unité interne du projet (LOT-32).</div><div class="ttdef"><b>Definition</b> Inventory.h:38</div></div>
+<div class="ttc" id="astructcore_1_1Item_html_ac478ce0b3683cef9a26c562c3ff5e718"><div class="ttname"><a href="structcore_1_1Item.html#ac478ce0b3683cef9a26c562c3ff5e718">core::Item::stackable</a></div><div class="ttdeci">bool stackable</div><div class="ttdoc">Vrai si plusieurs exemplaires se rangent dans une même ligne d&#39;inventaire.</div><div class="ttdef"><b>Definition</b> Inventory.h:43</div></div>
+<div class="ttc" id="astructcore_1_1Item_html_ad6d6700e5b032ad1db36d0788077c9e8"><div class="ttname"><a href="structcore_1_1Item.html#ad6d6700e5b032ad1db36d0788077c9e8">core::Item::source</a></div><div class="ttdeci">std::string source</div><div class="ttdef"><b>Definition</b> Inventory.h:34</div></div>
+<div class="ttc" id="astructcore_1_1Item_html_ae2d01565dde15dc51efe6edf8540ce29"><div class="ttname"><a href="structcore_1_1Item.html#ae2d01565dde15dc51efe6edf8540ce29">core::Item::category</a></div><div class="ttdeci">std::string category</div><div class="ttdoc">Famille d&#39;usage, telle que la donnée l&#39;écrit (gear, tool, mount...).</div><div class="ttdef"><b>Definition</b> Inventory.h:36</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html"><div class="ttname"><a href="structcore_1_1Weapon.html">core::Weapon</a></div><div class="ttdoc">Une arme du catalogue.</div><div class="ttdef"><b>Definition</b> Equipment.h:59</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_de25d93b7b4ef75f45504127491f58b5.html">Rpg</a></li><li class="navelem"><a href="Inventory_8h.html">Inventory.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

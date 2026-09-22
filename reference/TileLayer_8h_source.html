@@ -1,0 +1,305 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Levels/TileLayer.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('TileLayer_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">TileLayer.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="TileLayer_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="LevelProperties_8h.html">Core/Levels/LevelProperties.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="TileMap_8h.html">Core/Levels/TileMap.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="TileType_8h.html">Core/Levels/TileType.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span></div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5d">   37</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5d">LayerKind</a> {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da3519d51443d41746a097cd54cd5c11cf">   38</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da3519d51443d41746a097cd54cd5c11cf">Ground</a>,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5dae953e8671da3a0647c0939df8ebe8e44">   39</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5dae953e8671da3a0647c0939df8ebe8e44">Decor</a>,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da15fb6ccbd11ebebcea2b48dc477f3561">   40</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da15fb6ccbd11ebebcea2b48dc477f3561">Collision</a>,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da0cc0a0507cf3d31e5089f420a4cf8b4b">   41</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da0cc0a0507cf3d31e5089f420a4cf8b4b">Legacy</a>,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>};</div>
+</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="namespacecore.html#a1639bde29cbf10d2ed8629a0fe495374">   46</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacecore.html#a1639bde29cbf10d2ed8629a0fe495374">LAYER_KIND_COUNT</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code hl_enumvalue" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da0cc0a0507cf3d31e5089f420a4cf8b4b">LayerKind::Legacy</a>) + 1;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="namespacecore.html#a9a1bd2ed20a557ddf1033a2c264c9bdd">   57</a></span>[[nodiscard]] <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="namespacecore.html#a9a1bd2ed20a557ddf1033a2c264c9bdd">layerKindName</a>(<a class="code hl_enumeration" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5d">LayerKind</a> kind) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">switch</span> (kind) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da3519d51443d41746a097cd54cd5c11cf">LayerKind::Ground</a>:</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;ground&quot;</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5dae953e8671da3a0647c0939df8ebe8e44">LayerKind::Decor</a>:</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;decor&quot;</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da15fb6ccbd11ebebcea2b48dc477f3561">LayerKind::Collision</a>:</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;collision&quot;</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da0cc0a0507cf3d31e5089f420a4cf8b4b">LayerKind::Legacy</a>:</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;legacy&quot;</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">return</span> <span class="stringliteral">&quot;ground&quot;</span>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
+</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span></div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="namespacecore.html#aaf5abd7971c954a0b6b1f917658f4d38">   78</a></span>[[nodiscard]] <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacecore.html#aaf5abd7971c954a0b6b1f917658f4d38">isVisualLayerKind</a>(<a class="code hl_enumeration" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5d">LayerKind</a> kind) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">switch</span> (kind) {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da3519d51443d41746a097cd54cd5c11cf">LayerKind::Ground</a>:</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5dae953e8671da3a0647c0939df8ebe8e44">LayerKind::Decor</a>:</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da15fb6ccbd11ebebcea2b48dc477f3561">LayerKind::Collision</a>:</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da0cc0a0507cf3d31e5089f420a4cf8b4b">LayerKind::Legacy</a>:</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
+</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span></div>
+<div class="foldopen" id="foldopen00099" data-start="{" data-end="}">
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="namespacecore.html#a96f9c5663954e6157f2593864bad5840">   99</a></span>[[nodiscard]] <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacecore.html#a96f9c5663954e6157f2593864bad5840">isVisualLayerTileType</a>(<a class="code hl_enumeration" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordflow">switch</span> (type) {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07">TileType::Empty</a>:</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">TileType::Solid</a>:</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875aaac9a63596f76a62bb9f61a5dd7c0d25">TileType::Grass</a>:</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a7cf334b79a84091f27dfc019b4b79229">TileType::Dirt</a>:</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875acec7ca178e2f7b1ae3a4600868c57aca">TileType::Sand</a>:</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a27634ff8002b12e75d98e07ccd005d18">TileType::Water</a>:</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad75f2eb4f735236e2cd65c575ed5fdc3">TileType::DeepWater</a>:</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a94e8a499539d1a472f3b5dbbb85508c0">TileType::Wall</a>:</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9b3411d2812eceb6de37c13f57825a76">TileType::Cliff</a>:</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ade8504b73ea228d0ea9bbce69752092e">TileType::Bridge</a>:</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a0b01cc688e1e0b5f6b70f858a1b389ae">TileType::Stairs</a>:</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab948e8a02a7f8dc9f098c89e8df9892c">TileType::Entry</a>:</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span></div>
+<div class="foldopen" id="foldopen00136" data-start="{" data-end="};">
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="structcore_1_1TileLayer.html">  136</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1TileLayer.html">TileLayer</a> {</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="structcore_1_1TileLayer.html#abd20477c9bb76d488dfb79c61e8a5a0c">  138</a></span>    std::string <a class="code hl_variable" href="structcore_1_1TileLayer.html#abd20477c9bb76d488dfb79c61e8a5a0c">name</a>{};</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="structcore_1_1TileLayer.html#a83a055dac4d8a85c67cb9106cfbfba11">  140</a></span>    <a class="code hl_enumeration" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5d">LayerKind</a> <a class="code hl_variable" href="structcore_1_1TileLayer.html#a83a055dac4d8a85c67cb9106cfbfba11">kind</a> = <a class="code hl_enumvalue" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da3519d51443d41746a097cd54cd5c11cf">LayerKind::Ground</a>;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="structcore_1_1TileLayer.html#ab632f9e0fcafeef0e05bd583a8dbefcd">  143</a></span>    <a class="code hl_class" href="classcore_1_1TileMap.html">TileMap</a> <a class="code hl_variable" href="structcore_1_1TileLayer.html#ab632f9e0fcafeef0e05bd583a8dbefcd">tiles</a>;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="structcore_1_1TileLayer.html#acfa350d1bf9ee7cf8495b4cd760224cb">  146</a></span>    <a class="code hl_typedef" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a> <a class="code hl_variable" href="structcore_1_1TileLayer.html#acfa350d1bf9ee7cf8495b4cd760224cb">properties</a>{};</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="structcore_1_1TileLayer.html#a05efcf8e0a2cbc6a1553ff67b7b1ec3c">  150</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1TileLayer.html#a05efcf8e0a2cbc6a1553ff67b7b1ec3c">floor</a> = 0;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="structcore_1_1TileLayer.html#a0cdb34b3f33328678990793c5cea22a0">  152</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1TileLayer.html#a0cdb34b3f33328678990793c5cea22a0">pieces</a>{};</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="structcore_1_1TileLayer.html#a9cc67efb1790cc2399581223768f8122">  154</a></span>    std::vector&lt;int&gt; <a class="code hl_variable" href="structcore_1_1TileLayer.html#a9cc67efb1790cc2399581223768f8122">elevations</a>{};</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    [[nodiscard]] std::string_view <a class="code hl_function" href="structcore_1_1TileLayer.html#a7ac52362d069c54271d4287bf1b850e7">pieceAt</a>(<span class="keywordtype">int</span> column, <span class="keywordtype">int</span> row) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="structcore_1_1TileLayer.html#ac5d433bfd68ba1d6f37986b6b9ab437a">setPiece</a>(<span class="keywordtype">int</span> column, <span class="keywordtype">int</span> row, std::string piece);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1TileLayer.html#ab0e2d96a34c433f1ad52bc5117ae4d38">hasPieces</a>() const noexcept;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="structcore_1_1TileLayer.html#a3e8783d816158a9f664727059e7d83a0">elevationAt</a>(<span class="keywordtype">int</span> column, <span class="keywordtype">int</span> row) const noexcept;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="structcore_1_1TileLayer.html#a345fbe13020bf06888d128bf0ebd0697">setElevation</a>(<span class="keywordtype">int</span> column, <span class="keywordtype">int</span> row, <span class="keywordtype">int</span> elevation);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1TileLayer.html#af6816e1a0cab3644156febc823db49d0">hasElevation</a>() const noexcept;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>};</div>
+</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1TileLayer.html">TileLayer</a> <a class="code hl_function" href="namespacecore.html#aea16e632b4af252c9fa88d8ce4731b0d">resizedLayer</a>(const <a class="code hl_struct" href="structcore_1_1TileLayer.html">TileLayer</a>&amp; layer, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height);</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aLevelProperties_8h_html"><div class="ttname"><a href="LevelProperties_8h.html">LevelProperties.h</a></div><div class="ttdoc">Propriétés libres d&#39;une couche ou d&#39;une entité de carte.</div></div>
+<div class="ttc" id="aTileMap_8h_html"><div class="ttname"><a href="TileMap_8h.html">TileMap.h</a></div><div class="ttdoc">Grille de tuiles typées d&#39;un niveau.</div></div>
+<div class="ttc" id="aTileType_8h_html"><div class="ttname"><a href="TileType_8h.html">TileType.h</a></div><div class="ttdoc">Types de tuiles d&#39;une carte et utilitaires associés.</div></div>
+<div class="ttc" id="aclasscore_1_1TileMap_html"><div class="ttname"><a href="classcore_1_1TileMap.html">core::TileMap</a></div><div class="ttdoc">Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.</div><div class="ttdef"><b>Definition</b> TileMap.h:25</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a1639bde29cbf10d2ed8629a0fe495374"><div class="ttname"><a href="namespacecore.html#a1639bde29cbf10d2ed8629a0fe495374">core::LAYER_KIND_COUNT</a></div><div class="ttdeci">constexpr int LAYER_KIND_COUNT</div><div class="ttdoc">Nombre de valeurs de core::LayerKind — même convention que core::TILE_TYPE_COUNT : toute valeur ajout...</div><div class="ttdef"><b>Definition</b> TileLayer.h:46</div></div>
+<div class="ttc" id="anamespacecore_html_a96f9c5663954e6157f2593864bad5840"><div class="ttname"><a href="namespacecore.html#a96f9c5663954e6157f2593864bad5840">core::isVisualLayerTileType</a></div><div class="ttdeci">constexpr bool isVisualLayerTileType(TileType type) noexcept</div><div class="ttdoc">Vrai si type se peint sur une couche visuelle (sol ou décor, LOT-11).</div><div class="ttdef"><b>Definition</b> TileLayer.h:99</div></div>
+<div class="ttc" id="anamespacecore_html_a9a1bd2ed20a557ddf1033a2c264c9bdd"><div class="ttname"><a href="namespacecore.html#a9a1bd2ed20a557ddf1033a2c264c9bdd">core::layerKindName</a></div><div class="ttdeci">constexpr const char * layerKindName(LayerKind kind) noexcept</div><div class="ttdoc">Nom JSON d&#39;un rôle de couche.</div><div class="ttdef"><b>Definition</b> TileLayer.h:57</div></div>
+<div class="ttc" id="anamespacecore_html_aaf5abd7971c954a0b6b1f917658f4d38"><div class="ttname"><a href="namespacecore.html#aaf5abd7971c954a0b6b1f917658f4d38">core::isVisualLayerKind</a></div><div class="ttdeci">constexpr bool isVisualLayerKind(LayerKind kind) noexcept</div><div class="ttdoc">Vrai si une couche de rôle kind porte une image — le sol ou le décor —, et non le masque de collision...</div><div class="ttdef"><b>Definition</b> TileLayer.h:78</div></div>
+<div class="ttc" id="anamespacecore_html_ab0cf50b7ad0dce1357c85662e0fb7e5d"><div class="ttname"><a href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5d">core::LayerKind</a></div><div class="ttdeci">LayerKind</div><div class="ttdoc">Rôle d&#39;une couche de tuiles dans une carte.</div><div class="ttdef"><b>Definition</b> TileLayer.h:37</div></div>
+<div class="ttc" id="anamespacecore_html_ab0cf50b7ad0dce1357c85662e0fb7e5da0cc0a0507cf3d31e5089f420a4cf8b4b"><div class="ttname"><a href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da0cc0a0507cf3d31e5089f420a4cf8b4b">core::LayerKind::Legacy</a></div><div class="ttdeci">@ Legacy</div><div class="ttdef"><b>Definition</b> TileLayer.h:41</div></div>
+<div class="ttc" id="anamespacecore_html_ab0cf50b7ad0dce1357c85662e0fb7e5da15fb6ccbd11ebebcea2b48dc477f3561"><div class="ttname"><a href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da15fb6ccbd11ebebcea2b48dc477f3561">core::LayerKind::Collision</a></div><div class="ttdeci">@ Collision</div><div class="ttdef"><b>Definition</b> TileLayer.h:40</div></div>
+<div class="ttc" id="anamespacecore_html_ab0cf50b7ad0dce1357c85662e0fb7e5da3519d51443d41746a097cd54cd5c11cf"><div class="ttname"><a href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da3519d51443d41746a097cd54cd5c11cf">core::LayerKind::Ground</a></div><div class="ttdeci">@ Ground</div><div class="ttdef"><b>Definition</b> TileLayer.h:38</div></div>
+<div class="ttc" id="anamespacecore_html_ab0cf50b7ad0dce1357c85662e0fb7e5dae953e8671da3a0647c0939df8ebe8e44"><div class="ttname"><a href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5dae953e8671da3a0647c0939df8ebe8e44">core::LayerKind::Decor</a></div><div class="ttdeci">@ Decor</div><div class="ttdef"><b>Definition</b> TileLayer.h:39</div></div>
+<div class="ttc" id="anamespacecore_html_ac3cd7f319efbfd33f183ca31782d1731"><div class="ttname"><a href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">core::PropertyMap</a></div><div class="ttdeci">std::map&lt; std::string, PropertyValue &gt; PropertyMap</div><div class="ttdoc">Propriétés libres, indexées par nom.</div><div class="ttdef"><b>Definition</b> LevelProperties.h:44</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></div><div class="ttdeci">TileType</div><div class="ttdoc">Type d&#39;une tuile de la grille d&#39;une carte (EX-LVL-002).</div><div class="ttdef"><b>Definition</b> TileType.h:24</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a0b01cc688e1e0b5f6b70f858a1b389ae"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a0b01cc688e1e0b5f6b70f858a1b389ae">core::TileType::Stairs</a></div><div class="ttdeci">@ Stairs</div><div class="ttdoc">Escalier : liaison verticale d&#39;une carte à l&#39;autre, traversable.</div><div class="ttdef"><b>Definition</b> TileType.h:49</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a27634ff8002b12e75d98e07ccd005d18"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a27634ff8002b12e75d98e07ccd005d18">core::TileType::Water</a></div><div class="ttdeci">@ Water</div><div class="ttdoc">Eau peu profonde : traversable — on y patauge.</div><div class="ttdef"><b>Definition</b> TileType.h:37</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a7cf334b79a84091f27dfc019b4b79229"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a7cf334b79a84091f27dfc019b4b79229">core::TileType::Dirt</a></div><div class="ttdeci">@ Dirt</div><div class="ttdoc">Terre battue : chemins, cours, sols d&#39;intérieur sommaires.</div><div class="ttdef"><b>Definition</b> TileType.h:32</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a94e8a499539d1a472f3b5dbbb85508c0"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a94e8a499539d1a472f3b5dbbb85508c0">core::TileType::Wall</a></div><div class="ttdeci">@ Wall</div><div class="ttdoc">Mur : la matière pleine bâtie, distincte de Solid (matière générique du socle) parce que l&#39;éditeur et...</div><div class="ttdef"><b>Definition</b> TileType.h:42</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a9b3411d2812eceb6de37c13f57825a76"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9b3411d2812eceb6de37c13f57825a76">core::TileType::Cliff</a></div><div class="ttdeci">@ Cliff</div><div class="ttdoc">Falaise : rupture de relief infranchissable, l&#39;obstacle naturel du décor extérieur.</div><div class="ttdef"><b>Definition</b> TileType.h:44</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875aaac9a63596f76a62bb9f61a5dd7c0d25"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875aaac9a63596f76a62bb9f61a5dd7c0d25">core::TileType::Grass</a></div><div class="ttdeci">@ Grass</div><div class="ttdoc">Herbe : le sol par défaut d&#39;une carte extérieure.</div><div class="ttdef"><b>Definition</b> TileType.h:30</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ab948e8a02a7f8dc9f098c89e8df9892c"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab948e8a02a7f8dc9f098c89e8df9892c">core::TileType::Entry</a></div><div class="ttdeci">@ Entry</div><div class="ttdef"><b>Definition</b> TileType.h:27</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07">core::TileType::Empty</a></div><div class="ttdeci">@ Empty</div><div class="ttdef"><b>Definition</b> TileType.h:25</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875acec7ca178e2f7b1ae3a4600868c57aca"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875acec7ca178e2f7b1ae3a4600868c57aca">core::TileType::Sand</a></div><div class="ttdeci">@ Sand</div><div class="ttdoc">Sable : plages et déserts. Traversable, comme l&#39;herbe et la terre.</div><div class="ttdef"><b>Definition</b> TileType.h:34</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ad75f2eb4f735236e2cd65c575ed5fdc3"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad75f2eb4f735236e2cd65c575ed5fdc3">core::TileType::DeepWater</a></div><div class="ttdeci">@ DeepWater</div><div class="ttdoc">Eau profonde : infranchissable tant qu&#39;aucune règle de nage n&#39;existe (isSolid).</div><div class="ttdef"><b>Definition</b> TileType.h:39</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ade8504b73ea228d0ea9bbce69752092e"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ade8504b73ea228d0ea9bbce69752092e">core::TileType::Bridge</a></div><div class="ttdeci">@ Bridge</div><div class="ttdoc">Pont : franchit l&#39;eau ou un ravin. Traversable, et c&#39;est tout son intérêt.</div><div class="ttdef"><b>Definition</b> TileType.h:46</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">core::TileType::Solid</a></div><div class="ttdeci">@ Solid</div><div class="ttdef"><b>Definition</b> TileType.h:26</div></div>
+<div class="ttc" id="anamespacecore_html_aea16e632b4af252c9fa88d8ce4731b0d"><div class="ttname"><a href="namespacecore.html#aea16e632b4af252c9fa88d8ce4731b0d">core::resizedLayer</a></div><div class="ttdeci">TileLayer resizedLayer(const TileLayer &amp;layer, int width, int height)</div><div class="ttdoc">La couche layer aux dimensions width × height : types, pièces et hauteurs recopiés,...</div><div class="ttdef"><b>Definition</b> TileLayer.cpp:83</div></div>
+<div class="ttc" id="astructcore_1_1TileLayer_html"><div class="ttname"><a href="structcore_1_1TileLayer.html">core::TileLayer</a></div><div class="ttdoc">Une couche de tuiles : son rôle, sa grille, ses pièces, et ses propriétés libres.</div><div class="ttdef"><b>Definition</b> TileLayer.h:136</div></div>
+<div class="ttc" id="astructcore_1_1TileLayer_html_a05efcf8e0a2cbc6a1553ff67b7b1ec3c"><div class="ttname"><a href="structcore_1_1TileLayer.html#a05efcf8e0a2cbc6a1553ff67b7b1ec3c">core::TileLayer::floor</a></div><div class="ttdeci">int floor</div><div class="ttdoc">Étage de la couche.</div><div class="ttdef"><b>Definition</b> TileLayer.h:150</div></div>
+<div class="ttc" id="astructcore_1_1TileLayer_html_a0cdb34b3f33328678990793c5cea22a0"><div class="ttname"><a href="structcore_1_1TileLayer.html#a0cdb34b3f33328678990793c5cea22a0">core::TileLayer::pieces</a></div><div class="ttdeci">std::vector&lt; std::string &gt; pieces</div><div class="ttdoc">Pièce nommée par case, ligne par ligne ; vide si aucune case n&#39;en nomme.</div><div class="ttdef"><b>Definition</b> TileLayer.h:152</div></div>
+<div class="ttc" id="astructcore_1_1TileLayer_html_a345fbe13020bf06888d128bf0ebd0697"><div class="ttname"><a href="structcore_1_1TileLayer.html#a345fbe13020bf06888d128bf0ebd0697">core::TileLayer::setElevation</a></div><div class="ttdeci">void setElevation(int column, int row, int elevation)</div><div class="ttdoc">Donne sa hauteur à (column, row). Hors grille : rien.</div><div class="ttdef"><b>Definition</b> TileLayer.cpp:63</div></div>
+<div class="ttc" id="astructcore_1_1TileLayer_html_a3e8783d816158a9f664727059e7d83a0"><div class="ttname"><a href="structcore_1_1TileLayer.html#a3e8783d816158a9f664727059e7d83a0">core::TileLayer::elevationAt</a></div><div class="ttdeci">int elevationAt(int column, int row) const noexcept</div><div class="ttdef"><b>Definition</b> TileLayer.cpp:55</div></div>
+<div class="ttc" id="astructcore_1_1TileLayer_html_a7ac52362d069c54271d4287bf1b850e7"><div class="ttname"><a href="structcore_1_1TileLayer.html#a7ac52362d069c54271d4287bf1b850e7">core::TileLayer::pieceAt</a></div><div class="ttdeci">std::string_view pieceAt(int column, int row) const noexcept</div><div class="ttdef"><b>Definition</b> TileLayer.cpp:26</div></div>
+<div class="ttc" id="astructcore_1_1TileLayer_html_a83a055dac4d8a85c67cb9106cfbfba11"><div class="ttname"><a href="structcore_1_1TileLayer.html#a83a055dac4d8a85c67cb9106cfbfba11">core::TileLayer::kind</a></div><div class="ttdeci">LayerKind kind</div><div class="ttdoc">Rôle de la couche.</div><div class="ttdef"><b>Definition</b> TileLayer.h:140</div></div>
+<div class="ttc" id="astructcore_1_1TileLayer_html_a9cc67efb1790cc2399581223768f8122"><div class="ttname"><a href="structcore_1_1TileLayer.html#a9cc67efb1790cc2399581223768f8122">core::TileLayer::elevations</a></div><div class="ttdeci">std::vector&lt; int &gt; elevations</div><div class="ttdoc">Hauteur par case, ligne par ligne ; vide si toutes valent 0. Réservée comme floor.</div><div class="ttdef"><b>Definition</b> TileLayer.h:154</div></div>
+<div class="ttc" id="astructcore_1_1TileLayer_html_ab0e2d96a34c433f1ad52bc5117ae4d38"><div class="ttname"><a href="structcore_1_1TileLayer.html#ab0e2d96a34c433f1ad52bc5117ae4d38">core::TileLayer::hasPieces</a></div><div class="ttdeci">bool hasPieces() const noexcept</div><div class="ttdef"><b>Definition</b> TileLayer.cpp:51</div></div>
+<div class="ttc" id="astructcore_1_1TileLayer_html_ab632f9e0fcafeef0e05bd583a8dbefcd"><div class="ttname"><a href="structcore_1_1TileLayer.html#ab632f9e0fcafeef0e05bd583a8dbefcd">core::TileLayer::tiles</a></div><div class="ttdeci">TileMap tiles</div><div class="ttdoc">Grille de tuiles de cette couche.</div><div class="ttdef"><b>Definition</b> TileLayer.h:143</div></div>
+<div class="ttc" id="astructcore_1_1TileLayer_html_abd20477c9bb76d488dfb79c61e8a5a0c"><div class="ttname"><a href="structcore_1_1TileLayer.html#abd20477c9bb76d488dfb79c61e8a5a0c">core::TileLayer::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Nom de la couche, libre et affiché par l&#39;éditeur (« sol », « décor », « collision »…).</div><div class="ttdef"><b>Definition</b> TileLayer.h:138</div></div>
+<div class="ttc" id="astructcore_1_1TileLayer_html_ac5d433bfd68ba1d6f37986b6b9ab437a"><div class="ttname"><a href="structcore_1_1TileLayer.html#ac5d433bfd68ba1d6f37986b6b9ab437a">core::TileLayer::setPiece</a></div><div class="ttdeci">void setPiece(int column, int row, std::string piece)</div><div class="ttdoc">Nomme la pièce de (column, row) ; une chaîne vide la retire.</div><div class="ttdef"><b>Definition</b> TileLayer.cpp:34</div></div>
+<div class="ttc" id="astructcore_1_1TileLayer_html_acfa350d1bf9ee7cf8495b4cd760224cb"><div class="ttname"><a href="structcore_1_1TileLayer.html#acfa350d1bf9ee7cf8495b4cd760224cb">core::TileLayer::properties</a></div><div class="ttdeci">PropertyMap properties</div><div class="ttdoc">Propriétés libres (core::PropertyMap), y compris les clés que le chargeur n&#39;a pas reconnues — elles s...</div><div class="ttdef"><b>Definition</b> TileLayer.h:146</div></div>
+<div class="ttc" id="astructcore_1_1TileLayer_html_af6816e1a0cab3644156febc823db49d0"><div class="ttname"><a href="structcore_1_1TileLayer.html#af6816e1a0cab3644156febc823db49d0">core::TileLayer::hasElevation</a></div><div class="ttdeci">bool hasElevation() const noexcept</div><div class="ttdef"><b>Definition</b> TileLayer.cpp:79</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_e9bc3547f945e106b199f4f7c7c6d92f.html">Levels</a></li><li class="navelem"><a href="TileLayer_8h.html">TileLayer.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

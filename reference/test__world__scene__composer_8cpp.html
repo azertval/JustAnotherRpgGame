@@ -1,0 +1,702 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__world__scene__composer_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_world_scene_composer.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests de la composition d'un lieu parcouru (LOT-09) : le sol vient du type de tuile, le relief de la piece nommee a la case, et la figurine se pose au pied de sa case.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileLayer_8h_source.html">Core/Levels/TileLayer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ScenePieceManifest_8h_source.html">Core/Resources/ScenePieceManifest.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MaquettePalette_8h_source.html">HMI/Graphics/MaquettePalette.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="RenderLayer_8h_source.html">HMI/Graphics/RenderLayer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ScenePiecePlacement_8h_source.html">HMI/Graphics/ScenePiecePlacement.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ScenePieces_8h_source.html">HMI/Graphics/ScenePieces.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ad2ad8454eec9aafefe119b74cc7788e5" id="r_ad2ad8454eec9aafefe119b74cc7788e5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad2ad8454eec9aafefe119b74cc7788e5">TEST</a> (WorldSceneComposerTest, LInstantaneTireLeSolDuTypeEtLeReliefDeLaCase)</td></tr>
+<tr class="memdesc:ad2ad8454eec9aafefe119b74cc7788e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'instantane tire le sol du type de tuile et le relief de la case.  <br /></td></tr>
+<tr class="memitem:aadbe4639439ea45a431150c3697e021b" id="r_aadbe4639439ea45a431150c3697e021b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aadbe4639439ea45a431150c3697e021b">TEST</a> (WorldSceneComposerTest, LesCheminsCouvrentLeLieuEtLesFigurines)</td></tr>
+<tr class="memdesc:aadbe4639439ea45a431150c3697e021b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les chemins demandes sont ceux du lieu et des figurines, sans doublon.  <br /></td></tr>
+<tr class="memitem:a5ee72efc0163defc5a481d004b6b43c3" id="r_a5ee72efc0163defc5a481d004b6b43c3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5ee72efc0163defc5a481d004b6b43c3">TEST</a> (WorldSceneComposerTest, LaCompositionPoseChaquePieceSurSonCalque)</td></tr>
+<tr class="memdesc:a5ee72efc0163defc5a481d004b6b43c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">La composition pose le sol, le relief et la figurine sur leurs calques.  <br /></td></tr>
+<tr class="memitem:ab30cbd95fc4caaa26ca67d77523819db" id="r_ab30cbd95fc4caaa26ca67d77523819db"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab30cbd95fc4caaa26ca67d77523819db">TEST</a> (WorldSceneComposerTest, UneFigurineSansImageAUneCleDeMarqueur)</td></tr>
+<tr class="memdesc:ab30cbd95fc4caaa26ca67d77523819db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine sans image a une cle de marqueur, une piece de planche n'en a pas.  <br /></td></tr>
+<tr class="memitem:a1700c5de254e103b6545603cbbfcaeb5" id="r_a1700c5de254e103b6545603cbbfcaeb5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1700c5de254e103b6545603cbbfcaeb5">TEST</a> (WorldSceneComposerTest, UneFigurineSeNommeParSlugOuParDossier)</td></tr>
+<tr class="memdesc:a1700c5de254e103b6545603cbbfcaeb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine se nomme par son slug de PNJ, ou par son dossier depuis les assets (<span class="tt">LOT-93</span>).  <br /></td></tr>
+<tr class="memitem:a7556eaa6accbc6c4a13f5424eb93cc77" id="r_a7556eaa6accbc6c4a13f5424eb93cc77"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7556eaa6accbc6c4a13f5424eb93cc77">TEST</a> (WorldSceneComposerTest, LaPieceNommeeLEmporteSousSonNomCourant)</td></tr>
+<tr class="memdesc:a7556eaa6accbc6c4a13f5424eb93cc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce nommée sur une case de <b>sol</b> l'emporte sur la table ; un ancien nom se montre sous le nom courant (format v4, <span class="tt">LOT-EDITOR-12</span>).  <br /></td></tr>
+<tr class="memitem:a635e2755bc4cfa9ee321162ebe959f1f" id="r_a635e2755bc4cfa9ee321162ebe959f1f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a635e2755bc4cfa9ee321162ebe959f1f">TEST</a> (WorldSceneComposerTest, UnePieceLargeSeTrieAuPiedDeSonEmprise)</td></tr>
+<tr class="memdesc:a635e2755bc4cfa9ee321162ebe959f1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce <b>large</b> se trie au pied de son emprise, pas de sa case d'ancrage (constat A4).  <br /></td></tr>
+<tr class="memitem:a610cdd2b87be5c70fd4813b5b94580fa" id="r_a610cdd2b87be5c70fd4813b5b94580fa"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a610cdd2b87be5c70fd4813b5b94580fa">TEST</a> (ScenePiecePlacement, DepthRequiresOptInAndValidAnchor)</td></tr>
+<tr class="memdesc:a610cdd2b87be5c70fd4813b5b94580fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">La profondeur exige un manifeste de placement valide.  <br /></td></tr>
+<tr class="memitem:ae8cd32e1e6942aa912e6f9033548c020" id="r_ae8cd32e1e6942aa912e6f9033548c020"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae8cd32e1e6942aa912e6f9033548c020">TEST</a> (MaquetteRenderTest, UneCarteSansLieuSeComposeEnLosangesDeCouleur)</td></tr>
+<tr class="memdesc:ae8cd32e1e6942aa912e6f9033548c020"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte sans lieu se compose en losanges de couleur, un par case, a la teinte de son type : c'est le rendu de maquette.  <br /></td></tr>
+<tr class="memitem:aeb89fab5296bd03b69dd87113352de18" id="r_aeb89fab5296bd03b69dd87113352de18"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aeb89fab5296bd03b69dd87113352de18">TEST</a> (MaquetteRenderTest, UnTypeNonCouvertParLeLieuPrendLaMaquette)</td></tr>
+<tr class="memdesc:aeb89fab5296bd03b69dd87113352de18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sur une carte <b>avec</b> lieu, un type que la table ne couvre pas n'est plus invisible : il prend le losange de maquette, les cases couvertes gardant leur piece.  <br /></td></tr>
+<tr class="memitem:a684b74bee119ab5f78057e124ed31e99" id="r_a684b74bee119ab5f78057e124ed31e99"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a684b74bee119ab5f78057e124ed31e99">TEST</a> (MaquetteRenderTest, SansAplatRienNEstCompose)</td></tr>
+<tr class="memdesc:a684b74bee119ab5f78057e124ed31e99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans aplat, rien n'est dessine plutot que quelque chose de faux : la maquette est une primitive de couleur, et une couleur sans texture liee ne se soumet pas.  <br /></td></tr>
+<tr class="memitem:a4cd27ffc67925c9d6bef6551ebc9d1e1" id="r_a4cd27ffc67925c9d6bef6551ebc9d1e1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4cd27ffc67925c9d6bef6551ebc9d1e1">TEST</a> (MaquetteRenderTest, UnMurSeComposeEnBlocDeTroisFaces)</td></tr>
+<tr class="memdesc:a4cd27ffc67925c9d6bef6551ebc9d1e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un type qui bloque se compose en bloc extrude : trois faces, d'eclairements distincts, montant d'une case au-dessus du losange, sur le calque du decor.  <br /></td></tr>
+<tr class="memitem:a12c3a8d5de9df25cf5a65ac5b27640fe" id="r_a12c3a8d5de9df25cf5a65ac5b27640fe"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a12c3a8d5de9df25cf5a65ac5b27640fe">TEST</a> (MaquetteRenderTest, LEauProfondeNeSExtrudePas)</td></tr>
+<tr class="memdesc:a12c3a8d5de9df25cf5a65ac5b27640fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'eau profonde bloque le pas mais n'est pas de la matiere : elle reste un losange plat, plus sombre que l'eau vive, et l'on voit par-dessus.  <br /></td></tr>
+<tr class="memitem:afcbc974d7d7f9fcec82934247d2bd185" id="r_afcbc974d7d7f9fcec82934247d2bd185"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afcbc974d7d7f9fcec82934247d2bd185">TEST</a> (MaquetteRenderTest, LaCouleurDuJetonSeDeduitDeLEntite)</td></tr>
+<tr class="memdesc:afcbc974d7d7f9fcec82934247d2bd185"><td class="mdescLeft">&#160;</td><td class="mdescRight">La couleur d'un jeton se déduit de ce que le format dit déjà, sans propriété nouvelle (décision D3) : le dialogue fait le jaune, la rencontre le rouge, le camp d'une entrée d'arène l'un ou l'autre.  <br /></td></tr>
+<tr class="memitem:a63371f8a0021934134423ad30e3411b0" id="r_a63371f8a0021934134423ad30e3411b0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a63371f8a0021934134423ad30e3411b0">TEST</a> (MaquetteRenderTest, LesTracesNeParaissentQuEnMaquette)</td></tr>
+<tr class="memdesc:a63371f8a0021934134423ad30e3411b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les jetons se posent toujours ; les tracés et la flèche du portail ne paraissent qu'en maquette — une carte finie ne montre pas ses déclencheurs.  <br /></td></tr>
+<tr class="memitem:af52962bde3a465f576bb566d156ff90c" id="r_af52962bde3a465f576bb566d156ff90c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af52962bde3a465f576bb566d156ff90c">TEST</a> (MaquetteRenderTest, LesCheminsContiennentLesJetons)</td></tr>
+<tr class="memdesc:af52962bde3a465f576bb566d156ff90c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un jeton se demande par un chemin, comme une planche : le rendu n'a rien de neuf à apprendre, il voit un chemin de plus.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests de la composition d'un lieu parcouru (LOT-09) : le sol vient du type de tuile, le relief de la piece nommee a la case, et la figurine se pose au pied de sa case. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="afcbc974d7d7f9fcec82934247d2bd185" name="afcbc974d7d7f9fcec82934247d2bd185"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcbc974d7d7f9fcec82934247d2bd185">&#9670;&#160;</a></span>TEST() <span class="overload">[1/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MaquetteRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaCouleurDuJetonSeDeduitDeLEntite</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La couleur d'un jeton se déduit de ce que le format dit déjà, sans propriété nouvelle (décision D3) : le dialogue fait le jaune, la rencontre le rouge, le camp d'une entrée d'arène l'un ou l'autre. </p>
+<p><b>Cas de test :</b> <b>La couleur d'un jeton se deduit de ce que le format dit deja.</b><br  />
+ <b>Categorie :</b> Unitaire · Jetons de maquette<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un PNJ avec dialogue, un sans, un avec figurine, une rencontre, deux entrees d'arene, un point d'apparition, un portail et un coffre.<br  />
+2. En tirer les marques.<br  />
+ <b>Resultat attendu :</b> Chaque jeton porte la nature attendue ; le PNJ qui a deja sa figurine n'a pas de jeton. </p>
+
+</div>
+</div>
+<a id="a12c3a8d5de9df25cf5a65ac5b27640fe" name="a12c3a8d5de9df25cf5a65ac5b27640fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12c3a8d5de9df25cf5a65ac5b27640fe">&#9670;&#160;</a></span>TEST() <span class="overload">[2/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MaquetteRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LEauProfondeNeSExtrudePas</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'eau profonde bloque le pas mais n'est pas de la matiere : elle reste un losange plat, plus sombre que l'eau vive, et l'on voit par-dessus. </p>
+<p><b>Cas de test :</b> <b>L'eau profonde reste un losange plat, plus sombre que l'eau vive.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu de maquette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Interroger l'extrusion et la palette pour l'eau profonde.<br  />
+ <b>Resultat attendu :</b> Elle ne s'extrude pas, et sa teinte est plus sombre que celle de l'eau. </p>
+
+</div>
+</div>
+<a id="af52962bde3a465f576bb566d156ff90c" name="af52962bde3a465f576bb566d156ff90c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af52962bde3a465f576bb566d156ff90c">&#9670;&#160;</a></span>TEST() <span class="overload">[3/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MaquetteRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesCheminsContiennentLesJetons</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un jeton se demande par un chemin, comme une planche : le rendu n'a rien de neuf à apprendre, il voit un chemin de plus. </p>
+<p><b>Cas de test :</b> <b>Les chemins de textures d'une carte contiennent ceux de ses jetons.</b><br  />
+ <b>Categorie :</b> Unitaire · Jetons de maquette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Batir une carte sans lieu portant une rencontre.<br  />
+2. Lister ses chemins de texture.<br  />
+ <b>Resultat attendu :</b> Le chemin du jeton rouge « W » y figure. </p>
+
+</div>
+</div>
+<a id="a63371f8a0021934134423ad30e3411b0" name="a63371f8a0021934134423ad30e3411b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63371f8a0021934134423ad30e3411b0">&#9670;&#160;</a></span>TEST() <span class="overload">[4/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MaquetteRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesTracesNeParaissentQuEnMaquette</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les jetons se posent toujours ; les tracés et la flèche du portail ne paraissent qu'en maquette — une carte finie ne montre pas ses déclencheurs. </p>
+<p><b>Cas de test :</b> <b>Une carte habillee garde ses jetons mais perd ses traces.</b><br  />
+ <b>Categorie :</b> Unitaire · Jetons de maquette<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Tirer les marques d'un portail, d'une zone de combat et d'un trajet, en maquette puis hors maquette.<br  />
+ <b>Resultat attendu :</b> En maquette : un jeton a fleche et deux traces. Hors maquette : le jeton sans sa fleche, et aucune trace. </p>
+
+</div>
+</div>
+<a id="a684b74bee119ab5f78057e124ed31e99" name="a684b74bee119ab5f78057e124ed31e99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a684b74bee119ab5f78057e124ed31e99">&#9670;&#160;</a></span>TEST() <span class="overload">[5/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MaquetteRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SansAplatRienNEstCompose</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sans aplat, rien n'est dessine plutot que quelque chose de faux : la maquette est une primitive de couleur, et une couleur sans texture liee ne se soumet pas. </p>
+<p><b>Cas de test :</b> <b>Sans aplat, la maquette ne compose rien.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu de maquette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer une carte sans lieu avec une table de textures sans aplat.<br  />
+ <b>Resultat attendu :</b> Aucune primitive. </p>
+
+</div>
+</div>
+<a id="ae8cd32e1e6942aa912e6f9033548c020" name="ae8cd32e1e6942aa912e6f9033548c020"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8cd32e1e6942aa912e6f9033548c020">&#9670;&#160;</a></span>TEST() <span class="overload">[6/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MaquetteRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneCarteSansLieuSeComposeEnLosangesDeCouleur</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une carte sans lieu se compose en losanges de couleur, un par case, a la teinte de son type : c'est le rendu de maquette. </p>
+<p><b>Cas de test :</b> <b>Une carte sans lieu se compose en losanges de couleur.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu de maquette<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer une carte de deux cases qui ne nomme aucun lieu.<br  />
+ <b>Resultat attendu :</b> Deux primitives Poly sur le calque des tuiles, aux teintes de l'eau et du mur. </p>
+
+</div>
+</div>
+<a id="a4cd27ffc67925c9d6bef6551ebc9d1e1" name="a4cd27ffc67925c9d6bef6551ebc9d1e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cd27ffc67925c9d6bef6551ebc9d1e1">&#9670;&#160;</a></span>TEST() <span class="overload">[7/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MaquetteRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnMurSeComposeEnBlocDeTroisFaces</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un type qui bloque se compose en bloc extrude : trois faces, d'eclairements distincts, montant d'une case au-dessus du losange, sur le calque du decor. </p>
+<p><b>Cas de test :</b> <b>Un mur se compose en bloc de trois faces, haut d'une case.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu de maquette<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer une carte d'une seule case de mur, sans lieu.<br  />
+ <b>Resultat attendu :</b> Trois primitives sur le calque du decor ; le dessus monte d'une hauteur de losange au-dessus du sommet de la case, et les trois faces n'ont pas la meme teinte. </p>
+
+</div>
+</div>
+<a id="aeb89fab5296bd03b69dd87113352de18" name="aeb89fab5296bd03b69dd87113352de18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb89fab5296bd03b69dd87113352de18">&#9670;&#160;</a></span>TEST() <span class="overload">[8/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MaquetteRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnTypeNonCouvertParLeLieuPrendLaMaquette</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sur une carte <b>avec</b> lieu, un type que la table ne couvre pas n'est plus invisible : il prend le losange de maquette, les cases couvertes gardant leur piece. </p>
+<p><b>Cas de test :</b> <b>Un type absent de la table du lieu prend le rendu de maquette.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu de maquette<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Peindre une case d'eau sur la carte du Colisee, dont la table ne couvre que le sable et la pierre.<br  />
+2. Composer.<br  />
+ <b>Resultat attendu :</b> La case d'eau est un losange de couleur ; les autres restent des pieces texturees. </p>
+
+</div>
+</div>
+<a id="a610cdd2b87be5c70fd4813b5b94580fa" name="a610cdd2b87be5c70fd4813b5b94580fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a610cdd2b87be5c70fd4813b5b94580fa">&#9670;&#160;</a></span>TEST() <span class="overload">[9/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ScenePiecePlacement</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DepthRequiresOptInAndValidAnchor</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La profondeur exige un manifeste de placement valide. </p>
+<p><b>Cas de test :</b> <b>La profondeur exige un manifeste de placement valide.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu du Colisée<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ Lire une pièce valide, une inconnue et un manifeste historique.<br  />
+ <b>Resultat attendu :</b> Profondeur présente uniquement pour la pièce valide. </p>
+
+</div>
+</div>
+<a id="a5ee72efc0163defc5a481d004b6b43c3" name="a5ee72efc0163defc5a481d004b6b43c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ee72efc0163defc5a481d004b6b43c3">&#9670;&#160;</a></span>TEST() <span class="overload">[10/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaCompositionPoseChaquePieceSurSonCalque</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La composition pose le sol, le relief et la figurine sur leurs calques. </p>
+<p><b>Cas de test :</b> <b>Sol, relief et figurine tombent sur les calques Tile, Object et Player.</b><br  />
+ <b>Categorie :</b> Unitaire · Lieu compose<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer une carte de douze cases avec un mur, une torche et une figurine.<br  />
+ <b>Resultat attendu :</b> Douze quads de sol, deux de relief, un de figurine ; la figurine est sur le calque des personnages, et son quad monte AU-DESSUS du pied de sa case. </p>
+
+</div>
+</div>
+<a id="a7556eaa6accbc6c4a13f5424eb93cc77" name="a7556eaa6accbc6c4a13f5424eb93cc77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7556eaa6accbc6c4a13f5424eb93cc77">&#9670;&#160;</a></span>TEST() <span class="overload">[11/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaPieceNommeeLEmporteSousSonNomCourant</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une pièce nommée sur une case de <b>sol</b> l'emporte sur la table ; un ancien nom se montre sous le nom courant (format v4, <span class="tt">LOT-EDITOR-12</span>). </p>
+<p><b>Cas de test :</b> <b>La pièce nommée l'emporte, sous son nom courant.</b><br  />
+ <b>Categorie :</b> Unitaire · Lieu compose<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Nommer <span class="tt">stone-slab</span> sur une case de sable, et <span class="tt">old-torch</span>, ancien nom de <span class="tt">torch-left</span>, sur le décor.<br  />
+2. Tirer l'instantané avec le manifeste des alias.<br  />
+ <b>Resultat attendu :</b> Le sol montre <span class="tt">stone-slab</span>, le relief <span class="tt">torch-left</span>. </p>
+
+</div>
+</div>
+<a id="aadbe4639439ea45a431150c3697e021b" name="aadbe4639439ea45a431150c3697e021b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadbe4639439ea45a431150c3697e021b">&#9670;&#160;</a></span>TEST() <span class="overload">[12/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesCheminsCouvrentLeLieuEtLesFigurines</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les chemins demandes sont ceux du lieu et des figurines, sans doublon. </p>
+<p><b>Cas de test :</b> <b>La liste des textures a charger couvre exactement ce que la composition resout.</b><br  />
+ <b>Categorie :</b> Unitaire · Lieu compose<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Tirer l'instantane d'une carte avec une figurine.<br  />
+</p><ol type="1">
+<li>Lister les chemins de texture.<br  />
+ <b>Resultat attendu :</b> Les pieces du lieu sous <span class="tt">Scene/&lt;lieu&gt;/</span>, les deux bandes de la figurine sous <span class="tt">Npc/&lt;slug&gt;/</span>, chaque chemin une seule fois. </li>
+</ol>
+
+</div>
+</div>
+<a id="ad2ad8454eec9aafefe119b74cc7788e5" name="ad2ad8454eec9aafefe119b74cc7788e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2ad8454eec9aafefe119b74cc7788e5">&#9670;&#160;</a></span>TEST() <span class="overload">[13/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LInstantaneTireLeSolDuTypeEtLeReliefDeLaCase</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'instantane tire le sol du type de tuile et le relief de la case. </p>
+<p><b>Cas de test :</b> <b>Le sol vient du type de tuile, le relief de la piece nommee a la case.</b><br  />
+ <b>Categorie :</b> Unitaire · Lieu compose<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Batir une carte de sable avec une case de pierre, un mur de decor et une piece nommee a une case du decor.<br  />
+</p><ol type="1">
+<li>En tirer l'instantane.<br  />
+ <b>Resultat attendu :</b> Chaque case porte la piece de son type ; la case qui nomme une piece porte SA piece. </li>
+</ol>
+
+</div>
+</div>
+<a id="ab30cbd95fc4caaa26ca67d77523819db" name="ab30cbd95fc4caaa26ca67d77523819db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab30cbd95fc4caaa26ca67d77523819db">&#9670;&#160;</a></span>TEST() <span class="overload">[14/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneFigurineSansImageAUneCleDeMarqueur</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une figurine sans image a une cle de marqueur, une piece de planche n'en a pas. </p>
+<p><b>Cas de test :</b> <b>La cle du marqueur d'une figurine se tire de son chemin de bande.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu du lieu<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander la cle de marqueur de chemins de figurine, de piece et de chemins malformes.<br  />
+ <b>Resultat attendu :</b> <span class="tt">npc/&lt;figurine&gt;</span> pour une bande de figurine, quelle que soit la bande ; rien pour une piece de planche ni pour un chemin sans figurine (LOT-96). </p>
+
+</div>
+</div>
+<a id="a1700c5de254e103b6545603cbbfcaeb5" name="a1700c5de254e103b6545603cbbfcaeb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1700c5de254e103b6545603cbbfcaeb5">&#9670;&#160;</a></span>TEST() <span class="overload">[15/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneFigurineSeNommeParSlugOuParDossier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une figurine se nomme par son slug de PNJ, ou par son dossier depuis les assets (<span class="tt">LOT-93</span>). </p>
+<p><b>Cas de test :</b> <b>Le soldat Ironhand se lit dans les monstres, Anariel dans les PNJ.</b><br  />
+ <b>Categorie :</b> Unitaire · Scène du monde<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander la bande idle d'« anariel », puis celle de « Monsters/ironhand-soldier ».<br  />
+ <b>Resultat attendu :</b> <span class="tt">Npc/anariel/idle.png</span> et <span class="tt">Monsters/ironhand-soldier/idle.png</span> ; un clip vide vaut idle. </p>
+
+</div>
+</div>
+<a id="a635e2755bc4cfa9ee321162ebe959f1f" name="a635e2755bc4cfa9ee321162ebe959f1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a635e2755bc4cfa9ee321162ebe959f1f">&#9670;&#160;</a></span>TEST() <span class="overload">[16/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnePieceLargeSeTrieAuPiedDeSonEmprise</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une pièce <b>large</b> se trie au pied de son emprise, pas de sa case d'ancrage (constat A4). </p>
+<p><b>Cas de test :</b> <b>Une pièce large se trie au pied de son emprise.</b><br  />
+ <b>Categorie :</b> Unitaire · Lieu compose<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un étal 2 × 1 et un mur 1 × 1 sur la même case d'ancrage de deux cartes.<br  />
+</p><ol type="1">
+<li>Composer les deux.<br  />
+ <b>Resultat attendu :</b> L'étal se trie après le mur : son pied est plus bas à l'écran. </li>
+</ol>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_2675e67548493d20626cf18c4081fab8.html">HMI</a></li><li class="navelem"><a href="dir_9c2c1d58a156aa8e30c089ae7a4e31f9.html">Graphics</a></li><li class="navelem"><a href="test__world__scene__composer_8cpp.html">test_world_scene_composer.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

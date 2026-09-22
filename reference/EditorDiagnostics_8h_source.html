@@ -1,0 +1,226 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/EditorDiagnostics.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('EditorDiagnostics_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">EditorDiagnostics.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="EditorDiagnostics_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="TacticalTerrain_8h.html">Core/Combat/TacticalTerrain.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="GridPosition_8h.html">Core/Levels/GridPosition.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="MapEntity_8h.html">Core/Levels/MapEntity.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="CombatZone_8h.html">Core/World/CombatZone.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="EntityKinds_8h.html">Core/World/EntityKinds.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span></div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="namespacehmi.html#a90a0b3556896d17a7c1ff5d1a0c23b4e">   26</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacehmi.html#a90a0b3556896d17a7c1ff5d1a0c23b4e">EditorDiagnosticKind</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="namespacehmi.html#a90a0b3556896d17a7c1ff5d1a0c23b4ea63d5049791d9d79d86e9a108b0a999ca">   27</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a90a0b3556896d17a7c1ff5d1a0c23b4ea63d5049791d9d79d86e9a108b0a999ca">Reference</a>,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="namespacehmi.html#a90a0b3556896d17a7c1ff5d1a0c23b4ea4ccfea7a25fae3c1d31555f0856d2b42">   28</a></span>    Terrain,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>};</div>
+</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="};">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structhmi_1_1EditorDiagnostic.html">   38</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1EditorDiagnostic.html">EditorDiagnostic</a> {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structhmi_1_1EditorDiagnostic.html#a2c618776e01c1377e31de703602c702b">   39</a></span>    <a class="code hl_enumeration" href="namespacehmi.html#a90a0b3556896d17a7c1ff5d1a0c23b4e">EditorDiagnosticKind</a> <a class="code hl_variable" href="structhmi_1_1EditorDiagnostic.html#a2c618776e01c1377e31de703602c702b">kind</a> = <a class="code hl_enumvalue" href="namespacehmi.html#a90a0b3556896d17a7c1ff5d1a0c23b4ea63d5049791d9d79d86e9a108b0a999ca">EditorDiagnosticKind::Reference</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structhmi_1_1EditorDiagnostic.html#a0676d852b4f99bfb8863c6caec84d35f">   40</a></span>    std::size_t <a class="code hl_variable" href="structhmi_1_1EditorDiagnostic.html#a0676d852b4f99bfb8863c6caec84d35f">entityIndex</a> = 0;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structhmi_1_1EditorDiagnostic.html#acd366442be15b9ad1a9cd2eba9739baa">   42</a></span>    <a class="code hl_struct" href="structcore_1_1GridPosition.html">core::GridPosition</a> <a class="code hl_variable" href="structhmi_1_1EditorDiagnostic.html#acd366442be15b9ad1a9cd2eba9739baa">cell</a>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structhmi_1_1EditorDiagnostic.html#a165df533fed18da4e30a813a8524bc02">   43</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1EditorDiagnostic.html#a165df533fed18da4e30a813a8524bc02">message</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structhmi_1_1EditorDiagnostic.html#a41e7539adb5f9a3fe6b573493748dbde">   45</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1EditorDiagnostic.html#a41e7539adb5f9a3fe6b573493748dbde">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1EditorDiagnostic.html">EditorDiagnostic</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>};</div>
+</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>[[nodiscard]] <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="namespacehmi.html#aae4092d693f838bf7beb6e021fedc2b0">entityIssueTemplate</a>(<a class="code hl_enumeration" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035e">core::EntityIssueCode</a> code) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>[[nodiscard]] <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="namespacehmi.html#ae04c1f256387579c522acc9d41c38f54">tacticalIssueTemplate</a>(<a class="code hl_enumeration" href="namespacecore.html#a81dfcf1ac21704e4f64a7780ec772910">core::TacticalIssueCode</a> code) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>[[nodiscard]] std::vector&lt;EditorDiagnostic&gt; <a class="code hl_function" href="namespacehmi.html#a3f098738a2160784b60a63f9b6d3c5e2">editorDiagnostics</a>(</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">const</span> std::vector&lt;core::MapEntity&gt;&amp; entities, <span class="keyword">const</span> std::vector&lt;core::EntityIssue&gt;&amp; issues,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">const</span> std::vector&lt;core::EncounterTerrain&gt;&amp; terrains,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">const</span> std::vector&lt;core::CombatZoneTerrain&gt;&amp; zones = {});</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacehmi.html#a84629539a766d354203c18ea75e0bab9">combatZoneSummary</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CombatZoneTerrain.html">core::CombatZoneTerrain</a>&amp; zone);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aCombatZone_8h_html"><div class="ttname"><a href="CombatZone_8h.html">CombatZone.h</a></div><div class="ttdoc">La zone de combat d&#39;une carte : le rectangle nommé où l&#39;on se bat, et lui seul (EX-LVL-018,...</div></div>
+<div class="ttc" id="aEntityKinds_8h_html"><div class="ttname"><a href="EntityKinds_8h.html">EntityKinds.h</a></div><div class="ttdoc">Les familles d&#39;entités de carte que l&#39;éditeur sait poser, et ce qu&#39;une carte leur doit (LOT-11).</div></div>
+<div class="ttc" id="aGridPosition_8h_html"><div class="ttname"><a href="GridPosition_8h.html">GridPosition.h</a></div><div class="ttdoc">Position entière dans la grille d&#39;un niveau (colonne, ligne).</div></div>
+<div class="ttc" id="aMapEntity_8h_html"><div class="ttname"><a href="MapEntity_8h.html">MapEntity.h</a></div><div class="ttdoc">Entité placée sur une carte : PNJ, coffre, panneau, portail, déclencheur (LOT-04).</div></div>
+<div class="ttc" id="aTacticalTerrain_8h_html"><div class="ttname"><a href="TacticalTerrain_8h.html">TacticalTerrain.h</a></div><div class="ttdoc">Une rencontre posée sur un terrain où l&#39;on peut se battre — ou non (LOT-11, EX-CBT-001).</div></div>
+<div class="ttc" id="anamespacecore_html_a81dfcf1ac21704e4f64a7780ec772910"><div class="ttname"><a href="namespacecore.html#a81dfcf1ac21704e4f64a7780ec772910">core::TacticalIssueCode</a></div><div class="ttdeci">TacticalIssueCode</div><div class="ttdoc">Ce qui rend une rencontre injouable là où elle est posée.</div><div class="ttdef"><b>Definition</b> TacticalTerrain.h:57</div></div>
+<div class="ttc" id="anamespacecore_html_ac1032ee70b0c730c8727b80822ab035e"><div class="ttname"><a href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035e">core::EntityIssueCode</a></div><div class="ttdeci">EntityIssueCode</div><div class="ttdoc">Ce qui ne va pas dans une entité.</div><div class="ttdef"><b>Definition</b> EntityKinds.h:192</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a3f098738a2160784b60a63f9b6d3c5e2"><div class="ttname"><a href="namespacehmi.html#a3f098738a2160784b60a63f9b6d3c5e2">hmi::editorDiagnostics</a></div><div class="ttdeci">std::vector&lt; EditorDiagnostic &gt; editorDiagnostics(const std::vector&lt; core::MapEntity &gt; &amp;entities, const std::vector&lt; core::EntityIssue &gt; &amp;issues, const std::vector&lt; core::EncounterTerrain &gt; &amp;terrains, const std::vector&lt; core::CombatZoneTerrain &gt; &amp;zones)</div><div class="ttdoc">Les avertissements de la carte : les références, puis le terrain des rencontres, puis les zones de co...</div><div class="ttdef"><b>Definition</b> EditorDiagnostics.cpp:112</div></div>
+<div class="ttc" id="anamespacehmi_html_a84629539a766d354203c18ea75e0bab9"><div class="ttname"><a href="namespacehmi.html#a84629539a766d354203c18ea75e0bab9">hmi::combatZoneSummary</a></div><div class="ttdeci">std::string combatZoneSummary(const core::CombatZoneTerrain &amp;zone)</div><div class="ttdoc">Le verdict d&#39;une zone de combat en une ligne, pour l&#39;inspecteur : sa taille, ses cases libres,...</div><div class="ttdef"><b>Definition</b> EditorDiagnostics.cpp:100</div></div>
+<div class="ttc" id="anamespacehmi_html_a90a0b3556896d17a7c1ff5d1a0c23b4e"><div class="ttname"><a href="namespacehmi.html#a90a0b3556896d17a7c1ff5d1a0c23b4e">hmi::EditorDiagnosticKind</a></div><div class="ttdeci">EditorDiagnosticKind</div><div class="ttdoc">La famille d&#39;un avertissement : ce que l&#39;entité référence, ou le terrain qu&#39;elle occupe.</div><div class="ttdef"><b>Definition</b> EditorDiagnostics.h:26</div></div>
+<div class="ttc" id="anamespacehmi_html_a90a0b3556896d17a7c1ff5d1a0c23b4ea63d5049791d9d79d86e9a108b0a999ca"><div class="ttname"><a href="namespacehmi.html#a90a0b3556896d17a7c1ff5d1a0c23b4ea63d5049791d9d79d86e9a108b0a999ca">hmi::EditorDiagnosticKind::Reference</a></div><div class="ttdeci">@ Reference</div><div class="ttdef"><b>Definition</b> EditorDiagnostics.h:27</div></div>
+<div class="ttc" id="anamespacehmi_html_aae4092d693f838bf7beb6e021fedc2b0"><div class="ttname"><a href="namespacehmi.html#aae4092d693f838bf7beb6e021fedc2b0">hmi::entityIssueTemplate</a></div><div class="ttdeci">const char * entityIssueTemplate(core::EntityIssueCode code) noexcept</div><div class="ttdef"><b>Definition</b> EditorDiagnostics.cpp:26</div></div>
+<div class="ttc" id="anamespacehmi_html_ae04c1f256387579c522acc9d41c38f54"><div class="ttname"><a href="namespacehmi.html#ae04c1f256387579c522acc9d41c38f54">hmi::tacticalIssueTemplate</a></div><div class="ttdeci">const char * tacticalIssueTemplate(core::TacticalIssueCode code) noexcept</div><div class="ttdef"><b>Definition</b> EditorDiagnostics.cpp:62</div></div>
+<div class="ttc" id="astructcore_1_1CombatZoneTerrain_html"><div class="ttname"><a href="structcore_1_1CombatZoneTerrain.html">core::CombatZoneTerrain</a></div><div class="ttdoc">Le verdict tactique d&#39;une zone de combat : ce que l&#39;éditeur montre pendant qu&#39;on la tire (LOT-EDITOR-...</div><div class="ttdef"><b>Definition</b> CombatZone.h:70</div></div>
+<div class="ttc" id="astructcore_1_1GridPosition_html"><div class="ttname"><a href="structcore_1_1GridPosition.html">core::GridPosition</a></div><div class="ttdoc">Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.</div><div class="ttdef"><b>Definition</b> GridPosition.h:20</div></div>
+<div class="ttc" id="astructhmi_1_1EditorDiagnostic_html"><div class="ttname"><a href="structhmi_1_1EditorDiagnostic.html">hmi::EditorDiagnostic</a></div><div class="ttdoc">Un avertissement prêt à afficher, en anglais.</div><div class="ttdef"><b>Definition</b> EditorDiagnostics.h:38</div></div>
+<div class="ttc" id="astructhmi_1_1EditorDiagnostic_html_a0676d852b4f99bfb8863c6caec84d35f"><div class="ttname"><a href="structhmi_1_1EditorDiagnostic.html#a0676d852b4f99bfb8863c6caec84d35f">hmi::EditorDiagnostic::entityIndex</a></div><div class="ttdeci">std::size_t entityIndex</div><div class="ttdef"><b>Definition</b> EditorDiagnostics.h:40</div></div>
+<div class="ttc" id="astructhmi_1_1EditorDiagnostic_html_a165df533fed18da4e30a813a8524bc02"><div class="ttname"><a href="structhmi_1_1EditorDiagnostic.html#a165df533fed18da4e30a813a8524bc02">hmi::EditorDiagnostic::message</a></div><div class="ttdeci">std::string message</div><div class="ttdef"><b>Definition</b> EditorDiagnostics.h:43</div></div>
+<div class="ttc" id="astructhmi_1_1EditorDiagnostic_html_a2c618776e01c1377e31de703602c702b"><div class="ttname"><a href="structhmi_1_1EditorDiagnostic.html#a2c618776e01c1377e31de703602c702b">hmi::EditorDiagnostic::kind</a></div><div class="ttdeci">EditorDiagnosticKind kind</div><div class="ttdef"><b>Definition</b> EditorDiagnostics.h:39</div></div>
+<div class="ttc" id="astructhmi_1_1EditorDiagnostic_html_a41e7539adb5f9a3fe6b573493748dbde"><div class="ttname"><a href="structhmi_1_1EditorDiagnostic.html#a41e7539adb5f9a3fe6b573493748dbde">hmi::EditorDiagnostic::operator==</a></div><div class="ttdeci">bool operator==(const EditorDiagnostic &amp;) const =default</div></div>
+<div class="ttc" id="astructhmi_1_1EditorDiagnostic_html_acd366442be15b9ad1a9cd2eba9739baa"><div class="ttname"><a href="structhmi_1_1EditorDiagnostic.html#acd366442be15b9ad1a9cd2eba9739baa">hmi::EditorDiagnostic::cell</a></div><div class="ttdeci">core::GridPosition cell</div><div class="ttdoc">Case de l&#39;entité, ou case en cause (combattant hors de la zone jouable).</div><div class="ttdef"><b>Definition</b> EditorDiagnostics.h:42</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li><li class="navelem"><a href="EditorDiagnostics_8h.html">EditorDiagnostics.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

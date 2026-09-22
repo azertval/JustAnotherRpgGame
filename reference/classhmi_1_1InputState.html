@@ -1,0 +1,1401 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::InputState Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1InputState.html','','classhmi_1_1InputState-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::InputState Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>État des entrées d'une frame, avec détection des fronts (pressée / relâchée).  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="InputState_8h_source.html">InputState.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a2e64870c1d2ac0640668fcfdca3cb9ad" id="r_a2e64870c1d2ac0640668fcfdca3cb9ad"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2e64870c1d2ac0640668fcfdca3cb9ad">InputState</a> ()=default</td></tr>
+<tr class="memdesc:a2e64870c1d2ac0640668fcfdca3cb9ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit un état vide (aucune touche ni bouton enfoncé, souris à l'origine).  <br /></td></tr>
+<tr class="memitem:a16d213c75c334aaaa040979aa2a116ab" id="r_a16d213c75c334aaaa040979aa2a116ab"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a16d213c75c334aaaa040979aa2a116ab">beginFrame</a> () noexcept</td></tr>
+<tr class="memdesc:a16d213c75c334aaaa040979aa2a116ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre une nouvelle frame : recopie l'état courant vers l'état précédent.  <br /></td></tr>
+<tr class="memitem:ac8240ed247a3fa2e503be9e593713a87" id="r_ac8240ed247a3fa2e503be9e593713a87"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac8240ed247a3fa2e503be9e593713a87">releaseAll</a> () noexcept</td></tr>
+<tr class="memdesc:ac8240ed247a3fa2e503be9e593713a87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relâche <b>toutes</b> les entrées maintenues (clavier, manette, souris), sans front.  <br /></td></tr>
+<tr class="memitem:a0ac64c54bed934b3dddbafe545adcd8d" id="r_a0ac64c54bed934b3dddbafe545adcd8d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0ac64c54bed934b3dddbafe545adcd8d">onKeyDown</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) noexcept</td></tr>
+<tr class="memdesc:a0ac64c54bed934b3dddbafe545adcd8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code class="param">key</code> comme enfoncée dans l'état courant (source <b>clavier</b>).  <br /></td></tr>
+<tr class="memitem:ad760f16af7751f4627ffcfebb4723087" id="r_ad760f16af7751f4627ffcfebb4723087"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad760f16af7751f4627ffcfebb4723087">onKeyUp</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) noexcept</td></tr>
+<tr class="memdesc:ad760f16af7751f4627ffcfebb4723087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code class="param">key</code> comme relâchée dans l'état courant (source <b>clavier</b>).  <br /></td></tr>
+<tr class="memitem:a7cb5d25a39a4327cd74eae88a20d49ce" id="r_a7cb5d25a39a4327cd74eae88a20d49ce"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7cb5d25a39a4327cd74eae88a20d49ce">onGamepadKeyDown</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) noexcept</td></tr>
+<tr class="memdesc:a7cb5d25a39a4327cd74eae88a20d49ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code class="param">key</code> comme enfoncée dans l'état courant, source <b>manette</b>.  <br /></td></tr>
+<tr class="memitem:a93853c1b3089fe4fcc2f15b491008784" id="r_a93853c1b3089fe4fcc2f15b491008784"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a93853c1b3089fe4fcc2f15b491008784">onGamepadKeyUp</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) noexcept</td></tr>
+<tr class="memdesc:a93853c1b3089fe4fcc2f15b491008784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code class="param">key</code> comme relâchée dans l'état courant, source <b>manette</b> (voir <span class="tt"><a class="el" href="#a7cb5d25a39a4327cd74eae88a20d49ce" title="Marque key comme enfoncée dans l&#39;état courant, source manette.">onGamepadKeyDown</a></span>).  <br /></td></tr>
+<tr class="memitem:ab6bbe08c414da65a29ceae2ca23d2224" id="r_ab6bbe08c414da65a29ceae2ca23d2224"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab6bbe08c414da65a29ceae2ca23d2224">onGamepadButtonDown</a> (<a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a> button) noexcept</td></tr>
+<tr class="memdesc:ab6bbe08c414da65a29ceae2ca23d2224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code class="param">button</code> comme enfoncé dans l'état courant (piste manette <b>brute</b>).  <br /></td></tr>
+<tr class="memitem:a6e1b62169f76272dca1090ec9e800dc4" id="r_a6e1b62169f76272dca1090ec9e800dc4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6e1b62169f76272dca1090ec9e800dc4">onGamepadButtonUp</a> (<a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a> button) noexcept</td></tr>
+<tr class="memdesc:a6e1b62169f76272dca1090ec9e800dc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code class="param">button</code> comme relâché dans l'état courant (voir <span class="tt"><a class="el" href="#ab6bbe08c414da65a29ceae2ca23d2224" title="Marque button comme enfoncé dans l&#39;état courant (piste manette brute).">onGamepadButtonDown</a></span>).  <br /></td></tr>
+<tr class="memitem:abbd4df0d240a3683210015a31e183bc5" id="r_abbd4df0d240a3683210015a31e183bc5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abbd4df0d240a3683210015a31e183bc5">onMouseMove</a> (int x, int y) noexcept</td></tr>
+<tr class="memdesc:abbd4df0d240a3683210015a31e183bc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour la position de la souris.  <br /></td></tr>
+<tr class="memitem:a3312dd5f77db5b9dcd128a8affddd0eb" id="r_a3312dd5f77db5b9dcd128a8affddd0eb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3312dd5f77db5b9dcd128a8affddd0eb">onMouseButtonDown</a> (<a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982">MouseButton</a> button) noexcept</td></tr>
+<tr class="memdesc:a3312dd5f77db5b9dcd128a8affddd0eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code class="param">button</code> comme enfoncé dans l'état courant.  <br /></td></tr>
+<tr class="memitem:a376004df68b5f7754a110a2bcd2f90f8" id="r_a376004df68b5f7754a110a2bcd2f90f8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a376004df68b5f7754a110a2bcd2f90f8">onMouseButtonUp</a> (<a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982">MouseButton</a> button) noexcept</td></tr>
+<tr class="memdesc:a376004df68b5f7754a110a2bcd2f90f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code class="param">button</code> comme relâché dans l'état courant.  <br /></td></tr>
+<tr class="memitem:a76e9822764fcba7189cf9d0ffa8d9c92" id="r_a76e9822764fcba7189cf9d0ffa8d9c92"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a76e9822764fcba7189cf9d0ffa8d9c92">onMouseWheel</a> (int delta) noexcept</td></tr>
+<tr class="memdesc:a76e9822764fcba7189cf9d0ffa8d9c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accumule un incrément de molette pour la frame courante.  <br /></td></tr>
+<tr class="memitem:a50a35b2416ee847e1f772dbb9fea9b9c" id="r_a50a35b2416ee847e1f772dbb9fea9b9c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a50a35b2416ee847e1f772dbb9fea9b9c">onCharTyped</a> (wchar_t character)</td></tr>
+<tr class="memdesc:a50a35b2416ee847e1f772dbb9fea9b9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre un caractère tapé pour la frame courante (<span class="tt">WM_CHAR</span>).  <br /></td></tr>
+<tr class="memitem:ab6e92b0e87cef4fcbacfa6c729bfb8f8" id="r_ab6e92b0e87cef4fcbacfa6c729bfb8f8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab6e92b0e87cef4fcbacfa6c729bfb8f8">setGamepadConnected</a> (bool connected) noexcept</td></tr>
+<tr class="memdesc:ab6e92b0e87cef4fcbacfa6c729bfb8f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déclare l'état de connexion de la manette pour cette frame (<span class="tt">EX-CTRL-002</span>).  <br /></td></tr>
+<tr class="memitem:a833fa9bf0471616d04f6ab95568e90f4" id="r_a833fa9bf0471616d04f6ab95568e90f4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a833fa9bf0471616d04f6ab95568e90f4">gamepadConnected</a> () const noexcept</td></tr>
+<tr class="memitem:a1f60f694446239cdcc190b792c89d130" id="r_a1f60f694446239cdcc190b792c89d130"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1f60f694446239cdcc190b792c89d130">keyDown</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) const noexcept</td></tr>
+<tr class="memitem:a31d4d382e571e231ef0d13937e2b1f4f" id="r_a31d4d382e571e231ef0d13937e2b1f4f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a31d4d382e571e231ef0d13937e2b1f4f">keyPressed</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) const noexcept</td></tr>
+<tr class="memitem:ae58b5ee926c82c8f62bf57ee7e446ac4" id="r_ae58b5ee926c82c8f62bf57ee7e446ac4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae58b5ee926c82c8f62bf57ee7e446ac4">keyReleased</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) const noexcept</td></tr>
+<tr class="memitem:a3ce30e4669945efe5db386ea42f9abe5" id="r_a3ce30e4669945efe5db386ea42f9abe5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a3ce30e4669945efe5db386ea42f9abe5">gamepadButtonDown</a> (<a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a> button) const noexcept</td></tr>
+<tr class="memitem:a5b38fccaac8b028b0d53ea192292649c" id="r_a5b38fccaac8b028b0d53ea192292649c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5b38fccaac8b028b0d53ea192292649c">gamepadButtonPressed</a> (<a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a> button) const noexcept</td></tr>
+<tr class="memitem:a241024415a5f5e786f341fb655fcfa06" id="r_a241024415a5f5e786f341fb655fcfa06"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a241024415a5f5e786f341fb655fcfa06">gamepadButtonReleased</a> (<a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a> button) const noexcept</td></tr>
+<tr class="memitem:a88904c498ce8939978b988bc685dc904" id="r_a88904c498ce8939978b988bc685dc904"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a88904c498ce8939978b988bc685dc904">mouseX</a> () const noexcept</td></tr>
+<tr class="memitem:a7d36fdb64d478ef67dacee6c869432b9" id="r_a7d36fdb64d478ef67dacee6c869432b9"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a7d36fdb64d478ef67dacee6c869432b9">mouseY</a> () const noexcept</td></tr>
+<tr class="memitem:aeecec17aba35c137bed234ff033bc46c" id="r_aeecec17aba35c137bed234ff033bc46c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aeecec17aba35c137bed234ff033bc46c">mouseButtonDown</a> (<a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982">MouseButton</a> button) const noexcept</td></tr>
+<tr class="memitem:ab129c79e0d8cf79448425c3a8d984e0e" id="r_ab129c79e0d8cf79448425c3a8d984e0e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab129c79e0d8cf79448425c3a8d984e0e">mouseButtonPressed</a> (<a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982">MouseButton</a> button) const noexcept</td></tr>
+<tr class="memitem:a825c3827af5730d0c05b65f6c8a86798" id="r_a825c3827af5730d0c05b65f6c8a86798"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a825c3827af5730d0c05b65f6c8a86798">mouseButtonReleased</a> (<a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982">MouseButton</a> button) const noexcept</td></tr>
+<tr class="memitem:a8168408e70f27916878b8057227ef7ff" id="r_a8168408e70f27916878b8057227ef7ff"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8168408e70f27916878b8057227ef7ff">wheelDelta</a> () const noexcept</td></tr>
+<tr class="memdesc:a8168408e70f27916878b8057227ef7ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Somme des incréments de molette accumulés depuis le dernier <span class="tt"><a class="el" href="#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></span>.  <br /></td></tr>
+<tr class="memitem:a65d50f70a43e38a66f9ea7e04429cb9d" id="r_a65d50f70a43e38a66f9ea7e04429cb9d"><td class="memItemLeft">const std::vector&lt; wchar_t &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a65d50f70a43e38a66f9ea7e04429cb9d">typedCharacters</a> () const noexcept</td></tr>
+<tr class="memdesc:a65d50f70a43e38a66f9ea7e04429cb9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Caractères tapés depuis le dernier <span class="tt"><a class="el" href="#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></span>, dans leur ordre de saisie.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:acc44c933a7b0873528148ea88efb3802" id="r_acc44c933a7b0873528148ea88efb3802"><td class="memItemLeft">std::array&lt; bool, <a class="el" href="#ae87822f9a9d0e59969b18d5fcb9a785a">KEY_COUNT</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acc44c933a7b0873528148ea88efb3802">_keysCurrent</a> {}</td></tr>
+<tr class="memitem:acb67773da145934bbee587d60990f64f" id="r_acb67773da145934bbee587d60990f64f"><td class="memItemLeft">std::array&lt; bool, <a class="el" href="#ae87822f9a9d0e59969b18d5fcb9a785a">KEY_COUNT</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acb67773da145934bbee587d60990f64f">_keysPrevious</a> {}</td></tr>
+<tr class="memitem:ad2bafb2610591e06b0e5664c633d236f" id="r_ad2bafb2610591e06b0e5664c633d236f"><td class="memItemLeft">std::array&lt; bool, <a class="el" href="#ae87822f9a9d0e59969b18d5fcb9a785a">KEY_COUNT</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad2bafb2610591e06b0e5664c633d236f">_gamepadCurrent</a> {}</td></tr>
+<tr class="memdesc:ad2bafb2610591e06b0e5664c633d236f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source manette, distincte du clavier.  <br /></td></tr>
+<tr class="memitem:a9cefecbe49b1820ccce7fac106126dbe" id="r_a9cefecbe49b1820ccce7fac106126dbe"><td class="memItemLeft">std::array&lt; bool, <a class="el" href="#ae87822f9a9d0e59969b18d5fcb9a785a">KEY_COUNT</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9cefecbe49b1820ccce7fac106126dbe">_gamepadPrevious</a> {}</td></tr>
+<tr class="memitem:aaed158198271f71d960e5ad34be5b370" id="r_aaed158198271f71d960e5ad34be5b370"><td class="memItemLeft">std::array&lt; bool, <a class="el" href="namespacehmi.html#aab59d64d595ba17a55cc07311285ba14">GAMEPAD_BUTTON_COUNT</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aaed158198271f71d960e5ad34be5b370">_gamepadButtonsCurrent</a> {}</td></tr>
+<tr class="memdesc:aaed158198271f71d960e5ad34be5b370"><td class="mdescLeft">&#160;</td><td class="mdescRight">Piste manette brute (<span class="tt"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002).">GamepadButton</a></span>), indépendante de la fusion <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">Key</a></span> ci-dessus.  <br /></td></tr>
+<tr class="memitem:a751949d554b36318ae4677b639b95723" id="r_a751949d554b36318ae4677b639b95723"><td class="memItemLeft">std::array&lt; bool, <a class="el" href="namespacehmi.html#aab59d64d595ba17a55cc07311285ba14">GAMEPAD_BUTTON_COUNT</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a751949d554b36318ae4677b639b95723">_gamepadButtonsPrevious</a> {}</td></tr>
+<tr class="memitem:a7f0a7108d61b34be561c8566a3b3181e" id="r_a7f0a7108d61b34be561c8566a3b3181e"><td class="memItemLeft">std::array&lt; bool, <a class="el" href="#a692a4d893cae9b15948b3d1081bbafeb">BUTTON_COUNT</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7f0a7108d61b34be561c8566a3b3181e">_buttonsCurrent</a> {}</td></tr>
+<tr class="memitem:add9f97042d722455e93b3a697bbeafa2" id="r_add9f97042d722455e93b3a697bbeafa2"><td class="memItemLeft">std::array&lt; bool, <a class="el" href="#a692a4d893cae9b15948b3d1081bbafeb">BUTTON_COUNT</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#add9f97042d722455e93b3a697bbeafa2">_buttonsPrevious</a> {}</td></tr>
+<tr class="memitem:aec72ed3a0c3b1767f3f3b7e38c94b9f0" id="r_aec72ed3a0c3b1767f3f3b7e38c94b9f0"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aec72ed3a0c3b1767f3f3b7e38c94b9f0">_mouseX</a> = 0</td></tr>
+<tr class="memitem:a8fa4e1ad152450c883658be004f0522a" id="r_a8fa4e1ad152450c883658be004f0522a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8fa4e1ad152450c883658be004f0522a">_mouseY</a> = 0</td></tr>
+<tr class="memitem:a88513d390fb0d8d31a142cbf501ecc1b" id="r_a88513d390fb0d8d31a142cbf501ecc1b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a88513d390fb0d8d31a142cbf501ecc1b">_wheelDelta</a> = 0</td></tr>
+<tr class="memdesc:a88513d390fb0d8d31a142cbf501ecc1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remis à zéro à chaque <span class="tt"><a class="el" href="#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></span>.  <br /></td></tr>
+<tr class="memitem:a3b01814d775d50a0bfe24579be4c1dfb" id="r_a3b01814d775d50a0bfe24579be4c1dfb"><td class="memItemLeft">std::vector&lt; wchar_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3b01814d775d50a0bfe24579be4c1dfb">_typedCharacters</a></td></tr>
+<tr class="memdesc:a3b01814d775d50a0bfe24579be4c1dfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vidée à chaque <span class="tt"><a class="el" href="#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></span>.  <br /></td></tr>
+<tr class="memitem:a7153659001b4a27a1288bd4cf435caad" id="r_a7153659001b4a27a1288bd4cf435caad"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7153659001b4a27a1288bd4cf435caad">_gamepadConnected</a> = false</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-static-attribs" class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:ae87822f9a9d0e59969b18d5fcb9a785a" id="r_ae87822f9a9d0e59969b18d5fcb9a785a"><td class="memItemLeft">static constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ae87822f9a9d0e59969b18d5fcb9a785a">KEY_COUNT</a> = 256</td></tr>
+<tr class="memdesc:ae87822f9a9d0e59969b18d5fcb9a785a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de codes de touches suivis (couvre l'ensemble des codes virtuels Win32).  <br /></td></tr>
+<tr class="memitem:a692a4d893cae9b15948b3d1081bbafeb" id="r_a692a4d893cae9b15948b3d1081bbafeb"><td class="memItemLeft">static constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a692a4d893cae9b15948b3d1081bbafeb">BUTTON_COUNT</a> = static_cast&lt;std::size_t&gt;(<a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982ae93f994f01c537c4e2f7d8528c3eb5e9">MouseButton::Count</a>)</td></tr>
+<tr class="memdesc:a692a4d893cae9b15948b3d1081bbafeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de boutons de souris suivis.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>État des entrées d'une frame, avec détection des fronts (pressée / relâchée). </p>
+<p>L'objet distingue, pour chaque touche et chaque bouton, l'état <b>courant</b> (enfoncé ou non) et l'état de la <b>frame précédente</b>, ce qui permet de déduire les fronts : <em>pressée</em> (« vient d'être enfoncée », <span class="tt">EX-CTRL-011</span>) et <em>relâchée</em>. Le cycle d'une frame est :</p><ol type="1">
+<li><span class="tt"><a class="el" href="#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></span> recopie l'état courant vers l'état précédent ;</li>
+<li>la couche de capture (<span class="tt">Window</span>) applique les événements via <span class="tt"><a class="el" href="#a0ac64c54bed934b3dddbafe545adcd8d" title="Marque key comme enfoncée dans l&#39;état courant (source clavier).">onKeyDown</a></span>/<span class="tt"><a class="el" href="#ad760f16af7751f4627ffcfebb4723087" title="Marque key comme relâchée dans l&#39;état courant (source clavier).">onKeyUp</a></span>/… ;</li>
+<li>la logique lit <span class="tt"><a class="el" href="#a31d4d382e571e231ef0d13937e2b1f4f">keyPressed</a></span>/<span class="tt"><a class="el" href="#ae58b5ee926c82c8f62bf57ee7e446ac4">keyReleased</a></span>/<span class="tt"><a class="el" href="#a1f60f694446239cdcc190b792c89d130">keyDown</a></span> et les équivalents souris.</li>
+</ol>
+<p><b>Manette (<span class="tt">EX-CTRL-002</span>)</b> : une seconde source, indépendante du clavier, alimentée par <span class="tt"><a class="el" href="#a7cb5d25a39a4327cd74eae88a20d49ce" title="Marque key comme enfoncée dans l&#39;état courant, source manette.">onGamepadKeyDown</a></span>/<span class="tt"><a class="el" href="#a93853c1b3089fe4fcc2f15b491008784" title="Marque key comme relâchée dans l&#39;état courant, source manette (voir onGamepadKeyDown).">onGamepadKeyUp</a></span> — le même <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">Key</a></span> peut être enfoncé par le clavier, la manette, ou les deux à la fois. <span class="tt"><a class="el" href="#a1f60f694446239cdcc190b792c89d130">keyDown</a></span>/<span class="tt"><a class="el" href="#a31d4d382e571e231ef0d13937e2b1f4f">keyPressed</a></span>/<span class="tt"><a class="el" href="#ae58b5ee926c82c8f62bf57ee7e446ac4">keyReleased</a></span> <b>combinent</b> les deux sources (OU logique) ; la manette ne s'écrit <b>jamais</b> dans les tableaux clavier, pour ne jamais effacer une touche clavier réellement maintenue quand la manette relâche le bouton correspondant (voir <span class="tt"><a class="el" href="classhmi_1_1GamepadPoller.html" title="Sonde la manette (XInput, joueur 0) et fusionne son état dans un InputState.">hmi::GamepadPoller</a></span>). Cette fusion en lecture, plutôt qu'une table d'actions logiques séparée, satisfait déjà <span class="tt">EX-CTRL-010</span> (action dissociée de la touche physique) : le <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">Key</a></span> <b>est</b> l'action logique, quelle que soit sa source.</p>
+<p>L'<span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></span> est <b>indépendant de toute fenêtre</b> (aucune dépendance <span class="tt">&lt;Windows.h&gt;</span>, ni <span class="tt">&lt;Xinput.h&gt;</span>) : les événements peuvent être injectés directement, ce qui le rend testable en isolation (<span class="tt">EX-NFR-010</span>) — y compris la fusion manette, sans manette réelle. Il est échantillonné une fois par frame, en amont de la logique. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2e64870c1d2ac0640668fcfdca3cb9ad" name="a2e64870c1d2ac0640668fcfdca3cb9ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e64870c1d2ac0640668fcfdca3cb9ad">&#9670;&#160;</a></span>InputState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::InputState::InputState </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construit un état vide (aucune touche ni bouton enfoncé, souris à l'origine). </p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a16d213c75c334aaaa040979aa2a116ab" name="a16d213c75c334aaaa040979aa2a116ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16d213c75c334aaaa040979aa2a116ab">&#9670;&#160;</a></span>beginFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::beginFrame </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ouvre une nouvelle frame : recopie l'état courant vers l'état précédent. </p>
+<p>À appeler une fois par frame, avant d'appliquer les événements de la frame. Les fronts (<span class="tt"><a class="el" href="#a31d4d382e571e231ef0d13937e2b1f4f">keyPressed</a></span>, <span class="tt"><a class="el" href="#ae58b5ee926c82c8f62bf57ee7e446ac4">keyReleased</a></span>, …) se calculent ensuite par comparaison courant/précédent. </p>
+
+</div>
+</div>
+<a id="a3ce30e4669945efe5db386ea42f9abe5" name="a3ce30e4669945efe5db386ea42f9abe5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ce30e4669945efe5db386ea42f9abe5">&#9670;&#160;</a></span>gamepadButtonDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::InputState::gamepadButtonDown </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a></td>          <td class="paramname"><span class="paramname"><em>button</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si <code class="param">button</code> (piste manette brute) est enfoncé à cette frame. </dd></dl>
+
+</div>
+</div>
+<a id="a5b38fccaac8b028b0d53ea192292649c" name="a5b38fccaac8b028b0d53ea192292649c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b38fccaac8b028b0d53ea192292649c">&#9670;&#160;</a></span>gamepadButtonPressed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::InputState::gamepadButtonPressed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a></td>          <td class="paramname"><span class="paramname"><em>button</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si <code class="param">button</code> (piste manette brute) <b>vient d'être enfoncé</b> cette frame. </dd></dl>
+
+</div>
+</div>
+<a id="a241024415a5f5e786f341fb655fcfa06" name="a241024415a5f5e786f341fb655fcfa06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a241024415a5f5e786f341fb655fcfa06">&#9670;&#160;</a></span>gamepadButtonReleased()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::InputState::gamepadButtonReleased </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a></td>          <td class="paramname"><span class="paramname"><em>button</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si <code class="param">button</code> (piste manette brute) <b>vient d'être relâché</b> cette frame. </dd></dl>
+
+</div>
+</div>
+<a id="a833fa9bf0471616d04f6ab95568e90f4" name="a833fa9bf0471616d04f6ab95568e90f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a833fa9bf0471616d04f6ab95568e90f4">&#9670;&#160;</a></span>gamepadConnected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::InputState::gamepadConnected </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si une manette était connectée à la dernière frame sondée. </dd></dl>
+
+</div>
+</div>
+<a id="a1f60f694446239cdcc190b792c89d130" name="a1f60f694446239cdcc190b792c89d130"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f60f694446239cdcc190b792c89d130">&#9670;&#160;</a></span>keyDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::InputState::keyDown </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a></td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si <code class="param">key</code> est enfoncée à cette frame (maintenue ou vient d'être pressée). </dd></dl>
+
+</div>
+</div>
+<a id="a31d4d382e571e231ef0d13937e2b1f4f" name="a31d4d382e571e231ef0d13937e2b1f4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31d4d382e571e231ef0d13937e2b1f4f">&#9670;&#160;</a></span>keyPressed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::InputState::keyPressed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a></td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si <code class="param">key</code> <b>vient d'être pressée</b> cette frame (front montant). </dd></dl>
+
+</div>
+</div>
+<a id="ae58b5ee926c82c8f62bf57ee7e446ac4" name="ae58b5ee926c82c8f62bf57ee7e446ac4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae58b5ee926c82c8f62bf57ee7e446ac4">&#9670;&#160;</a></span>keyReleased()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::InputState::keyReleased </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a></td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si <code class="param">key</code> <b>vient d'être relâchée</b> cette frame (front descendant). </dd></dl>
+
+</div>
+</div>
+<a id="aeecec17aba35c137bed234ff033bc46c" name="aeecec17aba35c137bed234ff033bc46c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeecec17aba35c137bed234ff033bc46c">&#9670;&#160;</a></span>mouseButtonDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::InputState::mouseButtonDown </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982">MouseButton</a></td>          <td class="paramname"><span class="paramname"><em>button</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si <code class="param">button</code> est enfoncé à cette frame. </dd></dl>
+
+</div>
+</div>
+<a id="ab129c79e0d8cf79448425c3a8d984e0e" name="ab129c79e0d8cf79448425c3a8d984e0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab129c79e0d8cf79448425c3a8d984e0e">&#9670;&#160;</a></span>mouseButtonPressed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::InputState::mouseButtonPressed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982">MouseButton</a></td>          <td class="paramname"><span class="paramname"><em>button</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si <code class="param">button</code> <b>vient d'être cliqué</b> cette frame (front montant). </dd></dl>
+
+</div>
+</div>
+<a id="a825c3827af5730d0c05b65f6c8a86798" name="a825c3827af5730d0c05b65f6c8a86798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a825c3827af5730d0c05b65f6c8a86798">&#9670;&#160;</a></span>mouseButtonReleased()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::InputState::mouseButtonReleased </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982">MouseButton</a></td>          <td class="paramname"><span class="paramname"><em>button</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si <code class="param">button</code> <b>vient d'être relâché</b> cette frame (front descendant). </dd></dl>
+
+</div>
+</div>
+<a id="a88904c498ce8939978b988bc685dc904" name="a88904c498ce8939978b988bc685dc904"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88904c498ce8939978b988bc685dc904">&#9670;&#160;</a></span>mouseX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::InputState::mouseX </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Abscisse de la souris, en pixels de la zone client. </dd></dl>
+
+</div>
+</div>
+<a id="a7d36fdb64d478ef67dacee6c869432b9" name="a7d36fdb64d478ef67dacee6c869432b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d36fdb64d478ef67dacee6c869432b9">&#9670;&#160;</a></span>mouseY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::InputState::mouseY </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Ordonnée de la souris, en pixels de la zone client. </dd></dl>
+
+</div>
+</div>
+<a id="a50a35b2416ee847e1f772dbb9fea9b9c" name="a50a35b2416ee847e1f772dbb9fea9b9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50a35b2416ee847e1f772dbb9fea9b9c">&#9670;&#160;</a></span>onCharTyped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onCharTyped </td>
+          <td>(</td>
+          <td class="paramtype">wchar_t</td>          <td class="paramname"><span class="paramname"><em>character</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enregistre un caractère tapé pour la frame courante (<span class="tt">WM_CHAR</span>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">character</td><td>Caractère déjà traduit selon la disposition clavier active. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab6bbe08c414da65a29ceae2ca23d2224" name="ab6bbe08c414da65a29ceae2ca23d2224"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6bbe08c414da65a29ceae2ca23d2224">&#9670;&#160;</a></span>onGamepadButtonDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onGamepadButtonDown </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a></td>          <td class="paramname"><span class="paramname"><em>button</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marque <code class="param">button</code> comme enfoncé dans l'état courant (piste manette <b>brute</b>). </p>
+<p>Indépendante de <span class="tt"><a class="el" href="#a7cb5d25a39a4327cd74eae88a20d49ce" title="Marque key comme enfoncée dans l&#39;état courant, source manette.">onGamepadKeyDown</a></span>/<span class="tt">Up</span> : celle-ci fusionne la manette dans l'espace des touches clavier (<span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">Key</a></span>, utilisée par la navigation de menu, jamais remappable) ; celle-ci expose l'état de chaque bouton physique (<span class="tt"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002).">GamepadButton</a></span>) tel quel, pour les actions de jeu remappables via <span class="tt">GamepadBindings</span> (<span class="tt">EX-CTRL-002</span>). </p>
+
+</div>
+</div>
+<a id="a6e1b62169f76272dca1090ec9e800dc4" name="a6e1b62169f76272dca1090ec9e800dc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e1b62169f76272dca1090ec9e800dc4">&#9670;&#160;</a></span>onGamepadButtonUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onGamepadButtonUp </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a></td>          <td class="paramname"><span class="paramname"><em>button</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marque <code class="param">button</code> comme relâché dans l'état courant (voir <span class="tt"><a class="el" href="#ab6bbe08c414da65a29ceae2ca23d2224" title="Marque button comme enfoncé dans l&#39;état courant (piste manette brute).">onGamepadButtonDown</a></span>). </p>
+
+</div>
+</div>
+<a id="a7cb5d25a39a4327cd74eae88a20d49ce" name="a7cb5d25a39a4327cd74eae88a20d49ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cb5d25a39a4327cd74eae88a20d49ce">&#9670;&#160;</a></span>onGamepadKeyDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onGamepadKeyDown </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a></td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marque <code class="param">key</code> comme enfoncée dans l'état courant, source <b>manette</b>. </p>
+<p>Écrit dans un tableau <b>distinct</b> du clavier (voir en-tête) : n'affecte jamais <span class="tt"><a class="el" href="#a0ac64c54bed934b3dddbafe545adcd8d" title="Marque key comme enfoncée dans l&#39;état courant (source clavier).">onKeyDown</a></span>/<span class="tt"><a class="el" href="#ad760f16af7751f4627ffcfebb4723087" title="Marque key comme relâchée dans l&#39;état courant (source clavier).">onKeyUp</a></span>. <span class="tt"><a class="el" href="#a1f60f694446239cdcc190b792c89d130">keyDown</a></span>/<span class="tt"><a class="el" href="#a31d4d382e571e231ef0d13937e2b1f4f">keyPressed</a></span>/<span class="tt"><a class="el" href="#ae58b5ee926c82c8f62bf57ee7e446ac4">keyReleased</a></span> combinent les deux sources. </p>
+
+</div>
+</div>
+<a id="a93853c1b3089fe4fcc2f15b491008784" name="a93853c1b3089fe4fcc2f15b491008784"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93853c1b3089fe4fcc2f15b491008784">&#9670;&#160;</a></span>onGamepadKeyUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onGamepadKeyUp </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a></td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marque <code class="param">key</code> comme relâchée dans l'état courant, source <b>manette</b> (voir <span class="tt"><a class="el" href="#a7cb5d25a39a4327cd74eae88a20d49ce" title="Marque key comme enfoncée dans l&#39;état courant, source manette.">onGamepadKeyDown</a></span>). </p>
+
+</div>
+</div>
+<a id="a0ac64c54bed934b3dddbafe545adcd8d" name="a0ac64c54bed934b3dddbafe545adcd8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ac64c54bed934b3dddbafe545adcd8d">&#9670;&#160;</a></span>onKeyDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onKeyDown </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a></td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marque <code class="param">key</code> comme enfoncée dans l'état courant (source <b>clavier</b>). </p>
+
+</div>
+</div>
+<a id="ad760f16af7751f4627ffcfebb4723087" name="ad760f16af7751f4627ffcfebb4723087"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad760f16af7751f4627ffcfebb4723087">&#9670;&#160;</a></span>onKeyUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onKeyUp </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a></td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marque <code class="param">key</code> comme relâchée dans l'état courant (source <b>clavier</b>). </p>
+
+</div>
+</div>
+<a id="a3312dd5f77db5b9dcd128a8affddd0eb" name="a3312dd5f77db5b9dcd128a8affddd0eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3312dd5f77db5b9dcd128a8affddd0eb">&#9670;&#160;</a></span>onMouseButtonDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onMouseButtonDown </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982">MouseButton</a></td>          <td class="paramname"><span class="paramname"><em>button</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marque <code class="param">button</code> comme enfoncé dans l'état courant. </p>
+
+</div>
+</div>
+<a id="a376004df68b5f7754a110a2bcd2f90f8" name="a376004df68b5f7754a110a2bcd2f90f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a376004df68b5f7754a110a2bcd2f90f8">&#9670;&#160;</a></span>onMouseButtonUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onMouseButtonUp </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982">MouseButton</a></td>          <td class="paramname"><span class="paramname"><em>button</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marque <code class="param">button</code> comme relâché dans l'état courant. </p>
+
+</div>
+</div>
+<a id="abbd4df0d240a3683210015a31e183bc5" name="abbd4df0d240a3683210015a31e183bc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbd4df0d240a3683210015a31e183bc5">&#9670;&#160;</a></span>onMouseMove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onMouseMove </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Met à jour la position de la souris. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Abscisse en pixels de la zone client. </td></tr>
+    <tr><td class="paramname">y</td><td>Ordonnée en pixels de la zone client. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a76e9822764fcba7189cf9d0ffa8d9c92" name="a76e9822764fcba7189cf9d0ffa8d9c92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76e9822764fcba7189cf9d0ffa8d9c92">&#9670;&#160;</a></span>onMouseWheel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onMouseWheel </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>delta</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Accumule un incrément de molette pour la frame courante. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">delta</td><td>Incrément signé (positif = molette vers l'avant), en unités natives Win32 (<span class="tt">WHEEL_DELTA</span> = 120 par cran) ; l'appelant convertit selon son besoin. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac8240ed247a3fa2e503be9e593713a87" name="ac8240ed247a3fa2e503be9e593713a87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8240ed247a3fa2e503be9e593713a87">&#9670;&#160;</a></span>releaseAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::releaseAll </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Relâche <b>toutes</b> les entrées maintenues (clavier, manette, souris), sans front. </p>
+<p>Remet à zéro l'état courant <b>et</b> l'état précédent des touches/boutons, si bien qu'aucun front (pressée/relâchée) n'est produit. À appeler quand la fenêtre perd le focus (<span class="tt">WM_KILLFOCUS</span>) : sans cela, une touche maintenue au moment d'un <span class="tt">Alt+Tab</span> ne reçoit jamais son <span class="tt">WM_KEYUP</span> et resterait « collée » (le personnage continuerait d'avancer au retour). </p>
+
+</div>
+</div>
+<a id="ab6e92b0e87cef4fcbacfa6c729bfb8f8" name="ab6e92b0e87cef4fcbacfa6c729bfb8f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6e92b0e87cef4fcbacfa6c729bfb8f8">&#9670;&#160;</a></span>setGamepadConnected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::setGamepadConnected </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>connected</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Déclare l'état de connexion de la manette pour cette frame (<span class="tt">EX-CTRL-002</span>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">connected</td><td>Vrai si <span class="tt">XInputGetState</span> a réussi ce pas-ci (voir <span class="tt"><a class="el" href="classhmi_1_1GamepadPoller.html" title="Sonde la manette (XInput, joueur 0) et fusionne son état dans un InputState.">hmi::GamepadPoller</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a65d50f70a43e38a66f9ea7e04429cb9d" name="a65d50f70a43e38a66f9ea7e04429cb9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65d50f70a43e38a66f9ea7e04429cb9d">&#9670;&#160;</a></span>typedCharacters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; wchar_t &gt; &amp; hmi::InputState::typedCharacters </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Caractères tapés depuis le dernier <span class="tt"><a class="el" href="#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></span>, dans leur ordre de saisie. </p>
+<dl class="section return"><dt>Returns</dt><dd>Une file vide si rien n'a été tapé depuis la frame précédente. </dd></dl>
+
+</div>
+</div>
+<a id="a8168408e70f27916878b8057227ef7ff" name="a8168408e70f27916878b8057227ef7ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8168408e70f27916878b8057227ef7ff">&#9670;&#160;</a></span>wheelDelta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::InputState::wheelDelta </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Somme des incréments de molette accumulés depuis le dernier <span class="tt"><a class="el" href="#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></span>. </p>
+<dl class="section return"><dt>Returns</dt><dd>Positif si la molette a tourné vers l'avant depuis la frame précédente, négatif vers l'arrière, zéro si elle n'a pas bougé. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a7f0a7108d61b34be561c8566a3b3181e" name="a7f0a7108d61b34be561c8566a3b3181e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f0a7108d61b34be561c8566a3b3181e">&#9670;&#160;</a></span>_buttonsCurrent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;bool, <a class="el" href="#a692a4d893cae9b15948b3d1081bbafeb">BUTTON_COUNT</a>&gt; hmi::InputState::_buttonsCurrent {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="add9f97042d722455e93b3a697bbeafa2" name="add9f97042d722455e93b3a697bbeafa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add9f97042d722455e93b3a697bbeafa2">&#9670;&#160;</a></span>_buttonsPrevious</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;bool, <a class="el" href="#a692a4d893cae9b15948b3d1081bbafeb">BUTTON_COUNT</a>&gt; hmi::InputState::_buttonsPrevious {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaed158198271f71d960e5ad34be5b370" name="aaed158198271f71d960e5ad34be5b370"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaed158198271f71d960e5ad34be5b370">&#9670;&#160;</a></span>_gamepadButtonsCurrent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;bool, <a class="el" href="namespacehmi.html#aab59d64d595ba17a55cc07311285ba14">GAMEPAD_BUTTON_COUNT</a>&gt; hmi::InputState::_gamepadButtonsCurrent {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Piste manette brute (<span class="tt"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002).">GamepadButton</a></span>), indépendante de la fusion <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">Key</a></span> ci-dessus. </p>
+
+</div>
+</div>
+<a id="a751949d554b36318ae4677b639b95723" name="a751949d554b36318ae4677b639b95723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a751949d554b36318ae4677b639b95723">&#9670;&#160;</a></span>_gamepadButtonsPrevious</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;bool, <a class="el" href="namespacehmi.html#aab59d64d595ba17a55cc07311285ba14">GAMEPAD_BUTTON_COUNT</a>&gt; hmi::InputState::_gamepadButtonsPrevious {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7153659001b4a27a1288bd4cf435caad" name="a7153659001b4a27a1288bd4cf435caad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7153659001b4a27a1288bd4cf435caad">&#9670;&#160;</a></span>_gamepadConnected</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::InputState::_gamepadConnected = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad2bafb2610591e06b0e5664c633d236f" name="ad2bafb2610591e06b0e5664c633d236f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2bafb2610591e06b0e5664c633d236f">&#9670;&#160;</a></span>_gamepadCurrent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;bool, <a class="el" href="#ae87822f9a9d0e59969b18d5fcb9a785a">KEY_COUNT</a>&gt; hmi::InputState::_gamepadCurrent {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Source manette, distincte du clavier. </p>
+
+</div>
+</div>
+<a id="a9cefecbe49b1820ccce7fac106126dbe" name="a9cefecbe49b1820ccce7fac106126dbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cefecbe49b1820ccce7fac106126dbe">&#9670;&#160;</a></span>_gamepadPrevious</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;bool, <a class="el" href="#ae87822f9a9d0e59969b18d5fcb9a785a">KEY_COUNT</a>&gt; hmi::InputState::_gamepadPrevious {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acc44c933a7b0873528148ea88efb3802" name="acc44c933a7b0873528148ea88efb3802"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc44c933a7b0873528148ea88efb3802">&#9670;&#160;</a></span>_keysCurrent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;bool, <a class="el" href="#ae87822f9a9d0e59969b18d5fcb9a785a">KEY_COUNT</a>&gt; hmi::InputState::_keysCurrent {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acb67773da145934bbee587d60990f64f" name="acb67773da145934bbee587d60990f64f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb67773da145934bbee587d60990f64f">&#9670;&#160;</a></span>_keysPrevious</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;bool, <a class="el" href="#ae87822f9a9d0e59969b18d5fcb9a785a">KEY_COUNT</a>&gt; hmi::InputState::_keysPrevious {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aec72ed3a0c3b1767f3f3b7e38c94b9f0" name="aec72ed3a0c3b1767f3f3b7e38c94b9f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec72ed3a0c3b1767f3f3b7e38c94b9f0">&#9670;&#160;</a></span>_mouseX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::InputState::_mouseX = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8fa4e1ad152450c883658be004f0522a" name="a8fa4e1ad152450c883658be004f0522a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fa4e1ad152450c883658be004f0522a">&#9670;&#160;</a></span>_mouseY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::InputState::_mouseY = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3b01814d775d50a0bfe24579be4c1dfb" name="a3b01814d775d50a0bfe24579be4c1dfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b01814d775d50a0bfe24579be4c1dfb">&#9670;&#160;</a></span>_typedCharacters</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;wchar_t&gt; hmi::InputState::_typedCharacters</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vidée à chaque <span class="tt"><a class="el" href="#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></span>. </p>
+
+</div>
+</div>
+<a id="a88513d390fb0d8d31a142cbf501ecc1b" name="a88513d390fb0d8d31a142cbf501ecc1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88513d390fb0d8d31a142cbf501ecc1b">&#9670;&#160;</a></span>_wheelDelta</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::InputState::_wheelDelta = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remis à zéro à chaque <span class="tt"><a class="el" href="#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></span>. </p>
+
+</div>
+</div>
+<a id="a692a4d893cae9b15948b3d1081bbafeb" name="a692a4d893cae9b15948b3d1081bbafeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a692a4d893cae9b15948b3d1081bbafeb">&#9670;&#160;</a></span>BUTTON_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t hmi::InputState::BUTTON_COUNT = static_cast&lt;std::size_t&gt;(<a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982ae93f994f01c537c4e2f7d8528c3eb5e9">MouseButton::Count</a>)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de boutons de souris suivis. </p>
+
+</div>
+</div>
+<a id="ae87822f9a9d0e59969b18d5fcb9a785a" name="ae87822f9a9d0e59969b18d5fcb9a785a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae87822f9a9d0e59969b18d5fcb9a785a">&#9670;&#160;</a></span>KEY_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t hmi::InputState::KEY_COUNT = 256</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de codes de touches suivis (couvre l'ensemble des codes virtuels Win32). </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Input/<a class="el" href="InputState_8h_source.html">InputState.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Input/<a class="el" href="InputState_8cpp.html">InputState.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1InputState.html">InputState</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

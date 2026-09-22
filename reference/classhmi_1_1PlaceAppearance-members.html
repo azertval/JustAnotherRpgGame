@@ -1,0 +1,179 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: Member List</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1PlaceAppearance.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::PlaceAppearance Member List</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This is the complete list of members for <a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#ad1c91d434a1680b8129ec6aca5246cab">_aliases</a></td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#af763c816e1e8954bfef164a0768f7406">_diamondRatio</a></td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#a8f89950096f1d9f86881f0e2d92e8ff4">_floors</a></td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#a1c4f8e44f18b0de3a332f42577805e0b">_footprints</a></td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#af354a8991988a958ed0899d055c1666d">_place</a></td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#ad226619598bfbc5692d7b6b80a6bb367">_relief</a></td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#a425e655732fbc0f27996712e53091365">adoptManifest</a>(const core::ScenePieceManifest &amp;manifest)</td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#acbb59fa899535efdd3dfaae9e54caed7">canonicalPiece</a>(std::string_view name) const</td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#a9e95a464541a22fef06b33455773645f">diamondRatio</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#a675acd63396f543964793480def919a7">empty</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#a7f3001880647e7cbd440a608f6c3ad67">floorPiece</a>(core::TileType type, core::GridPosition cell) const</td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#acb55682395eeeb9e1872161fffb95445">FORMAT_VERSION</a></td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#a948c8e58ee1fde203c4ccfe54732488a">fromDocument</a>(const core::JsonDocument &amp;document)</td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#a0ea6b2906d74f13add881e1857ae8047">loadFromFile</a>(const std::filesystem::path &amp;path)</td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#a64f242c50874e2bfffee39c50d567b2e">loadFromString</a>(std::string_view json)</td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#a6af0c067714cc6a22c8370e1b819c1c4">pieceFootprint</a>(std::string_view name) const</td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#a11b4bba56d40a404de47a8d41c620ae8">pieces</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#a0d4246e6bc7472127ffce2ffc6b73e05">place</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#a8ea131a78fabbf1a289ac197ea071344">reliefPiece</a>(core::TileType type, core::GridPosition cell) const</td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#ae39372602315857b3d4baac10da85cdf">Table</a> typedef</td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html#ac9fcb8dbe2ed89afadd27aa15ff9fd0d">typeOfPiece</a>(std::string_view piece, bool floor) const</td><td class="entry"><a class="el" href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

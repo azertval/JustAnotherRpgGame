@@ -1,0 +1,390 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::ArenaAnimationDriver Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1ArenaAnimationDriver.html','','classhmi_1_1ArenaAnimationDriver-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::ArenaAnimationDriver Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Pilote l'animation des figurines du Colisée, par combattant, au temps réel du rendu.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="ArenaAnimationDriver_8h_source.html">ArenaAnimationDriver.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a6e02a2ac7e1db6ae563918305d15ebd6" id="r_a6e02a2ac7e1db6ae563918305d15ebd6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6e02a2ac7e1db6ae563918305d15ebd6">setFigureAnimations</a> (std::string sheet, <a class="el" href="structhmi_1_1ArenaFigureAnimationSet.html">ArenaFigureAnimationSet</a> clips)</td></tr>
+<tr class="memdesc:a6e02a2ac7e1db6ae563918305d15ebd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déclare le jeu de clips d'une figurine, adressée par le nom de son dossier de planche (<span class="tt">"bram"</span>, <span class="tt">"archer"</span>…).  <br /></td></tr>
+<tr class="memitem:ab18069f0e1c78a3e0e5644e817e2aa98" id="r_ab18069f0e1c78a3e0e5644e817e2aa98"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab18069f0e1c78a3e0e5644e817e2aa98">play</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> combatant, std::string_view sheet, <a class="el" href="namespacehmi.html#ad5ace887c9d040dd9cd8b5649a5ab9b3">ArenaFigureAction</a> action)</td></tr>
+<tr class="memdesc:ab18069f0e1c78a3e0e5644e817e2aa98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Démarre (ou relance) une action pour un combattant.  <br /></td></tr>
+<tr class="memitem:a61780a83e7f365f3d0330f69b36f3eea" id="r_a61780a83e7f365f3d0330f69b36f3eea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a61780a83e7f365f3d0330f69b36f3eea">remove</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> combatant)</td></tr>
+<tr class="memdesc:a61780a83e7f365f3d0330f69b36f3eea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire un combattant du pilotage (sorti de la grille, <span class="tt">CombatantStatus::Withdrawn</span>).  <br /></td></tr>
+<tr class="memitem:a403fe6d04640d4ef69ca8e85cc5e0b2c" id="r_a403fe6d04640d4ef69ca8e85cc5e0b2c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a403fe6d04640d4ef69ca8e85cc5e0b2c">advance</a> (float realDeltaSeconds)</td></tr>
+<tr class="memdesc:a403fe6d04640d4ef69ca8e85cc5e0b2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait avancer toutes les animations suivies d'un pas de temps réel, et ramène sur <span class="tt">Idle</span> toute action ponctuelle (<span class="tt">Attack</span>/<span class="tt">Hit</span>) arrivée à sa dernière image.  <br /></td></tr>
+<tr class="memitem:a05504cbeb0b0db4fd1e69bc6728ac407" id="r_a05504cbeb0b0db4fd1e69bc6728ac407"><td class="memItemLeft"><a class="el" href="structhmi_1_1ArenaAnimationState.html">ArenaAnimationState</a>&#160;</td><td class="memItemRight"><a class="el" href="#a05504cbeb0b0db4fd1e69bc6728ac407">snapshot</a> () const</td></tr>
+<tr class="memitem:ad3b1d0fd3955e8f885f5151d6498ae08" id="r_ad3b1d0fd3955e8f885f5151d6498ae08"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ad5ace887c9d040dd9cd8b5649a5ab9b3">ArenaFigureAction</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad3b1d0fd3955e8f885f5151d6498ae08">actionOf</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> combatant) const</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ac541bcbe9aaf56173fec76ba0dfd5fac" id="r_ac541bcbe9aaf56173fec76ba0dfd5fac"><td class="memItemLeft">std::map&lt; std::string, <a class="el" href="structhmi_1_1ArenaFigureAnimationSet.html">ArenaFigureAnimationSet</a>, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac541bcbe9aaf56173fec76ba0dfd5fac">_figures</a></td></tr>
+<tr class="memitem:ab9e3e9e315257626e558cc538b1f8102" id="r_ab9e3e9e315257626e558cc538b1f8102"><td class="memItemLeft">std::map&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a>, <a class="el" href="structhmi_1_1ArenaCombatantAnimation.html">ArenaCombatantAnimation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab9e3e9e315257626e558cc538b1f8102">_states</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Pilote l'animation des figurines du Colisée, par combattant, au temps réel du rendu. </p>
+<p>Ni ECS ni pas fixe : une entrée par combattant suivi, avancée par <span class="tt">advance(realDeltaSeconds)</span>. Ne lit jamais <span class="tt"><a class="el" href="classcore_1_1ArenaSession.html" title="Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.">core::ArenaSession</a></span> (<span class="tt">EX-ARCH-012</span>) — c'est à l'appelant de déclencher <span class="tt"><a class="el" href="#ab18069f0e1c78a3e0e5644e817e2aa98" title="Démarre (ou relance) une action pour un combattant.">play()</a></span> d'après les événements de combat qu'il observe par ailleurs. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="ad3b1d0fd3955e8f885f5151d6498ae08" name="ad3b1d0fd3955e8f885f5151d6498ae08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3b1d0fd3955e8f885f5151d6498ae08">&#9670;&#160;</a></span>actionOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#ad5ace887c9d040dd9cd8b5649a5ab9b3">ArenaFigureAction</a> hmi::ArenaAnimationDriver::actionOf </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'action en cours d'un combattant, <span class="tt">Idle</span> s'il n'est pas (encore) suivi. </dd></dl>
+
+</div>
+</div>
+<a id="a403fe6d04640d4ef69ca8e85cc5e0b2c" name="a403fe6d04640d4ef69ca8e85cc5e0b2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a403fe6d04640d4ef69ca8e85cc5e0b2c">&#9670;&#160;</a></span>advance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::ArenaAnimationDriver::advance </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>realDeltaSeconds</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fait avancer toutes les animations suivies d'un pas de temps réel, et ramène sur <span class="tt">Idle</span> toute action ponctuelle (<span class="tt">Attack</span>/<span class="tt">Hit</span>) arrivée à sa dernière image. </p>
+
+</div>
+</div>
+<a id="ab18069f0e1c78a3e0e5644e817e2aa98" name="ab18069f0e1c78a3e0e5644e817e2aa98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab18069f0e1c78a3e0e5644e817e2aa98">&#9670;&#160;</a></span>play()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::ArenaAnimationDriver::play </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>sheet</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#ad5ace887c9d040dd9cd8b5649a5ab9b3">ArenaFigureAction</a></td>          <td class="paramname"><span class="paramname"><em>action</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Démarre (ou relance) une action pour un combattant. </p>
+<p><span class="tt">Idle</span>/<span class="tt">Walk</span> ne relancent pas depuis la première image s'ils sont déjà en cours (boucle continue) ; <span class="tt">Attack</span>/<span class="tt">Hit</span> relancent toujours, même appelés coup sur coup ; <span class="tt">Death</span> ne se relance jamais une fois atteint — un mort le reste, quel que soit l'appel suivant (<span class="tt">EX-NFR-040</span> : pas de résurrection par un appel erroné). Une action sans fichier pour cette planche (ex. l'attaque d'un ennemi) retombe silencieusement sur <span class="tt">Idle</span>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">combatant</td><td>Combattant concerné. </td></tr>
+    <tr><td class="paramname">sheet</td><td>Sa planche (<span class="tt">ArenaAppearanceCatalog::FigureAppearance::sheet</span>). </td></tr>
+    <tr><td class="paramname">action</td><td>Action désirée. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a61780a83e7f365f3d0330f69b36f3eea" name="a61780a83e7f365f3d0330f69b36f3eea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61780a83e7f365f3d0330f69b36f3eea">&#9670;&#160;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::ArenaAnimationDriver::remove </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire un combattant du pilotage (sorti de la grille, <span class="tt">CombatantStatus::Withdrawn</span>). </p>
+
+</div>
+</div>
+<a id="a6e02a2ac7e1db6ae563918305d15ebd6" name="a6e02a2ac7e1db6ae563918305d15ebd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e02a2ac7e1db6ae563918305d15ebd6">&#9670;&#160;</a></span>setFigureAnimations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::ArenaAnimationDriver::setFigureAnimations </td>
+          <td>(</td>
+          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>sheet</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1ArenaFigureAnimationSet.html">ArenaFigureAnimationSet</a></td>          <td class="paramname"><span class="paramname"><em>clips</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Déclare le jeu de clips d'une figurine, adressée par le nom de son dossier de planche (<span class="tt">"bram"</span>, <span class="tt">"archer"</span>…). </p>
+<p>Un appel répété avec le même nom remplace la déclaration. </p>
+
+</div>
+</div>
+<a id="a05504cbeb0b0db4fd1e69bc6728ac407" name="a05504cbeb0b0db4fd1e69bc6728ac407"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05504cbeb0b0db4fd1e69bc6728ac407">&#9670;&#160;</a></span>snapshot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1ArenaAnimationState.html">ArenaAnimationState</a> hmi::ArenaAnimationDriver::snapshot </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'image courante de chaque combattant suivi, prête pour <span class="tt"><a class="el" href="namespacehmi.html#aa5e3c79f66ed2e7f47977044cb6d51ba" title="Compose la scène de combat dans un tampon réutilisé, depuis un instantané.">hmi::composeArenaScene</a></span>. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ac541bcbe9aaf56173fec76ba0dfd5fac" name="ac541bcbe9aaf56173fec76ba0dfd5fac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac541bcbe9aaf56173fec76ba0dfd5fac">&#9670;&#160;</a></span>_figures</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, <a class="el" href="structhmi_1_1ArenaFigureAnimationSet.html">ArenaFigureAnimationSet</a>, std::less&lt;&gt; &gt; hmi::ArenaAnimationDriver::_figures</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab9e3e9e315257626e558cc538b1f8102" name="ab9e3e9e315257626e558cc538b1f8102"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9e3e9e315257626e558cc538b1f8102">&#9670;&#160;</a></span>_states</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a>, <a class="el" href="structhmi_1_1ArenaCombatantAnimation.html">ArenaCombatantAnimation</a>&gt; hmi::ArenaAnimationDriver::_states</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="ArenaAnimationDriver_8h_source.html">ArenaAnimationDriver.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="ArenaAnimationDriver_8cpp.html">ArenaAnimationDriver.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1ArenaAnimationDriver.html">ArenaAnimationDriver</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

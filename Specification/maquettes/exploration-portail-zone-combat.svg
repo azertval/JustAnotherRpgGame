@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="470" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — une carte d'exploration : le portail, et la zone de combat découpée autour d'une rencontre</text>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/></marker>
+  </defs>
+
+  <text x="20" y="54" font-weight="600" fill="#25201a">Carte « martpart » (24 × 11, vue à plat)</text>
+  <g transform="translate(20,64)">
+    <g stroke="#d6c9a8" fill="#ece4d1"><rect x="0" y="0" width="480" height="220"/></g>
+    <g fill="#fbf8f0"><rect x="20" y="20" width="440" height="60"/><rect x="20" y="80" width="120" height="120"/><rect x="140" y="140" width="320" height="60"/><rect x="300" y="80" width="60" height="60"/></g>
+    <g stroke="#d6c9a8" fill="none"><path d="M0,20h480M0,40h480M0,60h480M0,80h480M0,100h480M0,120h480M0,140h480M0,160h480M0,180h480M0,200h480"/><path d="M20,0v220M40,0v220M60,0v220M80,0v220M100,0v220M120,0v220M140,0v220M160,0v220M180,0v220M200,0v220M220,0v220M240,0v220M260,0v220M280,0v220M300,0v220M320,0v220M340,0v220M360,0v220M380,0v220M400,0v220M420,0v220M440,0v220M460,0v220"/></g>
+    <g fill="#6a6152"><rect x="140" y="80" width="160" height="60"/><rect x="360" y="80" width="100" height="60"/></g>
+    <text x="150" y="115" font-size="10" fill="#fbf8f0">bâti (wall)</text><text x="370" y="115" font-size="10" fill="#fbf8f0">bâti</text>
+    <rect x="20" y="20" width="440" height="60" fill="#2f7f86" fill-opacity="0.12"/>
+    <rect x="460" y="40" width="20" height="20" fill="#9a7420"/><text x="404" y="30" font-size="10" fill="#9a7420">portail → arenarea</text>
+    <path d="M470,50 L500,50" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+    <rect x="20" y="180" width="20" height="20" fill="#3f6b34"/><text x="44" y="194" font-size="10" fill="#3f6b34">entrée (entry)</text>
+    <rect x="300" y="40" width="20" height="20" fill="#3f6b34" fill-opacity="0.5" stroke="#3f6b34"/><text x="324" y="54" font-size="10" fill="#3f6b34">spawnPoint « from-arenarea »</text>
+    <circle cx="70" cy="110" r="8" fill="#9a7420"/><text x="66" y="114" font-size="8" fill="#25201a">M</text><text x="84" y="114" font-size="10" fill="#25201a">PNJ (dialogue)</text>
+    <circle cx="230" cy="170" r="8" fill="#8a2233"/><text x="226" y="174" font-size="8" fill="#fbf8f0">R</text>
+    <text x="244" y="174" font-size="10" fill="#8a2233">encounter (déclencheur)</text>
+    <rect x="160" y="140" width="220" height="60" fill="#8a2233" fill-opacity="0.12" stroke="#8a2233" stroke-dasharray="4 3" stroke-width="1.5"/>
+    <text x="164" y="212" font-size="10" fill="#8a2233">combatZone « place » 11 × 3 → la grille tactique se découpe là (LOT-09)</text>
+    <circle cx="230" cy="170" r="60" fill="none" stroke="#9a7420" stroke-dasharray="2 3"/>
+    <text x="296" y="130" font-size="9" fill="#9a7420">rayon de 6 cases (30 pieds) : zone atteignable exigée (core::analyzeEncounterTerrain)</text>
+  </g>
+
+  <text x="540" y="54" font-weight="600" fill="#25201a">Carte « arenarea »</text>
+  <g transform="translate(540,64)">
+    <rect x="0" y="0" width="300" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
+    <rect x="20" y="20" width="260" height="60" fill="#fbf8f0"/>
+    <rect x="20" y="40" width="20" height="20" fill="#3f6b34" fill-opacity="0.5" stroke="#3f6b34"/><text x="44" y="54" font-size="10" fill="#3f6b34">spawnPoint « from-martpart »</text>
+    <rect x="260" y="40" width="20" height="20" fill="#9a7420"/><text x="180" y="30" font-size="10" fill="#9a7420">portail → martpart</text>
+  </g>
+  <path d="M520,114 L540,114" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <g fill="#25201a" font-size="12">
+    <text x="540" y="190" font-weight="600">Le portail (LOT-09, EX-VIS-002)</text>
+    <text x="540" y="210">Il nomme (carte, point d'arrivée), jamais</text>
+    <text x="540" y="226">des coordonnées : la carte cible peut être</text>
+    <text x="540" y="242">redimensionnée sans casser l'arrivée.</text>
+    <text x="540" y="258">La paire aller-retour se pose en un geste</text>
+    <text x="540" y="274">dans l'éditeur (EX-EDIT-089). Un drapeau</text>
+    <text x="540" y="290">(<tspan font-family="Consolas, monospace">requiresFlag</tspan>) peut le tenir fermé.</text>
+  </g>
+
+  <g fill="#25201a" font-size="12">
+    <text x="20" y="312" font-weight="600">La bascule en combat (EX-CBT-001, LOT-18 ; sur la carte : LOT-118)</text>
+    <text x="20" y="332">1. Le héros touche le déclencheur (ou un dialogue engage la rencontre) : l'exploration est mise de côté (<tspan font-family="Consolas, monospace">core::beginEncounter</tspan>).</text>
+    <text x="20" y="350">2. La grille tactique se découpe sur la zone de combat qui contient le déclencheur, à partir de la couche de collision — jamais redessinée.</text>
+    <text x="20" y="368">3. Les combattants de la rencontre se placent autour du déclencheur (<tspan font-family="Consolas, monospace">core::placeEncounter</tspan>) ; l'éditeur avait vérifié qu'ils y tiennent (EX-EDIT-054).</text>
+    <text x="20" y="386">4. Victoire : retour à l'exploration au même endroit, drapeau posé, la rencontre ne se rejoue pas ; fuite si la donnée l'autorise ; défaite : écran de fin (LOT-119).</text>
+  </g>
+  <g fill="#6a6152" font-size="11">
+    <text x="20" y="418">Une carte maquette (LOT-128) suffit à jouer tout ceci : sols et murs en couleurs, jetons vert, jaune et rouge, portail en flèche, zone en pointillé.</text>
+    <text x="20" y="434">Voir aussi le schéma du trajet de portail, fonction par fonction, dans le guide : <tspan font-family="Consolas, monospace">Guide/figures/monde-portail-trajet.svg</tspan>.</text>
+  </g>
+</svg>

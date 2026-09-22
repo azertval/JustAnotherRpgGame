@@ -1,0 +1,468 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Rpg/test_dice.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__dice_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_dice.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests des des, des caracteristiques et de l'echelle (LOT-12, EX-NFR-002).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="DeterministicRandom_8h_source.html">Core/Math/DeterministicRandom.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Ability_8h_source.html">Core/Rpg/Ability.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Dice_8h_source.html">Core/Rpg/Dice.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Scale_8h_source.html">Core/Rpg/Scale.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a8463bc81635f726b4571d716346467f4" id="r_a8463bc81635f726b4571d716346467f4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8463bc81635f726b4571d716346467f4">TEST</a> (DiceTest, AnalyseDesTroisFormes)</td></tr>
+<tr class="memdesc:a8463bc81635f726b4571d716346467f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">La notation de des est analysee sous ses trois formes.  <br /></td></tr>
+<tr class="memitem:ae7a292dbff3f304e5386d39f7a99926c" id="r_ae7a292dbff3f304e5386d39f7a99926c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae7a292dbff3f304e5386d39f7a99926c">TEST</a> (DiceTest, UneNotationMalFormeeEstRefusee)</td></tr>
+<tr class="memdesc:ae7a292dbff3f304e5386d39f7a99926c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une notation mal formee est refusee, jamais devinee.  <br /></td></tr>
+<tr class="memitem:af3e1499f3afd5b9d03c21e5ffeae3127" id="r_af3e1499f3afd5b9d03c21e5ffeae3127"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af3e1499f3afd5b9d03c21e5ffeae3127">TEST</a> (DiceTest, UnLancerResteDansSesBornes)</td></tr>
+<tr class="memdesc:af3e1499f3afd5b9d03c21e5ffeae3127"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un lancer reste dans ses bornes et conserve chaque de.  <br /></td></tr>
+<tr class="memitem:a7b8e1f1fc1cc2041fca275a9ad4ed138" id="r_a7b8e1f1fc1cc2041fca275a9ad4ed138"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7b8e1f1fc1cc2041fca275a9ad4ed138">TEST</a> (DiceTest, RejouabiliteStricte)</td></tr>
+<tr class="memdesc:a7b8e1f1fc1cc2041fca275a9ad4ed138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meme graine, meme suite : la rejouabilite est stricte.  <br /></td></tr>
+<tr class="memitem:a4a584e372910cd69fee7bffb89079eeb" id="r_a4a584e372910cd69fee7bffb89079eeb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4a584e372910cd69fee7bffb89079eeb">TEST</a> (DiceTest, DistributionUniformeSurCentMilleTirages)</td></tr>
+<tr class="memdesc:a4a584e372910cd69fee7bffb89079eeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">La distribution d'un d20 est uniforme sur cent mille tirages.  <br /></td></tr>
+<tr class="memitem:a7dc01cb22de074202b6b35b10fb324fc" id="r_a7dc01cb22de074202b6b35b10fb324fc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7dc01cb22de074202b6b35b10fb324fc">TEST</a> (DiceTest, BornesDuTirageEntier)</td></tr>
+<tr class="memdesc:a7dc01cb22de074202b6b35b10fb324fc"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">nextInt</span> respecte ses bornes, y compris degenerees.  <br /></td></tr>
+<tr class="memitem:a54152b8abf7a0623fb3878bb07e5478c" id="r_a54152b8abf7a0623fb3878bb07e5478c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a54152b8abf7a0623fb3878bb07e5478c">TEST</a> (DiceTest, ModificateurArrondiVersLeBas)</td></tr>
+<tr class="memdesc:a54152b8abf7a0623fb3878bb07e5478c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le modificateur de caracteristique s'arrondit vers le bas.  <br /></td></tr>
+<tr class="memitem:ad5284d1ced79700a2cb443c25cd19728" id="r_ad5284d1ced79700a2cb443c25cd19728"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad5284d1ced79700a2cb443c25cd19728">TEST</a> (DiceTest, AllerRetourDesCaracteristiques)</td></tr>
+<tr class="memdesc:ad5284d1ced79700a2cb443c25cd19728"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les six caracteristiques font l'aller-retour par leur nom.  <br /></td></tr>
+<tr class="memitem:a7efc933a4e436767b30426d9bb840ef5" id="r_a7efc933a4e436767b30426d9bb840ef5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7efc933a4e436767b30426d9bb840ef5">TEST</a> (DiceTest, EchelleDuMonde)</td></tr>
+<tr class="memdesc:a7efc933a4e436767b30426d9bb840ef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'echelle du monde convertit metres et cases dans les deux sens.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests des des, des caracteristiques et de l'echelle (LOT-12, EX-NFR-002). </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ad5284d1ced79700a2cb443c25cd19728" name="ad5284d1ced79700a2cb443c25cd19728"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5284d1ced79700a2cb443c25cd19728">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DiceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AllerRetourDesCaracteristiques</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les six caracteristiques font l'aller-retour par leur nom. </p>
+<p><b>Cas de test :</b> <b>Les six caracteristiques font l'aller-retour par leur nom sans perte.</b><br  />
+ <b>Categorie :</b> Unitaire · Caracteristiques<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Convertir chaque caracteristique en nom, puis le nom en caracteristique.<br  />
+</p><ol type="1">
+<li>Analyser un nom francais.<br  />
+ <b>Resultat attendu :</b> Les six sont retrouvees ; le nom francais est refuse. </li>
+</ol>
+
+</div>
+</div>
+<a id="a8463bc81635f726b4571d716346467f4" name="a8463bc81635f726b4571d716346467f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8463bc81635f726b4571d716346467f4">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DiceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AnalyseDesTroisFormes</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La notation de des est analysee sous ses trois formes. </p>
+<p><b>Cas de test :</b> <b>La notation de des est analysee sous ses trois formes.</b><br  />
+ <b>Categorie :</b> Unitaire · Des<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Analyser &lt;&lt; 2d6+3 &gt;&gt;, &lt;&lt; 1d8 &gt;&gt;, &lt;&lt; 4 &gt;&gt; et &lt;&lt; 1d4-1 &gt;&gt;.<br  />
+ <b>Resultat attendu :</b> Les quatre donnent le nombre de des, de faces et le modificateur attendus. </p>
+
+</div>
+</div>
+<a id="a7dc01cb22de074202b6b35b10fb324fc" name="a7dc01cb22de074202b6b35b10fb324fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dc01cb22de074202b6b35b10fb324fc">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DiceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">BornesDuTirageEntier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">nextInt</span> respecte ses bornes, y compris degenerees. </p>
+<p><b>Cas de test :</b> <b>Le tirage entier respecte ses bornes, y compris quand elles sont egales.</b><br  />
+ <b>Categorie :</b> Unitaire · Des<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Tirer dix mille fois dans [3, 3], puis dans [-5, 5].<br  />
+ <b>Resultat attendu :</b> Le premier rend toujours 3 ; le second reste dans ses bornes et les atteint toutes deux. </p>
+
+</div>
+</div>
+<a id="a4a584e372910cd69fee7bffb89079eeb" name="a4a584e372910cd69fee7bffb89079eeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a584e372910cd69fee7bffb89079eeb">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DiceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DistributionUniformeSurCentMilleTirages</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La distribution d'un d20 est uniforme sur cent mille tirages. </p>
+<p><b>Cas de test :</b> <b>La distribution d'un d20 est uniforme sur cent mille tirages a graine fixe.</b><br  />
+ <b>Categorie :</b> Unitaire · Des<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Tirer cent mille d20 a graine fixe et compter chaque face.<br  />
+ <b>Resultat attendu :</b> Les vingt faces sortent, et chaque effectif s'ecarte de moins de 10 % de la moyenne attendue. </p>
+
+</div>
+</div>
+<a id="a7efc933a4e436767b30426d9bb840ef5" name="a7efc933a4e436767b30426d9bb840ef5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7efc933a4e436767b30426d9bb840ef5">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DiceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EchelleDuMonde</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'echelle du monde convertit metres et cases dans les deux sens. </p>
+<p><b>Cas de test :</b> <b>L'echelle du monde convertit metres et cases dans les deux sens.</b><br  />
+ <b>Categorie :</b> Unitaire · Echelle<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Convertir 9 metres en cases, puis 6 cases en metres.<br  />
+ <b>Resultat attendu :</b> 6 cases et 9 metres &ndash; une case vaut 1,5 m, et la conversion est reversible. </p>
+
+</div>
+</div>
+<a id="a54152b8abf7a0623fb3878bb07e5478c" name="a54152b8abf7a0623fb3878bb07e5478c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54152b8abf7a0623fb3878bb07e5478c">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DiceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ModificateurArrondiVersLeBas</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le modificateur de caracteristique s'arrondit vers le bas. </p>
+<p><b>Cas de test :</b> <b>Le modificateur de caracteristique s'arrondit vers le bas, y compris en negatif.</b><br  />
+ <b>Categorie :</b> Unitaire · Caracteristiques<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Calculer le modificateur pour 1, 7, 8, 9, 10, 11, 15 et 20.<br  />
+ <b>Resultat attendu :</b> -5, -2, -1, -1, 0, 0, +2, +5 &ndash; le cas de 7 distinguant l'arrondi vers le bas de la troncature vers zero. </p>
+
+</div>
+</div>
+<a id="a7b8e1f1fc1cc2041fca275a9ad4ed138" name="a7b8e1f1fc1cc2041fca275a9ad4ed138"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b8e1f1fc1cc2041fca275a9ad4ed138">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DiceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RejouabiliteStricte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Meme graine, meme suite : la rejouabilite est stricte. </p>
+<p><b>Cas de test :</b> <b>Deux generateurs de meme graine produisent exactement la meme suite de des.</b><br  />
+ <b>Categorie :</b> Unitaire · Des<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Lancer cent fois 3d8 avec deux generateurs de meme graine.<br  />
+</p><ol type="1">
+<li>Recommencer avec une graine differente.<br  />
+ <b>Resultat attendu :</b> Les deux premieres suites sont identiques de en de ; la troisieme differe. </li>
+</ol>
+
+</div>
+</div>
+<a id="ae7a292dbff3f304e5386d39f7a99926c" name="ae7a292dbff3f304e5386d39f7a99926c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7a292dbff3f304e5386d39f7a99926c">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DiceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneNotationMalFormeeEstRefusee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une notation mal formee est refusee, jamais devinee. </p>
+<p><b>Cas de test :</b> <b>Une notation de des mal formee est refusee au lieu d'etre devinee.</b><br  />
+ <b>Categorie :</b> Unitaire · Des<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Analyser &lt;&lt; ld8 &gt;&gt; (faute d'OCR), une chaine vide, &lt;&lt; 1d &gt;&gt;, &lt;&lt; d6 &gt;&gt; et &lt;&lt; 1d6+2x &gt;&gt;.<br  />
+ <b>Resultat attendu :</b> Les cinq sont refusees, sans exception. </p>
+
+</div>
+</div>
+<a id="af3e1499f3afd5b9d03c21e5ffeae3127" name="af3e1499f3afd5b9d03c21e5ffeae3127"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3e1499f3afd5b9d03c21e5ffeae3127">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DiceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnLancerResteDansSesBornes</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un lancer reste dans ses bornes et conserve chaque de. </p>
+<p><b>Cas de test :</b> <b>Un lancer de des reste dans ses bornes et conserve le detail de chaque de.</b><br  />
+ <b>Categorie :</b> Unitaire · Des<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Lancer 2d6+3 mille fois a graine fixe.<br  />
+ <b>Resultat attendu :</b> Chaque total est dans [5, 15], chaque de dans [1, 6], et deux des sont conserves. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_876500558ad9fa4b961386baa54d1bd8.html">Rpg</a></li><li class="navelem"><a href="test__dice_8cpp.html">test_dice.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

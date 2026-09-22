@@ -1,6 +1,13 @@
 {
   "versions": [
     {
+      "id": "0.0.0",
+      "titre": "Fondation du moteur",
+      "nature": "detaillee",
+      "lots": 60,
+      "livres": 60
+    },
+    {
       "id": "0.0.1",
       "titre": "Démo basique",
       "nature": "detaillee",
@@ -191,6 +198,565 @@
     }
   ],
   "lots": [
+    {
+      "id": "LOT-01",
+      "titre": "Fork, purge et remise à nu",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": []
+    },
+    {
+      "id": "LOT-02",
+      "titre": "Bibliothèque `HmiLib`",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-01"
+      ]
+    },
+    {
+      "id": "LOT-03",
+      "titre": "Agrégat `LevelData`",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-02"
+      ]
+    },
+    {
+      "id": "LOT-04",
+      "titre": "Format de carte `version: 3`, multi-couches",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-03"
+      ]
+    },
+    {
+      "id": "LOT-05",
+      "titre": "Modes de jeu",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-02",
+        "LOT-04"
+      ]
+    },
+    {
+      "id": "LOT-06",
+      "titre": "Déplacement top-down 8 directions",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-04",
+        "LOT-05"
+      ]
+    },
+    {
+      "id": "LOT-07",
+      "titre": "Rendu top-down et tri par Y",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-04",
+        "LOT-06"
+      ]
+    },
+    {
+      "id": "LOT-08",
+      "titre": "Vocabulaire de tuiles RPG",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-04"
+      ]
+    },
+    {
+      "id": "LOT-09",
+      "titre": "Le Colisée se parcourt : exploration dans le jeu et première carte",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-04",
+        "LOT-06",
+        "LOT-10",
+        "LOT-15",
+        "LOT-18",
+        "LOT-50",
+        "LOT-86",
+        "LOT-11",
+        "LOT-92"
+      ]
+    },
+    {
+      "id": "LOT-10",
+      "titre": "Entités de carte et interaction",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-04",
+        "LOT-06",
+        "LOT-08"
+      ]
+    },
+    {
+      "id": "LOT-11",
+      "titre": "Éditeur multi-couches et placement d'entités",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-04",
+        "LOT-08",
+        "LOT-10"
+      ]
+    },
+    {
+      "id": "LOT-12",
+      "titre": "Dés, caractéristiques, jets",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": []
+    },
+    {
+      "id": "LOT-13",
+      "titre": "Fiche de personnage",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-12"
+      ]
+    },
+    {
+      "id": "LOT-14",
+      "titre": "Inventaire et équipement",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-13",
+        "LOT-34"
+      ]
+    },
+    {
+      "id": "LOT-15",
+      "titre": "PNJ et dialogues",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-05",
+        "LOT-10",
+        "LOT-12"
+      ]
+    },
+    {
+      "id": "LOT-18",
+      "titre": "Bascule exploration ↔ combat",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-05",
+        "LOT-10",
+        "LOT-13"
+      ]
+    },
+    {
+      "id": "LOT-19",
+      "titre": "Grille tactique et déplacement",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-18"
+      ]
+    },
+    {
+      "id": "LOT-20",
+      "titre": "Initiative et tour par tour",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-12",
+        "LOT-19"
+      ]
+    },
+    {
+      "id": "LOT-21",
+      "titre": "Attaques, dégâts et états",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-13",
+        "LOT-14",
+        "LOT-20"
+      ]
+    },
+    {
+      "id": "LOT-22",
+      "titre": "Portée, ligne de vue et zones d'effet",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-19",
+        "LOT-21"
+      ]
+    },
+    {
+      "id": "LOT-23",
+      "titre": "IA tactique ennemie",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-20",
+        "LOT-21",
+        "LOT-22"
+      ]
+    },
+    {
+      "id": "LOT-24",
+      "titre": "IHM de combat",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-21",
+        "LOT-23"
+      ]
+    },
+    {
+      "id": "LOT-30",
+      "titre": "Chaîne d'extraction du corpus et lexique bilingue",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-77"
+      ]
+    },
+    {
+      "id": "LOT-32",
+      "titre": "Schémas de données RPG",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-30",
+        "LOT-79"
+      ]
+    },
+    {
+      "id": "LOT-33",
+      "titre": "Bestiaire de base",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-32"
+      ]
+    },
+    {
+      "id": "LOT-34",
+      "titre": "Équipement, monnaie, objets magiques",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-32"
+      ]
+    },
+    {
+      "id": "LOT-36",
+      "titre": "Espèces, historiques et classes provisoires",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-32",
+        "LOT-43"
+      ]
+    },
+    {
+      "id": "LOT-37",
+      "titre": "Atlas des régions et graphe de cartes",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-32"
+      ]
+    },
+    {
+      "id": "LOT-38",
+      "titre": "Fiche de personnage : maquette et interface",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-13",
+        "LOT-68",
+        "LOT-76"
+      ]
+    },
+    {
+      "id": "LOT-39",
+      "titre": "Plomberie des clés d'assets",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-33",
+        "LOT-34",
+        "LOT-37",
+        "LOT-38"
+      ]
+    },
+    {
+      "id": "LOT-43",
+      "titre": "Options de personnage : dons, multiclassage, compétences, langues",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-32"
+      ]
+    },
+    {
+      "id": "LOT-50",
+      "titre": "Le Colisée : bac à sable de combat",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-19",
+        "LOT-20"
+      ]
+    },
+    {
+      "id": "LOT-66",
+      "titre": "Charte visuelle : sortir de l'identité pixel art",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": []
+    },
+    {
+      "id": "LOT-67",
+      "titre": "Menus et vocabulaire d'un RPG",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-66",
+        "LOT-76"
+      ]
+    },
+    {
+      "id": "LOT-68",
+      "titre": "Le châssis des écrans du RPG",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-66",
+        "LOT-76",
+        "LOT-67"
+      ]
+    },
+    {
+      "id": "LOT-76",
+      "titre": "Habillage d'interface extrait des livres",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-30",
+        "LOT-66"
+      ]
+    },
+    {
+      "id": "LOT-77",
+      "titre": "La moitié RPG de la spécification",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": []
+    },
+    {
+      "id": "LOT-78",
+      "titre": "Désambiguïsation des numéros de lots hérités",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": []
+    },
+    {
+      "id": "LOT-79",
+      "titre": "Socle de chargement de données",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": []
+    },
+    {
+      "id": "LOT-86",
+      "titre": "Refonte de l'IHM sur Qt Quick",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-38",
+        "LOT-68"
+      ]
+    },
+    {
+      "id": "LOT-87",
+      "titre": "Charte v2 et intégration des maquettes",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-86",
+        "LOT-39"
+      ]
+    },
+    {
+      "id": "LOT-88",
+      "titre": "Retrait de l'héritage : code, assets et spécifications",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-67",
+        "LOT-11",
+        "LOT-09"
+      ]
+    },
+    {
+      "id": "LOT-91",
+      "titre": "Atelier des PNJ : les figurines du Character Compendium",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-50",
+        "LOT-39"
+      ]
+    },
+    {
+      "id": "LOT-92",
+      "titre": "Atelier des textures : le style de la scène par maquette, une planche par lieu",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-50",
+        "LOT-91",
+        "LOT-39",
+        "LOT-37"
+      ]
+    },
+    {
+      "id": "LOT-93",
+      "titre": "Atelier des monstres : les figurines du bestiaire, depuis le texte seul",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-91",
+        "LOT-33",
+        "LOT-92"
+      ]
+    },
+    {
+      "id": "LOT-94",
+      "titre": "Les images du corpus quittent le dépôt ; l'écran « Carte » revient sur les cartes de l'auteur : monde, région, ville",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-87",
+        "LOT-39",
+        "LOT-37"
+      ]
+    },
+    {
+      "id": "LOT-96",
+      "titre": "Martpart et Arenarea se parcourent : le graphe des quartiers",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-09",
+        "LOT-94",
+        "LOT-11",
+        "LOT-15"
+      ]
+    },
     {
       "id": "LOT-100",
       "titre": "Planification par versions",
@@ -1551,6 +2117,151 @@
         "LOT-311",
         "LOT-312",
         "LOT-314"
+      ]
+    },
+    {
+      "id": "LOT-EDITOR-01",
+      "titre": "Le socle du module",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": []
+    },
+    {
+      "id": "LOT-EDITOR-02",
+      "titre": "Le canevas montre le lieu",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-EDITOR-01"
+      ]
+    },
+    {
+      "id": "LOT-EDITOR-03",
+      "titre": "Peindre avec les pièces du lieu",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-EDITOR-02",
+        "LOT-EDITOR-12"
+      ]
+    },
+    {
+      "id": "LOT-EDITOR-04",
+      "titre": "Les outils du peintre",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-EDITOR-03"
+      ]
+    },
+    {
+      "id": "LOT-EDITOR-05",
+      "titre": "Entités et zones sur le canevas",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-EDITOR-02",
+        "LOT-EDITOR-12"
+      ]
+    },
+    {
+      "id": "LOT-EDITOR-06",
+      "titre": "Les cartes quittent leurs scripts",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-EDITOR-05",
+        "LOT-EDITOR-13"
+      ]
+    },
+    {
+      "id": "LOT-EDITOR-07",
+      "titre": "Contrôle du contenu",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-EDITOR-06"
+      ]
+    },
+    {
+      "id": "LOT-EDITOR-08",
+      "titre": "Tampons et préfabriqués",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-EDITOR-04"
+      ]
+    },
+    {
+      "id": "LOT-EDITOR-09",
+      "titre": "Le monde : onglets, portails, ville",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-EDITOR-05",
+        "LOT-EDITOR-13"
+      ]
+    },
+    {
+      "id": "LOT-EDITOR-10",
+      "titre": "L'essai complet dans le jeu",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-EDITOR-01"
+      ]
+    },
+    {
+      "id": "LOT-EDITOR-12",
+      "titre": "Le format v4 et sa garde en CI",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-EDITOR-01"
+      ]
+    },
+    {
+      "id": "LOT-EDITOR-13",
+      "titre": "L'éditeur sans fenêtre",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-EDITOR-04"
+      ]
+    },
+    {
+      "id": "LOT-EDITOR-14",
+      "titre": "Renommer et remplacer",
+      "version": "0.0.0",
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 0,
+      "prerequis": [
+        "LOT-EDITOR-06"
       ]
     }
   ]

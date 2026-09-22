@@ -1,0 +1,223 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: Member List</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1WorldModel.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::WorldModel Member List</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This is the complete list of members for <a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#ae2f859429dc0a59c56366e24b75f1517">_city</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a185bec4197be436a7b6ba48da418c084">_clock</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a933009a644601ba3b075e17f89c9d1bf">_interact</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#abebba2b18b07805157fe133092ef526b">_move</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a4de8904df65649a8d0b20e2c44304a1a">_play</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#aa9a833a6634a208feed602de1352ea34">_sceneRevision</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#aa23f8ac54fa6c1029f8ba9fd4e3def64">_startArrivalOverride</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a3b20618e566086e6244452a635e050db">_startCell</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a391bfea5a79e9637b0084a985e653707">_startMapOverride</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#ae9e3f227c26c431056386330b3a88b61">_status</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#ac0d5164e1103e39c2848aca49c7d8be4">_visitedDistricts</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a147868bb8bedd3fbf84fa1f244f8838c">changed</a>()</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#acf424613f83cbc23a161f7e8d960d33c">cityLocation</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a2a2d717ca339db7543fdc8c567838175">cityLocation</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a0edb35d3899752ac9a686a872c935e6e">columns</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#afbe18131b872b6160d85b4139f010f1d">columns</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a6723bd1aa09199cdd31a4e74b7e901f4">dialogueRequested</a>(const QString &amp;dialogueId)</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a8ace752c0cf112e49b79142b3c85290b">diamondRatio</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a7aff4f8e9deb81cb1dd60d9747307a08">districtId</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a77833d510860ab3e8b0325ec5f8df4f8">districtId</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a9f9e8526deca41240e2b15b0349c4421">encounterRequested</a>(const QString &amp;encounterId)</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a79da846c932bf38757c24119d977064c">enterMap</a>(const QString &amp;mapId, const QString &amp;arrival)</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a0f39a57d440f80dc7cd85924a70a1340">frozen</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#ac7706ff80de207cf72ec9a19983312ed">frozen</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#ad2d15bde921ae2e52036d27181dbb6c8">heroColumn</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a7a9125e1060b5fe67c83a285e38ac997">heroColumn</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#ac69f3c3985bc1b48dfdfa79738255454">heroFigure</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a0b351919738556d47a5bfc4ad4822c0f">heroFigure</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a0fa7eb478594477e7068a98c0936e5eb">heroMoved</a>()</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#ab8f17caf20bd69aa673b661cbba984e1">heroRow</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a8915f0083029198e37cbda5ebb07be2b">heroRow</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a249dfdbd9f4596ca3a64f3892db16c5b">interact</a>()</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a83c6ab17b967d875b0e7495d5787ca65">loaded</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a648dd501d5739db825155c82b1961194">loaded</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#add0ae7c6e65b31e7fd64dd11321c73a9">mapEntered</a>(const QString &amp;mapId)</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#ab5652e80c0a82a34c055391a09bf9383">mapId</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a95fe288ccddfe13ab1b82d943ee1ace6">mapId</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a377eb7e731e665360dcdbf7e4eee72f2">mapName</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#aba8ad669c4a643fac23f3f040dc4454a">mapName</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#ab0f15d4cca95ae49757560bf0b30b3d7">mapOfDistrict</a>(const QString &amp;districtId) const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#adc66b2547875ba03914fe3186cd9e7c4">noteDistrictVisit</a>()</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a4bcec9f85851d4fae27e2ca6d0cbcf28">placeHeroAtStartCell</a>()</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#aa3ef96cd7fd6a36d234a4e633abce224">portalBroken</a>(const QString &amp;mapId)</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a5c6c78ce272ddc584a28ed01bb2fff18">portalLocked</a>(const QString &amp;flag)</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#aee59c6bd784f182d94ce8750ebe003c4">rows</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#ac86f1bb3f3f3d8b51c1a5a868146d779">rows</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a0a7036499a425b2fef0b03d14335ad8d">sceneRevision</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a2de3a9e9a2c11cf867cb782a7a719f2a">setFrozen</a>(bool frozen)</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#ad256001fddf25409f8225932adfbc1e2">setHeroFigure</a>(const QString &amp;figure)</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a9759d84f0662c6fb79b308769f496c10">setLevelDirectories</a>(const std::vector&lt; std::filesystem::path &gt; &amp;directories)</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a5c5d079b8d494c9ce9eb02cb7bb0e94d">setMove</a>(qreal x, qreal y)</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#aa8471ce16a773ad1d77e3fa3873e0089">setStartCell</a>(core::GridPosition cell)</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#aa6c9dd581496acd75d2c0ecb94b5aa44">setStartFlags</a>(const QStringList &amp;flags)</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a003fba20061dd2037731373390a8962d">setStartOverride</a>(const QString &amp;mapId, const QString &amp;arrival)</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#accf15fd100d418948ceff091692180f0">snapshot</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a290b130a26608596f2bafbaa9f7e89c9">START_CITY</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a2ed37cbcb0f13d16f308389049fe97d7">startNewGame</a>()</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#ad35b39b91404a26834204600e488b698">status</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#ac551bc77339c94cb470f2e2bf5131c9a">status</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a3abef1c2c71454c345db59ef5dd3c892">step</a>()</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a4584a4eb811579bcd67cf52c50c93239">STEP_MILLISECONDS</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#abbd27d6c2cb84fd8d7f57fd6f4c0b145">visitedDistricts</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a9e2ed6a1599df88493a0f92ff495cc5d">visitedDistricts</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#ad26c761aa266d35a60f559668b593baa">WorldModel</a>(QObject *parent=nullptr)</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html#a57bf1374060f4024ab4990f52249d636">~WorldModel</a>() override</td><td class="entry"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

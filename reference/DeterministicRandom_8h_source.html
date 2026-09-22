@@ -1,0 +1,248 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Math/DeterministicRandom.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('DeterministicRandom_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">DeterministicRandom.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="DeterministicRandom_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span></div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="namespacecore.html#aabea08fea40eec17f439cef7c5a34e56">   25</a></span>[[nodiscard]] <span class="keyword">constexpr</span> std::uint64_t <a class="code hl_function" href="namespacecore.html#aabea08fea40eec17f439cef7c5a34e56">splitMix64</a>(std::uint64_t value) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    value = (value ^ (value &gt;&gt; 30)) * 0xBF58476D1CE4E5B9ULL;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    value = (value ^ (value &gt;&gt; 27)) * 0x94D049BB133111EBULL;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">return</span> value ^ (value &gt;&gt; 31);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="namespacecore.html#a743d1073227b83fb7f8a727a4e0829ae">   43</a></span>[[nodiscard]] <span class="keyword">constexpr</span> std::uint64_t <a class="code hl_function" href="namespacecore.html#a743d1073227b83fb7f8a727a4e0829ae">deriveSeed</a>(std::uint64_t baseSeed, std::uint64_t step,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                                                 std::uint64_t entityId) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    std::uint64_t seed = <a class="code hl_function" href="namespacecore.html#aabea08fea40eec17f439cef7c5a34e56">splitMix64</a>(baseSeed);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    seed = <a class="code hl_function" href="namespacecore.html#aabea08fea40eec17f439cef7c5a34e56">splitMix64</a>(seed ^ step);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    seed = <a class="code hl_function" href="namespacecore.html#aabea08fea40eec17f439cef7c5a34e56">splitMix64</a>(seed ^ entityId);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">return</span> seed;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
+</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span></div>
+<div class="foldopen" id="foldopen00059" data-start="{" data-end="};">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="classcore_1_1DeterministicRandom.html">   59</a></span><span class="keyword">class </span><a class="code hl_function" href="classcore_1_1DeterministicRandom.html#af59424e8343daa70e5c574d890982904">DeterministicRandom</a> {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classcore_1_1DeterministicRandom.html#af59424e8343daa70e5c574d890982904">   62</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classcore_1_1DeterministicRandom.html#af59424e8343daa70e5c574d890982904">DeterministicRandom</a>(std::uint64_t seed) noexcept : <a class="code hl_variable" href="classcore_1_1DeterministicRandom.html#a91a43b32e578b7bc3006197210ce0cf2">_state</a>(seed) {}</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span></div>
+<div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="classcore_1_1DeterministicRandom.html#ad1df942da4dba2bfcc231873164d7bd0">   65</a></span>    [[nodiscard]] std::uint32_t <a class="code hl_function" href="classcore_1_1DeterministicRandom.html#ad1df942da4dba2bfcc231873164d7bd0">nextUInt32</a>() noexcept {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <a class="code hl_variable" href="classcore_1_1DeterministicRandom.html#a91a43b32e578b7bc3006197210ce0cf2">_state</a> += 0x9E3779B97F4A7C15ULL;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>std::uint32_t<span class="keyword">&gt;</span>(<a class="code hl_function" href="namespacecore.html#aabea08fea40eec17f439cef7c5a34e56">splitMix64</a>(<a class="code hl_variable" href="classcore_1_1DeterministicRandom.html#a91a43b32e578b7bc3006197210ce0cf2">_state</a>) &gt;&gt; 32);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    }</div>
+</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span></div>
+<div class="foldopen" id="foldopen00071" data-start="{" data-end="}">
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classcore_1_1DeterministicRandom.html#ae8b6c9a8b84c113d3e881e825ce1ca38">   71</a></span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="classcore_1_1DeterministicRandom.html#ae8b6c9a8b84c113d3e881e825ce1ca38">nextFloat01</a>() noexcept {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keyword">constexpr</span> <span class="keywordtype">float</span> UINT32_RANGE = 4294967296.0f;  <span class="comment">// 2^32</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code hl_function" href="classcore_1_1DeterministicRandom.html#ad1df942da4dba2bfcc231873164d7bd0">nextUInt32</a>()) / UINT32_RANGE;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
+</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span></div>
+<div class="foldopen" id="foldopen00083" data-start="{" data-end="}">
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="classcore_1_1DeterministicRandom.html#a1d65be30928e57da0961a462bb1086a3">   83</a></span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="classcore_1_1DeterministicRandom.html#a1d65be30928e57da0961a462bb1086a3">nextRange</a>(<span class="keywordtype">float</span> min, <span class="keywordtype">float</span> max) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">return</span> min + <a class="code hl_function" href="classcore_1_1DeterministicRandom.html#ae8b6c9a8b84c113d3e881e825ce1ca38">nextFloat01</a>() * (max - min);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
+</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span></div>
+<div class="foldopen" id="foldopen00106" data-start="{" data-end="}">
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="classcore_1_1DeterministicRandom.html#afe4493bdfa8004e44caf24489f5f3861">  106</a></span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="classcore_1_1DeterministicRandom.html#afe4493bdfa8004e44caf24489f5f3861">nextInt</a>(<span class="keywordtype">int</span> min, <span class="keywordtype">int</span> max) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">if</span> (max &lt;= min) {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <span class="keywordflow">return</span> min;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keyword">const</span> std::uint32_t etendue = <span class="keyword">static_cast&lt;</span>std::uint32_t<span class="keyword">&gt;</span>(max - min) + 1U;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="comment">// `2^32 mod etendue` : le nombre de valeurs en trop, celles qui n&#39;ont pas de contrepartie</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="comment">// sur tout l&#39;intervalle. On rejette la queue BASSE, `[0, reste[`, et non la haute.</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="comment">//</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="comment">// Rejeter la queue haute serait plus naturel à lire — « au-delà du dernier multiple</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="comment">// complet » — mais ce seuil vaut `2^32` quand `etendue` divise `2^32`, et `2^32` ne tient</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="comment">// pas dans un `std::uint32_t` : il retombe à 0, la condition devient toujours vraie, et la</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="comment">// boucle ne se termine jamais. Le défaut ne se voit que sur les **puissances de deux** :</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="comment">// un d6 et un d20 passent, un d8 bloque. C&#39;est un test de rejouabilité sur 3d8 qui l&#39;a</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="comment">// trouvé, pas une relecture.</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keyword">const</span> std::uint32_t reste = (std::uint32_t{0} - etendue) % etendue;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        std::uint32_t tirage = <a class="code hl_function" href="classcore_1_1DeterministicRandom.html#ad1df942da4dba2bfcc231873164d7bd0">nextUInt32</a>();</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="keywordflow">while</span> (tirage &lt; reste) {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            tirage = <a class="code hl_function" href="classcore_1_1DeterministicRandom.html#ad1df942da4dba2bfcc231873164d7bd0">nextUInt32</a>();</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        }</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">return</span> min + <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(tirage % etendue);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    }</div>
+</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="classcore_1_1DeterministicRandom.html#a91a43b32e578b7bc3006197210ce0cf2">  129</a></span>    std::uint64_t <a class="code hl_variable" href="classcore_1_1DeterministicRandom.html#a91a43b32e578b7bc3006197210ce0cf2">_state</a>;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>};</div>
+</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aclasscore_1_1DeterministicRandom_html_a1d65be30928e57da0961a462bb1086a3"><div class="ttname"><a href="classcore_1_1DeterministicRandom.html#a1d65be30928e57da0961a462bb1086a3">core::DeterministicRandom::nextRange</a></div><div class="ttdeci">float nextRange(float min, float max) noexcept</div><div class="ttdoc">Prochain flottant dans [min, max].</div><div class="ttdef"><b>Definition</b> DeterministicRandom.h:83</div></div>
+<div class="ttc" id="aclasscore_1_1DeterministicRandom_html_a91a43b32e578b7bc3006197210ce0cf2"><div class="ttname"><a href="classcore_1_1DeterministicRandom.html#a91a43b32e578b7bc3006197210ce0cf2">core::DeterministicRandom::_state</a></div><div class="ttdeci">std::uint64_t _state</div><div class="ttdef"><b>Definition</b> DeterministicRandom.h:129</div></div>
+<div class="ttc" id="aclasscore_1_1DeterministicRandom_html_ad1df942da4dba2bfcc231873164d7bd0"><div class="ttname"><a href="classcore_1_1DeterministicRandom.html#ad1df942da4dba2bfcc231873164d7bd0">core::DeterministicRandom::nextUInt32</a></div><div class="ttdeci">std::uint32_t nextUInt32() noexcept</div><div class="ttdef"><b>Definition</b> DeterministicRandom.h:65</div></div>
+<div class="ttc" id="aclasscore_1_1DeterministicRandom_html_ae8b6c9a8b84c113d3e881e825ce1ca38"><div class="ttname"><a href="classcore_1_1DeterministicRandom.html#ae8b6c9a8b84c113d3e881e825ce1ca38">core::DeterministicRandom::nextFloat01</a></div><div class="ttdeci">float nextFloat01() noexcept</div><div class="ttdef"><b>Definition</b> DeterministicRandom.h:71</div></div>
+<div class="ttc" id="aclasscore_1_1DeterministicRandom_html_af59424e8343daa70e5c574d890982904"><div class="ttname"><a href="classcore_1_1DeterministicRandom.html#af59424e8343daa70e5c574d890982904">core::DeterministicRandom::DeterministicRandom</a></div><div class="ttdeci">DeterministicRandom(std::uint64_t seed) noexcept</div><div class="ttdef"><b>Definition</b> DeterministicRandom.h:62</div></div>
+<div class="ttc" id="aclasscore_1_1DeterministicRandom_html_afe4493bdfa8004e44caf24489f5f3861"><div class="ttname"><a href="classcore_1_1DeterministicRandom.html#afe4493bdfa8004e44caf24489f5f3861">core::DeterministicRandom::nextInt</a></div><div class="ttdeci">int nextInt(int min, int max) noexcept</div><div class="ttdoc">Prochain entier dans [min, max], bornes comprises, sans biais modulo.</div><div class="ttdef"><b>Definition</b> DeterministicRandom.h:106</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a743d1073227b83fb7f8a727a4e0829ae"><div class="ttname"><a href="namespacecore.html#a743d1073227b83fb7f8a727a4e0829ae">core::deriveSeed</a></div><div class="ttdeci">constexpr std::uint64_t deriveSeed(std::uint64_t baseSeed, std::uint64_t step, std::uint64_t entityId) noexcept</div><div class="ttdoc">Combine une graine de base, un numéro de pas et un identifiant reproductible en une graine unique,...</div><div class="ttdef"><b>Definition</b> DeterministicRandom.h:43</div></div>
+<div class="ttc" id="anamespacecore_html_aabea08fea40eec17f439cef7c5a34e56"><div class="ttname"><a href="namespacecore.html#aabea08fea40eec17f439cef7c5a34e56">core::splitMix64</a></div><div class="ttdeci">constexpr std::uint64_t splitMix64(std::uint64_t value) noexcept</div><div class="ttdoc">Mélange (SplitMix64) un entier 64 bits en une valeur bien distribuée.</div><div class="ttdef"><b>Definition</b> DeterministicRandom.h:25</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_345da4441ab9798aee6a61be5cf5c8cb.html">Math</a></li><li class="navelem"><a href="DeterministicRandom_8h.html">DeterministicRandom.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

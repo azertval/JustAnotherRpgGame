@@ -1,0 +1,192 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/EditContextTarget.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('EditContextTarget_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">EditContextTarget.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="EditContextTarget_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classhmi_1_1EditContextTarget.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classhmi_1_1EditContextTarget.html#a82f63a0d5ba2f3fe2e78ae6bcf79eb99">   25</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="classhmi_1_1EditContextTarget.html#a82f63a0d5ba2f3fe2e78ae6bcf79eb99">~EditContextTarget</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classhmi_1_1EditContextTarget.html#abd57583a8365cf0134b53de7f78c0aba">   27</a></span>    [[nodiscard]] <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1EditContextTarget.html#abd57583a8365cf0134b53de7f78c0aba">canUndo</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="classhmi_1_1EditContextTarget.html#a4252365ae9427a189cbe1e0a05c82064">   28</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1EditContextTarget.html#a4252365ae9427a189cbe1e0a05c82064">undo</a>() = 0;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classhmi_1_1EditContextTarget.html#aeebaf7eb7a522b6c3e20eb471ab7c730">   29</a></span>    [[nodiscard]] <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1EditContextTarget.html#aeebaf7eb7a522b6c3e20eb471ab7c730">canRedo</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classhmi_1_1EditContextTarget.html#a977196ba3e313798f6a4285b9d29eb29">   30</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1EditContextTarget.html#a977196ba3e313798f6a4285b9d29eb29">redo</a>() = 0;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classhmi_1_1EditContextTarget.html#a6c7d5ccf54dca42793d4e9cfd9693ef2">   31</a></span>    [[nodiscard]] <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1EditContextTarget.html#a6c7d5ccf54dca42793d4e9cfd9693ef2">canCopy</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classhmi_1_1EditContextTarget.html#a3c642227543e70363586f7abbf08ed47">   32</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1EditContextTarget.html#a3c642227543e70363586f7abbf08ed47">copy</a>() = 0;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classhmi_1_1EditContextTarget.html#a2e6851af1958141abb8ee84fa3edd5fd">   33</a></span>    [[nodiscard]] <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1EditContextTarget.html#a2e6851af1958141abb8ee84fa3edd5fd">canPaste</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classhmi_1_1EditContextTarget.html#a40fdcc4e36a7d76387b66d1030724564">   34</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1EditContextTarget.html#a40fdcc4e36a7d76387b66d1030724564">paste</a>() = 0;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aclasshmi_1_1EditContextTarget_html"><div class="ttname"><a href="classhmi_1_1EditContextTarget.html">hmi::EditContextTarget</a></div><div class="ttdoc">Interface pure implémentée par le contexte d&#39;édition actif.</div><div class="ttdef"><b>Definition</b> EditContextTarget.h:23</div></div>
+<div class="ttc" id="aclasshmi_1_1EditContextTarget_html_a2e6851af1958141abb8ee84fa3edd5fd"><div class="ttname"><a href="classhmi_1_1EditContextTarget.html#a2e6851af1958141abb8ee84fa3edd5fd">hmi::EditContextTarget::canPaste</a></div><div class="ttdeci">virtual bool canPaste() const =0</div></div>
+<div class="ttc" id="aclasshmi_1_1EditContextTarget_html_a3c642227543e70363586f7abbf08ed47"><div class="ttname"><a href="classhmi_1_1EditContextTarget.html#a3c642227543e70363586f7abbf08ed47">hmi::EditContextTarget::copy</a></div><div class="ttdeci">virtual void copy()=0</div></div>
+<div class="ttc" id="aclasshmi_1_1EditContextTarget_html_a40fdcc4e36a7d76387b66d1030724564"><div class="ttname"><a href="classhmi_1_1EditContextTarget.html#a40fdcc4e36a7d76387b66d1030724564">hmi::EditContextTarget::paste</a></div><div class="ttdeci">virtual void paste()=0</div></div>
+<div class="ttc" id="aclasshmi_1_1EditContextTarget_html_a4252365ae9427a189cbe1e0a05c82064"><div class="ttname"><a href="classhmi_1_1EditContextTarget.html#a4252365ae9427a189cbe1e0a05c82064">hmi::EditContextTarget::undo</a></div><div class="ttdeci">virtual void undo()=0</div></div>
+<div class="ttc" id="aclasshmi_1_1EditContextTarget_html_a6c7d5ccf54dca42793d4e9cfd9693ef2"><div class="ttname"><a href="classhmi_1_1EditContextTarget.html#a6c7d5ccf54dca42793d4e9cfd9693ef2">hmi::EditContextTarget::canCopy</a></div><div class="ttdeci">virtual bool canCopy() const =0</div></div>
+<div class="ttc" id="aclasshmi_1_1EditContextTarget_html_a82f63a0d5ba2f3fe2e78ae6bcf79eb99"><div class="ttname"><a href="classhmi_1_1EditContextTarget.html#a82f63a0d5ba2f3fe2e78ae6bcf79eb99">hmi::EditContextTarget::~EditContextTarget</a></div><div class="ttdeci">virtual ~EditContextTarget()=default</div></div>
+<div class="ttc" id="aclasshmi_1_1EditContextTarget_html_a977196ba3e313798f6a4285b9d29eb29"><div class="ttname"><a href="classhmi_1_1EditContextTarget.html#a977196ba3e313798f6a4285b9d29eb29">hmi::EditContextTarget::redo</a></div><div class="ttdeci">virtual void redo()=0</div></div>
+<div class="ttc" id="aclasshmi_1_1EditContextTarget_html_abd57583a8365cf0134b53de7f78c0aba"><div class="ttname"><a href="classhmi_1_1EditContextTarget.html#abd57583a8365cf0134b53de7f78c0aba">hmi::EditContextTarget::canUndo</a></div><div class="ttdeci">virtual bool canUndo() const =0</div></div>
+<div class="ttc" id="aclasshmi_1_1EditContextTarget_html_aeebaf7eb7a522b6c3e20eb471ab7c730"><div class="ttname"><a href="classhmi_1_1EditContextTarget.html#aeebaf7eb7a522b6c3e20eb471ab7c730">hmi::EditContextTarget::canRedo</a></div><div class="ttdeci">virtual bool canRedo() const =0</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li><li class="navelem"><a href="EditContextTarget_8h.html">EditContextTarget.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

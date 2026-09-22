@@ -1,0 +1,261 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/SceneImages.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('SceneImages_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">SceneImages.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="SceneImages_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;QColor&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;QImage&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;set&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="TileType_8h.html">Core/Levels/TileType.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="RenderLayer_8h.html">HMI/Graphics/RenderLayer.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="ScenePieces_8h.html">HMI/Graphics/ScenePieces.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="namespacehmi.html#ab7a286078c3b760b7c7bcd400c3efc93">   39</a></span>[[nodiscard]] <span class="keyword">inline</span> <span class="keyword">const</span> QImage* <a class="code hl_function" href="namespacehmi.html#ab7a286078c3b760b7c7bcd400c3efc93">sceneImageOf</a>(<a class="code hl_typedef" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> handle) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>QImage*<span class="keyword">&gt;</span>(handle);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
+</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span></div>
+<div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="namespacehmi.html#a71762428929f463c938cf50568054832">   45</a></span>[[nodiscard]] <span class="keyword">inline</span> <a class="code hl_typedef" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> <a class="code hl_function" href="namespacehmi.html#a71762428929f463c938cf50568054832">sceneImageHandle</a>(<span class="keyword">const</span> QImage* image) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="comment">// NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast): identité opaque, jamais écrite.</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">return</span> <span class="keyword">const_cast&lt;</span>QImage*<span class="keyword">&gt;</span>(image);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="};">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classhmi_1_1SceneImages.html">   54</a></span><span class="keyword">class </span><a class="code hl_function" href="classhmi_1_1SceneImages.html#ac9c67c5a1ab03dcf3238494037e310c1">SceneImages</a> {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classhmi_1_1SceneImages.html#ac9c67c5a1ab03dcf3238494037e310c1">SceneImages</a>(std::filesystem::path assetsDirectory);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="classhmi_1_1SceneImages.html#ab472828e80d490a62c72612c50de3bd3">   59</a></span>    <a class="code hl_function" href="classhmi_1_1SceneImages.html#ab472828e80d490a62c72612c50de3bd3">SceneImages</a>(<span class="keyword">const</span> <a class="code hl_function" href="classhmi_1_1SceneImages.html#ac9c67c5a1ab03dcf3238494037e310c1">SceneImages</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="classhmi_1_1SceneImages.html#aa961015227dc1b844b75e14377901e0c">   60</a></span>    <a class="code hl_function" href="classhmi_1_1SceneImages.html#ac9c67c5a1ab03dcf3238494037e310c1">SceneImages</a>&amp; <a class="code hl_function" href="classhmi_1_1SceneImages.html#aa961015227dc1b844b75e14377901e0c">operator=</a>(<span class="keyword">const</span> <a class="code hl_function" href="classhmi_1_1SceneImages.html#ac9c67c5a1ab03dcf3238494037e310c1">SceneImages</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1SceneImages.html#ad9192d4912cc726cc1078ac317405beb">ensure</a>(<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; paths);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span></div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="classhmi_1_1SceneImages.html#a8b8303bdcd5df08f35366a9a6c342a9e">   67</a></span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a>&amp; <a class="code hl_function" href="classhmi_1_1SceneImages.html#a8b8303bdcd5df08f35366a9a6c342a9e">textures</a>() const noexcept {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1SceneImages.html#ae1ef36be114f09217d661caa1ed5e075">_textures</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
+</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_typedef" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> <a class="code hl_function" href="classhmi_1_1SceneImages.html#a81100b0f242ad215cd4f81d6f74d9cd2">solid</a>() noexcept;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span></div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classhmi_1_1SceneImages.html#a8ddc8d2183a9136092e36e7117402cb0">   75</a></span>    [[nodiscard]] const QImage&amp; <a class="code hl_function" href="classhmi_1_1SceneImages.html#a8ddc8d2183a9136092e36e7117402cb0">atlas</a>() const noexcept {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1SceneImages.html#a52bc1ff83860e76ab8235efcdda84f97">_atlas</a>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    }</div>
+</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    [[nodiscard]] QColor <a class="code hl_function" href="classhmi_1_1SceneImages.html#a3c4847c7b7690d75651fe62cf63b7074">tileColor</a>(<a class="code hl_enumeration" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    [[nodiscard]] <span class="keyword">const</span> QImage* <a class="code hl_function" href="classhmi_1_1SceneImages.html#a10f1ad80edf914b649f02139d254ae09">marker</a>(<span class="keyword">const</span> std::string&amp; key);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    [[nodiscard]] <span class="keyword">const</span> QImage* <a class="code hl_function" href="classhmi_1_1SceneImages.html#a44a181d848cdb4d35756403b07fe141e">image</a>(<span class="keyword">const</span> std::string&amp; path);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="classhmi_1_1SceneImages.html#a43dfc00bd2e64b8d49d59d0bfbe22952">bandFrameWidth</a>(<span class="keyword">const</span> std::string&amp; path) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="classhmi_1_1SceneImages.html#ab703e767fa6f4f375e48ef7f1898256d">   91</a></span>    std::filesystem::path <a class="code hl_variable" href="classhmi_1_1SceneImages.html#ab703e767fa6f4f375e48ef7f1898256d">_directory</a>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="classhmi_1_1SceneImages.html#ad9185c89219da386c10e4ab24aa81d69">   92</a></span>    std::map&lt;std::string, QImage&gt; <a class="code hl_variable" href="classhmi_1_1SceneImages.html#ad9185c89219da386c10e4ab24aa81d69">_images</a>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="classhmi_1_1SceneImages.html#a130a02afc5abc99c889eaad0c028b0c3">   93</a></span>    std::map&lt;std::string, QImage&gt; <a class="code hl_variable" href="classhmi_1_1SceneImages.html#a130a02afc5abc99c889eaad0c028b0c3">_markers</a>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="classhmi_1_1SceneImages.html#a02c8754da2b7f06024b88451893b582f">   94</a></span>    std::set&lt;std::string&gt; <a class="code hl_variable" href="classhmi_1_1SceneImages.html#a02c8754da2b7f06024b88451893b582f">_requested</a>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="classhmi_1_1SceneImages.html#a4c71f1e12e4b3113999db2377c45636d">   95</a></span>    QImage <a class="code hl_variable" href="classhmi_1_1SceneImages.html#a4c71f1e12e4b3113999db2377c45636d">_missing</a>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="classhmi_1_1SceneImages.html#a52bc1ff83860e76ab8235efcdda84f97">   96</a></span>    QImage <a class="code hl_variable" href="classhmi_1_1SceneImages.html#a52bc1ff83860e76ab8235efcdda84f97">_atlas</a>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="classhmi_1_1SceneImages.html#ae1ef36be114f09217d661caa1ed5e075">   97</a></span>    <a class="code hl_struct" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> <a class="code hl_variable" href="classhmi_1_1SceneImages.html#ae1ef36be114f09217d661caa1ed5e075">_textures</a>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>};</div>
+</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aRenderLayer_8h_html"><div class="ttname"><a href="RenderLayer_8h.html">RenderLayer.h</a></div><div class="ttdoc">Ordonnancement de calques unique et explicite du rendu (EX-REN-014).</div></div>
+<div class="ttc" id="aScenePieces_8h_html"><div class="ttname"><a href="ScenePieces_8h.html">ScenePieces.h</a></div><div class="ttdoc">La géométrie des pièces de l&#39;atelier des textures (LOT-92), commune au Colisée en combat et aux lieux...</div></div>
+<div class="ttc" id="aTileType_8h_html"><div class="ttname"><a href="TileType_8h.html">TileType.h</a></div><div class="ttdoc">Types de tuiles d&#39;une carte et utilitaires associés.</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_a02c8754da2b7f06024b88451893b582f"><div class="ttname"><a href="classhmi_1_1SceneImages.html#a02c8754da2b7f06024b88451893b582f">hmi::SceneImages::_requested</a></div><div class="ttdeci">std::set&lt; std::string &gt; _requested</div><div class="ttdef"><b>Definition</b> SceneImages.h:94</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_a10f1ad80edf914b649f02139d254ae09"><div class="ttname"><a href="classhmi_1_1SceneImages.html#a10f1ad80edf914b649f02139d254ae09">hmi::SceneImages::marker</a></div><div class="ttdeci">const QImage * marker(const std::string &amp;key)</div><div class="ttdef"><b>Definition</b> SceneImages.cpp:85</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_a130a02afc5abc99c889eaad0c028b0c3"><div class="ttname"><a href="classhmi_1_1SceneImages.html#a130a02afc5abc99c889eaad0c028b0c3">hmi::SceneImages::_markers</a></div><div class="ttdeci">std::map&lt; std::string, QImage &gt; _markers</div><div class="ttdef"><b>Definition</b> SceneImages.h:93</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_a3c4847c7b7690d75651fe62cf63b7074"><div class="ttname"><a href="classhmi_1_1SceneImages.html#a3c4847c7b7690d75651fe62cf63b7074">hmi::SceneImages::tileColor</a></div><div class="ttdeci">QColor tileColor(core::TileType type) const</div><div class="ttdef"><b>Definition</b> SceneImages.cpp:78</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_a43dfc00bd2e64b8d49d59d0bfbe22952"><div class="ttname"><a href="classhmi_1_1SceneImages.html#a43dfc00bd2e64b8d49d59d0bfbe22952">hmi::SceneImages::bandFrameWidth</a></div><div class="ttdeci">int bandFrameWidth(const std::string &amp;path) const</div><div class="ttdef"><b>Definition</b> SceneImages.cpp:105</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_a44a181d848cdb4d35756403b07fe141e"><div class="ttname"><a href="classhmi_1_1SceneImages.html#a44a181d848cdb4d35756403b07fe141e">hmi::SceneImages::image</a></div><div class="ttdeci">const QImage * image(const std::string &amp;path)</div><div class="ttdef"><b>Definition</b> SceneImages.cpp:99</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_a4c71f1e12e4b3113999db2377c45636d"><div class="ttname"><a href="classhmi_1_1SceneImages.html#a4c71f1e12e4b3113999db2377c45636d">hmi::SceneImages::_missing</a></div><div class="ttdeci">QImage _missing</div><div class="ttdef"><b>Definition</b> SceneImages.h:95</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_a52bc1ff83860e76ab8235efcdda84f97"><div class="ttname"><a href="classhmi_1_1SceneImages.html#a52bc1ff83860e76ab8235efcdda84f97">hmi::SceneImages::_atlas</a></div><div class="ttdeci">QImage _atlas</div><div class="ttdef"><b>Definition</b> SceneImages.h:96</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_a81100b0f242ad215cd4f81d6f74d9cd2"><div class="ttname"><a href="classhmi_1_1SceneImages.html#a81100b0f242ad215cd4f81d6f74d9cd2">hmi::SceneImages::solid</a></div><div class="ttdeci">static TextureHandle solid() noexcept</div><div class="ttdef"><b>Definition</b> SceneImages.cpp:74</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_a8b8303bdcd5df08f35366a9a6c342a9e"><div class="ttname"><a href="classhmi_1_1SceneImages.html#a8b8303bdcd5df08f35366a9a6c342a9e">hmi::SceneImages::textures</a></div><div class="ttdeci">const ScenePieceTextures &amp; textures() const noexcept</div><div class="ttdef"><b>Definition</b> SceneImages.h:67</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_a8ddc8d2183a9136092e36e7117402cb0"><div class="ttname"><a href="classhmi_1_1SceneImages.html#a8ddc8d2183a9136092e36e7117402cb0">hmi::SceneImages::atlas</a></div><div class="ttdeci">const QImage &amp; atlas() const noexcept</div><div class="ttdef"><b>Definition</b> SceneImages.h:75</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_aa961015227dc1b844b75e14377901e0c"><div class="ttname"><a href="classhmi_1_1SceneImages.html#aa961015227dc1b844b75e14377901e0c">hmi::SceneImages::operator=</a></div><div class="ttdeci">SceneImages &amp; operator=(const SceneImages &amp;)=delete</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_ab472828e80d490a62c72612c50de3bd3"><div class="ttname"><a href="classhmi_1_1SceneImages.html#ab472828e80d490a62c72612c50de3bd3">hmi::SceneImages::SceneImages</a></div><div class="ttdeci">SceneImages(const SceneImages &amp;)=delete</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_ab703e767fa6f4f375e48ef7f1898256d"><div class="ttname"><a href="classhmi_1_1SceneImages.html#ab703e767fa6f4f375e48ef7f1898256d">hmi::SceneImages::_directory</a></div><div class="ttdeci">std::filesystem::path _directory</div><div class="ttdef"><b>Definition</b> SceneImages.h:91</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_ac9c67c5a1ab03dcf3238494037e310c1"><div class="ttname"><a href="classhmi_1_1SceneImages.html#ac9c67c5a1ab03dcf3238494037e310c1">hmi::SceneImages::SceneImages</a></div><div class="ttdeci">SceneImages(std::filesystem::path assetsDirectory)</div><div class="ttdef"><b>Definition</b> SceneImages.cpp:63</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_ad9185c89219da386c10e4ab24aa81d69"><div class="ttname"><a href="classhmi_1_1SceneImages.html#ad9185c89219da386c10e4ab24aa81d69">hmi::SceneImages::_images</a></div><div class="ttdeci">std::map&lt; std::string, QImage &gt; _images</div><div class="ttdef"><b>Definition</b> SceneImages.h:92</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_ad9192d4912cc726cc1078ac317405beb"><div class="ttname"><a href="classhmi_1_1SceneImages.html#ad9192d4912cc726cc1078ac317405beb">hmi::SceneImages::ensure</a></div><div class="ttdeci">void ensure(const std::vector&lt; std::string &gt; &amp;paths)</div><div class="ttdoc">Charge les images de paths qui ne l&#39;ont pas encore été (une seule tentative par chemin : une pièce ab...</div><div class="ttdef"><b>Definition</b> SceneImages.cpp:112</div></div>
+<div class="ttc" id="aclasshmi_1_1SceneImages_html_ae1ef36be114f09217d661caa1ed5e075"><div class="ttname"><a href="classhmi_1_1SceneImages.html#ae1ef36be114f09217d661caa1ed5e075">hmi::SceneImages::_textures</a></div><div class="ttdeci">ScenePieceTextures _textures</div><div class="ttdef"><b>Definition</b> SceneImages.h:97</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></div><div class="ttdeci">TileType</div><div class="ttdoc">Type d&#39;une tuile de la grille d&#39;une carte (EX-LVL-002).</div><div class="ttdef"><b>Definition</b> TileType.h:24</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a71762428929f463c938cf50568054832"><div class="ttname"><a href="namespacehmi.html#a71762428929f463c938cf50568054832">hmi::sceneImageHandle</a></div><div class="ttdeci">TextureHandle sceneImageHandle(const QImage *image) noexcept</div><div class="ttdef"><b>Definition</b> SceneImages.h:45</div></div>
+<div class="ttc" id="anamespacehmi_html_a979f7ffd7c87877cb1f65f0d08e4419d"><div class="ttname"><a href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">hmi::TextureHandle</a></div><div class="ttdeci">void * TextureHandle</div><div class="ttdoc">Identité opaque d&#39;une texture liée, du point de vue de la composition.</div><div class="ttdef"><b>Definition</b> RenderLayer.h:89</div></div>
+<div class="ttc" id="anamespacehmi_html_ab7a286078c3b760b7c7bcd400c3efc93"><div class="ttname"><a href="namespacehmi.html#ab7a286078c3b760b7c7bcd400c3efc93">hmi::sceneImageOf</a></div><div class="ttdeci">const QImage * sceneImageOf(TextureHandle handle) noexcept</div><div class="ttdef"><b>Definition</b> SceneImages.h:39</div></div>
+<div class="ttc" id="astructhmi_1_1ScenePieceTextures_html"><div class="ttname"><a href="structhmi_1_1ScenePieceTextures.html">hmi::ScenePieceTextures</a></div><div class="ttdoc">Les textures d&#39;un lieu, adressées par leur chemin tel que la composition l&#39;écrit.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:68</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_81129cf20409270d9237df2d6b07b076.html">Ui</a></li><li class="navelem"><a href="SceneImages_8h.html">SceneImages.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

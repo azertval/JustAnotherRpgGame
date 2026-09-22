@@ -1,0 +1,610 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::Localization Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1Localization.html','','classhmi_1_1Localization-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::Localization Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Catalogue de traduction (i18n) : associe des <b>clés</b> stables à des chaînes selon la <b>langue active</b>, avec repli sur la langue par défaut.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Localization_8h_source.html">Localization.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa549c7438b65314c5e0b8bd90996e310" id="r_aa549c7438b65314c5e0b8bd90996e310"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa549c7438b65314c5e0b8bd90996e310">Localization</a> (std::filesystem::path directory={})</td></tr>
+<tr class="memdesc:aa549c7438b65314c5e0b8bd90996e310"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit un catalogue vide.  <br /></td></tr>
+<tr class="memitem:a231fac6516ee2de00e652da9aaacf5b4" id="r_a231fac6516ee2de00e652da9aaacf5b4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a231fac6516ee2de00e652da9aaacf5b4">setDefaultCatalog</a> (std::string language, std::unordered_map&lt; std::string, std::string &gt; strings)</td></tr>
+<tr class="memdesc:a231fac6516ee2de00e652da9aaacf5b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit la langue <b>par défaut</b> (source de repli) et l'active dessus.  <br /></td></tr>
+<tr class="memitem:a9612fcf1c743d947e02ef916e652a44c" id="r_a9612fcf1c743d947e02ef916e652a44c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9612fcf1c743d947e02ef916e652a44c">setActiveCatalog</a> (std::string language, std::unordered_map&lt; std::string, std::string &gt; strings)</td></tr>
+<tr class="memdesc:a9612fcf1c743d947e02ef916e652a44c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit la langue <b>active</b> à partir d'une table déjà analysée.  <br /></td></tr>
+<tr class="memitem:a2d6b7f130c14c3b796453e068b7fbbea" id="r_a2d6b7f130c14c3b796453e068b7fbbea"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2d6b7f130c14c3b796453e068b7fbbea">loadDefaultLanguage</a> (const std::string &amp;language)</td></tr>
+<tr class="memdesc:a2d6b7f130c14c3b796453e068b7fbbea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge la langue <b>par défaut</b> depuis <span class="tt">&lt;directory&gt;/&lt;language&gt;.lang</span> et l'active.  <br /></td></tr>
+<tr class="memitem:a49f9ec81ff30f2eb405930ce13e36584" id="r_a49f9ec81ff30f2eb405930ce13e36584"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a49f9ec81ff30f2eb405930ce13e36584">loadLanguage</a> (const std::string &amp;language)</td></tr>
+<tr class="memdesc:a49f9ec81ff30f2eb405930ce13e36584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge la langue <b>active</b> depuis <span class="tt">&lt;directory&gt;/&lt;language&gt;.lang</span>.  <br /></td></tr>
+<tr class="memitem:a780f42f2ede42f5763205e9647943e4b" id="r_a780f42f2ede42f5763205e9647943e4b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a780f42f2ede42f5763205e9647943e4b">text</a> (std::string_view key) const</td></tr>
+<tr class="memdesc:a780f42f2ede42f5763205e9647943e4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout le texte associé à <code class="param">key</code>.  <br /></td></tr>
+<tr class="memitem:aaec6d6049a8b31c50fc1bf151dec6fa1" id="r_aaec6d6049a8b31c50fc1bf151dec6fa1"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aaec6d6049a8b31c50fc1bf151dec6fa1">activeLanguage</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a74443598fef691b1c7c278bcf364bcb2" id="r_a74443598fef691b1c7c278bcf364bcb2"><td class="memItemLeft">static std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a74443598fef691b1c7c278bcf364bcb2">parseCatalog</a> (std::string_view content)</td></tr>
+<tr class="memdesc:a74443598fef691b1c7c278bcf364bcb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse un contenu <span class="tt">clé = valeur</span> en table de traductions.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:ae68549c47a1ee0e2668438131052d938" id="r_ae68549c47a1ee0e2668438131052d938"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#ae68549c47a1ee0e2668438131052d938">readFile</a> (const std::filesystem::path &amp;path, std::string &amp;out)</td></tr>
+<tr class="memdesc:ae68549c47a1ee0e2668438131052d938"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit tout le contenu d'un fichier texte.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ab339c94377a439fd48a11b08e81af542" id="r_ab339c94377a439fd48a11b08e81af542"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#ab339c94377a439fd48a11b08e81af542">_directory</a></td></tr>
+<tr class="memitem:adc9055b64a1c8d6947ed2d0b53def92b" id="r_adc9055b64a1c8d6947ed2d0b53def92b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#adc9055b64a1c8d6947ed2d0b53def92b">_defaultLanguage</a></td></tr>
+<tr class="memitem:ab6c28ac0406171f49ae2d7ca01d4bbf2" id="r_ab6c28ac0406171f49ae2d7ca01d4bbf2"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab6c28ac0406171f49ae2d7ca01d4bbf2">_activeLanguage</a></td></tr>
+<tr class="memitem:ad057331aa23a4fd54d27cf76b6ab0993" id="r_ad057331aa23a4fd54d27cf76b6ab0993"><td class="memItemLeft">std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad057331aa23a4fd54d27cf76b6ab0993">_defaultStrings</a></td></tr>
+<tr class="memitem:ac8a16c078c1232817cfc131e0a047303" id="r_ac8a16c078c1232817cfc131e0a047303"><td class="memItemLeft">std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac8a16c078c1232817cfc131e0a047303">_activeStrings</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Catalogue de traduction (i18n) : associe des <b>clés</b> stables à des chaînes selon la <b>langue active</b>, avec repli sur la langue par défaut. </p>
+<p>Tous les textes affichés passent par une clé (<span class="tt">EX-REN-033</span>) : le code ne contient aucun libellé en dur. Les traductions sont chargées depuis un <b>fichier par langue</b> (<span class="tt">&lt;langue&gt;.lang</span>, format <span class="tt">clé = valeur</span>, UTF-8), ce qui rend l'ajout d'une langue trivial. La résolution suit un <b>repli déterministe</b> : langue active, puis langue par défaut, puis la clé elle-même — jamais de plantage (<span class="tt">EX-NFR-040</span>). Le catalogue est une logique pure, sans fenêtre ni GPU, donc testable en isolation (<span class="tt">EX-NFR-010</span>). </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa549c7438b65314c5e0b8bd90996e310" name="aa549c7438b65314c5e0b8bd90996e310"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa549c7438b65314c5e0b8bd90996e310">&#9670;&#160;</a></span>Localization()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::Localization::Localization </td>
+          <td>(</td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>directory</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construit un catalogue vide. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">directory</td><td>Dossier contenant les fichiers <span class="tt">&lt;langue&gt;.lang</span> (pour les chargements par fichier). Optionnel : les tests peuvent injecter des tables en mémoire. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="aaec6d6049a8b31c50fc1bf151dec6fa1" name="aaec6d6049a8b31c50fc1bf151dec6fa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaec6d6049a8b31c50fc1bf151dec6fa1">&#9670;&#160;</a></span>activeLanguage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; hmi::Localization::activeLanguage </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'identifiant de la langue active. </dd></dl>
+
+</div>
+</div>
+<a id="a2d6b7f130c14c3b796453e068b7fbbea" name="a2d6b7f130c14c3b796453e068b7fbbea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d6b7f130c14c3b796453e068b7fbbea">&#9670;&#160;</a></span>loadDefaultLanguage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::Localization::loadDefaultLanguage </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>language</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Charge la langue <b>par défaut</b> depuis <span class="tt">&lt;directory&gt;/&lt;language&gt;.lang</span> et l'active. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">language</td><td>Identifiant de langue (nom de fichier sans extension). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true si le fichier a été lu ; false (récupérable) s'il est absent ou illisible. </dd></dl>
+
+</div>
+</div>
+<a id="a49f9ec81ff30f2eb405930ce13e36584" name="a49f9ec81ff30f2eb405930ce13e36584"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49f9ec81ff30f2eb405930ce13e36584">&#9670;&#160;</a></span>loadLanguage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::Localization::loadLanguage </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>language</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Charge la langue <b>active</b> depuis <span class="tt">&lt;directory&gt;/&lt;language&gt;.lang</span>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">language</td><td>Identifiant de langue (nom de fichier sans extension). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true si le fichier a été lu ; false (récupérable) s'il est absent ou illisible — la langue active précédente est alors conservée. </dd></dl>
+
+</div>
+</div>
+<a id="a74443598fef691b1c7c278bcf364bcb2" name="a74443598fef691b1c7c278bcf364bcb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74443598fef691b1c7c278bcf364bcb2">&#9670;&#160;</a></span>parseCatalog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt; std::string, std::string &gt; hmi::Localization::parseCatalog </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>content</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Analyse un contenu <span class="tt">clé = valeur</span> en table de traductions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">content</td><td>Texte source (UTF-8). Les lignes vides et les lignes débutant par <span class="tt">#</span> (commentaires) sont ignorées ; les espaces autour de <span class="tt">=</span> sont retirés ; un <span class="tt">=</span> présent dans la valeur est conservé (seul le premier sépare). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La table clé → valeur. </dd></dl>
+
+</div>
+</div>
+<a id="ae68549c47a1ee0e2668438131052d938" name="ae68549c47a1ee0e2668438131052d938"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae68549c47a1ee0e2668438131052d938">&#9670;&#160;</a></span>readFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::Localization::readFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>out</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit tout le contenu d'un fichier texte. </p>
+<dl class="section return"><dt>Returns</dt><dd>true et remplit <code class="param">out</code> en cas de succès. </dd></dl>
+
+</div>
+</div>
+<a id="a9612fcf1c743d947e02ef916e652a44c" name="a9612fcf1c743d947e02ef916e652a44c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9612fcf1c743d947e02ef916e652a44c">&#9670;&#160;</a></span>setActiveCatalog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::Localization::setActiveCatalog </td>
+          <td>(</td>
+          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>language</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_map&lt; std::string, std::string &gt;</td>          <td class="paramname"><span class="paramname"><em>strings</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définit la langue <b>active</b> à partir d'une table déjà analysée. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">language</td><td>Identifiant de langue. </td></tr>
+    <tr><td class="paramname">strings</td><td>Table de traductions déjà analysée. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a231fac6516ee2de00e652da9aaacf5b4" name="a231fac6516ee2de00e652da9aaacf5b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a231fac6516ee2de00e652da9aaacf5b4">&#9670;&#160;</a></span>setDefaultCatalog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::Localization::setDefaultCatalog </td>
+          <td>(</td>
+          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>language</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_map&lt; std::string, std::string &gt;</td>          <td class="paramname"><span class="paramname"><em>strings</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définit la langue <b>par défaut</b> (source de repli) et l'active dessus. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">language</td><td>Identifiant de langue (ex. « fr »). </td></tr>
+    <tr><td class="paramname">strings</td><td>Table de traductions déjà analysée. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a780f42f2ede42f5763205e9647943e4b" name="a780f42f2ede42f5763205e9647943e4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a780f42f2ede42f5763205e9647943e4b">&#9670;&#160;</a></span>text()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::Localization::text </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Résout le texte associé à <code class="param">key</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Clé de traduction (ex. « menu.quitter »). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La chaîne de la langue active, sinon celle de la langue par défaut, sinon la clé. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ab6c28ac0406171f49ae2d7ca01d4bbf2" name="ab6c28ac0406171f49ae2d7ca01d4bbf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6c28ac0406171f49ae2d7ca01d4bbf2">&#9670;&#160;</a></span>_activeLanguage</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::Localization::_activeLanguage</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac8a16c078c1232817cfc131e0a047303" name="ac8a16c078c1232817cfc131e0a047303"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8a16c078c1232817cfc131e0a047303">&#9670;&#160;</a></span>_activeStrings</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;std::string, std::string&gt; hmi::Localization::_activeStrings</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adc9055b64a1c8d6947ed2d0b53def92b" name="adc9055b64a1c8d6947ed2d0b53def92b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc9055b64a1c8d6947ed2d0b53def92b">&#9670;&#160;</a></span>_defaultLanguage</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::Localization::_defaultLanguage</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad057331aa23a4fd54d27cf76b6ab0993" name="ad057331aa23a4fd54d27cf76b6ab0993"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad057331aa23a4fd54d27cf76b6ab0993">&#9670;&#160;</a></span>_defaultStrings</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;std::string, std::string&gt; hmi::Localization::_defaultStrings</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab339c94377a439fd48a11b08e81af542" name="ab339c94377a439fd48a11b08e81af542"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab339c94377a439fd48a11b08e81af542">&#9670;&#160;</a></span>_directory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::Localization::_directory</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Localization/<a class="el" href="Localization_8h_source.html">Localization.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Localization/<a class="el" href="Localization_8cpp.html">Localization.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1Localization.html">Localization</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

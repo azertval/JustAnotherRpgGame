@@ -1,0 +1,179 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: Member List</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1ComposedScene.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::ComposedScene Member List</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This is the complete list of members for <a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#a26e1b7e6b9bad59ea9654f8b7c923262">_considered</a></td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#aa7224733eaa8db633223dd7e172acb5b">_culled</a></td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#aaa9c9c3f70b554c719bcb6a3a5547e00">_quads</a></td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#aa885de2ea8ce9908fe077a7b2bbfa65a">_textureOrder</a></td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#af5712eaf613b13ccc223a1c903946ae3">_visibleBounds</a></td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#a84dc1784abf8931b638de5929894ad54">addLine</a>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const LineQuad &amp;quad)</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#abb3918ab48d60da10aa29c112bba55f4">addPoly</a>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const PolyQuad &amp;quad)</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#a24314ca8a9469380b010d79d9e1eb604">addSprite</a>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const SpriteQuad &amp;quad)</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#a751bbaba08ad6bd4f8104723af3b95df">batchCount</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#ab51e478d9d4ad48ceeaac4f1e384d1ae">clear</a>() noexcept</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#a6ddbe31611a024e417b36bf6f8680da1">clearVisibleBounds</a>() noexcept</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#ad8dd91b7cee4c5d987aae7b22fac4d7e">CULLING_MARGIN_UNITS</a></td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#a0a4e00be708093fbbf214379c1f73a99">cullingBounds</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#a62f6cc07caaeef96393c6c8e2de233b9">isCullingEnabled</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#ad544319d48036199694098d8c61dfd05">isVisible</a>(const core::Rect &amp;bounds) const</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#ace294695fa499a5f2d899b449d647933">quads</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#a55f90d51ee8eb346b47163efd1b78301">setVisibleBounds</a>(const core::Rect &amp;worldBounds) noexcept</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#ac7a73465b2a0c743b86ccaa5db940e59">size</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#a6c3bcd9889c444a2150dd1b3bd576a14">sort</a>()</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#a43dde3d9e70aac31ab47a430e516124d">statistics</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html#a86ce48e065a3f0541ae541f897b2fedd">textureRank</a>(TextureHandle texture)</td><td class="entry"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+</table></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

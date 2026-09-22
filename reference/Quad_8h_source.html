@@ -1,0 +1,258 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/Quad.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('Quad_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Quad.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Quad_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span></div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structhmi_1_1SpriteQuad.html">   31</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structhmi_1_1SpriteQuad.html#a92c64adb689a74573ddd55c2ad06e1bf">   32</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#a92c64adb689a74573ddd55c2ad06e1bf">x</a> = 0.0f;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structhmi_1_1SpriteQuad.html#aa5c6523969fab44f779387543dc3365a">   33</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#aa5c6523969fab44f779387543dc3365a">y</a> = 0.0f;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structhmi_1_1SpriteQuad.html#a7f473f58edf9e7c97b268324b914cfaf">   34</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#a7f473f58edf9e7c97b268324b914cfaf">width</a> = 0.0f;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structhmi_1_1SpriteQuad.html#ad57ebf8af5db3949c45ab0b1f99c4344">   35</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#ad57ebf8af5db3949c45ab0b1f99c4344">height</a> = 0.0f;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structhmi_1_1SpriteQuad.html#a6d77667b205966d8edb35e16aa6f8b3a">   36</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#a6d77667b205966d8edb35e16aa6f8b3a">rotation</a> = 0.0f;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structhmi_1_1SpriteQuad.html#ae7e99128d209fb85b68f901744c063a8">   37</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#ae7e99128d209fb85b68f901744c063a8">u0</a> = 0.0f;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structhmi_1_1SpriteQuad.html#a57d8a28d381a274c651561943f89c252">   38</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#a57d8a28d381a274c651561943f89c252">v0</a> = 0.0f;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structhmi_1_1SpriteQuad.html#a011e7b579cef80bf6c48ecb04ce17461">   39</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#a011e7b579cef80bf6c48ecb04ce17461">u1</a> = 1.0f;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structhmi_1_1SpriteQuad.html#a75b0c3489614d54680dcb955242fe1f2">   40</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#a75b0c3489614d54680dcb955242fe1f2">v1</a> = 1.0f;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structhmi_1_1SpriteQuad.html#ab8e8494560e6c855471cfab0f735ac48">   41</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#ab8e8494560e6c855471cfab0f735ac48">r</a> = 1.0f;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structhmi_1_1SpriteQuad.html#af6ffdbfd89d0a7c964e9a99574ac5b4d">   42</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#af6ffdbfd89d0a7c964e9a99574ac5b4d">g</a> = 1.0f;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structhmi_1_1SpriteQuad.html#a047688b8ecad613da27164c6f84725a4">   43</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#a047688b8ecad613da27164c6f84725a4">b</a> = 1.0f;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structhmi_1_1SpriteQuad.html#a93b181adcb81b4e6d1ecbb2c7965108f">   44</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#a93b181adcb81b4e6d1ecbb2c7965108f">a</a> = 1.0f;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>};</div>
+</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
+<div class="foldopen" id="foldopen00064" data-start="{" data-end="};">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="structhmi_1_1PolyQuad.html">   64</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1PolyQuad.html">PolyQuad</a> {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="structhmi_1_1PolyQuad.html#a0be92e8f3e9738cb22b0ba071ea68ea5">   65</a></span>    std::array&lt;float, 4&gt; <a class="code hl_variable" href="structhmi_1_1PolyQuad.html#a0be92e8f3e9738cb22b0ba071ea68ea5">x</a>{};</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="structhmi_1_1PolyQuad.html#a892dab5e3e57b584b9a28397be3d5ed2">   66</a></span>    std::array&lt;float, 4&gt; <a class="code hl_variable" href="structhmi_1_1PolyQuad.html#a892dab5e3e57b584b9a28397be3d5ed2">y</a>{};</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structhmi_1_1PolyQuad.html#ad0f21ba102e8807b3d561e193b4981b1">   67</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1PolyQuad.html#ad0f21ba102e8807b3d561e193b4981b1">u0</a> = 0.0f;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structhmi_1_1PolyQuad.html#a88145ee12bcfb16031700767a5d1dde1">   68</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1PolyQuad.html#a88145ee12bcfb16031700767a5d1dde1">v0</a> = 0.0f;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structhmi_1_1PolyQuad.html#afe5695fab9f07c9e4ebcbfaaf15956b1">   69</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1PolyQuad.html#afe5695fab9f07c9e4ebcbfaaf15956b1">u1</a> = 1.0f;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structhmi_1_1PolyQuad.html#a27699e993f900e4ac5ee102abfd14dcf">   70</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1PolyQuad.html#a27699e993f900e4ac5ee102abfd14dcf">v1</a> = 1.0f;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structhmi_1_1PolyQuad.html#af4ce776903be93823f9c7d1678b63655">   71</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1PolyQuad.html#af4ce776903be93823f9c7d1678b63655">r</a> = 1.0f;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="structhmi_1_1PolyQuad.html#a6791c5989bb2f2e2e74fbfb19af8791a">   72</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1PolyQuad.html#a6791c5989bb2f2e2e74fbfb19af8791a">g</a> = 1.0f;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="structhmi_1_1PolyQuad.html#af1e8ec23ec5ec07a568dc3788d87a799">   73</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1PolyQuad.html#af1e8ec23ec5ec07a568dc3788d87a799">b</a> = 1.0f;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="structhmi_1_1PolyQuad.html#a658783ed443dab1defd60428b5019f0f">   74</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1PolyQuad.html#a658783ed443dab1defd60428b5019f0f">a</a> = 1.0f;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>};</div>
+</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span></div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="};">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="structhmi_1_1LineQuad.html">   85</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1LineQuad.html">LineQuad</a> {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="structhmi_1_1LineQuad.html#ab5c2f6803c2cdae87e0b50d4eb8589c1">   86</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1LineQuad.html#ab5c2f6803c2cdae87e0b50d4eb8589c1">ax</a> = 0.0f;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="structhmi_1_1LineQuad.html#aa9e7c817ab1c5e01364faed685182a69">   87</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1LineQuad.html#aa9e7c817ab1c5e01364faed685182a69">ay</a> = 0.0f;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="structhmi_1_1LineQuad.html#a203b268e3040f841fa7089fc58391d22">   88</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1LineQuad.html#a203b268e3040f841fa7089fc58391d22">bx</a> = 0.0f;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27">   89</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27">by</a> = 0.0f;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="structhmi_1_1LineQuad.html#abe3bbbecb8fc8b1aaedba4a5d4eeaef5">   90</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1LineQuad.html#abe3bbbecb8fc8b1aaedba4a5d4eeaef5">thickness</a> = 0.0f;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="structhmi_1_1LineQuad.html#a36cec5d0917abbf7313ebe7e059f20fd">   91</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1LineQuad.html#a36cec5d0917abbf7313ebe7e059f20fd">u0</a> = 0.0f;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="structhmi_1_1LineQuad.html#accaf53500d04a45aea0c4c8823a01703">   92</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1LineQuad.html#accaf53500d04a45aea0c4c8823a01703">v0</a> = 0.0f;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="structhmi_1_1LineQuad.html#a8ee645003394a0b35bbfb03fbc068f76">   93</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1LineQuad.html#a8ee645003394a0b35bbfb03fbc068f76">u1</a> = 1.0f;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="structhmi_1_1LineQuad.html#afded7a4914c8964639fdb73b43c6c339">   94</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1LineQuad.html#afded7a4914c8964639fdb73b43c6c339">v1</a> = 1.0f;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="structhmi_1_1LineQuad.html#ae8956cc31b9497667597dc2cec9e99eb">   95</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1LineQuad.html#ae8956cc31b9497667597dc2cec9e99eb">r</a> = 1.0f;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="structhmi_1_1LineQuad.html#aefba068b1c39d1610195001056375563">   96</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1LineQuad.html#aefba068b1c39d1610195001056375563">g</a> = 1.0f;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="structhmi_1_1LineQuad.html#a3904c153631f4c3fe5df167a2f7c45a8">   97</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1LineQuad.html#a3904c153631f4c3fe5df167a2f7c45a8">b</a> = 1.0f;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="structhmi_1_1LineQuad.html#ad66407e74212988ac419a0bfe1472806">   98</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1LineQuad.html#ad66407e74212988ac419a0bfe1472806">a</a> = 1.0f;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>};</div>
+</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="astructhmi_1_1LineQuad_html"><div class="ttname"><a href="structhmi_1_1LineQuad.html">hmi::LineQuad</a></div><div class="ttdoc">Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...</div><div class="ttdef"><b>Definition</b> Quad.h:85</div></div>
+<div class="ttc" id="astructhmi_1_1LineQuad_html_a203b268e3040f841fa7089fc58391d22"><div class="ttname"><a href="structhmi_1_1LineQuad.html#a203b268e3040f841fa7089fc58391d22">hmi::LineQuad::bx</a></div><div class="ttdeci">float bx</div><div class="ttdef"><b>Definition</b> Quad.h:88</div></div>
+<div class="ttc" id="astructhmi_1_1LineQuad_html_a36cec5d0917abbf7313ebe7e059f20fd"><div class="ttname"><a href="structhmi_1_1LineQuad.html#a36cec5d0917abbf7313ebe7e059f20fd">hmi::LineQuad::u0</a></div><div class="ttdeci">float u0</div><div class="ttdef"><b>Definition</b> Quad.h:91</div></div>
+<div class="ttc" id="astructhmi_1_1LineQuad_html_a3904c153631f4c3fe5df167a2f7c45a8"><div class="ttname"><a href="structhmi_1_1LineQuad.html#a3904c153631f4c3fe5df167a2f7c45a8">hmi::LineQuad::b</a></div><div class="ttdeci">float b</div><div class="ttdef"><b>Definition</b> Quad.h:97</div></div>
+<div class="ttc" id="astructhmi_1_1LineQuad_html_a8ee645003394a0b35bbfb03fbc068f76"><div class="ttname"><a href="structhmi_1_1LineQuad.html#a8ee645003394a0b35bbfb03fbc068f76">hmi::LineQuad::u1</a></div><div class="ttdeci">float u1</div><div class="ttdef"><b>Definition</b> Quad.h:93</div></div>
+<div class="ttc" id="astructhmi_1_1LineQuad_html_aa9e7c817ab1c5e01364faed685182a69"><div class="ttname"><a href="structhmi_1_1LineQuad.html#aa9e7c817ab1c5e01364faed685182a69">hmi::LineQuad::ay</a></div><div class="ttdeci">float ay</div><div class="ttdef"><b>Definition</b> Quad.h:87</div></div>
+<div class="ttc" id="astructhmi_1_1LineQuad_html_ab5c2f6803c2cdae87e0b50d4eb8589c1"><div class="ttname"><a href="structhmi_1_1LineQuad.html#ab5c2f6803c2cdae87e0b50d4eb8589c1">hmi::LineQuad::ax</a></div><div class="ttdeci">float ax</div><div class="ttdef"><b>Definition</b> Quad.h:86</div></div>
+<div class="ttc" id="astructhmi_1_1LineQuad_html_abe3bbbecb8fc8b1aaedba4a5d4eeaef5"><div class="ttname"><a href="structhmi_1_1LineQuad.html#abe3bbbecb8fc8b1aaedba4a5d4eeaef5">hmi::LineQuad::thickness</a></div><div class="ttdeci">float thickness</div><div class="ttdef"><b>Definition</b> Quad.h:90</div></div>
+<div class="ttc" id="astructhmi_1_1LineQuad_html_accaf53500d04a45aea0c4c8823a01703"><div class="ttname"><a href="structhmi_1_1LineQuad.html#accaf53500d04a45aea0c4c8823a01703">hmi::LineQuad::v0</a></div><div class="ttdeci">float v0</div><div class="ttdef"><b>Definition</b> Quad.h:92</div></div>
+<div class="ttc" id="astructhmi_1_1LineQuad_html_ad66407e74212988ac419a0bfe1472806"><div class="ttname"><a href="structhmi_1_1LineQuad.html#ad66407e74212988ac419a0bfe1472806">hmi::LineQuad::a</a></div><div class="ttdeci">float a</div><div class="ttdef"><b>Definition</b> Quad.h:98</div></div>
+<div class="ttc" id="astructhmi_1_1LineQuad_html_ae8956cc31b9497667597dc2cec9e99eb"><div class="ttname"><a href="structhmi_1_1LineQuad.html#ae8956cc31b9497667597dc2cec9e99eb">hmi::LineQuad::r</a></div><div class="ttdeci">float r</div><div class="ttdef"><b>Definition</b> Quad.h:95</div></div>
+<div class="ttc" id="astructhmi_1_1LineQuad_html_aea263b042537c77e3ffbebe64b772a27"><div class="ttname"><a href="structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27">hmi::LineQuad::by</a></div><div class="ttdeci">float by</div><div class="ttdef"><b>Definition</b> Quad.h:89</div></div>
+<div class="ttc" id="astructhmi_1_1LineQuad_html_aefba068b1c39d1610195001056375563"><div class="ttname"><a href="structhmi_1_1LineQuad.html#aefba068b1c39d1610195001056375563">hmi::LineQuad::g</a></div><div class="ttdeci">float g</div><div class="ttdef"><b>Definition</b> Quad.h:96</div></div>
+<div class="ttc" id="astructhmi_1_1LineQuad_html_afded7a4914c8964639fdb73b43c6c339"><div class="ttname"><a href="structhmi_1_1LineQuad.html#afded7a4914c8964639fdb73b43c6c339">hmi::LineQuad::v1</a></div><div class="ttdeci">float v1</div><div class="ttdef"><b>Definition</b> Quad.h:94</div></div>
+<div class="ttc" id="astructhmi_1_1PolyQuad_html"><div class="ttname"><a href="structhmi_1_1PolyQuad.html">hmi::PolyQuad</a></div><div class="ttdoc">Un quadrilatère à quatre sommets libres, en unités monde, d&#39;une seule teinte — la primitive du rendu ...</div><div class="ttdef"><b>Definition</b> Quad.h:64</div></div>
+<div class="ttc" id="astructhmi_1_1PolyQuad_html_a0be92e8f3e9738cb22b0ba071ea68ea5"><div class="ttname"><a href="structhmi_1_1PolyQuad.html#a0be92e8f3e9738cb22b0ba071ea68ea5">hmi::PolyQuad::x</a></div><div class="ttdeci">std::array&lt; float, 4 &gt; x</div><div class="ttdef"><b>Definition</b> Quad.h:65</div></div>
+<div class="ttc" id="astructhmi_1_1PolyQuad_html_a27699e993f900e4ac5ee102abfd14dcf"><div class="ttname"><a href="structhmi_1_1PolyQuad.html#a27699e993f900e4ac5ee102abfd14dcf">hmi::PolyQuad::v1</a></div><div class="ttdeci">float v1</div><div class="ttdef"><b>Definition</b> Quad.h:70</div></div>
+<div class="ttc" id="astructhmi_1_1PolyQuad_html_a658783ed443dab1defd60428b5019f0f"><div class="ttname"><a href="structhmi_1_1PolyQuad.html#a658783ed443dab1defd60428b5019f0f">hmi::PolyQuad::a</a></div><div class="ttdeci">float a</div><div class="ttdef"><b>Definition</b> Quad.h:74</div></div>
+<div class="ttc" id="astructhmi_1_1PolyQuad_html_a6791c5989bb2f2e2e74fbfb19af8791a"><div class="ttname"><a href="structhmi_1_1PolyQuad.html#a6791c5989bb2f2e2e74fbfb19af8791a">hmi::PolyQuad::g</a></div><div class="ttdeci">float g</div><div class="ttdef"><b>Definition</b> Quad.h:72</div></div>
+<div class="ttc" id="astructhmi_1_1PolyQuad_html_a88145ee12bcfb16031700767a5d1dde1"><div class="ttname"><a href="structhmi_1_1PolyQuad.html#a88145ee12bcfb16031700767a5d1dde1">hmi::PolyQuad::v0</a></div><div class="ttdeci">float v0</div><div class="ttdef"><b>Definition</b> Quad.h:68</div></div>
+<div class="ttc" id="astructhmi_1_1PolyQuad_html_a892dab5e3e57b584b9a28397be3d5ed2"><div class="ttname"><a href="structhmi_1_1PolyQuad.html#a892dab5e3e57b584b9a28397be3d5ed2">hmi::PolyQuad::y</a></div><div class="ttdeci">std::array&lt; float, 4 &gt; y</div><div class="ttdef"><b>Definition</b> Quad.h:66</div></div>
+<div class="ttc" id="astructhmi_1_1PolyQuad_html_ad0f21ba102e8807b3d561e193b4981b1"><div class="ttname"><a href="structhmi_1_1PolyQuad.html#ad0f21ba102e8807b3d561e193b4981b1">hmi::PolyQuad::u0</a></div><div class="ttdeci">float u0</div><div class="ttdef"><b>Definition</b> Quad.h:67</div></div>
+<div class="ttc" id="astructhmi_1_1PolyQuad_html_af1e8ec23ec5ec07a568dc3788d87a799"><div class="ttname"><a href="structhmi_1_1PolyQuad.html#af1e8ec23ec5ec07a568dc3788d87a799">hmi::PolyQuad::b</a></div><div class="ttdeci">float b</div><div class="ttdef"><b>Definition</b> Quad.h:73</div></div>
+<div class="ttc" id="astructhmi_1_1PolyQuad_html_af4ce776903be93823f9c7d1678b63655"><div class="ttname"><a href="structhmi_1_1PolyQuad.html#af4ce776903be93823f9c7d1678b63655">hmi::PolyQuad::r</a></div><div class="ttdeci">float r</div><div class="ttdef"><b>Definition</b> Quad.h:71</div></div>
+<div class="ttc" id="astructhmi_1_1PolyQuad_html_afe5695fab9f07c9e4ebcbfaaf15956b1"><div class="ttname"><a href="structhmi_1_1PolyQuad.html#afe5695fab9f07c9e4ebcbfaaf15956b1">hmi::PolyQuad::u1</a></div><div class="ttdeci">float u1</div><div class="ttdef"><b>Definition</b> Quad.h:69</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html">hmi::SpriteQuad</a></div><div class="ttdoc">Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...</div><div class="ttdef"><b>Definition</b> Quad.h:31</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_a011e7b579cef80bf6c48ecb04ce17461"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#a011e7b579cef80bf6c48ecb04ce17461">hmi::SpriteQuad::u1</a></div><div class="ttdeci">float u1</div><div class="ttdef"><b>Definition</b> Quad.h:39</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_a047688b8ecad613da27164c6f84725a4"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#a047688b8ecad613da27164c6f84725a4">hmi::SpriteQuad::b</a></div><div class="ttdeci">float b</div><div class="ttdef"><b>Definition</b> Quad.h:43</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_a57d8a28d381a274c651561943f89c252"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#a57d8a28d381a274c651561943f89c252">hmi::SpriteQuad::v0</a></div><div class="ttdeci">float v0</div><div class="ttdef"><b>Definition</b> Quad.h:38</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_a6d77667b205966d8edb35e16aa6f8b3a"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#a6d77667b205966d8edb35e16aa6f8b3a">hmi::SpriteQuad::rotation</a></div><div class="ttdeci">float rotation</div><div class="ttdef"><b>Definition</b> Quad.h:36</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_a75b0c3489614d54680dcb955242fe1f2"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#a75b0c3489614d54680dcb955242fe1f2">hmi::SpriteQuad::v1</a></div><div class="ttdeci">float v1</div><div class="ttdef"><b>Definition</b> Quad.h:40</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_a7f473f58edf9e7c97b268324b914cfaf"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#a7f473f58edf9e7c97b268324b914cfaf">hmi::SpriteQuad::width</a></div><div class="ttdeci">float width</div><div class="ttdef"><b>Definition</b> Quad.h:34</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_a92c64adb689a74573ddd55c2ad06e1bf"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#a92c64adb689a74573ddd55c2ad06e1bf">hmi::SpriteQuad::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition</b> Quad.h:32</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_a93b181adcb81b4e6d1ecbb2c7965108f"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#a93b181adcb81b4e6d1ecbb2c7965108f">hmi::SpriteQuad::a</a></div><div class="ttdeci">float a</div><div class="ttdef"><b>Definition</b> Quad.h:44</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_aa5c6523969fab44f779387543dc3365a"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#aa5c6523969fab44f779387543dc3365a">hmi::SpriteQuad::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition</b> Quad.h:33</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_ab8e8494560e6c855471cfab0f735ac48"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#ab8e8494560e6c855471cfab0f735ac48">hmi::SpriteQuad::r</a></div><div class="ttdeci">float r</div><div class="ttdef"><b>Definition</b> Quad.h:41</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_ad57ebf8af5db3949c45ab0b1f99c4344"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#ad57ebf8af5db3949c45ab0b1f99c4344">hmi::SpriteQuad::height</a></div><div class="ttdeci">float height</div><div class="ttdef"><b>Definition</b> Quad.h:35</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_ae7e99128d209fb85b68f901744c063a8"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#ae7e99128d209fb85b68f901744c063a8">hmi::SpriteQuad::u0</a></div><div class="ttdeci">float u0</div><div class="ttdef"><b>Definition</b> Quad.h:37</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_af6ffdbfd89d0a7c964e9a99574ac5b4d"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#af6ffdbfd89d0a7c964e9a99574ac5b4d">hmi::SpriteQuad::g</a></div><div class="ttdeci">float g</div><div class="ttdef"><b>Definition</b> Quad.h:42</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="Quad_8h.html">Quad.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

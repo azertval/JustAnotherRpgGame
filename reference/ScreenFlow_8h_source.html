@@ -1,0 +1,241 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Presentation/ScreenFlow.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('ScreenFlow_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ScreenFlow.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="ScreenFlow_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span></div>
+<div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d">   21</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d">ScreenId</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911">   22</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911">Menu</a>,</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb">   23</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb">Game</a>,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8">   24</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8">Options</a>,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f">   25</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f">Pause</a>,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51">   26</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51">Credits</a>,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da74f7bb96f40b089d24eea4863b269139">   31</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da74f7bb96f40b089d24eea4863b269139">RpgScreen</a>,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da6fa3f3daa9f9a6282d58c913b73b8dc4">   35</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da6fa3f3daa9f9a6282d58c913b73b8dc4">Arena</a>,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
+</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="};">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90">   41</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90">ScreenEvent</a> {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a6be377f8c0c7cdb05e881584faa94b79">   42</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a6be377f8c0c7cdb05e881584faa94b79">OpenMenu</a>,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a6826fc064fcc28d8c7ca54943c5eeebf">   43</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a6826fc064fcc28d8c7ca54943c5eeebf">OpenGame</a>,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a63f165862fe872db69295d18989eeb63">   44</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a63f165862fe872db69295d18989eeb63">OpenOptions</a>,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90af2716483b5771d31e4a519c28698c1bc">   45</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90af2716483b5771d31e4a519c28698c1bc">CloseOptions</a>,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90af0a5454dd6871865bf5bf5b7821b9f0b">   46</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90af0a5454dd6871865bf5bf5b7821b9f0b">OpenPause</a>,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a6fcb6d479b0eff2ecd8ae8ddb68ee698">   47</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a6fcb6d479b0eff2ecd8ae8ddb68ee698">ResumePause</a>,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a43f174deff25b40c0b1cce8de97adc45">   48</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a43f174deff25b40c0b1cce8de97adc45">QuitPauseToMenu</a>,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a2a1540e25ac6f65503d2539901c3eb7c">   49</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a2a1540e25ac6f65503d2539901c3eb7c">OpenCredits</a>,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17">   50</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17">CloseCredits</a>,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90adb28cc1642bf3c7166e5556e54c9752b">   54</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90adb28cc1642bf3c7166e5556e54c9752b">OpenRpgScreen</a>,</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a41a0a091b97ea443ec61e2b5fd660d32">   55</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a41a0a091b97ea443ec61e2b5fd660d32">CloseRpgScreen</a>,</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a3be966fb2b7d08b242df53d0bc22e1dd">   57</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a3be966fb2b7d08b242df53d0bc22e1dd">OpenArena</a>,</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90abc9cfeaf81c60f29d78a1ef99aecb576">   58</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90abc9cfeaf81c60f29d78a1ef99aecb576">CloseArena</a>,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>};</div>
+</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span></div>
+<div class="foldopen" id="foldopen00064" data-start="{" data-end="};">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="structhmi_1_1ScreenState.html">   64</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1ScreenState.html">ScreenState</a> {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="structhmi_1_1ScreenState.html#afed814132576c82dfaa45e5f9d81c20c">   65</a></span>    <a class="code hl_enumeration" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d">ScreenId</a> <a class="code hl_variable" href="structhmi_1_1ScreenState.html#afed814132576c82dfaa45e5f9d81c20c">screen</a> = <a class="code hl_enumvalue" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911">ScreenId::Menu</a>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="structhmi_1_1ScreenState.html#a1120d4bbb5ce909eea650a2ae5a7ae29">   66</a></span>    <a class="code hl_enumeration" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d">ScreenId</a> <a class="code hl_variable" href="structhmi_1_1ScreenState.html#a1120d4bbb5ce909eea650a2ae5a7ae29">optionsReturnTo</a> = <a class="code hl_enumvalue" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911">ScreenId::Menu</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structhmi_1_1ScreenState.html#a35d36781ddd45df8818932eb54d7a616">   70</a></span>    <a class="code hl_enumeration" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d">ScreenId</a> <a class="code hl_variable" href="structhmi_1_1ScreenState.html#a35d36781ddd45df8818932eb54d7a616">rpgReturnTo</a> = <a class="code hl_enumvalue" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911">ScreenId::Menu</a>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="structhmi_1_1ScreenState.html#acd2658e4556b00725a8f092e25916f07">   74</a></span>    <a class="code hl_enumeration" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d">ScreenId</a> <a class="code hl_variable" href="structhmi_1_1ScreenState.html#acd2658e4556b00725a8f092e25916f07">arenaReturnTo</a> = <a class="code hl_enumvalue" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911">ScreenId::Menu</a>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="structhmi_1_1ScreenState.html#a78e2af2059fec624a46ed03a83d4dcc6">   76</a></span>    <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code hl_friend" href="structhmi_1_1ScreenState.html#a78e2af2059fec624a46ed03a83d4dcc6">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1ScreenState.html">ScreenState</a>&amp;, <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1ScreenState.html">ScreenState</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>};</div>
+</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>[[nodiscard]] std::optional&lt;ScreenState&gt; <a class="code hl_function" href="namespacehmi.html#adbeed25b15bad59211fcea357825feec">resolveTransition</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1ScreenState.html">ScreenState</a>&amp; current,</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                                                           <a class="code hl_enumeration" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90">ScreenEvent</a> event) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a168b24f798c2e6d06beb9472a071528d"><div class="ttname"><a href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d">hmi::ScreenId</a></div><div class="ttdeci">ScreenId</div><div class="ttdoc">Écran actuellement affiché par la fenêtre principale.</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:21</div></div>
+<div class="ttc" id="anamespacehmi_html_a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f"><div class="ttname"><a href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f">hmi::ScreenId::Pause</a></div><div class="ttdeci">@ Pause</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:25</div></div>
+<div class="ttc" id="anamespacehmi_html_a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb"><div class="ttname"><a href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb">hmi::ScreenId::Game</a></div><div class="ttdeci">@ Game</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:23</div></div>
+<div class="ttc" id="anamespacehmi_html_a168b24f798c2e6d06beb9472a071528da6fa3f3daa9f9a6282d58c913b73b8dc4"><div class="ttname"><a href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da6fa3f3daa9f9a6282d58c913b73b8dc4">hmi::ScreenId::Arena</a></div><div class="ttdeci">@ Arena</div><div class="ttdoc">Le Colisée (LOT-50) : la mise en place d&#39;un affrontement et sa grille.</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:35</div></div>
+<div class="ttc" id="anamespacehmi_html_a168b24f798c2e6d06beb9472a071528da74f7bb96f40b089d24eea4863b269139"><div class="ttname"><a href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da74f7bb96f40b089d24eea4863b269139">hmi::ScreenId::RpgScreen</a></div><div class="ttdeci">@ RpgScreen</div><div class="ttdoc">Un écran du RPG est ouvert (LOT-68, EX-IHM-090).</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:31</div></div>
+<div class="ttc" id="anamespacehmi_html_a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51"><div class="ttname"><a href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51">hmi::ScreenId::Credits</a></div><div class="ttdeci">@ Credits</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:26</div></div>
+<div class="ttc" id="anamespacehmi_html_a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911"><div class="ttname"><a href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911">hmi::ScreenId::Menu</a></div><div class="ttdeci">@ Menu</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:22</div></div>
+<div class="ttc" id="anamespacehmi_html_a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8"><div class="ttname"><a href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8">hmi::ScreenId::Options</a></div><div class="ttdeci">@ Options</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:24</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90">hmi::ScreenEvent</a></div><div class="ttdeci">ScreenEvent</div><div class="ttdoc">Événement pouvant déclencher une transition d&#39;écran.</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:41</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90a2a1540e25ac6f65503d2539901c3eb7c"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a2a1540e25ac6f65503d2539901c3eb7c">hmi::ScreenEvent::OpenCredits</a></div><div class="ttdeci">@ OpenCredits</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:49</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90a3be966fb2b7d08b242df53d0bc22e1dd"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a3be966fb2b7d08b242df53d0bc22e1dd">hmi::ScreenEvent::OpenArena</a></div><div class="ttdeci">@ OpenArena</div><div class="ttdoc">Ouvre le Colisée depuis le menu ; CloseArena y revient.</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:57</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90a41a0a091b97ea443ec61e2b5fd660d32"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a41a0a091b97ea443ec61e2b5fd660d32">hmi::ScreenEvent::CloseRpgScreen</a></div><div class="ttdeci">@ CloseRpgScreen</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:55</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90a43f174deff25b40c0b1cce8de97adc45"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a43f174deff25b40c0b1cce8de97adc45">hmi::ScreenEvent::QuitPauseToMenu</a></div><div class="ttdeci">@ QuitPauseToMenu</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:48</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90a63f165862fe872db69295d18989eeb63"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a63f165862fe872db69295d18989eeb63">hmi::ScreenEvent::OpenOptions</a></div><div class="ttdeci">@ OpenOptions</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:44</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17">hmi::ScreenEvent::CloseCredits</a></div><div class="ttdeci">@ CloseCredits</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:50</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90a6826fc064fcc28d8c7ca54943c5eeebf"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a6826fc064fcc28d8c7ca54943c5eeebf">hmi::ScreenEvent::OpenGame</a></div><div class="ttdeci">@ OpenGame</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:43</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90a6be377f8c0c7cdb05e881584faa94b79"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a6be377f8c0c7cdb05e881584faa94b79">hmi::ScreenEvent::OpenMenu</a></div><div class="ttdeci">@ OpenMenu</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:42</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90a6fcb6d479b0eff2ecd8ae8ddb68ee698"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a6fcb6d479b0eff2ecd8ae8ddb68ee698">hmi::ScreenEvent::ResumePause</a></div><div class="ttdeci">@ ResumePause</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:47</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90abc9cfeaf81c60f29d78a1ef99aecb576"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90abc9cfeaf81c60f29d78a1ef99aecb576">hmi::ScreenEvent::CloseArena</a></div><div class="ttdeci">@ CloseArena</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:58</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90adb28cc1642bf3c7166e5556e54c9752b"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90adb28cc1642bf3c7166e5556e54c9752b">hmi::ScreenEvent::OpenRpgScreen</a></div><div class="ttdeci">@ OpenRpgScreen</div><div class="ttdoc">Ouvre un écran du RPG.</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:54</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90af0a5454dd6871865bf5bf5b7821b9f0b"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90af0a5454dd6871865bf5bf5b7821b9f0b">hmi::ScreenEvent::OpenPause</a></div><div class="ttdeci">@ OpenPause</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:46</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90af2716483b5771d31e4a519c28698c1bc"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90af2716483b5771d31e4a519c28698c1bc">hmi::ScreenEvent::CloseOptions</a></div><div class="ttdeci">@ CloseOptions</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:45</div></div>
+<div class="ttc" id="anamespacehmi_html_adbeed25b15bad59211fcea357825feec"><div class="ttname"><a href="namespacehmi.html#adbeed25b15bad59211fcea357825feec">hmi::resolveTransition</a></div><div class="ttdeci">std::optional&lt; ScreenState &gt; resolveTransition(const ScreenState &amp;current, ScreenEvent event) noexcept</div><div class="ttdoc">Résout une transition d&#39;écran à partir de l&#39;état courant et d&#39;un événement.</div><div class="ttdef"><b>Definition</b> ScreenFlow.cpp:8</div></div>
+<div class="ttc" id="astructhmi_1_1ScreenState_html"><div class="ttname"><a href="structhmi_1_1ScreenState.html">hmi::ScreenState</a></div><div class="ttdoc">État complet de la machine.</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:64</div></div>
+<div class="ttc" id="astructhmi_1_1ScreenState_html_a1120d4bbb5ce909eea650a2ae5a7ae29"><div class="ttname"><a href="structhmi_1_1ScreenState.html#a1120d4bbb5ce909eea650a2ae5a7ae29">hmi::ScreenState::optionsReturnTo</a></div><div class="ttdeci">ScreenId optionsReturnTo</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:66</div></div>
+<div class="ttc" id="astructhmi_1_1ScreenState_html_a35d36781ddd45df8818932eb54d7a616"><div class="ttname"><a href="structhmi_1_1ScreenState.html#a35d36781ddd45df8818932eb54d7a616">hmi::ScreenState::rpgReturnTo</a></div><div class="ttdeci">ScreenId rpgReturnTo</div><div class="ttdoc">Écran vers lequel CloseRpgScreen revient (Menu, Game ou Pause, selon l&#39;origine).</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:70</div></div>
+<div class="ttc" id="astructhmi_1_1ScreenState_html_a78e2af2059fec624a46ed03a83d4dcc6"><div class="ttname"><a href="structhmi_1_1ScreenState.html#a78e2af2059fec624a46ed03a83d4dcc6">hmi::ScreenState::operator==</a></div><div class="ttdeci">friend bool operator==(const ScreenState &amp;, const ScreenState &amp;)=default</div></div>
+<div class="ttc" id="astructhmi_1_1ScreenState_html_acd2658e4556b00725a8f092e25916f07"><div class="ttname"><a href="structhmi_1_1ScreenState.html#acd2658e4556b00725a8f092e25916f07">hmi::ScreenState::arenaReturnTo</a></div><div class="ttdeci">ScreenId arenaReturnTo</div><div class="ttdoc">Écran vers lequel CloseArena revient (Menu ou Game, LOT-09) : le Colisée s&#39;ouvre depuis le menu,...</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:74</div></div>
+<div class="ttc" id="astructhmi_1_1ScreenState_html_afed814132576c82dfaa45e5f9d81c20c"><div class="ttname"><a href="structhmi_1_1ScreenState.html#afed814132576c82dfaa45e5f9d81c20c">hmi::ScreenState::screen</a></div><div class="ttdeci">ScreenId screen</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:65</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_569b647e50016dd1a7589315f920e6aa.html">Presentation</a></li><li class="navelem"><a href="ScreenFlow_8h.html">ScreenFlow.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

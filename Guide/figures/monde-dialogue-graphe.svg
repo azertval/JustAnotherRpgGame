@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="560" fill="#fbf8f0"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3f6b34"/>
+    </marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a2233"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="28" font-weight="600" font-size="15" fill="#25201a">Un graphe de dialogue : le héraut du Colisée, réduit à l'essentiel</text>
+
+  <!-- Légende -->
+  <rect x="20" y="44" width="16" height="16" rx="3" fill="#fbf8f0" stroke="#9a7420" stroke-width="2"/>
+  <text x="42" y="57" font-size="12" fill="#25201a">réplique (Line) : le joueur s'arrête</text>
+  <rect x="262" y="44" width="16" height="16" rx="3" fill="#ece4d1" stroke="#6a6152"/>
+  <text x="284" y="57" font-size="12" fill="#25201a">automatique : condition, action, jet</text>
+  <rect x="520" y="44" width="16" height="16" rx="3" fill="#8a2233"/>
+  <text x="542" y="57" font-size="12" fill="#25201a">fin (End)</text>
+  <path d="M620,52 L660,52" stroke="#3f6b34" stroke-width="2" fill="none" marker-end="url(#ag)"/>
+  <text x="666" y="57" font-size="12" fill="#25201a">boucle voulue (« hub »)</text>
+
+  <!-- start -->
+  <text x="20" y="100" font-family="Consolas, monospace" font-size="12" fill="#6a6152">start</text>
+  <path d="M60,96 L92,96" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- accueil (condition) -->
+  <rect x="94" y="76" width="130" height="44" rx="6" fill="#ece4d1" stroke="#6a6152"/>
+  <text x="104" y="94" font-family="Consolas, monospace" font-size="12" fill="#25201a">accueil</text>
+  <text x="104" y="111" font-size="12" fill="#6a6152">condition : rencontré ?</text>
+
+  <!-- premiere-fois (action) -->
+  <rect x="94" y="160" width="130" height="44" rx="6" fill="#ece4d1" stroke="#6a6152"/>
+  <text x="104" y="178" font-family="Consolas, monospace" font-size="12" fill="#25201a">premiere-fois</text>
+  <text x="104" y="195" font-size="12" fill="#6a6152">action : setFlag</text>
+  <path d="M140,120 L140,158" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="146" y="144" font-size="12" fill="#6a6152">else</text>
+
+  <!-- presentation (line, choices) -->
+  <rect x="94" y="244" width="130" height="52" rx="6" fill="#fbf8f0" stroke="#9a7420" stroke-width="2"/>
+  <text x="104" y="262" font-family="Consolas, monospace" font-size="12" fill="#25201a">presentation</text>
+  <text x="104" y="279" font-size="12" fill="#6a6152">3 réponses</text>
+  <path d="M140,204 L140,242" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- retour (line, choices) -->
+  <rect x="300" y="76" width="130" height="52" rx="6" fill="#fbf8f0" stroke="#9a7420" stroke-width="2"/>
+  <text x="310" y="94" font-family="Consolas, monospace" font-size="12" fill="#25201a">retour</text>
+  <text x="310" y="111" font-size="12" fill="#6a6152">« Encore vous » ; 3 réponses</text>
+  <path d="M224,96 L298,96" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="240" y="90" font-size="12" fill="#6a6152">then</text>
+
+  <!-- marque (line without choices) -->
+  <rect x="300" y="244" width="130" height="52" rx="6" fill="#fbf8f0" stroke="#9a7420" stroke-width="2"/>
+  <text x="310" y="262" font-family="Consolas, monospace" font-size="12" fill="#25201a">marque</text>
+  <text x="310" y="279" font-size="12" fill="#6a6152">sans réponse : « Continuer »</text>
+  <path d="M224,262 L298,262" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <path d="M365,128 L365,242" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="371" y="190" font-size="12" fill="#6a6152">marque</text>
+  <path d="M430,262 C470,262 470,102 432,102" stroke="#3f6b34" stroke-width="2" fill="none" marker-end="url(#ag)"/>
+  <text x="472" y="186" font-size="12" fill="#3f6b34">next : retour</text>
+  <text x="472" y="203" font-size="12" fill="#3f6b34">(passe par une réplique</text>
+  <text x="472" y="220" font-size="12" fill="#3f6b34">à réponses : légal)</text>
+
+  <!-- inscription (condition) -->
+  <rect x="300" y="340" width="130" height="44" rx="6" fill="#ece4d1" stroke="#6a6152"/>
+  <text x="310" y="358" font-family="Consolas, monospace" font-size="12" fill="#25201a">inscription</text>
+  <text x="310" y="375" font-size="12" fill="#6a6152">condition : quête démarrée ?</text>
+  <path d="M159,296 L159,362 L298,362" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <path d="M410,128 C440,150 440,330 400,338" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- demande (line) -> persuasion (check) -->
+  <rect x="520" y="340" width="130" height="52" rx="6" fill="#fbf8f0" stroke="#9a7420" stroke-width="2"/>
+  <text x="530" y="358" font-family="Consolas, monospace" font-size="12" fill="#25201a">demande</text>
+  <text x="530" y="375" font-size="12" fill="#6a6152">réponse « convaincre » [Persuasion]</text>
+  <path d="M430,362 L518,362" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="450" y="356" font-size="12" fill="#6a6152">else</text>
+
+  <rect x="520" y="430" width="130" height="44" rx="6" fill="#ece4d1" stroke="#6a6152"/>
+  <text x="530" y="448" font-family="Consolas, monospace" font-size="12" fill="#25201a">persuasion</text>
+  <text x="530" y="465" font-size="12" fill="#6a6152">jet : skill, difficulty nommée</text>
+  <path d="M585,392 L585,428" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- success / failure -->
+  <rect x="700" y="400" width="160" height="44" rx="6" fill="#ece4d1" stroke="#6a6152"/>
+  <text x="710" y="418" font-family="Consolas, monospace" font-size="12" fill="#25201a">inscrit</text>
+  <text x="710" y="435" font-size="12" fill="#6a6152">action : startQuest, setFlag</text>
+  <rect x="700" y="470" width="160" height="44" rx="6" fill="#ece4d1" stroke="#6a6152"/>
+  <text x="710" y="488" font-family="Consolas, monospace" font-size="12" fill="#25201a">refuse</text>
+  <text x="710" y="505" font-size="12" fill="#6a6152">action : setFlag (échec)</text>
+  <path d="M650,446 L698,424" stroke="#3f6b34" stroke-width="1.5" fill="none" marker-end="url(#ag)"/>
+  <text x="654" y="428" font-size="12" fill="#3f6b34">success</text>
+  <path d="M650,460 L698,486" stroke="#8a2233" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+  <text x="654" y="492" font-size="12" fill="#8a2233">failure</text>
+
+  <!-- fin -->
+  <rect x="94" y="430" width="130" height="44" rx="6" fill="#8a2233"/>
+  <text x="104" y="448" font-family="Consolas, monospace" font-size="12" fill="#fbf8f0">fin</text>
+  <text x="104" y="465" font-size="12" fill="#fbf8f0">end : l'écran se referme</text>
+  <path d="M120,296 L120,428" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="60" y="366" font-size="12" fill="#6a6152">partir</text>
+  <path d="M780,444 L780,468" stroke="#6a6152" stroke-width="1" fill="none"/>
+  <path d="M700,492 C560,540 300,540 226,456" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- Encadré : le runner -->
+  <rect x="520" y="76" width="340" height="150" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="532" y="98" font-weight="600" fill="#25201a">core::DialogueRunner : un geste, un arrêt</text>
+  <text x="532" y="120" font-size="12" fill="#25201a">start() ou choose(id) traverse conditions, actions</text>
+  <text x="532" y="137" font-size="12" fill="#25201a">et jets dans le même appel, jusqu'à la prochaine</text>
+  <text x="532" y="154" font-size="12" fill="#25201a">réplique ou à la fin. L'écran ne voit jamais un</text>
+  <text x="532" y="171" font-size="12" fill="#25201a">nœud automatique : deux états observables,</text>
+  <text x="532" y="188" font-family="Consolas, monospace" font-size="12" fill="#25201a">AwaitingChoice</text>
+  <text x="640" y="188" font-size="12" fill="#25201a">ou</text>
+  <text x="662" y="188" font-family="Consolas, monospace" font-size="12" fill="#25201a">Ended</text>
+  <text x="532" y="212" font-size="12" fill="#8a2233">Refused : aucune langue commune, rien n'est joué.</text>
+
+  <!-- Encadré : cycle refusé -->
+  <rect x="520" y="244" width="340" height="80" rx="8" fill="#fbf8f0" stroke="#8a2233"/>
+  <text x="532" y="266" font-weight="600" fill="#8a2233">Refusé au chargement : le cycle sans arrêt</text>
+  <text x="532" y="288" font-family="Consolas, monospace" font-size="12" fill="#25201a">condition → action → condition</text>
+  <text x="532" y="306" font-size="12" fill="#25201a">tournerait sans fin ; une boucle de répliques sans</text>
+  <text x="780" y="306" font-size="12" fill="#25201a">réponse</text>
+  <text x="532" y="320" font-size="12" fill="#25201a">enfermerait le joueur dans un monologue.</text>
+</svg>

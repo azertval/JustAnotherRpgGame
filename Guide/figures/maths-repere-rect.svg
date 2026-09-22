@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="380" fill="#fbf8f0"/>
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#25201a"/>
+    </marker>
+  </defs>
+
+  <!-- Repère monde -->
+  <text x="20" y="28" font-weight="600" fill="#25201a">Le repère de Core : origine haut-gauche, y vers le bas, une case = 1 unité</text>
+  <g stroke="#d6c9a8" fill="#fbf8f0">
+    <rect x="60" y="60" width="60" height="60"/><rect x="120" y="60" width="60" height="60"/><rect x="180" y="60" width="60" height="60"/><rect x="240" y="60" width="60" height="60"/>
+    <rect x="60" y="120" width="60" height="60"/><rect x="120" y="120" width="60" height="60"/><rect x="180" y="120" width="60" height="60"/><rect x="240" y="120" width="60" height="60"/>
+    <rect x="60" y="180" width="60" height="60"/><rect x="120" y="180" width="60" height="60"/><rect x="180" y="180" width="60" height="60"/><rect x="240" y="180" width="60" height="60"/>
+  </g>
+  <line x1="60" y1="60" x2="330" y2="60" stroke="#25201a" stroke-width="1.5" marker-end="url(#f)"/>
+  <line x1="60" y1="60" x2="60" y2="270" stroke="#25201a" stroke-width="1.5" marker-end="url(#f)"/>
+  <text x="336" y="64" font-family="Consolas, monospace" fill="#25201a">x</text>
+  <text x="56" y="290" font-family="Consolas, monospace" fill="#25201a">y</text>
+  <text x="36" y="56" font-family="Consolas, monospace" font-size="12" fill="#6a6152">(0,0)</text>
+  <g font-family="Consolas, monospace" font-size="12" fill="#6a6152">
+    <text x="82" y="52">0</text><text x="142" y="52">1</text><text x="202" y="52">2</text><text x="262" y="52">3</text>
+    <text x="44" y="94">0</text><text x="44" y="154">1</text><text x="44" y="214">2</text>
+  </g>
+  <!-- case (2,1) et son centre -->
+  <rect x="180" y="120" width="60" height="60" fill="#ece4d1" stroke="#9a7420" stroke-width="1.5"/>
+  <circle cx="210" cy="150" r="4" fill="#9a7420"/>
+  <text x="120" y="262" font-family="Consolas, monospace" font-size="12" fill="#25201a">GridPosition{2, 1}</text>
+  <text x="120" y="278" font-family="Consolas, monospace" font-size="12" fill="#25201a">centre : Vector2{2.5, 1.5}</text>
+  <!-- nord -->
+  <path d="M210,150 L210,96" stroke="#3f6b34" stroke-width="1.5" fill="none" marker-end="url(#f)"/>
+  <text x="218" y="104" font-size="12" fill="#3f6b34">« monter » : y diminue</text>
+
+  <!-- Rect -->
+  <text x="470" y="28" font-weight="600" fill="#25201a">core::Rect : bords inclus / exclus</text>
+  <rect x="500" y="70" width="240" height="150" fill="#ece4d1" stroke="#25201a" stroke-width="2"/>
+  <line x1="500" y1="70" x2="740" y2="70" stroke="#3f6b34" stroke-width="4"/>
+  <line x1="500" y1="70" x2="500" y2="220" stroke="#3f6b34" stroke-width="4"/>
+  <line x1="500" y1="220" x2="740" y2="220" stroke="#8a2233" stroke-width="4" stroke-dasharray="6 4"/>
+  <line x1="740" y1="70" x2="740" y2="220" stroke="#8a2233" stroke-width="4" stroke-dasharray="6 4"/>
+  <text x="470" y="60" font-family="Consolas, monospace" font-size="12" fill="#25201a">position = (left, top)</text>
+  <text x="640" y="240" font-family="Consolas, monospace" font-size="12" fill="#25201a">(right, bottom) = position + size</text>
+  <g font-size="12">
+    <text x="510" y="100" fill="#3f6b34">haut et gauche : contains() vrai</text>
+    <text x="510" y="118" fill="#8a2233">bas et droite : contains() faux</text>
+  </g>
+  <text x="510" y="160" fill="#25201a">Deux rectangles jointifs pavent le plan :</text>
+  <text x="510" y="178" fill="#25201a">aucun point n'appartient aux deux.</text>
+  <!-- contact par un bord -->
+  <rect x="500" y="270" width="110" height="60" fill="#fbf8f0" stroke="#25201a"/>
+  <rect x="610" y="270" width="110" height="60" fill="#fbf8f0" stroke="#25201a"/>
+  <line x1="610" y1="270" x2="610" y2="330" stroke="#8a2233" stroke-width="3"/>
+  <text x="730" y="296" fill="#8a2233">contact par un bord :</text>
+  <text x="730" y="314" font-family="Consolas, monospace" font-size="12" fill="#8a2233">intersects() = false</text>
+  <text x="500" y="356" font-size="12" fill="#6a6152">Les pixels n'existent pas ici : la conversion est faite par hmi::Camera2D, au rendu.</text>
+</svg>

@@ -1,0 +1,471 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::TurnOrder Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classcore_1_1TurnOrder.html','','classcore_1_1TurnOrder-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::TurnOrder Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>L'ordre d'initiative d'un combat : combattants et repères, du premier au dernier.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="TurnOrder_8h_source.html">TurnOrder.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ae522461d94d105c705a7ff699a7a3694" id="r_ae522461d94d105c705a7ff699a7a3694"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae522461d94d105c705a7ff699a7a3694">add</a> (const <a class="el" href="structcore_1_1InitiativeEntry.html">InitiativeEntry</a> &amp;entry)</td></tr>
+<tr class="memdesc:ae522461d94d105c705a7ff699a7a3694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range un combattant. Faux, et rien ne change, s'il y figure déjà.  <br /></td></tr>
+<tr class="memitem:a67a58133cd766d0a53b0619a2289254d" id="r_a67a58133cd766d0a53b0619a2289254d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a67a58133cd766d0a53b0619a2289254d">remove</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant)</td></tr>
+<tr class="memdesc:a67a58133cd766d0a53b0619a2289254d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire un combattant. Faux s'il n'y figurait pas.  <br /></td></tr>
+<tr class="memitem:a03f71b3b10a2ef1abc4f131a6c19e289" id="r_a03f71b3b10a2ef1abc4f131a6c19e289"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a03f71b3b10a2ef1abc4f131a6c19e289">addMarker</a> (<a class="el" href="structcore_1_1InitiativeMarker.html">InitiativeMarker</a> marker)</td></tr>
+<tr class="memdesc:a03f71b3b10a2ef1abc4f131a6c19e289"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range un repère d'initiative fixe.  <br /></td></tr>
+<tr class="memitem:a0a85871f37bd935ceff8549f12f511c1" id="r_a0a85871f37bd935ceff8549f12f511c1"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0a85871f37bd935ceff8549f12f511c1">contains</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
+<tr class="memitem:a6e69a784d0790660721b589afd54455a" id="r_a6e69a784d0790660721b589afd54455a"><td class="memItemLeft">const <a class="el" href="structcore_1_1InitiativeEntry.html">InitiativeEntry</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a6e69a784d0790660721b589afd54455a">find</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
+<tr class="memdesc:a6e69a784d0790660721b589afd54455a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La place d'un combattant, ou <span class="tt">nullptr</span>.  <br /></td></tr>
+<tr class="memitem:afa270b0e1cb457fb5b40ac8b370ea45a" id="r_afa270b0e1cb457fb5b40ac8b370ea45a"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1InitiativeEntry.html">InitiativeEntry</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#afa270b0e1cb457fb5b40ac8b370ea45a">entries</a> () const noexcept</td></tr>
+<tr class="memdesc:afa270b0e1cb457fb5b40ac8b370ea45a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les combattants, du premier au dernier.  <br /></td></tr>
+<tr class="memitem:a54a26afdb031e5d2ab38f0b97bd17520" id="r_a54a26afdb031e5d2ab38f0b97bd17520"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1InitiativeMarker.html">InitiativeMarker</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a54a26afdb031e5d2ab38f0b97bd17520">markers</a> () const noexcept</td></tr>
+<tr class="memdesc:a54a26afdb031e5d2ab38f0b97bd17520"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les repères, du premier au dernier.  <br /></td></tr>
+<tr class="memitem:a653b60374f2df4fe3fadd349ac94b8e8" id="r_a653b60374f2df4fe3fadd349ac94b8e8"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1TurnSlot.html">TurnSlot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a653b60374f2df4fe3fadd349ac94b8e8">firstSlot</a> () const</td></tr>
+<tr class="memdesc:a653b60374f2df4fe3fadd349ac94b8e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">La première place d'un round, ou <span class="tt">std::nullopt</span> si l'ordre est vide.  <br /></td></tr>
+<tr class="memitem:af320563c95027694286cb09cb5585a99" id="r_af320563c95027694286cb09cb5585a99"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1TurnSlot.html">TurnSlot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af320563c95027694286cb09cb5585a99">slotAfter</a> (const <a class="el" href="structcore_1_1TurnSlot.html">TurnSlot</a> &amp;slot) const</td></tr>
+<tr class="memdesc:af320563c95027694286cb09cb5585a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">La place qui suit <code class="param">slot</code> dans le round, ou <span class="tt">std::nullopt</span> si le round est fini.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a44bce54c4b4c0e7649653262e57b724b" id="r_a44bce54c4b4c0e7649653262e57b724b"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1InitiativeEntry.html">InitiativeEntry</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a44bce54c4b4c0e7649653262e57b724b">_entries</a></td></tr>
+<tr class="memdesc:a44bce54c4b4c0e7649653262e57b724b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triés à chaque ajout : l'ordre se lit, il ne se recalcule pas.  <br /></td></tr>
+<tr class="memitem:a171679fae4ae1d703e947ac508c52dfa" id="r_a171679fae4ae1d703e947ac508c52dfa"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1InitiativeMarker.html">InitiativeMarker</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a171679fae4ae1d703e947ac508c52dfa">_markers</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>L'ordre d'initiative d'un combat : combattants et repères, du premier au dernier. </p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md43"></a>
+Une place, pas un indice</h2>
+<p>Un combattant qui entre en cours de combat (un renfort) ou qui en sort (une fuite, une mort) change la <b>longueur</b> de l'ordre. Un curseur tenu par indice sauterait alors un tour ou en rejouerait un. Le tour courant se désigne donc par sa <b>place</b> (<span class="tt"><a class="el" href="structcore_1_1TurnSlot.html" title="Une place de l&#39;ordre : un combattant, ou un repère.">TurnSlot</a></span>), et la suivante se calcule par la règle d'ordre : un renfort rangé après la place courante joue ce round-ci, rangé avant, au round suivant — ce que dit le livre, sans cas particulier. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="ae522461d94d105c705a7ff699a7a3694" name="ae522461d94d105c705a7ff699a7a3694"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae522461d94d105c705a7ff699a7a3694">&#9670;&#160;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::TurnOrder::add </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1InitiativeEntry.html">InitiativeEntry</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>entry</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Range un combattant. Faux, et rien ne change, s'il y figure déjà. </p>
+
+</div>
+</div>
+<a id="a03f71b3b10a2ef1abc4f131a6c19e289" name="a03f71b3b10a2ef1abc4f131a6c19e289"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03f71b3b10a2ef1abc4f131a6c19e289">&#9670;&#160;</a></span>addMarker()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::TurnOrder::addMarker </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1InitiativeMarker.html">InitiativeMarker</a></td>          <td class="paramname"><span class="paramname"><em>marker</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Range un repère d'initiative fixe. </p>
+<p>Faux, et rien ne change, si un repère de même rang et de même nom existe déjà : deux places identiques ne se distingueraient plus. </p>
+
+</div>
+</div>
+<a id="a0a85871f37bd935ceff8549f12f511c1" name="a0a85871f37bd935ceff8549f12f511c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a85871f37bd935ceff8549f12f511c1">&#9670;&#160;</a></span>contains()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::TurnOrder::contains </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afa270b0e1cb457fb5b40ac8b370ea45a" name="afa270b0e1cb457fb5b40ac8b370ea45a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa270b0e1cb457fb5b40ac8b370ea45a">&#9670;&#160;</a></span>entries()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1InitiativeEntry.html">InitiativeEntry</a> &gt; &amp; core::TurnOrder::entries </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les combattants, du premier au dernier. </p>
+
+</div>
+</div>
+<a id="a6e69a784d0790660721b589afd54455a" name="a6e69a784d0790660721b589afd54455a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e69a784d0790660721b589afd54455a">&#9670;&#160;</a></span>find()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1InitiativeEntry.html">InitiativeEntry</a> * core::TurnOrder::find </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La place d'un combattant, ou <span class="tt">nullptr</span>. </p>
+
+</div>
+</div>
+<a id="a653b60374f2df4fe3fadd349ac94b8e8" name="a653b60374f2df4fe3fadd349ac94b8e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a653b60374f2df4fe3fadd349ac94b8e8">&#9670;&#160;</a></span>firstSlot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structcore_1_1TurnSlot.html">TurnSlot</a> &gt; core::TurnOrder::firstSlot </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La première place d'un round, ou <span class="tt">std::nullopt</span> si l'ordre est vide. </p>
+
+</div>
+</div>
+<a id="a54a26afdb031e5d2ab38f0b97bd17520" name="a54a26afdb031e5d2ab38f0b97bd17520"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54a26afdb031e5d2ab38f0b97bd17520">&#9670;&#160;</a></span>markers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1InitiativeMarker.html">InitiativeMarker</a> &gt; &amp; core::TurnOrder::markers </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les repères, du premier au dernier. </p>
+
+</div>
+</div>
+<a id="a67a58133cd766d0a53b0619a2289254d" name="a67a58133cd766d0a53b0619a2289254d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67a58133cd766d0a53b0619a2289254d">&#9670;&#160;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::TurnOrder::remove </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire un combattant. Faux s'il n'y figurait pas. </p>
+
+</div>
+</div>
+<a id="af320563c95027694286cb09cb5585a99" name="af320563c95027694286cb09cb5585a99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af320563c95027694286cb09cb5585a99">&#9670;&#160;</a></span>slotAfter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structcore_1_1TurnSlot.html">TurnSlot</a> &gt; core::TurnOrder::slotAfter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1TurnSlot.html">TurnSlot</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>slot</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La place qui suit <code class="param">slot</code> dans le round, ou <span class="tt">std::nullopt</span> si le round est fini. </p>
+<p><code class="param">slot</code> n'a pas besoin de figurer encore dans l'ordre : le combattant qui vient de fuir pendant son tour laisse une place dont la suivante se calcule quand même. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a44bce54c4b4c0e7649653262e57b724b" name="a44bce54c4b4c0e7649653262e57b724b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44bce54c4b4c0e7649653262e57b724b">&#9670;&#160;</a></span>_entries</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1InitiativeEntry.html">InitiativeEntry</a>&gt; core::TurnOrder::_entries</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Triés à chaque ajout : l'ordre se lit, il ne se recalcule pas. </p>
+
+</div>
+</div>
+<a id="a171679fae4ae1d703e947ac508c52dfa" name="a171679fae4ae1d703e947ac508c52dfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a171679fae4ae1d703e947ac508c52dfa">&#9670;&#160;</a></span>_markers</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1InitiativeMarker.html">InitiativeMarker</a>&gt; core::TurnOrder::_markers</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/<a class="el" href="TurnOrder_8h_source.html">TurnOrder.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/<a class="el" href="TurnOrder_8cpp.html">TurnOrder.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="classcore_1_1TurnOrder.html">TurnOrder</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

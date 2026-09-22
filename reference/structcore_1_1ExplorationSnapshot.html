@@ -1,0 +1,255 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::ExplorationSnapshot Struct Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('structcore_1_1ExplorationSnapshot.html','','structcore_1_1ExplorationSnapshot-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::ExplorationSnapshot Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>L'état d'exploration mis de côté le temps d'un combat.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="CombatTransition_8h_source.html">CombatTransition.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aa1c093bdc8294f3afb7cb55802c8a91d" id="r_aa1c093bdc8294f3afb7cb55802c8a91d"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa1c093bdc8294f3afb7cb55802c8a91d">playerPosition</a> {}</td></tr>
+<tr class="memdesc:aa1c093bdc8294f3afb7cb55802c8a91d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position du personnage, en unités monde.  <br /></td></tr>
+<tr class="memitem:a63bd6e8bb5d82b721e711236677420d0" id="r_a63bd6e8bb5d82b721e711236677420d0"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a63bd6e8bb5d82b721e711236677420d0">playerFacing</a> {1.0F, 0.0F}</td></tr>
+<tr class="memdesc:a63bd6e8bb5d82b721e711236677420d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orientation conservée : un personnage qui revient d'un combat regarde là où il regardait, et non vers une direction par défaut (<span class="tt">EX-EXP-004</span>).  <br /></td></tr>
+<tr class="memitem:aa5d820019e101216aec7f2113d850f1e" id="r_aa5d820019e101216aec7f2113d850f1e"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa5d820019e101216aec7f2113d850f1e">cameraPosition</a> {}</td></tr>
+<tr class="memdesc:aa5d820019e101216aec7f2113d850f1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position de la caméra, en unités monde.  <br /></td></tr>
+<tr class="memitem:aed763efd480c62dac0fd4f5d960162a3" id="r_aed763efd480c62dac0fd4f5d960162a3"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aed763efd480c62dac0fd4f5d960162a3">captured</a> = false</td></tr>
+<tr class="memdesc:aed763efd480c62dac0fd4f5d960162a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Faux tant que rien n'a été relevé : restituer un instantané vide replacerait le personnage à l'origine de la carte, ce qui ressemble à une téléportation et non à une erreur.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>L'état d'exploration mis de côté le temps d'un combat. </p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
+Ce qu'il porte, et ce qu'il ne porte pas</h2>
+<p>Il porte ce que <b>le combat modifie sans le vouloir</b> : le personnage se déplace sur la grille tactique, la caméra le suit, et sans mémoire il reviendrait de son combat ailleurs qu'il ne l'avait quitté — un pas de côté à chaque rencontre, invisible une fois, gênant au dixième.</p>
+<p>Il ne porte <b>pas</b> les points de vie. Le critère du lot dit « restituer exactement l'état d'exploration, <b>aux PV près</b> » : les points de vie sont précisément ce que le combat a changé, et les remettre à leur valeur d'avant annulerait le combat. Les inclure « pour être complet » serait donc le bogue, pas la prudence.</p>
+<p>Il ne porte pas non plus les ennemis vaincus : cela ne se restitue pas, cela s'<b>acquiert</b>, et c'est un drapeau de monde (<span class="tt"><a class="el" href="classcore_1_1WorldFlags.html" title="L&#39;ensemble des faits acquis d&#39;une partie : coffres ouverts, quêtes franchies, portes déverrouillées.">core::WorldFlags</a></span>) qui survit au rechargement de la carte. </p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="aa5d820019e101216aec7f2113d850f1e" name="aa5d820019e101216aec7f2113d850f1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5d820019e101216aec7f2113d850f1e">&#9670;&#160;</a></span>cameraPosition</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::ExplorationSnapshot::cameraPosition {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Position de la caméra, en unités monde. </p>
+
+</div>
+</div>
+<a id="aed763efd480c62dac0fd4f5d960162a3" name="aed763efd480c62dac0fd4f5d960162a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed763efd480c62dac0fd4f5d960162a3">&#9670;&#160;</a></span>captured</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::ExplorationSnapshot::captured = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Faux tant que rien n'a été relevé : restituer un instantané vide replacerait le personnage à l'origine de la carte, ce qui ressemble à une téléportation et non à une erreur. </p>
+
+</div>
+</div>
+<a id="a63bd6e8bb5d82b721e711236677420d0" name="a63bd6e8bb5d82b721e711236677420d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63bd6e8bb5d82b721e711236677420d0">&#9670;&#160;</a></span>playerFacing</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::ExplorationSnapshot::playerFacing {1.0F, 0.0F}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Orientation conservée : un personnage qui revient d'un combat regarde là où il regardait, et non vers une direction par défaut (<span class="tt">EX-EXP-004</span>). </p>
+
+</div>
+</div>
+<a id="aa1c093bdc8294f3afb7cb55802c8a91d" name="aa1c093bdc8294f3afb7cb55802c8a91d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1c093bdc8294f3afb7cb55802c8a91d">&#9670;&#160;</a></span>playerPosition</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::ExplorationSnapshot::playerPosition {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Position du personnage, en unités monde. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/<a class="el" href="CombatTransition_8h_source.html">CombatTransition.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="structcore_1_1ExplorationSnapshot.html">ExplorationSnapshot</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

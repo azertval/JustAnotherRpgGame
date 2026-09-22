@@ -1,0 +1,278 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/AnimationCatalog.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('AnimationCatalog_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">AnimationCatalog.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="AnimationCatalog_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="AnimationClip_8h.html">Core/Ecs/AnimationClip.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="Animation_8h.html">Core/Ecs/Components/Animation.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="Sprite_8h.html">Core/Ecs/Components/Sprite.h</a>&quot;</span>  <span class="comment">// core::AtlasRegion</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="AssetContract_8h.html">HMI/Graphics/AssetContract.h</a>&quot;</span>  <span class="comment">// hmi::AssetValidation</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="JsonDocument_8h.html">Core/Data/JsonDocument.h</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span></div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8f">   29</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8f">AnimationCatalogError</a> {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa6adf97f83acf6453d4a6a4b1070f3754">   30</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733a6adf97f83acf6453d4a6a4b1070f3754">None</a>,                 </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa2767828026039e8ba7b38973cbb701f2">   31</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa2767828026039e8ba7b38973cbb701f2">FileNotFound</a>,         </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fae41199faa7290c167f70f314c5e6c165">   32</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fae41199faa7290c167f70f314c5e6c165">ParseError</a>,           </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa0f89bc98e9b12bdeda0604e57bdc0518">   33</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa0f89bc98e9b12bdeda0604e57bdc0518">UnsupportedVersion</a>,   </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8faa809debdbe0cae246d363461916d924d">   34</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8faa809debdbe0cae246d363461916d924d">MalformedStructure</a>,   </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa55fe492f57807b35fd5489f61b967b20">   35</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa55fe492f57807b35fd5489f61b967b20">IncoherentFrameSize</a>,  </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
+</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="};">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structhmi_1_1AnimationDescription.html">   44</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a> {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structhmi_1_1AnimationDescription.html#a18d25eef98c2ac2863e7d87b35bd4909">   46</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AnimationDescription.html#a18d25eef98c2ac2863e7d87b35bd4909">frameWidth</a> = 0;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="structhmi_1_1AnimationDescription.html#aeb65e0a5103ba71be4e5158465f20ef2">   48</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AnimationDescription.html#aeb65e0a5103ba71be4e5158465f20ef2">frameHeight</a> = 0;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structhmi_1_1AnimationDescription.html#a92f5d1037158b3ece0d7591ae095b077">   50</a></span>    <a class="code hl_class" href="classcore_1_1ClipSet.html">core::ClipSet</a> <a class="code hl_variable" href="structhmi_1_1AnimationDescription.html#a92f5d1037158b3ece0d7591ae095b077">clips</a>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>};</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="};">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structhmi_1_1AnimationDescriptionResult.html">   57</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1AnimationDescriptionResult.html">AnimationDescriptionResult</a> {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structhmi_1_1AnimationDescriptionResult.html#a3cdcee7012ff94ee9d1035738c33edaf">   58</a></span>    std::optional&lt;AnimationDescription&gt; <a class="code hl_variable" href="structhmi_1_1AnimationDescriptionResult.html#a3cdcee7012ff94ee9d1035738c33edaf">description</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structhmi_1_1AnimationDescriptionResult.html#a48abccbf9ffae03d3eab23b7b08097e5">   59</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1AnimationDescriptionResult.html#a48abccbf9ffae03d3eab23b7b08097e5">error</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="structhmi_1_1AnimationDescriptionResult.html#ab7c14cfcccaf763fad49c8162a09e474">   60</a></span>    <a class="code hl_enumeration" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8f">AnimationCatalogError</a> <a class="code hl_variable" href="structhmi_1_1AnimationDescriptionResult.html#ab7c14cfcccaf763fad49c8162a09e474">errorCode</a> = <a class="code hl_enumvalue" href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa6adf97f83acf6453d4a6a4b1070f3754">AnimationCatalogError::None</a>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span></div>
+<div class="foldopen" id="foldopen00063" data-start="{" data-end="}">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="structhmi_1_1AnimationDescriptionResult.html#a8e45bcf520db8ee10785009747812ea0">   63</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1AnimationDescriptionResult.html#a8e45bcf520db8ee10785009747812ea0">ok</a>() const noexcept {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structhmi_1_1AnimationDescriptionResult.html#a3cdcee7012ff94ee9d1035738c33edaf">description</a>.has_value();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
+</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="};">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classhmi_1_1AnimationCatalog.html">   75</a></span><span class="keyword">class </span><a class="code hl_class" href="classhmi_1_1AnimationCatalog.html">AnimationCatalog</a> {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="classhmi_1_1AnimationCatalog.html#a2e32d9448dc4a00346eba59a2aa27e75">   78</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="classhmi_1_1AnimationCatalog.html#a2e32d9448dc4a00346eba59a2aa27e75">FORMAT_VERSION</a> = 1;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="classhmi_1_1AnimationCatalog.html#a05ffad34f350742a220ec866938c279b">   81</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="classhmi_1_1AnimationCatalog.html#a05ffad34f350742a220ec866938c279b">DEFAULT_FRAME_DURATION_SECONDS</a> = 0.1f;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structhmi_1_1AnimationDescriptionResult.html">AnimationDescriptionResult</a> <a class="code hl_function" href="classhmi_1_1AnimationCatalog.html#a3cb93e30c79689adec33ea27693dfc5d">loadFromString</a>(std::string_view json);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structhmi_1_1AnimationDescriptionResult.html">AnimationDescriptionResult</a> <a class="code hl_function" href="classhmi_1_1AnimationCatalog.html#a66c97eb76d512128122986f77856aef8">loadFromFile</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structhmi_1_1AnimationDescriptionResult.html">AnimationDescriptionResult</a> <a class="code hl_function" href="classhmi_1_1AnimationCatalog.html#aa76b14e31e71056c0f5d1702d9bac3c7">fromDocument</a>(</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1JsonDocument.html">core::JsonDocument</a>&amp; document);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    [[nodiscard]] <span class="keyword">static</span> std::string <a class="code hl_function" href="classhmi_1_1AnimationCatalog.html#a3c11b9e7acf4752079f89e2d21c4949a">descriptorFileName</a>(std::string_view assetFileName);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structhmi_1_1AssetValidation.html">AssetValidation</a> <a class="code hl_function" href="classhmi_1_1AnimationCatalog.html#ad010d712eef036db50679497eb373974">validateAgainstTexture</a>(</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a>&amp; description, <span class="keyword">const</span> std::string&amp; fileName, <span class="keywordtype">int</span> textureWidth,</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keywordtype">int</span> textureHeight);</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> <a class="code hl_function" href="classhmi_1_1AnimationCatalog.html#ab4d62573855d3bc8e915704f51d54cbf">frameRegion</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a>&amp; description,</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                                                       <span class="keywordtype">int</span> frameSheetIndex);</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> <a class="code hl_function" href="classhmi_1_1AnimationCatalog.html#acaa3b6c738038d1eac95c8267c0e8979">currentFrameRegion</a>(</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a>&amp; description, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Animation.html">core::Animation</a>&amp; animation);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>};</div>
+</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aAnimationClip_8h_html"><div class="ttname"><a href="AnimationClip_8h.html">AnimationClip.h</a></div><div class="ttdoc">Clip d&#39;animation en tant que donnée, et jeu de clips nommés.</div></div>
+<div class="ttc" id="aAnimation_8h_html"><div class="ttname"><a href="Animation_8h.html">Animation.h</a></div><div class="ttdoc">Composant d&#39;état d&#39;animation par séquence d&#39;images (données pures).</div></div>
+<div class="ttc" id="aAssetContract_8h_html"><div class="ttname"><a href="AssetContract_8h.html">AssetContract.h</a></div><div class="ttdoc">Verdict de validation d&#39;un asset graphique contre ses dimensions décodées (EX-REN-007).</div></div>
+<div class="ttc" id="aJsonDocument_8h_html"><div class="ttname"><a href="JsonDocument_8h.html">JsonDocument.h</a></div><div class="ttdoc">Brique de lecture JSON partagée par tous les catalogues (EX-CNT-012).</div></div>
+<div class="ttc" id="aSprite_8h_html"><div class="ttname"><a href="Sprite_8h.html">Sprite.h</a></div><div class="ttdoc">Composant d&#39;apparence 2D d&#39;une entité (données pures).</div></div>
+<div class="ttc" id="aclasscore_1_1ClipSet_html"><div class="ttname"><a href="classcore_1_1ClipSet.html">core::ClipSet</a></div><div class="ttdoc">Ensemble nommé de clips, adressable par nom — l&#39;unité que décrit un fichier nom-asset....</div><div class="ttdef"><b>Definition</b> AnimationClip.h:61</div></div>
+<div class="ttc" id="aclasshmi_1_1AnimationCatalog_html"><div class="ttname"><a href="classhmi_1_1AnimationCatalog.html">hmi::AnimationCatalog</a></div><div class="ttdoc">Lecture, validation et traduction en région de texture du format nom-asset.anim.json.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:75</div></div>
+<div class="ttc" id="aclasshmi_1_1AnimationCatalog_html_a05ffad34f350742a220ec866938c279b"><div class="ttname"><a href="classhmi_1_1AnimationCatalog.html#a05ffad34f350742a220ec866938c279b">hmi::AnimationCatalog::DEFAULT_FRAME_DURATION_SECONDS</a></div><div class="ttdeci">static constexpr float DEFAULT_FRAME_DURATION_SECONDS</div><div class="ttdoc">Durée d&#39;image par défaut (secondes), utilisée quand un clip omet « frameDuration ».</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:81</div></div>
+<div class="ttc" id="aclasshmi_1_1AnimationCatalog_html_a2e32d9448dc4a00346eba59a2aa27e75"><div class="ttname"><a href="classhmi_1_1AnimationCatalog.html#a2e32d9448dc4a00346eba59a2aa27e75">hmi::AnimationCatalog::FORMAT_VERSION</a></div><div class="ttdeci">static constexpr int FORMAT_VERSION</div><div class="ttdoc">Version du format écrite dans le fichier, et plus élevée qui soit lue.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:78</div></div>
+<div class="ttc" id="aclasshmi_1_1AnimationCatalog_html_a3c11b9e7acf4752079f89e2d21c4949a"><div class="ttname"><a href="classhmi_1_1AnimationCatalog.html#a3c11b9e7acf4752079f89e2d21c4949a">hmi::AnimationCatalog::descriptorFileName</a></div><div class="ttdeci">static std::string descriptorFileName(std::string_view assetFileName)</div><div class="ttdoc">Nom du fichier de description associé à un asset : même nom, extension remplacée.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.cpp:195</div></div>
+<div class="ttc" id="aclasshmi_1_1AnimationCatalog_html_a3cb93e30c79689adec33ea27693dfc5d"><div class="ttname"><a href="classhmi_1_1AnimationCatalog.html#a3cb93e30c79689adec33ea27693dfc5d">hmi::AnimationCatalog::loadFromString</a></div><div class="ttdeci">static AnimationDescriptionResult loadFromString(std::string_view json)</div><div class="ttdoc">Lit une description depuis une chaîne JSON.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.cpp:131</div></div>
+<div class="ttc" id="aclasshmi_1_1AnimationCatalog_html_a66c97eb76d512128122986f77856aef8"><div class="ttname"><a href="classhmi_1_1AnimationCatalog.html#a66c97eb76d512128122986f77856aef8">hmi::AnimationCatalog::loadFromFile</a></div><div class="ttdeci">static AnimationDescriptionResult loadFromFile(const std::filesystem::path &amp;path)</div><div class="ttdoc">Lit une description depuis un fichier.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.cpp:191</div></div>
+<div class="ttc" id="aclasshmi_1_1AnimationCatalog_html_aa76b14e31e71056c0f5d1702d9bac3c7"><div class="ttname"><a href="classhmi_1_1AnimationCatalog.html#aa76b14e31e71056c0f5d1702d9bac3c7">hmi::AnimationCatalog::fromDocument</a></div><div class="ttdeci">static AnimationDescriptionResult fromDocument(const core::JsonDocument &amp;document)</div><div class="ttdoc">Construit le résultat depuis l&#39;enveloppe déjà lue par core::readJsonObject.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.cpp:135</div></div>
+<div class="ttc" id="aclasshmi_1_1AnimationCatalog_html_ab4d62573855d3bc8e915704f51d54cbf"><div class="ttname"><a href="classhmi_1_1AnimationCatalog.html#ab4d62573855d3bc8e915704f51d54cbf">hmi::AnimationCatalog::frameRegion</a></div><div class="ttdeci">static core::AtlasRegion frameRegion(const AnimationDescription &amp;description, int frameSheetIndex)</div><div class="ttdoc">Région (en pixels) d&#39;une image de la spritesheet, par son indice.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.cpp:235</div></div>
+<div class="ttc" id="aclasshmi_1_1AnimationCatalog_html_acaa3b6c738038d1eac95c8267c0e8979"><div class="ttname"><a href="classhmi_1_1AnimationCatalog.html#acaa3b6c738038d1eac95c8267c0e8979">hmi::AnimationCatalog::currentFrameRegion</a></div><div class="ttdeci">static core::AtlasRegion currentFrameRegion(const AnimationDescription &amp;description, const core::Animation &amp;animation)</div><div class="ttdoc">Région de l&#39;image courante d&#39;une animation en cours, d&#39;après son état (core::Animation) et la descrip...</div><div class="ttdef"><b>Definition</b> AnimationCatalog.cpp:243</div></div>
+<div class="ttc" id="aclasshmi_1_1AnimationCatalog_html_ad010d712eef036db50679497eb373974"><div class="ttname"><a href="classhmi_1_1AnimationCatalog.html#ad010d712eef036db50679497eb373974">hmi::AnimationCatalog::validateAgainstTexture</a></div><div class="ttdeci">static AssetValidation validateAgainstTexture(const AnimationDescription &amp;description, const std::string &amp;fileName, int textureWidth, int textureHeight)</div><div class="ttdoc">Valide la cohérence entre la description et les dimensions décodées du PNG.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.cpp:199</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_ad3d9a6a21747a6c69be71dfc46024733a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733a6adf97f83acf6453d4a6a4b1070f3754">hmi::DiskChange::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">Même contenu.</div><div class="ttdef"><b>Definition</b> DiskGuard.h:42</div></div>
+<div class="ttc" id="anamespacehmi_html_afee4dd05bda0b2293c4a99a73cb7eb8f"><div class="ttname"><a href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8f">hmi::AnimationCatalogError</a></div><div class="ttdeci">AnimationCatalogError</div><div class="ttdoc">Catégorie d&#39;échec de lecture d&#39;une description d&#39;animation (même esprit que core::LevelValidationErro...</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:29</div></div>
+<div class="ttc" id="anamespacehmi_html_afee4dd05bda0b2293c4a99a73cb7eb8fa0f89bc98e9b12bdeda0604e57bdc0518"><div class="ttname"><a href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa0f89bc98e9b12bdeda0604e57bdc0518">hmi::AnimationCatalogError::UnsupportedVersion</a></div><div class="ttdeci">@ UnsupportedVersion</div><div class="ttdoc">Numéro de version supérieur à AnimationCatalog::FORMAT_VERSION.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:33</div></div>
+<div class="ttc" id="anamespacehmi_html_afee4dd05bda0b2293c4a99a73cb7eb8fa2767828026039e8ba7b38973cbb701f2"><div class="ttname"><a href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa2767828026039e8ba7b38973cbb701f2">hmi::AnimationCatalogError::FileNotFound</a></div><div class="ttdeci">@ FileNotFound</div><div class="ttdoc">Fichier absent. Cas légitime (image fixe), pas une anomalie.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:31</div></div>
+<div class="ttc" id="anamespacehmi_html_afee4dd05bda0b2293c4a99a73cb7eb8fa55fe492f57807b35fd5489f61b967b20"><div class="ttname"><a href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa55fe492f57807b35fd5489f61b967b20">hmi::AnimationCatalogError::IncoherentFrameSize</a></div><div class="ttdeci">@ IncoherentFrameSize</div><div class="ttdoc">Taille d&#39;image déclarée incohérente avec les dimensions du PNG.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:35</div></div>
+<div class="ttc" id="anamespacehmi_html_afee4dd05bda0b2293c4a99a73cb7eb8fa6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa6adf97f83acf6453d4a6a4b1070f3754">hmi::AnimationCatalogError::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">Pas d&#39;erreur.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:30</div></div>
+<div class="ttc" id="anamespacehmi_html_afee4dd05bda0b2293c4a99a73cb7eb8faa809debdbe0cae246d363461916d924d"><div class="ttname"><a href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8faa809debdbe0cae246d363461916d924d">hmi::AnimationCatalogError::MalformedStructure</a></div><div class="ttdeci">@ MalformedStructure</div><div class="ttdoc">Structure inattendue (clip sans « frames », next inexistant…).</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:34</div></div>
+<div class="ttc" id="anamespacehmi_html_afee4dd05bda0b2293c4a99a73cb7eb8fae41199faa7290c167f70f314c5e6c165"><div class="ttname"><a href="namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fae41199faa7290c167f70f314c5e6c165">hmi::AnimationCatalogError::ParseError</a></div><div class="ttdeci">@ ParseError</div><div class="ttdoc">JSON malformé, ou racine qui n&#39;est pas un objet.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:32</div></div>
+<div class="ttc" id="astructcore_1_1Animation_html"><div class="ttname"><a href="structcore_1_1Animation.html">core::Animation</a></div><div class="ttdoc">État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...</div><div class="ttdef"><b>Definition</b> Animation.h:32</div></div>
+<div class="ttc" id="astructcore_1_1AtlasRegion_html"><div class="ttname"><a href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a></div><div class="ttdoc">Région source dans l&#39;atlas de textures, en pixels (origine haut-gauche).</div><div class="ttdef"><b>Definition</b> Sprite.h:22</div></div>
+<div class="ttc" id="astructcore_1_1JsonDocument_html"><div class="ttname"><a href="structcore_1_1JsonDocument.html">core::JsonDocument</a></div><div class="ttdoc">Résultat de la lecture de l&#39;enveloppe commune d&#39;un document JSON.</div><div class="ttdef"><b>Definition</b> JsonDocument.h:53</div></div>
+<div class="ttc" id="astructhmi_1_1AnimationDescriptionResult_html"><div class="ttname"><a href="structhmi_1_1AnimationDescriptionResult.html">hmi::AnimationDescriptionResult</a></div><div class="ttdoc">Résultat d&#39;une lecture de description : soit une AnimationDescription, soit une erreur décrite (EX-NF...</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:57</div></div>
+<div class="ttc" id="astructhmi_1_1AnimationDescriptionResult_html_a3cdcee7012ff94ee9d1035738c33edaf"><div class="ttname"><a href="structhmi_1_1AnimationDescriptionResult.html#a3cdcee7012ff94ee9d1035738c33edaf">hmi::AnimationDescriptionResult::description</a></div><div class="ttdeci">std::optional&lt; AnimationDescription &gt; description</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:58</div></div>
+<div class="ttc" id="astructhmi_1_1AnimationDescriptionResult_html_a48abccbf9ffae03d3eab23b7b08097e5"><div class="ttname"><a href="structhmi_1_1AnimationDescriptionResult.html#a48abccbf9ffae03d3eab23b7b08097e5">hmi::AnimationDescriptionResult::error</a></div><div class="ttdeci">std::string error</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:59</div></div>
+<div class="ttc" id="astructhmi_1_1AnimationDescriptionResult_html_a8e45bcf520db8ee10785009747812ea0"><div class="ttname"><a href="structhmi_1_1AnimationDescriptionResult.html#a8e45bcf520db8ee10785009747812ea0">hmi::AnimationDescriptionResult::ok</a></div><div class="ttdeci">bool ok() const noexcept</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:63</div></div>
+<div class="ttc" id="astructhmi_1_1AnimationDescriptionResult_html_ab7c14cfcccaf763fad49c8162a09e474"><div class="ttname"><a href="structhmi_1_1AnimationDescriptionResult.html#ab7c14cfcccaf763fad49c8162a09e474">hmi::AnimationDescriptionResult::errorCode</a></div><div class="ttdeci">AnimationCatalogError errorCode</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:60</div></div>
+<div class="ttc" id="astructhmi_1_1AnimationDescription_html"><div class="ttname"><a href="structhmi_1_1AnimationDescription.html">hmi::AnimationDescription</a></div><div class="ttdoc">Description d&#39;animation d&#39;un asset : disposition de sa spritesheet et ses clips.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:44</div></div>
+<div class="ttc" id="astructhmi_1_1AnimationDescription_html_a18d25eef98c2ac2863e7d87b35bd4909"><div class="ttname"><a href="structhmi_1_1AnimationDescription.html#a18d25eef98c2ac2863e7d87b35bd4909">hmi::AnimationDescription::frameWidth</a></div><div class="ttdeci">int frameWidth</div><div class="ttdoc">Largeur d&#39;une image, en pixels.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:46</div></div>
+<div class="ttc" id="astructhmi_1_1AnimationDescription_html_a92f5d1037158b3ece0d7591ae095b077"><div class="ttname"><a href="structhmi_1_1AnimationDescription.html#a92f5d1037158b3ece0d7591ae095b077">hmi::AnimationDescription::clips</a></div><div class="ttdeci">core::ClipSet clips</div><div class="ttdoc">Clips décrits par le fichier, adressables par nom (core::ClipSet).</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:50</div></div>
+<div class="ttc" id="astructhmi_1_1AnimationDescription_html_aeb65e0a5103ba71be4e5158465f20ef2"><div class="ttname"><a href="structhmi_1_1AnimationDescription.html#aeb65e0a5103ba71be4e5158465f20ef2">hmi::AnimationDescription::frameHeight</a></div><div class="ttdeci">int frameHeight</div><div class="ttdoc">Hauteur d&#39;une image, en pixels.</div><div class="ttdef"><b>Definition</b> AnimationCatalog.h:48</div></div>
+<div class="ttc" id="astructhmi_1_1AssetValidation_html"><div class="ttname"><a href="structhmi_1_1AssetValidation.html">hmi::AssetValidation</a></div><div class="ttdoc">Verdict de validation d&#39;un asset, avec son message exploitable.</div><div class="ttdef"><b>Definition</b> AssetContract.h:24</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="AnimationCatalog_8h.html">AnimationCatalog.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

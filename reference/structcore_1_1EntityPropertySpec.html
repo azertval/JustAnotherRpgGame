@@ -1,0 +1,307 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::EntityPropertySpec Struct Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('structcore_1_1EntityPropertySpec.html','','structcore_1_1EntityPropertySpec-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::EntityPropertySpec Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Une propriété qu'une famille d'entités déclare.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="EntityKinds_8h_source.html">EntityKinds.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ae71038c40d19da3cf4ab9c8671d41058" id="r_ae71038c40d19da3cf4ab9c8671d41058"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ae71038c40d19da3cf4ab9c8671d41058">key</a></td></tr>
+<tr class="memitem:a38c35cc67c171e934eae3275b94fb488" id="r_a38c35cc67c171e934eae3275b94fb488"><td class="memItemLeft"><a class="el" href="namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126e">EntityPropertyKind</a>&#160;</td><td class="memItemRight"><a class="el" href="#a38c35cc67c171e934eae3275b94fb488">kind</a> = <a class="el" href="namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126ea9dffbf69ffba8bc38bc4e01abf4b1675">EntityPropertyKind::Text</a></td></tr>
+<tr class="memitem:a22e124ce3dc9a44f1ac07512f908b221" id="r_a22e124ce3dc9a44f1ac07512f908b221"><td class="memItemLeft"><a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37">EntityChoiceSource</a>&#160;</td><td class="memItemRight"><a class="el" href="#a22e124ce3dc9a44f1ac07512f908b221">source</a> = <a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a4457d440870ad6d42bab9082d9bf9b61">EntityChoiceSource::Fixed</a></td></tr>
+<tr class="memitem:a7006555bcdcacb7224905f65f555d58b" id="r_a7006555bcdcacb7224905f65f555d58b"><td class="memItemLeft">std::vector&lt; std::string_view &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7006555bcdcacb7224905f65f555d58b">fixedChoices</a></td></tr>
+<tr class="memitem:ab8bd302a39d7affe2bbe1df720145543" id="r_ab8bd302a39d7affe2bbe1df720145543"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab8bd302a39d7affe2bbe1df720145543">required</a> = false</td></tr>
+<tr class="memdesc:ab8bd302a39d7affe2bbe1df720145543"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une propriété requise absente (ou texte vide) est signalée ; elle n'empêche pas d'enregistrer.  <br /></td></tr>
+<tr class="memitem:a826dfec69cd66fe96152c227435cbc3a" id="r_a826dfec69cd66fe96152c227435cbc3a"><td class="memItemLeft"><a class="el" href="namespacecore.html#a9f79b235a73b6264aa3a97d51267919d">PropertyValue</a>&#160;</td><td class="memItemRight"><a class="el" href="#a826dfec69cd66fe96152c227435cbc3a">defaultValue</a></td></tr>
+<tr class="memdesc:a826dfec69cd66fe96152c227435cbc3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeur posée à la création de l'entité.  <br /></td></tr>
+<tr class="memitem:a8296d0eab4ee612330cfc037b7ffa7ad" id="r_a8296d0eab4ee612330cfc037b7ffa7ad"><td class="memItemLeft">std::int64_t&#160;</td><td class="memItemRight"><a class="el" href="#a8296d0eab4ee612330cfc037b7ffa7ad">minimum</a> = (std::numeric_limits&lt;std::int64_t&gt;::min)()</td></tr>
+<tr class="memdesc:a8296d0eab4ee612330cfc037b7ffa7ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bornes d'une propriété <span class="tt">Integer</span>, incluses ; une valeur hors bornes est signalée.  <br /></td></tr>
+<tr class="memitem:a15d868598661f663abc460f45c41aced" id="r_a15d868598661f663abc460f45c41aced"><td class="memItemLeft">std::int64_t&#160;</td><td class="memItemRight"><a class="el" href="#a15d868598661f663abc460f45c41aced">maximum</a> = (std::numeric_limits&lt;std::int64_t&gt;::max)()</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Une propriété qu'une famille d'entités déclare. </p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a826dfec69cd66fe96152c227435cbc3a" name="a826dfec69cd66fe96152c227435cbc3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a826dfec69cd66fe96152c227435cbc3a">&#9670;&#160;</a></span>defaultValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a9f79b235a73b6264aa3a97d51267919d">PropertyValue</a> core::EntityPropertySpec::defaultValue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valeur posée à la création de l'entité. </p>
+
+</div>
+</div>
+<a id="a7006555bcdcacb7224905f65f555d58b" name="a7006555bcdcacb7224905f65f555d58b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7006555bcdcacb7224905f65f555d58b">&#9670;&#160;</a></span>fixedChoices</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string_view&gt; core::EntityPropertySpec::fixedChoices</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae71038c40d19da3cf4ab9c8671d41058" name="ae71038c40d19da3cf4ab9c8671d41058"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae71038c40d19da3cf4ab9c8671d41058">&#9670;&#160;</a></span>key</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view core::EntityPropertySpec::key</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a38c35cc67c171e934eae3275b94fb488" name="a38c35cc67c171e934eae3275b94fb488"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38c35cc67c171e934eae3275b94fb488">&#9670;&#160;</a></span>kind</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126e">EntityPropertyKind</a> core::EntityPropertySpec::kind = <a class="el" href="namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126ea9dffbf69ffba8bc38bc4e01abf4b1675">EntityPropertyKind::Text</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a15d868598661f663abc460f45c41aced" name="a15d868598661f663abc460f45c41aced"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15d868598661f663abc460f45c41aced">&#9670;&#160;</a></span>maximum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::int64_t core::EntityPropertySpec::maximum = (std::numeric_limits&lt;std::int64_t&gt;::max)()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8296d0eab4ee612330cfc037b7ffa7ad" name="a8296d0eab4ee612330cfc037b7ffa7ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8296d0eab4ee612330cfc037b7ffa7ad">&#9670;&#160;</a></span>minimum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::int64_t core::EntityPropertySpec::minimum = (std::numeric_limits&lt;std::int64_t&gt;::min)()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bornes d'une propriété <span class="tt">Integer</span>, incluses ; une valeur hors bornes est signalée. </p>
+
+</div>
+</div>
+<a id="ab8bd302a39d7affe2bbe1df720145543" name="ab8bd302a39d7affe2bbe1df720145543"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8bd302a39d7affe2bbe1df720145543">&#9670;&#160;</a></span>required</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::EntityPropertySpec::required = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une propriété requise absente (ou texte vide) est signalée ; elle n'empêche pas d'enregistrer. </p>
+
+</div>
+</div>
+<a id="a22e124ce3dc9a44f1ac07512f908b221" name="a22e124ce3dc9a44f1ac07512f908b221"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22e124ce3dc9a44f1ac07512f908b221">&#9670;&#160;</a></span>source</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37">EntityChoiceSource</a> core::EntityPropertySpec::source = <a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a4457d440870ad6d42bab9082d9bf9b61">EntityChoiceSource::Fixed</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/<a class="el" href="EntityKinds_8h_source.html">EntityKinds.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="structcore_1_1EntityPropertySpec.html">EntityPropertySpec</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

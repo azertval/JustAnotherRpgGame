@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Écrire la documentation — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="index.html" class="active">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="../CahierTest/index.html">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Guide</h4><a class="depth-0" href="index.html">Guide du développeur</a><a class="depth-1" href="Manuel/index.html">Manuel utilisateur</a><a class="depth-2" href="Manuel/telecharger-et-lancer.html">Télécharger et lancer le jeu</a><a class="depth-2" href="Manuel/jouer.html">Jouer</a><a class="depth-2" href="Manuel/utiliser-l-editeur.html">Faire une carte dans l&#x27;éditeur</a><a class="depth-1" href="guide-editeur.html">Éditeur de niveaux</a><a class="depth-1" href="guide-niveaux.html">Niveaux : modèle, couches, entités, chargement</a><a class="depth-1" href="guide-maths.html">Mathématiques du moteur</a><a class="depth-1" href="guide-rendu.html">Rendu 2D : de la scène à l&#x27;écran</a><a class="depth-1" href="guide-boucle.html">Boucle de jeu et pas de temps fixe</a><a class="depth-1" href="guide-ihm-qt.html">IHM Qt — deux applications, deux technologies</a><a class="depth-1" href="guide-conception-qds.html">Concevoir les écrans dans Qt Design Studio</a><a class="depth-1" href="guide-design-ihm.html">Système de design et architecture de l&#x27;information</a><a class="depth-1" href="guide-ecrans.html">Écrans, navigation et boucle de jeu</a><a class="depth-1" href="guide-monde.html">Monde et exploration</a><a class="depth-1" href="guide-combat.html">Combat tactique</a><a class="depth-1" href="guide-regles.html">Règles d20 et personnages</a><a class="depth-1" href="guide-donnees.html">Données, corpus et ressources</a><a class="depth-1" href="guide-outils.html">Build, tests et intégration continue</a><a class="depth-1" href="guide-journalisation.html">Journalisation et assertions</a><a class="depth-1" href="guide-ecs.html">ECS : entités, composants, systèmes</a><a class="depth-1 active" href="guide-documentation.html">Écrire la documentation</a><a class="toc depth-2" href="#le-principe-du-markdown-nu-un-seul-moteur">Le principe : du Markdown nu, un seul moteur</a><a class="toc depth-2" href="#où-ranger-une-page">Où ranger une page</a><a class="toc depth-2" href="#les-conventions-décriture">Les conventions d&#x27;écriture</a><a class="toc depth-2" href="#documenter-le-code">Documenter le code</a><a class="toc depth-2" href="#vérifier-avant-de-pousser">Vérifier avant de pousser</a><a class="toc depth-2" href="#la-publication">La publication</a><a class="depth-1" href="guide-entrees.html">Entrées et actions logiques</a><a class="depth-1" href="guide-audio.html">Audio</a><a class="depth-2" href="Manuel/partager-un-niveau.html">Créer et partager une carte (sans ligne de commande)</a></aside>
+<main>
+<article class="prose"><h1 id="écrire-la-documentation">Écrire la documentation</h1>
+<p>Cette page dit comment la documentation est <strong>faite</strong>, et donc comment y ajouter une page sans rien casser. Elle vaut pour le guide, les spécifications et la planification : les trois s'écrivent au même format et se rendent par le même moteur.</p>
+<h2 id="le-principe-du-markdown-nu-un-seul-moteur">Le principe : du Markdown nu, un seul moteur</h2>
+<p>Une page est un fichier Markdown <strong>lisible tel quel</strong> dans le dépôt et sur la forge : pas une commande Doxygen, des liens relatifs ordinaires. Le site n'ajoute que la mise en forme.</p>
+<figure><a href="figures/site-parties.svg"><img src="figures/site-parties.svg" alt="Les quatre parties du site publié, et qui engendre chacune" loading="lazy"></a><figcaption>Les quatre parties du site publié, et qui engendre chacune</figcaption></figure>
+<div class="table-wrap"><table><thead><tr><th>Partie du site</th><th>Source</th><th>Générateur</th></tr></thead><tbody><tr><td>Accueil, guide, spécifications, cahier de test</td><td><code>Documentation/</code></td><td><code>Documentation/outils/build_docs_site.py</code></td></tr><tr><td>Planification (versions, lots, référentiels)</td><td><code>Planning/</code></td><td><code>Planning/outils/build_planning_site.py</code></td></tr><tr><td>Qualité (couverture, performances)</td><td>mesures de la CI</td><td><code>scripts/build_quality_site.py</code></td></tr><tr><td>Référence du code — l'annexe du guide</td><td>commentaires de <code>Source/</code></td><td>Doxygen, par <code>scripts/build_docs.py</code></td></tr></tbody></table></div>
+<p>Les deux premiers partagent le moteur Markdown (<code>Planning/outils/mini_markdown.py</code>, sans dépendance) ; les quatre partagent la charte de <code>Site/</code> — aucune couleur ne s'écrit ailleurs que dans <code>Site/tokens.css</code>.</p>
+<blockquote class="callout note"><p><strong>Note</strong> — Avant la refonte, toutes ces pages passaient par Doxygen (<code>@page</code>, <code>@subpage</code>, <code>@ref</code>, <code>\anchor</code>). Doxygen ne lit plus que le code : une commande Doxygen restée dans une page fait échouer <code>lint_docs.py</code>.</p></blockquote>
+<h2 id="où-ranger-une-page">Où ranger une page</h2>
+<div class="table-wrap"><table><thead><tr><th>Je veux écrire…</th><th>Je crée…</th><th>Et je la cite dans…</th></tr></thead><tbody><tr><td>une page du guide</td><td><code>Documentation/Guide/guide-&lt;sujet&gt;.md</code></td><td>le plan de <code>Guide/README.md</code></td></tr><tr><td>une page du manuel</td><td><code>Documentation/Guide/Manuel/&lt;sujet&gt;.md</code></td><td><code>Guide/Manuel/README.md</code></td></tr><tr><td>une spécification</td><td><code>Documentation/Specification/&lt;sujet&gt;.md</code></td><td>la liste de <code>Specification/README.md</code></td></tr><tr><td>un lot</td><td><code>Planning/versions/&lt;version&gt;/lots/LOT-NNN-&lt;objet&gt;.md</code></td><td>rien : le site le trouve</td></tr></tbody></table></div>
+<p>L'<strong>ordre de lecture</strong> d'une partie est celui où son <code>README.md</code> cite ses pages ; le menu latéral et les liens « précédent / suivant » en découlent. Une page que rien ne cite est une erreur de lint (<em>page orpheline</em>). Le cahier de test ne s'écrit pas : il est engendré (<code>scripts/generate_cahier_test.py</code>).</p>
+<h2 id="les-conventions-décriture">Les conventions d'écriture</h2>
+<h3 id="titres-et-ancres">Titres et ancres</h3>
+<p>Un seul titre <code>#</code> par page : c'est son nom dans le menu. Les titres <code>##</code> forment le sommaire de la page. Une ancre se déduit du titre ; pour une ancre <strong>stable</strong>, que d'autres pages citent, l'écrire :</p>
+<pre><code>## Le rendu déterministe {#rendu-deterministe}</code></pre>
+<h3 id="liens">Liens</h3>
+<p>Toujours <strong>relatifs</strong>, vers le fichier source — le site les réécrit :</p>
+<pre><code>[la boucle de jeu](guide-boucle.md)                          une page voisine
+[EX-CBT-020](../Specification/combat.md#EX-CBT-020)          une ancre d&#x27;une autre partie
+[LOT-128](../../Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-128-cartes-maquettes.md)
+[`Level.h`](../../Source/Core/Levels/Level.h)                un fichier du dépôt : ouvert sur la forge</code></pre>
+<p>Trois choses se relient <strong>toutes seules</strong> quand elles sont écrites en code :</p>
+<div class="table-wrap"><table><thead><tr><th>Écrit</th><th>Devient un lien vers</th></tr></thead><tbody><tr><td>`<code> </code>EX-CBT-020<code> </code>`</td><td>la déclaration de l'exigence, dans sa spécification</td></tr><tr><td>`<code> </code>LOT-128<code> </code><code>, </code><code> </code>LOT-19<code> </code><code>, </code><code> </code>LOT-EDITOR-03<code> </code>`</td><td>la fiche du lot, dans la planification</td></tr><tr><td>`<code> </code>core::BattleGrid<code> </code><code>, </code><code> </code>hmi::Camera2D::zoom<code> </code>`</td><td>le symbole, dans la référence du code</td></tr></tbody></table></div>
+<h3 id="exigences">Exigences</h3>
+<p>Une exigence se <strong>déclare</strong> par une puce qui s'ouvre sur son identifiant en gras, dans une page de <code>Documentation/Specification/</code> — et nulle part ailleurs :</p>
+<pre><code>- **EX-CBT-020** — Le déplacement d&#x27;un tour est borné par une portée en cases…</code></pre>
+<p><code>scripts/lint_exigences.py</code> vérifie qu'elle est déclarée une fois, et citée au moins une fois ailleurs ; <code>--next</code> donne le prochain numéro libre. Le site en tire l'<a href="../Specification/index.html">index des exigences</a>, avec le code et les tests qui citent chacune.</p>
+<h3 id="figures-captures-et-maquettes">Figures, captures et maquettes</h3>
+<p>Une image <strong>seule dans son paragraphe</strong> devient une figure, légendée par son texte alternatif — qui doit donc dire ce qu'on regarde, pas « capture 3 » :</p>
+<pre><code>![L&#x27;écran d&#x27;options, onglet Graphismes, à 1280 × 720](captures/jeu-options.jpg)</code></pre>
+<div class="table-wrap"><table><thead><tr><th>Nature</th><th>Dossier</th><th>Fabrication</th></tr></thead><tbody><tr><td>Capture du jeu ou de l'éditeur</td><td><code>Guide/captures/</code></td><td><code>python Documentation/outils/capture_screens.py --bin build/ninja/bin</code> — jamais à la main : une capture se refait</td></tr><tr><td>Schéma, diagramme</td><td><code>Guide/figures/</code>, <code>Specification/figures/</code></td><td>SVG écrit à la main</td></tr><tr><td>Maquette d'écran (ce que l'écran <strong>doit</strong> être)</td><td><code>Specification/maquettes/</code></td><td>SVG écrit à la main ; les maquettes peintes de la charte v2 restent dans les annexes du <a class="ref" href="../planning/lots/lot-87.html"><code>LOT-87</code></a></td></tr></tbody></table></div>
+<p>Un SVG porte son propre fond (il s'affiche aussi en thème sombre) et n'emploie que la palette de la charte : ivoire <code>#fbf8f0</code>, sable <code>#ece4d1</code>, filet <code>#d6c9a8</code>, encre <code>#25201a</code>, gris <code>#6a6152</code>, or <code>#9a7420</code>, bourgogne <code>#8a2233</code>, vert <code>#3f6b34</code>, eau <code>#2f7f86</code>.</p>
+<blockquote class="callout warning"><p><strong>Attention</strong> — Aucune image du corpus (livres de Tanares) ne s'affiche ni ne se décalque dans la documentation. Une maquette est un dessin d'intention, fait ici.</p></blockquote>
+<h3 id="encadrés">Encadrés</h3>
+<p>Une citation qui s'ouvre sur <code>**Note**</code>, <code>**Attention**</code> ou <code>**Astuce**</code> devient un encadré coloré. Les autres citations restent des citations.</p>
+<h3 id="ce-que-le-moteur-ne-rend-pas">Ce que le moteur ne rend pas</h3>
+<p>Le moteur est volontairement réduit : titres, paragraphes, listes (imbriquées, numérotées, à cocher), tableaux, blocs de code, citations, filets, gras, italique, code, liens, images, et les balises <code>&lt;br&gt;</code>, <code>&lt;kbd&gt;</code>, <code>&lt;sub&gt;</code>, <code>&lt;sup&gt;</code>. Pas de HTML libre, pas de notes de bas de page, pas de formule : une formule s'écrit en bloc de code ou se dessine.</p>
+<h2 id="documenter-le-code">Documenter le code</h2>
+<p>La référence se tire des commentaires Doxygen de <code>Source/</code>. Chaque symbole public porte au moins un <code>@brief</code> ; une fonction, ses <code>@param</code> et son <code>@return</code> :</p>
+<pre><code class="language-cpp">/**
+ * @brief Cases atteignables depuis @p origine avec @p budget cases de déplacement.
+ * @param origine Case de départ, dans la grille.
+ * @param budget Déplacement restant, en cases.
+ * @return L&#x27;aire atteignable ; vide si @p origine est hors grille.
+ */</code></pre>
+<p>La génération échoue au <strong>moindre avertissement</strong> : un <code>@param</code> oublié casse la CI. Le guide, lui, explique <em>pourquoi</em> et <em>comment les pièces s'assemblent</em> — il ne recopie pas la référence, il y renvoie.</p>
+<h2 id="vérifier-avant-de-pousser">Vérifier avant de pousser</h2>
+<pre><code>python Documentation/outils/lint_docs.py          # liens, ancres, pages orphelines, lots cités
+python scripts/lint_exigences.py                  # exigences déclarées une fois, citées
+python scripts/generate_cahier_test.py --check    # cahier de test à jour
+python Planning/outils/lint_planning.py           # fiches de lots
+python scripts/build_docs.py                      # la référence du code (Doxygen, sans avertissement)
+python Documentation/outils/build_docs_site.py --out build/site                       # les pages
+python Planning/outils/build_planning_site.py --out build/site/planning --docs-url ../</code></pre>
+<p><code>uv run scripts/check.py</code> rejoue d'un coup tous les contrôles du job de lint de la CI. Le site se lit ensuite en ouvrant <code>build/site/index.html</code> ; la recherche demande un serveur local (<code>python -m http.server -d build/site</code>).</p>
+<h2 id="la-publication">La publication</h2>
+<p><code>docs.yml</code> publie à chaque poussée sur <code>main</code> : les pages à la racine, la référence sous <code>reference/</code>, la planification sous <code>planning/</code>, la qualité sous <code>qualite/</code>. La branche <code>gh-pages</code> est remplacée en entier : rien ne s'y édite.</p></article><nav class="pager"><a class="prev" href="guide-ecs.html"><span>Précédent</span>ECS : entités, composants, systèmes</a><a class="next" href="guide-entrees.html"><span>Suivant</span>Entrées et actions logiques</a></nav><p class="source">Source : <code>Documentation/Guide/guide-documentation.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

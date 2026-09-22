@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOT-05 — Modes de jeu — Planification</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="index.html" class="active">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="../standards/index.html">Standards</a></nav>
+  <div class="links"><a href="../../">Documentation</a><a class="active" href="../index.html">Planification</a><a href="../../qualite/">Qualité</a></div>
+</header>
+<div class="shell">
+
+<main>
+<p class="crumb"><a href="index.html">Lots</a> › <a href="../versions/v0-0-0.html">0.0.0 — Fondation du moteur</a></p><h1><span class="vid">LOT-05</span> Modes de jeu</h1><p class="lede">L'ordre des passes du pas fixe devient une donnée du mode de jeu, ce qui permet à l'exploration, au dialogue et au combat d'avoir chacun le leur sans s'entasser dans <code>GameSession</code>.</p><dl class="facts"><div><dt>État</dt><dd><span class="badge etat-livre">livré</span></dd></div><div><dt>Filière</dt><dd><span class="filiere f-moteur">Moteur</span></dd></div><div><dt>Taille</dt><dd>M</dd></div><div><dt>Ordre calculé</dt><dd>—</dd></div><div><dt>Prérequis</dt><dd><a class="ref" href="lot-02.html">LOT-02</a> <a class="ref" href="lot-04.html">LOT-04</a></dd></div><div><dt>Débloque</dt><dd><a class="ref" href="lot-06.html">LOT-06</a> <a class="ref" href="lot-15.html">LOT-15</a> <a class="ref" href="lot-18.html">LOT-18</a></dd></div><div><dt>Reprend</dt><dd>—</dd></div></dl><section><h2>Livrables</h2><ul class=""><li><code>hmi::IGameMode</code> : l'interface d'un mode de jeu (<code>onLoad</code>, <code>step</code>, <code>onUnload</code>, <code>passOrder()</code> pour les diagnostics).</li><li><code>hmi::IGameModePasses</code>, implémentée par <code>GameSession</code> en héritage <strong>privé</strong> : les passes offertes au mode, jamais à l'appelant.</li><li><code>ExplorationMode</code>, premier mode, extrait du corps de <code>GameSession::update</code>.</li><li>Test de rejeu déterministe sur 600 pas, qui compare l'ordre annoncé à la séquence de passes réellement appelée.</li><li>Exigence <code>EX-ARCH-*</code> : l'ordre des passes du pas fixe est une donnée du mode de jeu.</li></ul></section><section><h2>Critères d'acceptation</h2><ul class="checks"><li>Extraction à comportement <strong>identique</strong>, prouvée par le test de rejeu déterministe.</li><li>Les tests de <code>GameSession</code> passent <strong>sans modification de leur corps</strong>.</li><li>Aucun <code>if (mode == …)</code> résiduel dans <code>GameSession</code> : la sélection se fait par polymorphisme.</li></ul></section><section class="prose"><h2 id="pourquoi">Pourquoi</h2>
+<p>Sortir de <code>hmi::GameSession</code> l'ordre <strong>codé en dur</strong> des passes du pas fixe, derrière une interface <code>hmi::IGameMode</code>.</p>
+<h3 id="le-problème">Le problème</h3>
+<p><code>Source/HMI/Game/GameSession.cpp</code> mêle deux rôles : <strong>orchestrateur</strong> du pas fixe (monde ECS, caméra, événements, HUD, <code>FixedTimestep</code>, interpolation de rendu) et <strong>mode de jeu</strong> (l'ordre des passes lui-même). Tant qu'il n'y avait qu'un genre, la confusion ne coûtait rien.</p>
+<p>Le RPG a besoin d'au moins <strong>trois</strong> ordres différents :</p>
+<ul><li><strong>exploration</strong> : déplacement, animation, caméra, mécanismes, issue ;</li><li><strong>dialogue</strong> : monde gelé, seul le runner de dialogue avance ;</li><li><strong>combat</strong> : initiative, tour actif, résolution d'action — l'exploration ne tourne plus du tout.</li></ul>
+<p>Sans cette séparation, les trois s'entasseraient en <code>if</code> dans une fonction déjà longue.</p>
+<h2 id="périmètre">Périmètre</h2>
+<ul><li><code>hmi::IGameMode</code> : interface à cinq méthodes environ — <code>onLoad(World&amp;, const Level&amp;)</code>, <code>step(World&amp;, const PlayerInput&amp;, float) -&gt; LevelOutcome</code>, <code>onUnload()</code>, plus de quoi décrire l'ordre des passes pour les diagnostics.</li><li><code>GameSession</code> conserve : monde ECS, caméra et cadrage, événements, HUD, particules, secousse d'écran, <code>FixedTimestep</code>, interpolation. Il <strong>délègue</strong> l'ordre des passes.</li><li><code>ExplorationMode</code> : premier mode, extrait du corps actuel de <code>GameSession::update</code>.</li></ul>
+<p><strong>N'y ajouter aucune fonctionnalité.</strong> Le mode dialogue et le mode combat arrivent aux <code>LOT-15</code> et <code>LOT-18</code> ; les écrire ici mélangerait un refactoring et une nouveauté, et on ne saurait plus lequel des deux a cassé quoi.</p>
+<h2 id="risques-et-questions-ouvertes">Risques et questions ouvertes</h2>
+<h3 id="le-critère-qui-compte">Le critère qui compte</h3>
+<p>Ce lot est un refactoring <strong>à comportement constant</strong>, et c'est le plus risqué du programme : tout ce qui suit en dépend. Il doit être validé par un <strong>test de rejeu déterministe</strong> — mêmes entrées, mêmes positions au flottant près sur 600 pas, avant et après extraction.</p>
+<h2 id="décisions-de-réalisation">Décisions de réalisation</h2>
+<p>Ce que la réalisation a tranché.</p>
+<p><strong>Les passes sont une interface, pas des paramètres.</strong> L'epic esquissait <code>step(World&amp;, const PlayerInput&amp;, float)</code>. Un <code>World</code> ne suffit pas : les passes touchent la caméra, les particules, la secousse d'écran, les mécanismes, la détection d'événements — tout ce que l'orchestrateur <strong>garde</strong>, par décision du périmètre. Le mode reçoit donc <code>IGameModePasses</code>, que <code>GameSession</code> implémente par héritage <strong>privé</strong> : les passes sont offertes au mode, jamais à l'appelant de la session, dont l'API publique ne bouge pas d'une ligne.</p>
+<p><strong>Le test de rejeu déterministe porte sur la séquence des passes, pas sur des positions.</strong> Le critère de l'epic demandait « mêmes entrées, mêmes positions au flottant près sur 600 pas ». Deux obstacles : <code>GameSession</code> exige un atlas, un lot de sprites et une police — impossible à instancier sans fenêtre, et aucun test ne l'instancie aujourd'hui ; et le personnage <strong>ne se déplace pas encore</strong> (le contrôleur top-down arrive au <code>LOT-06</code>), si bien que des positions constantes ne prouveraient rien. Ce que l'extraction doit garantir, c'est que l'ordre des passes n'a pas changé — et c'est vérifiable exactement, sur 600 pas, contre des passes qui enregistrent leurs appels. Le mode annonce son ordre (<code>passOrder()</code>, pour les diagnostics) et un test le compare à la séquence réellement appelée : la documentation ne peut plus diverger du code sans faire échouer la CI.</p>
+<p><strong>La boîte du personnage est relue par chaque passe qui en a besoin</strong>, plutôt que calculée une fois et passée de l'une à l'autre. Aucune passe intercalée ne déplace le personnage — le résultat est identique — et un état partagé de plus entre passes aurait rendu leur ordre difficile à changer : précisément ce que ce lot cherche à rendre facile.</p>
+<h2 id="exigences-couvertes">Exigences couvertes</h2>
+<p><code>EX-ARCH-*</code> : « l'ordre des passes du pas fixe est une donnée du mode de jeu, jamais de l'orchestrateur ».</p>
+<h2 id="bilan">Bilan</h2>
+<p>Statut : <strong>fait</strong>. Vérification automatisée : build <code>/W4 /WX</code> sans avertissement, <code>ctest</code> à 919/919, lint d'exigences, cahier de test, Doxygen et <code>clang-format</code> verts.</p></section><p class="source">Source : <code>Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-05-modes-de-jeu.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

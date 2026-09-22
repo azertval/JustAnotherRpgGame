@@ -1,0 +1,223 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/SheetRowModel.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('SheetRowModel_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">SheetRowModel.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="SheetRowModel_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;QAbstractItemModel&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;QAbstractListModel&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;QString&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;QVector&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structhmi_1_1SheetRow.html">   19</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1SheetRow.html">SheetRow</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="structhmi_1_1SheetRow.html#ae2e00d69585fe923b1d5fb09432ac061">   20</a></span>    QString <a class="code hl_variable" href="structhmi_1_1SheetRow.html#ae2e00d69585fe923b1d5fb09432ac061">id</a>;     </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="structhmi_1_1SheetRow.html#a09ee87288a38de6eefb50410fb7a12ac">   21</a></span>    QString <a class="code hl_variable" href="structhmi_1_1SheetRow.html#a09ee87288a38de6eefb50410fb7a12ac">label</a>;  </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structhmi_1_1SheetRow.html#a58da53efd38a580938bb529830946ef5">   22</a></span>    QString <a class="code hl_variable" href="structhmi_1_1SheetRow.html#a58da53efd38a580938bb529830946ef5">value</a>;  </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>};</div>
+</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">// Volontairement PAS déclaré comme type QML. Un modèle ne s&#39;instancie jamais depuis le QML : il</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// est fourni par la vue-modèle, et le QML le consomme par son type de base `QAbstractItemModel*`,</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">// comme tout modèle Qt. L&#39;exposer aurait obligé le registrar à enregistrer aussi sa classe de</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">// base, qui appartient à un autre module — et la compilation du fichier engendré échouait.</span></div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="};">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="classhmi_1_1SheetRowModel.html">   42</a></span><span class="keyword">class </span><a class="code hl_function" href="classhmi_1_1SheetRowModel.html#a551b6d1dc61654331a02f39d7216a5df">SheetRowModel</a> : <span class="keyword">public</span> QAbstractListModel {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    Q_OBJECT</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="};">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="classhmi_1_1SheetRowModel.html#ac254339b8a3fccbc693eeefbbb8928fa">   47</a></span>    <span class="keyword">enum</span> <a class="code hl_enumeration" href="classhmi_1_1SheetRowModel.html#ac254339b8a3fccbc693eeefbbb8928fa">Role</a> {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classhmi_1_1SheetRowModel.html#ac254339b8a3fccbc693eeefbbb8928faafb1be8282417276d2a29725a4bdc37ff">   48</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1SheetRowModel.html#ac254339b8a3fccbc693eeefbbb8928faafb1be8282417276d2a29725a4bdc37ff">IdRole</a> = Qt::UserRole + 1,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classhmi_1_1SheetRowModel.html#ac254339b8a3fccbc693eeefbbb8928faaa9e76f0551f8f15a8dff71c6d6b0fa22">   49</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1SheetRowModel.html#ac254339b8a3fccbc693eeefbbb8928faaa9e76f0551f8f15a8dff71c6d6b0fa22">LabelRole</a>,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classhmi_1_1SheetRowModel.html#ac254339b8a3fccbc693eeefbbb8928faa0fe3a39fe29d4490d5abc10437e8326e">   50</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1SheetRowModel.html#ac254339b8a3fccbc693eeefbbb8928faa0fe3a39fe29d4490d5abc10437e8326e">ValueRole</a>,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    };</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classhmi_1_1SheetRowModel.html#a551b6d1dc61654331a02f39d7216a5df">SheetRowModel</a>(QObject* parent = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="classhmi_1_1SheetRowModel.html#a53125e136d87168b4ca2a0aa18abc141">rowCount</a>(<span class="keyword">const</span> QModelIndex&amp; parent = {}) <span class="keyword">const</span> <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    [[nodiscard]] QVariant <a class="code hl_function" href="classhmi_1_1SheetRowModel.html#a0fe9a69e6ce3b956308e4e7ff2df2015">data</a>(<span class="keyword">const</span> QModelIndex&amp; index, <span class="keywordtype">int</span> role) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    [[nodiscard]] QHash&lt;int, QByteArray&gt; <a class="code hl_function" href="classhmi_1_1SheetRowModel.html#a3a49f2c4578bec7ccaad9820d90bb13e">roleNames</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1SheetRowModel.html#acd43f80f4a8e9499d6fbb852a091f8ea">setRows</a>(QVector&lt;SheetRow&gt; rows);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="classhmi_1_1SheetRowModel.html#a32b4dc1c85cd73603fab79dabf8f9a43">   64</a></span>    QVector&lt;SheetRow&gt; <a class="code hl_variable" href="classhmi_1_1SheetRowModel.html#a32b4dc1c85cd73603fab79dabf8f9a43">_rows</a>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>};</div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aclasshmi_1_1SheetRowModel_html_a0fe9a69e6ce3b956308e4e7ff2df2015"><div class="ttname"><a href="classhmi_1_1SheetRowModel.html#a0fe9a69e6ce3b956308e4e7ff2df2015">hmi::SheetRowModel::data</a></div><div class="ttdeci">QVariant data(const QModelIndex &amp;index, int role) const override</div><div class="ttdef"><b>Definition</b> SheetRowModel.cpp:18</div></div>
+<div class="ttc" id="aclasshmi_1_1SheetRowModel_html_a32b4dc1c85cd73603fab79dabf8f9a43"><div class="ttname"><a href="classhmi_1_1SheetRowModel.html#a32b4dc1c85cd73603fab79dabf8f9a43">hmi::SheetRowModel::_rows</a></div><div class="ttdeci">QVector&lt; SheetRow &gt; _rows</div><div class="ttdef"><b>Definition</b> SheetRowModel.h:64</div></div>
+<div class="ttc" id="aclasshmi_1_1SheetRowModel_html_a3a49f2c4578bec7ccaad9820d90bb13e"><div class="ttname"><a href="classhmi_1_1SheetRowModel.html#a3a49f2c4578bec7ccaad9820d90bb13e">hmi::SheetRowModel::roleNames</a></div><div class="ttdeci">QHash&lt; int, QByteArray &gt; roleNames() const override</div><div class="ttdef"><b>Definition</b> SheetRowModel.cpp:35</div></div>
+<div class="ttc" id="aclasshmi_1_1SheetRowModel_html_a53125e136d87168b4ca2a0aa18abc141"><div class="ttname"><a href="classhmi_1_1SheetRowModel.html#a53125e136d87168b4ca2a0aa18abc141">hmi::SheetRowModel::rowCount</a></div><div class="ttdeci">int rowCount(const QModelIndex &amp;parent={}) const override</div><div class="ttdef"><b>Definition</b> SheetRowModel.cpp:12</div></div>
+<div class="ttc" id="aclasshmi_1_1SheetRowModel_html_a551b6d1dc61654331a02f39d7216a5df"><div class="ttname"><a href="classhmi_1_1SheetRowModel.html#a551b6d1dc61654331a02f39d7216a5df">hmi::SheetRowModel::SheetRowModel</a></div><div class="ttdeci">SheetRowModel(QObject *parent=nullptr)</div><div class="ttdef"><b>Definition</b> SheetRowModel.cpp:10</div></div>
+<div class="ttc" id="aclasshmi_1_1SheetRowModel_html_ac254339b8a3fccbc693eeefbbb8928fa"><div class="ttname"><a href="classhmi_1_1SheetRowModel.html#ac254339b8a3fccbc693eeefbbb8928fa">hmi::SheetRowModel::Role</a></div><div class="ttdeci">Role</div><div class="ttdoc">Rôles lisibles depuis QML : model.rowId, model.label, model.value.</div><div class="ttdef"><b>Definition</b> SheetRowModel.h:47</div></div>
+<div class="ttc" id="aclasshmi_1_1SheetRowModel_html_ac254339b8a3fccbc693eeefbbb8928faa0fe3a39fe29d4490d5abc10437e8326e"><div class="ttname"><a href="classhmi_1_1SheetRowModel.html#ac254339b8a3fccbc693eeefbbb8928faa0fe3a39fe29d4490d5abc10437e8326e">hmi::SheetRowModel::ValueRole</a></div><div class="ttdeci">@ ValueRole</div><div class="ttdef"><b>Definition</b> SheetRowModel.h:50</div></div>
+<div class="ttc" id="aclasshmi_1_1SheetRowModel_html_ac254339b8a3fccbc693eeefbbb8928faaa9e76f0551f8f15a8dff71c6d6b0fa22"><div class="ttname"><a href="classhmi_1_1SheetRowModel.html#ac254339b8a3fccbc693eeefbbb8928faaa9e76f0551f8f15a8dff71c6d6b0fa22">hmi::SheetRowModel::LabelRole</a></div><div class="ttdeci">@ LabelRole</div><div class="ttdef"><b>Definition</b> SheetRowModel.h:49</div></div>
+<div class="ttc" id="aclasshmi_1_1SheetRowModel_html_ac254339b8a3fccbc693eeefbbb8928faafb1be8282417276d2a29725a4bdc37ff"><div class="ttname"><a href="classhmi_1_1SheetRowModel.html#ac254339b8a3fccbc693eeefbbb8928faafb1be8282417276d2a29725a4bdc37ff">hmi::SheetRowModel::IdRole</a></div><div class="ttdeci">@ IdRole</div><div class="ttdef"><b>Definition</b> SheetRowModel.h:48</div></div>
+<div class="ttc" id="aclasshmi_1_1SheetRowModel_html_acd43f80f4a8e9499d6fbb852a091f8ea"><div class="ttname"><a href="classhmi_1_1SheetRowModel.html#acd43f80f4a8e9499d6fbb852a091f8ea">hmi::SheetRowModel::setRows</a></div><div class="ttdeci">void setRows(QVector&lt; SheetRow &gt; rows)</div><div class="ttdoc">Remplace toutes les lignes.</div><div class="ttdef"><b>Definition</b> SheetRowModel.cpp:45</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="astructhmi_1_1SheetRow_html"><div class="ttname"><a href="structhmi_1_1SheetRow.html">hmi::SheetRow</a></div><div class="ttdoc">Une ligne : ce qu&#39;elle désigne, comment on l&#39;appelle, ce qu&#39;elle vaut.</div><div class="ttdef"><b>Definition</b> SheetRowModel.h:19</div></div>
+<div class="ttc" id="astructhmi_1_1SheetRow_html_a09ee87288a38de6eefb50410fb7a12ac"><div class="ttname"><a href="structhmi_1_1SheetRow.html#a09ee87288a38de6eefb50410fb7a12ac">hmi::SheetRow::label</a></div><div class="ttdeci">QString label</div><div class="ttdoc">Libellé lisible, tel que le catalogue de règles le donne.</div><div class="ttdef"><b>Definition</b> SheetRowModel.h:21</div></div>
+<div class="ttc" id="astructhmi_1_1SheetRow_html_a58da53efd38a580938bb529830946ef5"><div class="ttname"><a href="structhmi_1_1SheetRow.html#a58da53efd38a580938bb529830946ef5">hmi::SheetRow::value</a></div><div class="ttdeci">QString value</div><div class="ttdoc">Valeur déjà formatée par la couche pure (« 16 (+3) », « +5 • »).</div><div class="ttdef"><b>Definition</b> SheetRowModel.h:22</div></div>
+<div class="ttc" id="astructhmi_1_1SheetRow_html_ae2e00d69585fe923b1d5fb09432ac061"><div class="ttname"><a href="structhmi_1_1SheetRow.html#ae2e00d69585fe923b1d5fb09432ac061">hmi::SheetRow::id</a></div><div class="ttdeci">QString id</div><div class="ttdoc">Identifiant stable (strength, athletics) — clé de traduction.</div><div class="ttdef"><b>Definition</b> SheetRowModel.h:20</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_7eb0d0bc801e3eeb9c9e3cb238223789.html">Runtime</a></li><li class="navelem"><a href="SheetRowModel_8h.html">SheetRowModel.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

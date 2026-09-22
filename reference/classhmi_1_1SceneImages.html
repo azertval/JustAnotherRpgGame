@@ -1,0 +1,644 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::SceneImages Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1SceneImages.html','','classhmi_1_1SceneImages-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::SceneImages Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Le cache des images du canevas : ce que <span class="tt"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="namespacehmi.html#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé.">hmi::composeWorldScene</a></span> adresse par chemin.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="SceneImages_8h_source.html">SceneImages.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac9c67c5a1ab03dcf3238494037e310c1" id="r_ac9c67c5a1ab03dcf3238494037e310c1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac9c67c5a1ab03dcf3238494037e310c1">SceneImages</a> (std::filesystem::path assetsDirectory)</td></tr>
+<tr class="memitem:ab472828e80d490a62c72612c50de3bd3" id="r_ab472828e80d490a62c72612c50de3bd3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab472828e80d490a62c72612c50de3bd3">SceneImages</a> (const SceneImages &amp;)=delete</td></tr>
+<tr class="memitem:aa961015227dc1b844b75e14377901e0c" id="r_aa961015227dc1b844b75e14377901e0c"><td class="memItemLeft"><a class="el" href="#ac9c67c5a1ab03dcf3238494037e310c1">SceneImages</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aa961015227dc1b844b75e14377901e0c">operator=</a> (const <a class="el" href="#ac9c67c5a1ab03dcf3238494037e310c1">SceneImages</a> &amp;)=delete</td></tr>
+<tr class="memitem:ad9192d4912cc726cc1078ac317405beb" id="r_ad9192d4912cc726cc1078ac317405beb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad9192d4912cc726cc1078ac317405beb">ensure</a> (const std::vector&lt; std::string &gt; &amp;paths)</td></tr>
+<tr class="memdesc:ad9192d4912cc726cc1078ac317405beb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les images de <code class="param">paths</code> qui ne l'ont pas encore été (une seule tentative par chemin : une pièce absente n'est pas redemandée à chaque image).  <br /></td></tr>
+<tr class="memitem:a8b8303bdcd5df08f35366a9a6c342a9e" id="r_a8b8303bdcd5df08f35366a9a6c342a9e"><td class="memItemLeft">const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a8b8303bdcd5df08f35366a9a6c342a9e">textures</a> () const noexcept</td></tr>
+<tr class="memitem:a8ddc8d2183a9136092e36e7117402cb0" id="r_a8ddc8d2183a9136092e36e7117402cb0"><td class="memItemLeft">const QImage &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a8ddc8d2183a9136092e36e7117402cb0">atlas</a> () const noexcept</td></tr>
+<tr class="memitem:a3c4847c7b7690d75651fe62cf63b7074" id="r_a3c4847c7b7690d75651fe62cf63b7074"><td class="memItemLeft">QColor&#160;</td><td class="memItemRight"><a class="el" href="#a3c4847c7b7690d75651fe62cf63b7074">tileColor</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) const</td></tr>
+<tr class="memitem:a10f1ad80edf914b649f02139d254ae09" id="r_a10f1ad80edf914b649f02139d254ae09"><td class="memItemLeft">const QImage *&#160;</td><td class="memItemRight"><a class="el" href="#a10f1ad80edf914b649f02139d254ae09">marker</a> (const std::string &amp;key)</td></tr>
+<tr class="memitem:a44a181d848cdb4d35756403b07fe141e" id="r_a44a181d848cdb4d35756403b07fe141e"><td class="memItemLeft">const QImage *&#160;</td><td class="memItemRight"><a class="el" href="#a44a181d848cdb4d35756403b07fe141e">image</a> (const std::string &amp;path)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a81100b0f242ad215cd4f81d6f74d9cd2" id="r_a81100b0f242ad215cd4f81d6f74d9cd2"><td class="memItemLeft">static <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#a81100b0f242ad215cd4f81d6f74d9cd2">solid</a> () noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a43dfc00bd2e64b8d49d59d0bfbe22952" id="r_a43dfc00bd2e64b8d49d59d0bfbe22952"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a43dfc00bd2e64b8d49d59d0bfbe22952">bandFrameWidth</a> (const std::string &amp;path) const</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ab703e767fa6f4f375e48ef7f1898256d" id="r_ab703e767fa6f4f375e48ef7f1898256d"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#ab703e767fa6f4f375e48ef7f1898256d">_directory</a></td></tr>
+<tr class="memitem:ad9185c89219da386c10e4ab24aa81d69" id="r_ad9185c89219da386c10e4ab24aa81d69"><td class="memItemLeft">std::map&lt; std::string, QImage &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad9185c89219da386c10e4ab24aa81d69">_images</a></td></tr>
+<tr class="memitem:a130a02afc5abc99c889eaad0c028b0c3" id="r_a130a02afc5abc99c889eaad0c028b0c3"><td class="memItemLeft">std::map&lt; std::string, QImage &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a130a02afc5abc99c889eaad0c028b0c3">_markers</a></td></tr>
+<tr class="memitem:a02c8754da2b7f06024b88451893b582f" id="r_a02c8754da2b7f06024b88451893b582f"><td class="memItemLeft">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a02c8754da2b7f06024b88451893b582f">_requested</a></td></tr>
+<tr class="memitem:a4c71f1e12e4b3113999db2377c45636d" id="r_a4c71f1e12e4b3113999db2377c45636d"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="#a4c71f1e12e4b3113999db2377c45636d">_missing</a></td></tr>
+<tr class="memitem:a52bc1ff83860e76ab8235efcdda84f97" id="r_a52bc1ff83860e76ab8235efcdda84f97"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="#a52bc1ff83860e76ab8235efcdda84f97">_atlas</a></td></tr>
+<tr class="memitem:ae1ef36be114f09217d661caa1ed5e075" id="r_ae1ef36be114f09217d661caa1ed5e075"><td class="memItemLeft"><a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae1ef36be114f09217d661caa1ed5e075">_textures</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Le cache des images du canevas : ce que <span class="tt"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="namespacehmi.html#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé.">hmi::composeWorldScene</a></span> adresse par chemin. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac9c67c5a1ab03dcf3238494037e310c1" name="ac9c67c5a1ab03dcf3238494037e310c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9c67c5a1ab03dcf3238494037e310c1">&#9670;&#160;</a></span>SceneImages() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::SceneImages::SceneImages </td>
+          <td>(</td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>assetsDirectory</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">assetsDirectory</td><td>Le dossier des assets (<span class="tt">Assets/</span>), où se résolvent les chemins. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab472828e80d490a62c72612c50de3bd3" name="ab472828e80d490a62c72612c50de3bd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab472828e80d490a62c72612c50de3bd3">&#9670;&#160;</a></span>SceneImages() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::SceneImages::SceneImages </td>
+          <td>(</td>
+          <td class="paramtype">const SceneImages &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a8ddc8d2183a9136092e36e7117402cb0" name="a8ddc8d2183a9136092e36e7117402cb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ddc8d2183a9136092e36e7117402cb0">&#9670;&#160;</a></span>atlas()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const QImage &amp; hmi::SceneImages::atlas </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'atlas procédural des types de tuile (la vue à plat). </dd></dl>
+
+</div>
+</div>
+<a id="a43dfc00bd2e64b8d49d59d0bfbe22952" name="a43dfc00bd2e64b8d49d59d0bfbe22952"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43dfc00bd2e64b8d49d59d0bfbe22952">&#9670;&#160;</a></span>bandFrameWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::SceneImages::bandFrameWidth </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad9192d4912cc726cc1078ac317405beb" name="ad9192d4912cc726cc1078ac317405beb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9192d4912cc726cc1078ac317405beb">&#9670;&#160;</a></span>ensure()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::SceneImages::ensure </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>paths</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Charge les images de <code class="param">paths</code> qui ne l'ont pas encore été (une seule tentative par chemin : une pièce absente n'est pas redemandée à chaque image). </p>
+
+</div>
+</div>
+<a id="a44a181d848cdb4d35756403b07fe141e" name="a44a181d848cdb4d35756403b07fe141e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44a181d848cdb4d35756403b07fe141e">&#9670;&#160;</a></span>image()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const QImage * hmi::SceneImages::image </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'image du dossier des assets à <code class="param">path</code>, chargée au besoin ; <span class="tt">nullptr</span> si absente. </dd></dl>
+
+</div>
+</div>
+<a id="a10f1ad80edf914b649f02139d254ae09" name="a10f1ad80edf914b649f02139d254ae09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10f1ad80edf914b649f02139d254ae09">&#9670;&#160;</a></span>marker()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const QImage * hmi::SceneImages::marker </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le marqueur de la clé d'asset <code class="param">key</code> (<span class="tt">LOT-39</span>), <span class="tt">nullptr</span> si la clé est refusée. </dd></dl>
+
+</div>
+</div>
+<a id="aa961015227dc1b844b75e14377901e0c" name="aa961015227dc1b844b75e14377901e0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa961015227dc1b844b75e14377901e0c">&#9670;&#160;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ac9c67c5a1ab03dcf3238494037e310c1">SceneImages</a> &amp; hmi::SceneImages::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#ac9c67c5a1ab03dcf3238494037e310c1">SceneImages</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a81100b0f242ad215cd4f81d6f74d9cd2" name="a81100b0f242ad215cd4f81d6f74d9cd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81100b0f242ad215cd4f81d6f74d9cd2">&#9670;&#160;</a></span>solid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> hmi::SceneImages::solid </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'identité d'une teinte unie : un quad qui la porte se peint en aplat de sa teinte. </dd></dl>
+
+</div>
+</div>
+<a id="a8b8303bdcd5df08f35366a9a6c342a9e" name="a8b8303bdcd5df08f35366a9a6c342a9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b8303bdcd5df08f35366a9a6c342a9e">&#9670;&#160;</a></span>textures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp; hmi::SceneImages::textures </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les textures chargées, adressées par chemin, et le damier. </dd></dl>
+
+</div>
+</div>
+<a id="a3c4847c7b7690d75651fe62cf63b7074" name="a3c4847c7b7690d75651fe62cf63b7074"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c4847c7b7690d75651fe62cf63b7074">&#9670;&#160;</a></span>tileColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QColor hmi::SceneImages::tileColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La couleur d'un type de tuile : le centre de sa case dans l'atlas. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a52bc1ff83860e76ab8235efcdda84f97" name="a52bc1ff83860e76ab8235efcdda84f97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52bc1ff83860e76ab8235efcdda84f97">&#9670;&#160;</a></span>_atlas</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QImage hmi::SceneImages::_atlas</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab703e767fa6f4f375e48ef7f1898256d" name="ab703e767fa6f4f375e48ef7f1898256d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab703e767fa6f4f375e48ef7f1898256d">&#9670;&#160;</a></span>_directory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::SceneImages::_directory</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad9185c89219da386c10e4ab24aa81d69" name="ad9185c89219da386c10e4ab24aa81d69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9185c89219da386c10e4ab24aa81d69">&#9670;&#160;</a></span>_images</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, QImage&gt; hmi::SceneImages::_images</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a130a02afc5abc99c889eaad0c028b0c3" name="a130a02afc5abc99c889eaad0c028b0c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a130a02afc5abc99c889eaad0c028b0c3">&#9670;&#160;</a></span>_markers</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, QImage&gt; hmi::SceneImages::_markers</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4c71f1e12e4b3113999db2377c45636d" name="a4c71f1e12e4b3113999db2377c45636d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c71f1e12e4b3113999db2377c45636d">&#9670;&#160;</a></span>_missing</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QImage hmi::SceneImages::_missing</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a02c8754da2b7f06024b88451893b582f" name="a02c8754da2b7f06024b88451893b582f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02c8754da2b7f06024b88451893b582f">&#9670;&#160;</a></span>_requested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::set&lt;std::string&gt; hmi::SceneImages::_requested</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae1ef36be114f09217d661caa1ed5e075" name="ae1ef36be114f09217d661caa1ed5e075"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1ef36be114f09217d661caa1ed5e075">&#9670;&#160;</a></span>_textures</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> hmi::SceneImages::_textures</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/<a class="el" href="SceneImages_8h_source.html">SceneImages.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/<a class="el" href="SceneImages_8cpp.html">SceneImages.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1SceneImages.html">SceneImages</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

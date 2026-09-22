@@ -1,0 +1,289 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/EntityKinds.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('EntityKinds_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">EntityKinds.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Les familles d'entités de carte que l'éditeur sait poser, et ce qu'une carte leur doit (<span class="tt">LOT-11</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelProperties_8h_source.html">Core/Levels/LevelProperties.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapEntity_8h_source.html">Core/Levels/MapEntity.h</a>&quot;</code><br />
+</div>
+<p><a href="EntityKinds_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:core_3A_3AEntityPropertySpec" id="r_core_3A_3AEntityPropertySpec"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1EntityPropertySpec.html">core::EntityPropertySpec</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une propriété qu'une famille d'entités déclare.  <a href="structcore_1_1EntityPropertySpec.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AEntityKind" id="r_core_3A_3AEntityKind"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1EntityKind.html">core::EntityKind</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une famille d'entités : son type, les propriétés qu'elle déclare, et comment le canevas de l'éditeur la montre.  <a href="structcore_1_1EntityKind.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AEntityReferenceContext" id="r_core_3A_3AEntityReferenceContext"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1EntityReferenceContext.html">core::EntityReferenceContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une carte peut référencer hors d'elle-même : les catalogues et les autres cartes.  <a href="structcore_1_1EntityReferenceContext.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AEntityIssue" id="r_core_3A_3AEntityIssue"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1EntityIssue.html">core::EntityIssue</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un problème relevé sur l'entité de rang <span class="tt"><a class="el" href="structcore_1_1EntityIssue.html#af4363758e6018e574310baa3fd9dbd94">entityIndex</a></span>.  <a href="structcore_1_1EntityIssue.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
+<tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a9d3c367e939d3d4dd488fbaf5bba126e" id="r_a9d3c367e939d3d4dd488fbaf5bba126e"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126e">core::EntityPropertyKind</a> { <a class="el" href="namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126ea9dffbf69ffba8bc38bc4e01abf4b1675">core::Text</a>
+, <a class="el" href="namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126eaa0faef0851b4294c06f2b94bb1cb2044">core::Integer</a>
+, <a class="el" href="namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126ea27226c864bac7454a8504f8edb15d95b">core::Boolean</a>
+, <a class="el" href="namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126ea458b9dcc0921f46b1192427426d59c10">core::Choice</a>
+ }</td></tr>
+<tr class="memdesc:a9d3c367e939d3d4dd488fbaf5bba126e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nature d'une propriété d'entité, qui décide du contrôle que l'éditeur lui donne.  <a href="namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126e">More...</a><br /></td></tr>
+<tr class="memitem:a26db7cfadc5ea47bb85e806bd8010f37" id="r_a26db7cfadc5ea47bb85e806bd8010f37"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37">core::EntityChoiceSource</a> { <br />
+&#160;&#160;<a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a4457d440870ad6d42bab9082d9bf9b61">core::Fixed</a>
+, <a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a7a1e8fd6a793526a49af3c2ce8fe5e52">core::Dialogues</a>
+, <a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a89faa52485aadb6d1181384f88d20014">core::Encounters</a>
+, <a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37aaf51fdf94adbb4b6fe4f1275b07df10d">core::Maps</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a76e792516a9afec30df53f882a407d5b">core::ArrivalPoints</a>
+, <a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37ab368d7f177985bbe50c6e6c991357b97">core::Figures</a>
+, <a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a4ea7801f17a4e5485e8b050c052fb443">core::Flags</a>
+, <a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37aeebd338ddbd547e41e4a1296de82963a">core::Locations</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a9dea4016dbcc290b773ab2fae678aaa8">core::Items</a>
+, <a class="el" href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a6b26adcaf0f87640fe94cc398ed0dd06">core::EntityRefs</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a26db7cfadc5ea47bb85e806bd8010f37"><td class="mdescLeft">&#160;</td><td class="mdescRight">D'où viennent les choix d'une propriété <span class="tt">Choice</span>.  <a href="namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37">More...</a><br /></td></tr>
+<tr class="memitem:a64b3830ace127763a5bb2d6eca3194b9" id="r_a64b3830ace127763a5bb2d6eca3194b9"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a64b3830ace127763a5bb2d6eca3194b9">core::EntityShape</a> { <a class="el" href="namespacecore.html#a64b3830ace127763a5bb2d6eca3194b9a2a3cd5946cfd317eb99c3d32e35e2d4c">core::Point</a>
+, <a class="el" href="namespacecore.html#a64b3830ace127763a5bb2d6eca3194b9ace9291906a4c3b042650b70d7f3b152e">core::Rectangle</a>
+, <a class="el" href="namespacecore.html#a64b3830ace127763a5bb2d6eca3194b9adeec4ff19974f12ed781cb9a59064214">core::Area</a>
+, <a class="el" href="namespacecore.html#a64b3830ace127763a5bb2d6eca3194b9aac70412e939d72a9234cdebb1af5867b">core::Path</a>
+ }</td></tr>
+<tr class="memdesc:a64b3830ace127763a5bb2d6eca3194b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">La forme d'une famille d'entités sur la carte : ce que le canevas de l'éditeur dessine et les poignées qu'il lui donne (<span class="tt">LOT-EDITOR-05</span>).  <a href="namespacecore.html#a64b3830ace127763a5bb2d6eca3194b9">More...</a><br /></td></tr>
+<tr class="memitem:ac1032ee70b0c730c8727b80822ab035e" id="r_ac1032ee70b0c730c8727b80822ab035e"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035e">core::EntityIssueCode</a> { <br />
+&#160;&#160;<a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea916c74f40cb3a7d245c9f9eefde044db">core::UnknownType</a>
+, <a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea3cbd2aa5927cdb935e3c77e9dbd8620f">core::MissingProperty</a>
+, <a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035eab7af0ce30d52dc67ec4d090184b78e3a">core::WrongValueType</a>
+, <a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035eab3d59734e0024699c11b2c254ebd0bf4">core::InvalidChoice</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea6ae8621bd512947e4d39c4c95d5190d4">core::UnknownDialogue</a>
+, <a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035eabf97b979ba906f53b50838e78a790824">core::UnknownEncounter</a>
+, <a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea5d340c87c409e2b939ebcdec9e572406">core::UnknownTargetMap</a>
+, <a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea25b35f4409074408fe4921bfcd9e9f2c">core::UnknownArrivalPoint</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035eacd7c9ae5e908a19e060bbcbd35f08273">core::DuplicateArrivalPoint</a>
+, <a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea365b2699d38b61ef4b4c8a1066c8468f">core::OutOfRange</a>
+, <a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035eaba7196008331e807c37fa89af564f28a">core::UnknownFigure</a>
+, <a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea21ee9ca42970897cbcacc79f34e6cb4e">core::UnsetFlag</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035eacebd93e10fdff9ab8b4a4a84352cdfb4">core::UnknownLocation</a>
+, <a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035eab94b40e5c60319f4fc15e8166bd8d2af">core::UnknownItem</a>
+, <a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035eae56bd292e4050ea440d03f594711b42f">core::UnknownEntityRef</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ac1032ee70b0c730c8727b80822ab035e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui ne va pas dans une entité.  <a href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035e">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a3c877363f8258fc1ba137c48aa283397" id="r_a3c877363f8258fc1ba137c48aa283397"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1EntityKind.html">EntityKind</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a3c877363f8258fc1ba137c48aa283397">core::knownEntityKinds</a> ()</td></tr>
+<tr class="memdesc:a3c877363f8258fc1ba137c48aa283397"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les familles que l'éditeur sait poser, dans l'ordre de sa liste.  <br /></td></tr>
+<tr class="memitem:adac8d52fca402a3edb35f19ad4ee4af1" id="r_adac8d52fca402a3edb35f19ad4ee4af1"><td class="memItemLeft">const <a class="el" href="structcore_1_1EntityKind.html">EntityKind</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#adac8d52fca402a3edb35f19ad4ee4af1">core::findEntityKind</a> (std::string_view type)</td></tr>
+<tr class="memitem:a88adb5289b8943d6a8f1f33b3d296e73" id="r_a88adb5289b8943d6a8f1f33b3d296e73"><td class="memItemLeft"><a class="el" href="structcore_1_1MapEntity.html">MapEntity</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a88adb5289b8943d6a8f1f33b3d296e73">core::makeEntity</a> (const <a class="el" href="structcore_1_1EntityKind.html">EntityKind</a> &amp;kind, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position)</td></tr>
+<tr class="memdesc:a88adb5289b8943d6a8f1f33b3d296e73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entité neuve de la famille <code class="param">kind</code> en <code class="param">position</code>, ses propriétés à leur défaut.  <br /></td></tr>
+<tr class="memitem:a0482bd5ffd0165e722879709e592607e" id="r_a0482bd5ffd0165e722879709e592607e"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1EntityIssue.html">EntityIssue</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a0482bd5ffd0165e722879709e592607e">core::validateMapEntities</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &gt; &amp;entities, const <a class="el" href="structcore_1_1EntityReferenceContext.html">EntityReferenceContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a0482bd5ffd0165e722879709e592607e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relève ce que les entités de <code class="param">entities</code> référencent sans l'atteindre.  <br /></td></tr>
+<tr class="memitem:abc06c6673c9166f8a66a174e7b12b58f" id="r_abc06c6673c9166f8a66a174e7b12b58f"><td class="memItemLeft">std::set&lt; std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#abc06c6673c9166f8a66a174e7b12b58f">core::arrivalPointNames</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &gt; &amp;entities)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ae8c8163510cf5011c7db67f7f96ea761" id="r_ae8c8163510cf5011c7db67f7f96ea761"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ae8c8163510cf5011c7db67f7f96ea761">core::PORTAL_ENTITY_TYPE</a> = &quot;portal&quot;</td></tr>
+<tr class="memdesc:ae8c8163510cf5011c7db67f7f96ea761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type d'entité d'un portail : il mène à une autre carte (<span class="tt">LOT-09</span> le traversera).  <br /></td></tr>
+<tr class="memitem:a01ea80a94b6d563987d5ff486a2dcd31" id="r_a01ea80a94b6d563987d5ff486a2dcd31"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a01ea80a94b6d563987d5ff486a2dcd31">core::PORTAL_TARGET_MAP_PROPERTY</a> = &quot;targetMap&quot;</td></tr>
+<tr class="memdesc:a01ea80a94b6d563987d5ff486a2dcd31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'un portail : la carte cible, nommée par son <b>identifiant</b> — le nom de son fichier dans <span class="tt">Source/Elements/Levels/</span>, sans extension.  <br /></td></tr>
+<tr class="memitem:a2bdd68935267992786c0b5e9fcb2b153" id="r_a2bdd68935267992786c0b5e9fcb2b153"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a2bdd68935267992786c0b5e9fcb2b153">core::PORTAL_ARRIVAL_PROPERTY</a> = &quot;arrival&quot;</td></tr>
+<tr class="memdesc:a2bdd68935267992786c0b5e9fcb2b153"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'un portail : le point d'arrivée <b>nommé</b> de la carte cible.  <br /></td></tr>
+<tr class="memitem:a109d5133c9ae9af8f88a4c4b40267419" id="r_a109d5133c9ae9af8f88a4c4b40267419"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a109d5133c9ae9af8f88a4c4b40267419">core::PORTAL_REQUIRED_FLAG_PROPERTY</a> = &quot;requiresFlag&quot;</td></tr>
+<tr class="memdesc:a109d5133c9ae9af8f88a4c4b40267419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'un portail : le drapeau de monde qu'il exige pour s'ouvrir (<span class="tt">LOT-16</span> le pose ; le <span class="tt">LOT-09</span> le lit).  <br /></td></tr>
+<tr class="memitem:a14b37b629c559f3f0bcc2481f4178393" id="r_a14b37b629c559f3f0bcc2481f4178393"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a14b37b629c559f3f0bcc2481f4178393">core::SPAWN_POINT_ENTITY_TYPE</a> = &quot;spawnPoint&quot;</td></tr>
+<tr class="memdesc:a14b37b629c559f3f0bcc2481f4178393"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type d'entité d'un point d'arrivée nommé : là où l'on apparaît en entrant par un portail.  <br /></td></tr>
+<tr class="memitem:a4cd504e13e1cafd2e4759e9c0f3a9970" id="r_a4cd504e13e1cafd2e4759e9c0f3a9970"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a4cd504e13e1cafd2e4759e9c0f3a9970">core::SPAWN_POINT_NAME_PROPERTY</a> = &quot;name&quot;</td></tr>
+<tr class="memdesc:a4cd504e13e1cafd2e4759e9c0f3a9970"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'un point d'arrivée : son nom, unique dans la carte.  <br /></td></tr>
+<tr class="memitem:a63a25424abfa6e4563a86652fef27492" id="r_a63a25424abfa6e4563a86652fef27492"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a63a25424abfa6e4563a86652fef27492">core::SHAPE_WIDTH_PROPERTY</a> = &quot;width&quot;</td></tr>
+<tr class="memdesc:a63a25424abfa6e4563a86652fef27492"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'une forme <span class="tt">Rectangle</span> ou <span class="tt">Area</span> : sa largeur, en cases.  <br /></td></tr>
+<tr class="memitem:a2f185047592ba6cc121a943f9b394d0e" id="r_a2f185047592ba6cc121a943f9b394d0e"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a2f185047592ba6cc121a943f9b394d0e">core::SHAPE_HEIGHT_PROPERTY</a> = &quot;height&quot;</td></tr>
+<tr class="memdesc:a2f185047592ba6cc121a943f9b394d0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'une forme <span class="tt">Rectangle</span> ou <span class="tt">Area</span> : sa hauteur, en cases.  <br /></td></tr>
+<tr class="memitem:a0b994a5837bad127870719860ea34002" id="r_a0b994a5837bad127870719860ea34002"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a0b994a5837bad127870719860ea34002">core::ZONE_NAME_PROPERTY</a> = &quot;name&quot;</td></tr>
+<tr class="memdesc:a0b994a5837bad127870719860ea34002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'une zone de règles (<span class="tt"><a class="el" href="namespacecore.html#ac09dbc5848329505d30e5ab32b462538" title="Type d&#39;entité d&#39;une zone de règles : un rectangle (width × height depuis sa case) ou un ensemble de c...">core::ZONE_ENTITY_TYPE</a></span>) : son nom, que seul l'éditeur montre.  <br /></td></tr>
+<tr class="memitem:a0fe304f84c3b2f39219fd28296982945" id="r_a0fe304f84c3b2f39219fd28296982945"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a0fe304f84c3b2f39219fd28296982945">core::ROUTE_ENTITY_TYPE</a> = &quot;route&quot;</td></tr>
+<tr class="memdesc:a0fe304f84c3b2f39219fd28296982945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type d'entité d'un trajet : la ligne brisée qu'un PNJ parcourt (<span class="tt">LOT-70</span>, <span class="tt">LOT-82</span>).  <br /></td></tr>
+<tr class="memitem:acb8dfe24f7b8464d68b8f1fd3cef1697" id="r_acb8dfe24f7b8464d68b8f1fd3cef1697"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#acb8dfe24f7b8464d68b8f1fd3cef1697">core::ROUTE_NAME_PROPERTY</a> = &quot;name&quot;</td></tr>
+<tr class="memdesc:acb8dfe24f7b8464d68b8f1fd3cef1697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'un trajet : son nom, unique dans la carte, que le PNJ citera.  <br /></td></tr>
+<tr class="memitem:ac541942d62f7957cde3f8c36f9f02353" id="r_ac541942d62f7957cde3f8c36f9f02353"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ac541942d62f7957cde3f8c36f9f02353">core::ROUTE_LOOP_PROPERTY</a> = &quot;loop&quot;</td></tr>
+<tr class="memdesc:ac541942d62f7957cde3f8c36f9f02353"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'un trajet : vrai pour une ronde, qui revient à son premier point.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Les familles d'entités de carte que l'éditeur sait poser, et ce qu'une carte leur doit (<span class="tt">LOT-11</span>). </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_c085377a8d45dfd2467facd710fb0ba3.html">World</a></li><li class="navelem"><a href="EntityKinds_8h.html">EntityKinds.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

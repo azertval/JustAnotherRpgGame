@@ -1,0 +1,326 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::EntityPanel::Widgets Struct Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('structhmi_1_1EntityPanel_1_1Widgets.html','','structhmi_1_1EntityPanel_1_1Widgets-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::EntityPanel::Widgets Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Les widgets du panneau : la famille que l'outil Entité pose, la liste des entités de la carte, les propriétés de l'entité sélectionnée (formulaire construit depuis <span class="tt"><a class="el" href="namespacecore.html#a3c877363f8258fc1ba137c48aa283397" title="Les familles que l&#39;éditeur sait poser, dans l&#39;ordre de sa liste.">core::knownEntityKinds</a></span>) et les avertissements.  
+ <a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ae6101063cd0c17d6fe5e886f8119a843" id="r_ae6101063cd0c17d6fe5e886f8119a843"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae6101063cd0c17d6fe5e886f8119a843">Widgets</a> (QWidget *panel)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aeab865799fca71c9df455ed81bcc5b9e" id="r_aeab865799fca71c9df455ed81bcc5b9e"><td class="memItemLeft">QComboBox *&#160;</td><td class="memItemRight"><a class="el" href="#aeab865799fca71c9df455ed81bcc5b9e">kindCombo</a></td></tr>
+<tr class="memitem:acb4651f3614d918348a4705cd492756e" id="r_acb4651f3614d918348a4705cd492756e"><td class="memItemLeft">QLineEdit *&#160;</td><td class="memItemRight"><a class="el" href="#acb4651f3614d918348a4705cd492756e">filterEdit</a></td></tr>
+<tr class="memitem:a917187480f8f7ab54caccd6499b25f92" id="r_a917187480f8f7ab54caccd6499b25f92"><td class="memItemLeft">QTableWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a917187480f8f7ab54caccd6499b25f92">entityTable</a></td></tr>
+<tr class="memitem:ad179a32705c2005dcc7943cb9a76fe5f" id="r_ad179a32705c2005dcc7943cb9a76fe5f"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#ad179a32705c2005dcc7943cb9a76fe5f">selectionLabel</a></td></tr>
+<tr class="memitem:aeab43f3c6ecbd56359b20e54017da5fc" id="r_aeab43f3c6ecbd56359b20e54017da5fc"><td class="memItemLeft">QWidget *&#160;</td><td class="memItemRight"><a class="el" href="#aeab43f3c6ecbd56359b20e54017da5fc">propertiesForm</a></td></tr>
+<tr class="memitem:ae86a78ee5fcdf20df13b769a57570568" id="r_ae86a78ee5fcdf20df13b769a57570568"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#ae86a78ee5fcdf20df13b769a57570568">verdictLabel</a></td></tr>
+<tr class="memitem:a2f3e21fba6f02c410c2be702b6e2e339" id="r_a2f3e21fba6f02c410c2be702b6e2e339"><td class="memItemLeft">QPushButton *&#160;</td><td class="memItemRight"><a class="el" href="#a2f3e21fba6f02c410c2be702b6e2e339">removeButton</a></td></tr>
+<tr class="memitem:a4443d06c397c336ef70be907af46bb99" id="r_a4443d06c397c336ef70be907af46bb99"><td class="memItemLeft">QListWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a4443d06c397c336ef70be907af46bb99">warningList</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Les widgets du panneau : la famille que l'outil Entité pose, la liste des entités de la carte, les propriétés de l'entité sélectionnée (formulaire construit depuis <span class="tt"><a class="el" href="namespacecore.html#a3c877363f8258fc1ba137c48aa283397" title="Les familles que l&#39;éditeur sait poser, dans l&#39;ordre de sa liste.">core::knownEntityKinds</a></span>) et les avertissements. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae6101063cd0c17d6fe5e886f8119a843" name="ae6101063cd0c17d6fe5e886f8119a843"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6101063cd0c17d6fe5e886f8119a843">&#9670;&#160;</a></span>Widgets()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::EntityPanel::Widgets::Widgets </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>panel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a917187480f8f7ab54caccd6499b25f92" name="a917187480f8f7ab54caccd6499b25f92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a917187480f8f7ab54caccd6499b25f92">&#9670;&#160;</a></span>entityTable</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QTableWidget* hmi::EntityPanel::Widgets::entityTable</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acb4651f3614d918348a4705cd492756e" name="acb4651f3614d918348a4705cd492756e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb4651f3614d918348a4705cd492756e">&#9670;&#160;</a></span>filterEdit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QLineEdit* hmi::EntityPanel::Widgets::filterEdit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeab865799fca71c9df455ed81bcc5b9e" name="aeab865799fca71c9df455ed81bcc5b9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeab865799fca71c9df455ed81bcc5b9e">&#9670;&#160;</a></span>kindCombo</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QComboBox* hmi::EntityPanel::Widgets::kindCombo</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeab43f3c6ecbd56359b20e54017da5fc" name="aeab43f3c6ecbd56359b20e54017da5fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeab43f3c6ecbd56359b20e54017da5fc">&#9670;&#160;</a></span>propertiesForm</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QWidget* hmi::EntityPanel::Widgets::propertiesForm</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f3e21fba6f02c410c2be702b6e2e339" name="a2f3e21fba6f02c410c2be702b6e2e339"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f3e21fba6f02c410c2be702b6e2e339">&#9670;&#160;</a></span>removeButton</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QPushButton* hmi::EntityPanel::Widgets::removeButton</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad179a32705c2005dcc7943cb9a76fe5f" name="ad179a32705c2005dcc7943cb9a76fe5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad179a32705c2005dcc7943cb9a76fe5f">&#9670;&#160;</a></span>selectionLabel</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QLabel* hmi::EntityPanel::Widgets::selectionLabel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae86a78ee5fcdf20df13b769a57570568" name="ae86a78ee5fcdf20df13b769a57570568"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae86a78ee5fcdf20df13b769a57570568">&#9670;&#160;</a></span>verdictLabel</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QLabel* hmi::EntityPanel::Widgets::verdictLabel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4443d06c397c336ef70be907af46bb99" name="a4443d06c397c336ef70be907af46bb99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4443d06c397c336ef70be907af46bb99">&#9670;&#160;</a></span>warningList</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QListWidget* hmi::EntityPanel::Widgets::warningList</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/<a class="el" href="EntityPanel_8cpp.html">EntityPanel.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1EntityPanel.html">EntityPanel</a></li><li class="navelem"><a href="structhmi_1_1EntityPanel_1_1Widgets.html">Widgets</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

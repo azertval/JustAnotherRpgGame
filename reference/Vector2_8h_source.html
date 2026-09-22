@@ -1,0 +1,218 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Math/Vector2.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('Vector2_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Vector2.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Vector2_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span></div>
+<div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="structcore_1_1Vector2.html">   21</a></span><span class="keyword">struct </span><a class="code hl_function" href="structcore_1_1Vector2.html#a895249415331e9f9f894bbd6ad1f2b8c">Vector2</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structcore_1_1Vector2.html#acc547a6ce80872bab375c7f5f84aabda">   22</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1Vector2.html#acc547a6ce80872bab375c7f5f84aabda">x</a> = 0.0f;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structcore_1_1Vector2.html#a59c9a7e50ed630cd84963fc93bca2160">   23</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1Vector2.html#a59c9a7e50ed630cd84963fc93bca2160">y</a> = 0.0f;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structcore_1_1Vector2.html#a895249415331e9f9f894bbd6ad1f2b8c">   25</a></span>    <a class="code hl_function" href="structcore_1_1Vector2.html#a895249415331e9f9f894bbd6ad1f2b8c">Vector2</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_function" href="structcore_1_1Vector2.html#a895249415331e9f9f894bbd6ad1f2b8c">Vector2</a>(<span class="keywordtype">float</span> xComponent, <span class="keywordtype">float</span> yComponent);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_function" href="structcore_1_1Vector2.html#a895249415331e9f9f894bbd6ad1f2b8c">Vector2</a>&amp; <a class="code hl_function" href="structcore_1_1Vector2.html#a45c3fec6785d7009478bf4cb94bf392f">operator+=</a>(<span class="keyword">const</span> <a class="code hl_function" href="structcore_1_1Vector2.html#a895249415331e9f9f894bbd6ad1f2b8c">Vector2</a>&amp; other);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_function" href="structcore_1_1Vector2.html#a895249415331e9f9f894bbd6ad1f2b8c">Vector2</a>&amp; <a class="code hl_function" href="structcore_1_1Vector2.html#a925bd9d0c9b737b476783291f224ffb6">operator-=</a>(<span class="keyword">const</span> <a class="code hl_function" href="structcore_1_1Vector2.html#a895249415331e9f9f894bbd6ad1f2b8c">Vector2</a>&amp; other);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_function" href="structcore_1_1Vector2.html#a895249415331e9f9f894bbd6ad1f2b8c">Vector2</a>&amp; <a class="code hl_function" href="structcore_1_1Vector2.html#a0a4b628adaba63b38778c6e2d463ddde">operator*=</a>(<span class="keywordtype">float</span> scalar);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_function" href="structcore_1_1Vector2.html#a895249415331e9f9f894bbd6ad1f2b8c">Vector2</a>&amp; <a class="code hl_function" href="structcore_1_1Vector2.html#a53fe7ef62405da41a3ee05b3081cab87">operator/=</a>(<span class="keywordtype">float</span> scalar);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="structcore_1_1Vector2.html#ae70a029307287be5d22ec57a536a21d6">dot</a>(<span class="keyword">const</span> <a class="code hl_function" href="structcore_1_1Vector2.html#a895249415331e9f9f894bbd6ad1f2b8c">Vector2</a>&amp; other) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="structcore_1_1Vector2.html#a5f3517fe219407f73a3ed5542091c31c">lengthSquared</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="structcore_1_1Vector2.html#a8c99961609599a2a08bf8db7aff830b9">length</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    [[nodiscard]] <a class="code hl_function" href="structcore_1_1Vector2.html#a895249415331e9f9f894bbd6ad1f2b8c">Vector2</a> <a class="code hl_function" href="structcore_1_1Vector2.html#af3240f0ac96a586d8990e385f180fb60">normalized</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a> <a class="code hl_function" href="namespacecore.html#a0bc000366ab7d8c9d1a897385b813a68">operator+</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a>&amp; lhs, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a>&amp; rhs);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a> <a class="code hl_function" href="namespacecore.html#a1a99b0f3e57dfc6bbaf34b5604308bc9">operator-</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a>&amp; lhs, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a>&amp; rhs);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a> <a class="code hl_function" href="namespacecore.html#ab422b18bf5b03f40421c9391b725dcd0">operator*</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a>&amp; vector, <span class="keywordtype">float</span> scalar);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a> <a class="code hl_function" href="namespacecore.html#ab422b18bf5b03f40421c9391b725dcd0">operator*</a>(<span class="keywordtype">float</span> scalar, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a>&amp; vector);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a> <a class="code hl_function" href="namespacecore.html#ab931b1596f60176fe703b83007f27a12">operator/</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a>&amp; vector, <span class="keywordtype">float</span> scalar);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a> <a class="code hl_function" href="namespacecore.html#a1a99b0f3e57dfc6bbaf34b5604308bc9">operator-</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a>&amp; vector);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>[[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacecore.html#aac10767b87c9d2dcc3932edb226563b1">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a>&amp; lhs, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a>&amp; rhs);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>[[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacecore.html#a29323798eff97fce936a3352846efb93">operator!=</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a>&amp; lhs, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a>&amp; rhs);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a0bc000366ab7d8c9d1a897385b813a68"><div class="ttname"><a href="namespacecore.html#a0bc000366ab7d8c9d1a897385b813a68">core::operator+</a></div><div class="ttdeci">Vector2 operator+(const Vector2 &amp;lhs, const Vector2 &amp;rhs)</div><div class="ttdef"><b>Definition</b> Vector2.cpp:79</div></div>
+<div class="ttc" id="anamespacecore_html_a1a99b0f3e57dfc6bbaf34b5604308bc9"><div class="ttname"><a href="namespacecore.html#a1a99b0f3e57dfc6bbaf34b5604308bc9">core::operator-</a></div><div class="ttdeci">Vector2 operator-(const Vector2 &amp;lhs, const Vector2 &amp;rhs)</div><div class="ttdef"><b>Definition</b> Vector2.cpp:85</div></div>
+<div class="ttc" id="anamespacecore_html_a29323798eff97fce936a3352846efb93"><div class="ttname"><a href="namespacecore.html#a29323798eff97fce936a3352846efb93">core::operator!=</a></div><div class="ttdeci">constexpr bool operator!=(GridPosition left, GridPosition right) noexcept</div><div class="ttdef"><b>Definition</b> GridPosition.h:31</div></div>
+<div class="ttc" id="anamespacecore_html_aac10767b87c9d2dcc3932edb226563b1"><div class="ttname"><a href="namespacecore.html#aac10767b87c9d2dcc3932edb226563b1">core::operator==</a></div><div class="ttdeci">constexpr bool operator==(GridPoint left, GridPoint right) noexcept</div><div class="ttdef"><b>Definition</b> LineOfSight.h:70</div></div>
+<div class="ttc" id="anamespacecore_html_ab422b18bf5b03f40421c9391b725dcd0"><div class="ttname"><a href="namespacecore.html#ab422b18bf5b03f40421c9391b725dcd0">core::operator*</a></div><div class="ttdeci">Vector2 operator*(const Vector2 &amp;vector, float scalar)</div><div class="ttdef"><b>Definition</b> Vector2.cpp:91</div></div>
+<div class="ttc" id="anamespacecore_html_ab931b1596f60176fe703b83007f27a12"><div class="ttname"><a href="namespacecore.html#ab931b1596f60176fe703b83007f27a12">core::operator/</a></div><div class="ttdeci">Vector2 operator/(const Vector2 &amp;vector, float scalar)</div><div class="ttdef"><b>Definition</b> Vector2.cpp:103</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html"><div class="ttname"><a href="structcore_1_1Vector2.html">core::Vector2</a></div><div class="ttdoc">Vecteur bidimensionnel en coordonnées monde (composantes float).</div><div class="ttdef"><b>Definition</b> Vector2.h:21</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_a0a4b628adaba63b38778c6e2d463ddde"><div class="ttname"><a href="structcore_1_1Vector2.html#a0a4b628adaba63b38778c6e2d463ddde">core::Vector2::operator*=</a></div><div class="ttdeci">Vector2 &amp; operator*=(float scalar)</div><div class="ttdef"><b>Definition</b> Vector2.cpp:33</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_a45c3fec6785d7009478bf4cb94bf392f"><div class="ttname"><a href="structcore_1_1Vector2.html#a45c3fec6785d7009478bf4cb94bf392f">core::Vector2::operator+=</a></div><div class="ttdeci">Vector2 &amp; operator+=(const Vector2 &amp;other)</div><div class="ttdef"><b>Definition</b> Vector2.cpp:17</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_a53fe7ef62405da41a3ee05b3081cab87"><div class="ttname"><a href="structcore_1_1Vector2.html#a53fe7ef62405da41a3ee05b3081cab87">core::Vector2::operator/=</a></div><div class="ttdeci">Vector2 &amp; operator/=(float scalar)</div><div class="ttdef"><b>Definition</b> Vector2.cpp:41</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_a59c9a7e50ed630cd84963fc93bca2160"><div class="ttname"><a href="structcore_1_1Vector2.html#a59c9a7e50ed630cd84963fc93bca2160">core::Vector2::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition</b> Vector2.h:23</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_a5f3517fe219407f73a3ed5542091c31c"><div class="ttname"><a href="structcore_1_1Vector2.html#a5f3517fe219407f73a3ed5542091c31c">core::Vector2::lengthSquared</a></div><div class="ttdeci">float lengthSquared() const</div><div class="ttdoc">Carré de la longueur euclidienne (évite une racine carrée).</div><div class="ttdef"><b>Definition</b> Vector2.cpp:55</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_a895249415331e9f9f894bbd6ad1f2b8c"><div class="ttname"><a href="structcore_1_1Vector2.html#a895249415331e9f9f894bbd6ad1f2b8c">core::Vector2::Vector2</a></div><div class="ttdeci">Vector2()=default</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_a8c99961609599a2a08bf8db7aff830b9"><div class="ttname"><a href="structcore_1_1Vector2.html#a8c99961609599a2a08bf8db7aff830b9">core::Vector2::length</a></div><div class="ttdeci">float length() const</div><div class="ttdoc">Longueur euclidienne du vecteur.</div><div class="ttdef"><b>Definition</b> Vector2.cpp:61</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_a925bd9d0c9b737b476783291f224ffb6"><div class="ttname"><a href="structcore_1_1Vector2.html#a925bd9d0c9b737b476783291f224ffb6">core::Vector2::operator-=</a></div><div class="ttdeci">Vector2 &amp; operator-=(const Vector2 &amp;other)</div><div class="ttdef"><b>Definition</b> Vector2.cpp:25</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_acc547a6ce80872bab375c7f5f84aabda"><div class="ttname"><a href="structcore_1_1Vector2.html#acc547a6ce80872bab375c7f5f84aabda">core::Vector2::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition</b> Vector2.h:22</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_ae70a029307287be5d22ec57a536a21d6"><div class="ttname"><a href="structcore_1_1Vector2.html#ae70a029307287be5d22ec57a536a21d6">core::Vector2::dot</a></div><div class="ttdeci">float dot(const Vector2 &amp;other) const</div><div class="ttdoc">Produit scalaire avec un autre vecteur.</div><div class="ttdef"><b>Definition</b> Vector2.cpp:49</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_af3240f0ac96a586d8990e385f180fb60"><div class="ttname"><a href="structcore_1_1Vector2.html#af3240f0ac96a586d8990e385f180fb60">core::Vector2::normalized</a></div><div class="ttdeci">Vector2 normalized() const</div><div class="ttdoc">Renvoie le vecteur normalisé (longueur 1).</div><div class="ttdef"><b>Definition</b> Vector2.cpp:68</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_345da4441ab9798aee6a61be5cf5c8cb.html">Math</a></li><li class="navelem"><a href="Vector2_8h.html">Vector2.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

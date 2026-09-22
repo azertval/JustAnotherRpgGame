@@ -1,0 +1,562 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__arena__scene__composer_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_arena_scene_composer.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads, ordre des calques, combattants à terre et sortis — sans GPU.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;iterator&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="Arena_8h_source.html">Core/Combat/Arena.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ArenaAnimationState_8h_source.html">HMI/Graphics/ArenaAnimationState.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ArenaAppearanceCatalog_8h_source.html">HMI/Graphics/ArenaAppearanceCatalog.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ArenaSceneComposer_8h_source.html">HMI/Graphics/ArenaSceneComposer.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:afe1a8bccedf6bcaa27c1a4c3823b5c30" id="r_afe1a8bccedf6bcaa27c1a4c3823b5c30"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afe1a8bccedf6bcaa27c1a4c3823b5c30">TEST_F</a> (ArenaSceneComposerTest, NombreDeQuadsParCalque)</td></tr>
+<tr class="memdesc:afe1a8bccedf6bcaa27c1a4c3823b5c30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque case donne un sol, chaque piece d'enceinte un quad, chaque combattant une figurine.  <br /></td></tr>
+<tr class="memitem:ad6e90140f99bbe44f9f95a5757b09017" id="r_ad6e90140f99bbe44f9f95a5757b09017"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad6e90140f99bbe44f9f95a5757b09017">TEST_F</a> (ArenaSceneComposerTest, OrdreDesCalques)</td></tr>
+<tr class="memdesc:ad6e90140f99bbe44f9f95a5757b09017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apres tri, tout le sol passe avant l'enceinte et les figurines, et la bande de profondeur est rangee par pied croissant.  <br /></td></tr>
+<tr class="memitem:a147af953e557db9e85d976aee831d7ee" id="r_a147af953e557db9e85d976aee831d7ee"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a147af953e557db9e85d976aee831d7ee">TEST_F</a> (ArenaSceneComposerTest, ProfondeurAuPiedDeLaCase)</td></tr>
+<tr class="memdesc:a147af953e557db9e85d976aee831d7ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine passe devant le mur du fond et derriere le mur de devant.  <br /></td></tr>
+<tr class="memitem:ae533211d0c9497564b873cfb19a91bda" id="r_ae533211d0c9497564b873cfb19a91bda"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae533211d0c9497564b873cfb19a91bda">TEST_F</a> (ArenaSceneComposerTest, LeDecorSePoseParSonAncreDansLeBonSens)</td></tr>
+<tr class="memdesc:ae533211d0c9497564b873cfb19a91bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque piece de l'atelier se pose par son ancre et se dresse contre l'arete du fond parallele a son bord : pans et arche orientes, angle du fond, piliers, seuil sous la porte.  <br /></td></tr>
+<tr class="memitem:abea85dc04ecc94a5e796fa2f00a0f869" id="r_abea85dc04ecc94a5e796fa2f00a0f869"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abea85dc04ecc94a5e796fa2f00a0f869">TEST_F</a> (ArenaSceneComposerTest, ATerreEtSorti)</td></tr>
+<tr class="memdesc:abea85dc04ecc94a5e796fa2f00a0f869"><td class="mdescLeft">&#160;</td><td class="mdescRight">A terre, un combattant garde sa figurine (derniere image ; bande de mort pour un allie, estompee pour un ennemi) ; sorti, il n'en a plus.  <br /></td></tr>
+<tr class="memitem:a9e6f594cc4bd9340b991dbaf7c28e79c" id="r_a9e6f594cc4bd9340b991dbaf7c28e79c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9e6f594cc4bd9340b991dbaf7c28e79c">TEST_F</a> (ArenaSceneComposerTest, ImageCouranteBornee)</td></tr>
+<tr class="memdesc:a9e6f594cc4bd9340b991dbaf7c28e79c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debout, la figurine montre l'image de l'etat d'animation, ramenee dans sa bande.  <br /></td></tr>
+<tr class="memitem:a8f6825967b3a03979238c24ec994a013" id="r_a8f6825967b3a03979238c24ec994a013"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8f6825967b3a03979238c24ec994a013">TEST_F</a> (ArenaSceneComposerTest, RepliSurLeDamier)</td></tr>
+<tr class="memdesc:a8f6825967b3a03979238c24ec994a013"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une piece non chargee se lie au damier ; sans damier, elle n'est pas composee.  <br /></td></tr>
+<tr class="memitem:a7641693fce548b7ce0a7acbfb2880d7d" id="r_a7641693fce548b7ce0a7acbfb2880d7d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7641693fce548b7ce0a7acbfb2880d7d">TEST_F</a> (ArenaSceneComposerTest, LectureSeule)</td></tr>
+<tr class="memdesc:a7641693fce548b7ce0a7acbfb2880d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composer ne change rien a la session, et recomposer donne les memes quads.  <br /></td></tr>
+<tr class="memitem:ab11f3c6a0f1e6e1f31abfa853ae1d91f" id="r_ab11f3c6a0f1e6e1f31abfa853ae1d91f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab11f3c6a0f1e6e1f31abfa853ae1d91f">TEST_F</a> (ArenaSceneComposerTest, InstantaneSurvitALaSession)</td></tr>
+<tr class="memdesc:ab11f3c6a0f1e6e1f31abfa853ae1d91f"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'instantane porte tout ce que la composition dessine : compose apres la mort de la session, il donne exactement la scene de la session vivante.  <br /></td></tr>
+<tr class="memitem:a1fa1637e956446f1baaeb908bc5bf80e" id="r_a1fa1637e956446f1baaeb908bc5bf80e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1fa1637e956446f1baaeb908bc5bf80e">TEST_F</a> (ArenaSceneComposerTest, ListeDesTexturesCouvreLaComposition)</td></tr>
+<tr class="memdesc:a1fa1637e956446f1baaeb908bc5bf80e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charger exactement <span class="tt">arenaTexturePaths</span> suffit : aucune piece composee ne tombe sur le damier.  <br /></td></tr>
+<tr class="memitem:a8a772977936705339436c0d1d8ea5cb5" id="r_a8a772977936705339436c0d1d8ea5cb5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8a772977936705339436c0d1d8ea5cb5">TEST_F</a> (ArenaSceneComposerTest, UneFigurineDeRemplacementSuitSaPropreDecoupe)</td></tr>
+<tr class="memdesc:a8a772977936705339436c0d1d8ea5cb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine de remplacement (atelier des PNJ, LOT-91) se lit dans son propre dossier, avec la decoupe que ses bandes declarent : six images de 48 px au repos, six de 96 px a terre.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests unitaires du composeur de la scène de combat du Colisée (Phase 3 du LOT-86) : nombre de quads, ordre des calques, combattants à terre et sortis — sans GPU. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="abea85dc04ecc94a5e796fa2f00a0f869" name="abea85dc04ecc94a5e796fa2f00a0f869"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abea85dc04ecc94a5e796fa2f00a0f869">&#9670;&#160;</a></span>TEST_F() <span class="overload">[1/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ArenaSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ATerreEtSorti</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A terre, un combattant garde sa figurine (derniere image ; bande de mort pour un allie, estompee pour un ennemi) ; sorti, il n'en a plus. </p>
+<p><b>Cas de test :</b> <b>Down compose une figurine, Withdrawn aucune.</b><br  />
+ <b>Categorie :</b> Unitaire · Composeur de la scene de l'arene<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Demarrer le combat.<br  />
+</p><ol type="1">
+<li>Abattre Bram (allie) et Orc (ennemi), faire sortir Cid.<br  />
+</li>
+<li>Composer la scene.<br  />
+ <b>Resultat attendu :</b> 4 figurines ; Bram sur death.png a l'image 4 ; Orc sur idle.png a l'image 7, alpha 0,45 ; aucun quad pour Cid. </li>
+</ol>
+
+</div>
+</div>
+<a id="a9e6f594cc4bd9340b991dbaf7c28e79c" name="a9e6f594cc4bd9340b991dbaf7c28e79c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e6f594cc4bd9340b991dbaf7c28e79c">&#9670;&#160;</a></span>TEST_F() <span class="overload">[2/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ArenaSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ImageCouranteBornee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Debout, la figurine montre l'image de l'etat d'animation, ramenee dans sa bande. </p>
+<p><b>Cas de test :</b> <b>L'image courante vient de ArenaAnimationState, bornee a la bande.</b><br  />
+ <b>Categorie :</b> Unitaire · Composeur de la scene de l'arene<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Donner l'image 3 a Eve et l'image 99 a Rat.<br  />
+</p><ol type="1">
+<li>Composer la scene.<br  />
+ <b>Resultat attendu :</b> Eve echantillonne [144, 192[ de 240 px ; Rat sa derniere image (7) ; opacite pleine. </li>
+</ol>
+
+</div>
+</div>
+<a id="ab11f3c6a0f1e6e1f31abfa853ae1d91f" name="ab11f3c6a0f1e6e1f31abfa853ae1d91f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab11f3c6a0f1e6e1f31abfa853ae1d91f">&#9670;&#160;</a></span>TEST_F() <span class="overload">[3/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ArenaSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">InstantaneSurvitALaSession</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'instantane porte tout ce que la composition dessine : compose apres la mort de la session, il donne exactement la scene de la session vivante. </p>
+<p><b>Cas de test :</b> <b>L'instantane en valeurs survit a sa session (LOT-86 Phase 5).</b><br  />
+ <b>Categorie :</b> Unitaire · Composeur de la scene de l'arene<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Abattre Bram, faire sortir Cid, tirer l'instantane.<br  />
+</p><ol type="1">
+<li>Detruire une copie de la session, composer l'instantane.<br  />
+ <b>Resultat attendu :</b> Grille 5x4, 13 cases obstruees, 4 figurines (Cid absent, Bram a terre) ; memes quads, dans le meme ordre, que la composition depuis la session. </li>
+</ol>
+
+</div>
+</div>
+<a id="a7641693fce548b7ce0a7acbfb2880d7d" name="a7641693fce548b7ce0a7acbfb2880d7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7641693fce548b7ce0a7acbfb2880d7d">&#9670;&#160;</a></span>TEST_F() <span class="overload">[4/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ArenaSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LectureSeule</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Composer ne change rien a la session, et recomposer donne les memes quads. </p>
+<p><b>Cas de test :</b> <b>La composition est une lecture seule (EX-ARCH-012).</b><br  />
+ <b>Categorie :</b> Unitaire · Composeur de la scene de l'arene<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Demarrer le combat, relever phase, tour actif, journal et positions.<br  />
+</p><ol type="1">
+<li>Composer deux fois.<br  />
+ <b>Resultat attendu :</b> Session inchangee ; les deux scenes ont les memes quads, dans le meme ordre. </li>
+</ol>
+
+</div>
+</div>
+<a id="ae533211d0c9497564b873cfb19a91bda" name="ae533211d0c9497564b873cfb19a91bda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae533211d0c9497564b873cfb19a91bda">&#9670;&#160;</a></span>TEST_F() <span class="overload">[5/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ArenaSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeDecorSePoseParSonAncreDansLeBonSens</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Chaque piece de l'atelier se pose par son ancre et se dresse contre l'arete du fond parallele a son bord : pans et arche orientes, angle du fond, piliers, seuil sous la porte. </p>
+<p><b>Cas de test :</b> <b>Le decor de l'atelier des textures (LOT-92) est pose par son ancre, dans le bon sens.</b><br  />
+ <b>Categorie :</b> Unitaire · Composeur de la scene de l'arene<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer la piste 5x4.<br  />
+</p><ol type="1">
+<li>Relever la piece et le sol de (1, 0), (0, 1), (0, 0), (4, 3), (0, 2).<br  />
+ <b>Resultat attendu :</b> (1, 0) wall-right et (0, 1) wall-left, dont le sommet haut du losange tombe sur le pixel (34, 58) de la texture ; (0, 0) wall-corner ; (4, 3) pillar ; (0, 2) arch-left sur gate-threshold. </li>
+</ol>
+
+</div>
+</div>
+<a id="a1fa1637e956446f1baaeb908bc5bf80e" name="a1fa1637e956446f1baaeb908bc5bf80e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fa1637e956446f1baaeb908bc5bf80e">&#9670;&#160;</a></span>TEST_F() <span class="overload">[6/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ArenaSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ListeDesTexturesCouvreLaComposition</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Charger exactement <span class="tt">arenaTexturePaths</span> suffit : aucune piece composee ne tombe sur le damier. </p>
+<p><b>Cas de test :</b> <b>La liste des textures couvre tout ce que la composition demande.</b><br  />
+ <b>Categorie :</b> Unitaire · Composeur de la scene de l'arene<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Lier chaque chemin de arenaTexturePaths a une texture, et le damier a une autre.<br  />
+</p><ol type="1">
+<li>Composer la piste avec un allie a terre.<br  />
+ <b>Resultat attendu :</b> Les 39 quads, aucun sur le damier ; la liste n'a pas de doublon. </li>
+</ol>
+
+</div>
+</div>
+<a id="afe1a8bccedf6bcaa27c1a4c3823b5c30" name="afe1a8bccedf6bcaa27c1a4c3823b5c30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe1a8bccedf6bcaa27c1a4c3823b5c30">&#9670;&#160;</a></span>TEST_F() <span class="overload">[7/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ArenaSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NombreDeQuadsParCalque</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Chaque case donne un sol, chaque piece d'enceinte un quad, chaque combattant une figurine. </p>
+<p><b>Cas de test :</b> <b>La scene composee compte exactement les quads attendus, par calque.</b><br  />
+ <b>Categorie :</b> Unitaire · Composeur de la scene de l'arene<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Monter cinq combattants sur la piste 5x4.<br  />
+</p><ol type="1">
+<li>Composer la scene.<br  />
+ <b>Resultat attendu :</b> 20 quads Tile, 14 Object, 5 Player ; aucun sur un autre calque. </li>
+</ol>
+
+</div>
+</div>
+<a id="ad6e90140f99bbe44f9f95a5757b09017" name="ad6e90140f99bbe44f9f95a5757b09017"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6e90140f99bbe44f9f95a5757b09017">&#9670;&#160;</a></span>TEST_F() <span class="overload">[8/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ArenaSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">OrdreDesCalques</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Apres tri, tout le sol passe avant l'enceinte et les figurines, et la bande de profondeur est rangee par pied croissant. </p>
+<p><b>Cas de test :</b> <b>Le sol est dessine sous tout ; la bande de profondeur est triee par pied.</b><br  />
+ <b>Categorie :</b> Unitaire · Composeur de la scene de l'arene<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer la scene (triee).<br  />
+ <b>Resultat attendu :</b> Les 20 premiers quads sont Tile ; les suivants sont Object ou Player, a sortOrder non decroissant. </p>
+
+</div>
+</div>
+<a id="a147af953e557db9e85d976aee831d7ee" name="a147af953e557db9e85d976aee831d7ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a147af953e557db9e85d976aee831d7ee">&#9670;&#160;</a></span>TEST_F() <span class="overload">[9/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ArenaSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ProfondeurAuPiedDeLaCase</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une figurine passe devant le mur du fond et derriere le mur de devant. </p>
+<p><b>Cas de test :</b> <b>La profondeur suit le pied de la case.</b><br  />
+ <b>Categorie :</b> Unitaire · Composeur de la scene de l'arene<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer la scene.<br  />
+</p><ol type="1">
+<li>Reperer la figurine de Bram (1, 1), le pan (1, 0), le pan (1, 3) et le pan a torche (4, 2).<br  />
+ <b>Resultat attendu :</b> pan (1, 0) &lt; Bram &lt; pan (1, 3) ; la case (4, 2) porte le pan a torche, une seule piece. </li>
+</ol>
+
+</div>
+</div>
+<a id="a8f6825967b3a03979238c24ec994a013" name="a8f6825967b3a03979238c24ec994a013"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f6825967b3a03979238c24ec994a013">&#9670;&#160;</a></span>TEST_F() <span class="overload">[10/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ArenaSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RepliSurLeDamier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une piece non chargee se lie au damier ; sans damier, elle n'est pas composee. </p>
+<p><b>Cas de test :</b> <b>Repli sur le damier, puis rien.</b><br  />
+ <b>Categorie :</b> Unitaire · Composeur de la scene de l'arene<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer sans aucune texture chargee, damier fourni.<br  />
+</p><ol type="1">
+<li>Composer sans aucune texture ni damier.<br  />
+ <b>Resultat attendu :</b> 1. Les 39 quads, tous sur le damier. 2. Aucun quad. </li>
+</ol>
+
+</div>
+</div>
+<a id="a8a772977936705339436c0d1d8ea5cb5" name="a8a772977936705339436c0d1d8ea5cb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a772977936705339436c0d1d8ea5cb5">&#9670;&#160;</a></span>TEST_F() <span class="overload">[11/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ArenaSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneFigurineDeRemplacementSuitSaPropreDecoupe</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une figurine de remplacement (atelier des PNJ, LOT-91) se lit dans son propre dossier, avec la decoupe que ses bandes declarent : six images de 48 px au repos, six de 96 px a terre. </p>
+<p><b>Cas de test :</b> <b>Un heros remplace se dessine depuis <span class="tt">../Npc/&lt;slug&gt;</span> ; une bande large (96 px) donne un quad deux fois plus large, centre au meme endroit, et sa derniere image a terre.</b> <br  />
+ <b>Categorie :</b> Unitaire · Composeur de la scene de l'arene<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Remplacer la figurine de Bram par <span class="tt">../Npc/anariel</span>, avec <span class="tt">idle.png</span> 288x64 (frameWidth 48) et <span class="tt">death.png</span> 576x64 (frameWidth 96).<br  />
+</p><ol type="1">
+<li>Composer debout a l'image 5, puis a terre.<br  />
+ <b>Resultat attendu :</b> Debout : la texture de <span class="tt">../Npc/anariel/idle.png</span>, u dans [240, 288[ de 288, largeur 48 x echelle. A terre : <span class="tt">death.png</span>, u dans [480, 576[ de 576, largeur doublee, meme centre. </li>
+</ol>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_2675e67548493d20626cf18c4081fab8.html">HMI</a></li><li class="navelem"><a href="dir_9c2c1d58a156aa8e30c089ae7a4e31f9.html">Graphics</a></li><li class="navelem"><a href="test__arena__scene__composer_8cpp.html">test_arena_scene_composer.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

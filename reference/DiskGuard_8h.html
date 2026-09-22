@@ -1,0 +1,206 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/DiskGuard.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('DiskGuard_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">DiskGuard.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Garde de fichier modifié sur disque (<span class="tt">EX-EDIT-057</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+</div>
+<p><a href="DiskGuard_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:hmi_3A_3AFileFingerprint" id="r_hmi_3A_3AFileFingerprint"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FileFingerprint.html">hmi::FileFingerprint</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empreinte d'un fichier : existence, taille et condensé du contenu.  <a href="structhmi_1_1FileFingerprint.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ad3d9a6a21747a6c69be71dfc46024733" id="r_ad3d9a6a21747a6c69be71dfc46024733"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733">hmi::DiskChange</a> { <a class="el" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733a6adf97f83acf6453d4a6a4b1070f3754">hmi::None</a>
+, <a class="el" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733a35e0c8c0b180c95d4e122e55ed62cc64">hmi::Modified</a>
+, <a class="el" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733a5fe6005bf6e415c950c011fb65f12b8f">hmi::Deleted</a>
+ }</td></tr>
+<tr class="memdesc:ad3d9a6a21747a6c69be71dfc46024733"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui a changé sur disque depuis la dernière lecture ou écriture de l'éditeur.  <a href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733">More...</a><br /></td></tr>
+<tr class="memitem:a708d53e28e7a6af851f81372cfebd3d7" id="r_a708d53e28e7a6af851f81372cfebd3d7"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7">hmi::DiskReaction</a> { <a class="el" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7afd038fc7f319e48f3115d92bf5bdbef9">hmi::Ignore</a>
+, <a class="el" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7a27686399effd98c57b6ca8616c6582ac">hmi::ReloadQuietly</a>
+, <a class="el" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7a89af6f809a2041457864d4fc344b95dc">hmi::AskReloadOrKeep</a>
+, <a class="el" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7aa30447d6d036b6f7f6a80bd7ff53b27f">hmi::WarnDeleted</a>
+ }</td></tr>
+<tr class="memdesc:a708d53e28e7a6af851f81372cfebd3d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'éditeur fait d'un changement sur disque.  <a href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae3ed8cd27066f0de03e259d1c4a610bc" id="r_ae3ed8cd27066f0de03e259d1c4a610bc"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileFingerprint.html">FileFingerprint</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ae3ed8cd27066f0de03e259d1c4a610bc">hmi::fingerprintOf</a> (std::string_view content) noexcept</td></tr>
+<tr class="memitem:ab32c2b7569b2dd624b5195deffa3ddd0" id="r_ab32c2b7569b2dd624b5195deffa3ddd0"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileFingerprint.html">FileFingerprint</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ab32c2b7569b2dd624b5195deffa3ddd0">hmi::fingerprintFile</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memitem:ae2248a93260beafe0197b7246f664287" id="r_ae2248a93260beafe0197b7246f664287"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733">DiskChange</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ae2248a93260beafe0197b7246f664287">hmi::compareFingerprints</a> (const <a class="el" href="structhmi_1_1FileFingerprint.html">FileFingerprint</a> &amp;known, const <a class="el" href="structhmi_1_1FileFingerprint.html">FileFingerprint</a> &amp;current) noexcept</td></tr>
+<tr class="memitem:ac78b5cb7e164339c106d8eb30dea54c3" id="r_ac78b5cb7e164339c106d8eb30dea54c3"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7">DiskReaction</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ac78b5cb7e164339c106d8eb30dea54c3">hmi::reactToDiskChange</a> (<a class="el" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733">DiskChange</a> change, bool draftModified) noexcept</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Garde de fichier modifié sur disque (<span class="tt">EX-EDIT-057</span>). </p>
+<p>Une carte ouverte peut changer sous l'éditeur : un script la régénère, Claude la retouche, un <span class="tt">git checkout</span> la remplace. L'éditeur retient l'<b>empreinte</b> du fichier qu'il a lu ou écrit, et la compare à celle du disque quand le fichier est signalé changé, quand la fenêtre reprend la main et avant chaque enregistrement. Une carte n'est jamais écrasée en silence.</p>
+<p>L'empreinte porte sur le <b>contenu</b>, pas sur la date : un fichier réécrit à l'identique n'est pas un changement, et une date qui recule (restauration) n'en cache pas un. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li><li class="navelem"><a href="DiskGuard_8h.html">DiskGuard.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

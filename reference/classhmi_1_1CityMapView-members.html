@@ -1,0 +1,175 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: Member List</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1CityMapView.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::CityMapView Member List</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This is the complete list of members for <a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#aff038ec03b061afc8d2af0168fc4b3ce">_city</a></td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#a1ee3398bf211c913b34438a94e767d99">_dataRoot</a></td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#afe29f67ec7be335301be427901029d92">_hovered</a></td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#a6eec83c7fe61e128e484adaed6815541">_plan</a></td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#ab8246cea2fe9559f6f385a65ed648ad6">city</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#ae1525393d1a59d8b8e815d41926ec936">CityMapView</a>(QWidget *parent=nullptr)</td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#a327aa0dd6627d7a31791dedde0f3a988">districtUnder</a>(QPointF widgetPoint) const</td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#a7d3cd0f7c41c1894b7227c15d4051393">event</a>(QEvent *event) override</td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#a5254586de171998de4978784f6ffcddf">leaveEvent</a>(QEvent *event) override</td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#acc15dd11d3e4ccd641afcc3bf9f5c4b6">levelOpenRequested</a>(const QString &amp;path)</td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#a3690e4f436aa2314f07a06c3715da298">mouseDoubleClickEvent</a>(QMouseEvent *event) override</td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#a9382bb3c4e1a8baffdea9ec6aa32f526">mouseMoveEvent</a>(QMouseEvent *event) override</td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#a6f61d83e6bbad45fc7245e5f0193aac1">paintEvent</a>(QPaintEvent *event) override</td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#a0ec14c012393b91bed83b58bc159bd46">planRect</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#a66a422f7c5fdad92de7b7415f4a21d15">setCity</a>(CityView city, std::filesystem::path dataRoot)</td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#a4758d3871ee63eae9d77e3f5238bb756">sizeHint</a>() const override</td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html#aa5642db6b3073fd187a45bf861a9cd1b">toPlan</a>(QPointF widgetPoint) const</td><td class="entry"><a class="el" href="classhmi_1_1CityMapView.html">hmi::CityMapView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+</table></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

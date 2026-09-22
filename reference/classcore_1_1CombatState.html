@@ -1,0 +1,2016 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::CombatState Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classcore_1_1CombatState.html','','classcore_1_1CombatState-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::CombatState Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Un combat, du montage de la rencontre à sa fin.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="CombatState_8h_source.html">CombatState.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:Operation" id="r_Operation"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1CombatState_1_1Operation.html">Operation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tient la profondeur d'appel.  <a href="classcore_1_1CombatState_1_1Operation.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af4ec7f8f808f32f83d13ceb529f31dd6" id="r_af4ec7f8f808f32f83d13ceb529f31dd6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af4ec7f8f808f32f83d13ceb529f31dd6">CombatState</a> (<a class="el" href="classcore_1_1BattleGrid.html">BattleGrid</a> <a class="el" href="#a7f3fae84024674a5c70227a98a248735">grid</a>)</td></tr>
+<tr class="memitem:a03e6c9f270403dc802c2100a85993633" id="r_a03e6c9f270403dc802c2100a85993633"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a03e6c9f270403dc802c2100a85993633">CombatState</a> (const CombatState &amp;)=delete</td></tr>
+<tr class="memitem:a5a289b285839c868daa30cde9077e020" id="r_a5a289b285839c868daa30cde9077e020"><td class="memItemLeft"><a class="el" href="#af4ec7f8f808f32f83d13ceb529f31dd6">CombatState</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a5a289b285839c868daa30cde9077e020">operator=</a> (const <a class="el" href="#af4ec7f8f808f32f83d13ceb529f31dd6">CombatState</a> &amp;)=delete</td></tr>
+<tr class="memitem:a60729ca7ce62b2ef308174eb8959dd71" id="r_a60729ca7ce62b2ef308174eb8959dd71"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a60729ca7ce62b2ef308174eb8959dd71">CombatState</a> (CombatState &amp;&amp;)=delete</td></tr>
+<tr class="memitem:adca98bdb5f73f72089e5fc53a4262c2a" id="r_adca98bdb5f73f72089e5fc53a4262c2a"><td class="memItemLeft"><a class="el" href="#af4ec7f8f808f32f83d13ceb529f31dd6">CombatState</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#adca98bdb5f73f72089e5fc53a4262c2a">operator=</a> (<a class="el" href="#af4ec7f8f808f32f83d13ceb529f31dd6">CombatState</a> &amp;&amp;)=delete</td></tr>
+<tr class="memitem:a625a3a4dcaa114c7227d03674663a827" id="r_a625a3a4dcaa114c7227d03674663a827"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a625a3a4dcaa114c7227d03674663a827">~CombatState</a> ()=default</td></tr>
+<tr class="memitem:a6b93a098ead5dc29dfc1d3983a4889c6" id="r_a6b93a098ead5dc29dfc1d3983a4889c6"><td class="memItemLeft"><a class="el" href="structcore_1_1EnlistResult.html">EnlistResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6b93a098ead5dc29dfc1d3983a4889c6">enlist</a> (<a class="el" href="structcore_1_1CombatantProfile.html">CombatantProfile</a> profile, std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; anchor=std::nullopt)</td></tr>
+<tr class="memdesc:a6b93a098ead5dc29dfc1d3983a4889c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enrôle un combattant avant le début du combat, et le place si <code class="param">anchor</code> est donné.  <br /></td></tr>
+<tr class="memitem:a701bbdcdbb354c4d3d8ae3ae97ccb830" id="r_a701bbdcdbb354c4d3d8ae3ae97ccb830"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a701bbdcdbb354c4d3d8ae3ae97ccb830">addInitiativeMarker</a> (<a class="el" href="structcore_1_1InitiativeMarker.html">InitiativeMarker</a> marker)</td></tr>
+<tr class="memdesc:a701bbdcdbb354c4d3d8ae3ae97ccb830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose un repère d'initiative fixe (actions de repaire à 20, renforts à 0).  <br /></td></tr>
+<tr class="memitem:a1a0b7643e2a1ad8a1b3ab5262dec6c0b" id="r_a1a0b7643e2a1ad8a1b3ab5262dec6c0b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1a0b7643e2a1ad8a1b3ab5262dec6c0b">setEscapable</a> (bool <a class="el" href="#a21d4d4efd3e42a1249a8218338578ebf">escapable</a>) noexcept</td></tr>
+<tr class="memdesc:a1a0b7643e2a1ad8a1b3ab5262dec6c0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet ou interdit la fuite des alliés — recopié de la rencontre.  <br /></td></tr>
+<tr class="memitem:aea633b2feb4807ca7db6870344dfb56d" id="r_aea633b2feb4807ca7db6870344dfb56d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aea633b2feb4807ca7db6870344dfb56d">subscribe</a> (<a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9">CombatHook</a> hook, <a class="el" href="namespacecore.html#aec8883b9ba0315c5d8d5b710a34d03d4">CombatListener</a> listener)</td></tr>
+<tr class="memdesc:aea633b2feb4807ca7db6870344dfb56d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abonne <code class="param">listener</code> à <code class="param">hook</code>.  <br /></td></tr>
+<tr class="memitem:a311f1bd4157e775aaa91f3fc8c43d2bb" id="r_a311f1bd4157e775aaa91f3fc8c43d2bb"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a311f1bd4157e775aaa91f3fc8c43d2bb">start</a> (<a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> &amp;random)</td></tr>
+<tr class="memdesc:a311f1bd4157e775aaa91f3fc8c43d2bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jette l'initiative de chacun et ouvre le premier tour.  <br /></td></tr>
+<tr class="memitem:a0474d17b1316dd9d0936ee799861621e" id="r_a0474d17b1316dd9d0936ee799861621e"><td class="memItemLeft"><a class="el" href="namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840">CombatPhase</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0474d17b1316dd9d0936ee799861621e">phase</a> () const noexcept</td></tr>
+<tr class="memitem:a776b38369177ac00b08247954993c0d9" id="r_a776b38369177ac00b08247954993c0d9"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a776b38369177ac00b08247954993c0d9">round</a> () const noexcept</td></tr>
+<tr class="memdesc:a776b38369177ac00b08247954993c0d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le round en cours, à partir de 1 ; 0 avant le premier.  <br /></td></tr>
+<tr class="memitem:a800d52b41870ded1c2f44882e9bbe781" id="r_a800d52b41870ded1c2f44882e9bbe781"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a800d52b41870ded1c2f44882e9bbe781">activeCombatant</a> () const noexcept</td></tr>
+<tr class="memdesc:a800d52b41870ded1c2f44882e9bbe781"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le combattant dont c'est le tour.  <br /></td></tr>
+<tr class="memitem:a174c061edff675dae5d780013d44909f" id="r_a174c061edff675dae5d780013d44909f"><td class="memItemLeft">const <a class="el" href="classcore_1_1TurnOrder.html">TurnOrder</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a174c061edff675dae5d780013d44909f">turnOrder</a> () const noexcept</td></tr>
+<tr class="memitem:a262ea3a0ba978bcbfcb1b8c2e6a7c4c5" id="r_a262ea3a0ba978bcbfcb1b8c2e6a7c4c5"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a8825ea64ff05621b7c2c8a073d27577c">CombatOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a262ea3a0ba978bcbfcb1b8c2e6a7c4c5">outcome</a> () const noexcept</td></tr>
+<tr class="memdesc:a262ea3a0ba978bcbfcb1b8c2e6a7c4c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'issue, une fois le combat terminé.  <br /></td></tr>
+<tr class="memitem:a21d4d4efd3e42a1249a8218338578ebf" id="r_a21d4d4efd3e42a1249a8218338578ebf"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a21d4d4efd3e42a1249a8218338578ebf">escapable</a> () const noexcept</td></tr>
+<tr class="memitem:ace46dff01f1bb0ba355ad6486e77a8ca" id="r_ace46dff01f1bb0ba355ad6486e77a8ca"><td class="memItemLeft">const <a class="el" href="structcore_1_1Combatant.html">Combatant</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ace46dff01f1bb0ba355ad6486e77a8ca">find</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
+<tr class="memitem:a5c0db7c9ec1ab1853757e9f047a968cc" id="r_a5c0db7c9ec1ab1853757e9f047a968cc"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5c0db7c9ec1ab1853757e9f047a968cc">combatants</a> () const</td></tr>
+<tr class="memdesc:a5c0db7c9ec1ab1853757e9f047a968cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tous les combattants enrôlés, sortis compris, par identifiant croissant.  <br /></td></tr>
+<tr class="memitem:a7f3fae84024674a5c70227a98a248735" id="r_a7f3fae84024674a5c70227a98a248735"><td class="memItemLeft">const <a class="el" href="classcore_1_1BattleGrid.html">BattleGrid</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a7f3fae84024674a5c70227a98a248735">grid</a> () const noexcept</td></tr>
+<tr class="memitem:afc7082aa97336d45c5d4e8a186fdb38a" id="r_afc7082aa97336d45c5d4e8a186fdb38a"><td class="memItemLeft"><a class="el" href="classcore_1_1BattleGrid.html">BattleGrid</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#afc7082aa97336d45c5d4e8a186fdb38a">grid</a> () noexcept</td></tr>
+<tr class="memdesc:afc7082aa97336d45c5d4e8a186fdb38a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La grille, pour ce qui la change en combat : terrain difficile créé, objet détruit.  <br /></td></tr>
+<tr class="memitem:a0befac60163ae5122aff87f0db9ae9ac" id="r_a0befac60163ae5122aff87f0db9ae9ac"><td class="memItemLeft"><a class="el" href="classcore_1_1ScopedCounters.html">ScopedCounters</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0befac60163ae5122aff87f0db9ae9ac">counters</a> () noexcept</td></tr>
+<tr class="memdesc:a0befac60163ae5122aff87f0db9ae9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les compteurs à portée du combat.  <br /></td></tr>
+<tr class="memitem:a0cfb2a7f9109ffbb3e46bbc9a089dd39" id="r_a0cfb2a7f9109ffbb3e46bbc9a089dd39"><td class="memItemLeft"><a class="el" href="classcore_1_1ActionEconomy.html">ActionEconomy</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a0cfb2a7f9109ffbb3e46bbc9a089dd39">economy</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant)</td></tr>
+<tr class="memdesc:a0cfb2a7f9109ffbb3e46bbc9a089dd39"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'économie d'action d'un combattant — pour dépenser une réaction hors de son tour, ou octroyer une ressource.  <br /></td></tr>
+<tr class="memitem:a5b6c2527f4086d3e128ecccf78889768" id="r_a5b6c2527f4086d3e128ecccf78889768"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5b6c2527f4086d3e128ecccf78889768">spend</a> (std::string_view resource, int amount=1)</td></tr>
+<tr class="memdesc:a5b6c2527f4086d3e128ecccf78889768"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dépense une ressource du combattant actif. Faux s'il n'y a pas de tour, ou pas assez.  <br /></td></tr>
+<tr class="memitem:ad4eaa10cde16ff59c234593b3c96fe39" id="r_ad4eaa10cde16ff59c234593b3c96fe39"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1ReachableArea.html">ReachableArea</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad4eaa10cde16ff59c234593b3c96fe39">reachableArea</a> () const</td></tr>
+<tr class="memdesc:ad4eaa10cde16ff59c234593b3c96fe39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où le combattant actif peut aller, avec <b>ce qui reste</b> de son déplacement.  <br /></td></tr>
+<tr class="memitem:a584829bfc15c2dbdf718d30c37ffccd2" id="r_a584829bfc15c2dbdf718d30c37ffccd2"><td class="memItemLeft"><a class="el" href="structcore_1_1MoveOutcome.html">MoveOutcome</a>&#160;</td><td class="memItemRight"><a class="el" href="#a584829bfc15c2dbdf718d30c37ffccd2">move</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> destination)</td></tr>
+<tr class="memdesc:a584829bfc15c2dbdf718d30c37ffccd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplace le combattant actif jusqu'à <code class="param">destination</code>, et paie le chemin.  <br /></td></tr>
+<tr class="memitem:a103e0cac46c3818d612fa11dd71e4887" id="r_a103e0cac46c3818d612fa11dd71e4887"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a103e0cac46c3818d612fa11dd71e4887">endTurn</a> ()</td></tr>
+<tr class="memdesc:a103e0cac46c3818d612fa11dd71e4887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Termine <b>explicitement</b> le tour en cours (<span class="tt">EX-CBT-012</span>).  <br /></td></tr>
+<tr class="memitem:a50b0d58335080428272acee52ca4e17d" id="r_a50b0d58335080428272acee52ca4e17d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a50b0d58335080428272acee52ca4e17d">interject</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> floatingActor)</td></tr>
+<tr class="memdesc:a50b0d58335080428272acee52ca4e17d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande qu'un acteur flottant joue <b>avant le prochain tour</b>.  <br /></td></tr>
+<tr class="memitem:a08363ac86c0e3564713219854249037d" id="r_a08363ac86c0e3564713219854249037d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a08363ac86c0e3564713219854249037d">declareAttack</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> attacker, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target)</td></tr>
+<tr class="memdesc:a08363ac86c0e3564713219854249037d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Annonce qu'une attaque est <b>déclarée</b>, avant tout jet (<span class="tt"><a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a5a4f89385b5dfc0953b794f3df6378af">CombatHook::AttackDeclared</a></span>).  <br /></td></tr>
+<tr class="memitem:aaadb0bf8e3d2eb699a6094e1ae12ac46" id="r_aaadb0bf8e3d2eb699a6094e1ae12ac46"><td class="memItemLeft"><a class="el" href="structcore_1_1EnlistResult.html">EnlistResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaadb0bf8e3d2eb699a6094e1ae12ac46">join</a> (<a class="el" href="structcore_1_1CombatantProfile.html">CombatantProfile</a> profile, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> anchor, <a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> &amp;random)</td></tr>
+<tr class="memdesc:aaadb0bf8e3d2eb699a6094e1ae12ac46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait entrer un combattant <b>en cours</b> de combat : un renfort.  <br /></td></tr>
+<tr class="memitem:a6e3439a69c1b59575f80c6d37ec9d5f3" id="r_a6e3439a69c1b59575f80c6d37ec9d5f3"><td class="memItemLeft"><a class="el" href="structcore_1_1EnlistResult.html">EnlistResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6e3439a69c1b59575f80c6d37ec9d5f3">joinAtInitiative</a> (<a class="el" href="structcore_1_1CombatantProfile.html">CombatantProfile</a> profile, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> anchor, int initiative)</td></tr>
+<tr class="memdesc:a6e3439a69c1b59575f80c6d37ec9d5f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait entrer un combattant à une initiative <b>imposée</b> — un renfort « au rang 0 ».  <br /></td></tr>
+<tr class="memitem:a7770c8599b487305a83920da2df77ea9" id="r_a7770c8599b487305a83920da2df77ea9"><td class="memItemLeft"><a class="el" href="namespacecore.html#ae1ab268fb5658f04b32b785790e7c082">WithdrawResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7770c8599b487305a83920da2df77ea9">withdraw</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant)</td></tr>
+<tr class="memdesc:a7770c8599b487305a83920da2df77ea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait sortir un combattant : il quitte la grille et l'ordre, et ne revient pas.  <br /></td></tr>
+<tr class="memitem:a49abb9a15d8de91f995425ea70356280" id="r_a49abb9a15d8de91f995425ea70356280"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a49abb9a15d8de91f995425ea70356280">applyDamage</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant, int amount)</td></tr>
+<tr class="memdesc:a49abb9a15d8de91f995425ea70356280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire <code class="param">amount</code> points de vie, sans descendre sous 0 ; à 0, le combattant est à terre.  <br /></td></tr>
+<tr class="memitem:a42ce988bb498483d064a799c2a8ae62c" id="r_a42ce988bb498483d064a799c2a8ae62c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a42ce988bb498483d064a799c2a8ae62c">applyDamage</a> (std::span&lt; const <a class="el" href="structcore_1_1HitPointChange.html">HitPointChange</a> &gt; changes)</td></tr>
+<tr class="memdesc:a42ce988bb498483d064a799c2a8ae62c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique plusieurs dégâts <b>d'un seul coup</b> : l'issue n'est évaluée qu'une fois.  <br /></td></tr>
+<tr class="memitem:a1e3393e02294763a744e669875379eaf" id="r_a1e3393e02294763a744e669875379eaf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1e3393e02294763a744e669875379eaf">heal</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant, int amount)</td></tr>
+<tr class="memdesc:a1e3393e02294763a744e669875379eaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">amount</code> points de vie, sans dépasser le maximum ; relève un combattant à terre.  <br /></td></tr>
+<tr class="memitem:a9bf629284941ad3a0e4d8bce749a87c2" id="r_a9bf629284941ad3a0e4d8bce749a87c2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9bf629284941ad3a0e4d8bce749a87c2">grantReserve</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant, <a class="el" href="structcore_1_1HitPointReserve.html">HitPointReserve</a> reserve)</td></tr>
+<tr class="memdesc:a9bf629284941ad3a0e4d8bce749a87c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne une réserve de points de vie.  <br /></td></tr>
+<tr class="memitem:aee8ca6f077852d4866fe08c7834712fb" id="r_aee8ca6f077852d4866fe08c7834712fb"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1HitPointReserve.html">HitPointReserve</a> &gt; *&#160;</td><td class="memItemRight"><a class="el" href="#aee8ca6f077852d4866fe08c7834712fb">reserves</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant)</td></tr>
+<tr class="memdesc:aee8ca6f077852d4866fe08c7834712fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les réserves d'un combattant, pour que le pipeline les consomme.  <br /></td></tr>
+<tr class="memitem:accaddc06b725f6bc88576a494c14701f" id="r_accaddc06b725f6bc88576a494c14701f"><td class="memItemLeft"><a class="el" href="structcore_1_1Mover.html">Mover</a>&#160;</td><td class="memItemRight"><a class="el" href="#accaddc06b725f6bc88576a494c14701f">moverFor</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
+<tr class="memdesc:accaddc06b725f6bc88576a494c14701f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <span class="tt"><a class="el" href="structcore_1_1Mover.html" title="Qui se déplace, comment, et à travers qui.">core::Mover</a></span> d'un combattant, droit de passage compris.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ae2486edc3ded0283dea288aef615b1ce" id="r_ae2486edc3ded0283dea288aef615b1ce"><td class="memItemLeft"><a class="el" href="structcore_1_1Combatant.html">Combatant</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae2486edc3ded0283dea288aef615b1ce">findMutable</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant)</td></tr>
+<tr class="memitem:a5882ba9f52bd6f27c182605457552795" id="r_a5882ba9f52bd6f27c182605457552795"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5882ba9f52bd6f27c182605457552795">reentrant</a> () const noexcept</td></tr>
+<tr class="memitem:a20bd1b31111e341582b808664570a07a" id="r_a20bd1b31111e341582b808664570a07a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a20bd1b31111e341582b808664570a07a">running</a> () const noexcept</td></tr>
+<tr class="memitem:a9a47e91543703a4506f07656d6b2ff5f" id="r_a9a47e91543703a4506f07656d6b2ff5f"><td class="memItemLeft"><a class="el" href="structcore_1_1EnlistResult.html">EnlistResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9a47e91543703a4506f07656d6b2ff5f">admit</a> (<a class="el" href="structcore_1_1CombatantProfile.html">CombatantProfile</a> profile, std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; anchor)</td></tr>
+<tr class="memitem:aac0adc9df379ab0e0b674a1db47b57d1" id="r_aac0adc9df379ab0e0b674a1db47b57d1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aac0adc9df379ab0e0b674a1db47b57d1">rollInitiative</a> (<a class="el" href="structcore_1_1Combatant.html">Combatant</a> &amp;combatant, <a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> &amp;random)</td></tr>
+<tr class="memitem:ab29728916a627f5e463bbe3928e46179" id="r_ab29728916a627f5e463bbe3928e46179"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab29728916a627f5e463bbe3928e46179">takeFixedInitiative</a> (<a class="el" href="structcore_1_1Combatant.html">Combatant</a> &amp;combatant, int initiative)</td></tr>
+<tr class="memitem:afafb334909b80667445bd12b5e8a8e4b" id="r_afafb334909b80667445bd12b5e8a8e4b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afafb334909b80667445bd12b5e8a8e4b">damage</a> (const <a class="el" href="structcore_1_1HitPointChange.html">HitPointChange</a> &amp;change)</td></tr>
+<tr class="memitem:a60abc195d90cdbaf8f966905338a5006" id="r_a60abc195d90cdbaf8f966905338a5006"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a60abc195d90cdbaf8f966905338a5006">dispatch</a> (const <a class="el" href="structcore_1_1CombatEvent.html">CombatEvent</a> &amp;event)</td></tr>
+<tr class="memitem:ae34d81af106fe34f4bbaef2d07db203f" id="r_ae34d81af106fe34f4bbaef2d07db203f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae34d81af106fe34f4bbaef2d07db203f">settle</a> ()</td></tr>
+<tr class="memitem:aa078e84132bf19acbac3fcc06fa7505c" id="r_aa078e84132bf19acbac3fcc06fa7505c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa078e84132bf19acbac3fcc06fa7505c">reachEndIfDecided</a> ()</td></tr>
+<tr class="memitem:aeb13a57913e704ff4902893a9dc1a456" id="r_aeb13a57913e704ff4902893a9dc1a456"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aeb13a57913e704ff4902893a9dc1a456">startInterjection</a> ()</td></tr>
+<tr class="memdesc:aeb13a57913e704ff4902893a9dc1a456"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre le tour du premier acteur intercalé encore debout ; faux s'il n'y en a pas.  <br /></td></tr>
+<tr class="memitem:a9deb9814c21893b2e4731a7fcda8542b" id="r_a9deb9814c21893b2e4731a7fcda8542b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9deb9814c21893b2e4731a7fcda8542b">step</a> ()</td></tr>
+<tr class="memitem:a52af7bc3bd2bb2916b131a8214ab57d8" id="r_a52af7bc3bd2bb2916b131a8214ab57d8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a52af7bc3bd2bb2916b131a8214ab57d8">startTurn</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant)</td></tr>
+<tr class="memitem:a7c8e2542cf6057e92c18ad47a1e793d3" id="r_a7c8e2542cf6057e92c18ad47a1e793d3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7c8e2542cf6057e92c18ad47a1e793d3">finishTurn</a> ()</td></tr>
+<tr class="memitem:aa93b046d87f05f9ebcbdb01f497d9078" id="r_aa93b046d87f05f9ebcbdb01f497d9078"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa93b046d87f05f9ebcbdb01f497d9078">canPassThrough</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> mover, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> other) const</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a15f785a989a5d0915698d6f64a0b0383" id="r_a15f785a989a5d0915698d6f64a0b0383"><td class="memItemLeft"><a class="el" href="classcore_1_1BattleGrid.html">BattleGrid</a>&#160;</td><td class="memItemRight"><a class="el" href="#a15f785a989a5d0915698d6f64a0b0383">_grid</a></td></tr>
+<tr class="memitem:a877cf507430e17a7b8a63796cf23d69b" id="r_a877cf507430e17a7b8a63796cf23d69b"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Combatant.html">Combatant</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a877cf507430e17a7b8a63796cf23d69b">_combatants</a></td></tr>
+<tr class="memdesc:a877cf507430e17a7b8a63796cf23d69b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Par identifiant croissant : l'identifiant vaut sa position plus un.  <br /></td></tr>
+<tr class="memitem:a2580f8a4f64ae0ccce12dc593ae01924" id="r_a2580f8a4f64ae0ccce12dc593ae01924"><td class="memItemLeft"><a class="el" href="classcore_1_1TurnOrder.html">TurnOrder</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2580f8a4f64ae0ccce12dc593ae01924">_order</a></td></tr>
+<tr class="memitem:aa349c77da80cea5f124b37f3139f91aa" id="r_aa349c77da80cea5f124b37f3139f91aa"><td class="memItemLeft">std::vector&lt; std::pair&lt; <a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9">CombatHook</a>, <a class="el" href="namespacecore.html#aec8883b9ba0315c5d8d5b710a34d03d4">CombatListener</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa349c77da80cea5f124b37f3139f91aa">_listeners</a></td></tr>
+<tr class="memitem:a770222ee269eb7aaffd8b70c33f8d964" id="r_a770222ee269eb7aaffd8b70c33f8d964"><td class="memItemLeft"><a class="el" href="classcore_1_1ScopedCounters.html">ScopedCounters</a>&#160;</td><td class="memItemRight"><a class="el" href="#a770222ee269eb7aaffd8b70c33f8d964">_counters</a></td></tr>
+<tr class="memitem:ad261fe6b0e1bf948f73c323a02e870a1" id="r_ad261fe6b0e1bf948f73c323a02e870a1"><td class="memItemLeft"><a class="el" href="namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840">CombatPhase</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad261fe6b0e1bf948f73c323a02e870a1">_phase</a> = <a class="el" href="namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840aad2376beebecdcf7846ba973fa1a005b">CombatPhase::Setup</a></td></tr>
+<tr class="memitem:a4a9785aabe219b6fc2eaf4c51864ce87" id="r_a4a9785aabe219b6fc2eaf4c51864ce87"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4a9785aabe219b6fc2eaf4c51864ce87">_round</a> = 0</td></tr>
+<tr class="memitem:a99b177367e82ffd0e77f18be022ba83f" id="r_a99b177367e82ffd0e77f18be022ba83f"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a99b177367e82ffd0e77f18be022ba83f">_active</a></td></tr>
+<tr class="memitem:a8059cb2465de3aa1373b3d68e66b2b54" id="r_a8059cb2465de3aa1373b3d68e66b2b54"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a8825ea64ff05621b7c2c8a073d27577c">CombatOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8059cb2465de3aa1373b3d68e66b2b54">_outcome</a></td></tr>
+<tr class="memitem:a11db283e9f30838c82e22af217242c73" id="r_a11db283e9f30838c82e22af217242c73"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a11db283e9f30838c82e22af217242c73">_escapable</a> = true</td></tr>
+<tr class="memitem:a5557696fbddc8315807720401570adea" id="r_a5557696fbddc8315807720401570adea"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1TurnSlot.html">TurnSlot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5557696fbddc8315807720401570adea">_cursor</a></td></tr>
+<tr class="memdesc:a5557696fbddc8315807720401570adea"><td class="mdescLeft">&#160;</td><td class="mdescRight">La dernière place parcourue dans le round.  <br /></td></tr>
+<tr class="memitem:a49d96286a0822ad235828403c81393e1" id="r_a49d96286a0822ad235828403c81393e1"><td class="memItemLeft">std::deque&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a49d96286a0822ad235828403c81393e1">_interjections</a></td></tr>
+<tr class="memdesc:a49d96286a0822ad235828403c81393e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les tours d'acteurs flottants à jouer avant la place suivante.  <br /></td></tr>
+<tr class="memitem:a64c1c38edebfcd253bcef9c09dd0d779" id="r_a64c1c38edebfcd253bcef9c09dd0d779"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a64c1c38edebfcd253bcef9c09dd0d779">_closingRound</a> = false</td></tr>
+<tr class="memdesc:a64c1c38edebfcd253bcef9c09dd0d779"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai quand le round a déjà proposé leur tour aux acteurs flottants qui n'avaient pas joué.  <br /></td></tr>
+<tr class="memitem:a057170fe31a599ae380e705c9565162e" id="r_a057170fe31a599ae380e705c9565162e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a057170fe31a599ae380e705c9565162e">_turnThisRound</a> = false</td></tr>
+<tr class="memitem:a630e16d458263fa061eab50540dc39e7" id="r_a630e16d458263fa061eab50540dc39e7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a630e16d458263fa061eab50540dc39e7">_advancePending</a> = false</td></tr>
+<tr class="memdesc:a630e16d458263fa061eab50540dc39e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai quand la machine doit chercher la place suivante.  <br /></td></tr>
+<tr class="memitem:af4114b55536993107c45228fa3ddafb9" id="r_af4114b55536993107c45228fa3ddafb9"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af4114b55536993107c45228fa3ddafb9">_depth</a> = 0</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Un combat, du montage de la rencontre à sa fin. </p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
+Le cycle</h2>
+<p><span class="tt"><a class="el" href="#a311f1bd4157e775aaa91f3fc8c43d2bb" title="Jette l&#39;initiative de chacun et ouvre le premier tour.">start</a></span> jette l'initiative de chacun — <b>une fois</b> : l'ordre ne bouge plus (<span class="tt">EX-CBT-010</span>) —, ouvre la fenêtre d'avant le premier tour, puis le premier round. Chaque round parcourt les places de l'ordre ; un repère d'initiative fixe y annonce son crochet, un combattant à terre y est passé, un combattant debout y ouvre son tour, et le combat <b>attend</b> : rien n'avance tant que <span class="tt"><a class="el" href="#a103e0cac46c3818d612fa11dd71e4887" title="Termine explicitement le tour en cours (EX-CBT-012).">endTurn</a></span> n'a pas été appelé (<span class="tt">EX-CBT-012</span>). Épuiser ses ressources ne termine pas le tour — ne rien faire est une décision.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
+Les trois fins</h2>
+<p>Évaluées après <b>chaque</b> changement, et non à la fin d'un tour : un combat gagné par une attaque d'opportunité pendant le tour d'un ennemi est gagné tout de suite.</p>
+<ul>
+<li><b>victoire</b> — plus aucun ennemi n'est debout : tous à terre, ou partis ;</li>
+<li><b>défaite</b> — plus aucun allié n'est debout, et aucun n'est parti : tous à terre ;</li>
+<li><b>fuite</b> — plus aucun allié n'est debout, et au moins un est <b>parti</b>. Ceux qui restent à terre derrière lui sont l'affaire de l'agonie (<span class="tt">LOT-72</span>), pas de l'issue.</li>
+</ul>
+<p>Si un même changement abat les deux camps à la fois, la défaite l'emporte : on ne gagne pas un combat où plus personne ne se tient debout de son côté.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
+Les changements en cascade</h2>
+<p>Un abonné peut changer l'état pendant qu'on l'avertit : infliger des dégâts qui abattent le combattant dont le tour commence, faire entrer un renfort. Ces conséquences ne sont <b>jamais</b> tirées au milieu d'une annonce : la machine les règle quand l'appel extérieur se termine, une par une et dans un ordre fixe — la fin du combat d'abord, puis le tour d'un combattant qui ne peut plus le jouer, puis la place suivante. Deux abonnés de même crochet sont avertis dans l'ordre de leur abonnement.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
+Sans héros unique</h2>
+<p>Rien ici ne suppose un personnage seul : les alliés sont un camp, en nombre quelconque, et un test en monte quatre (<span class="tt">LOT-29</span>).</p>
+<p>L'état n'est ni copiable ni déplaçable : les <span class="tt"><a class="el" href="structcore_1_1Mover.html" title="Qui se déplace, comment, et à travers qui.">core::Mover</a></span> qu'il construit et les abonnés qui le reçoivent le désignent par son adresse. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af4ec7f8f808f32f83d13ceb529f31dd6" name="af4ec7f8f808f32f83d13ceb529f31dd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4ec7f8f808f32f83d13ceb529f31dd6">&#9670;&#160;</a></span>CombatState() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::CombatState::CombatState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1BattleGrid.html">BattleGrid</a></td>          <td class="paramname"><span class="paramname"><em>grid</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="#a7f3fae84024674a5c70227a98a248735">grid</a></td><td>La grille de la rencontre (<span class="tt">LOT-19</span>), que le combat possède désormais. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a03e6c9f270403dc802c2100a85993633" name="a03e6c9f270403dc802c2100a85993633"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03e6c9f270403dc802c2100a85993633">&#9670;&#160;</a></span>CombatState() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::CombatState::CombatState </td>
+          <td>(</td>
+          <td class="paramtype">const CombatState &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a60729ca7ce62b2ef308174eb8959dd71" name="a60729ca7ce62b2ef308174eb8959dd71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60729ca7ce62b2ef308174eb8959dd71">&#9670;&#160;</a></span>CombatState() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::CombatState::CombatState </td>
+          <td>(</td>
+          <td class="paramtype">CombatState &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a625a3a4dcaa114c7227d03674663a827" name="a625a3a4dcaa114c7227d03674663a827"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a625a3a4dcaa114c7227d03674663a827">&#9670;&#160;</a></span>~CombatState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::CombatState::~CombatState </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a800d52b41870ded1c2f44882e9bbe781" name="a800d52b41870ded1c2f44882e9bbe781"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a800d52b41870ded1c2f44882e9bbe781">&#9670;&#160;</a></span>activeCombatant()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt; core::CombatState::activeCombatant </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le combattant dont c'est le tour. </p>
+
+</div>
+</div>
+<a id="a701bbdcdbb354c4d3d8ae3ae97ccb830" name="a701bbdcdbb354c4d3d8ae3ae97ccb830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a701bbdcdbb354c4d3d8ae3ae97ccb830">&#9670;&#160;</a></span>addInitiativeMarker()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::addInitiativeMarker </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1InitiativeMarker.html">InitiativeMarker</a></td>          <td class="paramname"><span class="paramname"><em>marker</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pose un repère d'initiative fixe (actions de repaire à 20, renforts à 0). </p>
+
+</div>
+</div>
+<a id="a9a47e91543703a4506f07656d6b2ff5f" name="a9a47e91543703a4506f07656d6b2ff5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a47e91543703a4506f07656d6b2ff5f">&#9670;&#160;</a></span>admit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1EnlistResult.html">EnlistResult</a> core::CombatState::admit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1CombatantProfile.html">CombatantProfile</a></td>          <td class="paramname"><span class="paramname"><em>profile</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>anchor</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a49abb9a15d8de91f995425ea70356280" name="a49abb9a15d8de91f995425ea70356280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49abb9a15d8de91f995425ea70356280">&#9670;&#160;</a></span>applyDamage() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::applyDamage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>amount</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire <code class="param">amount</code> points de vie, sans descendre sous 0 ; à 0, le combattant est à terre. </p>
+<p>C'est la <b>dernière</b> étape du pipeline de dégâts (<span class="tt"><a class="el" href="classcore_1_1DamagePipeline.html" title="Le pipeline de dégâts : cinq étapes nommées, et ce qui s&#39;y greffe.">core::DamagePipeline</a></span>, <span class="tt">LOT-21</span>) : les types, les résistances et les réserves sont déjà passés. Annonce <span class="tt"><a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a3007032a944ef3638beb8825cbb3c28b">CombatHook::DamageTaken</a></span>, puis <span class="tt"><a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9ac963ba0b22143d6653abb38826c9a254">CombatHook::CombatantDowned</a></span> si le combattant vient de tomber. Sans effet sur un combattant sorti, ou pour un montant non positif. </p>
+
+</div>
+</div>
+<a id="a42ce988bb498483d064a799c2a8ae62c" name="a42ce988bb498483d064a799c2a8ae62c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42ce988bb498483d064a799c2a8ae62c">&#9670;&#160;</a></span>applyDamage() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::applyDamage </td>
+          <td>(</td>
+          <td class="paramtype">std::span&lt; const <a class="el" href="structcore_1_1HitPointChange.html">HitPointChange</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>changes</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applique plusieurs dégâts <b>d'un seul coup</b> : l'issue n'est évaluée qu'une fois. </p>
+<p>Une boule de feu qui abat le dernier allié et le dernier ennemi est une défaite (voir la classe), et non une victoire ou une défaite selon l'ordre dans lequel on a rangé les cibles. </p>
+
+</div>
+</div>
+<a id="aa93b046d87f05f9ebcbdb01f497d9078" name="aa93b046d87f05f9ebcbdb01f497d9078"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa93b046d87f05f9ebcbdb01f497d9078">&#9670;&#160;</a></span>canPassThrough()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::canPassThrough </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>mover</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>other</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c0db7c9ec1ab1853757e9f047a968cc" name="a5c0db7c9ec1ab1853757e9f047a968cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c0db7c9ec1ab1853757e9f047a968cc">&#9670;&#160;</a></span>combatants()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt; core::CombatState::combatants </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tous les combattants enrôlés, sortis compris, par identifiant croissant. </p>
+
+</div>
+</div>
+<a id="a0befac60163ae5122aff87f0db9ae9ac" name="a0befac60163ae5122aff87f0db9ae9ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0befac60163ae5122aff87f0db9ae9ac">&#9670;&#160;</a></span>counters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1ScopedCounters.html">ScopedCounters</a> &amp; core::CombatState::counters </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les compteurs à portée du combat. </p>
+<p>La machine vide la portée <span class="tt">Turn</span> à chaque fin de tour, <span class="tt">Round</span> à chaque début de round, et <span class="tt">Turn</span>, <span class="tt">Round</span> et <span class="tt"><a class="el" href="structcore_1_1Encounter.html" title="Une rencontre, telle que la donnée la décrit.">Encounter</a></span> à la fin du combat. Elle ne touche jamais <span class="tt">Day</span>. </p>
+
+</div>
+</div>
+<a id="afafb334909b80667445bd12b5e8a8e4b" name="afafb334909b80667445bd12b5e8a8e4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afafb334909b80667445bd12b5e8a8e4b">&#9670;&#160;</a></span>damage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::damage </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1HitPointChange.html">HitPointChange</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>change</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a08363ac86c0e3564713219854249037d" name="a08363ac86c0e3564713219854249037d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08363ac86c0e3564713219854249037d">&#9670;&#160;</a></span>declareAttack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::declareAttack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>attacker</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>target</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Annonce qu'une attaque est <b>déclarée</b>, avant tout jet (<span class="tt"><a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a5a4f89385b5dfc0953b794f3df6378af">CombatHook::AttackDeclared</a></span>). </p>
+<p>Le jet et les dégâts sont dans <span class="tt"><a class="el" href="namespacecore.html#ab1a4d741effe8706e8261be043b9224a" title="Résout une attaque dans le combat : déclaration, jet, dégâts, points de vie.">core::resolveAttack</a></span> (<span class="tt">LOT-21</span>) ; ce crochet est la fenêtre où une posture répond à l'intention, avant que le dé ne tombe.</p>
+<dl class="section return"><dt>Returns</dt><dd>Faux si l'un des deux n'est pas debout, ou si le combat n'est pas en cours. </dd></dl>
+
+</div>
+</div>
+<a id="a60abc195d90cdbaf8f966905338a5006" name="a60abc195d90cdbaf8f966905338a5006"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60abc195d90cdbaf8f966905338a5006">&#9670;&#160;</a></span>dispatch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::dispatch </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1CombatEvent.html">CombatEvent</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0cfb2a7f9109ffbb3e46bbc9a089dd39" name="a0cfb2a7f9109ffbb3e46bbc9a089dd39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cfb2a7f9109ffbb3e46bbc9a089dd39">&#9670;&#160;</a></span>economy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1ActionEconomy.html">ActionEconomy</a> * core::CombatState::economy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'économie d'action d'un combattant — pour dépenser une réaction hors de son tour, ou octroyer une ressource. </p>
+<p><span class="tt">nullptr</span> s'il est inconnu. </p>
+
+</div>
+</div>
+<a id="a103e0cac46c3818d612fa11dd71e4887" name="a103e0cac46c3818d612fa11dd71e4887"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a103e0cac46c3818d612fa11dd71e4887">&#9670;&#160;</a></span>endTurn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::endTurn </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Termine <b>explicitement</b> le tour en cours (<span class="tt">EX-CBT-012</span>). </p>
+<dl class="section return"><dt>Returns</dt><dd>Faux s'il n'y a pas de tour en cours, ou si l'appel vient d'un abonné. </dd></dl>
+
+</div>
+</div>
+<a id="a6b93a098ead5dc29dfc1d3983a4889c6" name="a6b93a098ead5dc29dfc1d3983a4889c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b93a098ead5dc29dfc1d3983a4889c6">&#9670;&#160;</a></span>enlist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1EnlistResult.html">EnlistResult</a> core::CombatState::enlist </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1CombatantProfile.html">CombatantProfile</a></td>          <td class="paramname"><span class="paramname"><em>profile</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>anchor</em></span><span class="paramdefsep"> = </span><span class="paramdefval">std::nullopt</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enrôle un combattant avant le début du combat, et le place si <code class="param">anchor</code> est donné. </p>
+<p>Les identifiants sont attribués <b>dans l'ordre des enrôlements</b>, à partir de 1 : c'est l'ordre de la donnée, et le dernier critère de départage de l'initiative. Un placement refusé n'enrôle personne et ne consomme aucun identifiant. </p>
+
+</div>
+</div>
+<a id="a21d4d4efd3e42a1249a8218338578ebf" name="a21d4d4efd3e42a1249a8218338578ebf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21d4d4efd3e42a1249a8218338578ebf">&#9670;&#160;</a></span>escapable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::escapable </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ace46dff01f1bb0ba355ad6486e77a8ca" name="ace46dff01f1bb0ba355ad6486e77a8ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace46dff01f1bb0ba355ad6486e77a8ca">&#9670;&#160;</a></span>find()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1Combatant.html">Combatant</a> * core::CombatState::find </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae2486edc3ded0283dea288aef615b1ce" name="ae2486edc3ded0283dea288aef615b1ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2486edc3ded0283dea288aef615b1ce">&#9670;&#160;</a></span>findMutable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Combatant.html">Combatant</a> * core::CombatState::findMutable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7c8e2542cf6057e92c18ad47a1e793d3" name="a7c8e2542cf6057e92c18ad47a1e793d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c8e2542cf6057e92c18ad47a1e793d3">&#9670;&#160;</a></span>finishTurn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::finishTurn </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9bf629284941ad3a0e4d8bce749a87c2" name="a9bf629284941ad3a0e4d8bce749a87c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bf629284941ad3a0e4d8bce749a87c2">&#9670;&#160;</a></span>grantReserve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::grantReserve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1HitPointReserve.html">HitPointReserve</a></td>          <td class="paramname"><span class="paramname"><em>reserve</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Donne une réserve de points de vie. </p>
+<p>Une réserve qui ne se cumule pas remplace celle de même source si elle est plus grande, et est ignorée sinon ; une réserve qui se cumule s'ajoute à la pile. Ne relève personne. </p><dl class="section return"><dt>Returns</dt><dd>Faux si le combattant est inconnu ou sorti, ou si la réserve est ignorée. </dd></dl>
+
+</div>
+</div>
+<a id="a7f3fae84024674a5c70227a98a248735" name="a7f3fae84024674a5c70227a98a248735"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f3fae84024674a5c70227a98a248735">&#9670;&#160;</a></span>grid() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classcore_1_1BattleGrid.html">BattleGrid</a> &amp; core::CombatState::grid </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afc7082aa97336d45c5d4e8a186fdb38a" name="afc7082aa97336d45c5d4e8a186fdb38a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc7082aa97336d45c5d4e8a186fdb38a">&#9670;&#160;</a></span>grid() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1BattleGrid.html">BattleGrid</a> &amp; core::CombatState::grid </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La grille, pour ce qui la change en combat : terrain difficile créé, objet détruit. </p>
+
+</div>
+</div>
+<a id="a1e3393e02294763a744e669875379eaf" name="a1e3393e02294763a744e669875379eaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e3393e02294763a744e669875379eaf">&#9670;&#160;</a></span>heal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::heal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>amount</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rend <code class="param">amount</code> points de vie, sans dépasser le maximum ; relève un combattant à terre. </p>
+<p>Les réserves ne se soignent pas. </p>
+
+</div>
+</div>
+<a id="a50b0d58335080428272acee52ca4e17d" name="a50b0d58335080428272acee52ca4e17d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50b0d58335080428272acee52ca4e17d">&#9670;&#160;</a></span>interject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::interject </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>floatingActor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Demande qu'un acteur flottant joue <b>avant le prochain tour</b>. </p>
+<p>Appelé pendant un tour, l'acteur joue dès que ce tour se termine ; appelé depuis un crochet de début de round ou de repère, il joue avant la place suivante. Une fois par round.</p>
+<dl class="section return"><dt>Returns</dt><dd>Faux si le combattant n'est pas un acteur flottant debout, ou s'il a déjà joué ce round-ci. </dd></dl>
+
+</div>
+</div>
+<a id="aaadb0bf8e3d2eb699a6094e1ae12ac46" name="aaadb0bf8e3d2eb699a6094e1ae12ac46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaadb0bf8e3d2eb699a6094e1ae12ac46">&#9670;&#160;</a></span>join()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1EnlistResult.html">EnlistResult</a> core::CombatState::join </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1CombatantProfile.html">CombatantProfile</a></td>          <td class="paramname"><span class="paramname"><em>profile</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>anchor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>random</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fait entrer un combattant <b>en cours</b> de combat : un renfort. </p>
+<p>Il jette son initiative et prend sa place : rangée après la place en cours, il joue ce round-ci ; avant, au round suivant — ce que dit le Manuel, sans cas particulier. </p>
+
+</div>
+</div>
+<a id="a6e3439a69c1b59575f80c6d37ec9d5f3" name="a6e3439a69c1b59575f80c6d37ec9d5f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e3439a69c1b59575f80c6d37ec9d5f3">&#9670;&#160;</a></span>joinAtInitiative()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1EnlistResult.html">EnlistResult</a> core::CombatState::joinAtInitiative </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1CombatantProfile.html">CombatantProfile</a></td>          <td class="paramname"><span class="paramname"><em>profile</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>anchor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>initiative</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fait entrer un combattant à une initiative <b>imposée</b> — un renfort « au rang 0 ». </p>
+
+</div>
+</div>
+<a id="a584829bfc15c2dbdf718d30c37ffccd2" name="a584829bfc15c2dbdf718d30c37ffccd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a584829bfc15c2dbdf718d30c37ffccd2">&#9670;&#160;</a></span>move()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1MoveOutcome.html">MoveOutcome</a> core::CombatState::move </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>destination</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Déplace le combattant actif jusqu'à <code class="param">destination</code>, et paie le chemin. </p>
+<p>Le chemin est celui de <span class="tt"><a class="el" href="classcore_1_1ReachableArea.html#a432ca85fca1abce130cc687720e5a537" title="Le chemin jusqu&#39;à anchor, ou std::nullopt si l&#39;on ne peut pas y finir.">core::ReachableArea::pathTo</a></span>, calculé sur ce qui reste du budget : le déplacement se fractionne, et chaque fraction se paie (<span class="tt"><a class="el" href="classcore_1_1ActionEconomy.html" title="L&#39;économie d&#39;action d&#39;un combattant : une liste de ressources, pas trois booléens.">core::ActionEconomy</a></span>). </p>
+
+</div>
+</div>
+<a id="accaddc06b725f6bc88576a494c14701f" name="accaddc06b725f6bc88576a494c14701f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accaddc06b725f6bc88576a494c14701f">&#9670;&#160;</a></span>moverFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Mover.html">Mover</a> core::CombatState::moverFor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le <span class="tt"><a class="el" href="structcore_1_1Mover.html" title="Qui se déplace, comment, et à travers qui.">core::Mover</a></span> d'un combattant, droit de passage compris. </p>
+<p>Manuel des Joueurs, « Se déplacer au milieu d'autres créatures » (PDF p. 193) : on traverse la case d'une créature <b>non hostile</b> — ici, d'un allié —, et celle d'une créature hostile seulement si elle a <b>deux catégories de taille</b> de plus ou de moins. Il désigne l'état par son adresse, et ne vit pas plus longtemps que lui. </p>
+
+</div>
+</div>
+<a id="adca98bdb5f73f72089e5fc53a4262c2a" name="adca98bdb5f73f72089e5fc53a4262c2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adca98bdb5f73f72089e5fc53a4262c2a">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#af4ec7f8f808f32f83d13ceb529f31dd6">CombatState</a> &amp; core::CombatState::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#af4ec7f8f808f32f83d13ceb529f31dd6">CombatState</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5a289b285839c868daa30cde9077e020" name="a5a289b285839c868daa30cde9077e020"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a289b285839c868daa30cde9077e020">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#af4ec7f8f808f32f83d13ceb529f31dd6">CombatState</a> &amp; core::CombatState::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#af4ec7f8f808f32f83d13ceb529f31dd6">CombatState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a262ea3a0ba978bcbfcb1b8c2e6a7c4c5" name="a262ea3a0ba978bcbfcb1b8c2e6a7c4c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a262ea3a0ba978bcbfcb1b8c2e6a7c4c5">&#9670;&#160;</a></span>outcome()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="namespacecore.html#a8825ea64ff05621b7c2c8a073d27577c">CombatOutcome</a> &gt; core::CombatState::outcome </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'issue, une fois le combat terminé. </p>
+
+</div>
+</div>
+<a id="a0474d17b1316dd9d0936ee799861621e" name="a0474d17b1316dd9d0936ee799861621e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0474d17b1316dd9d0936ee799861621e">&#9670;&#160;</a></span>phase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840">CombatPhase</a> core::CombatState::phase </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad4eaa10cde16ff59c234593b3c96fe39" name="ad4eaa10cde16ff59c234593b3c96fe39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4eaa10cde16ff59c234593b3c96fe39">&#9670;&#160;</a></span>reachableArea()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="classcore_1_1ReachableArea.html">ReachableArea</a> &gt; core::CombatState::reachableArea </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Où le combattant actif peut aller, avec <b>ce qui reste</b> de son déplacement. </p>
+<dl class="section return"><dt>Returns</dt><dd>Vide s'il n'y a pas de tour ou si le combattant n'est pas placé. </dd></dl>
+
+</div>
+</div>
+<a id="aa078e84132bf19acbac3fcc06fa7505c" name="aa078e84132bf19acbac3fcc06fa7505c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa078e84132bf19acbac3fcc06fa7505c">&#9670;&#160;</a></span>reachEndIfDecided()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::reachEndIfDecided </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5882ba9f52bd6f27c182605457552795" name="a5882ba9f52bd6f27c182605457552795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5882ba9f52bd6f27c182605457552795">&#9670;&#160;</a></span>reentrant()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::reentrant </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee8ca6f077852d4866fe08c7834712fb" name="aee8ca6f077852d4866fe08c7834712fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee8ca6f077852d4866fe08c7834712fb">&#9670;&#160;</a></span>reserves()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structcore_1_1HitPointReserve.html">HitPointReserve</a> &gt; * core::CombatState::reserves </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les réserves d'un combattant, pour que le pipeline les consomme. </p>
+<p><span class="tt">nullptr</span> s'il est inconnu. </p>
+
+</div>
+</div>
+<a id="aac0adc9df379ab0e0b674a1db47b57d1" name="aac0adc9df379ab0e0b674a1db47b57d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac0adc9df379ab0e0b674a1db47b57d1">&#9670;&#160;</a></span>rollInitiative()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::rollInitiative </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Combatant.html">Combatant</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>combatant</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>random</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a776b38369177ac00b08247954993c0d9" name="a776b38369177ac00b08247954993c0d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a776b38369177ac00b08247954993c0d9">&#9670;&#160;</a></span>round()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::CombatState::round </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le round en cours, à partir de 1 ; 0 avant le premier. </p>
+
+</div>
+</div>
+<a id="a20bd1b31111e341582b808664570a07a" name="a20bd1b31111e341582b808664570a07a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20bd1b31111e341582b808664570a07a">&#9670;&#160;</a></span>running()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::running </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1a0b7643e2a1ad8a1b3ab5262dec6c0b" name="a1a0b7643e2a1ad8a1b3ab5262dec6c0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a0b7643e2a1ad8a1b3ab5262dec6c0b">&#9670;&#160;</a></span>setEscapable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::setEscapable </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>escapable</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Permet ou interdit la fuite des alliés — recopié de la rencontre. </p>
+
+</div>
+</div>
+<a id="ae34d81af106fe34f4bbaef2d07db203f" name="ae34d81af106fe34f4bbaef2d07db203f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae34d81af106fe34f4bbaef2d07db203f">&#9670;&#160;</a></span>settle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::settle </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5b6c2527f4086d3e128ecccf78889768" name="a5b6c2527f4086d3e128ecccf78889768"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b6c2527f4086d3e128ecccf78889768">&#9670;&#160;</a></span>spend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::spend </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>resource</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>amount</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dépense une ressource du combattant actif. Faux s'il n'y a pas de tour, ou pas assez. </p>
+
+</div>
+</div>
+<a id="a311f1bd4157e775aaa91f3fc8c43d2bb" name="a311f1bd4157e775aaa91f3fc8c43d2bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a311f1bd4157e775aaa91f3fc8c43d2bb">&#9670;&#160;</a></span>start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::start </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>random</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Jette l'initiative de chacun et ouvre le premier tour. </p>
+<p>Les jets se font par identifiant croissant : à graine égale, les mêmes dés tombent sur les mêmes combattants, et le rejeu est exact.</p>
+<dl class="section return"><dt>Returns</dt><dd>Faux si le combat n'est plus en montage, ou si l'appel vient d'un abonné. </dd></dl>
+
+</div>
+</div>
+<a id="aeb13a57913e704ff4902893a9dc1a456" name="aeb13a57913e704ff4902893a9dc1a456"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb13a57913e704ff4902893a9dc1a456">&#9670;&#160;</a></span>startInterjection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::startInterjection </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ouvre le tour du premier acteur intercalé encore debout ; faux s'il n'y en a pas. </p>
+
+</div>
+</div>
+<a id="a52af7bc3bd2bb2916b131a8214ab57d8" name="a52af7bc3bd2bb2916b131a8214ab57d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52af7bc3bd2bb2916b131a8214ab57d8">&#9670;&#160;</a></span>startTurn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::startTurn </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9deb9814c21893b2e4731a7fcda8542b" name="a9deb9814c21893b2e4731a7fcda8542b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9deb9814c21893b2e4731a7fcda8542b">&#9670;&#160;</a></span>step()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::step </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aea633b2feb4807ca7db6870344dfb56d" name="aea633b2feb4807ca7db6870344dfb56d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea633b2feb4807ca7db6870344dfb56d">&#9670;&#160;</a></span>subscribe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::subscribe </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9">CombatHook</a></td>          <td class="paramname"><span class="paramname"><em>hook</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#aec8883b9ba0315c5d8d5b710a34d03d4">CombatListener</a></td>          <td class="paramname"><span class="paramname"><em>listener</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Abonne <code class="param">listener</code> à <code class="param">hook</code>. </p>
+
+</div>
+</div>
+<a id="ab29728916a627f5e463bbe3928e46179" name="ab29728916a627f5e463bbe3928e46179"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab29728916a627f5e463bbe3928e46179">&#9670;&#160;</a></span>takeFixedInitiative()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::takeFixedInitiative </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Combatant.html">Combatant</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>combatant</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>initiative</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a174c061edff675dae5d780013d44909f" name="a174c061edff675dae5d780013d44909f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a174c061edff675dae5d780013d44909f">&#9670;&#160;</a></span>turnOrder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classcore_1_1TurnOrder.html">TurnOrder</a> &amp; core::CombatState::turnOrder </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7770c8599b487305a83920da2df77ea9" name="a7770c8599b487305a83920da2df77ea9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7770c8599b487305a83920da2df77ea9">&#9670;&#160;</a></span>withdraw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#ae1ab268fb5658f04b32b785790e7c082">WithdrawResult</a> core::CombatState::withdraw </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fait sortir un combattant : il quitte la grille et l'ordre, et ne revient pas. </p>
+<p>S'il était en train de jouer, son tour se termine — le crochet de fin de tour est annoncé, parce que les actions légendaires ne distinguent pas un tour fini d'un tour interrompu. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a99b177367e82ffd0e77f18be022ba83f" name="a99b177367e82ffd0e77f18be022ba83f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99b177367e82ffd0e77f18be022ba83f">&#9670;&#160;</a></span>_active</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a>&gt; core::CombatState::_active</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a630e16d458263fa061eab50540dc39e7" name="a630e16d458263fa061eab50540dc39e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a630e16d458263fa061eab50540dc39e7">&#9670;&#160;</a></span>_advancePending</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::_advancePending = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai quand la machine doit chercher la place suivante. </p>
+
+</div>
+</div>
+<a id="a64c1c38edebfcd253bcef9c09dd0d779" name="a64c1c38edebfcd253bcef9c09dd0d779"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64c1c38edebfcd253bcef9c09dd0d779">&#9670;&#160;</a></span>_closingRound</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::_closingRound = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai quand le round a déjà proposé leur tour aux acteurs flottants qui n'avaient pas joué. </p>
+
+</div>
+</div>
+<a id="a877cf507430e17a7b8a63796cf23d69b" name="a877cf507430e17a7b8a63796cf23d69b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a877cf507430e17a7b8a63796cf23d69b">&#9670;&#160;</a></span>_combatants</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Combatant.html">Combatant</a>&gt; core::CombatState::_combatants</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Par identifiant croissant : l'identifiant vaut sa position plus un. </p>
+
+</div>
+</div>
+<a id="a770222ee269eb7aaffd8b70c33f8d964" name="a770222ee269eb7aaffd8b70c33f8d964"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a770222ee269eb7aaffd8b70c33f8d964">&#9670;&#160;</a></span>_counters</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1ScopedCounters.html">ScopedCounters</a> core::CombatState::_counters</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5557696fbddc8315807720401570adea" name="a5557696fbddc8315807720401570adea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5557696fbddc8315807720401570adea">&#9670;&#160;</a></span>_cursor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1TurnSlot.html">TurnSlot</a>&gt; core::CombatState::_cursor</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La dernière place parcourue dans le round. </p>
+
+</div>
+</div>
+<a id="af4114b55536993107c45228fa3ddafb9" name="af4114b55536993107c45228fa3ddafb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4114b55536993107c45228fa3ddafb9">&#9670;&#160;</a></span>_depth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::CombatState::_depth = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a11db283e9f30838c82e22af217242c73" name="a11db283e9f30838c82e22af217242c73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11db283e9f30838c82e22af217242c73">&#9670;&#160;</a></span>_escapable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::_escapable = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a15f785a989a5d0915698d6f64a0b0383" name="a15f785a989a5d0915698d6f64a0b0383"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15f785a989a5d0915698d6f64a0b0383">&#9670;&#160;</a></span>_grid</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1BattleGrid.html">BattleGrid</a> core::CombatState::_grid</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a49d96286a0822ad235828403c81393e1" name="a49d96286a0822ad235828403c81393e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49d96286a0822ad235828403c81393e1">&#9670;&#160;</a></span>_interjections</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::deque&lt;<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a>&gt; core::CombatState::_interjections</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les tours d'acteurs flottants à jouer avant la place suivante. </p>
+
+</div>
+</div>
+<a id="aa349c77da80cea5f124b37f3139f91aa" name="aa349c77da80cea5f124b37f3139f91aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa349c77da80cea5f124b37f3139f91aa">&#9670;&#160;</a></span>_listeners</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::pair&lt;<a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9">CombatHook</a>, <a class="el" href="namespacecore.html#aec8883b9ba0315c5d8d5b710a34d03d4">CombatListener</a>&gt; &gt; core::CombatState::_listeners</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2580f8a4f64ae0ccce12dc593ae01924" name="a2580f8a4f64ae0ccce12dc593ae01924"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2580f8a4f64ae0ccce12dc593ae01924">&#9670;&#160;</a></span>_order</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1TurnOrder.html">TurnOrder</a> core::CombatState::_order</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8059cb2465de3aa1373b3d68e66b2b54" name="a8059cb2465de3aa1373b3d68e66b2b54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8059cb2465de3aa1373b3d68e66b2b54">&#9670;&#160;</a></span>_outcome</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="namespacecore.html#a8825ea64ff05621b7c2c8a073d27577c">CombatOutcome</a>&gt; core::CombatState::_outcome</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad261fe6b0e1bf948f73c323a02e870a1" name="ad261fe6b0e1bf948f73c323a02e870a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad261fe6b0e1bf948f73c323a02e870a1">&#9670;&#160;</a></span>_phase</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840">CombatPhase</a> core::CombatState::_phase = <a class="el" href="namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840aad2376beebecdcf7846ba973fa1a005b">CombatPhase::Setup</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4a9785aabe219b6fc2eaf4c51864ce87" name="a4a9785aabe219b6fc2eaf4c51864ce87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a9785aabe219b6fc2eaf4c51864ce87">&#9670;&#160;</a></span>_round</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::CombatState::_round = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a057170fe31a599ae380e705c9565162e" name="a057170fe31a599ae380e705c9565162e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a057170fe31a599ae380e705c9565162e">&#9670;&#160;</a></span>_turnThisRound</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::_turnThisRound = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/<a class="el" href="CombatState_8h_source.html">CombatState.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/<a class="el" href="CombatState_8cpp.html">CombatState.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="classcore_1_1CombatState.html">CombatState</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

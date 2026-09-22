@@ -1,0 +1,278 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/EditorSidecar.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('EditorSidecar_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">EditorSidecar.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="EditorSidecar_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;nlohmann/json.hpp&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="GridPosition_8h.html">Core/Levels/GridPosition.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="};">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564">   38</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564">MapState</a> {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564ac9f88e098f6fe4e4e112eeb05ccb9671">   40</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564ac9f88e098f6fe4e4e112eeb05ccb9671">Unset</a>,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564a5c5f06440fcb85cd5c8cfafe32e34b78">   42</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564a5c5f06440fcb85cd5c8cfafe32e34b78">Generated</a>,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564a91154212ef65672bbc870d4b7bb142c5">   46</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564a91154212ef65672bbc870d4b7bb142c5">Blockout</a>,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564ab128707466a11095d88ad0a3449c421f">   48</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564ab128707466a11095d88ad0a3449c421f">Retouched</a>,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564a8f3d10eb21bd36347c258679eba9e92b">   50</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564a8f3d10eb21bd36347c258679eba9e92b">Finished</a>,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>};</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>[[nodiscard]] std::string_view <a class="code hl_function" href="namespacehmi.html#af6b81c8d64a89cc5b4ddf6448fb8bc7e">mapStateKey</a>(<a class="code hl_enumeration" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564">MapState</a> state) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>[[nodiscard]] <a class="code hl_enumeration" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564">MapState</a> <a class="code hl_function" href="namespacehmi.html#a66c7ffd37a4eee4e6c716aac5494b04d">mapStateFromKey</a>(std::string_view key) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>[[nodiscard]] std::string_view <a class="code hl_function" href="namespacehmi.html#a6ebc28d193225270289edf917fe2fd1b">mapStateLabel</a>(<a class="code hl_enumeration" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564">MapState</a> state) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>[[nodiscard]] <span class="keyword">const</span> std::vector&lt;MapState&gt;&amp; <a class="code hl_function" href="namespacehmi.html#ae57583841fc02117460e1187182aefd0">knownMapStates</a>();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span></div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="};">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structhmi_1_1AuthorNote.html">   67</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1AuthorNote.html">AuthorNote</a> {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structhmi_1_1AuthorNote.html#ab46e61c9782d7a94146c008747c90c4e">   68</a></span>    <a class="code hl_struct" href="structcore_1_1GridPosition.html">core::GridPosition</a> <a class="code hl_variable" href="structhmi_1_1AuthorNote.html#ab46e61c9782d7a94146c008747c90c4e">cell</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structhmi_1_1AuthorNote.html#a0611118fa8b6128104e78d7c54d4c586">   69</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1AuthorNote.html#a0611118fa8b6128104e78d7c54d4c586">text</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structhmi_1_1AuthorNote.html#abca756fdf141967967004aa082ca45c6">   71</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1AuthorNote.html#abca756fdf141967967004aa082ca45c6">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1AuthorNote.html">AuthorNote</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>};</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span></div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="};">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="structhmi_1_1EditorSidecar.html">   75</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1EditorSidecar.html">EditorSidecar</a> {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="structhmi_1_1EditorSidecar.html#ae5ef4b6fe23d6646558d19fcc8b6e684">   77</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1EditorSidecar.html#ae5ef4b6fe23d6646558d19fcc8b6e684">FORMAT_VERSION</a> = 1;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="structhmi_1_1EditorSidecar.html#aac086eb4b9d3d8a7e675f090b04abc1d">   80</a></span>    std::vector&lt;AuthorNote&gt; <a class="code hl_variable" href="structhmi_1_1EditorSidecar.html#aac086eb4b9d3d8a7e675f090b04abc1d">notes</a>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="structhmi_1_1EditorSidecar.html#ad88f5ccfd30037bd7b5b432410cdfc31">   82</a></span>    <a class="code hl_enumeration" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564">MapState</a> <a class="code hl_variable" href="structhmi_1_1EditorSidecar.html#ad88f5ccfd30037bd7b5b432410cdfc31">state</a> = <a class="code hl_enumvalue" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564ac9f88e098f6fe4e4e112eeb05ccb9671">MapState::Unset</a>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="structhmi_1_1EditorSidecar.html#afdfab3902fd2d0b0cfb8b2d27c67925b">   84</a></span>    nlohmann::json <a class="code hl_variable" href="structhmi_1_1EditorSidecar.html#afdfab3902fd2d0b0cfb8b2d27c67925b">unknown</a> = nlohmann::json::object();</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="structhmi_1_1EditorSidecar.html#a9dc2f1caa8988d9d2444c2dc02ca24c4">   86</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1EditorSidecar.html#a9dc2f1caa8988d9d2444c2dc02ca24c4">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1EditorSidecar.html">EditorSidecar</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span></div>
+<div class="foldopen" id="foldopen00089" data-start="{" data-end="}">
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="structhmi_1_1EditorSidecar.html#a48be75302037d1e1b4483346b88b1bf7">   89</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1EditorSidecar.html#a48be75302037d1e1b4483346b88b1bf7">empty</a>() const noexcept {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structhmi_1_1EditorSidecar.html#aac086eb4b9d3d8a7e675f090b04abc1d">notes</a>.empty() &amp;&amp; <a class="code hl_variable" href="structhmi_1_1EditorSidecar.html#afdfab3902fd2d0b0cfb8b2d27c67925b">unknown</a>.empty() &amp;&amp; <a class="code hl_variable" href="structhmi_1_1EditorSidecar.html#ad88f5ccfd30037bd7b5b432410cdfc31">state</a> == <a class="code hl_enumvalue" href="namespacehmi.html#a5329d365328d797b903f9f92f964d564ac9f88e098f6fe4e4e112eeb05ccb9671">MapState::Unset</a>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
+</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>};</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>[[nodiscard]] std::filesystem::path <a class="code hl_function" href="namespacehmi.html#a28a348b8119969df025bff7cb050234b">sidecarPath</a>(<span class="keyword">const</span> std::filesystem::path&amp; levelPath);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>[[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacehmi.html#ab5342ecaae737d73b9f36aa33f33b20d">isSidecarFile</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span></div>
+<div class="foldopen" id="foldopen00101" data-start="{" data-end="};">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="structhmi_1_1SidecarReadResult.html">  101</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1SidecarReadResult.html">SidecarReadResult</a> {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="structhmi_1_1SidecarReadResult.html#ab9190aef9a7e2edb1cffbda4610a3d1b">  102</a></span>    <a class="code hl_struct" href="structhmi_1_1EditorSidecar.html">EditorSidecar</a> <a class="code hl_variable" href="structhmi_1_1SidecarReadResult.html#ab9190aef9a7e2edb1cffbda4610a3d1b">sidecar</a>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="structhmi_1_1SidecarReadResult.html#aef6ccb6ab488e1f6c1f3474f0767e84a">  104</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1SidecarReadResult.html#aef6ccb6ab488e1f6c1f3474f0767e84a">warning</a>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>};</div>
+</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1SidecarReadResult.html">SidecarReadResult</a> <a class="code hl_function" href="namespacehmi.html#acc668b4889979f8fe050aa66513c6ae5">parseSidecar</a>(std::string_view json);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1SidecarReadResult.html">SidecarReadResult</a> <a class="code hl_function" href="namespacehmi.html#ac51b44b64e58f633a33fd9f137a75e5e">readSidecar</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacehmi.html#af9e99c3df83d453a28ec874bc6106d4a">sidecarJson</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1EditorSidecar.html">EditorSidecar</a>&amp; sidecar);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="keywordtype">bool</span> <a class="code hl_function" href="namespacehmi.html#a868dcb3f5bae6a1191118bfb6aeea1c8">writeSidecar</a>(<span class="keyword">const</span> std::filesystem::path&amp; path, <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1EditorSidecar.html">EditorSidecar</a>&amp; sidecar);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>[[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1AuthorNote.html">AuthorNote</a>* <a class="code hl_function" href="namespacehmi.html#a55dd038af95137b5be885aade862d10e">noteAt</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1EditorSidecar.html">EditorSidecar</a>&amp; sidecar, <a class="code hl_struct" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="keywordtype">bool</span> <a class="code hl_function" href="namespacehmi.html#a3c12284190bee7405686941fa445fff7">setNote</a>(<a class="code hl_struct" href="structhmi_1_1EditorSidecar.html">EditorSidecar</a>&amp; sidecar, <a class="code hl_struct" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell, std::string text);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aGridPosition_8h_html"><div class="ttname"><a href="GridPosition_8h.html">GridPosition.h</a></div><div class="ttdoc">Position entière dans la grille d&#39;un niveau (colonne, ligne).</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a28a348b8119969df025bff7cb050234b"><div class="ttname"><a href="namespacehmi.html#a28a348b8119969df025bff7cb050234b">hmi::sidecarPath</a></div><div class="ttdeci">std::filesystem::path sidecarPath(const std::filesystem::path &amp;levelPath)</div><div class="ttdef"><b>Definition</b> EditorSidecar.cpp:78</div></div>
+<div class="ttc" id="anamespacehmi_html_a3c12284190bee7405686941fa445fff7"><div class="ttname"><a href="namespacehmi.html#a3c12284190bee7405686941fa445fff7">hmi::setNote</a></div><div class="ttdeci">bool setNote(EditorSidecar &amp;sidecar, core::GridPosition cell, std::string text)</div><div class="ttdoc">Écrit la note de cell ; un texte vide (ou fait d&#39;espaces) la retire.</div><div class="ttdef"><b>Definition</b> EditorSidecar.cpp:183</div></div>
+<div class="ttc" id="anamespacehmi_html_a5329d365328d797b903f9f92f964d564"><div class="ttname"><a href="namespacehmi.html#a5329d365328d797b903f9f92f964d564">hmi::MapState</a></div><div class="ttdeci">MapState</div><div class="ttdoc">Où en est une carte (LOT-EDITOR-09, EX-EDIT-092) : ce que le navigateur montre, et le tableau de bord...</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:38</div></div>
+<div class="ttc" id="anamespacehmi_html_a5329d365328d797b903f9f92f964d564a5c5f06440fcb85cd5c8cfafe32e34b78"><div class="ttname"><a href="namespacehmi.html#a5329d365328d797b903f9f92f964d564a5c5f06440fcb85cd5c8cfafe32e34b78">hmi::MapState::Generated</a></div><div class="ttdeci">@ Generated</div><div class="ttdoc">Sortie du générateur, ou posée par un modèle : personne ne l&#39;a encore regardée.</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:42</div></div>
+<div class="ttc" id="anamespacehmi_html_a5329d365328d797b903f9f92f964d564a8f3d10eb21bd36347c258679eba9e92b"><div class="ttname"><a href="namespacehmi.html#a5329d365328d797b903f9f92f964d564a8f3d10eb21bd36347c258679eba9e92b">hmi::MapState::Finished</a></div><div class="ttdeci">@ Finished</div><div class="ttdoc">Finie : elle se joue telle quelle.</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:50</div></div>
+<div class="ttc" id="anamespacehmi_html_a5329d365328d797b903f9f92f964d564a91154212ef65672bbc870d4b7bb142c5"><div class="ttname"><a href="namespacehmi.html#a5329d365328d797b903f9f92f964d564a91154212ef65672bbc870d4b7bb142c5">hmi::MapState::Blockout</a></div><div class="ttdeci">@ Blockout</div><div class="ttdoc">Maquettée (LOT-128) : sa physique est tracée — où l&#39;on marche, ce qui bloque, qui est où,...</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:46</div></div>
+<div class="ttc" id="anamespacehmi_html_a5329d365328d797b903f9f92f964d564ab128707466a11095d88ad0a3449c421f"><div class="ttname"><a href="namespacehmi.html#a5329d365328d797b903f9f92f964d564ab128707466a11095d88ad0a3449c421f">hmi::MapState::Retouched</a></div><div class="ttdeci">@ Retouched</div><div class="ttdoc">Retouchée à la main, mais pas terminée.</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:48</div></div>
+<div class="ttc" id="anamespacehmi_html_a5329d365328d797b903f9f92f964d564ac9f88e098f6fe4e4e112eeb05ccb9671"><div class="ttname"><a href="namespacehmi.html#a5329d365328d797b903f9f92f964d564ac9f88e098f6fe4e4e112eeb05ccb9671">hmi::MapState::Unset</a></div><div class="ttdeci">@ Unset</div><div class="ttdoc">Rien n&#39;est dit : une carte qu&#39;on vient de créer.</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:40</div></div>
+<div class="ttc" id="anamespacehmi_html_a55dd038af95137b5be885aade862d10e"><div class="ttname"><a href="namespacehmi.html#a55dd038af95137b5be885aade862d10e">hmi::noteAt</a></div><div class="ttdeci">const AuthorNote * noteAt(const EditorSidecar &amp;sidecar, core::GridPosition cell)</div><div class="ttdef"><b>Definition</b> EditorSidecar.cpp:178</div></div>
+<div class="ttc" id="anamespacehmi_html_a66c7ffd37a4eee4e6c716aac5494b04d"><div class="ttname"><a href="namespacehmi.html#a66c7ffd37a4eee4e6c716aac5494b04d">hmi::mapStateFromKey</a></div><div class="ttdeci">MapState mapStateFromKey(std::string_view key) noexcept</div><div class="ttdef"><b>Definition</b> EditorSidecar.cpp:47</div></div>
+<div class="ttc" id="anamespacehmi_html_a6ebc28d193225270289edf917fe2fd1b"><div class="ttname"><a href="namespacehmi.html#a6ebc28d193225270289edf917fe2fd1b">hmi::mapStateLabel</a></div><div class="ttdeci">std::string_view mapStateLabel(MapState state) noexcept</div><div class="ttdef"><b>Definition</b> EditorSidecar.cpp:56</div></div>
+<div class="ttc" id="anamespacehmi_html_a868dcb3f5bae6a1191118bfb6aeea1c8"><div class="ttname"><a href="namespacehmi.html#a868dcb3f5bae6a1191118bfb6aeea1c8">hmi::writeSidecar</a></div><div class="ttdeci">bool writeSidecar(const std::filesystem::path &amp;path, const EditorSidecar &amp;sidecar)</div><div class="ttdoc">Écrit l&#39;annexe dans path, ou retire le fichier si elle est vide.</div><div class="ttdef"><b>Definition</b> EditorSidecar.cpp:162</div></div>
+<div class="ttc" id="anamespacehmi_html_ab5342ecaae737d73b9f36aa33f33b20d"><div class="ttname"><a href="namespacehmi.html#ab5342ecaae737d73b9f36aa33f33b20d">hmi::isSidecarFile</a></div><div class="ttdeci">bool isSidecarFile(const std::filesystem::path &amp;path)</div><div class="ttdef"><b>Definition</b> EditorSidecar.cpp:85</div></div>
+<div class="ttc" id="anamespacehmi_html_ac51b44b64e58f633a33fd9f137a75e5e"><div class="ttname"><a href="namespacehmi.html#ac51b44b64e58f633a33fd9f137a75e5e">hmi::readSidecar</a></div><div class="ttdeci">SidecarReadResult readSidecar(const std::filesystem::path &amp;path)</div><div class="ttdoc">Lit l&#39;annexe de path ; un fichier absent rend une annexe vide, sans avertissement.</div><div class="ttdef"><b>Definition</b> EditorSidecar.cpp:134</div></div>
+<div class="ttc" id="anamespacehmi_html_acc668b4889979f8fe050aa66513c6ae5"><div class="ttname"><a href="namespacehmi.html#acc668b4889979f8fe050aa66513c6ae5">hmi::parseSidecar</a></div><div class="ttdeci">SidecarReadResult parseSidecar(std::string_view json)</div><div class="ttdoc">Lit l&#39;annexe depuis son texte JSON.</div><div class="ttdef"><b>Definition</b> EditorSidecar.cpp:89</div></div>
+<div class="ttc" id="anamespacehmi_html_ae57583841fc02117460e1187182aefd0"><div class="ttname"><a href="namespacehmi.html#ae57583841fc02117460e1187182aefd0">hmi::knownMapStates</a></div><div class="ttdeci">const std::vector&lt; MapState &gt; &amp; knownMapStates()</div><div class="ttdoc">Les états, dans l&#39;ordre d&#39;avancement : ce que les menus et les filtres listent.</div><div class="ttdef"><b>Definition</b> EditorSidecar.cpp:72</div></div>
+<div class="ttc" id="anamespacehmi_html_af6b81c8d64a89cc5b4ddf6448fb8bc7e"><div class="ttname"><a href="namespacehmi.html#af6b81c8d64a89cc5b4ddf6448fb8bc7e">hmi::mapStateKey</a></div><div class="ttdeci">std::string_view mapStateKey(MapState state) noexcept</div><div class="ttdef"><b>Definition</b> EditorSidecar.cpp:31</div></div>
+<div class="ttc" id="anamespacehmi_html_af9e99c3df83d453a28ec874bc6106d4a"><div class="ttname"><a href="namespacehmi.html#af9e99c3df83d453a28ec874bc6106d4a">hmi::sidecarJson</a></div><div class="ttdeci">std::string sidecarJson(const EditorSidecar &amp;sidecar)</div><div class="ttdef"><b>Definition</b> EditorSidecar.cpp:143</div></div>
+<div class="ttc" id="astructcore_1_1GridPosition_html"><div class="ttname"><a href="structcore_1_1GridPosition.html">core::GridPosition</a></div><div class="ttdoc">Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.</div><div class="ttdef"><b>Definition</b> GridPosition.h:20</div></div>
+<div class="ttc" id="astructhmi_1_1AuthorNote_html"><div class="ttname"><a href="structhmi_1_1AuthorNote.html">hmi::AuthorNote</a></div><div class="ttdoc">Une note d&#39;auteur, épinglée à une case.</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:67</div></div>
+<div class="ttc" id="astructhmi_1_1AuthorNote_html_a0611118fa8b6128104e78d7c54d4c586"><div class="ttname"><a href="structhmi_1_1AuthorNote.html#a0611118fa8b6128104e78d7c54d4c586">hmi::AuthorNote::text</a></div><div class="ttdeci">std::string text</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:69</div></div>
+<div class="ttc" id="astructhmi_1_1AuthorNote_html_ab46e61c9782d7a94146c008747c90c4e"><div class="ttname"><a href="structhmi_1_1AuthorNote.html#ab46e61c9782d7a94146c008747c90c4e">hmi::AuthorNote::cell</a></div><div class="ttdeci">core::GridPosition cell</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:68</div></div>
+<div class="ttc" id="astructhmi_1_1AuthorNote_html_abca756fdf141967967004aa082ca45c6"><div class="ttname"><a href="structhmi_1_1AuthorNote.html#abca756fdf141967967004aa082ca45c6">hmi::AuthorNote::operator==</a></div><div class="ttdeci">bool operator==(const AuthorNote &amp;) const =default</div></div>
+<div class="ttc" id="astructhmi_1_1EditorSidecar_html"><div class="ttname"><a href="structhmi_1_1EditorSidecar.html">hmi::EditorSidecar</a></div><div class="ttdoc">Le contenu d&#39;un fichier annexe.</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:75</div></div>
+<div class="ttc" id="astructhmi_1_1EditorSidecar_html_a48be75302037d1e1b4483346b88b1bf7"><div class="ttname"><a href="structhmi_1_1EditorSidecar.html#a48be75302037d1e1b4483346b88b1bf7">hmi::EditorSidecar::empty</a></div><div class="ttdeci">bool empty() const noexcept</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:89</div></div>
+<div class="ttc" id="astructhmi_1_1EditorSidecar_html_a9dc2f1caa8988d9d2444c2dc02ca24c4"><div class="ttname"><a href="structhmi_1_1EditorSidecar.html#a9dc2f1caa8988d9d2444c2dc02ca24c4">hmi::EditorSidecar::operator==</a></div><div class="ttdeci">bool operator==(const EditorSidecar &amp;) const =default</div></div>
+<div class="ttc" id="astructhmi_1_1EditorSidecar_html_aac086eb4b9d3d8a7e675f090b04abc1d"><div class="ttname"><a href="structhmi_1_1EditorSidecar.html#aac086eb4b9d3d8a7e675f090b04abc1d">hmi::EditorSidecar::notes</a></div><div class="ttdeci">std::vector&lt; AuthorNote &gt; notes</div><div class="ttdoc">Les notes, une au plus par case, triées ligne par ligne.</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:80</div></div>
+<div class="ttc" id="astructhmi_1_1EditorSidecar_html_ad88f5ccfd30037bd7b5b432410cdfc31"><div class="ttname"><a href="structhmi_1_1EditorSidecar.html#ad88f5ccfd30037bd7b5b432410cdfc31">hmi::EditorSidecar::state</a></div><div class="ttdeci">MapState state</div><div class="ttdoc">Où en est la carte (LOT-EDITOR-09) : MapState::Unset tant que l&#39;auteur ne l&#39;a pas dit.</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:82</div></div>
+<div class="ttc" id="astructhmi_1_1EditorSidecar_html_ae5ef4b6fe23d6646558d19fcc8b6e684"><div class="ttname"><a href="structhmi_1_1EditorSidecar.html#ae5ef4b6fe23d6646558d19fcc8b6e684">hmi::EditorSidecar::FORMAT_VERSION</a></div><div class="ttdeci">static constexpr int FORMAT_VERSION</div><div class="ttdoc">Version du format de l&#39;annexe.</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:77</div></div>
+<div class="ttc" id="astructhmi_1_1EditorSidecar_html_afdfab3902fd2d0b0cfb8b2d27c67925b"><div class="ttname"><a href="structhmi_1_1EditorSidecar.html#afdfab3902fd2d0b0cfb8b2d27c67925b">hmi::EditorSidecar::unknown</a></div><div class="ttdeci">nlohmann::json unknown</div><div class="ttdoc">Les clés que ce lecteur ne connaît pas, gardées pour la réécriture.</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:84</div></div>
+<div class="ttc" id="astructhmi_1_1SidecarReadResult_html"><div class="ttname"><a href="structhmi_1_1SidecarReadResult.html">hmi::SidecarReadResult</a></div><div class="ttdoc">Ce que rend une lecture : l&#39;annexe, et un avertissement si le fichier est illisible.</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:101</div></div>
+<div class="ttc" id="astructhmi_1_1SidecarReadResult_html_ab9190aef9a7e2edb1cffbda4610a3d1b"><div class="ttname"><a href="structhmi_1_1SidecarReadResult.html#ab9190aef9a7e2edb1cffbda4610a3d1b">hmi::SidecarReadResult::sidecar</a></div><div class="ttdeci">EditorSidecar sidecar</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:102</div></div>
+<div class="ttc" id="astructhmi_1_1SidecarReadResult_html_aef6ccb6ab488e1f6c1f3474f0767e84a"><div class="ttname"><a href="structhmi_1_1SidecarReadResult.html#aef6ccb6ab488e1f6c1f3474f0767e84a">hmi::SidecarReadResult::warning</a></div><div class="ttdeci">std::string warning</div><div class="ttdoc">Vide si le fichier se lit ou n&#39;existe pas ; sinon, pourquoi il a été ignoré (en anglais).</div><div class="ttdef"><b>Definition</b> EditorSidecar.h:104</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li><li class="navelem"><a href="EditorSidecar_8h.html">EditorSidecar.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

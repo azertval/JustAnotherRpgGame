@@ -1,0 +1,193 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: Member List</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1SpriteBatch.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::SpriteBatch Member List</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This is the complete list of members for <a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a4f3d7e2dfacde53efd24514ec025dc3b">_batches</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#ab55b02a4ffd9e4000d63693f62690c98">_bindings</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#afc8925a480944a5b8050e03860a630cc">_current</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#ab45c9014b548b8282baec8a22a2d32db">_indexBuffer</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a468edcfd9d19b044c552f2ca037c9bf6">_layoutBindings</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#ab303eefccbd3bb329f936d2200a38f6c">_pendingIndexUpload</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#aa90eaad9d5b0b0c66a8aa5097405ecf8">_pipeline</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#afbed412aa1ed69cb7f2ff6578ab10d3c">_pipelinePass</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#acd5e3d6033293b21d2c82e68ea1f8b5d">_projections</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a1ceed8db38d36076d3009c40ff4c9bfc">_recording</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#afcfcb3f0f6cf5f2b96f21d72c04a7868">_rhi</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a051d302fd795217053cf51e5710ef8ae">_sampler</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#aa28fbb8420ffd82a0c198bead9d83426">_uniformBuffer</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a6279a91381f8ec0615f490b86d04cf92">_uniformSlots</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a1b5776fb9b4409295ff86c089dbda89f">_uniformStride</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a4f2bab919482e653fef21843490599fb">_vertexBuffer</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#aa6b986abf0e31e0aa2275934484599ab">_vertices</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a6c70d3f90ced34e448c7e20c824db8ea">begin</a>(const DirectX::XMFLOAT4X4 &amp;projection, TextureHandle texture)</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#aabfbcc017938ef990ce6d739ae88d815">beginFrame</a>()</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a80b62c1341b00df41de0d4df48207a74">bindingsFor</a>(QRhiTexture *texture)</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a84a3a7057dab5bee8408b368cacfe612">closeBatch</a>()</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#adf3e122b7b78551672d6e8642941383d">draw</a>(const SpriteQuad &amp;quad)</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#afb2cf10826482b3ad8d503a829a8ed5b">draw</a>(const LineQuad &amp;line)</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a50b96c3162fe6f5d3c78b4ff9f482f5f">draw</a>(const PolyQuad &amp;poly)</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#aac9e3e6a4b2e84a4b24b617d6b4ce58d">end</a>()</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a45fd2a054df485079239ce58d99c29d6">ensurePipeline</a>(QRhiRenderTarget *target)</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a2ea59c094fa5a5ba279f22667bfc46a6">ensureUniformCapacity</a>(std::size_t batchCount)</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#ae6d118ec18752d51ceb6e4ed428925dd">ensureVertexCapacity</a>(std::size_t quadCount)</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a57fd718a658a079c6ef72e34f95ce06c">MAXIMUM_QUADS</a></td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a5cdb243248c1ab453f1e00278c3b63f0">operator=</a>(const SpriteBatch &amp;)=delete</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a7cf3b7de85ca3bfd5e083cfda5c4e9ba">rhi</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a08e69f624887237958d145b9050b433d">SpriteBatch</a>(QRhi *rhi)</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a034089bc835d283076338b063ae9e7e7">SpriteBatch</a>(const SpriteBatch &amp;)=delete</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a271469045e5d3087caadd4dcaf4ebbe1">submit</a>(QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target, QRhiResourceUpdateBatch *updates, const float *clear)</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html#a8beb3b957f3cccf4960939d0b203c5fb">~SpriteBatch</a>()</td><td class="entry"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

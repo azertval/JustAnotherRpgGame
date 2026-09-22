@@ -1,0 +1,188 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: Member List</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1WorldGraphView.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::WorldGraphView Member List</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This is the complete list of members for <a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#ae1d1f82efb2ca7456b830e9edd4983f8">_dir</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#ab52350abc952eabccd47d5b4eeb882d2">_graph</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#adced865a8a4d54b8e0c6c80dd85e8b69">_hoveredEdge</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a15721eb44283d54fe4e88b56a9afc2b0">_hoveredNode</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a90c3e97b1b88ac595b6b42d4218049ed">_layout</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a71708049f16d60dccc975214b06f3913">_linkFrom</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a4caecf2b3bb4bc6c7058d473fb3fe036">_linkPoint</a></td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#af41396f73223cf49d642a449d14122ef">edgeToolTip</a>(std::size_t edge) const</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a32aa0408b7bce015c35800fe770b6c15">event</a>(QEvent *event) override</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#af52c4b259a16a7a6988ecfb7e8db6b87">graphLayout</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#af619ffc04825f844525711d406f8e3c7">leaveEvent</a>(QEvent *event) override</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#ac13b54b5a3c70cb00c8f168141aca8e8">levelOpenRequested</a>(const QString &amp;path)</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a0be0a8292fa421e343f575297933aa23">linkRequested</a>(const QString &amp;fromMap, const QString &amp;toMap)</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a6caae3cd45d950cdc09614c1b2571e74">mouseDoubleClickEvent</a>(QMouseEvent *event) override</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#ac4fc383fbc9ca4d6cb9a5f6cd5afe47e">mouseMoveEvent</a>(QMouseEvent *event) override</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a73c563d0bdee1b2e28e4590ef89e31f8">mousePressEvent</a>(QMouseEvent *event) override</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a5b1b2e0a9d9f348abca9a47f7bdc3159">mouseReleaseEvent</a>(QMouseEvent *event) override</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a9d37c5fc2a07d3b9ccc4547ee17dfb97">nodeDetail</a>(const WorldGraphLayoutNode &amp;node)</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#ae9dde0b588fc25d7c59a5bf65dd338fb">nodeLabel</a>(std::size_t node) const</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a9f90d85faf73f76eeffa42a7cb169c6a">nodeToolTip</a>(std::size_t node) const</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a05c9cedc87c8f81677657b07739d7a31">paintEdges</a>(QPainter &amp;painter) const</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a14bf3f0d12b65db7f8f628d41a95a600">paintEvent</a>(QPaintEvent *event) override</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a30f216375bc206190eec999704a771c6">paintLegend</a>(QPainter &amp;painter) const</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#aa34a5dc4e17280de01b27e06ac5f5e21">paintNodes</a>(QPainter &amp;painter) const</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a99e0337e4acb33a23f91876278c6dec2">scale</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a071f2c78c595498c2d697d89354557c9">setGraph</a>(core::WorldGraph graph, std::filesystem::path levelsDir)</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#aaf512f6d92a857b93fe6d876f0b70eee">sizeHint</a>() const override</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a935bdb05c29954b8a75110b36d0ffa67">statusText</a>(core::PortalLinkStatus status)</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#a99aef4a014f2c34637143869a6e542d6">toLayout</a>(QPointF widgetPoint) const</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html#ab419ca0b48a7a9aed1eaf8451d140d4a">WorldGraphView</a>(QWidget *parent=nullptr)</td><td class="entry"><a class="el" href="classhmi_1_1WorldGraphView.html">hmi::WorldGraphView</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+</table></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

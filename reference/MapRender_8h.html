@@ -1,0 +1,204 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/MapRender.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('MapRender_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">MapRender.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><span class="tt">LevelEditor --render</span> : une carte rendue <b>hors écran</b> en PNG, en isométrie, par le peintre du canevas (<span class="tt">LOT-EDITOR-13</span>, décision D9, <span class="tt">EX-EDIT-075</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;QColor&gt;</code><br />
+<code>#include &lt;QImage&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="CanvasScene_8h_source.html">Editor/Logic/CanvasScene.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Stamps_8h_source.html">Editor/Logic/Stamps.h</a>&quot;</code><br />
+</div>
+<p><a href="MapRender_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:hmi_3A_3AMapRenderOptions" id="r_hmi_3A_3AMapRenderOptions"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapRenderOptions.html">hmi::MapRenderOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les réglages d'un rendu.  <a href="structhmi_1_1MapRenderOptions.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
+<tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
+<tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aea9d8742fc17bfd6135f669a67430cd7" id="r_aea9d8742fc17bfd6135f669a67430cd7"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1IsoBandOpacity.html">IsoBandOpacity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aea9d8742fc17bfd6135f669a67430cd7">hmi::parseRenderLayers</a> (std::string_view list)</td></tr>
+<tr class="memdesc:aea9d8742fc17bfd6135f669a67430cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit une liste de bandes (<span class="tt">floors,relief,figures,collision</span>).  <br /></td></tr>
+<tr class="memitem:ad9167a1055ccb957be12eecf083c3054" id="r_ad9167a1055ccb957be12eecf083c3054"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ad9167a1055ccb957be12eecf083c3054">hmi::renderMap</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const std::filesystem::path &amp;dataRoot, const <a class="el" href="structhmi_1_1MapRenderOptions.html">MapRenderOptions</a> &amp;options)</td></tr>
+<tr class="memdesc:ad9167a1055ccb957be12eecf083c3054"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">level</code> en isométrie, hors écran.  <br /></td></tr>
+<tr class="memitem:ae7f247079ad6dfe5c32dcc3dbc814f84" id="r_ae7f247079ad6dfe5c32dcc3dbc814f84"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ae7f247079ad6dfe5c32dcc3dbc814f84">hmi::renderStamp</a> (const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;stamp, const std::filesystem::path &amp;dataRoot, const std::string &amp;place, int maxSide)</td></tr>
+<tr class="memdesc:ae7f247079ad6dfe5c32dcc3dbc814f84"><td class="mdescLeft">&#160;</td><td class="mdescRight">La <b>vignette d'un préfabriqué</b> (<span class="tt">LOT-EDITOR-08</span>) : le tampon posé sur une carte de sa taille, rendu par le même peintre, réduit pour tenir dans un carré de <code class="param">maxSide</code> pixels.  <br /></td></tr>
+<tr class="memitem:ad551059312355ed10cda2f2300d1a6b9" id="r_ad551059312355ed10cda2f2300d1a6b9"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ad551059312355ed10cda2f2300d1a6b9">hmi::runRenderCommand</a> (const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;defaultDataRoot, std::string &amp;output)</td></tr>
+<tr class="memdesc:ad551059312355ed10cda2f2300d1a6b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'entrée <span class="tt">--render</span> de l'éditeur, avant toute construction de fenêtre.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><span class="tt">LevelEditor --render</span> : une carte rendue <b>hors écran</b> en PNG, en isométrie, par le peintre du canevas (<span class="tt">LOT-EDITOR-13</span>, décision D9, <span class="tt">EX-EDIT-075</span>). </p>
+<p>La même image que le canevas : l'instantané de <span class="tt"><a class="el" href="namespacehmi.html#a01862c75838661af7e844574901cfa47" title="L&#39;instantané que le canevas compose : celui du jeu, avec les PNJ et sans le héros.">hmi::canvasSnapshot</a></span>, composé par <span class="tt"><a class="el" href="namespacehmi.html#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé.">hmi::composeWorldScene</a></span> et peint par <span class="tt"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span>, sans fenêtre ni GPU — ce qui le fait tourner en CI, où il montre dans la PR la carte qu'elle change. Les bandes se choisissent comme les calques du canevas (<span class="tt"><a class="el" href="structhmi_1_1IsoBandOpacity.html" title="L&#39;opacité de chaque bande de la scène iso ; 0 : la bande n&#39;est pas peinte.">hmi::IsoBandOpacity</a></span>) : sol, relief, figurines, et le masque de collision par-dessus. Une carte qui ne nomme aucun lieu se peint par les couleurs de ses types, comme dans le canevas.</p>
+<p>L'échelle 1 est celle des planches : un pixel d'image par pixel d'art (<span class="tt">Camera2D</span>, zoom 1), ce qui donne à Martpart (48 × 40) une image de 3 800 × 2 400 pixels environ. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_81129cf20409270d9237df2d6b07b076.html">Ui</a></li><li class="navelem"><a href="MapRender_8h.html">MapRender.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

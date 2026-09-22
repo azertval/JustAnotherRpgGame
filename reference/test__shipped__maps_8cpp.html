@@ -1,0 +1,323 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/test_shipped_maps.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__shipped__maps_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_shipped_maps.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Les cartes livrées se font dans l'éditeur (<span class="tt">LOT-EDITOR-06</span>, décision D4) : chacune s'ouvre, se modifie, s'enregistre et se recharge sans perte, et sans script.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;cstdlib&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &lt;nlohmann/json.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="LevelDraft_8h_source.html">Core/Levels/LevelDraft.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelWriter_8h_source.html">Core/Levels/LevelWriter.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DataRoot_8h_source.html">Editor/Logic/DataRoot.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="EditorSidecar_8h_source.html">Editor/Logic/EditorSidecar.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="GestureScript_8h_source.html">Editor/Logic/GestureScript.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapFormat_8h_source.html">Editor/Logic/MapFormat.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a07033b41fecb29b0544e5615d18589a5" id="r_a07033b41fecb29b0544e5615d18589a5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a07033b41fecb29b0544e5615d18589a5">TEST</a> (ShippedMapsTest, ChaqueCarteSOuvreEtSEnregistreALIdentique)</td></tr>
+<tr class="memdesc:a07033b41fecb29b0544e5615d18589a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque carte livrée s'ouvre et s'enregistre dans l'éditeur sans changer d'un octet.  <br /></td></tr>
+<tr class="memitem:a63b8330695b1468e9c55c77b93e167d0" id="r_a63b8330695b1468e9c55c77b93e167d0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a63b8330695b1468e9c55c77b93e167d0">TEST</a> (ShippedMapsTest, UneRetoucheSEnregistreSeRechargeEtSeDefait)</td></tr>
+<tr class="memdesc:a63b8330695b1468e9c55c77b93e167d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une retouche faite dans l'éditeur s'enregistre, se recharge sans perte et se défait.  <br /></td></tr>
+<tr class="memitem:aa706d0a9332963f44df18d630469412f" id="r_aa706d0a9332963f44df18d630469412f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa706d0a9332963f44df18d630469412f">TEST</a> (DataRootTest, LEditeurOuvreLesDonneesDeLArbreDesSources)</td></tr>
+<tr class="memdesc:aa706d0a9332963f44df18d630469412f"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fenêtre et les commandes ouvrent l'arbre des sources, pas la copie que la construction refait à côté de l'exécutable : ce qu'on enregistre atteint le dépôt.  <br /></td></tr>
+<tr class="memitem:ad1ebf81d9027f4dd2b3c1ab7b159c95a" id="r_ad1ebf81d9027f4dd2b3c1ab7b159c95a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad1ebf81d9027f4dd2b3c1ab7b159c95a">TEST</a> (DataRootTest, UnDossierDeNiveauxVideResteLArbreDesSources)</td></tr>
+<tr class="memdesc:ad1ebf81d9027f4dd2b3c1ab7b159c95a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un <span class="tt">Levels/</span> <b>vide</b> reste l'arbre des sources : c'est son <span class="tt">README.md</span> qui le tient dans le dépôt, git ne gardant pas un dossier vide.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Les cartes livrées se font dans l'éditeur (<span class="tt">LOT-EDITOR-06</span>, décision D4) : chacune s'ouvre, se modifie, s'enregistre et se recharge sans perte, et sans script. </p>
+<p>Les scripts qui les posaient sont retirés : plus rien ne compare une carte à un tracé. Ce qui garde les cartes, c'est ce que fait l'éditeur — le brouillon (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Carte mutable en cours d&#39;édition, distincte de Level (immuable).">core::LevelDraft</a></span>) qu'ouvre la fenêtre, les gestes que rejoue <span class="tt">--apply</span>, et le texte canonique qu'écrit l'enregistrement.</p>
+<p><b>Le seul fichier de <span class="tt">Unit/Editor</span> qui lise encore les cartes livrées, et c'est son objet</b> (<span class="tt">LOT-123</span>) : il balaie celles qu'il trouve, quelles qu'elles soient, et admet qu'il n'y en ait aucune — la table rase du <span class="tt">LOT-102</span> vide <span class="tt">Levels/</span>. Les autres tests de l'éditeur ouvrent la racine d'essai, <span class="tt">Source/Test/Fixtures/GameData</span>. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="aa706d0a9332963f44df18d630469412f" name="aa706d0a9332963f44df18d630469412f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa706d0a9332963f44df18d630469412f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DataRootTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LEditeurOuvreLesDonneesDeLArbreDesSources</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La fenêtre et les commandes ouvrent l'arbre des sources, pas la copie que la construction refait à côté de l'exécutable : ce qu'on enregistre atteint le dépôt. </p>
+<p><b>Cas de test :</b> <b>L'éditeur ouvre les données de l'arbre des sources.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Cartes livrées<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Résoudre la racine avec <span class="tt">--data</span>, puis sans, l'arbre des sources présent.<br  />
+2. Puis avec un arbre des sources absent ou inconnu.<br  />
+ <b>Resultat attendu :</b> <span class="tt">--data</span> l'emporte ; sinon <span class="tt">Source/Elements</span> ; sinon le dossier de l'exécutable. </p>
+
+</div>
+</div>
+<a id="ad1ebf81d9027f4dd2b3c1ab7b159c95a" name="ad1ebf81d9027f4dd2b3c1ab7b159c95a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1ebf81d9027f4dd2b3c1ab7b159c95a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DataRootTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnDossierDeNiveauxVideResteLArbreDesSources</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un <span class="tt">Levels/</span> <b>vide</b> reste l'arbre des sources : c'est son <span class="tt">README.md</span> qui le tient dans le dépôt, git ne gardant pas un dossier vide. </p>
+<p>Ce que la table rase du <span class="tt">LOT-102</span> laisse derrière elle : un <span class="tt">Levels/</span> sans aucune carte. Si <span class="tt">resolveDataRoot</span> le refusait, la fenêtre et les commandes se rabattraient en silence sur la copie que la construction refait à côté de l'exécutable, et l'auteur dessinerait dans le vide. <b>Cas de test :</b> <b>Un dossier de niveaux vide reste l'arbre des sources.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Cartes livrées<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Batir une racine dont <span class="tt">Levels/</span> ne porte que son <span class="tt">README.md</span>.<br  />
+2. Resoudre la racine sans <span class="tt">--data</span>.<br  />
+3. Controler cette racine.<br  />
+ <b>Resultat attendu :</b> La racine est celle de l'arbre des sources, pas le dossier de l'executable ; le controle ne trouve aucune carte, le dit, et rend 0. </p>
+
+</div>
+</div>
+<a id="a07033b41fecb29b0544e5615d18589a5" name="a07033b41fecb29b0544e5615d18589a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07033b41fecb29b0544e5615d18589a5">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ShippedMapsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChaqueCarteSOuvreEtSEnregistreALIdentique</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Chaque carte livrée s'ouvre et s'enregistre dans l'éditeur sans changer d'un octet. </p>
+<p><b>Cas de test :</b> <b>Les cartes livrées se rechargent sans perte.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Cartes livrées<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Pour chaque carte de <span class="tt">Source/Elements/Levels</span>, l'ouvrir en brouillon avec le manifeste de son lieu.<br  />
+2. L'enregistrer sans la toucher.<br  />
+ <b>Resultat attendu :</b> Chaque texte enregistré égale le fichier livré, octet pour octet. Aucune carte livrée : rien à vérifier, et c'est un état légitime (<span class="tt">LOT-123</span>). </p>
+
+</div>
+</div>
+<a id="a63b8330695b1468e9c55c77b93e167d0" name="a63b8330695b1468e9c55c77b93e167d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63b8330695b1468e9c55c77b93e167d0">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ShippedMapsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneRetoucheSEnregistreSeRechargeEtSeDefait</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une retouche faite dans l'éditeur s'enregistre, se recharge sans perte et se défait. </p>
+<p><b>Cas de test :</b> <b>Une retouche s'enregistre, se recharge et se défait.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Cartes livrées<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Pour chaque carte livrée, gommer sa première pièce dressée par un geste <span class="tt">--apply</span>.<br  />
+2. Enregistrer, recharger, réenregistrer.<br  />
+3. Défaire le geste.<br  />
+ <b>Resultat attendu :</b> Un pas d'annulation ; la pièce est partie de la carte rechargée ; le second enregistrement égale le premier ; défaire rend le fichier livré, octet pour octet. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_72f94039b203173a88806b7e5cad74af.html">Editor</a></li><li class="navelem"><a href="test__shipped__maps_8cpp.html">test_shipped_maps.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

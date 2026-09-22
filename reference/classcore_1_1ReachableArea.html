@@ -1,0 +1,591 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::ReachableArea Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classcore_1_1ReachableArea.html','','classcore_1_1ReachableArea-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::ReachableArea Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Les cases qu'un combattant peut atteindre ce tour-ci, et par où.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Pathfinding_8h_source.html">Pathfinding.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a2d820d86892363951dfcd7b14dbd71e5" id="r_a2d820d86892363951dfcd7b14dbd71e5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2d820d86892363951dfcd7b14dbd71e5">ReachableArea</a> (const <a class="el" href="classcore_1_1BattleGrid.html">BattleGrid</a> &amp;grid, const <a class="el" href="structcore_1_1Mover.html">Mover</a> &amp;mover, int <a class="el" href="#aee4ac21460c6c5e968e3cd1b31f2c544">budget</a>)</td></tr>
+<tr class="memitem:a511a92383a5cae3c6b5295c5adda2557" id="r_a511a92383a5cae3c6b5295c5adda2557"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a511a92383a5cae3c6b5295c5adda2557">origin</a> () const noexcept</td></tr>
+<tr class="memdesc:a511a92383a5cae3c6b5295c5adda2557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le coin haut-gauche de l'emprise au départ.  <br /></td></tr>
+<tr class="memitem:aee4ac21460c6c5e968e3cd1b31f2c544" id="r_aee4ac21460c6c5e968e3cd1b31f2c544"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aee4ac21460c6c5e968e3cd1b31f2c544">budget</a> () const noexcept</td></tr>
+<tr class="memitem:a62db9686bd33abd931f8b72c23acb6d4" id="r_a62db9686bd33abd931f8b72c23acb6d4"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a62db9686bd33abd931f8b72c23acb6d4">costTo</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> anchor) const</td></tr>
+<tr class="memdesc:a62db9686bd33abd931f8b72c23acb6d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le coût du meilleur chemin jusqu'à <code class="param">anchor</code>, s'il tient dans le budget.  <br /></td></tr>
+<tr class="memitem:a6405530abd9e755fd5cda6fe73481c37" id="r_a6405530abd9e755fd5cda6fe73481c37"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6405530abd9e755fd5cda6fe73481c37">canEndAt</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> anchor) const</td></tr>
+<tr class="memdesc:a6405530abd9e755fd5cda6fe73481c37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si le combattant peut <b>finir</b> son déplacement avec son emprise ancrée en <code class="param">anchor</code> : dans le budget, et sur une place libre.  <br /></td></tr>
+<tr class="memitem:a7ab6b033a9a8f17d579587ac80bd7551" id="r_a7ab6b033a9a8f17d579587ac80bd7551"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7ab6b033a9a8f17d579587ac80bd7551">destinations</a> () const</td></tr>
+<tr class="memdesc:a7ab6b033a9a8f17d579587ac80bd7551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toutes les places où finir le déplacement, par indice de case croissant — ce que l'IHM de combat surligne (<span class="tt">LOT-24</span>) avant que le joueur ne s'engage.  <br /></td></tr>
+<tr class="memitem:a432ca85fca1abce130cc687720e5a537" id="r_a432ca85fca1abce130cc687720e5a537"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Path.html">Path</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a432ca85fca1abce130cc687720e5a537">pathTo</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> anchor) const</td></tr>
+<tr class="memdesc:a432ca85fca1abce130cc687720e5a537"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chemin jusqu'à <code class="param">anchor</code>, ou <span class="tt">std::nullopt</span> si l'on ne peut pas y finir.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a5e4a8c51cc2bcaa51a98e79d6eb69e07" id="r_a5e4a8c51cc2bcaa51a98e79d6eb69e07"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a5e4a8c51cc2bcaa51a98e79d6eb69e07">indexOf</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a472812fb78167fc27cc884f358dc75ce" id="r_a472812fb78167fc27cc884f358dc75ce"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a472812fb78167fc27cc884f358dc75ce">_width</a> = 0</td></tr>
+<tr class="memitem:abd76cafd28d6f2d9ccd77040891afa32" id="r_abd76cafd28d6f2d9ccd77040891afa32"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#abd76cafd28d6f2d9ccd77040891afa32">_height</a> = 0</td></tr>
+<tr class="memitem:a8bb3aaf2f0a80a65acd064a5b689d8cf" id="r_a8bb3aaf2f0a80a65acd064a5b689d8cf"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8bb3aaf2f0a80a65acd064a5b689d8cf">_origin</a> {}</td></tr>
+<tr class="memitem:a732afb30ce42ef61595a3e9f52ab3d59" id="r_a732afb30ce42ef61595a3e9f52ab3d59"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a732afb30ce42ef61595a3e9f52ab3d59">_budget</a> = 0</td></tr>
+<tr class="memitem:acceb25ac5f3321dd2216d34f105b848b" id="r_acceb25ac5f3321dd2216d34f105b848b"><td class="memItemLeft">std::vector&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acceb25ac5f3321dd2216d34f105b848b">_costs</a></td></tr>
+<tr class="memitem:a4dab4a5fa6e95846d396970d6fbaee11" id="r_a4dab4a5fa6e95846d396970d6fbaee11"><td class="memItemLeft">std::vector&lt; std::uint8_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4dab4a5fa6e95846d396970d6fbaee11">_predecessors</a></td></tr>
+<tr class="memdesc:a4dab4a5fa6e95846d396970d6fbaee11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Par case, le masque de ses prédécesseurs au meilleur coût (un bit par voisin).  <br /></td></tr>
+<tr class="memitem:a4509418225650f92a60c32373491ff22" id="r_a4509418225650f92a60c32373491ff22"><td class="memItemLeft">std::vector&lt; bool &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4509418225650f92a60c32373491ff22">_endable</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Les cases qu'un combattant peut atteindre ce tour-ci, et par où. </p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md38"></a>
+La règle du Manuel, et pourquoi elle n'est pas un parcours en largeur</h2>
+<p>Manuel des Joueurs, « Jouer sur un quadrillage » : entrer dans une case coûte <b>1</b>, même en <b>diagonale</b> ; entrer dans une case de terrain difficile coûte <b>2</b>, et il faut qu'il reste de quoi payer ; on ne passe pas en diagonale par le <b>coin</b> d'un mur. Trois faits qu'un parcours en largeur à quatre voisins ne sait pas exprimer : il ignore les diagonales, et tous ses pas coûtent un. La case d'une créature qu'on <b>traverse</b> compte, elle aussi, pour du terrain difficile (« Se déplacer au milieu d'autres créatures », PDF p. 193), en vol comme au sol. Ce calcul-ci est donc un Dijkstra sur les huit voisins.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md39"></a>
+Le départage est une règle, pas un hasard</h2>
+<p>Deux chemins de même coût existent presque toujours. L'exploration retient <b>tous</b> les prédécesseurs qui atteignent une case à son meilleur coût ; c'est la remontée, qui connaît l'arrivée, qui choisit : <b>le prédécesseur le plus proche de la droite qui joint le départ à l'arrivée</b>, et à égalité celui d'indice de case le plus petit (ligne, puis colonne). Le chemin ne monte donc pas pour redescendre quand un autre chemin de même coût suit la droite — c'est lui que la prévisualisation du déplacement dessine (<span class="tt">LOT-24</span>). Cette définition ne dépend pas de l'ordre d'exploration : <span class="tt"><a class="el" href="namespacecore.html#ad018fcc5c0c0bcabf187d6ae09568067" title="Le meilleur chemin de mover jusqu&#39;à destination, sans limite de budget.">core::findPath</a></span> la partage, et le chemin qu'il rend vers une case atteignable est celui que rend <span class="tt"><a class="el" href="#a432ca85fca1abce130cc687720e5a537" title="Le chemin jusqu&#39;à anchor, ou std::nullopt si l&#39;on ne peut pas y finir.">pathTo</a></span>, pas un autre de même coût. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2d820d86892363951dfcd7b14dbd71e5" name="a2d820d86892363951dfcd7b14dbd71e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d820d86892363951dfcd7b14dbd71e5">&#9670;&#160;</a></span>ReachableArea()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::ReachableArea::ReachableArea </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1BattleGrid.html">BattleGrid</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>grid</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Mover.html">Mover</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>mover</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>budget</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">grid</td><td>La grille, lue à la construction et plus jamais ensuite. </td></tr>
+    <tr><td class="paramname">mover</td><td>Qui se déplace. Non placé, l'aire est vide. </td></tr>
+    <tr><td class="paramname"><a class="el" href="#aee4ac21460c6c5e968e3cd1b31f2c544">budget</a></td><td>Les cases de déplacement disponibles (<span class="tt"><a class="el" href="namespacecore.html#a29156af7de7653ab4fa06d96b0c881a1" title="Le budget de déplacement d&#39;une vitesse de speedMeters, en cases entières.">core::movementBudget</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="aee4ac21460c6c5e968e3cd1b31f2c544" name="aee4ac21460c6c5e968e3cd1b31f2c544"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee4ac21460c6c5e968e3cd1b31f2c544">&#9670;&#160;</a></span>budget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::ReachableArea::budget </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6405530abd9e755fd5cda6fe73481c37" name="a6405530abd9e755fd5cda6fe73481c37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6405530abd9e755fd5cda6fe73481c37">&#9670;&#160;</a></span>canEndAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::ReachableArea::canEndAt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>anchor</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si le combattant peut <b>finir</b> son déplacement avec son emprise ancrée en <code class="param">anchor</code> : dans le budget, et sur une place libre. </p>
+<p>Faux pour le point de départ. </p>
+
+</div>
+</div>
+<a id="a62db9686bd33abd931f8b72c23acb6d4" name="a62db9686bd33abd931f8b72c23acb6d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62db9686bd33abd931f8b72c23acb6d4">&#9670;&#160;</a></span>costTo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; int &gt; core::ReachableArea::costTo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>anchor</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le coût du meilleur chemin jusqu'à <code class="param">anchor</code>, s'il tient dans le budget. </p>
+<p>Défini aussi pour une case qu'on <b>traverse</b> sans pouvoir s'y arrêter (un allié l'occupe) : le coût dit qu'on y passe, <span class="tt"><a class="el" href="#a6405530abd9e755fd5cda6fe73481c37" title="Vrai si le combattant peut finir son déplacement avec son emprise ancrée en anchor : dans le budget,...">canEndAt</a></span> dit qu'on n'y reste pas. </p>
+
+</div>
+</div>
+<a id="a7ab6b033a9a8f17d579587ac80bd7551" name="a7ab6b033a9a8f17d579587ac80bd7551"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ab6b033a9a8f17d579587ac80bd7551">&#9670;&#160;</a></span>destinations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; core::ReachableArea::destinations </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Toutes les places où finir le déplacement, par indice de case croissant — ce que l'IHM de combat surligne (<span class="tt">LOT-24</span>) avant que le joueur ne s'engage. </p>
+
+</div>
+</div>
+<a id="a5e4a8c51cc2bcaa51a98e79d6eb69e07" name="a5e4a8c51cc2bcaa51a98e79d6eb69e07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e4a8c51cc2bcaa51a98e79d6eb69e07">&#9670;&#160;</a></span>indexOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t core::ReachableArea::indexOf </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a511a92383a5cae3c6b5295c5adda2557" name="a511a92383a5cae3c6b5295c5adda2557"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a511a92383a5cae3c6b5295c5adda2557">&#9670;&#160;</a></span>origin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> core::ReachableArea::origin </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le coin haut-gauche de l'emprise au départ. </p>
+
+</div>
+</div>
+<a id="a432ca85fca1abce130cc687720e5a537" name="a432ca85fca1abce130cc687720e5a537"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a432ca85fca1abce130cc687720e5a537">&#9670;&#160;</a></span>pathTo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structcore_1_1Path.html">Path</a> &gt; core::ReachableArea::pathTo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>anchor</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le chemin jusqu'à <code class="param">anchor</code>, ou <span class="tt">std::nullopt</span> si l'on ne peut pas y finir. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a732afb30ce42ef61595a3e9f52ab3d59" name="a732afb30ce42ef61595a3e9f52ab3d59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a732afb30ce42ef61595a3e9f52ab3d59">&#9670;&#160;</a></span>_budget</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::ReachableArea::_budget = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acceb25ac5f3321dd2216d34f105b848b" name="acceb25ac5f3321dd2216d34f105b848b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acceb25ac5f3321dd2216d34f105b848b">&#9670;&#160;</a></span>_costs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;int&gt; core::ReachableArea::_costs</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4509418225650f92a60c32373491ff22" name="a4509418225650f92a60c32373491ff22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4509418225650f92a60c32373491ff22">&#9670;&#160;</a></span>_endable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;bool&gt; core::ReachableArea::_endable</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abd76cafd28d6f2d9ccd77040891afa32" name="abd76cafd28d6f2d9ccd77040891afa32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd76cafd28d6f2d9ccd77040891afa32">&#9670;&#160;</a></span>_height</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::ReachableArea::_height = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8bb3aaf2f0a80a65acd064a5b689d8cf" name="a8bb3aaf2f0a80a65acd064a5b689d8cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bb3aaf2f0a80a65acd064a5b689d8cf">&#9670;&#160;</a></span>_origin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> core::ReachableArea::_origin {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4dab4a5fa6e95846d396970d6fbaee11" name="a4dab4a5fa6e95846d396970d6fbaee11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dab4a5fa6e95846d396970d6fbaee11">&#9670;&#160;</a></span>_predecessors</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::uint8_t&gt; core::ReachableArea::_predecessors</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Par case, le masque de ses prédécesseurs au meilleur coût (un bit par voisin). </p>
+
+</div>
+</div>
+<a id="a472812fb78167fc27cc884f358dc75ce" name="a472812fb78167fc27cc884f358dc75ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a472812fb78167fc27cc884f358dc75ce">&#9670;&#160;</a></span>_width</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::ReachableArea::_width = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/<a class="el" href="Pathfinding_8h_source.html">Pathfinding.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/<a class="el" href="Pathfinding_8cpp.html">Pathfinding.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="classcore_1_1ReachableArea.html">ReachableArea</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

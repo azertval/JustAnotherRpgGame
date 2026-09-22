@@ -1,0 +1,427 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Interface/test_identity_scale.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__identity__scale_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_identity_scale.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests unitaires du facteur d'agrandissement des écrans du jeu (<span class="tt">LOT-66</span>, <span class="tt">EX-IHM-070</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="IdentityScale_8h_source.html">HMI/Presentation/IdentityScale.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6cfa8b9491fa71ed3a27bf4b126c6193" id="r_a6cfa8b9491fa71ed3a27bf4b126c6193"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6cfa8b9491fa71ed3a27bf4b126c6193">TEST</a> (IdentityScaleTest, FacteurToujoursBorneEntreUnEtLePlafond)</td></tr>
+<tr class="memdesc:a6cfa8b9491fa71ed3a27bf4b126c6193"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le facteur est toujours un entier d'au moins 1 et n'excède jamais le plafond, pour n'importe quelle hauteur — y compris absurde (nulle, négative, gigantesque).  <br /></td></tr>
+<tr class="memitem:a8c1a1fdf9eed640858f7ceb37dd34b65" id="r_a8c1a1fdf9eed640858f7ceb37dd34b65"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8c1a1fdf9eed640858f7ceb37dd34b65">TEST</a> (IdentityScaleTest, FacteurMonotoneEnHauteur)</td></tr>
+<tr class="memdesc:a8c1a1fdf9eed640858f7ceb37dd34b65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le facteur ne décroît jamais quand la fenêtre grandit.  <br /></td></tr>
+<tr class="memitem:ac9dea5598fda02a6652eb1266ddee693" id="r_ac9dea5598fda02a6652eb1266ddee693"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac9dea5598fda02a6652eb1266ddee693">TEST</a> (IdentityScaleTest, LeSeuilEstAtteintParDefautJamaisParArrondi)</td></tr>
+<tr class="memdesc:ac9dea5598fda02a6652eb1266ddee693"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une hauteur juste sous un seuil garde le facteur <b>inférieur</b> : la maquette doit tenir ENTIÈREMENT dans la fenêtre.  <br /></td></tr>
+<tr class="memitem:a083d44abced0e68288868be9e6c535c0" id="r_a083d44abced0e68288868be9e6c535c0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a083d44abced0e68288868be9e6c535c0">TEST</a> (IdentityScaleTest, HauteursCourantesDonnentLesFacteursAnnonces)</td></tr>
+<tr class="memdesc:a083d44abced0e68288868be9e6c535c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les trois hauteurs de fenêtre courantes tombent sur les facteurs annoncés dans les maquettes : 720p à ×2, 1080p à ×3, et 1440p reste à ×3 (plafond).  <br /></td></tr>
+<tr class="memitem:a0d849669edd82e2ef0907f242fa6e1fc" id="r_a0d849669edd82e2ef0907f242fa6e1fc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0d849669edd82e2ef0907f242fa6e1fc">TEST</a> (IdentityScaleTest, FacteurBorneParLaZoneDisponible)</td></tr>
+<tr class="memdesc:a0d849669edd82e2ef0907f242fa6e1fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le facteur borné n'excède jamais celui qu'admet la zone d'affichage disponible.  <br /></td></tr>
+<tr class="memitem:af3169daaf24f80f81891d4a1752f8e00" id="r_af3169daaf24f80f81891d4a1752f8e00"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af3169daaf24f80f81891d4a1752f8e00">TEST</a> (IdentityScaleTest, UneFenetreDebordanteNeGagnePasDeFacteur)</td></tr>
+<tr class="memdesc:af3169daaf24f80f81891d4a1752f8e00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une fenêtre que Qt a été contraint d'agrandir au-delà de l'écran ne gagne aucun facteur pour autant.  <br /></td></tr>
+<tr class="memitem:a432661ed32eec0cd8359fbfd0bfaa081" id="r_a432661ed32eec0cd8359fbfd0bfaa081"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a432661ed32eec0cd8359fbfd0bfaa081">TEST</a> (IdentityScaleTest, ZoneDisponibleInconnueLaisseLaFenetreDecider)</td></tr>
+<tr class="memdesc:a432661ed32eec0cd8359fbfd0bfaa081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une zone disponible inconnue laisse la seule hauteur de fenêtre décider.  <br /></td></tr>
+<tr class="memitem:a47ef3244eea364475985372d62cde169" id="r_a47ef3244eea364475985372d62cde169"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a47ef3244eea364475985372d62cde169">TEST</a> (IdentityScaleTest, UnePetiteFenetreGardeSonFacteur)</td></tr>
+<tr class="memdesc:a47ef3244eea364475985372d62cde169"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une fenêtre plus petite que l'écran garde son propre facteur : la borne ne doit pas <em>imposer</em> le facteur de l'écran, seulement l'empêcher d'être dépassé.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests unitaires du facteur d'agrandissement des écrans du jeu (<span class="tt">LOT-66</span>, <span class="tt">EX-IHM-070</span>). </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a0d849669edd82e2ef0907f242fa6e1fc" name="a0d849669edd82e2ef0907f242fa6e1fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d849669edd82e2ef0907f242fa6e1fc">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IdentityScaleTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FacteurBorneParLaZoneDisponible</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le facteur borné n'excède jamais celui qu'admet la zone d'affichage disponible. </p>
+<p>C'est la fermeture du cliquet : le facteur grossit les grandeurs d'habillage, qui grossissent la taille minimale des écrans, qui grossit la fenêtre — laquelle relancerait le calcul un cran plus haut si la seule hauteur de fenêtre décidait. <b>Cas de test :</b> <b>Le facteur borne n'excede jamais celui de la zone disponible.</b><br  />
+ <b>Categorie :</b> Unitaire · Echelle de l identite<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander le facteur borne pour des couples (hauteur de fenetre, zone disponible).<br  />
+2. Comparer au facteur de la seule zone disponible.<br  />
+ <b>Resultat attendu :</b> Le facteur borne ne depasse jamais celui de la zone disponible. </p>
+
+</div>
+</div>
+<a id="a8c1a1fdf9eed640858f7ceb37dd34b65" name="a8c1a1fdf9eed640858f7ceb37dd34b65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c1a1fdf9eed640858f7ceb37dd34b65">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IdentityScaleTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FacteurMonotoneEnHauteur</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le facteur ne décroît jamais quand la fenêtre grandit. </p>
+<p>C'est ce qui rend le redimensionnement prévisible : agrandir la fenêtre ne peut pas rapetisser l'interface. <b>Cas de test :</b> <b>Le facteur croit de facon monotone avec la hauteur de fenetre.</b><br  />
+ <b>Categorie :</b> Unitaire · Echelle de l identite<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Parcourir les hauteurs de 0 a 2400 par pas de 1.<br  />
+2. Comparer chaque facteur au precedent.<br  />
+ <b>Resultat attendu :</b> Le facteur ne diminue jamais. </p>
+
+</div>
+</div>
+<a id="a6cfa8b9491fa71ed3a27bf4b126c6193" name="a6cfa8b9491fa71ed3a27bf4b126c6193"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cfa8b9491fa71ed3a27bf4b126c6193">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IdentityScaleTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FacteurToujoursBorneEntreUnEtLePlafond</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le facteur est toujours un entier d'au moins 1 et n'excède jamais le plafond, pour n'importe quelle hauteur — y compris absurde (nulle, négative, gigantesque). </p>
+<p>Un facteur nul ferait disparaître l'interface ; un facteur non borné remplirait l'écran de trois entrées de menu. <b>Cas de test :</b> <b>Le facteur reste entier, superieur a 1 et borne par le plafond.</b><br  />
+ <b>Categorie :</b> Unitaire · Echelle de l identite<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander le facteur pour des hauteurs allant du negatif au tres grand.<br  />
+ <b>Resultat attendu :</b> Chaque resultat est compris entre 1 et IDENTITY_MAX_SCALE inclus. </p>
+
+</div>
+</div>
+<a id="a083d44abced0e68288868be9e6c535c0" name="a083d44abced0e68288868be9e6c535c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a083d44abced0e68288868be9e6c535c0">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IdentityScaleTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">HauteursCourantesDonnentLesFacteursAnnonces</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les trois hauteurs de fenêtre courantes tombent sur les facteurs annoncés dans les maquettes : 720p à ×2, 1080p à ×3, et 1440p reste à ×3 (plafond). </p>
+<p>Ce test fige la promesse faite au level designer, pas seulement la formule. <b>Cas de test :</b> <b>Les hauteurs d'ecran courantes donnent les facteurs annonces.</b><br  />
+ <b>Categorie :</b> Unitaire · Echelle de l identite<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander le facteur pour 360, 720, 1080 et 1440 pixels logiques.<br  />
+ <b>Resultat attendu :</b> Respectivement 1, 2, 3 et 3. </p>
+
+</div>
+</div>
+<a id="ac9dea5598fda02a6652eb1266ddee693" name="ac9dea5598fda02a6652eb1266ddee693"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9dea5598fda02a6652eb1266ddee693">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IdentityScaleTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeSeuilEstAtteintParDefautJamaisParArrondi</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une hauteur juste sous un seuil garde le facteur <b>inférieur</b> : la maquette doit tenir ENTIÈREMENT dans la fenêtre. </p>
+<p>Arrondir plutôt que tronquer ferait passer une fenêtre de 700 px à l'échelle 2, pour laquelle il manque 20 px — la dernière entrée du menu passerait sous le bord. <b>Cas de test :</b> <b>Une hauteur juste insuffisante ne declenche pas le facteur superieur.</b><br  />
+ <b>Categorie :</b> Unitaire · Echelle de l identite<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander le facteur juste avant et juste apres chaque multiple de la hauteur de base.<br  />
+ <b>Resultat attendu :</b> Le facteur ne monte qu'a partir du multiple exact, jamais avant. </p>
+
+</div>
+</div>
+<a id="af3169daaf24f80f81891d4a1752f8e00" name="af3169daaf24f80f81891d4a1752f8e00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3169daaf24f80f81891d4a1752f8e00">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IdentityScaleTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneFenetreDebordanteNeGagnePasDeFacteur</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une fenêtre que Qt a été contraint d'agrandir au-delà de l'écran ne gagne aucun facteur pour autant. </p>
+<p>C'est exactement le cas signalé : sur un écran de 1009 pixels utiles, une fenêtre poussée à 1560 réclamait le facteur 3, dont les grandeurs la poussaient plus loin encore. <b>Cas de test :</b> <b>Une fenetre plus haute que l'ecran ne gagne pas de facteur.</b><br  />
+ <b>Categorie :</b> Unitaire · Echelle de l identite<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Zone disponible de 1009 pixels (cas rapporte).<br  />
+2. Demander le facteur pour des hauteurs de fenetre croissantes, jusqu'au-dela de l'ecran.<br  />
+ <b>Resultat attendu :</b> Le facteur plafonne a celui de la zone disponible et n'augmente plus. </p>
+
+</div>
+</div>
+<a id="a47ef3244eea364475985372d62cde169" name="a47ef3244eea364475985372d62cde169"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47ef3244eea364475985372d62cde169">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IdentityScaleTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnePetiteFenetreGardeSonFacteur</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une fenêtre plus petite que l'écran garde son propre facteur : la borne ne doit pas <em>imposer</em> le facteur de l'écran, seulement l'empêcher d'être dépassé. </p>
+<p>Sans quoi une petite fenêtre sur un grand écran rendrait une maquette plus grande qu'elle. <b>Cas de test :</b> <b>Une petite fenetre garde son facteur sur un grand ecran.</b><br  />
+ <b>Categorie :</b> Unitaire · Echelle de l identite<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Zone disponible de 1440 pixels.<br  />
+2. Demander le facteur pour des fenetres de 360 et 720 pixels.<br  />
+ <b>Resultat attendu :</b> Respectivement 1 et 2, jamais le facteur 3 que l'ecran admettrait. </p>
+
+</div>
+</div>
+<a id="a432661ed32eec0cd8359fbfd0bfaa081" name="a432661ed32eec0cd8359fbfd0bfaa081"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a432661ed32eec0cd8359fbfd0bfaa081">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IdentityScaleTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ZoneDisponibleInconnueLaisseLaFenetreDecider</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une zone disponible inconnue laisse la seule hauteur de fenêtre décider. </p>
+<p>Le cas se produit avant que la fenêtre ne soit rattachée à un écran : refuser de choisir y vaudrait mieux qu'un facteur arbitraire, mais l'interface doit tout de même s'afficher. <b>Cas de test :</b> <b>Une zone disponible inconnue laisse la fenetre decider.</b><br  />
+ <b>Categorie :</b> Unitaire · Echelle de l identite<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander le facteur borne avec une zone disponible nulle puis negative.<br  />
+ <b>Resultat attendu :</b> Le resultat est celui de <span class="tt">identityScaleFor</span> sur la seule hauteur de fenetre. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_2675e67548493d20626cf18c4081fab8.html">HMI</a></li><li class="navelem"><a href="dir_22e1200faa5861764232ea2878d10119.html">Interface</a></li><li class="navelem"><a href="test__identity__scale_8cpp.html">test_identity_scale.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

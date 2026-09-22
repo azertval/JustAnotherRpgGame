@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HMI · Game — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1 active" href="hmi-game.html">HMI · Game</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-launch-optionscpp">test_launch_options.cpp</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="hmi-game">HMI · Game</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">6 cas</span></div>
+<p>Tests unitaires — <strong>6 cas</strong> (1 critique, 3 majeurs, 2 mineurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-launch-optionscpp"><code>test_launch_options.cpp</code></a></td><td>6</td><td>-</td><td>1</td><td>3</td><td>2</td></tr></tbody></table></div>
+<h2 id="test-launch-optionscpp">test_launch_options.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="launchoptionscarteseuleneposepasdoptionvide">LaunchOptions.CarteSeuleNePosePasDOptionVide</h3>
+<p><em>Majeur · Unitaire · Essai complet</em> — <code>Source/Test/Unit/HMI/Game/test_launch_options.cpp:21</code></p>
+<p>Une carte seule ne pose aucune option vide.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire la ligne de commande d'un essai qui ne nomme qu'une carte.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::gameLaunchArguments(options)</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;--map=capital/martpart&quot;})</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="launchoptionspointdarriveesurloptiondecarte">LaunchOptions.PointDArriveeSurLOptionDeCarte</h3>
+<p><em>Mineur · Unitaire · Essai complet</em> — <code>Source/Test/Unit/HMI/Game/test_launch_options.cpp:36</code></p>
+<p>Le point d'arrivee s'ecrit sur l'option de carte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire la ligne de commande d'une carte et d'un point d'arrivee.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::gameLaunchArguments(options).front()</code> vaut <code>&quot;--map=capital/arenarea@martpart&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="launchoptionsallerretourcompletparlanalyse">LaunchOptions.AllerRetourCompletParLAnalyse</h3>
+<p><em>Critique · Unitaire · Essai complet</em> — <code>Source/Test/Unit/HMI/Game/test_launch_options.cpp:50</code></p>
+<p>Ce que l'editeur ecrit, le jeu le relit a l'identique.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire la ligne de commande d'un essai complet (carte, case, drapeaux, dossiers).</li><li>Relire chaque option par les fonctions d'analyse du jeu.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>arguments.size()</code> vaut <code>4U</code>.</li><li>Vérifie que <code>arguments[1]</code> vaut <code>&quot;--at=12,39&quot;</code>.</li><li>Vérifie que <code>arguments[2]</code> vaut <code>&quot;--flags=quete-du-heraut,porte-est-ouverte&quot;</code>.</li><li>Vérifie que <code>relue.has_value()</code> est vrai.</li><li>Vérifie que <code>relue-&gt;column</code> vaut <code>12</code>.</li><li>Vérifie que <code>relue-&gt;row</code> vaut <code>39</code>.</li><li>Vérifie que <code>hmi::parseWorldFlags(&quot;quete-du-heraut,porte-est-ouverte&quot;)</code> vaut <code>options.flags</code>.</li><li>Vérifie que <code>hmi::parseLevelDirectories(arguments[3].substr(std::string_view{&quot;--levels=&quot;}.size()))</code> vaut <code>options.levelDirectories</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="launchoptionslesdossiersseseparentaupointvirgule">LaunchOptions.LesDossiersSeSeparentAuPointVirgule</h3>
+<p><em>Majeur · Unitaire · Essai complet</em> — <code>Source/Test/Unit/HMI/Game/test_launch_options.cpp:81</code></p>
+<p>Les dossiers de cartes se separent au point-virgule.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Analyser <code>--levels=</code> sur deux chemins Windows portant chacun un deux-points.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>dossiers.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>dossiers[0]</code> vaut <code>std::filesystem::path{&quot;C:/tmp/essai&quot;}</code>.</li><li>Vérifie que <code>dossiers[1]</code> vaut <code>std::filesystem::path{&quot;D:/depot/Levels&quot;}</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="launchoptionscaseillisiblerefusee">LaunchOptions.CaseIllisibleRefusee</h3>
+<p><em>Majeur · Unitaire · Essai complet</em> — <code>Source/Test/Unit/HMI/Game/test_launch_options.cpp:98</code></p>
+<p>Une case illisible est refusee, jamais ramenee a zero.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Analyser des valeurs de <code>--at=</code> incompletes, non numeriques ou negatives.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::parseStartCell(&quot;&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>hmi::parseStartCell(&quot;12&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>hmi::parseStartCell(&quot;12,&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>hmi::parseStartCell(&quot;12,39,4&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>hmi::parseStartCell(&quot;douze,39&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>hmi::parseStartCell(&quot;12,-3&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>hmi::parseStartCell(&quot;12,39x&quot;).has_value()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="launchoptionsdrapeauxsansdoublonnivide">LaunchOptions.DrapeauxSansDoublonNiVide</h3>
+<p><em>Mineur · Unitaire · Essai complet</em> — <code>Source/Test/Unit/HMI/Game/test_launch_options.cpp:117</code></p>
+<p>Les drapeaux se lisent sans doublon ni valeur vide.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Analyser <code>--flags=</code> avec un separateur en trop et un drapeau repete.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::parseWorldFlags(&quot;a,,b,a&quot;)</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;a&quot;, &quot;b&quot;})</code>.</li><li>Vérifie que <code>hmi::parseWorldFlags(&quot;&quot;).empty()</code> est vrai.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-audio.html"><span>Précédent</span>HMI · Audio</a><a class="next" href="hmi-graphics.html"><span>Suivant</span>HMI · Graphics</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-game.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

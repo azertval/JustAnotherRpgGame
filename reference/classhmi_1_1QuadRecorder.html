@@ -1,0 +1,638 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::QuadRecorder Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1QuadRecorder.html','','classhmi_1_1QuadRecorder-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::QuadRecorder Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Capture la liste des primitives d'une image et répond aux questions qu'un test se pose.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="QuadRecorder_8h_source.html">QuadRecorder.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5b17f404e66d00792587142c72277263" id="r_a5b17f404e66d00792587142c72277263"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5b17f404e66d00792587142c72277263">record</a> (const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene)</td></tr>
+<tr class="memdesc:a5b17f404e66d00792587142c72277263"><td class="mdescLeft">&#160;</td><td class="mdescRight">Capture l'état d'une scène composée (copie : la scène peut ensuite être réutilisée).  <br /></td></tr>
+<tr class="memitem:a137be42ad209fbb4f105582f2a9955e3" id="r_a137be42ad209fbb4f105582f2a9955e3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a137be42ad209fbb4f105582f2a9955e3">clear</a> () noexcept</td></tr>
+<tr class="memdesc:a137be42ad209fbb4f105582f2a9955e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oublie la capture courante.  <br /></td></tr>
+<tr class="memitem:aae56add6968b14a719fbcf9f624986ad" id="r_aae56add6968b14a719fbcf9f624986ad"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aae56add6968b14a719fbcf9f624986ad">quads</a> () const noexcept</td></tr>
+<tr class="memitem:a3cf974d0f0cc0050062727b9461a4d98" id="r_a3cf974d0f0cc0050062727b9461a4d98"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a3cf974d0f0cc0050062727b9461a4d98">size</a> () const noexcept</td></tr>
+<tr class="memitem:ad57a6ed0cddc2905a4ba7ec8af28bc6d" id="r_ad57a6ed0cddc2905a4ba7ec8af28bc6d"><td class="memItemLeft">const <a class="el" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad57a6ed0cddc2905a4ba7ec8af28bc6d">statistics</a> () const noexcept</td></tr>
+<tr class="memitem:acec4dde66b15ad82a4fe5e6f6ab898c2" id="r_acec4dde66b15ad82a4fe5e6f6ab898c2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#acec4dde66b15ad82a4fe5e6f6ab898c2">isLayerOrderRespected</a> () const</td></tr>
+<tr class="memdesc:acec4dde66b15ad82a4fe5e6f6ab898c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie que l'ordre des calques est respecté (<span class="tt">EX-REN-014</span>).  <br /></td></tr>
+<tr class="memitem:a7c183aae5a2bb4d0cf840699d6de1091" id="r_a7c183aae5a2bb4d0cf840699d6de1091"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7c183aae5a2bb4d0cf840699d6de1091">areTextureGroupsContiguous</a> () const</td></tr>
+<tr class="memdesc:a7c183aae5a2bb4d0cf840699d6de1091"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie que chaque texture forme un seul groupe <b>contigu</b> par calque (<span class="tt">EX-REN-043</span>).  <br /></td></tr>
+<tr class="memitem:ae06f20049397c3be901e82df33a0343b" id="r_ae06f20049397c3be901e82df33a0343b"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae06f20049397c3be901e82df33a0343b">layerSequence</a> () const</td></tr>
+<tr class="memdesc:ae06f20049397c3be901e82df33a0343b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suite des calques rencontrés, sans répétition consécutive.  <br /></td></tr>
+<tr class="memitem:acdea2dcd8f0e074027c719cd90581fe8" id="r_acdea2dcd8f0e074027c719cd90581fe8"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acdea2dcd8f0e074027c719cd90581fe8">textureSequence</a> () const</td></tr>
+<tr class="memdesc:acdea2dcd8f0e074027c719cd90581fe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suite des textures liées, sans répétition consécutive : une entrée par passe <span class="tt">begin/end</span>.  <br /></td></tr>
+<tr class="memitem:a7ae51d3dc90ca97809247b0b9fb78ca8" id="r_a7ae51d3dc90ca97809247b0b9fb78ca8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a7ae51d3dc90ca97809247b0b9fb78ca8">countOnLayer</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer) const</td></tr>
+<tr class="memdesc:a7ae51d3dc90ca97809247b0b9fb78ca8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de primitives capturées sur un calque donné.  <br /></td></tr>
+<tr class="memitem:a99b0d3c3b48d2d6d66fc34f8860b0372" id="r_a99b0d3c3b48d2d6d66fc34f8860b0372"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a99b0d3c3b48d2d6d66fc34f8860b0372">countWithTexture</a> (<a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture) const</td></tr>
+<tr class="memdesc:a99b0d3c3b48d2d6d66fc34f8860b0372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de primitives capturées liées à une texture donnée.  <br /></td></tr>
+<tr class="memitem:ae7b026efca021dcceac2c07dddebcf0e" id="r_ae7b026efca021dcceac2c07dddebcf0e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae7b026efca021dcceac2c07dddebcf0e">containsSpriteAt</a> (float x, float y, float tolerance=1e-4f) const</td></tr>
+<tr class="memdesc:ae7b026efca021dcceac2c07dddebcf0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cherche un rectangle composé à une position monde donnée.  <br /></td></tr>
+<tr class="memitem:af96b37a9440c9b0bb60437cbbdc30732" id="r_af96b37a9440c9b0bb60437cbbdc30732"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#af96b37a9440c9b0bb60437cbbdc30732">describe</a> () const</td></tr>
+<tr class="memdesc:af96b37a9440c9b0bb60437cbbdc30732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résumé lisible de la capture, à joindre au message d'échec d'une assertion.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a1d2092e08b3e446057d134d75d55f6ca" id="r_a1d2092e08b3e446057d134d75d55f6ca"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1d2092e08b3e446057d134d75d55f6ca">_quads</a></td></tr>
+<tr class="memitem:a619727deeab73edf775e9d5bcfb5061c" id="r_a619727deeab73edf775e9d5bcfb5061c"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a>&#160;</td><td class="memItemRight"><a class="el" href="#a619727deeab73edf775e9d5bcfb5061c">_statistics</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Capture la liste des primitives d'une image et répond aux questions qu'un test se pose. </p>
+<p>Outil de <b>vérification et de diagnostic</b>, jamais un détour du rendu : la production compose dans une <span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html" title="Liste ordonnée des primitives d&#39;une image, indépendante de Direct3D.">hmi::ComposedScene</a></span> et la soumet directement ; le recorder ne fait qu'en <b>copier</b> le résultat, à la demande, hors du chemin de dessin. Il n'y a donc aucun coût en production.</p>
+<p>Il existe parce que l'habillage empile six couches dont l'ordre, la priorité de résolution et l'isolement sont exactement le genre de règle qui casse silencieusement, et dont les critères d'acceptation (« rendu identique », « ordre de calque correct ») seraient sinon des vérifications à l'œil. Les prédicats offerts ici — ordre des calques, contiguïté des groupes de texture, dénombrement par calque, présence d'une primitive à une position — sont la formulation <b>assertable</b> de ces critères, réutilisable par tous les lots suivants (<span class="tt">EX-NFR-004</span>, <span class="tt">EX-NFR-010</span>).</p>
+<p>On assertionne des <b>listes de primitives</b>, jamais des pixels : c'est précisément ce qui rend la vérification possible sans GPU. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a7c183aae5a2bb4d0cf840699d6de1091" name="a7c183aae5a2bb4d0cf840699d6de1091"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c183aae5a2bb4d0cf840699d6de1091">&#9670;&#160;</a></span>areTextureGroupsContiguous()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::QuadRecorder::areTextureGroupsContiguous </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vérifie que chaque texture forme un seul groupe <b>contigu</b> par calque (<span class="tt">EX-REN-043</span>). </p>
+<p>C'est la propriété qui garantit qu'une passe <span class="tt">begin/end</span> par groupe suffit : une texture qui réapparaîtrait plus loin <b>dans le même calque</b> imposerait une passe de plus, et signalerait un tri instable. La contiguïté ne vaut qu'à calque constant : une même texture utilisée sur deux calques différents produit légitimement deux passes, le calque primant sur la texture. </p><dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si aucune texture n'apparaît dans deux groupes distincts d'un même calque. </dd></dl>
+
+</div>
+</div>
+<a id="a137be42ad209fbb4f105582f2a9955e3" name="a137be42ad209fbb4f105582f2a9955e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a137be42ad209fbb4f105582f2a9955e3">&#9670;&#160;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::QuadRecorder::clear </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Oublie la capture courante. </p>
+
+</div>
+</div>
+<a id="ae7b026efca021dcceac2c07dddebcf0e" name="ae7b026efca021dcceac2c07dddebcf0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7b026efca021dcceac2c07dddebcf0e">&#9670;&#160;</a></span>containsSpriteAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::QuadRecorder::containsSpriteAt </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>tolerance</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1e-4f</span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cherche un rectangle composé à une position monde donnée. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Abscisse attendue du coin haut-gauche, en unités monde. </td></tr>
+    <tr><td class="paramname">y</td><td>Ordonnée attendue du coin haut-gauche, en unités monde. </td></tr>
+    <tr><td class="paramname">tolerance</td><td>Écart absolu toléré sur chaque axe (comparaison de flottants). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si au moins un <span class="tt"><a class="el" href="namespacehmi.html#aa9ff839f9bcc1bb899b24cb8026ab2b3a51f2b7b14433aa22c67d1f4fc18943cd" title="hmi::SpriteQuad : rectangle aligné sur les axes.">QuadKind::Sprite</a></span> capturé est à cette position. </dd></dl>
+
+</div>
+</div>
+<a id="a7ae51d3dc90ca97809247b0b9fb78ca8" name="a7ae51d3dc90ca97809247b0b9fb78ca8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ae51d3dc90ca97809247b0b9fb78ca8">&#9670;&#160;</a></span>countOnLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::QuadRecorder::countOnLayer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a></td>          <td class="paramname"><span class="paramname"><em>layer</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de primitives capturées sur un calque donné. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layer</td><td>Calque compté. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le nombre de primitives de ce calque. </dd></dl>
+
+</div>
+</div>
+<a id="a99b0d3c3b48d2d6d66fc34f8860b0372" name="a99b0d3c3b48d2d6d66fc34f8860b0372"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99b0d3c3b48d2d6d66fc34f8860b0372">&#9670;&#160;</a></span>countWithTexture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::QuadRecorder::countWithTexture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a></td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de primitives capturées liées à une texture donnée. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>Texture comptée. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le nombre de primitives utilisant cette texture. </dd></dl>
+
+</div>
+</div>
+<a id="af96b37a9440c9b0bb60437cbbdc30732" name="af96b37a9440c9b0bb60437cbbdc30732"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af96b37a9440c9b0bb60437cbbdc30732">&#9670;&#160;</a></span>describe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::QuadRecorder::describe </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Résumé lisible de la capture, à joindre au message d'échec d'une assertion. </p>
+<dl class="section return"><dt>Returns</dt><dd>Une ligne par passe : calque, texture et nombre de primitives. </dd></dl>
+
+</div>
+</div>
+<a id="acec4dde66b15ad82a4fe5e6f6ab898c2" name="acec4dde66b15ad82a4fe5e6f6ab898c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acec4dde66b15ad82a4fe5e6f6ab898c2">&#9670;&#160;</a></span>isLayerOrderRespected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::QuadRecorder::isLayerOrderRespected </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vérifie que l'ordre des calques est respecté (<span class="tt">EX-REN-014</span>). </p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si aucune primitive n'est soumise avant une primitive d'un calque <b>inférieur</b>, quel que soit l'ordre de composition. </dd></dl>
+
+</div>
+</div>
+<a id="ae06f20049397c3be901e82df33a0343b" name="ae06f20049397c3be901e82df33a0343b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae06f20049397c3be901e82df33a0343b">&#9670;&#160;</a></span>layerSequence()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> &gt; hmi::QuadRecorder::layerSequence </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Suite des calques rencontrés, sans répétition consécutive. </p>
+<dl class="section return"><dt>Returns</dt><dd>Les calques dans l'ordre de première apparition contiguë (ex. <span class="tt">Tile</span>, <span class="tt">Player</span>). </dd></dl>
+
+</div>
+</div>
+<a id="aae56add6968b14a719fbcf9f624986ad" name="aae56add6968b14a719fbcf9f624986ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae56add6968b14a719fbcf9f624986ad">&#9670;&#160;</a></span>quads()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &gt; &amp; hmi::QuadRecorder::quads </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les primitives capturées, dans leur ordre de soumission. </dd></dl>
+
+</div>
+</div>
+<a id="a5b17f404e66d00792587142c72277263" name="a5b17f404e66d00792587142c72277263"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b17f404e66d00792587142c72277263">&#9670;&#160;</a></span>record()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::QuadRecorder::record </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>scene</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Capture l'état d'une scène composée (copie : la scène peut ensuite être réutilisée). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scene</td><td>Scène dont on capture les primitives et les compteurs. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3cf974d0f0cc0050062727b9461a4d98" name="a3cf974d0f0cc0050062727b9461a4d98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cf974d0f0cc0050062727b9461a4d98">&#9670;&#160;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t hmi::QuadRecorder::size </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le nombre de primitives capturées. </dd></dl>
+
+</div>
+</div>
+<a id="ad57a6ed0cddc2905a4ba7ec8af28bc6d" name="ad57a6ed0cddc2905a4ba7ec8af28bc6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad57a6ed0cddc2905a4ba7ec8af28bc6d">&#9670;&#160;</a></span>statistics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a> &amp; hmi::QuadRecorder::statistics </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les compteurs de l'image capturée (composées, écartées, soumises, passes). </dd></dl>
+
+</div>
+</div>
+<a id="acdea2dcd8f0e074027c719cd90581fe8" name="acdea2dcd8f0e074027c719cd90581fe8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdea2dcd8f0e074027c719cd90581fe8">&#9670;&#160;</a></span>textureSequence()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> &gt; hmi::QuadRecorder::textureSequence </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Suite des textures liées, sans répétition consécutive : une entrée par passe <span class="tt">begin/end</span>. </p>
+<dl class="section return"><dt>Returns</dt><dd>Les identités de texture, dans l'ordre des passes. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a1d2092e08b3e446057d134d75d55f6ca" name="a1d2092e08b3e446057d134d75d55f6ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d2092e08b3e446057d134d75d55f6ca">&#9670;&#160;</a></span>_quads</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a>&gt; hmi::QuadRecorder::_quads</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a619727deeab73edf775e9d5bcfb5061c" name="a619727deeab73edf775e9d5bcfb5061c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a619727deeab73edf775e9d5bcfb5061c">&#9670;&#160;</a></span>_statistics</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a> hmi::QuadRecorder::_statistics</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="QuadRecorder_8h_source.html">QuadRecorder.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="QuadRecorder_8cpp.html">QuadRecorder.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1QuadRecorder.html">QuadRecorder</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

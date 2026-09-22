@@ -1,0 +1,204 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay/WorldFlags.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('WorldFlags_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">WorldFlags.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="WorldFlags_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;set&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classcore_1_1WorldFlags.html">   37</a></span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1WorldFlags.html">WorldFlags</a> {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1WorldFlags.html#a0fd00022ca39e40658084862fd4d5d4a">isSet</a>(std::string_view key) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1WorldFlags.html#ae2ec8ea0bd594024949a120cbb2eba0e">set</a>(std::string_view key);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1WorldFlags.html#a47a2402515448a7113fbfb9792a75556">clear</a>(std::string_view key);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classcore_1_1WorldFlags.html#a53fc6f03a30b6be46d9d9b67f36e6937">   49</a></span>    [[nodiscard]] std::size_t <a class="code hl_function" href="classcore_1_1WorldFlags.html#a53fc6f03a30b6be46d9d9b67f36e6937">size</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classcore_1_1WorldFlags.html#a03864513569d880c1d795f3d35bb33d3">_flags</a>.size();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    [[nodiscard]] std::vector&lt;std::string&gt; <a class="code hl_function" href="classcore_1_1WorldFlags.html#ab68d81336da31a6bb3626bb5a44f81ff">all</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classcore_1_1WorldFlags.html#a03864513569d880c1d795f3d35bb33d3">   57</a></span>    std::set&lt;std::string, std::less&lt;&gt;&gt; <a class="code hl_variable" href="classcore_1_1WorldFlags.html#a03864513569d880c1d795f3d35bb33d3">_flags</a>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>};</div>
+</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#a1a6b22027beb38aaf525b6dff5d3d2b8">keyForEntity</a>(std::string_view mapName, std::string_view entityType,</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                                       <span class="keywordtype">int</span> column, <span class="keywordtype">int</span> row);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aclasscore_1_1WorldFlags_html"><div class="ttname"><a href="classcore_1_1WorldFlags.html">core::WorldFlags</a></div><div class="ttdoc">L&#39;ensemble des faits acquis d&#39;une partie : coffres ouverts, quêtes franchies, portes déverrouillées.</div><div class="ttdef"><b>Definition</b> WorldFlags.h:37</div></div>
+<div class="ttc" id="aclasscore_1_1WorldFlags_html_a03864513569d880c1d795f3d35bb33d3"><div class="ttname"><a href="classcore_1_1WorldFlags.html#a03864513569d880c1d795f3d35bb33d3">core::WorldFlags::_flags</a></div><div class="ttdeci">std::set&lt; std::string, std::less&lt;&gt; &gt; _flags</div><div class="ttdef"><b>Definition</b> WorldFlags.h:57</div></div>
+<div class="ttc" id="aclasscore_1_1WorldFlags_html_a0fd00022ca39e40658084862fd4d5d4a"><div class="ttname"><a href="classcore_1_1WorldFlags.html#a0fd00022ca39e40658084862fd4d5d4a">core::WorldFlags::isSet</a></div><div class="ttdeci">bool isSet(std::string_view key) const</div><div class="ttdoc">Vrai si le fait est acquis.</div><div class="ttdef"><b>Definition</b> WorldFlags.cpp:8</div></div>
+<div class="ttc" id="aclasscore_1_1WorldFlags_html_a47a2402515448a7113fbfb9792a75556"><div class="ttname"><a href="classcore_1_1WorldFlags.html#a47a2402515448a7113fbfb9792a75556">core::WorldFlags::clear</a></div><div class="ttdeci">void clear(std::string_view key)</div><div class="ttdoc">Efface un fait. Utile à un LOT-16 qui rouvrirait une quête, et aux tests.</div><div class="ttdef"><b>Definition</b> WorldFlags.cpp:19</div></div>
+<div class="ttc" id="aclasscore_1_1WorldFlags_html_a53fc6f03a30b6be46d9d9b67f36e6937"><div class="ttname"><a href="classcore_1_1WorldFlags.html#a53fc6f03a30b6be46d9d9b67f36e6937">core::WorldFlags::size</a></div><div class="ttdeci">std::size_t size() const</div><div class="ttdoc">Le nombre de faits acquis.</div><div class="ttdef"><b>Definition</b> WorldFlags.h:49</div></div>
+<div class="ttc" id="aclasscore_1_1WorldFlags_html_ab68d81336da31a6bb3626bb5a44f81ff"><div class="ttname"><a href="classcore_1_1WorldFlags.html#ab68d81336da31a6bb3626bb5a44f81ff">core::WorldFlags::all</a></div><div class="ttdeci">std::vector&lt; std::string &gt; all() const</div><div class="ttdoc">Tous les faits acquis, triés — c&#39;est la forme que la sauvegarde écrira.</div><div class="ttdef"><b>Definition</b> WorldFlags.cpp:26</div></div>
+<div class="ttc" id="aclasscore_1_1WorldFlags_html_ae2ec8ea0bd594024949a120cbb2eba0e"><div class="ttname"><a href="classcore_1_1WorldFlags.html#ae2ec8ea0bd594024949a120cbb2eba0e">core::WorldFlags::set</a></div><div class="ttdeci">bool set(std::string_view key)</div><div class="ttdoc">Marque le fait comme acquis. Renvoie false s&#39;il l&#39;était déjà.</div><div class="ttdef"><b>Definition</b> WorldFlags.cpp:12</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a1a6b22027beb38aaf525b6dff5d3d2b8"><div class="ttname"><a href="namespacecore.html#a1a6b22027beb38aaf525b6dff5d3d2b8">core::keyForEntity</a></div><div class="ttdeci">std::string keyForEntity(std::string_view mapName, std::string_view entityType, int column, int row)</div><div class="ttdoc">La clé de drapeau d&#39;une entité de carte : &quot;&lt;carte&gt;/&lt;type&gt;@&lt;colonne&gt;,&lt;ligne&gt;&quot;.</div><div class="ttdef"><b>Definition</b> WorldFlags.cpp:30</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_adeee896fff163070c16c17abb9970bc.html">Gameplay</a></li><li class="navelem"><a href="WorldFlags_8h.html">WorldFlags.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

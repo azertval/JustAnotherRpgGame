@@ -1,0 +1,445 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/test_map_format.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__map__format_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_map_format.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests de la garde du format v4 (<span class="tt">LOT-EDITOR-12</span>) : migration d'une carte, contrôle de toutes, entrée sans fenêtre de l'éditeur.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="BattleGrid_8h_source.html">Core/Combat/BattleGrid.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelWriter_8h_source.html">Core/Levels/LevelWriter.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldGraph_8h_source.html">Core/World/WorldGraph.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapFormat_8h_source.html">Editor/Logic/MapFormat.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6b32f5a144d98be38b03de2c495a84c9" id="r_a6b32f5a144d98be38b03de2c495a84c9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6b32f5a144d98be38b03de2c495a84c9">TEST</a> (MapFormatTest, LaMigrationNeChangePasCeQueLeJeuJoue)</td></tr>
+<tr class="memdesc:a6b32f5a144d98be38b03de2c495a84c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Migrer une carte v3 nomme ses pièces, donne ses identifiants, force les cases où la collision s'écarte des pièces — et le jeu la joue à l'identique.  <br /></td></tr>
+<tr class="memitem:a8d735e8632d39a00cc43a2e6832c578a" id="r_a8d735e8632d39a00cc43a2e6832c578a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8d735e8632d39a00cc43a2e6832c578a">TEST</a> (MapFormatTest, LaMigrationEstIdempotente)</td></tr>
+<tr class="memdesc:a8d735e8632d39a00cc43a2e6832c578a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Migrer une carte déjà migrée ne change rien.  <br /></td></tr>
+<tr class="memitem:a463023789fa5cc0f7c5cae1fb2b62976" id="r_a463023789fa5cc0f7c5cae1fb2b62976"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a463023789fa5cc0f7c5cae1fb2b62976">TEST</a> (MapFormatTest, LesCartesLivreesPassentLeControle)</td></tr>
+<tr class="memdesc:a463023789fa5cc0f7c5cae1fb2b62976"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les cartes livrées passent le contrôle : c'est ce que la CI exige.  <br /></td></tr>
+<tr class="memitem:aff37e7cbd695fa3919a228475999d1cb" id="r_aff37e7cbd695fa3919a228475999d1cb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aff37e7cbd695fa3919a228475999d1cb">TEST</a> (MapFormatTest, ChaqueDefautSortEtLeControleEchoue)</td></tr>
+<tr class="memdesc:aff37e7cbd695fa3919a228475999d1cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte fautive fait sortir chaque sorte de défaut, et <span class="tt">--check</span> échoue.  <br /></td></tr>
+<tr class="memitem:a129cbc9add6872dd5a7630ddbb73cc72" id="r_a129cbc9add6872dd5a7630ddbb73cc72"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a129cbc9add6872dd5a7630ddbb73cc72">TEST</a> (MapFormatTest, UnTypeNonCouvertParLeLieuEstSignale)</td></tr>
+<tr class="memdesc:a129cbc9add6872dd5a7630ddbb73cc72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un type de tuile que la table du lieu ne couvre pas n'est plus invisible : il prend le rendu de maquette, et <span class="tt">--check</span> le dit (<span class="tt">LOT-128</span>).  <br /></td></tr>
+<tr class="memitem:adc51ab9b4ae285e27d067a157c2bc4d6" id="r_adc51ab9b4ae285e27d067a157c2bc4d6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adc51ab9b4ae285e27d067a157c2bc4d6">TEST</a> (MapFormatTest, MigrerRendUneCarteQueLeControleAccepte)</td></tr>
+<tr class="memdesc:adc51ab9b4ae285e27d067a157c2bc4d6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">--migrate</span> réécrit une carte en place, et la carte migrée passe le contrôle.  <br /></td></tr>
+<tr class="memitem:a64b02c3f5911e62ef4b9f043489ed771" id="r_a64b02c3f5911e62ef4b9f043489ed771"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a64b02c3f5911e62ef4b9f043489ed771">TEST</a> (MapFormatTest, SansCommandeLEditeurOuvreSaFenetre)</td></tr>
+<tr class="memdesc:a64b02c3f5911e62ef4b9f043489ed771"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans <span class="tt">--check</span> ni <span class="tt">--migrate</span>, l'éditeur ouvre sa fenêtre.  <br /></td></tr>
+<tr class="memitem:a11a8c863aa513894e22163f2127c42a5" id="r_a11a8c863aa513894e22163f2127c42a5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a11a8c863aa513894e22163f2127c42a5">TEST</a> (MapFormatTest, ChaqueCarteMigreeSeJoueALIdentique)</td></tr>
+<tr class="memdesc:a11a8c863aa513894e22163f2127c42a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptation du lot, sur <b>chaque</b> carte livrée : sa version v3, rangée dans <span class="tt">JADG_V3_MAPS_DIR</span> (tirée de l'historique git), se joue comme sa v4 migrée.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests de la garde du format v4 (<span class="tt">LOT-EDITOR-12</span>) : migration d'une carte, contrôle de toutes, entrée sans fenêtre de l'éditeur. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a11a8c863aa513894e22163f2127c42a5" name="a11a8c863aa513894e22163f2127c42a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11a8c863aa513894e22163f2127c42a5">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapFormatTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChaqueCarteMigreeSeJoueALIdentique</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Acceptation du lot, sur <b>chaque</b> carte livrée : sa version v3, rangée dans <span class="tt">JADG_V3_MAPS_DIR</span> (tirée de l'historique git), se joue comme sa v4 migrée. </p>
+<p>Le seul test de ce fichier à lire les cartes livrées, et c'est son objet ; il admet qu'il n'y en ait aucune (<span class="tt">LOT-123</span>), et ne saute que les cartes sans version v3. <b>Cas de test :</b> <b>Chaque carte migrée se joue à l'identique.</b><br  />
+ <b>Categorie :</b> Unitaire · Format v4<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Extraire les v3 : <span class="tt">git show 376c541da:Source/Elements/Levels/…</span> (le dernier commit de main avant ce lot).<br  />
+</p><ol type="1">
+<li><span class="tt">JADG_V3_MAPS_DIR=&lt;dossier&gt;</span> puis lancer ce test.<br  />
+ <b>Resultat attendu :</b> Même instantané de scène, même grille tactique, pour chaque carte. Ignoré sans la variable. </li>
+</ol>
+
+</div>
+</div>
+<a id="aff37e7cbd695fa3919a228475999d1cb" name="aff37e7cbd695fa3919a228475999d1cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff37e7cbd695fa3919a228475999d1cb">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapFormatTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChaqueDefautSortEtLeControleEchoue</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une carte fautive fait sortir chaque sorte de défaut, et <span class="tt">--check</span> échoue. </p>
+<p><b>Cas de test :</b> <b>Chaque défaut sort, et le contrôle échoue.</b><br  />
+ <b>Categorie :</b> Unitaire · Format v4<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Écrire une v4 non canonique, sans id, à pièce absente, à collision écartée, avec une hauteur et un portail vers nulle part.<br  />
+2. Lancer <span class="tt">--check</span>.<br  />
+ <b>Resultat attendu :</b> Chaque erreur et l'avertissement de hauteur sortent ; code de sortie 1. </p>
+
+</div>
+</div>
+<a id="a8d735e8632d39a00cc43a2e6832c578a" name="a8d735e8632d39a00cc43a2e6832c578a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d735e8632d39a00cc43a2e6832c578a">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapFormatTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaMigrationEstIdempotente</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Migrer une carte déjà migrée ne change rien. </p>
+<p><b>Cas de test :</b> <b>La migration est idempotente.</b><br  />
+ <b>Categorie :</b> Unitaire · Format v4<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Migrer <span class="tt">format-v3.json</span>.<br  />
+2. Relire et migrer encore.<br  />
+ <b>Resultat attendu :</b> Même texte ; rien de nommé, donné ni forcé la seconde fois. </p>
+
+</div>
+</div>
+<a id="a6b32f5a144d98be38b03de2c495a84c9" name="a6b32f5a144d98be38b03de2c495a84c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b32f5a144d98be38b03de2c495a84c9">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapFormatTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaMigrationNeChangePasCeQueLeJeuJoue</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Migrer une carte v3 nomme ses pièces, donne ses identifiants, force les cases où la collision s'écarte des pièces — et le jeu la joue à l'identique. </p>
+<p><b>Cas de test :</b> <b>La migration ne change pas ce que le jeu joue.</b><br  />
+ <b>Categorie :</b> Unitaire · Format v4<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Migrer <span class="tt">format-v3.json</span> avec la planche d'essai.<br  />
+2. Relire la v4.<br  />
+ <b>Resultat attendu :</b> Même instantané de scène, même grille tactique ; pièces du sol nommées ; deux identifiants ; sept cases de vide forcées. </p>
+
+</div>
+</div>
+<a id="a463023789fa5cc0f7c5cae1fb2b62976" name="a463023789fa5cc0f7c5cae1fb2b62976"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a463023789fa5cc0f7c5cae1fb2b62976">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapFormatTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesCartesLivreesPassentLeControle</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les cartes livrées passent le contrôle : c'est ce que la CI exige. </p>
+<p><b>Cas de test :</b> <b>Les cartes livrées passent le contrôle.</b><br  />
+ <b>Categorie :</b> Unitaire · Format v4<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Contrôler <span class="tt">Source/Elements</span>.<br  />
+ <b>Resultat attendu :</b> Aucune erreur. Aucune carte livrée : rien à contrôler, et c'est un état légitime (<span class="tt">LOT-123</span>, table rase du <span class="tt">LOT-102</span>). </p>
+
+</div>
+</div>
+<a id="adc51ab9b4ae285e27d067a157c2bc4d6" name="adc51ab9b4ae285e27d067a157c2bc4d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc51ab9b4ae285e27d067a157c2bc4d6">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapFormatTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MigrerRendUneCarteQueLeControleAccepte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">--migrate</span> réécrit une carte en place, et la carte migrée passe le contrôle. </p>
+<p><b>Cas de test :</b> <b>&ndash;migrate rend une carte que &ndash;check accepte.</b><br  />
+ <b>Categorie :</b> Unitaire · Format v4<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Copier <span class="tt">format-v3.json</span> dans un dossier de données.<br  />
+2. <span class="tt">--migrate</span> puis <span class="tt">--check</span>.<br  />
+ <b>Resultat attendu :</b> Codes 0 et 0 ; le fichier est en version 4. </p>
+
+</div>
+</div>
+<a id="a64b02c3f5911e62ef4b9f043489ed771" name="a64b02c3f5911e62ef4b9f043489ed771"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64b02c3f5911e62ef4b9f043489ed771">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapFormatTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SansCommandeLEditeurOuvreSaFenetre</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sans <span class="tt">--check</span> ni <span class="tt">--migrate</span>, l'éditeur ouvre sa fenêtre. </p>
+<p><b>Cas de test :</b> <b>Sans commande, l'éditeur ouvre sa fenêtre.</b><br  />
+ <b>Categorie :</b> Unitaire · Format v4<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Passer <span class="tt">--crash-test</span> seul.<br  />
+ <b>Resultat attendu :</b> Aucun code de sortie : la fenêtre s'ouvre. </p>
+
+</div>
+</div>
+<a id="a129cbc9add6872dd5a7630ddbb73cc72" name="a129cbc9add6872dd5a7630ddbb73cc72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a129cbc9add6872dd5a7630ddbb73cc72">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapFormatTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnTypeNonCouvertParLeLieuEstSignale</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un type de tuile que la table du lieu ne couvre pas n'est plus invisible : il prend le rendu de maquette, et <span class="tt">--check</span> le dit (<span class="tt">LOT-128</span>). </p>
+<p><b>Cas de test :</b> <b>Un type absent de la table du lieu est signale par le controle.</b><br  />
+ cat Unitaire · Format v4<br  />
+ crit Majeur<br  />
+ etapes 1. Ecrire une carte du lieu d'essai portant une case d'eau, que sa table ne couvre pas.<br  />
+2. La controler.<br  />
+ attendu Un avertissement nomme le type et la table ; aucune erreur ne vise le type. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_72f94039b203173a88806b7e5cad74af.html">Editor</a></li><li class="navelem"><a href="test__map__format_8cpp.html">test_map_format.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

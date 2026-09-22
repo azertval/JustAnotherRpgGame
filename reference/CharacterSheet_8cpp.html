@@ -1,0 +1,194 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/CharacterSheet.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('CharacterSheet_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CharacterSheet.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="CharacterSheet_8h_source.html">Core/Rpg/CharacterSheet.h</a>&quot;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &quot;<a class="el" href="JsonDocument_8h_source.html">Core/Data/JsonDocument.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Scale_8h_source.html">Core/Rpg/Scale.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
+<tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aed30bfa90cc61678be84164457f76dab" id="r_aed30bfa90cc61678be84164457f76dab"><td class="memItemLeft"><a class="el" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#aed30bfa90cc61678be84164457f76dab">core::loadCharacterCreationRules</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:aed30bfa90cc61678be84164457f76dab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les constantes depuis <span class="tt">Source/Elements/Rpg/rules/character-creation.json</span>.  <br /></td></tr>
+<tr class="memitem:a00be15bd9376cf46d81dedf0bc0f7d54" id="r_a00be15bd9376cf46d81dedf0bc0f7d54"><td class="memItemLeft"><a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a00be15bd9376cf46d81dedf0bc0f7d54">core::loadExperienceTable</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:a00be15bd9376cf46d81dedf0bc0f7d54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge la table d'expérience depuis <span class="tt">Source/Elements/Rpg/rules/experience.json</span>.  <br /></td></tr>
+<tr class="memitem:a79d320ec991d82d7cb18080669d551a5" id="r_a79d320ec991d82d7cb18080669d551a5"><td class="memItemLeft"><a class="el" href="structcore_1_1LoadedCharacterSheet.html">LoadedCharacterSheet</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a79d320ec991d82d7cb18080669d551a5">core::loadCharacterSheet</a> (const std::filesystem::path &amp;path, const <a class="el" href="structcore_1_1CharacterOptions.html">CharacterOptions</a> &amp;options, const <a class="el" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a> &amp;rules, const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;table)</td></tr>
+<tr class="memdesc:a79d320ec991d82d7cb18080669d551a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge un personnage depuis son fichier JSON (<span class="tt">Source/Elements/Rpg/characters/</span>, schéma <span class="tt">character.schema.json</span>) et <b>construit</b> sa fiche.  <br /></td></tr>
+<tr class="memitem:ab3286191c0a02de9afbc9e711ec799d1" id="r_ab3286191c0a02de9afbc9e711ec799d1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ab3286191c0a02de9afbc9e711ec799d1">core::proficiencyBonus</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;table)</td></tr>
+<tr class="memdesc:ab3286191c0a02de9afbc9e711ec799d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le bonus de maîtrise de la fiche, <b>lu dans la table</b> au niveau courant.  <br /></td></tr>
+<tr class="memitem:a5f742da51af4901d06af8def76937d57" id="r_a5f742da51af4901d06af8def76937d57"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a5f742da51af4901d06af8def76937d57">core::savingThrowModifier</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;table, <a class="el" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> which)</td></tr>
+<tr class="memdesc:a5f742da51af4901d06af8def76937d57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le modificateur d'un jet de sauvegarde : caractéristique, plus la maîtrise si elle s'applique.  <br /></td></tr>
+<tr class="memitem:a29026a1c7235970e3f432ac5d08229ad" id="r_a29026a1c7235970e3f432ac5d08229ad"><td class="memItemLeft"><a class="el" href="structcore_1_1SkillCheckModifier.html">SkillCheckModifier</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a29026a1c7235970e3f432ac5d08229ad">core::skillModifier</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;table, const <a class="el" href="structcore_1_1SkillCatalog.html">SkillCatalog</a> &amp;catalog, std::string_view skillId)</td></tr>
+<tr class="memitem:ae73047aa52884ecfd7eebb21af3990bb" id="r_ae73047aa52884ecfd7eebb21af3990bb"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ae73047aa52884ecfd7eebb21af3990bb">core::maximumHitPointsFor</a> (int hitDie, int level, int constitutionModifier)</td></tr>
+<tr class="memdesc:ae73047aa52884ecfd7eebb21af3990bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les points de vie d'un niveau, selon la règle du livre.  <br /></td></tr>
+<tr class="memitem:a7cfff9a8cfc89ebc9d4074d1db13eacd" id="r_a7cfff9a8cfc89ebc9d4074d1db13eacd"><td class="memItemLeft"><a class="el" href="structcore_1_1LevelUpResult.html">LevelUpResult</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a7cfff9a8cfc89ebc9d4074d1db13eacd">core::gainExperience</a> (<a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;table, int hitDie, int amount)</td></tr>
+<tr class="memdesc:a7cfff9a8cfc89ebc9d4074d1db13eacd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute des points d'expérience et applique la montée de niveau qui en découle.  <br /></td></tr>
+<tr class="memitem:ae5471fabe4f247c99a3c50293f59f91e" id="r_ae5471fabe4f247c99a3c50293f59f91e"><td class="memItemLeft"><a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ae5471fabe4f247c99a3c50293f59f91e">core::buildCharacterSheet</a> (std::string name, const std::array&lt; int, 6 &gt; &amp;baseAbilities, const <a class="el" href="structcore_1_1Species.html">Species</a> *species, const <a class="el" href="structcore_1_1PlayableClass.html">PlayableClass</a> *playableClass, const <a class="el" href="structcore_1_1Background.html">Background</a> *background, const <a class="el" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a> &amp;rules, const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;table)</td></tr>
+<tr class="memdesc:ae5471fabe4f247c99a3c50293f59f91e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit une fiche depuis une espèce, une classe et un historique.  <br /></td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_de25d93b7b4ef75f45504127491f58b5.html">Rpg</a></li><li class="navelem"><a href="CharacterSheet_8cpp.html">CharacterSheet.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

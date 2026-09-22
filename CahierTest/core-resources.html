@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core · Resources — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1 active" href="core-resources.html">Core · Resources</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-asset-keyscpp">test_asset_keys.cpp</a><a class="toc depth-2" href="#test-scene-piece-manifestcpp">test_scene_piece_manifest.cpp</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="core-resources">Core · Resources</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">12 cas</span></div>
+<p>Tests unitaires — <strong>12 cas</strong> (2 bloquants, 6 critiques, 4 majeurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-asset-keyscpp"><code>test_asset_keys.cpp</code></a></td><td>9</td><td>-</td><td>6</td><td>3</td><td>-</td></tr><tr><td><a href="#test-scene-piece-manifestcpp"><code>test_scene_piece_manifest.cpp</code></a></td><td>3</td><td>2</td><td>-</td><td>1</td><td>-</td></tr></tbody></table></div>
+<h2 id="test-asset-keyscpp">test_asset_keys.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="assetkeytestuneclenestjamaisunchemindefichier">AssetKeyTest.UneCleNEstJamaisUnCheminDeFichier</h3>
+<p><em>Critique · Unitaire · Assets</em> — <code>Source/Test/Unit/Core/Resources/test_asset_keys.cpp:40</code></p>
+<p>Une cle d'asset n'est jamais un chemin de fichier.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Valider des cles bien formees.</li><li>Valider des chemins et des cles malformees.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::isValidAssetKey(&quot;beast/wolf&quot;)</code> est vrai.</li><li>Vérifie que <code>core::isValidAssetKey(&quot;item/corde-en-chanvre-15-m&quot;)</code> est vrai.</li><li>Vérifie que <code>core::isValidAssetKey(&quot;weapon/epee-longue&quot;)</code> est vrai.</li><li>Vérifie que <code>core::isValidAssetKey(&quot;Assets/Entities/wolf.png&quot;)</code> est faux.</li><li>Vérifie que <code>core::isValidAssetKey(&quot;beast/wolf/token&quot;)</code> est faux.</li><li>Vérifie que <code>core::isValidAssetKey(&quot;beast/wolf.png&quot;)</code> est faux.</li><li>Vérifie que <code>core::isValidAssetKey(&quot;../beast/wolf&quot;)</code> est faux.</li><li>Vérifie que <code>core::isValidAssetKey(&quot;wolf&quot;)</code> est faux.</li><li>Vérifie que <code>core::isValidAssetKey(&quot;Beast/wolf&quot;)</code> est faux.</li><li>Vérifie que <code>core::isValidAssetKey(&quot;beast/&quot;)</code> est faux.</li><li>Vérifie que <code>core::isValidAssetKey(&quot;beast/-wolf&quot;)</code> est faux.</li><li>Vérifie que <code>core::isValidAssetKey(&quot;beast/wolf-&quot;)</code> est faux.</li><li>Vérifie que <code>core::isValidAssetKey(&quot;beast/gris--loup&quot;)</code> est faux.</li><li>Vérifie que <code>core::isValidAssetKey(&quot;&quot;)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="assetkeytestuneclesedecomposeetserecompose">AssetKeyTest.UneCleSeDecomposeEtSeRecompose</h3>
+<p><em>Majeur · Unitaire · Assets</em> — <code>Source/Test/Unit/Core/Resources/test_asset_keys.cpp:72</code></p>
+<p>Une cle se decompose et se recompose sans perte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Decomposer une cle valide.</li><li>La reformer depuis ses deux morceaux.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>decomposee.has_value()</code> est vrai.</li><li>Vérifie que <code>decomposee-&gt;family</code> vaut <code>&quot;beast&quot;</code>.</li><li>Vérifie que <code>decomposee-&gt;id</code> vaut <code>&quot;giant-rat&quot;</code>.</li><li>Vérifie que <code>core::defaultAssetKeyFor(decomposee-&gt;family, decomposee-&gt;id)</code> vaut <code>&quot;beast/giant-rat&quot;</code>.</li><li>Vérifie que <code>core::parseAssetKey(&quot;pas une cle&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::defaultAssetKeyFor(&quot;beast&quot;, &quot;Loup&quot;).empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="assetkeytestlatabledesfamilleslivreesecharge">AssetKeyTest.LaTableDesFamillesLivreeSeCharge</h3>
+<p><em>Critique · Unitaire · Assets</em> — <code>Source/Test/Unit/Core/Resources/test_asset_keys.cpp:92</code></p>
+<p>La table des familles livree se charge.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger Assets/Entities/families.json.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>familles().ok()</code> est vrai.</li><li>Vérifie que <code>famille.name.empty()</code> est faux.</li><li>Vérifie que <code>famille.width</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>famille.height</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>famille.catalogues.empty()</code> est faux.</li><li>Vérifie que <code>core::isValidAssetKey(famille.name + &quot;/essai&quot;)</code> est vrai.</li><li>Vérifie que <code>familles().find(&quot;beast&quot;)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>familles().find(&quot;famille-inexistante&quot;)</code> vaut <code>nullptr</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="assetkeytestaucunecleorphelinedanslescatalogueslivres">AssetKeyTest.AucuneCleOrphelineDansLesCataloguesLivres</h3>
+<p><em>Critique · Unitaire · Assets</em> — <code>Source/Test/Unit/Core/Resources/test_asset_keys.cpp:116</code></p>
+<p>Aucune cle d'asset orpheline dans les catalogues livres.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Deriver le manifeste des catalogues reels.</li><li>Relever les erreurs.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>erreurs.empty()</code> est vrai.</li><li>Vérifie que <code>attendues.size()</code> est strictement supérieur à <code>300U</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="assetkeytestlemanifestederivenapasdedoublon">AssetKeyTest.LeManifesteDeriveNAPasDeDoublon</h3>
+<p><em>Critique · Unitaire · Assets</em> — <code>Source/Test/Unit/Core/Resources/test_asset_keys.cpp:135</code></p>
+<p>Le manifeste derive n'a aucun doublon et chaque cle est bien formee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Deriver le manifeste.</li><li>Verifier l'unicite et la syntaxe de chaque cle.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>attendues.empty()</code> est faux.</li><li>Vérifie que <code>core::isValidAssetKey(attendue.key)</code> est vrai.</li><li>Vérifie que <code>familles().find(attendue.family)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>vues.insert(attendue.key).second</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="assetmarkertestunmarqueurestdeterministe">AssetMarkerTest.UnMarqueurEstDeterministe</h3>
+<p><em>Critique · Unitaire · Assets</em> — <code>Source/Test/Unit/Core/Resources/test_asset_keys.cpp:163</code></p>
+<p>Un marqueur est deterministe.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Peindre deux fois le marqueur d'une meme cle.</li><li>Peindre celui d'une autre cle.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>premier.isEmpty()</code> est faux.</li><li>Vérifie que <code>premier.pixels</code> vaut <code>second.pixels</code>.</li><li>Vérifie que <code>autre.isEmpty()</code> est faux.</li><li>Vérifie que <code>premier.pixels</code> diffère de <code>autre.pixels</code>.</li><li>Vérifie que <code>core::stableAssetHash(&quot;beast/wolf&quot;)</code> vaut <code>core::stableAssetHash(&quot;beast/wolf&quot;)</code>.</li><li>Vérifie que <code>core::stableAssetHash(&quot;beast/wolf&quot;)</code> diffère de <code>core::stableAssetHash(&quot;beast/wolt&quot;)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="assetmarkertestunmarqueurrespectesesdimensionsetsevoit">AssetMarkerTest.UnMarqueurRespecteSesDimensionsEtSeVoit</h3>
+<p><em>Majeur · Unitaire · Assets</em> — <code>Source/Test/Unit/Core/Resources/test_asset_keys.cpp:191</code></p>
+<p>Un marqueur respecte ses dimensions et se voit comme un marqueur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Peindre un marqueur aux dimensions d'une famille.</li><li>Comparer un pixel de la diagonale a un pixel de coin.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>marqueur.isEmpty()</code> est faux.</li><li>Vérifie que <code>marqueur.width</code> vaut <code>128</code>.</li><li>Vérifie que <code>marqueur.height</code> vaut <code>128</code>.</li><li>Vérifie que <code>marqueur.pixels.size()</code> vaut <code>128U * 128U</code>.</li><li>Vérifie que <code>centre</code> diffère de <code>bord</code>.</li><li>Vérifie que <code>centre.a</code> vaut <code>255</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="assetmarkertestuneclemalformeenerecoitpasdemarqueur">AssetMarkerTest.UneCleMalformeeNeRecoitPasDeMarqueur</h3>
+<p><em>Majeur · Unitaire · Assets</em> — <code>Source/Test/Unit/Core/Resources/test_asset_keys.cpp:215</code></p>
+<p>Une cle malformee ne recoit pas de marqueur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander le marqueur d'une cle malformee, puis de dimensions nulles.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::assetMarker(&quot;Assets/wolf.png&quot;, 96, 96).isEmpty()</code> est vrai.</li><li>Vérifie que <code>core::assetMarker(&quot;beast/wolf&quot;, 0, 96).isEmpty()</code> est vrai.</li><li>Vérifie que <code>core::assetMarker(&quot;beast/wolf&quot;, 96, -1).isEmpty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="assetmarkertesttoutecleattendueobtientunmarqueur">AssetMarkerTest.TouteCleAttendueObtientUnMarqueur</h3>
+<p><em>Critique · Unitaire · Assets</em> — <code>Source/Test/Unit/Core/Resources/test_asset_keys.cpp:231</code></p>
+<p>Toute cle attendue obtient un marqueur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Deriver le manifeste des catalogues reels.</li><li>Peindre le marqueur de chaque cle aux dimensions de sa famille.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>attendues.empty()</code> est faux.</li><li>Vérifie que <code>famille</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>marqueur.isEmpty()</code> est faux.</li><li>Vérifie que <code>marqueur.width</code> vaut <code>famille-&gt;width</code>.</li><li>Vérifie que <code>peints</code> vaut <code>static_cast&lt;int&gt;(attendues.size())</code>.</li></ul>
+</section><h2 id="test-scene-piece-manifestcpp">test_scene_piece_manifest.cpp</h2>
+<section class="case" data-crit="Bloquant"><h3 id="scenepiecemanifesttestlemanifestedunlieuselit">ScenePieceManifestTest.LeManifesteDUnLieuSeLit</h3>
+<p><em>Bloquant · Unitaire · Assets</em> — <code>Source/Test/Unit/Core/Resources/test_scene_piece_manifest.cpp:29</code></p>
+<p>Le manifeste des pieces d'un lieu se lit dans Core.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire le manifeste du lieu d'essai.</li><li>Chercher une piece de sol, une piece large et son miroir.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>read.ok()</code> est vrai.</li><li>Vérifie que <code>manifest.place()</code> vaut <code>&quot;bourg&quot;</code>.</li><li>Vérifie que <code>manifest.pieces().empty()</code> est faux.</li><li>Vérifie que <code>street</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>street-&gt;key</code> vaut <code>&quot;scene/bourg/street&quot;</code>.</li><li>Vérifie que <code>street-&gt;file</code> vaut <code>&quot;street.png&quot;</code>.</li><li>Vérifie que <code>street-&gt;pieceClass</code> vaut <code>core::ScenePieceClass::Floor</code>.</li><li>Vérifie que <code>street-&gt;footprintColumns</code> vaut <code>1</code>.</li><li>Vérifie que <code>street-&gt;footprintRows</code> vaut <code>1</code>.</li><li>Vérifie que <code>street-&gt;width</code> vaut <code>68</code>.</li><li>Vérifie que <code>street-&gt;height</code> vaut <code>42</code>.</li><li>Vérifie que <code>street-&gt;anchorX</code> vaut <code>34</code>.</li><li>Vérifie que <code>street-&gt;anchorY</code> vaut <code>0</code>.</li><li>Vérifie que <code>street-&gt;mirrorOf.empty()</code> est vrai.</li><li>Vérifie que <code>front</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>front-&gt;pieceClass</code> vaut <code>core::ScenePieceClass::Wide</code>.</li><li>Vérifie que <code>front-&gt;footprintColumns</code> vaut <code>2</code>.</li><li>Vérifie que <code>front-&gt;footprintRows</code> vaut <code>1</code>.</li><li>Vérifie que <code>front-&gt;mirrorOf</code> vaut <code>&quot;front-left&quot;</code>.</li><li>Vérifie que <code>manifest.find(front-&gt;mirrorOf)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>manifest.find(&quot;piece-inconnue&quot;)</code> vaut <code>nullptr</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="scenepiecemanifesttestchaquepiecedeclareeasonimage">ScenePieceManifestTest.ChaquePieceDeclareeASonImage</h3>
+<p><em>Bloquant · Unitaire · Assets</em> — <code>Source/Test/Unit/Core/Resources/test_scene_piece_manifest.cpp:73</code></p>
+<p>Toute piece declaree par un lieu a son image.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire les manifestes des deux lieux d'essai.</li><li>Chercher le fichier de chaque piece dans le dossier du lieu.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>read.ok()</code> est vrai.</li><li>Vérifie que <code>std::filesystem::is_regular_file(sceneDirectory(place) / piece.file)</code> est vrai.</li><li>Vérifie que <code>piece.footprintColumns</code> est supérieur ou égal à <code>1</code>.</li><li>Vérifie que <code>piece.footprintRows</code> est supérieur ou égal à <code>1</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="scenepiecemanifesttestuneentreefautivenefaitpasperdrelesautres">ScenePieceManifestTest.UneEntreeFautiveNeFaitPasPerdreLesAutres</h3>
+<p><em>Majeur · Unitaire · Assets</em> — <code>Source/Test/Unit/Core/Resources/test_scene_piece_manifest.cpp:98</code></p>
+<p>Le manifeste des pieces tolere une entree fautive sans perdre les autres.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire un manifeste dont une entree n'a pas d'image et une autre une classe inconnue.</li><li>Lire un manifeste sans <code>textures</code>, puis un fichier absent.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>read.ok()</code> est vrai.</li><li>Vérifie que <code>read.manifest.pieces().size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>piece.name</code> vaut <code>&quot;estrade&quot;</code>.</li><li>Vérifie que <code>piece.pieceClass</code> vaut <code>core::ScenePieceClass::Other</code>.</li><li>Vérifie que <code>piece.className</code> vaut <code>&quot;podium&quot;</code>.</li><li>Vérifie que <code>piece.footprintColumns</code> vaut <code>1</code>.</li><li>Vérifie que <code>piece.footprintRows</code> vaut <code>1</code>.</li><li>Vérifie que <code>core::ScenePieceManifest::loadFromString(R&quot;({&quot;version&quot;: 1})&quot;).error</code> vaut <code>core::ScenePieceManifestError::MalformedStructure</code>.</li><li>Vérifie que <code>core::ScenePieceManifest::loadFromFile(sceneDirectory(&quot;absent&quot;) / &quot;manifest.json&quot;).error</code> vaut <code>core::ScenePieceManifestError::FileNotFound</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-math.html"><span>Précédent</span>Core · Math</a><a class="next" href="core-rpg.html"><span>Suivant</span>Core · Rpg</a></nav><p class="source">Source : <code>Documentation/CahierTest/core-resources.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

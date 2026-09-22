@@ -1,0 +1,657 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::WorldTravel Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classcore_1_1WorldTravel.html','','classcore_1_1WorldTravel-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::WorldTravel Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>La carte courante, et le passage d'une carte à l'autre.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="WorldTravel_8h_source.html">WorldTravel.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-types" class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a3cb015fe13e6071f96b03ba0e819362e" id="r_a3cb015fe13e6071f96b03ba0e819362e"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e">MapLoader</a> = std::function&lt;<a class="el" href="structcore_1_1LevelLoadResult.html">LevelLoadResult</a>(std::string_view mapId)&gt;</td></tr>
+<tr class="memdesc:a3cb015fe13e6071f96b03ba0e819362e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend la carte d'identifiant donné, lue ou en échec.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac4b0d453de30a1bfe9e02c7a08616c7f" id="r_ac4b0d453de30a1bfe9e02c7a08616c7f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac4b0d453de30a1bfe9e02c7a08616c7f">WorldTravel</a> (<a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e">MapLoader</a> loader)</td></tr>
+<tr class="memitem:a0088132438f7a0b93d5cb2490bb839d5" id="r_a0088132438f7a0b93d5cb2490bb839d5"><td class="memItemLeft"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487">TravelResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0088132438f7a0b93d5cb2490bb839d5">enter</a> (std::string_view mapId, std::string_view arrival)</td></tr>
+<tr class="memdesc:a0088132438f7a0b93d5cb2490bb839d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entre sur <code class="param">mapId</code> au point d'arrivée <code class="param">arrival</code>.  <br /></td></tr>
+<tr class="memitem:a87c821cd8fb610fcaa258cb00ed034b7" id="r_a87c821cd8fb610fcaa258cb00ed034b7"><td class="memItemLeft"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487">TravelResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a87c821cd8fb610fcaa258cb00ed034b7">cross</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> from, const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags)</td></tr>
+<tr class="memdesc:a87c821cd8fb610fcaa258cb00ed034b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Franchit le portail posé sur <code class="param">from</code>, si les drapeaux l'ouvrent.  <br /></td></tr>
+<tr class="memitem:af8cd2cbe092939797af493608fd7354a" id="r_af8cd2cbe092939797af493608fd7354a"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af8cd2cbe092939797af493608fd7354a">currentMapId</a> () const noexcept</td></tr>
+<tr class="memitem:ac8ed4d65d15159284e9084c776afcd82" id="r_ac8ed4d65d15159284e9084c776afcd82"><td class="memItemLeft">const <a class="el" href="classcore_1_1Level.html">Level</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac8ed4d65d15159284e9084c776afcd82">currentMap</a> () const</td></tr>
+<tr class="memitem:aa9a20370b1f4dacfb176f9ae4093123c" id="r_aa9a20370b1f4dacfb176f9ae4093123c"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa9a20370b1f4dacfb176f9ae4093123c">position</a> () const noexcept</td></tr>
+<tr class="memitem:a63be3fa12598f9db06b63751b4e833e1" id="r_a63be3fa12598f9db06b63751b4e833e1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a63be3fa12598f9db06b63751b4e833e1">setPosition</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> <a class="el" href="#aa9a20370b1f4dacfb176f9ae4093123c">position</a>) noexcept</td></tr>
+<tr class="memdesc:a63be3fa12598f9db06b63751b4e833e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suit le personnage sur sa carte : c'est le déplacement qui décide, pas ce fichier.  <br /></td></tr>
+<tr class="memitem:ad2153acaf26afed67cce83ab66cd8459" id="r_ad2153acaf26afed67cce83ab66cd8459"><td class="memItemLeft">const std::optional&lt; <a class="el" href="structcore_1_1WorldIssue.html">WorldIssue</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad2153acaf26afed67cce83ab66cd8459">lastIssue</a> () const noexcept</td></tr>
+<tr class="memitem:af0cdfc0b067e03a924f8537efe7ca65e" id="r_af0cdfc0b067e03a924f8537efe7ca65e"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#af0cdfc0b067e03a924f8537efe7ca65e">loadedMapCount</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ac8ff38e0ae318f2072f42a18e64c1b09" id="r_ac8ff38e0ae318f2072f42a18e64c1b09"><td class="memItemLeft">static <a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e">MapLoader</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac8ff38e0ae318f2072f42a18e64c1b09">directoryLoader</a> (std::filesystem::path levelsDir)</td></tr>
+<tr class="memdesc:ac8ff38e0ae318f2072f42a18e64c1b09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chargeur du jeu : <span class="tt">&lt;levelsDir&gt;/&lt;mapId&gt;.json</span>.  <br /></td></tr>
+<tr class="memitem:a424d0def362d872b0f498f08673f2615" id="r_a424d0def362d872b0f498f08673f2615"><td class="memItemLeft">static <a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e">MapLoader</a>&#160;</td><td class="memItemRight"><a class="el" href="#a424d0def362d872b0f498f08673f2615">directoriesLoader</a> (std::vector&lt; std::filesystem::path &gt; levelsDirs)</td></tr>
+<tr class="memdesc:a424d0def362d872b0f498f08673f2615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chargeur qui cherche une carte dans <code class="param">levelsDirs</code>, <b>dans l'ordre donné</b>.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a6d8c4898d06f5a55e281d2c12c770819" id="r_a6d8c4898d06f5a55e281d2c12c770819"><td class="memItemLeft">const <a class="el" href="classcore_1_1Level.html">Level</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a6d8c4898d06f5a55e281d2c12c770819">mapFor</a> (std::string_view mapId)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ad2372a4c3f676592a8cb8da323cabb20" id="r_ad2372a4c3f676592a8cb8da323cabb20"><td class="memItemLeft"><a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e">MapLoader</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad2372a4c3f676592a8cb8da323cabb20">_loader</a></td></tr>
+<tr class="memitem:a64eb02ec8d763def96491b1d58681dac" id="r_a64eb02ec8d763def96491b1d58681dac"><td class="memItemLeft">std::map&lt; std::string, std::shared_ptr&lt; <a class="el" href="classcore_1_1Level.html">Level</a> &gt;, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a64eb02ec8d763def96491b1d58681dac">_maps</a></td></tr>
+<tr class="memitem:a3dd09766a2a3891aab8a3db1dd7f9e7d" id="r_a3dd09766a2a3891aab8a3db1dd7f9e7d"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a3dd09766a2a3891aab8a3db1dd7f9e7d">_currentMapId</a></td></tr>
+<tr class="memitem:a527705e6b77b293573b47a7cf10b6670" id="r_a527705e6b77b293573b47a7cf10b6670"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a527705e6b77b293573b47a7cf10b6670">_position</a> {}</td></tr>
+<tr class="memitem:a148fb42cb18a951577a149c9cdc1caf6" id="r_a148fb42cb18a951577a149c9cdc1caf6"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1WorldIssue.html">WorldIssue</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a148fb42cb18a951577a149c9cdc1caf6">_lastIssue</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>La carte courante, et le passage d'une carte à l'autre. </p>
+<p>Le chargement est injecté (<span class="tt"><a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e" title="Rend la carte d&#39;identifiant donné, lue ou en échec.">MapLoader</a></span>) plutôt que codé sur <span class="tt">std::filesystem</span> : les tests décrivent leurs cinq cartes en mémoire, et le jeu passe <span class="tt"><a class="el" href="#ac8ff38e0ae318f2072f42a18e64c1b09" title="Le chargeur du jeu : &lt;levelsDir&gt;/&lt;mapId&gt;.json.">directoryLoader</a></span>. <span class="tt">Core</span> ne connaît ainsi toujours qu'un dossier qu'on lui nomme, jamais l'arborescence du dépôt. </p>
+</div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Member Typedef Documentation</h2>
+<a id="a3cb015fe13e6071f96b03ba0e819362e" name="a3cb015fe13e6071f96b03ba0e819362e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cb015fe13e6071f96b03ba0e819362e">&#9670;&#160;</a></span>MapLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e">core::WorldTravel::MapLoader</a> = std::function&lt;<a class="el" href="structcore_1_1LevelLoadResult.html">LevelLoadResult</a>(std::string_view mapId)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rend la carte d'identifiant donné, lue ou en échec. </p>
+
+</div>
+</div>
+<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac4b0d453de30a1bfe9e02c7a08616c7f" name="ac4b0d453de30a1bfe9e02c7a08616c7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4b0d453de30a1bfe9e02c7a08616c7f">&#9670;&#160;</a></span>WorldTravel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::WorldTravel::WorldTravel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e">MapLoader</a></td>          <td class="paramname"><span class="paramname"><em>loader</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a87c821cd8fb610fcaa258cb00ed034b7" name="a87c821cd8fb610fcaa258cb00ed034b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87c821cd8fb610fcaa258cb00ed034b7">&#9670;&#160;</a></span>cross()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487">TravelResult</a> core::WorldTravel::cross </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>from</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Franchit le portail posé sur <code class="param">from</code>, si les drapeaux l'ouvrent. </p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">NoPortal</span> si la case n'en porte pas — c'est le cas ordinaire d'un pas —, <span class="tt">Locked</span> si le drapeau exigé manque, sinon le résultat de l'entrée sur la carte cible. </dd></dl>
+
+</div>
+</div>
+<a id="ac8ed4d65d15159284e9084c776afcd82" name="ac8ed4d65d15159284e9084c776afcd82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8ed4d65d15159284e9084c776afcd82">&#9670;&#160;</a></span>currentMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classcore_1_1Level.html">Level</a> * core::WorldTravel::currentMap </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La carte courante, ou <span class="tt">nullptr</span> avant la première entrée réussie. </dd></dl>
+
+</div>
+</div>
+<a id="af8cd2cbe092939797af493608fd7354a" name="af8cd2cbe092939797af493608fd7354a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8cd2cbe092939797af493608fd7354a">&#9670;&#160;</a></span>currentMapId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::WorldTravel::currentMapId </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'identifiant de la carte courante, vide avant la première entrée. </dd></dl>
+
+</div>
+</div>
+<a id="a424d0def362d872b0f498f08673f2615" name="a424d0def362d872b0f498f08673f2615"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a424d0def362d872b0f498f08673f2615">&#9670;&#160;</a></span>directoriesLoader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e">WorldTravel::MapLoader</a> core::WorldTravel::directoriesLoader </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::filesystem::path &gt;</td>          <td class="paramname"><span class="paramname"><em>levelsDirs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le chargeur qui cherche une carte dans <code class="param">levelsDirs</code>, <b>dans l'ordre donné</b>. </p>
+<p>L'essai complet de l'éditeur (<span class="tt">LOT-EDITOR-10</span>) écrit les brouillons ouverts dans un dossier temporaire et le place devant les cartes du binaire : on joue ce qu'on a sous les yeux, et toute carte qu'on n'édite pas vient de son fichier, comme en jeu.</p>
+<p>Une carte absente d'un dossier est cherchée dans le suivant ; une carte <b>présente mais illisible</b> arrête la recherche et rend son erreur — passer au dossier suivant ferait jouer en silence une version périmée de la carte qu'on vient de casser. </p>
+
+</div>
+</div>
+<a id="ac8ff38e0ae318f2072f42a18e64c1b09" name="ac8ff38e0ae318f2072f42a18e64c1b09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8ff38e0ae318f2072f42a18e64c1b09">&#9670;&#160;</a></span>directoryLoader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e">WorldTravel::MapLoader</a> core::WorldTravel::directoryLoader </td>
+          <td>(</td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>levelsDir</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le chargeur du jeu : <span class="tt">&lt;levelsDir&gt;/&lt;mapId&gt;.json</span>. </p>
+
+</div>
+</div>
+<a id="a0088132438f7a0b93d5cb2490bb839d5" name="a0088132438f7a0b93d5cb2490bb839d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0088132438f7a0b93d5cb2490bb839d5">&#9670;&#160;</a></span>enter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487">TravelResult</a> core::WorldTravel::enter </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>arrival</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Entre sur <code class="param">mapId</code> au point d'arrivée <code class="param">arrival</code>. </p>
+<p>Une carte déjà visitée n'est <b>pas rechargée</b> : on retrouve celle qu'on a quittée. Un nom d'arrivée vide pose le personnage sur l'entrée de la carte (<span class="tt"><a class="el" href="classcore_1_1Level.html#a08c4420372462d6e7991956902906da5">core::Level::entry</a></span>), ce que fait « Nouvelle partie ». </p>
+
+</div>
+</div>
+<a id="ad2153acaf26afed67cce83ab66cd8459" name="ad2153acaf26afed67cce83ab66cd8459"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2153acaf26afed67cce83ab66cd8459">&#9670;&#160;</a></span>lastIssue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::optional&lt; <a class="el" href="structcore_1_1WorldIssue.html">WorldIssue</a> &gt; &amp; core::WorldTravel::lastIssue </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le défaut de la dernière traversée refusée, s'il y en a un. </dd></dl>
+
+</div>
+</div>
+<a id="af0cdfc0b067e03a924f8537efe7ca65e" name="af0cdfc0b067e03a924f8537efe7ca65e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0cdfc0b067e03a924f8537efe7ca65e">&#9670;&#160;</a></span>loadedMapCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t core::WorldTravel::loadedMapCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le nombre de cartes gardées en mémoire — ce qui prouve, en test, qu'un retour ne recharge rien. </dd></dl>
+
+</div>
+</div>
+<a id="a6d8c4898d06f5a55e281d2c12c770819" name="a6d8c4898d06f5a55e281d2c12c770819"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d8c4898d06f5a55e281d2c12c770819">&#9670;&#160;</a></span>mapFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classcore_1_1Level.html">Level</a> * core::WorldTravel::mapFor </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La carte <code class="param">mapId</code>, chargée à la demande, ou <span class="tt">nullptr</span> si elle est illisible. </dd></dl>
+
+</div>
+</div>
+<a id="aa9a20370b1f4dacfb176f9ae4093123c" name="aa9a20370b1f4dacfb176f9ae4093123c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9a20370b1f4dacfb176f9ae4093123c">&#9670;&#160;</a></span>position()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> core::WorldTravel::position </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La case du personnage sur la carte courante. </dd></dl>
+
+</div>
+</div>
+<a id="a63be3fa12598f9db06b63751b4e833e1" name="a63be3fa12598f9db06b63751b4e833e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63be3fa12598f9db06b63751b4e833e1">&#9670;&#160;</a></span>setPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::WorldTravel::setPosition </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Suit le personnage sur sa carte : c'est le déplacement qui décide, pas ce fichier. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a3dd09766a2a3891aab8a3db1dd7f9e7d" name="a3dd09766a2a3891aab8a3db1dd7f9e7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dd09766a2a3891aab8a3db1dd7f9e7d">&#9670;&#160;</a></span>_currentMapId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::WorldTravel::_currentMapId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a148fb42cb18a951577a149c9cdc1caf6" name="a148fb42cb18a951577a149c9cdc1caf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a148fb42cb18a951577a149c9cdc1caf6">&#9670;&#160;</a></span>_lastIssue</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1WorldIssue.html">WorldIssue</a>&gt; core::WorldTravel::_lastIssue</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad2372a4c3f676592a8cb8da323cabb20" name="ad2372a4c3f676592a8cb8da323cabb20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2372a4c3f676592a8cb8da323cabb20">&#9670;&#160;</a></span>_loader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e">MapLoader</a> core::WorldTravel::_loader</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a64eb02ec8d763def96491b1d58681dac" name="a64eb02ec8d763def96491b1d58681dac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64eb02ec8d763def96491b1d58681dac">&#9670;&#160;</a></span>_maps</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, std::shared_ptr&lt;<a class="el" href="classcore_1_1Level.html">Level</a>&gt;, std::less&lt;&gt; &gt; core::WorldTravel::_maps</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a527705e6b77b293573b47a7cf10b6670" name="a527705e6b77b293573b47a7cf10b6670"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a527705e6b77b293573b47a7cf10b6670">&#9670;&#160;</a></span>_position</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> core::WorldTravel::_position {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/<a class="el" href="WorldTravel_8h_source.html">WorldTravel.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/<a class="el" href="WorldTravel_8cpp.html">WorldTravel.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="classcore_1_1WorldTravel.html">WorldTravel</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

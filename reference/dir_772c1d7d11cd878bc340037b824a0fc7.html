@@ -1,0 +1,269 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic Directory Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('dir_772c1d7d11cd878bc340037b824a0fc7.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Logic Directory Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-files" class="groupheader"><a id="files" name="files"></a>
+Files</h2></td></tr>
+<tr class="memitem:Autosave_2Ecpp" id="r_Autosave_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="Autosave_8cpp.html">Autosave.cpp</a></td></tr>
+<tr class="memitem:Autosave_2Eh" id="r_Autosave_2Eh"><td class="memItemLeft"><a href="Autosave_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="Autosave_8h.html">Autosave.h</a></td></tr>
+<tr class="memdesc:Autosave_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sauvegarde automatique des brouillons et reprise après plantage (<span class="tt">EX-EDIT-056</span>). <br /></td></tr>
+<tr class="memitem:BrushGesture_2Ecpp" id="r_BrushGesture_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="BrushGesture_8cpp.html">BrushGesture.cpp</a></td></tr>
+<tr class="memitem:BrushGesture_2Eh" id="r_BrushGesture_2Eh"><td class="memItemLeft"><a href="BrushGesture_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="BrushGesture_8h.html">BrushGesture.h</a></td></tr>
+<tr class="memdesc:BrushGesture_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que fait un coup de pinceau sur le brouillon : un type, une pièce ou la gomme, sur une case ou un rectangle (<span class="tt">LOT-EDITOR-03</span>, <span class="tt">EX-EDIT-064</span>, <span class="tt">EX-EDIT-065</span>). <br /></td></tr>
+<tr class="memitem:CanvasPicking_2Ecpp" id="r_CanvasPicking_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="CanvasPicking_8cpp.html">CanvasPicking.cpp</a></td></tr>
+<tr class="memitem:CanvasPicking_2Eh" id="r_CanvasPicking_2Eh"><td class="memItemLeft"><a href="CanvasPicking_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="CanvasPicking_8h.html">CanvasPicking.h</a></td></tr>
+<tr class="memdesc:CanvasPicking_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le pointage du canevas : d'un point du monde à la case qu'il désigne, dans la vue isométrique comme dans la vue à plat (<span class="tt">LOT-EDITOR-02</span>, décision D1, <span class="tt">EX-EDIT-060</span>). <br /></td></tr>
+<tr class="memitem:CanvasScene_2Ecpp" id="r_CanvasScene_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="CanvasScene_8cpp.html">CanvasScene.cpp</a></td></tr>
+<tr class="memitem:CanvasScene_2Eh" id="r_CanvasScene_2Eh"><td class="memItemLeft"><a href="CanvasScene_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="CanvasScene_8h.html">CanvasScene.h</a></td></tr>
+<tr class="memdesc:CanvasScene_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le canevas iso montre du brouillon : l'instantané que la composition du jeu dessine, et l'opacité de chacune de ses bandes (<span class="tt">LOT-EDITOR-02</span>). <br /></td></tr>
+<tr class="memitem:CityView_2Ecpp" id="r_CityView_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="CityView_8cpp.html">CityView.cpp</a></td></tr>
+<tr class="memitem:CityView_2Eh" id="r_CityView_2Eh"><td class="memItemLeft"><a href="CityView_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="CityView_8h.html">CityView.h</a></td></tr>
+<tr class="memdesc:CityView_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">La <b>vue de ville</b> du navigateur de cartes (<span class="tt">LOT-EDITOR-09</span>, <span class="tt">EX-EDIT-090</span>) : les quartiers d'une ville jouable posés sur son plan, et la carte que chacun ouvre. <br /></td></tr>
+<tr class="memitem:ContentCheck_2Ecpp" id="r_ContentCheck_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="ContentCheck_8cpp.html">ContentCheck.cpp</a></td></tr>
+<tr class="memitem:ContentCheck_2Eh" id="r_ContentCheck_2Eh"><td class="memItemLeft"><a href="ContentCheck_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="ContentCheck_8h.html">ContentCheck.h</a></td></tr>
+<tr class="memdesc:ContentCheck_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <b>contrôle du contenu</b> : ce qu'une carte promet au joueur et ne tient pas (<span class="tt">LOT-EDITOR-07</span>). <br /></td></tr>
+<tr class="memitem:DataRoot_2Ecpp" id="r_DataRoot_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="DataRoot_8cpp.html">DataRoot.cpp</a></td></tr>
+<tr class="memitem:DataRoot_2Eh" id="r_DataRoot_2Eh"><td class="memItemLeft"><a href="DataRoot_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="DataRoot_8h.html">DataRoot.h</a></td></tr>
+<tr class="memdesc:DataRoot_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">La racine des données que l'éditeur ouvre : celle des cartes, des planches et des catalogues (<span class="tt">LOT-EDITOR-06</span>). <br /></td></tr>
+<tr class="memitem:DiskGuard_2Ecpp" id="r_DiskGuard_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="DiskGuard_8cpp.html">DiskGuard.cpp</a></td></tr>
+<tr class="memitem:DiskGuard_2Eh" id="r_DiskGuard_2Eh"><td class="memItemLeft"><a href="DiskGuard_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="DiskGuard_8h.html">DiskGuard.h</a></td></tr>
+<tr class="memdesc:DiskGuard_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garde de fichier modifié sur disque (<span class="tt">EX-EDIT-057</span>). <br /></td></tr>
+<tr class="memitem:EditContextTarget_2Eh" id="r_EditContextTarget_2Eh"><td class="memItemLeft"><a href="EditContextTarget_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="EditContextTarget_8h.html">EditContextTarget.h</a></td></tr>
+<tr class="memdesc:EditContextTarget_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cible des commandes Annuler/Refaire/Copier/Coller, indépendante du contexte d'édition qui les implémente (<span class="tt">EX-IHM-062</span>). <br /></td></tr>
+<tr class="memitem:EditorDiagnostics_2Ecpp" id="r_EditorDiagnostics_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="EditorDiagnostics_8cpp.html">EditorDiagnostics.cpp</a></td></tr>
+<tr class="memitem:EditorDiagnostics_2Eh" id="r_EditorDiagnostics_2Eh"><td class="memItemLeft"><a href="EditorDiagnostics_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="EditorDiagnostics_8h.html">EditorDiagnostics.h</a></td></tr>
+<tr class="memdesc:EditorDiagnostics_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les avertissements que l'éditeur montre sur les entités d'une carte : références cassées, rencontres posées hors d'un terrain tactique valide (<span class="tt">LOT-11</span>), zones de combat qui ne se jouent pas (<span class="tt">LOT-EDITOR-05</span>). <br /></td></tr>
+<tr class="memitem:EditorKeyBindings_2Ecpp" id="r_EditorKeyBindings_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="EditorKeyBindings_8cpp.html">EditorKeyBindings.cpp</a></td></tr>
+<tr class="memitem:EditorKeyBindings_2Eh" id="r_EditorKeyBindings_2Eh"><td class="memItemLeft"><a href="EditorKeyBindings_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="EditorKeyBindings_8h.html">EditorKeyBindings.h</a></td></tr>
+<tr class="memdesc:EditorKeyBindings_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Association remappable action d'éditeur -&gt; touche clavier, avec persistance (<span class="tt">EX-CTRL-012</span>). <br /></td></tr>
+<tr class="memitem:EditorSidecar_2Ecpp" id="r_EditorSidecar_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="EditorSidecar_8cpp.html">EditorSidecar.cpp</a></td></tr>
+<tr class="memitem:EditorSidecar_2Eh" id="r_EditorSidecar_2Eh"><td class="memItemLeft"><a href="EditorSidecar_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="EditorSidecar_8h.html">EditorSidecar.h</a></td></tr>
+<tr class="memdesc:EditorSidecar_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le fichier annexe d'une carte, <span class="tt">&lt;carte&gt;.editor.json</span> : ce que l'éditeur garde pour l'auteur et que le jeu ne lit jamais (<span class="tt">LOT-EDITOR-04</span>, <span class="tt">EX-EDIT-068</span>). <br /></td></tr>
+<tr class="memitem:EditorStatus_2Ecpp" id="r_EditorStatus_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="EditorStatus_8cpp.html">EditorStatus.cpp</a></td></tr>
+<tr class="memitem:EditorStatus_2Eh" id="r_EditorStatus_2Eh"><td class="memItemLeft"><a href="EditorStatus_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="EditorStatus_8h.html">EditorStatus.h</a></td></tr>
+<tr class="memdesc:EditorStatus_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choix du contenu de la barre d'état de l'éditeur : zones permanentes et aide contextuelle à l'outil actif. <br /></td></tr>
+<tr class="memitem:EditorTool_2Eh" id="r_EditorTool_2Eh"><td class="memItemLeft"><a href="EditorTool_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="EditorTool_8h.html">EditorTool.h</a></td></tr>
+<tr class="memdesc:EditorTool_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outil actif dans la grille de l'éditeur (<span class="tt">EX-EDIT-014</span>, <span class="tt">EX-EDIT-066</span>). <br /></td></tr>
+<tr class="memitem:EntityGesture_2Ecpp" id="r_EntityGesture_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="EntityGesture_8cpp.html">EntityGesture.cpp</a></td></tr>
+<tr class="memitem:EntityGesture_2Eh" id="r_EntityGesture_2Eh"><td class="memItemLeft"><a href="EntityGesture_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="EntityGesture_8h.html">EntityGesture.h</a></td></tr>
+<tr class="memdesc:EntityGesture_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gestes des outils « Entité » et « Forme » : sélectionner, poser, tirer une zone, déplacer un groupe, tirer une poignée, peindre une zone, tracer un trajet (<span class="tt">LOT-11</span>, <span class="tt">LOT-EDITOR-05</span>) — purs et testables. <br /></td></tr>
+<tr class="memitem:EntityReferences_2Ecpp" id="r_EntityReferences_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="EntityReferences_8cpp.html">EntityReferences.cpp</a></td></tr>
+<tr class="memitem:EntityReferences_2Eh" id="r_EntityReferences_2Eh"><td class="memItemLeft"><a href="EntityReferences_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="EntityReferences_8h.html">EntityReferences.h</a></td></tr>
+<tr class="memdesc:EntityReferences_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le panneau « Entités » propose et vérifie : dialogues, rencontres, cartes et points d'arrivée, lus des catalogues (<span class="tt">LOT-11</span>). <br /></td></tr>
+<tr class="memitem:EntityShapes_2Ecpp" id="r_EntityShapes_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="EntityShapes_8cpp.html">EntityShapes.cpp</a></td></tr>
+<tr class="memitem:EntityShapes_2Eh" id="r_EntityShapes_2Eh"><td class="memItemLeft"><a href="EntityShapes_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="EntityShapes_8h.html">EntityShapes.h</a></td></tr>
+<tr class="memdesc:EntityShapes_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les entités à forme sur le canevas : rectangle, zone peinte, trajet, leurs poignées, le choix de l'entité sous le curseur et la liste filtrable (<span class="tt">LOT-EDITOR-05</span>, <span class="tt">EX-EDIT-070</span>, <span class="tt">EX-EDIT-072</span>). <br /></td></tr>
+<tr class="memitem:FileOperationResult_2Eh" id="r_FileOperationResult_2Eh"><td class="memItemLeft"><a href="FileOperationResult_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="FileOperationResult_8h.html">FileOperationResult.h</a></td></tr>
+<tr class="memdesc:FileOperationResult_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une opération de fichier de l'éditeur, <b>partagé</b> par les niveaux (<span class="tt">LevelFileOperations</span>) et les assets (<span class="tt">AssetFileOperations</span>). <br /></td></tr>
+<tr class="memitem:GameLaunch_2Ecpp" id="r_GameLaunch_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="GameLaunch_8cpp.html">GameLaunch.cpp</a></td></tr>
+<tr class="memitem:GameLaunch_2Eh" id="r_GameLaunch_2Eh"><td class="memItemLeft"><a href="GameLaunch_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="GameLaunch_8h.html">GameLaunch.h</a></td></tr>
+<tr class="memdesc:GameLaunch_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'essai <b>complet</b> (<span class="tt">LOT-EDITOR-10</span>, <span class="tt">EX-EDIT-095</span>) : ce qu'il faut poser sur le disque, et où trouver le jeu, pour lancer <span class="tt">JustAnotherRpgGame</span> sur la carte ouverte. <br /></td></tr>
+<tr class="memitem:GestureScript_2Ecpp" id="r_GestureScript_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="GestureScript_8cpp.html">GestureScript.cpp</a></td></tr>
+<tr class="memitem:GestureScript_2Eh" id="r_GestureScript_2Eh"><td class="memItemLeft"><a href="GestureScript_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="GestureScript_8h.html">GestureScript.h</a></td></tr>
+<tr class="memdesc:GestureScript_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'éditeur <b>sans fenêtre</b> : rejouer une liste de gestes sur une carte (<span class="tt">LevelEditor --apply gestes.json</span>, <span class="tt">LOT-EDITOR-13</span>, décision D9, <span class="tt">EX-EDIT-074</span>). <br /></td></tr>
+<tr class="memitem:LayerView_2Ecpp" id="r_LayerView_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="LayerView_8cpp.html">LayerView.cpp</a></td></tr>
+<tr class="memitem:LayerView_2Eh" id="r_LayerView_2Eh"><td class="memItemLeft"><a href="LayerView_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="LayerView_8h.html">LayerView.h</a></td></tr>
+<tr class="memdesc:LayerView_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couches d'une carte telles que l'éditeur les montre : lignes du panneau « Couches », couche active, visibilité et opacité (<span class="tt">LOT-11</span>). <br /></td></tr>
+<tr class="memitem:LevelFileOperations_2Ecpp" id="r_LevelFileOperations_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="LevelFileOperations_8cpp.html">LevelFileOperations.cpp</a></td></tr>
+<tr class="memitem:LevelFileOperations_2Eh" id="r_LevelFileOperations_2Eh"><td class="memItemLeft"><a href="LevelFileOperations_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="LevelFileOperations_8h.html">LevelFileOperations.h</a></td></tr>
+<tr class="memdesc:LevelFileOperations_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opérations fichiers sur les niveaux (créer/renommer/dupliquer/supprimer), sans Qt. <br /></td></tr>
+<tr class="memitem:LevelNameValidation_2Ecpp" id="r_LevelNameValidation_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="LevelNameValidation_8cpp.html">LevelNameValidation.cpp</a></td></tr>
+<tr class="memitem:LevelNameValidation_2Eh" id="r_LevelNameValidation_2Eh"><td class="memItemLeft"><a href="LevelNameValidation_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="LevelNameValidation_8h.html">LevelNameValidation.h</a></td></tr>
+<tr class="memdesc:LevelNameValidation_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validation d'un nom de niveau saisi dans l'éditeur (<span class="tt">EX-EDIT-009</span>). <br /></td></tr>
+<tr class="memitem:MapDocuments_2Ecpp" id="r_MapDocuments_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="MapDocuments_8cpp.html">MapDocuments.cpp</a></td></tr>
+<tr class="memitem:MapDocuments_2Eh" id="r_MapDocuments_2Eh"><td class="memItemLeft"><a href="MapDocuments_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="MapDocuments_8h.html">MapDocuments.h</a></td></tr>
+<tr class="memdesc:MapDocuments_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les <b>cartes ouvertes en onglets</b> (<span class="tt">LOT-EDITOR-09</span>, <span class="tt">EX-EDIT-088</span>) : ce que dit chaque onglet, laquelle une ouverture vise, et laquelle revient après une fermeture. <br /></td></tr>
+<tr class="memitem:MapFormat_2Ecpp" id="r_MapFormat_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="MapFormat_8cpp.html">MapFormat.cpp</a></td></tr>
+<tr class="memitem:MapFormat_2Eh" id="r_MapFormat_2Eh"><td class="memItemLeft"><a href="MapFormat_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="MapFormat_8h.html">MapFormat.h</a></td></tr>
+<tr class="memdesc:MapFormat_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">La garde du format de carte v4 : la <b>migration</b> d'une carte et le <b>contrôle</b> de toutes (<span class="tt">LOT-EDITOR-12</span>, constat A12, <span class="tt">EX-EDIT-062</span>). <br /></td></tr>
+<tr class="memitem:MapRefactor_2Ecpp" id="r_MapRefactor_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="MapRefactor_8cpp.html">MapRefactor.cpp</a></td></tr>
+<tr class="memitem:MapRefactor_2Eh" id="r_MapRefactor_2Eh"><td class="memItemLeft"><a href="MapRefactor_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="MapRefactor_8h.html">MapRefactor.h</a></td></tr>
+<tr class="memdesc:MapRefactor_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Renommer et remplacer</b> d'un bout à l'autre du projet (<span class="tt">LOT-EDITOR-14</span>, constat A7, règle 3 de la feuille de route). <br /></td></tr>
+<tr class="memitem:MapTexts_2Ecpp" id="r_MapTexts_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="MapTexts_8cpp.html">MapTexts.cpp</a></td></tr>
+<tr class="memitem:MapTexts_2Eh" id="r_MapTexts_2Eh"><td class="memItemLeft"><a href="MapTexts_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="MapTexts_8h.html">MapTexts.h</a></td></tr>
+<tr class="memdesc:MapTexts_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les textes qu'une carte cite : des <b>clés de traduction</b>, jamais du texte (<span class="tt">LOT-EDITOR-07</span>). <br /></td></tr>
+<tr class="memitem:PaintTools_2Ecpp" id="r_PaintTools_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="PaintTools_8cpp.html">PaintTools.cpp</a></td></tr>
+<tr class="memitem:PaintTools_2Eh" id="r_PaintTools_2Eh"><td class="memItemLeft"><a href="PaintTools_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="PaintTools_8h.html">PaintTools.h</a></td></tr>
+<tr class="memdesc:PaintTools_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les outils du peintre : trait, rectangle, ligne, seau, pipette, miroir et mesure (<span class="tt">LOT-EDITOR-04</span>, <span class="tt">EX-EDIT-066</span>, <span class="tt">EX-EDIT-067</span>, <span class="tt">EX-EDIT-069</span>). <br /></td></tr>
+<tr class="memitem:PanelFocus_2Ecpp" id="r_PanelFocus_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="PanelFocus_8cpp.html">PanelFocus.cpp</a></td></tr>
+<tr class="memitem:PanelFocus_2Eh" id="r_PanelFocus_2Eh"><td class="memItemLeft"><a href="PanelFocus_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="PanelFocus_8h.html">PanelFocus.h</a></td></tr>
+<tr class="memdesc:PanelFocus_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Correspondance outil actif → panneau à mettre en avant. <br /></td></tr>
+<tr class="memitem:PieceCatalog_2Ecpp" id="r_PieceCatalog_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="PieceCatalog_8cpp.html">PieceCatalog.cpp</a></td></tr>
+<tr class="memitem:PieceCatalog_2Eh" id="r_PieceCatalog_2Eh"><td class="memItemLeft"><a href="PieceCatalog_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="PieceCatalog_8h.html">PieceCatalog.h</a></td></tr>
+<tr class="memdesc:PieceCatalog_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <b>catalogue des pièces</b> d'un lieu : ce que la palette montre, groupé par classe, avec les pièces que la carte cite et que la planche n'a plus (<span class="tt">LOT-EDITOR-03</span>, <span class="tt">EX-EDIT-063</span>). <br /></td></tr>
+<tr class="memitem:Stamps_2Ecpp" id="r_Stamps_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="Stamps_8cpp.html">Stamps.cpp</a></td></tr>
+<tr class="memitem:Stamps_2Eh" id="r_Stamps_2Eh"><td class="memItemLeft"><a href="Stamps_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="Stamps_8h.html">Stamps.h</a></td></tr>
+<tr class="memdesc:Stamps_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <b>tampon</b> : un morceau de carte qu'on découpe, qu'on repose ailleurs et qu'on garde comme <b>préfabriqué</b> (<span class="tt">LOT-EDITOR-08</span>, <span class="tt">EX-EDIT-085</span>, <span class="tt">EX-EDIT-086</span>). <br /></td></tr>
+<tr class="memitem:ThumbnailGeometry_2Ecpp" id="r_ThumbnailGeometry_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="ThumbnailGeometry_8cpp.html">ThumbnailGeometry.cpp</a></td></tr>
+<tr class="memitem:ThumbnailGeometry_2Eh" id="r_ThumbnailGeometry_2Eh"><td class="memItemLeft"><a href="ThumbnailGeometry_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="ThumbnailGeometry_8h.html">ThumbnailGeometry.h</a></td></tr>
+<tr class="memdesc:ThumbnailGeometry_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dimensionnement des vignettes de l'éditeur à l'échelle d'affichage réelle (<span class="tt">EX-IHM-053</span>). <br /></td></tr>
+<tr class="memitem:TileTaxonomy_2Ecpp" id="r_TileTaxonomy_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="TileTaxonomy_8cpp.html">TileTaxonomy.cpp</a></td></tr>
+<tr class="memitem:TileTaxonomy_2Eh" id="r_TileTaxonomy_2Eh"><td class="memItemLeft"><a href="TileTaxonomy_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="TileTaxonomy_8h.html">TileTaxonomy.h</a></td></tr>
+<tr class="memdesc:TileTaxonomy_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Organisation des types de tuiles en catégories/sous-groupes pour la palette. <br /></td></tr>
+<tr class="memitem:WorldGraphLayout_2Ecpp" id="r_WorldGraphLayout_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="WorldGraphLayout_8cpp.html">WorldGraphLayout.cpp</a></td></tr>
+<tr class="memitem:WorldGraphLayout_2Eh" id="r_WorldGraphLayout_2Eh"><td class="memItemLeft"><a href="WorldGraphLayout_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="WorldGraphLayout_8h.html">WorldGraphLayout.h</a></td></tr>
+<tr class="memdesc:WorldGraphLayout_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposition de la vue « graphe du monde » du navigateur de cartes (<span class="tt">LOT-11</span>) : où poser chaque carte, quelles flèches tirer, et ce qui est sous le pointeur. <br /></td></tr>
+<tr class="memitem:WorldLinks_2Ecpp" id="r_WorldLinks_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="WorldLinks_8cpp.html">WorldLinks.cpp</a></td></tr>
+<tr class="memitem:WorldLinks_2Eh" id="r_WorldLinks_2Eh"><td class="memItemLeft"><a href="WorldLinks_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="WorldLinks_8h.html">WorldLinks.h</a></td></tr>
+<tr class="memdesc:WorldLinks_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Relier deux cartes</b> depuis le graphe du monde (<span class="tt">LOT-EDITOR-09</span>, <span class="tt">EX-EDIT-089</span>). <br /></td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

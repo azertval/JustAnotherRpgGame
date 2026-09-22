@@ -1,0 +1,593 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Rpg/test_inventory.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__inventory_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_inventory.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests de l'inventaire, des emplacements d'équipement et des statistiques dérivées (<span class="tt">LOT-14</span>, <span class="tt">EX-INV-020</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="CharacterSheet_8h_source.html">Core/Rpg/CharacterSheet.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Inventory_8h_source.html">Core/Rpg/Inventory.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aba17589914adbc03882eda55e760e6a9" id="r_aba17589914adbc03882eda55e760e6a9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aba17589914adbc03882eda55e760e6a9">TEST</a> (InventoryTest, LaClasseDArmureNeDerivePasAvecLOrdre)</td></tr>
+<tr class="memdesc:aba17589914adbc03882eda55e760e6a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Équiper une armure change la CA du montant attendu, et la retirer <b>restitue exactement</b> la valeur d'origine, quel que soit l'ordre des opérations.  <br /></td></tr>
+<tr class="memitem:a5028db36a2102e6c062a87b89797dd4a" id="r_a5028db36a2102e6c062a87b89797dd4a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5028db36a2102e6c062a87b89797dd4a">TEST</a> (InventoryTest, ChaqueCategorieDArmureAppliqueSaRegle)</td></tr>
+<tr class="memdesc:a5028db36a2102e6c062a87b89797dd4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les trois formes de la table du livre donnent trois classes d'armure différentes.  <br /></td></tr>
+<tr class="memitem:a260db69cf9c3cab474f815a19e804d58" id="r_a260db69cf9c3cab474f815a19e804d58"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a260db69cf9c3cab474f815a19e804d58">TEST</a> (InventoryTest, UnEmplacementRendCeQuIlPortait)</td></tr>
+<tr class="memdesc:a260db69cf9c3cab474f815a19e804d58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Équiper une pièce à un emplacement qui en portait déjà une rend la précédente.  <br /></td></tr>
+<tr class="memitem:a2cd82dd1104dbd94f3c2e4fbacbe306f" id="r_a2cd82dd1104dbd94f3c2e4fbacbe306f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2cd82dd1104dbd94f3c2e4fbacbe306f">TEST</a> (InventoryTest, LeSacEmpileEtSeVide)</td></tr>
+<tr class="memdesc:a2cd82dd1104dbd94f3c2e4fbacbe306f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le sac empile les lignes identiques, et une ligne vidée disparaît.  <br /></td></tr>
+<tr class="memitem:af88b358168738a2870ebf37046dc491d" id="r_af88b358168738a2870ebf37046dc491d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af88b358168738a2870ebf37046dc491d">TEST</a> (InventoryTest, LePoidsPorteCompteLeSacEtLEquipement)</td></tr>
+<tr class="memdesc:af88b358168738a2870ebf37046dc491d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le poids porté additionne le sac ET l'équipement, dans une seule unité.  <br /></td></tr>
+<tr class="memitem:a2aa13f956b440c6549f88803350464c6" id="r_a2aa13f956b440c6549f88803350464c6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2aa13f956b440c6549f88803350464c6">TEST</a> (InventoryTest, UnIdentifiantInconnuEstSignale)</td></tr>
+<tr class="memdesc:a2aa13f956b440c6549f88803350464c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un identifiant qu'aucun catalogue ne porte est <b>signalé</b>, pas confondu avec un objet sans masse.  <br /></td></tr>
+<tr class="memitem:a9bd162209d9d6791fa659ad0e4c6b481" id="r_a9bd162209d9d6791fa659ad0e4c6b481"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9bd162209d9d6791fa659ad0e4c6b481">TEST</a> (InventoryTest, LaChargeFranchitSesSeuils)</td></tr>
+<tr class="memdesc:a9bd162209d9d6791fa659ad0e4c6b481"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les trois seuils de charge, et le comportement défini au dépassement.  <br /></td></tr>
+<tr class="memitem:a5ef4c87529046931d5db067753658831" id="r_a5ef4c87529046931d5db067753658831"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5ef4c87529046931d5db067753658831">TEST</a> (InventoryTest, SansRegleDeChargeAucunEncombrementNEstAffirme)</td></tr>
+<tr class="memdesc:a5ef4c87529046931d5db067753658831"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans règle de charge chargée, la fiche ne prétend pas connaître une règle qui manque.  <br /></td></tr>
+<tr class="memitem:ae97849d4553ade4ebbb54c5835e92502" id="r_ae97849d4553ade4ebbb54c5835e92502"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae97849d4553ade4ebbb54c5835e92502">TEST</a> (InventoryTest, LaCaracteristiqueDAttaqueSuitLArme)</td></tr>
+<tr class="memdesc:ae97849d4553ade4ebbb54c5835e92502"><td class="mdescLeft">&#160;</td><td class="mdescRight">La caractéristique d'attaque suit l'arme : Force au corps à corps, Dextérité à distance, la meilleure des deux pour une arme de finesse.  <br /></td></tr>
+<tr class="memitem:ac6b8f7bfc49ecc6cfeb6b7b3973ae3e3" id="r_ac6b8f7bfc49ecc6cfeb6b7b3973ae3e3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac6b8f7bfc49ecc6cfeb6b7b3973ae3e3">TEST</a> (InventoryTest, LaCategorieDecideAvantLEmplacement)</td></tr>
+<tr class="memdesc:ac6b8f7bfc49ecc6cfeb6b7b3973ae3e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bouclier rangé au torse compte quand même comme un bouclier.  <br /></td></tr>
+<tr class="memitem:a05eae0fb8608d04d325579855b4d3234" id="r_a05eae0fb8608d04d325579855b4d3234"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a05eae0fb8608d04d325579855b4d3234">TEST</a> (InventoryTest, LesEmplacementsSeNommentEtSeRelisent)</td></tr>
+<tr class="memdesc:a05eae0fb8608d04d325579855b4d3234"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les seize emplacements se nomment et se relisent dans les deux sens.  <br /></td></tr>
+<tr class="memitem:a03f58505d26b3bc49d5cd16b0e92615d" id="r_a03f58505d26b3bc49d5cd16b0e92615d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a03f58505d26b3bc49d5cd16b0e92615d">TEST</a> (InventoryTest, LeCatalogueLivreSeCharge)</td></tr>
+<tr class="memdesc:a03f58505d26b3bc49d5cd16b0e92615d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le catalogue d'objets LIVRÉ se charge, et ses poids sont utilisables.  <br /></td></tr>
+<tr class="memitem:a32d8614f3a84411a2159b3e9854b5968" id="r_a32d8614f3a84411a2159b3e9854b5968"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a32d8614f3a84411a2159b3e9854b5968">TEST</a> (InventoryTest, LesBornesDeChargeLivreesSontCellesDuLivre)</td></tr>
+<tr class="memdesc:a32d8614f3a84411a2159b3e9854b5968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les bornes de charge LIVRÉES se chargent, et portent les valeurs du livre.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests de l'inventaire, des emplacements d'équipement et des statistiques dérivées (<span class="tt">LOT-14</span>, <span class="tt">EX-INV-020</span>). </p>
+<p>Logique pure, sans Qt.</p>
+<p>Le test central est <span class="tt">LaClasseDArmureNeDerivePasAvecLOrdre</span> : il équipe et retire dans <b>six</b> ordres différents et vérifie qu'on retombe exactement sur la valeur de départ. C'est le critère d'acceptation du lot, et il attrape le défaut qu'une implémentation accumulative ne signale jamais — après trois équipements et deux retraits dans le désordre, la CA a dérivé, et le personnage est simplement devenu un peu plus résistant. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a5028db36a2102e6c062a87b89797dd4a" name="a5028db36a2102e6c062a87b89797dd4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5028db36a2102e6c062a87b89797dd4a">&#9670;&#160;</a></span>TEST() <span class="overload">[1/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChaqueCategorieDArmureAppliqueSaRegle</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les trois formes de la table du livre donnent trois classes d'armure différentes. </p>
+<p><b>Cas de test :</b> <b>Chaque categorie d'armure applique sa propre regle de Dexterite.</b><br  />
+ <b>Categorie :</b> Unitaire · Inventaire<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Equiper une armure legere, puis une intermediaire, avec une Dexterite de 18.<br  />
+</p><ol type="1">
+<li>Ajouter un bouclier.<br  />
+ <b>Resultat attendu :</b> Legere : 11 + 4. Intermediaire : 15 + 2 (plafonne). Bouclier : +2 par-dessus. </li>
+</ol>
+
+</div>
+</div>
+<a id="ae97849d4553ade4ebbb54c5835e92502" name="ae97849d4553ade4ebbb54c5835e92502"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae97849d4553ade4ebbb54c5835e92502">&#9670;&#160;</a></span>TEST() <span class="overload">[2/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaCaracteristiqueDAttaqueSuitLArme</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La caractéristique d'attaque suit l'arme : Force au corps à corps, Dextérité à distance, la meilleure des deux pour une arme de finesse. </p>
+<p><b>Cas de test :</b> <b>La caracteristique d'attaque suit l'arme portee.</b><br  />
+ <b>Categorie :</b> Unitaire · Inventaire<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Equiper une arme de melee, puis une arme a distance, puis une arme de finesse, avec une Dexterite superieure a la Force.<br  />
+ <b>Resultat attendu :</b> Force, puis Dexterite, puis Dexterite (la meilleure des deux). </p>
+
+</div>
+</div>
+<a id="ac6b8f7bfc49ecc6cfeb6b7b3973ae3e3" name="ac6b8f7bfc49ecc6cfeb6b7b3973ae3e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6b8f7bfc49ecc6cfeb6b7b3973ae3e3">&#9670;&#160;</a></span>TEST() <span class="overload">[3/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaCategorieDecideAvantLEmplacement</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un bouclier rangé au torse compte quand même comme un bouclier. </p>
+<p><b>Cas de test :</b> <b>C'est la categorie qui dit comment une piece compte, pas l'emplacement.</b><br  />
+ <b>Categorie :</b> Unitaire · Inventaire<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Ranger un bouclier a l'emplacement du torse.<br  />
+ <b>Resultat attendu :</b> La CA vaut la base sans armure plus le bonus du bouclier, et non 2. </p>
+
+</div>
+</div>
+<a id="a9bd162209d9d6791fa659ad0e4c6b481" name="a9bd162209d9d6791fa659ad0e4c6b481"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bd162209d9d6791fa659ad0e4c6b481">&#9670;&#160;</a></span>TEST() <span class="overload">[4/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaChargeFranchitSesSeuils</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les trois seuils de charge, et le comportement défini au dépassement. </p>
+<p><b>Cas de test :</b> <b>La charge franchit ses trois seuils et definit le depassement.</b><br  />
+ <b>Categorie :</b> Unitaire · Inventaire<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger un personnage de Force 10 en dessous du premier seuil, puis entre les deux, puis au-dela du second, puis au-dela de la capacite.<br  />
+ <b>Resultat attendu :</b> Non encombre, encombre (-3 m), lourdement encombre (-6 m), puis hors capacite avec une vitesse nulle. </p>
+
+</div>
+</div>
+<a id="aba17589914adbc03882eda55e760e6a9" name="aba17589914adbc03882eda55e760e6a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba17589914adbc03882eda55e760e6a9">&#9670;&#160;</a></span>TEST() <span class="overload">[5/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaClasseDArmureNeDerivePasAvecLOrdre</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Équiper une armure change la CA du montant attendu, et la retirer <b>restitue exactement</b> la valeur d'origine, quel que soit l'ordre des opérations. </p>
+<p><b>Cas de test :</b> <b>La classe d'armure ne derive pas avec l'ordre des equipements.</b><br  />
+ <b>Categorie :</b> Unitaire · Inventaire<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Relever la CA sans equipement.<br  />
+2. Jouer six ordres d'equipement et de retrait d'une armure et d'un bouclier.<br  />
+3. Relever la CA apres chaque sequence complete.<br  />
+ <b>Resultat attendu :</b> La CA revient exactement a sa valeur de depart dans les six cas. </p>
+
+</div>
+</div>
+<a id="a03f58505d26b3bc49d5cd16b0e92615d" name="a03f58505d26b3bc49d5cd16b0e92615d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03f58505d26b3bc49d5cd16b0e92615d">&#9670;&#160;</a></span>TEST() <span class="overload">[6/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeCatalogueLivreSeCharge</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le catalogue d'objets LIVRÉ se charge, et ses poids sont utilisables. </p>
+<p><b>Cas de test :</b> <b>Le catalogue d'objets livre se charge.</b><br  />
+ <b>Categorie :</b> Unitaire · Inventaire<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger Source/Elements/Rpg/items.<br  />
+ <b>Resultat attendu :</b> Le catalogue est non vide, sans erreur, et chaque objet porte un identifiant. </p>
+
+</div>
+</div>
+<a id="af88b358168738a2870ebf37046dc491d" name="af88b358168738a2870ebf37046dc491d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af88b358168738a2870ebf37046dc491d">&#9670;&#160;</a></span>TEST() <span class="overload">[7/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LePoidsPorteCompteLeSacEtLEquipement</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le poids porté additionne le sac ET l'équipement, dans une seule unité. </p>
+<p><b>Cas de test :</b> <b>Le poids porte compte le sac et l'equipement.</b><br  />
+ <b>Categorie :</b> Unitaire · Inventaire<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Equiper une armure et une arme.<br  />
+2. Ajouter des objets au sac.<br  />
+ <b>Resultat attendu :</b> Le total est la somme des grammes, quantites comprises. </p>
+
+</div>
+</div>
+<a id="a2cd82dd1104dbd94f3c2e4fbacbe306f" name="a2cd82dd1104dbd94f3c2e4fbacbe306f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cd82dd1104dbd94f3c2e4fbacbe306f">&#9670;&#160;</a></span>TEST() <span class="overload">[8/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeSacEmpileEtSeVide</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le sac empile les lignes identiques, et une ligne vidée disparaît. </p>
+<p><b>Cas de test :</b> <b>Le sac empile, et une ligne videe disparait.</b><br  />
+ <b>Categorie :</b> Unitaire · Inventaire<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Ajouter deux fois le meme objet.<br  />
+2. En retirer plus qu'il n'y en a.<br  />
+ <b>Resultat attendu :</b> Une seule ligne de quantite cumulee ; le retrait rend ce qui existait, et la ligne disparait. </p>
+
+</div>
+</div>
+<a id="a32d8614f3a84411a2159b3e9854b5968" name="a32d8614f3a84411a2159b3e9854b5968"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32d8614f3a84411a2159b3e9854b5968">&#9670;&#160;</a></span>TEST() <span class="overload">[9/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesBornesDeChargeLivreesSontCellesDuLivre</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les bornes de charge LIVRÉES se chargent, et portent les valeurs du livre. </p>
+<p><b>Cas de test :</b> <b>Les bornes de charge livrees portent les valeurs du livre.</b><br  />
+ <b>Categorie :</b> Unitaire · Inventaire<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger Source/Elements/Rpg/rules/encumbrance.json.<br  />
+ <b>Resultat attendu :</b> 7,5 kg par point de Force, seuils a 2,5 et 5, penalites de 3 et 6 metres. </p>
+
+</div>
+</div>
+<a id="a05eae0fb8608d04d325579855b4d3234" name="a05eae0fb8608d04d325579855b4d3234"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05eae0fb8608d04d325579855b4d3234">&#9670;&#160;</a></span>TEST() <span class="overload">[10/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesEmplacementsSeNommentEtSeRelisent</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les seize emplacements se nomment et se relisent dans les deux sens. </p>
+<p><b>Cas de test :</b> <b>Les seize emplacements se nomment et se relisent.</b><br  />
+ <b>Categorie :</b> Unitaire · Inventaire<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Convertir chaque emplacement en nom, puis le nom en emplacement.<br  />
+ <b>Resultat attendu :</b> L'aller-retour redonne l'emplacement de depart, et un nom inconnu ne se devine pas. </p>
+
+</div>
+</div>
+<a id="a5ef4c87529046931d5db067753658831" name="a5ef4c87529046931d5db067753658831"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ef4c87529046931d5db067753658831">&#9670;&#160;</a></span>TEST() <span class="overload">[11/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SansRegleDeChargeAucunEncombrementNEstAffirme</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sans règle de charge chargée, la fiche ne prétend pas connaître une règle qui manque. </p>
+<p><b>Cas de test :</b> <b>Sans regle de charge, aucun encombrement n'est affirme.</b><br  />
+ <b>Categorie :</b> Unitaire · Inventaire<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Deriver les statistiques avec des bornes de charge non chargees.<br  />
+ <b>Resultat attendu :</b> La charge reste &lt;&lt; non encombre &gt;&gt;, la capacite vaut zero, et la vitesse est intacte. </p>
+
+</div>
+</div>
+<a id="a260db69cf9c3cab474f815a19e804d58" name="a260db69cf9c3cab474f815a19e804d58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a260db69cf9c3cab474f815a19e804d58">&#9670;&#160;</a></span>TEST() <span class="overload">[12/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnEmplacementRendCeQuIlPortait</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Équiper une pièce à un emplacement qui en portait déjà une rend la précédente. </p>
+<p><b>Cas de test :</b> <b>Un emplacement ne porte jamais deux pieces, et ce qui en sort est rendu.</b><br  />
+ <b>Categorie :</b> Unitaire · Inventaire<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Equiper une armure, puis une autre au meme emplacement.<br  />
+ <b>Resultat attendu :</b> La premiere est rendue a l'appelant, et l'emplacement ne porte que la seconde. </p>
+
+</div>
+</div>
+<a id="a2aa13f956b440c6549f88803350464c6" name="a2aa13f956b440c6549f88803350464c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2aa13f956b440c6549f88803350464c6">&#9670;&#160;</a></span>TEST() <span class="overload">[13/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnIdentifiantInconnuEstSignale</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un identifiant qu'aucun catalogue ne porte est <b>signalé</b>, pas confondu avec un objet sans masse. </p>
+<p><b>Cas de test :</b> <b>Un identifiant inconnu des catalogues est signale.</b><br  />
+ <b>Categorie :</b> Unitaire · Inventaire<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre au sac un identifiant absent des catalogues.<br  />
+ <b>Resultat attendu :</b> Il figure dans les identifiants inconnus, et ne pese rien. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_876500558ad9fa4b961386baa54d1bd8.html">Rpg</a></li><li class="navelem"><a href="test__inventory_8cpp.html">test_inventory.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

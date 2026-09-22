@@ -1,0 +1,245 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: Class Members</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('functions_d.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="contents">
+<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
+
+<h3 class="doxsection"><a id="index_d" name="index_d"></a>- d -</h3><ul>
+<li>damage&#160;:&#160;<a class="el" href="structcore_1_1AttackOutcome.html#a92fa3556e6fe981e561be4d8e896318f">core::AttackOutcome</a>, <a class="el" href="structcore_1_1AttackProfile.html#ab3db8d1b3f2e69e95aeb55f50fb46050">core::AttackProfile</a>, <a class="el" href="classcore_1_1CombatState.html#afafb334909b80667445bd12b5e8a8e4b">core::CombatState</a>, <a class="el" href="structcore_1_1CreatureAction.html#a2d614ee79e5d776ba6f490f6e20aedc7">core::CreatureAction</a>, <a class="el" href="structcore_1_1DamageRequest.html#a1c34ec2760c59f2a9b0c5adb0d395c49">core::DamageRequest</a>, <a class="el" href="structcore_1_1DerivedStats.html#a19069ad5cee5bd2ae14964650bb902d7">core::DerivedStats</a>, <a class="el" href="structcore_1_1Weapon.html#a68520b1a13724b2da2d55c0cc056c472">core::Weapon</a>, <a class="el" href="structhmi_1_1ItemSheet.html#a1a1609cb7ec8cf89f08b53db1725a304">hmi::ItemSheet</a></li>
+<li>damageDealt&#160;:&#160;<a class="el" href="structcore_1_1BehaviorProfile.html#a0341d1b6b05b4202f1a8a58d6a0a33f0">core::BehaviorProfile</a></li>
+<li>damageImmunities&#160;:&#160;<a class="el" href="structcore_1_1Creature.html#ae30a746afcc3f9d62188927021df7911">core::Creature</a></li>
+<li>damageObject()&#160;:&#160;<a class="el" href="classcore_1_1BattleGrid.html#a8cdc5cef5a4d2b8068bbb90b913771ee">core::BattleGrid</a></li>
+<li>damagePipeline()&#160;:&#160;<a class="el" href="classcore_1_1ArenaSession.html#a36554b265c0ee59bd356956ab7d2469a">core::ArenaSession</a></li>
+<li>damageResistances&#160;:&#160;<a class="el" href="structcore_1_1Creature.html#a470e93d56d3285a1ea03927074ad2bb7">core::Creature</a></li>
+<li>damageTraits&#160;:&#160;<a class="el" href="structcore_1_1CombatantProfile.html#a56bfe782f09a73dadfb8dc635ae4566b">core::CombatantProfile</a>, <a class="el" href="structcore_1_1GridObject.html#aa9ee822b3ce5094e14190420ec96c281">core::GridObject</a></li>
+<li>damageType&#160;:&#160;<a class="el" href="structcore_1_1CreatureAction.html#a5005f47d27307a316d49daaab2f871e1">core::CreatureAction</a>, <a class="el" href="structcore_1_1DerivedStats.html#aedd7077c41d1b2e12f52facb4b513833">core::DerivedStats</a>, <a class="el" href="structcore_1_1Weapon.html#a7858e37c1bb97bc58cec8c049950e520">core::Weapon</a></li>
+<li>damageVulnerabilities&#160;:&#160;<a class="el" href="structcore_1_1Creature.html#acac145766c13d365497d4c06ae9a46cb">core::Creature</a></li>
+<li>dash()&#160;:&#160;<a class="el" href="classcore_1_1ArenaSession.html#a666423bbab36c0b020ffd475b4646760">core::ArenaSession</a>, <a class="el" href="classhmi_1_1ArenaModel.html#abdf5aee5b5df692539728256c13b4508">hmi::ArenaModel</a></li>
+<li>dashTo&#160;:&#160;<a class="el" href="structcore_1_1TurnPlan.html#a4e57977162d5f75bd04e1f046f2d06ea">core::TurnPlan</a></li>
+<li>data()&#160;:&#160;<a class="el" href="classcore_1_1Level.html#ae35449d33bf4e7caa6c2a5bfb7516540">core::Level</a>, <a class="el" href="classhmi_1_1SheetRowModel.html#a0fe9a69e6ce3b956308e4e7ff2df2015">hmi::SheetRowModel</a></li>
+<li>dc&#160;:&#160;<a class="el" href="structcore_1_1DifficultyTier.html#af11e24ee15cef0f77241c382509ff067">core::DifficultyTier</a></li>
+<li>death&#160;:&#160;<a class="el" href="structhmi_1_1ArenaFigureAnimationSet.html#ad4b9888af77c19fd9754db2f8a7e8258">hmi::ArenaFigureAnimationSet</a></li>
+<li>deathFrameWidth&#160;:&#160;<a class="el" href="structhmi_1_1ArenaFigureAnimationLoad.html#adcd5e644575d1b147fa2ce0203f34766">hmi::ArenaFigureAnimationLoad</a></li>
+<li>declare()&#160;:&#160;<a class="el" href="classcore_1_1ActionEconomy.html#a2516894c23f6ab87d351e9b63e6c11f6">core::ActionEconomy</a></li>
+<li>declareAttack()&#160;:&#160;<a class="el" href="classcore_1_1CombatState.html#a08363ac86c0e3564713219854249037d">core::CombatState</a></li>
+<li>DEFAULT_FRAME_DURATION_SECONDS&#160;:&#160;<a class="el" href="classhmi_1_1AnimationCatalog.html#a05ffad34f350742a220ec866938c279b">hmi::AnimationCatalog</a></li>
+<li>DEFAULT_HERO_FIGURE&#160;:&#160;<a class="el" href="classhmi_1_1WorldPlay.html#add75f1e9b82d622c77675f3a9583885c">hmi::WorldPlay</a></li>
+<li>defaultBehavior&#160;:&#160;<a class="el" href="structcore_1_1BehaviorCatalog.html#ae7b9febea27df8c5890df51a91364ec9">core::BehaviorCatalog</a></li>
+<li>defaultKey()&#160;:&#160;<a class="el" href="classhmi_1_1EditorKeyBindings.html#a12570faca506479fd16c5817d2092ad6">hmi::EditorKeyBindings</a></li>
+<li>defaults&#160;:&#160;<a class="el" href="classhmi_1_1OptionsModel.html#a1a9fcaff0d366deccfb2d1e630a01280">hmi::OptionsModel</a></li>
+<li>defaultValue&#160;:&#160;<a class="el" href="structcore_1_1EntityPropertySpec.html#a826dfec69cd66fe96152c227435cbc3a">core::EntityPropertySpec</a></li>
+<li>defeatFlagKey&#160;:&#160;<a class="el" href="structcore_1_1EncounterRun.html#af3e50f18e0d8856aa1f21b8c096f2976">core::EncounterRun</a>, <a class="el" href="structcore_1_1EncounterTrigger.html#ac449bc196581b4c514d11096a60853e3">core::EncounterTrigger</a></li>
+<li>deleteButton&#160;:&#160;<a class="el" href="structhmi_1_1LevelBrowserPanel_1_1Widgets.html#ab698002965afbb7bf7aaadcedbbc8d65">hmi::LevelBrowserPanel::Widgets</a></li>
+<li>depth()&#160;:&#160;<a class="el" href="classcore_1_1IsoProjection.html#ac6b8f01d234d3d33e974746cae13a0be">core::IsoProjection</a></li>
+<li>depthOffset&#160;:&#160;<a class="el" href="structhmi_1_1SceneTexture.html#a17230b3f5eb95e15e3a986f7c4884cfd">hmi::SceneTexture</a></li>
+<li>derived&#160;:&#160;<a class="el" href="structhmi_1_1CharacterSheetContext.html#a144caa8abce66891e9bf493bce6990bd">hmi::CharacterSheetContext</a>, <a class="el" href="structhmi_1_1InventoryContext.html#ae56ea28d9aff42fe7a6fc02e822950ea">hmi::InventoryContext</a></li>
+<li>derivesCollision()&#160;:&#160;<a class="el" href="classcore_1_1LevelDraft.html#ab195c607dd84ab23004feaab3ee8d25f">core::LevelDraft</a></li>
+<li>describe()&#160;:&#160;<a class="el" href="structcore_1_1AttackOutcome.html#ab0969d0c7ca522d8bb90a10149a71750">core::AttackOutcome</a>, <a class="el" href="structcore_1_1CheckResult.html#a6a87d200ae59fcdd179e04eca64d3548">core::CheckResult</a>, <a class="el" href="structcore_1_1DiceRoll.html#abb413dae8fede7bb738e1867829dce9b">core::DiceRoll</a>, <a class="el" href="classhmi_1_1QuadRecorder.html#af96b37a9440c9b0bb60437cbbdc30732">hmi::QuadRecorder</a></li>
+<li>description&#160;:&#160;<a class="el" href="structcore_1_1Creature.html#acf8f08feebb317942a935a6227430569">core::Creature</a>, <a class="el" href="structcore_1_1Location.html#af82580580fcf327bd9a3286244d96f29">core::Location</a>, <a class="el" href="structhmi_1_1AnimationDescriptionResult.html#a3cdcee7012ff94ee9d1035738c33edaf">hmi::AnimationDescriptionResult</a>, <a class="el" href="structhmi_1_1MapCityPointView.html#a3246b75c1bf938f4e7f551c60c41ba19">hmi::MapCityPointView</a>, <a class="el" href="structhmi_1_1MapPlaceView.html#a80b674fb35c1b1093fd10e0d3ad762af">hmi::MapPlaceView</a>, <a class="el" href="structhmi_1_1MapTemplate.html#a04e1ec696caa907178c8acf951261243">hmi::MapTemplate</a></li>
+<li>descriptorFileName()&#160;:&#160;<a class="el" href="classhmi_1_1AnimationCatalog.html#a3c11b9e7acf4752079f89e2d21c4949a">hmi::AnimationCatalog</a></li>
+<li>destinations()&#160;:&#160;<a class="el" href="classcore_1_1ReachableArea.html#a7ab6b033a9a8f17d579587ac80bd7551">core::ReachableArea</a></li>
+<li>destroy()&#160;:&#160;<a class="el" href="classcore_1_1EntityManager.html#ab174963453832efe0d7fe31442b066e0">core::EntityManager</a></li>
+<li>destroyEntity()&#160;:&#160;<a class="el" href="classcore_1_1World.html#a3f7bff9ce2069d73f341d6726a793885">core::World</a></li>
+<li>detail&#160;:&#160;<a class="el" href="structhmi_1_1PalettePanel_1_1PrefabItem.html#a4dbc0aa4d2243e888eb48230692c4802">hmi::PalettePanel::PrefabItem</a></li>
+<li>DeterministicRandom()&#160;:&#160;<a class="el" href="classcore_1_1DeterministicRandom.html#af59424e8343daa70e5c574d890982904">core::DeterministicRandom</a></li>
+<li>developerBuild&#160;:&#160;<a class="el" href="classhmi_1_1ScreenRouter.html#ae1d233ca79a137451b3d598b29aae659">hmi::ScreenRouter</a></li>
+<li>dexterity&#160;:&#160;<a class="el" href="structcore_1_1CombatantProfile.html#ad628b91105fde9e22114102f52994eca">core::CombatantProfile</a>, <a class="el" href="structcore_1_1InitiativeEntry.html#ad24a61de859a10227d320201db137ac7">core::InitiativeEntry</a></li>
+<li>dexterityBonus&#160;:&#160;<a class="el" href="structcore_1_1Armor.html#a2c6bc3b29c5d46addce60c3a75db0ae3">core::Armor</a></li>
+<li>dexterityBonusMax&#160;:&#160;<a class="el" href="structcore_1_1Armor.html#a85302f29d0dc9ffb9baacc68a4164970">core::Armor</a></li>
+<li>diagnostics()&#160;:&#160;<a class="el" href="classhmi_1_1EditorViewport.html#a755b8510cb7c3eb633666cdf947f54ae">hmi::EditorViewport</a>, <a class="el" href="classhmi_1_1OptionsModel.html#ad4faa29a69a81e4c9987c7fab507397f">hmi::OptionsModel</a></li>
+<li>diagnosticsChanged()&#160;:&#160;<a class="el" href="classhmi_1_1OptionsModel.html#a87c5da577e125eb3adfcbf1fdb4770f2">hmi::OptionsModel</a></li>
+<li>diagonals()&#160;:&#160;<a class="el" href="classcore_1_1IsoProjection.html#a0850096545ec67956a1341b5e9d81cab">core::IsoProjection</a></li>
+<li>dialogueId&#160;:&#160;<a class="el" href="structcore_1_1DialogueTrigger.html#afae381299222ca0705a26f032a6e0ba3">core::DialogueTrigger</a>, <a class="el" href="classhmi_1_1DialogueModel.html#a1c376e04d9cb74bb0030ae72dfe30480">hmi::DialogueModel</a>, <a class="el" href="structhmi_1_1DialogueModel_1_1Session.html#ad2f51604d6adff037fc1f25d26aa39ce">hmi::DialogueModel::Session</a>, <a class="el" href="classhmi_1_1ScreenRouter.html#aa9ba1f7e1f16121dc41686cc69ee0dea">hmi::ScreenRouter</a></li>
+<li>DialogueListener()&#160;:&#160;<a class="el" href="classcore_1_1DialogueListener.html#a9900ccf0d5b46afa38596bd1e8b8a4bc">core::DialogueListener</a></li>
+<li>DialogueModel()&#160;:&#160;<a class="el" href="classhmi_1_1DialogueModel.html#ab4ff26bf7bfa343837c5fb9486360576">hmi::DialogueModel</a></li>
+<li>dialogueRequested()&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#a6723bd1aa09199cdd31a4e74b7e901f4">hmi::WorldModel</a></li>
+<li>DialogueRunner()&#160;:&#160;<a class="el" href="classcore_1_1DialogueRunner.html#a50b74dba4bb469ee0a237761e438da52">core::DialogueRunner</a></li>
+<li>dialogues&#160;:&#160;<a class="el" href="structcore_1_1DialogueCatalog.html#accc874c7e4acadf672e56459bc0db9e6">core::DialogueCatalog</a>, <a class="el" href="structcore_1_1EntityReferenceContext.html#a3a2601e6cdfa5b5f15e049483a791037">core::EntityReferenceContext</a>, <a class="el" href="structhmi_1_1DialogueModel_1_1Session.html#a68317ec1a195841fc516d26ddfb3aa54">hmi::DialogueModel::Session</a>, <a class="el" href="structhmi_1_1EditorReferences.html#a63ddd1355ea38e300f9c29f149a56d79">hmi::EditorReferences</a></li>
+<li>diamondRatio()&#160;:&#160;<a class="el" href="classhmi_1_1PlaceAppearance.html#a9e95a464541a22fef06b33455773645f">hmi::PlaceAppearance</a>, <a class="el" href="classhmi_1_1WorldModel.html#a8ace752c0cf112e49b79142b3c85290b">hmi::WorldModel</a>, <a class="el" href="classhmi_1_1WorldPlay.html#a8285cae2cd0e6313ffe80a56f0669620">hmi::WorldPlay</a>, <a class="el" href="structhmi_1_1WorldSceneSnapshot.html#a2e70b069e4cd32d82c7c783cb530053e">hmi::WorldSceneSnapshot</a></li>
+<li>dice&#160;:&#160;<a class="el" href="structcore_1_1CheckResult.html#a07d1bf1f684a7a240509419925514011">core::CheckResult</a>, <a class="el" href="structcore_1_1DamageClause.html#a593240e65c6f77b5ded1bcb3484692f0">core::DamageClause</a>, <a class="el" href="structcore_1_1DiceRoll.html#aa7aaa78f3af486c500fae7e77e2b5b6b">core::DiceRoll</a></li>
+<li>difficulty&#160;:&#160;<a class="el" href="structcore_1_1DialogueCheck.html#acf60b60b14b97e8cc1d473534399c600">core::DialogueCheck</a>, <a class="el" href="structcore_1_1DialogueNode.html#a17465fd3cadfe5ef2ab34a865ce32c10">core::DialogueNode</a>, <a class="el" href="structcore_1_1DialogueReferences.html#aaf7959ed5f546af66f47935b311bb04b">core::DialogueReferences</a>, <a class="el" href="structhmi_1_1DialogueModel_1_1Session.html#a143c2d5b564393344017380c530fb528">hmi::DialogueModel::Session</a></li>
+<li>dimCheck&#160;:&#160;<a class="el" href="structhmi_1_1LayersPanel_1_1Widgets.html#ab7accf77ac1a12427528ce32ff20c462">hmi::LayersPanel::Widgets</a></li>
+<li>dimmed&#160;:&#160;<a class="el" href="structhmi_1_1LayerDisplay.html#a1a7f8de76f9f4e1c384c1e360d18c053">hmi::LayerDisplay</a></li>
+<li>dimRequested()&#160;:&#160;<a class="el" href="classhmi_1_1LayersPanel.html#a305e8ee967b815fd31e3f6ae6c1e8dba">hmi::LayersPanel</a></li>
+<li>directoriesLoader()&#160;:&#160;<a class="el" href="classcore_1_1WorldTravel.html#a424d0def362d872b0f498f08673f2615">core::WorldTravel</a></li>
+<li>directory&#160;:&#160;<a class="el" href="structhmi_1_1AssetGalleryFamily.html#ad51a9bc820c4486dd231ce4049e8dd44">hmi::AssetGalleryFamily</a>, <a class="el" href="classhmi_1_1AutosaveStore.html#a44d57ca6d5b3338dd4bb5a388481c51f">hmi::AutosaveStore</a>, <a class="el" href="structhmi_1_1FigureAppearance.html#a50b6ac160b5c7cdb2c8ae8d11cb5ba3b">hmi::FigureAppearance</a></li>
+<li>directoryLoader()&#160;:&#160;<a class="el" href="classcore_1_1WorldTravel.html#ac8ff38e0ae318f2072f42a18e64c1b09">core::WorldTravel</a></li>
+<li>dirty&#160;:&#160;<a class="el" href="structhmi_1_1LevelStatusInfo.html#a9cd9b8b2b1e60de42886994d2ffb1310">hmi::LevelStatusInfo</a>, <a class="el" href="structhmi_1_1OpenDocument.html#a4b96dbace8e06017261ab2ab3dee5348">hmi::OpenDocument</a></li>
+<li>disadvantages&#160;:&#160;<a class="el" href="structcore_1_1AttackCircumstances.html#ac9d1136de413f8e4ab2393e8dff3d349">core::AttackCircumstances</a>, <a class="el" href="structcore_1_1AttackPreview.html#a0f42e64ab43941c9f9c548ae4a9fb5de">core::AttackPreview</a>, <a class="el" href="structcore_1_1AttackRoll.html#a336d74ae9da041c697992ef3c8ae0ba9">core::AttackRoll</a></li>
+<li>discard()&#160;:&#160;<a class="el" href="classhmi_1_1AutosaveStore.html#a044675e972e37c9df99c7108a9111734">hmi::AutosaveStore</a></li>
+<li>disengage()&#160;:&#160;<a class="el" href="classcore_1_1ArenaSession.html#a97a21749dc62d995ebaa827a398ed4be">core::ArenaSession</a>, <a class="el" href="classhmi_1_1ArenaModel.html#a83b480b74613eb910cf4eaf3dcb80ba6">hmi::ArenaModel</a></li>
+<li>diskChange()&#160;:&#160;<a class="el" href="classhmi_1_1EditorViewport.html#a697617cceb5275c38ada41a44ba10595">hmi::EditorViewport</a></li>
+<li>dispatch()&#160;:&#160;<a class="el" href="classcore_1_1CombatState.html#a60abc195d90cdbaf8f966905338a5006">core::CombatState</a></li>
+<li>display()&#160;:&#160;<a class="el" href="classhmi_1_1LayerViewState.html#a7523fc976683a2ac25204c17befea2c6">hmi::LayerViewState</a></li>
+<li>displayChanged()&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a1f81c4c61c0e28e0f07709eedfe032c6">hmi::AssetGalleryItem</a></li>
+<li>displays&#160;:&#160;<a class="el" href="structhmi_1_1LayersPanel_1_1Snapshot.html#af8b5e5e733fab3260348a932dd80bf97">hmi::LayersPanel::Snapshot</a></li>
+<li>district()&#160;:&#160;<a class="el" href="classhmi_1_1CityDistrictModel.html#afc4fee713f3dcc2e1ba941b634ef64e5">hmi::CityDistrictModel</a>, <a class="el" href="structhmi_1_1MapCityPointView.html#aed5bb7e2a56442b2385ff7791d6d4852">hmi::MapCityPointView</a></li>
+<li>districtId&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#a7aff4f8e9deb81cb1dd60d9747307a08">hmi::WorldModel</a></li>
+<li>districtOfMap()&#160;:&#160;<a class="el" href="structcore_1_1CityPlan.html#a1ef267d0dd2e4c272998b68ea9d27629">core::CityPlan</a></li>
+<li>districts&#160;:&#160;<a class="el" href="structcore_1_1CityPlan.html#aabd74854b3292a625c7977b70f8bfbd0">core::CityPlan</a>, <a class="el" href="structhmi_1_1CityMap.html#a643857b704bef4e7f384989e871d8b92">hmi::CityMap</a>, <a class="el" href="structhmi_1_1CityView.html#aa174537bd4f1baf7bea18b22fa4512af">hmi::CityView</a></li>
+<li>districtUnder()&#160;:&#160;<a class="el" href="classhmi_1_1CityMapView.html#a327aa0dd6627d7a31791dedde0f3a988">hmi::CityMapView</a></li>
+<li>dockFor()&#160;:&#160;<a class="el" href="classhmi_1_1MainWindow.html#ab07d84d5a7c24ef8bef666a1cdaa0bb0">hmi::MainWindow</a></li>
+<li>documentAt()&#160;:&#160;<a class="el" href="classhmi_1_1MainWindow.html#a2692ea3f2dede39d77a910d43df9648b">hmi::MainWindow</a></li>
+<li>dodge()&#160;:&#160;<a class="el" href="classcore_1_1ArenaSession.html#a8fe411d2eeeb7eec646bafd6baa5269a">core::ArenaSession</a>, <a class="el" href="classhmi_1_1ArenaModel.html#ad0dbabc4af65a9d1f12cf28af335d9c5">hmi::ArenaModel</a></li>
+<li>dodgeWhenThreatened&#160;:&#160;<a class="el" href="structcore_1_1BehaviorProfile.html#a73d047ae8a5ef120e86867fa6ac2f3f8">core::BehaviorProfile</a></li>
+<li>dot()&#160;:&#160;<a class="el" href="structcore_1_1Vector2.html#ae70a029307287be5d22ec57a536a21d6">core::Vector2</a></li>
+<li>down&#160;:&#160;<a class="el" href="structhmi_1_1ArenaFigureSnapshot.html#ad179a96ca0cb2105f0239df101b41966">hmi::ArenaFigureSnapshot</a></li>
+<li>draft()&#160;:&#160;<a class="el" href="classhmi_1_1EditorViewport.html#a72b6941b98633a12ab5d440ee1e7b454">hmi::EditorViewport</a></li>
+<li>draftChanged()&#160;:&#160;<a class="el" href="classhmi_1_1EditorViewport.html#a7c355b35edfde092e790577fb6b136cc">hmi::EditorViewport</a></li>
+<li>draftJson&#160;:&#160;<a class="el" href="structhmi_1_1AutosaveRecord.html#ab293f6a9a9244e43467fd7469995d142">hmi::AutosaveRecord</a>, <a class="el" href="classhmi_1_1EditorViewport.html#a4decd31ed28cf70d9fe3ea73826780a2">hmi::EditorViewport</a></li>
+<li>DraftRenderer()&#160;:&#160;<a class="el" href="classhmi_1_1DraftRenderer.html#a49dc04aebe5a58546f208be19a05add1">hmi::DraftRenderer</a></li>
+<li>draw()&#160;:&#160;<a class="el" href="classhmi_1_1SpriteBatch.html#adf3e122b7b78551672d6e8642941383d">hmi::SpriteBatch</a></li>
+<li>drawn&#160;:&#160;<a class="el" href="structhmi_1_1AssetGalleryFrame.html#a89b2649772ed2a910f02f660f097736c">hmi::AssetGalleryFrame</a></li>
+<li>drawnCount&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a2d342376ac387f84bc0652e4b203b114">hmi::AssetGalleryItem</a></li>
+<li>dropSelected()&#160;:&#160;<a class="el" href="classhmi_1_1InventoryModel.html#afe4073a9bd332076c099f1556852107a">hmi::InventoryModel</a></li>
+<li>duplicate()&#160;:&#160;<a class="el" href="classhmi_1_1LevelFileOperations.html#a551c21f123f010c79dc0092566523968">hmi::LevelFileOperations</a></li>
+<li>duplicateButton&#160;:&#160;<a class="el" href="structhmi_1_1LevelBrowserPanel_1_1Widgets.html#aeb72381be7ebb77de59d4f5dcbc414b8">hmi::LevelBrowserPanel::Widgets</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

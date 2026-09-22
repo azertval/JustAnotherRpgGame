@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" font-family="Segoe UI, system-ui, sans-serif" font-size="13">
+  <rect width="880" height="360" fill="#fbf8f0"/>
+  <defs>
+    <marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+  </defs>
+  <g fill="#ece4d1" stroke="#d6c9a8">
+    <rect x="20" y="30" width="200" height="56" rx="8"/>
+    <rect x="20" y="112" width="200" height="56" rx="8"/>
+    <rect x="20" y="194" width="200" height="56" rx="8"/>
+    <rect x="20" y="276" width="200" height="56" rx="8"/>
+  </g>
+  <g fill="#25201a">
+    <text x="32" y="54" font-weight="600">Documentation/</text><text x="32" y="73" fill="#6a6152">Markdown nu</text>
+    <text x="32" y="136" font-weight="600">Planning/</text><text x="32" y="155" fill="#6a6152">fiches TOML + Markdown</text>
+    <text x="32" y="218" font-weight="600">Source/</text><text x="32" y="237" fill="#6a6152">commentaires Doxygen</text>
+    <text x="32" y="300" font-weight="600">Mesures de la CI</text><text x="32" y="319" fill="#6a6152">couverture, bancs</text>
+  </g>
+  <g fill="#fbf8f0" stroke="#9a7420">
+    <rect x="310" y="30" width="230" height="56" rx="8"/>
+    <rect x="310" y="112" width="230" height="56" rx="8"/>
+    <rect x="310" y="194" width="230" height="56" rx="8" stroke="#2f7f86"/>
+    <rect x="310" y="276" width="230" height="56" rx="8" stroke="#3f6b34"/>
+  </g>
+  <g fill="#25201a" font-family="Consolas, monospace" font-size="12">
+    <text x="322" y="54">build_docs_site.py</text>
+    <text x="322" y="136">build_planning_site.py</text>
+    <text x="322" y="218">Doxygen (build_docs.py)</text>
+    <text x="322" y="300">build_quality_site.py</text>
+  </g>
+  <g fill="#6a6152" font-size="12">
+    <text x="322" y="73">mini_markdown + charte Site/</text>
+    <text x="322" y="155">mini_markdown + charte Site/</text>
+    <text x="322" y="237">jetons et barre de Site/</text>
+    <text x="322" y="319">charte Site/</text>
+  </g>
+  <g fill="#25201a" stroke="none">
+    <rect x="630" y="30" width="230" height="302" rx="10" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="646" y="54" font-weight="600">Le site publié (gh-pages)</text>
+    <text x="646" y="92" font-family="Consolas, monospace">/</text><text x="700" y="92" fill="#6a6152">accueil, guide, specs, tests</text>
+    <text x="646" y="150" font-family="Consolas, monospace">/planning/</text><text x="736" y="150" fill="#6a6152">versions et lots</text>
+    <text x="646" y="226" font-family="Consolas, monospace">/reference/</text><text x="742" y="226" fill="#6a6152">annexe du guide</text>
+    <text x="646" y="308" font-family="Consolas, monospace">/qualite/</text><text x="722" y="308" fill="#6a6152">couverture, perfs</text>
+  </g>
+  <g stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#fleche)">
+    <path d="M220,58 H306"/><path d="M220,140 H306"/><path d="M220,222 H306"/><path d="M220,304 H306"/>
+    <path d="M540,58 H626"/><path d="M540,140 H626"/><path d="M540,222 H626"/><path d="M540,304 H626"/>
+  </g>
+</svg>

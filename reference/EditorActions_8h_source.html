@@ -1,0 +1,292 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/EditorActions.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('EditorActions_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">EditorActions.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="EditorActions_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;QObject&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="EditorTool_8h.html">Editor/Logic/EditorTool.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">class </span>QAction;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">class </span>QActionGroup;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">class </span>QToolBar;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">class </span><a class="code hl_class" href="classhmi_1_1EditorKeyBindings.html">EditorKeyBindings</a>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span></div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18">   27</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18">EditorCommand</a> {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a6977408af40dc96deb1c4c86a6d4f32e">   28</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a6977408af40dc96deb1c4c86a6d4f32e">ToolPaint</a>,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18aee324dd1644d8a93504aaa30147cd2bc">   29</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18aee324dd1644d8a93504aaa30147cd2bc">ToolRectangle</a>,</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a30c4d45c1de9cd329df337ccf3e9dc2e">   30</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a30c4d45c1de9cd329df337ccf3e9dc2e">ToolLine</a>,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18ae58341f99d4f8c5addcdf4a55bcfec88">   31</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18ae58341f99d4f8c5addcdf4a55bcfec88">ToolBucket</a>,</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a35c753f86431bb147aec7e24ed0a992d">   32</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a35c753f86431bb147aec7e24ed0a992d">ToolEraser</a>,</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18af7777c081ac0cc17cb83fd99cd1986af">   33</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18af7777c081ac0cc17cb83fd99cd1986af">ToolPipette</a>,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a7252d7debae0bab6f7e97a0f9537ae7e">   34</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a7252d7debae0bab6f7e97a0f9537ae7e">ToolSelection</a>,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18ac7b3c7d7478c431d2eb3d79c9b834d87">   35</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18ac7b3c7d7478c431d2eb3d79c9b834d87">ToolEntity</a>,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a07bbde61bfceaeb53115b8cb7d634998">   37</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a07bbde61bfceaeb53115b8cb7d634998">ToolShape</a>,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18aa9e7dd926406d41f76831d0888bd0e75">   38</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18aa9e7dd926406d41f76831d0888bd0e75">ToolMeasure</a>,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a736ed21307e5df34fd9ce53175537dd0">   39</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a736ed21307e5df34fd9ce53175537dd0">ToolNote</a>,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18ac9cc8cce247e49bae79f15173ce97354">   40</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354">Save</a>,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18ab13fc91e5d02ea9e1f1a538504213bea">   41</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585ab13fc91e5d02ea9e1f1a538504213bea">Playtest</a>,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a972ad795980977b92664790916b3f242">   43</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a972ad795980977b92664790916b3f242">PlaytestHere</a>,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a5d0f2b7a44ba7eab9a517ad0879a7013">   45</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a5d0f2b7a44ba7eab9a517ad0879a7013">RunInGame</a>,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a">   47</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a">RunInGameHere</a>,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793">   49</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793">RunInGameOptions</a>,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a1cdc076b28f70afac5fcedadf99fa119">   50</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a1cdc076b28f70afac5fcedadf99fa119">Undo</a>,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a5afeaba074ef570dc720caaa855d49f6">   51</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a5afeaba074ef570dc720caaa855d49f6">Redo</a>,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a77bfa926518159e75c2c4b508a81f19e">   52</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a77bfa926518159e75c2c4b508a81f19e">ToggleGrid</a>,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a34e806c94d1cf43980bb179a0376e173">   53</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a34e806c94d1cf43980bb179a0376e173">ResetCamera</a>,</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18ae8de0394e2f02256b2ef89c94a67f84f">   55</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18ae8de0394e2f02256b2ef89c94a67f84f">IsoView</a>,</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a8799d4aba313f9fd9ec6f21f7f908b36">   57</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a8799d4aba313f9fd9ec6f21f7f908b36">SeeThroughRelief</a>,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a2403def5083f02105e7802b3b315681e">   59</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a2403def5083f02105e7802b3b315681e">Mirror</a>,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a5fb63579fc981698f97d55bfecb213ea">   60</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a5fb63579fc981698f97d55bfecb213ea">Copy</a>,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a36bb6559696dc9124986ae120515984f">   61</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a36bb6559696dc9124986ae120515984f">Paste</a>,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a7d8393a85811c22a219169498a94ea91">   63</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a7d8393a85811c22a219169498a94ea91">PasteMirrored</a>,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a28274ec234daec25053e4d9346c695b5">   65</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a28274ec234daec25053e4d9346c695b5">SaveAsPrefab</a>,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a904a8304056d77e4547744781b7ceb50">   66</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a904a8304056d77e4547744781b7ceb50">Rename</a>,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a2583b92d245a881127917f19531ccf3b">   67</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a2583b92d245a881127917f19531ccf3b">ShortcutsOverview</a>,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
+</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="namespacehmi.html#a8419e0bc52afdaf288a539da747b1577">   71</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::size_t <a class="code hl_variable" href="namespacehmi.html#a8419e0bc52afdaf288a539da747b1577">EDITOR_COMMAND_COUNT</a> = 30;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span></div>
+<div class="foldopen" id="foldopen00082" data-start="{" data-end="};">
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="classhmi_1_1EditorActions.html">   82</a></span><span class="keyword">class </span><a class="code hl_function" href="classhmi_1_1EditorActions.html#af9747bf926ce8a159c465f59c508a932">EditorActions</a> : <span class="keyword">public</span> QObject {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    Q_OBJECT</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classhmi_1_1EditorActions.html#af9747bf926ce8a159c465f59c508a932">EditorActions</a>(QObject* parent = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    [[nodiscard]] QAction* <a class="code hl_function" href="classhmi_1_1EditorActions.html#ab2b03ac239be7fe949689bff9d3f8b03">action</a>(<a class="code hl_enumeration" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18">EditorCommand</a> command) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    [[nodiscard]] QAction* <a class="code hl_function" href="classhmi_1_1EditorActions.html#aa2ddc2ecd3bd72cd46ef20db1ddb623e">toolAction</a>(<a class="code hl_enumeration" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> tool) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    [[nodiscard]] <span class="keyword">static</span> std::optional&lt;EditorTool&gt; <a class="code hl_function" href="classhmi_1_1EditorActions.html#ac0e24696997d1ab785abb0b7a9af2e50">toolOf</a>(<a class="code hl_enumeration" href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18">EditorCommand</a> command);</div>
+<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="classhmi_1_1EditorActions.html#ac4d2e8656ebb396804cd5cc62ccc706a">   95</a></span>    [[nodiscard]] <span class="keyword">const</span> std::array&lt;QAction*, EDITOR_COMMAND_COUNT&gt;&amp; <a class="code hl_function" href="classhmi_1_1EditorActions.html#ac4d2e8656ebb396804cd5cc62ccc706a">all</a>() const noexcept {</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1EditorActions.html#ab64c2a06274ac657be9a7da5b20ee05b">_actions</a>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
+</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1EditorActions.html#a1a89ee1d8b8c0c9a21412ac07199625c">populateToolBar</a>(QToolBar&amp; toolBar) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1EditorActions.html#af84d72bf51035c33133a93d8ba91e41f">setActiveTool</a>(<a class="code hl_enumeration" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> tool) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1EditorActions.html#aecec8147666b37e0712ca31c459cb10b">applyShortcuts</a>(<span class="keyword">const</span> <a class="code hl_class" href="classhmi_1_1EditorKeyBindings.html">EditorKeyBindings</a>&amp; bindings);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1EditorActions.html#af2d300041fc10b35275809d315c0bf95">refreshToolTips</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="classhmi_1_1EditorActions.html#ab64c2a06274ac657be9a7da5b20ee05b">  115</a></span>    std::array&lt;QAction*, EDITOR_COMMAND_COUNT&gt; <a class="code hl_variable" href="classhmi_1_1EditorActions.html#ab64c2a06274ac657be9a7da5b20ee05b">_actions</a>{};</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="classhmi_1_1EditorActions.html#aa2b00d3aad061e32941ab1dc01f06897">  116</a></span>    QActionGroup* <a class="code hl_variable" href="classhmi_1_1EditorActions.html#aa2b00d3aad061e32941ab1dc01f06897">_toolGroup</a>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>};</div>
+</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aEditorTool_8h_html"><div class="ttname"><a href="EditorTool_8h.html">EditorTool.h</a></div><div class="ttdoc">Outil actif dans la grille de l&#39;éditeur (EX-EDIT-014, EX-EDIT-066).</div></div>
+<div class="ttc" id="aclasshmi_1_1EditorActions_html_a1a89ee1d8b8c0c9a21412ac07199625c"><div class="ttname"><a href="classhmi_1_1EditorActions.html#a1a89ee1d8b8c0c9a21412ac07199625c">hmi::EditorActions::populateToolBar</a></div><div class="ttdeci">void populateToolBar(QToolBar &amp;toolBar) const</div><div class="ttdoc">Ajoute à toolBar les outils, un séparateur, puis les commandes d&#39;usage continu.</div><div class="ttdef"><b>Definition</b> EditorActions.cpp:319</div></div>
+<div class="ttc" id="aclasshmi_1_1EditorActions_html_aa2b00d3aad061e32941ab1dc01f06897"><div class="ttname"><a href="classhmi_1_1EditorActions.html#aa2b00d3aad061e32941ab1dc01f06897">hmi::EditorActions::_toolGroup</a></div><div class="ttdeci">QActionGroup * _toolGroup</div><div class="ttdef"><b>Definition</b> EditorActions.h:116</div></div>
+<div class="ttc" id="aclasshmi_1_1EditorActions_html_aa2ddc2ecd3bd72cd46ef20db1ddb623e"><div class="ttname"><a href="classhmi_1_1EditorActions.html#aa2ddc2ecd3bd72cd46ef20db1ddb623e">hmi::EditorActions::toolAction</a></div><div class="ttdeci">QAction * toolAction(EditorTool tool) const</div><div class="ttdef"><b>Definition</b> EditorActions.cpp:310</div></div>
+<div class="ttc" id="aclasshmi_1_1EditorActions_html_ab2b03ac239be7fe949689bff9d3f8b03"><div class="ttname"><a href="classhmi_1_1EditorActions.html#ab2b03ac239be7fe949689bff9d3f8b03">hmi::EditorActions::action</a></div><div class="ttdeci">QAction * action(EditorCommand command) const</div><div class="ttdef"><b>Definition</b> EditorActions.cpp:277</div></div>
+<div class="ttc" id="aclasshmi_1_1EditorActions_html_ab64c2a06274ac657be9a7da5b20ee05b"><div class="ttname"><a href="classhmi_1_1EditorActions.html#ab64c2a06274ac657be9a7da5b20ee05b">hmi::EditorActions::_actions</a></div><div class="ttdeci">std::array&lt; QAction *, EDITOR_COMMAND_COUNT &gt; _actions</div><div class="ttdef"><b>Definition</b> EditorActions.h:115</div></div>
+<div class="ttc" id="aclasshmi_1_1EditorActions_html_ac0e24696997d1ab785abb0b7a9af2e50"><div class="ttname"><a href="classhmi_1_1EditorActions.html#ac0e24696997d1ab785abb0b7a9af2e50">hmi::EditorActions::toolOf</a></div><div class="ttdeci">static std::optional&lt; EditorTool &gt; toolOf(EditorCommand command)</div><div class="ttdef"><b>Definition</b> EditorActions.cpp:281</div></div>
+<div class="ttc" id="aclasshmi_1_1EditorActions_html_ac4d2e8656ebb396804cd5cc62ccc706a"><div class="ttname"><a href="classhmi_1_1EditorActions.html#ac4d2e8656ebb396804cd5cc62ccc706a">hmi::EditorActions::all</a></div><div class="ttdeci">const std::array&lt; QAction *, EDITOR_COMMAND_COUNT &gt; &amp; all() const noexcept</div><div class="ttdef"><b>Definition</b> EditorActions.h:95</div></div>
+<div class="ttc" id="aclasshmi_1_1EditorActions_html_aecec8147666b37e0712ca31c459cb10b"><div class="ttname"><a href="classhmi_1_1EditorActions.html#aecec8147666b37e0712ca31c459cb10b">hmi::EditorActions::applyShortcuts</a></div><div class="ttdeci">void applyShortcuts(const EditorKeyBindings &amp;bindings)</div><div class="ttdoc">Fait refléter bindings sur le raccourci effectif de chaque commande remappable, puis refait les infob...</div><div class="ttdef"><b>Definition</b> EditorActions.cpp:342</div></div>
+<div class="ttc" id="aclasshmi_1_1EditorActions_html_af2d300041fc10b35275809d315c0bf95"><div class="ttname"><a href="classhmi_1_1EditorActions.html#af2d300041fc10b35275809d315c0bf95">hmi::EditorActions::refreshToolTips</a></div><div class="ttdeci">void refreshToolTips() const</div><div class="ttdef"><b>Definition</b> EditorActions.cpp:355</div></div>
+<div class="ttc" id="aclasshmi_1_1EditorActions_html_af84d72bf51035c33133a93d8ba91e41f"><div class="ttname"><a href="classhmi_1_1EditorActions.html#af84d72bf51035c33133a93d8ba91e41f">hmi::EditorActions::setActiveTool</a></div><div class="ttdeci">void setActiveTool(EditorTool tool) const</div><div class="ttdoc">Coche l&#39;action de l&#39;outil actif sans émettre triggered : resynchronisation quand le canevas change d&#39;...</div><div class="ttdef"><b>Definition</b> EditorActions.cpp:333</div></div>
+<div class="ttc" id="aclasshmi_1_1EditorActions_html_af9747bf926ce8a159c465f59c508a932"><div class="ttname"><a href="classhmi_1_1EditorActions.html#af9747bf926ce8a159c465f59c508a932">hmi::EditorActions::EditorActions</a></div><div class="ttdeci">EditorActions(QObject *parent=nullptr)</div><div class="ttdef"><b>Definition</b> EditorActions.cpp:250</div></div>
+<div class="ttc" id="aclasshmi_1_1EditorKeyBindings_html"><div class="ttname"><a href="classhmi_1_1EditorKeyBindings.html">hmi::EditorKeyBindings</a></div><div class="ttdoc">Association action d&#39;éditeur -&gt; touche, avec persistance JSON (EX-CTRL-012).</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.h:50</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a02048ad8ad69a87a10e8307ac2bd68dd"><div class="ttname"><a href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a></div><div class="ttdeci">EditorTool</div><div class="ttdoc">Outil actif dans la grille de l&#39;éditeur, choisi par la barre d&#39;outils ou sa touche (hmi::EditorAction...</div><div class="ttdef"><b>Definition</b> EditorTool.h:30</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18">hmi::EditorCommand</a></div><div class="ttdeci">EditorCommand</div><div class="ttdoc">Une commande de l&#39;éditeur : les onze outils, puis les commandes.</div><div class="ttdef"><b>Definition</b> EditorActions.h:27</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a07bbde61bfceaeb53115b8cb7d634998"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a07bbde61bfceaeb53115b8cb7d634998">hmi::EditorCommand::ToolShape</a></div><div class="ttdeci">@ ToolShape</div><div class="ttdoc">Peindre une zone, tracer un trajet (LOT-EDITOR-05).</div><div class="ttdef"><b>Definition</b> EditorActions.h:37</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a2403def5083f02105e7802b3b315681e"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a2403def5083f02105e7802b3b315681e">hmi::EditorCommand::Mirror</a></div><div class="ttdeci">@ Mirror</div><div class="ttdoc">Le miroir : chaque geste se reflète de l&#39;autre côté d&#39;un axe (LOT-EDITOR-04).</div><div class="ttdef"><b>Definition</b> EditorActions.h:59</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a2583b92d245a881127917f19531ccf3b"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a2583b92d245a881127917f19531ccf3b">hmi::EditorCommand::ShortcutsOverview</a></div><div class="ttdeci">@ ShortcutsOverview</div><div class="ttdef"><b>Definition</b> EditorActions.h:67</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a28274ec234daec25053e4d9346c695b5"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a28274ec234daec25053e4d9346c695b5">hmi::EditorCommand::SaveAsPrefab</a></div><div class="ttdeci">@ SaveAsPrefab</div><div class="ttdoc">Enregistrer la sélection comme préfabriqué du lieu (LOT-EDITOR-08).</div><div class="ttdef"><b>Definition</b> EditorActions.h:65</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a30c4d45c1de9cd329df337ccf3e9dc2e"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a30c4d45c1de9cd329df337ccf3e9dc2e">hmi::EditorCommand::ToolLine</a></div><div class="ttdeci">@ ToolLine</div><div class="ttdef"><b>Definition</b> EditorActions.h:30</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a34e806c94d1cf43980bb179a0376e173"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a34e806c94d1cf43980bb179a0376e173">hmi::EditorCommand::ResetCamera</a></div><div class="ttdeci">@ ResetCamera</div><div class="ttdef"><b>Definition</b> EditorActions.h:53</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a35c753f86431bb147aec7e24ed0a992d"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a35c753f86431bb147aec7e24ed0a992d">hmi::EditorCommand::ToolEraser</a></div><div class="ttdeci">@ ToolEraser</div><div class="ttdef"><b>Definition</b> EditorActions.h:32</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a5d0f2b7a44ba7eab9a517ad0879a7013"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a5d0f2b7a44ba7eab9a517ad0879a7013">hmi::EditorCommand::RunInGame</a></div><div class="ttdeci">@ RunInGame</div><div class="ttdoc">L&#39;essai complet : le vrai jeu, sur les brouillons ouverts (LOT-EDITOR-10).</div><div class="ttdef"><b>Definition</b> EditorActions.h:45</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a6977408af40dc96deb1c4c86a6d4f32e"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a6977408af40dc96deb1c4c86a6d4f32e">hmi::EditorCommand::ToolPaint</a></div><div class="ttdeci">@ ToolPaint</div><div class="ttdef"><b>Definition</b> EditorActions.h:28</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a7252d7debae0bab6f7e97a0f9537ae7e"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a7252d7debae0bab6f7e97a0f9537ae7e">hmi::EditorCommand::ToolSelection</a></div><div class="ttdeci">@ ToolSelection</div><div class="ttdef"><b>Definition</b> EditorActions.h:34</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a736ed21307e5df34fd9ce53175537dd0"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a736ed21307e5df34fd9ce53175537dd0">hmi::EditorCommand::ToolNote</a></div><div class="ttdeci">@ ToolNote</div><div class="ttdef"><b>Definition</b> EditorActions.h:39</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a7d8393a85811c22a219169498a94ea91"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a7d8393a85811c22a219169498a94ea91">hmi::EditorCommand::PasteMirrored</a></div><div class="ttdeci">@ PasteMirrored</div><div class="ttdoc">Coller le tampon reflété (LOT-EDITOR-08).</div><div class="ttdef"><b>Definition</b> EditorActions.h:63</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a8799d4aba313f9fd9ec6f21f7f908b36"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a8799d4aba313f9fd9ec6f21f7f908b36">hmi::EditorCommand::SeeThroughRelief</a></div><div class="ttdeci">@ SeeThroughRelief</div><div class="ttdoc">Reliefs en transparence (LOT-EDITOR-02, phase 3).</div><div class="ttdef"><b>Definition</b> EditorActions.h:57</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a">hmi::EditorCommand::RunInGameHere</a></div><div class="ttdeci">@ RunInGameHere</div><div class="ttdoc">L&#39;essai complet qui part de la case survolée (LOT-EDITOR-10).</div><div class="ttdef"><b>Definition</b> EditorActions.h:47</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18a972ad795980977b92664790916b3f242"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a972ad795980977b92664790916b3f242">hmi::EditorCommand::PlaytestHere</a></div><div class="ttdeci">@ PlaytestHere</div><div class="ttdoc">L&#39;essai qui part de la case survolée (LOT-EDITOR-04).</div><div class="ttdef"><b>Definition</b> EditorActions.h:43</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18aa9e7dd926406d41f76831d0888bd0e75"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18aa9e7dd926406d41f76831d0888bd0e75">hmi::EditorCommand::ToolMeasure</a></div><div class="ttdeci">@ ToolMeasure</div><div class="ttdef"><b>Definition</b> EditorActions.h:38</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18ac7b3c7d7478c431d2eb3d79c9b834d87"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18ac7b3c7d7478c431d2eb3d79c9b834d87">hmi::EditorCommand::ToolEntity</a></div><div class="ttdeci">@ ToolEntity</div><div class="ttdef"><b>Definition</b> EditorActions.h:35</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18ae58341f99d4f8c5addcdf4a55bcfec88"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18ae58341f99d4f8c5addcdf4a55bcfec88">hmi::EditorCommand::ToolBucket</a></div><div class="ttdeci">@ ToolBucket</div><div class="ttdef"><b>Definition</b> EditorActions.h:31</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18ae8de0394e2f02256b2ef89c94a67f84f"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18ae8de0394e2f02256b2ef89c94a67f84f">hmi::EditorCommand::IsoView</a></div><div class="ttdeci">@ IsoView</div><div class="ttdoc">Vue iso (cochée, par défaut) ou vue à plat (LOT-EDITOR-02, décision D1).</div><div class="ttdef"><b>Definition</b> EditorActions.h:55</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18aee324dd1644d8a93504aaa30147cd2bc"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18aee324dd1644d8a93504aaa30147cd2bc">hmi::EditorCommand::ToolRectangle</a></div><div class="ttdeci">@ ToolRectangle</div><div class="ttdef"><b>Definition</b> EditorActions.h:29</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18af7777c081ac0cc17cb83fd99cd1986af"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18af7777c081ac0cc17cb83fd99cd1986af">hmi::EditorCommand::ToolPipette</a></div><div class="ttdeci">@ ToolPipette</div><div class="ttdef"><b>Definition</b> EditorActions.h:33</div></div>
+<div class="ttc" id="anamespacehmi_html_a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793"><div class="ttname"><a href="namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793">hmi::EditorCommand::RunInGameOptions</a></div><div class="ttdeci">@ RunInGameOptions</div><div class="ttdoc">L&#39;essai complet après avoir choisi la case et les drapeaux (LOT-EDITOR-10).</div><div class="ttdef"><b>Definition</b> EditorActions.h:49</div></div>
+<div class="ttc" id="anamespacehmi_html_a8419e0bc52afdaf288a539da747b1577"><div class="ttname"><a href="namespacehmi.html#a8419e0bc52afdaf288a539da747b1577">hmi::EDITOR_COMMAND_COUNT</a></div><div class="ttdeci">constexpr std::size_t EDITOR_COMMAND_COUNT</div><div class="ttdoc">Nombre de commandes, déclaré au plus près de l&#39;énumération qu&#39;il compte.</div><div class="ttdef"><b>Definition</b> EditorActions.h:71</div></div>
+<div class="ttc" id="anamespacehmi_html_aa4f5968d7b564d555f29fdc5d2fc9585a1cdc076b28f70afac5fcedadf99fa119"><div class="ttname"><a href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a1cdc076b28f70afac5fcedadf99fa119">hmi::EditorAction::Undo</a></div><div class="ttdeci">@ Undo</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.h:31</div></div>
+<div class="ttc" id="anamespacehmi_html_aa4f5968d7b564d555f29fdc5d2fc9585a36bb6559696dc9124986ae120515984f"><div class="ttname"><a href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a36bb6559696dc9124986ae120515984f">hmi::EditorAction::Paste</a></div><div class="ttdeci">@ Paste</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.h:34</div></div>
+<div class="ttc" id="anamespacehmi_html_aa4f5968d7b564d555f29fdc5d2fc9585a5afeaba074ef570dc720caaa855d49f6"><div class="ttname"><a href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a5afeaba074ef570dc720caaa855d49f6">hmi::EditorAction::Redo</a></div><div class="ttdeci">@ Redo</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.h:32</div></div>
+<div class="ttc" id="anamespacehmi_html_aa4f5968d7b564d555f29fdc5d2fc9585a5fb63579fc981698f97d55bfecb213ea"><div class="ttname"><a href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a5fb63579fc981698f97d55bfecb213ea">hmi::EditorAction::Copy</a></div><div class="ttdeci">@ Copy</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.h:33</div></div>
+<div class="ttc" id="anamespacehmi_html_aa4f5968d7b564d555f29fdc5d2fc9585a77bfa926518159e75c2c4b508a81f19e"><div class="ttname"><a href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a77bfa926518159e75c2c4b508a81f19e">hmi::EditorAction::ToggleGrid</a></div><div class="ttdeci">@ ToggleGrid</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.h:36</div></div>
+<div class="ttc" id="anamespacehmi_html_aa4f5968d7b564d555f29fdc5d2fc9585a904a8304056d77e4547744781b7ceb50"><div class="ttname"><a href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a904a8304056d77e4547744781b7ceb50">hmi::EditorAction::Rename</a></div><div class="ttdeci">@ Rename</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.h:38</div></div>
+<div class="ttc" id="anamespacehmi_html_aa4f5968d7b564d555f29fdc5d2fc9585ab13fc91e5d02ea9e1f1a538504213bea"><div class="ttname"><a href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585ab13fc91e5d02ea9e1f1a538504213bea">hmi::EditorAction::Playtest</a></div><div class="ttdeci">@ Playtest</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.h:35</div></div>
+<div class="ttc" id="anamespacehmi_html_aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354"><div class="ttname"><a href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354">hmi::EditorAction::Save</a></div><div class="ttdeci">@ Save</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.h:30</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_81129cf20409270d9237df2d6b07b076.html">Ui</a></li><li class="navelem"><a href="EditorActions_8h.html">EditorActions.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

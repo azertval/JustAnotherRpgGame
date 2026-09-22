@@ -1,0 +1,612 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/test_pathfinding.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__pathfinding_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_pathfinding.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests du déplacement d'un tour : budget, cases atteignables, chemin déterministe (<span class="tt">LOT-19</span>, <span class="tt">EX-CBT-020</span>, <span class="tt">EX-REG-051</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;random&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="BattleGrid_8h_source.html">Core/Combat/BattleGrid.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Pathfinding_8h_source.html">Core/Combat/Pathfinding.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Bestiary_8h_source.html">Core/Rpg/Bestiary.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CharacterSheet_8h_source.html">Core/Rpg/CharacterSheet.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae9ed0b4f28b93d07dfab367f58fbda7e" id="r_ae9ed0b4f28b93d07dfab367f58fbda7e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae9ed0b4f28b93d07dfab367f58fbda7e">TEST</a> (PathfindingTest, LeBudgetSeDeduitDeLaVitesse)</td></tr>
+<tr class="memdesc:ae9ed0b4f28b93d07dfab367f58fbda7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le budget se deduit de la vitesse en metres, a raison d'une case pour 1,5 m.  <br /></td></tr>
+<tr class="memitem:a51ff10a203af9f0bad3bef3c3ad5c34b" id="r_a51ff10a203af9f0bad3bef3c3ad5c34b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a51ff10a203af9f0bad3bef3c3ad5c34b">TEST</a> (PathfindingTest, LesCasesAtteignablesCorrespondentExactementAuBudget)</td></tr>
+<tr class="memdesc:a51ff10a203af9f0bad3bef3c3ad5c34b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les cases atteignables correspondent exactement au budget, ni une de plus ni une de moins.  <br /></td></tr>
+<tr class="memitem:ac08ce973faf19e1ec4d8003372c01d03" id="r_ac08ce973faf19e1ec4d8003372c01d03"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac08ce973faf19e1ec4d8003372c01d03">TEST</a> (PathfindingTest, UnMurCouteLeDetour)</td></tr>
+<tr class="memdesc:ac08ce973faf19e1ec4d8003372c01d03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un mur coute le detour : la portee se compte sur la grille, pas a vol d'oiseau.  <br /></td></tr>
+<tr class="memitem:a0e03f326eb6962b77a5e46f50f4532c6" id="r_a0e03f326eb6962b77a5e46f50f4532c6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0e03f326eb6962b77a5e46f50f4532c6">TEST</a> (PathfindingTest, UneDiagonaleNeCoupePasLeCoinDUnMur)</td></tr>
+<tr class="memdesc:a0e03f326eb6962b77a5e46f50f4532c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">On ne passe pas en diagonale par le coin d'un mur.  <br /></td></tr>
+<tr class="memitem:a8602a60d6eed582485cab4278596de0e" id="r_a8602a60d6eed582485cab4278596de0e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8602a60d6eed582485cab4278596de0e">TEST</a> (PathfindingTest, LeTerrainDifficileDoubleLeCoutEtReduitLaPortee)</td></tr>
+<tr class="memdesc:a8602a60d6eed582485cab4278596de0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le terrain difficile double le cout, et reduit la portee en consequence.  <br /></td></tr>
+<tr class="memitem:a77db9563b9f9505ac11a70b084e4bf0d" id="r_a77db9563b9f9505ac11a70b084e4bf0d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a77db9563b9f9505ac11a70b084e4bf0d">TEST</a> (PathfindingTest, UnAllieSeTraverseUnEnnemiNon)</td></tr>
+<tr class="memdesc:a77db9563b9f9505ac11a70b084e4bf0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">On traverse un allie si la requete le permet, jamais un ennemi, et l'on ne finit sur aucun.  <br /></td></tr>
+<tr class="memitem:aaeaa021b8bc56e7f752fc8391924c7ce" id="r_aaeaa021b8bc56e7f752fc8391924c7ce"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aaeaa021b8bc56e7f752fc8391924c7ce">TEST</a> (PathfindingTest, MemeEntreeMemeChemin)</td></tr>
+<tr class="memdesc:aaeaa021b8bc56e7f752fc8391924c7ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meme entree, meme chemin : le departage est une regle ecrite.  <br /></td></tr>
+<tr class="memitem:adbcfdf10387ead56c454e396b737aef7" id="r_adbcfdf10387ead56c454e396b737aef7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adbcfdf10387ead56c454e396b737aef7">TEST</a> (PathfindingTest, LeCheminSuitLaDroite)</td></tr>
+<tr class="memdesc:adbcfdf10387ead56c454e396b737aef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chemin suit la droite entre le depart et l'arrivee : il ne monte pas pour redescendre.  <br /></td></tr>
+<tr class="memitem:a4a87bd4bb9a97dd20bda1485ee1c4781" id="r_a4a87bd4bb9a97dd20bda1485ee1c4781"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4a87bd4bb9a97dd20bda1485ee1c4781">TEST</a> (PathfindingTest, LAireEtAStarRendentLeMemeChemin)</td></tr>
+<tr class="memdesc:a4a87bd4bb9a97dd20bda1485ee1c4781"><td class="mdescLeft">&#160;</td><td class="mdescRight">A* et l'aire atteignable rendent le meme chemin vers toute case atteignable.  <br /></td></tr>
+<tr class="memitem:aa9dd907423d5d7ddeb561cdb5f3c6b87" id="r_aa9dd907423d5d7ddeb561cdb5f3c6b87"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa9dd907423d5d7ddeb561cdb5f3c6b87">TEST</a> (PathfindingTest, UnCheminImpossibleEstRefuse)</td></tr>
+<tr class="memdesc:aa9dd907423d5d7ddeb561cdb5f3c6b87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un chemin impossible est refuse, et une destination hors de l'aire l'est aussi.  <br /></td></tr>
+<tr class="memitem:a4ca07b8d7cd0a4a5ebb0faeada77bcf1" id="r_a4ca07b8d7cd0a4a5ebb0faeada77bcf1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4ca07b8d7cd0a4a5ebb0faeada77bcf1">TEST</a> (PathfindingTest, UnVolantSurvoleLesObstaclesDeSol)</td></tr>
+<tr class="memdesc:a4ca07b8d7cd0a4a5ebb0faeada77bcf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un volant survole l'eau profonde et ignore la boue, mais pas les murs.  <br /></td></tr>
+<tr class="memitem:a8d6e4d2a632ac411d24ad4f39a192e21" id="r_a8d6e4d2a632ac411d24ad4f39a192e21"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8d6e4d2a632ac411d24ad4f39a192e21">TEST</a> (PathfindingTest, UneGrandeCreatureNePassePasParUnCouloirEtroit)</td></tr>
+<tr class="memdesc:a8d6e4d2a632ac411d24ad4f39a192e21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une grande creature ne passe pas par un couloir d'une case.  <br /></td></tr>
+<tr class="memitem:ad3a9f802851335abd4230994f41b40e2" id="r_ad3a9f802851335abd4230994f41b40e2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad3a9f802851335abd4230994f41b40e2">TEST</a> (PathfindingTest, SurDesCartesAleatoiresAStarEtLAireSAccordent)</td></tr>
+<tr class="memdesc:ad3a9f802851335abd4230994f41b40e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sur deux cents cartes tirees d'une graine fixe, A* et l'aire rendent toujours le meme chemin.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests du déplacement d'un tour : budget, cases atteignables, chemin déterministe (<span class="tt">LOT-19</span>, <span class="tt">EX-CBT-020</span>, <span class="tt">EX-REG-051</span>). </p>
+<p>La règle vérifiée est celle du Manuel des Joueurs, « Jouer sur un quadrillage » : entrer dans une case coûte 1, même en diagonale ; 2 en terrain difficile, à condition de pouvoir le payer ; et l'on ne passe pas en diagonale par le coin d'un mur. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a4a87bd4bb9a97dd20bda1485ee1c4781" name="a4a87bd4bb9a97dd20bda1485ee1c4781"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a87bd4bb9a97dd20bda1485ee1c4781">&#9670;&#160;</a></span>TEST() <span class="overload">[1/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PathfindingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LAireEtAStarRendentLeMemeChemin</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A* et l'aire atteignable rendent le meme chemin vers toute case atteignable. </p>
+<p><b>Cas de test :</b> <b>findPath et ReachableArea::pathTo rendent le meme chemin.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Grille accidentee (mur en L, boue).<br  />
+2. Calculer l'aire pour un budget de 12.<br  />
+3. Pour chaque destination, comparer pathTo a findPath.<br  />
+ <b>Resultat attendu :</b> Memes cases, meme cout, et chaque pas est une case voisine du precedent. </p>
+
+</div>
+</div>
+<a id="ae9ed0b4f28b93d07dfab367f58fbda7e" name="ae9ed0b4f28b93d07dfab367f58fbda7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9ed0b4f28b93d07dfab367f58fbda7e">&#9670;&#160;</a></span>TEST() <span class="overload">[2/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PathfindingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeBudgetSeDeduitDeLaVitesse</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le budget se deduit de la vitesse en metres, a raison d'une case pour 1,5 m. </p>
+<p><b>Cas de test :</b> <b>Le budget de deplacement vaut la vitesse divisee par 1,5, arrondie en dessous.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Convertir 9 m, 7,5 m, 10 m, 0 m et -3 m.<br  />
+2. Lire le budget d'une fiche a 9 m.<br  />
+</p><ol type="1">
+<li>Lire le budget de marche et de vol d'une creature qui ne vole pas, puis d'une qui vole.<br  />
+ <b>Resultat attendu :</b> 6, 5, 6, 0, 0 ; 6 pour la fiche ; la creature sans vol a un budget de vol nul. </li>
+</ol>
+
+</div>
+</div>
+<a id="adbcfdf10387ead56c454e396b737aef7" name="adbcfdf10387ead56c454e396b737aef7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbcfdf10387ead56c454e396b737aef7">&#9670;&#160;</a></span>TEST() <span class="overload">[3/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PathfindingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeCheminSuitLaDroite</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le chemin suit la droite entre le depart et l'arrivee : il ne monte pas pour redescendre. </p>
+<p><b>Cas de test :</b> <b>Sur une grille ouverte, le chemin retenu parmi ceux de meme cout est le plus proche de la droite depart-arrivee, et reste dans la boite qui les englobe.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Grille ouverte 11x11, heros au centre (5,5).<br  />
+2. Demander le chemin vers (9,3), en haut a droite, par l'aire et par A*.<br  />
+3. Verifier toute destination de l'aire.<br  />
+ <b>Resultat attendu :</b> Vers (9,3) : (6,4) (7,4) (8,3) (9,3), jamais (8,2) ; vers toute destination, aucun pas ne sort du rectangle entre le depart et l'arrivee. </p>
+
+</div>
+</div>
+<a id="a51ff10a203af9f0bad3bef3c3ad5c34b" name="a51ff10a203af9f0bad3bef3c3ad5c34b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51ff10a203af9f0bad3bef3c3ad5c34b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PathfindingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesCasesAtteignablesCorrespondentExactementAuBudget</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les cases atteignables correspondent exactement au budget, ni une de plus ni une de moins. </p>
+<p><b>Cas de test :</b> <b>Les cases atteignables correspondent exactement au budget.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Grille ouverte 11x11, heros au centre.<br  />
+2. Calculer l'aire atteignable pour les budgets 0 a 5.<br  />
+3. Comparer chaque case a sa distance de Tchebychev.<br  />
+ <b>Resultat attendu :</b> Une case est une destination si et seulement si 1 &lt;= distance &lt;= budget ; le nombre de destinations vaut (2b+1)^2 - 1 ; le cout d'une case vaut sa distance. </p>
+
+</div>
+</div>
+<a id="a8602a60d6eed582485cab4278596de0e" name="a8602a60d6eed582485cab4278596de0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8602a60d6eed582485cab4278596de0e">&#9670;&#160;</a></span>TEST() <span class="overload">[5/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PathfindingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeTerrainDifficileDoubleLeCoutEtReduitLaPortee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le terrain difficile double le cout, et reduit la portee en consequence. </p>
+<p><b>Cas de test :</b> <b>Le terrain difficile double le cout et reduit la portee.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Grille ouverte 11x11, heros au centre, budget 4.<br  />
+2. Rendre difficile une case voisine, puis toute la grille.<br  />
+3. Recalculer l'aire avec un budget de 1 contre une case difficile.<br  />
+ <b>Resultat attendu :</b> La case difficile coute 2 ; toute la grille difficile ramene les 80 destinations a 24 (portee 2 au lieu de 4) ; avec un budget de 1, la case difficile voisine est hors de portee. </p>
+
+</div>
+</div>
+<a id="aaeaa021b8bc56e7f752fc8391924c7ce" name="aaeaa021b8bc56e7f752fc8391924c7ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeaa021b8bc56e7f752fc8391924c7ce">&#9670;&#160;</a></span>TEST() <span class="overload">[6/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PathfindingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MemeEntreeMemeChemin</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Meme entree, meme chemin : le departage est une regle ecrite. </p>
+<p><b>Cas de test :</b> <b>Meme entree, meme chemin, et le departage suit la regle du plus petit indice.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Grille ouverte 3x3, heros en (0,0).<br  />
+2. Demander le chemin vers (2,0) et vers (0,2), chacun a deux chemins de cout 2.<br  />
+3. Repeter cent fois la requete sur une grille accidentee.<br  />
+ <b>Resultat attendu :</b> Vers (2,0) : (1,0) puis (2,0) ; vers (0,2) : (0,1) puis (0,2) ; les cent chemins sont identiques. </p>
+
+</div>
+</div>
+<a id="ad3a9f802851335abd4230994f41b40e2" name="ad3a9f802851335abd4230994f41b40e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3a9f802851335abd4230994f41b40e2">&#9670;&#160;</a></span>TEST() <span class="overload">[7/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PathfindingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SurDesCartesAleatoiresAStarEtLAireSAccordent</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sur deux cents cartes tirees d'une graine fixe, A* et l'aire rendent toujours le meme chemin. </p>
+<p><b>Cas de test :</b> <b>Sur deux cents cartes aleatoires a graine fixe, A* et l'aire s'accordent.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Tirer deux cents grilles 12x9 (graine fixe) : murs, eau profonde, boue, un allie a traverser.<br  />
+2. Pour chaque destination de l'aire au budget 14, comparer pathTo et findPath.<br  />
+ <b>Resultat attendu :</b> Chemins et couts identiques partout : le departage ne depend pas de l'algorithme. </p>
+
+</div>
+</div>
+<a id="a77db9563b9f9505ac11a70b084e4bf0d" name="a77db9563b9f9505ac11a70b084e4bf0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77db9563b9f9505ac11a70b084e4bf0d">&#9670;&#160;</a></span>TEST() <span class="overload">[8/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PathfindingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnAllieSeTraverseUnEnnemiNon</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>On traverse un allie si la requete le permet, jamais un ennemi, et l'on ne finit sur aucun. </p>
+<p><b>Cas de test :</b> <b>Un allie se traverse, un ennemi non, et aucun ne sert de destination.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Couloir 5x1 : heros en (0,0), allie en (1,0), ennemi en (3,0).<br  />
+2. Calculer l'aire sans droit de passage, puis en autorisant l'allie.<br  />
+ <b>Resultat attendu :</b> Sans droit de passage, rien n'est atteignable ; avec, (2,0) l'est pour 2 et (1,0) a un cout mais n'est pas une destination ; l'ennemi ferme le couloir. </p>
+
+</div>
+</div>
+<a id="aa9dd907423d5d7ddeb561cdb5f3c6b87" name="aa9dd907423d5d7ddeb561cdb5f3c6b87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9dd907423d5d7ddeb561cdb5f3c6b87">&#9670;&#160;</a></span>TEST() <span class="overload">[9/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PathfindingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnCheminImpossibleEstRefuse</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un chemin impossible est refuse, et une destination hors de l'aire l'est aussi. </p>
+<p><b>Cas de test :</b> <b>Un chemin impossible est refuse.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Grille coupee en deux par un mur plein.<br  />
+2. Demander un chemin de l'autre cote, un chemin vers un mur, un chemin pour un combattant absent.<br  />
+ <b>Resultat attendu :</b> Aucun chemin dans les trois cas ; pathTo refuse aussi le point de depart. </p>
+
+</div>
+</div>
+<a id="a0e03f326eb6962b77a5e46f50f4532c6" name="a0e03f326eb6962b77a5e46f50f4532c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e03f326eb6962b77a5e46f50f4532c6">&#9670;&#160;</a></span>TEST() <span class="overload">[10/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PathfindingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneDiagonaleNeCoupePasLeCoinDUnMur</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>On ne passe pas en diagonale par le coin d'un mur. </p>
+<p><b>Cas de test :</b> <b>Une diagonale ne coupe pas le coin d'un mur.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Grille 3x3, mur en (1,0).<br  />
+2. Heros en (0,0), cible (1,1) en diagonale.<br  />
+3. Meme chose avec de l'eau profonde a la place du mur.<br  />
+ <b>Resultat attendu :</b> Contre le mur, la diagonale est interdite et le cout vaut 2 (par (0,1)) ; contre l'eau profonde, qui ne remplit pas l'espace, elle est permise et coute 1. </p>
+
+</div>
+</div>
+<a id="a8d6e4d2a632ac411d24ad4f39a192e21" name="a8d6e4d2a632ac411d24ad4f39a192e21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d6e4d2a632ac411d24ad4f39a192e21">&#9670;&#160;</a></span>TEST() <span class="overload">[11/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PathfindingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneGrandeCreatureNePassePasParUnCouloirEtroit</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une grande creature ne passe pas par un couloir d'une case. </p>
+<p><b>Cas de test :</b> <b>Une creature 2x2 ne passe pas par un couloir d'une case.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Salle 6x6 coupee par un mur en colonne 3, percee d'une seule case en (3,2).<br  />
+2. Calculer l'aire d'un combattant 1x1, puis d'un 2x2, au budget 10.<br  />
+ <b>Resultat attendu :</b> Le 1x1 passe de l'autre cote ; le 2x2 n'y parvient pas, et ses destinations sont toutes des places ou son emprise tient. </p>
+
+</div>
+</div>
+<a id="ac08ce973faf19e1ec4d8003372c01d03" name="ac08ce973faf19e1ec4d8003372c01d03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac08ce973faf19e1ec4d8003372c01d03">&#9670;&#160;</a></span>TEST() <span class="overload">[12/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PathfindingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnMurCouteLeDetour</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un mur coute le detour : la portee se compte sur la grille, pas a vol d'oiseau. </p>
+<p><b>Cas de test :</b> <b>Un mur entre deux cases voisines coute le detour.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Grille 7x5, mur vertical en colonne 3 des lignes 0 a 2.<br  />
+2. Heros en (2,1), cible en (4,1), a deux cases de l'autre cote du mur.<br  />
+ <b>Resultat attendu :</b> Le cout vaut 6 : le detour par la ligne 3, sans couper le coin du mur ni a l'aller ni au retour. Un budget de 5 ne l'atteint pas, un budget de 6 si. </p>
+
+</div>
+</div>
+<a id="a4ca07b8d7cd0a4a5ebb0faeada77bcf1" name="a4ca07b8d7cd0a4a5ebb0faeada77bcf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ca07b8d7cd0a4a5ebb0faeada77bcf1">&#9670;&#160;</a></span>TEST() <span class="overload">[13/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PathfindingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnVolantSurvoleLesObstaclesDeSol</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un volant survole l'eau profonde et ignore la boue, mais pas les murs. </p>
+<p><b>Cas de test :</b> <b>Un volant survole les obstacles de sol, pas les murs.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Couloir 5x3 : colonne 2 en eau profonde, case (1,1) en boue, ligne 0 murée.<br  />
+2. Calculer l'aire du meme combattant au sol, puis en vol.<br  />
+ <b>Resultat attendu :</b> Au sol, l'autre rive est inaccessible et la boue coute 2 ; en vol, l'autre rive est atteinte et la boue coute 1 ; la ligne muree reste hors d'atteinte dans les deux cas. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_e4f77e6506ec5ae5855f8bd23358af3b.html">Combat</a></li><li class="navelem"><a href="test__pathfinding_8cpp.html">test_pathfinding.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

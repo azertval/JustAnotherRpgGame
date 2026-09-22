@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HMI · Localization — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1 active" href="hmi-localization.html">HMI · Localization</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-localizationcpp">test_localization.cpp</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="hmi-localization">HMI · Localization</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">9 cas</span></div>
+<p>Tests unitaires — <strong>9 cas</strong> (9 majeurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-localizationcpp"><code>test_localization.cpp</code></a></td><td>9</td><td>-</td><td>-</td><td>9</td><td>-</td></tr></tbody></table></div>
+<h2 id="test-localizationcpp">test_localization.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="localizationtestanalyseignorecommentairesetespaces">LocalizationTest.AnalyseIgnoreCommentairesEtEspaces</h3>
+<p><em>Majeur · Unitaire · Localization</em> — <code>Source/Test/Unit/HMI/Localization/test_localization.cpp:35</code></p>
+<p>L'analyse ignore les lignes vides et les commentaires, et retire les espaces autour de '='.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>strings.size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>strings.at(&quot;menu.quitter&quot;)</code> vaut <code>&quot;Quitter&quot;</code>.</li><li>Vérifie que <code>strings.at(&quot;menu.titre&quot;)</code> vaut <code>&quot;JustAnotherRpgGame&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="localizationtestanalyseconserveegaldanslavaleur">LocalizationTest.AnalyseConserveEgalDansLaValeur</h3>
+<p><em>Majeur · Unitaire · Localization</em> — <code>Source/Test/Unit/HMI/Localization/test_localization.cpp:60</code></p>
+<p>Seul le premier '=' sépare ; un '=' dans la valeur est conservé.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>strings.size()</code> vaut <code>1u</code>.</li><li>Vérifie que <code>strings.at(&quot;expression&quot;)</code> vaut <code>&quot;a = b + c&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="localizationtestcleexistanteresolue">LocalizationTest.CleExistanteResolue</h3>
+<p><em>Majeur · Unitaire · Localization</em> — <code>Source/Test/Unit/HMI/Localization/test_localization.cpp:77</code></p>
+<p>Une clé existante est résolue dans la langue active.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>localization.text(&quot;menu.quitter&quot;)</code> vaut <code>&quot;Quitter&quot;</code>.</li><li>Vérifie que <code>localization.activeLanguage()</code> vaut <code>&quot;fr&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="localizationtestcleinconnuerenvoielacle">LocalizationTest.CleInconnueRenvoieLaCle</h3>
+<p><em>Majeur · Unitaire · Localization</em> — <code>Source/Test/Unit/HMI/Localization/test_localization.cpp:95</code></p>
+<p>Une clé inconnue partout est renvoyée telle quelle (repli déterministe, pas de plantage).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>localization.text(&quot;menu.inconnue&quot;)</code> vaut <code>&quot;menu.inconnue&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="localizationtestchangementdelangue">LocalizationTest.ChangementDeLangue</h3>
+<p><em>Majeur · Unitaire · Localization</em> — <code>Source/Test/Unit/HMI/Localization/test_localization.cpp:114</code></p>
+<p>Changer de langue résout les valeurs de la nouvelle langue.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>localization.activeLanguage()</code> vaut <code>&quot;en&quot;</code>.</li><li>Vérifie que <code>localization.text(&quot;menu.quitter&quot;)</code> vaut <code>&quot;Quit&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="localizationtestreplisurlanguepardefaut">LocalizationTest.RepliSurLangueParDefaut</h3>
+<p><em>Majeur · Unitaire · Localization</em> — <code>Source/Test/Unit/HMI/Localization/test_localization.cpp:133</code></p>
+<p>Une clé manquante dans la langue active retombe sur la langue par défaut.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>localization.text(&quot;menu.quitter&quot;)</code> vaut <code>&quot;Quit&quot;</code>.</li><li>Vérifie que <code>localization.text(&quot;menu.titre&quot;)</code> vaut <code>&quot;Jeu&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="localizationtestlangueabsenteestrecuperable">LocalizationTest.LangueAbsenteEstRecuperable</h3>
+<p><em>Majeur · Unitaire · Localization</em> — <code>Source/Test/Unit/HMI/Localization/test_localization.cpp:152</code></p>
+<p>Charger une langue absente échoue proprement et conserve la langue active (récupérable).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>localization.loadLanguage(&quot;xx&quot;)</code> est faux.</li><li>Vérifie que <code>localization.activeLanguage()</code> vaut <code>&quot;fr&quot;</code>.</li><li>Vérifie que <code>localization.text(&quot;menu.quitter&quot;)</code> vaut <code>&quot;Quitter&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="localizationtestcataloguefrancaislivresecharge">LocalizationTest.CatalogueFrancaisLivreSeCharge</h3>
+<p><em>Majeur · Unitaire · Localization</em> — <code>Source/Test/Unit/HMI/Localization/test_localization.cpp:173</code></p>
+<p>Le catalogue français livré (Source/Elements/Localization) se charge et résout ses clés.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>localization.loadDefaultLanguage(&quot;fr&quot;)</code> est vrai.</li><li>Vérifie que <code>localization.activeLanguage()</code> vaut <code>&quot;fr&quot;</code>.</li><li>Vérifie que <code>localization.text(&quot;menu.quit&quot;)</code> vaut <code>&quot;Quitter&quot;</code>.</li><li>Vérifie que <code>localization.text(&quot;menu.new_game&quot;)</code> vaut <code>&quot;Nouvelle partie&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="localizationtestlesdeuxcataloguesdeclarentlesmemescles">LocalizationTest.LesDeuxCataloguesDeclarentLesMemesCles</h3>
+<p><em>Majeur · Unitaire · Localization</em> — <code>Source/Test/Unit/HMI/Localization/test_localization.cpp:201</code></p>
+<p>Les catalogues francais et anglais declarent les memes cles.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger fr.lang et en.lang.</li><li>Comparer les ensembles de cles dans les deux sens.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>french.empty()</code> est faux.</li><li>Vérifie que <code>english.empty()</code> est faux.</li><li>Vérifie que <code>english.count(key) &gt; 0</code> est vrai.</li><li>Vérifie que <code>french.count(key) &gt; 0</code> est vrai.</li><li>Vérifie que <code>french.size()</code> vaut <code>english.size()</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-interface.html"><span>Précédent</span>HMI · Interface</a><a class="next" href="hmi-platform.html"><span>Suivant</span>HMI · Platform</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-localization.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

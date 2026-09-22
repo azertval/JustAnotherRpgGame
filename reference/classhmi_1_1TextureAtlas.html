@@ -1,0 +1,471 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::TextureAtlas Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1TextureAtlas.html','','classhmi_1_1TextureAtlas-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::TextureAtlas Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Texture d'atlas <b>procédurale</b> et table de régions de tuiles (<span class="tt">EX-REN-041</span>/<span class="tt">EX-REN-042</span>).  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="TextureAtlas_8h_source.html">TextureAtlas.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a3b36e13eaf9201ac13d7e6ab2214bc72" id="r_a3b36e13eaf9201ac13d7e6ab2214bc72"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3b36e13eaf9201ac13d7e6ab2214bc72">TextureAtlas</a> (const <a class="el" href="structhmi_1_1RhiContext.html">RhiContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a3b36e13eaf9201ac13d7e6ab2214bc72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère l'atlas procédural et crée la texture GPU associée.  <br /></td></tr>
+<tr class="memitem:aa2d7c9cb18e7a706c46016ef5ad56930" id="r_aa2d7c9cb18e7a706c46016ef5ad56930"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa2d7c9cb18e7a706c46016ef5ad56930">textureHandle</a> () const</td></tr>
+<tr class="memitem:a6408ca8d697d60ac8d5da5290b157726" id="r_a6408ca8d697d60ac8d5da5290b157726"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a6408ca8d697d60ac8d5da5290b157726">width</a> () const</td></tr>
+<tr class="memitem:a4d1a9e1cfc71dd6c1b319ce0dab8a6d7" id="r_a4d1a9e1cfc71dd6c1b319ce0dab8a6d7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4d1a9e1cfc71dd6c1b319ce0dab8a6d7">height</a> () const</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aa46183dc6155588289c756f6cdfb100a" id="r_aa46183dc6155588289c756f6cdfb100a"><td class="memItemLeft">static <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa46183dc6155588289c756f6cdfb100a">tile</a> (int column, int row)</td></tr>
+<tr class="memdesc:aa46183dc6155588289c756f6cdfb100a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région (en pixels) de la tuile à une position de la grille.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:aacbd0307d4440f04585dee673ca56d9d" id="r_aacbd0307d4440f04585dee673ca56d9d"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aacbd0307d4440f04585dee673ca56d9d">TILE_SIZE</a> = 16</td></tr>
+<tr class="memdesc:aacbd0307d4440f04585dee673ca56d9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté d'une tuile, en pixels (<span class="tt">EX-ARCH-021</span>).  <br /></td></tr>
+<tr class="memitem:af4e63cbf4c417709c3a22399de752c67" id="r_af4e63cbf4c417709c3a22399de752c67"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af4e63cbf4c417709c3a22399de752c67">TILES_PER_SIDE</a> = 6</td></tr>
+<tr class="memdesc:af4e63cbf4c417709c3a22399de752c67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de tuiles par ligne et par colonne dans la grille générée.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ad092296016eacb6ffcc1a19c067f3796" id="r_ad092296016eacb6ffcc1a19c067f3796"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad092296016eacb6ffcc1a19c067f3796">_width</a> = 0</td></tr>
+<tr class="memitem:abf33f103155f3eb2e69b24a4129a6365" id="r_abf33f103155f3eb2e69b24a4129a6365"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#abf33f103155f3eb2e69b24a4129a6365">_height</a> = 0</td></tr>
+<tr class="memitem:ade592ead07567a17fe9105ed268afd53" id="r_ade592ead07567a17fe9105ed268afd53"><td class="memItemLeft">std::shared_ptr&lt; QRhiTexture &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ade592ead07567a17fe9105ed268afd53">_texture</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Texture d'atlas <b>procédurale</b> et table de régions de tuiles (<span class="tt">EX-REN-041</span>/<span class="tt">EX-REN-042</span>). </p>
+<p>L'atlas est une grille de tuiles 16×16 générée en mémoire (<span class="tt"><a class="el" href="namespacehmi.html#a0fa1fc503abd25e16f2e3d52f6c8d540" title="Génère, en mémoire, l&#39;atlas procédural (grille de tuiles colorées), de façon déterministe.">hmi::buildProceduralAtlasImage</a></span>) : une couleur distincte par type de tuile, et une case à zones <b>transparentes</b> pour valider le rendu alpha. Aucun fichier n'est lu, donc aucun échec de chargement possible (<span class="tt">EX-NFR-040</span>). Le canevas de l'éditeur s'en sert pour distinguer les types de terrain à l'œil. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3b36e13eaf9201ac13d7e6ab2214bc72" name="a3b36e13eaf9201ac13d7e6ab2214bc72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b36e13eaf9201ac13d7e6ab2214bc72">&#9670;&#160;</a></span>TextureAtlas()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::TextureAtlas::TextureAtlas </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1RhiContext.html">RhiContext</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>context</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Génère l'atlas procédural et crée la texture GPU associée. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td>Interface de rendu et lot de mises à jour de l'image courante. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a4d1a9e1cfc71dd6c1b319ce0dab8a6d7" name="a4d1a9e1cfc71dd6c1b319ce0dab8a6d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d1a9e1cfc71dd6c1b319ce0dab8a6d7">&#9670;&#160;</a></span>height()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::TextureAtlas::height </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Hauteur de l'atlas, en pixels. </dd></dl>
+
+</div>
+</div>
+<a id="aa2d7c9cb18e7a706c46016ef5ad56930" name="aa2d7c9cb18e7a706c46016ef5ad56930"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2d7c9cb18e7a706c46016ef5ad56930">&#9670;&#160;</a></span>textureHandle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> hmi::TextureAtlas::textureHandle </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'identité opaque de la texture d'atlas (non possédée par l'appelant). </dd></dl>
+
+</div>
+</div>
+<a id="aa46183dc6155588289c756f6cdfb100a" name="aa46183dc6155588289c756f6cdfb100a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa46183dc6155588289c756f6cdfb100a">&#9670;&#160;</a></span>tile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> hmi::TextureAtlas::tile </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>column</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>row</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Région (en pixels) de la tuile à une position de la grille. </p>
+<p>Pure arithmétique de grille (aucun état d'instance) : <span class="tt">static</span>, testable sans GPU (<span class="tt">EX-NFR-010</span>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">column</td><td>Colonne de la tuile (0 à TILES_PER_SIDE-1). </td></tr>
+    <tr><td class="paramname">row</td><td>Ligne de la tuile (0 à TILES_PER_SIDE-1). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La région d'atlas correspondante, en pixels. </dd></dl>
+
+</div>
+</div>
+<a id="a6408ca8d697d60ac8d5da5290b157726" name="a6408ca8d697d60ac8d5da5290b157726"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6408ca8d697d60ac8d5da5290b157726">&#9670;&#160;</a></span>width()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::TextureAtlas::width </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Largeur de l'atlas, en pixels. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="abf33f103155f3eb2e69b24a4129a6365" name="abf33f103155f3eb2e69b24a4129a6365"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf33f103155f3eb2e69b24a4129a6365">&#9670;&#160;</a></span>_height</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::TextureAtlas::_height = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ade592ead07567a17fe9105ed268afd53" name="ade592ead07567a17fe9105ed268afd53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade592ead07567a17fe9105ed268afd53">&#9670;&#160;</a></span>_texture</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;QRhiTexture&gt; hmi::TextureAtlas::_texture</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad092296016eacb6ffcc1a19c067f3796" name="ad092296016eacb6ffcc1a19c067f3796"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad092296016eacb6ffcc1a19c067f3796">&#9670;&#160;</a></span>_width</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::TextureAtlas::_width = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aacbd0307d4440f04585dee673ca56d9d" name="aacbd0307d4440f04585dee673ca56d9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacbd0307d4440f04585dee673ca56d9d">&#9670;&#160;</a></span>TILE_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::TextureAtlas::TILE_SIZE = 16</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Côté d'une tuile, en pixels (<span class="tt">EX-ARCH-021</span>). </p>
+
+</div>
+</div>
+<a id="af4e63cbf4c417709c3a22399de752c67" name="af4e63cbf4c417709c3a22399de752c67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4e63cbf4c417709c3a22399de752c67">&#9670;&#160;</a></span>TILES_PER_SIDE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::TextureAtlas::TILES_PER_SIDE = 6</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de tuiles par ligne et par colonne dans la grille générée. </p>
+<p>Les cases ne bougent pas quand un type de tuile disparaît : la couleur d'un type déjà posé ne change jamais. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="TextureAtlas_8h_source.html">TextureAtlas.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="TextureAtlas_8cpp.html">TextureAtlas.cpp</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="TextureAtlasRegions_8cpp.html">TextureAtlasRegions.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1TextureAtlas.html">TextureAtlas</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

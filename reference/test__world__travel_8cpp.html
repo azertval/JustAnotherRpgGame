@@ -1,0 +1,423 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/World/test_world_travel.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__world__travel_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_world_travel.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme, garder la carte quittee, et refuser au chargement ce qui ne mene nulle part.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;system_error&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="WorldFlags_8h_source.html">Core/Gameplay/WorldFlags.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelWriter_8h_source.html">Core/Levels/LevelWriter.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapEntity_8h_source.html">Core/Levels/MapEntity.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="EntityKinds_8h_source.html">Core/World/EntityKinds.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldGraph_8h_source.html">Core/World/WorldGraph.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldTravel_8h_source.html">Core/World/WorldTravel.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aae5e05b6e3f40f7cf27a2236dfea9a10" id="r_aae5e05b6e3f40f7cf27a2236dfea9a10"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aae5e05b6e3f40f7cf27a2236dfea9a10">TEST</a> (WorldTravelTest, CinqCartesSeParcourentDansLesDeuxSens)</td></tr>
+<tr class="memdesc:aae5e05b6e3f40f7cf27a2236dfea9a10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cinq cartes se parcourent dans les deux sens par points d'arrivee nommes.  <br /></td></tr>
+<tr class="memitem:a8dbfe84a9355ecce5d8bc7a6d262b656" id="r_a8dbfe84a9355ecce5d8bc7a6d262b656"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8dbfe84a9355ecce5d8bc7a6d262b656">TEST</a> (WorldTravelTest, UneCaseSansPortailNEstPasUneTraversee)</td></tr>
+<tr class="memdesc:a8dbfe84a9355ecce5d8bc7a6d262b656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une case sans portail n'est pas une traversee.  <br /></td></tr>
+<tr class="memitem:a800e30018ec6da541dc418fc777b49b3" id="r_a800e30018ec6da541dc418fc777b49b3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a800e30018ec6da541dc418fc777b49b3">TEST</a> (WorldTravelTest, UnPortailADrapeauResteFermeSansLeDrapeau)</td></tr>
+<tr class="memdesc:a800e30018ec6da541dc418fc777b49b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un portail a drapeau reste ferme tant que le drapeau n'est pas pose.  <br /></td></tr>
+<tr class="memitem:a0eb991d2ee4cc0f2666930b2c4530eeb" id="r_a0eb991d2ee4cc0f2666930b2c4530eeb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0eb991d2ee4cc0f2666930b2c4530eeb">TEST</a> (WorldTravelTest, UnPortailOrphelinEstRefuseAuChargement)</td></tr>
+<tr class="memdesc:a0eb991d2ee4cc0f2666930b2c4530eeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un portail orphelin est refuse au chargement, pas a la traversee.  <br /></td></tr>
+<tr class="memitem:a15dc8e4f69e678988013397b6d20b989" id="r_a15dc8e4f69e678988013397b6d20b989"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a15dc8e4f69e678988013397b6d20b989">TEST</a> (WorldTravelTest, UnPointDArriveeEnDoubleEstReleveSurLaCarte)</td></tr>
+<tr class="memdesc:a15dc8e4f69e678988013397b6d20b989"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un point d'arrivee en double est releve sur la carte.  <br /></td></tr>
+<tr class="memitem:a6cd9611dfc19f225ae3286833b20e320" id="r_a6cd9611dfc19f225ae3286833b20e320"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6cd9611dfc19f225ae3286833b20e320">TEST</a> (WorldTravelTest, UneArriveeInconnueRefuseLEntree)</td></tr>
+<tr class="memdesc:a6cd9611dfc19f225ae3286833b20e320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une arrivee inconnue refuse l'entree et nomme ce qui manque.  <br /></td></tr>
+<tr class="memitem:a8fede39060843d0a9eaa07f35176ccfe" id="r_a8fede39060843d0a9eaa07f35176ccfe"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8fede39060843d0a9eaa07f35176ccfe">TEST</a> (WorldTravelTest, LesCartesDuPremierDossierPassentDevant)</td></tr>
+<tr class="memdesc:a8fede39060843d0a9eaa07f35176ccfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chargeur a plusieurs dossiers sert le premier qui porte la carte, et n'invente rien.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests du graphe du monde JOUE (LOT-09) : franchir un portail, arriver a un point nomme, garder la carte quittee, et refuser au chargement ce qui ne mene nulle part. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="aae5e05b6e3f40f7cf27a2236dfea9a10" name="aae5e05b6e3f40f7cf27a2236dfea9a10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae5e05b6e3f40f7cf27a2236dfea9a10">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldTravelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CinqCartesSeParcourentDansLesDeuxSens</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cinq cartes se parcourent dans les deux sens par points d'arrivee nommes. </p>
+<p><b>Cas de test :</b> <b>Un parcours de cinq cartes, aller et retour, par points d'arrivee nommes.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde parcouru<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Entrer sur la premiere carte, puis franchir quatre portails a la file.<br  />
+</p><ol type="1">
+<li>Revenir par les portails de retour jusqu'a la premiere carte.<br  />
+ <b>Resultat attendu :</b> Chaque traversee pose le personnage sur le point d'arrivee NOMME de la carte atteinte, jamais sur une coordonnee du portail de depart. </li>
+</ol>
+
+</div>
+</div>
+<a id="a8fede39060843d0a9eaa07f35176ccfe" name="a8fede39060843d0a9eaa07f35176ccfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fede39060843d0a9eaa07f35176ccfe">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldTravelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesCartesDuPremierDossierPassentDevant</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le chargeur a plusieurs dossiers sert le premier qui porte la carte, et n'invente rien. </p>
+<p><b>Cas de test :</b> <b>Les cartes du brouillon passent devant celles du jeu.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde parcouru<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser deux dossiers, la meme carte dans les deux sous un nom different, et une seconde carte dans le dernier seulement.<br  />
+ <b>Resultat attendu :</b> La carte commune vient du PREMIER dossier ; celle qui n'est que dans le second en vient ; une carte absente des deux echoue. </p>
+
+</div>
+</div>
+<a id="a6cd9611dfc19f225ae3286833b20e320" name="a6cd9611dfc19f225ae3286833b20e320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cd9611dfc19f225ae3286833b20e320">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldTravelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneArriveeInconnueRefuseLEntree</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une arrivee inconnue refuse l'entree et nomme ce qui manque. </p>
+<p><b>Cas de test :</b> <b>Entrer par un point d'arrivee absent est refuse, le nom cite.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde parcouru<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Entrer sur une carte par un point d'arrivee qu'elle n'offre pas.<br  />
+ <b>Resultat attendu :</b> <span class="tt">UnknownArrival</span>, le defaut cite le nom demande, et la carte courante ne change pas. </p>
+
+</div>
+</div>
+<a id="a8dbfe84a9355ecce5d8bc7a6d262b656" name="a8dbfe84a9355ecce5d8bc7a6d262b656"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dbfe84a9355ecce5d8bc7a6d262b656">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldTravelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneCaseSansPortailNEstPasUneTraversee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une case sans portail n'est pas une traversee. </p>
+<p><b>Cas de test :</b> <b>Une case ordinaire ne declenche aucune traversee.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde parcouru<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Entrer sur une carte, puis tenter de franchir une case vide.<br  />
+ <b>Resultat attendu :</b> <span class="tt">NoPortal</span>, la carte et la case du personnage sont inchangees. </p>
+
+</div>
+</div>
+<a id="a15dc8e4f69e678988013397b6d20b989" name="a15dc8e4f69e678988013397b6d20b989"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15dc8e4f69e678988013397b6d20b989">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldTravelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnPointDArriveeEnDoubleEstReleveSurLaCarte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un point d'arrivee en double est releve sur la carte. </p>
+<p><b>Cas de test :</b> <b>Deux points d'arrivee du meme nom sont un defaut de la carte.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde parcouru<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser deux points d'arrivee « seuil » sur la meme carte.<br  />
+</p><ol type="1">
+<li>Valider la carte lue, puis le graphe.<br  />
+ <b>Resultat attendu :</b> La carte signale le doublon, que le graphe ne peut pas voir : il deduplique les noms. </li>
+</ol>
+
+</div>
+</div>
+<a id="a800e30018ec6da541dc418fc777b49b3" name="a800e30018ec6da541dc418fc777b49b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a800e30018ec6da541dc418fc777b49b3">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldTravelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnPortailADrapeauResteFermeSansLeDrapeau</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un portail a drapeau reste ferme tant que le drapeau n'est pas pose. </p>
+<p><b>Cas de test :</b> <b>Un portail exigeant un drapeau ne s'ouvre qu'une fois le drapeau pose.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde parcouru<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Franchir un portail qui exige un drapeau absent.<br  />
+</p><ol type="1">
+<li>Poser le drapeau, puis franchir le meme portail.<br  />
+ <b>Resultat attendu :</b> <span class="tt">Locked</span> d'abord, <span class="tt">Moved</span> ensuite : le drapeau vit dans le monde, pas dans la carte. </li>
+</ol>
+
+</div>
+</div>
+<a id="a0eb991d2ee4cc0f2666930b2c4530eeb" name="a0eb991d2ee4cc0f2666930b2c4530eeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0eb991d2ee4cc0f2666930b2c4530eeb">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldTravelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnPortailOrphelinEstRefuseAuChargement</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un portail orphelin est refuse au chargement, pas a la traversee. </p>
+<p><b>Cas de test :</b> <b>Chaque defaut de portail devient un code exploitable au chargement.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde parcouru<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Batir un dossier ou un portail vise une carte absente et un autre un point d'arrivee absent.<br  />
+</p><ol type="1">
+<li>Valider le graphe.<br  />
+ <b>Resultat attendu :</b> Un defaut par portail fautif, nomme et situe, releve AVANT que le joueur n'y marche. </li>
+</ol>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_5b9260db83130c4f37c3438064c80de4.html">World</a></li><li class="navelem"><a href="test__world__travel_8cpp.html">test_world_travel.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

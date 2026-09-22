@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core · Rpg — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1 active" href="core-rpg.html">Core · Rpg</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-bestiarycpp">test_bestiary.cpp</a><a class="toc depth-2" href="#test-character-optionscpp">test_character_options.cpp</a><a class="toc depth-2" href="#test-character-sheetcpp">test_character_sheet.cpp</a><a class="toc depth-2" href="#test-checkcpp">test_check.cpp</a><a class="toc depth-2" href="#test-dialoguecpp">test_dialogue.cpp</a><a class="toc depth-2" href="#test-dicecpp">test_dice.cpp</a><a class="toc depth-2" href="#test-equipmentcpp">test_equipment.cpp</a><a class="toc depth-2" href="#test-inventorycpp">test_inventory.cpp</a><a class="toc depth-2" href="#test-multiclassingcpp">test_multiclassing.cpp</a><a class="toc depth-2" href="#test-rpg-enumscpp">test_rpg_enums.cpp</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="core-rpg">Core · Rpg</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">81 cas</span></div>
+<p>Tests unitaires — <strong>81 cas</strong> (3 bloquants, 44 critiques, 33 majeurs, 1 mineur). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-bestiarycpp"><code>test_bestiary.cpp</code></a></td><td>6</td><td>-</td><td>3</td><td>3</td><td>-</td></tr><tr><td><a href="#test-character-optionscpp"><code>test_character_options.cpp</code></a></td><td>9</td><td>-</td><td>5</td><td>4</td><td>-</td></tr><tr><td><a href="#test-character-sheetcpp"><code>test_character_sheet.cpp</code></a></td><td>9</td><td>-</td><td>5</td><td>4</td><td>-</td></tr><tr><td><a href="#test-checkcpp"><code>test_check.cpp</code></a></td><td>5</td><td>-</td><td>4</td><td>1</td><td>-</td></tr><tr><td><a href="#test-dialoguecpp"><code>test_dialogue.cpp</code></a></td><td>12</td><td>3</td><td>4</td><td>5</td><td>-</td></tr><tr><td><a href="#test-dicecpp"><code>test_dice.cpp</code></a></td><td>9</td><td>-</td><td>5</td><td>4</td><td>-</td></tr><tr><td><a href="#test-equipmentcpp"><code>test_equipment.cpp</code></a></td><td>7</td><td>-</td><td>6</td><td>1</td><td>-</td></tr><tr><td><a href="#test-inventorycpp"><code>test_inventory.cpp</code></a></td><td>13</td><td>-</td><td>5</td><td>7</td><td>1</td></tr><tr><td><a href="#test-multiclassingcpp"><code>test_multiclassing.cpp</code></a></td><td>6</td><td>-</td><td>4</td><td>2</td><td>-</td></tr><tr><td><a href="#test-rpg-enumscpp"><code>test_rpg_enums.cpp</code></a></td><td>5</td><td>-</td><td>3</td><td>2</td><td>-</td></tr></tbody></table></div>
+<h2 id="test-bestiarycpp">test_bestiary.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="bestiarytestlesquatrevingtquatorzeprofilschargent">BestiaryTest.LesQuatreVingtQuatorzeProfilsChargent</h3>
+<p><em>Critique · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:96</code></p>
+<p>Les 94 creatures du bestiaire de base se chargent toutes.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger Source/Elements/Rpg/creatures.</li><li>Compter les creatures chargees et les erreurs rapportees.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>catalogue.creatures.size()</code> vaut <code>BETES_DU_SRD</code>.</li><li>Vérifie que <code>identifiants.insert(creature.id).second</code> est vrai.</li><li>Vérifie que <code>creature.name.empty()</code> est faux.</li><li>Vérifie que <code>creature.source</code> vaut <code>&quot;srd&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="bestiarytestdixprofilsconcordentaveclelivre">BestiaryTest.DixProfilsConcordentAvecLeLivre</h3>
+<p><em>Critique · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:123</code></p>
+<p>Dix blocs de statistiques du bestiaire concordent avec le livre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour douze creatures, comparer classe d'armure, points de vie, vitesse de marche, facteur de puissance et degats de l'attaque principale aux valeurs lues sur Animaux.pdf.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>creature</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>creature-&gt;armorClass</code> vaut <code>attendu.armorClass</code>.</li><li>Vérifie que <code>creature-&gt;hitPoints</code> vaut <code>attendu.hitPoints</code>.</li><li>Vérifie que <code>creature-&gt;speed.walk</code> vaut <code>attendu.walk</code> (comparaison flottante).</li><li>Vérifie que <code>creature-&gt;challengeRating</code> vaut <code>attendu.challengeRating</code> (comparaison flottante).</li><li>Vérifie que <code>action</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>action-&gt;damage.has_value()</code> est vrai.</li><li>Vérifie que <code>des.has_value()</code> est vrai.</li><li>Vérifie que <code>*action-&gt;damage</code> vaut <code>*des</code>.</li><li>Vérifie que <code>action-&gt;damageType.has_value()</code> est vrai.</li><li>Vérifie que <code>*action-&gt;damageType</code> vaut <code>attendu.damageType</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="bestiarytestchaqueprofilestcomplet">BestiaryTest.ChaqueProfilEstComplet</h3>
+<p><em>Critique · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:163</code></p>
+<p>Aucun profil du bestiaire n'a de caracteristique ni de vitesse manquante.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour chaque creature, verifier que les six caracteristiques sont dans [1, 30].</li><li>Verifier que la vitesse de marche est renseignee, meme nulle.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>valeur</code> est supérieur ou égal à <code>1</code>.</li><li>Vérifie que <code>valeur</code> est inférieur ou égal à <code>30</code>.</li><li>Vérifie que <code>creature.speed.walk</code> est supérieur ou égal à <code>0.0F</code>.</li><li>Vérifie que <code>creature.hitPoints</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>creature.armorClass</code> est strictement supérieur à <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="bestiarytestunevitessenullesignifieunautredeplacement">BestiaryTest.UneVitesseNulleSignifieUnAutreDeplacement</h3>
+<p><em>Majeur · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:187</code></p>
+<p>Une creature sans vitesse de marche possede un autre mode de deplacement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Relever les creatures dont <code>walk</code> vaut 0.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>autrement</code> est vrai.</li><li>Vérifie que <code>immobiles</code> est strictement supérieur à <code>0U</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="bestiarytestlesmecanismesexigessontannonces">BestiaryTest.LesMecanismesExigesSontAnnonces</h3>
+<p><em>Majeur · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:215</code></p>
+<p>Le bestiaire annonce les mecanismes que les creatures exigent du moteur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Collecter les <code>mecanismesRequis</code> de toutes les creatures chargees.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>std::ranges::find(mecanismes, &quot;resistance-conditionnelle&quot;)</code> diffère de <code>mecanismes.end()</code>.</li><li>Vérifie que <code>std::ranges::find(mecanismes, &quot;langue-comprise-non-parlee&quot;)</code> diffère de <code>mecanismes.end()</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="bestiarytestundossierabsentestsignale">BestiaryTest.UnDossierAbsentEstSignale</h3>
+<p><em>Majeur · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:236</code></p>
+<p>Charger un dossier de creatures inexistant produit une erreur nommee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger un chemin qui n'existe pas.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>vide.creatures.empty()</code> est vrai.</li><li>Vérifie que <code>vide.errors.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>vide.errors.front().find(&quot;dossier-inexistant&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><h2 id="test-character-optionscpp">test_character_options.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="characteroptionstestlestroiscatalogueschargent">CharacterOptionsTest.LesTroisCataloguesChargent</h3>
+<p><em>Critique · Unitaire · Options de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_options.cpp:89</code></p>
+<p>Les especes, historiques et classes livres se chargent tous.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger species/, backgrounds/ et classes/.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>lues.species.empty()</code> est faux.</li><li>Vérifie que <code>lues.backgrounds.empty()</code> est faux.</li><li>Vérifie que <code>lues.classes.size()</code> vaut <code>CLASSES.size()</code>.</li><li>Vérifie que <code>identifiants.insert(espece.id).second</code> est vrai.</li><li>Vérifie que <code>espece.name.empty()</code> est faux.</li><li>Vérifie que <code>espece.speed</code> est strictement supérieur à <code>0.0F</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="characteroptionstestlesespecesconcordentavecleslivres">CharacterOptionsTest.LesEspecesConcordentAvecLesLivres</h3>
+<p><em>Critique · Unitaire · Options de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_options.cpp:115</code></p>
+<p>Les especes livrees portent les valeurs des livres dont elles sont tirees.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour sept especes des trois livres, comparer provenance, taille, vitesse et augmentation de caracteristique aux valeurs lues sur les documents.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>espece</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>espece-&gt;source</code> vaut <code>attendue.source</code>.</li><li>Vérifie que <code>espece-&gt;size</code> vaut <code>attendue.size</code>.</li><li>Vérifie que <code>espece-&gt;speed</code> vaut <code>attendue.speed</code> (comparaison flottante).</li><li>Vérifie que <code>espece-&gt;increase(attendue.augmentee)</code> vaut <code>attendue.augmentation</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="characteroptionstestlaugmentationsappliqueetrestebornee">CharacterOptionsTest.LAugmentationSAppliqueEtResteBornee</h3>
+<p><em>Majeur · Unitaire · Options de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_options.cpp:138</code></p>
+<p>L'augmentation d'une espece s'applique et reste bornee a 20.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Appliquer l'augmentation du nain a une Constitution de 14, puis de 19.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>nain</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>regles.ok()</code> est vrai.</li><li>Vérifie que <code>core::abilityScoreWith(*nain, core::Ability::Constitution, 14, plafond)</code> vaut <code>16</code>.</li><li>Vérifie que <code>core::abilityScoreWith(*nain, core::Ability::Constitution, plafond - 1, plafond)</code> vaut <code>plafond</code>.</li><li>Vérifie que <code>core::abilityScoreWith(*nain, core::Ability::Charisma, 14, plafond)</code> vaut <code>14</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="characteroptionstestlesclassesconcordentaveclelivre">CharacterOptionsTest.LesClassesConcordentAvecLeLivre</h3>
+<p><em>Critique · Unitaire · Options de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_options.cpp:164</code></p>
+<p>Les classes simplifiees portent le de de vie et les sauvegardes du livre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour les quatre classes, comparer de de vie, caracteristique principale et jets de sauvegarde a la table &lt;&lt; New Simplified Classes &gt;&gt; de la page 57.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>classe</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>classe-&gt;hitDie</code> vaut <code>attendue.hitDie</code>.</li><li>Vérifie que <code>classe-&gt;primaryAbility.empty()</code> est faux.</li><li>Vérifie que <code>classe-&gt;primaryAbility.front()</code> vaut <code>attendue.primaire</code>.</li><li>Vérifie que <code>classe-&gt;savingThrowProficiencies.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>classe-&gt;savingThrowProficiencies[0]</code> vaut <code>attendue.sauvegarde1</code>.</li><li>Vérifie que <code>classe-&gt;savingThrowProficiencies[1]</code> vaut <code>attendue.sauvegarde2</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="characteroptionstestlaprogressionvientdeladonnee">CharacterOptionsTest.LaProgressionVientDeLaDonnee</h3>
+<p><em>Critique · Unitaire · Options de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_options.cpp:189</code></p>
+<p>Le bonus de maitrise des niveaux 1 a 5 est lu dans la table livree.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire le bonus de maitrise des niveaux 1 a 5 de chaque classe dans sa table.</li><li>Le comparer aux valeurs de la table du livre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>classe</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>classe-&gt;progression.size()</code> vaut <code>20U</code>.</li><li>Vérifie que <code>ligne</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>ligne-&gt;proficiencyBonus</code> vaut <code>BONUS_ATTENDUS[static_cast&lt;std::size_t&gt;(niveau - 1)]</code>.</li><li>Vérifie que <code>ligne-&gt;features.empty()</code> est faux.</li><li>Vérifie que <code>classe-&gt;progression[i].level</code> vaut <code>static_cast&lt;int&gt;(i) + 1</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="characteroptionstestlesmecanismesexigessontannonces">CharacterOptionsTest.LesMecanismesExigesSontAnnonces</h3>
+<p><em>Majeur · Unitaire · Options de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_options.cpp:225</code></p>
+<p>Une espece qui exige un mecanisme absent le declare au chargement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Collecter les <code>mecanismesRequis</code> des especes chargees.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>std::ranges::find(mecanismes, &quot;augmentation-de-caracteristique-au-choix&quot;)</code> diffère de <code>mecanismes.end()</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="characteroptionstestlesclassesprovisoiresnesontreferenceesparrien">CharacterOptionsTest.LesClassesProvisoiresNeSontReferenceesParRien</h3>
+<p><em>Critique · Unitaire · Options de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_options.cpp:243</code></p>
+<p>Les classes provisoires portent leur marque et ne sont referencees par aucune donnee definitive.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Verifier que les quatre classes portent <code>status.provisoire</code> et un critere de retrait.</li><li>Balayer tous les fichiers de <code>Source/Elements/Rpg/</code> et chercher leur identifiant.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>provisoires.size()</code> vaut <code>CLASSES.size()</code>.</li><li>Vérifie que <code>classe.status.provisional</code> est vrai.</li><li>Vérifie que <code>classe.status.removalCriterion.empty()</code> est faux.</li><li>Vérifie que <code>contenu.find(&#x27;&quot;&#x27; + identifiant + &#x27;&quot;&#x27;)</code> vaut <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="characteroptionstestundossierabsentestsignale">CharacterOptionsTest.UnDossierAbsentEstSignale</h3>
+<p><em>Majeur · Unitaire · Options de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_options.cpp:299</code></p>
+<p>Charger un dossier d'options inexistant produit une erreur nommee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger trois chemins qui n'existent pas.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>vides.species.empty()</code> est vrai.</li><li>Vérifie que <code>vides.backgrounds.empty()</code> est vrai.</li><li>Vérifie que <code>vides.classes.empty()</code> est vrai.</li><li>Vérifie que <code>vides.errors.size()</code> vaut <code>3U</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="characteroptionstestleshistoriquescitentdescompetencesquiexistent">CharacterOptionsTest.LesHistoriquesCitentDesCompetencesQuiExistent</h3>
+<p><em>Majeur · Unitaire · Options de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_options.cpp:317</code></p>
+<p>Les competences citees par un historique existent au catalogue.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour chaque historique, verifier que le fichier de chaque competence citee existe dans <code>Source/Elements/Rpg/skills/</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>historique.skillProficiencies.empty()</code> est faux.</li><li>Vérifie que <code>std::filesystem::exists(chemin)</code> est vrai.</li><li>Vérifie que <code>historique.languageCount</code> est supérieur ou égal à <code>0</code>.</li></ul>
+</section><h2 id="test-character-sheetcpp">test_character_sheet.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="charactersheettestlestablesdereglessechargent">CharacterSheetTest.LesTablesDeReglesSeChargent</h3>
+<p><em>Critique · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:67</code></p>
+<p>La table d'experience et les constantes de creation se chargent depuis la donnee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger rules/experience.json et rules/character-creation.json.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>lus.experience.levels.size()</code> vaut <code>20U</code>.</li><li>Vérifie que <code>lus.experience.maximumLevel()</code> vaut <code>20</code>.</li><li>Vérifie que <code>lus.experience.levels[i].experience</code> est strictement supérieur à <code>lus.experience.levels[i - 1].experience</code>.</li><li>Vérifie que <code>lus.experience.levels[i].proficiencyBonus</code> est supérieur ou égal à <code>lus.experience.levels[i - 1].proficiencyBonus</code>.</li><li>Vérifie que <code>lus.rules.ok()</code> est vrai.</li><li>Vérifie que <code>lus.skills.skills.empty()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="charactersheettestquatrefichesindependantes">CharacterSheetTest.QuatreFichesIndependantes</h3>
+<p><em>Critique · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:98</code></p>
+<p>Quatre fiches de personnage coexistent, chacune avec ses propres valeurs.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire quatre fiches d'especes et de classes differentes.</li><li>Modifier les points de vie de la premiere et faire monter la deuxieme de niveau.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>groupe.size()</code> vaut <code>4U</code>.</li><li>Vérifie que <code>personnage.speciesId.empty()</code> est faux.</li><li>Vérifie que <code>personnage.classId.empty()</code> est faux.</li><li>Vérifie que <code>personnage.backgroundId.empty()</code> est faux.</li><li>Vérifie que <code>personnage.maximumHitPoints</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>personnage.speedMeters</code> est strictement supérieur à <code>0.0F</code>.</li><li>Vérifie que <code>groupe[0].maximumHitPoints</code> vaut <code>pvAvant</code>.</li><li>Vérifie que <code>groupe[0].level</code> vaut <code>niveauAvant</code>.</li><li>Vérifie que <code>groupe[1].level</code> vaut <code>3</code>.</li><li>Vérifie que <code>groupe[2].level</code> vaut <code>1</code>.</li><li>Vérifie que <code>groupe[3].level</code> vaut <code>1</code>.</li><li>Vérifie que <code>groupe[0].currentHitPoints</code> diffère de <code>groupe[0].maximumHitPoints</code>.</li><li>Vérifie que <code>groupe[2].currentHitPoints</code> vaut <code>groupe[2].maximumHitPoints</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="charactersheettesttroisclassesdonnentlesbonsmodificateurs">CharacterSheetTest.TroisClassesDonnentLesBonsModificateurs</h3>
+<p><em>Critique · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:143</code></p>
+<p>Trois classes chargees depuis JSON produisent les bons points de vie et jets de sauvegarde.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire une fiche pour le brawler (d12), le mage (d6) et le priest (d8).</li><li>Comparer points de vie et modificateurs de sauvegarde au calcul du livre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>classe</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>personnage.modifier(core::Ability::Constitution)</code> vaut <code>modificateurAttendu</code>.</li><li>Vérifie que <code>personnage.maximumHitPoints</code> vaut <code>classe-&gt;hitDie + modificateurAttendu</code>.</li><li>Vérifie que <code>personnage.currentHitPoints</code> vaut <code>personnage.maximumHitPoints</code>.</li><li>Vérifie que <code>maitrise</code> vaut <code>lus.experience.proficiencyBonusAt(1)</code>.</li><li>Vérifie que <code>core::savingThrowModifier(personnage, lus.experience, caracteristique)</code> vaut <code>personnage.modifier(caracteristique) + maitrise</code>.</li><li>Vérifie que <code>core::savingThrowModifier(personnage, lus.experience, caracteristique)</code> vaut <code>personnage.modifier(caracteristique)</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="charactersheettestlamonteedeniveauesttesteeauxbornes">CharacterSheetTest.LaMonteeDeNiveauEstTesteeAuxBornes</h3>
+<p><em>Critique · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:194</code></p>
+<p>La montee de niveau franchit le seuil exact, le depassement et plusieurs niveaux d'un coup.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Donner exactement le seuil du niveau 2, puis un point de moins, puis le seuil du niveau 5 d'un coup.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>classe</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>seuil2</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>seuil5</code> est strictement supérieur à <code>seuil2</code>.</li><li>Vérifie que <code>montee.gainedLevel()</code> est vrai.</li><li>Vérifie que <code>montee.previousLevel</code> vaut <code>1</code>.</li><li>Vérifie que <code>montee.newLevel</code> vaut <code>2</code>.</li><li>Vérifie que <code>montee.hitPointsGained</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>sansMontee.gainedLevel()</code> est faux.</li><li>Vérifie que <code>presque.level</code> vaut <code>1</code>.</li><li>Vérifie que <code>sansMontee.hitPointsGained</code> vaut <code>0</code>.</li><li>Vérifie que <code>saut.newLevel</code> vaut <code>5</code>.</li><li>Vérifie que <code>bond.level</code> vaut <code>5</code>.</li><li>Vérifie que <code>saut.newProficiencyBonus</code> est strictement supérieur à <code>saut.previousProficiencyBonus</code>.</li><li>Vérifie que <code>bond.maximumHitPoints</code> vaut <code>core::maximumHitPointsFor(classe-&gt;hitDie, 5, bond.modifier(core::Ability::Constitution))</code>.</li><li>Vérifie que <code>rien.gainedLevel()</code> est faux.</li><li>Vérifie que <code>stable.experiencePoints</code> vaut <code>seuil5</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="charactersheettestlamonteedeniveauestreproductible">CharacterSheetTest.LaMonteeDeNiveauEstReproductible</h3>
+<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:253</code></p>
+<p>La montee de niveau est reproductible : le chemin ne change pas le resultat.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Donner le seuil du niveau 5 en une fois a une fiche, en deux fois a une autre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>classe</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>enUneFois.level</code> vaut <code>enDeuxFois.level</code>.</li><li>Vérifie que <code>enUneFois.maximumHitPoints</code> vaut <code>enDeuxFois.maximumHitPoints</code>.</li><li>Vérifie que <code>enUneFois.experiencePoints</code> vaut <code>enDeuxFois.experiencePoints</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="charactersheettestlemodificateurdecompetencevientducatalogue">CharacterSheetTest.LeModificateurDeCompetenceVientDuCatalogue</h3>
+<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:280</code></p>
+<p>Un jet de competence emploie la caracteristique que le catalogue lui donne.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer le modificateur d'une competence maitrisee et d'une autre non maitrisee.</li><li>Demander une competence inconnue du catalogue.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>moine.skillProficiencies.empty()</code> est faux.</li><li>Vérifie que <code>competence</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>calcul.found</code> est vrai.</li><li>Vérifie que <code>calcul.proficient</code> est vrai.</li><li>Vérifie que <code>calcul.value</code> vaut <code>moine.modifier(competence-&gt;ability) + core::proficiencyBonus(moine, lus.experience)</code>.</li><li>Vérifie que <code>inconnue.found</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="charactersheettestlavitesseselitencases">CharacterSheetTest.LaVitesseSeLitEnCases</h3>
+<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:315</code></p>
+<p>La vitesse d'un personnage se lit en cases via l'echelle unique du projet.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Convertir la vitesse d'un nain (7,50 m) et d'un humain (9 m) en cases.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>nain.speedInTiles()</code> vaut <code>core::tilesFromMeters(nain.speedMeters)</code> (comparaison flottante).</li><li>Vérifie que <code>humain.speedInTiles()</code> vaut <code>core::tilesFromMeters(humain.speedMeters)</code> (comparaison flottante).</li><li>Vérifie que <code>nain.speedInTiles()</code> vaut <code>5.0F</code> (comparaison flottante).</li><li>Vérifie que <code>humain.speedInTiles()</code> vaut <code>6.0F</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="charactersheettestlecomposantdistinguelabsencedefiche">CharacterSheetTest.LeComposantDistingueLAbsenceDeFiche</h3>
+<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:334</code></p>
+<p>Une entite sans fiche ne se confond pas avec une entite liee a la fiche zero.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire un RpgActor par defaut, puis un lie a l'indice 0.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>sansFiche.hasSheet()</code> est faux.</li><li>Vérifie que <code>premiere.hasSheet()</code> est vrai.</li><li>Vérifie que <code>premiere.sheetIndex</code> vaut <code>0U</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="charactersheettestaucunevaleurdereglenestecritedanslecpp">CharacterSheetTest.AucuneValeurDeRegleNEstEcriteDansLeCpp</h3>
+<p><em>Critique · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:354</code></p>
+<p>La classe d'armure sans armure et le plafond de caracteristique viennent de la donnee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire les deux constantes dans rules/character-creation.json.</li><li>Verifier que la CA d'une fiche sans armure vaut la constante lue plus le modificateur de Dexterite.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>lus.rules.ok()</code> est vrai.</li><li>Vérifie que <code>personnage.armorClass</code> vaut <code>lus.rules.unarmoredArmorClass + personnage.modifier(core::Ability::Dexterity)</code>.</li><li>Vérifie que <code>personnage.ability(caracteristique)</code> est inférieur ou égal à <code>lus.rules.maximumAbilityScore</code>.</li></ul>
+</section><h2 id="test-checkcpp">test_check.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="checktestavantageetdesavantagegardentlebonde">CheckTest.AvantageEtDesavantageGardentLeBonDe</h3>
+<p><em>Critique · Unitaire · Jet de d20</em> — <code>Source/Test/Unit/Core/Rpg/test_check.cpp:47</code></p>
+<p>L'avantage garde le meilleur de deux des, le desavantage le pire.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lancer mille jets avec avantage, puis mille avec desavantage.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>avantage.dice.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>avantage.keptDie</code> vaut <code>std::max(avantage.dice[0], avantage.dice[1])</code>.</li><li>Vérifie que <code>desavantage.dice.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>desavantage.keptDie</code> vaut <code>std::min(desavantage.dice[0], desavantage.dice[1])</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="checktestavantageetdesavantagesannulent">CheckTest.AvantageEtDesavantageSAnnulent</h3>
+<p><em>Critique · Unitaire · Jet de d20</em> — <code>Source/Test/Unit/Core/Rpg/test_check.cpp:72</code></p>
+<p>Avantage et desavantage s'annulent entierement, et ne se cumulent jamais.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Determiner la posture pour 0/0, 1/0, 0/1, 1/1 et 2/1 sources.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::rollStance(0, 0)</code> vaut <code>core::RollStance::Normal</code>.</li><li>Vérifie que <code>core::rollStance(1, 0)</code> vaut <code>core::RollStance::Advantage</code>.</li><li>Vérifie que <code>core::rollStance(0, 1)</code> vaut <code>core::RollStance::Disadvantage</code>.</li><li>Vérifie que <code>core::rollStance(1, 1)</code> vaut <code>core::RollStance::Normal</code>.</li><li>Vérifie que <code>core::rollStance(2, 1)</code> vaut <code>core::RollStance::Normal</code>.</li><li>Vérifie que <code>core::rollStance(1, 3)</code> vaut <code>core::RollStance::Normal</code>.</li><li>Vérifie que <code>core::rollStance(3, 0)</code> vaut <code>core::RollStance::Advantage</code>.</li><li>Vérifie que <code>resultat.dice.size()</code> vaut <code>1U</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="checktestnaturelsdistinguesdutotal">CheckTest.NaturelsDistinguesDuTotal</h3>
+<p><em>Critique · Unitaire · Jet de d20</em> — <code>Source/Test/Unit/Core/Rpg/test_check.cpp:99</code></p>
+<p>Un 1 ou 20 naturel se distingue d'un total de 1 ou 20.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lancer jusqu'a obtenir un 20 naturel et un 1 naturel.</li><li>Construire un resultat de total 20 obtenu avec un de de 8.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>resultat.isNaturalTwenty()</code> est vrai.</li><li>Vérifie que <code>resultat.isNaturalOne()</code> est faux.</li><li>Vérifie que <code>resultat.isNaturalOne()</code> est vrai.</li><li>Vérifie que <code>resultat.isNaturalTwenty()</code> est faux.</li><li>Vérifie que <code>vingtVu</code> est vrai.</li><li>Vérifie que <code>unVu</code> est vrai.</li><li>Vérifie que <code>total20.isNaturalTwenty()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="checktestmodificateursetrestitution">CheckTest.ModificateursEtRestitution</h3>
+<p><em>Critique · Unitaire · Jet de d20</em> — <code>Source/Test/Unit/Core/Rpg/test_check.cpp:139</code></p>
+<p>Les modificateurs d'un jet s'appliquent et conservent leur origine.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lancer un jet avec +3 de Dexterite et +2 de maitrise.</li><li>Lire la restitution.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>cible</code> vaut <code>15</code>.</li><li>Vérifie que <code>resultat.total</code> vaut <code>resultat.keptDie + 5</code>.</li><li>Vérifie que <code>resultat.target</code> vaut <code>cible</code>.</li><li>Vérifie que <code>resultat.succeeded()</code> vaut <code>resultat.total &gt;= cible</code>.</li><li>Vérifie que <code>restitution.find(&quot;Dexterite&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>restitution.find(&quot;maitrise&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>restitution.find(std::to_string(cible))</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>restitution.find(std::to_string(resultat.total))</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="checktestechellededifficulteendonnee">CheckTest.EchelleDeDifficulteEnDonnee</h3>
+<p><em>Majeur · Unitaire · Jet de d20</em> — <code>Source/Test/Unit/Core/Rpg/test_check.cpp:173</code></p>
+<p>L'echelle de difficulte est une donnee complete et croissante.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire les paliers de difficulty.json.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>document.ok()</code> est vrai.</li><li>Vérifie que <code>paliers.size()</code> vaut <code>6U</code>.</li><li>Vérifie que <code>dc</code> est strictement supérieur à <code>precedent</code>.</li><li>Vérifie que <code>seuil(&quot;tres-facile&quot;)</code> vaut <code>5</code>.</li><li>Vérifie que <code>seuil(&quot;quasi-impossible&quot;)</code> vaut <code>30</code>.</li></ul>
+</section><h2 id="test-dialoguecpp">test_dialogue.cpp</h2>
+<section class="case" data-crit="Bloquant"><h3 id="dialoguetestledialoguededemonstrationsechargeetsesreferencesexistent">DialogueTest.LeDialogueDeDemonstrationSeChargeEtSesReferencesExistent</h3>
+<p><em>Bloquant · Unitaire · Dialogue</em> — <code>Source/Test/Unit/Core/Rpg/test_dialogue.cpp:125</code></p>
+<p>Le dialogue du heraut se charge et ses references existent.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger Source/Elements/World/dialogues.</li><li>Charger competences, degres de difficulte, objets et langues.</li><li>Valider les references du heraut.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>dialogues().errors.empty()</code> est vrai.</li><li>Vérifie que <code>echelle().errors.empty()</code> est vrai.</li><li>Vérifie que <code>heraut</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>heraut-&gt;nodes.size()</code> est supérieur ou égal à <code>10U</code>.</li><li>Vérifie que <code>std::ranges::count(heraut-&gt;nodes, core::DialogueNodeKind::Condition, &amp;core::DialogueNode::kind)</code> est supérieur ou égal à <code>2</code>.</li><li>Vérifie que <code>std::ranges::any_of(heraut-&gt;nodes, [](const core::DialogueNode&amp; n) { return n.kind == core::DialogueNodeKind::Check &amp;&amp; n.skill == &quot;persuasion&quot;; })</code> est vrai.</li><li>Vérifie que <code>erreurs.empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="dialoguetestledialogueduherautseparcourtenheadless">DialogueTest.LeDialogueDuHerautSeParcourtEnHeadless</h3>
+<p><em>Bloquant · Unitaire · Dialogue</em> — <code>Source/Test/Unit/Core/Rpg/test_dialogue.cpp:168</code></p>
+<p>Le dialogue du heraut se parcourt sans fenetre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ouvrir la conversation avec un interlocuteur parlant le commun, +20 aux jets.</li><li>Demander la Marque, continuer, demander l'inscription, convaincre.</li><li>Continuer jusqu'a la fin.</li><li>Rouvrir une seconde conversation sur les memes drapeaux, demander l'inscription.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>heraut</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>premiere.start()</code> vaut <code>core::DialogueState::AwaitingChoice</code>.</li><li>Vérifie que <code>premiere.lineKey()</code> vaut <code>&quot;dialogue.heraut-colisee.presentation&quot;</code>.</li><li>Vérifie que <code>drapeaux.isSet(RENCONTRE)</code> est vrai.</li><li>Vérifie que <code>identifiants(premiere.choices())</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;marque&quot;, &quot;inscription&quot;, &quot;partir&quot;})</code>.</li><li>Vérifie que <code>premiere.attitude()</code> vaut <code>core::DialogueAttitude::Indifferent</code>.</li><li>Vérifie que <code>premiere.choose(&quot;marque&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>premiere.lineKey()</code> vaut <code>&quot;dialogue.heraut-colisee.marque&quot;</code>.</li><li>Vérifie que <code>identifiants(premiere.choices())</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;continue&quot;})</code>.</li><li>Vérifie que <code>premiere.choices().front().textKey</code> vaut <code>&quot;dialogue.continue&quot;</code>.</li><li>Vérifie que <code>premiere.choose(&quot;continue&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>premiere.lineKey()</code> vaut <code>&quot;dialogue.heraut-colisee.retour&quot;</code>.</li><li>Vérifie que <code>premiere.choose(&quot;inscription&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>premiere.lineKey()</code> vaut <code>&quot;dialogue.heraut-colisee.demande&quot;</code>.</li><li>Vérifie que <code>identifiants(demande)</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;convaincre&quot;, &quot;renoncer&quot;})</code>.</li><li>Vérifie que <code>demande.front().checkSkill</code> vaut <code>&quot;persuasion&quot;</code>.</li><li>Vérifie que <code>premiere.choose(&quot;convaincre&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>premiere.lastCheck().has_value()</code> est vrai.</li><li>Vérifie que <code>premiere.lastCheck()-&gt;skill</code> vaut <code>&quot;persuasion&quot;</code>.</li><li>Vérifie que <code>premiere.lastCheck()-&gt;result.target</code> vaut <code>15</code>.</li><li>Vérifie que <code>premiere.lastCheck()-&gt;result.succeeded()</code> est vrai.</li><li>Vérifie que <code>drapeaux.isSet(core::questStartedFlag(&quot;champion-du-colisee&quot;))</code> est vrai.</li><li>Vérifie que <code>premiere.lineKey()</code> vaut <code>&quot;dialogue.heraut-colisee.accepte-replique&quot;</code>.</li><li>Vérifie que <code>premiere.attitude()</code> vaut <code>core::DialogueAttitude::Friendly</code>.</li><li>Vérifie que <code>premiere.choose(&quot;continue&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>premiere.state()</code> vaut <code>core::DialogueState::Ended</code>.</li><li>Vérifie que <code>premiere.choices().empty()</code> est vrai.</li><li>Vérifie que <code>premiere.choose(&quot;continue&quot;)</code> vaut <code>core::ChoiceResult::NotAwaiting</code>.</li><li>Vérifie que <code>seconde.start()</code> vaut <code>core::DialogueState::AwaitingChoice</code>.</li><li>Vérifie que <code>seconde.lineKey()</code> vaut <code>&quot;dialogue.heraut-colisee.retour&quot;</code>.</li><li>Vérifie que <code>seconde.choose(&quot;inscription&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>seconde.lineKey()</code> vaut <code>&quot;dialogue.heraut-colisee.deja-inscrit&quot;</code>.</li><li>Vérifie que <code>seconde.choose(&quot;continue&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>seconde.state()</code> vaut <code>core::DialogueState::Ended</code>.</li><li>Vérifie que <code>traverses.size()</code> est supérieur ou égal à <code>10U</code>.</li><li>Vérifie que <code>contient(premiere.journal(), &quot;jet : jet-persuasion (persuasion)&quot;)</code> est vrai.</li><li>Vérifie que <code>contient(premiere.journal(), &quot;quete demarree : champion-du-colisee&quot;)</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="dialoguetestunechecmenealautresuiteetfermelareponseconditionnelle">DialogueTest.UnEchecMeneALAutreSuiteEtFermeLaReponseConditionnelle</h3>
+<p><em>Critique · Unitaire · Dialogue</em> — <code>Source/Test/Unit/Core/Rpg/test_dialogue.cpp:239</code></p>
+<p>Un echec de Persuasion ferme la reponse de retentative.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Parcourir jusqu'a la demande avec -20 aux jets.</li><li>Convaincre.</li><li>Continuer, redemander l'inscription.</li><li>Choisir « convaincre » malgre tout.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>heraut</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>runner.start()</code> vaut <code>core::DialogueState::AwaitingChoice</code>.</li><li>Vérifie que <code>runner.choose(&quot;inscription&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>runner.choose(&quot;convaincre&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>runner.lastCheck().has_value()</code> est vrai.</li><li>Vérifie que <code>runner.lastCheck()-&gt;result.succeeded()</code> est faux.</li><li>Vérifie que <code>runner.lineKey()</code> vaut <code>&quot;dialogue.heraut-colisee.refuse-replique&quot;</code>.</li><li>Vérifie que <code>runner.attitude()</code> vaut <code>core::DialogueAttitude::Hostile</code>.</li><li>Vérifie que <code>drapeaux.isSet(ECHEC)</code> est vrai.</li><li>Vérifie que <code>drapeaux.isSet(core::questStartedFlag(&quot;champion-du-colisee&quot;))</code> est faux.</li><li>Vérifie que <code>runner.choose(&quot;continue&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>runner.choose(&quot;inscription&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>identifiants(runner.choices())</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;renoncer&quot;})</code>.</li><li>Vérifie que <code>runner.choose(&quot;convaincre&quot;)</code> vaut <code>core::ChoiceResult::Unavailable</code>.</li><li>Vérifie que <code>runner.choose(&quot;inexistante&quot;)</code> vaut <code>core::ChoiceResult::Unavailable</code>.</li><li>Vérifie que <code>runner.lineKey()</code> vaut <code>&quot;dialogue.heraut-colisee.demande&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="dialoguetestundialogueestrefusefautedelanguecommune">DialogueTest.UnDialogueEstRefuseFauteDeLangueCommune</h3>
+<p><em>Critique · Unitaire · Dialogue</em> — <code>Source/Test/Unit/Core/Rpg/test_dialogue.cpp:276</code></p>
+<p>Un dialogue est refuse faute de langue commune.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ouvrir le heraut (commun) avec un interlocuteur qui ne parle que le nain.</li><li>Tenter une reponse.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>heraut</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>runner.start()</code> vaut <code>core::DialogueState::Refused</code>.</li><li>Vérifie que <code>drapeaux.size()</code> vaut <code>0U</code>.</li><li>Vérifie que <code>runner.currentLine()</code> vaut <code>nullptr</code>.</li><li>Vérifie que <code>runner.choices().empty()</code> est vrai.</li><li>Vérifie que <code>runner.choose(&quot;marque&quot;)</code> vaut <code>core::ChoiceResult::NotAwaiting</code>.</li><li>Vérifie que <code>contient(runner.journal(), &quot;aucune langue commune (common)&quot;)</code> est vrai.</li><li>Vérifie que <code>runner.start()</code> vaut <code>core::DialogueState::Refused</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="dialoguetestungraphemalformeestrejeteauchargement">DialogueTest.UnGrapheMalFormeEstRejeteAuChargement</h3>
+<p><em>Bloquant · Unitaire · Dialogue</em> — <code>Source/Test/Unit/Core/Rpg/test_dialogue.cpp:305</code></p>
+<p>Les graphes mal formes sont refuses au chargement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire une serie de graphes fautifs : cible inconnue, entree inconnue, choix vide, reponse sans identifiant, reponses toutes conditionnelles, cycle sans reponse, monologue en boucle, orphelin, impasse, difficulte chiffree, noeud en double, type inconnu, sans fin, sans langue.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>lu.graph.has_value()</code> est faux.</li><li>Vérifie que <code>contient(lu.errors, un.motif)</code> est vrai.</li><li>Vérifie que <code>contient(lu.errors, &quot;essai.json&quot;)</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="dialoguetestunebouclepasseeparunchoixestunhubvoulu">DialogueTest.UneBouclePasseeParUnChoixEstUnHubVoulu</h3>
+<p><em>Majeur · Unitaire · Dialogue</em> — <code>Source/Test/Unit/Core/Rpg/test_dialogue.cpp:377</code></p>
+<p>Une boucle par une replique a reponses est acceptee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire un graphe ou une question revient au menu par une replique et une action.</li><li>Le jouer trois tours de boucle, puis partir.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>lu.graph.has_value()</code> est vrai.</li><li>Vérifie que <code>runner.start()</code> vaut <code>core::DialogueState::AwaitingChoice</code>.</li><li>Vérifie que <code>runner.choose(&quot;encore&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>runner.choose(&quot;continue&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>runner.lineKey()</code> vaut <code>&quot;dialogue.essai.menu&quot;</code>.</li><li>Vérifie que <code>runner.choose(&quot;partir&quot;)</code> vaut <code>core::ChoiceResult::Advanced</code>.</li><li>Vérifie que <code>runner.state()</code> vaut <code>core::DialogueState::Ended</code>.</li><li>Vérifie que <code>drapeaux.isSet(&quot;vu&quot;)</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="dialoguetestlesactionstouchentlemonde">DialogueTest.LesActionsTouchentLeMonde</h3>
+<p><em>Majeur · Unitaire · Dialogue</em> — <code>Source/Test/Unit/Core/Rpg/test_dialogue.cpp:414</code></p>
+<p>Les quatre actions d'un dialogue s'appliquent.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Jouer un noeud qui pose puis retire un drapeau, donne trois torches et demarre une quete.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>lu.graph.has_value()</code> est vrai.</li><li>Vérifie que <code>runner.start()</code> vaut <code>core::DialogueState::Ended</code>.</li><li>Vérifie que <code>drapeaux.isSet(&quot;porte&quot;)</code> est faux.</li><li>Vérifie que <code>drapeaux.isSet(&quot;quest/le-puits/started&quot;)</code> est vrai.</li><li>Vérifie que <code>receveur.recus.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>receveur.recus.front()</code> vaut <code>(std::pair&lt;std::string, int&gt;{&quot;torche&quot;, 3})</code>.</li><li>Vérifie que <code>pose</code> diffère de <code>journal.end()</code>.</li><li>Vérifie que <code>retire</code> diffère de <code>journal.end()</code>.</li><li>Vérifie que <code>pose</code> est strictement inférieur à <code>retire</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="dialoguetestundialogueserejoueagrainefixee">DialogueTest.UnDialogueSeRejoueAGraineFixee</h3>
+<p><em>Majeur · Unitaire · Dialogue</em> — <code>Source/Test/Unit/Core/Rpg/test_dialogue.cpp:452</code></p>
+<p>Un dialogue se rejoue a l'identique a graine fixee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Jouer le heraut jusqu'au jet, sans bonus, a la graine 42, deux fois.</li><li>Le jouer sur une plage de graines.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>heraut</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>jouer(42).first</code> vaut <code>jouer(42).first</code>.</li><li>Vérifie que <code>reussi</code> est vrai.</li><li>Vérifie que <code>rate</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="dialoguetestlesdialoguessonttraduitsenfrancaisetenanglais">DialogueTest.LesDialoguesSontTraduitsEnFrancaisEtEnAnglais</h3>
+<p><em>Critique · Unitaire · Dialogue</em> — <code>Source/Test/Unit/Core/Rpg/test_dialogue.cpp:489</code></p>
+<p>Les dialogues sont traduits en francais et en anglais.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire fr.lang et en.lang.</li><li>Pour chaque dialogue livre, fabriquer ses cles.</li><li>Ajouter les cles de l'ecran (quitter, refus, jet).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>dialogues().dialogues.empty()</code> est faux.</li><li>Vérifie que <code>trouve != langue-&gt;end() &amp;&amp; !trouve-&gt;second.empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="dialoguetestlesdegresdedifficultesechargent">DialogueTest.LesDegresDeDifficulteSeChargent</h3>
+<p><em>Majeur · Unitaire · Jet de d20</em> — <code>Source/Test/Unit/Core/Rpg/test_dialogue.cpp:526</code></p>
+<p>Les degres de difficulte se chargent.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger rules/difficulty.json.</li><li>Charger un chemin inexistant.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>echelle().errors.empty()</code> est vrai.</li><li>Vérifie que <code>echelle().tiers.size()</code> vaut <code>6U</code>.</li><li>Vérifie que <code>echelle().find(&quot;moyenne&quot;)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>echelle().find(&quot;moyenne&quot;)-&gt;dc</code> vaut <code>15</code>.</li><li>Vérifie que <code>echelle().find(&quot;quasi-impossible&quot;)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>echelle().find(&quot;quasi-impossible&quot;)-&gt;dc</code> vaut <code>30</code>.</li><li>Vérifie que <code>echelle().find(&quot;inventee&quot;)</code> vaut <code>nullptr</code>.</li><li>Vérifie que <code>absente.tiers.empty()</code> est vrai.</li><li>Vérifie que <code>absente.errors.empty()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="dialoguetestlaficheecouteunpnjavecseslanguesetsesmodificateurs">DialogueTest.LaFicheEcouteUnPnjAvecSesLanguesEtSesModificateurs</h3>
+<p><em>Critique · Unitaire · Dialogue</em> — <code>Source/Test/Unit/Core/Rpg/test_dialogue.cpp:551</code></p>
+<p>La fiche ecoute un PNJ : langues et modificateurs.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger la fiche de demonstration.</li><li>L'envelopper dans CharacterListener.</li><li>Interroger ses langues, ses modificateurs de Persuasion et d'Athletisme.</li><li>Lui donner un objet.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>brenna.errors.empty()</code> est vrai.</li><li>Vérifie que <code>auditeur.speaks(&quot;common&quot;)</code> est vrai.</li><li>Vérifie que <code>auditeur.speaks(&quot;elvish&quot;)</code> est vrai.</li><li>Vérifie que <code>auditeur.speaks(&quot;dwarvish&quot;)</code> est vrai.</li><li>Vérifie que <code>auditeur.speaks(&quot;orc&quot;)</code> est faux.</li><li>Vérifie que <code>persuasion.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>persuasion.front().source</code> vaut <code>&quot;charisma&quot;</code>.</li><li>Vérifie que <code>persuasion.front().value</code> vaut <code>brenna.sheet.modifier(core::Ability::Charisma)</code>.</li><li>Vérifie que <code>athletisme.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>athletisme[1].source</code> vaut <code>&quot;maitrise&quot;</code>.</li><li>Vérifie que <code>athletisme[0].value + athletisme[1].value</code> vaut <code>core::skillModifier(brenna.sheet, experience, competences, &quot;athletics&quot;).value</code>.</li><li>Vérifie que <code>auditeur.skillModifiers(&quot;inexistante&quot;).empty()</code> est vrai.</li><li>Vérifie que <code>std::ranges::any_of(brenna.inventory.backpack, [](const core::InventoryStack&amp; s) { return s.itemId == &quot;corde-en-soie-15-m&quot;; })</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="dialoguetestunpnjdecarteouvresondialogue">DialogueTest.UnPnjDeCarteOuvreSonDialogue</h3>
+<p><em>Majeur · Unitaire · Dialogue</em> — <code>Source/Test/Unit/Core/Rpg/test_dialogue.cpp:600</code></p>
+<p>Un PNJ de carte ouvre son dialogue.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Chercher la famille « npc » dans la table des interactifs.</li><li>Lire trois entites : un PNJ avec dialogue, un PNJ muet, un coffre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>famille</code> diffère de <code>core::knownInteractableKinds().end()</code>.</li><li>Vérifie que <code>famille-&gt;consumable</code> est faux.</li><li>Vérifie que <code>declencheur.has_value()</code> est vrai.</li><li>Vérifie que <code>declencheur-&gt;dialogueId</code> vaut <code>HERAUT</code>.</li><li>Vérifie que <code>declencheur-&gt;position</code> vaut <code>(core::GridPosition{4, 2})</code>.</li><li>Vérifie que <code>core::dialogueTriggerFor(muet).has_value()</code> est faux.</li><li>Vérifie que <code>core::dialogueTriggerFor(coffre).has_value()</code> est faux.</li></ul>
+</section><h2 id="test-dicecpp">test_dice.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="dicetestanalysedestroisformes">DiceTest.AnalyseDesTroisFormes</h3>
+<p><em>Critique · Unitaire · Des</em> — <code>Source/Test/Unit/Core/Rpg/test_dice.cpp:30</code></p>
+<p>La notation de des est analysee sous ses trois formes.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Analyser &lt;&lt; 2d6+3 &gt;&gt;, &lt;&lt; 1d8 &gt;&gt;, &lt;&lt; 4 &gt;&gt; et &lt;&lt; 1d4-1 &gt;&gt;.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>avecModificateur.has_value()</code> est vrai.</li><li>Vérifie que <code>avecModificateur-&gt;count</code> vaut <code>2</code>.</li><li>Vérifie que <code>avecModificateur-&gt;faces</code> vaut <code>6</code>.</li><li>Vérifie que <code>avecModificateur-&gt;modifier</code> vaut <code>3</code>.</li><li>Vérifie que <code>simple.has_value()</code> est vrai.</li><li>Vérifie que <code>*simple</code> vaut <code>(core::Dice{1, 8, 0})</code>.</li><li>Vérifie que <code>fixe.has_value()</code> est vrai.</li><li>Vérifie que <code>*fixe</code> vaut <code>(core::Dice{0, 0, 4})</code>.</li><li>Vérifie que <code>negatif.has_value()</code> est vrai.</li><li>Vérifie que <code>negatif-&gt;modifier</code> vaut <code>-1</code>.</li><li>Vérifie que <code>core::formatDice(*avecModificateur)</code> vaut <code>&quot;2d6+3&quot;</code>.</li><li>Vérifie que <code>core::formatDice(*negatif)</code> vaut <code>&quot;1d4-1&quot;</code>.</li><li>Vérifie que <code>core::formatDice(*fixe)</code> vaut <code>&quot;4&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="dicetestunenotationmalformeeestrefusee">DiceTest.UneNotationMalFormeeEstRefusee</h3>
+<p><em>Critique · Unitaire · Des</em> — <code>Source/Test/Unit/Core/Rpg/test_dice.cpp:63</code></p>
+<p>Une notation de des mal formee est refusee au lieu d'etre devinee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Analyser &lt;&lt; ld8 &gt;&gt; (faute d'OCR), une chaine vide, &lt;&lt; 1d &gt;&gt;, &lt;&lt; d6 &gt;&gt; et &lt;&lt; 1d6+2x &gt;&gt;.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::parseDice(&quot;ld8&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseDice(&quot;&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseDice(&quot;1d&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseDice(&quot;d6&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseDice(&quot;1d6+2x&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseDice(&quot;0d6&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseDice(&quot;1d0&quot;).has_value()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="dicetestunlancerrestedanssesbornes">DiceTest.UnLancerResteDansSesBornes</h3>
+<p><em>Critique · Unitaire · Des</em> — <code>Source/Test/Unit/Core/Rpg/test_dice.cpp:85</code></p>
+<p>Un lancer de des reste dans ses bornes et conserve le detail de chaque de.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lancer 2d6+3 mille fois a graine fixe.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>roll.faces.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>face</code> est supérieur ou égal à <code>1</code>.</li><li>Vérifie que <code>face</code> est inférieur ou égal à <code>6</code>.</li><li>Vérifie que <code>roll.total</code> est supérieur ou égal à <code>dice.minimum()</code>.</li><li>Vérifie que <code>roll.total</code> est inférieur ou égal à <code>dice.maximum()</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="dicetestrejouabilitestricte">DiceTest.RejouabiliteStricte</h3>
+<p><em>Critique · Unitaire · Des</em> — <code>Source/Test/Unit/Core/Rpg/test_dice.cpp:109</code></p>
+<p>Deux generateurs de meme graine produisent exactement la meme suite de des.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lancer cent fois 3d8 avec deux generateurs de meme graine.</li><li>Recommencer avec une graine differente.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>suiteA</code> vaut <code>suiteB</code>.</li><li>Vérifie que <code>suiteA</code> diffère de <code>suiteAutre</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="dicetestdistributionuniformesurcentmilletirages">DiceTest.DistributionUniformeSurCentMilleTirages</h3>
+<p><em>Majeur · Unitaire · Des</em> — <code>Source/Test/Unit/Core/Rpg/test_dice.cpp:139</code></p>
+<p>La distribution d'un d20 est uniforme sur cent mille tirages a graine fixe.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Tirer cent mille d20 a graine fixe et compter chaque face.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>effectifs.size()</code> vaut <code>static_cast&lt;std::size_t&gt;(FACES)</code>.</li><li>Vérifie que <code>face</code> est supérieur ou égal à <code>1</code>.</li><li>Vérifie que <code>face</code> est inférieur ou égal à <code>FACES</code>.</li><li>Vérifie que <code>static_cast&lt;double&gt;(compte)</code> vaut <code>attendu</code>, à <code>attendu * 0.10</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="dicetestbornesdutirageentier">DiceTest.BornesDuTirageEntier</h3>
+<p><em>Majeur · Unitaire · Des</em> — <code>Source/Test/Unit/Core/Rpg/test_dice.cpp:171</code></p>
+<p>Le tirage entier respecte ses bornes, y compris quand elles sont egales.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Tirer dix mille fois dans [3, 3], puis dans [-5, 5].</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>random.nextInt(3, 3)</code> vaut <code>3</code>.</li><li>Vérifie que <code>valeur</code> est supérieur ou égal à <code>-5</code>.</li><li>Vérifie que <code>valeur</code> est inférieur ou égal à <code>5</code>.</li><li>Vérifie que <code>minAtteint</code> est vrai.</li><li>Vérifie que <code>maxAtteint</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="dicetestmodificateurarrondiverslebas">DiceTest.ModificateurArrondiVersLeBas</h3>
+<p><em>Critique · Unitaire · Caracteristiques</em> — <code>Source/Test/Unit/Core/Rpg/test_dice.cpp:200</code></p>
+<p>Le modificateur de caracteristique s'arrondit vers le bas, y compris en negatif.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer le modificateur pour 1, 7, 8, 9, 10, 11, 15 et 20.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::abilityModifier(1)</code> vaut <code>-5</code>.</li><li>Vérifie que <code>core::abilityModifier(3)</code> vaut <code>-4</code>.</li><li>Vérifie que <code>core::abilityModifier(7)</code> vaut <code>-2</code>.</li><li>Vérifie que <code>core::abilityModifier(8)</code> vaut <code>-1</code>.</li><li>Vérifie que <code>core::abilityModifier(9)</code> vaut <code>-1</code>.</li><li>Vérifie que <code>core::abilityModifier(10)</code> vaut <code>0</code>.</li><li>Vérifie que <code>core::abilityModifier(11)</code> vaut <code>0</code>.</li><li>Vérifie que <code>core::abilityModifier(15)</code> vaut <code>2</code>.</li><li>Vérifie que <code>core::abilityModifier(20)</code> vaut <code>5</code>.</li><li>Vérifie que <code>core::abilityModifier(30)</code> vaut <code>10</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="dicetestallerretourdescaracteristiques">DiceTest.AllerRetourDesCaracteristiques</h3>
+<p><em>Majeur · Unitaire · Caracteristiques</em> — <code>Source/Test/Unit/Core/Rpg/test_dice.cpp:225</code></p>
+<p>Les six caracteristiques font l'aller-retour par leur nom sans perte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Convertir chaque caracteristique en nom, puis le nom en caracteristique.</li><li>Analyser un nom francais.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::allAbilities().size()</code> vaut <code>6U</code>.</li><li>Vérifie que <code>nom.empty()</code> est faux.</li><li>Vérifie que <code>relu.has_value()</code> est vrai.</li><li>Vérifie que <code>*relu</code> vaut <code>ability</code>.</li><li>Vérifie que <code>core::parseAbility(&quot;force&quot;).has_value()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="dicetestechelledumonde">DiceTest.EchelleDuMonde</h3>
+<p><em>Majeur · Unitaire · Echelle</em> — <code>Source/Test/Unit/Core/Rpg/test_dice.cpp:248</code></p>
+<p>L'echelle du monde convertit metres et cases dans les deux sens.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Convertir 9 metres en cases, puis 6 cases en metres.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <a class="ref" href="../reference/namespacecore.html#a511d502baab5befb28a3742b65ee1e61"><code>core::METERS_PER_TILE</code></a> vaut <code>1.5f</code> (comparaison flottante).</li><li>Vérifie que <code>core::tilesFromMeters(9.0f)</code> vaut <code>6.0f</code> (comparaison flottante).</li><li>Vérifie que <code>core::metersFromTiles(6.0f)</code> vaut <code>9.0f</code> (comparaison flottante).</li><li>Vérifie que <code>core::tilesFromMeters(core::metersFromTiles(4.0f))</code> vaut <code>4.0f</code> (comparaison flottante).</li></ul>
+</section><h2 id="test-equipmentcpp">test_equipment.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="equipmenttestlesdeuxcataloguessechargent">EquipmentTest.LesDeuxCataloguesSeChargent</h3>
+<p><em>Critique · Unitaire · Equipement</em> — <code>Source/Test/Unit/Core/Rpg/test_equipment.cpp:87</code></p>
+<p>Les armes et les armures livrees se chargent toutes.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger weapons/ et armors/.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>lus.weapons.size()</code> vaut <code>37U</code>.</li><li>Vérifie que <code>lus.armors.size()</code> vaut <code>ARMURES.size()</code>.</li><li>Vérifie que <code>regles().ok()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="equipmenttestlestreizearmuresportentlesvaleursdulivre">EquipmentTest.LesTreizeArmuresPortentLesValeursDuLivre</h3>
+<p><em>Critique · Unitaire · Equipement</em> — <code>Source/Test/Unit/Core/Rpg/test_equipment.cpp:107</code></p>
+<p>Chaque armure du catalogue porte la CA, le poids et le prix du livre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour les 13 rangees de la table p. 50, comparer categorie, CA de base, plafond de Dexterite, Force exigee, discretion, poids et prix aux valeurs recopiees a la main.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>armure</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>core::armorCategoryName(armure-&gt;category)</code> vaut <code>attendue.categorie</code>.</li><li>Vérifie que <code>armure-&gt;baseArmorClass</code> vaut <code>attendue.base</code>.</li><li>Vérifie que <code>armure-&gt;weightGrams</code> vaut <code>attendue.poidsGrammes</code>.</li><li>Vérifie que <code>armure-&gt;price</code> vaut <code>attendue.prixCuivre</code>.</li><li>Vérifie que <code>armure-&gt;stealthDisadvantage</code> vaut <code>attendue.discretion</code>.</li><li>Vérifie que <code>armure-&gt;dexterityBonus</code> est faux.</li><li>Vérifie que <code>armure-&gt;dexterityBonus</code> est vrai.</li><li>Vérifie que <code>armure-&gt;dexterityBonusMax.has_value()</code> est faux.</li><li>Vérifie que <code>armure-&gt;dexterityBonusMax.has_value()</code> est vrai.</li><li>Vérifie que <code>*armure-&gt;dexterityBonusMax</code> vaut <code>attendue.dexMax</code>.</li><li>Vérifie que <code>armure-&gt;strengthRequired.has_value()</code> est faux.</li><li>Vérifie que <code>armure-&gt;strengthRequired.has_value()</code> est vrai.</li><li>Vérifie que <code>*armure-&gt;strengthRequired</code> vaut <code>attendue.forceExigee</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="equipmenttestlacacalculeeegalelacolonnedulivre">EquipmentTest.LaCaCalculeeEgaleLaColonneDuLivre</h3>
+<p><em>Critique · Unitaire · Equipement</em> — <code>Source/Test/Unit/Core/Rpg/test_equipment.cpp:149</code></p>
+<p>La classe d'armure calculee pour chaque armure egale la colonne CA du livre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Avec une Dexterite de 18 (modificateur +4), calculer la CA de chaque armure.</li><li>La comparer a la formule de la colonne CA, appliquee a la main.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>dexterite</code> vaut <code>4</code>.</li><li>Vérifie que <code>armure</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>core::armorClassFor(fiche, regles(), armure, nullptr)</code> vaut <code>attendu</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="equipmenttestlebouclierajouteilneremplacepas">EquipmentTest.LeBouclierAjouteIlNeRemplacePas</h3>
+<p><em>Critique · Unitaire · Equipement</em> — <code>Source/Test/Unit/Core/Rpg/test_equipment.cpp:188</code></p>
+<p>Un bouclier ajoute son bonus a la classe d'armure, seul ou avec une armure.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer la CA d'un personnage en bouclier seul, puis en harnois et bouclier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>bouclier</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>harnois</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>core::armorClassFor(fiche, regles(), bouclier, nullptr)</code> vaut <code>regles().unarmoredArmorClass + fiche.modifier(core::Ability::Dexterity)</code>.</li><li>Vérifie que <code>core::armorClassFor(fiche, regles(), nullptr, bouclier)</code> vaut <code>regles().unarmoredArmorClass + fiche.modifier(core::Ability::Dexterity) + bouclier-&gt;baseArmorClass</code>.</li><li>Vérifie que <code>core::armorClassFor(fiche, regles(), harnois, bouclier)</code> vaut <code>harnois-&gt;baseArmorClass + bouclier-&gt;baseArmorClass</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="equipmenttestlepoidsduninventairededepartcorrespondaucalculmanuel">EquipmentTest.LePoidsDUnInventaireDeDepartCorrespondAuCalculManuel</h3>
+<p><em>Critique · Unitaire · Equipement</em> — <code>Source/Test/Unit/Core/Rpg/test_equipment.cpp:216</code></p>
+<p>Le poids total d'un inventaire de depart egale la somme calculee a la main.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer l'inventaire d'un guerrier : cotte de mailles, epee longue, bouclier et deux javelines.</li><li>Comparer le total au calcul fait a la main depuis les poids du livre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>cotte</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>bouclier</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>epee</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>javeline</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>core::totalWeightGrams(sac)</code> vaut <code>TOTAL_ATTENDU_GRAMMES</code>.</li><li>Vérifie que <code>core::totalWeightGrams(avecVides)</code> vaut <code>cotte-&gt;weightGrams</code>.</li><li>Vérifie que <code>core::totalWeightGrams({})</code> vaut <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="equipmenttestlefiletninfligeaucundegat">EquipmentTest.LeFiletNInfligeAucunDegat</h3>
+<p><em>Majeur · Unitaire · Equipement</em> — <code>Source/Test/Unit/Core/Rpg/test_equipment.cpp:255</code></p>
+<p>Une arme sans degats est chargee sans que des lui soient inventes.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger le filet et une arme ordinaire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>filet</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>filet-&gt;damage.has_value()</code> est faux.</li><li>Vérifie que <code>filet-&gt;damageType.has_value()</code> est faux.</li><li>Vérifie que <code>filet-&gt;text.empty()</code> est faux.</li><li>Vérifie que <code>dague</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>dague-&gt;damage.has_value()</code> est vrai.</li><li>Vérifie que <code>dague-&gt;damage-&gt;count</code> vaut <code>1</code>.</li><li>Vérifie que <code>dague-&gt;damage-&gt;faces</code> vaut <code>4</code>.</li><li>Vérifie que <code>dague-&gt;damageType.has_value()</code> est vrai.</li><li>Vérifie que <code>*dague-&gt;damageType</code> vaut <code>core::DamageType::Piercing</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="equipmenttestlesarmesportentleurcategorieetleurportee">EquipmentTest.LesArmesPortentLeurCategorieEtLeurPortee</h3>
+<p><em>Critique · Unitaire · Equipement</em> — <code>Source/Test/Unit/Core/Rpg/test_equipment.cpp:282</code></p>
+<p>Chaque arme porte la categorie et la portee de son intertitre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Verifier la categorie et la portee de quatre armes, une par groupe du livre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>arme</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>arme-&gt;category</code> vaut <code>cas.categorie</code>.</li><li>Vérifie que <code>arme-&gt;ranged</code> vaut <code>cas.distance</code>.</li></ul>
+</section><h2 id="test-inventorycpp">test_inventory.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="inventorytestlaclassedarmurenederivepasaveclordre">InventoryTest.LaClasseDArmureNeDerivePasAvecLOrdre</h3>
+<p><em>Critique · Unitaire · Inventaire</em> — <code>Source/Test/Unit/Core/Rpg/test_inventory.cpp:119</code></p>
+<p>La classe d'armure ne derive pas avec l'ordre des equipements.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Relever la CA sans equipement.</li><li>Jouer six ordres d'equipement et de retrait d'une armure et d'un bouclier.</li><li>Relever la CA apres chaque sequence complete.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>depart</code> vaut <code>12</code>.</li><li>Vérifie que <code>core::derivedStatsFor(personnage, sac, catalogues, regles(), charge()).armorClass</code> vaut <code>depart</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="inventorytestchaquecategoriedarmureappliquesaregle">InventoryTest.ChaqueCategorieDArmureAppliqueSaRegle</h3>
+<p><em>Critique · Unitaire · Inventaire</em> — <code>Source/Test/Unit/Core/Rpg/test_inventory.cpp:185</code></p>
+<p>Chaque categorie d'armure applique sa propre regle de Dexterite.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Equiper une armure legere, puis une intermediaire, avec une Dexterite de 18.</li><li>Ajouter un bouclier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::derivedStatsFor(personnage, sac, catalogues, regles(), charge()).armorClass</code> vaut <code>15</code>.</li><li>Vérifie que <code>core::derivedStatsFor(personnage, sac, catalogues, regles(), charge()).armorClass</code> vaut <code>17</code>.</li><li>Vérifie que <code>core::derivedStatsFor(personnage, sac, catalogues, regles(), charge()).armorClass</code> vaut <code>19</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="inventorytestunemplacementrendcequilportait">InventoryTest.UnEmplacementRendCeQuIlPortait</h3>
+<p><em>Majeur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/Core/Rpg/test_inventory.cpp:214</code></p>
+<p>Un emplacement ne porte jamais deux pieces, et ce qui en sort est rendu.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Equiper une armure, puis une autre au meme emplacement.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::equip(sac, EquipmentSlot::Torso, &quot;cuir&quot;)</code> vaut <code>&quot;&quot;</code>.</li><li>Vérifie que <code>core::equip(sac, EquipmentSlot::Torso, &quot;demi-plate&quot;)</code> vaut <code>&quot;cuir&quot;</code>.</li><li>Vérifie que <code>sac.at(EquipmentSlot::Torso)</code> vaut <code>&quot;demi-plate&quot;</code>.</li><li>Vérifie que <code>core::unequip(sac, EquipmentSlot::Torso)</code> vaut <code>&quot;demi-plate&quot;</code>.</li><li>Vérifie que <code>sac.isEquipped(EquipmentSlot::Torso)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="inventorytestlesacempileetsevide">InventoryTest.LeSacEmpileEtSeVide</h3>
+<p><em>Majeur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/Core/Rpg/test_inventory.cpp:232</code></p>
+<p>Le sac empile, et une ligne videe disparait.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ajouter deux fois le meme objet.</li><li>En retirer plus qu'il n'y en a.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>sac.backpack.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>sac.backpack.front().quantity</code> vaut <code>5</code>.</li><li>Vérifie que <code>core::removeFromBackpack(sac, &quot;torche&quot;, 10)</code> vaut <code>5</code>.</li><li>Vérifie que <code>sac.backpack.empty()</code> est vrai.</li><li>Vérifie que <code>core::removeFromBackpack(sac, &quot;torche&quot;, 1)</code> vaut <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="inventorytestlepoidsportecomptelesacetlequipement">InventoryTest.LePoidsPorteCompteLeSacEtLEquipement</h3>
+<p><em>Majeur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/Core/Rpg/test_inventory.cpp:254</code></p>
+<p>Le poids porte compte le sac et l'equipement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Equiper une armure et une arme.</li><li>Ajouter des objets au sac.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::carriedWeightGrams(sac, catalogues)</code> vaut <code>5000 + 1500 + 2000 + 5000</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="inventorytestunidentifiantinconnuestsignale">InventoryTest.UnIdentifiantInconnuEstSignale</h3>
+<p><em>Majeur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/Core/Rpg/test_inventory.cpp:278</code></p>
+<p>Un identifiant inconnu des catalogues est signale.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre au sac un identifiant absent des catalogues.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>inconnus</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;bidule-inexistant&quot;, &quot;heaume-fantome&quot;})</code>.</li><li>Vérifie que <code>core::carriedWeightGrams(sac, catalogues)</code> vaut <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="inventorytestlachargefranchitsesseuils">InventoryTest.LaChargeFranchitSesSeuils</h3>
+<p><em>Critique · Unitaire · Inventaire</em> — <code>Source/Test/Unit/Core/Rpg/test_inventory.cpp:301</code></p>
+<p>La charge franchit ses trois seuils et definit le depassement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger un personnage de Force 10 en dessous du premier seuil, puis entre les deux, puis au-dela du second, puis au-dela de la capacite.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>leger.encumbrance</code> vaut <code>core::EncumbranceLevel::Unencumbered</code>.</li><li>Vérifie que <code>leger.speedMeters</code> vaut <code>9.0F</code> (comparaison flottante).</li><li>Vérifie que <code>leger.carryingCapacityGrams</code> vaut <code>75000</code>.</li><li>Vérifie que <code>encombre.encumbrance</code> vaut <code>core::EncumbranceLevel::Encumbered</code>.</li><li>Vérifie que <code>encombre.speedMeters</code> vaut <code>6.0F</code> (comparaison flottante).</li><li>Vérifie que <code>lourd.encumbrance</code> vaut <code>core::EncumbranceLevel::HeavilyEncumbered</code>.</li><li>Vérifie que <code>lourd.speedMeters</code> vaut <code>3.0F</code> (comparaison flottante).</li><li>Vérifie que <code>trop.encumbrance</code> vaut <code>core::EncumbranceLevel::OverCapacity</code>.</li><li>Vérifie que <code>trop.speedMeters</code> vaut <code>0.0F</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="inventorytestsansregledechargeaucunencombrementnestaffirme">InventoryTest.SansRegleDeChargeAucunEncombrementNEstAffirme</h3>
+<p><em>Majeur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/Core/Rpg/test_inventory.cpp:342</code></p>
+<p>Sans regle de charge, aucun encombrement n'est affirme.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Deriver les statistiques avec des bornes de charge non chargees.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>derivees.encumbrance</code> vaut <code>core::EncumbranceLevel::Unencumbered</code>.</li><li>Vérifie que <code>derivees.carryingCapacityGrams</code> vaut <code>0</code>.</li><li>Vérifie que <code>derivees.speedMeters</code> vaut <code>9.0F</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="inventorytestlacaracteristiquedattaquesuitlarme">InventoryTest.LaCaracteristiqueDAttaqueSuitLArme</h3>
+<p><em>Critique · Unitaire · Inventaire</em> — <code>Source/Test/Unit/Core/Rpg/test_inventory.cpp:366</code></p>
+<p>La caracteristique d'attaque suit l'arme portee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Equiper une arme de melee, puis une arme a distance, puis une arme de finesse, avec une Dexterite superieure a la Force.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>derivees.attackAbility</code> vaut <code>Ability::Strength</code>.</li><li>Vérifie que <code>derivees.damage.has_value()</code> est vrai.</li><li>Vérifie que <code>derivees.damage-&gt;faces</code> vaut <code>8</code>.</li><li>Vérifie que <code>derivees.attackAbility</code> vaut <code>Ability::Dexterity</code>.</li><li>Vérifie que <code>derivees.attackAbility</code> vaut <code>Ability::Dexterity</code>.</li><li>Vérifie que <code>derivees.damage.has_value()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="inventorytestlacategoriedecideavantlemplacement">InventoryTest.LaCategorieDecideAvantLEmplacement</h3>
+<p><em>Majeur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/Core/Rpg/test_inventory.cpp:402</code></p>
+<p>C'est la categorie qui dit comment une piece compte, pas l'emplacement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ranger un bouclier a l'emplacement du torse.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::derivedStatsFor(personnage, sac, catalogues, regles(), charge()).armorClass</code> vaut <code>14</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="inventorytestlesemplacementssenommentetserelisent">InventoryTest.LesEmplacementsSeNommentEtSeRelisent</h3>
+<p><em>Mineur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/Core/Rpg/test_inventory.cpp:422</code></p>
+<p>Les seize emplacements se nomment et se relisent.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Convertir chaque emplacement en nom, puis le nom en emplacement.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>nom.empty()</code> est faux.</li><li>Vérifie que <code>core::parseEquipmentSlot(nom)</code> vaut <code>emplacement</code>.</li><li>Vérifie que <code>core::parseEquipmentSlot(&quot;chapeau-de-paille&quot;).has_value()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="inventorytestlecataloguelivresecharge">InventoryTest.LeCatalogueLivreSeCharge</h3>
+<p><em>Majeur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/Core/Rpg/test_inventory.cpp:441</code></p>
+<p>Le catalogue d'objets livre se charge.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger Source/Elements/Rpg/items.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>catalogue.errors.empty()</code> est vrai.</li><li>Vérifie que <code>catalogue.items.size()</code> est strictement supérieur à <code>100U</code>.</li><li>Vérifie que <code>objet.id.empty()</code> est faux.</li><li>Vérifie que <code>objet.name.empty()</code> est faux.</li><li>Vérifie que <code>objet.weightGrams</code> est supérieur ou égal à <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="inventorytestlesbornesdechargelivreessontcellesdulivre">InventoryTest.LesBornesDeChargeLivreesSontCellesDuLivre</h3>
+<p><em>Critique · Unitaire · Inventaire</em> — <code>Source/Test/Unit/Core/Rpg/test_inventory.cpp:463</code></p>
+<p>Les bornes de charge livrees portent les valeurs du livre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger Source/Elements/Rpg/rules/encumbrance.json.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>regles.isLoaded()</code> est vrai.</li><li>Vérifie que <code>regles.carryingCapacityGramsPerStrength</code> vaut <code>7500</code>.</li><li>Vérifie que <code>regles.encumberedGramsPerStrength</code> vaut <code>2500</code>.</li><li>Vérifie que <code>regles.heavilyEncumberedGramsPerStrength</code> vaut <code>5000</code>.</li><li>Vérifie que <code>regles.encumberedSpeedPenaltyMeters</code> vaut <code>3.0F</code> (comparaison flottante).</li><li>Vérifie que <code>regles.heavilyEncumberedSpeedPenaltyMeters</code> vaut <code>6.0F</code> (comparaison flottante).</li></ul>
+</section><h2 id="test-multiclassingcpp">test_multiclassing.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="multiclassingtestexempletravailledumanueldesjoueurs">MulticlassingTest.ExempleTravailleDuManuelDesJoueurs</h3>
+<p><em>Critique · Unitaire · Multiclassage</em> — <code>Source/Test/Unit/Core/Rpg/test_multiclassing.cpp:59</code></p>
+<p>L'exemple de multiclassage du Manuel des Joueurs est reproduit a l'identique.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer le niveau de lanceur d'un rodeur 4 / magicien 3.</li><li>Lire les emplacements correspondants dans la table livree.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>niveau</code> vaut <code>5</code>.</li><li>Vérifie que <code>table.size()</code> est strictement supérieur à <code>static_cast&lt;std::size_t&gt;(niveau)</code>.</li><li>Vérifie que <code>table[static_cast&lt;std::size_t&gt;(niveau)][0]</code> vaut <code>4</code>.</li><li>Vérifie que <code>table[static_cast&lt;std::size_t&gt;(niveau)][1]</code> vaut <code>3</code>.</li><li>Vérifie que <code>table[static_cast&lt;std::size_t&gt;(niveau)][2]</code> vaut <code>2</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="multiclassingtestlarrondisefaitparclasse">MulticlassingTest.LArrondiSeFaitParClasse</h3>
+<p><em>Critique · Unitaire · Multiclassage</em> — <code>Source/Test/Unit/Core/Rpg/test_multiclassing.cpp:89</code></p>
+<p>L'arrondi du niveau de lanceur se fait par classe, jamais sur le total.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer le niveau de lanceur d'un paladin 3 / rodeur 3.</li><li>Calculer celui d'un guerrier 5 / roublard 5 sous archetype.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::multiclassCasterLevel(paladinRodeur)</code> vaut <code>2</code>.</li><li>Vérifie que <code>core::multiclassCasterLevel(guerrierRoublard)</code> vaut <code>2</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="multiclassingtestlamagiedepacteestcompteeapart">MulticlassingTest.LaMagieDePacteEstCompteeAPart</h3>
+<p><em>Critique · Unitaire · Multiclassage</em> — <code>Source/Test/Unit/Core/Rpg/test_multiclassing.cpp:110</code></p>
+<p>Les emplacements de magie de pacte n'entrent pas dans le cumul multiclasse.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer le niveau de lanceur d'un sorcier 5 / magicien 3.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::multiclassCasterLevel(sorcierMagicien)</code> vaut <code>3</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="multiclassingtestclassessansincantationetbornesuperieure">MulticlassingTest.ClassesSansIncantationEtBorneSuperieure</h3>
+<p><em>Majeur · Unitaire · Multiclassage</em> — <code>Source/Test/Unit/Core/Rpg/test_multiclassing.cpp:128</code></p>
+<p>Une classe sans incantation n'apporte rien au niveau de lanceur, borne a 20.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer le niveau d'un barbare 10 seul, puis d'un magicien 20 / clerc 20.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::multiclassCasterLevel(barbare)</code> vaut <code>0</code>.</li><li>Vérifie que <code>core::multiclassCasterLevel(impossible)</code> vaut <code>20</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="multiclassingtestallerretourdesnomsdeprogression">MulticlassingTest.AllerRetourDesNomsDeProgression</h3>
+<p><em>Majeur · Unitaire · Multiclassage</em> — <code>Source/Test/Unit/Core/Rpg/test_multiclassing.cpp:145</code></p>
+<p>Les noms de progression de lanceur font l'aller-retour sans perte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Convertir chaque progression en nom, puis le nom en progression.</li><li>Analyser un nom inconnu.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>nom.empty()</code> est faux.</li><li>Vérifie que <code>relu.has_value()</code> est vrai.</li><li>Vérifie que <code>*relu</code> vaut <code>progression</code>.</li><li>Vérifie que <code>core::parseCasterProgression(&quot;plein&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseCasterProgression(&quot;&quot;).has_value()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="multiclassingtestlesprogressionsdeladonneesontconnuesdumoteur">MulticlassingTest.LesProgressionsDeLaDonneeSontConnuesDuMoteur</h3>
+<p><em>Critique · Unitaire · Multiclassage</em> — <code>Source/Test/Unit/Core/Rpg/test_multiclassing.cpp:171</code></p>
+<p>Les progressions de lanceur de la donnee sont toutes connues du moteur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire <code>casterProgression</code> de multiclassing.json.</li><li>Analyser chaque valeur avec <code>parseCasterProgression</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>document.ok()</code> est vrai.</li><li>Vérifie que <code>progressions.size()</code> vaut <code>12U</code>.</li><li>Vérifie que <code>core::parseCasterProgression(nom).has_value()</code> est vrai.</li></ul>
+</section><h2 id="test-rpg-enumscpp">test_rpg_enums.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="rpgenumstestallerretoursurtouteslesvaleurs">RpgEnumsTest.AllerRetourSurToutesLesValeurs</h3>
+<p><em>Critique · Unitaire · Enumerations RPG</em> — <code>Source/Test/Unit/Core/Rpg/test_rpg_enums.cpp:67</code></p>
+<p>Chaque valeur des enumerations RPG fait l'aller-retour par son nom sans perte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour chaque type de degats, condition et ecole de magie, convertir en nom puis reconvertir en valeur.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>nom.empty()</code> est faux.</li><li>Vérifie que <code>relu.has_value()</code> est vrai.</li><li>Vérifie que <code>*relu</code> vaut <code>type</code>.</li><li>Vérifie que <code>nom.empty()</code> est faux.</li><li>Vérifie que <code>relu.has_value()</code> est vrai.</li><li>Vérifie que <code>*relu</code> vaut <code>condition</code>.</li><li>Vérifie que <code>nom.empty()</code> est faux.</li><li>Vérifie que <code>relu.has_value()</code> est vrai.</li><li>Vérifie que <code>*relu</code> vaut <code>school</code>.</li><li>Vérifie que <code>nom.empty()</code> est faux.</li><li>Vérifie que <code>relu.has_value()</code> est vrai.</li><li>Vérifie que <code>*relu</code> vaut <code>size</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="rpgenumstestlesnomssontuniques">RpgEnumsTest.LesNomsSontUniques</h3>
+<p><em>Critique · Unitaire · Enumerations RPG</em> — <code>Source/Test/Unit/Core/Rpg/test_rpg_enums.cpp:109</code></p>
+<p>Deux valeurs distinctes d'une enumeration RPG ne portent jamais le meme nom.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Collecter les noms de chaque enumeration dans un ensemble.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>nomsDuMoteur(core::allDamageTypes(), core::damageTypeName).size()</code> vaut <code>core::allDamageTypes().size()</code>.</li><li>Vérifie que <code>nomsDuMoteur(core::allConditions(), core::conditionName).size()</code> vaut <code>core::allConditions().size()</code>.</li><li>Vérifie que <code>nomsDuMoteur(core::allMagicSchools(), core::magicSchoolName).size()</code> vaut <code>core::allMagicSchools().size()</code>.</li><li>Vérifie que <code>nomsDuMoteur(core::allCreatureSizes(), core::creatureSizeName).size()</code> vaut <code>core::allCreatureSizes().size()</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="rpgenumstestunnominconnuestrefuse">RpgEnumsTest.UnNomInconnuEstRefuse</h3>
+<p><em>Majeur · Unitaire · Enumerations RPG</em> — <code>Source/Test/Unit/Core/Rpg/test_rpg_enums.cpp:129</code></p>
+<p>Un nom d'enumeration RPG inconnu est refuse au lieu d'etre devine.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Analyser une chaine vide, un terme francais, et un nom de casse differente.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::parseDamageType(&quot;&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseDamageType(&quot;psychique&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseDamageType(&quot;Psychic&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseCondition(&quot;empoisonne&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseMagicSchool(&quot;invocation&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseCreatureSize(&quot;P&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseCreatureSize(&quot;moyenne&quot;).has_value()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="rpgenumstestlesenumerationscoincidentaveclesschemas">RpgEnumsTest.LesEnumerationsCoincidentAvecLesSchemas</h3>
+<p><em>Critique · Unitaire · Enumerations RPG</em> — <code>Source/Test/Unit/Core/Rpg/test_rpg_enums.cpp:152</code></p>
+<p>Les enumerations partagees entre le C++ et les schemas JSON sont identiques.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire les enumerations <code>damageType</code>, <code>conditionRef</code> et <code>magicSchool</code> de <code>common.schema.json</code>.</li><li>Les comparer aux noms produits par <a class="ref" href="../reference/namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd"><code>core::DamageType</code></a>, <a class="ref" href="../reference/namespacecore.html#aae82873d6c7bd0b4db085354c50e1493"><code>core::Condition</code></a> et <a class="ref" href="../reference/namespacecore.html#acb09396acc95973b3ca488c497bbddb2"><code>core::MagicSchool</code></a>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>nomsDuMoteur(core::allDamageTypes(), core::damageTypeName)</code> vaut <code>enumDuSchema(&quot;damageType&quot;)</code>.</li><li>Vérifie que <code>nomsDuMoteur(core::allConditions(), core::conditionName)</code> vaut <code>enumDuSchema(&quot;conditionRef&quot;)</code>.</li><li>Vérifie que <code>nomsDuMoteur(core::allMagicSchools(), core::magicSchoolName)</code> vaut <code>enumDuSchema(&quot;magicSchool&quot;)</code>.</li><li>Vérifie que <code>nomsDuMoteur(core::allCreatureSizes(), core::creatureSizeName)</code> vaut <code>enumDuSchema(&quot;size&quot;)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="rpgenumstestlesensemblesfermesontleurcardinal">RpgEnumsTest.LesEnsemblesFermesOntLeurCardinal</h3>
+<p><em>Majeur · Unitaire · Enumerations RPG</em> — <code>Source/Test/Unit/Core/Rpg/test_rpg_enums.cpp:185</code></p>
+<p>Les enumerations fermees du RPG ont le nombre de valeurs fixe par les regles.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Compter les types de degats, les conditions et les ecoles de magie.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::allDamageTypes().size()</code> vaut <code>13U</code>.</li><li>Vérifie que <code>core::allConditions().size()</code> vaut <code>15U</code>.</li><li>Vérifie que <code>core::allMagicSchools().size()</code> vaut <code>8U</code>.</li><li>Vérifie que <code>core::allCreatureSizes().size()</code> vaut <code>6U</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-resources.html"><span>Précédent</span>Core · Resources</a><a class="next" href="core-time.html"><span>Suivant</span>Core · Time</a></nav><p class="source">Source : <code>Documentation/CahierTest/core-rpg.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

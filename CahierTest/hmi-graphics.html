@@ -1,0 +1,1144 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HMI · Graphics — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1 active" href="hmi-graphics.html">HMI · Graphics</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-animation-catalogcpp">test_animation_catalog.cpp</a><a class="toc depth-2" href="#test-arena-animation-drivercpp">test_arena_animation_driver.cpp</a><a class="toc depth-2" href="#test-arena-appearance-catalogcpp">test_arena_appearance_catalog.cpp</a><a class="toc depth-2" href="#test-arena-scene-composercpp">test_arena_scene_composer.cpp</a><a class="toc depth-2" href="#test-arena-scene-renderercpp">test_arena_scene_renderer.cpp</a><a class="toc depth-2" href="#test-asset-gallerycpp">test_asset_gallery.cpp</a><a class="toc depth-2" href="#test-asset-gallery-renderercpp">test_asset_gallery_renderer.cpp</a><a class="toc depth-2" href="#test-cache-registrycpp">test_cache_registry.cpp</a><a class="toc depth-2" href="#test-camera2dcpp">test_camera2d.cpp</a><a class="toc depth-2" href="#test-city-block-rendercpp">test_city_block_render.cpp</a><a class="toc depth-2" href="#test-depth-sortcpp">test_depth_sort.cpp</a><a class="toc depth-2" href="#test-entity-markerscpp">test_entity_markers.cpp</a><a class="toc depth-2" href="#test-image-encodecpp">test_image_encode.cpp</a><a class="toc depth-2" href="#test-maquette-tokenscpp">test_maquette_tokens.cpp</a><a class="toc depth-2" href="#test-missing-texturecpp">test_missing_texture.cpp</a><a class="toc depth-2" href="#test-poly-quadcpp">test_poly_quad.cpp</a><a class="toc depth-2" href="#test-procedural-atlascpp">test_procedural_atlas.cpp</a><a class="toc depth-2" href="#test-quad-recordercpp">test_quad_recorder.cpp</a><a class="toc depth-2" href="#test-render-cullingcpp">test_render_culling.cpp</a><a class="toc depth-2" href="#test-rhi-offscreencpp">test_rhi_offscreen.cpp</a><a class="toc depth-2" href="#test-texture-atlascpp">test_texture_atlas.cpp</a><a class="toc depth-2" href="#test-world-scene-composercpp">test_world_scene_composer.cpp</a><a class="toc depth-2" href="#test-world-scene-renderercpp">test_world_scene_renderer.cpp</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="hmi-graphics">HMI · Graphics</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">156 cas</span></div>
+<p>Tests unitaires — <strong>156 cas</strong> (18 bloquants, 57 critiques, 74 majeurs, 7 mineurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-animation-catalogcpp"><code>test_animation_catalog.cpp</code></a></td><td>12</td><td>-</td><td>5</td><td>7</td><td>-</td></tr><tr><td><a href="#test-arena-animation-drivercpp"><code>test_arena_animation_driver.cpp</code></a></td><td>8</td><td>-</td><td>3</td><td>4</td><td>1</td></tr><tr><td><a href="#test-arena-appearance-catalogcpp"><code>test_arena_appearance_catalog.cpp</code></a></td><td>13</td><td>4</td><td>2</td><td>6</td><td>1</td></tr><tr><td><a href="#test-arena-scene-composercpp"><code>test_arena_scene_composer.cpp</code></a></td><td>11</td><td>5</td><td>-</td><td>6</td><td>-</td></tr><tr><td><a href="#test-arena-scene-renderercpp"><code>test_arena_scene_renderer.cpp</code></a></td><td>6</td><td>2</td><td>3</td><td>-</td><td>1</td></tr><tr><td><a href="#test-asset-gallerycpp"><code>test_asset_gallery.cpp</code></a></td><td>7</td><td>3</td><td>-</td><td>4</td><td>-</td></tr><tr><td><a href="#test-asset-gallery-renderercpp"><code>test_asset_gallery_renderer.cpp</code></a></td><td>2</td><td>1</td><td>-</td><td>1</td><td>-</td></tr><tr><td><a href="#test-cache-registrycpp"><code>test_cache_registry.cpp</code></a></td><td>5</td><td>-</td><td>5</td><td>-</td><td>-</td></tr><tr><td><a href="#test-camera2dcpp"><code>test_camera2d.cpp</code></a></td><td>10</td><td>-</td><td>-</td><td>9</td><td>1</td></tr><tr><td><a href="#test-city-block-rendercpp"><code>test_city_block_render.cpp</code></a></td><td>2</td><td>-</td><td>-</td><td>2</td><td>-</td></tr><tr><td><a href="#test-depth-sortcpp"><code>test_depth_sort.cpp</code></a></td><td>5</td><td>-</td><td>4</td><td>1</td><td>-</td></tr><tr><td><a href="#test-entity-markerscpp"><code>test_entity_markers.cpp</code></a></td><td>5</td><td>-</td><td>1</td><td>4</td><td>-</td></tr><tr><td><a href="#test-image-encodecpp"><code>test_image_encode.cpp</code></a></td><td>5</td><td>-</td><td>1</td><td>4</td><td>-</td></tr><tr><td><a href="#test-maquette-tokenscpp"><code>test_maquette_tokens.cpp</code></a></td><td>6</td><td>-</td><td>2</td><td>4</td><td>-</td></tr><tr><td><a href="#test-missing-texturecpp"><code>test_missing_texture.cpp</code></a></td><td>5</td><td>-</td><td>2</td><td>3</td><td>-</td></tr><tr><td><a href="#test-poly-quadcpp"><code>test_poly_quad.cpp</code></a></td><td>4</td><td>-</td><td>2</td><td>2</td><td>-</td></tr><tr><td><a href="#test-procedural-atlascpp"><code>test_procedural_atlas.cpp</code></a></td><td>4</td><td>-</td><td>1</td><td>2</td><td>1</td></tr><tr><td><a href="#test-quad-recordercpp"><code>test_quad_recorder.cpp</code></a></td><td>7</td><td>-</td><td>3</td><td>3</td><td>1</td></tr><tr><td><a href="#test-render-cullingcpp"><code>test_render_culling.cpp</code></a></td><td>10</td><td>-</td><td>5</td><td>4</td><td>1</td></tr><tr><td><a href="#test-rhi-offscreencpp"><code>test_rhi_offscreen.cpp</code></a></td><td>2</td><td>-</td><td>1</td><td>1</td><td>-</td></tr><tr><td><a href="#test-texture-atlascpp"><code>test_texture_atlas.cpp</code></a></td><td>1</td><td>-</td><td>1</td><td>-</td><td>-</td></tr><tr><td><a href="#test-world-scene-composercpp"><code>test_world_scene_composer.cpp</code></a></td><td>20</td><td>-</td><td>13</td><td>7</td><td>-</td></tr><tr><td><a href="#test-world-scene-renderercpp"><code>test_world_scene_renderer.cpp</code></a></td><td>6</td><td>3</td><td>3</td><td>-</td><td>-</td></tr></tbody></table></div>
+<h2 id="test-animation-catalogcpp">test_animation_catalog.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="animationcatalogtestroundtripclipsmultiplesdureepardefautetoneshot">AnimationCatalogTest.RoundTripClipsMultiplesDureeParDefautEtOneShot</h3>
+<p><em>Critique · Unitaire · Catalogue d'animations</em> — <code>Source/Test/Unit/HMI/Graphics/test_animation_catalog.cpp:31</code></p>
+<p>Un descripteur valide se relit intégralement, durée par défaut et clip suivant compris.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est vrai.</li><li>Vérifie que <code>description.frameWidth</code> vaut <code>16</code>.</li><li>Vérifie que <code>description.frameHeight</code> vaut <code>16</code>.</li><li>Vérifie que <code>description.clips.clipCount()</code> vaut <code>3</code>.</li><li>Vérifie que <code>closed.frames</code> vaut <code>(std::vector&lt;int&gt;{0})</code>.</li><li>Vérifie que <code>closed.endMode</code> vaut <code>core::ClipEndMode::Loop</code>.</li><li>Vérifie que <code>closed.frameDuration</code> vaut <a class="ref" href="../reference/classhmi_1_1AnimationCatalog.html#a05ffad34f350742a220ec866938c279b"><code>hmi::AnimationCatalog::DEFAULT_FRAME_DURATION_SECONDS</code></a> (comparaison flottante).</li><li>Vérifie que <code>opening.frames</code> vaut <code>(std::vector&lt;int&gt;{1, 2, 3, 4})</code>.</li><li>Vérifie que <code>opening.frameDuration</code> vaut <code>0.06f</code> (comparaison flottante).</li><li>Vérifie que <code>opening.endMode</code> vaut <code>core::ClipEndMode::OneShot</code>.</li><li>Vérifie que <code>opening.nextClip</code> vaut <code>&quot;open&quot;</code>.</li><li>Vérifie que <code>description.clips.indexOf(opening.nextClip)</code> est supérieur ou égal à <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="animationcatalogtestjsoninvalideestuneerreurexploitable">AnimationCatalogTest.JsonInvalideEstUneErreurExploitable</h3>
+<p><em>Majeur · Unitaire · Catalogue d'animations</em> — <code>Source/Test/Unit/HMI/Graphics/test_animation_catalog.cpp:69</code></p>
+<p>Un JSON invalide donne une erreur d'analyse avec un message exploitable.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est faux.</li><li>Vérifie que <code>result.errorCode</code> vaut <code>hmi::AnimationCatalogError::ParseError</code>.</li><li>Vérifie que <code>result.error.empty()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="animationcatalogtestversioninconnueestrefusee">AnimationCatalogTest.VersionInconnueEstRefusee</h3>
+<p><em>Majeur · Unitaire · Catalogue d'animations</em> — <code>Source/Test/Unit/HMI/Graphics/test_animation_catalog.cpp:87</code></p>
+<p>Une version de format inconnue est refusée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est faux.</li><li>Vérifie que <code>result.errorCode</code> vaut <code>hmi::AnimationCatalogError::UnsupportedVersion</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="animationcatalogtestclipsuivantinexistantestrefuse">AnimationCatalogTest.ClipSuivantInexistantEstRefuse</h3>
+<p><em>Critique · Unitaire · Catalogue d'animations</em> — <code>Source/Test/Unit/HMI/Graphics/test_animation_catalog.cpp:108</code></p>
+<p>Un clip suivant inexistant est refusé au chargement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est faux.</li><li>Vérifie que <code>result.errorCode</code> vaut <code>hmi::AnimationCatalogError::MalformedStructure</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="animationcatalogtestindicedimagenegatifestrefuse">AnimationCatalogTest.IndiceDImageNegatifEstRefuse</h3>
+<p><em>Majeur · Unitaire · Catalogue d'animations</em> — <code>Source/Test/Unit/HMI/Graphics/test_animation_catalog.cpp:130</code></p>
+<p>Un indice d'image négatif est refusé.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est faux.</li><li>Vérifie que <code>result.errorCode</code> vaut <code>hmi::AnimationCatalogError::MalformedStructure</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="animationcatalogtestclipsansframesestrefuse">AnimationCatalogTest.ClipSansFramesEstRefuse</h3>
+<p><em>Majeur · Unitaire · Catalogue d'animations</em> — <code>Source/Test/Unit/HMI/Graphics/test_animation_catalog.cpp:151</code></p>
+<p>Un clip sans images est refusé.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est faux.</li><li>Vérifie que <code>result.errorCode</code> vaut <code>hmi::AnimationCatalogError::MalformedStructure</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="animationcatalogtestfichierabsentestfilenotfoundsansexception">AnimationCatalogTest.FichierAbsentEstFileNotFoundSansException</h3>
+<p><em>Critique · Unitaire · Catalogue d'animations</em> — <code>Source/Test/Unit/HMI/Graphics/test_animation_catalog.cpp:172</code></p>
+<p>Un fichier absent donne un code dédié, sans exception.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est faux.</li><li>Vérifie que <code>result.errorCode</code> vaut <code>hmi::AnimationCatalogError::FileNotFound</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="animationcatalogtestdescriptorfilenameremplacelextension">AnimationCatalogTest.DescriptorFileNameRemplaceLExtension</h3>
+<p><em>Critique · Unitaire · Catalogue d'animations</em> — <code>Source/Test/Unit/HMI/Graphics/test_animation_catalog.cpp:190</code></p>
+<p>Le nom du descripteur remplace l'extension en conservant le chemin.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::AnimationCatalog::descriptorFileName(&quot;water.png&quot;)</code> vaut <code>&quot;water.anim.json&quot;</code>.</li><li>Vérifie que <code>hmi::AnimationCatalog::descriptorFileName(&quot;Npc/anariel/attack.png&quot;)</code> vaut <code>&quot;Npc/anariel/attack.anim.json&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="animationcatalogtestcoherenceaveclepngvalideesurspritesheetaunrang">AnimationCatalogTest.CoherenceAvecLePngValideeSurSpritesheetAUnRang</h3>
+<p><em>Majeur · Unitaire · Catalogue d'animations</em> — <code>Source/Test/Unit/HMI/Graphics/test_animation_catalog.cpp:206</code></p>
+<p>Un descripteur cohérent avec les dimensions du PNG est validé.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est vrai.</li><li>Vérifie que <code>valid.valid</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="animationcatalogtesttailledimageincoherenteaveclepngestrefusee">AnimationCatalogTest.TailleDImageIncoherenteAvecLePngEstRefusee</h3>
+<p><em>Majeur · Unitaire · Catalogue d'animations</em> — <code>Source/Test/Unit/HMI/Graphics/test_animation_catalog.cpp:228</code></p>
+<p>Des dimensions de PNG incohérentes avec l'image sont refusées.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est vrai.</li><li>Vérifie que <code>wrongHeight.valid</code> est faux.</li><li>Vérifie que <code>wrongHeight.message.empty()</code> est faux.</li><li>Vérifie que <code>wrongWidth.valid</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="animationcatalogtestindicedimagehorsbornesdelaspritesheetreelleestrefuse">AnimationCatalogTest.IndiceDImageHorsBornesDeLaSpritesheetReelleEstRefuse</h3>
+<p><em>Critique · Unitaire · Catalogue d'animations</em> — <code>Source/Test/Unit/HMI/Graphics/test_animation_catalog.cpp:256</code></p>
+<p>Un indice d'image hors des bornes réelles de la spritesheet est refusé.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est vrai.</li><li>Vérifie que <code>tooShort.valid</code> est faux.</li><li>Vérifie que <code>tooShort.message.empty()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="animationcatalogtestframeregionpremiereetderniereimagespritesheetaunrang">AnimationCatalogTest.FrameRegionPremiereEtDerniereImageSpritesheetAUnRang</h3>
+<p><em>Majeur · Unitaire · Catalogue d'animations</em> — <code>Source/Test/Unit/HMI/Graphics/test_animation_catalog.cpp:280</code></p>
+<p>La région d'une image se déduit de son indice par décalage horizontal, ordonnée constante.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>first.x</code> vaut <code>0</code>.</li><li>Vérifie que <code>first.y</code> vaut <code>0</code>.</li><li>Vérifie que <code>first.width</code> vaut <code>16</code>.</li><li>Vérifie que <code>first.height</code> vaut <code>16</code>.</li><li>Vérifie que <code>last.x</code> vaut <code>5 * 16</code>.</li><li>Vérifie que <code>last.y</code> vaut <code>0</code>.</li><li>Vérifie que <code>last.width</code> vaut <code>16</code>.</li><li>Vérifie que <code>last.height</code> vaut <code>16</code>.</li></ul>
+</section><h2 id="test-arena-animation-drivercpp">test_arena_animation_driver.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="arenaanimationdrivertestcombattantnonsuiviresteidle">ArenaAnimationDriverTest.CombattantNonSuiviResteIdle</h3>
+<p><em>Majeur · Unitaire · Pilote d'animation de l'arène</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:77</code></p>
+<p>Un combattant non déclenché ne bouge pas.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Avancer un pilote vide de dix secondes.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>driver.snapshot().figures.empty()</code> est vrai.</li><li>Vérifie que <code>driver.actionOf(HERO)</code> vaut <code>ArenaFigureAction::Idle</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenaanimationdrivertestidleboucle">ArenaAnimationDriverTest.IdleBoucle</h3>
+<p><em>Majeur · Unitaire · Pilote d'animation de l'arène</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:93</code></p>
+<p>La boucle idle ne s'arrête jamais.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Jouer Idle. 2. Avancer de deux durées d'image. 3. Avancer de deux de plus.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>driver.snapshot().frameOf(HERO)</code> vaut <code>0</code>.</li><li>Vérifie que <code>driver.snapshot().frameOf(HERO)</code> vaut <code>2</code>.</li><li>Vérifie que <code>driver.snapshot().frameOf(HERO)</code> vaut <code>0</code>.</li><li>Vérifie que <code>driver.actionOf(HERO)</code> vaut <code>ArenaFigureAction::Idle</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="arenaanimationdrivertesttransitionidleattackidle">ArenaAnimationDriverTest.TransitionIdleAttackIdle</h3>
+<p><em>Critique · Unitaire · Pilote d'animation de l'arène</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:115</code></p>
+<p>Transition idle -&gt; attack -&gt; idle.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Jouer Idle. 2. Jouer Attack. 3. Avancer jusqu'à la fin de la bande d'attaque.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>driver.actionOf(HERO)</code> vaut <code>ArenaFigureAction::Attack</code>.</li><li>Vérifie que <code>driver.snapshot().frameOf(HERO)</code> vaut <code>0</code>.</li><li>Vérifie que <code>driver.actionOf(HERO)</code> vaut <code>ArenaFigureAction::Attack</code>.</li><li>Vérifie que <code>driver.snapshot().frameOf(HERO)</code> vaut <code>3</code>.</li><li>Vérifie que <code>driver.actionOf(HERO)</code> vaut <code>ArenaFigureAction::Idle</code>.</li><li>Vérifie que <code>driver.snapshot().frameOf(HERO)</code> vaut <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenaanimationdrivertesthitrelancecoupsurcoup">ArenaAnimationDriverTest.HitRelanceCoupSurCoup</h3>
+<p><em>Majeur · Unitaire · Pilote d'animation de l'arène</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:143</code></p>
+<p>Hit relance toujours, même coup sur coup.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Jouer Hit, avancer d'une image. 2. Rejouer Hit.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>driver.snapshot().frameOf(HERO)</code> vaut <code>1</code>.</li><li>Vérifie que <code>driver.snapshot().frameOf(HERO)</code> vaut <code>0</code>.</li><li>Vérifie que <code>driver.actionOf(HERO)</code> vaut <code>ArenaFigureAction::Hit</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="arenaanimationdrivertestmortrestefigee">ArenaAnimationDriverTest.MortResteFigee</h3>
+<p><em>Critique · Unitaire · Pilote d'animation de l'arène</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:163</code></p>
+<p>Franchissement de l'état mort.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Jouer Death, avancer jusqu'à la derniere image. 2. Rejouer Idle puis Attack.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>driver.actionOf(HERO)</code> vaut <code>ArenaFigureAction::Death</code>.</li><li>Vérifie que <code>driver.snapshot().frameOf(HERO)</code> vaut <code>3</code>.</li><li>Vérifie que <code>driver.actionOf(HERO)</code> vaut <code>ArenaFigureAction::Death</code>.</li><li>Vérifie que <code>driver.snapshot().frameOf(HERO)</code> vaut <code>3</code>.</li><li>Vérifie que <code>driver.actionOf(HERO)</code> vaut <code>ArenaFigureAction::Death</code>.</li><li>Vérifie que <code>driver.snapshot().frameOf(HERO)</code> vaut <code>3</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenaanimationdrivertestactionabsenterepliesuridle">ArenaAnimationDriverTest.ActionAbsenteReplieSurIdle</h3>
+<p><em>Majeur · Unitaire · Pilote d'animation de l'arène</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:190</code></p>
+<p>Repli sur Idle quand l'action n'existe pas (ex. un ennemi sans attack.png).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Déclarer une figurine avec seulement <code>idle</code>. 2. Lui jouer Attack.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>driver.actionOf(HERO)</code> vaut <code>ArenaFigureAction::Idle</code>.</li><li>Vérifie que <code>driver.snapshot().frameOf(HERO)</code> vaut <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="arenaanimationdrivertestremoveretiredupilotage">ArenaAnimationDriverTest.RemoveRetireDuPilotage</h3>
+<p><em>Mineur · Unitaire · Pilote d'animation de l'arène</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:210</code></p>
+<p>Un combattant sorti de la grille quitte le pilotage.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Jouer Idle. 2. Retirer le combattant.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>driver.snapshot().figures.empty()</code> est faux.</li><li>Vérifie que <code>driver.snapshot().figures.empty()</code> est vrai.</li><li>Vérifie que <code>driver.actionOf(HERO)</code> vaut <code>ArenaFigureAction::Idle</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="arenaanimationdrivertestplanchesdunkitvalides">ArenaAnimationDriverTest.PlanchesDUnKitValides</h3>
+<p><em>Critique · Unitaire · Pilote d'animation de l'arène</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:229</code></p>
+<p>Les <code>.anim.json</code> d'un kit d'arène sont valides.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire un héros (cinq actions). 2. Lire un gladiateur au repos seul.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>std::filesystem::exists(characters)</code> est vrai.</li><li>Vérifie que <code>hero.errors.empty()</code> est vrai.</li><li>Vérifie que <code>hero.clips.idle</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>hero.clips.walk</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>hero.clips.attack</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>hero.clips.hit</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>hero.clips.death</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>std::filesystem::exists(enemy)</code> est vrai.</li><li>Vérifie que <code>tireur.errors.empty()</code> est vrai.</li><li>Vérifie que <code>tireur.clips.idle</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>tireur.clips.attack</code> vaut <code>nullptr</code>.</li><li>Vérifie que <code>tireur.clips.hit</code> vaut <code>nullptr</code>.</li><li>Vérifie que <code>tireur.clips.death</code> vaut <code>nullptr</code>.</li></ul>
+</section><h2 id="test-arena-appearance-catalogcpp">test_arena_appearance_catalog.cpp</h2>
+<section class="case" data-crit="Bloquant"><h3 id="arenaappearancecatalogtestlecturedereference">ArenaAppearanceCatalogTest.LectureDeReference</h3>
+<p><em>Bloquant · Unitaire · Catalogue d'apparence de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:45</code></p>
+<p>Le catalogue de reference se lit sans erreur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire REFERENCE_JSON.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>catalog.heroes().size()</code> vaut <code>4U</code>.</li><li>Vérifie que <code>catalog.gladiators().size()</code> vaut <code>4U</code>.</li><li>Vérifie que <code>catalog.paleSlabs().size()</code> vaut <code>10U</code>.</li><li>Vérifie que <code>catalog.heroFrames()</code> vaut <code>5</code>.</li><li>Vérifie que <code>catalog.enemyFrames()</code> vaut <code>8</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenaappearancecatalogtestchampsinvalidesrefuses">ArenaAppearanceCatalogTest.ChampsInvalidesRefuses</h3>
+<p><em>Majeur · Unitaire · Catalogue d'apparence de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:63</code></p>
+<p>Un catalogue dont un champ obligatoire manque, est vide ou mal type est refuse.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire des variantes du JSON de reference, chacune avec un defaut.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est faux.</li><li>Vérifie que <code>result.errorCode</code> vaut <code>hmi::ArenaAppearanceError::MalformedStructure</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="arenaappearancecatalogtestlesanglesportentunecolonne">ArenaAppearanceCatalogTest.LesAnglesPortentUneColonne</h3>
+<p><em>Bloquant · Unitaire · Catalogue d'apparence de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:91</code></p>
+<p>Sur une grille 10 x 8 murée, les quatre angles portent <code>WallFeature::Corner</code>.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire le role des quatre coins, wall = vrai.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>role.wall</code> est vrai.</li><li>Vérifie que <code>role.wallFeature</code> vaut <code>hmi::WallFeature::Corner</code>.</li><li>Vérifie que <code>role.gateSpot</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenaappearancecatalogtestlabannieretouslescinqpas">ArenaAppearanceCatalogTest.LaBanniereTousLesCinqPas</h3>
+<p><em>Majeur · Unitaire · Catalogue d'apparence de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:115</code></p>
+<p>Sur une grille 10 x 8, la banniere est aux colonnes multiples de 5 des bords haut et bas, hors angle ; les autres cases de ces bords sont un pan de mur ordinaire.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire le role de chaque case murée des lignes 0 et 7.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>role.wallFeature</code> vaut <code>attendu</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenaappearancecatalogtestlatorchetouslesquatrepas">ArenaAppearanceCatalogTest.LaTorcheTousLesQuatrePas</h3>
+<p><em>Majeur · Unitaire · Catalogue d'apparence de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:140</code></p>
+<p>Sur une grille 10 x 8, la torche est aux lignes valant 2 modulo 4 des bords gauche et droit, hors angle ; les autres cases de ces bords sont un pan de mur ordinaire.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire le role de chaque case muree des colonnes 0 et 9.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>role.wallFeature</code> vaut <code>attendu</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="arenaappearancecatalogtestlaporteestsurlebordseulement">ArenaAppearanceCatalogTest.LaPorteEstSurLeBordSeulement</h3>
+<p><em>Bloquant · Unitaire · Catalogue d'apparence de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:165</code></p>
+<p>Sur une grille 10 x 8, toute case non muree du bord porte <code>gateSpot</code>, aucune case interieure ne le porte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire le role de la case (0, 3) et de la case (4, 4), wall = faux.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>bord.gateSpot</code> est vrai.</li><li>Vérifie que <code>bord.wall</code> est faux.</li><li>Vérifie que <code>interieur.gateSpot</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="arenaappearancecatalogtestladallesuitlaformuleqml">ArenaAppearanceCatalogTest.LaDalleSuitLaFormuleQml</h3>
+<p><em>Critique · Unitaire · Catalogue d'apparence de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:188</code></p>
+<p>Le sol d'une case non muree porte une dalle quand <code>(colonne*3 + ligne*5 + colonne*ligne) % 7 == 0</code>, a l'indice <code>(colonne*3 + ligne*5) % 10</code>.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer le role de chaque case interieure d'une grille 10 x 8.</li><li>Comparer a la formule transcrite de la scene QML.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>role.slab</code> vaut <code>slabAttendu</code>.</li><li>Vérifie que <code>role.slabVariant</code> vaut <code>(column * 3 + row * 5) % 10</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="arenaappearancecatalogtestlafigurineestdeterministeetdependducote">ArenaAppearanceCatalogTest.LaFigurineEstDeterministeEtDependDuCote</h3>
+<p><em>Bloquant · Unitaire · Catalogue d'apparence de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:218</code></p>
+<p>Deux appels avec le meme nom et le meme cote rendent la meme figurine ; un allie choisit parmi les heros, un ennemi parmi les gladiateurs.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander la figurine de « Gorlak » comme allie, puis comme ennemi, deux fois chacune.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>allie1.sheet</code> vaut <code>allie2.sheet</code>.</li><li>Vérifie que <code>std::find(catalog.heroes().begin(), catalog.heroes().end(), allie1.sheet)</code> diffère de <code>catalog.heroes().end()</code>.</li><li>Vérifie que <code>allie1.frameCount</code> vaut <code>catalog.heroFrames()</code>.</li><li>Vérifie que <code>ennemi1.sheet</code> vaut <code>ennemi2.sheet</code>.</li><li>Vérifie que <code>std::find(catalog.gladiators().begin(), catalog.gladiators().end(), ennemi1.sheet)</code> diffère de <code>catalog.gladiators().end()</code>.</li><li>Vérifie que <code>ennemi1.frameCount</code> vaut <code>catalog.enemyFrames()</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenaappearancecatalogtestlafigurinesuitlaformuleqml">ArenaAppearanceCatalogTest.LaFigurineSuitLaFormuleQml</h3>
+<p><em>Majeur · Unitaire · Catalogue d'apparence de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:248</code></p>
+<p>Pour plusieurs noms, l'indice de figurine vaut <code>(longueur*7 + code du premier caractere) % taille du roster</code>.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer la figurine attendue pour plusieurs noms.</li><li>Comparer a la formule transcrite de la scene QML.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>catalog.figureFor(nom, core::CombatSide::Allies).sheet</code> vaut <code>catalog.heroes()[static_cast&lt;std::size_t&gt;(indiceAttendu)]</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="arenaappearancecatalogtestnomviderendlapremierefigurine">ArenaAppearanceCatalogTest.NomVideRendLaPremiereFigurine</h3>
+<p><em>Mineur · Unitaire · Catalogue d'apparence de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:272</code></p>
+<p>Un combattant sans nom rend la figurine d'indice 0.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander la figurine d'un nom vide, des deux cotes.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>catalog.figureFor(&quot;&quot;, core::CombatSide::Allies).sheet</code> vaut <code>catalog.heroes().front()</code>.</li><li>Vérifie que <code>catalog.figureFor(&quot;&quot;, core::CombatSide::Enemies).sheet</code> vaut <code>catalog.gladiators().front()</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="arenaappearancecatalogtestmanifestedunkitvalide">ArenaAppearanceCatalogTest.ManifesteDUnKitValide</h3>
+<p><em>Critique · Unitaire · Catalogue d'apparence de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:287</code></p>
+<p>Le manifeste du kit d'arene d'essai se lit sans erreur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire le manifeste livre depuis les sources.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>std::filesystem::exists(path)</code> est vrai.</li><li>Vérifie que <code>result.ok()</code> est vrai.</li><li>Vérifie que <code>result.catalog-&gt;heroes().empty()</code> est faux.</li><li>Vérifie que <code>result.catalog-&gt;gladiators().empty()</code> est faux.</li><li>Vérifie que <code>result.catalog-&gt;paleSlabs().empty()</code> est faux.</li><li>Vérifie que <code>result.catalog-&gt;heroFrames()</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>result.catalog-&gt;enemyFrames()</code> est strictement supérieur à <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenaappearancecatalogtestunherosremplacelitsesbandesailleurs">ArenaAppearanceCatalogTest.UnHerosRemplaceLitSesBandesAilleurs</h3>
+<p><em>Majeur · Unitaire · Catalogue d'apparence de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:312</code></p>
+<p><code>replaceHero</code> change le dossier rendu par <code>figureFor</code>/<code>sheetDirectory</code>, rien d'autre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire le dossier par defaut d'un heros et d'un gladiateur.</li><li>Remplacer ce heros par <code>../Npc/anariel</code>, puis tenter un nom inconnu.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>avant.directory</code> vaut <code>&quot;characters/&quot; + avant.sheet</code>.</li><li>Vérifie que <code>catalog.figureFor(&quot;Gorlak&quot;, core::CombatSide::Enemies).directory</code> vaut <code>&quot;enemies/&quot; + catalog.figureFor(&quot;Gorlak&quot;, core::CombatSide::Enemies).sheet</code>.</li><li>Vérifie que <code>catalog.replaceHero(avant.sheet, &quot;../Npc/anariel&quot;)</code> est vrai.</li><li>Vérifie que <code>apres.sheet</code> vaut <code>avant.sheet</code>.</li><li>Vérifie que <code>apres.frameCount</code> vaut <code>avant.frameCount</code>.</li><li>Vérifie que <code>apres.directory</code> vaut <code>&quot;../Npc/anariel&quot;</code>.</li><li>Vérifie que <code>catalog.sheetDirectory(avant.sheet, core::CombatSide::Allies)</code> vaut <code>&quot;../Npc/anariel&quot;</code>.</li><li>Vérifie que <code>catalog.heroes()</code> vaut <code>referenceCatalog().heroes()</code>.</li><li>Vérifie que <code>catalog.replaceHero(&quot;inconnu&quot;, &quot;../Npc/inconnu&quot;)</code> est faux.</li><li>Vérifie que <code>catalog.sheetDirectory(&quot;inconnu&quot;, core::CombatSide::Allies)</code> vaut <code>&quot;characters/inconnu&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenaappearancecatalogtestlemanifestedespnjremplacelesherosnommes">ArenaAppearanceCatalogTest.LeManifesteDesPnjRemplaceLesHerosNommes</h3>
+<p><em>Majeur · Unitaire · Catalogue d'apparence de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:344</code></p>
+<p><code>applyNpcManifest</code> : un heros remplace par entree valide, une entree inconnue ou sans slug ignoree, un fichier absent sans effet.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Appliquer un chemin inexistant.</li><li>Ecrire un manifeste avec <code>kaelith_voss</code> -&gt; <code>anariel</code>, un heros inconnu et un slug vide ; l'appliquer.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>catalog.applyNpcManifest(manifest)</code> vaut <code>0</code>.</li><li>Vérifie que <code>catalog.sheetDirectory(&quot;kaelith_voss&quot;, core::CombatSide::Allies)</code> vaut <code>&quot;characters/kaelith_voss&quot;</code>.</li><li>Vérifie que <code>catalog.applyNpcManifest(manifest)</code> vaut <code>1</code>.</li><li>Vérifie que <code>catalog.sheetDirectory(&quot;kaelith_voss&quot;, core::CombatSide::Allies)</code> vaut <code>&quot;../Npc/anariel&quot;</code>.</li><li>Vérifie que <code>catalog.sheetDirectory(&quot;bram&quot;, core::CombatSide::Allies)</code> vaut <code>&quot;characters/bram&quot;</code>.</li></ul>
+</section><h2 id="test-arena-scene-composercpp">test_arena_scene_composer.cpp</h2>
+<section class="case" data-crit="Bloquant"><h3 id="arenascenecomposertestnombredequadsparcalque">ArenaSceneComposerTest.NombreDeQuadsParCalque</h3>
+<p><em>Bloquant · Unitaire · Composeur de la scene de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:207</code></p>
+<p>La scene composee compte exactement les quads attendus, par calque.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Monter cinq combattants sur la piste 5x4.</li><li>Composer la scene.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>onLayer(scene, RenderLayer::Tile).size()</code> vaut <code>static_cast&lt;std::size_t&gt;(FLOOR_QUADS)</code>.</li><li>Vérifie que <code>onLayer(scene, RenderLayer::Object).size()</code> vaut <code>static_cast&lt;std::size_t&gt;(STRUCTURE_QUADS)</code>.</li><li>Vérifie que <code>onLayer(scene, RenderLayer::Player).size()</code> vaut <code>5U</code>.</li><li>Vérifie que <code>scene.size()</code> vaut <code>static_cast&lt;std::size_t&gt;(FLOOR_QUADS + STRUCTURE_QUADS + 5)</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="arenascenecomposertestordredescalques">ArenaSceneComposerTest.OrdreDesCalques</h3>
+<p><em>Bloquant · Unitaire · Composeur de la scene de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:227</code></p>
+<p>Le sol est dessine sous tout ; la bande de profondeur est triee par pied.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer la scene (triee).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>quads.size()</code> vaut <code>static_cast&lt;std::size_t&gt;(FLOOR_QUADS + STRUCTURE_QUADS + 5)</code>.</li><li>Vérifie que <code>quads[index].layer</code> vaut <code>RenderLayer::Tile</code>.</li><li>Vérifie que <code>hmi::sortsByDepth(quads[index].layer)</code> est vrai.</li><li>Vérifie que <code>quads[index - 1].sortOrder</code> est inférieur ou égal à <code>quads[index].sortOrder</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenascenecomposertestprofondeuraupieddelacase">ArenaSceneComposerTest.ProfondeurAuPiedDeLaCase</h3>
+<p><em>Majeur · Unitaire · Composeur de la scene de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:253</code></p>
+<p>La profondeur suit le pied de la case.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer la scene.</li><li>Reperer la figurine de Bram (1, 1), le pan (1, 0), le pan (1, 3) et le pan a torche (4, 2).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>found</code> diffère de <code>quads.end()</code>.</li><li>Vérifie que <code>bram</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>back</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>front</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>torch</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>torch-&gt;texture</code> vaut <code>sceneTextures.resolve(scenePiece(&quot;torch-left&quot;)).texture</code>.</li><li>Vérifie que <code>indexOf(back)</code> est strictement inférieur à <code>indexOf(bram)</code>.</li><li>Vérifie que <code>indexOf(bram)</code> est strictement inférieur à <code>indexOf(front)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenascenecomposertestledecorseposeparsonancredanslebonsens">ArenaSceneComposerTest.LeDecorSePoseParSonAncreDansLeBonSens</h3>
+<p><em>Majeur · Unitaire · Composeur de la scene de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:307</code></p>
+<p>Le decor de l'atelier des textures (LOT-92) est pose par son ancre, dans le bon sens.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer la piste 5x4.</li><li>Relever la piece et le sol de (1, 0), (0, 1), (0, 0), (4, 3), (0, 2).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>found</code> diffère de <code>composed.quads().end()</code>.</li><li>Vérifie que <code>is(back, &quot;wall-right&quot;)</code> est vrai.</li><li>Vérifie que <code>is(side, &quot;wall-left&quot;)</code> est vrai.</li><li>Vérifie que <code>side</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>side-&gt;sprite.x</code> vaut <code>top.x - 34.0f * unitsPerArtPixel</code>, à <code>1e-3f</code> près.</li><li>Vérifie que <code>side-&gt;sprite.y</code> vaut <code>top.y - (STANDING_HEIGHT - 42) * unitsPerArtPixel</code>, à <code>1e-3f</code> près.</li><li>Vérifie que <code>side-&gt;sprite.width</code> vaut <code>68.0f * unitsPerArtPixel</code>, à <code>1e-3f</code> près.</li><li>Vérifie que <code>is(pieceAt({.column = 0, .row = 0}, RenderLayer::Object), &quot;wall-corner&quot;)</code> est vrai.</li><li>Vérifie que <code>is(pieceAt({.column = 4, .row = 3}, RenderLayer::Object), &quot;pillar&quot;)</code> est vrai.</li><li>Vérifie que <code>is(pieceAt({.column = 0, .row = 2}, RenderLayer::Object), &quot;arch-left&quot;)</code> est vrai.</li><li>Vérifie que <code>is(pieceAt({.column = 0, .row = 2}, RenderLayer::Tile), &quot;gate-threshold&quot;)</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="arenascenecomposertestaterreetsorti">ArenaSceneComposerTest.ATerreEtSorti</h3>
+<p><em>Bloquant · Unitaire · Composeur de la scene de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:359</code></p>
+<p>Down compose une figurine, Withdrawn aucune.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demarrer le combat.</li><li>Abattre Bram (allie) et Orc (ennemi), faire sortir Cid.</li><li>Composer la scene.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>session.start()</code> est vrai.</li><li>Vérifie que <code>combat.withdraw(idOf(session, &quot;Cid&quot;))</code> vaut <code>core::WithdrawResult::Withdrawn</code>.</li><li>Vérifie que <code>combat.find(idOf(session, &quot;Bram&quot;))-&gt;status</code> vaut <code>core::CombatantStatus::Down</code>.</li><li>Vérifie que <code>combat.find(idOf(session, &quot;Orc&quot;))-&gt;status</code> vaut <code>core::CombatantStatus::Down</code>.</li><li>Vérifie que <code>combat.find(idOf(session, &quot;Cid&quot;))-&gt;status</code> vaut <code>core::CombatantStatus::Withdrawn</code>.</li><li>Vérifie que <code>combat.phase()</code> diffère de <code>core::CombatPhase::Ended</code>.</li><li>Vérifie que <code>onLayer(scene, RenderLayer::Player).size()</code> vaut <code>4U</code>.</li><li>Vérifie que <code>bram</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>bram-&gt;sprite.u0</code> vaut <code>4.0f * 48.0f / 240.0f</code> (comparaison flottante).</li><li>Vérifie que <code>bram-&gt;sprite.u1</code> vaut <code>1.0f</code> (comparaison flottante).</li><li>Vérifie que <code>bram-&gt;sprite.a</code> vaut <code>1.0f</code> (comparaison flottante).</li><li>Vérifie que <code>orc</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>orc-&gt;sprite.u0</code> vaut <code>7.0f * 48.0f / 384.0f</code> (comparaison flottante).</li><li>Vérifie que <code>orc-&gt;sprite.a</code> vaut <a class="ref" href="../reference/namespacehmi.html#a285a9d5f6120f739e72d9195791c8d22"><code>hmi::ARENA_DOWN_ENEMY_ALPHA</code></a> (comparaison flottante).</li><li>Vérifie que <code>cid</code> diffère de <code>eve</code>.</li><li>Vérifie que <code>withTexture(scene, cid)</code> vaut <code>nullptr</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenascenecomposertestimagecourantebornee">ArenaSceneComposerTest.ImageCouranteBornee</h3>
+<p><em>Majeur · Unitaire · Composeur de la scene de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:406</code></p>
+<p>L'image courante vient de ArenaAnimationState, bornee a la bande.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Donner l'image 3 a Eve et l'image 99 a Rat.</li><li>Composer la scene.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>eve</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>eve-&gt;sprite.u0</code> vaut <code>144.0f / 240.0f</code> (comparaison flottante).</li><li>Vérifie que <code>eve-&gt;sprite.u1</code> vaut <code>192.0f / 240.0f</code> (comparaison flottante).</li><li>Vérifie que <code>eve-&gt;sprite.v1</code> vaut <code>1.0f</code> (comparaison flottante).</li><li>Vérifie que <code>rat</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>rat-&gt;sprite.u0</code> vaut <code>7.0f * 48.0f / 384.0f</code> (comparaison flottante).</li><li>Vérifie que <code>rat-&gt;sprite.a</code> vaut <code>1.0f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenascenecomposertestreplisurledamier">ArenaSceneComposerTest.RepliSurLeDamier</h3>
+<p><em>Majeur · Unitaire · Composeur de la scene de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:436</code></p>
+<p>Repli sur le damier, puis rien.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer sans aucune texture chargee, damier fourni.</li><li>Composer sans aucune texture ni damier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>fallback.size()</code> vaut <code>static_cast&lt;std::size_t&gt;(FLOOR_QUADS + STRUCTURE_QUADS + 5)</code>.</li><li>Vérifie que <code>std::all_of(fallback.quads().begin(), fallback.quads().end(), [&amp;](const hmi::ComposedQuad&amp; quad) { return quad.texture == onlyMissing.missing.texture; })</code> est vrai.</li><li>Vérifie que <code>empty.size()</code> vaut <code>0U</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="arenascenecomposertestlectureseule">ArenaSceneComposerTest.LectureSeule</h3>
+<p><em>Bloquant · Unitaire · Composeur de la scene de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:462</code></p>
+<p>La composition est une lecture seule (EX-ARCH-012).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demarrer le combat, relever phase, tour actif, journal et positions.</li><li>Composer deux fois.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>session.start()</code> est vrai.</li><li>Vérifie que <code>session.combat().phase()</code> vaut <code>phase</code>.</li><li>Vérifie que <code>session.combat().activeCombatant()</code> vaut <code>active</code>.</li><li>Vérifie que <code>session.journal().size()</code> vaut <code>journal</code>.</li><li>Vérifie que <code>after</code> vaut <code>positions</code>.</li><li>Vérifie que <code>first.size()</code> vaut <code>second.size()</code>.</li><li>Vérifie que <code>a.layer</code> vaut <code>b.layer</code>.</li><li>Vérifie que <code>a.texture</code> vaut <code>b.texture</code>.</li><li>Vérifie que <code>a.sortOrder</code> vaut <code>b.sortOrder</code>.</li><li>Vérifie que <code>a.sprite.x</code> vaut <code>b.sprite.x</code> (comparaison flottante).</li><li>Vérifie que <code>a.sprite.y</code> vaut <code>b.sprite.y</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="arenascenecomposertestinstantanesurvitalasession">ArenaSceneComposerTest.InstantaneSurvitALaSession</h3>
+<p><em>Bloquant · Unitaire · Composeur de la scene de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:507</code></p>
+<p>L'instantane en valeurs survit a sa session (LOT-86 Phase 5).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Abattre Bram, faire sortir Cid, tirer l'instantane.</li><li>Detruire une copie de la session, composer l'instantane.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>session.start()</code> est vrai.</li><li>Vérifie que <code>session.combat().withdraw(idOf(session, &quot;Cid&quot;))</code> vaut <code>core::WithdrawResult::Withdrawn</code>.</li><li>Vérifie que <code>ephemeral-&gt;mount(affrontement()).refusals.empty()</code> est vrai.</li><li>Vérifie que <code>ephemeral-&gt;start()</code> est vrai.</li><li>Vérifie que <code>ephemeral-&gt;combat().withdraw(idOf(*ephemeral, &quot;Cid&quot;))</code> vaut <code>core::WithdrawResult::Withdrawn</code>.</li><li>Vérifie que <code>snapshot</code> vaut <code>hmi::snapshotArenaScene(session)</code>.</li><li>Vérifie que <code>snapshot.columns</code> vaut <code>5</code>.</li><li>Vérifie que <code>snapshot.rows</code> vaut <code>4</code>.</li><li>Vérifie que <code>std::count(snapshot.obstructed.begin(), snapshot.obstructed.end(), true)</code> vaut <code>13</code>.</li><li>Vérifie que <code>snapshot.figures.size()</code> vaut <code>4U</code>.</li><li>Vérifie que <code>std::none_of(snapshot.figures.begin(), snapshot.figures.end(), [](const hmi::ArenaFigureSnapshot&amp; f) { return f.name == &quot;Cid&quot;; })</code> est vrai.</li><li>Vérifie que <code>bram</code> diffère de <code>snapshot.figures.end()</code>.</li><li>Vérifie que <code>bram-&gt;down</code> est vrai.</li><li>Vérifie que <code>bram-&gt;anchor</code> vaut <code>(core::GridPosition{.column = 1, .row = 1})</code>.</li><li>Vérifie que <code>fromSnapshot.size()</code> vaut <code>fromSession.size()</code>.</li><li>Vérifie que <code>a.texture</code> vaut <code>b.texture</code>.</li><li>Vérifie que <code>a.sortOrder</code> vaut <code>b.sortOrder</code>.</li><li>Vérifie que <code>a.sprite.x</code> vaut <code>b.sprite.x</code> (comparaison flottante).</li><li>Vérifie que <code>a.sprite.u0</code> vaut <code>b.sprite.u0</code> (comparaison flottante).</li><li>Vérifie que <code>a.sprite.a</code> vaut <code>b.sprite.a</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenascenecomposertestlistedestexturescouvrelacomposition">ArenaSceneComposerTest.ListeDesTexturesCouvreLaComposition</h3>
+<p><em>Majeur · Unitaire · Composeur de la scene de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:566</code></p>
+<p>La liste des textures couvre tout ce que la composition demande.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lier chaque chemin de arenaTexturePaths a une texture, et le damier a une autre.</li><li>Composer la piste avec un allie a terre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>std::adjacent_find(sorted.begin(), sorted.end())</code> vaut <code>sorted.end()</code>.</li><li>Vérifie que <code>session.start()</code> est vrai.</li><li>Vérifie que <code>scene.size()</code> vaut <code>static_cast&lt;std::size_t&gt;(FLOOR_QUADS + STRUCTURE_QUADS + 5)</code>.</li><li>Vérifie que <code>std::none_of( scene.quads().begin(), scene.quads().end(), [&amp;](const hmi::ComposedQuad&amp; quad) { return quad.texture == listed.missing.texture; })</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenascenecomposertestunefigurinederemplacementsuitsapropredecoupe">ArenaSceneComposerTest.UneFigurineDeRemplacementSuitSaPropreDecoupe</h3>
+<p><em>Majeur · Unitaire · Composeur de la scene de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:601</code></p>
+<p>Un heros remplace se dessine depuis <code>../Npc/&lt;slug&gt;</code> ; une bande large (96 px) donne un quad deux fois plus large, centre au meme endroit, et sa derniere image a terre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Remplacer la figurine de Bram par <code>../Npc/anariel</code>, avec <code>idle.png</code> 288x64 (frameWidth 48) et <code>death.png</code> 576x64 (frameWidth 96).</li><li>Composer debout a l'image 5, puis a terre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>appearance.replaceHero(sheet, &quot;../Npc/anariel&quot;)</code> est vrai.</li><li>Vérifie que <code>session.start()</code> est vrai.</li><li>Vérifie que <code>repos</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>repos-&gt;sprite.u0</code> vaut <code>5.0f * 48.0f / 288.0f</code> (comparaison flottante).</li><li>Vérifie que <code>repos-&gt;sprite.u1</code> vaut <code>1.0f</code> (comparaison flottante).</li><li>Vérifie que <code>session.combat().find(bram)-&gt;status</code> vaut <code>core::CombatantStatus::Down</code>.</li><li>Vérifie que <code>mort</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>mort-&gt;sprite.u0</code> vaut <code>5.0f * 96.0f / 576.0f</code> (comparaison flottante).</li><li>Vérifie que <code>mort-&gt;sprite.u1</code> vaut <code>1.0f</code> (comparaison flottante).</li><li>Vérifie que <code>mort-&gt;sprite.width</code> vaut <code>repos-&gt;sprite.width * 2.0f</code> (comparaison flottante).</li><li>Vérifie que <code>mort-&gt;sprite.height</code> vaut <code>repos-&gt;sprite.height</code> (comparaison flottante).</li><li>Vérifie que <code>mort-&gt;sprite.x + mort-&gt;sprite.width / 2.0f</code> vaut <code>centreDebout</code>, à <code>1e-3f</code> près.</li></ul>
+</section><h2 id="test-arena-scene-renderercpp">test_arena_scene_renderer.cpp</h2>
+<section class="case" data-crit="Bloquant"><h3 id="arenascenerenderertestcreationliberationrecreation">ArenaSceneRendererTest.CreationLiberationRecreation</h3>
+<p><em>Bloquant · Unitaire · Rendu QRhi de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp:160</code></p>
+<p>Le cycle de vie des ressources QRhi de l'arene est sur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Creer les ressources sur une interface QRhi hors ecran, sans jamais dessiner.</li><li>Liberer, puis liberer encore.</li><li>Recreer, dessiner une image, detruire le rendu avant l'interface.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>renderer.catalog().heroes().empty()</code> est faux.</li><li>Vérifie que <code>renderer.ensureResources(nullptr)</code> est faux.</li><li>Vérifie que <code>renderer.created()</code> est faux.</li><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>renderer.created()</code> est vrai.</li><li>Vérifie que <code>renderer.rhi()</code> vaut <code>rhi.get()</code>.</li><li>Vérifie que <code>renderer.textures().byPath.size()</code> vaut <code>hmi::arenaTexturePaths(renderer.catalog()).size()</code>.</li><li>Vérifie que <code>renderer.textures().missing.texture</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>renderer.textures().resolve(&quot;../Scene/bourg/sand.png&quot;).texture</code> vaut <code>sand</code>.</li><li>Vérifie que <code>renderer.created()</code> est faux.</li><li>Vérifie que <code>renderer.rhi()</code> vaut <code>nullptr</code>.</li><li>Vérifie que <code>renderer.textures().byPath.empty()</code> est vrai.</li><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>image.size()</code> vaut <code>QSize(TARGET_SIZE, TARGET_SIZE)</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="arenascenerenderertestscenenonvidesurunegrilledetest">ArenaSceneRendererTest.SceneNonVideSurUneGrilleDeTest</h3>
+<p><em>Bloquant · Unitaire · Rendu QRhi de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp:213</code></p>
+<p>La scene de l'arene devient des pixels.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Tirer l'instantane de la piste 5x4 (quatre combattants), puis detruire la session.</li><li>Dessiner une image hors ecran et la relire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>renderer.animating()</code> est vrai.</li><li>Vérifie que <code>image.size()</code> vaut <code>QSize(TARGET_SIZE, TARGET_SIZE)</code>.</li><li>Vérifie que <code>renderer.composed().size()</code> vaut <code>PISTE_QUADS</code>.</li><li>Vérifie que <code>quad.texture</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>quad.texture</code> diffère de <code>renderer.textures().missing.texture</code>.</li><li>Vérifie que <code>painted</code> est strictement supérieur à <code>static_cast&lt;std::size_t&gt;(TARGET_SIZE * TARGET_SIZE / 5)</code>.</li><li>Vérifie que <code>painted</code> est strictement inférieur à <code>static_cast&lt;std::size_t&gt;(TARGET_SIZE * TARGET_SIZE)</code>.</li><li>Vérifie que <code>renderer.animating()</code> est faux.</li><li>Vérifie que <code>renderer.composed().size()</code> vaut <code>0U</code>.</li><li>Vérifie que <code>paintedPixels(empty)</code> vaut <code>0U</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="arenascenerenderertestrecreationsuruneautreinterface">ArenaSceneRendererTest.RecreationSurUneAutreInterface</h3>
+<p><em>Critique · Unitaire · Rendu QRhi de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp:260</code></p>
+<p>Le rendu de l'arene se recree sur une nouvelle interface QRhi.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Creer et dessiner sur une premiere interface.</li><li>Appeler ensureResources avec une seconde interface, puis dessiner dessus.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>renderer.ensureResources(first.get())</code> est vrai.</li><li>Vérifie que <code>paintedPixels(renderFrame(*first, renderer, firstTarget))</code> est strictement supérieur à <code>0U</code>.</li><li>Vérifie que <code>renderer.ensureResources(second.get())</code> est vrai.</li><li>Vérifie que <code>renderer.rhi()</code> vaut <code>second.get()</code>.</li><li>Vérifie que <code>renderer.textures().byPath.size()</code> vaut <code>hmi::arenaTexturePaths(renderer.catalog()).size()</code>.</li><li>Vérifie que <code>paintedPixels(renderFrame(*second, renderer, secondTarget))</code> est strictement supérieur à <code>0U</code>.</li><li>Vérifie que <code>renderer.composed().size()</code> vaut <code>PISTE_QUADS</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="arenascenerenderertestlecadrageramenechaquecaseaellememe">ArenaSceneRendererTest.LeCadrageRameneChaqueCaseAElleMeme</h3>
+<p><em>Critique · Unitaire · Rendu QRhi de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp:292</code></p>
+<p>Le centre de chaque case, projete a l'ecran par le cadrage du rendu, redevient la meme case.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour plusieurs grilles et surfaces (zoom entier et zoom inferieur a 1), cadrer par arenaCamera.</li><li>Projeter le centre de chaque case a l'ecran, puis revenir au monde et a la case.</li><li>Revenir d'un coin de la surface, hors de la scene.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>screen.x</code> est supérieur ou égal à <code>0.0f</code>.</li><li>Vérifie que <code>screen.x</code> est inférieur ou égal à <code>static_cast&lt;float&gt;(cas.width)</code>.</li><li>Vérifie que <code>screen.y</code> est supérieur ou égal à <code>0.0f</code>.</li><li>Vérifie que <code>screen.y</code> est inférieur ou égal à <code>static_cast&lt;float&gt;(cas.height)</code>.</li><li>Vérifie que <code>cell.has_value()</code> est vrai.</li><li>Vérifie que <code>cell-&gt;column</code> vaut <code>column</code>.</li><li>Vérifie que <code>cell-&gt;row</code> vaut <code>row</code>.</li><li>Vérifie que <code>projection.worldToTile(camera.screenToWorld({0.0f, 0.0f})).has_value()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="arenascenerenderertestcapturedelarenepourrelecture">ArenaSceneRendererTest.CaptureDeLArenePourRelecture</h3>
+<p><em>Mineur · Unitaire · Rendu QRhi de l'arene</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp:334</code></p>
+<p>Capture de l'arène pour relecture à l'œil (LOT-92).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Définir JADG_ARENA_CAPTURE, lancer ce test.</li><li>Ouvrir l'image.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>image.isNull()</code> est faux.</li><li>Vérifie que <code>image.save(destination)</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="arenascenerenderertestlecombatutiliseledecoretlesdepartsdelazone">ArenaSceneRendererTest.LeCombatUtiliseLeDecorEtLesDepartsDeLaZone</h3>
+<p><em>Critique · Unitaire · Rendu du Colisée</em> — <code>Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp:388</code></p>
+<p>Le combat utilise le décor et les départs de la nouvelle arène.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger la zone sable, monter deux concurrents et rendre la scène.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>zone</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>zone-&gt;columns</code> vaut <code>20</code>.</li><li>Vérifie que <code>zone-&gt;rows</code> vaut <code>14</code>.</li><li>Vérifie que <code>core::validateCombatZones(&quot;donjon&quot;, *loaded.level).empty()</code> est vrai.</li><li>Vérifie que <code>mounted.refusals.empty()</code> est vrai.</li><li>Vérifie que <code>snapshot.figures.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>snapshot.figures[0].anchor.column</code> vaut <code>1</code>.</li><li>Vérifie que <code>snapshot.figures[1].anchor.column</code> vaut <code>18</code>.</li><li>Vérifie que <code>rhi</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>renderer.composed().quads().size()</code> est strictement supérieur à <code>280U</code>.</li><li>Vérifie que <code>quad.texture</code> diffère de <code>renderer.textures().missing.texture</code>.</li><li>Vérifie que <code>image.save(&quot;salle-combat.png&quot;)</code> est vrai.</li><li>Vérifie que <code>session.start()</code> est vrai.</li></ul>
+</section><h2 id="test-asset-gallerycpp">test_asset_gallery.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="assetgallerytestformedesblocs">AssetGalleryTest.FormeDesBlocs</h3>
+<p><em>Majeur · Unitaire · Galerie des assets</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:57</code></p>
+<p>Un bloc contient son dessin, marge comprise.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer le bloc d'une figure, d'une attaque large, d'un mur, d'une pièce 2×1 et d'une grande pièce.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>figure.columns</code> vaut <code>3</code>.</li><li>Vérifie que <code>figure.rows</code> vaut <code>3</code>.</li><li>Vérifie que <code>figure.footprintColumn</code> vaut <code>1</code>.</li><li>Vérifie que <code>figure.footprintRow</code> vaut <code>1</code>.</li><li>Vérifie que <code>attaque.columns</code> vaut <code>4</code>.</li><li>Vérifie que <code>attaque.rows</code> vaut <code>3</code>.</li><li>Vérifie que <code>attaque.footprintColumn</code> vaut <code>1</code>.</li><li>Vérifie que <code>mur.columns</code> vaut <code>3</code>.</li><li>Vérifie que <code>mur.rows</code> vaut <code>4</code>.</li><li>Vérifie que <code>mur.footprintRow</code> vaut <code>2</code>.</li><li>Vérifie que <code>large.columns</code> vaut <code>4</code>.</li><li>Vérifie que <code>large.rows</code> vaut <code>4</code>.</li><li>Vérifie que <code>large.footprintColumn</code> vaut <code>1</code>.</li><li>Vérifie que <code>large.footprintRow</code> vaut <code>2</code>.</li><li>Vérifie que <code>piece.columns</code> vaut <code>9</code>.</li><li>Vérifie que <code>piece.rows</code> vaut <code>6</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="assetgallerytestdispositionenbandes">AssetGalleryTest.DispositionEnBandes</h3>
+<p><em>Majeur · Unitaire · Galerie des assets</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:95</code></p>
+<p>La galerie se dispose en bandes, lignes et colonnes.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Disposer deux modèles de deux formes (dont un mur) sur six cases, puis sur cinq.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>layout.bands.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>layout.bands[0].row</code> vaut <code>0</code>.</li><li>Vérifie que <code>layout.blocs.size()</code> vaut <code>4U</code>.</li><li>Vérifie que <code>layout.blocs[0].entry</code> vaut <code>0</code>.</li><li>Vérifie que <code>layout.blocs[0].row</code> vaut <code>1</code>.</li><li>Vérifie que <code>layout.blocs[1].entry</code> vaut <code>2</code>.</li><li>Vérifie que <code>layout.blocs[1].column</code> vaut <code>3</code>.</li><li>Vérifie que <code>layout.blocs[1].row</code> vaut <code>1</code>.</li><li>Vérifie que <code>layout.blocs[2].entry</code> vaut <code>1</code>.</li><li>Vérifie que <code>layout.blocs[3].entry</code> vaut <code>3</code>.</li><li>Vérifie que <code>layout.blocs[3].row</code> vaut <code>4</code>.</li><li>Vérifie que <code>layout.blocs[2].row</code> vaut <code>5</code>.</li><li>Vérifie que <code>layout.rows</code> vaut <code>8</code>.</li><li>Vérifie que <code>layout.columns</code> vaut <code>6</code>.</li><li>Vérifie que <code>narrow.blocs.size()</code> vaut <code>4U</code>.</li><li>Vérifie que <code>narrow.blocs[1].column</code> vaut <code>0</code>.</li><li>Vérifie que <code>narrow.blocs[1].row</code> vaut <code>4</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="assetgallerytestvisibiliteparlavue">AssetGalleryTest.VisibiliteParLaVue</h3>
+<p><em>Bloquant · Unitaire · Galerie des assets</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:141</code></p>
+<p>Seuls les blocs à l'écran sont dessinés.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Classer un bloc 3×3 pour une vue qui le couvre, qui s'en écarte de deux cases, puis de sept.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::assetGalleryVisibility(bloc, {0.0, 0.0, 10.0, 10.0})</code> vaut <code>hmi::AssetGalleryVisibility::Drawn</code>.</li><li>Vérifie que <code>hmi::assetGalleryVisibility(bloc, {5.0, 0.0, 10.0, 10.0})</code> vaut <code>hmi::AssetGalleryVisibility::Preloaded</code>.</li><li>Vérifie que <code>hmi::assetGalleryVisibility(bloc, {10.0, 0.0, 10.0, 10.0})</code> vaut <code>hmi::AssetGalleryVisibility::Unloaded</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="assetgallerytestimagejouee">AssetGalleryTest.ImageJouee</h3>
+<p><em>Majeur · Unitaire · Galerie des assets</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:161</code></p>
+<p>L'image jouée suit le temps.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander l'image d'un clip bouclé et d'un clip joué une fois à plusieurs instants.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::assetGalleryFrameRank(boucle, 0.16)</code> vaut <code>1</code>.</li><li>Vérifie que <code>hmi::assetGalleryFrameRank(boucle, 0.91)</code> vaut <code>0</code>.</li><li>Vérifie que <code>hmi::assetGalleryFrameRank(unique, 0.35)</code> vaut <code>3</code>.</li><li>Vérifie que <code>hmi::assetGalleryFrameRank(unique, 0.75)</code> vaut <code>3</code>.</li><li>Vérifie que <code>hmi::assetGalleryFrameRank(unique, 1.05)</code> vaut <code>0</code>.</li><li>Vérifie que <code>hmi::assetGalleryFrameRank(entry(&quot;fixe&quot;, 16, 16), 3.0)</code> vaut <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="assetgallerytestassetsdessai">AssetGalleryTest.AssetsDEssai</h3>
+<p><em>Bloquant · Unitaire · Galerie des assets</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:184</code></p>
+<p>La galerie lit les assets d'une racine.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire le catalogue de la racine d'essai.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>npcs</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>attack</code> diffère de <code>npcs-&gt;entries.end()</code>.</li><li>Vérifie que <code>attack-&gt;frameWidth</code> vaut <code>96</code>.</li><li>Vérifie que <code>attack-&gt;frameCount()</code> vaut <code>8</code>.</li><li>Vérifie que <code>attack-&gt;loop</code> est faux.</li><li>Vérifie que <code>familyNamed(catalog, &quot;Monstres&quot;)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>familyNamed(catalog, &quot;Scène · bourg&quot;)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>std::filesystem::is_regular_file(root / value.path)</code> est vrai.</li><li>Vérifie que <code>value.frameWidth</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>value.frameHeight</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>hmi::layoutAssetGallery(catalog).blocs.empty()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="assetgallerytesttoutassetlivreestdanslagalerie">AssetGalleryTest.ToutAssetLivreEstDansLaGalerie</h3>
+<p><em>Bloquant · Unitaire · Galerie des assets</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:226</code></p>
+<p>Aucun asset livré n'échappe à la galerie.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire le catalogue de Source/Elements/Assets. 2. Parcourir toutes les images livrées.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;UI/background/menu-scene.png&quot;)</code> est vrai.</li><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;Maps/world.jpg&quot;)</code> est vrai.</li><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;Fonts/Cinzel.ttf&quot;)</code> est vrai.</li><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;Regions/central-empire/capital/martpart/Scene/street.png&quot;)</code> est faux.</li><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;Npc/figurant/portrait.png&quot;)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="assetgallerytestfigurinesdemonstres">AssetGalleryTest.FigurinesDeMonstres</h3>
+<p><em>Majeur · Unitaire · Galerie des assets</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:256</code></p>
+<p>Une figurine Grande sans sort paraît dans la galerie.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Écrire un dossier Monsters/ : un manifeste qui nomme idle et cast, un lion qui n'a que idle, en cellules de 96 × 96. 2. Lire le catalogue.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>catalog.errors.empty()</code> est vrai.</li><li>Vérifie que <code>monsters</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>monsters-&gt;directory</code> vaut <code>&quot;Monsters&quot;</code>.</li><li>Vérifie que <code>monsters-&gt;entries.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>idle.model</code> vaut <code>&quot;lion&quot;</code>.</li><li>Vérifie que <code>idle.form</code> vaut <code>&quot;idle&quot;</code>.</li><li>Vérifie que <code>idle.path</code> vaut <code>&quot;Monsters/lion/idle.png&quot;</code>.</li><li>Vérifie que <code>idle.frameWidth</code> vaut <code>96</code>.</li><li>Vérifie que <code>idle.frameHeight</code> vaut <code>96</code>.</li><li>Vérifie que <code>idle.frameCount()</code> vaut <code>6</code>.</li><li>Vérifie que <code>idle.loop</code> est vrai.</li></ul>
+</section><h2 id="test-asset-gallery-renderercpp">test_asset_gallery_renderer.cpp</h2>
+<section class="case" data-crit="Bloquant"><h3 id="assetgalleryrenderertestchargementetliberation">AssetGalleryRendererTest.ChargementEtLiberation</h3>
+<p><em>Bloquant · Unitaire · Galerie des assets (rendu)</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery_renderer.cpp:111</code></p>
+<p>La galerie ne garde que les textures voulues.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Dessiner la figure au repos d'un PNJ. 2. Ne plus rien vouloir, 1 s puis 1,5 s.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>renderer.cachedTextureCount()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>paintedPixels(image)</code> est strictement supérieur à <code>100U</code>.</li><li>Vérifie que <code>renderer.cachedTextureCount()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>renderer.cachedTextureCount()</code> vaut <code>0U</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="assetgalleryrenderertestchargementsetalesetfichierabsent">AssetGalleryRendererTest.ChargementsEtalesEtFichierAbsent</h3>
+<p><em>Majeur · Unitaire · Galerie des assets (rendu)</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery_renderer.cpp:141</code></p>
+<p>Les chargements s'étalent, un fichier absent ne bloque rien.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Vouloir 30 textures d'un coup. 2. Dessiner une texture absente.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>renderer.cachedTextureCount()</code> vaut <code>static_cast&lt;std::size_t&gt;(hmi::AssetGalleryRenderer::UPLOADS_PER_FRAME)</code>.</li><li>Vérifie que <code>renderer.loading()</code> est vrai.</li><li>Vérifie que <code>renderer.cachedTextureCount()</code> vaut <code>28U</code>.</li><li>Vérifie que <code>renderer.loading()</code> est faux.</li><li>Vérifie que <code>absent.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>absent.cachedTextureCount()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>paintedPixels(image)</code> est strictement supérieur à <code>100U</code>.</li></ul>
+</section><h2 id="test-cache-registrycpp">test_cache_registry.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="cacheregistrytestchargeuneseulefoispouruneclerepetee">CacheRegistryTest.ChargeUneSeuleFoisPourUneCleRepetee</h3>
+<p><em>Critique · Unitaire · Registre de cache</em> — <code>Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:43</code></p>
+<p>Une clé demandée deux fois n'est chargée qu'une fois et rend la même entrée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>first</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>second</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>*first</code> vaut <code>42</code>.</li><li>Vérifie que <code>second</code> vaut <code>first</code>.</li><li>Vérifie que <code>loader.callCount()</code> vaut <code>1</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="cacheregistrytestinvalidateforcelerechargementdelacleseule">CacheRegistryTest.InvalidateForceLeRechargementDeLaCleSeule</h3>
+<p><em>Critique · Unitaire · Registre de cache</em> — <code>Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:68</code></p>
+<p>invalidate ne force le rechargement que de la clé visée, pas des autres.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaderA.callCount()</code> vaut <code>2</code>.</li><li>Vérifie que <code>loaderB.callCount()</code> vaut <code>1</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="cacheregistrytestinvalidateallvisetout">CacheRegistryTest.InvalidateAllViseTout</h3>
+<p><em>Critique · Unitaire · Registre de cache</em> — <code>Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:95</code></p>
+<p>invalidateAll vide le registre et fait relire toutes les clés.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>registry.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>registry.size()</code> vaut <code>0U</code>.</li><li>Vérifie que <code>loaderA.callCount()</code> vaut <code>2</code>.</li><li>Vérifie que <code>loaderB.callCount()</code> vaut <code>2</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="cacheregistrytestunechecestmemorisesansretenterlechargement">CacheRegistryTest.UnEchecEstMemoriseSansRetenterLeChargement</h3>
+<p><em>Critique · Unitaire · Registre de cache</em> — <code>Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:123</code></p>
+<p>Un échec de chargement est mémorisé : la clé absente n'est pas relue.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>first</code> vaut <code>nullptr</code>.</li><li>Vérifie que <code>second</code> vaut <code>nullptr</code>.</li><li>Vérifie que <code>loader.callCount()</code> vaut <code>1</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="cacheregistrytestinvalidatesurunechecpermetunnouvelessai">CacheRegistryTest.InvalidateSurUnEchecPermetUnNouvelEssai</h3>
+<p><em>Critique · Unitaire · Registre de cache</em> — <code>Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:146</code></p>
+<p>Invalider une clé en échec autorise un nouvel essai, qui peut réussir.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>*result</code> vaut <code>7</code>.</li></ul>
+</section><h2 id="test-camera2dcpp">test_camera2d.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="camera2dtestcentreaumilieudelecran">Camera2DTest.CentreAuMilieuDeLEcran</h3>
+<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:25</code></p>
+<p>Le centre de la caméra se projette au centre de l'écran.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>screen.x</code> vaut <code>WIDTH * 0.5f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>screen.y</code> vaut <code>HEIGHT * 0.5f</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestcenteretzoomrenvoientlesvaleursposees">Camera2DTest.CenterEtZoomRenvoientLesValeursPosees</h3>
+<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:45</code></p>
+<p>center() et zoom() renvoient exactement les valeurs posées.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>camera.center().x</code> vaut <code>3.0f</code> (comparaison flottante).</li><li>Vérifie que <code>camera.center().y</code> vaut <code>4.0f</code> (comparaison flottante).</li><li>Vérifie que <code>camera.zoom()</code> vaut <code>2.5f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestechelleetaxey">Camera2DTest.EchelleEtAxeY</h3>
+<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:64</code></p>
+<p>Une unité monde vaut 16 pixels ; l'axe Y va vers le bas.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>right.x</code> vaut <code>WIDTH * 0.5f + 16.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>right.y</code> vaut <code>HEIGHT * 0.5f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>down.y</code> vaut <code>HEIGHT * 0.5f + 16.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestzoom">Camera2DTest.Zoom</h3>
+<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:86</code></p>
+<p>Le zoom multiplie l'échelle en pixels.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>right.x</code> vaut <code>WIDTH * 0.5f + 32.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestconversionsreciproques">Camera2DTest.ConversionsReciproques</h3>
+<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:104</code></p>
+<p><code>screenToWorld</code> est la réciproque de <code>worldToScreen</code>.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>roundTrip.x</code> vaut <code>world.x</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>roundTrip.y</code> vaut <code>world.y</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestprojectioncentreversorigineclip">Camera2DTest.ProjectionCentreVersOrigineClip</h3>
+<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:125</code></p>
+<p>La matrice de projection envoie le centre de la caméra à l'origine du clip space.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.x</code> vaut <code>0.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>result.y</code> vaut <code>0.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>result.w</code> vaut <code>1.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestbordecranversbordclip">Camera2DTest.BordEcranVersBordClip</h3>
+<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:152</code></p>
+<p>Un coin de l'écran correspond à un bord du clip space (±1).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.x</code> vaut <code>1.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestfitzoomentierpourpetitniveau">Camera2DTest.FitZoomEntierPourPetitNiveau</h3>
+<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:176</code></p>
+<p>fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit niveau).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>zoom</code> est supérieur ou égal à <code>1.0f</code>.</li><li>Vérifie que <code>zoom</code> vaut <code>std::floor(zoom)</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestfitzoomfractionnairepourgrandniveau">Camera2DTest.FitZoomFractionnairePourGrandNiveau</h3>
+<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:195</code></p>
+<p>fitZoom devient fractionnaire pour un niveau plus grand que la surface disponible.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>zoom</code> est strictement supérieur à <code>0.0f</code>.</li><li>Vérifie que <code>zoom</code> est strictement inférieur à <code>1.0f</code>.</li><li>Vérifie que <code>100.0f * hmi::Camera2D::PIXELS_PER_UNIT * zoom</code> est inférieur ou égal à <code>1280.0f + TOLERANCE</code>.</li><li>Vérifie que <code>100.0f * hmi::Camera2D::PIXELS_PER_UNIT * zoom</code> est inférieur ou égal à <code>720.0f + TOLERANCE</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="camera2dtestfitzoomappliquelamarge">Camera2DTest.FitZoomAppliqueLaMarge</h3>
+<p><em>Mineur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:216</code></p>
+<p>fitZoom applique la marge avant l'arrondi.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>zoomSansMarge</code> vaut <code>5.0f</code> (comparaison flottante).</li><li>Vérifie que <code>zoomAvecMarge</code> vaut <code>4.0f</code> (comparaison flottante).</li></ul>
+</section><h2 id="test-city-block-rendercpp">test_city_block_render.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="cityblockrendertestlecadragecontientlilot">CityBlockRenderTest.LeCadrageContientLIlot</h3>
+<p><em>Majeur · Unitaire · Plan de la ville</em> — <code>Source/Test/Unit/HMI/Graphics/test_city_block_render.cpp:36</code></p>
+<p>Le cadrage d'un ilot couvre son losange englobant, plus la hauteur des pieces.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Cadrer un ilot de 10 x 8 cases, puis un de 20 x 16, sur une carte de 48 x 40.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>cadrePetit.pixelWidth</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>cadreGrand.pixelWidth</code> vaut <code>2 * cadrePetit.pixelWidth</code>.</li><li>Vérifie que <code>static_cast&lt;float&gt;(cadrePetit.pixelHeight)</code> est strictement supérieur à <code>losange</code>.</li><li>Vérifie que <code>cadrePetit.focus.x + cadrePetit.focus.y</code> est strictement inférieur à <code>15.0F + 14.0F</code>.</li><li>Vérifie que <code>cadrePetit.focus.x - cadrePetit.focus.y</code> vaut <code>15.0F - 14.0F</code>, à <code>0.01F</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="cityblockrendertestunilotdevientuneimage">CityBlockRenderTest.UnIlotDevientUneImage</h3>
+<p><em>Majeur · Unitaire · Plan de la ville</em> — <code>Source/Test/Unit/HMI/Graphics/test_city_block_render.cpp:67</code></p>
+<p>Un ilot d'un lieu se dessine hors ecran, a la taille de son cadrage.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte de ville, sa table d'apparence et son plus grand ilot.</li><li>Le dessiner hors ecran.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>lu.ok()</code> est vrai.</li><li>Vérifie que <code>table.ok()</code> est vrai.</li><li>Vérifie que <code>place</code> diffère de <code>ilots.end()</code>.</li><li>Vérifie que <code>image.width()</code> vaut <code>cadrage.pixelWidth</code>.</li><li>Vérifie que <code>image.height()</code> vaut <code>cadrage.pixelHeight</code>.</li><li>Vérifie que <code>peints * 3</code> est strictement supérieur à <code>echantillons</code>.</li></ul>
+</section><h2 id="test-depth-sortcpp">test_depth_sort.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="triparprofondeurtesttroisprimitivessortentparpiedcroissant">TriParProfondeurTest.TroisPrimitivesSortentParPiedCroissant</h3>
+<p><em>Critique · Unitaire · Tri par profondeur</em> — <code>Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:46</code></p>
+<p>Trois primitives a Y croissants sortent dans l'ordre de leur pied.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer trois primitives de la bande de profondeur, dans le desordre, avec deux textures differentes.</li><li>Trier la scene.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.size()</code> vaut <code>3u</code>.</li><li>Vérifie que <code>scene.quads()[0].sprite.x</code> vaut <code>1.0f</code> (comparaison flottante).</li><li>Vérifie que <code>scene.quads()[1].sprite.x</code> vaut <code>2.0f</code> (comparaison flottante).</li><li>Vérifie que <code>scene.quads()[2].sprite.x</code> vaut <code>0.0f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="triparprofondeurtestpersonnageentredeuxobjets">TriParProfondeurTest.PersonnageEntreDeuxObjets</h3>
+<p><em>Critique · Unitaire · Tri par profondeur</em> — <code>Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:73</code></p>
+<p>Le personnage passe derriere un objet plus bas et devant un objet plus haut.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer un arbre au-dessus du personnage, le personnage, puis un arbre en dessous.</li><li>Trier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.size()</code> vaut <code>3u</code>.</li><li>Vérifie que <code>scene.quads()[0].layer</code> vaut <code>hmi::RenderLayer::Object</code>.</li><li>Vérifie que <code>scene.quads()[1].layer</code> vaut <code>hmi::RenderLayer::Player</code>.</li><li>Vérifie que <code>scene.quads()[2].layer</code> vaut <code>hmi::RenderLayer::Object</code>.</li><li>Vérifie que <code>scene.quads()[2].sprite.x</code> vaut <code>2.0f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="triparprofondeurtestpiedegalconservelordredecomposition">TriParProfondeurTest.PiedEgalConserveLOrdreDeComposition</h3>
+<p><em>Critique · Unitaire · Tri par profondeur</em> — <code>Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:101</code></p>
+<p>A pied egal, l'ordre de composition est preserve : aucun scintillement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer trois primitives de meme pied, a des positions differentes.</li><li>Trier.</li><li>Recomposer et retrier a l'identique.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>first</code> vaut <code>second</code>.</li><li>Vérifie que <code>first.size()</code> vaut <code>3u</code>.</li><li>Vérifie que <code>first[0]</code> vaut <code>3.0f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="triparprofondeurtestquantificationaupixel">TriParProfondeurTest.QuantificationAuPixel</h3>
+<p><em>Majeur · Unitaire · Tri par profondeur</em> — <code>Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:137</code></p>
+<p>Un ecart inferieur au pixel ne departage pas deux profondeurs.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer l'ordre de deux pieds distants d'un centieme d'unite.</li><li>Le comparer a celui de deux pieds distants d'une demi-unite.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::depthSortOrder(4.0f)</code> vaut <code>hmi::depthSortOrder(4.01f)</code>.</li><li>Vérifie que <code>hmi::depthSortOrder(4.0f)</code> est strictement inférieur à <code>hmi::depthSortOrder(4.5f)</code>.</li><li>Vérifie que <code>hmi::depthSortOrder(1.0f)</code> est strictement inférieur à <code>hmi::depthSortOrder(9.0f)</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="triparprofondeurtestlaprofondeurnedebordepasdesabande">TriParProfondeurTest.LaProfondeurNeDebordePasDeSaBande</h3>
+<p><em>Critique · Unitaire · Tri par profondeur</em> — <code>Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:155</code></p>
+<p>La profondeur ne deborde pas de sa bande.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer une tuile, un objet tres bas, un element d'interface tres haut.</li><li>Trier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.size()</code> vaut <code>3u</code>.</li><li>Vérifie que <code>scene.quads()[0].layer</code> vaut <code>hmi::RenderLayer::Tile</code>.</li><li>Vérifie que <code>scene.quads()[1].layer</code> vaut <code>hmi::RenderLayer::Object</code>.</li><li>Vérifie que <code>scene.quads()[2].layer</code> vaut <code>hmi::RenderLayer::UI</code>.</li><li>Vérifie que <code>recorder.isLayerOrderRespected()</code> est vrai.</li></ul>
+</section><h2 id="test-entity-markerscpp">test_entity_markers.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="entitymarkerstesttypecamelcasedevientuneclekebabcase">EntityMarkersTest.TypeCamelCaseDevientUneCleKebabCase</h3>
+<p><em>Majeur · Unitaire · Marqueurs d'entite</em> — <code>Source/Test/Unit/HMI/Graphics/test_entity_markers.cpp:22</code></p>
+<p>Le type d'entite devient une cle de marqueur en kebab-case.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Convertir spawnPoint, arenaEntry, chest, NPCGuard et chest2.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::entityMarkerKey(&quot;spawnPoint&quot;)</code> vaut <code>&quot;marker/spawn-point&quot;</code>.</li><li>Vérifie que <code>hmi::entityMarkerKey(&quot;arenaEntry&quot;)</code> vaut <code>&quot;marker/arena-entry&quot;</code>.</li><li>Vérifie que <code>hmi::entityMarkerKey(&quot;chest&quot;)</code> vaut <code>&quot;marker/chest&quot;</code>.</li><li>Vérifie que <code>hmi::entityMarkerKey(&quot;NPCGuard&quot;)</code> vaut <code>&quot;marker/npc-guard&quot;</code>.</li><li>Vérifie que <code>hmi::entityMarkerKey(&quot;chest2&quot;)</code> vaut <code>&quot;marker/chest2&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="entitymarkerstestcaracteresinterditsignoresetseparateursnormalises">EntityMarkersTest.CaracteresInterditsIgnoresEtSeparateursNormalises</h3>
+<p><em>Majeur · Unitaire · Marqueurs d'entite</em> — <code>Source/Test/Unit/HMI/Graphics/test_entity_markers.cpp:39</code></p>
+<p>Caracteres interdits ignores, separateurs normalises.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Convertir des types avec tirets bas, espaces, ponctuation et accents.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::entityMarkerKey(&quot;_old__chest_&quot;)</code> vaut <code>&quot;marker/old-chest&quot;</code>.</li><li>Vérifie que <code>hmi::entityMarkerKey(&quot; wooden - sign &quot;)</code> vaut <code>&quot;marker/wooden-sign&quot;</code>.</li><li>Vérifie que <code>hmi::entityMarkerKey(&quot;a.b!c&quot;)</code> vaut <code>&quot;marker/abc&quot;</code>.</li><li>Vérifie que <code>hmi::entityMarkerKey(&quot;a.B&quot;)</code> vaut <code>&quot;marker/a-b&quot;</code>.</li><li>Vérifie que <code>hmi::entityMarkerKey(&quot;coffre\xC3\xA9&quot;)</code> vaut <code>&quot;marker/coffre&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="entitymarkerstesttypevidedonnelemarqueurinconnu">EntityMarkersTest.TypeVideDonneLeMarqueurInconnu</h3>
+<p><em>Majeur · Unitaire · Marqueurs d'entite</em> — <code>Source/Test/Unit/HMI/Graphics/test_entity_markers.cpp:56</code></p>
+<p>Un type vide donne le marqueur inconnu.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Convertir "", "---" et "!?".</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::entityMarkerKey(&quot;&quot;)</code> vaut <code>&quot;marker/inconnu&quot;</code>.</li><li>Vérifie que <code>hmi::entityMarkerKey(&quot;---&quot;)</code> vaut <code>&quot;marker/inconnu&quot;</code>.</li><li>Vérifie que <code>hmi::entityMarkerKey(&quot;!?&quot;)</code> vaut <code>&quot;marker/inconnu&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="entitymarkerstestchaquecleestvalideetsepeint">EntityMarkersTest.ChaqueCleEstValideEtSePeint</h3>
+<p><em>Critique · Unitaire · Marqueurs d'entite</em> — <code>Source/Test/Unit/HMI/Graphics/test_entity_markers.cpp:72</code></p>
+<p>Chaque cle de marqueur est une cle d'asset valide qui se peint.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Convertir chaque type de knownEntityKinds et des types hostiles.</li><li>Valider la cle et peindre le marqueur.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::isValidAssetKey(key)</code> est vrai.</li><li>Vérifie que <code>image.isEmpty()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="entitymarkerstestpixelsempaquetesenrgba8">EntityMarkersTest.PixelsEmpaquetesEnRgba8</h3>
+<p><em>Majeur · Unitaire · Marqueurs d'entite</em> — <code>Source/Test/Unit/HMI/Graphics/test_entity_markers.cpp:97</code></p>
+<p>Les pixels du marqueur sont empaquetes au format de createTexture.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Empaqueter une image 2x1 connue.</li><li>Empaqueter une image vide.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>pixels.size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>pixels[0]</code> vaut <code>0x44332211u</code>.</li><li>Vérifie que <code>pixels[1]</code> vaut <code>0xFFCCBBAAu</code>.</li><li>Vérifie que <code>hmi::markerPixelsRgba8(core::MarkerImage{}).empty()</code> est vrai.</li></ul>
+</section><h2 id="test-image-encodecpp">test_image_encode.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="imageencodeallerretourexactalphacompris">ImageEncode.AllerRetourExactAlphaCompris</h3>
+<p><em>Critique · Unitaire · Encodage image</em> — <code>Source/Test/Unit/HMI/Graphics/test_image_encode.cpp:75</code></p>
+<p>Encoder puis decoder une image restitue exactement les memes pixels, alpha compris.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Encoder une image 2x2 couvrant plusieurs niveaux d'alpha vers un fichier PNG.</li><li>Decoder ce fichier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::encodeImageFile(path, original)</code> est vrai.</li><li>Vérifie que <code>decoded.has_value()</code> est vrai.</li><li>Vérifie que <code>decoded-&gt;width</code> vaut <code>original.width</code>.</li><li>Vérifie que <code>decoded-&gt;height</code> vaut <code>original.height</code>.</li><li>Vérifie que <code>decoded-&gt;pixels</code> vaut <code>original.pixels</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="imageencodedossierinexistantechoueproprement">ImageEncode.DossierInexistantEchoueProprement</h3>
+<p><em>Majeur · Unitaire · Encodage image</em> — <code>Source/Test/Unit/HMI/Graphics/test_image_encode.cpp:100</code></p>
+<p>Encoder vers un dossier inexistant echoue proprement, sans exception.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Tenter d'encoder une image vers un chemin dont le dossier parent n'existe pas.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li><code>EXPECT_NO_THROW(result = hmi::encodeImageFile(path, original))</code></li><li>Vérifie que <code>result</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="imageencodedimensionsincoherentesechouentproprement">ImageEncode.DimensionsIncoherentesEchouentProprement</h3>
+<p><em>Majeur · Unitaire · Encodage image</em> — <code>Source/Test/Unit/HMI/Graphics/test_image_encode.cpp:119</code></p>
+<p>Encoder une image aux dimensions incoherentes echoue proprement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire une image dont le nombre de pixels ne correspond pas a largeur*hauteur.</li><li>Tenter de l'encoder.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li><code>EXPECT_NO_THROW(result = hmi::encodeImageFile(path, broken))</code></li><li>Vérifie que <code>result</code> est faux.</li><li>Vérifie que <code>fileCount()</code> vaut <code>0U</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="imageencodeaucunfichiertemporaireapressucces">ImageEncode.AucunFichierTemporaireApresSucces</h3>
+<p><em>Majeur · Unitaire · Encodage image</em> — <code>Source/Test/Unit/HMI/Graphics/test_image_encode.cpp:142</code></p>
+<p>Aucun fichier temporaire ne subsiste apres un encodage reussi.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Encoder une image vers un fichier.</li><li>Lister le dossier de destination.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::encodeImageFile(dir / &quot;asset.png&quot;, sampleImage())</code> est vrai.</li><li>Vérifie que <code>fileCount()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>std::filesystem::exists(dir / &quot;asset.png&quot;)</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="imageencodeecrasementatomiquesansresidu">ImageEncode.EcrasementAtomiqueSansResidu</h3>
+<p><em>Majeur · Unitaire · Encodage image</em> — <code>Source/Test/Unit/HMI/Graphics/test_image_encode.cpp:160</code></p>
+<p>Enregistrer par-dessus un asset existant remplace son contenu sans residu.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Encoder une premiere image vers un fichier.</li><li>Encoder une seconde image differente vers le meme fichier.</li><li>Decoder le fichier et lister le dossier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::encodeImageFile(path, sampleImage())</code> est vrai.</li><li>Vérifie que <code>hmi::encodeImageFile(path, second)</code> est vrai.</li><li>Vérifie que <code>decoded.has_value()</code> est vrai.</li><li>Vérifie que <code>decoded-&gt;width</code> vaut <code>1</code>.</li><li>Vérifie que <code>decoded-&gt;height</code> vaut <code>1</code>.</li><li>Vérifie que <code>fileCount()</code> vaut <code>1U</code>.</li></ul>
+</section><h2 id="test-maquette-tokenscpp">test_maquette_tokens.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="maquettetokentestlalettreestlapremierealphanumerique">MaquetteTokenTest.LaLettreEstLaPremiereAlphanumerique</h3>
+<p><em>Majeur · Unitaire · Jetons de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:16</code></p>
+<p>La lettre d'un jeton est la premiere alphanumerique de son nom.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander la lettre de plusieurs noms, dont un vide et un sans lettre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::maquetteTokenLetter(&quot;market-mother&quot;)</code> vaut <code>&#x27;M&#x27;</code>.</li><li>Vérifie que <code>hmi::maquetteTokenLetter(&quot;-- arenarea&quot;)</code> vaut <code>&#x27;A&#x27;</code>.</li><li>Vérifie que <code>hmi::maquetteTokenLetter(&quot;2e-porte&quot;)</code> vaut <code>&#x27;2&#x27;</code>.</li><li>Vérifie que <code>hmi::maquetteTokenLetter(&quot;&quot;)</code> vaut <code>&#x27;?&#x27;</code>.</li><li>Vérifie que <code>hmi::maquetteTokenLetter(&quot;---&quot;)</code> vaut <code>&#x27;?&#x27;</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="maquettetokentestlecheminserelit">MaquetteTokenTest.LeCheminSeRelit</h3>
+<p><em>Critique · Unitaire · Jetons de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:34</code></p>
+<p>Le chemin d'un jeton se relit en sa nature et sa lettre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ecrire puis relire le chemin de chaque nature.</li><li>Relire des chemins qui n'en sont pas.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>relu.has_value()</code> est vrai.</li><li>Vérifie que <code>relu-&gt;kind</code> vaut <code>kind</code>.</li><li>Vérifie que <code>relu-&gt;letter</code> vaut <code>&#x27;W&#x27;</code>.</li><li>Vérifie que <code>hmi::parseMaquetteTokenPath(&quot;Scene/coliseum/sand.png&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>hmi::parseMaquetteTokenPath(&quot;Npc/anariel/idle.png&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>hmi::parseMaquetteTokenPath(&quot;Token/inconnu/W.png&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>hmi::parseMaquetteTokenPath(&quot;Token/player/MOT.png&quot;).has_value()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="maquettetokentestunelettreillisibledonneunpointdinterrogation">MaquetteTokenTest.UneLettreIllisibleDonneUnPointDInterrogation</h3>
+<p><em>Majeur · Unitaire · Jetons de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:62</code></p>
+<p>Un nom illisible donne le chemin du point d'interrogation.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ecrire le chemin d'un jeton dont la lettre est un caractere de ponctuation.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>relu.has_value()</code> est vrai.</li><li>Vérifie que <code>relu-&gt;letter</code> vaut <code>&#x27;?&#x27;</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="maquettetokentestlimageestundisquealettredeterministe">MaquetteTokenTest.LImageEstUnDisqueALettreDeterministe</h3>
+<p><em>Critique · Unitaire · Jetons de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:79</code></p>
+<p>L'image d'un jeton est un disque a lettre, deterministe.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Peindre deux fois le meme jeton.</li><li>Examiner le centre, un coin, et deux lettres differentes.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>premiere.isEmpty()</code> est faux.</li><li>Vérifie que <code>premiere.width</code> vaut <code>44</code>.</li><li>Vérifie que <code>premiere.height</code> vaut <code>44</code>.</li><li>Vérifie que <code>premiere.pixels</code> vaut <code>seconde.pixels</code>.</li><li>Vérifie que <code>premiere.at(0, 0).a</code> vaut <code>0</code>.</li><li>Vérifie que <code>premiere.at(43, 43).a</code> vaut <code>0</code>.</li><li>Vérifie que <code>premiere.at(22, 22).a</code> vaut <code>255</code>.</li><li>Vérifie que <code>premiere.pixels</code> diffère de <code>autre.pixels</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="maquettetokentestunedemandeimpossiblerenduneimagevide">MaquetteTokenTest.UneDemandeImpossibleRendUneImageVide</h3>
+<p><em>Majeur · Unitaire · Jetons de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:112</code></p>
+<p>Une demande impossible rend une image vide.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander un jeton de cote nul, puis l'image d'un chemin de planche.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::maquetteTokenImage(hmi::MaquetteTokenRequest{}, 0).isEmpty()</code> est vrai.</li><li>Vérifie que <code>hmi::maquetteTokenImage(&quot;Scene/coliseum/sand.png&quot;, 44).isEmpty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="maquettetokentestlessixnaturesontsixteintes">MaquetteTokenTest.LesSixNaturesOntSixTeintes</h3>
+<p><em>Majeur · Unitaire · Jetons de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:127</code></p>
+<p>Les six natures de jeton ont six teintes distinctes.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Comparer les teintes des six natures deux a deux.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::maquetteTokenColor(natures[i]) == hmi::maquetteTokenColor(natures[j])</code> est faux.</li><li>Vérifie que <code>hmi::maquetteTokenKindKey(natures[i])</code> diffère de <code>hmi::maquetteTokenKindKey(natures[j])</code>.</li></ul>
+</section><h2 id="test-missing-texturecpp">test_missing_texture.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="missingtexturetestdimensionsattendues">MissingTextureTest.DimensionsAttendues</h3>
+<p><em>Majeur · Unitaire · Missing Texture</em> — <code>Source/Test/Unit/HMI/Graphics/test_missing_texture.cpp:30</code></p>
+<p>Le damier genere a les dimensions demandees.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Generer le damier par defaut, puis un damier de 32 px.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>image.width</code> vaut <a class="ref" href="../reference/namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3"><code>hmi::MISSING_TEXTURE_SIZE</code></a>.</li><li>Vérifie que <code>image.height</code> vaut <a class="ref" href="../reference/namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3"><code>hmi::MISSING_TEXTURE_SIZE</code></a>.</li><li>Vérifie que <code>image.pixels.size()</code> vaut <code>static_cast&lt;std::size_t&gt;(image.width) * static_cast&lt;std::size_t&gt;(image.height)</code>.</li><li>Vérifie que <code>large.width</code> vaut <code>32</code>.</li><li>Vérifie que <code>large.height</code> vaut <code>32</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="missingtexturetestgenerationdeterministe">MissingTextureTest.GenerationDeterministe</h3>
+<p><em>Majeur · Unitaire · Missing Texture</em> — <code>Source/Test/Unit/HMI/Graphics/test_missing_texture.cpp:52</code></p>
+<p>La generation du damier est deterministe.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Generer deux fois le damier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::buildMissingTextureImage().pixels</code> vaut <code>hmi::buildMissingTextureImage().pixels</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="missingtexturetestcarreauxalternesmagentaetnoir">MissingTextureTest.CarreauxAlternesMagentaEtNoir</h3>
+<p><em>Critique · Unitaire · Missing Texture</em> — <code>Source/Test/Unit/HMI/Graphics/test_missing_texture.cpp:66</code></p>
+<p>Les carreaux du damier alternent magenta et noir.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Generer le damier.</li><li>Lire un pixel de chacun des quatre premiers carreaux.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>pixelAt(image, 0, 0)</code> vaut <code>MAGENTA</code>.</li><li>Vérifie que <code>pixelAt(image, STEP, 0)</code> vaut <code>BLACK</code>.</li><li>Vérifie que <code>pixelAt(image, 0, STEP)</code> vaut <code>BLACK</code>.</li><li>Vérifie que <code>pixelAt(image, STEP, STEP)</code> vaut <code>MAGENTA</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="missingtexturetestdamierentierementopaque">MissingTextureTest.DamierEntierementOpaque</h3>
+<p><em>Critique · Unitaire · Missing Texture</em> — <code>Source/Test/Unit/HMI/Graphics/test_missing_texture.cpp:87</code></p>
+<p>Tous les pixels du damier sont opaques.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Generer le damier.</li><li>Verifier le canal alpha de chaque pixel.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>pixel &gt;&gt; 24</code> vaut <code>0xFFu</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="missingtexturetestavertissementnommeasset">MissingTextureTest.AvertissementNommeAsset</h3>
+<p><em>Majeur · Unitaire · Missing Texture</em> — <code>Source/Test/Unit/HMI/Graphics/test_missing_texture.cpp:105</code></p>
+<p>L'avertissement de texture manquante nomme l'asset attendu.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire le message pour un asset donne.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>message.find(&quot;Backgrounds/foret.png&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><h2 id="test-poly-quadcpp">test_poly_quad.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="polyquadtestboiteenglobantedessommets">PolyQuadTest.BoiteEnglobanteDesSommets</h3>
+<p><em>Majeur · Unitaire · PolyQuad</em> — <code>Source/Test/Unit/HMI/Graphics/test_poly_quad.cpp:38</code></p>
+<p>La boite englobante d'un losange est celle de ses quatre sommets.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Borner un losange de 4 x 2 pose en (10, 20).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>bounds.position.x</code> vaut <code>10.0f</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.position.y</code> vaut <code>20.0f</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.size.x</code> vaut <code>4.0f</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.size.y</code> vaut <code>2.0f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="polyquadtestcullingcommelesautres">PolyQuadTest.CullingCommeLesAutres</h3>
+<p><em>Critique · Unitaire · PolyQuad</em> — <code>Source/Test/Unit/HMI/Graphics/test_poly_quad.cpp:57</code></p>
+<p>Un losange hors cadrage est ecarte, celui du cadrage est conserve.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Fixer un cadrage.</li><li>Composer un losange dedans, puis un losange loin dehors.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.addPoly(hmi::RenderLayer::Tile, solid, 0, diamond(15.0f, 15.0f, 2.0f, 1.0f))</code> est vrai.</li><li>Vérifie que <code>scene.addPoly(hmi::RenderLayer::Tile, solid, 0, diamond(800.0f, 15.0f, 2.0f, 1.0f))</code> est faux.</li><li>Vérifie que <code>scene.statistics().considered</code> vaut <code>2</code>.</li><li>Vérifie que <code>scene.statistics().culled</code> vaut <code>1</code>.</li><li>Vérifie que <code>scene.statistics().submitted</code> vaut <code>1</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="polyquadtestnatureetsommetspreserves">PolyQuadTest.NatureEtSommetsPreserves</h3>
+<p><em>Majeur · Unitaire · PolyQuad</em> — <code>Source/Test/Unit/HMI/Graphics/test_poly_quad.cpp:81</code></p>
+<p>Le quad compose porte bien la nature Poly et ses sommets intacts.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer un losange sans cadrage.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.addPoly(hmi::RenderLayer::Tile, solid, 7, given)</code> est vrai.</li><li>Vérifie que <code>composed.kind</code> vaut <code>hmi::QuadKind::Poly</code>.</li><li>Vérifie que <code>composed.sortOrder</code> vaut <code>7</code>.</li><li>Vérifie que <code>composed.poly.x[i]</code> vaut <code>given.x[i]</code> (comparaison flottante).</li><li>Vérifie que <code>composed.poly.y[i]</code> vaut <code>given.y[i]</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="polyquadtesttrieaveclesautresprimitives">PolyQuadTest.TrieAvecLesAutresPrimitives</h3>
+<p><em>Critique · Unitaire · PolyQuad</em> — <code>Source/Test/Unit/HMI/Graphics/test_poly_quad.cpp:106</code></p>
+<p>Un losange se trie avec les autres primitives, par calque puis par texture.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer un sprite de decor, puis un losange de sol, puis un second losange de sol.</li><li>Trier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>scene.quads()[0].layer</code> vaut <code>hmi::RenderLayer::Tile</code>.</li><li>Vérifie que <code>scene.quads()[1].layer</code> vaut <code>hmi::RenderLayer::Tile</code>.</li><li>Vérifie que <code>scene.quads()[2].layer</code> vaut <code>hmi::RenderLayer::Object</code>.</li><li>Vérifie que <code>scene.batchCount()</code> vaut <code>2</code>.</li></ul>
+</section><h2 id="test-procedural-atlascpp">test_procedural_atlas.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="proceduralatlastestdimensionsattendues">ProceduralAtlasTest.DimensionsAttendues</h3>
+<p><em>Majeur · Unitaire · Procedural Atlas</em> — <code>Source/Test/Unit/HMI/Graphics/test_procedural_atlas.cpp:21</code></p>
+<p>L'image générée a les dimensions attendues (grille de tuiles).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>image.width</code> vaut <code>gridSide</code>.</li><li>Vérifie que <code>image.height</code> vaut <code>gridSide</code>.</li><li>Vérifie que <code>image.pixels.size()</code> vaut <code>static_cast&lt;std::size_t&gt;(image.width) * static_cast&lt;std::size_t&gt;(image.height)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="proceduralatlastestgenerationdeterministe">ProceduralAtlasTest.GenerationDeterministe</h3>
+<p><em>Majeur · Unitaire · Procedural Atlas</em> — <code>Source/Test/Unit/HMI/Graphics/test_procedural_atlas.cpp:42</code></p>
+<p>La génération est déterministe : deux appels produisent des pixels identiques.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>first.width</code> vaut <code>second.width</code>.</li><li>Vérifie que <code>first.height</code> vaut <code>second.height</code>.</li><li>Vérifie que <code>first.pixels</code> vaut <code>second.pixels</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="proceduralatlastestdamierdetransparencedansladernieretuile">ProceduralAtlasTest.DamierDeTransparenceDansLaDerniereTuile</h3>
+<p><em>Mineur · Unitaire · Procedural Atlas</em> — <code>Source/Test/Unit/HMI/Graphics/test_procedural_atlas.cpp:63</code></p>
+<p>La dernière tuile de la grille contient des pixels opaques et transparents (damier).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>sawOpaque</code> est vrai.</li><li>Vérifie que <code>sawTransparent</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="proceduralatlastestchaquetypedetuileaunecouleurdereplidistincte">ProceduralAtlasTest.ChaqueTypeDeTuileAUneCouleurDeRepliDistincte</h3>
+<p><em>Critique · Unitaire · Atlas procedural</em> — <code>Source/Test/Unit/HMI/Graphics/test_procedural_atlas.cpp:107</code></p>
+<p>Chaque type de tuile a une couleur de repli visible et distincte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Generer l'atlas procedural.</li><li>Echantillonner le centre de la case de chaque type de tuile, hors case vide.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>color</code> diffère de <code>0xFF000000u</code>.</li><li>Vérifie que <code>inserted.second</code> est vrai.</li></ul>
+</section><h2 id="test-quad-recordercpp">test_quad_recorder.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="quadrecordertestcalqueprimesurtexture">QuadRecorderTest.CalquePrimeSurTexture</h3>
+<p><em>Critique · Unitaire · Quad Recorder</em> — <code>Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp:41</code></p>
+<p>Le calque prime sur la texture dans l'ordre de soumission.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer un quad Player (texture A) puis un quad Tile (texture B).</li><li>Trier et capturer la scene.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>recorder.size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>recorder.quads()[0].layer</code> vaut <code>hmi::RenderLayer::Tile</code>.</li><li>Vérifie que <code>recorder.quads()[1].layer</code> vaut <code>hmi::RenderLayer::Player</code>.</li><li>Vérifie que <code>recorder.isLayerOrderRespected()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="quadrecordertesttroiscalquesdeuxtexturesordonnes">QuadRecorderTest.TroisCalquesDeuxTexturesOrdonnes</h3>
+<p><em>Critique · Unitaire · Quad Recorder</em> — <code>Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp:67</code></p>
+<p>Trois calques et deux textures : ordre des calques et groupes de texture contigus.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer six quads en alternant calques et textures.</li><li>Trier et capturer.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>recorder.isLayerOrderRespected()</code> est vrai.</li><li>Vérifie que <code>recorder.areTextureGroupsContiguous()</code> est vrai.</li><li>Vérifie que <code>layers.size()</code> vaut <code>3u</code>.</li><li>Vérifie que <code>layers[0]</code> vaut <code>hmi::RenderLayer::Background</code>.</li><li>Vérifie que <code>layers[1]</code> vaut <code>hmi::RenderLayer::Tile</code>.</li><li>Vérifie que <code>layers[2]</code> vaut <code>hmi::RenderLayer::Player</code>.</li><li>Vérifie que <code>recorder.countOnLayer(hmi::RenderLayer::Tile)</code> vaut <code>3</code>.</li><li>Vérifie que <code>recorder.countWithTexture(textureA)</code> vaut <code>3</code>.</li><li>Vérifie que <code>recorder.countWithTexture(textureB)</code> vaut <code>3</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="quadrecordertesttristableaclefegale">QuadRecorderTest.TriStableAClefEgale</h3>
+<p><em>Majeur · Unitaire · Quad Recorder</em> — <code>Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp:104</code></p>
+<p>Le tri est stable : a cle egale l'ordre de composition est preserve.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer trois quads identiques en cle, a des positions differentes.</li><li>Trier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.size()</code> vaut <code>3u</code>.</li><li>Vérifie que <code>scene.quads()[0].sprite.x</code> vaut <code>3.0f</code> (comparaison flottante).</li><li>Vérifie que <code>scene.quads()[1].sprite.x</code> vaut <code>1.0f</code> (comparaison flottante).</li><li>Vérifie que <code>scene.quads()[2].sprite.x</code> vaut <code>2.0f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="quadrecordertesttrifinparspritelayer">QuadRecorderTest.TriFinParSpriteLayer</h3>
+<p><em>Majeur · Unitaire · Quad Recorder</em> — <code>Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp:128</code></p>
+<p>Le tri fin par Sprite::layer subsiste a l'interieur d'un calque.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer trois quads du meme calque avec des tris fins decroissants.</li><li>Trier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.size()</code> vaut <code>3u</code>.</li><li>Vérifie que <code>scene.quads()[0].sortOrder</code> vaut <code>0</code>.</li><li>Vérifie que <code>scene.quads()[1].sortOrder</code> vaut <code>1</code>.</li><li>Vérifie que <code>scene.quads()[2].sortOrder</code> vaut <code>2</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="quadrecordertestdeuxtexturesdeuxpasses">QuadRecorderTest.DeuxTexturesDeuxPasses</h3>
+<p><em>Majeur · Unitaire · Quad Recorder</em> — <code>Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp:152</code></p>
+<p>Le nombre de passes egale le nombre de groupes de texture.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer quatre quads d'un meme calque en alternant deux textures.</li><li>Trier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.batchCount()</code> vaut <code>2</code>.</li><li>Vérifie que <code>recorder.textureSequence().size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>recorder.areTextureGroupsContiguous()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="quadrecordertestrectanglesetsegmentsmelanges">QuadRecorderTest.RectanglesEtSegmentsMelanges</h3>
+<p><em>Mineur · Unitaire · Quad Recorder</em> — <code>Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp:179</code></p>
+<p>Segments et rectangles cohabitent dans la meme scene ordonnee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer un rectangle puis un segment sur le meme calque.</li><li>Trier et capturer.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>scene.quads()[0].kind</code> vaut <code>hmi::QuadKind::Sprite</code>.</li><li>Vérifie que <code>scene.quads()[1].kind</code> vaut <code>hmi::QuadKind::Line</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="quadrecordertestordonnancementdeclare">QuadRecorderTest.OrdonnancementDeclare</h3>
+<p><em>Critique · Unitaire · Quad Recorder</em> — <code>Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp:208</code></p>
+<p>L'ordonnancement place l'interface au-dessus du personnage.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Comparer les valeurs declarees de l'enumeration des calques.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::RenderLayer::Background</code> est strictement inférieur à <code>hmi::RenderLayer::Shadow</code>.</li><li>Vérifie que <code>hmi::RenderLayer::Shadow</code> est strictement inférieur à <code>hmi::RenderLayer::Tile</code>.</li><li>Vérifie que <code>hmi::RenderLayer::Tile</code> est strictement inférieur à <code>hmi::RenderLayer::Object</code>.</li><li>Vérifie que <code>hmi::RenderLayer::Object</code> est strictement inférieur à <code>hmi::RenderLayer::Player</code>.</li><li>Vérifie que <code>hmi::RenderLayer::Player</code> est strictement inférieur à <code>hmi::RenderLayer::UI</code>.</li><li>Vérifie que <code>hmi::RenderLayer::UI</code> est strictement inférieur à <code>hmi::RenderLayer::EditorOverlay</code>.</li></ul>
+</section><h2 id="test-render-cullingcpp">test_render_culling.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="rendercullingtestsanscadrageaucunrejet">RenderCullingTest.SansCadrageAucunRejet</h3>
+<p><em>Majeur · Unitaire · Render Culling</em> — <code>Source/Test/Unit/HMI/Graphics/test_render_culling.cpp:39</code></p>
+<p>Sans cadrage fixe, aucune primitive n'est ecartee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer un quad tres eloigne dans une scene sans cadrage.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.isCullingEnabled()</code> est faux.</li><li>Vérifie que <code>scene.addSprite(hmi::RenderLayer::Tile, texture, 0, tileQuad(9999.0f, 9999.0f))</code> est vrai.</li><li>Vérifie que <code>scene.statistics().culled</code> vaut <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="rendercullingtesthorscadrageecarte">RenderCullingTest.HorsCadrageEcarte</h3>
+<p><em>Critique · Unitaire · Render Culling</em> — <code>Source/Test/Unit/HMI/Graphics/test_render_culling.cpp:57</code></p>
+<p>Une primitive hors cadrage est ecartee, la meme dans le cadrage est conservee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Fixer le cadrage de reference.</li><li>Composer un quad dedans, puis un quad loin dehors.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.addSprite(hmi::RenderLayer::Tile, texture, 0, tileQuad(15.0f, 15.0f))</code> est vrai.</li><li>Vérifie que <code>scene.addSprite(hmi::RenderLayer::Tile, texture, 0, tileQuad(80.0f, 15.0f))</code> est faux.</li><li>Vérifie que <code>recorder.size()</code> vaut <code>1u</code>.</li><li>Vérifie que <code>recorder.containsSpriteAt(15.0f, 15.0f)</code> est vrai.</li><li>Vérifie que <code>recorder.statistics().considered</code> vaut <code>2</code>.</li><li>Vérifie que <code>recorder.statistics().culled</code> vaut <code>1</code>.</li><li>Vérifie que <code>recorder.statistics().submitted</code> vaut <code>1</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="rendercullingtestachevalsurlafrontiereconserve">RenderCullingTest.AChevalSurLaFrontiereConserve</h3>
+<p><em>Critique · Unitaire · Render Culling</em> — <code>Source/Test/Unit/HMI/Graphics/test_render_culling.cpp:86</code></p>
+<p>Une primitive a cheval sur la frontiere du cadrage est conservee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Fixer le cadrage de reference.</li><li>Composer un quad chevauchant le bord droit, puis un quad entierement dans la marge.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.addSprite(hmi::RenderLayer::Tile, texture, 0, tileQuad(29.5f, 15.0f))</code> est vrai.</li><li>Vérifie que <code>scene.addSprite(hmi::RenderLayer::Tile, texture, 0, tileQuad(30.2f, 15.0f))</code> est vrai.</li><li>Vérifie que <code>scene.addSprite(hmi::RenderLayer::Tile, texture, 0, tileQuad(31.5f, 15.0f))</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="rendercullingtestsegmenthorizontalconserve">RenderCullingTest.SegmentHorizontalConserve</h3>
+<p><em>Majeur · Unitaire · Render Culling</em> — <code>Source/Test/Unit/HMI/Graphics/test_render_culling.cpp:109</code></p>
+<p>Un segment horizontal traversant le cadrage est conserve.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Fixer le cadrage de reference.</li><li>Composer un segment horizontal a l'interieur, puis un segment horizontal tres au-dessus.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.addLine(hmi::RenderLayer::EditorOverlay, texture, 0, inside)</code> est vrai.</li><li>Vérifie que <code>scene.addLine(hmi::RenderLayer::EditorOverlay, texture, 0, outside)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="rendercullingtestprimitiveetireeconservee">RenderCullingTest.PrimitiveEtireeConservee</h3>
+<p><em>Critique · Unitaire · Render Culling</em> — <code>Source/Test/Unit/HMI/Graphics/test_render_culling.cpp:139</code></p>
+<p>Une primitive etiree dont l'ancrage est hors cadrage reste soumise.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Fixer le cadrage de reference.</li><li>Composer un quad ancre en (0, 0) et large de 200 unites.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.addSprite(hmi::RenderLayer::Background, texture, 0, background)</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="rendercullingtestspritequadboundssansrotationestlerectanglebrut">RenderCullingTest.SpriteQuadBoundsSansRotationEstLeRectangleBrut</h3>
+<p><em>Majeur · Unitaire · Render Culling</em> — <code>Source/Test/Unit/HMI/Graphics/test_render_culling.cpp:163</code></p>
+<p>spriteQuadBounds sans rotation vaut le rectangle brut.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer la boite englobante d'un quad de rotation nulle.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>bounds.position.x</code> vaut <code>5.0f</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.position.y</code> vaut <code>3.0f</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.size.x</code> vaut <code>4.0f</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.size.y</code> vaut <code>2.0f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="rendercullingtestspritequadboundsa90degrespermutelargeurethauteur">RenderCullingTest.SpriteQuadBoundsA90DegresPermuteLargeurEtHauteur</h3>
+<p><em>Critique · Unitaire · Render Culling</em> — <code>Source/Test/Unit/HMI/Graphics/test_render_culling.cpp:189</code></p>
+<p>spriteQuadBounds a 90 degres permute largeur et hauteur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer la boite englobante d'un quad large tourne de 90 degres.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>bounds.size.x</code> vaut <code>2.0f</code>, à <code>1e-3f</code> près.</li><li>Vérifie que <code>bounds.size.y</code> vaut <code>4.0f</code>, à <code>1e-3f</code> près.</li><li>Vérifie que <code>bounds.position.x + bounds.size.x * 0.5f</code> vaut <code>2.0f</code>, à <code>1e-3f</code> près.</li><li>Vérifie que <code>bounds.position.y + bounds.size.y * 0.5f</code> vaut <code>1.0f</code>, à <code>1e-3f</code> près.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="rendercullingtestquadtournechevauchantlecadragerestesoumis">RenderCullingTest.QuadTourneChevauchantLeCadrageResteSoumis</h3>
+<p><em>Critique · Unitaire · Render Culling</em> — <code>Source/Test/Unit/HMI/Graphics/test_render_culling.cpp:217</code></p>
+<p>Un quad tourne dont la boite reelle chevauche le cadrage reste soumis.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Fixer un cadrage de reference.</li><li>Composer un quad tourne de 45 degres juste a l'exterieur du rectangle non tourne, mais dont la diagonale rentre dans le cadrage.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.addSprite(hmi::RenderLayer::EditorOverlay, texture, 0, quad)</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="rendercullingtestmargeappliqueesurlesquatrecotes">RenderCullingTest.MargeAppliqueeSurLesQuatreCotes</h3>
+<p><em>Mineur · Unitaire · Render Culling</em> — <code>Source/Test/Unit/HMI/Graphics/test_render_culling.cpp:246</code></p>
+<p>Le cadrage de culling est le cadrage visible elargi de la marge.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Fixer le cadrage de reference.</li><li>Lire le rectangle de culling.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>bounds.left()</code> vaut <code>VISIBLE_BOUNDS.left() - MARGIN</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.top()</code> vaut <code>VISIBLE_BOUNDS.top() - MARGIN</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.right()</code> vaut <code>VISIBLE_BOUNDS.right() + MARGIN</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.bottom()</code> vaut <code>VISIBLE_BOUNDS.bottom() + MARGIN</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="rendercullingtestcadragedelacamera">RenderCullingTest.CadrageDeLaCamera</h3>
+<p><em>Majeur · Unitaire · Render Culling</em> — <code>Source/Test/Unit/HMI/Graphics/test_render_culling.cpp:267</code></p>
+<p>La camera fournit le rectangle monde qu'elle cadre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Centrer une camera 320x160 sur (10, 5) au zoom 1.</li><li>Lire son cadrage.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>bounds.left()</code> vaut <code>0.0f</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.top()</code> vaut <code>0.0f</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.size.x</code> vaut <code>20.0f</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.size.y</code> vaut <code>10.0f</code> (comparaison flottante).</li><li>Vérifie que <code>camera.visibleBounds().size.x</code> vaut <code>10.0f</code> (comparaison flottante).</li></ul>
+</section><h2 id="test-rhi-offscreencpp">test_rhi_offscreen.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="rhioffscreentestzoomentierrestenetenfiltragenearest">RhiOffscreenTest.ZoomEntierResteNetEnFiltrageNearest</h3>
+<p><em>Critique · Unitaire · Rendu QRhi</em> — <code>Source/Test/Unit/HMI/Graphics/test_rhi_offscreen.cpp:89</code></p>
+<p>Le rendu QRhi conserve le pixel art net a zoom entier.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Rendre hors ecran une texture temoin 4x4 agrandie 4 fois.</li><li>Relire les pixels de la cible.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>target-&gt;create()</code> est vrai.</li><li>Vérifie que <code>renderTarget-&gt;create()</code> est vrai.</li><li>Vérifie que <code>rhi-&gt;beginOffscreenFrame(&amp;commandBuffer)</code> vaut <code>QRhi::FrameOpSuccess</code>.</li><li>Vérifie que <code>source.has_value()</code> est vrai.</li><li>Vérifie que <code>rhi-&gt;endOffscreenFrame()</code> vaut <code>QRhi::FrameOpSuccess</code>.</li><li>Vérifie que <code>readback.pixelSize</code> vaut <code>QSize(TARGET_SIZE, TARGET_SIZE)</code>.</li><li>Vérifie que <code>pixel.red()</code> vaut <code>red</code>.</li><li>Vérifie que <code>pixel.green()</code> vaut <code>green</code>.</li><li>Vérifie que <code>pixel.blue()</code> vaut <code>blue</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="rhioffscreentestteintemultiplieeeteffacementconserve">RhiOffscreenTest.TeinteMultiplieeEtEffacementConserve</h3>
+<p><em>Majeur · Unitaire · Rendu QRhi</em> — <code>Source/Test/Unit/HMI/Graphics/test_rhi_offscreen.cpp:180</code></p>
+<p>La teinte multiplie la texture et l'effacement subsiste hors du quad.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Rendre hors ecran un quad teinte couvrant un quart de la cible.</li><li>Relire un pixel dans le quad et un pixel hors du quad.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>target-&gt;create()</code> est vrai.</li><li>Vérifie que <code>renderTarget-&gt;create()</code> est vrai.</li><li>Vérifie que <code>rhi-&gt;beginOffscreenFrame(&amp;commandBuffer)</code> vaut <code>QRhi::FrameOpSuccess</code>.</li><li>Vérifie que <code>source.has_value()</code> est vrai.</li><li>Vérifie que <code>rhi-&gt;endOffscreenFrame()</code> vaut <code>QRhi::FrameOpSuccess</code>.</li><li>Vérifie que <code>inside.red()</code> vaut <code>0</code>.</li><li>Vérifie que <code>inside.green()</code> vaut <code>255</code>.</li><li>Vérifie que <code>inside.blue()</code> vaut <code>0</code>.</li><li>Vérifie que <code>outside.red()</code> vaut <code>0</code>.</li><li>Vérifie que <code>outside.green()</code> vaut <code>0</code>.</li><li>Vérifie que <code>outside.blue()</code> vaut <code>255</code>.</li></ul>
+</section><h2 id="test-texture-atlascpp">test_texture_atlas.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="textureatlastesttilerenvoielerectangleattendu">TextureAtlasTest.TileRenvoieLeRectangleAttendu</h3>
+<p><em>Critique · Unitaire · Texture Atlas</em> — <code>Source/Test/Unit/HMI/Graphics/test_texture_atlas.cpp:18</code></p>
+<p>tile(colonne, ligne) renvoie un rectangle de 16x16 pixels à l'origine attendue.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>origin.x</code> vaut <code>0</code>.</li><li>Vérifie que <code>origin.y</code> vaut <code>0</code>.</li><li>Vérifie que <code>origin.width</code> vaut <a class="ref" href="../reference/classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d"><code>hmi::TextureAtlas::TILE_SIZE</code></a>.</li><li>Vérifie que <code>origin.height</code> vaut <a class="ref" href="../reference/classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d"><code>hmi::TextureAtlas::TILE_SIZE</code></a>.</li><li>Vérifie que <code>secondRow.x</code> vaut <code>2 * hmi::TextureAtlas::TILE_SIZE</code>.</li><li>Vérifie que <code>secondRow.y</code> vaut <code>1 * hmi::TextureAtlas::TILE_SIZE</code>.</li><li>Vérifie que <code>secondRow.width</code> vaut <a class="ref" href="../reference/classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d"><code>hmi::TextureAtlas::TILE_SIZE</code></a>.</li><li>Vérifie que <code>secondRow.height</code> vaut <a class="ref" href="../reference/classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d"><code>hmi::TextureAtlas::TILE_SIZE</code></a>.</li></ul>
+</section><h2 id="test-world-scene-composercpp">test_world_scene_composer.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="scenepieceplacementpreserveslegacyplacementwithoutoptin">ScenePiecePlacement.PreservesLegacyPlacementWithoutOptIn</h3>
+<p><em>Critique · Unitaire · Rendu du Colisée</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:37</code></p>
+<p>Le placement historique reste inchangé.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire un manifeste sans placementVersion et composer une pièce.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::scenePieceAnchor(manifest, &quot;wall.png&quot;)</code> est faux.</li><li>Vérifie que <code>quad.x</code> vaut <code>32</code> (comparaison flottante).</li><li>Vérifie que <code>quad.y</code> vaut <code>-228</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="scenepieceplacementalignsfractionaloriginwithoutchangingdimensions">ScenePiecePlacement.AlignsFractionalOriginWithoutChangingDimensions</h3>
+<p><em>Critique · Unitaire · Rendu du Colisée</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:56</code></p>
+<p>Une ancre fractionnaire aligne la pièce.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire une origine fractionnaire puis composer la pièce.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>anchor</code> est vrai.</li><li>Vérifie que <code>quad.x + anchor-&gt;x * 2</code> vaut <code>100</code> (comparaison flottante).</li><li>Vérifie que <code>quad.y + anchor-&gt;y * 2</code> vaut <code>200</code> (comparaison flottante).</li><li>Vérifie que <code>quad.width</code> vaut <code>512</code> (comparaison flottante).</li><li>Vérifie que <code>quad.height</code> vaut <code>512</code> (comparaison flottante).</li><li>Vérifie que <code>hmi::scenePieceAnchor(manifest, &quot;unknown.png&quot;)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="scenepieceplacementrejectsmalformedanchor">ScenePiecePlacement.RejectsMalformedAnchor</h3>
+<p><em>Critique · Unitaire · Rendu du Colisée</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:80</code></p>
+<p>Une ancre invalide est ignorée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire une ancre contenant une chaîne à la place d’un nombre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::scenePieceAnchor(manifest, &quot;wall.png&quot;)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="scenepieceplacementprojectionisoptinandrejectsinvalidratios">ScenePiecePlacement.ProjectionIsOptInAndRejectsInvalidRatios</h3>
+<p><em>Critique · Unitaire · Rendu du Colisée</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:96</code></p>
+<p>La projection explicite est contrôlée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire les tables sans ratio, avec ratio valide et avec ratios invalides.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>normal.ok()</code> est vrai.</li><li>Vérifie que <code>normal.appearance.diamondRatio()</code> vaut <a class="ref" href="../reference/namespacecore.html#af799f9a001af9c8b79f0bcba667414f9"><code>core::ARENA_DIAMOND_RATIO</code></a> (comparaison flottante).</li><li>Vérifie que <code>modular.ok()</code> est vrai.</li><li>Vérifie que <code>modular.appearance.diamondRatio()</code> vaut <code>42.0F / 68.0F</code> (comparaison flottante).</li><li>Vérifie que <code>hmi::PlaceAppearance::loadFromString(R&quot;({&quot;version&quot;:1,&quot;place&quot;:&quot;bad&quot;,&quot;diamondRatio&quot;:0})&quot;) .ok()</code> est faux.</li><li>Vérifie que <code>hmi::PlaceAppearance::loadFromString( R&quot;({&quot;version&quot;:1,&quot;place&quot;:&quot;bad&quot;,&quot;diamondRatio&quot;:&quot;wrong&quot;})&quot;) .ok()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="worldscenecomposertestlinstantanetirelesoldutypeetlereliefdelacase">WorldSceneComposerTest.LInstantaneTireLeSolDuTypeEtLeReliefDeLaCase</h3>
+<p><em>Critique · Unitaire · Lieu compose</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:183</code></p>
+<p>Le sol vient du type de tuile, le relief de la piece nommee a la case.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Batir une carte de sable avec une case de pierre, un mur de decor et une piece nommee a une case du decor.</li><li>En tirer l'instantane.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>instantane.columns</code> vaut <code>4</code>.</li><li>Vérifie que <code>instantane.rows</code> vaut <code>3</code>.</li><li>Vérifie que <code>instantane.place</code> vaut <code>&quot;coliseum&quot;</code>.</li><li>Vérifie que <code>instantane.floorAt({0, 0})</code> vaut <code>&quot;sand&quot;</code>.</li><li>Vérifie que <code>instantane.floorAt({1, 0})</code> vaut <code>&quot;sand-2&quot;</code>.</li><li>Vérifie que <code>instantane.floorAt({2, 0})</code> vaut <code>&quot;sand-3&quot;</code>.</li><li>Vérifie que <code>instantane.floorAt({3, 0})</code> vaut <code>&quot;stone-slab&quot;</code>.</li><li>Vérifie que <code>instantane.floorAt({0, 0})</code> vaut <code>hmi::snapshotWorldScene(carte(), table(), {}).floorAt({0, 0})</code>.</li><li>Vérifie que <code>instantane.reliefAt({0, 0})</code> vaut <code>&quot;wall-left&quot;</code>.</li><li>Vérifie que <code>instantane.reliefAt({2, 2})</code> vaut <code>&quot;torch-left&quot;</code>.</li><li>Vérifie que <code>instantane.reliefAt({1, 1}).empty()</code> est vrai.</li><li>Vérifie que <code>instantane.floorAt({9, 9}).empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldscenecomposertestlescheminscouvrentlelieuetlesfigurines">WorldSceneComposerTest.LesCheminsCouvrentLeLieuEtLesFigurines</h3>
+<p><em>Majeur · Unitaire · Lieu compose</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:216</code></p>
+<p>La liste des textures a charger couvre exactement ce que la composition resout.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Tirer l'instantane d'une carte avec une figurine.</li><li>Lister les chemins de texture.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>std::ranges::is_sorted(chemins)</code> est vrai.</li><li>Vérifie que <code>std::ranges::find(chemins, &quot;Scene/coliseum/sand.png&quot;)</code> diffère de <code>chemins.end()</code>.</li><li>Vérifie que <code>std::ranges::find(chemins, &quot;Scene/coliseum/stone-slab.png&quot;)</code> diffère de <code>chemins.end()</code>.</li><li>Vérifie que <code>std::ranges::find(chemins, &quot;Scene/coliseum/wall-left.png&quot;)</code> diffère de <code>chemins.end()</code>.</li><li>Vérifie que <code>std::ranges::find(chemins, &quot;Scene/coliseum/torch-left.png&quot;)</code> diffère de <code>chemins.end()</code>.</li><li>Vérifie que <code>std::ranges::find(chemins, &quot;Npc/anariel/idle.png&quot;)</code> diffère de <code>chemins.end()</code>.</li><li>Vérifie que <code>std::ranges::find(chemins, &quot;Npc/anariel/walk.png&quot;)</code> diffère de <code>chemins.end()</code>.</li><li>Vérifie que <code>std::ranges::count(chemins, &quot;Scene/coliseum/sand.png&quot;)</code> vaut <code>1</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="worldscenecomposertestlacompositionposechaquepiecesursoncalque">WorldSceneComposerTest.LaCompositionPoseChaquePieceSurSonCalque</h3>
+<p><em>Critique · Unitaire · Lieu compose</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:245</code></p>
+<p>Sol, relief et figurine tombent sur les calques Tile, Object et Player.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer une carte de douze cases avec un mur, une torche et une figurine.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>sols</code> vaut <code>12</code>.</li><li>Vérifie que <code>reliefs</code> vaut <code>2</code>.</li><li>Vérifie que <code>figurines</code> vaut <code>1</code>.</li><li>Vérifie que <code>quad.sprite.y + quad.sprite.height</code> est strictement inférieur à <code>piedDeLaCase</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldscenecomposertestunefigurinesansimageaunecledemarqueur">WorldSceneComposerTest.UneFigurineSansImageAUneCleDeMarqueur</h3>
+<p><em>Majeur · Unitaire · Rendu du lieu</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:295</code></p>
+<p>La cle du marqueur d'une figurine se tire de son chemin de bande.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander la cle de marqueur de chemins de figurine, de piece et de chemins malformes.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::figureMarkerKey(&quot;Npc/sentinelle-ironhand/idle.png&quot;)</code> vaut <code>&quot;npc/sentinelle-ironhand&quot;</code>.</li><li>Vérifie que <code>hmi::figureMarkerKey(&quot;Npc/sentinelle-ironhand/walk.png&quot;)</code> vaut <code>&quot;npc/sentinelle-ironhand&quot;</code>.</li><li>Vérifie que <code>hmi::figureMarkerKey(&quot;Scene/martpart/street.png&quot;)</code> vaut <code>&quot;&quot;</code>.</li><li>Vérifie que <code>hmi::figureMarkerKey(&quot;Npc/&quot;)</code> vaut <code>&quot;&quot;</code>.</li><li>Vérifie que <code>hmi::figureMarkerKey(&quot;Npc//idle.png&quot;)</code> vaut <code>&quot;&quot;</code>.</li><li>Vérifie que <code>hmi::figureMarkerKey(&quot;Npc/jade&quot;)</code> vaut <code>&quot;&quot;</code>.</li><li>Vérifie que <code>hmi::figureMarkerKey(&quot;Monsters/ironhand-soldier/idle.png&quot;)</code> vaut <code>&quot;monsters/ironhand-soldier&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldscenecomposertestunefigurinesenommeparslugoupardossier">WorldSceneComposerTest.UneFigurineSeNommeParSlugOuParDossier</h3>
+<p><em>Majeur · Unitaire · Scène du monde</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:318</code></p>
+<p>Le soldat Ironhand se lit dans les monstres, Anariel dans les PNJ.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander la bande idle d'« anariel », puis celle de « Monsters/ironhand-soldier ».</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::figureStripPath(&quot;anariel&quot;, &quot;idle&quot;)</code> vaut <code>&quot;Npc/anariel/idle.png&quot;</code>.</li><li>Vérifie que <code>hmi::figureStripPath(&quot;anariel&quot;, &quot;&quot;)</code> vaut <code>&quot;Npc/anariel/idle.png&quot;</code>.</li><li>Vérifie que <code>hmi::figureStripPath(&quot;Monsters/ironhand-soldier&quot;, &quot;walk&quot;)</code> vaut <code>&quot;Monsters/ironhand-soldier/walk.png&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="worldscenecomposertestlapiecenommeelemportesoussonnomcourant">WorldSceneComposerTest.LaPieceNommeeLEmporteSousSonNomCourant</h3>
+<p><em>Critique · Unitaire · Lieu compose</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:337</code></p>
+<p>La pièce nommée l'emporte, sous son nom courant.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Nommer <code>stone-slab</code> sur une case de sable, et <code>old-torch</code>, ancien nom de <code>torch-left</code>, sur le décor.</li><li>Tirer l'instantané avec le manifeste des alias.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>manifeste.ok()</code> est vrai.</li><li>Vérifie que <code>instantane.floorAt({0, 1})</code> vaut <code>&quot;stone-slab&quot;</code>.</li><li>Vérifie que <code>instantane.reliefAt({2, 2})</code> vaut <code>&quot;torch-left&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldscenecomposertestunepiecelargesetrieaupieddesonemprise">WorldSceneComposerTest.UnePieceLargeSeTrieAuPiedDeSonEmprise</h3>
+<p><em>Majeur · Unitaire · Lieu compose</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:366</code></p>
+<p>Une pièce large se trie au pied de son emprise.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un étal 2 × 1 et un mur 1 × 1 sur la même case d'ancrage de deux cartes.</li><li>Composer les deux.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>manifeste.ok()</code> est vrai.</li><li>Vérifie que <code>large.footprints.at(&quot;stall&quot;)</code> vaut <code>(core::PieceFootprint{.columns = 2, .rows = 1})</code>.</li><li>Vérifie que <code>ordreDuRelief(large)</code> est strictement supérieur à <code>ordreDuRelief(simple)</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="scenepieceplacementdepthrequiresoptinandvalidanchor">ScenePiecePlacement.DepthRequiresOptInAndValidAnchor</h3>
+<p><em>Critique · Unitaire · Rendu du Colisée</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:407</code></p>
+<p>La profondeur exige un manifeste de placement valide.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire une pièce valide, une inconnue et un manifeste historique.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::scenePieceDepthOffset(manifest, &quot;gate.png&quot;)</code> vaut <code>4.5F</code>.</li><li>Vérifie que <code>hmi::scenePieceDepthOffset(manifest, &quot;unknown.png&quot;)</code> est faux.</li><li>Vérifie que <code>hmi::scenePieceDepthOffset(legacy, &quot;gate.png&quot;)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="maquetterendertestunecartesanslieusecomposeenlosangesdecouleur">MaquetteRenderTest.UneCarteSansLieuSeComposeEnLosangesDeCouleur</h3>
+<p><em>Critique · Unitaire · Rendu de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:453</code></p>
+<p>Une carte sans lieu se compose en losanges de couleur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer une carte de deux cases qui ne nomme aucun lieu.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>instantane.typeAt({0, 0})</code> vaut <code>core::TileType::Water</code>.</li><li>Vérifie que <code>instantane.typeAt({1, 0})</code> vaut <code>core::TileType::Wall</code>.</li><li>Vérifie que <code>scene.size()</code> vaut <code>4U</code>.</li><li>Vérifie que <code>quad.kind</code> vaut <code>hmi::QuadKind::Poly</code>.</li><li>Vérifie que <code>quad.texture</code> vaut <code>aplat()</code>.</li><li>Vérifie que <code>scene.quads()[0].layer</code> vaut <code>hmi::RenderLayer::Tile</code>.</li><li>Vérifie que <code>scene.quads()[0].poly.r</code> vaut <code>eau.r</code> (comparaison flottante).</li><li>Vérifie que <code>scene.quads()[0].poly.b</code> vaut <code>eau.b</code> (comparaison flottante).</li><li>Vérifie que <code>scene.quads()[i].layer</code> vaut <code>hmi::RenderLayer::Object</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="maquetterendertestuntypenoncouvertparlelieuprendlamaquette">MaquetteRenderTest.UnTypeNonCouvertParLeLieuPrendLaMaquette</h3>
+<p><em>Critique · Unitaire · Rendu de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:490</code></p>
+<p>Un type absent de la table du lieu prend le rendu de maquette.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Peindre une case d'eau sur la carte du Colisee, dont la table ne couvre que le sable et la pierre.</li><li>Composer.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>instantane.floorAt({0, 0}).empty()</code> est faux.</li><li>Vérifie que <code>instantane.floorAt({1, 0}).empty()</code> est vrai.</li><li>Vérifie que <code>scene.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>sprites</code> vaut <code>1</code>.</li><li>Vérifie que <code>losanges</code> vaut <code>1</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="maquetterendertestsansaplatriennestcompose">MaquetteRenderTest.SansAplatRienNEstCompose</h3>
+<p><em>Majeur · Unitaire · Rendu de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:532</code></p>
+<p>Sans aplat, la maquette ne compose rien.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer une carte sans lieu avec une table de textures sans aplat.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.size()</code> vaut <code>0U</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="maquetterendertestunmursecomposeenblocdetroisfaces">MaquetteRenderTest.UnMurSeComposeEnBlocDeTroisFaces</h3>
+<p><em>Critique · Unitaire · Rendu de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:551</code></p>
+<p>Un mur se compose en bloc de trois faces, haut d'une case.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer une carte d'une seule case de mur, sans lieu.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>quad.layer</code> vaut <code>hmi::RenderLayer::Object</code>.</li><li>Vérifie que <code>quad.kind</code> vaut <code>hmi::QuadKind::Poly</code>.</li><li>Vérifie que <code>premiere</code> diffère de <code>deuxieme</code>.</li><li>Vérifie que <code>deuxieme</code> diffère de <code>troisieme</code>.</li><li>Vérifie que <code>plusHaut</code> vaut <code>bounds.position.y - bounds.size.y</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="maquetterendertestleauprofondenesextrudepas">MaquetteRenderTest.LEauProfondeNeSExtrudePas</h3>
+<p><em>Majeur · Unitaire · Rendu de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:597</code></p>
+<p>L'eau profonde reste un losange plat, plus sombre que l'eau vive.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Interroger l'extrusion et la palette pour l'eau profonde.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::maquetteExtrudes(core::TileType::DeepWater)</code> est faux.</li><li>Vérifie que <code>hmi::maquetteExtrudes(core::TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>hmi::maquetteExtrudes(core::TileType::Solid)</code> est vrai.</li><li>Vérifie que <code>hmi::maquetteExtrudes(core::TileType::Cliff)</code> est vrai.</li><li>Vérifie que <code>profonde.r + profonde.g + profonde.b</code> est strictement inférieur à <code>vive.r + vive.g + vive.b</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="maquetterendertestlacouleurdujetonsededuitdelentite">MaquetteRenderTest.LaCouleurDuJetonSeDeduitDeLEntite</h3>
+<p><em>Critique · Unitaire · Jetons de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:619</code></p>
+<p>La couleur d'un jeton se deduit de ce que le format dit deja.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un PNJ avec dialogue, un sans, un avec figurine, une rencontre, deux entrees d'arene, un point d'apparition, un portail et un coffre.</li><li>En tirer les marques.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>marques.tokens.size()</code> vaut <code>8U</code>.</li><li>Vérifie que <code>marques.tokens[0].kind</code> vaut <code>hmi::MaquetteTokenKind::Talker</code>.</li><li>Vérifie que <code>marques.tokens[0].letter</code> vaut <code>&#x27;M&#x27;</code>.</li><li>Vérifie que <code>marques.tokens[1].kind</code> vaut <code>hmi::MaquetteTokenKind::Neutral</code>.</li><li>Vérifie que <code>marques.tokens[1].letter</code> vaut <code>&#x27;N&#x27;</code>.</li><li>Vérifie que <code>marques.tokens[2].kind</code> vaut <code>hmi::MaquetteTokenKind::Hostile</code>.</li><li>Vérifie que <code>marques.tokens[2].letter</code> vaut <code>&#x27;W&#x27;</code>.</li><li>Vérifie que <code>marques.tokens[3].kind</code> vaut <code>hmi::MaquetteTokenKind::Hostile</code>.</li><li>Vérifie que <code>marques.tokens[4].kind</code> vaut <code>hmi::MaquetteTokenKind::Player</code>.</li><li>Vérifie que <code>marques.tokens[5].kind</code> vaut <code>hmi::MaquetteTokenKind::Player</code>.</li><li>Vérifie que <code>marques.tokens[5].letter</code> vaut <code>&#x27;G&#x27;</code>.</li><li>Vérifie que <code>marques.tokens[6].kind</code> vaut <code>hmi::MaquetteTokenKind::Portal</code>.</li><li>Vérifie que <code>marques.tokens[6].letter</code> vaut <code>&#x27;A&#x27;</code>.</li><li>Vérifie que <code>marques.tokens[6].arrow</code> est vrai.</li><li>Vérifie que <code>marques.tokens[7].kind</code> vaut <code>hmi::MaquetteTokenKind::Object</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="maquetterendertestlestracesneparaissentquenmaquette">MaquetteRenderTest.LesTracesNeParaissentQuEnMaquette</h3>
+<p><em>Critique · Unitaire · Jetons de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:669</code></p>
+<p>Une carte habillee garde ses jetons mais perd ses traces.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Tirer les marques d'un portail, d'une zone de combat et d'un trajet, en maquette puis hors maquette.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>maquette.tokens.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>maquette.tokens.front().arrow</code> est vrai.</li><li>Vérifie que <code>maquette.traces.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>maquette.traces[0].shape</code> vaut <code>hmi::MaquetteTraceShape::Outline</code>.</li><li>Vérifie que <code>maquette.traces[0].cells.size()</code> vaut <code>6U</code>.</li><li>Vérifie que <code>maquette.traces[1].shape</code> vaut <code>hmi::MaquetteTraceShape::Path</code>.</li><li>Vérifie que <code>habillee.tokens.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>habillee.tokens.front().arrow</code> est faux.</li><li>Vérifie que <code>habillee.traces.empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="maquetterendertestlescheminscontiennentlesjetons">MaquetteRenderTest.LesCheminsContiennentLesJetons</h3>
+<p><em>Majeur · Unitaire · Jetons de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:712</code></p>
+<p>Les chemins de textures d'une carte contiennent ceux de ses jetons.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Batir une carte sans lieu portant une rencontre.</li><li>Lister ses chemins de texture.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>std::ranges::find(chemins, hmi::maquetteTokenPath(hmi::MaquetteTokenKind::Hostile, &#x27;W&#x27;))</code> diffère de <code>chemins.end()</code>.</li></ul>
+</section><h2 id="test-world-scene-renderercpp">test_world_scene_renderer.cpp</h2>
+<section class="case" data-crit="Bloquant"><h3 id="worldscenerenderertestcreationliberationrecreation">WorldSceneRendererTest.CreationLiberationRecreation</h3>
+<p><em>Bloquant · Unitaire · Rendu QRhi d'un lieu</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:134</code></p>
+<p>Le cycle de vie des ressources QRhi d'un lieu est sur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Creer les ressources hors ecran, sans dessiner.</li><li>Liberer, puis liberer encore.</li><li>Recreer, dessiner une image d'un lieu, detruire le rendu avant l'interface.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>renderer.ensureResources(nullptr)</code> est faux.</li><li>Vérifie que <code>renderer.created()</code> est faux.</li><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>renderer.created()</code> est vrai.</li><li>Vérifie que <code>renderer.rhi()</code> vaut <code>rhi.get()</code>.</li><li>Vérifie que <code>renderer.textures().missing.texture</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>renderer.textures().byPath.empty()</code> est vrai.</li><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>renderer.textures().byPath.empty()</code> est faux.</li><li>Vérifie que <code>renderer.textures().byPath.size()</code> vaut <code>chargees</code>.</li><li>Vérifie que <code>renderer.requested().size()</code> vaut <code>demandees</code>.</li><li>Vérifie que <code>renderer.created()</code> est faux.</li><li>Vérifie que <code>renderer.rhi()</code> vaut <code>nullptr</code>.</li><li>Vérifie que <code>renderer.textures().byPath.empty()</code> est vrai.</li><li>Vérifie que <code>renderer.requested().empty()</code> est vrai.</li><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>image.size()</code> vaut <code>QSize(TARGET_SIZE, TARGET_SIZE)</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="worldscenerenderertestunlieudevientdespixels">WorldSceneRendererTest.UnLieuDevientDesPixels</h3>
+<p><em>Bloquant · Unitaire · Rendu QRhi d'un lieu</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:194</code></p>
+<p>Le donjon d'essai se dessine, sans une seule piece manquante.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger la carte du donjon d'essai et la table d'apparence du lieu.</li><li>Dessiner une image hors ecran, cadree sur le heros a la porte.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>image.size()</code> vaut <code>QSize(TARGET_SIZE, TARGET_SIZE)</code>.</li><li>Vérifie que <code>renderer.composed().size()</code> est strictement supérieur à <code>700U</code>.</li><li>Vérifie que <code>quad.texture</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>quad.texture</code> diffère de <code>renderer.textures().missing.texture</code>.</li><li>Vérifie que <code>paintedPixels(image)</code> est strictement supérieur à <code>static_cast&lt;std::size_t&gt;(TARGET_SIZE * TARGET_SIZE / 4)</code>.</li><li>Vérifie que <code>renderer.composed().size()</code> vaut <code>0U</code>.</li><li>Vérifie que <code>paintedPixels(empty)</code> vaut <code>0U</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="worldscenerenderertestlacamerasuitleherossanssortirdelacarte">WorldSceneRendererTest.LaCameraSuitLeHerosSansSortirDeLaCarte</h3>
+<p><em>Critique · Unitaire · Rendu QRhi d'un lieu</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:236</code></p>
+<p>Le cadrage d'un lieu suit le heros, borne a la scene, a un agrandissement entier.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Cadrer une grande carte sur son centre, puis sur un coin.</li><li>Cadrer une carte plus petite que la vue.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>suivie.zoom()</code> vaut <code>1.0F</code> (comparaison flottante).</li><li>Vérifie que <code>suivie.center().x</code> vaut <code>centre.x</code>, à <code>0.001F</code> près.</li><li>Vérifie que <code>suivie.center().y</code> vaut <code>centre.y</code>, à <code>0.001F</code> près.</li><li>Vérifie que <code>bornee.center().x</code> est strictement supérieur à <code>coin.x</code>.</li><li>Vérifie que <code>bornee.visibleBounds().position.x</code> est supérieur ou égal à <code>-0.001F</code>.</li><li>Vérifie que <code>bornee.visibleBounds().position.x + bornee.visibleBounds().size.x</code> est inférieur ou égal à <code>grande.sceneSize().x + 0.001F</code>.</li><li>Vérifie que <code>petiteVue.zoom()</code> vaut <code>2.0F</code> (comparaison flottante).</li><li>Vérifie que <code>petiteVue.center().x</code> vaut <code>petite.sceneSize().x / 2.0F</code>, à <code>0.001F</code> près.</li><li>Vérifie que <code>petiteVue.center().y</code> vaut <code>petite.sceneSize().y / 2.0F</code>, à <code>0.001F</code> près.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="worldscenerenderertestdeuxlieuxdeviennentdespixels">WorldSceneRendererTest.DeuxLieuxDeviennentDesPixels</h3>
+<p><em>Bloquant · Unitaire · Rendu QRhi d'un lieu</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:276</code></p>
+<p>Deux lieux se dessinent sans une piece sur le damier, sentinelles sous les traits de leur figurine.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger deux cartes d'essai, et la table du lieu.</li><li>Dessiner chacune hors ecran, cadre sur une sentinelle, le heros a cote.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>table.ok()</code> est vrai.</li><li>Vérifie que <code>carte.ok()</code> est vrai.</li><li>Vérifie que <code>figurines.empty()</code> est faux.</li><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>quad.texture</code> diffère de <code>renderer.textures().missing.texture</code>.</li><li>Vérifie que <code>soldat</code> diffère de <code>renderer.textures().byPath.end()</code>.</li><li>Vérifie que <code>soldat-&gt;second.texture</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>soldat-&gt;second.texture</code> diffère de <code>renderer.textures().missing.texture</code>.</li><li>Vérifie que <code>paintedPixels(image)</code> est strictement supérieur à <code>static_cast&lt;std::size_t&gt;(TARGET_SIZE * TARGET_SIZE / 4)</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="worldscenerenderertestlescartessesauvegardentetserendentavecleurkit">WorldSceneRendererTest.LesCartesSeSauvegardentEtSeRendentAvecLeurKit</h3>
+<p><em>Critique · Unitaire · Rendu du donjon d'essai</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:342</code></p>
+<p>Les trois cartes se sauvegardent et se rendent avec leur kit.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger et enregistrer chaque carte ; comparer les textures du jeu et de l’éditeur.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>rhi</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>table.ok()</code> est vrai.</li><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>saved.ok()</code> est vrai.</li><li>Vérifie que <code>saved.level-&gt;layers().size()</code> vaut <code>loaded.level-&gt;layers().size()</code>.</li><li>Vérifie que <code>saved.level-&gt;entities().size()</code> vaut <code>loaded.level-&gt;entities().size()</code>.</li><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>paintedPixels(image)</code> est strictement supérieur à <code>static_cast&lt;std::size_t&gt;(TARGET_SIZE * TARGET_SIZE / 4)</code>.</li><li>Vérifie que <code>quad.texture</code> diffère de <code>renderer.textures().missing.texture</code>.</li><li>Vérifie que <code>editor.depthOffset</code> vaut <code>gpu.depthOffset</code>.</li><li>Vérifie que <code>editor.anchor.has_value()</code> vaut <code>gpu.anchor.has_value()</code>.</li><li>Vérifie que <code>editor.anchor-&gt;x</code> vaut <code>gpu.anchor-&gt;x</code> (comparaison flottante).</li><li>Vérifie que <code>editor.anchor-&gt;y</code> vaut <code>gpu.anchor-&gt;y</code> (comparaison flottante).</li><li>Vérifie que <code>image.save(QString::fromStdString( std::string(name).substr(std::string(name).find(&#x27;/&#x27;) + 1) + &quot;-renderer.png&quot;))</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="worldscenerenderertesttouslesportailssetraversent">WorldSceneRendererTest.TousLesPortailsSeTraversent</h3>
+<p><em>Critique · Unitaire · Rendu du donjon d'essai</em> — <code>Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:397</code></p>
+<p>Tous les portails des cartes se traversent.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Entrer dans chaque carte et traverser chaque portail avec WorldTravel.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>travel.enter(id, {})</code> vaut <code>core::TravelResult::Moved</code>.</li><li>Vérifie que <code>travel.enter(id, {})</code> vaut <code>core::TravelResult::Moved</code>.</li><li>Vérifie que <code>travel.cross(entity.position, flags)</code> vaut <code>core::TravelResult::Moved</code>.</li><li>Vérifie que <code>core::isSolid(travel.currentMap()-&gt;tileMap().tile(pos.column, pos.row))</code> est faux.</li><li>Vérifie que <code>core::portalAt(*travel.currentMap(), pos).has_value()</code> est faux.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-game.html"><span>Précédent</span>HMI · Game</a><a class="next" href="hmi-input.html"><span>Suivant</span>HMI · Input</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-graphics.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/ExplorationSession.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('ExplorationSession_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ExplorationSession.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="ExplorationSession_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="Interactable_8h.html">Core/Ecs/Components/Interactable.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="WorldFlags_8h.html">Core/Gameplay/WorldFlags.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="GridPosition_8h.html">Core/Levels/GridPosition.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="Level_8h.html">Core/Levels/Level.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="Vector2_8h.html">Core/Math/Vector2.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="WorldTravel_8h.html">Core/World/WorldTravel.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="};">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structcore_1_1CellPoint.html">   43</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1CellPoint.html">CellPoint</a> {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structcore_1_1CellPoint.html#a7a2da31ae1ecb72ebb246686dbdae671">   44</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1CellPoint.html#a7a2da31ae1ecb72ebb246686dbdae671">column</a> = 0.0F;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structcore_1_1CellPoint.html#a94cf0fc45bf29ab100a43fe44634cabc">   45</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1CellPoint.html#a94cf0fc45bf29ab100a43fe44634cabc">row</a> = 0.0F;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structcore_1_1CellPoint.html#a3153ae972663cbe8f2ff1c41337179c4">   47</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1CellPoint.html#a3153ae972663cbe8f2ff1c41337179c4">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CellPoint.html">CellPoint</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>};</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1GridPosition.html">GridPosition</a> <a class="code hl_function" href="namespacecore.html#abec69197693a1004c3a8752db040fff1">cellOf</a>(<a class="code hl_struct" href="structcore_1_1CellPoint.html">CellPoint</a> point) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1CellPoint.html">CellPoint</a> <a class="code hl_function" href="namespacecore.html#a99be71340077821d583e53bf779c689d">cellCenter</a>(<a class="code hl_struct" href="structcore_1_1GridPosition.html">GridPosition</a> cell) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
+<div class="foldopen" id="foldopen00058" data-start="{" data-end="};">
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structcore_1_1ExplorationIntent.html">   58</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1ExplorationIntent.html">ExplorationIntent</a> {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="structcore_1_1ExplorationIntent.html#a3acc8f5d0681a33cf183017b01711156">   60</a></span>    <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a> <a class="code hl_variable" href="structcore_1_1ExplorationIntent.html#a3acc8f5d0681a33cf183017b01711156">move</a>{};</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structcore_1_1ExplorationIntent.html#a07cd0c90c90dee1972afde48bc46ea00">   62</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1ExplorationIntent.html#a07cd0c90c90dee1972afde48bc46ea00">interact</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>};</div>
+</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span></div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="};">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55">   66</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55">ExplorationEventKind</a> {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a2ca45e962ad92edc24caae6182edf7cb">   68</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a2ca45e962ad92edc24caae6182edf7cb">MapEntered</a>,</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55af47c910b04b7f7d2491efba8cc3dd835">   70</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55af47c910b04b7f7d2491efba8cc3dd835">PortalLocked</a>,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55ab1472f31cb834b2005fcc48a4717542a">   72</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55ab1472f31cb834b2005fcc48a4717542a">PortalBroken</a>,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a359928afdf6c973ee869e1698023a812">   74</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a359928afdf6c973ee869e1698023a812">Dialogue</a>,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55ad1e9f9f891de8f9a655739a01fbf68f0">   76</a></span>    <a class="code hl_struct" href="structcore_1_1Encounter.html">Encounter</a>,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a2ef4b5d905788c7ba3d262d1fbcf8a82">   78</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a2ef4b5d905788c7ba3d262d1fbcf8a82">Interacted</a>,</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>};</div>
+</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span></div>
+<div class="foldopen" id="foldopen00082" data-start="{" data-end="};">
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="structcore_1_1ExplorationEvent.html">   82</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="structcore_1_1ExplorationEvent.html#ab5377160ffaa62e4decaac1581694287">   83</a></span>    <a class="code hl_enumeration" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55">ExplorationEventKind</a> <a class="code hl_variable" href="structcore_1_1ExplorationEvent.html#ab5377160ffaa62e4decaac1581694287">kind</a> = <a class="code hl_enumvalue" href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a2ca45e962ad92edc24caae6182edf7cb">ExplorationEventKind::MapEntered</a>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="structcore_1_1ExplorationEvent.html#a189963cc446d0afd9043eea9ba1edc13">   84</a></span>    std::string <a class="code hl_variable" href="structcore_1_1ExplorationEvent.html#a189963cc446d0afd9043eea9ba1edc13">value</a>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="structcore_1_1ExplorationEvent.html#aceba1ce5c0982ae0de0a18cdc77a930f">   85</a></span>    <a class="code hl_struct" href="structcore_1_1GridPosition.html">GridPosition</a> <a class="code hl_variable" href="structcore_1_1ExplorationEvent.html#aceba1ce5c0982ae0de0a18cdc77a930f">cell</a>{};</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="structcore_1_1ExplorationEvent.html#a6f2d1bfadd8250d968ec5d53510fc04e">   87</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1ExplorationEvent.html#a6f2d1bfadd8250d968ec5d53510fc04e">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>};</div>
+</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span></div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="};">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html">   97</a></span><span class="keyword">class </span><a class="code hl_function" href="classcore_1_1ExplorationSession.html#a9bed0fda73221f828073712709a93691">ExplorationSession</a> {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#a61a51d1501e6ffc4b5bbd230ee851d16">  100</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a61a51d1501e6ffc4b5bbd230ee851d16">WALK_SPEED_CELLS_PER_SECOND</a> = 4.0F;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#a769e298bd9b04ff98be332a4e383cb00">  103</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a769e298bd9b04ff98be332a4e383cb00">HERO_HALF_SIZE_CELLS</a> = 0.3F;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#a9bed0fda73221f828073712709a93691">ExplorationSession</a>(<a class="code hl_typedef" href="classcore_1_1WorldTravel.html#a3cb015fe13e6071f96b03ba0e819362e">WorldTravel::MapLoader</a> loader);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#affe6baf83932a4eabcaa720517fbfddc">start</a>(std::string_view <a class="code hl_function" href="classcore_1_1ExplorationSession.html#a139e3bcdabc9bc7ce0d94faa820ad137">mapId</a>, std::string_view arrival);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    std::vector&lt;ExplorationEvent&gt; <a class="code hl_function" href="classcore_1_1ExplorationSession.html#af22834cdd0f0305a39eea299e837fcc3">update</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1ExplorationIntent.html">ExplorationIntent</a>&amp; intent, <span class="keywordtype">float</span> seconds);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span></div>
+<div class="foldopen" id="foldopen00124" data-start="{" data-end="}">
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#ad9f46abef16cd0037c4fe2d951ae3797">  124</a></span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1Level.html">Level</a>* <a class="code hl_function" href="classcore_1_1ExplorationSession.html#ad9f46abef16cd0037c4fe2d951ae3797">map</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a656c99045430e47cb75d3432c7771af7">_travel</a>.currentMap();</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    }</div>
+</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span></div>
+<div class="foldopen" id="foldopen00129" data-start="{" data-end="}">
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#a139e3bcdabc9bc7ce0d94faa820ad137">  129</a></span>    [[nodiscard]] <span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="classcore_1_1ExplorationSession.html#a139e3bcdabc9bc7ce0d94faa820ad137">mapId</a>() const noexcept {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a656c99045430e47cb75d3432c7771af7">_travel</a>.currentMapId();</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    }</div>
+</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span></div>
+<div class="foldopen" id="foldopen00134" data-start="{" data-end="}">
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#a5400b1f5b9fc27c552f225e0ec4ce569">  134</a></span>    [[nodiscard]] <a class="code hl_struct" href="structcore_1_1CellPoint.html">CellPoint</a> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#a5400b1f5b9fc27c552f225e0ec4ce569">heroPoint</a>() const noexcept {</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a78990bfe40fea6c6f66a3d3322afe532">_hero</a>;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    }</div>
+</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#a0f80ebd17db245ab4229e3fae91a0243">placeHero</a>(<a class="code hl_struct" href="structcore_1_1CellPoint.html">CellPoint</a> point) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span></div>
+<div class="foldopen" id="foldopen00142" data-start="{" data-end="}">
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#a6781bd6415f58cae52d3698168a9060e">  142</a></span>    [[nodiscard]] <a class="code hl_struct" href="structcore_1_1GridPosition.html">GridPosition</a> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#a6781bd6415f58cae52d3698168a9060e">heroCell</a>() const noexcept {</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespacecore.html#abec69197693a1004c3a8752db040fff1">cellOf</a>(<a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a78990bfe40fea6c6f66a3d3322afe532">_hero</a>);</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    }</div>
+</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span></div>
+<div class="foldopen" id="foldopen00147" data-start="{" data-end="}">
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#a0830d60319ca57c8da2a78cee858d0d8">  147</a></span>    [[nodiscard]] <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#a0830d60319ca57c8da2a78cee858d0d8">facing</a>() const noexcept {</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a6aac839cf41db1a8821d50f4da65ad16">_facing</a>;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    }</div>
+</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    [[nodiscard]] <a class="code hl_struct" href="structcore_1_1GridPosition.html">GridPosition</a> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#af2e543bbcc2b7987acb40f4f0cd2d367">aimedCell</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="foldopen" id="foldopen00154" data-start="{" data-end="}">
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#af53b61732272ba7cb69bf2ed5f1a4e79">  154</a></span>    [[nodiscard]] <a class="code hl_class" href="classcore_1_1WorldFlags.html">WorldFlags</a>&amp; <a class="code hl_function" href="classcore_1_1ExplorationSession.html#af53b61732272ba7cb69bf2ed5f1a4e79">flags</a>() noexcept {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#aaf82af7c6c3eb86fff6d3ed106c52c3e">_flags</a>;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00157" data-start="{" data-end="}">
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#ac6da465cb6cdc7a08d0631394df45eb9">  157</a></span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1WorldFlags.html">WorldFlags</a>&amp; <a class="code hl_function" href="classcore_1_1ExplorationSession.html#ac6da465cb6cdc7a08d0631394df45eb9">flags</a>() const noexcept {</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#aaf82af7c6c3eb86fff6d3ed106c52c3e">_flags</a>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    }</div>
+</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="foldopen" id="foldopen00161" data-start="{" data-end="}">
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#ab1517d211c44200e50a9195dfb0ca2b0">  161</a></span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1WorldTravel.html">WorldTravel</a>&amp; <a class="code hl_function" href="classcore_1_1ExplorationSession.html#ab1517d211c44200e50a9195dfb0ca2b0">travel</a>() const noexcept {</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a656c99045430e47cb75d3432c7771af7">_travel</a>;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    }</div>
+</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span></div>
+<div class="foldopen" id="foldopen00166" data-start="{" data-end="}">
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#a335330a71db09257b636e34996be93d0">  166</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#a335330a71db09257b636e34996be93d0">freeze</a>(<span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#aef08d7c2386bfb79b7b5fa8f69c8f6b7">frozen</a>) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a6aa8df4a937fec8ed16b697738d99994">_frozen</a> = <a class="code hl_function" href="classcore_1_1ExplorationSession.html#aef08d7c2386bfb79b7b5fa8f69c8f6b7">frozen</a>;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00169" data-start="{" data-end="}">
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#aef08d7c2386bfb79b7b5fa8f69c8f6b7">  169</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#aef08d7c2386bfb79b7b5fa8f69c8f6b7">frozen</a>() const noexcept {</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a6aa8df4a937fec8ed16b697738d99994">_frozen</a>;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    }</div>
+</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span></div>
+<div class="foldopen" id="foldopen00174" data-start="{" data-end="}">
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#a91c0efcf0eab8c834155e00174a0b094">  174</a></span>    [[nodiscard]] <span class="keyword">const</span> std::vector&lt;Interactable&gt;&amp; <a class="code hl_function" href="classcore_1_1ExplorationSession.html#a91c0efcf0eab8c834155e00174a0b094">interactables</a>() const noexcept {</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#ae60b3de301ac07787799979e93fee49e">_interactables</a>;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    }</div>
+</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#a39d384fd1e8c3dccb780aa04017592d0">rebuildInteractables</a>();</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#a371e5175317dc045a3020c27f35eed8e">fits</a>(<a class="code hl_struct" href="structcore_1_1CellPoint.html">CellPoint</a> point) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#a809f6f2a0566700a8250e1139c3e4491">walk</a>(<a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a> move, <span class="keywordtype">float</span> seconds);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#a29ef9f7951615bed2866ab6902a6ae1e">crossPortal</a>(std::vector&lt;ExplorationEvent&gt;&amp; events);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1ExplorationSession.html#a1f9d908231a964928680b68b3e544ee0">resolveInteraction</a>(std::vector&lt;ExplorationEvent&gt;&amp; events);</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#a656c99045430e47cb75d3432c7771af7">  190</a></span>    <a class="code hl_class" href="classcore_1_1WorldTravel.html">WorldTravel</a> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a656c99045430e47cb75d3432c7771af7">_travel</a>;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#aaf82af7c6c3eb86fff6d3ed106c52c3e">  191</a></span>    <a class="code hl_class" href="classcore_1_1WorldFlags.html">WorldFlags</a> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#aaf82af7c6c3eb86fff6d3ed106c52c3e">_flags</a>;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#ae60b3de301ac07787799979e93fee49e">  192</a></span>    std::vector&lt;Interactable&gt; <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#ae60b3de301ac07787799979e93fee49e">_interactables</a>;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#a78990bfe40fea6c6f66a3d3322afe532">  193</a></span>    <a class="code hl_struct" href="structcore_1_1CellPoint.html">CellPoint</a> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a78990bfe40fea6c6f66a3d3322afe532">_hero</a>{};</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#a6aac839cf41db1a8821d50f4da65ad16">  194</a></span>    <a class="code hl_struct" href="structcore_1_1Vector2.html">Vector2</a> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a6aac839cf41db1a8821d50f4da65ad16">_facing</a>{0.0F, 1.0F};</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#a8de37f24a97f9319f841c471451aadb2">  197</a></span>    <a class="code hl_struct" href="structcore_1_1GridPosition.html">GridPosition</a> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a8de37f24a97f9319f841c471451aadb2">_lastCell</a>{};</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="classcore_1_1ExplorationSession.html#a6aa8df4a937fec8ed16b697738d99994">  198</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="classcore_1_1ExplorationSession.html#a6aa8df4a937fec8ed16b697738d99994">_frozen</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>};</div>
+</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aGridPosition_8h_html"><div class="ttname"><a href="GridPosition_8h.html">GridPosition.h</a></div><div class="ttdoc">Position entière dans la grille d&#39;un niveau (colonne, ligne).</div></div>
+<div class="ttc" id="aInteractable_8h_html"><div class="ttname"><a href="Interactable_8h.html">Interactable.h</a></div><div class="ttdoc">Composant d&#39;une entité de carte avec laquelle le joueur peut interagir (données pures).</div></div>
+<div class="ttc" id="aLevel_8h_html"><div class="ttname"><a href="Level_8h.html">Level.h</a></div><div class="ttdoc">Carte chargée : grille de collision, couches, entités, point d&#39;entrée, variante.</div></div>
+<div class="ttc" id="aVector2_8h_html"><div class="ttname"><a href="Vector2_8h.html">Vector2.h</a></div><div class="ttdoc">Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX).</div></div>
+<div class="ttc" id="aWorldFlags_8h_html"><div class="ttname"><a href="WorldFlags_8h.html">WorldFlags.h</a></div><div class="ttdoc">Les drapeaux de monde : ce qui a eu lieu et ne doit pas avoir lieu deux fois (LOT-10).</div></div>
+<div class="ttc" id="aWorldTravel_8h_html"><div class="ttname"><a href="WorldTravel_8h.html">WorldTravel.h</a></div><div class="ttdoc">Le graphe du monde joué : franchir un portail, arriver à un point nommé, et refuser au chargement ce ...</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a0830d60319ca57c8da2a78cee858d0d8"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a0830d60319ca57c8da2a78cee858d0d8">core::ExplorationSession::facing</a></div><div class="ttdeci">Vector2 facing() const noexcept</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:147</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a0f80ebd17db245ab4229e3fae91a0243"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a0f80ebd17db245ab4229e3fae91a0243">core::ExplorationSession::placeHero</a></div><div class="ttdeci">void placeHero(CellPoint point) noexcept</div><div class="ttdoc">Pose le héros où l&#39;appelant le veut — le retour du sable, à la case relevée.</div><div class="ttdef"><b>Definition</b> ExplorationSession.cpp:44</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a139e3bcdabc9bc7ce0d94faa820ad137"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a139e3bcdabc9bc7ce0d94faa820ad137">core::ExplorationSession::mapId</a></div><div class="ttdeci">const std::string &amp; mapId() const noexcept</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:129</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a1f9d908231a964928680b68b3e544ee0"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a1f9d908231a964928680b68b3e544ee0">core::ExplorationSession::resolveInteraction</a></div><div class="ttdeci">void resolveInteraction(std::vector&lt; ExplorationEvent &gt; &amp;events)</div><div class="ttdoc">Résout l&#39;interaction demandée.</div><div class="ttdef"><b>Definition</b> ExplorationSession.cpp:157</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a29ef9f7951615bed2866ab6902a6ae1e"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a29ef9f7951615bed2866ab6902a6ae1e">core::ExplorationSession::crossPortal</a></div><div class="ttdeci">void crossPortal(std::vector&lt; ExplorationEvent &gt; &amp;events)</div><div class="ttdoc">Franchit le portail de la case du héros, s&#39;il y en a un.</div><div class="ttdef"><b>Definition</b> ExplorationSession.cpp:119</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a335330a71db09257b636e34996be93d0"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a335330a71db09257b636e34996be93d0">core::ExplorationSession::freeze</a></div><div class="ttdeci">void freeze(bool frozen) noexcept</div><div class="ttdoc">Gèle ou dégèle la carte (dialogue, combat).</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:166</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a371e5175317dc045a3020c27f35eed8e"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a371e5175317dc045a3020c27f35eed8e">core::ExplorationSession::fits</a></div><div class="ttdeci">bool fits(CellPoint point) const</div><div class="ttdef"><b>Definition</b> ExplorationSession.cpp:79</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a39d384fd1e8c3dccb780aa04017592d0"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a39d384fd1e8c3dccb780aa04017592d0">core::ExplorationSession::rebuildInteractables</a></div><div class="ttdeci">void rebuildInteractables()</div><div class="ttdoc">Relit les entités interactives de la carte courante (changement de carte).</div><div class="ttdef"><b>Definition</b> ExplorationSession.cpp:53</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a5400b1f5b9fc27c552f225e0ec4ce569"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a5400b1f5b9fc27c552f225e0ec4ce569">core::ExplorationSession::heroPoint</a></div><div class="ttdeci">CellPoint heroPoint() const noexcept</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:134</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a61a51d1501e6ffc4b5bbd230ee851d16"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a61a51d1501e6ffc4b5bbd230ee851d16">core::ExplorationSession::WALK_SPEED_CELLS_PER_SECOND</a></div><div class="ttdeci">static constexpr float WALK_SPEED_CELLS_PER_SECOND</div><div class="ttdoc">Vitesse de marche, en cases par seconde.</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:100</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a656c99045430e47cb75d3432c7771af7"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a656c99045430e47cb75d3432c7771af7">core::ExplorationSession::_travel</a></div><div class="ttdeci">WorldTravel _travel</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:190</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a6781bd6415f58cae52d3698168a9060e"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a6781bd6415f58cae52d3698168a9060e">core::ExplorationSession::heroCell</a></div><div class="ttdeci">GridPosition heroCell() const noexcept</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:142</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a6aa8df4a937fec8ed16b697738d99994"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a6aa8df4a937fec8ed16b697738d99994">core::ExplorationSession::_frozen</a></div><div class="ttdeci">bool _frozen</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:198</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a6aac839cf41db1a8821d50f4da65ad16"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a6aac839cf41db1a8821d50f4da65ad16">core::ExplorationSession::_facing</a></div><div class="ttdeci">Vector2 _facing</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:194</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a769e298bd9b04ff98be332a4e383cb00"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a769e298bd9b04ff98be332a4e383cb00">core::ExplorationSession::HERO_HALF_SIZE_CELLS</a></div><div class="ttdeci">static constexpr float HERO_HALF_SIZE_CELLS</div><div class="ttdoc">Demi-côté du gabarit du héros, en cases : il ne tient pas tout à fait une case, si bien qu&#39;un couloir...</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:103</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a78990bfe40fea6c6f66a3d3322afe532"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a78990bfe40fea6c6f66a3d3322afe532">core::ExplorationSession::_hero</a></div><div class="ttdeci">CellPoint _hero</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:193</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a809f6f2a0566700a8250e1139c3e4491"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a809f6f2a0566700a8250e1139c3e4491">core::ExplorationSession::walk</a></div><div class="ttdeci">void walk(Vector2 move, float seconds)</div><div class="ttdoc">Marche d&#39;un pas, axe par axe : un mur pris en biais fait glisser le long, il n&#39;arrête pas.</div><div class="ttdef"><b>Definition</b> ExplorationSession.cpp:101</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a8de37f24a97f9319f841c471451aadb2"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a8de37f24a97f9319f841c471451aadb2">core::ExplorationSession::_lastCell</a></div><div class="ttdeci">GridPosition _lastCell</div><div class="ttdoc">Case du héros au pas précédent : un portail se franchit en y arrivant, pas à chaque pas où l&#39;on reste...</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:197</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a91c0efcf0eab8c834155e00174a0b094"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a91c0efcf0eab8c834155e00174a0b094">core::ExplorationSession::interactables</a></div><div class="ttdeci">const std::vector&lt; Interactable &gt; &amp; interactables() const noexcept</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:174</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_a9bed0fda73221f828073712709a93691"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#a9bed0fda73221f828073712709a93691">core::ExplorationSession::ExplorationSession</a></div><div class="ttdeci">ExplorationSession(WorldTravel::MapLoader loader)</div><div class="ttdef"><b>Definition</b> ExplorationSession.cpp:31</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_aaf82af7c6c3eb86fff6d3ed106c52c3e"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#aaf82af7c6c3eb86fff6d3ed106c52c3e">core::ExplorationSession::_flags</a></div><div class="ttdeci">WorldFlags _flags</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:191</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_ab1517d211c44200e50a9195dfb0ca2b0"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#ab1517d211c44200e50a9195dfb0ca2b0">core::ExplorationSession::travel</a></div><div class="ttdeci">const WorldTravel &amp; travel() const noexcept</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:161</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_ac6da465cb6cdc7a08d0631394df45eb9"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#ac6da465cb6cdc7a08d0631394df45eb9">core::ExplorationSession::flags</a></div><div class="ttdeci">const WorldFlags &amp; flags() const noexcept</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:157</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_ad9f46abef16cd0037c4fe2d951ae3797"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#ad9f46abef16cd0037c4fe2d951ae3797">core::ExplorationSession::map</a></div><div class="ttdeci">const Level * map() const</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:124</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_ae60b3de301ac07787799979e93fee49e"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#ae60b3de301ac07787799979e93fee49e">core::ExplorationSession::_interactables</a></div><div class="ttdeci">std::vector&lt; Interactable &gt; _interactables</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:192</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_aef08d7c2386bfb79b7b5fa8f69c8f6b7"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#aef08d7c2386bfb79b7b5fa8f69c8f6b7">core::ExplorationSession::frozen</a></div><div class="ttdeci">bool frozen() const noexcept</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:169</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_af22834cdd0f0305a39eea299e837fcc3"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#af22834cdd0f0305a39eea299e837fcc3">core::ExplorationSession::update</a></div><div class="ttdeci">std::vector&lt; ExplorationEvent &gt; update(const ExplorationIntent &amp;intent, float seconds)</div><div class="ttdoc">Avance d&#39;un pas de seconds.</div><div class="ttdef"><b>Definition</b> ExplorationSession.cpp:203</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_af2e543bbcc2b7987acb40f4f0cd2d367"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#af2e543bbcc2b7987acb40f4f0cd2d367">core::ExplorationSession::aimedCell</a></div><div class="ttdeci">GridPosition aimedCell() const</div><div class="ttdef"><b>Definition</b> ExplorationSession.cpp:49</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_af53b61732272ba7cb69bf2ed5f1a4e79"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#af53b61732272ba7cb69bf2ed5f1a4e79">core::ExplorationSession::flags</a></div><div class="ttdeci">WorldFlags &amp; flags() noexcept</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:154</div></div>
+<div class="ttc" id="aclasscore_1_1ExplorationSession_html_affe6baf83932a4eabcaa720517fbfddc"><div class="ttname"><a href="classcore_1_1ExplorationSession.html#affe6baf83932a4eabcaa720517fbfddc">core::ExplorationSession::start</a></div><div class="ttdeci">bool start(std::string_view mapId, std::string_view arrival)</div><div class="ttdoc">Entre sur mapId, au point d&#39;arrivée arrival (vide : l&#39;entrée de la carte).</div><div class="ttdef"><b>Definition</b> ExplorationSession.cpp:34</div></div>
+<div class="ttc" id="aclasscore_1_1Level_html"><div class="ttname"><a href="classcore_1_1Level.html">core::Level</a></div><div class="ttdoc">Carte complète en mémoire.</div><div class="ttdef"><b>Definition</b> Level.h:97</div></div>
+<div class="ttc" id="aclasscore_1_1WorldFlags_html"><div class="ttname"><a href="classcore_1_1WorldFlags.html">core::WorldFlags</a></div><div class="ttdoc">L&#39;ensemble des faits acquis d&#39;une partie : coffres ouverts, quêtes franchies, portes déverrouillées.</div><div class="ttdef"><b>Definition</b> WorldFlags.h:37</div></div>
+<div class="ttc" id="aclasscore_1_1WorldTravel_html"><div class="ttname"><a href="classcore_1_1WorldTravel.html">core::WorldTravel</a></div><div class="ttdoc">La carte courante, et le passage d&#39;une carte à l&#39;autre.</div><div class="ttdef"><b>Definition</b> WorldTravel.h:140</div></div>
+<div class="ttc" id="aclasscore_1_1WorldTravel_html_a3cb015fe13e6071f96b03ba0e819362e"><div class="ttname"><a href="classcore_1_1WorldTravel.html#a3cb015fe13e6071f96b03ba0e819362e">core::WorldTravel::MapLoader</a></div><div class="ttdeci">std::function&lt; LevelLoadResult(std::string_view mapId)&gt; MapLoader</div><div class="ttdoc">Rend la carte d&#39;identifiant donné, lue ou en échec.</div><div class="ttdef"><b>Definition</b> WorldTravel.h:143</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a90b12b036a2622c3cea570a4b860ec55"><div class="ttname"><a href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55">core::ExplorationEventKind</a></div><div class="ttdeci">ExplorationEventKind</div><div class="ttdoc">Ce qu&#39;un pas d&#39;exploration a produit et que l&#39;appelant doit jouer.</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:66</div></div>
+<div class="ttc" id="anamespacecore_html_a90b12b036a2622c3cea570a4b860ec55a2ca45e962ad92edc24caae6182edf7cb"><div class="ttname"><a href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a2ca45e962ad92edc24caae6182edf7cb">core::ExplorationEventKind::MapEntered</a></div><div class="ttdeci">@ MapEntered</div><div class="ttdoc">Le héros est entré sur une carte. value la nomme.</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:68</div></div>
+<div class="ttc" id="anamespacecore_html_a90b12b036a2622c3cea570a4b860ec55a2ef4b5d905788c7ba3d262d1fbcf8a82"><div class="ttname"><a href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a2ef4b5d905788c7ba3d262d1fbcf8a82">core::ExplorationEventKind::Interacted</a></div><div class="ttdeci">@ Interacted</div><div class="ttdoc">Une interaction a eu lieu sans autre conséquence (coffre, panneau). value donne le type.</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:78</div></div>
+<div class="ttc" id="anamespacecore_html_a90b12b036a2622c3cea570a4b860ec55a359928afdf6c973ee869e1698023a812"><div class="ttname"><a href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a359928afdf6c973ee869e1698023a812">core::ExplorationEventKind::Dialogue</a></div><div class="ttdeci">@ Dialogue</div><div class="ttdoc">Il faut ouvrir un dialogue. value nomme le dialogue.</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:74</div></div>
+<div class="ttc" id="anamespacecore_html_a90b12b036a2622c3cea570a4b860ec55ab1472f31cb834b2005fcc48a4717542a"><div class="ttname"><a href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55ab1472f31cb834b2005fcc48a4717542a">core::ExplorationEventKind::PortalBroken</a></div><div class="ttdeci">@ PortalBroken</div><div class="ttdoc">Un portail ne mène nulle part : la carte ou le point d&#39;arrivée manque (EX-NFR-040).</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:72</div></div>
+<div class="ttc" id="anamespacecore_html_a90b12b036a2622c3cea570a4b860ec55af47c910b04b7f7d2491efba8cc3dd835"><div class="ttname"><a href="namespacecore.html#a90b12b036a2622c3cea570a4b860ec55af47c910b04b7f7d2491efba8cc3dd835">core::ExplorationEventKind::PortalLocked</a></div><div class="ttdeci">@ PortalLocked</div><div class="ttdoc">Un portail exige un drapeau que la partie n&#39;a pas. value nomme le drapeau.</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:70</div></div>
+<div class="ttc" id="anamespacecore_html_a99be71340077821d583e53bf779c689d"><div class="ttname"><a href="namespacecore.html#a99be71340077821d583e53bf779c689d">core::cellCenter</a></div><div class="ttdeci">CellPoint cellCenter(GridPosition cell) noexcept</div><div class="ttdef"><b>Definition</b> ExplorationSession.cpp:26</div></div>
+<div class="ttc" id="anamespacecore_html_abec69197693a1004c3a8752db040fff1"><div class="ttname"><a href="namespacecore.html#abec69197693a1004c3a8752db040fff1">core::cellOf</a></div><div class="ttdeci">GridPosition cellOf(CellPoint point) noexcept</div><div class="ttdef"><b>Definition</b> ExplorationSession.cpp:21</div></div>
+<div class="ttc" id="astructcore_1_1CellPoint_html"><div class="ttname"><a href="structcore_1_1CellPoint.html">core::CellPoint</a></div><div class="ttdoc">Position continue sur la grille, en cases.</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:43</div></div>
+<div class="ttc" id="astructcore_1_1CellPoint_html_a3153ae972663cbe8f2ff1c41337179c4"><div class="ttname"><a href="structcore_1_1CellPoint.html#a3153ae972663cbe8f2ff1c41337179c4">core::CellPoint::operator==</a></div><div class="ttdeci">bool operator==(const CellPoint &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1CellPoint_html_a7a2da31ae1ecb72ebb246686dbdae671"><div class="ttname"><a href="structcore_1_1CellPoint.html#a7a2da31ae1ecb72ebb246686dbdae671">core::CellPoint::column</a></div><div class="ttdeci">float column</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:44</div></div>
+<div class="ttc" id="astructcore_1_1CellPoint_html_a94cf0fc45bf29ab100a43fe44634cabc"><div class="ttname"><a href="structcore_1_1CellPoint.html#a94cf0fc45bf29ab100a43fe44634cabc">core::CellPoint::row</a></div><div class="ttdeci">float row</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:45</div></div>
+<div class="ttc" id="astructcore_1_1Encounter_html"><div class="ttname"><a href="structcore_1_1Encounter.html">core::Encounter</a></div><div class="ttdoc">Une rencontre, telle que la donnée la décrit.</div><div class="ttdef"><b>Definition</b> Encounter.h:43</div></div>
+<div class="ttc" id="astructcore_1_1ExplorationEvent_html"><div class="ttname"><a href="structcore_1_1ExplorationEvent.html">core::ExplorationEvent</a></div><div class="ttdoc">Un événement du pas, et où il a eu lieu.</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:82</div></div>
+<div class="ttc" id="astructcore_1_1ExplorationEvent_html_a189963cc446d0afd9043eea9ba1edc13"><div class="ttname"><a href="structcore_1_1ExplorationEvent.html#a189963cc446d0afd9043eea9ba1edc13">core::ExplorationEvent::value</a></div><div class="ttdeci">std::string value</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:84</div></div>
+<div class="ttc" id="astructcore_1_1ExplorationEvent_html_a6f2d1bfadd8250d968ec5d53510fc04e"><div class="ttname"><a href="structcore_1_1ExplorationEvent.html#a6f2d1bfadd8250d968ec5d53510fc04e">core::ExplorationEvent::operator==</a></div><div class="ttdeci">bool operator==(const ExplorationEvent &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1ExplorationEvent_html_ab5377160ffaa62e4decaac1581694287"><div class="ttname"><a href="structcore_1_1ExplorationEvent.html#ab5377160ffaa62e4decaac1581694287">core::ExplorationEvent::kind</a></div><div class="ttdeci">ExplorationEventKind kind</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:83</div></div>
+<div class="ttc" id="astructcore_1_1ExplorationEvent_html_aceba1ce5c0982ae0de0a18cdc77a930f"><div class="ttname"><a href="structcore_1_1ExplorationEvent.html#aceba1ce5c0982ae0de0a18cdc77a930f">core::ExplorationEvent::cell</a></div><div class="ttdeci">GridPosition cell</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:85</div></div>
+<div class="ttc" id="astructcore_1_1ExplorationIntent_html"><div class="ttname"><a href="structcore_1_1ExplorationIntent.html">core::ExplorationIntent</a></div><div class="ttdoc">Ce que le joueur demande d&#39;un pas de simulation.</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:58</div></div>
+<div class="ttc" id="astructcore_1_1ExplorationIntent_html_a07cd0c90c90dee1972afde48bc46ea00"><div class="ttname"><a href="structcore_1_1ExplorationIntent.html#a07cd0c90c90dee1972afde48bc46ea00">core::ExplorationIntent::interact</a></div><div class="ttdeci">bool interact</div><div class="ttdoc">Vrai le pas où le joueur presse la touche d&#39;interaction (E, bouton de manette).</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:62</div></div>
+<div class="ttc" id="astructcore_1_1ExplorationIntent_html_a3acc8f5d0681a33cf183017b01711156"><div class="ttname"><a href="structcore_1_1ExplorationIntent.html#a3acc8f5d0681a33cf183017b01711156">core::ExplorationIntent::move</a></div><div class="ttdeci">Vector2 move</div><div class="ttdoc">Direction voulue, de longueur au plus 1 (clavier ou manette, déjà normalisée).</div><div class="ttdef"><b>Definition</b> ExplorationSession.h:60</div></div>
+<div class="ttc" id="astructcore_1_1GridPosition_html"><div class="ttname"><a href="structcore_1_1GridPosition.html">core::GridPosition</a></div><div class="ttdoc">Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.</div><div class="ttdef"><b>Definition</b> GridPosition.h:20</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html"><div class="ttname"><a href="structcore_1_1Vector2.html">core::Vector2</a></div><div class="ttdoc">Vecteur bidimensionnel en coordonnées monde (composantes float).</div><div class="ttdef"><b>Definition</b> Vector2.h:21</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_c085377a8d45dfd2467facd710fb0ba3.html">World</a></li><li class="navelem"><a href="ExplorationSession_8h.html">ExplorationSession.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

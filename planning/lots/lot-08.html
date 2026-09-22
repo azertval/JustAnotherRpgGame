@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOT-08 — Vocabulaire de tuiles RPG — Planification</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="index.html" class="active">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="../standards/index.html">Standards</a></nav>
+  <div class="links"><a href="../../">Documentation</a><a class="active" href="../index.html">Planification</a><a href="../../qualite/">Qualité</a></div>
+</header>
+<div class="shell">
+
+<main>
+<p class="crumb"><a href="index.html">Lots</a> › <a href="../versions/v0-0-0.html">0.0.0 — Fondation du moteur</a></p><h1><span class="vid">LOT-08</span> Vocabulaire de tuiles RPG</h1><p class="lede">La palette reçoit les neuf types de terrain d'un RPG en vue de dessus, chacun avec libellé, catégorie, rendu de repli et test : une carte se dessine sans aucun fichier d'image.</p><dl class="facts"><div><dt>État</dt><dd><span class="badge etat-livre">livré</span></dd></div><div><dt>Filière</dt><dd><span class="filiere f-moteur">Moteur</span></dd></div><div><dt>Taille</dt><dd>M</dd></div><div><dt>Ordre calculé</dt><dd>—</dd></div><div><dt>Prérequis</dt><dd><a class="ref" href="lot-04.html">LOT-04</a></dd></div><div><dt>Débloque</dt><dd><a class="ref" href="lot-10.html">LOT-10</a> <a class="ref" href="lot-11.html">LOT-11</a></dd></div><div><dt>Reprend</dt><dd>—</dd></div></dl><section><h2>Livrables</h2><ul class=""><li>Neuf types ajoutés à <code>core::TileType</code> : <code>Grass</code>, <code>Dirt</code>, <code>Sand</code>, <code>Water</code>, <code>DeepWater</code>, <code>Wall</code>, <code>Cliff</code>, <code>Bridge</code>, <code>Stairs</code> (<code>TileType.h</code>, <code>TileTypeName.cpp</code>).</li><li>Catégories de palette à trois entrées dans <code>Editor/TileTaxonomy.cpp</code> et <code>TaxonomyLabels.cpp</code>, libellés <code>fr.lang</code> et <code>en.lang</code>.</li><li>Rendu de repli déterministe de chaque type dans <code>ProceduralAtlas</code>.</li><li><code>DeepWater</code> porté par <code>core::isSolid</code> ; raccords de <code>Wall</code> et <code>Cliff</code> obtenus par <code>hmi::solidNeighborMask</code>.</li><li>Tests d'aller-retour chargeur/écrivain pour chaque type.</li></ul></section><section><h2>Critères d'acceptation</h2><ul class="checks"><li>Chaque nouveau type a : un libellé fr/en, une classe de palette, un rendu procédural de repli, et un test d'aller-retour.</li><li>Le jeu se lance et affiche une carte <strong>sans aucun fichier d'image</strong> présent.</li><li><code>TILE_TYPE_COUNT</code> reste dérivé du dernier énumérateur — aucune borne recopiée à la main.</li></ul></section><section class="prose"><h2 id="pourquoi">Pourquoi</h2>
+<p>Donner à la palette les types de terrain d'un RPG en vue de dessus, là où le <code>LOT-01</code> a laissé le strict minimum hérité (11 types).</p>
+<h2 id="périmètre">Périmètre</h2>
+<p>Types à ajouter dans <code>core::TileType</code>, à peu près : <code>Grass</code>, <code>Dirt</code>, <code>Sand</code>, <code>Water</code>, <code>DeepWater</code>, <code>Wall</code>, <code>Cliff</code>, <code>Bridge</code>, <code>Stairs</code>. La liste exacte se décide au contact du level design, pas d'avance.</p>
+<p>Pour <strong>chaque</strong> type ajouté, la chaîne complète — c'est la leçon la plus chère de l'héritage, où ajouter un type touchait « exactement la même chaîne de huit fichiers » :</p>
+<ol><li><code>TileType.h</code> (avant le dernier énumérateur, <code>TILE_TYPE_COUNT</code> suit tout seul) ;</li><li><code>TileTypeName.cpp</code> (le <code>switch</code> est exhaustif et sans <code>default</code> : le compilateur désigne lui-même ce qu'il reste à faire) ;</li><li><code>Editor/TileTaxonomy.cpp</code> (catégorie de palette) et <code>TaxonomyLabels.cpp</code> ;</li><li>libellés <code>fr.lang</code> <strong>et</strong> <code>en.lang</code> ;</li><li><code>ProceduralAtlas</code> : <strong>rendu de repli déterministe</strong>, dans le même lot, jamais « plus tard » — c'est ce qui garde le jeu lançable sans aucun fichier d'image ;</li><li><code>TileAutotile</code> si le type a des raccords ;</li><li><code>TileSilhouette</code> si sa matière n'occupe pas toute la case (falaises, bords d'eau, ponts) — le <code>LOT-01</code> a <strong>conservé ce mécanisme vidé</strong> précisément pour ce lot ;</li><li>test d'aller-retour chargeur/écrivain.</li></ol>
+<h2 id="conception">Conception</h2>
+<h3 id="note-de-conception">Note de conception</h3>
+<p>Le <code>LOT-01</code> a supprimé les 25 types de plateforme mais gardé les 11 génériques (<code>Empty</code>, <code>Solid</code>, <code>Danger</code>, <code>Entry</code>, <code>Exit</code>, <code>Switch</code>, <code>Door</code>, <code>PressurePlate</code>, <code>Block</code>, <code>Key</code>, <code>LockedDoor</code>) : le vocabulaire de puzzle sert tel quel au RPG. Ce lot <strong>ajoute</strong>, il ne remplace pas.</p>
+<h2 id="décisions-de-réalisation">Décisions de réalisation</h2>
+<p>Ce que la réalisation a tranché.</p>
+<p><strong>La liste retenue est exactement celle que le périmètre proposait</strong> — <code>Grass</code>, <code>Dirt</code>, <code>Sand</code>, <code>Water</code>, <code>DeepWater</code>, <code>Wall</code>, <code>Cliff</code>, <code>Bridge</code>, <code>Stairs</code> — faute de level design à consulter pour en dévier. Elle couvre les trois questions qu'un auteur de carte se pose devant sa palette : ce qui se marche, ce qui arrête, ce qui fait franchir. C'est aussi le découpage de catégories retenu, à trois entrées, plutôt qu'une seule rubrique « Terrain » où l'on chercherait le pont parmi les sols.</p>
+<p><strong>L'eau profonde arrête.</strong> Ce n'est pas de la matière, mais rien ne permet encore de la franchir. Le mettre dans <code>core::isSolid</code> plutôt que dans un test à part garantit que le jour où une règle de nage existera, il n'y aura <strong>qu'un</strong> endroit à changer — l'alternative, des « sauf si c'est de l'eau » disséminés, est exactement la dette que ce lot cherche à ne pas créer.</p>
+<p><strong>Aucune silhouette n'est déclarée</strong> (point 7 du périmètre). Le mécanisme, conservé vidé par le <code>LOT-01</code>, découpe la matière qui n'occupe pas toute la case : il décrivait des pentes et des arrondis de plateforme. Un terrain vu de dessus est carré par nature — falaise, rive et pont occupent leur case entière, et c'est le raccord entre cases voisines (autotuilage), pas la découpe d'une case, qui leur donnera leur forme. Leur inventer des silhouettes serait travailler contre le genre ; le mécanisme reste disponible pour le jour où une tuile en aura vraiment besoin.</p>
+<p><strong>L'autotuilage vient sans code.</strong> <code>hmi::solidNeighborMask</code> interroge <code>core::isSolid</code> : <code>Wall</code> et <code>Cliff</code> obtiennent donc leurs raccords à seize voisinages du seul fait d'arrêter le déplacement, sans qu'aucune liste de types n'ait à les nommer.</p>
+<p><strong>Les neuf types ont pris des cases restées libres</strong> dans l'atlas procédural après le retrait des types de plateforme au <code>LOT-01</code> — aucune couleur déjà posée dans un niveau livré n'a bougé, ce que l'invariant de <code>tileColor</code> exige.</p>
+<h2 id="exigences-couvertes">Exigences couvertes</h2>
+<p><code>EX-EXP-*</code>, <code>EX-EDIT-*</code>, <code>EX-REN-*</code>.</p>
+<h2 id="bilan">Bilan</h2>
+<p>Statut : <strong>fait</strong>. Vérification automatisée : build <code>/W4 /WX</code> sans avertissement, <code>ctest</code> à 927/927, lint d'exigences, cahier de test, Doxygen et <code>clang-format</code> verts. Le <code>LOT-04</code> était requis parce que les couches donnent leur sens aux types.</p></section><p class="source">Source : <code>Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-08-tuiles-rpg.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

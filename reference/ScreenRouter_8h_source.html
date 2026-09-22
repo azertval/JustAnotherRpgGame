@@ -1,0 +1,311 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/ScreenRouter.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('ScreenRouter_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ScreenRouter.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="ScreenRouter_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;QObject&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;QString&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;QtQmlIntegration&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="RpgScreens_8h.html">HMI/Presentation/RpgScreens.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="ScreenFlow_8h.html">HMI/Presentation/ScreenFlow.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span></div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="};">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html">   41</a></span><span class="keyword">class </span><a class="code hl_function" href="classhmi_1_1ScreenRouter.html#a9e6541e67445b3ac46d5100ffbf96fb1">ScreenRouter</a> : <span class="keyword">public</span> QObject {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    Q_OBJECT</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    QML_ELEMENT</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    QML_SINGLETON</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#ae6f4f69704239e7f7561382ecb88426c">   46</a></span>    Q_PROPERTY(<a class="code hl_enumeration" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7">Screen</a> <a class="code hl_property" href="classhmi_1_1ScreenRouter.html#ae6f4f69704239e7f7561382ecb88426c">currentScreen</a> READ <a class="code hl_property" href="classhmi_1_1ScreenRouter.html#ae6f4f69704239e7f7561382ecb88426c">currentScreen</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1ScreenRouter.html#abe0507d01e28c708982407bb9f1f2096">changed</a>)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a68efd81277570018b5f1043310abb730">   47</a></span>    Q_PROPERTY(<a class="code hl_enumeration" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bde">RpgScreen</a> <a class="code hl_property" href="classhmi_1_1ScreenRouter.html#a68efd81277570018b5f1043310abb730">currentRpgScreen</a> READ <a class="code hl_property" href="classhmi_1_1ScreenRouter.html#a68efd81277570018b5f1043310abb730">currentRpgScreen</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1ScreenRouter.html#abe0507d01e28c708982407bb9f1f2096">changed</a>)</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#aa9ba1f7e1f16121dc41686cc69ee0dea">   52</a></span>    Q_PROPERTY(QString <a class="code hl_property" href="classhmi_1_1ScreenRouter.html#aa9ba1f7e1f16121dc41686cc69ee0dea">dialogueId</a> READ <a class="code hl_property" href="classhmi_1_1ScreenRouter.html#aa9ba1f7e1f16121dc41686cc69ee0dea">dialogueId</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1ScreenRouter.html#abe0507d01e28c708982407bb9f1f2096">changed</a>)</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#ae1d233ca79a137451b3d598b29aae659">   58</a></span>    Q_PROPERTY(<span class="keywordtype">bool</span> <a class="code hl_property" href="classhmi_1_1ScreenRouter.html#ae1d233ca79a137451b3d598b29aae659">developerBuild</a> READ <a class="code hl_property" href="classhmi_1_1ScreenRouter.html#ae1d233ca79a137451b3d598b29aae659">developerBuild</a> CONSTANT)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>public:</div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="};">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7">   62</a></span>    enum class <a class="code hl_enumeration" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7">Screen</a> {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7ab61541208db7fa7dba42c85224405911">   63</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7ab61541208db7fa7dba42c85224405911">Menu</a>,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a63d72051e901c069f8aa1b32aa0c43bb">   64</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a63d72051e901c069f8aa1b32aa0c43bb">Game</a>,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7adae8ace18bdcbcc6ae5aece263e14fe8">   65</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7adae8ace18bdcbcc6ae5aece263e14fe8">Options</a>,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a105b296a83f9c105355403f3332af50f">   66</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a105b296a83f9c105355403f3332af50f">Pause</a>,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a948a2e3548aaf7f9941a3192fa607d51">   67</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a948a2e3548aaf7f9941a3192fa607d51">Credits</a>,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a74f7bb96f40b089d24eea4863b269139">   68</a></span>        <a class="code hl_enumeration" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bde">RpgScreen</a>,</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a6fa3f3daa9f9a6282d58c913b73b8dc4">   70</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a6fa3f3daa9f9a6282d58c913b73b8dc4">Arena</a>,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    };</div>
+</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    Q_ENUM(<a class="code hl_enumeration" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7">Screen</a>)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    </div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="};">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bde">   75</a></span>    enum class <a class="code hl_enumeration" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bde">RpgScreen</a> {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdeaeb7e99d2187282628ef8b4c20cf7a714">   76</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdeaeb7e99d2187282628ef8b4c20cf7a714">CharacterSheet</a>,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdeaaa79c5d1cbe3d96218a92481bcfaa39c">   77</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdeaaa79c5d1cbe3d96218a92481bcfaa39c">Skills</a>,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea4d604dd8f008145471dc845683399189">   78</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea4d604dd8f008145471dc845683399189">Inventory</a>,</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdeaafebbeedc0c1e6ef23639958ccfc4e93">   79</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdeaafebbeedc0c1e6ef23639958ccfc4e93">QuestJournal</a>,</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdeade45fe3bb002bd16009ebd8331e35146">   80</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdeade45fe3bb002bd16009ebd8331e35146">WorldMap</a>,</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea359928afdf6c973ee869e1698023a812">   81</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea359928afdf6c973ee869e1698023a812">Dialogue</a>,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea896890bfb700eac98300d639ca970f2b">   82</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea896890bfb700eac98300d639ca970f2b">Merchant</a>,</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea1c76cbfe21c6f44c1d1e59d54f3e4420">   83</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea1c76cbfe21c6f44c1d1e59d54f3e4420">Company</a>,</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea24a64995097c2618f6232d44c3b135ff">   84</a></span>        <a class="code hl_enumvalue" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea24a64995097c2618f6232d44c3b135ff">CombatHud</a>,</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    };</div>
+</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    Q_ENUM(<a class="code hl_enumeration" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bde">RpgScreen</a>)</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#a9e6541e67445b3ac46d5100ffbf96fb1">ScreenRouter</a>(QObject* parent = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    [[nodiscard]] <a class="code hl_enumeration" href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7">Screen</a> <a class="code hl_property" href="classhmi_1_1ScreenRouter.html#ae6f4f69704239e7f7561382ecb88426c">currentScreen</a>() const noexcept;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    [[nodiscard]] <a class="code hl_enumeration" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bde">RpgScreen</a> <a class="code hl_property" href="classhmi_1_1ScreenRouter.html#a68efd81277570018b5f1043310abb730">currentRpgScreen</a>() const noexcept;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#ac6014c18529417527360f273fe9e39f3">   93</a></span>    [[nodiscard]] static <span class="keywordtype">bool</span> <a class="code hl_property" href="classhmi_1_1ScreenRouter.html#ae1d233ca79a137451b3d598b29aae659">developerBuild</a>() noexcept;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#aadd3bd3f7a84530fbd3c139dfc4011d0">openMenu</a>();</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#a10a7ce61538fe188b0f4151a44f61595">openGame</a>();</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#a726babaae9dd3059829d58646ade1efc">openOptions</a>();</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#a715c3898e04c067e4fb45b1cedb6d8f8">closeOptions</a>();</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#a69bed6c6f979c2d2ea1880c320aab1f8">openPause</a>();</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#aa8fed1e22f7cfd03742406907e388676">resume</a>();</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#aab3e0450a627326cf2d67b565214589a">quitToMenu</a>();</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#a72a1fbefbc533cfa55a1baebd0a68615">openCredits</a>();</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#afc4b6c4f6e692e0f439b694fbc4ed7a4">closeCredits</a>();</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#a2494cbca36808d307ae0cf26336e5c78">openArena</a>();</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#a848642d2b4ed6fcf1b3c78de534de4e9">closeArena</a>();</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#a6f0915e029b9531574965cd7f24f9b5c">openDialogue</a>(const QString&amp; <a class="code hl_property" href="classhmi_1_1ScreenRouter.html#aa9ba1f7e1f16121dc41686cc69ee0dea">dialogueId</a>);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="foldopen" id="foldopen00113" data-start="{" data-end="}">
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a400495598bce472d73a8673d7e9601df">  113</a></span>    [[nodiscard]] QString <a class="code hl_property" href="classhmi_1_1ScreenRouter.html#aa9ba1f7e1f16121dc41686cc69ee0dea">dialogueId</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1ScreenRouter.html#a5b9b9bdca132c589d8f8060f4e95f9d4">_dialogueId</a>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
+</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#a52cafab93eba8eeaa94127082bd2059b">openRpgScreen</a>(<a class="code hl_enumeration" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bde">RpgScreen</a> screen);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#a5efecee08cf5d4212b5c68431b1d2ed9">closeRpgScreen</a>();</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#aba7714a748fe5539eb4c69e6b87dc169">nextRpgScreen</a>();</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#a11c974d1ecc02dc6164d96347e09e1ae">previousRpgScreen</a>();</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>signals:</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#abe0507d01e28c708982407bb9f1f2096">  130</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classhmi_1_1ScreenRouter.html#abe0507d01e28c708982407bb9f1f2096">changed</a>();</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1ScreenRouter.html#a8479413d73606356d8ebd8443fdf40c5">apply</a>(<a class="code hl_enumeration" href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90">ScreenEvent</a> event);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a21433fbad1393d4d8d0d39190c672290">  136</a></span>    <a class="code hl_struct" href="structhmi_1_1ScreenState.html">ScreenState</a> <a class="code hl_variable" href="classhmi_1_1ScreenRouter.html#a21433fbad1393d4d8d0d39190c672290">_state</a>{};</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a324e160a25a802626ac8a46e17f88357">  137</a></span>    <a class="code hl_enumeration" href="namespacehmi.html#a86e4ce6097c7a029c683096302528e72">RpgScreenId</a> <a class="code hl_variable" href="classhmi_1_1ScreenRouter.html#a324e160a25a802626ac8a46e17f88357">_rpgScreen</a> = <a class="code hl_enumvalue" href="namespacehmi.html#a86e4ce6097c7a029c683096302528e72aeb7e99d2187282628ef8b4c20cf7a714">RpgScreenId::CharacterSheet</a>;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="classhmi_1_1ScreenRouter.html#a5b9b9bdca132c589d8f8060f4e95f9d4">  138</a></span>    QString <a class="code hl_variable" href="classhmi_1_1ScreenRouter.html#a5b9b9bdca132c589d8f8060f4e95f9d4">_dialogueId</a>;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>};</div>
+</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aRpgScreens_8h_html"><div class="ttname"><a href="RpgScreens_8h.html">RpgScreens.h</a></div><div class="ttdoc">Catalogue des écrans du RPG et ossature de leur contenu (LOT-68, EX-IHM-090, EX-IHM-091).</div></div>
+<div class="ttc" id="aScreenFlow_8h_html"><div class="ttname"><a href="ScreenFlow_8h.html">ScreenFlow.h</a></div><div class="ttdoc">Machine à états des écrans de la fenêtre principale (EX-GP-041).</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a0277d29471d1699b63793797bbab3bde"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bde">hmi::ScreenRouter::RpgScreen</a></div><div class="ttdeci">RpgScreen</div><div class="ttdoc">Lequel des huit écrans du RPG est ouvert, quand currentScreen vaut RpgScreen.</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:75</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a0277d29471d1699b63793797bbab3bdea1c76cbfe21c6f44c1d1e59d54f3e4420"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea1c76cbfe21c6f44c1d1e59d54f3e4420">hmi::ScreenRouter::RpgScreen::Company</a></div><div class="ttdeci">@ Company</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:83</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a0277d29471d1699b63793797bbab3bdea24a64995097c2618f6232d44c3b135ff"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea24a64995097c2618f6232d44c3b135ff">hmi::ScreenRouter::RpgScreen::CombatHud</a></div><div class="ttdeci">@ CombatHud</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:84</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a0277d29471d1699b63793797bbab3bdea359928afdf6c973ee869e1698023a812"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea359928afdf6c973ee869e1698023a812">hmi::ScreenRouter::RpgScreen::Dialogue</a></div><div class="ttdeci">@ Dialogue</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:81</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a0277d29471d1699b63793797bbab3bdea4d604dd8f008145471dc845683399189"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea4d604dd8f008145471dc845683399189">hmi::ScreenRouter::RpgScreen::Inventory</a></div><div class="ttdeci">@ Inventory</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:78</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a0277d29471d1699b63793797bbab3bdea896890bfb700eac98300d639ca970f2b"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea896890bfb700eac98300d639ca970f2b">hmi::ScreenRouter::RpgScreen::Merchant</a></div><div class="ttdeci">@ Merchant</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:82</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a0277d29471d1699b63793797bbab3bdeaaa79c5d1cbe3d96218a92481bcfaa39c"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdeaaa79c5d1cbe3d96218a92481bcfaa39c">hmi::ScreenRouter::RpgScreen::Skills</a></div><div class="ttdeci">@ Skills</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:77</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a0277d29471d1699b63793797bbab3bdeaafebbeedc0c1e6ef23639958ccfc4e93"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdeaafebbeedc0c1e6ef23639958ccfc4e93">hmi::ScreenRouter::RpgScreen::QuestJournal</a></div><div class="ttdeci">@ QuestJournal</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:79</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a0277d29471d1699b63793797bbab3bdeade45fe3bb002bd16009ebd8331e35146"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdeade45fe3bb002bd16009ebd8331e35146">hmi::ScreenRouter::RpgScreen::WorldMap</a></div><div class="ttdeci">@ WorldMap</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:80</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a0277d29471d1699b63793797bbab3bdeaeb7e99d2187282628ef8b4c20cf7a714"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdeaeb7e99d2187282628ef8b4c20cf7a714">hmi::ScreenRouter::RpgScreen::CharacterSheet</a></div><div class="ttdeci">@ CharacterSheet</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:76</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a10a7ce61538fe188b0f4151a44f61595"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a10a7ce61538fe188b0f4151a44f61595">hmi::ScreenRouter::openGame</a></div><div class="ttdeci">Q_INVOKABLE void openGame()</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:93</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a11c974d1ecc02dc6164d96347e09e1ae"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a11c974d1ecc02dc6164d96347e09e1ae">hmi::ScreenRouter::previousRpgScreen</a></div><div class="ttdeci">Q_INVOKABLE void previousRpgScreen()</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:151</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a21433fbad1393d4d8d0d39190c672290"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a21433fbad1393d4d8d0d39190c672290">hmi::ScreenRouter::_state</a></div><div class="ttdeci">ScreenState _state</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:136</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a2494cbca36808d307ae0cf26336e5c78"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a2494cbca36808d307ae0cf26336e5c78">hmi::ScreenRouter::openArena</a></div><div class="ttdeci">Q_INVOKABLE void openArena()</div><div class="ttdoc">Ouvre le Colisée depuis le menu, et en revient. Un mode du jeu, pas un écran du RPG.</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:118</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a324e160a25a802626ac8a46e17f88357"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a324e160a25a802626ac8a46e17f88357">hmi::ScreenRouter::_rpgScreen</a></div><div class="ttdeci">RpgScreenId _rpgScreen</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:137</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a52cafab93eba8eeaa94127082bd2059b"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a52cafab93eba8eeaa94127082bd2059b">hmi::ScreenRouter::openRpgScreen</a></div><div class="ttdeci">Q_INVOKABLE void openRpgScreen(RpgScreen screen)</div><div class="ttdoc">Ouvre un écran du RPG.</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:133</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a5b9b9bdca132c589d8f8060f4e95f9d4"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a5b9b9bdca132c589d8f8060f4e95f9d4">hmi::ScreenRouter::_dialogueId</a></div><div class="ttdeci">QString _dialogueId</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:138</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a5efecee08cf5d4212b5c68431b1d2ed9"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a5efecee08cf5d4212b5c68431b1d2ed9">hmi::ScreenRouter::closeRpgScreen</a></div><div class="ttdeci">Q_INVOKABLE void closeRpgScreen()</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:142</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a68efd81277570018b5f1043310abb730"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a68efd81277570018b5f1043310abb730">hmi::ScreenRouter::currentRpgScreen</a></div><div class="ttdeci">RpgScreen currentRpgScreen</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:47</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a69bed6c6f979c2d2ea1880c320aab1f8"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a69bed6c6f979c2d2ea1880c320aab1f8">hmi::ScreenRouter::openPause</a></div><div class="ttdeci">Q_INVOKABLE void openPause()</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:102</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a6f0915e029b9531574965cd7f24f9b5c"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a6f0915e029b9531574965cd7f24f9b5c">hmi::ScreenRouter::openDialogue</a></div><div class="ttdeci">Q_INVOKABLE void openDialogue(const QString &amp;dialogueId)</div><div class="ttdoc">Ouvre l&#39;écran de dialogue sur dialogueId : le dialogue du PNJ à qui l&#39;on parle, jamais un identifiant...</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:126</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a715c3898e04c067e4fb45b1cedb6d8f8"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a715c3898e04c067e4fb45b1cedb6d8f8">hmi::ScreenRouter::closeOptions</a></div><div class="ttdeci">Q_INVOKABLE void closeOptions()</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:99</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a726babaae9dd3059829d58646ade1efc"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a726babaae9dd3059829d58646ade1efc">hmi::ScreenRouter::openOptions</a></div><div class="ttdeci">Q_INVOKABLE void openOptions()</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:96</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a72a1fbefbc533cfa55a1baebd0a68615"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a72a1fbefbc533cfa55a1baebd0a68615">hmi::ScreenRouter::openCredits</a></div><div class="ttdeci">Q_INVOKABLE void openCredits()</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:111</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a82f878c3ef3a0d8b924af7bbca4b37f7"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7">hmi::ScreenRouter::Screen</a></div><div class="ttdeci">Screen</div><div class="ttdoc">Écran affiché. Reprend hmi::ScreenId.</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:62</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a82f878c3ef3a0d8b924af7bbca4b37f7a105b296a83f9c105355403f3332af50f"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a105b296a83f9c105355403f3332af50f">hmi::ScreenRouter::Screen::Pause</a></div><div class="ttdeci">@ Pause</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:66</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a82f878c3ef3a0d8b924af7bbca4b37f7a63d72051e901c069f8aa1b32aa0c43bb"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a63d72051e901c069f8aa1b32aa0c43bb">hmi::ScreenRouter::Screen::Game</a></div><div class="ttdeci">@ Game</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:64</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a82f878c3ef3a0d8b924af7bbca4b37f7a6fa3f3daa9f9a6282d58c913b73b8dc4"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a6fa3f3daa9f9a6282d58c913b73b8dc4">hmi::ScreenRouter::Screen::Arena</a></div><div class="ttdeci">@ Arena</div><div class="ttdoc">Le Colisée (LOT-50).</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:70</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a82f878c3ef3a0d8b924af7bbca4b37f7a948a2e3548aaf7f9941a3192fa607d51"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a948a2e3548aaf7f9941a3192fa607d51">hmi::ScreenRouter::Screen::Credits</a></div><div class="ttdeci">@ Credits</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:67</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a82f878c3ef3a0d8b924af7bbca4b37f7ab61541208db7fa7dba42c85224405911"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7ab61541208db7fa7dba42c85224405911">hmi::ScreenRouter::Screen::Menu</a></div><div class="ttdeci">@ Menu</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:63</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a82f878c3ef3a0d8b924af7bbca4b37f7adae8ace18bdcbcc6ae5aece263e14fe8"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7adae8ace18bdcbcc6ae5aece263e14fe8">hmi::ScreenRouter::Screen::Options</a></div><div class="ttdeci">@ Options</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:65</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a8479413d73606356d8ebd8443fdf40c5"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a8479413d73606356d8ebd8443fdf40c5">hmi::ScreenRouter::apply</a></div><div class="ttdeci">bool apply(ScreenEvent event)</div><div class="ttdoc">Applique event si la table l&#39;autorise.</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:77</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a848642d2b4ed6fcf1b3c78de534de4e9"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a848642d2b4ed6fcf1b3c78de534de4e9">hmi::ScreenRouter::closeArena</a></div><div class="ttdeci">Q_INVOKABLE void closeArena()</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:122</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_a9e6541e67445b3ac46d5100ffbf96fb1"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#a9e6541e67445b3ac46d5100ffbf96fb1">hmi::ScreenRouter::ScreenRouter</a></div><div class="ttdeci">ScreenRouter(QObject *parent=nullptr)</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:67</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_aa8fed1e22f7cfd03742406907e388676"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#aa8fed1e22f7cfd03742406907e388676">hmi::ScreenRouter::resume</a></div><div class="ttdeci">Q_INVOKABLE void resume()</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:105</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_aa9ba1f7e1f16121dc41686cc69ee0dea"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#aa9ba1f7e1f16121dc41686cc69ee0dea">hmi::ScreenRouter::dialogueId</a></div><div class="ttdeci">QString dialogueId</div><div class="ttdoc">Le dialogue que l&#39;écran de dialogue doit jouer (LOT-09).</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:52</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_aab3e0450a627326cf2d67b565214589a"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#aab3e0450a627326cf2d67b565214589a">hmi::ScreenRouter::quitToMenu</a></div><div class="ttdeci">Q_INVOKABLE void quitToMenu()</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:108</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_aadd3bd3f7a84530fbd3c139dfc4011d0"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#aadd3bd3f7a84530fbd3c139dfc4011d0">hmi::ScreenRouter::openMenu</a></div><div class="ttdeci">Q_INVOKABLE void openMenu()</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:90</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_aba7714a748fe5539eb4c69e6b87dc169"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#aba7714a748fe5539eb4c69e6b87dc169">hmi::ScreenRouter::nextRpgScreen</a></div><div class="ttdeci">Q_INVOKABLE void nextRpgScreen()</div><div class="ttdoc">Passe à l&#39;écran suivant/précédent du RPG sans repasser par le menu (EX-IHM-090).</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:146</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_abe0507d01e28c708982407bb9f1f2096"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#abe0507d01e28c708982407bb9f1f2096">hmi::ScreenRouter::changed</a></div><div class="ttdeci">void changed()</div><div class="ttdoc">Émis quand l&#39;écran courant change.</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_ae1d233ca79a137451b3d598b29aae659"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#ae1d233ca79a137451b3d598b29aae659">hmi::ScreenRouter::developerBuild</a></div><div class="ttdeci">bool developerBuild</div><div class="ttdoc">Vrai dans un binaire de developpement, faux dans un binaire livre.</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:58</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_ae6f4f69704239e7f7561382ecb88426c"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#ae6f4f69704239e7f7561382ecb88426c">hmi::ScreenRouter::currentScreen</a></div><div class="ttdeci">QML_SINGLETONScreen currentScreen</div><div class="ttdef"><b>Definition</b> ScreenRouter.h:46</div></div>
+<div class="ttc" id="aclasshmi_1_1ScreenRouter_html_afc4b6c4f6e692e0f439b694fbc4ed7a4"><div class="ttname"><a href="classhmi_1_1ScreenRouter.html#afc4b6c4f6e692e0f439b694fbc4ed7a4">hmi::ScreenRouter::closeCredits</a></div><div class="ttdeci">Q_INVOKABLE void closeCredits()</div><div class="ttdef"><b>Definition</b> ScreenRouter.cpp:114</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a86e4ce6097c7a029c683096302528e72"><div class="ttname"><a href="namespacehmi.html#a86e4ce6097c7a029c683096302528e72">hmi::RpgScreenId</a></div><div class="ttdeci">RpgScreenId</div><div class="ttdoc">Les neuf écrans du RPG.</div><div class="ttdef"><b>Definition</b> RpgScreens.h:35</div></div>
+<div class="ttc" id="anamespacehmi_html_a86e4ce6097c7a029c683096302528e72aeb7e99d2187282628ef8b4c20cf7a714"><div class="ttname"><a href="namespacehmi.html#a86e4ce6097c7a029c683096302528e72aeb7e99d2187282628ef8b4c20cf7a714">hmi::RpgScreenId::CharacterSheet</a></div><div class="ttdeci">@ CharacterSheet</div><div class="ttdoc">Fiche de personnage (remplie par le LOT-38).</div><div class="ttdef"><b>Definition</b> RpgScreens.h:36</div></div>
+<div class="ttc" id="anamespacehmi_html_a964211f19cf43757eaaa80c3c29b0e90"><div class="ttname"><a href="namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90">hmi::ScreenEvent</a></div><div class="ttdeci">ScreenEvent</div><div class="ttdoc">Événement pouvant déclencher une transition d&#39;écran.</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:41</div></div>
+<div class="ttc" id="astructhmi_1_1ScreenState_html"><div class="ttname"><a href="structhmi_1_1ScreenState.html">hmi::ScreenState</a></div><div class="ttdoc">État complet de la machine.</div><div class="ttdef"><b>Definition</b> ScreenFlow.h:64</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_7eb0d0bc801e3eeb9c9e3cb238223789.html">Runtime</a></li><li class="navelem"><a href="ScreenRouter_8h.html">ScreenRouter.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

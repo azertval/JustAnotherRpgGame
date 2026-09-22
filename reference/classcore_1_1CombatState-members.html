@@ -1,0 +1,227 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: Member List</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classcore_1_1CombatState.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::CombatState Member List</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This is the complete list of members for <a class="el" href="classcore_1_1CombatState.html">core::CombatState</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a99b177367e82ffd0e77f18be022ba83f">_active</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a630e16d458263fa061eab50540dc39e7">_advancePending</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a64c1c38edebfcd253bcef9c09dd0d779">_closingRound</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a877cf507430e17a7b8a63796cf23d69b">_combatants</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a770222ee269eb7aaffd8b70c33f8d964">_counters</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a5557696fbddc8315807720401570adea">_cursor</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#af4114b55536993107c45228fa3ddafb9">_depth</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a11db283e9f30838c82e22af217242c73">_escapable</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a15f785a989a5d0915698d6f64a0b0383">_grid</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a49d96286a0822ad235828403c81393e1">_interjections</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#aa349c77da80cea5f124b37f3139f91aa">_listeners</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a2580f8a4f64ae0ccce12dc593ae01924">_order</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a8059cb2465de3aa1373b3d68e66b2b54">_outcome</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#ad261fe6b0e1bf948f73c323a02e870a1">_phase</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a4a9785aabe219b6fc2eaf4c51864ce87">_round</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a057170fe31a599ae380e705c9565162e">_turnThisRound</a></td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a800d52b41870ded1c2f44882e9bbe781">activeCombatant</a>() const noexcept</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a701bbdcdbb354c4d3d8ae3ae97ccb830">addInitiativeMarker</a>(InitiativeMarker marker)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a9a47e91543703a4506f07656d6b2ff5f">admit</a>(CombatantProfile profile, std::optional&lt; GridPosition &gt; anchor)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a49abb9a15d8de91f995425ea70356280">applyDamage</a>(CombatantId combatant, int amount)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a42ce988bb498483d064a799c2a8ae62c">applyDamage</a>(std::span&lt; const HitPointChange &gt; changes)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#aa93b046d87f05f9ebcbdb01f497d9078">canPassThrough</a>(CombatantId mover, CombatantId other) const</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a5c0db7c9ec1ab1853757e9f047a968cc">combatants</a>() const</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#af4ec7f8f808f32f83d13ceb529f31dd6">CombatState</a>(BattleGrid grid)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a03e6c9f270403dc802c2100a85993633">CombatState</a>(const CombatState &amp;)=delete</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a60729ca7ce62b2ef308174eb8959dd71">CombatState</a>(CombatState &amp;&amp;)=delete</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a0befac60163ae5122aff87f0db9ae9ac">counters</a>() noexcept</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#afafb334909b80667445bd12b5e8a8e4b">damage</a>(const HitPointChange &amp;change)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a08363ac86c0e3564713219854249037d">declareAttack</a>(CombatantId attacker, CombatantId target)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a60abc195d90cdbaf8f966905338a5006">dispatch</a>(const CombatEvent &amp;event)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a0cfb2a7f9109ffbb3e46bbc9a089dd39">economy</a>(CombatantId combatant)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a103e0cac46c3818d612fa11dd71e4887">endTurn</a>()</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a6b93a098ead5dc29dfc1d3983a4889c6">enlist</a>(CombatantProfile profile, std::optional&lt; GridPosition &gt; anchor=std::nullopt)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a21d4d4efd3e42a1249a8218338578ebf">escapable</a>() const noexcept</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#ace46dff01f1bb0ba355ad6486e77a8ca">find</a>(CombatantId combatant) const</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#ae2486edc3ded0283dea288aef615b1ce">findMutable</a>(CombatantId combatant)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a7c8e2542cf6057e92c18ad47a1e793d3">finishTurn</a>()</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a9bf629284941ad3a0e4d8bce749a87c2">grantReserve</a>(CombatantId combatant, HitPointReserve reserve)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a7f3fae84024674a5c70227a98a248735">grid</a>() const noexcept</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#afc7082aa97336d45c5d4e8a186fdb38a">grid</a>() noexcept</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a1e3393e02294763a744e669875379eaf">heal</a>(CombatantId combatant, int amount)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a50b0d58335080428272acee52ca4e17d">interject</a>(CombatantId floatingActor)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#aaadb0bf8e3d2eb699a6094e1ae12ac46">join</a>(CombatantProfile profile, GridPosition anchor, DeterministicRandom &amp;random)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a6e3439a69c1b59575f80c6d37ec9d5f3">joinAtInitiative</a>(CombatantProfile profile, GridPosition anchor, int initiative)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a584829bfc15c2dbdf718d30c37ffccd2">move</a>(GridPosition destination)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#accaddc06b725f6bc88576a494c14701f">moverFor</a>(CombatantId combatant) const</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a5a289b285839c868daa30cde9077e020">operator=</a>(const CombatState &amp;)=delete</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#adca98bdb5f73f72089e5fc53a4262c2a">operator=</a>(CombatState &amp;&amp;)=delete</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a262ea3a0ba978bcbfcb1b8c2e6a7c4c5">outcome</a>() const noexcept</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a0474d17b1316dd9d0936ee799861621e">phase</a>() const noexcept</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#ad4eaa10cde16ff59c234593b3c96fe39">reachableArea</a>() const</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#aa078e84132bf19acbac3fcc06fa7505c">reachEndIfDecided</a>()</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a5882ba9f52bd6f27c182605457552795">reentrant</a>() const noexcept</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#aee8ca6f077852d4866fe08c7834712fb">reserves</a>(CombatantId combatant)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#aac0adc9df379ab0e0b674a1db47b57d1">rollInitiative</a>(Combatant &amp;combatant, DeterministicRandom &amp;random)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a776b38369177ac00b08247954993c0d9">round</a>() const noexcept</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a20bd1b31111e341582b808664570a07a">running</a>() const noexcept</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a1a0b7643e2a1ad8a1b3ab5262dec6c0b">setEscapable</a>(bool escapable) noexcept</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#ae34d81af106fe34f4bbaef2d07db203f">settle</a>()</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a5b6c2527f4086d3e128ecccf78889768">spend</a>(std::string_view resource, int amount=1)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a311f1bd4157e775aaa91f3fc8c43d2bb">start</a>(DeterministicRandom &amp;random)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#aeb13a57913e704ff4902893a9dc1a456">startInterjection</a>()</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a52af7bc3bd2bb2916b131a8214ab57d8">startTurn</a>(CombatantId combatant)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a9deb9814c21893b2e4731a7fcda8542b">step</a>()</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#aea633b2feb4807ca7db6870344dfb56d">subscribe</a>(CombatHook hook, CombatListener listener)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#ab29728916a627f5e463bbe3928e46179">takeFixedInitiative</a>(Combatant &amp;combatant, int initiative)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a174c061edff675dae5d780013d44909f">turnOrder</a>() const noexcept</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a7770c8599b487305a83920da2df77ea9">withdraw</a>(CombatantId combatant)</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcore_1_1CombatState.html#a625a3a4dcaa114c7227d03674663a827">~CombatState</a>()=default</td><td class="entry"><a class="el" href="classcore_1_1CombatState.html">core::CombatState</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

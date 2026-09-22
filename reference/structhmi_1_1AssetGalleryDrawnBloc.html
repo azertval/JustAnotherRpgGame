@@ -1,0 +1,385 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::AssetGalleryDrawnBloc Struct Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('structhmi_1_1AssetGalleryDrawnBloc.html','','structhmi_1_1AssetGalleryDrawnBloc-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::AssetGalleryDrawnBloc Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Un bloc à dessiner, déjà placé en pixels de la cible.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="AssetGalleryRenderer_8h_source.html">AssetGalleryRenderer.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a3fbbdaf475eed5262e602536374afcc9" id="r_a3fbbdaf475eed5262e602536374afcc9"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a3fbbdaf475eed5262e602536374afcc9">path</a></td></tr>
+<tr class="memdesc:a3fbbdaf475eed5262e602536374afcc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture, relative à la racine des assets.  <br /></td></tr>
+<tr class="memitem:ad6272b5c97a15ae03c66e82e6cd3f8f9" id="r_ad6272b5c97a15ae03c66e82e6cd3f8f9"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ad6272b5c97a15ae03c66e82e6cd3f8f9">x</a> = 0.0f</td></tr>
+<tr class="memdesc:ad6272b5c97a15ae03c66e82e6cd3f8f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coin haut-gauche du bloc, en pixels de la cible.  <br /></td></tr>
+<tr class="memitem:aab78337700dbdaba6a2c2ec02c5460dc" id="r_aab78337700dbdaba6a2c2ec02c5460dc"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aab78337700dbdaba6a2c2ec02c5460dc">y</a> = 0.0f</td></tr>
+<tr class="memitem:af6a033b9790284b937895534d656fc31" id="r_af6a033b9790284b937895534d656fc31"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af6a033b9790284b937895534d656fc31">columns</a> = 3</td></tr>
+<tr class="memitem:a241907f0607f384e00333b23a8019396" id="r_a241907f0607f384e00333b23a8019396"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a241907f0607f384e00333b23a8019396">rows</a> = 3</td></tr>
+<tr class="memitem:a8541bc27f9bd25fe4d045dd0a3c33d2d" id="r_a8541bc27f9bd25fe4d045dd0a3c33d2d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8541bc27f9bd25fe4d045dd0a3c33d2d">footprintColumn</a> = 1</td></tr>
+<tr class="memitem:ada6106d45a7a0e252a8c4880d98cc542" id="r_ada6106d45a7a0e252a8c4880d98cc542"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ada6106d45a7a0e252a8c4880d98cc542">footprintRow</a> = 1</td></tr>
+<tr class="memitem:a3cc5b2312930651c899ba311d1a90ac7" id="r_a3cc5b2312930651c899ba311d1a90ac7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3cc5b2312930651c899ba311d1a90ac7">footprintColumns</a> = 1</td></tr>
+<tr class="memitem:a52645ca02caa36bfe3cd00903e811ee7" id="r_a52645ca02caa36bfe3cd00903e811ee7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a52645ca02caa36bfe3cd00903e811ee7">footprintRows</a> = 1</td></tr>
+<tr class="memitem:ab29a2df01a8b1c61a45578a574d4ef20" id="r_ab29a2df01a8b1c61a45578a574d4ef20"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ab29a2df01a8b1c61a45578a574d4ef20">frameWidth</a> = 0</td></tr>
+<tr class="memdesc:ab29a2df01a8b1c61a45578a574d4ef20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille d'une image de la bande ; 0 : la texture entière.  <br /></td></tr>
+<tr class="memitem:af5019556e3907d606ec7c73eb2cc82c4" id="r_af5019556e3907d606ec7c73eb2cc82c4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af5019556e3907d606ec7c73eb2cc82c4">frameHeight</a> = 0</td></tr>
+<tr class="memitem:ac1fd9acb2668e4be4c0c68dc05819729" id="r_ac1fd9acb2668e4be4c0c68dc05819729"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac1fd9acb2668e4be4c0c68dc05819729">frameIndex</a> = 0</td></tr>
+<tr class="memdesc:ac1fd9acb2668e4be4c0c68dc05819729"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang de l'image dans la bande (pas dans le clip).  <br /></td></tr>
+<tr class="memitem:a541d54f340743e9def03fec1e5e3df64" id="r_a541d54f340743e9def03fec1e5e3df64"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a541d54f340743e9def03fec1e5e3df64">selected</a> = false</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Un bloc à dessiner, déjà placé en pixels de la cible. </p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="af6a033b9790284b937895534d656fc31" name="af6a033b9790284b937895534d656fc31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6a033b9790284b937895534d656fc31">&#9670;&#160;</a></span>columns</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryDrawnBloc::columns = 3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8541bc27f9bd25fe4d045dd0a3c33d2d" name="a8541bc27f9bd25fe4d045dd0a3c33d2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8541bc27f9bd25fe4d045dd0a3c33d2d">&#9670;&#160;</a></span>footprintColumn</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryDrawnBloc::footprintColumn = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3cc5b2312930651c899ba311d1a90ac7" name="a3cc5b2312930651c899ba311d1a90ac7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cc5b2312930651c899ba311d1a90ac7">&#9670;&#160;</a></span>footprintColumns</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryDrawnBloc::footprintColumns = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ada6106d45a7a0e252a8c4880d98cc542" name="ada6106d45a7a0e252a8c4880d98cc542"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada6106d45a7a0e252a8c4880d98cc542">&#9670;&#160;</a></span>footprintRow</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryDrawnBloc::footprintRow = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a52645ca02caa36bfe3cd00903e811ee7" name="a52645ca02caa36bfe3cd00903e811ee7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52645ca02caa36bfe3cd00903e811ee7">&#9670;&#160;</a></span>footprintRows</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryDrawnBloc::footprintRows = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af5019556e3907d606ec7c73eb2cc82c4" name="af5019556e3907d606ec7c73eb2cc82c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5019556e3907d606ec7c73eb2cc82c4">&#9670;&#160;</a></span>frameHeight</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryDrawnBloc::frameHeight = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac1fd9acb2668e4be4c0c68dc05819729" name="ac1fd9acb2668e4be4c0c68dc05819729"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1fd9acb2668e4be4c0c68dc05819729">&#9670;&#160;</a></span>frameIndex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryDrawnBloc::frameIndex = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rang de l'image dans la bande (pas dans le clip). </p>
+
+</div>
+</div>
+<a id="ab29a2df01a8b1c61a45578a574d4ef20" name="ab29a2df01a8b1c61a45578a574d4ef20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab29a2df01a8b1c61a45578a574d4ef20">&#9670;&#160;</a></span>frameWidth</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryDrawnBloc::frameWidth = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Taille d'une image de la bande ; 0 : la texture entière. </p>
+
+</div>
+</div>
+<a id="a3fbbdaf475eed5262e602536374afcc9" name="a3fbbdaf475eed5262e602536374afcc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fbbdaf475eed5262e602536374afcc9">&#9670;&#160;</a></span>path</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::AssetGalleryDrawnBloc::path</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Texture, relative à la racine des assets. </p>
+
+</div>
+</div>
+<a id="a241907f0607f384e00333b23a8019396" name="a241907f0607f384e00333b23a8019396"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a241907f0607f384e00333b23a8019396">&#9670;&#160;</a></span>rows</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryDrawnBloc::rows = 3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a541d54f340743e9def03fec1e5e3df64" name="a541d54f340743e9def03fec1e5e3df64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a541d54f340743e9def03fec1e5e3df64">&#9670;&#160;</a></span>selected</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AssetGalleryDrawnBloc::selected = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad6272b5c97a15ae03c66e82e6cd3f8f9" name="ad6272b5c97a15ae03c66e82e6cd3f8f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6272b5c97a15ae03c66e82e6cd3f8f9">&#9670;&#160;</a></span>x</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::AssetGalleryDrawnBloc::x = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Coin haut-gauche du bloc, en pixels de la cible. </p>
+
+</div>
+</div>
+<a id="aab78337700dbdaba6a2c2ec02c5460dc" name="aab78337700dbdaba6a2c2ec02c5460dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab78337700dbdaba6a2c2ec02c5460dc">&#9670;&#160;</a></span>y</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::AssetGalleryDrawnBloc::y = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="AssetGalleryRenderer_8h_source.html">AssetGalleryRenderer.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="structhmi_1_1AssetGalleryDrawnBloc.html">AssetGalleryDrawnBloc</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

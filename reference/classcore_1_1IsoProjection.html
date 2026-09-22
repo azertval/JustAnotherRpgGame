@@ -1,0 +1,786 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::IsoProjection Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classcore_1_1IsoProjection.html','','classcore_1_1IsoProjection-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::IsoProjection Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>La projection isométrique d'une grille de combat de <span class="tt"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64">columns</a></span> × <span class="tt"><a class="el" href="#aa92e712a6807b3add7963853af2a4c87">rows</a></span> cases.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="IsoProjection_8h_source.html">IsoProjection.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a3ee905819401766b03df1ab93ef97148" id="r_a3ee905819401766b03df1ab93ef97148"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3ee905819401766b03df1ab93ef97148">IsoProjection</a> (int <a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64">columns</a>, int <a class="el" href="#aa92e712a6807b3add7963853af2a4c87">rows</a>, float <a class="el" href="#a10fc35eb9e12ca6ee32a5bf093937213">tileWidth</a>=<a class="el" href="namespacecore.html#a9bbed90b2580e314ee6fb37cca5eee7d">ARENA_TILE_WIDTH_UNITS</a>, float diamondRatio=<a class="el" href="namespacecore.html#af799f9a001af9c8b79f0bcba667414f9">ARENA_DIAMOND_RATIO</a>, float wallRise=<a class="el" href="namespacecore.html#a0809421c57413530edb434f979be6c91">ARENA_WALL_RISE</a>) noexcept</td></tr>
+<tr class="memitem:a7071db9aa9e11df307d86bb82e1d0d64" id="r_a7071db9aa9e11df307d86bb82e1d0d64"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64">columns</a> () const noexcept</td></tr>
+<tr class="memitem:aa92e712a6807b3add7963853af2a4c87" id="r_aa92e712a6807b3add7963853af2a4c87"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa92e712a6807b3add7963853af2a4c87">rows</a> () const noexcept</td></tr>
+<tr class="memitem:a10fc35eb9e12ca6ee32a5bf093937213" id="r_a10fc35eb9e12ca6ee32a5bf093937213"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a10fc35eb9e12ca6ee32a5bf093937213">tileWidth</a> () const noexcept</td></tr>
+<tr class="memitem:aef0281066ac6c744ec1e810f7b9ece31" id="r_aef0281066ac6c744ec1e810f7b9ece31"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aef0281066ac6c744ec1e810f7b9ece31">tileHeight</a> () const noexcept</td></tr>
+<tr class="memitem:a24aceed7248fdcef5e40ec9dca774ebd" id="r_a24aceed7248fdcef5e40ec9dca774ebd"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a24aceed7248fdcef5e40ec9dca774ebd">wallHeight</a> () const noexcept</td></tr>
+<tr class="memitem:a0850096545ec67956a1341b5e9d81cab" id="r_a0850096545ec67956a1341b5e9d81cab"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0850096545ec67956a1341b5e9d81cab">diagonals</a> () const noexcept</td></tr>
+<tr class="memdesc:a0850096545ec67956a1341b5e9d81cab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de demi-losanges qui font la largeur de la scène : <span class="tt"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64">columns</a> + <a class="el" href="#aa92e712a6807b3add7963853af2a4c87">rows</a></span>, au moins 1 (une grille vide garde une scène non dégénérée, comme la scène QML).  <br /></td></tr>
+<tr class="memitem:a3611a4a3ec0d9d74176e9d7946d7c8d8" id="r_a3611a4a3ec0d9d74176e9d7946d7c8d8"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3611a4a3ec0d9d74176e9d7946d7c8d8">sceneSize</a> () const noexcept</td></tr>
+<tr class="memitem:af69bfcd21c757e91902a2c63964b31d2" id="r_af69bfcd21c757e91902a2c63964b31d2"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#af69bfcd21c757e91902a2c63964b31d2">origin</a> () const noexcept</td></tr>
+<tr class="memitem:aee928bb53e2b5d1bbee3820ece456c47" id="r_aee928bb53e2b5d1bbee3820ece456c47"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#aee928bb53e2b5d1bbee3820ece456c47">gridToWorld</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;gridPoint) const noexcept</td></tr>
+<tr class="memdesc:aee928bb53e2b5d1bbee3820ece456c47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Projette un point de grille continu.  <br /></td></tr>
+<tr class="memitem:adf034283a62454f360d899d40d04e3c4" id="r_adf034283a62454f360d899d40d04e3c4"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#adf034283a62454f360d899d40d04e3c4">worldToGrid</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;world) const noexcept</td></tr>
+<tr class="memdesc:adf034283a62454f360d899d40d04e3c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse exact de <span class="tt"><a class="el" href="#aee928bb53e2b5d1bbee3820ece456c47" title="Projette un point de grille continu.">gridToWorld</a></span>.  <br /></td></tr>
+<tr class="memitem:a17fbce083a1c72caa96c5493815c6605" id="r_a17fbce083a1c72caa96c5493815c6605"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a17fbce083a1c72caa96c5493815c6605">tileToWorld</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> tile) const noexcept</td></tr>
+<tr class="memdesc:a17fbce083a1c72caa96c5493815c6605"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le centre du losange d'une case — le point d'ancrage d'une pièce posée sur la case.  <br /></td></tr>
+<tr class="memitem:ad080954cfc340299a39e5013f61d4c5b" id="r_ad080954cfc340299a39e5013f61d4c5b"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad080954cfc340299a39e5013f61d4c5b">tileBounds</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> tile) const noexcept</td></tr>
+<tr class="memdesc:ad080954cfc340299a39e5013f61d4c5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">La boîte du losange d'une case (L × H), en unités monde.  <br /></td></tr>
+<tr class="memitem:a918c75f0e70f766da91cf15d46a1e242" id="r_a918c75f0e70f766da91cf15d46a1e242"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a918c75f0e70f766da91cf15d46a1e242">worldToTile</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;world) const noexcept</td></tr>
+<tr class="memdesc:a918c75f0e70f766da91cf15d46a1e242"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case dont le losange contient un point du monde.  <br /></td></tr>
+<tr class="memitem:af58f6382277bf4a38c56da878dd935f5" id="r_af58f6382277bf4a38c56da878dd935f5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af58f6382277bf4a38c56da878dd935f5">contains</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> tile) const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ac6b8f01d234d3d33e974746cae13a0be" id="r_ac6b8f01d234d3d33e974746cae13a0be"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ac6b8f01d234d3d33e974746cae13a0be">depth</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> tile) noexcept</td></tr>
+<tr class="memdesc:ac6b8f01d234d3d33e974746cae13a0be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Profondeur de dessin d'une case : <span class="tt">column + row</span>.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a497ef6c5187a9b7746c98854a3d0d547" id="r_a497ef6c5187a9b7746c98854a3d0d547"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a497ef6c5187a9b7746c98854a3d0d547">_columns</a></td></tr>
+<tr class="memitem:aa7c8012c9052cb31e553b238cd422caf" id="r_aa7c8012c9052cb31e553b238cd422caf"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa7c8012c9052cb31e553b238cd422caf">_rows</a></td></tr>
+<tr class="memitem:af13756f77f26d4e4d119f634000530dd" id="r_af13756f77f26d4e4d119f634000530dd"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#af13756f77f26d4e4d119f634000530dd">_tileWidth</a></td></tr>
+<tr class="memitem:a138a2e754e849fdba611be77c19fa899" id="r_a138a2e754e849fdba611be77c19fa899"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a138a2e754e849fdba611be77c19fa899">_diamondRatio</a></td></tr>
+<tr class="memitem:a579fd8e19777a118a1e0579143b6ba38" id="r_a579fd8e19777a118a1e0579143b6ba38"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a579fd8e19777a118a1e0579143b6ba38">_wallRise</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>La projection isométrique d'une grille de combat de <span class="tt"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64">columns</a></span> × <span class="tt"><a class="el" href="#aa92e712a6807b3add7963853af2a4c87">rows</a></span> cases. </p>
+<p>Valeur immuable et bon marché à copier : elle ne tient que la taille de la grille et trois nombres. Une taille négative est ramenée à zéro ; une largeur de losange non positive, à la largeur par défaut. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3ee905819401766b03df1ab93ef97148" name="a3ee905819401766b03df1ab93ef97148"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ee905819401766b03df1ab93ef97148">&#9670;&#160;</a></span>IsoProjection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::IsoProjection::IsoProjection </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>columns</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rows</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>tileWidth</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespacecore.html#a9bbed90b2580e314ee6fb37cca5eee7d">ARENA_TILE_WIDTH_UNITS</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>diamondRatio</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespacecore.html#af799f9a001af9c8b79f0bcba667414f9">ARENA_DIAMOND_RATIO</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>wallRise</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespacecore.html#a0809421c57413530edb434f979be6c91">ARENA_WALL_RISE</a></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64">columns</a></td><td>Nombre de colonnes de la grille. </td></tr>
+    <tr><td class="paramname"><a class="el" href="#aa92e712a6807b3add7963853af2a4c87">rows</a></td><td>Nombre de lignes de la grille. </td></tr>
+    <tr><td class="paramname"><a class="el" href="#a10fc35eb9e12ca6ee32a5bf093937213">tileWidth</a></td><td>Largeur du losange, en unités monde (&gt; 0). </td></tr>
+    <tr><td class="paramname">diamondRatio</td><td>Rapport hauteur / largeur du losange (&gt; 0). </td></tr>
+    <tr><td class="paramname">wallRise</td><td>Hauteur réservée aux murs du fond, en largeurs de losange (&gt;= 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a7071db9aa9e11df307d86bb82e1d0d64" name="a7071db9aa9e11df307d86bb82e1d0d64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7071db9aa9e11df307d86bb82e1d0d64">&#9670;&#160;</a></span>columns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::IsoProjection::columns </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af58f6382277bf4a38c56da878dd935f5" name="af58f6382277bf4a38c56da878dd935f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af58f6382277bf4a38c56da878dd935f5">&#9670;&#160;</a></span>contains()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::IsoProjection::contains </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>tile</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si la case appartient à la grille. </dd></dl>
+
+</div>
+</div>
+<a id="ac6b8f01d234d3d33e974746cae13a0be" name="ac6b8f01d234d3d33e974746cae13a0be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6b8f01d234d3d33e974746cae13a0be">&#9670;&#160;</a></span>depth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr int core::IsoProjection::depth </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>tile</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Profondeur de dessin d'une case : <span class="tt">column + row</span>. </p>
+<p>Une pièce posée sur une case de profondeur plus grande passe devant, sans autre tri. </p>
+
+</div>
+</div>
+<a id="a0850096545ec67956a1341b5e9d81cab" name="a0850096545ec67956a1341b5e9d81cab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0850096545ec67956a1341b5e9d81cab">&#9670;&#160;</a></span>diagonals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::IsoProjection::diagonals </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de demi-losanges qui font la largeur de la scène : <span class="tt"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64">columns</a> + <a class="el" href="#aa92e712a6807b3add7963853af2a4c87">rows</a></span>, au moins 1 (une grille vide garde une scène non dégénérée, comme la scène QML). </p>
+
+</div>
+</div>
+<a id="aee928bb53e2b5d1bbee3820ece456c47" name="aee928bb53e2b5d1bbee3820ece456c47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee928bb53e2b5d1bbee3820ece456c47">&#9670;&#160;</a></span>gridToWorld()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::IsoProjection::gridToWorld </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>gridPoint</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Projette un point de grille continu. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gridPoint</td><td>(colonne, ligne) continues ; (c, r) entiers est le sommet haut du losange de la case (c, r), (c + 0,5, r + 0,5) son centre. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le point, en unités monde. </dd></dl>
+
+</div>
+</div>
+<a id="af69bfcd21c757e91902a2c63964b31d2" name="af69bfcd21c757e91902a2c63964b31d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af69bfcd21c757e91902a2c63964b31d2">&#9670;&#160;</a></span>origin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::IsoProjection::origin </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le coin haut-gauche de la boîte du losange de la case (0, 0), en unités monde. </dd></dl>
+
+</div>
+</div>
+<a id="aa92e712a6807b3add7963853af2a4c87" name="aa92e712a6807b3add7963853af2a4c87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa92e712a6807b3add7963853af2a4c87">&#9670;&#160;</a></span>rows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::IsoProjection::rows </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3611a4a3ec0d9d74176e9d7946d7c8d8" name="a3611a4a3ec0d9d74176e9d7946d7c8d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3611a4a3ec0d9d74176e9d7946d7c8d8">&#9670;&#160;</a></span>sceneSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::IsoProjection::sceneSize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les dimensions de la scène, murs du fond compris, en unités monde. </dd></dl>
+
+</div>
+</div>
+<a id="ad080954cfc340299a39e5013f61d4c5b" name="ad080954cfc340299a39e5013f61d4c5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad080954cfc340299a39e5013f61d4c5b">&#9670;&#160;</a></span>tileBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Rect.html">Rect</a> core::IsoProjection::tileBounds </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>tile</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La boîte du losange d'une case (L × H), en unités monde. </p>
+<p>C'est le rectangle qu'occupait la brique <span class="tt">ArenaTile</span> dans la scène QML : ce que la case porte (mur, figurine) déborde vers le haut à partir de ce rectangle. </p>
+
+</div>
+</div>
+<a id="aef0281066ac6c744ec1e810f7b9ece31" name="aef0281066ac6c744ec1e810f7b9ece31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef0281066ac6c744ec1e810f7b9ece31">&#9670;&#160;</a></span>tileHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::IsoProjection::tileHeight </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La hauteur H = ratio · L du losange, en unités monde. </dd></dl>
+
+</div>
+</div>
+<a id="a17fbce083a1c72caa96c5493815c6605" name="a17fbce083a1c72caa96c5493815c6605"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17fbce083a1c72caa96c5493815c6605">&#9670;&#160;</a></span>tileToWorld()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::IsoProjection::tileToWorld </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>tile</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le centre du losange d'une case — le point d'ancrage d'une pièce posée sur la case. </p>
+<p>Défini pour toute case, dans la grille ou non. </p>
+
+</div>
+</div>
+<a id="a10fc35eb9e12ca6ee32a5bf093937213" name="a10fc35eb9e12ca6ee32a5bf093937213"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10fc35eb9e12ca6ee32a5bf093937213">&#9670;&#160;</a></span>tileWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::IsoProjection::tileWidth </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La largeur L du losange, en unités monde. </dd></dl>
+
+</div>
+</div>
+<a id="a24aceed7248fdcef5e40ec9dca774ebd" name="a24aceed7248fdcef5e40ec9dca774ebd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24aceed7248fdcef5e40ec9dca774ebd">&#9670;&#160;</a></span>wallHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::IsoProjection::wallHeight </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La hauteur réservée aux murs du fond, en unités monde (<span class="tt">wallRise · L</span>). </dd></dl>
+
+</div>
+</div>
+<a id="adf034283a62454f360d899d40d04e3c4" name="adf034283a62454f360d899d40d04e3c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf034283a62454f360d899d40d04e3c4">&#9670;&#160;</a></span>worldToGrid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::IsoProjection::worldToGrid </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>world</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse exact de <span class="tt"><a class="el" href="#aee928bb53e2b5d1bbee3820ece456c47" title="Projette un point de grille continu.">gridToWorld</a></span>. </p>
+
+</div>
+</div>
+<a id="a918c75f0e70f766da91cf15d46a1e242" name="a918c75f0e70f766da91cf15d46a1e242"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a918c75f0e70f766da91cf15d46a1e242">&#9670;&#160;</a></span>worldToTile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; core::IsoProjection::worldToTile </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>world</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La case dont le losange contient un point du monde. </p>
+<p>Un point sur une arête commune appartient à la case de plus grande colonne ou de plus grande ligne (arrondi par défaut en coordonnées de grille) : les losanges pavent le plan sans trou ni recouvrement. </p><dl class="section return"><dt>Returns</dt><dd>La case, ou rien si elle est hors de la grille. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a497ef6c5187a9b7746c98854a3d0d547" name="a497ef6c5187a9b7746c98854a3d0d547"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a497ef6c5187a9b7746c98854a3d0d547">&#9670;&#160;</a></span>_columns</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::IsoProjection::_columns</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a138a2e754e849fdba611be77c19fa899" name="a138a2e754e849fdba611be77c19fa899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a138a2e754e849fdba611be77c19fa899">&#9670;&#160;</a></span>_diamondRatio</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::IsoProjection::_diamondRatio</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa7c8012c9052cb31e553b238cd422caf" name="aa7c8012c9052cb31e553b238cd422caf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7c8012c9052cb31e553b238cd422caf">&#9670;&#160;</a></span>_rows</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::IsoProjection::_rows</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af13756f77f26d4e4d119f634000530dd" name="af13756f77f26d4e4d119f634000530dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af13756f77f26d4e4d119f634000530dd">&#9670;&#160;</a></span>_tileWidth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::IsoProjection::_tileWidth</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a579fd8e19777a118a1e0579143b6ba38" name="a579fd8e19777a118a1e0579143b6ba38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a579fd8e19777a118a1e0579143b6ba38">&#9670;&#160;</a></span>_wallRise</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::IsoProjection::_wallRise</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/<a class="el" href="IsoProjection_8h_source.html">IsoProjection.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/<a class="el" href="IsoProjection_8cpp.html">IsoProjection.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="classcore_1_1IsoProjection.html">IsoProjection</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

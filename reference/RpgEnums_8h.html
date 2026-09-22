@@ -1,0 +1,245 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/RpgEnums.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('RpgEnums_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">RpgEnums.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Les quatre énumérations <b>fermées</b> du RPG : dégâts, conditions, écoles, tailles.  
+<a href="#details">More...</a></p>
+
+<p><a href="RpgEnums_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
+<tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:aae5ed49bedbf68049f008e4efac2edfd" id="r_aae5ed49bedbf68049f008e4efac2edfd"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">core::DamageType</a> { <br />
+&#160;&#160;<a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfdaed84f0285a129390ef34774e525b9b9e">core::Acid</a>
+, <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda8c92f858070d9bb44fb8e3fa1b7224ed">core::Bludgeoning</a>
+, <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda1a3c2e99e572ec71d3820d0363d90742">core::Cold</a>
+, <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfdabd2b7e5f85a6ea65065c4ebc6d7c95bb">core::Fire</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda9eb6b78a99cdb6ffd3d40d18621d9f80">core::Force</a>
+, <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda457ba641340a812b28f949a26fca3e7b">core::Lightning</a>
+, <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfdad84b7a315df769bb1292e1514578a6b6">core::Necrotic</a>
+, <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda71b82d588f8ca5360dd8f79f4452f61a">core::Piercing</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda3a9d1818d0d7f5646e63465baf7d366f">core::Poison</a>
+, <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda1a0d4dfdb97302cb8ac802fd459ea37a">core::Psychic</a>
+, <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda416eef8099932e27b7e55168643ea14d">core::Radiant</a>
+, <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda8c5d5b09768823ed63d3d3a95a7a962a">core::Slashing</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda7db228551936f49a61c6b965886ad840">core::Thunder</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:aae5ed49bedbf68049f008e4efac2edfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type de dégâts infligés (<span class="tt">EX-CBT-032</span>, <span class="tt">EX-CNT-011</span>).  <a href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">More...</a><br /></td></tr>
+<tr class="memitem:aae82873d6c7bd0b4db085354c50e1493" id="r_aae82873d6c7bd0b4db085354c50e1493"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493">core::Condition</a> { <br />
+&#160;&#160;<a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a32fbf8162d99dbcdb050e32ab8e34ea8">core::Blinded</a>
+, <a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a773a0ccd6095a42883da0d491c97dafb">core::Charmed</a>
+, <a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493af35625581e1a8c825a5e9e7bf74fe2a5">core::Deafened</a>
+, <a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a62d14822c1d9ee30cedbce5343ab2681">core::Exhaustion</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a76cc2c3b1bffba51a59c7e9d971bdfe1">core::Frightened</a>
+, <a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493aa6a928f3388475a9635f44ac382ba759">core::Grappled</a>
+, <a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a2fa5dc81802cdd8b2fe3c742b3323215">core::Incapacitated</a>
+, <a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a8bcda43732b0928d269955e0f09ff76f">core::Invisible</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a7b5c5fcb680360f4f7ef17bfb483ce56">core::Paralyzed</a>
+, <a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493ad2040899620064c4a4e0ae965d9d3105">core::Petrified</a>
+, <a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493aa3bdbf2434870a6548df06309bb536b1">core::Poisoned</a>
+, <a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a0d7fa52c0200c09318ddc6c0d7a377ec">core::Prone</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a55bd768b63443f1f2f930d8858799830">core::Restrained</a>
+, <a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493aeb8ab7d98634514cc61c2b0a0c8d93a2">core::Stunned</a>
+, <a class="el" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493acb6b56b0daf97dc9660af8977785a0e8">core::Unconscious</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:aae82873d6c7bd0b4db085354c50e1493"><td class="mdescLeft">&#160;</td><td class="mdescRight">État affectant une créature (<span class="tt">EX-REG-040</span>, <span class="tt">EX-CNT-011</span>).  <a href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493">More...</a><br /></td></tr>
+<tr class="memitem:acb09396acc95973b3ca488c497bbddb2" id="r_acb09396acc95973b3ca488c497bbddb2"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#acb09396acc95973b3ca488c497bbddb2">core::MagicSchool</a> { <br />
+&#160;&#160;<a class="el" href="namespacecore.html#acb09396acc95973b3ca488c497bbddb2a4977dc1a41b6a013721c303b69fc1a9b">core::Abjuration</a>
+, <a class="el" href="namespacecore.html#acb09396acc95973b3ca488c497bbddb2a2b5126899e7c63756f01fb2475a7c7a2">core::Conjuration</a>
+, <a class="el" href="namespacecore.html#acb09396acc95973b3ca488c497bbddb2a893b324ff905aef3c245e8d1913af5e8">core::Divination</a>
+, <a class="el" href="namespacecore.html#acb09396acc95973b3ca488c497bbddb2a447db9728259fc904c3299cd973ccb75">core::Enchantment</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#acb09396acc95973b3ca488c497bbddb2a0f691fa093f9d70c7c69cc8b70ae8825">core::Evocation</a>
+, <a class="el" href="namespacecore.html#acb09396acc95973b3ca488c497bbddb2ab89d6bd44fd0021f05a1f829a425f0c9">core::Illusion</a>
+, <a class="el" href="namespacecore.html#acb09396acc95973b3ca488c497bbddb2ac3170ffd5abd69961f44e353cbf7894a">core::Necromancy</a>
+, <a class="el" href="namespacecore.html#acb09396acc95973b3ca488c497bbddb2af11fb43b55b4f3555e1be6f4a9917163">core::Transmutation</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:acb09396acc95973b3ca488c497bbddb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">École de magie d'un sort (<span class="tt">EX-CNT-011</span>).  <a href="namespacecore.html#acb09396acc95973b3ca488c497bbddb2">More...</a><br /></td></tr>
+<tr class="memitem:ae6c6faeaa28aa7b90280f4dc39237204" id="r_ae6c6faeaa28aa7b90280f4dc39237204"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204">core::CreatureSize</a> { <br />
+&#160;&#160;<a class="el" href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204a383c05bda6f030a44990d354b24f3338">core::Tiny</a>
+, <a class="el" href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204a2660064e68655415da2628c2ae2f7592">core::Small</a>
+, <a class="el" href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204a87f8a6ab85c9ced3702b4ea641ad4bb5">core::Medium</a>
+, <a class="el" href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204a3a69b34ce86dacb205936a8094f6c743">core::Large</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204aa2ad65f28a717b0fd2be860a0d8e5c3e">core::Huge</a>
+, <a class="el" href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204a15c00858f0c61bab56fc244aaeb165d0">core::Gargantuan</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ae6c6faeaa28aa7b90280f4dc39237204"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catégorie de taille d'une créature (<span class="tt">EX-CNT-011</span>).  <a href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204">More...</a><br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Les quatre énumérations <b>fermées</b> du RPG : dégâts, conditions, écoles, tailles. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_de25d93b7b4ef75f45504127491f58b5.html">Rpg</a></li><li class="navelem"><a href="RpgEnums_8h.html">RpgEnums.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

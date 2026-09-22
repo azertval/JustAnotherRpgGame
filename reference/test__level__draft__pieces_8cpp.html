@@ -1,0 +1,635 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__level__draft__pieces_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_level_draft_pieces.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (<span class="tt">LOT-EDITOR-03</span>, <span class="tt">EX-EDIT-064</span>, <span class="tt">EX-EDIT-065</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;variant&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelDraft_8h_source.html">Core/Levels/LevelDraft.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ScenePieceManifest_8h_source.html">Core/Resources/ScenePieceManifest.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a23a04051b81787f618b4343d590498a5" id="r_a23a04051b81787f618b4343d590498a5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a23a04051b81787f618b4343d590498a5">TEST</a> (LevelDraftPiecesTest, PoserUnePieceEcritSaCoucheSaPieceEtSaCollision)</td></tr>
+<tr class="memdesc:a23a04051b81787f618b4343d590498a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poser une pièce écrit, en un geste, sa couche, sa pièce, le type de sa case et la collision qu'elle donne.  <br /></td></tr>
+<tr class="memitem:abfce817ad3a44d7396ca47a658bd2fd9" id="r_abfce817ad3a44d7396ca47a658bd2fd9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abfce817ad3a44d7396ca47a658bd2fd9">TEST</a> (LevelDraftPiecesTest, PoserPuisGommerUnEtalOccupePuisLibereSesDeuxCases)</td></tr>
+<tr class="memdesc:abfce817ad3a44d7396ca47a658bd2fd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poser puis gommer un étal 2 × 1 occupe puis libère ses deux cases, collision comprise (acceptation du <span class="tt">LOT-EDITOR-03</span>).  <br /></td></tr>
+<tr class="memitem:a35f7ee72a81d7d01077eb1c16e6c60e9" id="r_a35f7ee72a81d7d01077eb1c16e6c60e9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a35f7ee72a81d7d01077eb1c16e6c60e9">TEST</a> (LevelDraftPiecesTest, ReposerLaMemePieceNeModifiePasLaCarte)</td></tr>
+<tr class="memdesc:a35f7ee72a81d7d01077eb1c16e6c60e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reposer la même pièce ne modifie pas la carte : ni pas d'annulation, ni révision neuve.  <br /></td></tr>
+<tr class="memitem:af6c90ca26e7609270dbbef2fa1536ce6" id="r_af6c90ca26e7609270dbbef2fa1536ce6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af6c90ca26e7609270dbbef2fa1536ce6">TEST</a> (LevelDraftPiecesTest, UnePieceRetireCellesQuElleCouvrirait)</td></tr>
+<tr class="memdesc:af6c90ca26e7609270dbbef2fa1536ce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sur une couche, deux emprises ne se recouvrent pas : poser une pièce retire, entières, celles qu'elle couvrirait.  <br /></td></tr>
+<tr class="memitem:aacb3f802abc3a896f8da26154a18bcc8" id="r_aacb3f802abc3a896f8da26154a18bcc8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aacb3f802abc3a896f8da26154a18bcc8">TEST</a> (LevelDraftPiecesTest, UneEmpriseQuiDebordeEstRefusee)</td></tr>
+<tr class="memdesc:aacb3f802abc3a896f8da26154a18bcc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce dont l'emprise déborderait de la carte n'est pas posée.  <br /></td></tr>
+<tr class="memitem:ac10f62f34cc2294d5ca55c6576629446" id="r_ac10f62f34cc2294d5ca55c6576629446"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac10f62f34cc2294d5ca55c6576629446">TEST</a> (LevelDraftPiecesTest, LeRectanglePaveAuPasDeLEmprise)</td></tr>
+<tr class="memdesc:ac10f62f34cc2294d5ca55c6576629446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rectangle pave au pas de l'emprise, en un pas, et ne pose rien qui en déborderait.  <br /></td></tr>
+<tr class="memitem:a280c8958910025e934597c7b446a323b" id="r_a280c8958910025e934597c7b446a323b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a280c8958910025e934597c7b446a323b">TEST</a> (LevelDraftPiecesTest, UneFosseArreteLePasEtLEntreeResteLEntree)</td></tr>
+<tr class="memdesc:a280c8958910025e934597c7b446a323b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce qui arrête le pas s'écrit <span class="tt">cliff</span> ; l'entrée n'est jamais recouverte par la déduction.  <br /></td></tr>
+<tr class="memitem:abc672751d3d88ddf9e5dc404acf2b140" id="r_abc672751d3d88ddf9e5dc404acf2b140"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abc672751d3d88ddf9e5dc404acf2b140">TEST</a> (LevelDraftPiecesTest, UnTypePeintSurUneCoucheLaCollisionSuit)</td></tr>
+<tr class="memdesc:abc672751d3d88ddf9e5dc404acf2b140"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peindre un type sur une couche visuelle : la collision de la case suit, et celle d'une pièce large dont on repeint l'ancre aussi.  <br /></td></tr>
+<tr class="memitem:ac7e1e9914d7b23d18a67f291319ccd5f" id="r_ac7e1e9914d7b23d18a67f291319ccd5f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac7e1e9914d7b23d18a67f291319ccd5f">TEST</a> (LevelDraftPiecesTest, PeindreLaCollisionForceOuLibereLaCase)</td></tr>
+<tr class="memdesc:ac7e1e9914d7b23d18a67f291319ccd5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peindre la grille de collision force la case qui s'écarte de la déduction, et libère celle qui s'y accorde (<span class="tt">EX-EDIT-065</span>).  <br /></td></tr>
+<tr class="memitem:abc5813a756301b12dc7da2cbc8c42045" id="r_abc5813a756301b12dc7da2cbc8c42045"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abc5813a756301b12dc7da2cbc8c42045">TEST</a> (LevelDraftPiecesTest, UneCaseForceeTientPuisSeLibere)</td></tr>
+<tr class="memdesc:abc5813a756301b12dc7da2cbc8c42045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une case forcée garde sa collision sous un geste de couche, jusqu'à ce qu'on la libère : elle reprend alors la déduction.  <br /></td></tr>
+<tr class="memitem:aa86f4a525bab87dea76057aab99a3228" id="r_aa86f4a525bab87dea76057aab99a3228"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa86f4a525bab87dea76057aab99a3228">TEST</a> (LevelDraftPiecesTest, UnGesteNeToucheQueSesCases)</td></tr>
+<tr class="memdesc:aa86f4a525bab87dea76057aab99a3228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un geste ne touche la collision que des cases qu'il couvre : un écart laissé ailleurs, forcé ou non, reste tel quel.  <br /></td></tr>
+<tr class="memitem:a64cf32c123313f2b177af9e078324f00" id="r_a64cf32c123313f2b177af9e078324f00"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a64cf32c123313f2b177af9e078324f00">TEST</a> (LevelDraftPiecesTest, RemplacerUnePieceEnUnPasLaCollisionSuit)</td></tr>
+<tr class="memdesc:a64cf32c123313f2b177af9e078324f00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplacer une pièce renomme chacune de ses cases en un pas, et la collision suit ce que la nouvelle pièce oppose (<span class="tt">LOT-EDITOR-14</span>, <span class="tt">EX-EDIT-083</span>).  <br /></td></tr>
+<tr class="memitem:a5c0e06233bbe56b77c23394f1eb88ed2" id="r_a5c0e06233bbe56b77c23394f1eb88ed2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5c0e06233bbe56b77c23394f1eb88ed2">TEST</a> (LevelDraftPiecesTest, UnRemplacementQuiDebordeEstRefuseEnEntier)</td></tr>
+<tr class="memdesc:a5c0e06233bbe56b77c23394f1eb88ed2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un remplacement dont une emprise déborderait est refusé en entier, et un remplacement qui ne change rien n'empile rien.  <br /></td></tr>
+<tr class="memitem:afc04215e2967a933770e2b2df4eb58ad" id="r_afc04215e2967a933770e2b2df4eb58ad"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afc04215e2967a933770e2b2df4eb58ad">TEST</a> (LevelDraftPiecesTest, ChangerDePlancheTraduitLesPiecesEtRededuitLaCollision)</td></tr>
+<tr class="memdesc:afc04215e2967a933770e2b2df4eb58ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changer de planche nomme le lieu, traduit les pièces par la table, et redéduit toute la collision par le nouveau manifeste, en un pas (<span class="tt">LOT-EDITOR-14</span>, <span class="tt">EX-EDIT-084</span>).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (<span class="tt">LOT-EDITOR-03</span>, <span class="tt">EX-EDIT-064</span>, <span class="tt">EX-EDIT-065</span>). </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="afc04215e2967a933770e2b2df4eb58ad" name="afc04215e2967a933770e2b2df4eb58ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc04215e2967a933770e2b2df4eb58ad">&#9670;&#160;</a></span>TEST() <span class="overload">[1/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChangerDePlancheTraduitLesPiecesEtRededuitLaCollision</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Changer de planche nomme le lieu, traduit les pièces par la table, et redéduit toute la collision par le nouveau manifeste, en un pas (<span class="tt">LOT-EDITOR-14</span>, <span class="tt">EX-EDIT-084</span>). </p>
+<p><b>Cas de test :</b> <b>Changer de planche : lieu, pièces et collision en un pas.</b><br  />
+ <b>Categorie :</b> Unitaire · Pièces du brouillon<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un pilier en (2, 1).<br  />
+2. Passer à une planche où le pavé s'appelle <span class="tt">paving</span> et où le pilier, gardant son nom, se franchit.<br  />
+3. Défaire.<br  />
+ <b>Resultat attendu :</b> Le sol nomme le lieu <span class="tt">autre</span> et pose <span class="tt">paving</span> ; le pilier garde son nom et sa case se libère ; un pas d'annulation rend tout. </p>
+
+</div>
+</div>
+<a id="ac10f62f34cc2294d5ca55c6576629446" name="ac10f62f34cc2294d5ca55c6576629446"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac10f62f34cc2294d5ca55c6576629446">&#9670;&#160;</a></span>TEST() <span class="overload">[2/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeRectanglePaveAuPasDeLEmprise</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le rectangle pave au pas de l'emprise, en un pas, et ne pose rien qui en déborderait. </p>
+<p><b>Cas de test :</b> <b>Le rectangle pave au pas de l'emprise.</b><br  />
+ <b>Categorie :</b> Unitaire · Pièces du brouillon<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Paver d'étals le rectangle (0, 0)–(2, 1).<br  />
+ <b>Resultat attendu :</b> Deux étals, ancrés en (0, 0) et (0, 1) ; la colonne 2 reste libre ; un pas d'annulation. </p>
+
+</div>
+</div>
+<a id="ac7e1e9914d7b23d18a67f291319ccd5f" name="ac7e1e9914d7b23d18a67f291319ccd5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7e1e9914d7b23d18a67f291319ccd5f">&#9670;&#160;</a></span>TEST() <span class="overload">[3/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PeindreLaCollisionForceOuLibereLaCase</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Peindre la grille de collision force la case qui s'écarte de la déduction, et libère celle qui s'y accorde (<span class="tt">EX-EDIT-065</span>). </p>
+<p><b>Cas de test :</b> <b>Peindre la collision force ou libère la case.</b><br  />
+ <b>Categorie :</b> Unitaire · Pièces du brouillon<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Peindre un mur de collision en (2, 2).<br  />
+2. Y repeindre du vide.<br  />
+ <b>Resultat attendu :</b> Forcée après le mur ; libérée après le vide. </p>
+
+</div>
+</div>
+<a id="abfce817ad3a44d7396ca47a658bd2fd9" name="abfce817ad3a44d7396ca47a658bd2fd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfce817ad3a44d7396ca47a658bd2fd9">&#9670;&#160;</a></span>TEST() <span class="overload">[4/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PoserPuisGommerUnEtalOccupePuisLibereSesDeuxCases</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Poser puis gommer un étal 2 × 1 occupe puis libère ses deux cases, collision comprise (acceptation du <span class="tt">LOT-EDITOR-03</span>). </p>
+<p><b>Cas de test :</b> <b>Un étal 2 × 1 occupe puis libère ses deux cases.</b><br  />
+ <b>Categorie :</b> Unitaire · Pièces du brouillon<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser l'étal en (1, 1).<br  />
+2. Gommer sa deuxième case, (2, 1).<br  />
+ <b>Resultat attendu :</b> Posé, il arrête la vue en (1, 1) et (2, 1) et seule son ancre le nomme ; gommé par sa deuxième case, il part entier et les deux cases repassent. </p>
+
+</div>
+</div>
+<a id="a23a04051b81787f618b4343d590498a5" name="a23a04051b81787f618b4343d590498a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23a04051b81787f618b4343d590498a5">&#9670;&#160;</a></span>TEST() <span class="overload">[5/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PoserUnePieceEcritSaCoucheSaPieceEtSaCollision</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Poser une pièce écrit, en un geste, sa couche, sa pièce, le type de sa case et la collision qu'elle donne. </p>
+<p><b>Cas de test :</b> <b>Poser une pièce écrit sa couche, sa pièce et sa collision.</b><br  />
+ <b>Categorie :</b> Unitaire · Pièces du brouillon<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un pilier en (2, 1) du décor.<br  />
+2. Défaire.<br  />
+ <b>Resultat attendu :</b> Le décor nomme <span class="tt">pillar</span>, la case vaut <span class="tt">wall</span>, la collision <span class="tt">wall</span> ; un seul pas d'annulation rend la carte d'avant. </p>
+
+</div>
+</div>
+<a id="a64cf32c123313f2b177af9e078324f00" name="a64cf32c123313f2b177af9e078324f00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64cf32c123313f2b177af9e078324f00">&#9670;&#160;</a></span>TEST() <span class="overload">[6/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RemplacerUnePieceEnUnPasLaCollisionSuit</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remplacer une pièce renomme chacune de ses cases en un pas, et la collision suit ce que la nouvelle pièce oppose (<span class="tt">LOT-EDITOR-14</span>, <span class="tt">EX-EDIT-083</span>). </p>
+<p><b>Cas de test :</b> <b>Remplacer une pièce : un pas, la collision suit.</b><br  />
+ <b>Categorie :</b> Unitaire · Pièces du brouillon<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser deux piliers.<br  />
+2. Remplacer <span class="tt">pillar</span> par <span class="tt">pit</span>, une fosse 1 × 2.<br  />
+</p><ol type="1">
+<li>Défaire.<br  />
+ <b>Resultat attendu :</b> Les deux ancres nomment <span class="tt">pit</span>, leur type reste <span class="tt">wall</span>, la collision passe à <span class="tt">cliff</span> sur l'emprise ; un seul pas d'annulation rend les piliers. </li>
+</ol>
+
+</div>
+</div>
+<a id="a35f7ee72a81d7d01077eb1c16e6c60e9" name="a35f7ee72a81d7d01077eb1c16e6c60e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35f7ee72a81d7d01077eb1c16e6c60e9">&#9670;&#160;</a></span>TEST() <span class="overload">[7/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ReposerLaMemePieceNeModifiePasLaCarte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reposer la même pièce ne modifie pas la carte : ni pas d'annulation, ni révision neuve. </p>
+<p><b>Cas de test :</b> <b>Reposer la même pièce ne modifie pas la carte.</b><br  />
+ <b>Categorie :</b> Unitaire · Pièces du brouillon<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Reposer <span class="tt">street</span> sur une case qui la porte déjà.<br  />
+ <b>Resultat attendu :</b> Refusé sans effet ; révision et historique inchangés. </p>
+
+</div>
+</div>
+<a id="abc5813a756301b12dc7da2cbc8c42045" name="abc5813a756301b12dc7da2cbc8c42045"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc5813a756301b12dc7da2cbc8c42045">&#9670;&#160;</a></span>TEST() <span class="overload">[8/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneCaseForceeTientPuisSeLibere</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une case forcée garde sa collision sous un geste de couche, jusqu'à ce qu'on la libère : elle reprend alors la déduction. </p>
+<p><b>Cas de test :</b> <b>Une case forcée tient, puis se libère.</b><br  />
+ <b>Categorie :</b> Unitaire · Pièces du brouillon<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Forcer un mur de collision en (1, 1).<br  />
+2. Poser un étal en (0, 1).<br  />
+3. Libérer la case.<br  />
+ <b>Resultat attendu :</b> Le mur forcé tient sous l'étal comme sans lui ; libérée, la case prend ce que l'étal donne — un mur —, et un second geste la rend au pavé quand l'étal part. </p>
+
+</div>
+</div>
+<a id="aacb3f802abc3a896f8da26154a18bcc8" name="aacb3f802abc3a896f8da26154a18bcc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacb3f802abc3a896f8da26154a18bcc8">&#9670;&#160;</a></span>TEST() <span class="overload">[9/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneEmpriseQuiDebordeEstRefusee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une pièce dont l'emprise déborderait de la carte n'est pas posée. </p>
+<p><b>Cas de test :</b> <b>Une emprise qui déborde est refusée.</b><br  />
+ <b>Categorie :</b> Unitaire · Pièces du brouillon<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser l'étal 2 × 1 sur la dernière colonne.<br  />
+ <b>Resultat attendu :</b> Refusé ; rien d'empilé. </p>
+
+</div>
+</div>
+<a id="a280c8958910025e934597c7b446a323b" name="a280c8958910025e934597c7b446a323b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a280c8958910025e934597c7b446a323b">&#9670;&#160;</a></span>TEST() <span class="overload">[10/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneFosseArreteLePasEtLEntreeResteLEntree</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une pièce qui arrête le pas s'écrit <span class="tt">cliff</span> ; l'entrée n'est jamais recouverte par la déduction. </p>
+<p><b>Cas de test :</b> <b>Une fosse arrête le pas ; l'entrée reste l'entrée.</b><br  />
+ <b>Categorie :</b> Unitaire · Pièces du brouillon<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser la fosse 1 × 2 en (0, 0), sur l'entrée.<br  />
+ <b>Resultat attendu :</b> (0, 0) reste <span class="tt">entry</span>, (0, 1) vaut <span class="tt">cliff</span>. </p>
+
+</div>
+</div>
+<a id="af6c90ca26e7609270dbbef2fa1536ce6" name="af6c90ca26e7609270dbbef2fa1536ce6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6c90ca26e7609270dbbef2fa1536ce6">&#9670;&#160;</a></span>TEST() <span class="overload">[11/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnePieceRetireCellesQuElleCouvrirait</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sur une couche, deux emprises ne se recouvrent pas : poser une pièce retire, entières, celles qu'elle couvrirait. </p>
+<p><b>Cas de test :</b> <b>Une pièce retire celles qu'elle couvrirait.</b><br  />
+ <b>Categorie :</b> Unitaire · Pièces du brouillon<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un étal en (0, 1) et un pilier en (3, 1).<br  />
+2. Poser un étal en (1, 1).<br  />
+ <b>Resultat attendu :</b> L'étal de (0, 1) part entier — (0, 1) repasse —, le pilier reste, le nouvel étal couvre (1, 1) et (2, 1). </p>
+
+</div>
+</div>
+<a id="aa86f4a525bab87dea76057aab99a3228" name="aa86f4a525bab87dea76057aab99a3228"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa86f4a525bab87dea76057aab99a3228">&#9670;&#160;</a></span>TEST() <span class="overload">[12/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnGesteNeToucheQueSesCases</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un geste ne touche la collision que des cases qu'il couvre : un écart laissé ailleurs, forcé ou non, reste tel quel. </p>
+<p><b>Cas de test :</b> <b>Un geste ne touche que ses cases.</b><br  />
+ <b>Categorie :</b> Unitaire · Pièces du brouillon<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger une carte dont la collision s'écarte de la déduction en (3, 0), sans la forcer.<br  />
+2. Poser un pilier en (1, 2).<br  />
+ <b>Resultat attendu :</b> (1, 2) arrête la vue ; (3, 0) garde son mur. </p>
+
+</div>
+</div>
+<a id="a5c0e06233bbe56b77c23394f1eb88ed2" name="a5c0e06233bbe56b77c23394f1eb88ed2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c0e06233bbe56b77c23394f1eb88ed2">&#9670;&#160;</a></span>TEST() <span class="overload">[13/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnRemplacementQuiDebordeEstRefuseEnEntier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un remplacement dont une emprise déborderait est refusé en entier, et un remplacement qui ne change rien n'empile rien. </p>
+<p><b>Cas de test :</b> <b>Un remplacement qui déborde est refusé en entier.</b><br  />
+ <b>Categorie :</b> Unitaire · Pièces du brouillon<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un pilier au milieu et un sur la dernière ligne.<br  />
+2. Remplacer <span class="tt">pillar</span> par <span class="tt">pit</span> (1 × 2).<br  />
+3. Remplacer une pièce que la carte ne pose pas.<br  />
+ <b>Resultat attendu :</b> Les deux refusés ; les piliers restent, aucun pas empilé. </p>
+
+</div>
+</div>
+<a id="abc672751d3d88ddf9e5dc404acf2b140" name="abc672751d3d88ddf9e5dc404acf2b140"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc672751d3d88ddf9e5dc404acf2b140">&#9670;&#160;</a></span>TEST() <span class="overload">[14/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnTypePeintSurUneCoucheLaCollisionSuit</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Peindre un type sur une couche visuelle : la collision de la case suit, et celle d'une pièce large dont on repeint l'ancre aussi. </p>
+<p><b>Cas de test :</b> <b>Un type peint sur une couche : la collision suit.</b><br  />
+ <b>Categorie :</b> Unitaire · Pièces du brouillon<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un étal en (1, 1).<br  />
+2. Peindre <span class="tt">dirt</span> sur son ancre.<br  />
+3. Peindre <span class="tt">water</span> profonde sur le sol en (3, 2).<br  />
+ <b>Resultat attendu :</b> L'étal part, ses deux cases repassent ; l'eau profonde arrête le pas en (3, 2). </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_53d6f249854b4ed4670fb00ec42270bb.html">Levels</a></li><li class="navelem"><a href="test__level__draft__pieces_8cpp.html">test_level_draft_pieces.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

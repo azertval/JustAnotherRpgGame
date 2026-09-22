@@ -1,0 +1,341 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Platform/test_crash_dump.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__crash__dump_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_crash_dump.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Minidump sur plantage (HMI/Platform/CrashDump) : nom du fichier et écriture réelle.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;cstdio&gt;</code><br />
+<code>#include &lt;ctime&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;Windows.h&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="CrashDump_8h_source.html">HMI/Platform/CrashDump.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a976e5799688545e6a88699fdc6b99502" id="r_a976e5799688545e6a88699fdc6b99502"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a976e5799688545e6a88699fdc6b99502">TEST</a> (CrashDumpFileName, PorteApplicationVersionEtHorodatage)</td></tr>
+<tr class="memdesc:a976e5799688545e6a88699fdc6b99502"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nom d'un minidump porte l'application, la version et l'heure du plantage.  <br /></td></tr>
+<tr class="memitem:a2c3be1c9591c4c0db6ae57334e02f87f" id="r_a2c3be1c9591c4c0db6ae57334e02f87f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2c3be1c9591c4c0db6ae57334e02f87f">TEST</a> (CrashDumpFileName, RemplaceLesCaracteresHorsNomDeFichier)</td></tr>
+<tr class="memdesc:a2c3be1c9591c4c0db6ae57334e02f87f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les caractères hors nom de fichier sont remplacés dans le nom du minidump.  <br /></td></tr>
+<tr class="memitem:affbe12358556bcd9d806f80f958a51ba" id="r_affbe12358556bcd9d806f80f958a51ba"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#affbe12358556bcd9d806f80f958a51ba">TEST_F</a> (CrashDumpTest, EcritUnMinidumpSansExceptionEtCreeLeDossier)</td></tr>
+<tr class="memdesc:affbe12358556bcd9d806f80f958a51ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un minidump de l'état courant s'écrit, dossier parent créé au besoin.  <br /></td></tr>
+<tr class="memitem:a4bd5954c12eea73cc539e3ba70b20c30" id="r_a4bd5954c12eea73cc539e3ba70b20c30"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4bd5954c12eea73cc539e3ba70b20c30">TEST_F</a> (CrashDumpTest, EcritUnMinidumpAvecLeContexteDUneException)</td></tr>
+<tr class="memdesc:a4bd5954c12eea73cc539e3ba70b20c30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un minidump s'écrit avec le contexte d'une exception structurée.  <br /></td></tr>
+<tr class="memitem:a08302c6a1941c92e2791fcde92fd9afb" id="r_a08302c6a1941c92e2791fcde92fd9afb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a08302c6a1941c92e2791fcde92fd9afb">TEST_F</a> (CrashDumpTest, EchoueSansLeverSurUnCheminImpossible)</td></tr>
+<tr class="memdesc:a08302c6a1941c92e2791fcde92fd9afb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un chemin de minidump impossible échoue sans exception ni plantage.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Minidump sur plantage (HMI/Platform/CrashDump) : nom du fichier et écriture réelle. </p>
+<p>Le filtre d'exception non attrapée ne se teste pas en processus : il termine le processus. Le test de fumée de la release le prouve de bout en bout (<span class="tt">--crash-test</span>). Ici, ce qui le compose : le nom du fichier, et l'écriture d'un dump lisible, avec et sans contexte d'exception. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a976e5799688545e6a88699fdc6b99502" name="a976e5799688545e6a88699fdc6b99502"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a976e5799688545e6a88699fdc6b99502">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CrashDumpFileName</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PorteApplicationVersionEtHorodatage</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le nom d'un minidump porte l'application, la version et l'heure du plantage. </p>
+<p><b>Cas de test :</b> <b>Le nom d'un minidump porte l'application, la version et l'heure du plantage.</b><br  />
+ <b>Categorie :</b> Unitaire · Crash Dump<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer le nom pour JustAnotherRpgGame 0.0.4 au 15/09/2026 21:04:07.<br  />
+ <b>Resultat attendu :</b> JustAnotherRpgGame_0.0.4_20260915_210407.dmp : l'archive de symboles se retrouve sans ouvrir le fichier. </p>
+
+</div>
+</div>
+<a id="a2c3be1c9591c4c0db6ae57334e02f87f" name="a2c3be1c9591c4c0db6ae57334e02f87f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c3be1c9591c4c0db6ae57334e02f87f">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CrashDumpFileName</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RemplaceLesCaracteresHorsNomDeFichier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les caractères hors nom de fichier sont remplacés dans le nom du minidump. </p>
+<p><b>Cas de test :</b> <b>Les caractères hors nom de fichier sont remplacés dans le nom du minidump.</b><br  />
+ <b>Categorie :</b> Unitaire · Crash Dump<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer le nom pour « Level Editor » en version « 0.1.0+dev/x ».<br  />
+ <b>Resultat attendu :</b> Espace, « + » et « / » deviennent « _ » ; le nom reste un fichier valide. </p>
+
+</div>
+</div>
+<a id="a08302c6a1941c92e2791fcde92fd9afb" name="a08302c6a1941c92e2791fcde92fd9afb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08302c6a1941c92e2791fcde92fd9afb">&#9670;&#160;</a></span>TEST_F() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">CrashDumpTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EchoueSansLeverSurUnCheminImpossible</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un chemin de minidump impossible échoue sans exception ni plantage. </p>
+<p><b>Cas de test :</b> <b>Un chemin de minidump impossible échoue sans exception ni plantage.</b><br  />
+ <b>Categorie :</b> Unitaire · Crash Dump<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Écrire un dump sous un nom interdit par Windows (« a?b.dmp »).<br  />
+ <b>Resultat attendu :</b> L'écriture rend false ; le filtre de plantage peut journaliser l'échec et conclure. </p>
+
+</div>
+</div>
+<a id="a4bd5954c12eea73cc539e3ba70b20c30" name="a4bd5954c12eea73cc539e3ba70b20c30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bd5954c12eea73cc539e3ba70b20c30">&#9670;&#160;</a></span>TEST_F() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">CrashDumpTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EcritUnMinidumpAvecLeContexteDUneException</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un minidump s'écrit avec le contexte d'une exception structurée. </p>
+<p><b>Cas de test :</b> <b>Un minidump s'écrit avec le contexte d'une exception structurée.</b><br  />
+ <b>Categorie :</b> Unitaire · Crash Dump<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Lever une exception structurée, l'attraper dans un filtre SEH qui écrit le dump.<br  />
+2. Lire la signature et la taille.<br  />
+ <b>Resultat attendu :</b> Le dump est écrit (signature MDMP) et porte un flux d'exception. </p>
+
+</div>
+</div>
+<a id="affbe12358556bcd9d806f80f958a51ba" name="affbe12358556bcd9d806f80f958a51ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affbe12358556bcd9d806f80f958a51ba">&#9670;&#160;</a></span>TEST_F() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">CrashDumpTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EcritUnMinidumpSansExceptionEtCreeLeDossier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un minidump de l'état courant s'écrit, dossier parent créé au besoin. </p>
+<p><b>Cas de test :</b> <b>Un minidump de l'état courant s'écrit, dossier parent créé au besoin.</b><br  />
+ <b>Categorie :</b> Unitaire · Crash Dump<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Écrire un dump sans contexte d'exception dans un sous-dossier inexistant.<br  />
+2. Lire les quatre premiers octets.<br  />
+ <b>Resultat attendu :</b> Le fichier existe et commence par la signature MDMP. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_2675e67548493d20626cf18c4081fab8.html">HMI</a></li><li class="navelem"><a href="dir_14a4f8c916501f3d8e0f172becd530d0.html">Platform</a></li><li class="navelem"><a href="test__crash__dump_8cpp.html">test_crash_dump.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

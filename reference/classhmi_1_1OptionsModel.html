@@ -1,0 +1,1120 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::OptionsModel Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1OptionsModel.html','','classhmi_1_1OptionsModel-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::OptionsModel Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Vue-modèle des options : lit et persiste les réglages, et <b>publie</b> leur changement.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="OptionsModel_8h_source.html">OptionsModel.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for hmi::OptionsModel:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classhmi_1_1OptionsModel.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:a52fed7b94905c6aee2780303ae86b4fd" id="r_a52fed7b94905c6aee2780303ae86b4fd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a52fed7b94905c6aee2780303ae86b4fd">fullscreenChanged</a> ()</td></tr>
+<tr class="memitem:af6d31966b77f2f9aa6bdb906d0da0bfb" id="r_af6d31966b77f2f9aa6bdb906d0da0bfb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af6d31966b77f2f9aa6bdb906d0da0bfb">vsyncChanged</a> ()</td></tr>
+<tr class="memitem:a87c5da577e125eb3adfcbf1fdb4770f2" id="r_a87c5da577e125eb3adfcbf1fdb4770f2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a87c5da577e125eb3adfcbf1fdb4770f2">diagnosticsChanged</a> ()</td></tr>
+<tr class="memitem:a866a05dec00aced02a6b439d61431283" id="r_a866a05dec00aced02a6b439d61431283"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a866a05dec00aced02a6b439d61431283">volumeChanged</a> ()</td></tr>
+<tr class="memitem:ab58c4b2199b558425c3b5988dacb4d02" id="r_ab58c4b2199b558425c3b5988dacb4d02"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab58c4b2199b558425c3b5988dacb4d02">languageChanged</a> ()</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a4d386dbcbbf08f038777ae1df87cd485" id="r_a4d386dbcbbf08f038777ae1df87cd485"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4d386dbcbbf08f038777ae1df87cd485">OptionsModel</a> (QObject *parent=nullptr)</td></tr>
+<tr class="memitem:aae97c7caf76ea2d233b2102734e2c1b1" id="r_aae97c7caf76ea2d233b2102734e2c1b1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aae97c7caf76ea2d233b2102734e2c1b1">setSessionLog</a> (<a class="el" href="classcore_1_1MemoryLogSink.html">core::MemoryLogSink</a> *sessionLog) noexcept</td></tr>
+<tr class="memdesc:aae97c7caf76ea2d233b2102734e2c1b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne le puits mémoire des journaux de session.  <br /></td></tr>
+<tr class="memitem:a66079ad92a010525ebd1322090cd70d7" id="r_a66079ad92a010525ebd1322090cd70d7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a66079ad92a010525ebd1322090cd70d7">fullscreen</a> () const noexcept</td></tr>
+<tr class="memitem:a3aafc6f4b6558daad08c2b836fff9044" id="r_a3aafc6f4b6558daad08c2b836fff9044"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a3aafc6f4b6558daad08c2b836fff9044">vsync</a> () const noexcept</td></tr>
+<tr class="memitem:a992cb73498ebeb078f7a10695ffae601" id="r_a992cb73498ebeb078f7a10695ffae601"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a992cb73498ebeb078f7a10695ffae601">diagnostics</a> () const noexcept</td></tr>
+<tr class="memitem:a7a71606593c8eeaa040cdaa4176c4945" id="r_a7a71606593c8eeaa040cdaa4176c4945"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a7a71606593c8eeaa040cdaa4176c4945">volume</a> () const noexcept</td></tr>
+<tr class="memitem:ab752fc21fbc1785b1685e46abaa5ea34" id="r_ab752fc21fbc1785b1685e46abaa5ea34"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ab752fc21fbc1785b1685e46abaa5ea34">language</a> () const</td></tr>
+<tr class="memitem:a796b8e9a864fc91684d5c452e2c56c6a" id="r_a796b8e9a864fc91684d5c452e2c56c6a"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a796b8e9a864fc91684d5c452e2c56c6a">languages</a> () const</td></tr>
+<tr class="memitem:a7ef3b5db34d5d24ad9e3a0b52d7d7d6d" id="r_a7ef3b5db34d5d24ad9e3a0b52d7d7d6d"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a7ef3b5db34d5d24ad9e3a0b52d7d7d6d">languageNames</a> () const</td></tr>
+<tr class="memitem:a11cf5c63f2f53adc2dcc833087916a60" id="r_a11cf5c63f2f53adc2dcc833087916a60"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a11cf5c63f2f53adc2dcc833087916a60">logsAvailable</a> () const noexcept</td></tr>
+<tr class="memitem:a30be8a662c06a28ddc41e63449a4a2c7" id="r_a30be8a662c06a28ddc41e63449a4a2c7"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#a30be8a662c06a28ddc41e63449a4a2c7">defaults</a> () const</td></tr>
+<tr class="memitem:a09960f2f33b9dee001c62cb51e83c78a" id="r_a09960f2f33b9dee001c62cb51e83c78a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a09960f2f33b9dee001c62cb51e83c78a">setFullscreen</a> (bool enabled)</td></tr>
+<tr class="memitem:aaa061a05f674dd471129a8f0b54ddcec" id="r_aaa061a05f674dd471129a8f0b54ddcec"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aaa061a05f674dd471129a8f0b54ddcec">setVsync</a> (bool enabled)</td></tr>
+<tr class="memitem:a523f95c24ef61868b16054620c87dd8d" id="r_a523f95c24ef61868b16054620c87dd8d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a523f95c24ef61868b16054620c87dd8d">setDiagnostics</a> (bool enabled)</td></tr>
+<tr class="memitem:aaf42bc46d2a228bca9a6949411d86eb3" id="r_aaf42bc46d2a228bca9a6949411d86eb3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aaf42bc46d2a228bca9a6949411d86eb3">setVolume</a> (int percent)</td></tr>
+<tr class="memitem:a4752355bfd7ef1f06440add45bc71b85" id="r_a4752355bfd7ef1f06440add45bc71b85"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4752355bfd7ef1f06440add45bc71b85">setLanguage</a> (const QString &amp;code)</td></tr>
+<tr class="memitem:aa322244ae20d5e9bbcbb0ed0d481fd58" id="r_aa322244ae20d5e9bbcbb0ed0d481fd58"><td class="memItemLeft">Q_INVOKABLE QString&#160;</td><td class="memItemRight"><a class="el" href="#aa322244ae20d5e9bbcbb0ed0d481fd58">saveLogs</a> ()</td></tr>
+<tr class="memdesc:aa322244ae20d5e9bbcbb0ed0d481fd58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit les journaux de la session dans un fichier horodaté, à côté de l'exécutable.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:ab48d2a0c8793aa51af171d2ace788250" id="r_ab48d2a0c8793aa51af171d2ace788250"><td class="memItemLeft">QML_SINGLETONbool&#160;</td><td class="memItemRight"><a class="el" href="#ab48d2a0c8793aa51af171d2ace788250">fullscreen</a></td></tr>
+<tr class="memitem:a8a907b9efd8a1079fb0dc6d88ca45e24" id="r_a8a907b9efd8a1079fb0dc6d88ca45e24"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8a907b9efd8a1079fb0dc6d88ca45e24">vsync</a></td></tr>
+<tr class="memitem:ad4faa29a69a81e4c9987c7fab507397f" id="r_ad4faa29a69a81e4c9987c7fab507397f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad4faa29a69a81e4c9987c7fab507397f">diagnostics</a></td></tr>
+<tr class="memitem:a0577a4c5c12f6bbc8f756bd92a0a4280" id="r_a0577a4c5c12f6bbc8f756bd92a0a4280"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0577a4c5c12f6bbc8f756bd92a0a4280">volume</a></td></tr>
+<tr class="memitem:a03c96660aaef740d4ce080cfb9a8f417" id="r_a03c96660aaef740d4ce080cfb9a8f417"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a03c96660aaef740d4ce080cfb9a8f417">language</a></td></tr>
+<tr class="memitem:a580407e9597675adca39c37cfcff008a" id="r_a580407e9597675adca39c37cfcff008a"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a580407e9597675adca39c37cfcff008a">languages</a></td></tr>
+<tr class="memdesc:a580407e9597675adca39c37cfcff008a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les langues que le jeu propose, par leur <b>code</b> (<span class="tt">fr</span>, <span class="tt">en</span>).  <br /></td></tr>
+<tr class="memitem:a5b5e4ce99022db0ad4444625e1d528e8" id="r_a5b5e4ce99022db0ad4444625e1d528e8"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a5b5e4ce99022db0ad4444625e1d528e8">languageNames</a></td></tr>
+<tr class="memdesc:a5b5e4ce99022db0ad4444625e1d528e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les mêmes, par leur <b>nom</b>, dans le même ordre — et chacun écrit dans sa propre langue.  <br /></td></tr>
+<tr class="memitem:ace9a52cbc002b12326f524777f7febd5" id="r_ace9a52cbc002b12326f524777f7febd5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ace9a52cbc002b12326f524777f7febd5">logsAvailable</a></td></tr>
+<tr class="memdesc:ace9a52cbc002b12326f524777f7febd5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">false</span> en Release, où aucun puits mémoire ne collecte les journaux de session.  <br /></td></tr>
+<tr class="memitem:a1a9fcaff0d366deccfb2d1e630a01280" id="r_a1a9fcaff0d366deccfb2d1e630a01280"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#a1a9fcaff0d366deccfb2d1e630a01280">defaults</a></td></tr>
+<tr class="memdesc:a1a9fcaff0d366deccfb2d1e630a01280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les valeurs d'usine, par nom de réglage (ullscreen, sync, diagnostics, olume, language) : ce que le bouton « Par défaut » des options pose, et ce que le constructeur prend quand aucun réglage n'est enregistré.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a413ddbde5c79699d4f853ebb60eb3149" id="r_a413ddbde5c79699d4f853ebb60eb3149"><td class="memItemLeft"><a class="el" href="classcore_1_1MemoryLogSink.html">core::MemoryLogSink</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a413ddbde5c79699d4f853ebb60eb3149">_sessionLog</a> = nullptr</td></tr>
+<tr class="memitem:aa245a170128ed5d3bfac38c336019e2a" id="r_aa245a170128ed5d3bfac38c336019e2a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa245a170128ed5d3bfac38c336019e2a">_fullscreen</a> = false</td></tr>
+<tr class="memitem:a715fd6e8ac838444b8dded0082cc4390" id="r_a715fd6e8ac838444b8dded0082cc4390"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a715fd6e8ac838444b8dded0082cc4390">_vsync</a> = true</td></tr>
+<tr class="memitem:a01a0d2de6adc2da202d0df5ac3904912" id="r_a01a0d2de6adc2da202d0df5ac3904912"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a01a0d2de6adc2da202d0df5ac3904912">_diagnostics</a> = false</td></tr>
+<tr class="memitem:a4fddcc430039e273b0a8f0982515d4d4" id="r_a4fddcc430039e273b0a8f0982515d4d4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4fddcc430039e273b0a8f0982515d4d4">_volume</a> = 100</td></tr>
+<tr class="memitem:a3493c096100070fb4963a76db2338fbc" id="r_a3493c096100070fb4963a76db2338fbc"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3493c096100070fb4963a76db2338fbc">_language</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Vue-modèle des options : lit et persiste les réglages, et <b>publie</b> leur changement. </p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md112"></a>
+La règle qui gouverne cette classe</h2>
+<p><span class="tt">EX-IHM-083</span> : <b>tout réglage exposé doit atteindre le moteur</b>. Une case à cocher qui ne fait rien est pire qu'une case absente — elle fait croire à un réglage, et l'utilisateur cherche ensuite pourquoi il n'a pas d'effet.</p>
+<p>Cette classe ne fait donc que deux choses : persister, et prévenir. C'est l'application qui <b>branche</b> chaque signal sur ce qu'il doit atteindre — le moteur audio, la fenêtre, les traducteurs. Le faire ici obligerait la présentation à connaître le moteur, et c'est précisément la frontière que le lot établit.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md113"></a>
+Ce qui s'applique quand</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Réglage  </th><th class="markdownTableHeadNone">Atteint  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">plein écran  </td><td class="markdownTableBodyNone">la fenêtre, <b>immédiatement</b>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">volume  </td><td class="markdownTableBodyNone">le moteur audio, <b>immédiatement</b>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">langue  </td><td class="markdownTableBodyNone">les traducteurs et le QML, <b>immédiatement</b>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">synchronisation verticale  </td><td class="markdownTableBodyNone">le format de surface, <b>au prochain lancement</b>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">compteur de diagnostic  </td><td class="markdownTableBodyNone">l'affichage tête haute, quand il existera  </td></tr>
+</table>
+<p>Les deux dernières lignes sont dites à l'écran, et non tues : un réglage qui s'applique plus tard atteint bien le moteur, mais l'utilisateur doit savoir quand.</p>
+<p>« Immédiatement » s'entend <b>à l'écriture</b> d'une propriété. L'écran des options de la charte v2 (LOT-87, T3.2) n'écrit qu'au bouton « Appliquer » : il tient ses valeurs en attente, et « Annuler » les abandonne sans que cette classe en ait rien su. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4d386dbcbbf08f038777ae1df87cd485" name="a4d386dbcbbf08f038777ae1df87cd485"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d386dbcbbf08f038777ae1df87cd485">&#9670;&#160;</a></span>OptionsModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::OptionsModel::OptionsModel </td>
+          <td>(</td>
+          <td class="paramtype">QObject *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a30be8a662c06a28ddc41e63449a4a2c7" name="a30be8a662c06a28ddc41e63449a4a2c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30be8a662c06a28ddc41e63449a4a2c7">&#9670;&#160;</a></span>defaults()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantMap hmi::OptionsModel::defaults </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a992cb73498ebeb078f7a10695ffae601" name="a992cb73498ebeb078f7a10695ffae601"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a992cb73498ebeb078f7a10695ffae601">&#9670;&#160;</a></span>diagnostics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::OptionsModel::diagnostics </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a87c5da577e125eb3adfcbf1fdb4770f2" name="a87c5da577e125eb3adfcbf1fdb4770f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87c5da577e125eb3adfcbf1fdb4770f2">&#9670;&#160;</a></span>diagnosticsChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::OptionsModel::diagnosticsChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a66079ad92a010525ebd1322090cd70d7" name="a66079ad92a010525ebd1322090cd70d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66079ad92a010525ebd1322090cd70d7">&#9670;&#160;</a></span>fullscreen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::OptionsModel::fullscreen </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a52fed7b94905c6aee2780303ae86b4fd" name="a52fed7b94905c6aee2780303ae86b4fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52fed7b94905c6aee2780303ae86b4fd">&#9670;&#160;</a></span>fullscreenChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::OptionsModel::fullscreenChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab752fc21fbc1785b1685e46abaa5ea34" name="ab752fc21fbc1785b1685e46abaa5ea34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab752fc21fbc1785b1685e46abaa5ea34">&#9670;&#160;</a></span>language()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::OptionsModel::language </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab58c4b2199b558425c3b5988dacb4d02" name="ab58c4b2199b558425c3b5988dacb4d02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab58c4b2199b558425c3b5988dacb4d02">&#9670;&#160;</a></span>languageChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::OptionsModel::languageChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ef3b5db34d5d24ad9e3a0b52d7d7d6d" name="a7ef3b5db34d5d24ad9e3a0b52d7d7d6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ef3b5db34d5d24ad9e3a0b52d7d7d6d">&#9670;&#160;</a></span>languageNames()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::OptionsModel::languageNames </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a796b8e9a864fc91684d5c452e2c56c6a" name="a796b8e9a864fc91684d5c452e2c56c6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a796b8e9a864fc91684d5c452e2c56c6a">&#9670;&#160;</a></span>languages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::OptionsModel::languages </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a11cf5c63f2f53adc2dcc833087916a60" name="a11cf5c63f2f53adc2dcc833087916a60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11cf5c63f2f53adc2dcc833087916a60">&#9670;&#160;</a></span>logsAvailable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::OptionsModel::logsAvailable </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa322244ae20d5e9bbcbb0ed0d481fd58" name="aa322244ae20d5e9bbcbb0ed0d481fd58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa322244ae20d5e9bbcbb0ed0d481fd58">&#9670;&#160;</a></span>saveLogs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::OptionsModel::saveLogs </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écrit les journaux de la session dans un fichier horodaté, à côté de l'exécutable. </p>
+<dl class="section return"><dt>Returns</dt><dd>Un message <b>destiné à l'écran</b> : le chemin écrit, ou la raison de l'échec. Jamais une chaîne vide — un bouton qui ne répond rien laisse croire qu'il n'a rien fait, alors qu'il a peut-être échoué. </dd></dl>
+
+</div>
+</div>
+<a id="a523f95c24ef61868b16054620c87dd8d" name="a523f95c24ef61868b16054620c87dd8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a523f95c24ef61868b16054620c87dd8d">&#9670;&#160;</a></span>setDiagnostics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::OptionsModel::setDiagnostics </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enabled</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a09960f2f33b9dee001c62cb51e83c78a" name="a09960f2f33b9dee001c62cb51e83c78a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09960f2f33b9dee001c62cb51e83c78a">&#9670;&#160;</a></span>setFullscreen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::OptionsModel::setFullscreen </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enabled</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4752355bfd7ef1f06440add45bc71b85" name="a4752355bfd7ef1f06440add45bc71b85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4752355bfd7ef1f06440add45bc71b85">&#9670;&#160;</a></span>setLanguage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::OptionsModel::setLanguage </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>code</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aae97c7caf76ea2d233b2102734e2c1b1" name="aae97c7caf76ea2d233b2102734e2c1b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae97c7caf76ea2d233b2102734e2c1b1">&#9670;&#160;</a></span>setSessionLog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::OptionsModel::setSessionLog </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1MemoryLogSink.html">core::MemoryLogSink</a> *</td>          <td class="paramname"><span class="paramname"><em>sessionLog</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Désigne le puits mémoire des journaux de session. </p>
+<p>Appelé par l'application au démarrage : la présentation ne va pas le chercher elle-même, elle ne sait pas qu'il existe. </p>
+
+</div>
+</div>
+<a id="aaf42bc46d2a228bca9a6949411d86eb3" name="aaf42bc46d2a228bca9a6949411d86eb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf42bc46d2a228bca9a6949411d86eb3">&#9670;&#160;</a></span>setVolume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::OptionsModel::setVolume </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>percent</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaa061a05f674dd471129a8f0b54ddcec" name="aaa061a05f674dd471129a8f0b54ddcec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa061a05f674dd471129a8f0b54ddcec">&#9670;&#160;</a></span>setVsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::OptionsModel::setVsync </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enabled</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7a71606593c8eeaa040cdaa4176c4945" name="a7a71606593c8eeaa040cdaa4176c4945"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a71606593c8eeaa040cdaa4176c4945">&#9670;&#160;</a></span>volume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::OptionsModel::volume </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a866a05dec00aced02a6b439d61431283" name="a866a05dec00aced02a6b439d61431283"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a866a05dec00aced02a6b439d61431283">&#9670;&#160;</a></span>volumeChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::OptionsModel::volumeChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3aafc6f4b6558daad08c2b836fff9044" name="a3aafc6f4b6558daad08c2b836fff9044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3aafc6f4b6558daad08c2b836fff9044">&#9670;&#160;</a></span>vsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::OptionsModel::vsync </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af6d31966b77f2f9aa6bdb906d0da0bfb" name="af6d31966b77f2f9aa6bdb906d0da0bfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6d31966b77f2f9aa6bdb906d0da0bfb">&#9670;&#160;</a></span>vsyncChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::OptionsModel::vsyncChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a01a0d2de6adc2da202d0df5ac3904912" name="a01a0d2de6adc2da202d0df5ac3904912"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01a0d2de6adc2da202d0df5ac3904912">&#9670;&#160;</a></span>_diagnostics</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::OptionsModel::_diagnostics = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa245a170128ed5d3bfac38c336019e2a" name="aa245a170128ed5d3bfac38c336019e2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa245a170128ed5d3bfac38c336019e2a">&#9670;&#160;</a></span>_fullscreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::OptionsModel::_fullscreen = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3493c096100070fb4963a76db2338fbc" name="a3493c096100070fb4963a76db2338fbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3493c096100070fb4963a76db2338fbc">&#9670;&#160;</a></span>_language</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::OptionsModel::_language</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a413ddbde5c79699d4f853ebb60eb3149" name="a413ddbde5c79699d4f853ebb60eb3149"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a413ddbde5c79699d4f853ebb60eb3149">&#9670;&#160;</a></span>_sessionLog</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1MemoryLogSink.html">core::MemoryLogSink</a>* hmi::OptionsModel::_sessionLog = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4fddcc430039e273b0a8f0982515d4d4" name="a4fddcc430039e273b0a8f0982515d4d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fddcc430039e273b0a8f0982515d4d4">&#9670;&#160;</a></span>_volume</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::OptionsModel::_volume = 100</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a715fd6e8ac838444b8dded0082cc4390" name="a715fd6e8ac838444b8dded0082cc4390"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a715fd6e8ac838444b8dded0082cc4390">&#9670;&#160;</a></span>_vsync</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::OptionsModel::_vsync = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-property-members" id="doc-property-members"></a><h2 id="header-doc-property-members" class="groupheader">Property Documentation</h2>
+<a id="a1a9fcaff0d366deccfb2d1e630a01280" name="a1a9fcaff0d366deccfb2d1e630a01280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a9fcaff0d366deccfb2d1e630a01280">&#9670;&#160;</a></span>defaults</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantMap hmi::OptionsModel::defaults</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les valeurs d'usine, par nom de réglage (ullscreen, sync, diagnostics, olume, language) : ce que le bouton « Par défaut » des options pose, et ce que le constructeur prend quand aucun réglage n'est enregistré. </p>
+<p>Une seule table, lue par les deux : recopiées en QML, elles auraient divergé au premier défaut changé ici. </p>
+
+</div>
+</div>
+<a id="ad4faa29a69a81e4c9987c7fab507397f" name="ad4faa29a69a81e4c9987c7fab507397f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4faa29a69a81e4c9987c7fab507397f">&#9670;&#160;</a></span>diagnostics</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::OptionsModel::diagnostics</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab48d2a0c8793aa51af171d2ace788250" name="ab48d2a0c8793aa51af171d2ace788250"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab48d2a0c8793aa51af171d2ace788250">&#9670;&#160;</a></span>fullscreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QML_SINGLETONbool hmi::OptionsModel::fullscreen</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a03c96660aaef740d4ce080cfb9a8f417" name="a03c96660aaef740d4ce080cfb9a8f417"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03c96660aaef740d4ce080cfb9a8f417">&#9670;&#160;</a></span>language</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::OptionsModel::language</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5b5e4ce99022db0ad4444625e1d528e8" name="a5b5e4ce99022db0ad4444625e1d528e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b5e4ce99022db0ad4444625e1d528e8">&#9670;&#160;</a></span>languageNames</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::OptionsModel::languageNames</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les mêmes, par leur <b>nom</b>, dans le même ordre — et chacun écrit dans sa propre langue. </p>
+<p>Un code est une clé technique : l'afficher aurait demandé au joueur de savoir que « en » désigne l'anglais, et ce sont précisément les clés à l'écran que ce lot supprime ailleurs. Ils ne passent pas par <span class="tt">qsTr</span> : « English » ne se traduit pas en français, il s'écrit ainsi dans la liste quelle que soit la langue courante — c'est ce qui permet d'en sortir. </p>
+
+</div>
+</div>
+<a id="a580407e9597675adca39c37cfcff008a" name="a580407e9597675adca39c37cfcff008a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a580407e9597675adca39c37cfcff008a">&#9670;&#160;</a></span>languages</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::OptionsModel::languages</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les langues que le jeu propose, par leur <b>code</b> (<span class="tt">fr</span>, <span class="tt">en</span>). </p>
+<p>Constantes : une langue s'ajoute avec son catalogue, donc par une construction, jamais à l'exécution. </p>
+
+</div>
+</div>
+<a id="ace9a52cbc002b12326f524777f7febd5" name="ace9a52cbc002b12326f524777f7febd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace9a52cbc002b12326f524777f7febd5">&#9670;&#160;</a></span>logsAvailable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::OptionsModel::logsAvailable</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><span class="tt">false</span> en Release, où aucun puits mémoire ne collecte les journaux de session. </p>
+<p>Le bouton se désactive alors plutôt que d'échouer une fois cliqué. </p>
+
+</div>
+</div>
+<a id="a0577a4c5c12f6bbc8f756bd92a0a4280" name="a0577a4c5c12f6bbc8f756bd92a0a4280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0577a4c5c12f6bbc8f756bd92a0a4280">&#9670;&#160;</a></span>volume</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::OptionsModel::volume</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8a907b9efd8a1079fb0dc6d88ca45e24" name="a8a907b9efd8a1079fb0dc6d88ca45e24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a907b9efd8a1079fb0dc6d88ca45e24">&#9670;&#160;</a></span>vsync</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::OptionsModel::vsync</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="OptionsModel_8h_source.html">OptionsModel.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="OptionsModel_8cpp.html">OptionsModel.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1OptionsModel.html">OptionsModel</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

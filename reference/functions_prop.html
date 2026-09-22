@@ -1,0 +1,364 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: Class Members - Properties</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('functions_prop.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="contents">
+<div class="textblock">Here is a list of all properties with links to the classes they belong to:</div>
+
+<h3 class="doxsection"><a id="index_a" name="index_a"></a>- a -</h3><ul>
+<li>abilities&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#ad71fb1e982b447d7c9a4a780d23eaf84">hmi::CharacterSheetModel</a></li>
+<li>active&#160;:&#160;<a class="el" href="classhmi_1_1GamepadNavigator.html#acd34e9981b8874642ce40919f9ca70e1">hmi::GamepadNavigator</a></li>
+<li>activeName&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#a283539f3e5853abd3f6835638b4eb218">hmi::ArenaModel</a></li>
+<li>activeResources&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#acec275728c52d22710aa959fcaf1d361">hmi::ArenaModel</a></li>
+<li>allies&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#a7d21e77d0ce4548c070298f47d8e3b73">hmi::ArenaModel</a></li>
+<li>arenaName&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#a3f4b527afceb64310bee5a8f634f6e26">hmi::ArenaModel</a></li>
+<li>armorClass&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#aef1462f1780f2fe512c821a89caf9b2d">hmi::CharacterSheetModel</a>, <a class="el" href="classhmi_1_1InventoryModel.html#a4cacfd023745688b23985288a0183e95">hmi::InventoryModel</a></li>
+<li>attitude&#160;:&#160;<a class="el" href="classhmi_1_1DialogueModel.html#a78b3e3e0b7b59100c7f821085555c6a7">hmi::DialogueModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_b" name="index_b"></a>- b -</h3><ul>
+<li>background&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#a48d10311bf7c86e94f8193502561177c">hmi::CharacterSheetModel</a></li>
+<li>backpack&#160;:&#160;<a class="el" href="classhmi_1_1InventoryModel.html#ace13938dcca6ac0654535a7b9ee9b0d8">hmi::InventoryModel</a></li>
+<li>bands&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a1ff68ad5d10eb9172f87892c14824aad">hmi::AssetGalleryItem</a></li>
+<li>blocCount&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a68bd516aa7b6381f8ed8bfcc3753a40b">hmi::AssetGalleryItem</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_c" name="index_c"></a>- c -</h3><ul>
+<li>capacity&#160;:&#160;<a class="el" href="classhmi_1_1InventoryModel.html#a5e2083c74c41b2a926d9f5b6c81b071f">hmi::InventoryModel</a></li>
+<li>carried&#160;:&#160;<a class="el" href="classhmi_1_1InventoryModel.html#a9d933a5ef0f134a8983d825058af29af">hmi::InventoryModel</a></li>
+<li>cells&#160;:&#160;<a class="el" href="classhmi_1_1InventoryModel.html#abf7d0e7e5be5b6e58c16e4f973549d9a">hmi::InventoryModel</a></li>
+<li>cellSize&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a464a11b8fa6b070c0987eb82eb6f853f">hmi::AssetGalleryItem</a></li>
+<li>checkOutcome&#160;:&#160;<a class="el" href="classhmi_1_1DialogueModel.html#a9423b1ce3f89fbed29c75be83a28c4a1">hmi::DialogueModel</a></li>
+<li>cityLocation&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#acf424613f83cbc23a161f7e8d960d33c">hmi::WorldModel</a></li>
+<li>classAndLevel&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#ab1cebb312ed46e9efb3d7f2dee2df4bd">hmi::CharacterSheetModel</a></li>
+<li>clearColor&#160;:&#160;<a class="el" href="classhmi_1_1ArenaViewportItem.html#a9e73577704fa4df236fa1bd82c62160f">hmi::ArenaViewportItem</a>, <a class="el" href="classhmi_1_1AssetGalleryItem.html#ada82be0aab4a7466f67cacd3970b894d">hmi::AssetGalleryItem</a>, <a class="el" href="classhmi_1_1GameViewportItem.html#a127c42d7f8e5427edd5524401727fda9">hmi::GameViewportItem</a>, <a class="el" href="classhmi_1_1WorldViewportItem.html#ad53fd20fad0cc665d0b02db9920e7bc8">hmi::WorldViewportItem</a></li>
+<li>column&#160;:&#160;<a class="el" href="classhmi_1_1CreditsModel.html#ac32e49e3c58599f9004eb3bb6a69ba3e">hmi::CreditsModel</a></li>
+<li>columns&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#a0edb35d3899752ac9a686a872c935e6e">hmi::WorldModel</a></li>
+<li>connected&#160;:&#160;<a class="el" href="classhmi_1_1GamepadNavigator.html#ab04ee136a3e4440ecee3d83329008045">hmi::GamepadNavigator</a></li>
+<li>currentRpgScreen&#160;:&#160;<a class="el" href="classhmi_1_1ScreenRouter.html#a68efd81277570018b5f1043310abb730">hmi::ScreenRouter</a></li>
+<li>currentScreen&#160;:&#160;<a class="el" href="classhmi_1_1ScreenRouter.html#ae6f4f69704239e7f7561382ecb88426c">hmi::ScreenRouter</a></li>
+<li>cursorColumn&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#a67ebea315e7a25c384ce1ead30cb2298">hmi::ArenaModel</a></li>
+<li>cursorRow&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#a87d807cfc6a3bcb337f4b01daae1b565">hmi::ArenaModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_d" name="index_d"></a>- d -</h3><ul>
+<li>defaults&#160;:&#160;<a class="el" href="classhmi_1_1OptionsModel.html#a1a9fcaff0d366deccfb2d1e630a01280">hmi::OptionsModel</a></li>
+<li>developerBuild&#160;:&#160;<a class="el" href="classhmi_1_1ScreenRouter.html#ae1d233ca79a137451b3d598b29aae659">hmi::ScreenRouter</a></li>
+<li>diagnostics&#160;:&#160;<a class="el" href="classhmi_1_1OptionsModel.html#ad4faa29a69a81e4c9987c7fab507397f">hmi::OptionsModel</a></li>
+<li>dialogueId&#160;:&#160;<a class="el" href="classhmi_1_1DialogueModel.html#a1c376e04d9cb74bb0030ae72dfe30480">hmi::DialogueModel</a>, <a class="el" href="classhmi_1_1ScreenRouter.html#aa9ba1f7e1f16121dc41686cc69ee0dea">hmi::ScreenRouter</a></li>
+<li>districtId&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#a7aff4f8e9deb81cb1dd60d9747307a08">hmi::WorldModel</a></li>
+<li>drawnCount&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a2d342376ac387f84bc0652e4b203b114">hmi::AssetGalleryItem</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_e" name="index_e"></a>- e -</h3><ul>
+<li>ended&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#a14aa26855dbb7840d5b588488439f272">hmi::ArenaModel</a></li>
+<li>enemies&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#ac340c1bdc7ddfc6280c794211fbc448f">hmi::ArenaModel</a></li>
+<li>enemyAi&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#ae4f2a8e509afa8e39ae971ecea38bf65">hmi::ArenaModel</a></li>
+<li>equipmentSlots&#160;:&#160;<a class="el" href="classhmi_1_1InventoryModel.html#a209ff5cd9e4a3fe7326870999e3a64b9">hmi::InventoryModel</a></li>
+<li>equipped&#160;:&#160;<a class="el" href="classhmi_1_1InventoryModel.html#a74c65696e342d7b763f4883e4d17c7a6">hmi::InventoryModel</a></li>
+<li>errors&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#ac8ce77ee0aa7458f5fa6d9b3c6595e15">hmi::AssetGalleryItem</a></li>
+<li>experience&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#ac85aed6a848fba68b78065fdd952d666">hmi::CharacterSheetModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_f" name="index_f"></a>- f -</h3><ul>
+<li>fighters&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#afb30979d732249090ce1b0c8c7dca44c">hmi::ArenaModel</a></li>
+<li>filter&#160;:&#160;<a class="el" href="classhmi_1_1InventoryModel.html#a004b5cb6fe63070c481432296464df03">hmi::InventoryModel</a></li>
+<li>finished&#160;:&#160;<a class="el" href="classhmi_1_1DialogueModel.html#a1aebfff876b25e77f3e45035f21ba4d6">hmi::DialogueModel</a></li>
+<li>frozen&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#a0f39a57d440f80dc7cd85924a70a1340">hmi::WorldModel</a></li>
+<li>fullscreen&#160;:&#160;<a class="el" href="classhmi_1_1OptionsModel.html#ab48d2a0c8793aa51af171d2ace788250">hmi::OptionsModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_g" name="index_g"></a>- g -</h3><ul>
+<li>gold&#160;:&#160;<a class="el" href="classhmi_1_1InventoryModel.html#a0ecfd55853c19a77e84b95a907fe1a23">hmi::InventoryModel</a></li>
+<li>gridColumns&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#a2a42097d40f5f0a4af172becc2bbd325">hmi::ArenaModel</a></li>
+<li>gridRows&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#aee86a256c6660b2fa8650b3e4aee9b27">hmi::ArenaModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_h" name="index_h"></a>- h -</h3><ul>
+<li>heroColumn&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#ad2d15bde921ae2e52036d27181dbb6c8">hmi::WorldModel</a></li>
+<li>heroFigure&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#ac69f3c3985bc1b48dfdfa79738255454">hmi::WorldModel</a></li>
+<li>heroRow&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#ab8f17caf20bd69aa673b661cbba984e1">hmi::WorldModel</a></li>
+<li>hitDice&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#a4b978f6c7ab3ce3685386856f2e0ce7b">hmi::CharacterSheetModel</a></li>
+<li>hitPoints&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#a384b8402c63b849101a42552691f9174">hmi::CharacterSheetModel</a></li>
+<li>hitPointsMax&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#aadbae877ac72d8ca4a6e5dd3784876e2">hmi::CharacterSheetModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_i" name="index_i"></a>- i -</h3><ul>
+<li>inCombat&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#a0f77d14b4902ce809daa8e3ec0a9932b">hmi::ArenaModel</a></li>
+<li>initiative&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#ab86eab579bb1cd69a0bcc0d403296448">hmi::CharacterSheetModel</a>, <a class="el" href="classhmi_1_1InventoryModel.html#ac92b8f6399230b40753d4f6a0230987f">hmi::InventoryModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_j" name="index_j"></a>- j -</h3><ul>
+<li>journal&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#ad62a622df9e51245de3c1253bd8b5ffc">hmi::ArenaModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_l" name="index_l"></a>- l -</h3><ul>
+<li>labels&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#afccad1530564c4e1408577022a5b8c97">hmi::AssetGalleryItem</a></li>
+<li>language&#160;:&#160;<a class="el" href="classhmi_1_1CreditsModel.html#a18eff1f54dc1d81747e5863bad20fb6e">hmi::CreditsModel</a>, <a class="el" href="classhmi_1_1OptionsModel.html#a03c96660aaef740d4ce080cfb9a8f417">hmi::OptionsModel</a></li>
+<li>languageNames&#160;:&#160;<a class="el" href="classhmi_1_1OptionsModel.html#a5b5e4ce99022db0ad4444625e1d528e8">hmi::OptionsModel</a></li>
+<li>languages&#160;:&#160;<a class="el" href="classhmi_1_1OptionsModel.html#a580407e9597675adca39c37cfcff008a">hmi::OptionsModel</a></li>
+<li>layoutColumns&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#aa8dd9a9c599eb851be7923005ccc5707">hmi::AssetGalleryItem</a></li>
+<li>layoutRows&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a00eef329e9020aa0efc163cf6038ec88">hmi::AssetGalleryItem</a></li>
+<li>level&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#a00211f22b831a62542f5df2a8baf68e3">hmi::CharacterSheetModel</a></li>
+<li>line&#160;:&#160;<a class="el" href="classhmi_1_1DialogueModel.html#a592028e7408a21f11bdeb1efe008c1e7">hmi::DialogueModel</a></li>
+<li>loaded&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#a83c6ab17b967d875b0e7495d5787ca65">hmi::WorldModel</a></li>
+<li>loadRatio&#160;:&#160;<a class="el" href="classhmi_1_1InventoryModel.html#aba17baad4338fb9e5ce748ecfdb6f446">hmi::InventoryModel</a></li>
+<li>logsAvailable&#160;:&#160;<a class="el" href="classhmi_1_1OptionsModel.html#ace9a52cbc002b12326f524777f7febd5">hmi::OptionsModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_m" name="index_m"></a>- m -</h3><ul>
+<li>mapId&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#ab5652e80c0a82a34c055391a09bf9383">hmi::WorldModel</a></li>
+<li>mapName&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#a377eb7e731e665360dcdbf7e4eee72f2">hmi::WorldModel</a></li>
+<li>marks&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#ae25cf88b5992d053ea1f037928401366">hmi::ArenaModel</a></li>
+<li>minimap&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a00b0fddc5151717666c2c0858f33c901">hmi::AssetGalleryItem</a></li>
+<li>model&#160;:&#160;<a class="el" href="classhmi_1_1ArenaViewportItem.html#a246c059bc20664783a3afb9cfc6084d6">hmi::ArenaViewportItem</a>, <a class="el" href="classhmi_1_1WorldViewportItem.html#a0b977f00e9f4adf178bada111fdf4dde">hmi::WorldViewportItem</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_n" name="index_n"></a>- n -</h3><ul>
+<li>name&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#a0d8ace9a0253c87877068faa54f5ccae">hmi::CharacterSheetModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_o" name="index_o"></a>- o -</h3><ul>
+<li>offsetX&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a3f9286c75e5c886ecf730eca4026854a">hmi::AssetGalleryItem</a></li>
+<li>offsetY&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a18039e59167d4c1e316d806bca421526">hmi::AssetGalleryItem</a></li>
+<li>originX&#160;:&#160;<a class="el" href="classhmi_1_1ArenaViewportItem.html#a7e4a39ec327866a4b41ed449deb984a0">hmi::ArenaViewportItem</a>, <a class="el" href="classhmi_1_1WorldViewportItem.html#aeedf43417922577358d8680023747ca3">hmi::WorldViewportItem</a></li>
+<li>originY&#160;:&#160;<a class="el" href="classhmi_1_1ArenaViewportItem.html#aa36fd5cb57075a06eb3e1e2062c1805a">hmi::ArenaViewportItem</a>, <a class="el" href="classhmi_1_1WorldViewportItem.html#ab6f4eacdc78603f47d8356ffc888e970">hmi::WorldViewportItem</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_p" name="index_p"></a>- p -</h3><ul>
+<li>passivePerception&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#a09cbaea3005c41db0e17924cff5eaeec">hmi::CharacterSheetModel</a>, <a class="el" href="classhmi_1_1InventoryModel.html#a182911c728bbc446da58413657d22325">hmi::InventoryModel</a></li>
+<li>pathCells&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#aef297d1b46556defc245fae939792891">hmi::ArenaModel</a></li>
+<li>placedCount&#160;:&#160;<a class="el" href="classhmi_1_1WorldMapModel.html#a13b63b6ed89d4b3a2b9d59f7b71eaf5c">hmi::WorldMapModel</a></li>
+<li>playing&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#ad3ffcb25e4dcf5b58392de1a64fdbff3">hmi::AssetGalleryItem</a></li>
+<li>preloadedCount&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#ad6121a361c717729d451ba8ef74d1a13">hmi::AssetGalleryItem</a></li>
+<li>preview&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#aaca6a68e02078dc6792c503e3bd9180b">hmi::ArenaModel</a></li>
+<li>proficiencyBonus&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#aff7b297341febf1e9670c5c4d5d0a9b0">hmi::CharacterSheetModel</a></li>
+<li>purse&#160;:&#160;<a class="el" href="classhmi_1_1InventoryModel.html#ad815eabdbc72f2d89fde2f2241f43cc3">hmi::InventoryModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_r" name="index_r"></a>- r -</h3><ul>
+<li>reachableCells&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#ab41ed77693753c49d695ebd77e286661">hmi::ArenaModel</a></li>
+<li>regions&#160;:&#160;<a class="el" href="classhmi_1_1WorldMapModel.html#aadf60fd8a6aae8fe2d6b3fe590b11292">hmi::WorldMapModel</a></li>
+<li>replies&#160;:&#160;<a class="el" href="classhmi_1_1DialogueModel.html#a8f295c17802fd0e4e7e4e7363e3e5481">hmi::DialogueModel</a></li>
+<li>ringCells&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a66876af8f07c6722d33a67a2d4909611">hmi::AssetGalleryItem</a></li>
+<li>roster&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#a9818ee89f3dfcc0b5b0a12c688d7ab27">hmi::ArenaModel</a></li>
+<li>rows&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#aee59c6bd784f182d94ce8750ebe003c4">hmi::WorldModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_s" name="index_s"></a>- s -</h3><ul>
+<li>savingThrows&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#a38a22274234b22eabee7060c27cc22d4">hmi::CharacterSheetModel</a></li>
+<li>sections&#160;:&#160;<a class="el" href="classhmi_1_1CreditsModel.html#a068637f059cf148bf43a58754d36fb48">hmi::CreditsModel</a></li>
+<li>seed&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#a499fac0ee9101a006ed3631ac6054a95">hmi::ArenaModel</a></li>
+<li>selected&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a69474b4e70523d1fe4d4eb7269903ef8">hmi::AssetGalleryItem</a></li>
+<li>selectedFrame&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a01045f0589c42813ee8cfef5d33c831e">hmi::AssetGalleryItem</a></li>
+<li>selectedIndex&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a672cdc7161a90c06a9ab9d7aad8aee1a">hmi::AssetGalleryItem</a></li>
+<li>selectedItem&#160;:&#160;<a class="el" href="classhmi_1_1InventoryModel.html#a4482591aaae9745574c68b268a4d2105">hmi::InventoryModel</a></li>
+<li>selectedSlot&#160;:&#160;<a class="el" href="classhmi_1_1InventoryModel.html#a87ebc26f71bd350bcd37a450f264ff2b">hmi::InventoryModel</a></li>
+<li>selection&#160;:&#160;<a class="el" href="classhmi_1_1InventoryModel.html#ac9d4d4eef953b647f13fd4ec05070b54">hmi::InventoryModel</a></li>
+<li>showFootprint&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#ad99428686b852ca35133fefdceed2d09">hmi::AssetGalleryItem</a></li>
+<li>showGrid&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#aeedd794c88bac6ababcdc08ee700300f">hmi::AssetGalleryItem</a></li>
+<li>siblings&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#ab0f9694107e4b5f149707c19243bca7d">hmi::AssetGalleryItem</a></li>
+<li>skills&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#a86fa2e2be3af38f8095194bd257c95d2">hmi::CharacterSheetModel</a></li>
+<li>speakerName&#160;:&#160;<a class="el" href="classhmi_1_1DialogueModel.html#a5be7ee1780c414a9cf0768e408fdb26d">hmi::DialogueModel</a></li>
+<li>species&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#ab635485894fcf0cf7a1c8de1c797b2ee">hmi::CharacterSheetModel</a></li>
+<li>speed&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#afdaf2c3d4043aca33b47d6fed1c84cea">hmi::AssetGalleryItem</a>, <a class="el" href="classhmi_1_1CharacterSheetModel.html#a74bf7012708a91997d29350295273131">hmi::CharacterSheetModel</a>, <a class="el" href="classhmi_1_1InventoryModel.html#adad1d72b86b6dd6522ac591573fd5c81">hmi::InventoryModel</a></li>
+<li>status&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#a195ccb33e5a9636011376256b395e93c">hmi::ArenaModel</a>, <a class="el" href="classhmi_1_1DialogueModel.html#a20a3f6d2a4ed028340251c4bf9c65d34">hmi::DialogueModel</a>, <a class="el" href="classhmi_1_1WorldModel.html#ad35b39b91404a26834204600e488b698">hmi::WorldModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_t" name="index_t"></a>- t -</h3><ul>
+<li>tileHeight&#160;:&#160;<a class="el" href="classhmi_1_1ArenaViewportItem.html#aa9401be5d73639f9ba25451d8009009e">hmi::ArenaViewportItem</a>, <a class="el" href="classhmi_1_1WorldViewportItem.html#a7b602a9fde9650b5f46586141d5336dd">hmi::WorldViewportItem</a></li>
+<li>tileWidth&#160;:&#160;<a class="el" href="classhmi_1_1ArenaViewportItem.html#a128f74db2f357a3721fc24c336b9cbad">hmi::ArenaViewportItem</a>, <a class="el" href="classhmi_1_1WorldViewportItem.html#a4f22e44bb5f3e72c61a85d0c1c74647b">hmi::WorldViewportItem</a></li>
+<li>turnActions&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#a603e13e5eb8abde7119fcc5eae7f76f6">hmi::ArenaModel</a></li>
+<li>turnOrder&#160;:&#160;<a class="el" href="classhmi_1_1ArenaModel.html#a5f8831c8f0dfd8f687ee16ffe30cec0d">hmi::ArenaModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_u" name="index_u"></a>- u -</h3><ul>
+<li>unloadedCount&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#adde224a9503dbcc12e78b31c3b8b3d3d">hmi::AssetGalleryItem</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_v" name="index_v"></a>- v -</h3><ul>
+<li>values&#160;:&#160;<a class="el" href="classhmi_1_1CharacterSheetModel.html#ab4343c40ed226a3a19259cc8564b6d91">hmi::CharacterSheetModel</a></li>
+<li>viewColumn&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#aa9cb30842fe09968b7e4d953f365778c">hmi::AssetGalleryItem</a></li>
+<li>viewColumns&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a60d675e73d9bd282cf067b39a3242723">hmi::AssetGalleryItem</a></li>
+<li>viewRow&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a9c8fb5641ea6d471df593648b5633c96">hmi::AssetGalleryItem</a></li>
+<li>viewRows&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a43b42d31f31390cbaf26c6275e5a6f36">hmi::AssetGalleryItem</a></li>
+<li>visitedDistricts&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#abbd27d6c2cb84fd8d7f57fd6f4c0b145">hmi::WorldModel</a></li>
+<li>volume&#160;:&#160;<a class="el" href="classhmi_1_1OptionsModel.html#a0577a4c5c12f6bbc8f756bd92a0a4280">hmi::OptionsModel</a></li>
+<li>vsync&#160;:&#160;<a class="el" href="classhmi_1_1OptionsModel.html#a8a907b9efd8a1079fb0dc6d88ca45e24">hmi::OptionsModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_w" name="index_w"></a>- w -</h3><ul>
+<li>worldImage&#160;:&#160;<a class="el" href="classhmi_1_1WorldMapModel.html#aee6ca8709d02839954670e963bedee4e">hmi::WorldMapModel</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_z" name="index_z"></a>- z -</h3><ul>
+<li>zoom&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryItem.html#a6c4e4bbfa297175d7d999f8defc69a87">hmi::AssetGalleryItem</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: Namespace Members</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('namespacemembers_func_l.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="contents">
+<div class="textblock">Here is a list of all namespace functions with links to the namespace documentation for each function:</div>
+
+<h3 class="doxsection"><a id="index_l" name="index_l"></a>- l -</h3><ul>
+<li>languagesMissing()&#160;:&#160;<a class="el" href="namespacehmi.html#a1bf4f828e030488522fc38306267bd38">hmi</a></li>
+<li>lastMiniDumpAttemptErrors()&#160;:&#160;<a class="el" href="namespacehmi.html#abd38f09f1f47f1d85b7e0e0d3d8323f9">hmi</a></li>
+<li>layerKindName()&#160;:&#160;<a class="el" href="namespacecore.html#a9a1bd2ed20a557ddf1033a2c264c9bdd">core</a></li>
+<li>layerRows()&#160;:&#160;<a class="el" href="namespacehmi.html#a5513925544b8628185e12eae822a83e8">hmi</a></li>
+<li>layoutAssetGallery()&#160;:&#160;<a class="el" href="namespacehmi.html#aa873ff843c8cc02b063bb5f908cd92fd">hmi</a></li>
+<li>layoutWorldGraph()&#160;:&#160;<a class="el" href="namespacehmi.html#a05055b81b0f1c8241eeef2c9e9d3a588">hmi</a></li>
+<li>lineCells()&#160;:&#160;<a class="el" href="namespacehmi.html#af759d2b783c12c7eb6e871adc4e19867">hmi</a></li>
+<li>lineQuadBounds()&#160;:&#160;<a class="el" href="namespacehmi.html#adbdaec090bf424bf2ec812fb1587c782">hmi</a></li>
+<li>linkCells()&#160;:&#160;<a class="el" href="namespacehmi.html#a97f64e29742cc46d264504042b991051">hmi</a></li>
+<li>loadArenaFigureAnimations()&#160;:&#160;<a class="el" href="namespacehmi.html#ac88b5c42864d2a0910bf9831321e47a0">hmi</a></li>
+<li>loadArenas()&#160;:&#160;<a class="el" href="namespacecore.html#a6cbf953c060d64cd627c436ab3d4520c">core</a></li>
+<li>loadAssetFamilies()&#160;:&#160;<a class="el" href="namespacecore.html#a572e98b67a306b182732d2396b1478fb">core</a></li>
+<li>loadAtlas()&#160;:&#160;<a class="el" href="namespacecore.html#a4a28b9f58a274691d57f2f961c7909e7">core</a></li>
+<li>loadBehaviors()&#160;:&#160;<a class="el" href="namespacecore.html#a71acb15a48b4ccfba9c5fb43dcd8fee2">core</a></li>
+<li>loadBestiary()&#160;:&#160;<a class="el" href="namespacecore.html#a83d3373cdbf5d435e75c8d6a944e1e2b">core</a></li>
+<li>loadCharacterCreationRules()&#160;:&#160;<a class="el" href="namespacecore.html#aed30bfa90cc61678be84164457f76dab">core</a></li>
+<li>loadCharacterOptions()&#160;:&#160;<a class="el" href="namespacecore.html#a36cbf1bb7067b2cd672cfc8de2727737">core</a></li>
+<li>loadCharacterSheet()&#160;:&#160;<a class="el" href="namespacecore.html#a79d320ec991d82d7cb18080669d551a5">core</a></li>
+<li>loadCityPlan()&#160;:&#160;<a class="el" href="namespacecore.html#aaecd848d6b8b1fee4c49ef3e9dcb36c3">core</a></li>
+<li>loadContentContext()&#160;:&#160;<a class="el" href="namespacehmi.html#aa5077b41d16fae5444bba01296af35c2">hmi</a></li>
+<li>loadDemonstrationState()&#160;:&#160;<a class="el" href="namespacehmi.html#aaf18529e7061f72c5c481ea2f30b6909">hmi</a></li>
+<li>loadDemonstrationValues()&#160;:&#160;<a class="el" href="namespacehmi.html#aa7f27ef2ac4ebf9ca9471566aa568af4">hmi</a></li>
+<li>loadDialogue()&#160;:&#160;<a class="el" href="namespacecore.html#a8c3c19eb55ce28a2afd54fd1b89fc51d">core</a></li>
+<li>loadDialogues()&#160;:&#160;<a class="el" href="namespacecore.html#ac987504eccca3df6b5dab801b1736bd2">core</a></li>
+<li>loadDifficultyScale()&#160;:&#160;<a class="el" href="namespacecore.html#a74c7918e1f4c894c1449f94dfff55730">core</a></li>
+<li>loadEditorReferences()&#160;:&#160;<a class="el" href="namespacehmi.html#a9a7176a33d5205537d912eb3dbcbf61c">hmi</a></li>
+<li>loadEncounters()&#160;:&#160;<a class="el" href="namespacecore.html#a707734069fc72e63f6f67a8ef9f60dcc">core</a></li>
+<li>loadEncumbranceRules()&#160;:&#160;<a class="el" href="namespacecore.html#a6784f5e1367401de1a0d7d087d7c16a4">core</a></li>
+<li>loadEquipment()&#160;:&#160;<a class="el" href="namespacecore.html#a06839f5ee0eea764bdcd5f6b865f194c">core</a></li>
+<li>loadExperienceTable()&#160;:&#160;<a class="el" href="namespacecore.html#a00be15bd9376cf46d81dedf0bc0f7d54">core</a></li>
+<li>loadHeroicMarks()&#160;:&#160;<a class="el" href="namespacecore.html#a2c4f8564739de90f7f02936084207e1d">core</a></li>
+<li>loadItems()&#160;:&#160;<a class="el" href="namespacecore.html#a00edce76b901663b3187437ecea2da10">core</a></li>
+<li>loadPlaceAssets()&#160;:&#160;<a class="el" href="namespacehmi.html#a5b2225206c785643e614da4760a74f95">hmi</a></li>
+<li>loadSkills()&#160;:&#160;<a class="el" href="namespacecore.html#a42f5d87d7c735cf39527f76c7dda44da">core</a></li>
+<li>loadTextureFromFile()&#160;:&#160;<a class="el" href="namespacehmi.html#a9821e11a6df2a1d3415b00f423657686">hmi</a></li>
+<li>loadTranslationCatalogs()&#160;:&#160;<a class="el" href="namespacehmi.html#a900f71ec83ddb4e2dc75af7f6beaece1">hmi</a></li>
+<li>loadWorldGraph()&#160;:&#160;<a class="el" href="namespacecore.html#a3a51a927bbd51ec10f45120e41fcab27">core</a></li>
+<li>localizationDirectory()&#160;:&#160;<a class="el" href="namespacehmi.html#a5b9f2de86068618da8115de956d81bfa">hmi</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

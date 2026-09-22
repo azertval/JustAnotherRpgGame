@@ -1,0 +1,907 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::DialogueModel Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1DialogueModel.html','','classhmi_1_1DialogueModel-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::DialogueModel Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>La vue-modèle de l'écran de dialogue : elle tient un <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html" title="La machine à états qui joue un dialogue.">core::DialogueRunner</a></span> et rien d'autre ne décide.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="DialogueModel_8h_source.html">DialogueModel.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for hmi::DialogueModel:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classhmi_1_1DialogueModel.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:Session" id="r_Session"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DialogueModel_1_1Session.html">Session</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:a6efec9c702291f4d4f6ac50bc36739a1" id="r_a6efec9c702291f4d4f6ac50bc36739a1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6efec9c702291f4d4f6ac50bc36739a1">changed</a> ()</td></tr>
+<tr class="memitem:a80189a0fb6f159dc7c10a2253da86494" id="r_a80189a0fb6f159dc7c10a2253da86494"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a80189a0fb6f159dc7c10a2253da86494">combatRequested</a> (const QString &amp;arenaId)</td></tr>
+<tr class="memdesc:a80189a0fb6f159dc7c10a2253da86494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le PNJ envoie se battre : son dialogue a demandé l'arène nommée (<span class="tt">startCombat</span>, <span class="tt">LOT-09</span>).  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ab4ff26bf7bfa343837c5fb9486360576" id="r_ab4ff26bf7bfa343837c5fb9486360576"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab4ff26bf7bfa343837c5fb9486360576">DialogueModel</a> (QObject *parent=nullptr)</td></tr>
+<tr class="memitem:a77c7035799e307ade9bd91df63aa18b3" id="r_a77c7035799e307ade9bd91df63aa18b3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a77c7035799e307ade9bd91df63aa18b3">~DialogueModel</a> () override</td></tr>
+<tr class="memitem:a5b3abb0445ed29d6fc01d9eee257de51" id="r_a5b3abb0445ed29d6fc01d9eee257de51"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5b3abb0445ed29d6fc01d9eee257de51">dialogueId</a> () const</td></tr>
+<tr class="memitem:a82645440644586364341bb798fba4c01" id="r_a82645440644586364341bb798fba4c01"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a82645440644586364341bb798fba4c01">setDialogueId</a> (const QString &amp;id)</td></tr>
+<tr class="memitem:a17e77a671b69bfb772eddfc08c7834c7" id="r_a17e77a671b69bfb772eddfc08c7834c7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a17e77a671b69bfb772eddfc08c7834c7">speakerName</a> () const</td></tr>
+<tr class="memitem:a3cb792a72e33b34e9d8f3271d83f8f62" id="r_a3cb792a72e33b34e9d8f3271d83f8f62"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3cb792a72e33b34e9d8f3271d83f8f62">attitude</a> () const</td></tr>
+<tr class="memitem:adb7ff43722d893b9912cfe78bd25fe56" id="r_adb7ff43722d893b9912cfe78bd25fe56"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#adb7ff43722d893b9912cfe78bd25fe56">line</a> () const</td></tr>
+<tr class="memitem:a7fd2026f6d06834369a764f6d97d4a74" id="r_a7fd2026f6d06834369a764f6d97d4a74"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a7fd2026f6d06834369a764f6d97d4a74">checkOutcome</a> () const</td></tr>
+<tr class="memitem:ac554785154cbeed0223249dd36f1cda6" id="r_ac554785154cbeed0223249dd36f1cda6"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#ac554785154cbeed0223249dd36f1cda6">replies</a> ()</td></tr>
+<tr class="memitem:aa45f645683377e57eb468b4308ced157" id="r_aa45f645683377e57eb468b4308ced157"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa45f645683377e57eb468b4308ced157">finished</a> () const noexcept</td></tr>
+<tr class="memitem:a1a6c0babadcd43e9bf20541b8c549412" id="r_a1a6c0babadcd43e9bf20541b8c549412"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a1a6c0babadcd43e9bf20541b8c549412">status</a> () const</td></tr>
+<tr class="memitem:ac725f335856ecabd4341e3a9d94b501d" id="r_ac725f335856ecabd4341e3a9d94b501d"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#ac725f335856ecabd4341e3a9d94b501d">choose</a> (const QString &amp;rowId)</td></tr>
+<tr class="memdesc:ac725f335856ecabd4341e3a9d94b501d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne la réponse <code class="param">rowId</code> — ou quitte, si c'est la ligne « Quitter ».  <br /></td></tr>
+<tr class="memitem:aaaa6233b29c562241df0945b608ea9b1" id="r_aaaa6233b29c562241df0945b608ea9b1"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#aaaa6233b29c562241df0945b608ea9b1">chooseAt</a> (int index)</td></tr>
+<tr class="memdesc:aaaa6233b29c562241df0945b608ea9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne la réponse de rang <code class="param">index</code> (0 pour la première) : les touches <span class="tt">1</span> à <span class="tt">9</span>.  <br /></td></tr>
+<tr class="memitem:a36f702303d6e507d989850c1a291df3c" id="r_a36f702303d6e507d989850c1a291df3c"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a36f702303d6e507d989850c1a291df3c">restart</a> ()</td></tr>
+<tr class="memdesc:a36f702303d6e507d989850c1a291df3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rouvre la même conversation depuis son entrée, drapeaux conservés.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a1c376e04d9cb74bb0030ae72dfe30480" id="r_a1c376e04d9cb74bb0030ae72dfe30480"><td class="memItemLeft">QML_ELEMENTQString&#160;</td><td class="memItemRight"><a class="el" href="#a1c376e04d9cb74bb0030ae72dfe30480">dialogueId</a></td></tr>
+<tr class="memdesc:a1c376e04d9cb74bb0030ae72dfe30480"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dialogue à jouer, par identifiant. L'écrire ouvre la conversation.  <br /></td></tr>
+<tr class="memitem:a5be7ee1780c414a9cf0768e408fdb26d" id="r_a5be7ee1780c414a9cf0768e408fdb26d"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5be7ee1780c414a9cf0768e408fdb26d">speakerName</a></td></tr>
+<tr class="memitem:a78b3e3e0b7b59100c7f821085555c6a7" id="r_a78b3e3e0b7b59100c7f821085555c6a7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a78b3e3e0b7b59100c7f821085555c6a7">attitude</a></td></tr>
+<tr class="memitem:a592028e7408a21f11bdeb1efe008c1e7" id="r_a592028e7408a21f11bdeb1efe008c1e7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a592028e7408a21f11bdeb1efe008c1e7">line</a></td></tr>
+<tr class="memdesc:a592028e7408a21f11bdeb1efe008c1e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">La réplique affichée, traduite ; le refus s'il n'y a pas de langue commune.  <br /></td></tr>
+<tr class="memitem:a9423b1ce3f89fbed29c75be83a28c4a1" id="r_a9423b1ce3f89fbed29c75be83a28c4a1"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a9423b1ce3f89fbed29c75be83a28c4a1">checkOutcome</a></td></tr>
+<tr class="memdesc:a9423b1ce3f89fbed29c75be83a28c4a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le jet que la dernière réponse a joué, restitué ; vide sinon.  <br /></td></tr>
+<tr class="memitem:a8f295c17802fd0e4e7e4e7363e3e5481" id="r_a8f295c17802fd0e4e7e4e7363e3e5481"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a8f295c17802fd0e4e7e4e7363e3e5481">replies</a></td></tr>
+<tr class="memdesc:a8f295c17802fd0e4e7e4e7363e3e5481"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les réponses proposées : rôles <span class="tt">rowId</span>, <span class="tt">label</span> (le texte), <span class="tt">value</span> (le jet annoncé).  <br /></td></tr>
+<tr class="memitem:a1aebfff876b25e77f3e45035f21ba4d6" id="r_a1aebfff876b25e77f3e45035f21ba4d6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1aebfff876b25e77f3e45035f21ba4d6">finished</a></td></tr>
+<tr class="memdesc:a1aebfff876b25e77f3e45035f21ba4d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai quand la conversation est terminée, ou quittée : l'écran se referme.  <br /></td></tr>
+<tr class="memitem:a20a3f6d2a4ed028340251c4bf9c65d34" id="r_a20a3f6d2a4ed028340251c4bf9c65d34"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a20a3f6d2a4ed028340251c4bf9c65d34">status</a></td></tr>
+<tr class="memdesc:a20a3f6d2a4ed028340251c4bf9c65d34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui empêche de jouer : catalogue illisible, dialogue inconnu. Vide si tout va bien.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a59470be54084c8acc76ed2a5adb2840e" id="r_a59470be54084c8acc76ed2a5adb2840e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a59470be54084c8acc76ed2a5adb2840e">open</a> ()</td></tr>
+<tr class="memitem:a6a74e37cf17bb19d8eb06446a9571ec3" id="r_a6a74e37cf17bb19d8eb06446a9571ec3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6a74e37cf17bb19d8eb06446a9571ec3">refresh</a> ()</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aa684090329cea87137aece4e20788dff" id="r_aa684090329cea87137aece4e20788dff"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="structhmi_1_1DialogueModel_1_1Session.html">Session</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa684090329cea87137aece4e20788dff">_session</a></td></tr>
+<tr class="memitem:a866770f2da891ea6127cd0609afbfe48" id="r_a866770f2da891ea6127cd0609afbfe48"><td class="memItemLeft"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a>&#160;</td><td class="memItemRight"><a class="el" href="#a866770f2da891ea6127cd0609afbfe48">_replies</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>La vue-modèle de l'écran de dialogue : elle tient un <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html" title="La machine à états qui joue un dialogue.">core::DialogueRunner</a></span> et rien d'autre ne décide. </p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md105"></a>
+Ce qu'elle tient</h2>
+<p>Le catalogue des dialogues (<span class="tt">Source/Elements/World/dialogues</span>), l'échelle des degrés de difficulté, le personnage de démonstration comme interlocuteur (<span class="tt"><a class="el" href="classcore_1_1CharacterListener.html" title="Un personnage, sa fiche et son sac, comme interlocuteur d&#39;un PNJ.">core::CharacterListener</a></span>) et une conversation en cours. Chaque réponse cliquée devient <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html#aaafa292cb3538efff82c7aed7424de71" title="Donne la réponse choiceId, puis avance jusqu&#39;à la réplique suivante ou la fin.">core::DialogueRunner::choose</a></span>, et ce que l'écran affiche est relu par <span class="tt"><a class="el" href="namespacehmi.html#af12483a48d0fd35f0f44e94c201c3893" title="Traduit l&#39;état d&#39;un runner en valeurs affichables.">hmi::dialogueScreenValues</a></span> après chaque geste.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md106"></a>
+Ce qui est un échafaudage, et le dit</h2>
+<p>Il n'existe ni partie ni sauvegarde (<span class="tt">LOT-17</span>) : les <b>drapeaux de monde</b> de la conversation vivent donc le temps du processus, partagés par toutes les instances de ce modèle — rouvrir l'écran retrouve le héraut qui vous a déjà vu. L'interlocuteur est le personnage de démonstration, rechargé à chaque écran : un objet qu'un PNJ lui donne ne survit pas à la fermeture. Le jour où une partie fournira ses drapeaux et son groupe, c'est ce fichier qui change, pas le runner ni le formulaire. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab4ff26bf7bfa343837c5fb9486360576" name="ab4ff26bf7bfa343837c5fb9486360576"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4ff26bf7bfa343837c5fb9486360576">&#9670;&#160;</a></span>DialogueModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::DialogueModel::DialogueModel </td>
+          <td>(</td>
+          <td class="paramtype">QObject *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a77c7035799e307ade9bd91df63aa18b3" name="a77c7035799e307ade9bd91df63aa18b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77c7035799e307ade9bd91df63aa18b3">&#9670;&#160;</a></span>~DialogueModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::DialogueModel::~DialogueModel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a3cb792a72e33b34e9d8f3271d83f8f62" name="a3cb792a72e33b34e9d8f3271d83f8f62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cb792a72e33b34e9d8f3271d83f8f62">&#9670;&#160;</a></span>attitude()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::attitude </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6efec9c702291f4d4f6ac50bc36739a1" name="a6efec9c702291f4d4f6ac50bc36739a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6efec9c702291f4d4f6ac50bc36739a1">&#9670;&#160;</a></span>changed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DialogueModel::changed </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7fd2026f6d06834369a764f6d97d4a74" name="a7fd2026f6d06834369a764f6d97d4a74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fd2026f6d06834369a764f6d97d4a74">&#9670;&#160;</a></span>checkOutcome()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::checkOutcome </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac725f335856ecabd4341e3a9d94b501d" name="ac725f335856ecabd4341e3a9d94b501d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac725f335856ecabd4341e3a9d94b501d">&#9670;&#160;</a></span>choose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DialogueModel::choose </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>rowId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Donne la réponse <code class="param">rowId</code> — ou quitte, si c'est la ligne « Quitter ». </p>
+
+</div>
+</div>
+<a id="aaaa6233b29c562241df0945b608ea9b1" name="aaaa6233b29c562241df0945b608ea9b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaa6233b29c562241df0945b608ea9b1">&#9670;&#160;</a></span>chooseAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DialogueModel::chooseAt </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Donne la réponse de rang <code class="param">index</code> (0 pour la première) : les touches <span class="tt">1</span> à <span class="tt">9</span>. </p>
+
+</div>
+</div>
+<a id="a80189a0fb6f159dc7c10a2253da86494" name="a80189a0fb6f159dc7c10a2253da86494"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80189a0fb6f159dc7c10a2253da86494">&#9670;&#160;</a></span>combatRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DialogueModel::combatRequested </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>arenaId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le PNJ envoie se battre : son dialogue a demandé l'arène nommée (<span class="tt">startCombat</span>, <span class="tt">LOT-09</span>). </p>
+<p>Le modèle n'ouvre rien — c'est l'écran qui décide, et c'est le routeur qui navigue. </p>
+
+</div>
+</div>
+<a id="a5b3abb0445ed29d6fc01d9eee257de51" name="a5b3abb0445ed29d6fc01d9eee257de51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b3abb0445ed29d6fc01d9eee257de51">&#9670;&#160;</a></span>dialogueId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::dialogueId </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa45f645683377e57eb468b4308ced157" name="aa45f645683377e57eb468b4308ced157"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa45f645683377e57eb468b4308ced157">&#9670;&#160;</a></span>finished()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::DialogueModel::finished </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adb7ff43722d893b9912cfe78bd25fe56" name="adb7ff43722d893b9912cfe78bd25fe56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb7ff43722d893b9912cfe78bd25fe56">&#9670;&#160;</a></span>line()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::line </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a59470be54084c8acc76ed2a5adb2840e" name="a59470be54084c8acc76ed2a5adb2840e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59470be54084c8acc76ed2a5adb2840e">&#9670;&#160;</a></span>open()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DialogueModel::open </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6a74e37cf17bb19d8eb06446a9571ec3" name="a6a74e37cf17bb19d8eb06446a9571ec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a74e37cf17bb19d8eb06446a9571ec3">&#9670;&#160;</a></span>refresh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DialogueModel::refresh </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac554785154cbeed0223249dd36f1cda6" name="ac554785154cbeed0223249dd36f1cda6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac554785154cbeed0223249dd36f1cda6">&#9670;&#160;</a></span>replies()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAbstractItemModel * hmi::DialogueModel::replies </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a36f702303d6e507d989850c1a291df3c" name="a36f702303d6e507d989850c1a291df3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36f702303d6e507d989850c1a291df3c">&#9670;&#160;</a></span>restart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DialogueModel::restart </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rouvre la même conversation depuis son entrée, drapeaux conservés. </p>
+
+</div>
+</div>
+<a id="a82645440644586364341bb798fba4c01" name="a82645440644586364341bb798fba4c01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82645440644586364341bb798fba4c01">&#9670;&#160;</a></span>setDialogueId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DialogueModel::setDialogueId </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a17e77a671b69bfb772eddfc08c7834c7" name="a17e77a671b69bfb772eddfc08c7834c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17e77a671b69bfb772eddfc08c7834c7">&#9670;&#160;</a></span>speakerName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::speakerName </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1a6c0babadcd43e9bf20541b8c549412" name="a1a6c0babadcd43e9bf20541b8c549412"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a6c0babadcd43e9bf20541b8c549412">&#9670;&#160;</a></span>status()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::status </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a866770f2da891ea6127cd0609afbfe48" name="a866770f2da891ea6127cd0609afbfe48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a866770f2da891ea6127cd0609afbfe48">&#9670;&#160;</a></span>_replies</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a> hmi::DialogueModel::_replies</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa684090329cea87137aece4e20788dff" name="aa684090329cea87137aece4e20788dff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa684090329cea87137aece4e20788dff">&#9670;&#160;</a></span>_session</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="structhmi_1_1DialogueModel_1_1Session.html">Session</a>&gt; hmi::DialogueModel::_session</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-property-members" id="doc-property-members"></a><h2 id="header-doc-property-members" class="groupheader">Property Documentation</h2>
+<a id="a78b3e3e0b7b59100c7f821085555c6a7" name="a78b3e3e0b7b59100c7f821085555c6a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78b3e3e0b7b59100c7f821085555c6a7">&#9670;&#160;</a></span>attitude</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::attitude</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9423b1ce3f89fbed29c75be83a28c4a1" name="a9423b1ce3f89fbed29c75be83a28c4a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9423b1ce3f89fbed29c75be83a28c4a1">&#9670;&#160;</a></span>checkOutcome</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::checkOutcome</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le jet que la dernière réponse a joué, restitué ; vide sinon. </p>
+
+</div>
+</div>
+<a id="a1c376e04d9cb74bb0030ae72dfe30480" name="a1c376e04d9cb74bb0030ae72dfe30480"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c376e04d9cb74bb0030ae72dfe30480">&#9670;&#160;</a></span>dialogueId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QML_ELEMENTQString hmi::DialogueModel::dialogueId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le dialogue à jouer, par identifiant. L'écrire ouvre la conversation. </p>
+
+</div>
+</div>
+<a id="a1aebfff876b25e77f3e45035f21ba4d6" name="a1aebfff876b25e77f3e45035f21ba4d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1aebfff876b25e77f3e45035f21ba4d6">&#9670;&#160;</a></span>finished</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::DialogueModel::finished</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai quand la conversation est terminée, ou quittée : l'écran se referme. </p>
+
+</div>
+</div>
+<a id="a592028e7408a21f11bdeb1efe008c1e7" name="a592028e7408a21f11bdeb1efe008c1e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a592028e7408a21f11bdeb1efe008c1e7">&#9670;&#160;</a></span>line</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::line</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La réplique affichée, traduite ; le refus s'il n'y a pas de langue commune. </p>
+
+</div>
+</div>
+<a id="a8f295c17802fd0e4e7e4e7363e3e5481" name="a8f295c17802fd0e4e7e4e7363e3e5481"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f295c17802fd0e4e7e4e7363e3e5481">&#9670;&#160;</a></span>replies</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAbstractItemModel* hmi::DialogueModel::replies</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les réponses proposées : rôles <span class="tt">rowId</span>, <span class="tt">label</span> (le texte), <span class="tt">value</span> (le jet annoncé). </p>
+
+</div>
+</div>
+<a id="a5be7ee1780c414a9cf0768e408fdb26d" name="a5be7ee1780c414a9cf0768e408fdb26d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5be7ee1780c414a9cf0768e408fdb26d">&#9670;&#160;</a></span>speakerName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::speakerName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a20a3f6d2a4ed028340251c4bf9c65d34" name="a20a3f6d2a4ed028340251c4bf9c65d34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20a3f6d2a4ed028340251c4bf9c65d34">&#9670;&#160;</a></span>status</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::status</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qui empêche de jouer : catalogue illisible, dialogue inconnu. Vide si tout va bien. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="DialogueModel_8h_source.html">DialogueModel.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="DialogueModel_8cpp.html">DialogueModel.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1DialogueModel.html">DialogueModel</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

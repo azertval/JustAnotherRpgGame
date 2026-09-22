@@ -1,0 +1,278 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/WorldGraphLayout.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('WorldGraphLayout_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">WorldGraphLayout.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="WorldGraphLayout_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="Vector2_8h.html">Core/Math/Vector2.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="WorldGraph_8h.html">Core/World/WorldGraph.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="namespacehmi.html#a7b7c3b187b367c4fb075b366382c9d33">   27</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="namespacehmi.html#a7b7c3b187b367c4fb075b366382c9d33">WORLD_GRAPH_NODE_RADIUS</a> = 26.0f;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="namespacehmi.html#a1ef72f4a347aa932d445d92e2cd5b2de">   31</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="namespacehmi.html#a1ef72f4a347aa932d445d92e2cd5b2de">WORLD_GRAPH_NODE_SPACING</a> = 160.0f;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespacehmi.html#aa58aa4e76a3cdd2fcbd55c22d52a4bd6">   34</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="namespacehmi.html#aa58aa4e76a3cdd2fcbd55c22d52a4bd6">WORLD_GRAPH_MIN_CIRCLE_RADIUS</a> = 120.0f;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span></div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutNode.html">   37</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1WorldGraphLayoutNode.html">WorldGraphLayoutNode</a> {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutNode.html#a3c3a59bfc8687ee2f660f183ae13401c">   40</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1WorldGraphLayoutNode.html#a3c3a59bfc8687ee2f660f183ae13401c">mapId</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutNode.html#a6a7c7660733fb4a6923213039fdcc882">   42</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1WorldGraphLayoutNode.html#a6a7c7660733fb4a6923213039fdcc882">name</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutNode.html#a658ecaab804ab15790666c6e74f2d498">   44</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structhmi_1_1WorldGraphLayoutNode.html#a658ecaab804ab15790666c6e74f2d498">ghost</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutNode.html#adc814eb733e225ff26f5a2f2b60c0306">   46</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structhmi_1_1WorldGraphLayoutNode.html#adc814eb733e225ff26f5a2f2b60c0306">unreadable</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutNode.html#a6cd8993df29a9948a185ab2a80947fd6">   48</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1WorldGraphLayoutNode.html#a6cd8993df29a9948a185ab2a80947fd6">loadError</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutNode.html#a091c52db55b16b858ddb478f97452b00">   50</a></span>    <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> <a class="code hl_variable" href="structhmi_1_1WorldGraphLayoutNode.html#a091c52db55b16b858ddb478f97452b00">center</a>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>};</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="};">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutEdge.html">   54</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1WorldGraphLayoutEdge.html">WorldGraphLayoutEdge</a> {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutEdge.html#ae711c2b65de356ef6231cc6e20673f4f">   56</a></span>    std::size_t <a class="code hl_variable" href="structhmi_1_1WorldGraphLayoutEdge.html#ae711c2b65de356ef6231cc6e20673f4f">from</a> = 0;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutEdge.html#a51a564077282681c5810eccd6a706279">   58</a></span>    std::size_t <a class="code hl_variable" href="structhmi_1_1WorldGraphLayoutEdge.html#a51a564077282681c5810eccd6a706279">to</a> = 0;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutEdge.html#a11036d789ba8ffe3c5c9ba71159af6f7">   61</a></span>    <a class="code hl_enumeration" href="namespacecore.html#af11c258a9c6ef53d57b7f409006e48df">core::PortalLinkStatus</a> <a class="code hl_variable" href="structhmi_1_1WorldGraphLayoutEdge.html#a11036d789ba8ffe3c5c9ba71159af6f7">status</a> = <a class="code hl_enumvalue" href="namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfaf691f042a559b1c1a4f89826c6f75760">core::PortalLinkStatus::Resolved</a>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutEdge.html#a9a3f8b191fcfd59846f45c98f43101de">   63</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structhmi_1_1WorldGraphLayoutEdge.html#a9a3f8b191fcfd59846f45c98f43101de">broken</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutEdge.html#ad99da11eea24ed1a6d42448e5959ce5c">   65</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structhmi_1_1WorldGraphLayoutEdge.html#ad99da11eea24ed1a6d42448e5959ce5c">selfLoop</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutEdge.html#ae956baad48608b41a46fa2bce9e8f790">   67</a></span>    std::vector&lt;std::size_t&gt; <a class="code hl_variable" href="structhmi_1_1WorldGraphLayoutEdge.html#ae956baad48608b41a46fa2bce9e8f790">portals</a>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span></div>
+<div class="foldopen" id="foldopen00070" data-start="{" data-end="}">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayoutEdge.html#af97a014a89781a07ddc582ef69c72b7c">   70</a></span>    [[nodiscard]] std::size_t <a class="code hl_function" href="structhmi_1_1WorldGraphLayoutEdge.html#af97a014a89781a07ddc582ef69c72b7c">count</a>() const noexcept {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structhmi_1_1WorldGraphLayoutEdge.html#ae956baad48608b41a46fa2bce9e8f790">portals</a>.size();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>};</div>
+</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span></div>
+<div class="foldopen" id="foldopen00076" data-start="{" data-end="};">
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayout.html">   76</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1WorldGraphLayout.html">WorldGraphLayout</a> {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayout.html#ad1dd839cd1c8dc313ab4fb23fae55624">   78</a></span>    std::vector&lt;WorldGraphLayoutNode&gt; <a class="code hl_variable" href="structhmi_1_1WorldGraphLayout.html#ad1dd839cd1c8dc313ab4fb23fae55624">nodes</a>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayout.html#a2d5f9762550be533313d61f10b55ad29">   80</a></span>    std::vector&lt;WorldGraphLayoutEdge&gt; <a class="code hl_variable" href="structhmi_1_1WorldGraphLayout.html#a2d5f9762550be533313d61f10b55ad29">edges</a>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphLayout.html#acdfdc518625d5edaaf9b20046765071e">   82</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1WorldGraphLayout.html#acdfdc518625d5edaaf9b20046765071e">circleRadius</a> = 0.0f;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>};</div>
+</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>[[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="namespacehmi.html#ab5058e349ee1e593ed34274a88dd50fd">worldGraphCircleRadius</a>(std::size_t nodeCount) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1WorldGraphLayout.html">WorldGraphLayout</a> <a class="code hl_function" href="namespacehmi.html#a05055b81b0f1c8241eeef2c9e9d3a588">layoutWorldGraph</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1WorldGraph.html">core::WorldGraph</a>&amp; graph);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>[[nodiscard]] std::optional&lt;std::size_t&gt; <a class="code hl_function" href="namespacehmi.html#a626ed35cec8a3a4b0bad705e85a87f4e">nodeAt</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1WorldGraphLayout.html">WorldGraphLayout</a>&amp; layout, <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> point,</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                                                <span class="keywordtype">float</span> radius);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span></div>
+<div class="foldopen" id="foldopen00117" data-start="{" data-end="};">
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphEdgeGeometry.html">  117</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1WorldGraphEdgeGeometry.html">WorldGraphEdgeGeometry</a> {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphEdgeGeometry.html#ae0ec58741f60fcd372200a7284641ad5">  119</a></span>    <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> <a class="code hl_variable" href="structhmi_1_1WorldGraphEdgeGeometry.html#ae0ec58741f60fcd372200a7284641ad5">start</a>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphEdgeGeometry.html#ade6ddf21f291e98a46effe63d02a9805">  121</a></span>    <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> <a class="code hl_variable" href="structhmi_1_1WorldGraphEdgeGeometry.html#ade6ddf21f291e98a46effe63d02a9805">end</a>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphEdgeGeometry.html#a53951928292fcf1cd16e52094bfb93f8">  123</a></span>    <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> <a class="code hl_variable" href="structhmi_1_1WorldGraphEdgeGeometry.html#a53951928292fcf1cd16e52094bfb93f8">loopCenter</a>;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphEdgeGeometry.html#a2b8f36d46313cb22cab03b79621724b4">  124</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1WorldGraphEdgeGeometry.html#a2b8f36d46313cb22cab03b79621724b4">loopRadius</a> = 0.0f;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="structhmi_1_1WorldGraphEdgeGeometry.html#a7f6b4f3c9d5b2e7ec7b3b4e1feb2e1c2">  126</a></span>    <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> <a class="code hl_variable" href="structhmi_1_1WorldGraphEdgeGeometry.html#a7f6b4f3c9d5b2e7ec7b3b4e1feb2e1c2">badge</a>;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>};</div>
+</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1WorldGraphEdgeGeometry.html">WorldGraphEdgeGeometry</a> <a class="code hl_function" href="namespacehmi.html#a3d7bd36db569f5109211462ad696fe6a">worldGraphEdgeGeometry</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1WorldGraphLayout.html">WorldGraphLayout</a>&amp; layout,</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                                                            std::size_t edgeIndex);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>[[nodiscard]] std::optional&lt;std::size_t&gt; <a class="code hl_function" href="namespacehmi.html#a8f058cebbeb2de49915110ec3f501b2a">edgeAt</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1WorldGraphLayout.html">WorldGraphLayout</a>&amp; layout, <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> point,</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                                                <span class="keywordtype">float</span> tolerance);</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aVector2_8h_html"><div class="ttname"><a href="Vector2_8h.html">Vector2.h</a></div><div class="ttdoc">Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX).</div></div>
+<div class="ttc" id="aWorldGraph_8h_html"><div class="ttname"><a href="WorldGraph_8h.html">WorldGraph.h</a></div><div class="ttdoc">Le graphe statique du monde : les cartes du dossier des niveaux, et les portails qui les relient (LOT...</div></div>
+<div class="ttc" id="anamespacecore_html_af11c258a9c6ef53d57b7f409006e48df"><div class="ttname"><a href="namespacecore.html#af11c258a9c6ef53d57b7f409006e48df">core::PortalLinkStatus</a></div><div class="ttdeci">PortalLinkStatus</div><div class="ttdoc">Ce que vaut un portail. Core n&#39;écrit pas de texte (EX-NFR-011) : l&#39;éditeur traduit.</div><div class="ttdef"><b>Definition</b> WorldGraph.h:53</div></div>
+<div class="ttc" id="anamespacecore_html_af11c258a9c6ef53d57b7f409006e48dfaf691f042a559b1c1a4f89826c6f75760"><div class="ttname"><a href="namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfaf691f042a559b1c1a4f89826c6f75760">core::PortalLinkStatus::Resolved</a></div><div class="ttdeci">@ Resolved</div><div class="ttdoc">La carte cible et son point d&#39;arrivée existent.</div><div class="ttdef"><b>Definition</b> WorldGraph.h:55</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a05055b81b0f1c8241eeef2c9e9d3a588"><div class="ttname"><a href="namespacehmi.html#a05055b81b0f1c8241eeef2c9e9d3a588">hmi::layoutWorldGraph</a></div><div class="ttdeci">WorldGraphLayout layoutWorldGraph(const core::WorldGraph &amp;graph)</div><div class="ttdoc">Dispose graph : nœuds sur un cercle, fantômes et flèches regroupées.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.cpp:50</div></div>
+<div class="ttc" id="anamespacehmi_html_a1ef72f4a347aa932d445d92e2cd5b2de"><div class="ttname"><a href="namespacehmi.html#a1ef72f4a347aa932d445d92e2cd5b2de">hmi::WORLD_GRAPH_NODE_SPACING</a></div><div class="ttdeci">constexpr float WORLD_GRAPH_NODE_SPACING</div><div class="ttdoc">Distance minimale entre les centres de deux cartes voisines sur le cercle : la largeur d&#39;une étiquett...</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:31</div></div>
+<div class="ttc" id="anamespacehmi_html_a3d7bd36db569f5109211462ad696fe6a"><div class="ttname"><a href="namespacehmi.html#a3d7bd36db569f5109211462ad696fe6a">hmi::worldGraphEdgeGeometry</a></div><div class="ttdeci">WorldGraphEdgeGeometry worldGraphEdgeGeometry(const WorldGraphLayout &amp;layout, std::size_t edgeIndex)</div><div class="ttdoc">Tracé de la flèche edgeIndex.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.cpp:153</div></div>
+<div class="ttc" id="anamespacehmi_html_a626ed35cec8a3a4b0bad705e85a87f4e"><div class="ttname"><a href="namespacehmi.html#a626ed35cec8a3a4b0bad705e85a87f4e">hmi::nodeAt</a></div><div class="ttdeci">std::optional&lt; std::size_t &gt; nodeAt(const WorldGraphLayout &amp;layout, core::Vector2 point, float radius)</div><div class="ttdoc">Le nœud sous point.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.cpp:139</div></div>
+<div class="ttc" id="anamespacehmi_html_a7b7c3b187b367c4fb075b366382c9d33"><div class="ttname"><a href="namespacehmi.html#a7b7c3b187b367c4fb075b366382c9d33">hmi::WORLD_GRAPH_NODE_RADIUS</a></div><div class="ttdeci">constexpr float WORLD_GRAPH_NODE_RADIUS</div><div class="ttdoc">Rayon du disque d&#39;une carte, en pixels logiques.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:27</div></div>
+<div class="ttc" id="anamespacehmi_html_a8f058cebbeb2de49915110ec3f501b2a"><div class="ttname"><a href="namespacehmi.html#a8f058cebbeb2de49915110ec3f501b2a">hmi::edgeAt</a></div><div class="ttdeci">std::optional&lt; std::size_t &gt; edgeAt(const WorldGraphLayout &amp;layout, core::Vector2 point, float tolerance)</div><div class="ttdoc">La flèche sous point : distance au trait (ou au cercle d&#39;une boucle) au plus tolerance.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.cpp:185</div></div>
+<div class="ttc" id="anamespacehmi_html_aa58aa4e76a3cdd2fcbd55c22d52a4bd6"><div class="ttname"><a href="namespacehmi.html#aa58aa4e76a3cdd2fcbd55c22d52a4bd6">hmi::WORLD_GRAPH_MIN_CIRCLE_RADIUS</a></div><div class="ttdeci">constexpr float WORLD_GRAPH_MIN_CIRCLE_RADIUS</div><div class="ttdoc">Rayon plancher du cercle dès qu&#39;il porte deux cartes ou plus.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:34</div></div>
+<div class="ttc" id="anamespacehmi_html_ab5058e349ee1e593ed34274a88dd50fd"><div class="ttname"><a href="namespacehmi.html#ab5058e349ee1e593ed34274a88dd50fd">hmi::worldGraphCircleRadius</a></div><div class="ttdeci">float worldGraphCircleRadius(std::size_t nodeCount) noexcept</div><div class="ttdoc">Rayon du cercle pour nodeCount nœuds.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.cpp:41</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html"><div class="ttname"><a href="structcore_1_1Vector2.html">core::Vector2</a></div><div class="ttdoc">Vecteur bidimensionnel en coordonnées monde (composantes float).</div><div class="ttdef"><b>Definition</b> Vector2.h:21</div></div>
+<div class="ttc" id="astructcore_1_1WorldGraph_html"><div class="ttname"><a href="structcore_1_1WorldGraph.html">core::WorldGraph</a></div><div class="ttdoc">Les cartes et leurs portails.</div><div class="ttdef"><b>Definition</b> WorldGraph.h:89</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphEdgeGeometry_html"><div class="ttname"><a href="structhmi_1_1WorldGraphEdgeGeometry.html">hmi::WorldGraphEdgeGeometry</a></div><div class="ttdoc">Le tracé d&#39;une flèche, prêt à peindre.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:117</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphEdgeGeometry_html_a2b8f36d46313cb22cab03b79621724b4"><div class="ttname"><a href="structhmi_1_1WorldGraphEdgeGeometry.html#a2b8f36d46313cb22cab03b79621724b4">hmi::WorldGraphEdgeGeometry::loopRadius</a></div><div class="ttdeci">float loopRadius</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:124</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphEdgeGeometry_html_a53951928292fcf1cd16e52094bfb93f8"><div class="ttname"><a href="structhmi_1_1WorldGraphEdgeGeometry.html#a53951928292fcf1cd16e52094bfb93f8">hmi::WorldGraphEdgeGeometry::loopCenter</a></div><div class="ttdeci">core::Vector2 loopCenter</div><div class="ttdoc">Pour une boucle : centre et rayon du cercle dessiné contre le nœud.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:123</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphEdgeGeometry_html_a7f6b4f3c9d5b2e7ec7b3b4e1feb2e1c2"><div class="ttname"><a href="structhmi_1_1WorldGraphEdgeGeometry.html#a7f6b4f3c9d5b2e7ec7b3b4e1feb2e1c2">hmi::WorldGraphEdgeGeometry::badge</a></div><div class="ttdeci">core::Vector2 badge</div><div class="ttdoc">Position de la pastille de compte (milieu du trait, ou sommet extérieur de la boucle).</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:126</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphEdgeGeometry_html_ade6ddf21f291e98a46effe63d02a9805"><div class="ttname"><a href="structhmi_1_1WorldGraphEdgeGeometry.html#ade6ddf21f291e98a46effe63d02a9805">hmi::WorldGraphEdgeGeometry::end</a></div><div class="ttdeci">core::Vector2 end</div><div class="ttdoc">Arrivée du trait (pointe), au bord du disque cible (hors boucle).</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:121</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphEdgeGeometry_html_ae0ec58741f60fcd372200a7284641ad5"><div class="ttname"><a href="structhmi_1_1WorldGraphEdgeGeometry.html#ae0ec58741f60fcd372200a7284641ad5">hmi::WorldGraphEdgeGeometry::start</a></div><div class="ttdeci">core::Vector2 start</div><div class="ttdoc">Départ du trait, au bord du disque source (hors boucle).</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:119</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutEdge_html"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutEdge.html">hmi::WorldGraphLayoutEdge</a></div><div class="ttdoc">Une flèche : tous les portails d&#39;une carte vers une autre, dessinés une seule fois.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:54</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutEdge_html_a11036d789ba8ffe3c5c9ba71159af6f7"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutEdge.html#a11036d789ba8ffe3c5c9ba71159af6f7">hmi::WorldGraphLayoutEdge::status</a></div><div class="ttdeci">core::PortalLinkStatus status</div><div class="ttdoc">Statut affiché : le premier statut non résolu des portails, dans l&#39;ordre de portals,...</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:61</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutEdge_html_a51a564077282681c5810eccd6a706279"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutEdge.html#a51a564077282681c5810eccd6a706279">hmi::WorldGraphLayoutEdge::to</a></div><div class="ttdeci">std::size_t to</div><div class="ttdoc">Indice du nœud cible dans WorldGraphLayout::nodes.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:58</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutEdge_html_a9a3f8b191fcfd59846f45c98f43101de"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutEdge.html#a9a3f8b191fcfd59846f45c98f43101de">hmi::WorldGraphLayoutEdge::broken</a></div><div class="ttdeci">bool broken</div><div class="ttdoc">Vrai si au moins un portail de la flèche n&#39;est pas résolu.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:63</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutEdge_html_ad99da11eea24ed1a6d42448e5959ce5c"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutEdge.html#ad99da11eea24ed1a6d42448e5959ce5c">hmi::WorldGraphLayoutEdge::selfLoop</a></div><div class="ttdeci">bool selfLoop</div><div class="ttdoc">Vrai si la flèche part d&#39;une carte et y revient (portail vers sa propre carte).</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:65</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutEdge_html_ae711c2b65de356ef6231cc6e20673f4f"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutEdge.html#ae711c2b65de356ef6231cc6e20673f4f">hmi::WorldGraphLayoutEdge::from</a></div><div class="ttdeci">std::size_t from</div><div class="ttdoc">Indice du nœud source dans WorldGraphLayout::nodes.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:56</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutEdge_html_ae956baad48608b41a46fa2bce9e8f790"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutEdge.html#ae956baad48608b41a46fa2bce9e8f790">hmi::WorldGraphLayoutEdge::portals</a></div><div class="ttdeci">std::vector&lt; std::size_t &gt; portals</div><div class="ttdoc">Indices des portails regroupés, dans core::WorldGraph::portals, dans leur ordre.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:67</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutEdge_html_af97a014a89781a07ddc582ef69c72b7c"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutEdge.html#af97a014a89781a07ddc582ef69c72b7c">hmi::WorldGraphLayoutEdge::count</a></div><div class="ttdeci">std::size_t count() const noexcept</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:70</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutNode_html"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutNode.html">hmi::WorldGraphLayoutNode</a></div><div class="ttdoc">Une carte posée sur le cercle — réelle, ou « fantôme ».</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:37</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutNode_html_a091c52db55b16b858ddb478f97452b00"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutNode.html#a091c52db55b16b858ddb478f97452b00">hmi::WorldGraphLayoutNode::center</a></div><div class="ttdeci">core::Vector2 center</div><div class="ttdoc">Centre du disque.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:50</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutNode_html_a3c3a59bfc8687ee2f660f183ae13401c"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutNode.html#a3c3a59bfc8687ee2f660f183ae13401c">hmi::WorldGraphLayoutNode::mapId</a></div><div class="ttdeci">std::string mapId</div><div class="ttdoc">Identifiant de la carte ; pour un fantôme, la carte nommée par les portails (vide si les portails n&#39;e...</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:40</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutNode_html_a658ecaab804ab15790666c6e74f2d498"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutNode.html#a658ecaab804ab15790666c6e74f2d498">hmi::WorldGraphLayoutNode::ghost</a></div><div class="ttdeci">bool ghost</div><div class="ttdoc">Vrai si la carte n&#39;existe pas dans le dossier : seuls des portails la nomment.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:44</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutNode_html_a6a7c7660733fb4a6923213039fdcc882"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutNode.html#a6a7c7660733fb4a6923213039fdcc882">hmi::WorldGraphLayoutNode::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Nom de la carte ; vide pour un fantôme ou une carte illisible.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:42</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutNode_html_a6cd8993df29a9948a185ab2a80947fd6"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutNode.html#a6cd8993df29a9948a185ab2a80947fd6">hmi::WorldGraphLayoutNode::loadError</a></div><div class="ttdeci">std::string loadError</div><div class="ttdoc">Message technique de lecture, vide sauf si unreadable.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:48</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayoutNode_html_adc814eb733e225ff26f5a2f2b60c0306"><div class="ttname"><a href="structhmi_1_1WorldGraphLayoutNode.html#adc814eb733e225ff26f5a2f2b60c0306">hmi::WorldGraphLayoutNode::unreadable</a></div><div class="ttdeci">bool unreadable</div><div class="ttdoc">Vrai si la carte existe mais n&#39;a pas pu être lue (core::WorldMapNode::loadError).</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:46</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayout_html"><div class="ttname"><a href="structhmi_1_1WorldGraphLayout.html">hmi::WorldGraphLayout</a></div><div class="ttdoc">La disposition complète du graphe.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:76</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayout_html_a2d5f9762550be533313d61f10b55ad29"><div class="ttname"><a href="structhmi_1_1WorldGraphLayout.html#a2d5f9762550be533313d61f10b55ad29">hmi::WorldGraphLayout::edges</a></div><div class="ttdeci">std::vector&lt; WorldGraphLayoutEdge &gt; edges</div><div class="ttdoc">Les flèches, dans l&#39;ordre de leur premier portail.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:80</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayout_html_acdfdc518625d5edaaf9b20046765071e"><div class="ttname"><a href="structhmi_1_1WorldGraphLayout.html#acdfdc518625d5edaaf9b20046765071e">hmi::WorldGraphLayout::circleRadius</a></div><div class="ttdeci">float circleRadius</div><div class="ttdoc">Rayon du cercle portant les nœuds (0 pour zéro ou un nœud).</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:82</div></div>
+<div class="ttc" id="astructhmi_1_1WorldGraphLayout_html_ad1dd839cd1c8dc313ab4fb23fae55624"><div class="ttname"><a href="structhmi_1_1WorldGraphLayout.html#ad1dd839cd1c8dc313ab4fb23fae55624">hmi::WorldGraphLayout::nodes</a></div><div class="ttdeci">std::vector&lt; WorldGraphLayoutNode &gt; nodes</div><div class="ttdoc">Les cartes réelles triées par identifiant, puis les fantômes triés par identifiant.</div><div class="ttdef"><b>Definition</b> WorldGraphLayout.h:78</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li><li class="navelem"><a href="WorldGraphLayout_8h.html">WorldGraphLayout.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

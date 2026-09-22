@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HMI · Platform — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1 active" href="hmi-platform.html">HMI · Platform</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-crash-dumpcpp">test_crash_dump.cpp</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="hmi-platform">HMI · Platform</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">5 cas</span></div>
+<p>Tests unitaires — <strong>5 cas</strong> (2 critiques, 3 majeurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-crash-dumpcpp"><code>test_crash_dump.cpp</code></a></td><td>5</td><td>-</td><td>2</td><td>3</td><td>-</td></tr></tbody></table></div>
+<h2 id="test-crash-dumpcpp">test_crash_dump.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="crashdumpfilenameporteapplicationversionethorodatage">CrashDumpFileName.PorteApplicationVersionEtHorodatage</h3>
+<p><em>Majeur · Unitaire · Crash Dump</em> — <code>Source/Test/Unit/HMI/Platform/test_crash_dump.cpp:122</code></p>
+<p>Le nom d'un minidump porte l'application, la version et l'heure du plantage.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer le nom pour JustAnotherRpgGame 0.0.4 au 15/09/2026 21:04:07.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::crashDumpFileName(&quot;JustAnotherRpgGame&quot;, &quot;0.0.4&quot;, fixedTime())</code> vaut <code>&quot;JustAnotherRpgGame_0.0.4_20260915_210407.dmp&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="crashdumpfilenameremplacelescaractereshorsnomdefichier">CrashDumpFileName.RemplaceLesCaracteresHorsNomDeFichier</h3>
+<p><em>Majeur · Unitaire · Crash Dump</em> — <code>Source/Test/Unit/HMI/Platform/test_crash_dump.cpp:137</code></p>
+<p>Les caractères hors nom de fichier sont remplacés dans le nom du minidump.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer le nom pour « Level Editor » en version « 0.1.0+dev/x ».</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::crashDumpFileName(&quot;Level Editor&quot;, &quot;0.1.0+dev/x&quot;, fixedTime())</code> vaut <code>&quot;Level_Editor_0.1.0_dev_x_20260915_210407.dmp&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="crashdumptestecritunminidumpsansexceptionetcreeledossier">CrashDumpTest.EcritUnMinidumpSansExceptionEtCreeLeDossier</h3>
+<p><em>Critique · Unitaire · Crash Dump</em> — <code>Source/Test/Unit/HMI/Platform/test_crash_dump.cpp:151</code></p>
+<p>Un minidump de l'état courant s'écrit, dossier parent créé au besoin.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Écrire un dump sans contexte d'exception dans un sous-dossier inexistant.</li><li>Lire les quatre premiers octets.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::writeMiniDump(path, nullptr)</code> est vrai.</li><li>Vérifie que <code>std::filesystem::exists(path)</code> est vrai.</li><li>Vérifie que <code>signature(path)</code> vaut <code>&quot;MDMP&quot;</code>.</li><li>Vérifie que <code>hasExceptionStream(path)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="crashdumptestecritunminidumpaveclecontexteduneexception">CrashDumpTest.EcritUnMinidumpAvecLeContexteDUneException</h3>
+<p><em>Critique · Unitaire · Crash Dump</em> — <code>Source/Test/Unit/HMI/Platform/test_crash_dump.cpp:170</code></p>
+<p>Un minidump s'écrit avec le contexte d'une exception structurée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lever une exception structurée, l'attraper dans un filtre SEH qui écrit le dump.</li><li>Lire la signature et la taille.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>dumpFromStructuredException(&amp;path)</code> est vrai.</li><li>Vérifie que <code>signature(path)</code> vaut <code>&quot;MDMP&quot;</code>.</li><li>Vérifie que <code>std::filesystem::file_size(path)</code> est strictement supérieur à <code>1024U</code>.</li><li>Vérifie que <code>hasExceptionStream(path)</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="crashdumptestechouesansleversuruncheminimpossible">CrashDumpTest.EchoueSansLeverSurUnCheminImpossible</h3>
+<p><em>Majeur · Unitaire · Crash Dump</em> — <code>Source/Test/Unit/HMI/Platform/test_crash_dump.cpp:189</code></p>
+<p>Un chemin de minidump impossible échoue sans exception ni plantage.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Écrire un dump sous un nom interdit par Windows (« a?b.dmp »).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::writeMiniDump(directory_ / &quot;a?b.dmp&quot;, nullptr)</code> est faux.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-localization.html"><span>Précédent</span>HMI · Localization</a><a class="next" href="hmi-presentation.html"><span>Suivant</span>HMI · Presentation</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-platform.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/GestureScript.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('GestureScript_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">GestureScript.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="GestureScript_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;nlohmann/json.hpp&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="GridPosition_8h.html">Core/Levels/GridPosition.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="TileType_8h.html">Core/Levels/TileType.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="BrushGesture_8h.html">Editor/Logic/BrushGesture.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="EditorSidecar_8h.html">Editor/Logic/EditorSidecar.h</a>&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="LayerView_8h.html">Editor/Logic/LayerView.h</a>&quot;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="MapFormat_8h.html">Editor/Logic/MapFormat.h</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="PaintTools_8h.html">Editor/Logic/PaintTools.h</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="Stamps_8h.html">Editor/Logic/Stamps.h</a>&quot;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1LevelDraft.html">LevelDraft</a>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="namespacehmi.html#a5d67831ba4723f9904629c2b54bc7f9c">   94</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="namespacehmi.html#a5d67831ba4723f9904629c2b54bc7f9c">GESTURE_SCRIPT_FORMAT</a> = <span class="stringliteral">&quot;jadg-editor-gestures&quot;</span>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="namespacehmi.html#a710d74b78f8cc0078e56dc64772f575f">   97</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacehmi.html#a710d74b78f8cc0078e56dc64772f575f">GESTURE_SCRIPT_VERSION</a> = 1;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span></div>
+<div class="foldopen" id="foldopen00103" data-start="{" data-end="};">
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureState.html">  103</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1GestureState.html">GestureState</a> {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureState.html#af94b840eef71b2eb85eaf1e0567667bb">  104</a></span>    <a class="code hl_struct" href="structhmi_1_1CanvasBrush.html">CanvasBrush</a> <a class="code hl_variable" href="structhmi_1_1GestureState.html#af94b840eef71b2eb85eaf1e0567667bb">brush</a>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureState.html#a0fb4ac3447b3865b2221f829e83e6dee">  105</a></span>    <a class="code hl_typedef" href="namespacehmi.html#ad45953c7acf96290259f1333570fda4d">LayerSlot</a> <a class="code hl_variable" href="structhmi_1_1GestureState.html#a0fb4ac3447b3865b2221f829e83e6dee">activeLayer</a>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureState.html#a8adce05e1195b2d4125d88f61be85071">  106</a></span>    <a class="code hl_class" href="classhmi_1_1LayerViewState.html">LayerViewState</a> <a class="code hl_variable" href="structhmi_1_1GestureState.html#a8adce05e1195b2d4125d88f61be85071">view</a>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureState.html#a783120218e86a18f9afcf1346f4af695">  107</a></span>    std::optional&lt;MirrorAxis&gt; <a class="code hl_variable" href="structhmi_1_1GestureState.html#a783120218e86a18f9afcf1346f4af695">mirror</a>;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureState.html#a4acb71abc881a5a5092b3cd0084c3267">  109</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1GestureState.html#a4acb71abc881a5a5092b3cd0084c3267">kindToPlace</a>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureState.html#af9760fa98111c7c3fa2265e9ba440cd3">  111</a></span>    std::vector&lt;std::size_t&gt; <a class="code hl_variable" href="structhmi_1_1GestureState.html#af9760fa98111c7c3fa2265e9ba440cd3">selectedEntities</a>;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureState.html#aa50666fd634c8b7b09280a472006cf3e">  112</a></span>    std::optional&lt;std::size_t&gt; <a class="code hl_variable" href="structhmi_1_1GestureState.html#aa50666fd634c8b7b09280a472006cf3e">selectedEntity</a>;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureState.html#a9e899d94d8e0e88608137705a23815b3">  114</a></span>    std::optional&lt;std::pair&lt;core::GridPosition, core::GridPosition&gt;&gt; <a class="code hl_variable" href="structhmi_1_1GestureState.html#a9e899d94d8e0e88608137705a23815b3">selection</a>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureState.html#a84f9ad41cfd3b3add3af22aa6adbddb6">  116</a></span>    <a class="code hl_struct" href="structhmi_1_1Stamp.html">Stamp</a> <a class="code hl_variable" href="structhmi_1_1GestureState.html#a84f9ad41cfd3b3add3af22aa6adbddb6">clipboard</a>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>};</div>
+</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span></div>
+<div class="foldopen" id="foldopen00120" data-start="{" data-end="};">
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureScriptResult.html">  120</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1GestureScriptResult.html">GestureScriptResult</a> {</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureScriptResult.html#a387a3ce558c976a4aae1b73256df3663">  122</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1GestureScriptResult.html#a387a3ce558c976a4aae1b73256df3663">error</a>;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureScriptResult.html#a07a41738bd5f55b4e27c058f98cb7528">  124</a></span>    std::size_t <a class="code hl_variable" href="structhmi_1_1GestureScriptResult.html#a07a41738bd5f55b4e27c058f98cb7528">gestures</a> = 0;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureScriptResult.html#a31f7e16e532ffac3f11e9a83ec3a1584">  127</a></span>    std::size_t <a class="code hl_variable" href="structhmi_1_1GestureScriptResult.html#a31f7e16e532ffac3f11e9a83ec3a1584">steps</a> = 0;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureScriptResult.html#ad836e90a322e87efa46d67765b881eb1">  129</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structhmi_1_1GestureScriptResult.html#ad836e90a322e87efa46d67765b881eb1">notesChanged</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureScriptResult.html#a31980351e6f29f5c48e4919778d7bb27">  131</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structhmi_1_1GestureScriptResult.html#a31980351e6f29f5c48e4919778d7bb27">log</a>;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="foldopen" id="foldopen00133" data-start="{" data-end="}">
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureScriptResult.html#ad70a391e1639148154dbb88e766bde89">  133</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1GestureScriptResult.html#ad70a391e1639148154dbb88e766bde89">ok</a>() const noexcept {</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structhmi_1_1GestureScriptResult.html#a387a3ce558c976a4aae1b73256df3663">error</a>.empty();</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    }</div>
+</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>};</div>
+</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>[[nodiscard]] GestureScriptResult <a class="code hl_function" href="namespacehmi.html#ac51afb66cf0175a7664c655c56674293">applyGestureScript</a>(<span class="keyword">const</span> nlohmann::json&amp; script,</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                                                     <a class="code hl_class" href="classcore_1_1LevelDraft.html">core::LevelDraft</a>&amp; draft,</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                                                     EditorSidecar&amp; sidecar,</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                                                     <span class="keyword">const</span> PlaceAssets&amp; assets,</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                                                     <span class="keyword">const</span> std::filesystem::path&amp; dataRoot = {});</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span></div>
+<div class="foldopen" id="foldopen00159" data-start="{" data-end="};">
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureFileResult.html">  159</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1GestureFileResult.html">GestureFileResult</a> {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureFileResult.html#ae20de4f1356fb2d748e9fd1911c826a3">  160</a></span>    <a class="code hl_struct" href="structhmi_1_1GestureScriptResult.html">GestureScriptResult</a> <a class="code hl_variable" href="structhmi_1_1GestureFileResult.html#ae20de4f1356fb2d748e9fd1911c826a3">script</a>;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureFileResult.html#a62b7e99413a150c8783a4bde64eb83b7">  162</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1GestureFileResult.html#a62b7e99413a150c8783a4bde64eb83b7">mapText</a>;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureFileResult.html#a28b3ee9eeea35c669d496d94422d4848">  165</a></span>    std::optional&lt;EditorSidecar&gt; <a class="code hl_variable" href="structhmi_1_1GestureFileResult.html#a28b3ee9eeea35c669d496d94422d4848">sidecar</a>;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="structhmi_1_1GestureFileResult.html#ad12a8741c13b1b610bf04b5e803c819b">  167</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1GestureFileResult.html#ad12a8741c13b1b610bf04b5e803c819b">mapId</a>;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>};</div>
+</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1GestureFileResult.html">GestureFileResult</a> <a class="code hl_function" href="namespacehmi.html#ab1145769bfcc581f39091b42c792705c">applyGestureFile</a>(<span class="keyword">const</span> std::filesystem::path&amp; scriptFile,</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>                                                 std::string_view map,</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                                                 <span class="keyword">const</span> std::filesystem::path&amp; dataRoot,</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                                                 std::filesystem::path&amp; mapFile);</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aBrushGesture_8h_html"><div class="ttname"><a href="BrushGesture_8h.html">BrushGesture.h</a></div><div class="ttdoc">Ce que fait un coup de pinceau sur le brouillon : un type, une pièce ou la gomme, sur une case ou un ...</div></div>
+<div class="ttc" id="aEditorSidecar_8h_html"><div class="ttname"><a href="EditorSidecar_8h.html">EditorSidecar.h</a></div><div class="ttdoc">Le fichier annexe d&#39;une carte, &lt;carte&gt;.editor.json : ce que l&#39;éditeur garde pour l&#39;auteur et que le j...</div></div>
+<div class="ttc" id="aGridPosition_8h_html"><div class="ttname"><a href="GridPosition_8h.html">GridPosition.h</a></div><div class="ttdoc">Position entière dans la grille d&#39;un niveau (colonne, ligne).</div></div>
+<div class="ttc" id="aLayerView_8h_html"><div class="ttname"><a href="LayerView_8h.html">LayerView.h</a></div><div class="ttdoc">Couches d&#39;une carte telles que l&#39;éditeur les montre : lignes du panneau « Couches »,...</div></div>
+<div class="ttc" id="aMapFormat_8h_html"><div class="ttname"><a href="MapFormat_8h.html">MapFormat.h</a></div><div class="ttdoc">La garde du format de carte v4 : la migration d&#39;une carte et le contrôle de toutes (LOT-EDITOR-12,...</div></div>
+<div class="ttc" id="aPaintTools_8h_html"><div class="ttname"><a href="PaintTools_8h.html">PaintTools.h</a></div><div class="ttdoc">Les outils du peintre : trait, rectangle, ligne, seau, pipette, miroir et mesure (LOT-EDITOR-04,...</div></div>
+<div class="ttc" id="aStamps_8h_html"><div class="ttname"><a href="Stamps_8h.html">Stamps.h</a></div><div class="ttdoc">Le tampon : un morceau de carte qu&#39;on découpe, qu&#39;on repose ailleurs et qu&#39;on garde comme préfabriqué...</div></div>
+<div class="ttc" id="aTileType_8h_html"><div class="ttname"><a href="TileType_8h.html">TileType.h</a></div><div class="ttdoc">Types de tuiles d&#39;une carte et utilitaires associés.</div></div>
+<div class="ttc" id="aclasscore_1_1LevelDraft_html"><div class="ttname"><a href="classcore_1_1LevelDraft.html">core::LevelDraft</a></div><div class="ttdoc">Carte mutable en cours d&#39;édition, distincte de Level (immuable).</div><div class="ttdef"><b>Definition</b> LevelDraft.h:68</div></div>
+<div class="ttc" id="aclasshmi_1_1LayerViewState_html"><div class="ttname"><a href="classhmi_1_1LayerViewState.html">hmi::LayerViewState</a></div><div class="ttdoc">Visibilité et opacité des couches dans l&#39;éditeur — une aide d&#39;édition, jamais une propriété de la car...</div><div class="ttdef"><b>Definition</b> LayerView.h:91</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a5d67831ba4723f9904629c2b54bc7f9c"><div class="ttname"><a href="namespacehmi.html#a5d67831ba4723f9904629c2b54bc7f9c">hmi::GESTURE_SCRIPT_FORMAT</a></div><div class="ttdeci">constexpr std::string_view GESTURE_SCRIPT_FORMAT</div><div class="ttdoc">Nom du format d&#39;un fichier de gestes (champ format).</div><div class="ttdef"><b>Definition</b> GestureScript.h:94</div></div>
+<div class="ttc" id="anamespacehmi_html_a710d74b78f8cc0078e56dc64772f575f"><div class="ttname"><a href="namespacehmi.html#a710d74b78f8cc0078e56dc64772f575f">hmi::GESTURE_SCRIPT_VERSION</a></div><div class="ttdeci">constexpr int GESTURE_SCRIPT_VERSION</div><div class="ttdoc">Version du format d&#39;un fichier de gestes (champ version).</div><div class="ttdef"><b>Definition</b> GestureScript.h:97</div></div>
+<div class="ttc" id="anamespacehmi_html_ab1145769bfcc581f39091b42c792705c"><div class="ttname"><a href="namespacehmi.html#ab1145769bfcc581f39091b42c792705c">hmi::applyGestureFile</a></div><div class="ttdeci">GestureFileResult applyGestureFile(const std::filesystem::path &amp;scriptFile, std::string_view map, const std::filesystem::path &amp;dataRoot, std::filesystem::path &amp;mapFile)</div><div class="ttdoc">Lit le fichier de gestes scriptFile, charge la carte, rejoue les gestes et rend les textes à écrire —...</div><div class="ttdef"><b>Definition</b> GestureScript.cpp:667</div></div>
+<div class="ttc" id="anamespacehmi_html_ac51afb66cf0175a7664c655c56674293"><div class="ttname"><a href="namespacehmi.html#ac51afb66cf0175a7664c655c56674293">hmi::applyGestureScript</a></div><div class="ttdeci">GestureScriptResult applyGestureScript(const nlohmann::json &amp;script, core::LevelDraft &amp;draft, EditorSidecar &amp;sidecar, const PlaceAssets &amp;assets, const std::filesystem::path &amp;dataRoot)</div><div class="ttdoc">Rejoue les gestes de script sur draft.</div><div class="ttdef"><b>Definition</b> GestureScript.cpp:626</div></div>
+<div class="ttc" id="anamespacehmi_html_ad45953c7acf96290259f1333570fda4d"><div class="ttname"><a href="namespacehmi.html#ad45953c7acf96290259f1333570fda4d">hmi::LayerSlot</a></div><div class="ttdeci">std::optional&lt; std::size_t &gt; LayerSlot</div><div class="ttdoc">Désignation d&#39;une couche dans l&#39;éditeur : un rang de core::LevelDraft::layers(), ou std::nullopt pour...</div><div class="ttdef"><b>Definition</b> LayerView.h:26</div></div>
+<div class="ttc" id="astructhmi_1_1CanvasBrush_html"><div class="ttname"><a href="structhmi_1_1CanvasBrush.html">hmi::CanvasBrush</a></div><div class="ttdoc">Le pinceau armé.</div><div class="ttdef"><b>Definition</b> BrushGesture.h:52</div></div>
+<div class="ttc" id="astructhmi_1_1GestureFileResult_html"><div class="ttname"><a href="structhmi_1_1GestureFileResult.html">hmi::GestureFileResult</a></div><div class="ttdoc">Ce que --apply a produit : le texte de la carte et celui de son annexe.</div><div class="ttdef"><b>Definition</b> GestureScript.h:159</div></div>
+<div class="ttc" id="astructhmi_1_1GestureFileResult_html_a28b3ee9eeea35c669d496d94422d4848"><div class="ttname"><a href="structhmi_1_1GestureFileResult.html#a28b3ee9eeea35c669d496d94422d4848">hmi::GestureFileResult::sidecar</a></div><div class="ttdeci">std::optional&lt; EditorSidecar &gt; sidecar</div><div class="ttdoc">L&#39;annexe, si les notes ont changé : à écrire par hmi::writeSidecar, qui retire le fichier d&#39;une annex...</div><div class="ttdef"><b>Definition</b> GestureScript.h:165</div></div>
+<div class="ttc" id="astructhmi_1_1GestureFileResult_html_a62b7e99413a150c8783a4bde64eb83b7"><div class="ttname"><a href="structhmi_1_1GestureFileResult.html#a62b7e99413a150c8783a4bde64eb83b7">hmi::GestureFileResult::mapText</a></div><div class="ttdeci">std::string mapText</div><div class="ttdoc">Le texte canonique de la carte modifiée, vide en cas d&#39;échec.</div><div class="ttdef"><b>Definition</b> GestureScript.h:162</div></div>
+<div class="ttc" id="astructhmi_1_1GestureFileResult_html_ad12a8741c13b1b610bf04b5e803c819b"><div class="ttname"><a href="structhmi_1_1GestureFileResult.html#ad12a8741c13b1b610bf04b5e803c819b">hmi::GestureFileResult::mapId</a></div><div class="ttdeci">std::string mapId</div><div class="ttdoc">L&#39;identifiant de la carte, lu dans le fichier de gestes ou donné par l&#39;appelant.</div><div class="ttdef"><b>Definition</b> GestureScript.h:167</div></div>
+<div class="ttc" id="astructhmi_1_1GestureFileResult_html_ae20de4f1356fb2d748e9fd1911c826a3"><div class="ttname"><a href="structhmi_1_1GestureFileResult.html#ae20de4f1356fb2d748e9fd1911c826a3">hmi::GestureFileResult::script</a></div><div class="ttdeci">GestureScriptResult script</div><div class="ttdef"><b>Definition</b> GestureScript.h:160</div></div>
+<div class="ttc" id="astructhmi_1_1GestureScriptResult_html"><div class="ttname"><a href="structhmi_1_1GestureScriptResult.html">hmi::GestureScriptResult</a></div><div class="ttdoc">Ce qu&#39;un fichier de gestes a fait.</div><div class="ttdef"><b>Definition</b> GestureScript.h:120</div></div>
+<div class="ttc" id="astructhmi_1_1GestureScriptResult_html_a07a41738bd5f55b4e27c058f98cb7528"><div class="ttname"><a href="structhmi_1_1GestureScriptResult.html#a07a41738bd5f55b4e27c058f98cb7528">hmi::GestureScriptResult::gestures</a></div><div class="ttdeci">std::size_t gestures</div><div class="ttdoc">Nombre de gestes rejoués.</div><div class="ttdef"><b>Definition</b> GestureScript.h:124</div></div>
+<div class="ttc" id="astructhmi_1_1GestureScriptResult_html_a31980351e6f29f5c48e4919778d7bb27"><div class="ttname"><a href="structhmi_1_1GestureScriptResult.html#a31980351e6f29f5c48e4919778d7bb27">hmi::GestureScriptResult::log</a></div><div class="ttdeci">std::vector&lt; std::string &gt; log</div><div class="ttdoc">Ce que les gestes ont à dire (mesures) : une ligne par constat.</div><div class="ttdef"><b>Definition</b> GestureScript.h:131</div></div>
+<div class="ttc" id="astructhmi_1_1GestureScriptResult_html_a31f7e16e532ffac3f11e9a83ec3a1584"><div class="ttname"><a href="structhmi_1_1GestureScriptResult.html#a31f7e16e532ffac3f11e9a83ec3a1584">hmi::GestureScriptResult::steps</a></div><div class="ttdeci">std::size_t steps</div><div class="ttdoc">Nombre de pas d&#39;annulation que les gestes ont empilés : un geste qui change la carte en est un.</div><div class="ttdef"><b>Definition</b> GestureScript.h:127</div></div>
+<div class="ttc" id="astructhmi_1_1GestureScriptResult_html_a387a3ce558c976a4aae1b73256df3663"><div class="ttname"><a href="structhmi_1_1GestureScriptResult.html#a387a3ce558c976a4aae1b73256df3663">hmi::GestureScriptResult::error</a></div><div class="ttdeci">std::string error</div><div class="ttdoc">Le message d&#39;échec, qui nomme le geste ; vide si tout a été rejoué.</div><div class="ttdef"><b>Definition</b> GestureScript.h:122</div></div>
+<div class="ttc" id="astructhmi_1_1GestureScriptResult_html_ad70a391e1639148154dbb88e766bde89"><div class="ttname"><a href="structhmi_1_1GestureScriptResult.html#ad70a391e1639148154dbb88e766bde89">hmi::GestureScriptResult::ok</a></div><div class="ttdeci">bool ok() const noexcept</div><div class="ttdef"><b>Definition</b> GestureScript.h:133</div></div>
+<div class="ttc" id="astructhmi_1_1GestureScriptResult_html_ad836e90a322e87efa46d67765b881eb1"><div class="ttname"><a href="structhmi_1_1GestureScriptResult.html#ad836e90a322e87efa46d67765b881eb1">hmi::GestureScriptResult::notesChanged</a></div><div class="ttdeci">bool notesChanged</div><div class="ttdoc">Les notes d&#39;auteur ont changé : l&#39;annexe est à réécrire.</div><div class="ttdef"><b>Definition</b> GestureScript.h:129</div></div>
+<div class="ttc" id="astructhmi_1_1GestureState_html"><div class="ttname"><a href="structhmi_1_1GestureState.html">hmi::GestureState</a></div><div class="ttdoc">Ce que la fenêtre garde d&#39;un geste à l&#39;autre : le pinceau, la couche active, le miroir,...</div><div class="ttdef"><b>Definition</b> GestureScript.h:103</div></div>
+<div class="ttc" id="astructhmi_1_1GestureState_html_a0fb4ac3447b3865b2221f829e83e6dee"><div class="ttname"><a href="structhmi_1_1GestureState.html#a0fb4ac3447b3865b2221f829e83e6dee">hmi::GestureState::activeLayer</a></div><div class="ttdeci">LayerSlot activeLayer</div><div class="ttdef"><b>Definition</b> GestureScript.h:105</div></div>
+<div class="ttc" id="astructhmi_1_1GestureState_html_a4acb71abc881a5a5092b3cd0084c3267"><div class="ttname"><a href="structhmi_1_1GestureState.html#a4acb71abc881a5a5092b3cd0084c3267">hmi::GestureState::kindToPlace</a></div><div class="ttdeci">std::string kindToPlace</div><div class="ttdoc">La famille d&#39;entité que l&#39;outil Entité pose ; vide : il ne fait que sélectionner.</div><div class="ttdef"><b>Definition</b> GestureScript.h:109</div></div>
+<div class="ttc" id="astructhmi_1_1GestureState_html_a783120218e86a18f9afcf1346f4af695"><div class="ttname"><a href="structhmi_1_1GestureState.html#a783120218e86a18f9afcf1346f4af695">hmi::GestureState::mirror</a></div><div class="ttdeci">std::optional&lt; MirrorAxis &gt; mirror</div><div class="ttdef"><b>Definition</b> GestureScript.h:107</div></div>
+<div class="ttc" id="astructhmi_1_1GestureState_html_a84f9ad41cfd3b3add3af22aa6adbddb6"><div class="ttname"><a href="structhmi_1_1GestureState.html#a84f9ad41cfd3b3add3af22aa6adbddb6">hmi::GestureState::clipboard</a></div><div class="ttdeci">Stamp clipboard</div><div class="ttdoc">Ce que Ctrl+C a copié, ou le préfabriqué armé (LOT-EDITOR-08).</div><div class="ttdef"><b>Definition</b> GestureScript.h:116</div></div>
+<div class="ttc" id="astructhmi_1_1GestureState_html_a8adce05e1195b2d4125d88f61be85071"><div class="ttname"><a href="structhmi_1_1GestureState.html#a8adce05e1195b2d4125d88f61be85071">hmi::GestureState::view</a></div><div class="ttdeci">LayerViewState view</div><div class="ttdef"><b>Definition</b> GestureScript.h:106</div></div>
+<div class="ttc" id="astructhmi_1_1GestureState_html_a9e899d94d8e0e88608137705a23815b3"><div class="ttname"><a href="structhmi_1_1GestureState.html#a9e899d94d8e0e88608137705a23815b3">hmi::GestureState::selection</a></div><div class="ttdeci">std::optional&lt; std::pair&lt; core::GridPosition, core::GridPosition &gt; &gt; selection</div><div class="ttdoc">La région de l&#39;outil Sélection, coins triés.</div><div class="ttdef"><b>Definition</b> GestureScript.h:114</div></div>
+<div class="ttc" id="astructhmi_1_1GestureState_html_aa50666fd634c8b7b09280a472006cf3e"><div class="ttname"><a href="structhmi_1_1GestureState.html#aa50666fd634c8b7b09280a472006cf3e">hmi::GestureState::selectedEntity</a></div><div class="ttdeci">std::optional&lt; std::size_t &gt; selectedEntity</div><div class="ttdef"><b>Definition</b> GestureScript.h:112</div></div>
+<div class="ttc" id="astructhmi_1_1GestureState_html_af94b840eef71b2eb85eaf1e0567667bb"><div class="ttname"><a href="structhmi_1_1GestureState.html#af94b840eef71b2eb85eaf1e0567667bb">hmi::GestureState::brush</a></div><div class="ttdeci">CanvasBrush brush</div><div class="ttdef"><b>Definition</b> GestureScript.h:104</div></div>
+<div class="ttc" id="astructhmi_1_1GestureState_html_af9760fa98111c7c3fa2265e9ba440cd3"><div class="ttname"><a href="structhmi_1_1GestureState.html#af9760fa98111c7c3fa2265e9ba440cd3">hmi::GestureState::selectedEntities</a></div><div class="ttdeci">std::vector&lt; std::size_t &gt; selectedEntities</div><div class="ttdoc">Les entités sélectionnées (rangs triés) et la principale.</div><div class="ttdef"><b>Definition</b> GestureScript.h:111</div></div>
+<div class="ttc" id="astructhmi_1_1Stamp_html"><div class="ttname"><a href="structhmi_1_1Stamp.html">hmi::Stamp</a></div><div class="ttdoc">Un morceau de carte : le rectangle, ses couches, ses entités, ses cases forcées.</div><div class="ttdef"><b>Definition</b> Stamps.h:106</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li><li class="navelem"><a href="GestureScript_8h.html">GestureScript.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::LevelData Struct Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('structcore_1_1LevelData.html','','structcore_1_1LevelData-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::LevelData Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Composantes d'une carte, nommées — agrégat de construction de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">core::Level</a></span> (<span class="tt">LOT-03</span>).  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Level_8h_source.html">Level.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a74f693819cc222aa9748bd56f697e7e6" id="r_a74f693819cc222aa9748bd56f697e7e6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a74f693819cc222aa9748bd56f697e7e6">name</a> {}</td></tr>
+<tr class="memdesc:a74f693819cc222aa9748bd56f697e7e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom de la carte.  <br /></td></tr>
+<tr class="memitem:ae394a3e921bbab58997043053a45243a" id="r_ae394a3e921bbab58997043053a45243a"><td class="memItemLeft"><a class="el" href="classcore_1_1TileMap.html">TileMap</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae394a3e921bbab58997043053a45243a">tileMap</a></td></tr>
+<tr class="memdesc:ae394a3e921bbab58997043053a45243a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille de tuiles typées.  <br /></td></tr>
+<tr class="memitem:a346a7cadd4d3753fa7e86a323db66a1f" id="r_a346a7cadd4d3753fa7e86a323db66a1f"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">TileLayer</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a346a7cadd4d3753fa7e86a323db66a1f">layers</a> {}</td></tr>
+<tr class="memdesc:a346a7cadd4d3753fa7e86a323db66a1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couches de tuiles de la carte (<span class="tt">LOT-04</span>), dans leur ordre de superposition.  <br /></td></tr>
+<tr class="memitem:a679608c27b5699b0bfe03ef7a97788cf" id="r_a679608c27b5699b0bfe03ef7a97788cf"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a679608c27b5699b0bfe03ef7a97788cf">entities</a> {}</td></tr>
+<tr class="memdesc:a679608c27b5699b0bfe03ef7a97788cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entités placées sur la carte (<span class="tt">LOT-04</span>) : PNJ, coffres, panneaux, portails, déclencheurs.  <br /></td></tr>
+<tr class="memitem:aae5be5bb53eeb5dc8b02e00fd7af431f" id="r_aae5be5bb53eeb5dc8b02e00fd7af431f"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#aae5be5bb53eeb5dc8b02e00fd7af431f">entry</a> {}</td></tr>
+<tr class="memdesc:aae5be5bb53eeb5dc8b02e00fd7af431f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point d'arrivée par défaut (case <span class="tt">Entry</span>).  <br /></td></tr>
+<tr class="memitem:aa1fa5536f5844015713e54fcc225a3b7" id="r_aa1fa5536f5844015713e54fcc225a3b7"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa1fa5536f5844015713e54fcc225a3b7">forcedCollision</a> {}</td></tr>
+<tr class="memdesc:aa1fa5536f5844015713e54fcc225a3b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cases de collision <b>forcées à la main</b> (format v4, décision D10) : là, la grille de collision peut s'écarter de ce que <span class="tt"><a class="el" href="namespacecore.html#a3322a01062af04e9242df68f744c142f" title="Déduit la grille de collision d&#39;une carte.">core::deriveCollision</a></span> tire des pièces et des types.  <br /></td></tr>
+<tr class="memitem:af291e15302ce8b84dffc3b8b625b2ec5" id="r_af291e15302ce8b84dffc3b8b625b2ec5"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af291e15302ce8b84dffc3b8b625b2ec5">nextEntityId</a> = 1</td></tr>
+<tr class="memdesc:af291e15302ce8b84dffc3b8b625b2ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prochain identifiant d'entité à donner (décision D8) : un compteur écrit dans la carte, pour qu'un identifiant retiré ne soit <b>jamais</b> redonné à une autre entité.  <br /></td></tr>
+<tr class="memitem:a5871ca36b16a3d283d1b8b121e9f51f7" id="r_a5871ca36b16a3d283d1b8b121e9f51f7"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5871ca36b16a3d283d1b8b121e9f51f7">base</a> {}</td></tr>
+<tr class="memdesc:a5871ca36b16a3d283d1b8b121e9f51f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carte dont celle-ci est une <b>variante</b> (décision D12), par son identifiant (<span class="tt">coliseum</span>, <span class="tt">capital/martpart</span>) ; vide pour une carte ordinaire.  <br /></td></tr>
+<tr class="memitem:aea7675282327908b0da89291a4634567" id="r_aea7675282327908b0da89291a4634567"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aea7675282327908b0da89291a4634567">scene</a> {}</td></tr>
+<tr class="memdesc:aea7675282327908b0da89291a4634567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Planche que la variante substitue à celle de sa base ; vide pour la garder.  <br /></td></tr>
+<tr class="memitem:a62d8fc26f11eb3238b326422abca7cb4" id="r_a62d8fc26f11eb3238b326422abca7cb4"><td class="memItemLeft"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a>&#160;</td><td class="memItemRight"><a class="el" href="#a62d8fc26f11eb3238b326422abca7cb4">properties</a> {}</td></tr>
+<tr class="memdesc:a62d8fc26f11eb3238b326422abca7cb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriétés libres de la <b>carte entière</b> (<span class="tt">LOT-EDITOR-09</span>) : la région du monde où elle se trouve (<span class="tt"><a class="el" href="namespacecore.html#a47f6e001dc10a742e05ed01de586335f" title="Clé de la région du monde où se trouve la carte, telle que world-maps.json la nomme (central-empire) ...">core::MAP_REGION_PROPERTY</a></span>), son ambiance (<span class="tt"><a class="el" href="namespacecore.html#afa94966b4ac589f39c5ce6240f9bf3c2" title="Clé de l&#39;ambiance de la carte — ce que le LOT-28 jouera en fond, et ce que l&#39;éditeur montre dans les ...">core::MAP_AMBIENCE_PROPERTY</a></span>), et toute clé racine que le chargeur ne connaît pas — gardée telle quelle et réémise, comme pour une couche ou une entité (<span class="tt"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731" title="Propriétés libres, indexées par nom.">core::PropertyMap</a></span>).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Composantes d'une carte, nommées — agrégat de construction de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">core::Level</a></span> (<span class="tt">LOT-03</span>). </p>
+<p>S'écrit avec les <em>designated initializers</em> de C++20, qui rendent chaque site de construction lisible sans commentaire : </p><div class="fragment"><div class="line"><a class="code hl_class" href="classcore_1_1Level.html">core::Level</a> level(<a class="code hl_struct" href="structcore_1_1LevelData.html">core::LevelData</a>{.name = <span class="stringliteral">&quot;village&quot;</span>,</div>
+<div class="line">                                  .tileMap = std::move(map),</div>
+<div class="line">                                  .entry = entryPosition});</div>
+<div class="ttc" id="aclasscore_1_1Level_html"><div class="ttname"><a href="classcore_1_1Level.html">core::Level</a></div><div class="ttdoc">Carte complète en mémoire.</div><div class="ttdef"><b>Definition</b> Level.h:97</div></div>
+<div class="ttc" id="astructcore_1_1LevelData_html"><div class="ttname"><a href="structcore_1_1LevelData.html">core::LevelData</a></div><div class="ttdoc">Composantes d&#39;une carte, nommées — agrégat de construction de core::Level (LOT-03).</div><div class="ttdef"><b>Definition</b> Level.h:39</div></div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd><span class="tt"><a class="el" href="#ae394a3e921bbab58997043053a45243a" title="Grille de tuiles typées.">tileMap</a></span> n'a <b>volontairement</b> pas de valeur par défaut : <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span> n'est pas constructible par défaut, si bien que l'omettre est une <b>erreur de compilation</b> et non une grille vide silencieuse. Tous les autres champs ont un défaut utile. </dd></dl>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a5871ca36b16a3d283d1b8b121e9f51f7" name="a5871ca36b16a3d283d1b8b121e9f51f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5871ca36b16a3d283d1b8b121e9f51f7">&#9670;&#160;</a></span>base</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::LevelData::base {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Carte dont celle-ci est une <b>variante</b> (décision D12), par son identifiant (<span class="tt">coliseum</span>, <span class="tt">capital/martpart</span>) ; vide pour une carte ordinaire. </p>
+<p>Une variante ne porte ni case ni couche : elle reprend celles de sa base, change de planche (<span class="tt"><a class="el" href="#aea7675282327908b0da89291a4634567" title="Planche que la variante substitue à celle de sa base ; vide pour la garder.">scene</a></span>) et porte ses propres entités (<span class="tt"><a class="el" href="namespacecore.html#a6c2bfc6a4265b0a8fc867461e1c61137" title="La carte que joue une variante : les cases, couches, collision et entrée de base, les entités et le n...">core::applyVariant</a></span>). </p>
+
+</div>
+</div>
+<a id="a679608c27b5699b0bfe03ef7a97788cf" name="a679608c27b5699b0bfe03ef7a97788cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a679608c27b5699b0bfe03ef7a97788cf">&#9670;&#160;</a></span>entities</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1MapEntity.html">MapEntity</a>&gt; core::LevelData::entities {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Entités placées sur la carte (<span class="tt">LOT-04</span>) : PNJ, coffres, panneaux, portails, déclencheurs. </p>
+
+</div>
+</div>
+<a id="aae5be5bb53eeb5dc8b02e00fd7af431f" name="aae5be5bb53eeb5dc8b02e00fd7af431f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae5be5bb53eeb5dc8b02e00fd7af431f">&#9670;&#160;</a></span>entry</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> core::LevelData::entry {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Point d'arrivée par défaut (case <span class="tt">Entry</span>). </p>
+
+</div>
+</div>
+<a id="aa1fa5536f5844015713e54fcc225a3b7" name="aa1fa5536f5844015713e54fcc225a3b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1fa5536f5844015713e54fcc225a3b7">&#9670;&#160;</a></span>forcedCollision</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&gt; core::LevelData::forcedCollision {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cases de collision <b>forcées à la main</b> (format v4, décision D10) : là, la grille de collision peut s'écarter de ce que <span class="tt"><a class="el" href="namespacecore.html#a3322a01062af04e9242df68f744c142f" title="Déduit la grille de collision d&#39;une carte.">core::deriveCollision</a></span> tire des pièces et des types. </p>
+<p>Partout ailleurs, <span class="tt">LevelEditor --check</span> exige que la grille égale la déduction. Triées (ligne, colonne), sans doublon. </p>
+
+</div>
+</div>
+<a id="a346a7cadd4d3753fa7e86a323db66a1f" name="a346a7cadd4d3753fa7e86a323db66a1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a346a7cadd4d3753fa7e86a323db66a1f">&#9670;&#160;</a></span>layers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1TileLayer.html">TileLayer</a>&gt; core::LevelData::layers {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Couches de tuiles de la carte (<span class="tt">LOT-04</span>), dans leur ordre de superposition. </p>
+<p>La <b>première</b> est <span class="tt"><a class="el" href="#ae394a3e921bbab58997043053a45243a" title="Grille de tuiles typées.">tileMap</a></span> ci-dessus, promue par le chargeur : de rôle <span class="tt">Collision</span> quand la carte déclare des couches visibles, <span class="tt">Legacy</span> quand elle n'en déclare aucune (une grille plate <span class="tt">version: 2</span>, qui vaut alors décor <b>et</b> collision). Un consommateur boucle donc sur <span class="tt"><a class="el" href="#a346a7cadd4d3753fa7e86a323db66a1f" title="Couches de tuiles de la carte (LOT-04), dans leur ordre de superposition.">layers</a></span> sans cas particulier. Vide seulement pour un <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">Level</a></span> construit <b>directement</b>, sans passer par le chargeur — le rendu retombe alors sur <span class="tt"><a class="el" href="#ae394a3e921bbab58997043053a45243a" title="Grille de tuiles typées.">tileMap</a></span>. </p>
+
+</div>
+</div>
+<a id="a74f693819cc222aa9748bd56f697e7e6" name="a74f693819cc222aa9748bd56f697e7e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74f693819cc222aa9748bd56f697e7e6">&#9670;&#160;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::LevelData::name {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Nom de la carte. </p>
+
+</div>
+</div>
+<a id="af291e15302ce8b84dffc3b8b625b2ec5" name="af291e15302ce8b84dffc3b8b625b2ec5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af291e15302ce8b84dffc3b8b625b2ec5">&#9670;&#160;</a></span>nextEntityId</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::LevelData::nextEntityId = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prochain identifiant d'entité à donner (décision D8) : un compteur écrit dans la carte, pour qu'un identifiant retiré ne soit <b>jamais</b> redonné à une autre entité. </p>
+<p>1 par défaut. </p>
+
+</div>
+</div>
+<a id="a62d8fc26f11eb3238b326422abca7cb4" name="a62d8fc26f11eb3238b326422abca7cb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62d8fc26f11eb3238b326422abca7cb4">&#9670;&#160;</a></span>properties</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a> core::LevelData::properties {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Propriétés libres de la <b>carte entière</b> (<span class="tt">LOT-EDITOR-09</span>) : la région du monde où elle se trouve (<span class="tt"><a class="el" href="namespacecore.html#a47f6e001dc10a742e05ed01de586335f" title="Clé de la région du monde où se trouve la carte, telle que world-maps.json la nomme (central-empire) ...">core::MAP_REGION_PROPERTY</a></span>), son ambiance (<span class="tt"><a class="el" href="namespacecore.html#afa94966b4ac589f39c5ce6240f9bf3c2" title="Clé de l&#39;ambiance de la carte — ce que le LOT-28 jouera en fond, et ce que l&#39;éditeur montre dans les ...">core::MAP_AMBIENCE_PROPERTY</a></span>), et toute clé racine que le chargeur ne connaît pas — gardée telle quelle et réémise, comme pour une couche ou une entité (<span class="tt"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731" title="Propriétés libres, indexées par nom.">core::PropertyMap</a></span>). </p>
+
+</div>
+</div>
+<a id="aea7675282327908b0da89291a4634567" name="aea7675282327908b0da89291a4634567"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea7675282327908b0da89291a4634567">&#9670;&#160;</a></span>scene</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::LevelData::scene {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Planche que la variante substitue à celle de sa base ; vide pour la garder. </p>
+
+</div>
+</div>
+<a id="ae394a3e921bbab58997043053a45243a" name="ae394a3e921bbab58997043053a45243a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae394a3e921bbab58997043053a45243a">&#9670;&#160;</a></span>tileMap</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1TileMap.html">TileMap</a> core::LevelData::tileMap</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Grille de tuiles typées. </p>
+<p>Sans défaut : voir la note ci-dessus.</p>
+<p>C'est la grille de <b>collision</b> de la carte — celle que consomment l'exploration et la grille de combat tactique — et elle porte aussi l'entrée. Le format ne connaît qu'elle sur ce point : une couche <span class="tt">collision</span> déclarée à côté est refusée au chargement, précisément pour qu'il n'existe jamais deux grilles à tenir d'accord (<span class="tt">EX-LVL-016</span>). </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Levels/<a class="el" href="Level_8h_source.html">Level.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="structcore_1_1LevelData.html">LevelData</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

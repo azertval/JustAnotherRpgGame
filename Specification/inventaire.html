@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inventaire et économie — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="index.html" class="active">Spécifications</a><a href="../CahierTest/index.html">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Spécifications</h4><a class="depth-0" href="index.html">Spécifications</a><a class="depth-1" href="vision.html">Vision &amp;amp; périmètre</a><a class="depth-1" href="gameplay.html">Gameplay</a><a class="depth-1" href="regles-d20.html">Règles d20</a><a class="depth-1" href="rpg.html">Personnage et progression</a><a class="depth-1" href="combat.html">Combat tactique</a><a class="depth-1 active" href="inventaire.html">Inventaire et économie</a><a class="toc depth-2" href="#1-porter">1. Porter</a><a class="toc depth-2" href="#2-échanger">2. Échanger</a><a class="toc depth-2" href="#3-gagner">3. Gagner</a><a class="depth-1" href="contenu.html">Contenu et données</a><a class="depth-1" href="niveaux.html">Cartes &amp;amp; format</a><a class="depth-1" href="exploration.html">Exploration</a><a class="depth-1" href="controles.html">Contrôles &amp;amp; entrées</a><a class="depth-1" href="rendu-technique.html">Rendu &amp;amp; cible technique</a><a class="depth-1" href="interface-ihm.html">Interface utilisateur (IHM)</a><a class="depth-1" href="editeur-niveaux.html">Éditeur de cartes</a><a class="depth-1" href="exigences-non-fonctionnelles.html">Exigences non fonctionnelles</a><a class="depth-1" href="conventions.html">Conventions de code</a><a class="depth-1" href="architecture.html">Architecture (décisions dimensionnantes)</a><a class="depth-1" href="exigences-retirees.html">Exigences retirées</a></aside>
+<main>
+<article class="prose"><h1 id="inventaire-et-économie">Inventaire et économie</h1>
+<blockquote><p>Statut : <strong>possession et équipement livrés, économie à venir.</strong> L'inventaire, les emplacements d'équipement et le catalogue d'objets sont livrés et testés (<a class="ref" href="../planning/lots/lot-14.html"><code>LOT-14</code></a>, <a class="ref" href="../planning/lots/lot-34.html"><code>LOT-34</code></a>). Le butin, les marchands et la monnaie qui circule attendent la version <code>0.2.0</code> (<a class="ref" href="../planning/lots/lot-201.html"><code>LOT-201</code></a>). Dépend de <a href="rpg.html"><code>rpg.md</code></a> (l'agrégat de fiche) et de <a href="contenu.html"><code>contenu.md</code></a> (le catalogue d'objets).</p></blockquote>
+<p>Ce que le personnage porte, ce qu'il en fait, et ce que cela vaut. Le monde étant un bac à sable de treize régions, l'économie doit se <strong>déduire des données de région</strong> plutôt que d'être réglée marchand par marchand.</p>
+<h2 id="1-porter">1. Porter</h2>
+<ul><li id="EX-INV-001" class="identified"><strong>EX-INV-001</strong> — L'inventaire est une liste d'<strong>identifiants de catalogue</strong> accompagnés d'une quantité et d'un état, jamais une copie des propriétés de l'objet. Corriger le prix d'une épée doit corriger toutes les épées du monde, y compris celles déjà ramassées et sauvegardées.</li></ul>
+<ul><li id="EX-INV-010" class="identified"><strong>EX-INV-010</strong> — L'équipement porté occupe des <strong>emplacements typés</strong> (main principale, main secondaire, torse, etc.), et un objet déclare ceux qu'il occupe. Une arme à deux mains occupe <strong>les deux mains</strong> : c'est la seule façon d'empêcher la combinaison arme lourde et bouclier sans écrire une règle particulière pour chaque arme.</li></ul>
+<ul><li id="EX-INV-011" class="identified"><strong>EX-INV-011</strong> — La <strong>classe d'armure</strong> est dérivée de l'équipement porté selon la formule déclarée par l'armure elle-même — base, part de Dextérité éventuellement plafonnée, bonus de bouclier — et recalculée à chaque changement (<a class="ref" href="rpg.html#EX-RPG-002"><code>EX-RPG-002</code></a>). L'armure déclare aussi son <strong>exigence de Force</strong> et son incidence sur la discrétion, faute de quoi les armures lourdes seraient strictement meilleures et le choix disparaîtrait.</li></ul>
+<ul><li id="EX-INV-020" class="identified"><strong>EX-INV-020</strong> — L'<strong>encombrement</strong> est dérivé du poids total porté et de la Force. Il doit être visible avant d'être contraignant : un joueur qui découvre qu'il est surchargé au moment de fuir un combat subit une règle qu'il n'avait aucun moyen d'anticiper.</li></ul>
+<h2 id="2-échanger">2. Échanger</h2>
+<ul><li id="EX-INV-030" class="identified"><strong>EX-INV-030</strong> — La <strong>monnaie</strong> est à taux fixes et déclarés. Toute somme est stockée dans l'unité la plus fine et présentée dans la plus lisible ; aucune conversion ne doit <strong>perdre</strong> de valeur par arrondi. Un joueur qui perd de l'argent en changeant de dénomination cesse de faire confiance à tout le reste du système.</li></ul>
+<ul><li id="EX-INV-031" class="identified"><strong>EX-INV-031</strong> — Les prix d'<strong>achat</strong> et de <strong>vente</strong> sont distincts, et modulés par les statistiques de la région (<a class="ref" href="contenu.html#EX-CNT-030"><code>EX-CNT-030</code></a>) : prospérité économique pour le niveau des prix, accès à la magie pour la présence d'objets magiques à l'étal. C'est ce qui donne un intérêt mécanique au voyage, plutôt qu'un simple changement de décor.</li></ul>
+<h2 id="3-gagner">3. Gagner</h2>
+<ul><li id="EX-INV-040" class="identified"><strong>EX-INV-040</strong> — Le <strong>butin</strong> est composé par table, et <strong>reproductible à graine égale</strong> : la graine dérive de l'identité du contenant, jamais de l'horloge. Un coffre qui se re-tire à chaque ouverture n'est pas un monde, et un rechargement de sauvegarde ne doit pas être une machine à sous.</li></ul>
+<ul><li id="EX-INV-041" class="identified"><strong>EX-INV-041</strong> — Un <strong>objet magique</strong> déclare sa <strong>rareté</strong> et, le cas échéant, la nécessité d'une <strong>harmonisation</strong> limitée en nombre. Sans plafond d'harmonisation, la progression consiste à accumuler, et le choix d'équipement — qui est le cœur de la récompense — disparaît.</li></ul></article><nav class="pager"><a class="prev" href="combat.html"><span>Précédent</span>Combat tactique</a><a class="next" href="contenu.html"><span>Suivant</span>Contenu et données</a></nav><p class="source">Source : <code>Documentation/Specification/inventaire.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

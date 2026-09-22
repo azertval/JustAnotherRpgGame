@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOT-03 — Agrégat `LevelData` — Planification</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="index.html" class="active">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="../standards/index.html">Standards</a></nav>
+  <div class="links"><a href="../../">Documentation</a><a class="active" href="../index.html">Planification</a><a href="../../qualite/">Qualité</a></div>
+</header>
+<div class="shell">
+
+<main>
+<p class="crumb"><a href="index.html">Lots</a> › <a href="../versions/v0-0-0.html">0.0.0 — Fondation du moteur</a></p><h1><span class="vid">LOT-03</span> Agrégat `LevelData`</h1><p class="lede">Un niveau se construit depuis un agrégat nommé, ce qui laisse le RPG y ajouter ses champs sans repasser par un constructeur positionnel illisible.</p><dl class="facts"><div><dt>État</dt><dd><span class="badge etat-livre">livré</span></dd></div><div><dt>Filière</dt><dd><span class="filiere f-moteur">Moteur</span></dd></div><div><dt>Taille</dt><dd>S</dd></div><div><dt>Ordre calculé</dt><dd>—</dd></div><div><dt>Prérequis</dt><dd><a class="ref" href="lot-02.html">LOT-02</a></dd></div><div><dt>Débloque</dt><dd><a class="ref" href="lot-04.html">LOT-04</a></dd></div><div><dt>Reprend</dt><dd>—</dd></div></dl><section><h2>Livrables</h2><ul class=""><li><code>struct LevelData</code>, agrégat public dans <code>Source/Core/Levels/Level.h</code>, chaque champ documenté.</li><li><code>core::Level</code> construit depuis un <code>LevelData&amp;&amp;</code> ; constructeur positionnel retiré d'emblée, sans étape <code>[[deprecated]]</code>.</li><li>Les dix sites de construction adaptés (un dans <code>LevelLoader</code>, neuf dans les tests).</li><li>Exigence <code>EX-LVL-*</code> nouvelle : « un niveau se construit depuis un agrégat nommé ».</li></ul></section><section><h2>Critères d'acceptation</h2><ul class="checks"><li>Plus aucun appel au constructeur positionnel ; le constructeur <code>[[deprecated]]</code> a disparu.</li><li>Refactoring à <strong>comportement constant</strong> : les tests passent, adaptés mécaniquement (la forme de l'appel change, jamais l'intention du test).</li><li>Doxygen vert (chaque champ de <code>LevelData</code> documenté, plus de <code>@param</code> orphelin).</li></ul></section><section class="prose"><h2 id="pourquoi">Pourquoi</h2>
+<p>Remplacer le constructeur positionnel de <code>core::Level</code> par un agrégat nommé, <strong>avant</strong> que le RPG n'y ajoute ses propres champs.</p>
+<h3 id="le-problème">Le problème</h3>
+<p>Le constructeur de <code>core::Level</code> comptait <strong>19 paramètres</strong> ; le <code>LOT-01</code> l'a ramené à 11 en retirant le gameplay de plateforme, mais la dette de fond demeure — elle est actée dans l'en-tête lui-même (<code>Source/Core/Levels/Level.h</code>). Le RPG va rajouter au moins six champs : couches de tuiles (<code>LOT-04</code>), entités placées, connexions de carte, zones de rencontre, points d'apparition, drapeaux. On repasserait au-dessus de 17 paramètres positionnels, où deux <code>std::optional&lt;std::string&gt;</code> voisins s'intervertissent sans que le compilateur bronche.</p>
+<p>Solder maintenant, alors que la liste est au plus court, coûte le minimum.</p>
+<h2 id="périmètre">Périmètre</h2>
+<ul><li><code>struct LevelData</code> : agrégat public portant les mêmes champs, dans <code>Source/Core/Levels/Level.h</code>.</li><li><code>Level</code> construit depuis un <code>LevelData&amp;&amp;</code>. Les <em>designated initializers</em> C++20 rendent chaque site de construction lisible (<code>.name = …, .tileMap = …</code>).</li><li>Constructeur positionnel <strong>retiré d'emblée</strong>, sans passer par l'étape <code>[[deprecated]]</code> prévue : la purge du <code>LOT-01</code> avait déjà ramené la liste de 19 à 11 paramètres, et il ne restait que <strong>dix sites de construction</strong> (un dans <code>LevelLoader</code>, neuf dans les tests). Avec si peu d'appels, la béquille coûtait plus qu'elle ne rapportait — et le lot se termine sans API dépréciée à nettoyer plus tard.</li></ul>
+<h2 id="conception">Conception</h2>
+<h3 id="la-décision-qui-porte-le-lot">La décision qui porte le lot</h3>
+<p><strong><code>tileMap</code> n'a volontairement pas de valeur par défaut.</strong> <code>core::TileMap</code> n'étant pas constructible par défaut, l'omettre dans l'agrégat est une <strong>erreur de compilation</strong>, jamais une grille vide silencieuse — exactement la propriété qu'on attend d'un champ obligatoire. Tous les autres champs ont un défaut utile, si bien qu'un site minimal tient en deux lignes :</p>
+<p>@code core::Level level(core::LevelData{.name = "village", .tileMap = std::move(map)}); @endcode</p>
+<h2 id="exigences-couvertes">Exigences couvertes</h2>
+<p><code>EX-LVL-*</code> nouvelle (« un niveau se construit depuis un agrégat nommé »), <code>EX-ARCH-*</code>.</p>
+<h2 id="bilan">Bilan</h2>
+<p>Statut : <strong>fait</strong>. Vérification automatisée : build <code>/W4 /WX</code> sans avertissement, 899 tests verts sans modification de l'intention d'un seul test, format et linters verts. Le prérequis <code>LOT-02</code> était un confort d'outillage, pas une dépendance stricte.</p></section><p class="source">Source : <code>Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-03-level-data.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

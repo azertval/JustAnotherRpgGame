@@ -1,0 +1,205 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/RpgEnumNames.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('RpgEnumNames_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">RpgEnumNames.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="RpgEnumNames_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;span&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="RpgEnums_8h.html">Core/Rpg/RpgEnums.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#ae3cc32ad05d30271f4d457dcb84dff88">damageTypeName</a>(<a class="code hl_enumeration" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> type);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#a987d60e4787ed087f78661162334cbdf">conditionName</a>(<a class="code hl_enumeration" href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493">Condition</a> condition);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#aa8d6d02cb4e8204a0ae9e6a14b5bbc2e">magicSchoolName</a>(<a class="code hl_enumeration" href="namespacecore.html#acb09396acc95973b3ca488c497bbddb2">MagicSchool</a> school);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#a2dd643ce9019af55943b4bf9a9ad28c6">creatureSizeName</a>(<a class="code hl_enumeration" href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204">CreatureSize</a> size);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>[[nodiscard]] std::optional&lt;DamageType&gt; <a class="code hl_function" href="namespacecore.html#a1d12176ad6df004421e6685f2cb36e93">parseDamageType</a>(std::string_view name);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>[[nodiscard]] std::optional&lt;Condition&gt; <a class="code hl_function" href="namespacecore.html#adefe86c619e88b6cf8ede8c2c5da65d5">parseCondition</a>(std::string_view name);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>[[nodiscard]] std::optional&lt;MagicSchool&gt; <a class="code hl_function" href="namespacecore.html#a41deb28480aa298e63a75479bde92d2d">parseMagicSchool</a>(std::string_view name);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>[[nodiscard]] std::optional&lt;CreatureSize&gt; <a class="code hl_function" href="namespacecore.html#a103e367d143e73c5d7ba0a5fe71126df">parseCreatureSize</a>(std::string_view name);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>[[nodiscard]] std::span&lt;const DamageType&gt; <a class="code hl_function" href="namespacecore.html#ab77f2b5d3dc27e52a6907fdc09f6daa4">allDamageTypes</a>();</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>[[nodiscard]] std::span&lt;const Condition&gt; <a class="code hl_function" href="namespacecore.html#aff7f41bc814d9fd4f6c0bc0f8e85e93f">allConditions</a>();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>[[nodiscard]] std::span&lt;const MagicSchool&gt; <a class="code hl_function" href="namespacecore.html#aada0fb2093fbbb75a0f9c75e28336c8d">allMagicSchools</a>();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>[[nodiscard]] std::span&lt;const CreatureSize&gt; <a class="code hl_function" href="namespacecore.html#a9bf4bb53c75f4f7231a48236c2190c33">allCreatureSizes</a>();</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aRpgEnums_8h_html"><div class="ttname"><a href="RpgEnums_8h.html">RpgEnums.h</a></div><div class="ttdoc">Les quatre énumérations fermées du RPG : dégâts, conditions, écoles, tailles.</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a103e367d143e73c5d7ba0a5fe71126df"><div class="ttname"><a href="namespacecore.html#a103e367d143e73c5d7ba0a5fe71126df">core::parseCreatureSize</a></div><div class="ttdeci">std::optional&lt; CreatureSize &gt; parseCreatureSize(std::string_view name)</div><div class="ttdef"><b>Definition</b> RpgEnumNames.cpp:199</div></div>
+<div class="ttc" id="anamespacecore_html_a1d12176ad6df004421e6685f2cb36e93"><div class="ttname"><a href="namespacecore.html#a1d12176ad6df004421e6685f2cb36e93">core::parseDamageType</a></div><div class="ttdeci">std::optional&lt; DamageType &gt; parseDamageType(std::string_view name)</div><div class="ttdef"><b>Definition</b> RpgEnumNames.cpp:187</div></div>
+<div class="ttc" id="anamespacecore_html_a2dd643ce9019af55943b4bf9a9ad28c6"><div class="ttname"><a href="namespacecore.html#a2dd643ce9019af55943b4bf9a9ad28c6">core::creatureSizeName</a></div><div class="ttdeci">std::string creatureSizeName(CreatureSize size)</div><div class="ttdef"><b>Definition</b> RpgEnumNames.cpp:169</div></div>
+<div class="ttc" id="anamespacecore_html_a41deb28480aa298e63a75479bde92d2d"><div class="ttname"><a href="namespacecore.html#a41deb28480aa298e63a75479bde92d2d">core::parseMagicSchool</a></div><div class="ttdeci">std::optional&lt; MagicSchool &gt; parseMagicSchool(std::string_view name)</div><div class="ttdef"><b>Definition</b> RpgEnumNames.cpp:195</div></div>
+<div class="ttc" id="anamespacecore_html_a987d60e4787ed087f78661162334cbdf"><div class="ttname"><a href="namespacecore.html#a987d60e4787ed087f78661162334cbdf">core::conditionName</a></div><div class="ttdeci">std::string conditionName(Condition condition)</div><div class="ttdef"><b>Definition</b> RpgEnumNames.cpp:111</div></div>
+<div class="ttc" id="anamespacecore_html_a9bf4bb53c75f4f7231a48236c2190c33"><div class="ttname"><a href="namespacecore.html#a9bf4bb53c75f4f7231a48236c2190c33">core::allCreatureSizes</a></div><div class="ttdeci">std::span&lt; const CreatureSize &gt; allCreatureSizes()</div><div class="ttdef"><b>Definition</b> RpgEnumNames.cpp:215</div></div>
+<div class="ttc" id="anamespacecore_html_aa8d6d02cb4e8204a0ae9e6a14b5bbc2e"><div class="ttname"><a href="namespacecore.html#aa8d6d02cb4e8204a0ae9e6a14b5bbc2e">core::magicSchoolName</a></div><div class="ttdeci">std::string magicSchoolName(MagicSchool school)</div><div class="ttdef"><b>Definition</b> RpgEnumNames.cpp:147</div></div>
+<div class="ttc" id="anamespacecore_html_aada0fb2093fbbb75a0f9c75e28336c8d"><div class="ttname"><a href="namespacecore.html#aada0fb2093fbbb75a0f9c75e28336c8d">core::allMagicSchools</a></div><div class="ttdeci">std::span&lt; const MagicSchool &gt; allMagicSchools()</div><div class="ttdef"><b>Definition</b> RpgEnumNames.cpp:211</div></div>
+<div class="ttc" id="anamespacecore_html_aae5ed49bedbf68049f008e4efac2edfd"><div class="ttname"><a href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">core::DamageType</a></div><div class="ttdeci">DamageType</div><div class="ttdoc">Type de dégâts infligés (EX-CBT-032, EX-CNT-011).</div><div class="ttdef"><b>Definition</b> RpgEnums.h:27</div></div>
+<div class="ttc" id="anamespacecore_html_aae82873d6c7bd0b4db085354c50e1493"><div class="ttname"><a href="namespacecore.html#aae82873d6c7bd0b4db085354c50e1493">core::Condition</a></div><div class="ttdeci">Condition</div><div class="ttdoc">État affectant une créature (EX-REG-040, EX-CNT-011).</div><div class="ttdef"><b>Definition</b> RpgEnums.h:54</div></div>
+<div class="ttc" id="anamespacecore_html_ab77f2b5d3dc27e52a6907fdc09f6daa4"><div class="ttname"><a href="namespacecore.html#ab77f2b5d3dc27e52a6907fdc09f6daa4">core::allDamageTypes</a></div><div class="ttdeci">std::span&lt; const DamageType &gt; allDamageTypes()</div><div class="ttdef"><b>Definition</b> RpgEnumNames.cpp:203</div></div>
+<div class="ttc" id="anamespacecore_html_acb09396acc95973b3ca488c497bbddb2"><div class="ttname"><a href="namespacecore.html#acb09396acc95973b3ca488c497bbddb2">core::MagicSchool</a></div><div class="ttdeci">MagicSchool</div><div class="ttdoc">École de magie d&#39;un sort (EX-CNT-011).</div><div class="ttdef"><b>Definition</b> RpgEnums.h:78</div></div>
+<div class="ttc" id="anamespacecore_html_adefe86c619e88b6cf8ede8c2c5da65d5"><div class="ttname"><a href="namespacecore.html#adefe86c619e88b6cf8ede8c2c5da65d5">core::parseCondition</a></div><div class="ttdeci">std::optional&lt; Condition &gt; parseCondition(std::string_view name)</div><div class="ttdef"><b>Definition</b> RpgEnumNames.cpp:191</div></div>
+<div class="ttc" id="anamespacecore_html_ae3cc32ad05d30271f4d457dcb84dff88"><div class="ttname"><a href="namespacecore.html#ae3cc32ad05d30271f4d457dcb84dff88">core::damageTypeName</a></div><div class="ttdeci">std::string damageTypeName(DamageType type)</div><div class="ttdef"><b>Definition</b> RpgEnumNames.cpp:77</div></div>
+<div class="ttc" id="anamespacecore_html_ae6c6faeaa28aa7b90280f4dc39237204"><div class="ttname"><a href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204">core::CreatureSize</a></div><div class="ttdeci">CreatureSize</div><div class="ttdoc">Catégorie de taille d&#39;une créature (EX-CNT-011).</div><div class="ttdef"><b>Definition</b> RpgEnums.h:101</div></div>
+<div class="ttc" id="anamespacecore_html_aff7f41bc814d9fd4f6c0bc0f8e85e93f"><div class="ttname"><a href="namespacecore.html#aff7f41bc814d9fd4f6c0bc0f8e85e93f">core::allConditions</a></div><div class="ttdeci">std::span&lt; const Condition &gt; allConditions()</div><div class="ttdef"><b>Definition</b> RpgEnumNames.cpp:207</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_de25d93b7b4ef75f45504127491f58b5.html">Rpg</a></li><li class="navelem"><a href="RpgEnumNames_8h.html">RpgEnumNames.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

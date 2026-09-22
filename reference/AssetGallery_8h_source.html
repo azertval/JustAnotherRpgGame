@@ -1,0 +1,341 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/AssetGallery.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('AssetGallery_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">AssetGallery.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="AssetGallery_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="namespacehmi.html#a5001ea43cce884ad77fb12944b48eaa6">   24</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacehmi.html#a5001ea43cce884ad77fb12944b48eaa6">ASSET_GALLERY_CELL_PIXELS</a> = 68;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="namespacehmi.html#ab31c52802e91a9594d93c236912b4ffe">   27</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">double</span> <a class="code hl_variable" href="namespacehmi.html#ab31c52802e91a9594d93c236912b4ffe">ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS</a> = 0.6;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span></div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html">   35</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1AssetGalleryEntry.html">AssetGalleryEntry</a> {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html#a861ab1a89667781dcb99e09ea55abadd">   37</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#a861ab1a89667781dcb99e09ea55abadd">family</a>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html#a23698681e34de14e7998b38bd463cad7">   39</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#a23698681e34de14e7998b38bd463cad7">model</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html#af740fc7a10a896e3d600ab11ca70a91c">   41</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#af740fc7a10a896e3d600ab11ca70a91c">form</a>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html#a2018ae100660977f4904f255e74f8208">   43</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#a2018ae100660977f4904f255e74f8208">path</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html#a31ef5ef294e8cadbcf3a5ec9c0b45ac5">   45</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#a31ef5ef294e8cadbcf3a5ec9c0b45ac5">frameWidth</a> = 0;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html#a96bb336e24e92f9bd50fbc27c19c48e9">   46</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#a96bb336e24e92f9bd50fbc27c19c48e9">frameHeight</a> = 0;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html#a68692161ae83b0241234e1e1d5d45aa7">   48</a></span>    std::vector&lt;int&gt; <a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#a68692161ae83b0241234e1e1d5d45aa7">frames</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html#a155891b9457d7577956cd2057ddbba10">   50</a></span>    <span class="keywordtype">double</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#a155891b9457d7577956cd2057ddbba10">frameDuration</a> = 0.0;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html#aa4d2426411bc8acec5871654a4cfa5f8">   52</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#aa4d2426411bc8acec5871654a4cfa5f8">loop</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html#adf7e8c24be7133b4d9ece6f76e3b42ec">   54</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#adf7e8c24be7133b4d9ece6f76e3b42ec">footprintColumns</a> = 1;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html#ab64f063437d25af635e30ead71108f5e">   55</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#ab64f063437d25af635e30ead71108f5e">footprintRows</a> = 1;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html#a041e14950d2e2d7f441927ebe7e813c9">   57</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#a041e14950d2e2d7f441927ebe7e813c9">anchorX</a> = -1;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html#a8400f5306937f900ea70f16655ea98bd">   58</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#a8400f5306937f900ea70f16655ea98bd">anchorY</a> = -1;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span></div>
+<div class="foldopen" id="foldopen00061" data-start="{" data-end="}">
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryEntry.html#a207b84ad72b9617788d62401a5a4f80f">   61</a></span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="structhmi_1_1AssetGalleryEntry.html#a207b84ad72b9617788d62401a5a4f80f">frameCount</a>() const noexcept {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#a68692161ae83b0241234e1e1d5d45aa7">frames</a>.empty() ? 1 : <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code hl_variable" href="structhmi_1_1AssetGalleryEntry.html#a68692161ae83b0241234e1e1d5d45aa7">frames</a>.size());</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
+</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span></div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="};">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryFamily.html">   67</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1AssetGalleryFamily.html">AssetGalleryFamily</a> {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryFamily.html#a24f0dce792fdc8e9aca64a28809896b2">   68</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1AssetGalleryFamily.html#a24f0dce792fdc8e9aca64a28809896b2">title</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryFamily.html#ad51a9bc820c4486dd231ce4049e8dd44">   70</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1AssetGalleryFamily.html#ad51a9bc820c4486dd231ce4049e8dd44">directory</a>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryFamily.html#ad94a3d29cf1da4283ca2c329a809952d">   71</a></span>    std::vector&lt;AssetGalleryEntry&gt; <a class="code hl_variable" href="structhmi_1_1AssetGalleryFamily.html#ad94a3d29cf1da4283ca2c329a809952d">entries</a>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>};</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span></div>
+<div class="foldopen" id="foldopen00090" data-start="{" data-end="};">
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryCatalog.html">   90</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1AssetGalleryCatalog.html">AssetGalleryCatalog</a> {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryCatalog.html#af7b607910b059e413c226a749d42f168">   91</a></span>    std::vector&lt;AssetGalleryFamily&gt; <a class="code hl_variable" href="structhmi_1_1AssetGalleryCatalog.html#af7b607910b059e413c226a749d42f168">families</a>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryCatalog.html#a4b7f81bb5a8cedd8e08f0779b598a1a3">   92</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structhmi_1_1AssetGalleryCatalog.html#a4b7f81bb5a8cedd8e08f0779b598a1a3">errors</a>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structhmi_1_1AssetGalleryCatalog.html">AssetGalleryCatalog</a> <a class="code hl_function" href="structhmi_1_1AssetGalleryCatalog.html#a77fadf4e787833a6191771011262d9fa">load</a>(<span class="keyword">const</span> std::filesystem::path&amp; assetsRoot);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    [[nodiscard]] std::size_t <a class="code hl_function" href="structhmi_1_1AssetGalleryCatalog.html#ab498990ec3a189e80a78847766030886">entryCount</a>() const noexcept;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>};</div>
+</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>[[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d">assetGalleryExcludes</a>(std::string_view path) noexcept;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>[[nodiscard]] std::vector&lt;std::<span class="keywordtype">string</span>&gt; <a class="code hl_function" href="namespacehmi.html#a3256818dab3b1990ebe3f4da0aed8a34">assetGalleryUnlisted</a>(const std::filesystem::path&amp; assetsRoot,</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                                                            const <a class="code hl_struct" href="structhmi_1_1AssetGalleryCatalog.html">AssetGalleryCatalog</a>&amp; catalog);</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span></div>
+<div class="foldopen" id="foldopen00126" data-start="{" data-end="};">
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryBloc.html">  126</a></span>struct <a class="code hl_struct" href="structhmi_1_1AssetGalleryBloc.html">AssetGalleryBloc</a> {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryBloc.html#a066d63b91a9735a2ef2c67f19d297d21">  127</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryBloc.html#a066d63b91a9735a2ef2c67f19d297d21">family</a> = 0;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryBloc.html#a2e4a18db21ee3f77d6fe6e32be47b60e">  128</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryBloc.html#a2e4a18db21ee3f77d6fe6e32be47b60e">entry</a> = 0;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryBloc.html#a03ae23a475bd9a0777e918c3b0e4d98e">  129</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryBloc.html#a03ae23a475bd9a0777e918c3b0e4d98e">column</a> = 0;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryBloc.html#ae52b20efefd434825094d8a9845a4ee9">  130</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryBloc.html#ae52b20efefd434825094d8a9845a4ee9">row</a> = 0;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryBloc.html#a0b28f5cc45d25b3b4dfd4a8e5e78c30c">  131</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryBloc.html#a0b28f5cc45d25b3b4dfd4a8e5e78c30c">columns</a> = 3;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryBloc.html#af066f93aa221a59a36110255f12d6cc4">  132</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryBloc.html#af066f93aa221a59a36110255f12d6cc4">rows</a> = 3;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryBloc.html#aa73e06da1ba59333fc0d7fcce59971e7">  134</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryBloc.html#aa73e06da1ba59333fc0d7fcce59971e7">footprintColumn</a> = 1;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryBloc.html#a48e9df6969e9d454cb2469f60edfe3d8">  135</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryBloc.html#a48e9df6969e9d454cb2469f60edfe3d8">footprintRow</a> = 1;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>};</div>
+</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span></div>
+<div class="foldopen" id="foldopen00139" data-start="{" data-end="};">
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryBand.html">  139</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1AssetGalleryBand.html">AssetGalleryBand</a> {</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryBand.html#abaa2d83347ba65129ac1731ba626fe32">  140</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryBand.html#abaa2d83347ba65129ac1731ba626fe32">family</a> = 0;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryBand.html#a7234a22b916587c0d3ba26c01aa9912d">  141</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryBand.html#a7234a22b916587c0d3ba26c01aa9912d">row</a> = 0;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>};</div>
+</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span></div>
+<div class="foldopen" id="foldopen00145" data-start="{" data-end="};">
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryLayout.html">  145</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1AssetGalleryLayout.html">AssetGalleryLayout</a> {</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryLayout.html#a040db25ad4e541a21fe8ff230b2bafff">  146</a></span>    std::vector&lt;AssetGalleryBloc&gt; <a class="code hl_variable" href="structhmi_1_1AssetGalleryLayout.html#a040db25ad4e541a21fe8ff230b2bafff">blocs</a>;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryLayout.html#aa7ab706ffe1c88ffeb248ea0b31528fd">  147</a></span>    std::vector&lt;AssetGalleryBand&gt; <a class="code hl_variable" href="structhmi_1_1AssetGalleryLayout.html#aa7ab706ffe1c88ffeb248ea0b31528fd">bands</a>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryLayout.html#ab280f9a3b8d6a834e9e974444de6fba0">  148</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryLayout.html#ab280f9a3b8d6a834e9e974444de6fba0">columns</a> = 0;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryLayout.html#a31128d74292439b3b6540562810157b8">  149</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryLayout.html#a31128d74292439b3b6540562810157b8">rows</a> = 0;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>};</div>
+</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1AssetGalleryBloc.html">AssetGalleryBloc</a> <a class="code hl_function" href="namespacehmi.html#a83debe99d4ca04cebc854c1407f3a39e">assetGalleryBlocShape</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1AssetGalleryEntry.html">AssetGalleryEntry</a>&amp; entry);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1AssetGalleryLayout.html">AssetGalleryLayout</a> <a class="code hl_function" href="namespacehmi.html#aa873ff843c8cc02b063bb5f908cd92fd">layoutAssetGallery</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1AssetGalleryCatalog.html">AssetGalleryCatalog</a>&amp; catalog,</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                                                    <span class="keywordtype">int</span> maximumColumns = 40);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span></div>
+<div class="foldopen" id="foldopen00163" data-start="{" data-end="};">
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040">  163</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040">AssetGalleryVisibility</a> {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040ac4816e491f1e2cf4b8c26d844861d8fe">  165</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040ac4816e491f1e2cf4b8c26d844861d8fe">Drawn</a>,</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040ad2dca836f24df89491f958bac04a8ac8">  167</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040ad2dca836f24df89491f958bac04a8ac8">Preloaded</a>,</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040aa5ae20aa7fda5bd38bf0dce98e65bd2d">  169</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040aa5ae20aa7fda5bd38bf0dce98e65bd2d">Unloaded</a>,</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>};</div>
+</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span></div>
+<div class="foldopen" id="foldopen00173" data-start="{" data-end="};">
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryView.html">  173</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1AssetGalleryView.html">AssetGalleryView</a> {</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryView.html#a22e978c7cdbb28a899616c9197443943">  174</a></span>    <span class="keywordtype">double</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryView.html#a22e978c7cdbb28a899616c9197443943">column</a> = 0.0;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryView.html#a469be37cf924ea47a971af707678bf75">  175</a></span>    <span class="keywordtype">double</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryView.html#a469be37cf924ea47a971af707678bf75">row</a> = 0.0;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryView.html#a615619e6cfd86c5092f5598dbcefbe19">  176</a></span>    <span class="keywordtype">double</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryView.html#a615619e6cfd86c5092f5598dbcefbe19">columns</a> = 0.0;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno"><a class="line" href="structhmi_1_1AssetGalleryView.html#a3dd4f7256286afa21aba7d538bfb22ef">  177</a></span>    <span class="keywordtype">double</span> <a class="code hl_variable" href="structhmi_1_1AssetGalleryView.html#a3dd4f7256286afa21aba7d538bfb22ef">rows</a> = 0.0;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>};</div>
+</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="namespacehmi.html#adaabc2b6b080a376a0dce6d0edc58bd3">  181</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">double</span> <a class="code hl_variable" href="namespacehmi.html#adaabc2b6b080a376a0dce6d0edc58bd3">ASSET_GALLERY_RING_CELLS</a> = 3.0;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>[[nodiscard]] <a class="code hl_enumeration" href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040">AssetGalleryVisibility</a> <a class="code hl_function" href="namespacehmi.html#a321807271cf7156d657e478bb442d8a8">assetGalleryVisibility</a>(</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1AssetGalleryBloc.html">AssetGalleryBloc</a>&amp; bloc, <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1AssetGalleryView.html">AssetGalleryView</a>&amp; view,</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keywordtype">double</span> ringCells = <a class="code hl_variable" href="namespacehmi.html#adaabc2b6b080a376a0dce6d0edc58bd3">ASSET_GALLERY_RING_CELLS</a>) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>[[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="namespacehmi.html#aab46d733154ad31db3d8fa8af5afd259">assetGalleryFrameRank</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1AssetGalleryEntry.html">AssetGalleryEntry</a>&amp; entry, <span class="keywordtype">double</span> seconds) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a11b4cbe2fcfcc3f152293f1bdf5c7f8d"><div class="ttname"><a href="namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d">hmi::assetGalleryExcludes</a></div><div class="ttdeci">bool assetGalleryExcludes(std::string_view path) noexcept</div><div class="ttdoc">Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l&#39;interface (UI/),...</div><div class="ttdef"><b>Definition</b> AssetGallery.cpp:308</div></div>
+<div class="ttc" id="anamespacehmi_html_a321807271cf7156d657e478bb442d8a8"><div class="ttname"><a href="namespacehmi.html#a321807271cf7156d657e478bb442d8a8">hmi::assetGalleryVisibility</a></div><div class="ttdeci">AssetGalleryVisibility assetGalleryVisibility(const AssetGalleryBloc &amp;bloc, const AssetGalleryView &amp;view, double ringCells) noexcept</div><div class="ttdef"><b>Definition</b> AssetGallery.cpp:415</div></div>
+<div class="ttc" id="anamespacehmi_html_a3256818dab3b1990ebe3f4da0aed8a34"><div class="ttname"><a href="namespacehmi.html#a3256818dab3b1990ebe3f4da0aed8a34">hmi::assetGalleryUnlisted</a></div><div class="ttdeci">std::vector&lt; std::string &gt; assetGalleryUnlisted(const std::filesystem::path &amp;assetsRoot, const AssetGalleryCatalog &amp;catalog)</div><div class="ttdoc">Les images livrées (PNG, JPEG) que la galerie ne montre pas et qu&#39;aucune exclusion ne couvre : ce que...</div><div class="ttdef"><b>Definition</b> AssetGallery.cpp:312</div></div>
+<div class="ttc" id="anamespacehmi_html_a5001ea43cce884ad77fb12944b48eaa6"><div class="ttname"><a href="namespacehmi.html#a5001ea43cce884ad77fb12944b48eaa6">hmi::ASSET_GALLERY_CELL_PIXELS</a></div><div class="ttdeci">constexpr int ASSET_GALLERY_CELL_PIXELS</div><div class="ttdoc">Largeur d&#39;une case de la galerie, en pixels d&#39;art : celle du losange des scènes (LOT-92).</div><div class="ttdef"><b>Definition</b> AssetGallery.h:24</div></div>
+<div class="ttc" id="anamespacehmi_html_a83debe99d4ca04cebc854c1407f3a39e"><div class="ttname"><a href="namespacehmi.html#a83debe99d4ca04cebc854c1407f3a39e">hmi::assetGalleryBlocShape</a></div><div class="ttdeci">AssetGalleryBloc assetGalleryBlocShape(const AssetGalleryEntry &amp;entry)</div><div class="ttdef"><b>Definition</b> AssetGallery.cpp:345</div></div>
+<div class="ttc" id="anamespacehmi_html_a9bcda977efbe65c2ab28905feb685040"><div class="ttname"><a href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040">hmi::AssetGalleryVisibility</a></div><div class="ttdeci">AssetGalleryVisibility</div><div class="ttdoc">Ce que devient un bloc pour une caméra donnée.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:163</div></div>
+<div class="ttc" id="anamespacehmi_html_a9bcda977efbe65c2ab28905feb685040aa5ae20aa7fda5bd38bf0dce98e65bd2d"><div class="ttname"><a href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040aa5ae20aa7fda5bd38bf0dce98e65bd2d">hmi::AssetGalleryVisibility::Unloaded</a></div><div class="ttdeci">@ Unloaded</div><div class="ttdoc">Hors de l&#39;anneau : la texture peut être libérée.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:169</div></div>
+<div class="ttc" id="anamespacehmi_html_a9bcda977efbe65c2ab28905feb685040ac4816e491f1e2cf4b8c26d844861d8fe"><div class="ttname"><a href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040ac4816e491f1e2cf4b8c26d844861d8fe">hmi::AssetGalleryVisibility::Drawn</a></div><div class="ttdeci">@ Drawn</div><div class="ttdoc">Le bloc touche la vue : texture chargée, quads émis.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:165</div></div>
+<div class="ttc" id="anamespacehmi_html_a9bcda977efbe65c2ab28905feb685040ad2dca836f24df89491f958bac04a8ac8"><div class="ttname"><a href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040ad2dca836f24df89491f958bac04a8ac8">hmi::AssetGalleryVisibility::Preloaded</a></div><div class="ttdeci">@ Preloaded</div><div class="ttdoc">Le bloc est dans l&#39;anneau autour de la vue : texture gardée, rien d&#39;émis.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:167</div></div>
+<div class="ttc" id="anamespacehmi_html_aa873ff843c8cc02b063bb5f908cd92fd"><div class="ttname"><a href="namespacehmi.html#aa873ff843c8cc02b063bb5f908cd92fd">hmi::layoutAssetGallery</a></div><div class="ttdeci">AssetGalleryLayout layoutAssetGallery(const AssetGalleryCatalog &amp;catalog, int maximumColumns)</div><div class="ttdoc">Dispose le catalogue : une bande par famille, une ligne par modèle, et au-delà de maximumColumns case...</div><div class="ttdef"><b>Definition</b> AssetGallery.cpp:359</div></div>
+<div class="ttc" id="anamespacehmi_html_aab46d733154ad31db3d8fa8af5afd259"><div class="ttname"><a href="namespacehmi.html#aab46d733154ad31db3d8fa8af5afd259">hmi::assetGalleryFrameRank</a></div><div class="ttdeci">int assetGalleryFrameRank(const AssetGalleryEntry &amp;entry, double seconds) noexcept</div><div class="ttdoc">L&#39;image jouée au temps seconds : en boucle, ou jouée une fois puis tenue ASSET_GALLERY_ONE_SHOT_HOLD_...</div><div class="ttdef"><b>Definition</b> AssetGallery.cpp:430</div></div>
+<div class="ttc" id="anamespacehmi_html_ab31c52802e91a9594d93c236912b4ffe"><div class="ttname"><a href="namespacehmi.html#ab31c52802e91a9594d93c236912b4ffe">hmi::ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS</a></div><div class="ttdeci">constexpr double ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS</div><div class="ttdoc">Temps de tenue, en secondes, d&#39;un clip joué une fois sur sa dernière image avant de reprendre.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:27</div></div>
+<div class="ttc" id="anamespacehmi_html_adaabc2b6b080a376a0dce6d0edc58bd3"><div class="ttname"><a href="namespacehmi.html#adaabc2b6b080a376a0dce6d0edc58bd3">hmi::ASSET_GALLERY_RING_CELLS</a></div><div class="ttdeci">constexpr double ASSET_GALLERY_RING_CELLS</div><div class="ttdoc">Épaisseur de l&#39;anneau de préchargement, en cases : un bloc ordinaire.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:181</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryBand_html"><div class="ttname"><a href="structhmi_1_1AssetGalleryBand.html">hmi::AssetGalleryBand</a></div><div class="ttdoc">L&#39;en-tête d&#39;une famille : une ligne de la galerie.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:139</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryBand_html_a7234a22b916587c0d3ba26c01aa9912d"><div class="ttname"><a href="structhmi_1_1AssetGalleryBand.html#a7234a22b916587c0d3ba26c01aa9912d">hmi::AssetGalleryBand::row</a></div><div class="ttdeci">int row</div><div class="ttdef"><b>Definition</b> AssetGallery.h:141</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryBand_html_abaa2d83347ba65129ac1731ba626fe32"><div class="ttname"><a href="structhmi_1_1AssetGalleryBand.html#abaa2d83347ba65129ac1731ba626fe32">hmi::AssetGalleryBand::family</a></div><div class="ttdeci">int family</div><div class="ttdef"><b>Definition</b> AssetGallery.h:140</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryBloc_html"><div class="ttname"><a href="structhmi_1_1AssetGalleryBloc.html">hmi::AssetGalleryBloc</a></div><div class="ttdoc">Un bloc : l&#39;emprise d&#39;une forme plus une case de marge tout autour, en cases.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:126</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryBloc_html_a03ae23a475bd9a0777e918c3b0e4d98e"><div class="ttname"><a href="structhmi_1_1AssetGalleryBloc.html#a03ae23a475bd9a0777e918c3b0e4d98e">hmi::AssetGalleryBloc::column</a></div><div class="ttdeci">int column</div><div class="ttdef"><b>Definition</b> AssetGallery.h:129</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryBloc_html_a066d63b91a9735a2ef2c67f19d297d21"><div class="ttname"><a href="structhmi_1_1AssetGalleryBloc.html#a066d63b91a9735a2ef2c67f19d297d21">hmi::AssetGalleryBloc::family</a></div><div class="ttdeci">int family</div><div class="ttdef"><b>Definition</b> AssetGallery.h:127</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryBloc_html_a0b28f5cc45d25b3b4dfd4a8e5e78c30c"><div class="ttname"><a href="structhmi_1_1AssetGalleryBloc.html#a0b28f5cc45d25b3b4dfd4a8e5e78c30c">hmi::AssetGalleryBloc::columns</a></div><div class="ttdeci">int columns</div><div class="ttdef"><b>Definition</b> AssetGallery.h:131</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryBloc_html_a2e4a18db21ee3f77d6fe6e32be47b60e"><div class="ttname"><a href="structhmi_1_1AssetGalleryBloc.html#a2e4a18db21ee3f77d6fe6e32be47b60e">hmi::AssetGalleryBloc::entry</a></div><div class="ttdeci">int entry</div><div class="ttdef"><b>Definition</b> AssetGallery.h:128</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryBloc_html_a48e9df6969e9d454cb2469f60edfe3d8"><div class="ttname"><a href="structhmi_1_1AssetGalleryBloc.html#a48e9df6969e9d454cb2469f60edfe3d8">hmi::AssetGalleryBloc::footprintRow</a></div><div class="ttdeci">int footprintRow</div><div class="ttdef"><b>Definition</b> AssetGallery.h:135</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryBloc_html_aa73e06da1ba59333fc0d7fcce59971e7"><div class="ttname"><a href="structhmi_1_1AssetGalleryBloc.html#aa73e06da1ba59333fc0d7fcce59971e7">hmi::AssetGalleryBloc::footprintColumn</a></div><div class="ttdeci">int footprintColumn</div><div class="ttdoc">Coin haut-gauche de l&#39;emprise, relatif au bloc.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:134</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryBloc_html_ae52b20efefd434825094d8a9845a4ee9"><div class="ttname"><a href="structhmi_1_1AssetGalleryBloc.html#ae52b20efefd434825094d8a9845a4ee9">hmi::AssetGalleryBloc::row</a></div><div class="ttdeci">int row</div><div class="ttdef"><b>Definition</b> AssetGallery.h:130</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryBloc_html_af066f93aa221a59a36110255f12d6cc4"><div class="ttname"><a href="structhmi_1_1AssetGalleryBloc.html#af066f93aa221a59a36110255f12d6cc4">hmi::AssetGalleryBloc::rows</a></div><div class="ttdeci">int rows</div><div class="ttdef"><b>Definition</b> AssetGallery.h:132</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryCatalog_html"><div class="ttname"><a href="structhmi_1_1AssetGalleryCatalog.html">hmi::AssetGalleryCatalog</a></div><div class="ttdoc">L&#39;inventaire de la galerie, lu dans les manifestes des assets livrés.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:90</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryCatalog_html_a4b7f81bb5a8cedd8e08f0779b598a1a3"><div class="ttname"><a href="structhmi_1_1AssetGalleryCatalog.html#a4b7f81bb5a8cedd8e08f0779b598a1a3">hmi::AssetGalleryCatalog::errors</a></div><div class="ttdeci">std::vector&lt; std::string &gt; errors</div><div class="ttdef"><b>Definition</b> AssetGallery.h:92</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryCatalog_html_a77fadf4e787833a6191771011262d9fa"><div class="ttname"><a href="structhmi_1_1AssetGalleryCatalog.html#a77fadf4e787833a6191771011262d9fa">hmi::AssetGalleryCatalog::load</a></div><div class="ttdeci">static AssetGalleryCatalog load(const std::filesystem::path &amp;assetsRoot)</div><div class="ttdef"><b>Definition</b> AssetGallery.cpp:299</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryCatalog_html_ab498990ec3a189e80a78847766030886"><div class="ttname"><a href="structhmi_1_1AssetGalleryCatalog.html#ab498990ec3a189e80a78847766030886">hmi::AssetGalleryCatalog::entryCount</a></div><div class="ttdeci">std::size_t entryCount() const noexcept</div><div class="ttdef"><b>Definition</b> AssetGallery.cpp:337</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryCatalog_html_af7b607910b059e413c226a749d42f168"><div class="ttname"><a href="structhmi_1_1AssetGalleryCatalog.html#af7b607910b059e413c226a749d42f168">hmi::AssetGalleryCatalog::families</a></div><div class="ttdeci">std::vector&lt; AssetGalleryFamily &gt; families</div><div class="ttdef"><b>Definition</b> AssetGallery.h:91</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html">hmi::AssetGalleryEntry</a></div><div class="ttdoc">Une forme d&#39;un modèle : un clip d&#39;une figure, une variante de texture, une pièce.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:35</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html_a041e14950d2e2d7f441927ebe7e813c9"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html#a041e14950d2e2d7f441927ebe7e813c9">hmi::AssetGalleryEntry::anchorX</a></div><div class="ttdeci">int anchorX</div><div class="ttdoc">Ancre du manifeste des scènes, en pixels de texture ; (-1, -1) si le manifeste n&#39;en a pas.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:57</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html_a155891b9457d7577956cd2057ddbba10"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html#a155891b9457d7577956cd2057ddbba10">hmi::AssetGalleryEntry::frameDuration</a></div><div class="ttdeci">double frameDuration</div><div class="ttdoc">Durée d&#39;une image, en secondes ; 0 : figée.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:50</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html_a2018ae100660977f4904f255e74f8208"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html#a2018ae100660977f4904f255e74f8208">hmi::AssetGalleryEntry::path</a></div><div class="ttdeci">std::string path</div><div class="ttdoc">Chemin de la texture, relatif à la racine des assets, séparateurs /.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:43</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html_a207b84ad72b9617788d62401a5a4f80f"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html#a207b84ad72b9617788d62401a5a4f80f">hmi::AssetGalleryEntry::frameCount</a></div><div class="ttdeci">int frameCount() const noexcept</div><div class="ttdef"><b>Definition</b> AssetGallery.h:61</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html_a23698681e34de14e7998b38bd463cad7"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html#a23698681e34de14e7998b38bd463cad7">hmi::AssetGalleryEntry::model</a></div><div class="ttdeci">std::string model</div><div class="ttdoc">Le modèle : une ligne de la galerie (« anariel », « floor », « props »).</div><div class="ttdef"><b>Definition</b> AssetGallery.h:39</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html_a31ef5ef294e8cadbcf3a5ec9c0b45ac5"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html#a31ef5ef294e8cadbcf3a5ec9c0b45ac5">hmi::AssetGalleryEntry::frameWidth</a></div><div class="ttdeci">int frameWidth</div><div class="ttdoc">Taille d&#39;une image, en pixels. Une texture fixe n&#39;a qu&#39;une image, de sa taille entière.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:45</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html_a68692161ae83b0241234e1e1d5d45aa7"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html#a68692161ae83b0241234e1e1d5d45aa7">hmi::AssetGalleryEntry::frames</a></div><div class="ttdeci">std::vector&lt; int &gt; frames</div><div class="ttdoc">Indices d&#39;images dans la bande, dans l&#39;ordre de lecture ; vide : l&#39;image 0.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:48</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html_a8400f5306937f900ea70f16655ea98bd"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html#a8400f5306937f900ea70f16655ea98bd">hmi::AssetGalleryEntry::anchorY</a></div><div class="ttdeci">int anchorY</div><div class="ttdef"><b>Definition</b> AssetGallery.h:58</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html_a861ab1a89667781dcb99e09ea55abadd"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html#a861ab1a89667781dcb99e09ea55abadd">hmi::AssetGalleryEntry::family</a></div><div class="ttdeci">std::string family</div><div class="ttdoc">Nom de la famille (« PNJ », « Scène · martpart »…).</div><div class="ttdef"><b>Definition</b> AssetGallery.h:37</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html_a96bb336e24e92f9bd50fbc27c19c48e9"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html#a96bb336e24e92f9bd50fbc27c19c48e9">hmi::AssetGalleryEntry::frameHeight</a></div><div class="ttdeci">int frameHeight</div><div class="ttdef"><b>Definition</b> AssetGallery.h:46</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html_aa4d2426411bc8acec5871654a4cfa5f8"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html#aa4d2426411bc8acec5871654a4cfa5f8">hmi::AssetGalleryEntry::loop</a></div><div class="ttdeci">bool loop</div><div class="ttdoc">Bouclé, ou joué une fois puis tenu (ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS).</div><div class="ttdef"><b>Definition</b> AssetGallery.h:52</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html_ab64f063437d25af635e30ead71108f5e"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html#ab64f063437d25af635e30ead71108f5e">hmi::AssetGalleryEntry::footprintRows</a></div><div class="ttdeci">int footprintRows</div><div class="ttdef"><b>Definition</b> AssetGallery.h:55</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html_adf7e8c24be7133b4d9ece6f76e3b42ec"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html#adf7e8c24be7133b4d9ece6f76e3b42ec">hmi::AssetGalleryEntry::footprintColumns</a></div><div class="ttdeci">int footprintColumns</div><div class="ttdoc">Emprise au sol, en cases.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:54</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryEntry_html_af740fc7a10a896e3d600ab11ca70a91c"><div class="ttname"><a href="structhmi_1_1AssetGalleryEntry.html#af740fc7a10a896e3d600ab11ca70a91c">hmi::AssetGalleryEntry::form</a></div><div class="ttdeci">std::string form</div><div class="ttdoc">La forme : une colonne (« attack », « street-2 », « 06 »).</div><div class="ttdef"><b>Definition</b> AssetGallery.h:41</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryFamily_html"><div class="ttname"><a href="structhmi_1_1AssetGalleryFamily.html">hmi::AssetGalleryFamily</a></div><div class="ttdoc">Une famille : une bande de la galerie.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:67</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryFamily_html_a24f0dce792fdc8e9aca64a28809896b2"><div class="ttname"><a href="structhmi_1_1AssetGalleryFamily.html#a24f0dce792fdc8e9aca64a28809896b2">hmi::AssetGalleryFamily::title</a></div><div class="ttdeci">std::string title</div><div class="ttdef"><b>Definition</b> AssetGallery.h:68</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryFamily_html_ad51a9bc820c4486dd231ce4049e8dd44"><div class="ttname"><a href="structhmi_1_1AssetGalleryFamily.html#ad51a9bc820c4486dd231ce4049e8dd44">hmi::AssetGalleryFamily::directory</a></div><div class="ttdeci">std::string directory</div><div class="ttdoc">Dossier lu, relatif à la racine des assets.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:70</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryFamily_html_ad94a3d29cf1da4283ca2c329a809952d"><div class="ttname"><a href="structhmi_1_1AssetGalleryFamily.html#ad94a3d29cf1da4283ca2c329a809952d">hmi::AssetGalleryFamily::entries</a></div><div class="ttdeci">std::vector&lt; AssetGalleryEntry &gt; entries</div><div class="ttdef"><b>Definition</b> AssetGallery.h:71</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryLayout_html"><div class="ttname"><a href="structhmi_1_1AssetGalleryLayout.html">hmi::AssetGalleryLayout</a></div><div class="ttdoc">La galerie disposée : bandes, puis une ligne par modèle, une colonne par forme.</div><div class="ttdef"><b>Definition</b> AssetGallery.h:145</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryLayout_html_a040db25ad4e541a21fe8ff230b2bafff"><div class="ttname"><a href="structhmi_1_1AssetGalleryLayout.html#a040db25ad4e541a21fe8ff230b2bafff">hmi::AssetGalleryLayout::blocs</a></div><div class="ttdeci">std::vector&lt; AssetGalleryBloc &gt; blocs</div><div class="ttdef"><b>Definition</b> AssetGallery.h:146</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryLayout_html_a31128d74292439b3b6540562810157b8"><div class="ttname"><a href="structhmi_1_1AssetGalleryLayout.html#a31128d74292439b3b6540562810157b8">hmi::AssetGalleryLayout::rows</a></div><div class="ttdeci">int rows</div><div class="ttdef"><b>Definition</b> AssetGallery.h:149</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryLayout_html_aa7ab706ffe1c88ffeb248ea0b31528fd"><div class="ttname"><a href="structhmi_1_1AssetGalleryLayout.html#aa7ab706ffe1c88ffeb248ea0b31528fd">hmi::AssetGalleryLayout::bands</a></div><div class="ttdeci">std::vector&lt; AssetGalleryBand &gt; bands</div><div class="ttdef"><b>Definition</b> AssetGallery.h:147</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryLayout_html_ab280f9a3b8d6a834e9e974444de6fba0"><div class="ttname"><a href="structhmi_1_1AssetGalleryLayout.html#ab280f9a3b8d6a834e9e974444de6fba0">hmi::AssetGalleryLayout::columns</a></div><div class="ttdeci">int columns</div><div class="ttdef"><b>Definition</b> AssetGallery.h:148</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryView_html"><div class="ttname"><a href="structhmi_1_1AssetGalleryView.html">hmi::AssetGalleryView</a></div><div class="ttdoc">Un rectangle en cases (flottantes).</div><div class="ttdef"><b>Definition</b> AssetGallery.h:173</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryView_html_a22e978c7cdbb28a899616c9197443943"><div class="ttname"><a href="structhmi_1_1AssetGalleryView.html#a22e978c7cdbb28a899616c9197443943">hmi::AssetGalleryView::column</a></div><div class="ttdeci">double column</div><div class="ttdef"><b>Definition</b> AssetGallery.h:174</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryView_html_a3dd4f7256286afa21aba7d538bfb22ef"><div class="ttname"><a href="structhmi_1_1AssetGalleryView.html#a3dd4f7256286afa21aba7d538bfb22ef">hmi::AssetGalleryView::rows</a></div><div class="ttdeci">double rows</div><div class="ttdef"><b>Definition</b> AssetGallery.h:177</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryView_html_a469be37cf924ea47a971af707678bf75"><div class="ttname"><a href="structhmi_1_1AssetGalleryView.html#a469be37cf924ea47a971af707678bf75">hmi::AssetGalleryView::row</a></div><div class="ttdeci">double row</div><div class="ttdef"><b>Definition</b> AssetGallery.h:175</div></div>
+<div class="ttc" id="astructhmi_1_1AssetGalleryView_html_a615619e6cfd86c5092f5598dbcefbe19"><div class="ttname"><a href="structhmi_1_1AssetGalleryView.html#a615619e6cfd86c5092f5598dbcefbe19">hmi::AssetGalleryView::columns</a></div><div class="ttdeci">double columns</div><div class="ttdef"><b>Definition</b> AssetGallery.h:176</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="AssetGallery_8h.html">AssetGallery.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

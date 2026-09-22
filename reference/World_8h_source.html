@@ -1,0 +1,291 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Ecs/World.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('World_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">World.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="World_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;typeindex&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="Assert_8h.html">Core/Diagnostics/Assert.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="ComponentPool_8h.html">Core/Ecs/ComponentPool.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="Entity_8h.html">Core/Ecs/Entity.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="EntityManager_8h.html">Core/Ecs/EntityManager.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="ISystem_8h.html">Core/Ecs/ISystem.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="View_8h.html">Core/Ecs/View.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span></div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classcore_1_1World.html">   35</a></span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1World.html">World</a> {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    [[nodiscard]] <a class="code hl_struct" href="structcore_1_1Entity.html">Entity</a> <a class="code hl_function" href="classcore_1_1World.html#ac19f665091a4c3bea7ba8f314fc0d502">createEntity</a>();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1World.html#a3f7bff9ce2069d73f341d6726a793885">destroyEntity</a>(<a class="code hl_struct" href="structcore_1_1Entity.html">Entity</a> entity);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1World.html#a1cbcfaf8115bb885cccea7ca60fc3a9f">isAlive</a>(<a class="code hl_struct" href="structcore_1_1Entity.html">Entity</a> entity) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00063" data-start="{" data-end="}">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classcore_1_1World.html#a8d6c4837c7d7b99e416d780f0f626095">   63</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1World.html#a8d6c4837c7d7b99e416d780f0f626095">addComponent</a>(<a class="code hl_struct" href="structcore_1_1Entity.html">Entity</a> entity, <span class="keyword">const</span> T&amp; component) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <a class="code hl_define" href="Assert_8h.html#a2811f3d423b22f1a90179b4ed095f054">JADG_ASSERT</a>(<a class="code hl_function" href="classcore_1_1World.html#a1cbcfaf8115bb885cccea7ca60fc3a9f">isAlive</a>(entity), <span class="stringliteral">&quot;Ajout d&#39;un composant sur une entite morte.&quot;</span>);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <a class="code hl_function" href="classcore_1_1World.html#a5d524864277691a7419b5268d4c53449">poolFor&lt;T&gt;</a>().add(entity, component);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    }</div>
+</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classcore_1_1World.html#a89409118ee9ad14b7aeb404b0e844c04">   75</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1World.html#a89409118ee9ad14b7aeb404b0e844c04">hasComponent</a>(<a class="code hl_struct" href="structcore_1_1Entity.html">Entity</a> entity)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1ComponentPool.html">ComponentPool&lt;T&gt;</a>* pool = <a class="code hl_function" href="classcore_1_1World.html#a83f903df9110e847a0c48d5ffad567e1">findPool&lt;T&gt;</a>();</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">return</span> pool != <span class="keyword">nullptr</span> &amp;&amp; pool-&gt;<a class="code hl_function" href="classcore_1_1ComponentPool.html#aa6399864a2dc32b2625103a46c0ce6b8">has</a>(entity);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    }</div>
+</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00088" data-start="{" data-end="}">
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="classcore_1_1World.html#ad309a6878e57a98c201d168571da20dd">   88</a></span>    [[nodiscard]] T&amp; <a class="code hl_function" href="classcore_1_1World.html#ad309a6878e57a98c201d168571da20dd">getComponent</a>(<a class="code hl_struct" href="structcore_1_1Entity.html">Entity</a> entity) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <a class="code hl_define" href="Assert_8h.html#a2811f3d423b22f1a90179b4ed095f054">JADG_ASSERT</a>(<a class="code hl_function" href="classcore_1_1World.html#a89409118ee9ad14b7aeb404b0e844c04">hasComponent&lt;T&gt;</a>(entity), <span class="stringliteral">&quot;L&#39;entite ne possede pas ce composant.&quot;</span>);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classcore_1_1World.html#a5d524864277691a7419b5268d4c53449">poolFor&lt;T&gt;</a>().get(entity);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
+</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00100" data-start="{" data-end="}">
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="classcore_1_1World.html#acee09d7b00169a19e1bd2d9247b6bce5">  100</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1World.html#acee09d7b00169a19e1bd2d9247b6bce5">removeComponent</a>(<a class="code hl_struct" href="structcore_1_1Entity.html">Entity</a> entity) {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <a class="code hl_define" href="Assert_8h.html#a2811f3d423b22f1a90179b4ed095f054">JADG_ASSERT</a>(<a class="code hl_function" href="classcore_1_1World.html#a89409118ee9ad14b7aeb404b0e844c04">hasComponent&lt;T&gt;</a>(entity), <span class="stringliteral">&quot;L&#39;entite ne possede pas ce composant.&quot;</span>);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <a class="code hl_function" href="classcore_1_1World.html#a5d524864277691a7419b5268d4c53449">poolFor&lt;T&gt;</a>().remove(entity);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    }</div>
+</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Components&gt;</div>
+<div class="foldopen" id="foldopen00111" data-start="{" data-end="}">
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="classcore_1_1World.html#a757ed4615ee46be5535229c3a4555eb8">  111</a></span>    [[nodiscard]] <a class="code hl_class" href="classcore_1_1View.html">View</a>&lt;Components...&gt; <a class="code hl_function" href="classcore_1_1World.html#a757ed4615ee46be5535229c3a4555eb8">view</a>() {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classcore_1_1View.html">View</a>&lt;Components...&gt;(<a class="code hl_function" href="classcore_1_1World.html#a5d524864277691a7419b5268d4c53449">poolFor&lt;Components&gt;</a>()...);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
+</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1World.html#a1d131cad0324faf0dd0fd8b8ec322568">addSystem</a>(std::unique_ptr&lt;ISystem&gt; system);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1World.html#a8f9461b813faa6de969b2b6ed4b76251">update</a>(<span class="keywordtype">float</span> fixedDelta);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    [[nodiscard]] std::size_t <a class="code hl_function" href="classcore_1_1World.html#ad3b759b0967b0ca1a82f3462281a278d">systemCount</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="classcore_1_1World.html#a5d524864277691a7419b5268d4c53449">  137</a></span>    <a class="code hl_class" href="classcore_1_1ComponentPool.html">ComponentPool&lt;T&gt;</a>&amp; <a class="code hl_function" href="classcore_1_1World.html#a5d524864277691a7419b5268d4c53449">poolFor</a>() {</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="keyword">const</span> std::type_index key(<span class="keyword">typeid</span>(T));</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keyword">auto</span> iterator = <a class="code hl_variable" href="classcore_1_1World.html#a7c2a50e604bff2933087c3213650ca86">_pools</a>.find(key);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="keywordflow">if</span> (iterator == <a class="code hl_variable" href="classcore_1_1World.html#a7c2a50e604bff2933087c3213650ca86">_pools</a>.end()) {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>            iterator = <a class="code hl_variable" href="classcore_1_1World.html#a7c2a50e604bff2933087c3213650ca86">_pools</a>.emplace(key, std::make_unique&lt;<a class="code hl_class" href="classcore_1_1ComponentPool.html">ComponentPool&lt;T&gt;</a>&gt;()).first;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        }</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keywordflow">return</span> *<span class="keyword">static_cast&lt;</span><a class="code hl_class" href="classcore_1_1ComponentPool.html">ComponentPool&lt;T&gt;</a>*<span class="keyword">&gt;</span>(iterator-&gt;second.get());</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    }</div>
+</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00152" data-start="{" data-end="}">
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="classcore_1_1World.html#a83f903df9110e847a0c48d5ffad567e1">  152</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1ComponentPool.html">ComponentPool&lt;T&gt;</a>* <a class="code hl_function" href="classcore_1_1World.html#a83f903df9110e847a0c48d5ffad567e1">findPool</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keyword">const</span> <span class="keyword">auto</span> iterator = <a class="code hl_variable" href="classcore_1_1World.html#a7c2a50e604bff2933087c3213650ca86">_pools</a>.find(std::type_index(<span class="keyword">typeid</span>(T)));</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <span class="keywordflow">if</span> (iterator == <a class="code hl_variable" href="classcore_1_1World.html#a7c2a50e604bff2933087c3213650ca86">_pools</a>.end()) {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        }</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="classcore_1_1ComponentPool.html">ComponentPool&lt;T&gt;</a>*<span class="keyword">&gt;</span>(iterator-&gt;second.get());</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    }</div>
+</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="classcore_1_1World.html#a2966120779e3a66dca375a13fc4595a2">  161</a></span>    <a class="code hl_class" href="classcore_1_1EntityManager.html">EntityManager</a> <a class="code hl_variable" href="classcore_1_1World.html#a2966120779e3a66dca375a13fc4595a2">_entities</a>;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="classcore_1_1World.html#a7c2a50e604bff2933087c3213650ca86">  163</a></span>    std::unordered_map&lt;std::type_index, std::unique_ptr&lt;IComponentPool&gt;&gt; <a class="code hl_variable" href="classcore_1_1World.html#a7c2a50e604bff2933087c3213650ca86">_pools</a>;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="classcore_1_1World.html#a6727aa6a37f820c7ae6d7555c27d55a1">  165</a></span>    std::vector&lt;std::unique_ptr&lt;ISystem&gt;&gt; <a class="code hl_variable" href="classcore_1_1World.html#a6727aa6a37f820c7ae6d7555c27d55a1">_systems</a>;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>};</div>
+</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aAssert_8h_html"><div class="ttname"><a href="Assert_8h.html">Assert.h</a></div><div class="ttdoc">Assertions du projet : vérifient préconditions et invariants (bugs).</div></div>
+<div class="ttc" id="aAssert_8h_html_a2811f3d423b22f1a90179b4ed095f054"><div class="ttname"><a href="Assert_8h.html#a2811f3d423b22f1a90179b4ed095f054">JADG_ASSERT</a></div><div class="ttdeci">#define JADG_ASSERT(condition, message)</div><div class="ttdoc">Vérifie une précondition.</div><div class="ttdef"><b>Definition</b> Assert.h:49</div></div>
+<div class="ttc" id="aComponentPool_8h_html"><div class="ttname"><a href="ComponentPool_8h.html">ComponentPool.h</a></div><div class="ttdoc">Stockage typé des composants d&#39;un ECS sous forme de sparse set.</div></div>
+<div class="ttc" id="aEntityManager_8h_html"><div class="ttname"><a href="EntityManager_8h.html">EntityManager.h</a></div><div class="ttdoc">Gestionnaire du cycle de vie des entités (création, destruction, recyclage).</div></div>
+<div class="ttc" id="aEntity_8h_html"><div class="ttname"><a href="Entity_8h.html">Entity.h</a></div><div class="ttdoc">Identifiant d&#39;entité de l&#39;ECS : handle générationnel (index + génération).</div></div>
+<div class="ttc" id="aISystem_8h_html"><div class="ttname"><a href="ISystem_8h.html">ISystem.h</a></div><div class="ttdoc">Interface d&#39;un système de l&#39;ECS : logique exécutée au pas de temps fixe.</div></div>
+<div class="ttc" id="aView_8h_html"><div class="ttname"><a href="View_8h.html">View.h</a></div><div class="ttdoc">Vue multi-composants : itère les entités possédant un ensemble de types.</div></div>
+<div class="ttc" id="aclasscore_1_1ComponentPool_html"><div class="ttname"><a href="classcore_1_1ComponentPool.html">core::ComponentPool</a></div><div class="ttdoc">Stockage dense des composants d&#39;un type T, indexé par entité (sparse set).</div><div class="ttdef"><b>Definition</b> ComponentPool.h:61</div></div>
+<div class="ttc" id="aclasscore_1_1ComponentPool_html_aa6399864a2dc32b2625103a46c0ce6b8"><div class="ttname"><a href="classcore_1_1ComponentPool.html#aa6399864a2dc32b2625103a46c0ce6b8">core::ComponentPool::has</a></div><div class="ttdeci">bool has(Entity entity) const</div><div class="ttdoc">Indique si une entité possède un composant de ce type.</div><div class="ttdef"><b>Definition</b> ComponentPool.h:122</div></div>
+<div class="ttc" id="aclasscore_1_1EntityManager_html"><div class="ttname"><a href="classcore_1_1EntityManager.html">core::EntityManager</a></div><div class="ttdoc">Crée, détruit et valide les entités de l&#39;ECS.</div><div class="ttdef"><b>Definition</b> EntityManager.h:30</div></div>
+<div class="ttc" id="aclasscore_1_1View_html"><div class="ttname"><a href="classcore_1_1View.html">core::View</a></div><div class="ttdoc">Sélection en lecture-écriture des entités possédant tous les composants demandés.</div><div class="ttdef"><b>Definition</b> View.h:47</div></div>
+<div class="ttc" id="aclasscore_1_1World_html"><div class="ttname"><a href="classcore_1_1World.html">core::World</a></div><div class="ttdoc">Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.</div><div class="ttdef"><b>Definition</b> World.h:35</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_a1cbcfaf8115bb885cccea7ca60fc3a9f"><div class="ttname"><a href="classcore_1_1World.html#a1cbcfaf8115bb885cccea7ca60fc3a9f">core::World::isAlive</a></div><div class="ttdeci">bool isAlive(Entity entity) const</div><div class="ttdoc">Indique si une entité est vivante.</div><div class="ttdef"><b>Definition</b> World.cpp:36</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_a1d131cad0324faf0dd0fd8b8ec322568"><div class="ttname"><a href="classcore_1_1World.html#a1d131cad0324faf0dd0fd8b8ec322568">core::World::addSystem</a></div><div class="ttdeci">void addSystem(std::unique_ptr&lt; ISystem &gt; system)</div><div class="ttdoc">Enregistre un système ; l&#39;ordre d&#39;enregistrement fixe l&#39;ordre d&#39;exécution.</div><div class="ttdef"><b>Definition</b> World.cpp:41</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_a2966120779e3a66dca375a13fc4595a2"><div class="ttname"><a href="classcore_1_1World.html#a2966120779e3a66dca375a13fc4595a2">core::World::_entities</a></div><div class="ttdeci">EntityManager _entities</div><div class="ttdoc">Cycle de vie des entités.</div><div class="ttdef"><b>Definition</b> World.h:161</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_a3f7bff9ce2069d73f341d6726a793885"><div class="ttname"><a href="classcore_1_1World.html#a3f7bff9ce2069d73f341d6726a793885">core::World::destroyEntity</a></div><div class="ttdeci">void destroyEntity(Entity entity)</div><div class="ttdoc">Détruit une entité et retire ses composants de toutes les pools.</div><div class="ttdef"><b>Definition</b> World.cpp:20</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_a5d524864277691a7419b5268d4c53449"><div class="ttname"><a href="classcore_1_1World.html#a5d524864277691a7419b5268d4c53449">core::World::poolFor</a></div><div class="ttdeci">ComponentPool&lt; T &gt; &amp; poolFor()</div><div class="ttdoc">Récupère la pool du type T, en la créant à la première demande.</div><div class="ttdef"><b>Definition</b> World.h:137</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_a6727aa6a37f820c7ae6d7555c27d55a1"><div class="ttname"><a href="classcore_1_1World.html#a6727aa6a37f820c7ae6d7555c27d55a1">core::World::_systems</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; ISystem &gt; &gt; _systems</div><div class="ttdoc">Systèmes enregistrés, exécutés dans l&#39;ordre d&#39;insertion.</div><div class="ttdef"><b>Definition</b> World.h:165</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_a757ed4615ee46be5535229c3a4555eb8"><div class="ttname"><a href="classcore_1_1World.html#a757ed4615ee46be5535229c3a4555eb8">core::World::view</a></div><div class="ttdeci">View&lt; Components... &gt; view()</div><div class="ttdoc">Construit une vue sur les entités possédant tous les composants demandés.</div><div class="ttdef"><b>Definition</b> World.h:111</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_a7c2a50e604bff2933087c3213650ca86"><div class="ttname"><a href="classcore_1_1World.html#a7c2a50e604bff2933087c3213650ca86">core::World::_pools</a></div><div class="ttdeci">std::unordered_map&lt; std::type_index, std::unique_ptr&lt; IComponentPool &gt; &gt; _pools</div><div class="ttdoc">Pools de composants, une par type (clé = type du composant).</div><div class="ttdef"><b>Definition</b> World.h:163</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_a83f903df9110e847a0c48d5ffad567e1"><div class="ttname"><a href="classcore_1_1World.html#a83f903df9110e847a0c48d5ffad567e1">core::World::findPool</a></div><div class="ttdeci">const ComponentPool&lt; T &gt; * findPool() const</div><div class="ttdoc">Récupère la pool du type T sans la créer.</div><div class="ttdef"><b>Definition</b> World.h:152</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_a89409118ee9ad14b7aeb404b0e844c04"><div class="ttname"><a href="classcore_1_1World.html#a89409118ee9ad14b7aeb404b0e844c04">core::World::hasComponent</a></div><div class="ttdeci">bool hasComponent(Entity entity) const</div><div class="ttdoc">Indique si une entité possède un composant d&#39;un type donné.</div><div class="ttdef"><b>Definition</b> World.h:75</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_a8d6c4837c7d7b99e416d780f0f626095"><div class="ttname"><a href="classcore_1_1World.html#a8d6c4837c7d7b99e416d780f0f626095">core::World::addComponent</a></div><div class="ttdeci">void addComponent(Entity entity, const T &amp;component)</div><div class="ttdoc">Attache un composant à une entité.</div><div class="ttdef"><b>Definition</b> World.h:63</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_a8f9461b813faa6de969b2b6ed4b76251"><div class="ttname"><a href="classcore_1_1World.html#a8f9461b813faa6de969b2b6ed4b76251">core::World::update</a></div><div class="ttdeci">void update(float fixedDelta)</div><div class="ttdoc">Exécute tous les systèmes enregistrés, dans l&#39;ordre, pour un pas fixe.</div><div class="ttdef"><b>Definition</b> World.cpp:47</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_ac19f665091a4c3bea7ba8f314fc0d502"><div class="ttname"><a href="classcore_1_1World.html#ac19f665091a4c3bea7ba8f314fc0d502">core::World::createEntity</a></div><div class="ttdeci">Entity createEntity()</div><div class="ttdoc">Crée une nouvelle entité vivante.</div><div class="ttdef"><b>Definition</b> World.cpp:15</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_acee09d7b00169a19e1bd2d9247b6bce5"><div class="ttname"><a href="classcore_1_1World.html#acee09d7b00169a19e1bd2d9247b6bce5">core::World::removeComponent</a></div><div class="ttdeci">void removeComponent(Entity entity)</div><div class="ttdoc">Retire le composant d&#39;un type donné d&#39;une entité.</div><div class="ttdef"><b>Definition</b> World.h:100</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_ad309a6878e57a98c201d168571da20dd"><div class="ttname"><a href="classcore_1_1World.html#ad309a6878e57a98c201d168571da20dd">core::World::getComponent</a></div><div class="ttdeci">T &amp; getComponent(Entity entity)</div><div class="ttdoc">Accède au composant d&#39;une entité (lecture-écriture).</div><div class="ttdef"><b>Definition</b> World.h:88</div></div>
+<div class="ttc" id="aclasscore_1_1World_html_ad3b759b0967b0ca1a82f3462281a278d"><div class="ttname"><a href="classcore_1_1World.html#ad3b759b0967b0ca1a82f3462281a278d">core::World::systemCount</a></div><div class="ttdeci">std::size_t systemCount() const</div><div class="ttdef"><b>Definition</b> World.cpp:56</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="astructcore_1_1Entity_html"><div class="ttname"><a href="structcore_1_1Entity.html">core::Entity</a></div><div class="ttdoc">Handle générationnel identifiant une entité de l&#39;ECS.</div><div class="ttdef"><b>Definition</b> Entity.h:24</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_325a358025a8d638670f455ca6f10aa9.html">Ecs</a></li><li class="navelem"><a href="World_8h.html">World.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

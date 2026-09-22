@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOT-02 — Bibliothèque `HmiLib` — Planification</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="index.html" class="active">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="../standards/index.html">Standards</a></nav>
+  <div class="links"><a href="../../">Documentation</a><a class="active" href="../index.html">Planification</a><a href="../../qualite/">Qualité</a></div>
+</header>
+<div class="shell">
+
+<main>
+<p class="crumb"><a href="index.html">Lots</a> › <a href="../versions/v0-0-0.html">0.0.0 — Fondation du moteur</a></p><h1><span class="vid">LOT-02</span> Bibliothèque `HmiLib`</h1><p class="lede">La couche de présentation sans Qt Widgets devient une bibliothèque liée par l'application comme par les tests, et ses sources ne se relistent plus à deux endroits.</p><dl class="facts"><div><dt>État</dt><dd><span class="badge etat-livre">livré</span></dd></div><div><dt>Filière</dt><dd><span class="filiere f-moteur">Moteur</span></dd></div><div><dt>Taille</dt><dd>S</dd></div><div><dt>Ordre calculé</dt><dd>—</dd></div><div><dt>Prérequis</dt><dd><a class="ref" href="lot-01.html">LOT-01</a></dd></div><div><dt>Débloque</dt><dd><a class="ref" href="lot-03.html">LOT-03</a> <a class="ref" href="lot-05.html">LOT-05</a></dd></div><div><dt>Reprend</dt><dd>—</dd></div></dl><section><h2>Livrables</h2><ul class=""><li><code>add_library(HmiLib STATIC …)</code> dans <code>Source/HMI/CMakeLists.txt</code>, avec les 80 sources sans Qt, déclarée <strong>avant</strong> <code>option(BUILD_EDITOR_QT)</code>.</li><li>L'exécutable perd ces 80 sources de sa liste et lie <code>HmiLib</code>.</li><li><code>Source/Test/CMakeLists.txt</code> perd les 79 chemins <code>../HMI/…</code> relistés et lie <code>HmiLib</code> ; seules les quatre sources dépendantes de Qt restent conditionnelles.</li><li>Exigences <code>EX-ARCH-*</code> et <code>EX-BUILD-*</code> nouvelles sur la bibliothèque de présentation sans Qt Widgets.</li></ul></section><section><h2>Critères d'acceptation</h2><ul class="checks"><li><code>Source/Test/CMakeLists.txt</code> ne contient plus que les <strong>quatre</strong> chemins <code>../HMI/…</code> conditionnels à Qt.</li><li>Build complet sans avertissement en <code>/W4 /WX</code> ; tests intégralement verts, <strong>sans modification du corps d'un seul test</strong> (refactoring à comportement constant).</li><li><code>cmake --preset vs -DBUILD_EDITOR_QT=OFF</code> configure et construit les tests seuls.</li></ul></section><section class="prose"><h2 id="pourquoi">Pourquoi</h2>
+<p>Faire de la couche de présentation <strong>sans Qt Widgets</strong> une bibliothèque, liée par l'application comme par les tests, pour cesser de relister ses sources à deux endroits.</p>
+<h3 id="le-problème">Le problème</h3>
+<p><code>Source/HMI</code> était un <code>add_executable</code>. Conséquence : <code>Source/Test/CMakeLists.txt</code> relistait <strong>79 chemins <code>../HMI/…</code></strong> pour recompiler ces sources dans <code>UnitTests</code>. Chaque fichier ajouté à l'IHM devait l'être <strong>deux fois</strong>, et un oubli ne se voyait qu'à l'édition de liens. Le RPG va ajouter des dizaines de fichiers (règles, dialogues, inventaire, IHM de combat) : la dette doublait à chaque lot.</p>
+<h2 id="périmètre">Périmètre</h2>
+<ul><li><code>add_library(HmiLib STATIC …)</code> avec les 80 sources sans Qt (<code>Graphics/</code> sans GPU, <code>Input/</code> sans le pont Qt, <code>Localization/</code>, <code>Diagnostics/</code>, <code>Audio/</code> hors moteur, <code>Game/</code> hors viewport, <code>Editor/</code> logique pure, <code>Interface/</code> hors widgets, <code>Platform/</code>), déclarée <strong>avant</strong> <code>option(BUILD_EDITOR_QT)</code>.</li><li>Racine d'inclusion <code>Source/</code>, <code>Core</code> et <code>nlohmann_json</code> propagés en <code>PUBLIC</code> : les consommateurs n'ont plus à les redemander. <code>project_warnings</code>/<code>project_options</code> restent <code>PRIVATE</code>.</li><li>L'exécutable perd ces 80 sources de sa liste et lie <code>HmiLib</code>.</li><li><code>UnitTests</code> perd les 79 chemins relistés et lie <code>HmiLib</code>. Les <strong>quatre</strong> sources qui dépendent de Qt (<code>QtKeyMap</code>, <code>TextureLoader</code>, <code>SpriteBatch</code>, <code>AudioEngine</code>) restent ajoutées conditionnellement, comme aujourd'hui.</li></ul>
+<h2 id="conception">Conception</h2>
+<h3 id="le-découpage-retenu-et-pourquoi-il-nest-pas-une-seule-hmilib">Le découpage retenu — et pourquoi il n'est pas « une seule <code>HmiLib</code> »</h3>
+<p>Le réflexe est de mettre <strong>tout</strong> <code>HMI</code> dans une bibliothèque. C'est faux ici, pour deux raisons que le projet maintenait déjà à la main dans des commentaires :</p>
+<ol><li><strong><code>UnitTests</code> ne lie pas <code>Qt6::Widgets</code>.</strong> Il compile délibérément un sous-ensemble de logique pure (géométrie de caméra, composition de scène sans GPU, catalogues, gestes d'éditeur) et n'instancie jamais de <code>QApplication</code>. Une bibliothèque monolithique le forcerait à lier toute l'IHM.</li><li><strong><code>Source/HMI/CMakeLists.txt</code> sort tôt (<code>return()</code>) sans Qt</strong>, et c'est délibéré : <code>-DBUILD_EDITOR_QT=OFF</code> doit continuer de construire les tests seuls. Une bibliothèque déclarée après cette garde n'existerait pas dans ce cas.</li></ol>
+<p>D'où : <strong><code>HmiLib</code> porte le sous-ensemble sans Qt</strong>, et est déclarée <strong>avant</strong> la garde. Ce n'est pas qu'une déduplication — cela <strong>nomme</strong> une frontière que le projet documentait jusqu'ici en prose, fichier par fichier.</p>
+<h2 id="risques-et-questions-ouvertes">Risques et questions ouvertes</h2>
+<p>Points de vigilance :</p>
+<ul><li><strong>AUTOMOC</strong> : <code>set(CMAKE_AUTOMOC ON)</code> intervient plus bas dans le fichier ; <code>HmiLib</code> est donc compilée sans moc. C'est correct — aucune de ces sources n'a de <code>Q_OBJECT</code> (c'est précisément ce qui les rendait compilables dans les tests). Toute source ajoutée à <code>HmiLib</code> doit respecter cette règle.</li><li><strong>Ressources Qt</strong> (<code>qt6_add_shaders</code>, <code>.ui</code>) : elles restent sur l'exécutable. Les embarquer dans une bibliothèque <strong>statique</strong> exposerait au rejet des objets par l'éditeur de liens (une ressource que rien ne référence est écartée) — problème classique, inutile de l'affronter ici.</li><li>Ne pas transformer <code>HmiLib</code> en fourre-tout : un fichier qui a besoin de <code>QWidget</code> appartient à l'exécutable, pas à la bibliothèque.</li></ul>
+<h2 id="exigences-couvertes">Exigences couvertes</h2>
+<p><code>EX-ARCH-*</code> et <code>EX-BUILD-*</code> nouvelles : « la couche de présentation sans Qt Widgets est une bibliothèque, liée par l'application et par les tests ».</p>
+<h2 id="bilan">Bilan</h2>
+<p>Statut écrit dans l'epic d'origine : <strong>en cours</strong> — l'epic n'a jamais été mis à jour. La bibliothèque <code>HmiLib</code> existe bien dans <code>Source/HMI/CMakeLists.txt</code> et tous les lots suivants la lient : le lot est tenu pour livré.</p></section><p class="source">Source : <code>Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-02-hmilib.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::LineQuad Struct Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('structhmi_1_1LineQuad.html','','structhmi_1_1LineQuad-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::LineQuad Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Un segment épais à dessiner : deux extrémités en <b>unités monde</b>, une épaisseur (perpendiculaire au segment, unités monde) et une teinte.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Quad_8h_source.html">Quad.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ab5c2f6803c2cdae87e0b50d4eb8589c1" id="r_ab5c2f6803c2cdae87e0b50d4eb8589c1"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ab5c2f6803c2cdae87e0b50d4eb8589c1">ax</a> = 0.0f</td></tr>
+<tr class="memitem:aa9e7c817ab1c5e01364faed685182a69" id="r_aa9e7c817ab1c5e01364faed685182a69"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aa9e7c817ab1c5e01364faed685182a69">ay</a> = 0.0f</td></tr>
+<tr class="memitem:a203b268e3040f841fa7089fc58391d22" id="r_a203b268e3040f841fa7089fc58391d22"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a203b268e3040f841fa7089fc58391d22">bx</a> = 0.0f</td></tr>
+<tr class="memitem:aea263b042537c77e3ffbebe64b772a27" id="r_aea263b042537c77e3ffbebe64b772a27"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aea263b042537c77e3ffbebe64b772a27">by</a> = 0.0f</td></tr>
+<tr class="memitem:abe3bbbecb8fc8b1aaedba4a5d4eeaef5" id="r_abe3bbbecb8fc8b1aaedba4a5d4eeaef5"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#abe3bbbecb8fc8b1aaedba4a5d4eeaef5">thickness</a> = 0.0f</td></tr>
+<tr class="memitem:a36cec5d0917abbf7313ebe7e059f20fd" id="r_a36cec5d0917abbf7313ebe7e059f20fd"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a36cec5d0917abbf7313ebe7e059f20fd">u0</a> = 0.0f</td></tr>
+<tr class="memitem:accaf53500d04a45aea0c4c8823a01703" id="r_accaf53500d04a45aea0c4c8823a01703"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#accaf53500d04a45aea0c4c8823a01703">v0</a> = 0.0f</td></tr>
+<tr class="memitem:a8ee645003394a0b35bbfb03fbc068f76" id="r_a8ee645003394a0b35bbfb03fbc068f76"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a8ee645003394a0b35bbfb03fbc068f76">u1</a> = 1.0f</td></tr>
+<tr class="memitem:afded7a4914c8964639fdb73b43c6c339" id="r_afded7a4914c8964639fdb73b43c6c339"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#afded7a4914c8964639fdb73b43c6c339">v1</a> = 1.0f</td></tr>
+<tr class="memitem:ae8956cc31b9497667597dc2cec9e99eb" id="r_ae8956cc31b9497667597dc2cec9e99eb"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ae8956cc31b9497667597dc2cec9e99eb">r</a> = 1.0f</td></tr>
+<tr class="memitem:aefba068b1c39d1610195001056375563" id="r_aefba068b1c39d1610195001056375563"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aefba068b1c39d1610195001056375563">g</a> = 1.0f</td></tr>
+<tr class="memitem:a3904c153631f4c3fe5df167a2f7c45a8" id="r_a3904c153631f4c3fe5df167a2f7c45a8"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a3904c153631f4c3fe5df167a2f7c45a8">b</a> = 1.0f</td></tr>
+<tr class="memitem:ad66407e74212988ac419a0bfe1472806" id="r_ad66407e74212988ac419a0bfe1472806"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ad66407e74212988ac419a0bfe1472806">a</a> = 1.0f</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Un segment épais à dessiner : deux extrémités en <b>unités monde</b>, une épaisseur (perpendiculaire au segment, unités monde) et une teinte. </p>
+<p>Contrairement à <span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">SpriteQuad</a></span> (rectangle toujours aligné aux axes), ce quad peut être <b>orienté</b> dans n'importe quelle direction — utilisé pour les liens de mécanismes (flèches déclencheur → cible). Mêmes conventions que <span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">SpriteQuad</a></span> (Y vers le bas, UV normalisées). </p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ad66407e74212988ac419a0bfe1472806" name="ad66407e74212988ac419a0bfe1472806"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad66407e74212988ac419a0bfe1472806">&#9670;&#160;</a></span>a</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::LineQuad::a = 1.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab5c2f6803c2cdae87e0b50d4eb8589c1" name="ab5c2f6803c2cdae87e0b50d4eb8589c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5c2f6803c2cdae87e0b50d4eb8589c1">&#9670;&#160;</a></span>ax</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::LineQuad::ax = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa9e7c817ab1c5e01364faed685182a69" name="aa9e7c817ab1c5e01364faed685182a69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9e7c817ab1c5e01364faed685182a69">&#9670;&#160;</a></span>ay</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::LineQuad::ay = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3904c153631f4c3fe5df167a2f7c45a8" name="a3904c153631f4c3fe5df167a2f7c45a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3904c153631f4c3fe5df167a2f7c45a8">&#9670;&#160;</a></span>b</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::LineQuad::b = 1.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a203b268e3040f841fa7089fc58391d22" name="a203b268e3040f841fa7089fc58391d22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a203b268e3040f841fa7089fc58391d22">&#9670;&#160;</a></span>bx</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::LineQuad::bx = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aea263b042537c77e3ffbebe64b772a27" name="aea263b042537c77e3ffbebe64b772a27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea263b042537c77e3ffbebe64b772a27">&#9670;&#160;</a></span>by</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::LineQuad::by = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aefba068b1c39d1610195001056375563" name="aefba068b1c39d1610195001056375563"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefba068b1c39d1610195001056375563">&#9670;&#160;</a></span>g</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::LineQuad::g = 1.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae8956cc31b9497667597dc2cec9e99eb" name="ae8956cc31b9497667597dc2cec9e99eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8956cc31b9497667597dc2cec9e99eb">&#9670;&#160;</a></span>r</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::LineQuad::r = 1.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abe3bbbecb8fc8b1aaedba4a5d4eeaef5" name="abe3bbbecb8fc8b1aaedba4a5d4eeaef5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe3bbbecb8fc8b1aaedba4a5d4eeaef5">&#9670;&#160;</a></span>thickness</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::LineQuad::thickness = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a36cec5d0917abbf7313ebe7e059f20fd" name="a36cec5d0917abbf7313ebe7e059f20fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36cec5d0917abbf7313ebe7e059f20fd">&#9670;&#160;</a></span>u0</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::LineQuad::u0 = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8ee645003394a0b35bbfb03fbc068f76" name="a8ee645003394a0b35bbfb03fbc068f76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ee645003394a0b35bbfb03fbc068f76">&#9670;&#160;</a></span>u1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::LineQuad::u1 = 1.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="accaf53500d04a45aea0c4c8823a01703" name="accaf53500d04a45aea0c4c8823a01703"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accaf53500d04a45aea0c4c8823a01703">&#9670;&#160;</a></span>v0</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::LineQuad::v0 = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afded7a4914c8964639fdb73b43c6c339" name="afded7a4914c8964639fdb73b43c6c339"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afded7a4914c8964639fdb73b43c6c339">&#9670;&#160;</a></span>v1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::LineQuad::v1 = 1.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="Quad_8h_source.html">Quad.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="structhmi_1_1LineQuad.html">LineQuad</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

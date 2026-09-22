@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HMI · Presentation — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1 active" href="hmi-presentation.html">HMI · Presentation</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-credits-catalogcpp">test_credits_catalog.cpp</a><a class="toc depth-2" href="#test-inventory-screencpp">test_inventory_screen.cpp</a><a class="toc depth-2" href="#test-world-mapscpp">test_world_maps.cpp</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="hmi-presentation">HMI · Presentation</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">17 cas</span></div>
+<p>Tests unitaires — <strong>17 cas</strong> (4 critiques, 10 majeurs, 3 mineurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-credits-catalogcpp"><code>test_credits_catalog.cpp</code></a></td><td>7</td><td>-</td><td>2</td><td>4</td><td>1</td></tr><tr><td><a href="#test-inventory-screencpp"><code>test_inventory_screen.cpp</code></a></td><td>6</td><td>-</td><td>1</td><td>3</td><td>2</td></tr><tr><td><a href="#test-world-mapscpp"><code>test_world_maps.cpp</code></a></td><td>4</td><td>-</td><td>1</td><td>3</td><td>-</td></tr></tbody></table></div>
+<h2 id="test-credits-catalogcpp">test_credits_catalog.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="creditscatalogtestcreditslusdanslalanguedemandee">CreditsCatalogTest.CreditsLusDansLaLangueDemandee</h3>
+<p><em>Majeur · Unitaire · Crédits</em> — <code>Source/Test/Unit/HMI/Presentation/test_credits_catalog.cpp:44</code></p>
+<p>Les crédits se lisent dans la langue demandée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire un JSON de deux sections en anglais.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est vrai.</li><li>Vérifie que <code>result.sections.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>result.sections[0].title</code> vaut <code>&quot;Development&quot;</code>.</li><li>Vérifie que <code>result.sections[0].column</code> vaut <code>0</code>.</li><li>Vérifie que <code>result.sections[0].lines.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>result.sections[0].lines[0].role</code> vaut <code>&quot;Programming&quot;</code>.</li><li>Vérifie que <code>result.sections[0].lines[0].names</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;A&quot;, &quot;B&quot;})</code>.</li><li>Vérifie que <code>result.sections[1].column</code> vaut <code>1</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="creditscatalogtestlibellenontraduitretombesurlefrancais">CreditsCatalogTest.LibelleNonTraduitRetombeSurLeFrancais</h3>
+<p><em>Mineur · Unitaire · Crédits</em> — <code>Source/Test/Unit/HMI/Presentation/test_credits_catalog.cpp:65</code></p>
+<p>Un libellé non traduit des crédits s'affiche en français.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire en anglais une section dont le titre et le rôle n'ont que le français.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est vrai.</li><li>Vérifie que <code>result.sections[1].title</code> vaut <code>&quot;Audio&quot;</code>.</li><li>Vérifie que <code>result.sections[1].lines[0].role</code> vaut <code>&quot;Bruitages&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="creditscatalogtestnomtraduitsuitlalangue">CreditsCatalogTest.NomTraduitSuitLaLangue</h3>
+<p><em>Majeur · Unitaire · Crédits</em> — <code>Source/Test/Unit/HMI/Presentation/test_credits_catalog.cpp:81</code></p>
+<p>Une mention des crédits se traduit comme un rôle.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire en anglais une ligne dont les noms mêlent une chaîne, un libellé traduit et un libellé qui n'a que le français.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est vrai.</li><li>Vérifie que <code>result.sections[0].lines[0].names</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;Dragori Games, Inc.&quot;, &quot;Unofficial fan game&quot;, &quot;Non commercial&quot;})</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="creditscatalogtestnomillisiblerefuse">CreditsCatalogTest.NomIllisibleRefuse</h3>
+<p><em>Majeur · Unitaire · Crédits</em> — <code>Source/Test/Unit/HMI/Presentation/test_credits_catalog.cpp:103</code></p>
+<p>Un nom de crédits illisible fait échouer la lecture.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire une ligne dont un nom est un nombre, puis une autre dont un nom est un libellé vide.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::readCredits( R&quot;({&quot;sections&quot;:[{&quot;id&quot;:&quot;x&quot;,&quot;title&quot;:{&quot;fr&quot;:&quot;X&quot;},&quot;lines&quot;:[{&quot;role&quot;:{&quot;fr&quot;:&quot;R&quot;},&quot;names&quot;:[3]}]}]})&quot;, &quot;fr&quot;) .ok()</code> est faux.</li><li>Vérifie que <code>hmi::readCredits( R&quot;({&quot;sections&quot;:[{&quot;id&quot;:&quot;x&quot;,&quot;title&quot;:{&quot;fr&quot;:&quot;X&quot;},&quot;lines&quot;:[{&quot;role&quot;:{&quot;fr&quot;:&quot;R&quot;},&quot;names&quot;:[{&quot;en&quot;:&quot;&quot;}]}]}]})&quot;, &quot;fr&quot;) .ok()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="creditscatalogtestlignesansnomfaitechouerlalecture">CreditsCatalogTest.LigneSansNomFaitEchouerLaLecture</h3>
+<p><em>Critique · Unitaire · Crédits</em> — <code>Source/Test/Unit/HMI/Presentation/test_credits_catalog.cpp:126</code></p>
+<p>Une ligne de crédits sans nom fait échouer la lecture.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire un JSON dont la seule ligne a une liste de noms vide.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est faux.</li><li>Vérifie que <code>result.sections.empty()</code> est vrai.</li><li>Vérifie que <code>result.error.find(&quot;x&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="creditscatalogtestcolonnehorsbornesrefusee">CreditsCatalogTest.ColonneHorsBornesRefusee</h3>
+<p><em>Majeur · Unitaire · Crédits</em> — <code>Source/Test/Unit/HMI/Presentation/test_credits_catalog.cpp:144</code></p>
+<p>Une section de crédits hors des deux colonnes est refusée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire une section de colonne 2.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="creditscatalogtestfichierlivreselitdanslesdeuxlangues">CreditsCatalogTest.FichierLivreSeLitDansLesDeuxLangues</h3>
+<p><em>Critique · Unitaire · Crédits</em> — <code>Source/Test/Unit/HMI/Presentation/test_credits_catalog.cpp:160</code></p>
+<p>Le fichier de crédits livré se lit en français et en anglais.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire <code>Source/Elements/Credits/credits.json</code> en français, puis en anglais.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>file</code> est vrai.</li><li>Vérifie que <code>result.ok()</code> est vrai.</li><li>Vérifie que <code>left &amp;&amp; right</code> est vrai.</li></ul>
+</section><h2 id="test-inventory-screencpp">test_inventory_screen.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="inventoryscreentestongletsfiltrentparfamille">InventoryScreenTest.OngletsFiltrentParFamille</h3>
+<p><em>Majeur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/HMI/Presentation/test_inventory_screen.cpp:70</code></p>
+<p>Les onglets de l'inventaire filtrent le sac par famille.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Remplir un sac d'une épée, de torches et d'outils.</li><li>Demander les cases de chaque filtre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::backpackCells(inventory, catalogs.lookup(), hmi::ItemFamily::All).size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>equipment.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>equipment[0].name</code> vaut <code>&quot;Épée longue&quot;</code>.</li><li>Vérifie que <code>gear.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>gear[0].quantity</code> vaut <code>5</code>.</li><li>Vérifie que <code>hmi::backpackCells(inventory, catalogs.lookup(), hmi::ItemFamily::Tools).size()</code> vaut <code>1U</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="inventoryscreentestequiperechangeaveclemplacement">InventoryScreenTest.EquiperEchangeAvecLEmplacement</h3>
+<p><em>Critique · Unitaire · Inventaire</em> — <code>Source/Test/Unit/HMI/Presentation/test_inventory_screen.cpp:99</code></p>
+<p>Équiper depuis l'inventaire rend l'objet remplacé au sac.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Porter une dague en main directrice, avoir une épée longue dans le sac.</li><li>Équiper l'épée depuis le sac.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::equipFromBackpack(inventory, &quot;epee-longue&quot;, catalogs.lookup())</code> est vrai.</li><li>Vérifie que <code>inventory.at(core::EquipmentSlot::MainHand)</code> vaut <code>&quot;epee-longue&quot;</code>.</li><li>Vérifie que <code>quantityOf(inventory, &quot;dague&quot;)</code> vaut <code>1</code>.</li><li>Vérifie que <code>quantityOf(inventory, &quot;epee-longue&quot;)</code> vaut <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="inventoryscreentestemplacementnaturel">InventoryScreenTest.EmplacementNaturel</h3>
+<p><em>Majeur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/HMI/Presentation/test_inventory_screen.cpp:121</code></p>
+<p>Un objet s'équipe à son emplacement naturel, ou pas du tout.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander l'emplacement naturel d'un arc, d'une épée, d'une armure, d'un bouclier, d'une torche.</li><li>Tenter d'équiper la torche.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::naturalSlot(&quot;arc-long&quot;, catalogs.lookup())</code> vaut <code>core::EquipmentSlot::Ranged</code>.</li><li>Vérifie que <code>hmi::naturalSlot(&quot;epee-longue&quot;, catalogs.lookup())</code> vaut <code>core::EquipmentSlot::MainHand</code>.</li><li>Vérifie que <code>hmi::naturalSlot(&quot;cuir&quot;, catalogs.lookup())</code> vaut <code>core::EquipmentSlot::Torso</code>.</li><li>Vérifie que <code>hmi::naturalSlot(&quot;bouclier&quot;, catalogs.lookup())</code> vaut <code>core::EquipmentSlot::OffHand</code>.</li><li>Vérifie que <code>hmi::naturalSlot(&quot;torche&quot;, catalogs.lookup()).has_value()</code> est faux.</li><li>Vérifie que <code>hmi::equipFromBackpack(inventory, &quot;torche&quot;, catalogs.lookup())</code> est faux.</li><li>Vérifie que <code>quantityOf(inventory, &quot;torche&quot;)</code> vaut <code>1</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="inventoryscreentestretireretjeter">InventoryScreenTest.RetirerEtJeter</h3>
+<p><em>Majeur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/HMI/Presentation/test_inventory_screen.cpp:147</code></p>
+<p>Retirer un objet le range au sac, jeter en retire un exemplaire.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Retirer le bouclier porté.</li><li>Jeter une torche d'une pile de trois.</li><li>Retirer un emplacement vide.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::unequipToBackpack(inventory, core::EquipmentSlot::OffHand)</code> est vrai.</li><li>Vérifie que <code>inventory.isEquipped(core::EquipmentSlot::OffHand)</code> est faux.</li><li>Vérifie que <code>quantityOf(inventory, &quot;bouclier&quot;)</code> vaut <code>1</code>.</li><li>Vérifie que <code>hmi::dropFromBackpack(inventory, &quot;torche&quot;)</code> est vrai.</li><li>Vérifie que <code>quantityOf(inventory, &quot;torche&quot;)</code> vaut <code>2</code>.</li><li>Vérifie que <code>hmi::unequipToBackpack(inventory, core::EquipmentSlot::Head)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="inventoryscreentesttrierparnom">InventoryScreenTest.TrierParNom</h3>
+<p><em>Mineur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/HMI/Presentation/test_inventory_screen.cpp:173</code></p>
+<p>Trier l'inventaire range le sac par nom.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Remplir un sac de torches, d'une épée et d'une dague, dans cet ordre.</li><li>Trier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>inventory.backpack.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>inventory.backpack[0].itemId</code> vaut <code>&quot;dague&quot;</code>.</li><li>Vérifie que <code>inventory.backpack[1].itemId</code> vaut <code>&quot;torche&quot;</code>.</li><li>Vérifie que <code>inventory.backpack[2].itemId</code> vaut <code>&quot;epee-longue&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="inventoryscreentestfichedobjet">InventoryScreenTest.FicheDObjet</h3>
+<p><em>Mineur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/HMI/Presentation/test_inventory_screen.cpp:197</code></p>
+<p>La fiche d'un objet de l'inventaire décrit sa nature et son poids.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander la fiche de l'armure de cuir, du bouclier et de la torche.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>armor.kind</code> vaut <code>&quot;Armure légère&quot;</code>.</li><li>Vérifie que <code>armor.armor</code> vaut <code>&quot;CA 11 + Dex&quot;</code>.</li><li>Vérifie que <code>armor.equippable</code> est vrai.</li><li>Vérifie que <code>hmi::itemSheet(&quot;bouclier&quot;, catalogs.lookup()).armor</code> vaut <code>&quot;+2&quot;</code>.</li><li>Vérifie que <code>torch.kind</code> vaut <code>&quot;Matériel&quot;</code>.</li><li>Vérifie que <code>torch.weight</code> vaut <code>&quot;0,5 kg&quot;</code>.</li><li>Vérifie que <code>torch.equippable</code> est faux.</li></ul>
+</section><h2 id="test-world-mapscpp">test_world_maps.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="worldmapstestfichierluetborne">WorldMapsTest.FichierLuEtBorne</h3>
+<p><em>Majeur · Unitaire · Carte</em> — <code>Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:69</code></p>
+<p>Les cartes se lisent, et une position hors de la carte est refusée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire un fichier à une région et une ville.</li><li>Lire une position d'abscisse 1,2, puis un cadre qui déborde.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>maps.ok()</code> est vrai.</li><li>Vérifie que <code>maps.worldImage</code> vaut <code>&quot;world.jpg&quot;</code>.</li><li>Vérifie que <code>maps.regions.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>region.anchor.x</code> vaut <code>0.25</code> (comparaison flottante).</li><li>Vérifie que <code>region.frame.width</code> vaut <code>0.3</code> (comparaison flottante).</li><li>Vérifie que <code>region.places.at(&quot;a-town&quot;).y</code> vaut <code>0.6</code> (comparaison flottante).</li><li>Vérifie que <code>region.labels.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>region.labels.front().kind</code> vaut <code>&quot;lake&quot;</code>.</li><li>Vérifie que <code>maps.cities.at(&quot;a-town&quot;).sites.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>maps.cities.at(&quot;a-town&quot;).sites.front().number</code> vaut <code>3</code>.</li><li>Vérifie que <code>outside.ok()</code> est faux.</li><li>Vérifie que <code>outside.regions.empty()</code> est vrai.</li><li>Vérifie que <code>outside.error.find(&quot;c&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>overflowing.ok()</code> est faux.</li><li>Vérifie que <code>overflowing.error.find(&quot;cadre&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldmapstestjointurerangeleslieux">WorldMapsTest.JointureRangeLesLieux</h3>
+<p><em>Majeur · Unitaire · Carte</em> — <code>Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:107</code></p>
+<p>Une région montre ses lieux posés puis les autres, sans les entrées écartées ni les quartiers d'une ville.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Joindre un atlas de quatre lieux (une règle, un lieu sans position, une ville à plan, son quartier) au fichier minimal.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>maps.ok()</code> est vrai.</li><li>Vérifie que <code>mismatches.empty()</code> est vrai.</li><li>Vérifie que <code>views.regions.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>places.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>places[0].id</code> vaut <code>&quot;a-town&quot;</code>.</li><li>Vérifie que <code>places[0].placed</code> est vrai.</li><li>Vérifie que <code>places[0].hasCityMap</code> est vrai.</li><li>Vérifie que <code>places[1].id</code> vaut <code>&quot;a-hidden&quot;</code>.</li><li>Vérifie que <code>places[1].placed</code> est faux.</li><li>Vérifie que <code>views.cities.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>points.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>points[0].id</code> vaut <code>&quot;a-town-market&quot;</code>.</li><li>Vérifie que <code>points[0].number</code> vaut <code>1</code>.</li><li>Vérifie que <code>points[1].name</code> vaut <code>&quot;Harbour&quot;</code>.</li><li>Vérifie que <code>points[1].number</code> vaut <code>3</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldmapstestecartsnommes">WorldMapsTest.EcartsNommes</h3>
+<p><em>Majeur · Unitaire · Carte</em> — <code>Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:144</code></p>
+<p>Une carte sans région, une région sans carte et une position étrangère sont signalées.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Joindre au fichier minimal, qui ne connaît que la région <code>a</code>, un atlas dont la seule région est <code>b</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>views.regions.empty()</code> est vrai.</li><li>Vérifie que <code>views.cities.empty()</code> est vrai.</li><li>Vérifie que <code>mismatches.size()</code> est supérieur ou égal à <code>3U</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="worldmapstestatlaslivreentierementcartographie">WorldMapsTest.AtlasLivreEntierementCartographie</h3>
+<p><em>Critique · Unitaire · Carte</em> — <code>Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:170</code></p>
+<p>Les treize régions de l'atlas ont leur carte, et chaque position désigne un lieu de sa région.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger l'atlas livré et <code>Source/Elements/Maps/world-maps.json</code>.</li><li>Joindre les deux.</li><li>Chercher l'image de chaque carte sous <code>Source/Elements/Assets/Maps/</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>atlas.errors.empty()</code> est vrai.</li><li>Vérifie que <code>maps.ok()</code> est vrai.</li><li>Vérifie que <code>views.regions.size()</code> vaut <code>atlas.regions.size()</code>.</li><li>Vérifie que <code>std::filesystem::is_regular_file(images / views.worldImage)</code> est vrai.</li><li>Vérifie que <code>std::filesystem::is_regular_file(images / region.image)</code> est vrai.</li><li>Vérifie que <code>views.cities.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>std::filesystem::is_regular_file(images / city.image)</code> est vrai.</li><li>Vérifie que <code>city.points.size()</code> vaut <code>12U</code>.</li><li>Vérifie que <code>region</code> diffère de <code>views.regions.end()</code>.</li><li>Vérifie que <code>place</code> diffère de <code>region-&gt;places.end()</code>.</li><li>Vérifie que <code>place-&gt;placed</code> est vrai.</li><li>Vérifie que <code>place-&gt;hasCityMap</code> est vrai.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-platform.html"><span>Précédent</span>HMI · Platform</a><a class="next" href="hmi-runtime.html"><span>Suivant</span>HMI · Runtime</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-presentation.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

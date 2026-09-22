@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOT-78 — Désambiguïsation des numéros de lots hérités — Planification</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="index.html" class="active">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="../standards/index.html">Standards</a></nav>
+  <div class="links"><a href="../../">Documentation</a><a class="active" href="../index.html">Planification</a><a href="../../qualite/">Qualité</a></div>
+</header>
+<div class="shell">
+
+<main>
+<p class="crumb"><a href="index.html">Lots</a> › <a href="../versions/v0-0-0.html">0.0.0 — Fondation du moteur</a></p><h1><span class="vid">LOT-78</span> Désambiguïsation des numéros de lots hérités</h1><p class="lede">Tout renvoi <code>LOT-NN</code> d'une spécification désigne sans ambiguïté un lot de ce programme ou, préfixé <code>LOT-H-</code>, un lot hérité — et le lint empêche l'ambiguïté de se reformer.</p><dl class="facts"><div><dt>État</dt><dd><span class="badge etat-livre">livré</span></dd></div><div><dt>Filière</dt><dd><span class="filiere f-standard">Standard et outillage</span></dd></div><div><dt>Taille</dt><dd>S</dd></div><div><dt>Ordre calculé</dt><dd>—</dd></div><div><dt>Prérequis</dt><dd>—</dd></div><div><dt>Débloque</dt><dd>—</dd></div><div><dt>Reprend</dt><dd>—</dd></div></dl><section><h2>Livrables</h2><ul class=""><li><strong>201 renvois</strong> préfixés en <code>LOT-H-NN</code> dans dix fichiers de spécification.</li><li>La <strong>convention</strong> écrite en tête de <code>specifications.md</code>.</li><li>La <strong>règle 12</strong> de <code>scripts/lint_lots.py</code> : tout <code>LOT-NN</code> d'une spécification désigne un lot existant de ce programme.</li></ul></section><section><h2>Critères d'acceptation</h2><ul class="checks"><li>Aucun <code>LOT-NN</code> d'une spécification ne désigne un lot hérité sans préfixe <code>LOT-H-</code>.</li><li>Le lint <strong>refuse</strong> un renvoi vers un numéro de lot inexistant — vérifié en injectant <code>LOT-99</code> dans <code>vision.md</code> et en observant l'échec, puis en restaurant.</li><li>La convention est écrite là où un rédacteur la lira : en tête de <code>specifications.md</code>.</li><li>Doxygen reste vert, sans ancre en double avec l'archive (qui reste hors <code>INPUT</code>).</li></ul></section><section class="prose"><h2 id="pourquoi">Pourquoi</h2>
+<p>Rendre non ambigu tout renvoi <code>LOT-NN</code> d'une spécification, et empêcher l'ambiguïté de se reformer.</p>
+<p>Ce dépôt est dérivé d'un jeu de plateforme livré après <strong>74 lots</strong>. Les deux numérotations repartent de <code>LOT-01</code>. Tant que le programme RPG s'arrêtait à <code>LOT-29</code>, on pouvait écrire que les deux ensembles ne se croisaient jamais. La feuille de route atteignant <code>LOT-84</code>, la plage héritée est <strong>entièrement recouverte</strong> : <code>LOT-54</code> désigne désormais un atelier pixel art livré <em>et</em> le lot Magicien à faire, et rien ne dit lequel.</p>
+<p>C'est le pire genre de défaut : <strong>ambigu sans être cassé</strong>. Ni le lint d'exigences ni Doxygen ne le signalent, et seul un lecteur qui connaît les deux programmes peut trancher.</p>
+<h2 id="périmètre">Périmètre</h2>
+<p><strong>201 renvois préfixés</strong> en <code>LOT-H-NN</code>, dans <strong>dix</strong> fichiers de spécification :</p>
+<div class="table-wrap"><table><thead><tr><th>Fichier</th><th>Renvois hérités</th></tr></thead><tbody><tr><td><code>editeur-niveaux.md</code></td><td>42</td></tr><tr><td><code>rendu-technique.md</code></td><td>34</td></tr><tr><td><code>interface-ihm.md</code></td><td>26</td></tr><tr><td><code>decors.md</code></td><td>21</td></tr><tr><td><code>gameplay.md</code></td><td>20</td></tr><tr><td><code>exigences-non-fonctionnelles.md</code></td><td>17</td></tr><tr><td><code>niveaux.md</code></td><td>15</td></tr><tr><td><code>controles.md</code></td><td>13</td></tr><tr><td><code>architecture.md</code></td><td>9</td></tr><tr><td><code>conventions.md</code></td><td>4</td></tr></tbody></table></div>
+<p>Les <strong>49 renvois restants</strong> désignent de vrais lots de ce programme et gardent leur écriture nue : <code>vision.md</code>, <code>exploration.md</code>, les cinq documents du <a href="lot-77.html">LOT-77</a>, plus les renvois au <code>LOT-01</code>, au <code>LOT-04</code> (format v3), au <code>LOT-05</code> (modes de jeu) et au <code>LOT-07</code> (tri par Y).</p>
+<p>S'y ajoutent la <strong>convention</strong> écrite en tête de <code>specifications.md</code>, et la <strong>règle 12</strong> de <code>scripts/lint_lots.py</code>.</p>
+<h2 id="conception">Conception</h2>
+<h3 id="comment-la-classification-a-été-faite">Comment la classification a été faite</h3>
+<p>Renvoi par renvoi, par couple <strong>(fichier, numéro)</strong> — pas fichier par fichier. C'était nécessaire : <code>rendu-technique.md</code> cite le <code>LOT-07</code> <strong>courant</strong> (« l'ordre des calques reste souverain. Concrétisé en <code>LOT-07</code> », le tri par Y) et le <code>LOT-08</code> <strong>hérité</strong> (« une caméra fixe cadrant le tableau depuis <code>LOT-08</code> », vocabulaire de plateforme) à onze lignes d'écart.</p>
+<p>Deux signaux ont suffi dans la quasi-totalité des cas, tous deux vérifiés contre les titres des epics archivés (retirés du dépôt au <code>LOT-88</code>) :</p>
+<ul><li><strong>Le temps du verbe.</strong> Aucun lot du programme RPG au-delà du <code>LOT-08</code> n'est commencé. « Concrétisé en », « Depuis le », « Introduit en », « livré » ne peuvent donc désigner que l'hérité.</li><li><strong>Le vocabulaire.</strong> « Tableau », « salle », « plateforme », « saut », « dash », « parallaxe », « atelier pixel art » appartiennent au jeu d'origine ; « région », « fiche », « d20 », « case » au RPG.</li></ul>
+<p>Trois cas ont demandé une vérification directe : <code>architecture.md:20</code> (<code>LOT-05</code> = modes de jeu, <strong>courant</strong>), <code>rendu-technique.md:22</code> (<code>LOT-08</code> = caméra cadrant un tableau, <strong>hérité</strong>) et les trois <code>LOT-27</code> d'<code>editeur-niveaux.md</code> (palette organisée par catégories, <strong>hérités</strong> — le <code>LOT-27</code> courant est le <em>vertical slice</em>).</p>
+<h3 id="ce-que-la-règle-12-empêche">Ce que la règle 12 empêche</h3>
+<p><code>scripts/lint_lots.py</code> refuse désormais tout <code>LOT-NN</code> d'une spécification qui ne désigne pas un lot <strong>existant de ce programme</strong> — livré (il a son dossier) ou inscrit à la feuille de route. Un renvoi à l'hérité doit porter le préfixe.</p>
+<p>Sans cette règle, le travail ci-dessus se déferait au premier renvoi ajouté de mémoire. Et il faudrait le refaire en entier, puisque rien ne dirait lesquels des renvois ont déjà été classés.</p>
+<blockquote><p><strong>Un défaut du lint a été trouvé en le vérifiant.</strong> La règle 12 a d'abord été écrite avec une expression régulière contenant un caractère de contrôle invisible, qui l'empêchait de jamais correspondre : le lint passait au vert sur un renvoi délibérément faux. Un garde-fou qu'on n'a pas vu échouer n'est pas un garde-fou — la règle n'a été considérée acquise qu'après avoir observé <code>vision.md:98 cite LOT-99, qui n&#x27;existe pas dans ce programme</code>.</p></blockquote>
+<h2 id="bilan">Bilan</h2>
+<p>Statut : <strong>fait</strong>. Vérification automatisée : <code>scripts/lint_lots.py</code> vert, règle 12 comprise ; <code>scripts/lint_exigences.py</code> vert ; Doxygen vert ; tous les critères d'acceptation sont cochés dans l'epic d'origine. Ce lot est prérequis du démarrage de tout lot de la filière.</p></section><p class="source">Source : <code>Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-78-numeros-herites.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

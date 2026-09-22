@@ -1,0 +1,204 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/EditorDiagnostics.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('EditorDiagnostics_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">EditorDiagnostics.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Les avertissements que l'éditeur montre sur les entités d'une carte : références cassées, rencontres posées hors d'un terrain tactique valide (<span class="tt">LOT-11</span>), zones de combat qui ne se jouent pas (<span class="tt">LOT-EDITOR-05</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="TacticalTerrain_8h_source.html">Core/Combat/TacticalTerrain.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapEntity_8h_source.html">Core/Levels/MapEntity.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CombatZone_8h_source.html">Core/World/CombatZone.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="EntityKinds_8h_source.html">Core/World/EntityKinds.h</a>&quot;</code><br />
+</div>
+<p><a href="EditorDiagnostics_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:hmi_3A_3AEditorDiagnostic" id="r_hmi_3A_3AEditorDiagnostic"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EditorDiagnostic.html">hmi::EditorDiagnostic</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un avertissement prêt à afficher, en anglais.  <a href="structhmi_1_1EditorDiagnostic.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a90a0b3556896d17a7c1ff5d1a0c23b4e" id="r_a90a0b3556896d17a7c1ff5d1a0c23b4e"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a90a0b3556896d17a7c1ff5d1a0c23b4e">hmi::EditorDiagnosticKind</a> { <a class="el" href="namespacehmi.html#a90a0b3556896d17a7c1ff5d1a0c23b4ea63d5049791d9d79d86e9a108b0a999ca">hmi::Reference</a>
+, <a class="el" href="namespacehmi.html#a90a0b3556896d17a7c1ff5d1a0c23b4ea4ccfea7a25fae3c1d31555f0856d2b42">hmi::Terrain</a>
+ }</td></tr>
+<tr class="memdesc:a90a0b3556896d17a7c1ff5d1a0c23b4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">La famille d'un avertissement : ce que l'entité référence, ou le terrain qu'elle occupe.  <a href="namespacehmi.html#a90a0b3556896d17a7c1ff5d1a0c23b4e">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aae4092d693f838bf7beb6e021fedc2b0" id="r_aae4092d693f838bf7beb6e021fedc2b0"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aae4092d693f838bf7beb6e021fedc2b0">hmi::entityIssueTemplate</a> (<a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035e">core::EntityIssueCode</a> code) noexcept</td></tr>
+<tr class="memitem:ae04c1f256387579c522acc9d41c38f54" id="r_ae04c1f256387579c522acc9d41c38f54"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ae04c1f256387579c522acc9d41c38f54">hmi::tacticalIssueTemplate</a> (<a class="el" href="namespacecore.html#a81dfcf1ac21704e4f64a7780ec772910">core::TacticalIssueCode</a> code) noexcept</td></tr>
+<tr class="memitem:a3f098738a2160784b60a63f9b6d3c5e2" id="r_a3f098738a2160784b60a63f9b6d3c5e2"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1EditorDiagnostic.html">EditorDiagnostic</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a3f098738a2160784b60a63f9b6d3c5e2">hmi::editorDiagnostics</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, const std::vector&lt; <a class="el" href="structcore_1_1EntityIssue.html">core::EntityIssue</a> &gt; &amp;issues, const std::vector&lt; <a class="el" href="structcore_1_1EncounterTerrain.html">core::EncounterTerrain</a> &gt; &amp;terrains, const std::vector&lt; <a class="el" href="structcore_1_1CombatZoneTerrain.html">core::CombatZoneTerrain</a> &gt; &amp;zones={})</td></tr>
+<tr class="memdesc:a3f098738a2160784b60a63f9b6d3c5e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les avertissements de la carte : les références, puis le terrain des rencontres, puis les zones de combat, chacun dans l'ordre des entités.  <br /></td></tr>
+<tr class="memitem:a84629539a766d354203c18ea75e0bab9" id="r_a84629539a766d354203c18ea75e0bab9"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a84629539a766d354203c18ea75e0bab9">hmi::combatZoneSummary</a> (const <a class="el" href="structcore_1_1CombatZoneTerrain.html">core::CombatZoneTerrain</a> &amp;zone)</td></tr>
+<tr class="memdesc:a84629539a766d354203c18ea75e0bab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le verdict d'une zone de combat en une ligne, pour l'inspecteur : sa taille, ses cases libres, ses entrées d'arène dedans et dehors — ou son défaut.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Les avertissements que l'éditeur montre sur les entités d'une carte : références cassées, rencontres posées hors d'un terrain tactique valide (<span class="tt">LOT-11</span>), zones de combat qui ne se jouent pas (<span class="tt">LOT-EDITOR-05</span>). </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li><li class="navelem"><a href="EditorDiagnostics_8h.html">EditorDiagnostics.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

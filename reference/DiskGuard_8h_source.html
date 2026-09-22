@@ -1,0 +1,224 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/DiskGuard.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('DiskGuard_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">DiskGuard.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="DiskGuard_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span></div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="structhmi_1_1FileFingerprint.html">   26</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1FileFingerprint.html">FileFingerprint</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="structhmi_1_1FileFingerprint.html#a6cb50d9942dec92f581d44425ff015a9">   27</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structhmi_1_1FileFingerprint.html#a6cb50d9942dec92f581d44425ff015a9">exists</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="structhmi_1_1FileFingerprint.html#a040184e80b55f44316540f68e8d4d1f6">   28</a></span>    std::uintmax_t <a class="code hl_variable" href="structhmi_1_1FileFingerprint.html#a040184e80b55f44316540f68e8d4d1f6">size</a> = 0;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="structhmi_1_1FileFingerprint.html#a5f6ad711c63621874fb5d5b5f679d38b">   29</a></span>    std::uint64_t <a class="code hl_variable" href="structhmi_1_1FileFingerprint.html#a5f6ad711c63621874fb5d5b5f679d38b">hash</a> = 0;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structhmi_1_1FileFingerprint.html#ae862eecedfbd3d6abba19f178fa698f2">   31</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1FileFingerprint.html#ae862eecedfbd3d6abba19f178fa698f2">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1FileFingerprint.html">FileFingerprint</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>};</div>
+</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1FileFingerprint.html">FileFingerprint</a> <a class="code hl_function" href="namespacehmi.html#ae3ed8cd27066f0de03e259d1c4a610bc">fingerprintOf</a>(std::string_view content) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1FileFingerprint.html">FileFingerprint</a> <a class="code hl_function" href="namespacehmi.html#ab32c2b7569b2dd624b5195deffa3ddd0">fingerprintFile</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span></div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="};">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733">   41</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733">DiskChange</a> {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733a6adf97f83acf6453d4a6a4b1070f3754">   42</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733a6adf97f83acf6453d4a6a4b1070f3754">None</a>,      </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733a35e0c8c0b180c95d4e122e55ed62cc64">   43</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733a35e0c8c0b180c95d4e122e55ed62cc64">Modified</a>,  </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733a5fe6005bf6e415c950c011fb65f12b8f">   44</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733a5fe6005bf6e415c950c011fb65f12b8f">Deleted</a>,   </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>};</div>
+</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>[[nodiscard]] <a class="code hl_enumeration" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733">DiskChange</a> <a class="code hl_function" href="namespacehmi.html#ae2248a93260beafe0197b7246f664287">compareFingerprints</a>(<span class="keyword">const</span> FileFingerprint&amp; known,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                                             <span class="keyword">const</span> FileFingerprint&amp; current) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span></div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="};">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7">   52</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7">DiskReaction</a> {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7afd038fc7f319e48f3115d92bf5bdbef9">   53</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7afd038fc7f319e48f3115d92bf5bdbef9">Ignore</a>,           </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7a27686399effd98c57b6ca8616c6582ac">   54</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7a27686399effd98c57b6ca8616c6582ac">ReloadQuietly</a>,    </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7a89af6f809a2041457864d4fc344b95dc">   55</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7a89af6f809a2041457864d4fc344b95dc">AskReloadOrKeep</a>,  </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7aa30447d6d036b6f7f6a80bd7ff53b27f">   56</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7aa30447d6d036b6f7f6a80bd7ff53b27f">WarnDeleted</a>,      </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>};</div>
+</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>[[nodiscard]] <a class="code hl_enumeration" href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7">DiskReaction</a> <a class="code hl_function" href="namespacehmi.html#ac78b5cb7e164339c106d8eb30dea54c3">reactToDiskChange</a>(<a class="code hl_enumeration" href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733">DiskChange</a> change, <span class="keywordtype">bool</span> draftModified) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a708d53e28e7a6af851f81372cfebd3d7"><div class="ttname"><a href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7">hmi::DiskReaction</a></div><div class="ttdeci">DiskReaction</div><div class="ttdoc">Ce que l&#39;éditeur fait d&#39;un changement sur disque.</div><div class="ttdef"><b>Definition</b> DiskGuard.h:52</div></div>
+<div class="ttc" id="anamespacehmi_html_a708d53e28e7a6af851f81372cfebd3d7a27686399effd98c57b6ca8616c6582ac"><div class="ttname"><a href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7a27686399effd98c57b6ca8616c6582ac">hmi::DiskReaction::ReloadQuietly</a></div><div class="ttdeci">@ ReloadQuietly</div><div class="ttdoc">Brouillon intact : relire le fichier, rien n&#39;est perdu.</div><div class="ttdef"><b>Definition</b> DiskGuard.h:54</div></div>
+<div class="ttc" id="anamespacehmi_html_a708d53e28e7a6af851f81372cfebd3d7a89af6f809a2041457864d4fc344b95dc"><div class="ttname"><a href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7a89af6f809a2041457864d4fc344b95dc">hmi::DiskReaction::AskReloadOrKeep</a></div><div class="ttdeci">@ AskReloadOrKeep</div><div class="ttdoc">Brouillon modifié : l&#39;auteur choisit, l&#39;autre version est mise de côté.</div><div class="ttdef"><b>Definition</b> DiskGuard.h:55</div></div>
+<div class="ttc" id="anamespacehmi_html_a708d53e28e7a6af851f81372cfebd3d7aa30447d6d036b6f7f6a80bd7ff53b27f"><div class="ttname"><a href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7aa30447d6d036b6f7f6a80bd7ff53b27f">hmi::DiskReaction::WarnDeleted</a></div><div class="ttdeci">@ WarnDeleted</div><div class="ttdoc">Fichier disparu : le brouillon reste, l&#39;enregistrement le recréera.</div><div class="ttdef"><b>Definition</b> DiskGuard.h:56</div></div>
+<div class="ttc" id="anamespacehmi_html_a708d53e28e7a6af851f81372cfebd3d7afd038fc7f319e48f3115d92bf5bdbef9"><div class="ttname"><a href="namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7afd038fc7f319e48f3115d92bf5bdbef9">hmi::DiskReaction::Ignore</a></div><div class="ttdeci">@ Ignore</div><div class="ttdoc">Rien n&#39;a changé.</div><div class="ttdef"><b>Definition</b> DiskGuard.h:53</div></div>
+<div class="ttc" id="anamespacehmi_html_ab32c2b7569b2dd624b5195deffa3ddd0"><div class="ttname"><a href="namespacehmi.html#ab32c2b7569b2dd624b5195deffa3ddd0">hmi::fingerprintFile</a></div><div class="ttdeci">FileFingerprint fingerprintFile(const std::filesystem::path &amp;path)</div><div class="ttdef"><b>Definition</b> DiskGuard.cpp:33</div></div>
+<div class="ttc" id="anamespacehmi_html_ac78b5cb7e164339c106d8eb30dea54c3"><div class="ttname"><a href="namespacehmi.html#ac78b5cb7e164339c106d8eb30dea54c3">hmi::reactToDiskChange</a></div><div class="ttdeci">DiskReaction reactToDiskChange(DiskChange change, bool draftModified) noexcept</div><div class="ttdef"><b>Definition</b> DiskGuard.cpp:57</div></div>
+<div class="ttc" id="anamespacehmi_html_ad3d9a6a21747a6c69be71dfc46024733"><div class="ttname"><a href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733">hmi::DiskChange</a></div><div class="ttdeci">DiskChange</div><div class="ttdoc">Ce qui a changé sur disque depuis la dernière lecture ou écriture de l&#39;éditeur.</div><div class="ttdef"><b>Definition</b> DiskGuard.h:41</div></div>
+<div class="ttc" id="anamespacehmi_html_ad3d9a6a21747a6c69be71dfc46024733a35e0c8c0b180c95d4e122e55ed62cc64"><div class="ttname"><a href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733a35e0c8c0b180c95d4e122e55ed62cc64">hmi::DiskChange::Modified</a></div><div class="ttdeci">@ Modified</div><div class="ttdoc">Le fichier existe et son contenu diffère (ou il est apparu).</div><div class="ttdef"><b>Definition</b> DiskGuard.h:43</div></div>
+<div class="ttc" id="anamespacehmi_html_ad3d9a6a21747a6c69be71dfc46024733a5fe6005bf6e415c950c011fb65f12b8f"><div class="ttname"><a href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733a5fe6005bf6e415c950c011fb65f12b8f">hmi::DiskChange::Deleted</a></div><div class="ttdeci">@ Deleted</div><div class="ttdoc">Le fichier a disparu.</div><div class="ttdef"><b>Definition</b> DiskGuard.h:44</div></div>
+<div class="ttc" id="anamespacehmi_html_ad3d9a6a21747a6c69be71dfc46024733a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="namespacehmi.html#ad3d9a6a21747a6c69be71dfc46024733a6adf97f83acf6453d4a6a4b1070f3754">hmi::DiskChange::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">Même contenu.</div><div class="ttdef"><b>Definition</b> DiskGuard.h:42</div></div>
+<div class="ttc" id="anamespacehmi_html_ae2248a93260beafe0197b7246f664287"><div class="ttname"><a href="namespacehmi.html#ae2248a93260beafe0197b7246f664287">hmi::compareFingerprints</a></div><div class="ttdeci">DiskChange compareFingerprints(const FileFingerprint &amp;known, const FileFingerprint &amp;current) noexcept</div><div class="ttdef"><b>Definition</b> DiskGuard.cpp:49</div></div>
+<div class="ttc" id="anamespacehmi_html_ae3ed8cd27066f0de03e259d1c4a610bc"><div class="ttname"><a href="namespacehmi.html#ae3ed8cd27066f0de03e259d1c4a610bc">hmi::fingerprintOf</a></div><div class="ttdeci">FileFingerprint fingerprintOf(std::string_view content) noexcept</div><div class="ttdef"><b>Definition</b> DiskGuard.cpp:28</div></div>
+<div class="ttc" id="astructhmi_1_1FileFingerprint_html"><div class="ttname"><a href="structhmi_1_1FileFingerprint.html">hmi::FileFingerprint</a></div><div class="ttdoc">Empreinte d&#39;un fichier : existence, taille et condensé du contenu.</div><div class="ttdef"><b>Definition</b> DiskGuard.h:26</div></div>
+<div class="ttc" id="astructhmi_1_1FileFingerprint_html_a040184e80b55f44316540f68e8d4d1f6"><div class="ttname"><a href="structhmi_1_1FileFingerprint.html#a040184e80b55f44316540f68e8d4d1f6">hmi::FileFingerprint::size</a></div><div class="ttdeci">std::uintmax_t size</div><div class="ttdef"><b>Definition</b> DiskGuard.h:28</div></div>
+<div class="ttc" id="astructhmi_1_1FileFingerprint_html_a5f6ad711c63621874fb5d5b5f679d38b"><div class="ttname"><a href="structhmi_1_1FileFingerprint.html#a5f6ad711c63621874fb5d5b5f679d38b">hmi::FileFingerprint::hash</a></div><div class="ttdeci">std::uint64_t hash</div><div class="ttdef"><b>Definition</b> DiskGuard.h:29</div></div>
+<div class="ttc" id="astructhmi_1_1FileFingerprint_html_a6cb50d9942dec92f581d44425ff015a9"><div class="ttname"><a href="structhmi_1_1FileFingerprint.html#a6cb50d9942dec92f581d44425ff015a9">hmi::FileFingerprint::exists</a></div><div class="ttdeci">bool exists</div><div class="ttdef"><b>Definition</b> DiskGuard.h:27</div></div>
+<div class="ttc" id="astructhmi_1_1FileFingerprint_html_ae862eecedfbd3d6abba19f178fa698f2"><div class="ttname"><a href="structhmi_1_1FileFingerprint.html#ae862eecedfbd3d6abba19f178fa698f2">hmi::FileFingerprint::operator==</a></div><div class="ttdeci">bool operator==(const FileFingerprint &amp;) const =default</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li><li class="navelem"><a href="DiskGuard_8h.html">DiskGuard.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/ScenePieces.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('ScenePieces_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ScenePieces.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="ScenePieces_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="GridPosition_8h.html">Core/Levels/GridPosition.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="Vector2_8h.html">Core/Math/Vector2.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="Quad_8h.html">HMI/Graphics/Quad.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="RenderLayer_8h.html">HMI/Graphics/RenderLayer.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="namespacehmi.html#a19b85f07e8096e377cfde7ed43902c89">   36</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacehmi.html#a19b85f07e8096e377cfde7ed43902c89">SCENE_TILE_WIDTH_PIXELS</a> = 68;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="namespacehmi.html#a5345cd8ebde1293596b218480d44e233">   38</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacehmi.html#a5345cd8ebde1293596b218480d44e233">SCENE_HALF_TILE_WIDTH_PIXELS</a> = <a class="code hl_variable" href="namespacehmi.html#a19b85f07e8096e377cfde7ed43902c89">SCENE_TILE_WIDTH_PIXELS</a> / 2;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="namespacehmi.html#adf0a8584471498fee2fd58f1b3526335">   40</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacehmi.html#adf0a8584471498fee2fd58f1b3526335">SCENE_TILE_HEIGHT_PIXELS</a> = 42;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="namespacehmi.html#a46b9654e0a27fbe317b1b281d1560182">   43</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacehmi.html#a46b9654e0a27fbe317b1b281d1560182">FIGURE_FRAME_WIDTH_PIXELS</a> = 48;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="namespacehmi.html#a55c481d635af0b56829a8ccc530af04d">   45</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacehmi.html#a55c481d635af0b56829a8ccc530af04d">FIGURE_FRAME_HEIGHT_PIXELS</a> = 64;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="namespacehmi.html#a65e321902d186ff823f7122c0f3ace7f">   47</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="namespacehmi.html#a65e321902d186ff823f7122c0f3ace7f">FIGURE_SCALE</a> = 1.25F;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="foldopen" id="foldopen00050" data-start="{" data-end="};">
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structhmi_1_1SceneTexture.html">   50</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1SceneTexture.html">SceneTexture</a> {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structhmi_1_1SceneTexture.html#af1ec95ed297ff134add64b7390d79816">   51</a></span>    <a class="code hl_typedef" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> <a class="code hl_variable" href="structhmi_1_1SceneTexture.html#af1ec95ed297ff134add64b7390d79816">texture</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="structhmi_1_1SceneTexture.html#a05cc77a9fc3435eeeb88ff8a4bfddfc3">   52</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1SceneTexture.html#a05cc77a9fc3435eeeb88ff8a4bfddfc3">width</a> = 0;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structhmi_1_1SceneTexture.html#ae761b4446a4602a38ac767ada3c51094">   53</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1SceneTexture.html#ae761b4446a4602a38ac767ada3c51094">height</a> = 0;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structhmi_1_1SceneTexture.html#ad404c3bd7bf83d1cc2d5a6ff97d7cdcb">   55</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1SceneTexture.html#ad404c3bd7bf83d1cc2d5a6ff97d7cdcb">frameWidth</a> = 0;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structhmi_1_1SceneTexture.html#a6f9741a21b10bf0edde05b2cb4e78b0d">   57</a></span>    std::optional&lt;core::Vector2&gt; <a class="code hl_variable" href="structhmi_1_1SceneTexture.html#a6f9741a21b10bf0edde05b2cb4e78b0d">anchor</a>{};</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structhmi_1_1SceneTexture.html#a17230b3f5eb95e15e3a986f7c4884cfd">   59</a></span>    std::optional&lt;float&gt; <a class="code hl_variable" href="structhmi_1_1SceneTexture.html#a17230b3f5eb95e15e3a986f7c4884cfd">depthOffset</a>{};</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>};</div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span></div>
+<div class="foldopen" id="foldopen00068" data-start="{" data-end="};">
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structhmi_1_1ScenePieceTextures.html">   68</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structhmi_1_1ScenePieceTextures.html#a34f4bb97c124acb80a4a73e0a348c53f">   70</a></span>    std::map&lt;std::string, SceneTexture, std::less&lt;&gt;&gt; <a class="code hl_variable" href="structhmi_1_1ScenePieceTextures.html#a34f4bb97c124acb80a4a73e0a348c53f">byPath</a>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="structhmi_1_1ScenePieceTextures.html#a56dea4108fc0ff04439355227a88506f">   72</a></span>    <a class="code hl_struct" href="structhmi_1_1SceneTexture.html">SceneTexture</a> <a class="code hl_variable" href="structhmi_1_1ScenePieceTextures.html#a56dea4108fc0ff04439355227a88506f">missing</a>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="structhmi_1_1ScenePieceTextures.html#a0915ac2c83ced0bab7bea8a193dc94f3">   75</a></span>    <a class="code hl_struct" href="structhmi_1_1SceneTexture.html">SceneTexture</a> <a class="code hl_variable" href="structhmi_1_1ScenePieceTextures.html#a0915ac2c83ced0bab7bea8a193dc94f3">solid</a>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span></div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="structhmi_1_1ScenePieceTextures.html#aeb53934f3db27bee39a3a517b712dbdf">   78</a></span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1SceneTexture.html">SceneTexture</a>&amp; <a class="code hl_function" href="structhmi_1_1ScenePieceTextures.html#aeb53934f3db27bee39a3a517b712dbdf">resolve</a>(std::string_view path)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keyword">const</span> <span class="keyword">auto</span> found = <a class="code hl_variable" href="structhmi_1_1ScenePieceTextures.html#a34f4bb97c124acb80a4a73e0a348c53f">byPath</a>.find(path);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">return</span> found != <a class="code hl_variable" href="structhmi_1_1ScenePieceTextures.html#a34f4bb97c124acb80a4a73e0a348c53f">byPath</a>.end() ? found-&gt;second : <a class="code hl_variable" href="structhmi_1_1ScenePieceTextures.html#a56dea4108fc0ff04439355227a88506f">missing</a>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
+</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span></div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="}">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="structhmi_1_1ScenePieceTextures.html#a9039ee736398be3cfb92694e8f359368">   91</a></span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1SceneTexture.html">SceneTexture</a>* <a class="code hl_function" href="structhmi_1_1ScenePieceTextures.html#a9039ee736398be3cfb92694e8f359368">find</a>(std::string_view path)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keyword">const</span> <span class="keyword">auto</span> found = <a class="code hl_variable" href="structhmi_1_1ScenePieceTextures.html#a34f4bb97c124acb80a4a73e0a348c53f">byPath</a>.find(path);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">return</span> found != <a class="code hl_variable" href="structhmi_1_1ScenePieceTextures.html#a34f4bb97c124acb80a4a73e0a348c53f">byPath</a>.end() ? &amp;found-&gt;second : <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    }</div>
+</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>};</div>
+</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span></div>
+<div class="foldopen" id="foldopen00106" data-start="{" data-end="}">
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="namespacehmi.html#aefe5a3c767ba4b0482688df953007fe1">  106</a></span>[[nodiscard]] <span class="keyword">inline</span> <a class="code hl_struct" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> <a class="code hl_function" href="namespacehmi.html#aefe5a3c767ba4b0482688df953007fe1">standingPieceQuad</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1SceneTexture.html">SceneTexture</a>&amp; texture,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                                                  <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> topVertex,</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                                                  <span class="keywordtype">float</span> unitsPerScenePixel) {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <a class="code hl_struct" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> quad;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keyword">const</span> <span class="keyword">auto</span> height = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(texture.<a class="code hl_variable" href="structhmi_1_1SceneTexture.html#ae761b4446a4602a38ac767ada3c51094">height</a>);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> anchor = texture.<a class="code hl_variable" href="structhmi_1_1SceneTexture.html#a6f9741a21b10bf0edde05b2cb4e78b0d">anchor</a>.value_or(</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a>{<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code hl_variable" href="namespacehmi.html#a5345cd8ebde1293596b218480d44e233">SCENE_HALF_TILE_WIDTH_PIXELS</a>),</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                      height - <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code hl_variable" href="namespacehmi.html#adf0a8584471498fee2fd58f1b3526335">SCENE_TILE_HEIGHT_PIXELS</a>)});</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    quad.<a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#a92c64adb689a74573ddd55c2ad06e1bf">x</a> = topVertex.<a class="code hl_variable" href="structcore_1_1Vector2.html#acc547a6ce80872bab375c7f5f84aabda">x</a> - anchor.<a class="code hl_variable" href="structcore_1_1Vector2.html#acc547a6ce80872bab375c7f5f84aabda">x</a> * unitsPerScenePixel;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    quad.<a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#aa5c6523969fab44f779387543dc3365a">y</a> = topVertex.<a class="code hl_variable" href="structcore_1_1Vector2.html#a59c9a7e50ed630cd84963fc93bca2160">y</a> - anchor.<a class="code hl_variable" href="structcore_1_1Vector2.html#a59c9a7e50ed630cd84963fc93bca2160">y</a> * unitsPerScenePixel;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    quad.<a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#a7f473f58edf9e7c97b268324b914cfaf">width</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(texture.<a class="code hl_variable" href="structhmi_1_1SceneTexture.html#a05cc77a9fc3435eeeb88ff8a4bfddfc3">width</a>) * unitsPerScenePixel;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    quad.<a class="code hl_variable" href="structhmi_1_1SpriteQuad.html#ad57ebf8af5db3949c45ab0b1f99c4344">height</a> = height * unitsPerScenePixel;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">return</span> quad;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
+</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aGridPosition_8h_html"><div class="ttname"><a href="GridPosition_8h.html">GridPosition.h</a></div><div class="ttdoc">Position entière dans la grille d&#39;un niveau (colonne, ligne).</div></div>
+<div class="ttc" id="aQuad_8h_html"><div class="ttname"><a href="Quad_8h.html">Quad.h</a></div><div class="ttdoc">Primitives de dessin 2D (quads texturés), indépendantes de Direct3D.</div></div>
+<div class="ttc" id="aRenderLayer_8h_html"><div class="ttname"><a href="RenderLayer_8h.html">RenderLayer.h</a></div><div class="ttdoc">Ordonnancement de calques unique et explicite du rendu (EX-REN-014).</div></div>
+<div class="ttc" id="aVector2_8h_html"><div class="ttname"><a href="Vector2_8h.html">Vector2.h</a></div><div class="ttdoc">Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX).</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a19b85f07e8096e377cfde7ed43902c89"><div class="ttname"><a href="namespacehmi.html#a19b85f07e8096e377cfde7ed43902c89">hmi::SCENE_TILE_WIDTH_PIXELS</a></div><div class="ttdeci">constexpr int SCENE_TILE_WIDTH_PIXELS</div><div class="ttdoc">Largeur du losange des textures de scène de l&#39;atelier, en pixels d&#39;art.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:36</div></div>
+<div class="ttc" id="anamespacehmi_html_a46b9654e0a27fbe317b1b281d1560182"><div class="ttname"><a href="namespacehmi.html#a46b9654e0a27fbe317b1b281d1560182">hmi::FIGURE_FRAME_WIDTH_PIXELS</a></div><div class="ttdeci">constexpr int FIGURE_FRAME_WIDTH_PIXELS</div><div class="ttdoc">Largeur d&#39;une image des bandes d&#39;animation des figurines (Assets/Npc/manifest.json).</div><div class="ttdef"><b>Definition</b> ScenePieces.h:43</div></div>
+<div class="ttc" id="anamespacehmi_html_a5345cd8ebde1293596b218480d44e233"><div class="ttname"><a href="namespacehmi.html#a5345cd8ebde1293596b218480d44e233">hmi::SCENE_HALF_TILE_WIDTH_PIXELS</a></div><div class="ttdeci">constexpr int SCENE_HALF_TILE_WIDTH_PIXELS</div><div class="ttdoc">Demi-largeur de ce losange : l&#39;abscisse de l&#39;ancre d&#39;une pièce d&#39;une case.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:38</div></div>
+<div class="ttc" id="anamespacehmi_html_a55c481d635af0b56829a8ccc530af04d"><div class="ttname"><a href="namespacehmi.html#a55c481d635af0b56829a8ccc530af04d">hmi::FIGURE_FRAME_HEIGHT_PIXELS</a></div><div class="ttdeci">constexpr int FIGURE_FRAME_HEIGHT_PIXELS</div><div class="ttdoc">Hauteur d&#39;une image de ces bandes.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:45</div></div>
+<div class="ttc" id="anamespacehmi_html_a65e321902d186ff823f7122c0f3ace7f"><div class="ttname"><a href="namespacehmi.html#a65e321902d186ff823f7122c0f3ace7f">hmi::FIGURE_SCALE</a></div><div class="ttdeci">constexpr float FIGURE_SCALE</div><div class="ttdoc">Agrandissement d&#39;une figurine par rapport à la planche.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:47</div></div>
+<div class="ttc" id="anamespacehmi_html_a979f7ffd7c87877cb1f65f0d08e4419d"><div class="ttname"><a href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">hmi::TextureHandle</a></div><div class="ttdeci">void * TextureHandle</div><div class="ttdoc">Identité opaque d&#39;une texture liée, du point de vue de la composition.</div><div class="ttdef"><b>Definition</b> RenderLayer.h:89</div></div>
+<div class="ttc" id="anamespacehmi_html_adf0a8584471498fee2fd58f1b3526335"><div class="ttname"><a href="namespacehmi.html#adf0a8584471498fee2fd58f1b3526335">hmi::SCENE_TILE_HEIGHT_PIXELS</a></div><div class="ttdeci">constexpr int SCENE_TILE_HEIGHT_PIXELS</div><div class="ttdoc">Hauteur de ce losange : il occupe le bas d&#39;une pièce d&#39;une case.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:40</div></div>
+<div class="ttc" id="anamespacehmi_html_aefe5a3c767ba4b0482688df953007fe1"><div class="ttname"><a href="namespacehmi.html#aefe5a3c767ba4b0482688df953007fe1">hmi::standingPieceQuad</a></div><div class="ttdeci">SpriteQuad standingPieceQuad(const SceneTexture &amp;texture, core::Vector2 topVertex, float unitsPerScenePixel)</div><div class="ttdoc">Pose une pièce debout d&#39;une case par son ancre.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:106</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html"><div class="ttname"><a href="structcore_1_1Vector2.html">core::Vector2</a></div><div class="ttdoc">Vecteur bidimensionnel en coordonnées monde (composantes float).</div><div class="ttdef"><b>Definition</b> Vector2.h:21</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_a59c9a7e50ed630cd84963fc93bca2160"><div class="ttname"><a href="structcore_1_1Vector2.html#a59c9a7e50ed630cd84963fc93bca2160">core::Vector2::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition</b> Vector2.h:23</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_acc547a6ce80872bab375c7f5f84aabda"><div class="ttname"><a href="structcore_1_1Vector2.html#acc547a6ce80872bab375c7f5f84aabda">core::Vector2::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition</b> Vector2.h:22</div></div>
+<div class="ttc" id="astructhmi_1_1ScenePieceTextures_html"><div class="ttname"><a href="structhmi_1_1ScenePieceTextures.html">hmi::ScenePieceTextures</a></div><div class="ttdoc">Les textures d&#39;un lieu, adressées par leur chemin tel que la composition l&#39;écrit.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:68</div></div>
+<div class="ttc" id="astructhmi_1_1ScenePieceTextures_html_a0915ac2c83ced0bab7bea8a193dc94f3"><div class="ttname"><a href="structhmi_1_1ScenePieceTextures.html#a0915ac2c83ced0bab7bea8a193dc94f3">hmi::ScenePieceTextures::solid</a></div><div class="ttdeci">SceneTexture solid</div><div class="ttdoc">L&#39;aplat : une texture blanche de 1 × 1, que les primitives de couleur du rendu de maquette lient pour...</div><div class="ttdef"><b>Definition</b> ScenePieces.h:75</div></div>
+<div class="ttc" id="astructhmi_1_1ScenePieceTextures_html_a34f4bb97c124acb80a4a73e0a348c53f"><div class="ttname"><a href="structhmi_1_1ScenePieceTextures.html#a34f4bb97c124acb80a4a73e0a348c53f">hmi::ScenePieceTextures::byPath</a></div><div class="ttdeci">std::map&lt; std::string, SceneTexture, std::less&lt;&gt; &gt; byPath</div><div class="ttdoc">Comparateur transparent : la recherche se fait sans chaîne temporaire.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:70</div></div>
+<div class="ttc" id="astructhmi_1_1ScenePieceTextures_html_a56dea4108fc0ff04439355227a88506f"><div class="ttname"><a href="structhmi_1_1ScenePieceTextures.html#a56dea4108fc0ff04439355227a88506f">hmi::ScenePieceTextures::missing</a></div><div class="ttdeci">SceneTexture missing</div><div class="ttdoc">Damier de repli.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:72</div></div>
+<div class="ttc" id="astructhmi_1_1ScenePieceTextures_html_a9039ee736398be3cfb92694e8f359368"><div class="ttname"><a href="structhmi_1_1ScenePieceTextures.html#a9039ee736398be3cfb92694e8f359368">hmi::ScenePieceTextures::find</a></div><div class="ttdeci">const SceneTexture * find(std::string_view path) const</div><div class="ttdoc">La texture de path, sans repli sur le damier.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:91</div></div>
+<div class="ttc" id="astructhmi_1_1ScenePieceTextures_html_aeb53934f3db27bee39a3a517b712dbdf"><div class="ttname"><a href="structhmi_1_1ScenePieceTextures.html#aeb53934f3db27bee39a3a517b712dbdf">hmi::ScenePieceTextures::resolve</a></div><div class="ttdeci">const SceneTexture &amp; resolve(std::string_view path) const</div><div class="ttdef"><b>Definition</b> ScenePieces.h:78</div></div>
+<div class="ttc" id="astructhmi_1_1SceneTexture_html"><div class="ttname"><a href="structhmi_1_1SceneTexture.html">hmi::SceneTexture</a></div><div class="ttdoc">Une texture liable et ses dimensions en pixels (pour normaliser les UV).</div><div class="ttdef"><b>Definition</b> ScenePieces.h:50</div></div>
+<div class="ttc" id="astructhmi_1_1SceneTexture_html_a05cc77a9fc3435eeeb88ff8a4bfddfc3"><div class="ttname"><a href="structhmi_1_1SceneTexture.html#a05cc77a9fc3435eeeb88ff8a4bfddfc3">hmi::SceneTexture::width</a></div><div class="ttdeci">int width</div><div class="ttdef"><b>Definition</b> ScenePieces.h:52</div></div>
+<div class="ttc" id="astructhmi_1_1SceneTexture_html_a17230b3f5eb95e15e3a986f7c4884cfd"><div class="ttname"><a href="structhmi_1_1SceneTexture.html#a17230b3f5eb95e15e3a986f7c4884cfd">hmi::SceneTexture::depthOffset</a></div><div class="ttdeci">std::optional&lt; float &gt; depthOffset</div><div class="ttdoc">Somme des coordonnees locales du pied utilise pour le tri, en cases.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:59</div></div>
+<div class="ttc" id="astructhmi_1_1SceneTexture_html_a6f9741a21b10bf0edde05b2cb4e78b0d"><div class="ttname"><a href="structhmi_1_1SceneTexture.html#a6f9741a21b10bf0edde05b2cb4e78b0d">hmi::SceneTexture::anchor</a></div><div class="ttdeci">std::optional&lt; core::Vector2 &gt; anchor</div><div class="ttdoc">Origine explicite des pieces modulaires, en pixels d&#39;art du PNG.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:57</div></div>
+<div class="ttc" id="astructhmi_1_1SceneTexture_html_ad404c3bd7bf83d1cc2d5a6ff97d7cdcb"><div class="ttname"><a href="structhmi_1_1SceneTexture.html#ad404c3bd7bf83d1cc2d5a6ff97d7cdcb">hmi::SceneTexture::frameWidth</a></div><div class="ttdeci">int frameWidth</div><div class="ttdoc">Largeur d&#39;une image si la texture est une bande d&#39;animation ; 0 sinon.</div><div class="ttdef"><b>Definition</b> ScenePieces.h:55</div></div>
+<div class="ttc" id="astructhmi_1_1SceneTexture_html_ae761b4446a4602a38ac767ada3c51094"><div class="ttname"><a href="structhmi_1_1SceneTexture.html#ae761b4446a4602a38ac767ada3c51094">hmi::SceneTexture::height</a></div><div class="ttdeci">int height</div><div class="ttdef"><b>Definition</b> ScenePieces.h:53</div></div>
+<div class="ttc" id="astructhmi_1_1SceneTexture_html_af1ec95ed297ff134add64b7390d79816"><div class="ttname"><a href="structhmi_1_1SceneTexture.html#af1ec95ed297ff134add64b7390d79816">hmi::SceneTexture::texture</a></div><div class="ttdeci">TextureHandle texture</div><div class="ttdef"><b>Definition</b> ScenePieces.h:51</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html">hmi::SpriteQuad</a></div><div class="ttdoc">Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...</div><div class="ttdef"><b>Definition</b> Quad.h:31</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_a7f473f58edf9e7c97b268324b914cfaf"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#a7f473f58edf9e7c97b268324b914cfaf">hmi::SpriteQuad::width</a></div><div class="ttdeci">float width</div><div class="ttdef"><b>Definition</b> Quad.h:34</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_a92c64adb689a74573ddd55c2ad06e1bf"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#a92c64adb689a74573ddd55c2ad06e1bf">hmi::SpriteQuad::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition</b> Quad.h:32</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_aa5c6523969fab44f779387543dc3365a"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#aa5c6523969fab44f779387543dc3365a">hmi::SpriteQuad::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition</b> Quad.h:33</div></div>
+<div class="ttc" id="astructhmi_1_1SpriteQuad_html_ad57ebf8af5db3949c45ab0b1f99c4344"><div class="ttname"><a href="structhmi_1_1SpriteQuad.html#ad57ebf8af5db3949c45ab0b1f99c4344">hmi::SpriteQuad::height</a></div><div class="ttdeci">float height</div><div class="ttdef"><b>Definition</b> Quad.h:35</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="ScenePieces_8h.html">ScenePieces.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

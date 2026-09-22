@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core · Levels — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1 active" href="core-levels.html">Core · Levels</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-format-v4cpp">test_format_v4.cpp</a><a class="toc depth-2" href="#test-layer-piecescpp">test_layer_pieces.cpp</a><a class="toc depth-2" href="#test-levelcpp">test_level.cpp</a><a class="toc depth-2" href="#test-level-draftcpp">test_level_draft.cpp</a><a class="toc depth-2" href="#test-level-draft-editingcpp">test_level_draft_editing.cpp</a><a class="toc depth-2" href="#test-level-draft-piecescpp">test_level_draft_pieces.cpp</a><a class="toc depth-2" href="#test-level-loadercpp">test_level_loader.cpp</a><a class="toc depth-2" href="#test-level-writercpp">test_level_writer.cpp</a><a class="toc depth-2" href="#test-map-layerscpp">test_map_layers.cpp</a><a class="toc depth-2" href="#test-rpg-terraincpp">test_rpg_terrain.cpp</a><a class="toc depth-2" href="#test-tile-type-namecpp">test_tile_type_name.cpp</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="core-levels">Core · Levels</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">117 cas</span></div>
+<p>Tests unitaires — <strong>117 cas</strong> (24 critiques, 76 majeurs, 17 mineurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-format-v4cpp"><code>test_format_v4.cpp</code></a></td><td>19</td><td>-</td><td>8</td><td>7</td><td>4</td></tr><tr><td><a href="#test-layer-piecescpp"><code>test_layer_pieces.cpp</code></a></td><td>9</td><td>-</td><td>3</td><td>6</td><td>-</td></tr><tr><td><a href="#test-levelcpp"><code>test_level.cpp</code></a></td><td>6</td><td>-</td><td>-</td><td>6</td><td>-</td></tr><tr><td><a href="#test-level-draftcpp"><code>test_level_draft.cpp</code></a></td><td>25</td><td>-</td><td>1</td><td>21</td><td>3</td></tr><tr><td><a href="#test-level-draft-editingcpp"><code>test_level_draft_editing.cpp</code></a></td><td>14</td><td>-</td><td>1</td><td>7</td><td>6</td></tr><tr><td><a href="#test-level-draft-piecescpp"><code>test_level_draft_pieces.cpp</code></a></td><td>14</td><td>-</td><td>6</td><td>7</td><td>1</td></tr><tr><td><a href="#test-level-loadercpp"><code>test_level_loader.cpp</code></a></td><td>5</td><td>-</td><td>1</td><td>4</td><td>-</td></tr><tr><td><a href="#test-level-writercpp"><code>test_level_writer.cpp</code></a></td><td>4</td><td>-</td><td>-</td><td>3</td><td>1</td></tr><tr><td><a href="#test-map-layerscpp"><code>test_map_layers.cpp</code></a></td><td>14</td><td>-</td><td>-</td><td>12</td><td>2</td></tr><tr><td><a href="#test-rpg-terraincpp"><code>test_rpg_terrain.cpp</code></a></td><td>4</td><td>-</td><td>2</td><td>2</td><td>-</td></tr><tr><td><a href="#test-tile-type-namecpp"><code>test_tile_type_name.cpp</code></a></td><td>3</td><td>-</td><td>2</td><td>1</td><td>-</td></tr></tbody></table></div>
+<h2 id="test-format-v4cpp">test_format_v4.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="formatv4testunecartedechaqueversionsecharge">FormatV4Test.UneCarteDeChaqueVersionSeCharge</h3>
+<p><em>Critique · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:107</code></p>
+<p>Une carte de chaque version se charge.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger <code>format-v0.json</code> à <code>format-v4.json</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>level.entry()</code> vaut <code>(GridPosition{0, 0})</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="formatv4testunev4canoniqueressortoctetpouroctet">FormatV4Test.UneV4CanoniqueRessortOctetPourOctet</h3>
+<p><em>Critique · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:125</code></p>
+<p>Une v4 canonique ressort octet pour octet.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger <code>format-v4.json</code>.</li><li>L'écrire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::LevelWriter::toJsonString(chargerFichier(path))</code> vaut <code>lire(path)</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="formatv4testunev3ressortenv4etsestabilise">FormatV4Test.UneV3RessortEnV4EtSeStabilise</h3>
+<p><em>Critique · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:140</code></p>
+<p>Une v3 ressort en v4, et se stabilise.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger <code>format-v3.json</code> et l'écrire.</li><li>Relire et réécrire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>premiere.find(&quot;\&quot;version\&quot;: 4&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>premiere.find(R&quot;({&quot;x&quot;: 3, &quot;y&quot;: 0, &quot;type&quot;: &quot;wall&quot;, &quot;piece&quot;: &quot;wall-left&quot;})&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>premiere.find(&quot;texture&quot;)</code> vaut <code>std::string::npos</code>.</li><li>Vérifie que <code>core::LevelWriter::toJsonString(charger(premiere))</code> vaut <code>premiere</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="formatv4testlareservedehauteursurvitalallerretour">FormatV4Test.LaReserveDeHauteurSurvitALAllerRetour</h3>
+<p><em>Majeur · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:161</code></p>
+<p>La réserve de hauteur survit à l'aller-retour.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger <code>format-v4.json</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>level.layers()[2].floor</code> vaut <code>1</code>.</li><li>Vérifie que <code>level.layers()[1].elevationAt(2, 1)</code> vaut <code>1</code>.</li><li>Vérifie que <code>level.entities().front().elevation</code> vaut <code>2</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="formatv4testdeuxentitesdumemeidsontrefusees">FormatV4Test.DeuxEntitesDuMemeIdSontRefusees</h3>
+<p><em>Majeur · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:180</code></p>
+<p>Deux entités du même id sont refusées.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte dont deux entités portent <code>e1</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.errorCode</code> vaut <code>core::LevelValidationError::DuplicateEntityId</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="formatv4testunidentifiantdonnenestjamaisredonne">FormatV4Test.UnIdentifiantDonneNEstJamaisRedonne</h3>
+<p><em>Critique · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:200</code></p>
+<p>Un identifiant donné n'est jamais redonné.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un coffre dans <code>format-v4.json</code> (compteur à 4).</li><li>Annuler, poser un autre coffre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>premier.has_value()</code> est vrai.</li><li>Vérifie que <code>draft.entities()[*premier].id</code> vaut <code>&quot;e4&quot;</code>.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>second.has_value()</code> est vrai.</li><li>Vérifie que <code>draft.entities()[*second].id</code> vaut <code>&quot;e5&quot;</code>.</li><li>Vérifie que <code>draft.toJson().find(&quot;\&quot;nextEntityId\&quot;: 6&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="formatv4testunidenselitetsecrit">FormatV4Test.UnIdENSeLitEtSEcrit</h3>
+<p><em>Mineur · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:226</code></p>
+<p>Un id e&amp;lt;n&amp;gt; se lit et s'écrit.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Écrire et relire <code>e12</code>, puis lire <code>herald</code> et <code>e</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::entityIdFor(12)</code> vaut <code>&quot;e12&quot;</code>.</li><li>Vérifie que <code>core::entityIdNumber(&quot;e12&quot;)</code> vaut <code>12</code>.</li><li>Vérifie que <code>core::entityIdNumber(&quot;herald&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::entityIdNumber(&quot;e&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::entityIdNumber(&quot;e1x&quot;).has_value()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="formatv4testlescasesforceesserangentsansdoublon">FormatV4Test.LesCasesForceesSeRangentSansDoublon</h3>
+<p><em>Majeur · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:243</code></p>
+<p>Les cases forcées se rangent sans doublon.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger des cases forcées en désordre, dont un doublon.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>level.forcedCollision()</code> vaut <code>(std::vector&lt;GridPosition&gt;{{1, 0}, {0, 1}})</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="formatv4testunecaseforceehorscarteestrefusee">FormatV4Test.UneCaseForceeHorsCarteEstRefusee</h3>
+<p><em>Mineur · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:261</code></p>
+<p>Une case forcée hors carte est refusée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une case forcée en (5, 5) sur une carte 2 × 2.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.errorCode</code> vaut <code>core::LevelValidationError::OutOfBounds</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="formatv4testunevariantereprendlescasesdesabase">FormatV4Test.UneVarianteReprendLesCasesDeSaBase</h3>
+<p><em>Critique · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:282</code></p>
+<p>Une variante reprend les cases de sa base.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger <code>variante/quartier/nuit.json</code>, variante de <code>base</code>.</li><li>La réécrire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>variante.base()</code> vaut <code>&quot;base&quot;</code>.</li><li>Vérifie que <code>variante.tileMap().width()</code> vaut <code>3</code>.</li><li>Vérifie que <code>variante.tileMap().tile(2, 1)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>variante.entry()</code> vaut <code>base.entry()</code>.</li><li>Vérifie que <code>variante.entities().size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>variante.entities().front().type</code> vaut <code>&quot;spawnPoint&quot;</code>.</li><li>Vérifie que <code>scene</code> diffère de <code>variante.layers()[1].properties.end()</code>.</li><li>Vérifie que <code>std::get&lt;std::string&gt;(scene-&gt;second)</code> vaut <code>&quot;coliseum-doom&quot;</code>.</li><li>Vérifie que <code>variante.layers()[1].pieceAt(1, 0)</code> vaut <code>&quot;sand-2&quot;</code>.</li><li>Vérifie que <code>core::LevelWriter::toJsonString(variante)</code> vaut <code>lire(path)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="formatv4testunevariantesansbaseestrefusee">FormatV4Test.UneVarianteSansBaseEstRefusee</h3>
+<p><em>Majeur · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:311</code></p>
+<p>Une variante sans base est refusée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger la variante depuis une chaîne, sans résolveur.</li><li>Déclarer une base introuvable depuis un fichier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::LevelLoader::loadFromString(texte).errorCode</code> vaut <code>core::LevelValidationError::MissingBase</code>.</li><li>Vérifie que <code>sansBase.errorCode</code> vaut <code>core::LevelValidationError::MissingBase</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="formatv4testunevariantequiportedescasesestrefusee">FormatV4Test.UneVarianteQuiPorteDesCasesEstRefusee</h3>
+<p><em>Mineur · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:332</code></p>
+<p>Une variante qui porte des cases est refusée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une variante qui déclare <code>tiles</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.errorCode</code> vaut <code>core::LevelValidationError::ParseError</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="formatv4testunezonepeinteestlueparlagrilletactique">FormatV4Test.UneZonePeinteEstLueParLaGrilleTactique</h3>
+<p><em>Critique · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:353</code></p>
+<p>Une zone peinte est lue par la grille tactique.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger <code>format-v4.json</code> (zone peinte en (1, 1) et (2, 2)).</li><li>Construire sa <code>BattleGrid</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>porteLaZone({1, 1})</code> est vrai.</li><li>Vérifie que <code>porteLaZone({2, 2})</code> est vrai.</li><li>Vérifie que <code>porteLaZone({2, 1})</code> est faux.</li><li>Vérifie que <code>grid.isDifficult({2, 2})</code> est vrai.</li><li>Vérifie que <code>grid.isDifficult({2, 1})</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="formatv4testunezonerectanglecouvresonrectangle">FormatV4Test.UneZoneRectangleCouvreSonRectangle</h3>
+<p><em>Majeur · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:379</code></p>
+<p>Une zone rectangle couvre son rectangle.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander les cases d'une zone 2 × 1 en (1, 0).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::zoneCells(zone)</code> vaut <code>(std::vector&lt;GridPosition&gt;{{1, 0}, {2, 0}})</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="formatv4testuneemprisesetenddepuissonancre">FormatV4Test.UneEmpriseSEtendDepuisSonAncre</h3>
+<p><em>Majeur · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:400</code></p>
+<p>Une emprise s'étend depuis son ancre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander les cases et le pied d'une emprise 2 × 1 ancrée en (3, 4).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::footprintCells({3, 4}, etal)</code> vaut <code>(std::vector&lt;GridPosition&gt;{{3, 4}, {4, 4}})</code>.</li><li>Vérifie que <code>core::footprintFootCorner({3, 4}, etal)</code> vaut <code>(GridPosition{5, 5})</code>.</li><li>Vérifie que <code>core::footprintFootCorner({3, 4}, {})</code> vaut <code>(GridPosition{4, 5})</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="formatv4testlemanifesteditcequunepieceoppose">FormatV4Test.LeManifesteDitCeQuUnePieceOppose</h3>
+<p><em>Critique · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:419</code></p>
+<p>Le manifeste dit ce qu'une pièce oppose.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire le manifeste d'essai.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>pieces.find(&quot;street&quot;)-&gt;tactical</code> vaut <code>PieceTactical::Open</code>.</li><li>Vérifie que <code>pieces.find(&quot;wall-left&quot;)-&gt;tactical</code> vaut <code>PieceTactical::Solid</code>.</li><li>Vérifie que <code>pieces.find(&quot;bench&quot;)-&gt;tactical</code> vaut <code>PieceTactical::Open</code>.</li><li>Vérifie que <code>pieces.find(&quot;stall&quot;)-&gt;tactical</code> vaut <code>PieceTactical::Obstacle</code>.</li><li>Vérifie que <code>pieces.find(&quot;odd&quot;)-&gt;tactical</code> vaut <code>PieceTactical::Solid</code>.</li><li>Vérifie que <code>pieces.find(&quot;low-wall&quot;)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>pieces.find(&quot;low-wall&quot;)-&gt;name</code> vaut <code>&quot;parapet&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="formatv4testlacollisionsededuitdespieces">FormatV4Test.LaCollisionSeDeduitDesPieces</h3>
+<p><em>Critique · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:442</code></p>
+<p>La collision se déduit des pièces.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un étal 2 × 1 en (0, 0), un mur en (3, 0), un banc en (2, 0).</li><li>Déduire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>derivee.collision.tile(0, 0)</code> vaut <code>TileType::Cliff</code>.</li><li>Vérifie que <code>derivee.collision.tile(1, 0)</code> vaut <code>TileType::Cliff</code>.</li><li>Vérifie que <code>derivee.collision.tile(2, 0)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>derivee.collision.tile(3, 0)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>derivee.collision.tile(column, 1)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>derivee.unknownPieces.empty()</code> est vrai.</li><li>Vérifie que <code>derivee.unplayed.empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="formatv4testtypespiecesinconnuesgeneetabri">FormatV4Test.TypesPiecesInconnuesGeneEtAbri</h3>
+<p><em>Majeur · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:475</code></p>
+<p>Types, pièces inconnues, gêne et abri.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser de l'eau profonde sans pièce, une pièce inconnue sur un mur, une flaque, un muret par son ancien nom.</li><li>Déduire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>derivee.collision.tile(0, 1)</code> vaut <code>TileType::Cliff</code>.</li><li>Vérifie que <code>derivee.collision.tile(1, 1)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>derivee.collision.tile(2, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>derivee.collision.tile(3, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>derivee.unknownPieces</code> vaut <code>(std::vector&lt;GridPosition&gt;{{1, 1}})</code>.</li><li>Vérifie que <code>derivee.unplayed</code> vaut <code>(std::vector&lt;GridPosition&gt;{{2, 1}, {3, 1}})</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="formatv4testlentreesaccordeavecunecasevide">FormatV4Test.LEntreeSAccordeAvecUneCaseVide</h3>
+<p><em>Mineur · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:505</code></p>
+<p>L'entrée s'accorde avec une case vide.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Comparer une entrée à du vide, un mur à du vide.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::collisionAgrees(ecrite, deduite, 0, 0)</code> est vrai.</li><li>Vérifie que <code>core::collisionAgrees(ecrite, deduite, 1, 0)</code> est faux.</li></ul>
+</section><h2 id="test-layer-piecescpp">test_layer_pieces.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="layerpiecestestunecasedecoucheportesontypeetsapiece">LayerPiecesTest.UneCaseDeCouchePorteSonTypeEtSaPiece</h3>
+<p><em>Critique · Unitaire · Pièces de couche</em> — <code>Source/Test/Unit/Core/Levels/test_layer_pieces.cpp:51</code></p>
+<p>Une case de couche porte son type et sa pièce.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte v4 dont le décor nomme une pièce.</li><li>Lire la case.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>level.layers().size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>level.layers()[1].pieceAt(0, 0)</code> vaut <code>&quot;street&quot;</code>.</li><li>Vérifie que <code>level.layers()[DECOR].tiles.tile(1, 1)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>level.layers()[DECOR].pieceAt(1, 1)</code> vaut <code>&quot;wall-red&quot;</code>.</li><li>Vérifie que <code>level.layers()[DECOR].pieceAt(2, 2).empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="layerpiecestestlassignationdunecartev3devientunepiecedudecor">LayerPiecesTest.LAssignationDUneCarteV3DevientUnePieceDuDecor</h3>
+<p><em>Critique · Unitaire · Pièces de couche</em> — <code>Source/Test/Unit/Core/Levels/test_layer_pieces.cpp:71</code></p>
+<p>L'assignation d'une carte v3 devient une pièce du décor.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte v3 dont la grille racine porte une texture.</li><li>Lire la couche de décor.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>level.layers()[DECOR].pieceAt(2, 1)</code> vaut <code>&quot;wall-left&quot;</code>.</li><li>Vérifie que <code>level.tileMap().tile(2, 1)</code> vaut <code>TileType::Wall</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="layerpiecestestunev3sansdecorrecoitunecouchederelief">LayerPiecesTest.UneV3SansDecorRecoitUneCoucheDeRelief</h3>
+<p><em>Majeur · Unitaire · Pièces de couche</em> — <code>Source/Test/Unit/Core/Levels/test_layer_pieces.cpp:95</code></p>
+<p>Une v3 sans décor reçoit une couche de relief.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte v2 plate dont une tuile porte une texture.</li><li>Lire ses couches.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>level.layers().size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>level.layers()[1].kind</code> vaut <code>LayerKind::Decor</code>.</li><li>Vérifie que <code>level.layers()[1].name</code> vaut <code>&quot;relief&quot;</code>.</li><li>Vérifie que <code>level.layers()[1].pieceAt(2, 2)</code> vaut <code>&quot;crate&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="layerpiecestestunev4quiporteunetextureracineestrefusee">LayerPiecesTest.UneV4QuiPorteUneTextureRacineEstRefusee</h3>
+<p><em>Majeur · Unitaire · Pièces de couche</em> — <code>Source/Test/Unit/Core/Levels/test_layer_pieces.cpp:118</code></p>
+<p>Une v4 qui porte une texture racine est refusée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une v4 dont une tuile racine porte <code>texture</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est faux.</li><li>Vérifie que <code>loaded.errorCode</code> vaut <code>core::LevelValidationError::ParseError</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="layerpiecestestunautretyperetirelapiecelememelagarde">LayerPiecesTest.UnAutreTypeRetireLaPieceLeMemeLaGarde</h3>
+<p><em>Majeur · Unitaire · Pièces de couche</em> — <code>Source/Test/Unit/Core/Levels/test_layer_pieces.cpp:138</code></p>
+<p>Un autre type retire la pièce, le même la garde.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Repeindre <code>wall</code> sur la case habillée.</li><li>Peindre <code>dirt</code> dessus.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.paintLayerTile(DECOR, 1, 1, TileType::Wall)</code> est faux.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(1, 1)</code> vaut <code>&quot;wall-red&quot;</code>.</li><li>Vérifie que <code>draft.paintLayerTile(DECOR, 1, 1, TileType::Dirt)</code> est vrai.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(1, 1).empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="layerpiecestestuneregionrepeinteretirelapiecelannulationlarend">LayerPiecesTest.UneRegionRepeinteRetireLaPieceLAnnulationLaRend</h3>
+<p><em>Majeur · Unitaire · Pièces de couche</em> — <code>Source/Test/Unit/Core/Levels/test_layer_pieces.cpp:158</code></p>
+<p>Une région repeinte retire la pièce ; l'annulation la rend.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Peindre un bloc de sable sur la case habillée.</li><li>Annuler.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.paintLayerRegion(DECOR, 1, 1, {{TileType::Sand, TileType::Sand}})</code> est vrai.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(1, 1).empty()</code> est vrai.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(1, 1)</code> vaut <code>&quot;wall-red&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="layerpiecestestreduirelagrilletronquelespieceshorsbornes">LayerPiecesTest.ReduireLaGrilleTronqueLesPiecesHorsBornes</h3>
+<p><em>Majeur · Unitaire · Pièces de couche</em> — <code>Source/Test/Unit/Core/Levels/test_layer_pieces.cpp:177</code></p>
+<p>Réduire la grille tronque les pièces hors bornes.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Réduire la carte à 2 × 2, puis à 1 × 1.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(1, 1)</code> vaut <code>&quot;wall-red&quot;</code>.</li><li>Vérifie que <code>draft.layers()[DECOR].hasPieces()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="layerpiecestestpiecesethauteurssurviventalallerretour">LayerPiecesTest.PiecesEtHauteursSurviventALAllerRetour</h3>
+<p><em>Critique · Unitaire · Pièces de couche</em> — <code>Source/Test/Unit/Core/Levels/test_layer_pieces.cpp:196</code></p>
+<p>Pièces et hauteurs survivent à l'aller-retour.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Donner une hauteur à une case habillée.</li><li>Écrire puis relire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>json.find(&quot;\&quot;texture\&quot;&quot;)</code> vaut <code>std::string::npos</code>.</li><li>Vérifie que <code>relue.layers()[DECOR].pieceAt(1, 1)</code> vaut <code>&quot;wall-red&quot;</code>.</li><li>Vérifie que <code>relue.layers()[DECOR].elevationAt(1, 1)</code> vaut <code>2</code>.</li><li>Vérifie que <code>relue.layers()[1].pieceAt(0, 0)</code> vaut <code>&quot;street&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="layerpiecestestunecasevidequinommeunepiecesecrit">LayerPiecesTest.UneCaseVideQuiNommeUnePieceSEcrit</h3>
+<p><em>Majeur · Unitaire · Pièces de couche</em> — <code>Source/Test/Unit/Core/Levels/test_layer_pieces.cpp:219</code></p>
+<p>Une case vide qui nomme une pièce s'écrit.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Nommer une pièce sur une case sans type.</li><li>Écrire puis relire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>relue.layers()[DECOR].pieceAt(3, 3)</code> vaut <code>&quot;banner&quot;</code>.</li><li>Vérifie que <code>relue.layers()[DECOR].tiles.tile(3, 3)</code> vaut <code>TileType::Empty</code>.</li></ul>
+</section><h2 id="test-levelcpp">test_level.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="tilemaptestgrilleneuvevideauxbonnesdimensions">TileMapTest.GrilleNeuveVideAuxBonnesDimensions</h3>
+<p><em>Majeur · Unitaire · Tile Map</em> — <code>Source/Test/Unit/Core/Levels/test_level.cpp:17</code></p>
+<p>Une grille neuve a les bonnes dimensions et n'est composée que de cases Empty.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>map.width()</code> vaut <code>4</code>.</li><li>Vérifie que <code>map.height()</code> vaut <code>3</code>.</li><li>Vérifie que <code>map.tile(column, row)</code> vaut <code>core::TileType::Empty</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="tilemaptestecriturelecturedunetuile">TileMapTest.EcritureLectureDUneTuile</h3>
+<p><em>Majeur · Unitaire · Tile Map</em> — <code>Source/Test/Unit/Core/Levels/test_level.cpp:40</code></p>
+<p>Écrire puis lire une tuile restitue le type posé.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>map.tile(2, 1)</code> vaut <code>core::TileType::Solid</code>.</li><li>Vérifie que <code>map.tile(0, 0)</code> vaut <code>core::TileType::Empty</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="tilemaptestbornes">TileMapTest.Bornes</h3>
+<p><em>Majeur · Unitaire · Tile Map</em> — <code>Source/Test/Unit/Core/Levels/test_level.cpp:58</code></p>
+<p>Les bornes de la grille sont correctement détectées.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>map.inBounds(0, 0)</code> est vrai.</li><li>Vérifie que <code>map.inBounds(3, 2)</code> est vrai.</li><li>Vérifie que <code>map.inBounds(4, 2)</code> est faux.</li><li>Vérifie que <code>map.inBounds(3, 3)</code> est faux.</li><li>Vérifie que <code>map.inBounds(-1, 0)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="tilemaptestsolidite">TileMapTest.Solidite</h3>
+<p><em>Majeur · Unitaire · Tile Map</em> — <code>Source/Test/Unit/Core/Levels/test_level.cpp:78</code></p>
+<p>Seules les tuiles solides bloquent statiquement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>map.isSolid(0, 0)</code> est vrai.</li><li>Vérifie que <code>map.isSolid(1, 0)</code> est faux.</li><li>Vérifie que <code>map.isSolid(2, 0)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="tilemaptestissolidpartype">TileMapTest.IsSolidParType</h3>
+<p><em>Majeur · Unitaire · Tile Map</em> — <code>Source/Test/Unit/Core/Levels/test_level.cpp:99</code></p>
+<p><code>isSolid(TileType)</code> : vrai seulement pour Solid.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::isSolid(core::TileType::Solid)</code> est vrai.</li><li>Vérifie que <code>core::isSolid(core::TileType::Empty)</code> est faux.</li><li>Vérifie que <code>core::isSolid(core::TileType::Entry)</code> est faux.</li><li>Vérifie que <code>core::isSolid(core::TileType::Grass)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveltestrestituesescomposantes">LevelTest.RestitueSesComposantes</h3>
+<p><em>Majeur · Unitaire · Level</em> — <code>Source/Test/Unit/Core/Levels/test_level.cpp:116</code></p>
+<p>Un Level restitue ses composantes (nom, grille, entrée).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>level.name()</code> vaut <code>&quot;Tutoriel&quot;</code>.</li><li>Vérifie que <code>level.tileMap().width()</code> vaut <code>5</code>.</li><li>Vérifie que <code>level.entry()</code> vaut <code>(core::GridPosition{1, 1})</code>.</li></ul>
+</section><h2 id="test-level-draftcpp">test_level_draft.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="leveldrafttestpainttileposeletype">LevelDraftTest.PaintTilePoseLeType</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:28</code></p>
+<p>paintTile pose le type demandé sur la case visée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.tileMap().tile(1, 1)</code> vaut <code>TileType::Solid</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestsetentrydeplacelentreeexistante">LevelDraftTest.SetEntryDeplaceLEntreeExistante</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:44</code></p>
+<p>Poser une seconde entrée déplace la première (unicité, EX-EDIT-004).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.entry().has_value()</code> est vrai.</li><li>Vérifie que <code>*draft.entry()</code> vaut <code>(GridPosition{0, 0})</code>.</li><li>Vérifie que <code>*draft.entry()</code> vaut <code>(GridPosition{2, 2})</code>.</li><li>Vérifie que <code>draft.tileMap().tile(0, 0)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.tileMap().tile(2, 2)</code> vaut <code>TileType::Entry</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestpeindrepardessuslentreelinvalide">LevelDraftTest.PeindrePardessusLEntreeLInvalide</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:66</code></p>
+<p>Peindre par-dessus l'entrée invalide la position d'entrée mémorisée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.entry().has_value()</code> est faux.</li><li>Vérifie que <code>draft.tileMap().tile(1, 1)</code> vaut <code>TileType::Solid</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestagrandirconservelecontenu">LevelDraftTest.AgrandirConserveLeContenu</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:84</code></p>
+<p>Agrandir la grille conserve le contenu existant et complète en cases vides.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.tileMap().width()</code> vaut <code>5</code>.</li><li>Vérifie que <code>draft.tileMap().height()</code> vaut <code>5</code>.</li><li>Vérifie que <code>draft.tileMap().tile(1, 1)</code> vaut <code>TileType::Entry</code>.</li><li>Vérifie que <code>*draft.entry()</code> vaut <code>(GridPosition{1, 1})</code>.</li><li>Vérifie que <code>draft.tileMap().tile(4, 4)</code> vaut <code>TileType::Empty</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestreduiretronqueetinvalidelentreeperdue">LevelDraftTest.ReduireTronqueEtInvalideLEntreePerdue</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:107</code></p>
+<p>Réduire la grille tronque le contenu hors bornes et invalide l'entrée perdue.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.tileMap().width()</code> vaut <code>3</code>.</li><li>Vérifie que <code>draft.tileMap().height()</code> vaut <code>3</code>.</li><li>Vérifie que <code>draft.entry().has_value()</code> est faux.</li><li>Vérifie que <code>draft.tileMap().tile(1, 1)</code> vaut <code>TileType::Solid</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttesttolevelsansentreeechoueproprement">LevelDraftTest.ToLevelSansEntreeEchoueProprement</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:131</code></p>
+<p>toLevel() sur un brouillon sans entrée échoue avec un message récupérable (EX-EDIT-007).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est faux.</li><li>Vérifie que <code>result.error.empty()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestfromlevelrestituelecontenu">LevelDraftTest.FromLevelRestitueLeContenu</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:152</code></p>
+<p>Un brouillon reconstruit depuis un niveau existant restitue son contenu.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>draft.name()</code> vaut <code>&quot;Depart&quot;</code>.</li><li>Vérifie que <code>*draft.entry()</code> vaut <code>(GridPosition{0, 0})</code>.</li><li>Vérifie que <code>draft.tileMap().tile(2, 2)</code> vaut <code>TileType::Wall</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="leveldrafttestbrouillonneufsanshistorique">LevelDraftTest.BrouillonNeufSansHistorique</h3>
+<p><em>Mineur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:174</code></p>
+<p>Un brouillon neuf ne peut ni annuler ni refaire.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.canUndo()</code> est faux.</li><li>Vérifie que <code>draft.canRedo()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestundoaprespeinturerestitueletatprecedent">LevelDraftTest.UndoApresPeintureRestitueLEtatPrecedent</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:190</code></p>
+<p>undo() après une peinture restitue l'état exact précédent.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.canUndo()</code> est vrai.</li><li>Vérifie que <code>undone</code> est vrai.</li><li>Vérifie que <code>draft.tileMap().tile(1, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.canUndo()</code> est faux.</li><li>Vérifie que <code>draft.canRedo()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestredoapresundorestitueletatmute">LevelDraftTest.RedoApresUndoRestitueLEtatMute</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:213</code></p>
+<p>redo() après un undo() restitue l'état muté.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>redone</code> est vrai.</li><li>Vérifie que <code>draft.tileMap().tile(1, 1)</code> vaut <code>TileType::Solid</code>.</li><li>Vérifie que <code>draft.canUndo()</code> est vrai.</li><li>Vérifie que <code>draft.canRedo()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestsequencedemutationspuisundorestitueletatinitial">LevelDraftTest.SequenceDeMutationsPuisUndoRestitueLEtatInitial</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:236</code></p>
+<p>Une séquence de N mutations suivie de N undo() restitue l'état initial exact.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.canUndo()</code> est faux.</li><li>Vérifie que <code>draft.tileMap().tile(0, 0)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.tileMap().tile(1, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.tileMap().tile(2, 2)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.entry().has_value()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestmutationapresundoinvalidelerefaire">LevelDraftTest.MutationApresUndoInvalideLeRefaire</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:264</code></p>
+<p>Une nouvelle mutation après un undo() invalide la branche de refaire.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.canRedo()</code> est vrai.</li><li>Vérifie que <code>draft.canRedo()</code> est faux.</li><li>Vérifie que <code>draft.tileMap().tile(1, 1)</code> vaut <code>TileType::Dirt</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestundoredosurpilevidesanseffet">LevelDraftTest.UndoRedoSurPileVideSansEffet</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:286</code></p>
+<p>undo()/redo() sur une pile vide est sans effet (pas de plantage).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.undo()</code> est faux.</li><li>Vérifie que <code>draft.redo()</code> est faux.</li><li>Vérifie que <code>draft.tileMap().tile(0, 0)</code> vaut <code>TileType::Empty</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestpaintregionappliqueleblocentier">LevelDraftTest.PaintRegionAppliqueLeBlocEntier</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:303</code></p>
+<p>paintRegion applique un bloc homogène comme une succession de paintTile équivalente.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.tileMap().tile(1, 1)</code> vaut <code>TileType::Solid</code>.</li><li>Vérifie que <code>draft.tileMap().tile(2, 1)</code> vaut <code>TileType::Solid</code>.</li><li>Vérifie que <code>draft.tileMap().tile(1, 2)</code> vaut <code>TileType::Solid</code>.</li><li>Vérifie que <code>draft.tileMap().tile(2, 2)</code> vaut <code>TileType::Solid</code>.</li><li>Vérifie que <code>draft.tileMap().tile(0, 0)</code> vaut <code>TileType::Empty</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestpaintregionunseulsnapshotundo">LevelDraftTest.PaintRegionUnSeulSnapshotUndo</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:329</code></p>
+<p>paintRegion ne pousse qu'un seul snapshot undo pour tout le bloc.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.canUndo()</code> est faux.</li><li>Vérifie que <code>draft.tileMap().tile(0, 0)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.tileMap().tile(1, 0)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.tileMap().tile(2, 0)</code> vaut <code>TileType::Empty</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestpaintregiondecoupeauxbords">LevelDraftTest.PaintRegionDecoupeAuxBords</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:353</code></p>
+<p>paintRegion découpe silencieusement le bloc aux bords de la grille.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.tileMap().tile(1, 2)</code> vaut <code>TileType::Solid</code>.</li><li>Vérifie que <code>draft.tileMap().tile(2, 2)</code> vaut <code>TileType::Solid</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestpaintregiondeplacelentree">LevelDraftTest.PaintRegionDeplaceLEntree</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:376</code></p>
+<p>paintRegion qui inclut une position d'entrée déplace l'entrée existante.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.tileMap().tile(0, 0)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>*draft.entry()</code> vaut <code>(GridPosition{2, 2})</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="leveldrafttestpaintregionblocvidesanseffet">LevelDraftTest.PaintRegionBlocVideSansEffet</h3>
+<p><em>Mineur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:396</code></p>
+<p>paintRegion avec un bloc vide est sans effet.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.canUndo()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestwouldresizedropcontentdetectelaperte">LevelDraftTest.WouldResizeDropContentDetecteLaPerte</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:412</code></p>
+<p>wouldResizeDropContent détecte la perte de l'entrée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.wouldResizeDropContent(3, 3)</code> est vrai.</li><li>Vérifie que <code>draft.wouldResizeDropContent(2, 5)</code> est vrai.</li><li>Vérifie que <code>draft.wouldResizeDropContent(10, 10)</code> est faux.</li><li>Vérifie que <code>draft.wouldResizeDropContent(5, 5)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="leveldrafttestwouldresizedropcontentfauxsurbrouillonvierge">LevelDraftTest.WouldResizeDropContentFauxSurBrouillonVierge</h3>
+<p><em>Mineur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:436</code></p>
+<p>wouldResizeDropContent est faux sur un brouillon vierge, quelle que soit la taille visee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.wouldResizeDropContent(1, 1)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestundoapresredimensionnementrestituelesdimensions">LevelDraftTest.UndoApresRedimensionnementRestitueLesDimensions</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:453</code></p>
+<p>L'annulation d'un redimensionnement restitue les dimensions et le contenu précédents.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.entry().has_value()</code> est faux.</li><li>Vérifie que <code>draft.tileMap().width()</code> vaut <code>5</code>.</li><li>Vérifie que <code>draft.tileMap().height()</code> vaut <code>5</code>.</li><li>Vérifie que <code>draft.entry().has_value()</code> est vrai.</li><li>Vérifie que <code>*draft.entry()</code> vaut <code>(GridPosition{4, 4})</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="leveldrafttestlarevisionsuitlhistorique">LevelDraftTest.LaRevisionSuitLHistorique</h3>
+<p><em>Critique · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:481</code></p>
+<p>La révision du brouillon suit l'historique d'annulation.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Relever la révision d'un brouillon neuf.</li><li>Peindre, défaire, refaire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>painted</code> diffère de <code>initial</code>.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.revision()</code> vaut <code>initial</code>.</li><li>Vérifie que <code>draft.redo()</code> est vrai.</li><li>Vérifie que <code>draft.revision()</code> vaut <code>painted</code>.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.revision()</code> diffère de <code>initial</code>.</li><li>Vérifie que <code>draft.revision()</code> diffère de <code>painted</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestrepeindrelememetypenemodifierien">LevelDraftTest.RepeindreLeMemeTypeNeModifieRien</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:509</code></p>
+<p>Repasser le pinceau sur une case déjà du bon type ne modifie pas la carte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Peindre une case, relever la révision.</li><li>Repeindre la même case du même type, et un bloc qui ne change rien.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.revision()</code> vaut <code>revision</code>.</li><li>Vérifie que <code>draft.undoDepth()</code> vaut <code>depth</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestlhistoriqueestplafonne">LevelDraftTest.LHistoriqueEstPlafonne</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:533</code></p>
+<p>L'historique d'annulation est plafonné.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Enchaîner plus de mutations que le plafond.</li><li>Défaire autant que possible.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.undoDepth()</code> vaut <code>LevelDraft::UNDO_HISTORY_LIMIT</code>.</li><li>Vérifie que <code>draft.tileMap().tile(static_cast&lt;int&gt;(index % WIDTH), static_cast&lt;int&gt;(index / WIDTH))</code> vaut <code>TileType::Solid</code>.</li><li>Vérifie que <code>draft.tileMap().tile(static_cast&lt;int&gt;(extra % WIDTH), static_cast&lt;int&gt;(extra / WIDTH))</code> vaut <code>TileType::Empty</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldrafttesttojsonrendunbrouillonincomplet">LevelDraftTest.ToJsonRendUnBrouillonIncomplet</h3>
+<p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:566</code></p>
+<p>Le brouillon se sérialise sans validation, pour la sauvegarde automatique.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Sérialiser un brouillon sans entrée.</li><li>Poser une entrée, sérialiser, recharger.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>incomplete.empty()</code> est faux.</li><li>Vérifie que <code>core::LevelLoader::loadFromString(incomplete).ok()</code> est faux.</li><li>Vérifie que <code>reloaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.level-&gt;entry()</code> vaut <code>(GridPosition{.column = 1, .row = 1})</code>.</li></ul>
+</section><h2 id="test-level-draft-editingcpp">test_level_draft_editing.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="editiondecartetestpremierecouchevisuellepromeutlagrilleunique">EditionDeCarteTest.PremiereCoucheVisuellePromeutLaGrilleUnique</h3>
+<p><em>Majeur · Unitaire · Edition de carte</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp:79</code></p>
+<p>Ajouter la premiere couche promeut la grille unique.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ouvrir une carte sans couche declaree.</li><li>Ajouter une couche de sol.</li><li>Reconvertir en niveau.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.layers().size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>draft.layers().front().kind</code> vaut <code>core::LayerKind::Legacy</code>.</li><li>Vérifie que <code>ground.has_value()</code> est vrai.</li><li>Vérifie que <code>draft.layers().size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>draft.layers().front().kind</code> vaut <code>core::LayerKind::Collision</code>.</li><li>Vérifie que <code>tiles.tile(0, 0)</code> vaut <code>core::TileType::Wall</code>.</li><li>Vérifie que <code>tiles.tile(1, 0)</code> vaut <code>core::TileType::Grass</code>.</li><li>Vérifie que <code>tiles.tile(2, 0)</code> vaut <code>core::TileType::Empty</code>.</li><li>Vérifie que <code>tiles.tile(1, 1)</code> vaut <code>core::TileType::Empty</code>.</li><li>Vérifie que <code>rebuilt.ok()</code> est vrai.</li><li>Vérifie que <code>rebuilt.level-&gt;layers().size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>rebuilt.level-&gt;layers().front().kind</code> vaut <code>core::LayerKind::Collision</code>.</li><li>Vérifie que <code>rebuilt.level-&gt;layers().front().tiles.tile(1, 1)</code> vaut <code>core::TileType::Entry</code>.</li><li>Vérifie que <code>rebuilt.level-&gt;layers()[1].tiles.tile(0, 0)</code> vaut <code>core::TileType::Wall</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="editiondecartetestbrouillonviergerecoitlacouchedecollision">EditionDeCarteTest.BrouillonViergeRecoitLaCoucheDeCollision</h3>
+<p><em>Mineur · Unitaire · Edition de carte</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp:114</code></p>
+<p>Un brouillon vierge s'aligne sur le chargeur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Creer un brouillon vierge et y poser un mur.</li><li>Ajouter un sol puis un decor.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.addLayer(core::LayerKind::Ground, &quot;sol&quot;)</code> vaut <code>std::optional&lt;std::size_t&gt;{1}</code>.</li><li>Vérifie que <code>draft.addLayer(core::LayerKind::Decor, &quot;decor&quot;)</code> vaut <code>std::optional&lt;std::size_t&gt;{2}</code>.</li><li>Vérifie que <code>draft.layers().size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>draft.layers()[0].kind</code> vaut <code>core::LayerKind::Collision</code>.</li><li>Vérifie que <code>draft.layers()[1].tiles.tile(0, 0)</code> vaut <code>core::TileType::Wall</code>.</li><li>Vérifie que <code>draft.layers()[2].tiles.tile(0, 0)</code> vaut <code>core::TileType::Empty</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="editiondecartetestcouchenonvisuellerefusee">EditionDeCarteTest.CoucheNonVisuelleRefusee</h3>
+<p><em>Majeur · Unitaire · Edition de carte</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp:136</code></p>
+<p>Une couche de collision ne se cree pas.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander une couche Collision, puis Legacy.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.addLayer(core::LayerKind::Collision, &quot;x&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>draft.addLayer(core::LayerKind::Legacy, &quot;x&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>draft.canUndo()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="editiondecartetestpeindreunecouchevisuellenetouchepaslacollision">EditionDeCarteTest.PeindreUneCoucheVisuelleNeTouchePasLaCollision</h3>
+<p><em>Majeur · Unitaire · Edition de carte</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp:153</code></p>
+<p>Peindre le sol laisse la collision intacte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Peindre de l'eau sur le sol.</li><li>Tenter une entree sur le sol.</li><li>Reconvertir.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.paintLayerTile(ground, 2, 1, core::TileType::Water)</code> est vrai.</li><li>Vérifie que <code>draft.paintLayerTile(ground, 2, 1, core::TileType::Entry)</code> est faux.</li><li>Vérifie que <code>draft.paintLayerTile(ground, 9, 9, core::TileType::Water)</code> est faux.</li><li>Vérifie que <code>rebuilt.ok()</code> est vrai.</li><li>Vérifie que <code>rebuilt.level-&gt;tileMap().tile(2, 1)</code> vaut <code>core::TileType::Empty</code>.</li><li>Vérifie que <code>rebuilt.level-&gt;layers()[ground].tiles.tile(2, 1)</code> vaut <code>core::TileType::Water</code>.</li><li>Vérifie que <code>rebuilt.level-&gt;layers()[decor].tiles.tile(2, 1)</code> vaut <code>core::TileType::Empty</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="editiondecartetestgestedecouchesanseffetnempilerien">EditionDeCarteTest.GesteDeCoucheSansEffetNEmpileRien</h3>
+<p><em>Mineur · Unitaire · Edition de carte</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp:180</code></p>
+<p>Un geste de couche refuse n'empile rien.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Peindre l'entree de collision par paintLayerTile.</li><li>Repeindre l'herbe deja posee sur le sol.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.paintLayerTile(collision, 0, 0, core::TileType::Wall)</code> est faux.</li><li>Vérifie que <code>draft.paintLayerTile(ground, 0, 0, core::TileType::Grass)</code> est faux.</li><li>Vérifie que <code>draft.canUndo()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="editiondecartetestblocdecoucheenunpasetrefusesimixte">EditionDeCarteTest.BlocDeCoucheEnUnPasEtRefuseSiMixte</h3>
+<p><em>Majeur · Unitaire · Edition de carte</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp:200</code></p>
+<p>Un bloc de couche est un seul pas d'annulation.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Peindre un bloc 2x2 de sable qui deborde du bord droit.</li><li>Annuler.</li><li>Peindre un bloc melant sable et entree.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.paintLayerRegion(decor, 3, 0, sand)</code> est vrai.</li><li>Vérifie que <code>draft.layers()[decor].tiles.tile(3, 0)</code> vaut <code>core::TileType::Sand</code>.</li><li>Vérifie que <code>draft.layers()[decor].tiles.tile(3, 1)</code> vaut <code>core::TileType::Sand</code>.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.layers()[decor].tiles.tile(3, 0)</code> vaut <code>core::TileType::Empty</code>.</li><li>Vérifie que <code>draft.canUndo()</code> est faux.</li><li>Vérifie que <code>draft.paintLayerRegion(decor, 0, 0, mixed)</code> est faux.</li><li>Vérifie que <code>draft.layers()[decor].tiles.tile(0, 0)</code> vaut <code>core::TileType::Empty</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="editiondecartetestdeplacerunecouchenefranchitpaslacollision">EditionDeCarteTest.DeplacerUneCoucheNeFranchitPasLaCollision</h3>
+<p><em>Mineur · Unitaire · Edition de carte</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp:230</code></p>
+<p>Une couche se deplace entre couches visuelles.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Reculer le decor.</li><li>Reculer encore le decor devenu premier visuel.</li><li>Avancer le dernier, puis la collision.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.layers()[1].kind</code> vaut <code>core::LayerKind::Ground</code>.</li><li>Vérifie que <code>draft.layers()[2].kind</code> vaut <code>core::LayerKind::Decor</code>.</li><li>Vérifie que <code>draft.moveLayer(2, /*forward=*/false)</code> vaut <code>std::optional&lt;std::size_t&gt;{1}</code>.</li><li>Vérifie que <code>draft.layers()[1].kind</code> vaut <code>core::LayerKind::Decor</code>.</li><li>Vérifie que <code>draft.moveLayer(1, /*forward=*/false)</code> vaut <code>std::optional&lt;std::size_t&gt;{1}</code>.</li><li>Vérifie que <code>draft.moveLayer(2, /*forward=*/true)</code> vaut <code>std::optional&lt;std::size_t&gt;{2}</code>.</li><li>Vérifie que <code>draft.moveLayer(0, /*forward=*/true).has_value()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="editiondecartetestretirerlescouchesvisuellesrendlagrilleunique">EditionDeCarteTest.RetirerLesCouchesVisuellesRendLaGrilleUnique</h3>
+<p><em>Majeur · Unitaire · Edition de carte</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp:254</code></p>
+<p>Retirer toutes les couches visuelles rend la grille unique.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Retirer le decor puis le sol.</li><li>Reconvertir.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.removeLayer(2)</code> est vrai.</li><li>Vérifie que <code>draft.removeLayer(1)</code> est vrai.</li><li>Vérifie que <code>draft.removeLayer(0)</code> est faux.</li><li>Vérifie que <code>draft.layers().size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>draft.layers().front().kind</code> vaut <code>core::LayerKind::Legacy</code>.</li><li>Vérifie que <code>rebuilt.ok()</code> est vrai.</li><li>Vérifie que <code>rebuilt.level-&gt;layers().size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>rebuilt.level-&gt;layers().front().kind</code> vaut <code>core::LayerKind::Legacy</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="editiondecartetestnometroledunecoucheseditent">EditionDeCarteTest.NomEtRoleDUneCoucheSEditent</h3>
+<p><em>Mineur · Unitaire · Edition de carte</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp:277</code></p>
+<p>Nom et role d'une couche s'editent.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Renommer le sol, puis en faire un decor.</li><li>Reconvertir.</li><li>Annuler deux fois.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.renameLayer(1, &quot;prairie&quot;)</code> est vrai.</li><li>Vérifie que <code>draft.renameLayer(1, &quot;prairie&quot;)</code> est faux.</li><li>Vérifie que <code>draft.setLayerKind(1, core::LayerKind::Decor)</code> est vrai.</li><li>Vérifie que <code>draft.setLayerKind(1, core::LayerKind::Collision)</code> est faux.</li><li>Vérifie que <code>rebuilt.ok()</code> est vrai.</li><li>Vérifie que <code>rebuilt.level-&gt;layers()[1].name</code> vaut <code>&quot;prairie&quot;</code>.</li><li>Vérifie que <code>rebuilt.level-&gt;layers()[1].kind</code> vaut <code>core::LayerKind::Decor</code>.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.layers()[1].name</code> vaut <code>&quot;sol&quot;</code>.</li><li>Vérifie que <code>draft.layers()[1].kind</code> vaut <code>core::LayerKind::Ground</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="editiondecartetestuneproprietedecouchesediteetsedefait">EditionDeCarteTest.UneProprieteDeCoucheSEditeEtSeDefait</h3>
+<p><em>Majeur · Unitaire · Edition de carte</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp:307</code></p>
+<p>Une propriete de couche s'edite et se defait.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Donner <code>scene = martpart</code> a la couche de sol, puis la meme valeur encore.</li><li>Tenter une cle vide et la grille de collision.</li><li>Reconvertir, puis annuler.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.setLayerProperty(1, &quot;scene&quot;, std::string{&quot;martpart&quot;})</code> est vrai.</li><li>Vérifie que <code>draft.setLayerProperty(1, &quot;scene&quot;, std::string{&quot;martpart&quot;})</code> est faux.</li><li>Vérifie que <code>draft.setLayerProperty(1, &quot;&quot;, std::string{&quot;martpart&quot;})</code> est faux.</li><li>Vérifie que <code>draft.setLayerProperty(0, &quot;scene&quot;, std::string{&quot;martpart&quot;})</code> est faux.</li><li>Vérifie que <code>rebuilt.ok()</code> est vrai.</li><li>Vérifie que <code>proprietes.contains(&quot;scene&quot;)</code> est vrai.</li><li>Vérifie que <code>std::get&lt;std::string&gt;(proprietes.at(&quot;scene&quot;))</code> vaut <code>&quot;martpart&quot;</code>.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.layers()[1].properties.contains(&quot;scene&quot;)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="editiondecartetestentiteseposesedeplaceetserenseigne">EditionDeCarteTest.EntiteSePoseSeDeplaceEtSeRenseigne</h3>
+<p><em>Majeur · Unitaire · Edition de carte</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp:335</code></p>
+<p>Une entite se pose, se deplace et se renseigne.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un coffre en (0, 2).</li><li>Le deplacer en (1, 2).</li><li>Lui donner une propriete.</li><li>Reconvertir, puis annuler trois fois.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>chest</code> vaut <code>std::optional&lt;std::size_t&gt;{1}</code>.</li><li>Vérifie que <code>draft.moveEntity(*chest, {.column = 1, .row = 2})</code> est vrai.</li><li>Vérifie que <code>draft.setEntityProperty(*chest, &quot;loot&quot;, std::string{&quot;potion&quot;})</code> est vrai.</li><li>Vérifie que <code>rebuilt.ok()</code> est vrai.</li><li>Vérifie que <code>rebuilt.level-&gt;entities().size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>relu.type</code> vaut <code>&quot;chest&quot;</code>.</li><li>Vérifie que <code>relu.position</code> vaut <code>(core::GridPosition{.column = 1, .row = 2})</code>.</li><li>Vérifie que <code>relu.properties.at(&quot;loot&quot;)</code> vaut <code>core::PropertyValue{std::string{&quot;potion&quot;}}</code>.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.entities().size()</code> vaut <code>1U</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="editiondecartetestgestedentitesanseffetnempilerien">EditionDeCarteTest.GesteDEntiteSansEffetNEmpileRien</h3>
+<p><em>Mineur · Unitaire · Edition de carte</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp:368</code></p>
+<p>Un geste d'entite refuse n'empile rien.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser hors de la grille.</li><li>Deplacer sur place, hors grille, un rang inconnu.</li><li>Reassigner la meme propriete, retirer une propriete absente.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft .placeEntity(core::MapEntity{ .type = &quot;chest&quot;, .position = {.column = 4, .row = 0}, .properties = {}}) .has_value()</code> est faux.</li><li>Vérifie que <code>draft.moveEntity(0, {.column = 2, .row = 2})</code> est faux.</li><li>Vérifie que <code>draft.moveEntity(0, {.column = -1, .row = 2})</code> est faux.</li><li>Vérifie que <code>draft.moveEntity(7, {.column = 0, .row = 0})</code> est faux.</li><li>Vérifie que <code>draft.setEntityProperty(0, &quot;dialogue&quot;, std::string{&quot;heraut&quot;})</code> est faux.</li><li>Vérifie que <code>draft.removeEntityProperty(0, &quot;absente&quot;)</code> est faux.</li><li>Vérifie que <code>draft.removeEntity(3)</code> est faux.</li><li>Vérifie que <code>draft.canUndo()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="editiondecartetestcasepartageedesignelentitedudessus">EditionDeCarteTest.CasePartageeDesigneLEntiteDuDessus</h3>
+<p><em>Mineur · Unitaire · Edition de carte</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp:394</code></p>
+<p>La case partagee designe l'entite du dessus.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un panneau sur la case du PNJ.</li><li>Designer la case.</li><li>Retirer le dialogue du PNJ puis annuler.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>sign.has_value()</code> est vrai.</li><li>Vérifie que <code>draft.entityAt({.column = 2, .row = 2})</code> vaut <code>sign</code>.</li><li>Vérifie que <code>draft.entityAt({.column = 0, .row = 0}).has_value()</code> est faux.</li><li>Vérifie que <code>draft.removeEntityProperty(0, &quot;dialogue&quot;)</code> est vrai.</li><li>Vérifie que <code>draft.entities()[0].properties.contains(&quot;dialogue&quot;)</code> est faux.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.entities()[0].properties.contains(&quot;dialogue&quot;)</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="editiondecartetestungestesedefaitenunpas">EditionDeCarteTest.UnGesteSeDefaitEnUnPas</h3>
+<p><em>Critique · Unitaire · Edition de carte</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp:418</code></p>
+<p>Un geste = un pas d'annulation.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ouvrir un geste, peindre trois cases l'une après l'autre, le fermer.</li><li>Ouvrir un geste sans rien changer.</li><li>Annuler, refaire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.inGesture()</code> est vrai.</li><li>Vérifie que <code>draft.revision()</code> diffère de <code>apresUne</code>.</li><li>Vérifie que <code>draft.inGesture()</code> est faux.</li><li>Vérifie que <code>draft.undoDepth()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>draft.undoDepth()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.revision()</code> vaut <code>avant</code>.</li><li>Vérifie que <code>draft.tileMap().tile(2, 0)</code> vaut <code>core::TileType::Empty</code>.</li><li>Vérifie que <code>draft.tileMap().tile(3, 1)</code> vaut <code>core::TileType::Empty</code>.</li><li>Vérifie que <code>draft.redo()</code> est vrai.</li><li>Vérifie que <code>draft.revision()</code> vaut <code>apres</code>.</li><li>Vérifie que <code>draft.tileMap().tile(3, 1)</code> vaut <code>core::TileType::Wall</code>.</li></ul>
+</section><h2 id="test-level-draft-piecescpp">test_level_draft_pieces.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="leveldraftpiecestestposerunepieceecritsacouchesapieceetsacollision">LevelDraftPiecesTest.PoserUnePieceEcritSaCoucheSaPieceEtSaCollision</h3>
+<p><em>Critique · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:83</code></p>
+<p>Poser une pièce écrit sa couche, sa pièce et sa collision.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un pilier en (2, 1) du décor.</li><li>Défaire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 2, .row = 1}, &quot;pillar&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(2, 1)</code> vaut <code>&quot;pillar&quot;</code>.</li><li>Vérifie que <code>draft.layers()[DECOR].tiles.tile(2, 1)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>collision(draft, 2, 1)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>draft.undoDepth()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(2, 1).empty()</code> est vrai.</li><li>Vérifie que <code>collision(draft, 2, 1)</code> vaut <code>TileType::Empty</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="leveldraftpiecestestposerpuisgommerunetaloccupepuisliberesesdeuxcases">LevelDraftPiecesTest.PoserPuisGommerUnEtalOccupePuisLibereSesDeuxCases</h3>
+<p><em>Critique · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:109</code></p>
+<p>Un étal 2 × 1 occupe puis libère ses deux cases.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser l'étal en (1, 1).</li><li>Gommer sa deuxième case, (2, 1).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 1, .row = 1}, &quot;stall&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>collision(draft, 1, 1)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>collision(draft, 2, 1)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>collision(draft, 3, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(2, 1).empty()</code> est vrai.</li><li>Vérifie que <code>draft.pieceAnchorAt(DECOR, {.column = 2, .row = 1})</code> vaut <code>(GridPosition{.column = 1, .row = 1})</code>.</li><li>Vérifie que <code>draft.eraseLayerRegion(DECOR, {.column = 2, .row = 1}, {.column = 2, .row = 1})</code> est vrai.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(1, 1).empty()</code> est vrai.</li><li>Vérifie que <code>draft.layers()[DECOR].tiles.tile(1, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>collision(draft, 1, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>collision(draft, 2, 1)</code> vaut <code>TileType::Empty</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldraftpiecestestreposerlamemepiecenemodifiepaslacarte">LevelDraftPiecesTest.ReposerLaMemePieceNeModifiePasLaCarte</h3>
+<p><em>Majeur · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:137</code></p>
+<p>Reposer la même pièce ne modifie pas la carte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Reposer <code>street</code> sur une case qui la porte déjà.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.placePiece(SOL, {.column = 3, .row = 2}, &quot;street&quot;, TileType::Dirt)</code> est faux.</li><li>Vérifie que <code>draft.revision()</code> vaut <code>revision</code>.</li><li>Vérifie que <code>draft.canUndo()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldraftpiecestestunepieceretirecellesquellecouvrirait">LevelDraftPiecesTest.UnePieceRetireCellesQuElleCouvrirait</h3>
+<p><em>Majeur · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:157</code></p>
+<p>Une pièce retire celles qu'elle couvrirait.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un étal en (0, 1) et un pilier en (3, 1).</li><li>Poser un étal en (1, 1).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 0, .row = 1}, &quot;stall&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 3, .row = 1}, &quot;pillar&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 1, .row = 1}, &quot;stall&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(0, 1).empty()</code> est vrai.</li><li>Vérifie que <code>collision(draft, 0, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(1, 1)</code> vaut <code>&quot;stall&quot;</code>.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(3, 1)</code> vaut <code>&quot;pillar&quot;</code>.</li><li>Vérifie que <code>collision(draft, 2, 1)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>collision(draft, 3, 1)</code> vaut <code>TileType::Wall</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="leveldraftpiecestestuneemprisequidebordeestrefusee">LevelDraftPiecesTest.UneEmpriseQuiDebordeEstRefusee</h3>
+<p><em>Mineur · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:182</code></p>
+<p>Une emprise qui déborde est refusée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser l'étal 2 × 1 sur la dernière colonne.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 3, .row = 0}, &quot;stall&quot;, TileType::Wall)</code> est faux.</li><li>Vérifie que <code>draft.canUndo()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldraftpiecestestlerectanglepaveaupasdelemprise">LevelDraftPiecesTest.LeRectanglePaveAuPasDeLEmprise</h3>
+<p><em>Majeur · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:198</code></p>
+<p>Le rectangle pave au pas de l'emprise.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Paver d'étals le rectangle (0, 0)–(2, 1).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.placePieceRegion(DECOR, {.column = 0, .row = 0}, {.column = 2, .row = 1}, &quot;stall&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(0, 0)</code> vaut <code>&quot;stall&quot;</code>.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(0, 1)</code> vaut <code>&quot;stall&quot;</code>.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(2, 0).empty()</code> est vrai.</li><li>Vérifie que <code>collision(draft, 2, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.undoDepth()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>draft.placePieceRegion(DECOR, {.column = 0, .row = 0}, {.column = 2, .row = 1}, &quot;stall&quot;, TileType::Wall)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldraftpiecestestunefossearretelepasetlentreerestelentree">LevelDraftPiecesTest.UneFosseArreteLePasEtLEntreeResteLEntree</h3>
+<p><em>Majeur · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:224</code></p>
+<p>Une fosse arrête le pas ; l'entrée reste l'entrée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser la fosse 1 × 2 en (0, 0), sur l'entrée.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 0, .row = 0}, &quot;pit&quot;, TileType::Cliff)</code> est vrai.</li><li>Vérifie que <code>collision(draft, 0, 0)</code> vaut <code>TileType::Entry</code>.</li><li>Vérifie que <code>collision(draft, 0, 1)</code> vaut <code>TileType::Cliff</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldraftpiecestestuntypepeintsurunecouchelacollisionsuit">LevelDraftPiecesTest.UnTypePeintSurUneCoucheLaCollisionSuit</h3>
+<p><em>Majeur · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:243</code></p>
+<p>Un type peint sur une couche : la collision suit.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un étal en (1, 1).</li><li>Peindre <code>dirt</code> sur son ancre.</li><li>Peindre <code>water</code> profonde sur le sol en (3, 2).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 1, .row = 1}, &quot;stall&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>draft.paintLayerTile(DECOR, 1, 1, TileType::Dirt)</code> est vrai.</li><li>Vérifie que <code>collision(draft, 1, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>collision(draft, 2, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.paintLayerTile(SOL, 3, 2, TileType::DeepWater)</code> est vrai.</li><li>Vérifie que <code>collision(draft, 3, 2)</code> vaut <code>TileType::Cliff</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="leveldraftpiecestestpeindrelacollisionforceouliberelacase">LevelDraftPiecesTest.PeindreLaCollisionForceOuLibereLaCase</h3>
+<p><em>Critique · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:266</code></p>
+<p>Peindre la collision force ou libère la case.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Peindre un mur de collision en (2, 2).</li><li>Y repeindre du vide.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.isCollisionForced(cell)</code> est vrai.</li><li>Vérifie que <code>draft.forcedCollision().size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>draft.isCollisionForced(cell)</code> est faux.</li><li>Vérifie que <code>draft.forcedCollision().empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="leveldraftpiecestestunecaseforceetientpuisselibere">LevelDraftPiecesTest.UneCaseForceeTientPuisSeLibere</h3>
+<p><em>Critique · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:289</code></p>
+<p>Une case forcée tient, puis se libère.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Forcer un mur de collision en (1, 1).</li><li>Poser un étal en (0, 1).</li><li>Libérer la case.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.isCollisionForced({.column = 1, .row = 1})</code> est vrai.</li><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 0, .row = 1}, &quot;stall&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>draft.isCollisionForced({.column = 1, .row = 1})</code> est vrai.</li><li>Vérifie que <code>draft.unforceCollision({{.column = 1, .row = 1}, {.column = 3, .row = 2}})</code> est vrai.</li><li>Vérifie que <code>draft.isCollisionForced({.column = 1, .row = 1})</code> est faux.</li><li>Vérifie que <code>collision(draft, 1, 1)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>draft.eraseLayerRegion(DECOR, {.column = 0, .row = 1}, {.column = 0, .row = 1})</code> est vrai.</li><li>Vérifie que <code>collision(draft, 1, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.unforceCollision({{.column = 1, .row = 1}})</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldraftpiecestestungestenetouchequesescases">LevelDraftPiecesTest.UnGesteNeToucheQueSesCases</h3>
+<p><em>Majeur · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:318</code></p>
+<p>Un geste ne touche que ses cases.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte dont la collision s'écarte de la déduction en (3, 0), sans la forcer.</li><li>Poser un pilier en (1, 2).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 1, .row = 2}, &quot;pillar&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>collision(draft, 1, 2)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>collision(draft, 3, 0)</code> vaut <code>TileType::Wall</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="leveldraftpiecestestremplacerunepieceenunpaslacollisionsuit">LevelDraftPiecesTest.RemplacerUnePieceEnUnPasLaCollisionSuit</h3>
+<p><em>Critique · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:346</code></p>
+<p>Remplacer une pièce : un pas, la collision suit.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser deux piliers.</li><li>Remplacer <code>pillar</code> par <code>pit</code>, une fosse 1 × 2.</li><li>Défaire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 1, .row = 0}, &quot;pillar&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 3, .row = 0}, &quot;pillar&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>draft.replacePieces({{&quot;pillar&quot;, &quot;pit&quot;}})</code> est vrai.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(1, 0)</code> vaut <code>&quot;pit&quot;</code>.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(3, 0)</code> vaut <code>&quot;pit&quot;</code>.</li><li>Vérifie que <code>draft.layers()[DECOR].tiles.tile(1, 0)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>collision(draft, 1, 0)</code> vaut <code>TileType::Cliff</code>.</li><li>Vérifie que <code>collision(draft, 1, 1)</code> vaut <code>TileType::Cliff</code>.</li><li>Vérifie que <code>draft.undoDepth()</code> vaut <code>depth + 1</code>.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(1, 0)</code> vaut <code>&quot;pillar&quot;</code>.</li><li>Vérifie que <code>collision(draft, 1, 1)</code> vaut <code>TileType::Empty</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="leveldraftpiecestestunremplacementquidebordeestrefuseenentier">LevelDraftPiecesTest.UnRemplacementQuiDebordeEstRefuseEnEntier</h3>
+<p><em>Majeur · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:378</code></p>
+<p>Un remplacement qui déborde est refusé en entier.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un pilier au milieu et un sur la dernière ligne.</li><li>Remplacer <code>pillar</code> par <code>pit</code> (1 × 2).</li><li>Remplacer une pièce que la carte ne pose pas.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 1, .row = 0}, &quot;pillar&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 2, .row = 2}, &quot;pillar&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>draft.replacePieces({{&quot;pillar&quot;, &quot;pit&quot;}})</code> est faux.</li><li>Vérifie que <code>draft.replacePieces({{&quot;stall&quot;, &quot;pillar&quot;}})</code> est faux.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(1, 0)</code> vaut <code>&quot;pillar&quot;</code>.</li><li>Vérifie que <code>draft.undoDepth()</code> vaut <code>depth</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="leveldraftpiecestestchangerdeplanchetraduitlespiecesetrededuitlacollision">LevelDraftPiecesTest.ChangerDePlancheTraduitLesPiecesEtRededuitLaCollision</h3>
+<p><em>Critique · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:402</code></p>
+<p>Changer de planche : lieu, pièces et collision en un pas.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un pilier en (2, 1).</li><li>Passer à une planche où le pavé s'appelle <code>paving</code> et où le pilier, gardant son nom, se franchit.</li><li>Défaire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 2, .row = 1}, &quot;pillar&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>collision(draft, 2, 1)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>draft.changeScene(&quot;autre&quot;, manifest, {{&quot;street&quot;, &quot;paving&quot;}})</code> est vrai.</li><li>Vérifie que <code>std::get&lt;std::string&gt;(draft.layers()[SOL].properties.at(&quot;scene&quot;))</code> vaut <code>&quot;autre&quot;</code>.</li><li>Vérifie que <code>draft.layers()[SOL].pieceAt(3, 2)</code> vaut <code>&quot;paving&quot;</code>.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(2, 1)</code> vaut <code>&quot;pillar&quot;</code>.</li><li>Vérifie que <code>collision(draft, 2, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.layers()[SOL].properties.count(&quot;scene&quot;)</code> vaut <code>0U</code>.</li><li>Vérifie que <code>draft.layers()[SOL].pieceAt(3, 2)</code> vaut <code>&quot;street&quot;</code>.</li><li>Vérifie que <code>collision(draft, 2, 1)</code> vaut <code>TileType::Wall</code>.</li></ul>
+</section><h2 id="test-level-loadercpp">test_level_loader.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="levelloadertestchargeunniveauvalide">LevelLoaderTest.ChargeUnNiveauValide</h3>
+<p><em>Majeur · Unitaire · Level Loader</em> — <code>Source/Test/Unit/Core/Levels/test_level_loader.cpp:36</code></p>
+<p>Un niveau valide est chargé avec ses dimensions, ses tuiles et son entrée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est vrai.</li><li>Vérifie que <code>result.errorCode</code> vaut <code>core::LevelValidationError::None</code>.</li><li>Vérifie que <code>level.name()</code> vaut <code>&quot;Tutoriel&quot;</code>.</li><li>Vérifie que <code>level.tileMap().width()</code> vaut <code>4</code>.</li><li>Vérifie que <code>level.tileMap().height()</code> vaut <code>3</code>.</li><li>Vérifie que <code>level.tileMap().tile(0, 0)</code> vaut <code>core::TileType::Solid</code>.</li><li>Vérifie que <code>level.tileMap().tile(1, 1)</code> vaut <code>core::TileType::Entry</code>.</li><li>Vérifie que <code>level.tileMap().tile(3, 0)</code> vaut <code>core::TileType::Wall</code>.</li><li>Vérifie que <code>level.entry()</code> vaut <code>(core::GridPosition{1, 1})</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="levelloadertestniveausansversionsechargesanserreur">LevelLoaderTest.NiveauSansVersionSeChargeSansErreur</h3>
+<p><em>Majeur · Unitaire · Level Loader</em> — <code>Source/Test/Unit/Core/Levels/test_level_loader.cpp:63</code></p>
+<p>Un niveau sans champ version se charge sans erreur.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est vrai.</li><li>Vérifie que <code>result.errorCode</code> vaut <code>core::LevelValidationError::None</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="levelloadertestversionsuperieurealaversiongereeechoueproprement">LevelLoaderTest.VersionSuperieureALaVersionGereeEchoueProprement</h3>
+<p><em>Majeur · Unitaire · Level Loader</em> — <code>Source/Test/Unit/Core/Levels/test_level_loader.cpp:80</code></p>
+<p>Un niveau dont la version depasse celle geree echoue proprement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est faux.</li><li>Vérifie que <code>result.errorCode</code> vaut <code>core::LevelValidationError::UnsupportedFormatVersion</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="levelloadertestunecartedoitporterexactementuneentree">LevelLoaderTest.UneCarteDoitPorterExactementUneEntree</h3>
+<p><em>Critique · Unitaire · Level Loader</em> — <code>Source/Test/Unit/Core/Levels/test_level_loader.cpp:104</code></p>
+<p>Une carte doit porter exactement une entrée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte sans tuile d'entrée.</li><li>Charger une carte à deux tuiles d'entrée.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est faux.</li><li>Vérifie que <code>result.errorCode</code> vaut <code>core::LevelValidationError::InvalidEntryCount</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="levelloadertesttypedetuileinconnurefuse">LevelLoaderTest.TypeDeTuileInconnuRefuse</h3>
+<p><em>Majeur · Unitaire · Level Loader</em> — <code>Source/Test/Unit/Core/Levels/test_level_loader.cpp:131</code></p>
+<p>Un type de tuile inconnu est refusé au chargement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte dont une tuile porte le type « exit ».</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.ok()</code> est faux.</li><li>Vérifie que <code>result.errorCode</code> vaut <code>core::LevelValidationError::UnknownTileType</code>.</li></ul>
+</section><h2 id="test-level-writercpp">test_level_writer.cpp</h2>
+<section class="case" data-crit="Mineur"><h3 id="levelwritertestlejsonproduitportelaversionetaucunecleretiree">LevelWriterTest.LeJsonProduitPorteLaVersionEtAucuneCleRetiree</h3>
+<p><em>Mineur · Unitaire · Level Writer</em> — <code>Source/Test/Unit/Core/Levels/test_level_writer.cpp:42</code></p>
+<p>Le JSON produit porte la version et aucune clé retirée du format.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>json.find(&quot;\&quot;background\&quot;&quot;)</code> vaut <code>std::string::npos</code>.</li><li>Vérifie que <code>json.find(&quot;\&quot;skinSet\&quot;&quot;)</code> vaut <code>std::string::npos</code>.</li><li>Vérifie que <code>json.find(&quot;\&quot;cameraFraming\&quot;&quot;)</code> vaut <code>std::string::npos</code>.</li><li>Vérifie que <code>json.find(&quot;\&quot;version\&quot;&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="levelwritertestsavetofileecritunfichierrechargeable">LevelWriterTest.SaveToFileEcritUnFichierRechargeable</h3>
+<p><em>Majeur · Unitaire · Level Writer</em> — <code>Source/Test/Unit/Core/Levels/test_level_writer.cpp:65</code></p>
+<p>saveToFile écrit un fichier qui se recharge à l'identique (round-trip disque).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>core::LevelWriter::saveToFile(*loaded.level, path)</code> est vrai.</li><li>Vérifie que <code>reloaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.level-&gt;name()</code> vaut <code>loaded.level-&gt;name()</code>.</li><li>Vérifie que <code>reloaded.level-&gt;entry()</code> vaut <code>loaded.level-&gt;entry()</code>.</li><li>Vérifie que <code>reloaded.level-&gt;tileMap().tile(column, row)</code> vaut <code>loaded.level-&gt;tileMap().tile(column, row)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="levelwritertestsavetofileversdossierinexistantechoueproprement">LevelWriterTest.SaveToFileVersDossierInexistantEchoueProprement</h3>
+<p><em>Majeur · Unitaire · Level Writer</em> — <code>Source/Test/Unit/Core/Levels/test_level_writer.cpp:98</code></p>
+<p>saveToFile vers un dossier inexistant échoue proprement (récupérable, EX-NFR-040).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>core::LevelWriter::saveToFile(*loaded.level, path)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="levelwritertestunecartegardesaregionsonambianceetsesclesinconnues">LevelWriterTest.UneCarteGardeSaRegionSonAmbianceEtSesClesInconnues</h3>
+<p><em>Majeur · Unitaire · Level Writer</em> — <code>Source/Test/Unit/Core/Levels/test_level_writer.cpp:118</code></p>
+<p>Une carte garde sa région, son ambiance et ses clés inconnues.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte qui porte <code>region</code>, <code>ambience</code> et une clé inconnue.</li><li>L'écrire, la relire.</li><li>Changer l'ambiance sur un brouillon, puis défaire.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>std::get&lt;std::string&gt;( loaded.level-&gt;properties().at(std::string{core::MAP_REGION_PROPERTY}))</code> vaut <code>&quot;central-empire&quot;</code>.</li><li>Vérifie que <code>reloaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.level-&gt;properties()</code> vaut <code>loaded.level-&gt;properties()</code>.</li><li>Vérifie que <code>std::get&lt;std::string&gt;(reloaded.level-&gt;properties().at(&quot;authoredBy&quot;))</code> vaut <code>&quot;valentin&quot;</code>.</li><li>Vérifie que <code>draft.setProperty(std::string{core::MAP_AMBIENCE_PROPERTY}, std::string{&quot;night&quot;})</code> est vrai.</li><li>Vérifie que <code>draft.setProperty(std::string{core::MAP_AMBIENCE_PROPERTY}, std::string{&quot;night&quot;})</code> est faux.</li><li>Vérifie que <code>draft.toJson().find(&quot;\&quot;ambience\&quot;: \&quot;night\&quot;&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>std::get&lt;std::string&gt;(draft.properties().at(std::string{core::MAP_AMBIENCE_PROPERTY}))</code> vaut <code>&quot;market&quot;</code>.</li><li>Vérifie que <code>draft.setProperty(std::string{core::MAP_REGION_PROPERTY}, std::string{})</code> est vrai.</li><li>Vérifie que <code>draft.properties().contains(std::string{core::MAP_REGION_PROPERTY})</code> est faux.</li><li>Vérifie que <code>draft.toJson().find(&quot;\&quot;region\&quot;&quot;)</code> vaut <code>std::string::npos</code>.</li></ul>
+</section><h2 id="test-map-layerscpp">test_map_layers.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="couchesdecartetestcarteversion2promueencouchelegacyunique">CouchesDeCarteTest.CarteVersion2PromueEnCoucheLegacyUnique</h3>
+<p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:91</code></p>
+<p>Une carte version 2 est promue en couche unique.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte au format version 2, sans tableau 'layers'.</li><li>Inspecter les couches du niveau obtenu.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>loaded.level-&gt;layers().size()</code> vaut <code>1u</code>.</li><li>Vérifie que <code>layer.kind</code> vaut <code>core::LayerKind::Legacy</code>.</li><li>Vérifie que <code>layer.tiles.width()</code> vaut <code>loaded.level-&gt;tileMap().width()</code>.</li><li>Vérifie que <code>layer.tiles.height()</code> vaut <code>loaded.level-&gt;tileMap().height()</code>.</li><li>Vérifie que <code>layer.tiles.tile(0, 0)</code> vaut <code>core::TileType::Solid</code>.</li><li>Vérifie que <code>loaded.level-&gt;entities().empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="couchesdecartetestcarteversion2reecritesanstableaudecouches">CouchesDeCarteTest.CarteVersion2ReecriteSansTableauDeCouches</h3>
+<p><em>Mineur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:116</code></p>
+<p>Une carte version 2 reecrite ne gagne pas de tableau 'layers'.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte version 2.</li><li>La reserialiser.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>json.find(&quot;\&quot;layers\&quot;&quot;)</code> vaut <code>std::string::npos</code>.</li><li>Vérifie que <code>json.find(&quot;\&quot;entities\&quot;&quot;)</code> vaut <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestallerretoursurtroiscouchesetdeuxentites">CouchesDeCarteTest.AllerRetourSurTroisCouchesEtDeuxEntites</h3>
+<p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:135</code></p>
+<p>Une carte a trois couches et deux entites survit a l'aller-retour.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte version 3 a trois couches et deux entites.</li><li>La reserialiser puis la recharger.</li><li>Comparer couches et entites au niveau d'origine.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.level-&gt;layers().size()</code> vaut <code>loaded.level-&gt;layers().size()</code>.</li><li>Vérifie que <code>after.name</code> vaut <code>before.name</code>.</li><li>Vérifie que <code>after.kind</code> vaut <code>before.kind</code>.</li><li>Vérifie que <code>after.tiles.width()</code> vaut <code>before.tiles.width()</code>.</li><li>Vérifie que <code>after.tiles.height()</code> vaut <code>before.tiles.height()</code>.</li><li>Vérifie que <code>after.tiles.tile(column, row)</code> vaut <code>before.tiles.tile(column, row)</code>.</li><li>Vérifie que <code>reloaded.level-&gt;entities().size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>reloaded.level-&gt;entities()[0].type</code> vaut <code>&quot;npc&quot;</code>.</li><li>Vérifie que <code>reloaded.level-&gt;entities()[0].position</code> vaut <code>(core::GridPosition{2, 2})</code>.</li><li>Vérifie que <code>reloaded.level-&gt;entities()[1].type</code> vaut <code>&quot;chest&quot;</code>.</li><li>Vérifie que <code>reloaded.level-&gt;entities()[1].position</code> vaut <code>(core::GridPosition{0, 2})</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestchampsinconnusdunecouchepreservesalareecriture">CouchesDeCarteTest.ChampsInconnusDUneCouchePreservesALaReecriture</h3>
+<p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:177</code></p>
+<p>Les champs inconnus d'une couche sont preserves a la reecriture.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une couche portant quatre cles inconnues (booleen, entier, reel, chaine).</li><li>Reserialiser puis recharger.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.ok()</code> est vrai.</li><li>Vérifie que <code>decor</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>decor-&gt;properties.size()</code> vaut <code>4u</code>.</li><li>Vérifie que <code>std::get&lt;bool&gt;(decor-&gt;properties.at(&quot;difficultTerrain&quot;))</code> vaut <code>true</code>.</li><li>Vérifie que <code>std::get&lt;std::int64_t&gt;(decor-&gt;properties.at(&quot;coverBonus&quot;))</code> vaut <code>2</code>.</li><li>Vérifie que <code>std::get&lt;double&gt;(decor-&gt;properties.at(&quot;heightMeters&quot;))</code> vaut <code>1.5</code> (comparaison flottante).</li><li>Vérifie que <code>std::get&lt;std::string&gt;(decor-&gt;properties.at(&quot;note&quot;))</code> vaut <code>&quot;tapis&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestchampsinconnusduneentitepreservesalareecriture">CouchesDeCarteTest.ChampsInconnusDUneEntitePreservesALaReecriture</h3>
+<p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:205</code></p>
+<p>Les champs inconnus d'une entite sont preserves a la reecriture.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une entite portant un dialogue, un niveau et un drapeau.</li><li>Reserialiser puis recharger.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.level-&gt;entities().size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>npc.properties.size()</code> vaut <code>3u</code>.</li><li>Vérifie que <code>std::get&lt;std::string&gt;(npc.properties.at(&quot;dialogue&quot;))</code> vaut <code>&quot;bonjour&quot;</code>.</li><li>Vérifie que <code>std::get&lt;std::int64_t&gt;(npc.properties.at(&quot;level&quot;))</code> vaut <code>3</code>.</li><li>Vérifie que <code>std::get&lt;bool&gt;(npc.properties.at(&quot;hostile&quot;))</code> vaut <code>false</code>.</li><li>Vérifie que <code>reloaded.level-&gt;entities().back().properties.empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestlacouchedecollisionestlagrilledugameplay">CouchesDeCarteTest.LaCoucheDeCollisionEstLaGrilleDuGameplay</h3>
+<p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:233</code></p>
+<p>La couche de collision est la grille du gameplay.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte dont le decor pose un mur en (2, 1), absent de la collision.</li><li>Lire la grille du niveau.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>loaded.level-&gt;tileMap().tile(0, 0)</code> vaut <code>core::TileType::Solid</code>.</li><li>Vérifie que <code>loaded.level-&gt;tileMap().tile(2, 1)</code> vaut <code>core::TileType::Empty</code>.</li><li>Vérifie que <code>decor</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>decor-&gt;tiles.tile(2, 1)</code> vaut <code>core::TileType::Wall</code>.</li><li>Vérifie que <code>collision</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>&amp;loaded.level-&gt;layers().front()</code> vaut <code>collision</code>.</li><li>Vérifie que <code>collision-&gt;tiles.tile(1, 1)</code> vaut <code>core::TileType::Entry</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestcarteduneversionfuturerefuseeavecunmessageexplicite">CouchesDeCarteTest.CarteDUneVersionFutureRefuseeAvecUnMessageExplicite</h3>
+<p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:261</code></p>
+<p>Une carte d'une version future est refusee explicitement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte declarant la version suivant la version courante.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est faux.</li><li>Vérifie que <code>loaded.errorCode</code> vaut <code>core::LevelValidationError::UnsupportedFormatVersion</code>.</li><li>Vérifie que <code>loaded.error.find(future)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetesttuilehorsbornesdansunecoucherefusee">CouchesDeCarteTest.TuileHorsBornesDansUneCoucheRefusee</h3>
+<p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:289</code></p>
+<p>Une tuile hors bornes dans une couche est refusee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte dont une couche pose une tuile en dehors de la grille.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est faux.</li><li>Vérifie que <code>loaded.errorCode</code> vaut <code>core::LevelValidationError::OutOfBounds</code>.</li><li>Vérifie que <code>loaded.error.find(&quot;sol&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestentitehorsbornesrefusee">CouchesDeCarteTest.EntiteHorsBornesRefusee</h3>
+<p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:317</code></p>
+<p>Une entite hors bornes est refusee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte dont une entite est posee en dehors de la grille.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est faux.</li><li>Vérifie que <code>loaded.errorCode</code> vaut <code>core::LevelValidationError::OutOfBounds</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="couchesdecartetestroledecoucheinconnuretombesurlesol">CouchesDeCarteTest.RoleDeCoucheInconnuRetombeSurLeSol</h3>
+<p><em>Mineur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:343</code></p>
+<p>Un role de couche inconnu ne fait pas echouer la carte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte dont une couche declare un role inconnu.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>loaded.level-&gt;layers().size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>loaded.level-&gt;layers().back().kind</code> vaut <code>core::LayerKind::Ground</code>.</li><li>Vérifie que <code>loaded.level-&gt;layers().back().name</code> vaut <code>&quot;brouillard&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestbrouillondeditionpreservecouchesetentites">CouchesDeCarteTest.BrouillonDEditionPreserveCouchesEtEntites</h3>
+<p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:372</code></p>
+<p>Le brouillon d'edition preserve couches et entites.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte version 3 et en faire un brouillon d'edition.</li><li>Reconvertir le brouillon en niveau, sans rien modifier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>draft.layers().size()</code> vaut <code>3u</code>.</li><li>Vérifie que <code>draft.entities().size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>rebuilt.ok()</code> est vrai.</li><li>Vérifie que <code>rebuilt.level-&gt;layers().size()</code> vaut <code>3u</code>.</li><li>Vérifie que <code>rebuilt.level-&gt;entities().size()</code> vaut <code>2u</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetesttuilepeinteatteintlacouchedecollision">CouchesDeCarteTest.TuilePeinteAtteintLaCoucheDeCollision</h3>
+<p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:397</code></p>
+<p>Une tuile peinte dans l'editeur atteint la couche de collision.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ouvrir une carte version 3 en brouillon.</li><li>Peindre un solide en (2, 0).</li><li>Reconvertir le brouillon en niveau.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>rebuilt.ok()</code> est vrai.</li><li>Vérifie que <code>collision</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>collision-&gt;tiles.tile(2, 0)</code> vaut <code>core::TileType::Solid</code>.</li><li>Vérifie que <code>ground</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>ground-&gt;tiles.tile(2, 0)</code> vaut <code>core::TileType::Empty</code>.</li><li>Vérifie que <code>ground-&gt;tiles.tile(1, 0)</code> vaut <code>core::TileType::Solid</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestredimensionnementemportecouchesetentites">CouchesDeCarteTest.RedimensionnementEmporteCouchesEtEntites</h3>
+<p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:428</code></p>
+<p>Un redimensionnement emporte couches et entites.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Ouvrir une carte version 3 de 4x3 en brouillon.</li><li>La redimensionner en 2x2.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>draft.wouldResizeDropContent(2, 2)</code> est vrai.</li><li>Vérifie que <code>layer.tiles.width()</code> vaut <code>2</code>.</li><li>Vérifie que <code>layer.tiles.height()</code> vaut <code>2</code>.</li><li>Vérifie que <code>draft.entities().empty()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestcouchedecollisiondeclareerefusee">CouchesDeCarteTest.CoucheDeCollisionDeclareeRefusee</h3>
+<p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:455</code></p>
+<p>Une couche 'collision' declaree est refusee.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Charger une carte declarant une couche de role 'collision'.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est faux.</li><li>Vérifie que <code>loaded.errorCode</code> vaut <code>core::LevelValidationError::ParseError</code>.</li><li>Vérifie que <code>loaded.error.find(&quot;tiles&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><h2 id="test-rpg-terraincpp">test_rpg_terrain.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="terrainrpgtestallerretoursurchaquetypedeterrain">TerrainRpgTest.AllerRetourSurChaqueTypeDeTerrain</h3>
+<p><em>Critique · Unitaire · Terrain RPG</em> — <code>Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:49</code></p>
+<p>Chaque type de terrain survit a l'aller-retour de format.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour chacun des neuf types, charger une carte qui le porte.</li><li>La reserialiser puis la recharger.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>loaded.level-&gt;tileMap().tile(2, 0)</code> vaut <code>type</code>.</li><li>Vérifie que <code>reloaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.level-&gt;tileMap().tile(2, 0)</code> vaut <code>type</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="terrainrpgtestfranchissabilitedechaqueterrain">TerrainRpgTest.FranchissabiliteDeChaqueTerrain</h3>
+<p><em>Critique · Unitaire · Terrain RPG</em> — <code>Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:76</code></p>
+<p>La franchissabilite de chaque terrain est celle que son nom promet.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Interroger isSolid sur les neuf types.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::isSolid(core::TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>core::isSolid(core::TileType::Cliff)</code> est vrai.</li><li>Vérifie que <code>core::isSolid(core::TileType::DeepWater)</code> est vrai.</li><li>Vérifie que <code>core::isSolid(core::TileType::Grass)</code> est faux.</li><li>Vérifie que <code>core::isSolid(core::TileType::Dirt)</code> est faux.</li><li>Vérifie que <code>core::isSolid(core::TileType::Sand)</code> est faux.</li><li>Vérifie que <code>core::isSolid(core::TileType::Water)</code> est faux.</li><li>Vérifie que <code>core::isSolid(core::TileType::Bridge)</code> est faux.</li><li>Vérifie que <code>core::isSolid(core::TileType::Stairs)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="terrainrpgtestlarivedistinguelesdeuxeaux">TerrainRpgTest.LaRiveDistingueLesDeuxEaux</h3>
+<p><em>Majeur · Unitaire · Terrain RPG</em> — <code>Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:100</code></p>
+<p>L'eau peu profonde se traverse, l'eau profonde non.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Comparer la franchissabilite de Water et DeepWater.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::isSolid(core::TileType::Water)</code> diffère de <code>core::isSolid(core::TileType::DeepWater)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="terrainrpgtestbornedelenumerationderivee">TerrainRpgTest.BorneDeLEnumerationDerivee</h3>
+<p><em>Majeur · Unitaire · Terrain RPG</em> — <code>Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:114</code></p>
+<p>La borne de l'enumeration reste derivee du dernier type.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Comparer TILE_TYPE_COUNT au dernier enumerateur.</li><li>Verifier que chaque valeur jusqu'a cette borne porte un nom.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <a class="ref" href="../reference/namespacecore.html#a319e1d0258052359525fdc83ee93f269"><code>core::TILE_TYPE_COUNT</code></a> vaut <code>static_cast&lt;int&gt;(core::TileType::Stairs) + 1</code>.</li><li>Vérifie que <a class="ref" href="../reference/namespacecore.html#a319e1d0258052359525fdc83ee93f269"><code>core::TILE_TYPE_COUNT</code></a> vaut <code>12</code>.</li><li>Vérifie que <code>name.empty()</code> est faux.</li><li>Vérifie que <code>std::adjacent_find(sorted.begin(), sorted.end())</code> vaut <code>sorted.end()</code>.</li></ul>
+</section><h2 id="test-tile-type-namecpp">test_tile_type_name.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="tiletypenametestallerretoursurtouslestypes">TileTypeNameTest.AllerRetourSurTousLesTypes</h3>
+<p><em>Critique · Unitaire · Nom de type de tuile</em> — <code>Source/Test/Unit/Core/Levels/test_tile_type_name.cpp:28</code></p>
+<p>Chaque type de tuile fait l'aller-retour par son nom textuel sans perte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Pour tous les types, convertir le type en nom, puis le nom en type.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>parsed.has_value()</code> est vrai.</li><li>Vérifie que <code>*parsed</code> vaut <code>type</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="tiletypenametestlesnomssontuniques">TileTypeNameTest.LesNomsSontUniques</h3>
+<p><em>Critique · Unitaire · Nom de type de tuile</em> — <code>Source/Test/Unit/Core/Levels/test_tile_type_name.cpp:48</code></p>
+<p>Deux types de tuiles distincts ne portent jamais le meme nom.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Collecter les noms de tous les types dans un ensemble.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>names.size()</code> vaut <code>static_cast&lt;std::size_t&gt;(LAST_TILE_TYPE + 1)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="tiletypenametestnominconnurefuse">TileTypeNameTest.NomInconnuRefuse</h3>
+<p><em>Majeur · Unitaire · Nom de type de tuile</em> — <code>Source/Test/Unit/Core/Levels/test_tile_type_name.cpp:66</code></p>
+<p>Un nom de type inconnu est refuse au lieu d'etre devine.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Convertir une chaine vide, un nom inexistant et un nom de casse differente.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::parseTileType(&quot;&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseTileType(&quot;mur&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseTileType(&quot;Solid&quot;).has_value()</code> est faux.</li></ul></section></article><nav class="pager"><a class="prev" href="core-gameplay.html"><span>Précédent</span>Core · Gameplay</a><a class="next" href="core-math.html"><span>Suivant</span>Core · Math</a></nav><p class="source">Source : <code>Documentation/CahierTest/core-levels.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

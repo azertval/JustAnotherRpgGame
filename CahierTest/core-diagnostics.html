@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core · Diagnostics — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1 active" href="core-diagnostics.html">Core · Diagnostics</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-assertcpp">test_assert.cpp</a><a class="toc depth-2" href="#test-file-log-sinkcpp">test_file_log_sink.cpp</a><a class="toc depth-2" href="#test-log-formatcpp">test_log_format.cpp</a><a class="toc depth-2" href="#test-log-level-parsecpp">test_log_level_parse.cpp</a><a class="toc depth-2" href="#test-loggercpp">test_logger.cpp</a><a class="toc depth-2" href="#test-scoped-log-levelcpp">test_scoped_log_level.cpp</a><a class="toc depth-2" href="#test-sinkscpp">test_sinks.cpp</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="core-diagnostics">Core · Diagnostics</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">22 cas</span></div>
+<p>Tests unitaires — <strong>22 cas</strong> (19 majeurs, 3 mineurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-assertcpp"><code>test_assert.cpp</code></a></td><td>2</td><td>-</td><td>-</td><td>2</td><td>-</td></tr><tr><td><a href="#test-file-log-sinkcpp"><code>test_file_log_sink.cpp</code></a></td><td>5</td><td>-</td><td>-</td><td>2</td><td>3</td></tr><tr><td><a href="#test-log-formatcpp"><code>test_log_format.cpp</code></a></td><td>4</td><td>-</td><td>-</td><td>4</td><td>-</td></tr><tr><td><a href="#test-log-level-parsecpp"><code>test_log_level_parse.cpp</code></a></td><td>3</td><td>-</td><td>-</td><td>3</td><td>-</td></tr><tr><td><a href="#test-loggercpp"><code>test_logger.cpp</code></a></td><td>3</td><td>-</td><td>-</td><td>3</td><td>-</td></tr><tr><td><a href="#test-scoped-log-levelcpp"><code>test_scoped_log_level.cpp</code></a></td><td>3</td><td>-</td><td>-</td><td>3</td><td>-</td></tr><tr><td><a href="#test-sinkscpp"><code>test_sinks.cpp</code></a></td><td>2</td><td>-</td><td>-</td><td>2</td><td>-</td></tr></tbody></table></div>
+<h2 id="test-assertcpp">test_assert.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="asserttestconditionvraieninvoquepaslehandler">AssertTest.ConditionVraieNInvoquePasLeHandler</h3>
+<p><em>Majeur · Unitaire · Assert</em> — <code>Source/Test/Unit/Core/Diagnostics/test_assert.cpp:17</code></p>
+<p>Une condition vraie n'invoque pas le gestionnaire d'assertion.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>invoked</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="asserttestconditionfausseinvoquelehandler">AssertTest.ConditionFausseInvoqueLeHandler</h3>
+<p><em>Majeur · Unitaire · Assert</em> — <code>Source/Test/Unit/Core/Diagnostics/test_assert.cpp:40</code></p>
+<p>Une condition fausse invoque le gestionnaire une fois, avec le message (Debug uniquement).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>count</code> vaut <code>1</code>.</li><li>Vérifie que <code>capturedMessage</code> vaut <code>&quot;echec attendu&quot;</code>.</li></ul>
+</section><h2 id="test-file-log-sinkcpp">test_file_log_sink.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="filelogsinktestecritureestpersisteeimmediatement">FileLogSinkTest.EcritureEstPersisteeImmediatement</h3>
+<p><em>Majeur · Unitaire · Diagnostics</em> — <code>Source/Test/Unit/Core/Diagnostics/test_file_log_sink.cpp:49</code></p>
+<p>FileLogSink : écriture persistée immédiatement (flush).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire un <code>FileLogSink</code> sur un chemin dans un dossier temporaire.</li><li>Écrire un message.</li><li>Relire le fichier sans détruire le sink.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>sink.isOpen()</code> est vrai.</li><li>Vérifie que <code>content.find(&quot;message de test&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="filelogsinktestmessagessuccessifsunelignechacunordrepreserve">FileLogSinkTest.MessagesSuccessifsUneLigneChacunOrdrePreserve</h3>
+<p><em>Majeur · Unitaire · Diagnostics</em> — <code>Source/Test/Unit/Core/Diagnostics/test_file_log_sink.cpp:70</code></p>
+<p>FileLogSink : plusieurs messages, une ligne chacun, ordre préservé.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire un <code>FileLogSink</code>.</li><li>Écrire trois messages successifs.</li><li>Relire le fichier.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>std::getline(stream, line)</code> est vrai.</li><li>Vérifie que <code>line</code> vaut <code>&quot;premier&quot;</code>.</li><li>Vérifie que <code>std::getline(stream, line)</code> est vrai.</li><li>Vérifie que <code>line</code> vaut <code>&quot;deuxieme&quot;</code>.</li><li>Vérifie que <code>std::getline(stream, line)</code> est vrai.</li><li>Vérifie que <code>line</code> vaut <code>&quot;troisieme&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="filelogsinktestcreelesdossiersparentsmanquants">FileLogSinkTest.CreeLesDossiersParentsManquants</h3>
+<p><em>Mineur · Unitaire · Diagnostics</em> — <code>Source/Test/Unit/Core/Diagnostics/test_file_log_sink.cpp:98</code></p>
+<p>FileLogSink : crée les dossiers parents manquants.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire un <code>FileLogSink</code> sur <code>dir/sous/dossier/session.log</code> (dossiers inexistants).</li><li>Écrire un message.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>sink.isOpen()</code> est vrai.</li><li>Vérifie que <code>std::filesystem::exists(path)</code> est vrai.</li><li>Vérifie que <code>readFile(path).find(&quot;message&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="filelogsinktestecrasepardefautcompleteavecappend">FileLogSinkTest.EcraseParDefautCompleteAvecAppend</h3>
+<p><em>Mineur · Unitaire · Diagnostics</em> — <code>Source/Test/Unit/Core/Diagnostics/test_file_log_sink.cpp:119</code></p>
+<p>FileLogSink : écrase par défaut, complète avec <code>append = true</code>.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Écrire un fichier avec un premier sink.</li><li>Rouvrir sur le même chemin sans <code>append</code>, puis avec <code>append = true</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>afterTruncate.find(&quot;premiere ouverture&quot;)</code> vaut <code>std::string::npos</code>.</li><li>Vérifie que <code>afterTruncate.find(&quot;seconde ouverture&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>afterAppend.find(&quot;seconde ouverture&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>afterAppend.find(&quot;troisieme ouverture&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="filelogsinktestchemininvalidesinkfermeetwritesilencieux">FileLogSinkTest.CheminInvalideSinkFermeEtWriteSilencieux</h3>
+<p><em>Mineur · Unitaire · Diagnostics</em> — <code>Source/Test/Unit/Core/Diagnostics/test_file_log_sink.cpp:155</code></p>
+<p>FileLogSink : chemin invalide, sink fermé, write() silencieux.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire un <code>FileLogSink</code> dont un segment du chemin est en réalité un fichier existant (impossible à traverser comme dossier).</li><li>Appeler <code>write()</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>sink.isOpen()</code> est faux.</li><li><code>EXPECT_NO_THROW(sink.write(core::LogLevel::Error, &quot;ne doit rien faire&quot;))</code></li></ul>
+</section><h2 id="test-log-formatcpp">test_log_format.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="logformattestlignecontienttousleschamps">LogFormatTest.LigneContientTousLesChamps</h3>
+<p><em>Majeur · Unitaire · Log Format</em> — <code>Source/Test/Unit/Core/Diagnostics/test_log_format.cpp:17</code></p>
+<p>La ligne formatée contient horodatage, niveau, catégorie, position source et message.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>line.find(&quot;12:34:56&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>line.find(&quot;WARNING&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>line.find(&quot;HMI&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>line.find(&quot;Foo.cpp:42&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>line.find(&quot;message test&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="logformattestcheminreduitaunomdefichier">LogFormatTest.CheminReduitAuNomDeFichier</h3>
+<p><em>Majeur · Unitaire · Log Format</em> — <code>Source/Test/Unit/Core/Diagnostics/test_log_format.cpp:40</code></p>
+<p>Le chemin source est réduit à son nom de fichier dans la ligne.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>line.find(&quot;Foo.cpp:7&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>line.find(&quot;JustAnotherRpgGame&quot;)</code> vaut <code>std::string::npos</code>.</li><li>Vérifie que <code>line.find(&quot;Source&quot;)</code> vaut <code>std::string::npos</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="logformattestfilenameisolelenom">LogFormatTest.FileNameIsoleLeNom</h3>
+<p><em>Majeur · Unitaire · Log Format</em> — <code>Source/Test/Unit/Core/Diagnostics/test_log_format.cpp:60</code></p>
+<p>fileName isole le nom de fichier des chemins Windows et POSIX, ou renvoie l'entrée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::fileName(&quot;a/b/c/File.cpp&quot;)</code> vaut <code>&quot;File.cpp&quot;</code>.</li><li>Vérifie que <code>core::fileName(&quot;a\\b\\File.cpp&quot;)</code> vaut <code>&quot;File.cpp&quot;</code>.</li><li>Vérifie que <code>core::fileName(&quot;File.cpp&quot;)</code> vaut <code>&quot;File.cpp&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="logformattesthorodatageformatheure">LogFormatTest.HorodatageFormatHeure</h3>
+<p><em>Majeur · Unitaire · Log Format</em> — <code>Source/Test/Unit/Core/Diagnostics/test_log_format.cpp:77</code></p>
+<p>L'horodatage courant respecte le format HH:MM:SS (longueur 8).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>timestamp.size()</code> vaut <code>8u</code>.</li><li>Vérifie que <code>timestamp[2]</code> vaut <code>&#x27;:&#x27;</code>.</li><li>Vérifie que <code>timestamp[5]</code> vaut <code>&#x27;:&#x27;</code>.</li></ul>
+</section><h2 id="test-log-level-parsecpp">test_log_level_parse.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="loglevelparsetestniveauxreconnus">LogLevelParseTest.NiveauxReconnus</h3>
+<p><em>Majeur · Unitaire · Log Level Parse</em> — <code>Source/Test/Unit/Core/Diagnostics/test_log_level_parse.cpp:15</code></p>
+<p>Les noms de niveaux reconnus sont convertis (y compris l'alias « warn »).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::parseLogLevel(&quot;trace&quot;)</code> vaut <code>core::LogLevel::Trace</code>.</li><li>Vérifie que <code>core::parseLogLevel(&quot;info&quot;)</code> vaut <code>core::LogLevel::Info</code>.</li><li>Vérifie que <code>core::parseLogLevel(&quot;warning&quot;)</code> vaut <code>core::LogLevel::Warning</code>.</li><li>Vérifie que <code>core::parseLogLevel(&quot;warn&quot;)</code> vaut <code>core::LogLevel::Warning</code>.</li><li>Vérifie que <code>core::parseLogLevel(&quot;error&quot;)</code> vaut <code>core::LogLevel::Error</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="loglevelparsetestinsensiblealacasse">LogLevelParseTest.InsensibleALaCasse</h3>
+<p><em>Majeur · Unitaire · Log Level Parse</em> — <code>Source/Test/Unit/Core/Diagnostics/test_log_level_parse.cpp:33</code></p>
+<p>L'analyse est insensible à la casse.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::parseLogLevel(&quot;INFO&quot;)</code> vaut <code>core::LogLevel::Info</code>.</li><li>Vérifie que <code>core::parseLogLevel(&quot;Warning&quot;)</code> vaut <code>core::LogLevel::Warning</code>.</li><li>Vérifie que <code>core::parseLogLevel(&quot;Error&quot;)</code> vaut <code>core::LogLevel::Error</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="loglevelparsetestvaleurinconnue">LogLevelParseTest.ValeurInconnue</h3>
+<p><em>Majeur · Unitaire · Log Level Parse</em> — <code>Source/Test/Unit/Core/Diagnostics/test_log_level_parse.cpp:49</code></p>
+<p>Une valeur inconnue ou vide n'est pas convertie.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::parseLogLevel(&quot;verbose&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseLogLevel(&quot;&quot;).has_value()</code> est faux.</li></ul>
+</section><h2 id="test-loggercpp">test_logger.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="loggertestfiltreparniveauminimal">LoggerTest.FiltreParNiveauMinimal</h3>
+<p><em>Majeur · Unitaire · Logger</em> — <code>Source/Test/Unit/Core/Diagnostics/test_logger.cpp:18</code></p>
+<p>Un message au-dessus du niveau minimal est diffusé ; en dessous, il est filtré.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>observed-&gt;entries().size()</code> vaut <code>1u</code>.</li><li>Vérifie que <code>observed-&gt;entries()[0].level</code> vaut <code>core::LogLevel::Error</code>.</li><li>Vérifie que <code>observed-&gt;entries()[0].message</code> vaut <code>&quot;garde&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="loggertestdiffuseaplusieurssinks">LoggerTest.DiffuseAPlusieursSinks</h3>
+<p><em>Majeur · Unitaire · Logger</em> — <code>Source/Test/Unit/Core/Diagnostics/test_logger.cpp:44</code></p>
+<p>Le même message atteint tous les sinks enregistrés.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>firstObserved-&gt;entries().size()</code> vaut <code>1u</code>.</li><li>Vérifie que <code>secondObserved-&gt;entries().size()</code> vaut <code>1u</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="loggertestclearsinksarreteladiffusion">LoggerTest.ClearSinksArreteLaDiffusion</h3>
+<p><em>Majeur · Unitaire · Logger</em> — <code>Source/Test/Unit/Core/Diagnostics/test_logger.cpp:69</code></p>
+<p>clearSinks retire les destinations : plus rien n'est diffusé ensuite.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>observedAfterClear-&gt;entries().size()</code> vaut <code>1u</code>.</li><li>Vérifie que <code>observedAfterClear-&gt;entries()[0].message</code> vaut <code>&quot;personne&quot;</code>.</li></ul>
+</section><h2 id="test-scoped-log-levelcpp">test_scoped_log_level.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="scopedlogleveltestreleveunniveaupermissifpuislerestaure">ScopedLogLevelTest.ReleveUnNiveauPermissifPuisLeRestaure</h3>
+<p><em>Majeur · Unitaire · ScopedLogLevel</em> — <code>Source/Test/Unit/Core/Diagnostics/test_scoped_log_level.cpp:17</code></p>
+<p>ScopedLogLevel relève un niveau permissif, puis le restaure.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Logger au niveau Trace.</li><li>Ouvrir une portée <code>ScopedLogLevel(logger, Warning)</code>.</li><li>Fermer la portée.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>logger.minimumLevel()</code> vaut <code>core::LogLevel::Warning</code>.</li><li>Vérifie que <code>logger.isEnabled(core::LogLevel::Info)</code> est faux.</li><li>Vérifie que <code>logger.minimumLevel()</code> vaut <code>core::LogLevel::Trace</code>.</li><li>Vérifie que <code>logger.isEnabled(core::LogLevel::Trace)</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="scopedlogleveltestnassouplitjamaisunniveaudejaplusstrict">ScopedLogLevelTest.NAssouplitJamaisUnNiveauDejaPlusStrict</h3>
+<p><em>Majeur · Unitaire · ScopedLogLevel</em> — <code>Source/Test/Unit/Core/Diagnostics/test_scoped_log_level.cpp:40</code></p>
+<p>ScopedLogLevel n'assouplit jamais un niveau déjà plus strict.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Logger au niveau Error.</li><li>Ouvrir une portée <code>ScopedLogLevel(logger, Warning)</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>logger.minimumLevel()</code> vaut <code>core::LogLevel::Error</code>.</li><li>Vérifie que <code>logger.minimumLevel()</code> vaut <code>core::LogLevel::Error</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="scopedlogleveltestelevationsimbriqueesnerestaurentqualadernieresortie">ScopedLogLevelTest.ElevationsImbriqueesNeRestaurentQuALaDerniereSortie</h3>
+<p><em>Majeur · Unitaire · Core Diagnostics</em> — <code>Source/Test/Unit/Core/Diagnostics/test_scoped_log_level.cpp:67</code></p>
+<p>Élévations imbriquées : restauration à la sortie de la dernière seulement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Journaliseur à <code>Info</code>.</li><li>Ouvrir une première élévation à <code>Warning</code>, puis une seconde.</li><li>Fermer la première, vérifier le niveau ; fermer la seconde, vérifier à nouveau.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>logger.minimumLevel()</code> vaut <code>core::LogLevel::Warning</code>.</li><li>Vérifie que <code>logger.minimumLevel()</code> vaut <code>core::LogLevel::Warning</code>.</li><li>Vérifie que <code>logger.minimumLevel()</code> vaut <code>core::LogLevel::Warning</code>.</li><li>Vérifie que <code>logger.minimumLevel()</code> vaut <code>core::LogLevel::Info</code>.</li></ul>
+</section><h2 id="test-sinkscpp">test_sinks.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="memorylogsinktestconserveniveauettextedanslordre">MemoryLogSinkTest.ConserveNiveauEtTexteDansLOrdre</h3>
+<p><em>Majeur · Unitaire · Memory Log Sink</em> — <code>Source/Test/Unit/Core/Diagnostics/test_sinks.cpp:15</code></p>
+<p>Le sink mémoire conserve fidèlement niveau et texte, dans l'ordre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>sink.entries().size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>sink.entries()[0].level</code> vaut <code>core::LogLevel::Info</code>.</li><li>Vérifie que <code>sink.entries()[0].message</code> vaut <code>&quot;premier&quot;</code>.</li><li>Vérifie que <code>sink.entries()[1].level</code> vaut <code>core::LogLevel::Error</code>.</li><li>Vérifie que <code>sink.entries()[1].message</code> vaut <code>&quot;second&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="memorylogsinktestclearvidelesmessages">MemoryLogSinkTest.ClearVideLesMessages</h3>
+<p><em>Majeur · Unitaire · Memory Log Sink</em> — <code>Source/Test/Unit/Core/Diagnostics/test_sinks.cpp:37</code></p>
+<p>clear vide les messages mémorisés.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>sink.entries().empty()</code> est vrai.</li></ul></section></article><nav class="pager"><a class="prev" href="core-data.html"><span>Précédent</span>Core · Data</a><a class="next" href="core-ecs.html"><span>Suivant</span>Core · Ecs</a></nav><p class="source">Source : <code>Documentation/CahierTest/core-diagnostics.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

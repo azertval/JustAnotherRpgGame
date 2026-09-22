@@ -1,0 +1,290 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/Check.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('Check_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Check.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Check_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;span&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="DeterministicRandom_8h.html">Core/Math/DeterministicRandom.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="namespacecore.html#a42b6dd302d4b68da1f4bdd439884b338">   22</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacecore.html#a42b6dd302d4b68da1f4bdd439884b338">D20_FACES</a> = 20;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span></div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="};">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9">   32</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9">RollStance</a> {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a960b44c579bc2f6818d2daaf9e4c16f0">   33</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a960b44c579bc2f6818d2daaf9e4c16f0">Normal</a>,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a1b2430d20c750dada9aaaed48b4eb8f1">   34</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a1b2430d20c750dada9aaaed48b4eb8f1">Advantage</a>,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9ae755d083f9085a585ef791919be5a004">   35</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9ae755d083f9085a585ef791919be5a004">Disadvantage</a>,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
+</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>
+<div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="namespacecore.html#ac2a445eb023b8dc4823076b19427e5c9">   45</a></span>[[nodiscard]] <span class="keyword">constexpr</span> <a class="code hl_enumeration" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9">RollStance</a> <a class="code hl_function" href="namespacecore.html#ac2a445eb023b8dc4823076b19427e5c9">rollStance</a>(<span class="keywordtype">int</span> advantageSources,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                                              <span class="keywordtype">int</span> disadvantageSources) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> avantage = advantageSources &gt; 0;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> desavantage = disadvantageSources &gt; 0;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">if</span> (avantage == desavantage) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a960b44c579bc2f6818d2daaf9e4c16f0">RollStance::Normal</a>;  <span class="comment">// aucun des deux, ou les deux : ils s&#39;annulent.</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">return</span> avantage ? <a class="code hl_enumvalue" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a1b2430d20c750dada9aaaed48b4eb8f1">RollStance::Advantage</a> : <a class="code hl_enumvalue" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9ae755d083f9085a585ef791919be5a004">RollStance::Disadvantage</a>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span></div>
+<div class="foldopen" id="foldopen00056" data-start="{" data-end="};">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="structcore_1_1Modifier.html">   56</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1Modifier.html">Modifier</a> {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structcore_1_1Modifier.html#a062def5cf1e0a9394baeb57c80828eb5">   57</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Modifier.html#a062def5cf1e0a9394baeb57c80828eb5">source</a>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structcore_1_1Modifier.html#a64120eef6503124ff13acc4f7d028b37">   58</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1Modifier.html#a64120eef6503124ff13acc4f7d028b37">value</a> = 0;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>};</div>
+</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span></div>
+<div class="foldopen" id="foldopen00069" data-start="{" data-end="};">
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structcore_1_1CheckResult.html">   69</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1CheckResult.html">CheckResult</a> {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structcore_1_1CheckResult.html#a07d1bf1f684a7a240509419925514011">   71</a></span>    std::vector&lt;int&gt; <a class="code hl_variable" href="structcore_1_1CheckResult.html#a07d1bf1f684a7a240509419925514011">dice</a>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="structcore_1_1CheckResult.html#a95e31f441d5128742068fb841a5a3ce8">   73</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1CheckResult.html#a95e31f441d5128742068fb841a5a3ce8">keptDie</a> = 0;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="structcore_1_1CheckResult.html#a91e2afea9f996676da1015b5cab1ccca">   75</a></span>    std::vector&lt;Modifier&gt; <a class="code hl_variable" href="structcore_1_1CheckResult.html#a91e2afea9f996676da1015b5cab1ccca">modifiers</a>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="structcore_1_1CheckResult.html#aeccd3c788287a31f2cb00c03248ab824">   77</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1CheckResult.html#aeccd3c788287a31f2cb00c03248ab824">total</a> = 0;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="structcore_1_1CheckResult.html#a47c50b167b36e54dd2dc7190d7e27bfc">   79</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1CheckResult.html#a47c50b167b36e54dd2dc7190d7e27bfc">target</a> = 0;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="structcore_1_1CheckResult.html#a02f0ef9fa92d345a09c99040c18e811d">   81</a></span>    <a class="code hl_enumeration" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9">RollStance</a> <a class="code hl_variable" href="structcore_1_1CheckResult.html#a02f0ef9fa92d345a09c99040c18e811d">stance</a> = <a class="code hl_enumvalue" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a960b44c579bc2f6818d2daaf9e4c16f0">RollStance::Normal</a>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span></div>
+<div class="foldopen" id="foldopen00090" data-start="{" data-end="}">
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="structcore_1_1CheckResult.html#aeb7c307c48e161a0f52d1bc2a68707ad">   90</a></span>    [[nodiscard]] <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1CheckResult.html#aeb7c307c48e161a0f52d1bc2a68707ad">isNaturalTwenty</a>() const noexcept {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1CheckResult.html#a95e31f441d5128742068fb841a5a3ce8">keptDie</a> == <a class="code hl_variable" href="namespacecore.html#a42b6dd302d4b68da1f4bdd439884b338">D20_FACES</a>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    }</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span></div>
+<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="structcore_1_1CheckResult.html#aceb2674d146f40523fd954168b61d60b">   95</a></span>    [[nodiscard]] <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1CheckResult.html#aceb2674d146f40523fd954168b61d60b">isNaturalOne</a>() const noexcept {</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1CheckResult.html#a95e31f441d5128742068fb841a5a3ce8">keptDie</a> == 1;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
+</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span></div>
+<div class="foldopen" id="foldopen00100" data-start="{" data-end="}">
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="structcore_1_1CheckResult.html#a01fa3dd1982f4844c42a1e2b9e7b9325">  100</a></span>    [[nodiscard]] <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1CheckResult.html#a01fa3dd1982f4844c42a1e2b9e7b9325">succeeded</a>() const noexcept {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1CheckResult.html#aeccd3c788287a31f2cb00c03248ab824">total</a> &gt;= <a class="code hl_variable" href="structcore_1_1CheckResult.html#a47c50b167b36e54dd2dc7190d7e27bfc">target</a>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
+</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    [[nodiscard]] std::string <a class="code hl_function" href="structcore_1_1CheckResult.html#a6a87d200ae59fcdd179e04eca64d3548">describe</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>};</div>
+</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>[[nodiscard]] CheckResult <a class="code hl_function" href="namespacecore.html#a0cca681f3d6c00074710ceecdddab6f7">rollCheck</a>(<span class="keywordtype">int</span> target, std::span&lt;const Modifier&gt; modifiers,</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                                    <a class="code hl_enumeration" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9">RollStance</a> stance, DeterministicRandom&amp; random);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>[[nodiscard]] std::string_view <a class="code hl_function" href="namespacecore.html#aa60bb21d8cc45167ae840ea21c3b844c">rollStanceName</a>(<a class="code hl_enumeration" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9">RollStance</a> stance) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span></div>
+<div class="foldopen" id="foldopen00127" data-start="{" data-end="};">
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="structcore_1_1DifficultyTier.html">  127</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1DifficultyTier.html">DifficultyTier</a> {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="structcore_1_1DifficultyTier.html#a4e202ef139bbd0a37d3485987371d523">  128</a></span>    std::string <a class="code hl_variable" href="structcore_1_1DifficultyTier.html#a4e202ef139bbd0a37d3485987371d523">id</a>;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="structcore_1_1DifficultyTier.html#a6f20ce3fc88e83cb9832ab2de6c556cc">  129</a></span>    std::string <a class="code hl_variable" href="structcore_1_1DifficultyTier.html#a6f20ce3fc88e83cb9832ab2de6c556cc">name</a>;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="structcore_1_1DifficultyTier.html#af11e24ee15cef0f77241c382509ff067">  130</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1DifficultyTier.html#af11e24ee15cef0f77241c382509ff067">dc</a> = 0;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>};</div>
+</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span></div>
+<div class="foldopen" id="foldopen00142" data-start="{" data-end="};">
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="structcore_1_1DifficultyScale.html">  142</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1DifficultyScale.html">DifficultyScale</a> {</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="structcore_1_1DifficultyScale.html#a9d7a40e1340f8b555664bd71a2d68315">  143</a></span>    std::vector&lt;DifficultyTier&gt; <a class="code hl_variable" href="structcore_1_1DifficultyScale.html#a9d7a40e1340f8b555664bd71a2d68315">tiers</a>;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno"><a class="line" href="structcore_1_1DifficultyScale.html#a3adc505a7ef0c0e97e5164e4f3552b65">  144</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1DifficultyScale.html#a3adc505a7ef0c0e97e5164e4f3552b65">errors</a>;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1DifficultyTier.html">DifficultyTier</a>* <a class="code hl_function" href="structcore_1_1DifficultyScale.html#a3bc2b6faa75bef4663071c89b0a22f14">find</a>(std::string_view <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>};</div>
+</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1DifficultyScale.html">DifficultyScale</a> <a class="code hl_function" href="namespacecore.html#a74c7918e1f4c894c1449f94dfff55730">loadDifficultyScale</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aDeterministicRandom_8h_html"><div class="ttname"><a href="DeterministicRandom_8h.html">DeterministicRandom.h</a></div><div class="ttdoc">Générateur pseudo-aléatoire déterministe, à graine explicite (jamais l&#39;horloge, EX-NFR-002).</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a0cca681f3d6c00074710ceecdddab6f7"><div class="ttname"><a href="namespacecore.html#a0cca681f3d6c00074710ceecdddab6f7">core::rollCheck</a></div><div class="ttdeci">CheckResult rollCheck(int target, std::span&lt; const Modifier &gt; modifiers, RollStance stance, DeterministicRandom &amp;random)</div><div class="ttdoc">Lance un d20 contre un seuil.</div><div class="ttdef"><b>Definition</b> Check.cpp:13</div></div>
+<div class="ttc" id="anamespacecore_html_a42b6dd302d4b68da1f4bdd439884b338"><div class="ttname"><a href="namespacecore.html#a42b6dd302d4b68da1f4bdd439884b338">core::D20_FACES</a></div><div class="ttdeci">constexpr int D20_FACES</div><div class="ttdoc">Nombre de faces du dé de résolution. Le d20 est la mécanique centrale du jeu.</div><div class="ttdef"><b>Definition</b> Check.h:22</div></div>
+<div class="ttc" id="anamespacecore_html_a74c7918e1f4c894c1449f94dfff55730"><div class="ttname"><a href="namespacecore.html#a74c7918e1f4c894c1449f94dfff55730">core::loadDifficultyScale</a></div><div class="ttdeci">DifficultyScale loadDifficultyScale(const std::filesystem::path &amp;path)</div><div class="ttdoc">Charge l&#39;échelle des degrés de difficulté.</div><div class="ttdef"><b>Definition</b> Check.cpp:99</div></div>
+<div class="ttc" id="anamespacecore_html_aa60bb21d8cc45167ae840ea21c3b844c"><div class="ttname"><a href="namespacecore.html#aa60bb21d8cc45167ae840ea21c3b844c">core::rollStanceName</a></div><div class="ttdeci">std::string_view rollStanceName(RollStance stance) noexcept</div><div class="ttdoc">Nom textuel d&#39;une posture, pour les journaux et la restitution.</div><div class="ttdef"><b>Definition</b> Check.cpp:47</div></div>
+<div class="ttc" id="anamespacecore_html_ac2a445eb023b8dc4823076b19427e5c9"><div class="ttname"><a href="namespacecore.html#ac2a445eb023b8dc4823076b19427e5c9">core::rollStance</a></div><div class="ttdeci">constexpr RollStance rollStance(int advantageSources, int disadvantageSources) noexcept</div><div class="ttdoc">Détermine la posture depuis le nombre de sources de chaque type (EX-REG-002).</div><div class="ttdef"><b>Definition</b> Check.h:45</div></div>
+<div class="ttc" id="anamespacecore_html_aff494cc4070ea4489c3d5ee57178f7c9"><div class="ttname"><a href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9">core::RollStance</a></div><div class="ttdeci">RollStance</div><div class="ttdoc">Comment le d20 est lancé.</div><div class="ttdef"><b>Definition</b> Check.h:32</div></div>
+<div class="ttc" id="anamespacecore_html_aff494cc4070ea4489c3d5ee57178f7c9a1b2430d20c750dada9aaaed48b4eb8f1"><div class="ttname"><a href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a1b2430d20c750dada9aaaed48b4eb8f1">core::RollStance::Advantage</a></div><div class="ttdeci">@ Advantage</div><div class="ttdef"><b>Definition</b> Check.h:34</div></div>
+<div class="ttc" id="anamespacecore_html_aff494cc4070ea4489c3d5ee57178f7c9a960b44c579bc2f6818d2daaf9e4c16f0"><div class="ttname"><a href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a960b44c579bc2f6818d2daaf9e4c16f0">core::RollStance::Normal</a></div><div class="ttdeci">@ Normal</div><div class="ttdef"><b>Definition</b> Check.h:33</div></div>
+<div class="ttc" id="anamespacecore_html_aff494cc4070ea4489c3d5ee57178f7c9ae755d083f9085a585ef791919be5a004"><div class="ttname"><a href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9ae755d083f9085a585ef791919be5a004">core::RollStance::Disadvantage</a></div><div class="ttdeci">@ Disadvantage</div><div class="ttdef"><b>Definition</b> Check.h:35</div></div>
+<div class="ttc" id="astructcore_1_1CheckResult_html"><div class="ttname"><a href="structcore_1_1CheckResult.html">core::CheckResult</a></div><div class="ttdoc">Le résultat complet d&#39;un jet, et de quoi le reconstituer (EX-REG-003).</div><div class="ttdef"><b>Definition</b> Check.h:69</div></div>
+<div class="ttc" id="astructcore_1_1CheckResult_html_a01fa3dd1982f4844c42a1e2b9e7b9325"><div class="ttname"><a href="structcore_1_1CheckResult.html#a01fa3dd1982f4844c42a1e2b9e7b9325">core::CheckResult::succeeded</a></div><div class="ttdeci">constexpr bool succeeded() const noexcept</div><div class="ttdoc">Vrai si le total atteint ou dépasse le seuil.</div><div class="ttdef"><b>Definition</b> Check.h:100</div></div>
+<div class="ttc" id="astructcore_1_1CheckResult_html_a02f0ef9fa92d345a09c99040c18e811d"><div class="ttname"><a href="structcore_1_1CheckResult.html#a02f0ef9fa92d345a09c99040c18e811d">core::CheckResult::stance</a></div><div class="ttdeci">RollStance stance</div><div class="ttdoc">La posture effectivement appliquée, après annulation.</div><div class="ttdef"><b>Definition</b> Check.h:81</div></div>
+<div class="ttc" id="astructcore_1_1CheckResult_html_a07d1bf1f684a7a240509419925514011"><div class="ttname"><a href="structcore_1_1CheckResult.html#a07d1bf1f684a7a240509419925514011">core::CheckResult::dice</a></div><div class="ttdeci">std::vector&lt; int &gt; dice</div><div class="ttdoc">Les dés lancés : un, ou deux en cas d&#39;avantage ou de désavantage.</div><div class="ttdef"><b>Definition</b> Check.h:71</div></div>
+<div class="ttc" id="astructcore_1_1CheckResult_html_a47c50b167b36e54dd2dc7190d7e27bfc"><div class="ttname"><a href="structcore_1_1CheckResult.html#a47c50b167b36e54dd2dc7190d7e27bfc">core::CheckResult::target</a></div><div class="ttdeci">int target</div><div class="ttdoc">Le seuil visé (degré de difficulté, ou classe d&#39;armure).</div><div class="ttdef"><b>Definition</b> Check.h:79</div></div>
+<div class="ttc" id="astructcore_1_1CheckResult_html_a6a87d200ae59fcdd179e04eca64d3548"><div class="ttname"><a href="structcore_1_1CheckResult.html#a6a87d200ae59fcdd179e04eca64d3548">core::CheckResult::describe</a></div><div class="ttdeci">std::string describe() const</div><div class="ttdoc">Restitution lisible du jet, modificateurs et origines compris (EX-REG-003).</div><div class="ttdef"><b>Definition</b> Check.cpp:60</div></div>
+<div class="ttc" id="astructcore_1_1CheckResult_html_a91e2afea9f996676da1015b5cab1ccca"><div class="ttname"><a href="structcore_1_1CheckResult.html#a91e2afea9f996676da1015b5cab1ccca">core::CheckResult::modifiers</a></div><div class="ttdeci">std::vector&lt; Modifier &gt; modifiers</div><div class="ttdoc">Les modificateurs appliqués, avec leur origine.</div><div class="ttdef"><b>Definition</b> Check.h:75</div></div>
+<div class="ttc" id="astructcore_1_1CheckResult_html_a95e31f441d5128742068fb841a5a3ce8"><div class="ttname"><a href="structcore_1_1CheckResult.html#a95e31f441d5128742068fb841a5a3ce8">core::CheckResult::keptDie</a></div><div class="ttdeci">int keptDie</div><div class="ttdoc">Le dé retenu — le meilleur, le pire, ou le seul.</div><div class="ttdef"><b>Definition</b> Check.h:73</div></div>
+<div class="ttc" id="astructcore_1_1CheckResult_html_aceb2674d146f40523fd954168b61d60b"><div class="ttname"><a href="structcore_1_1CheckResult.html#aceb2674d146f40523fd954168b61d60b">core::CheckResult::isNaturalOne</a></div><div class="ttdeci">constexpr bool isNaturalOne() const noexcept</div><div class="ttdoc">Vrai si le dé retenu vaut 1, indépendamment du total.</div><div class="ttdef"><b>Definition</b> Check.h:95</div></div>
+<div class="ttc" id="astructcore_1_1CheckResult_html_aeb7c307c48e161a0f52d1bc2a68707ad"><div class="ttname"><a href="structcore_1_1CheckResult.html#aeb7c307c48e161a0f52d1bc2a68707ad">core::CheckResult::isNaturalTwenty</a></div><div class="ttdeci">constexpr bool isNaturalTwenty() const noexcept</div><div class="ttdoc">Vrai si le dé retenu vaut 20, indépendamment du total.</div><div class="ttdef"><b>Definition</b> Check.h:90</div></div>
+<div class="ttc" id="astructcore_1_1CheckResult_html_aeccd3c788287a31f2cb00c03248ab824"><div class="ttname"><a href="structcore_1_1CheckResult.html#aeccd3c788287a31f2cb00c03248ab824">core::CheckResult::total</a></div><div class="ttdeci">int total</div><div class="ttdoc">keptDie plus la somme des modificateurs.</div><div class="ttdef"><b>Definition</b> Check.h:77</div></div>
+<div class="ttc" id="astructcore_1_1DifficultyScale_html"><div class="ttname"><a href="structcore_1_1DifficultyScale.html">core::DifficultyScale</a></div><div class="ttdoc">L&#39;échelle des degrés de difficulté, telle que rules/difficulty.json la déclare (EX-REG-021,...</div><div class="ttdef"><b>Definition</b> Check.h:142</div></div>
+<div class="ttc" id="astructcore_1_1DifficultyScale_html_a3adc505a7ef0c0e97e5164e4f3552b65"><div class="ttname"><a href="structcore_1_1DifficultyScale.html#a3adc505a7ef0c0e97e5164e4f3552b65">core::DifficultyScale::errors</a></div><div class="ttdeci">std::vector&lt; std::string &gt; errors</div><div class="ttdef"><b>Definition</b> Check.h:144</div></div>
+<div class="ttc" id="astructcore_1_1DifficultyScale_html_a3bc2b6faa75bef4663071c89b0a22f14"><div class="ttname"><a href="structcore_1_1DifficultyScale.html#a3bc2b6faa75bef4663071c89b0a22f14">core::DifficultyScale::find</a></div><div class="ttdeci">const DifficultyTier * find(std::string_view id) const</div><div class="ttdoc">Le degré portant cet identifiant, ou nullptr.</div><div class="ttdef"><b>Definition</b> Check.cpp:94</div></div>
+<div class="ttc" id="astructcore_1_1DifficultyScale_html_a9d7a40e1340f8b555664bd71a2d68315"><div class="ttname"><a href="structcore_1_1DifficultyScale.html#a9d7a40e1340f8b555664bd71a2d68315">core::DifficultyScale::tiers</a></div><div class="ttdeci">std::vector&lt; DifficultyTier &gt; tiers</div><div class="ttdef"><b>Definition</b> Check.h:143</div></div>
+<div class="ttc" id="astructcore_1_1DifficultyTier_html"><div class="ttname"><a href="structcore_1_1DifficultyTier.html">core::DifficultyTier</a></div><div class="ttdoc">Un degré de difficulté nommé : « moyenne », 15.</div><div class="ttdef"><b>Definition</b> Check.h:127</div></div>
+<div class="ttc" id="astructcore_1_1DifficultyTier_html_a4e202ef139bbd0a37d3485987371d523"><div class="ttname"><a href="structcore_1_1DifficultyTier.html#a4e202ef139bbd0a37d3485987371d523">core::DifficultyTier::id</a></div><div class="ttdeci">std::string id</div><div class="ttdef"><b>Definition</b> Check.h:128</div></div>
+<div class="ttc" id="astructcore_1_1DifficultyTier_html_a6f20ce3fc88e83cb9832ab2de6c556cc"><div class="ttname"><a href="structcore_1_1DifficultyTier.html#a6f20ce3fc88e83cb9832ab2de6c556cc">core::DifficultyTier::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> Check.h:129</div></div>
+<div class="ttc" id="astructcore_1_1DifficultyTier_html_af11e24ee15cef0f77241c382509ff067"><div class="ttname"><a href="structcore_1_1DifficultyTier.html#af11e24ee15cef0f77241c382509ff067">core::DifficultyTier::dc</a></div><div class="ttdeci">int dc</div><div class="ttdef"><b>Definition</b> Check.h:130</div></div>
+<div class="ttc" id="astructcore_1_1Modifier_html"><div class="ttname"><a href="structcore_1_1Modifier.html">core::Modifier</a></div><div class="ttdoc">Un modificateur, avec son origine — sans quoi le jet n&#39;est pas restituable.</div><div class="ttdef"><b>Definition</b> Check.h:56</div></div>
+<div class="ttc" id="astructcore_1_1Modifier_html_a062def5cf1e0a9394baeb57c80828eb5"><div class="ttname"><a href="structcore_1_1Modifier.html#a062def5cf1e0a9394baeb57c80828eb5">core::Modifier::source</a></div><div class="ttdeci">std::string source</div><div class="ttdef"><b>Definition</b> Check.h:57</div></div>
+<div class="ttc" id="astructcore_1_1Modifier_html_a64120eef6503124ff13acc4f7d028b37"><div class="ttname"><a href="structcore_1_1Modifier.html#a64120eef6503124ff13acc4f7d028b37">core::Modifier::value</a></div><div class="ttdeci">int value</div><div class="ttdef"><b>Definition</b> Check.h:58</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_de25d93b7b4ef75f45504127491f58b5.html">Rpg</a></li><li class="navelem"><a href="Check_8h.html">Check.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

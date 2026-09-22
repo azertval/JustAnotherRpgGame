@@ -1,0 +1,249 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/PieceCatalog.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('PieceCatalog_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">PieceCatalog.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="PieceCatalog_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="PieceFootprint_8h.html">Core/Levels/PieceFootprint.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="TileLayer_8h.html">Core/Levels/TileLayer.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="TileType_8h.html">Core/Levels/TileType.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="ScenePieceManifest_8h.html">Core/Resources/ScenePieceManifest.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">class </span><a class="code hl_class" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="};">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structhmi_1_1PieceCatalogEntry.html">   36</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1PieceCatalogEntry.html">PieceCatalogEntry</a> {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structhmi_1_1PieceCatalogEntry.html#a701f3528becc64780b532ee706275f5e">   38</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1PieceCatalogEntry.html#a701f3528becc64780b532ee706275f5e">name</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structhmi_1_1PieceCatalogEntry.html#a95b8a3728b601fb9e12819c2b67054a9">   40</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1PieceCatalogEntry.html#a95b8a3728b601fb9e12819c2b67054a9">file</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structhmi_1_1PieceCatalogEntry.html#a4ded16f111359a4a0944a367ddb13c2f">   41</a></span>    <a class="code hl_enumeration" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461">core::ScenePieceClass</a> <a class="code hl_variable" href="structhmi_1_1PieceCatalogEntry.html#a4ded16f111359a4a0944a367ddb13c2f">pieceClass</a> = <a class="code hl_enumvalue" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461a6311ae17c1ee52b36e68aaf4ad066387">core::ScenePieceClass::Other</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structhmi_1_1PieceCatalogEntry.html#a0f8ed517d585b3a8587b808f7ad2d8cf">   42</a></span>    <a class="code hl_struct" href="structcore_1_1PieceFootprint.html">core::PieceFootprint</a> <a class="code hl_variable" href="structhmi_1_1PieceCatalogEntry.html#a0f8ed517d585b3a8587b808f7ad2d8cf">footprint</a>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structhmi_1_1PieceCatalogEntry.html#aff4a46723316283a94f9409416caa3ca">   43</a></span>    <a class="code hl_enumeration" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252">core::PieceTactical</a> <a class="code hl_variable" href="structhmi_1_1PieceCatalogEntry.html#aff4a46723316283a94f9409416caa3ca">tactical</a> = <a class="code hl_enumvalue" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252ae41480b6bbfbf7407974a88d3d34f4fa">core::PieceTactical::Solid</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structhmi_1_1PieceCatalogEntry.html#a940a4308985222a779824763a57171d8">   45</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structhmi_1_1PieceCatalogEntry.html#a940a4308985222a779824763a57171d8">missing</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structhmi_1_1PieceCatalogEntry.html#aed23663907bb32a3ea52ef940de862bc">   47</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structhmi_1_1PieceCatalogEntry.html#aed23663907bb32a3ea52ef940de862bc">floor</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structhmi_1_1PieceCatalogEntry.html#aa4c97191b46455063e0571b58f827a8d">   49</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1PieceCatalogEntry.html#aa4c97191b46455063e0571b58f827a8d">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1PieceCatalogEntry.html">PieceCatalogEntry</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
+</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="};">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structhmi_1_1PieceCatalogGroup.html">   53</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1PieceCatalogGroup.html">PieceCatalogGroup</a> {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structhmi_1_1PieceCatalogGroup.html#af07ca23e9f6326e2c54dd2d7f04c3ae5">   54</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1PieceCatalogGroup.html#af07ca23e9f6326e2c54dd2d7f04c3ae5">label</a>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structhmi_1_1PieceCatalogGroup.html#a295a2fd632ff3afe42f90d19eb278282">   55</a></span>    std::vector&lt;PieceCatalogEntry&gt; <a class="code hl_variable" href="structhmi_1_1PieceCatalogGroup.html#a295a2fd632ff3afe42f90d19eb278282">pieces</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structhmi_1_1PieceCatalogGroup.html#a8126458b547ceff44337f2aef0b02d4d">   57</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1PieceCatalogGroup.html#a8126458b547ceff44337f2aef0b02d4d">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1PieceCatalogGroup.html">PieceCatalogGroup</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>};</div>
+</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="namespacehmi.html#a5df9b58a558cb32ba554bcb3bff09c45">   61</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="namespacehmi.html#a5df9b58a558cb32ba554bcb3bff09c45">MISSING_PIECES_GROUP</a> = <span class="stringliteral">&quot;Missing from the sheet&quot;</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>[[nodiscard]] std::vector&lt;PieceCatalogGroup&gt; <a class="code hl_function" href="namespacehmi.html#af13dc656bfde25b7f2e991d124ec836e">pieceCatalog</a>(</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a>* manifest, <span class="keyword">const</span> std::vector&lt;core::TileLayer&gt;&amp; layers);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>[[nodiscard]] std::vector&lt;PieceCatalogGroup&gt; <a class="code hl_function" href="namespacehmi.html#aecbe4c4d16394d8fcbd7b6ccffeb1da6">filterPieceCatalog</a>(</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keyword">const</span> std::vector&lt;PieceCatalogGroup&gt;&amp; catalog, std::string_view query);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacehmi.html#a886aa8303d2fee185b1413e5c425896f">pieceDescription</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1PieceCatalogEntry.html">PieceCatalogEntry</a>&amp; entry);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>[[nodiscard]] std::optional&lt;std::size_t&gt; <a class="code hl_function" href="namespacehmi.html#aabb6d90483bf13d7b93dc031ac1cdfb0">pieceTargetLayer</a>(</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keyword">const</span> std::vector&lt;core::TileLayer&gt;&amp; layers, <span class="keywordtype">bool</span> floor);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>[[nodiscard]] <a class="code hl_enumeration" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> <a class="code hl_function" href="namespacehmi.html#a2959b61f0394085789d35563568aac2d">pieceCellType</a>(<span class="keyword">const</span> <a class="code hl_class" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a>* appearance,</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                                           std::string_view piece, <span class="keywordtype">bool</span> floor);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aPieceFootprint_8h_html"><div class="ttname"><a href="PieceFootprint_8h.html">PieceFootprint.h</a></div><div class="ttdoc">L&#39;emprise d&#39;une pièce posée sur une carte : les cases qu&#39;elle occupe, et la case d&#39;où elle se trie (L...</div></div>
+<div class="ttc" id="aScenePieceManifest_8h_html"><div class="ttname"><a href="ScenePieceManifest_8h.html">ScenePieceManifest.h</a></div><div class="ttdoc">Le manifeste des pièces d&#39;un lieu : ce que l&#39;atelier des textures (LOT-92) déclare de chaque pièce de...</div></div>
+<div class="ttc" id="aTileLayer_8h_html"><div class="ttname"><a href="TileLayer_8h.html">TileLayer.h</a></div><div class="ttdoc">Couche de tuiles typée d&#39;une carte (LOT-04).</div></div>
+<div class="ttc" id="aTileType_8h_html"><div class="ttname"><a href="TileType_8h.html">TileType.h</a></div><div class="ttdoc">Types de tuiles d&#39;une carte et utilitaires associés.</div></div>
+<div class="ttc" id="aclasscore_1_1ScenePieceManifest_html"><div class="ttname"><a href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a></div><div class="ttdoc">Les pièces d&#39;un lieu, dans l&#39;ordre du manifeste.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:134</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceAppearance_html"><div class="ttname"><a href="classhmi_1_1PlaceAppearance.html">hmi::PlaceAppearance</a></div><div class="ttdoc">La table d&#39;un lieu : type de tuile → pièces, pour le sol et pour le relief.</div><div class="ttdef"><b>Definition</b> PlaceAppearance.h:69</div></div>
+<div class="ttc" id="anamespacecore_html_a096c9cc059de39edb20ccea06d18f252"><div class="ttname"><a href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252">core::PieceTactical</a></div><div class="ttdeci">PieceTactical</div><div class="ttdoc">Ce qu&#39;une pièce oppose à qui passe : son type tactique (décision D10, constat A5).</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:58</div></div>
+<div class="ttc" id="anamespacecore_html_a096c9cc059de39edb20ccea06d18f252ae41480b6bbfbf7407974a88d3d34f4fa"><div class="ttname"><a href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252ae41480b6bbfbf7407974a88d3d34f4fa">core::PieceTactical::Solid</a></div><div class="ttdeci">@ Solid</div><div class="ttdoc">Arrête la vue (solid) : un mur, une façade. Déduit en wall.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:71</div></div>
+<div class="ttc" id="anamespacecore_html_a4a3860a249c1a2e07497950f57f4d461"><div class="ttname"><a href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461">core::ScenePieceClass</a></div><div class="ttdeci">ScenePieceClass</div><div class="ttdoc">Classe d&#39;une pièce, telle que l&#39;atelier la range.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:41</div></div>
+<div class="ttc" id="anamespacecore_html_a4a3860a249c1a2e07497950f57f4d461a6311ae17c1ee52b36e68aaf4ad066387"><div class="ttname"><a href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461a6311ae17c1ee52b36e68aaf4ad066387">core::ScenePieceClass::Other</a></div><div class="ttdeci">@ Other</div><div class="ttdoc">Une classe que ce lecteur ne connaît pas : gardée par son nom, jamais refusée.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:49</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></div><div class="ttdeci">TileType</div><div class="ttdoc">Type d&#39;une tuile de la grille d&#39;une carte (EX-LVL-002).</div><div class="ttdef"><b>Definition</b> TileType.h:24</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a2959b61f0394085789d35563568aac2d"><div class="ttname"><a href="namespacehmi.html#a2959b61f0394085789d35563568aac2d">hmi::pieceCellType</a></div><div class="ttdeci">core::TileType pieceCellType(const PlaceAppearance *appearance, std::string_view piece, bool floor)</div><div class="ttdoc">Le type qu&#39;écrit la case d&#39;ancrage d&#39;une pièce posée à la main (décision D3 : le type garde le sens d...</div><div class="ttdef"><b>Definition</b> PieceCatalog.cpp:155</div></div>
+<div class="ttc" id="anamespacehmi_html_a5df9b58a558cb32ba554bcb3bff09c45"><div class="ttname"><a href="namespacehmi.html#a5df9b58a558cb32ba554bcb3bff09c45">hmi::MISSING_PIECES_GROUP</a></div><div class="ttdeci">constexpr std::string_view MISSING_PIECES_GROUP</div><div class="ttdoc">Titre du groupe des pièces que la carte cite et que la planche n&#39;a pas.</div><div class="ttdef"><b>Definition</b> PieceCatalog.h:61</div></div>
+<div class="ttc" id="anamespacehmi_html_a886aa8303d2fee185b1413e5c425896f"><div class="ttname"><a href="namespacehmi.html#a886aa8303d2fee185b1413e5c425896f">hmi::pieceDescription</a></div><div class="ttdeci">std::string pieceDescription(const PieceCatalogEntry &amp;entry)</div><div class="ttdef"><b>Definition</b> PieceCatalog.cpp:136</div></div>
+<div class="ttc" id="anamespacehmi_html_aabb6d90483bf13d7b93dc031ac1cdfb0"><div class="ttname"><a href="namespacehmi.html#aabb6d90483bf13d7b93dc031ac1cdfb0">hmi::pieceTargetLayer</a></div><div class="ttdeci">std::optional&lt; std::size_t &gt; pieceTargetLayer(const std::vector&lt; core::TileLayer &gt; &amp;layers, bool floor)</div><div class="ttdef"><b>Definition</b> PieceCatalog.cpp:145</div></div>
+<div class="ttc" id="anamespacehmi_html_aecbe4c4d16394d8fcbd7b6ccffeb1da6"><div class="ttname"><a href="namespacehmi.html#aecbe4c4d16394d8fcbd7b6ccffeb1da6">hmi::filterPieceCatalog</a></div><div class="ttdeci">std::vector&lt; PieceCatalogGroup &gt; filterPieceCatalog(const std::vector&lt; PieceCatalogGroup &gt; &amp;catalog, std::string_view query)</div><div class="ttdoc">Le catalogue réduit aux pièces dont le nom ou la classe contient query, sans égard à la casse ; les g...</div><div class="ttdef"><b>Definition</b> PieceCatalog.cpp:113</div></div>
+<div class="ttc" id="anamespacehmi_html_af13dc656bfde25b7f2e991d124ec836e"><div class="ttname"><a href="namespacehmi.html#af13dc656bfde25b7f2e991d124ec836e">hmi::pieceCatalog</a></div><div class="ttdeci">std::vector&lt; PieceCatalogGroup &gt; pieceCatalog(const core::ScenePieceManifest *manifest, const std::vector&lt; core::TileLayer &gt; &amp;layers)</div><div class="ttdoc">Le catalogue d&#39;un lieu.</div><div class="ttdef"><b>Definition</b> PieceCatalog.cpp:77</div></div>
+<div class="ttc" id="astructcore_1_1PieceFootprint_html"><div class="ttname"><a href="structcore_1_1PieceFootprint.html">core::PieceFootprint</a></div><div class="ttdoc">Emprise d&#39;une pièce, en cases : colonnes, puis lignes. Au moins 1 × 1.</div><div class="ttdef"><b>Definition</b> PieceFootprint.h:34</div></div>
+<div class="ttc" id="astructhmi_1_1PieceCatalogEntry_html"><div class="ttname"><a href="structhmi_1_1PieceCatalogEntry.html">hmi::PieceCatalogEntry</a></div><div class="ttdoc">Une pièce du catalogue.</div><div class="ttdef"><b>Definition</b> PieceCatalog.h:36</div></div>
+<div class="ttc" id="astructhmi_1_1PieceCatalogEntry_html_a0f8ed517d585b3a8587b808f7ad2d8cf"><div class="ttname"><a href="structhmi_1_1PieceCatalogEntry.html#a0f8ed517d585b3a8587b808f7ad2d8cf">hmi::PieceCatalogEntry::footprint</a></div><div class="ttdeci">core::PieceFootprint footprint</div><div class="ttdef"><b>Definition</b> PieceCatalog.h:42</div></div>
+<div class="ttc" id="astructhmi_1_1PieceCatalogEntry_html_a4ded16f111359a4a0944a367ddb13c2f"><div class="ttname"><a href="structhmi_1_1PieceCatalogEntry.html#a4ded16f111359a4a0944a367ddb13c2f">hmi::PieceCatalogEntry::pieceClass</a></div><div class="ttdeci">core::ScenePieceClass pieceClass</div><div class="ttdef"><b>Definition</b> PieceCatalog.h:41</div></div>
+<div class="ttc" id="astructhmi_1_1PieceCatalogEntry_html_a701f3528becc64780b532ee706275f5e"><div class="ttname"><a href="structhmi_1_1PieceCatalogEntry.html#a701f3528becc64780b532ee706275f5e">hmi::PieceCatalogEntry::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Nom court, celui que la carte écrit (wall-left).</div><div class="ttdef"><b>Definition</b> PieceCatalog.h:38</div></div>
+<div class="ttc" id="astructhmi_1_1PieceCatalogEntry_html_a940a4308985222a779824763a57171d8"><div class="ttname"><a href="structhmi_1_1PieceCatalogEntry.html#a940a4308985222a779824763a57171d8">hmi::PieceCatalogEntry::missing</a></div><div class="ttdeci">bool missing</div><div class="ttdoc">Citée par la carte, absente du manifeste : montrée en damier.</div><div class="ttdef"><b>Definition</b> PieceCatalog.h:45</div></div>
+<div class="ttc" id="astructhmi_1_1PieceCatalogEntry_html_a95b8a3728b601fb9e12819c2b67054a9"><div class="ttname"><a href="structhmi_1_1PieceCatalogEntry.html#a95b8a3728b601fb9e12819c2b67054a9">hmi::PieceCatalogEntry::file</a></div><div class="ttdeci">std::string file</div><div class="ttdoc">Fichier image, relatif au dossier du lieu ; vide pour une pièce absente de la planche.</div><div class="ttdef"><b>Definition</b> PieceCatalog.h:40</div></div>
+<div class="ttc" id="astructhmi_1_1PieceCatalogEntry_html_aa4c97191b46455063e0571b58f827a8d"><div class="ttname"><a href="structhmi_1_1PieceCatalogEntry.html#aa4c97191b46455063e0571b58f827a8d">hmi::PieceCatalogEntry::operator==</a></div><div class="ttdeci">bool operator==(const PieceCatalogEntry &amp;) const =default</div></div>
+<div class="ttc" id="astructhmi_1_1PieceCatalogEntry_html_aed23663907bb32a3ea52ef940de862bc"><div class="ttname"><a href="structhmi_1_1PieceCatalogEntry.html#aed23663907bb32a3ea52ef940de862bc">hmi::PieceCatalogEntry::floor</a></div><div class="ttdeci">bool floor</div><div class="ttdoc">Se pose sur la couche de sol (un sol) ; sinon sur la couche de décor.</div><div class="ttdef"><b>Definition</b> PieceCatalog.h:47</div></div>
+<div class="ttc" id="astructhmi_1_1PieceCatalogEntry_html_aff4a46723316283a94f9409416caa3ca"><div class="ttname"><a href="structhmi_1_1PieceCatalogEntry.html#aff4a46723316283a94f9409416caa3ca">hmi::PieceCatalogEntry::tactical</a></div><div class="ttdeci">core::PieceTactical tactical</div><div class="ttdef"><b>Definition</b> PieceCatalog.h:43</div></div>
+<div class="ttc" id="astructhmi_1_1PieceCatalogGroup_html"><div class="ttname"><a href="structhmi_1_1PieceCatalogGroup.html">hmi::PieceCatalogGroup</a></div><div class="ttdoc">Un groupe de la palette : un titre, ses pièces dans l&#39;ordre du manifeste.</div><div class="ttdef"><b>Definition</b> PieceCatalog.h:53</div></div>
+<div class="ttc" id="astructhmi_1_1PieceCatalogGroup_html_a295a2fd632ff3afe42f90d19eb278282"><div class="ttname"><a href="structhmi_1_1PieceCatalogGroup.html#a295a2fd632ff3afe42f90d19eb278282">hmi::PieceCatalogGroup::pieces</a></div><div class="ttdeci">std::vector&lt; PieceCatalogEntry &gt; pieces</div><div class="ttdef"><b>Definition</b> PieceCatalog.h:55</div></div>
+<div class="ttc" id="astructhmi_1_1PieceCatalogGroup_html_a8126458b547ceff44337f2aef0b02d4d"><div class="ttname"><a href="structhmi_1_1PieceCatalogGroup.html#a8126458b547ceff44337f2aef0b02d4d">hmi::PieceCatalogGroup::operator==</a></div><div class="ttdeci">bool operator==(const PieceCatalogGroup &amp;) const =default</div></div>
+<div class="ttc" id="astructhmi_1_1PieceCatalogGroup_html_af07ca23e9f6326e2c54dd2d7f04c3ae5"><div class="ttname"><a href="structhmi_1_1PieceCatalogGroup.html#af07ca23e9f6326e2c54dd2d7f04c3ae5">hmi::PieceCatalogGroup::label</a></div><div class="ttdeci">std::string label</div><div class="ttdef"><b>Definition</b> PieceCatalog.h:54</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li><li class="navelem"><a href="PieceCatalog_8h.html">PieceCatalog.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

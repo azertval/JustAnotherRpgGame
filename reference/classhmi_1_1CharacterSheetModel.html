@@ -1,0 +1,1294 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::CharacterSheetModel Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1CharacterSheetModel.html','','classhmi_1_1CharacterSheetModel-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::CharacterSheetModel Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Vue-modèle de la fiche : ce que le jeu <b>sait dire</b> d'un personnage.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="CharacterSheetModel_8h_source.html">CharacterSheetModel.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for hmi::CharacterSheetModel:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classhmi_1_1CharacterSheetModel.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:abed3a07894598477ddb3fed877b058a9" id="r_abed3a07894598477ddb3fed877b058a9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abed3a07894598477ddb3fed877b058a9">changed</a> ()</td></tr>
+<tr class="memdesc:abed3a07894598477ddb3fed877b058a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand la fiche change en bloc.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a0d053b078f640fa4fa8c144f98abf2ac" id="r_a0d053b078f640fa4fa8c144f98abf2ac"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0d053b078f640fa4fa8c144f98abf2ac">CharacterSheetModel</a> (QObject *parent=nullptr)</td></tr>
+<tr class="memitem:a99112a943925ad31447c8ac791110d91" id="r_a99112a943925ad31447c8ac791110d91"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a99112a943925ad31447c8ac791110d91">loadDemonstrationCharacter</a> ()</td></tr>
+<tr class="memdesc:a99112a943925ad31447c8ac791110d91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le personnage de <b>démonstration</b> livré en donnée.  <br /></td></tr>
+<tr class="memitem:aefebf156fee6aefb7500d82fb7ce23a6" id="r_aefebf156fee6aefb7500d82fb7ce23a6"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#aefebf156fee6aefb7500d82fb7ce23a6">values</a> () const</td></tr>
+<tr class="memitem:ae9272437bad8041b677f4c7ad81a38d8" id="r_ae9272437bad8041b677f4c7ad81a38d8"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae9272437bad8041b677f4c7ad81a38d8">name</a> () const</td></tr>
+<tr class="memitem:aa3dba1adba2892df6db90a5a8a3be0a8" id="r_aa3dba1adba2892df6db90a5a8a3be0a8"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aa3dba1adba2892df6db90a5a8a3be0a8">species</a> () const</td></tr>
+<tr class="memitem:a548046d5506b7a6e8591ec15059a6dc9" id="r_a548046d5506b7a6e8591ec15059a6dc9"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a548046d5506b7a6e8591ec15059a6dc9">background</a> () const</td></tr>
+<tr class="memitem:a4d0d058086e4b817fdc51672026d80c0" id="r_a4d0d058086e4b817fdc51672026d80c0"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a4d0d058086e4b817fdc51672026d80c0">classAndLevel</a> () const</td></tr>
+<tr class="memitem:a3d13d49dfa8aec710caf9b22af195bee" id="r_a3d13d49dfa8aec710caf9b22af195bee"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3d13d49dfa8aec710caf9b22af195bee">level</a> () const</td></tr>
+<tr class="memitem:ae5f45d402e6d8a3013560a0130cd3e30" id="r_ae5f45d402e6d8a3013560a0130cd3e30"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae5f45d402e6d8a3013560a0130cd3e30">experience</a> () const</td></tr>
+<tr class="memitem:a6637b9c1173e329d4a019b0539021b2c" id="r_a6637b9c1173e329d4a019b0539021b2c"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a6637b9c1173e329d4a019b0539021b2c">hitPoints</a> () const</td></tr>
+<tr class="memitem:ae6effb695d2338de6d6cf1fb0837cff7" id="r_ae6effb695d2338de6d6cf1fb0837cff7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae6effb695d2338de6d6cf1fb0837cff7">hitPointsMax</a> () const</td></tr>
+<tr class="memitem:a2145b179411747d3f9ccdf57de60b17e" id="r_a2145b179411747d3f9ccdf57de60b17e"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a2145b179411747d3f9ccdf57de60b17e">hitDice</a> () const</td></tr>
+<tr class="memitem:af4658a068bb04533dfdf1b15687a4629" id="r_af4658a068bb04533dfdf1b15687a4629"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#af4658a068bb04533dfdf1b15687a4629">armorClass</a> () const</td></tr>
+<tr class="memitem:a73838eed49ec51152e79f1b2685f204b" id="r_a73838eed49ec51152e79f1b2685f204b"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a73838eed49ec51152e79f1b2685f204b">initiative</a> () const</td></tr>
+<tr class="memitem:a9187a8bc19b960fcd03a01e19bc150b0" id="r_a9187a8bc19b960fcd03a01e19bc150b0"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a9187a8bc19b960fcd03a01e19bc150b0">speed</a> () const</td></tr>
+<tr class="memitem:a01a7bb4b278375b0a67f5ee60fca3a8f" id="r_a01a7bb4b278375b0a67f5ee60fca3a8f"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a01a7bb4b278375b0a67f5ee60fca3a8f">proficiencyBonus</a> () const</td></tr>
+<tr class="memitem:ae105576bcb24502a77a4742e868203a2" id="r_ae105576bcb24502a77a4742e868203a2"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae105576bcb24502a77a4742e868203a2">passivePerception</a> () const</td></tr>
+<tr class="memitem:aa0065532edb89d2ebbde5bfa678e29e7" id="r_aa0065532edb89d2ebbde5bfa678e29e7"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#aa0065532edb89d2ebbde5bfa678e29e7">abilities</a> ()</td></tr>
+<tr class="memitem:ad6bda87999fb7a0dc7aecc3f76085b65" id="r_ad6bda87999fb7a0dc7aecc3f76085b65"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#ad6bda87999fb7a0dc7aecc3f76085b65">savingThrows</a> ()</td></tr>
+<tr class="memitem:a61efe7edf21bf20380b475940a521a2e" id="r_a61efe7edf21bf20380b475940a521a2e"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a61efe7edf21bf20380b475940a521a2e">skills</a> ()</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a0d8ace9a0253c87877068faa54f5ccae" id="r_a0d8ace9a0253c87877068faa54f5ccae"><td class="memItemLeft">QML_ELEMENTQString&#160;</td><td class="memItemRight"><a class="el" href="#a0d8ace9a0253c87877068faa54f5ccae">name</a></td></tr>
+<tr class="memitem:ab635485894fcf0cf7a1c8de1c797b2ee" id="r_ab635485894fcf0cf7a1c8de1c797b2ee"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ab635485894fcf0cf7a1c8de1c797b2ee">species</a></td></tr>
+<tr class="memitem:a48d10311bf7c86e94f8193502561177c" id="r_a48d10311bf7c86e94f8193502561177c"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a48d10311bf7c86e94f8193502561177c">background</a></td></tr>
+<tr class="memitem:ab1cebb312ed46e9efb3d7f2dee2df4bd" id="r_ab1cebb312ed46e9efb3d7f2dee2df4bd"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ab1cebb312ed46e9efb3d7f2dee2df4bd">classAndLevel</a></td></tr>
+<tr class="memitem:a00211f22b831a62542f5df2a8baf68e3" id="r_a00211f22b831a62542f5df2a8baf68e3"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a00211f22b831a62542f5df2a8baf68e3">level</a></td></tr>
+<tr class="memitem:ac85aed6a848fba68b78065fdd952d666" id="r_ac85aed6a848fba68b78065fdd952d666"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ac85aed6a848fba68b78065fdd952d666">experience</a></td></tr>
+<tr class="memitem:a384b8402c63b849101a42552691f9174" id="r_a384b8402c63b849101a42552691f9174"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a384b8402c63b849101a42552691f9174">hitPoints</a></td></tr>
+<tr class="memitem:aadbae877ac72d8ca4a6e5dd3784876e2" id="r_aadbae877ac72d8ca4a6e5dd3784876e2"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aadbae877ac72d8ca4a6e5dd3784876e2">hitPointsMax</a></td></tr>
+<tr class="memitem:a4b978f6c7ab3ce3685386856f2e0ce7b" id="r_a4b978f6c7ab3ce3685386856f2e0ce7b"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a4b978f6c7ab3ce3685386856f2e0ce7b">hitDice</a></td></tr>
+<tr class="memitem:aef1462f1780f2fe512c821a89caf9b2d" id="r_aef1462f1780f2fe512c821a89caf9b2d"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aef1462f1780f2fe512c821a89caf9b2d">armorClass</a></td></tr>
+<tr class="memitem:ab86eab579bb1cd69a0bcc0d403296448" id="r_ab86eab579bb1cd69a0bcc0d403296448"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ab86eab579bb1cd69a0bcc0d403296448">initiative</a></td></tr>
+<tr class="memitem:a74bf7012708a91997d29350295273131" id="r_a74bf7012708a91997d29350295273131"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a74bf7012708a91997d29350295273131">speed</a></td></tr>
+<tr class="memitem:aff7b297341febf1e9670c5c4d5d0a9b0" id="r_aff7b297341febf1e9670c5c4d5d0a9b0"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aff7b297341febf1e9670c5c4d5d0a9b0">proficiencyBonus</a></td></tr>
+<tr class="memitem:a09cbaea3005c41db0e17924cff5eaeec" id="r_a09cbaea3005c41db0e17924cff5eaeec"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a09cbaea3005c41db0e17924cff5eaeec">passivePerception</a></td></tr>
+<tr class="memitem:ad71fb1e982b447d7c9a4a780d23eaf84" id="r_ad71fb1e982b447d7c9a4a780d23eaf84"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#ad71fb1e982b447d7c9a4a780d23eaf84">abilities</a></td></tr>
+<tr class="memitem:a38a22274234b22eabee7060c27cc22d4" id="r_a38a22274234b22eabee7060c27cc22d4"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a38a22274234b22eabee7060c27cc22d4">savingThrows</a></td></tr>
+<tr class="memitem:a86fa2e2be3af38f8095194bd257c95d2" id="r_a86fa2e2be3af38f8095194bd257c95d2"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a86fa2e2be3af38f8095194bd257c95d2">skills</a></td></tr>
+<tr class="memitem:ab4343c40ed226a3a19259cc8564b6d91" id="r_ab4343c40ed226a3a19259cc8564b6d91"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#ab4343c40ed226a3a19259cc8564b6d91">values</a></td></tr>
+<tr class="memdesc:ab4343c40ed226a3a19259cc8564b6d91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toutes les valeurs formatées de la fiche, par clé (<span class="tt">sheet.ability.strength.score</span>, <span class="tt">sheet.ability.strength.modifier</span>…) : ce que la fiche de la charte v2 (<span class="tt">LOT-87</span>, T3.4) pose hors des listes, comme le score et le modificateur SÉPARÉS de chaque médaillon.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aae2fcfc96e7821e1817383670102717d" id="r_aae2fcfc96e7821e1817383670102717d"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aae2fcfc96e7821e1817383670102717d">value</a> (const char *key) const</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a305fa0e2c9baa216e8548ab1a42b4177" id="r_a305fa0e2c9baa216e8548ab1a42b4177"><td class="memItemLeft">std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a305fa0e2c9baa216e8548ab1a42b4177">_values</a></td></tr>
+<tr class="memitem:abc773dd51b7c03eede33b83070da048e" id="r_abc773dd51b7c03eede33b83070da048e"><td class="memItemLeft"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a>&#160;</td><td class="memItemRight"><a class="el" href="#abc773dd51b7c03eede33b83070da048e">_abilities</a></td></tr>
+<tr class="memitem:ab7104b95c06dffe6ba59996fd46ef4cf" id="r_ab7104b95c06dffe6ba59996fd46ef4cf"><td class="memItemLeft"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab7104b95c06dffe6ba59996fd46ef4cf">_savingThrows</a></td></tr>
+<tr class="memitem:ac0354a3af50d52b4c918bd90fba10147" id="r_ac0354a3af50d52b4c918bd90fba10147"><td class="memItemLeft"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac0354a3af50d52b4c918bd90fba10147">_skills</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Vue-modèle de la fiche : ce que le jeu <b>sait dire</b> d'un personnage. </p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md102"></a>
+Où passe la frontière</h2>
+<p>Cette classe est la frontière entre le développeur et la conception. Elle décide <b>quelles données existent</b> ; le QML décide <b>comment elles se voient</b>. Ajouter un champ ici demande un développeur ; le déplacer, le colorer, l'animer ou le supprimer de l'écran ne demande personne.</p>
+<p>Elle ne connaît donc ni QML, ni asset, ni feuille de style : elle ne lie que <span class="tt">Qt6::Qml</span>, pour pouvoir être déclarée au moteur — jamais <span class="tt">Qt6::Quick</span> ni <span class="tt">Qt6::Widgets</span>, et un lint le vérifie (<span class="tt">EX-IHM-101</span>).</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md103"></a>
+Ce qu'elle ne refait pas</h2>
+<p>Le <b>formatage</b> — le signe d'un modificateur, le « 25 / 30 » des points de vie, le point qui marque une maîtrise — reste dans <span class="tt"><a class="el" href="namespacehmi.html#ad2b3435349dd004d6768a14a49f5dacc">hmi::characterSheetValues</a></span>, fonction <b>pure</b> et couverte par ses tests. Cette classe la lit et la publie ; elle ne la réécrit pas. Deux endroits qui savent écrire un modificateur finiraient par ne plus l'écrire pareil.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md104"></a>
+Pourquoi des propriétés nommées plutôt que la table brute</h2>
+<p>La couche pure produit une table indexée par chaîne (<span class="tt">sheet.hit_points</span>), et c'est le bon contrat <b>entre C++</b> : un champ ajouté n'y touche qu'un endroit. Mais un artiste travaillant dans Qt Design Studio verrait alors des clés de chaîne dans le panneau des propriétés, sans complétion ni vérification. Les propriétés ci-dessous nomment ces clés une fois, ici — elles ne constituent pas une deuxième source, seulement une façade lisible sur la première. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0d053b078f640fa4fa8c144f98abf2ac" name="a0d053b078f640fa4fa8c144f98abf2ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d053b078f640fa4fa8c144f98abf2ac">&#9670;&#160;</a></span>CharacterSheetModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::CharacterSheetModel::CharacterSheetModel </td>
+          <td>(</td>
+          <td class="paramtype">QObject *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="aa0065532edb89d2ebbde5bfa678e29e7" name="aa0065532edb89d2ebbde5bfa678e29e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0065532edb89d2ebbde5bfa678e29e7">&#9670;&#160;</a></span>abilities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAbstractItemModel * hmi::CharacterSheetModel::abilities </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af4658a068bb04533dfdf1b15687a4629" name="af4658a068bb04533dfdf1b15687a4629"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4658a068bb04533dfdf1b15687a4629">&#9670;&#160;</a></span>armorClass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::armorClass </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a548046d5506b7a6e8591ec15059a6dc9" name="a548046d5506b7a6e8591ec15059a6dc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a548046d5506b7a6e8591ec15059a6dc9">&#9670;&#160;</a></span>background()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::background </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abed3a07894598477ddb3fed877b058a9" name="abed3a07894598477ddb3fed877b058a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abed3a07894598477ddb3fed877b058a9">&#9670;&#160;</a></span>changed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::CharacterSheetModel::changed </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand la fiche change en bloc. </p>
+<p>Un signal unique et non un par propriété : la fiche est recalculée d'un coup à chaque changement de source, et prétendre le contraire obligerait à comparer quatorze champs pour n'en notifier que ceux qui bougent — un coût réel pour une économie que personne ne mesurerait. </p>
+
+</div>
+</div>
+<a id="a4d0d058086e4b817fdc51672026d80c0" name="a4d0d058086e4b817fdc51672026d80c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d0d058086e4b817fdc51672026d80c0">&#9670;&#160;</a></span>classAndLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::classAndLevel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae5f45d402e6d8a3013560a0130cd3e30" name="ae5f45d402e6d8a3013560a0130cd3e30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5f45d402e6d8a3013560a0130cd3e30">&#9670;&#160;</a></span>experience()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::experience </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2145b179411747d3f9ccdf57de60b17e" name="a2145b179411747d3f9ccdf57de60b17e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2145b179411747d3f9ccdf57de60b17e">&#9670;&#160;</a></span>hitDice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::hitDice </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6637b9c1173e329d4a019b0539021b2c" name="a6637b9c1173e329d4a019b0539021b2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6637b9c1173e329d4a019b0539021b2c">&#9670;&#160;</a></span>hitPoints()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::hitPoints </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae6effb695d2338de6d6cf1fb0837cff7" name="ae6effb695d2338de6d6cf1fb0837cff7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6effb695d2338de6d6cf1fb0837cff7">&#9670;&#160;</a></span>hitPointsMax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::hitPointsMax </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a73838eed49ec51152e79f1b2685f204b" name="a73838eed49ec51152e79f1b2685f204b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73838eed49ec51152e79f1b2685f204b">&#9670;&#160;</a></span>initiative()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::initiative </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3d13d49dfa8aec710caf9b22af195bee" name="a3d13d49dfa8aec710caf9b22af195bee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d13d49dfa8aec710caf9b22af195bee">&#9670;&#160;</a></span>level()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::level </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a99112a943925ad31447c8ac791110d91" name="a99112a943925ad31447c8ac791110d91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99112a943925ad31447c8ac791110d91">&#9670;&#160;</a></span>loadDemonstrationCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::CharacterSheetModel::loadDemonstrationCharacter </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Charge le personnage de <b>démonstration</b> livré en donnée. </p>
+<p>ÉCHAFAUDAGE, et il est écrit comme tel : il n'existe encore ni groupe ni sauvegarde d'où tirer un personnage réel, et un écran de fiche qui n'affiche aucune fiche ne se relit pas. Le jour où une partie en fournira un, c'est <b>la source</b> qui change ici — pas l'écran, qui ne consomme que des valeurs nommées, d'où qu'elles viennent.</p>
+<p>Une donnée manquante n'interrompt rien : l'erreur est journalisée en nommant son fichier (<span class="tt">EX-CNT-010</span>) et la fiche s'affiche partielle, avec ses tirets. Une fiche partielle vaut mieux qu'un écran vide. </p>
+
+</div>
+</div>
+<a id="ae9272437bad8041b677f4c7ad81a38d8" name="ae9272437bad8041b677f4c7ad81a38d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9272437bad8041b677f4c7ad81a38d8">&#9670;&#160;</a></span>name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::name </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae105576bcb24502a77a4742e868203a2" name="ae105576bcb24502a77a4742e868203a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae105576bcb24502a77a4742e868203a2">&#9670;&#160;</a></span>passivePerception()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::passivePerception </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a01a7bb4b278375b0a67f5ee60fca3a8f" name="a01a7bb4b278375b0a67f5ee60fca3a8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01a7bb4b278375b0a67f5ee60fca3a8f">&#9670;&#160;</a></span>proficiencyBonus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::proficiencyBonus </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad6bda87999fb7a0dc7aecc3f76085b65" name="ad6bda87999fb7a0dc7aecc3f76085b65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6bda87999fb7a0dc7aecc3f76085b65">&#9670;&#160;</a></span>savingThrows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAbstractItemModel * hmi::CharacterSheetModel::savingThrows </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a61efe7edf21bf20380b475940a521a2e" name="a61efe7edf21bf20380b475940a521a2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61efe7edf21bf20380b475940a521a2e">&#9670;&#160;</a></span>skills()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAbstractItemModel * hmi::CharacterSheetModel::skills </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa3dba1adba2892df6db90a5a8a3be0a8" name="aa3dba1adba2892df6db90a5a8a3be0a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3dba1adba2892df6db90a5a8a3be0a8">&#9670;&#160;</a></span>species()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::species </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9187a8bc19b960fcd03a01e19bc150b0" name="a9187a8bc19b960fcd03a01e19bc150b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9187a8bc19b960fcd03a01e19bc150b0">&#9670;&#160;</a></span>speed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::speed </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aae2fcfc96e7821e1817383670102717d" name="aae2fcfc96e7821e1817383670102717d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae2fcfc96e7821e1817383670102717d">&#9670;&#160;</a></span>value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::value </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La valeur formatée de <code class="param">key</code>, ou le tiret cadratin si la fiche ne la porte pas. Jamais une chaîne vide : à l'écran, « pas de valeur » doit se voir comme tel. </dd></dl>
+
+</div>
+</div>
+<a id="aefebf156fee6aefb7500d82fb7ce23a6" name="aefebf156fee6aefb7500d82fb7ce23a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefebf156fee6aefb7500d82fb7ce23a6">&#9670;&#160;</a></span>values()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantMap hmi::CharacterSheetModel::values </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="abc773dd51b7c03eede33b83070da048e" name="abc773dd51b7c03eede33b83070da048e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc773dd51b7c03eede33b83070da048e">&#9670;&#160;</a></span>_abilities</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a> hmi::CharacterSheetModel::_abilities</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab7104b95c06dffe6ba59996fd46ef4cf" name="ab7104b95c06dffe6ba59996fd46ef4cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7104b95c06dffe6ba59996fd46ef4cf">&#9670;&#160;</a></span>_savingThrows</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a> hmi::CharacterSheetModel::_savingThrows</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac0354a3af50d52b4c918bd90fba10147" name="ac0354a3af50d52b4c918bd90fba10147"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0354a3af50d52b4c918bd90fba10147">&#9670;&#160;</a></span>_skills</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a> hmi::CharacterSheetModel::_skills</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a305fa0e2c9baa216e8548ab1a42b4177" name="a305fa0e2c9baa216e8548ab1a42b4177"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a305fa0e2c9baa216e8548ab1a42b4177">&#9670;&#160;</a></span>_values</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, std::string&gt; hmi::CharacterSheetModel::_values</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-property-members" id="doc-property-members"></a><h2 id="header-doc-property-members" class="groupheader">Property Documentation</h2>
+<a id="ad71fb1e982b447d7c9a4a780d23eaf84" name="ad71fb1e982b447d7c9a4a780d23eaf84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad71fb1e982b447d7c9a4a780d23eaf84">&#9670;&#160;</a></span>abilities</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAbstractItemModel* hmi::CharacterSheetModel::abilities</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aef1462f1780f2fe512c821a89caf9b2d" name="aef1462f1780f2fe512c821a89caf9b2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef1462f1780f2fe512c821a89caf9b2d">&#9670;&#160;</a></span>armorClass</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::armorClass</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a48d10311bf7c86e94f8193502561177c" name="a48d10311bf7c86e94f8193502561177c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48d10311bf7c86e94f8193502561177c">&#9670;&#160;</a></span>background</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::background</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab1cebb312ed46e9efb3d7f2dee2df4bd" name="ab1cebb312ed46e9efb3d7f2dee2df4bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1cebb312ed46e9efb3d7f2dee2df4bd">&#9670;&#160;</a></span>classAndLevel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::classAndLevel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac85aed6a848fba68b78065fdd952d666" name="ac85aed6a848fba68b78065fdd952d666"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac85aed6a848fba68b78065fdd952d666">&#9670;&#160;</a></span>experience</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::experience</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4b978f6c7ab3ce3685386856f2e0ce7b" name="a4b978f6c7ab3ce3685386856f2e0ce7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b978f6c7ab3ce3685386856f2e0ce7b">&#9670;&#160;</a></span>hitDice</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::hitDice</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a384b8402c63b849101a42552691f9174" name="a384b8402c63b849101a42552691f9174"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a384b8402c63b849101a42552691f9174">&#9670;&#160;</a></span>hitPoints</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::hitPoints</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aadbae877ac72d8ca4a6e5dd3784876e2" name="aadbae877ac72d8ca4a6e5dd3784876e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadbae877ac72d8ca4a6e5dd3784876e2">&#9670;&#160;</a></span>hitPointsMax</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::hitPointsMax</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab86eab579bb1cd69a0bcc0d403296448" name="ab86eab579bb1cd69a0bcc0d403296448"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab86eab579bb1cd69a0bcc0d403296448">&#9670;&#160;</a></span>initiative</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::initiative</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a00211f22b831a62542f5df2a8baf68e3" name="a00211f22b831a62542f5df2a8baf68e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00211f22b831a62542f5df2a8baf68e3">&#9670;&#160;</a></span>level</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::level</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0d8ace9a0253c87877068faa54f5ccae" name="a0d8ace9a0253c87877068faa54f5ccae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d8ace9a0253c87877068faa54f5ccae">&#9670;&#160;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QML_ELEMENTQString hmi::CharacterSheetModel::name</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a09cbaea3005c41db0e17924cff5eaeec" name="a09cbaea3005c41db0e17924cff5eaeec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09cbaea3005c41db0e17924cff5eaeec">&#9670;&#160;</a></span>passivePerception</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::passivePerception</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aff7b297341febf1e9670c5c4d5d0a9b0" name="aff7b297341febf1e9670c5c4d5d0a9b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff7b297341febf1e9670c5c4d5d0a9b0">&#9670;&#160;</a></span>proficiencyBonus</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::proficiencyBonus</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a38a22274234b22eabee7060c27cc22d4" name="a38a22274234b22eabee7060c27cc22d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38a22274234b22eabee7060c27cc22d4">&#9670;&#160;</a></span>savingThrows</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAbstractItemModel* hmi::CharacterSheetModel::savingThrows</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a86fa2e2be3af38f8095194bd257c95d2" name="a86fa2e2be3af38f8095194bd257c95d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86fa2e2be3af38f8095194bd257c95d2">&#9670;&#160;</a></span>skills</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAbstractItemModel* hmi::CharacterSheetModel::skills</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab635485894fcf0cf7a1c8de1c797b2ee" name="ab635485894fcf0cf7a1c8de1c797b2ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab635485894fcf0cf7a1c8de1c797b2ee">&#9670;&#160;</a></span>species</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::species</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a74bf7012708a91997d29350295273131" name="a74bf7012708a91997d29350295273131"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74bf7012708a91997d29350295273131">&#9670;&#160;</a></span>speed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::speed</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab4343c40ed226a3a19259cc8564b6d91" name="ab4343c40ed226a3a19259cc8564b6d91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4343c40ed226a3a19259cc8564b6d91">&#9670;&#160;</a></span>values</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantMap hmi::CharacterSheetModel::values</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Toutes les valeurs formatées de la fiche, par clé (<span class="tt">sheet.ability.strength.score</span>, <span class="tt">sheet.ability.strength.modifier</span>…) : ce que la fiche de la charte v2 (<span class="tt">LOT-87</span>, T3.4) pose hors des listes, comme le score et le modificateur SÉPARÉS de chaque médaillon. </p>
+<p>Une table et non douze propriétés : les clés existent déjà dans <span class="tt"><a class="el" href="namespacehmi.html#ad2b3435349dd004d6768a14a49f5dacc">hmi::characterSheetValues</a></span>, les recopier une à une en propriétés aurait fait un second endroit à tenir. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="CharacterSheetModel_8h_source.html">CharacterSheetModel.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="CharacterSheetModel_8cpp.html">CharacterSheetModel.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1CharacterSheetModel.html">CharacterSheetModel</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

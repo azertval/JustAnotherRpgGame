@@ -1,0 +1,349 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/test_gesture_script.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__gesture__script_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_gesture_script.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests de l'éditeur sans fenêtre (<span class="tt">LOT-EDITOR-13</span>) : un scénario <span class="tt">--apply</span> par outil, comparé à un fichier attendu, les gestes refusés, et l'acceptation du lot — une rue de la carte d'essai effacée puis retracée la rend, octet pour octet.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &lt;nlohmann/json.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="LevelDraft_8h_source.html">Core/Levels/LevelDraft.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="EditorSidecar_8h_source.html">Editor/Logic/EditorSidecar.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="GestureScript_8h_source.html">Editor/Logic/GestureScript.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapFormat_8h_source.html">Editor/Logic/MapFormat.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a57e8e99d8d79dec73cd88c5ccda9087d" id="r_a57e8e99d8d79dec73cd88c5ccda9087d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a57e8e99d8d79dec73cd88c5ccda9087d">TEST</a> (GestureScriptTest, UnScenarioParOutilRendLeFichierAttendu)</td></tr>
+<tr class="memdesc:a57e8e99d8d79dec73cd88c5ccda9087d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque outil a son scénario <span class="tt">--apply</span>, et il rend le fichier attendu (règle 4 de la feuille de route : le scénario tient lieu de test d'IHM).  <br /></td></tr>
+<tr class="memitem:a294440e32f89c2fb8797e4ee478700db" id="r_a294440e32f89c2fb8797e4ee478700db"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a294440e32f89c2fb8797e4ee478700db">TEST</a> (GestureScriptTest, LaMesureEtLesNotesRendentLeurCompteRendu)</td></tr>
+<tr class="memdesc:a294440e32f89c2fb8797e4ee478700db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les outils qui ne touchent pas à la carte disent ce qu'ils ont fait : la mesure dans le compte rendu, les notes dans l'annexe.  <br /></td></tr>
+<tr class="memitem:ab69fc7e3636faed07a0709df02d5f231" id="r_ab69fc7e3636faed07a0709df02d5f231"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab69fc7e3636faed07a0709df02d5f231">TEST</a> (GestureScriptTest, UneRueRefaiteRendLaCarteALOctet)</td></tr>
+<tr class="memdesc:ab69fc7e3636faed07a0709df02d5f231"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptation du lot : la rue du nord de la carte d'essai, effacée puis retracée par <span class="tt">--apply</span> — pavés, seuils, façade, portes, fenêtres, lanternes — rend la carte.  <br /></td></tr>
+<tr class="memitem:af1efdee950adf02353fd6e0b11a8d372" id="r_af1efdee950adf02353fd6e0b11a8d372"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af1efdee950adf02353fd6e0b11a8d372">TEST</a> (GestureScriptTest, UnGesteRefuseRendUneErreurLisible)</td></tr>
+<tr class="memdesc:af1efdee950adf02353fd6e0b11a8d372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un geste que la fenêtre refuserait arrête le fichier, et le message nomme le geste.  <br /></td></tr>
+<tr class="memitem:aed6a7a54e8d326892888e2c222e0781d" id="r_aed6a7a54e8d326892888e2c222e0781d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aed6a7a54e8d326892888e2c222e0781d">TEST</a> (GestureScriptTest, UnGesteRefuseNeTouchePasAuFichier)</td></tr>
+<tr class="memdesc:aed6a7a54e8d326892888e2c222e0781d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">--apply</span> refusé n'écrit rien ; accepté, il écrit la carte et son annexe.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests de l'éditeur sans fenêtre (<span class="tt">LOT-EDITOR-13</span>) : un scénario <span class="tt">--apply</span> par outil, comparé à un fichier attendu, les gestes refusés, et l'acceptation du lot — une rue de la carte d'essai effacée puis retracée la rend, octet pour octet. </p>
+<p>Les scénarios vivent dans <span class="tt">Source/Test/Fixtures/Gestures/</span> : <span class="tt">&lt;outil&gt;.json</span> rejoué sur <span class="tt">terrain.json</span> doit rendre <span class="tt">&lt;outil&gt;.attendu.json</span>. Un changement voulu se régénère par l'éditeur lui-même, puis se relit en diff :</p>
+<div class="fragment"><div class="line">LevelEditor --data Source/Test/Fixtures/GameData --apply Source/Test/Fixtures/Gestures/paint.json</div>
+<div class="line">    Source/Test/Fixtures/Gestures/terrain.json</div>
+<div class="line">    --output Source/Test/Fixtures/Gestures/paint.attendu.json</div>
+</div><!-- fragment --> </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a294440e32f89c2fb8797e4ee478700db" name="a294440e32f89c2fb8797e4ee478700db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a294440e32f89c2fb8797e4ee478700db">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">GestureScriptTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaMesureEtLesNotesRendentLeurCompteRendu</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les outils qui ne touchent pas à la carte disent ce qu'ils ont fait : la mesure dans le compte rendu, les notes dans l'annexe. </p>
+<p><b>Cas de test :</b> <b>La mesure et les notes rendent leur compte rendu et leur annexe.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Sans fenetre<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Rejouer <span class="tt">measure.json</span> puis <span class="tt">note.json</span>.<br  />
+ <b>Resultat attendu :</b> La mesure écrit <span class="tt">7 × 4 · 6 cells = 30 ft</span> ; l'annexe égale <span class="tt">note.attendu.editor.json</span> : une note gardée, une retirée. </p>
+
+</div>
+</div>
+<a id="ab69fc7e3636faed07a0709df02d5f231" name="ab69fc7e3636faed07a0709df02d5f231"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab69fc7e3636faed07a0709df02d5f231">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">GestureScriptTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneRueRefaiteRendLaCarteALOctet</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Acceptation du lot : la rue du nord de la carte d'essai, effacée puis retracée par <span class="tt">--apply</span> — pavés, seuils, façade, portes, fenêtres, lanternes — rend la carte. </p>
+<p>Les gestes sont ceux de la main dans la fenêtre : une sélection gommée par couche, un rectangle de pavés, un trait par variante de pavé, une ligne de façade, un trait de fenêtres, de portes et de lanternes. Qu'ils rendent le fichier tel qu'il est sur disque montre que les outils posent la pièce, le type de sa case et la collision comme la carte les porte. <b>Cas de test :</b> <b>Une rue refaite par &ndash;apply rend la carte, octet pour octet.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Sans fenetre<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Rejouer <span class="tt">Fixtures/Gestures/rue.json</span> sur <span class="tt">bourg/place</span>.<br  />
+ <b>Resultat attendu :</b> Dix gestes, dix pas d'annulation ; le texte égale <span class="tt">place.json</span> octet pour octet. </p>
+
+</div>
+</div>
+<a id="aed6a7a54e8d326892888e2c222e0781d" name="aed6a7a54e8d326892888e2c222e0781d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed6a7a54e8d326892888e2c222e0781d">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">GestureScriptTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnGesteRefuseNeTouchePasAuFichier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">--apply</span> refusé n'écrit rien ; accepté, il écrit la carte et son annexe. </p>
+<p><b>Cas de test :</b> <b>Un geste refusé ne touche pas au fichier.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Sans fenetre<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. <span class="tt">LevelEditor --apply</span> d'un fichier dont le deuxième geste est refusé, avec <span class="tt">--output</span>.<br  />
+2. Le même, avec des notes seulement.<br  />
+ <b>Resultat attendu :</b> Code 1, « nothing written », aucun fichier écrit ; puis code 0, la carte et son annexe écrites. </p>
+
+</div>
+</div>
+<a id="af1efdee950adf02353fd6e0b11a8d372" name="af1efdee950adf02353fd6e0b11a8d372"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1efdee950adf02353fd6e0b11a8d372">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">GestureScriptTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnGesteRefuseRendUneErreurLisible</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un geste que la fenêtre refuserait arrête le fichier, et le message nomme le geste. </p>
+<p><b>Cas de test :</b> <b>Un geste refusé rend une erreur lisible.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Sans fenetre<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Rejouer un geste sur une couche verrouillée, hors de la carte, avec une pièce inconnue, sur un identifiant absent, un déplacement qui sort une entité, un outil inconnu, un fichier d'un autre format.<br  />
+ <b>Resultat attendu :</b> Chaque fois, une erreur qui nomme le geste et sa raison. </p>
+
+</div>
+</div>
+<a id="a57e8e99d8d79dec73cd88c5ccda9087d" name="a57e8e99d8d79dec73cd88c5ccda9087d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57e8e99d8d79dec73cd88c5ccda9087d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">GestureScriptTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnScenarioParOutilRendLeFichierAttendu</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Chaque outil a son scénario <span class="tt">--apply</span>, et il rend le fichier attendu (règle 4 de la feuille de route : le scénario tient lieu de test d'IHM). </p>
+<p><b>Cas de test :</b> <b>Un scénario &ndash;apply par outil rend le fichier attendu.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Sans fenetre<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Pour chacun des onze outils, rejouer <span class="tt">Fixtures/Gestures/&lt;outil&gt;.json</span> sur <span class="tt">terrain.json</span>.<br  />
+ <b>Resultat attendu :</b> Le texte de la carte égale <span class="tt">&lt;outil&gt;.attendu.json</span> octet pour octet ; autant de pas d'annulation que de gestes qui changent la carte. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_72f94039b203173a88806b7e5cad74af.html">Editor</a></li><li class="navelem"><a href="test__gesture__script_8cpp.html">test_gesture_script.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

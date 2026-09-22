@@ -95,7 +95,7 @@ a.ref { font: .86em var(--font-mono); white-space: nowrap; }
 .badge.nature-detaillee { color: var(--gold); border-color: var(--gold); }
 .filiere { border-radius: 4px; }
 .f-assets { color: var(--gold); } .f-cartes { color: var(--green); } .f-pnj { color: var(--water); }
-.f-quete { color: var(--burgundy); } .f-editeur { color: var(--water); } .f-moteur, .f-regles { color: var(--bronze); }
+.f-quete { color: var(--burgundy); } .f-editeur { color: var(--water); } .f-moteur, .f-regles, .f-donnees { color: var(--bronze); }
 
 .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 18px 0; }
 .facts div { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
@@ -133,3 +133,35 @@ li.task { list-style: none; margin-left: -1.3em; }
 .gallery figure, .prose figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px; }
 .gallery figcaption { font-size: .8rem; color: var(--muted); padding: 6px 4px 0; }
 .prose img { border: 1px solid var(--line); background: var(--surface); margin: .4em 0; }
+
+/* -- Documentation (guide, spécifications, cahier de test) ------------------------------------- */
+.prose figure { margin: 1.2em 0; }
+.prose figure img { display: block; margin: 0 auto; border: 0; }
+.prose figcaption { font-size: .85rem; color: var(--muted); padding: 8px 4px 2px; text-align: center; }
+blockquote.callout { color: var(--text); border-radius: 0 8px 8px 0; }
+blockquote.callout.note { border-left-color: var(--water); }
+blockquote.callout.warning { border-left-color: var(--burgundy); }
+blockquote.callout.tip { border-left-color: var(--green); }
+li.identified { scroll-margin-top: 84px; margin: .7em 0; }
+li.identified:target { background: var(--surface-2); outline: 1px solid var(--gold); outline-offset: 4px; border-radius: 4px; }
+li.identified > strong:first-child { font: 600 .9em var(--font-mono); color: var(--gold); }
+h2, h3 { scroll-margin-top: 84px; }
+.sidebar a.toc { font-size: .84rem; border-left-style: dotted; }
+.pager { display: flex; justify-content: space-between; gap: 12px; margin: 3em 0 1em; }
+.pager a { flex: 1; max-width: 48%; padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); text-decoration: none; color: var(--text); }
+.pager a.next { text-align: right; margin-left: auto; }
+.pager a span { display: block; font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.badge.trace-couverte { color: var(--green); border-color: var(--green); }
+.badge.trace-citee { color: var(--gold); border-color: var(--gold); }
+.badge.trace-nue { color: var(--burgundy); border-color: var(--burgundy); }
+section.case { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--line); border-radius: 10px; padding: 2px 18px 8px; margin: 14px 0; }
+section.case h3 { font: 600 .98rem var(--font-mono); letter-spacing: 0; margin-top: 1em; word-break: break-word; }
+section.case[data-crit="Bloquant"] { border-left-color: var(--burgundy); }
+section.case[data-crit="Critique"] { border-left-color: var(--gold); }
+section.case[data-crit="Majeur"] { border-left-color: var(--water); }
+.topbar .search { position: relative; margin: 0; }
+.topbar .search input { font: inherit; font-size: .9rem; width: 190px; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--text); }
+.topbar .search .results { position: absolute; right: 0; top: calc(100% + 6px); width: min(440px, 92vw); max-height: 70vh; overflow-y: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); padding: 6px; z-index: 6; font-size: .9rem; color: var(--muted); }
+.topbar .search .results a { display: block; padding: 6px 10px; border-radius: 6px; text-decoration: none; color: var(--text); }
+.topbar .search .results a:hover { background: var(--surface-2); }
+.topbar .search .results a span { display: block; font-size: .8rem; color: var(--muted); }

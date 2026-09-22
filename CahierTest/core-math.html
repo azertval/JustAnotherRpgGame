@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core · Math — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1 active" href="core-math.html">Core · Math</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-deterministic-randomcpp">test_deterministic_random.cpp</a><a class="toc depth-2" href="#test-math-utilscpp">test_math_utils.cpp</a><a class="toc depth-2" href="#test-rectcpp">test_rect.cpp</a><a class="toc depth-2" href="#test-vector2cpp">test_vector2.cpp</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="core-math">Core · Math</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">26 cas</span></div>
+<p>Tests unitaires — <strong>26 cas</strong> (4 bloquants, 18 majeurs, 4 mineurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-deterministic-randomcpp"><code>test_deterministic_random.cpp</code></a></td><td>6</td><td>4</td><td>-</td><td>2</td><td>-</td></tr><tr><td><a href="#test-math-utilscpp"><code>test_math_utils.cpp</code></a></td><td>5</td><td>-</td><td>-</td><td>2</td><td>3</td></tr><tr><td><a href="#test-rectcpp"><code>test_rect.cpp</code></a></td><td>7</td><td>-</td><td>-</td><td>7</td><td>-</td></tr><tr><td><a href="#test-vector2cpp"><code>test_vector2.cpp</code></a></td><td>8</td><td>-</td><td>-</td><td>7</td><td>1</td></tr></tbody></table></div>
+<h2 id="test-deterministic-randomcpp">test_deterministic_random.cpp</h2>
+<section class="case" data-crit="Bloquant"><h3 id="deterministicrandomtestsplitmix64vecteursdereference">DeterministicRandomTest.SplitMix64VecteursDeReference</h3>
+<p><em>Bloquant · Unitaire · Core Math</em> — <code>Source/Test/Unit/Core/Math/test_deterministic_random.cpp:25</code></p>
+<p>splitMix64 : vecteurs de référence.</p>
+<p><strong>Étapes</strong></p>
+<ol><li><code>splitMix64</code> sur <code>0</code>, <code>1</code> et <code>0x0123456789ABCDEF</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::splitMix64(0x0000000000000000ULL)</code> vaut <code>0x0000000000000000ULL</code>.</li><li>Vérifie que <code>core::splitMix64(0x0000000000000001ULL)</code> vaut <code>0x5692161D100B05E5ULL</code>.</li><li>Vérifie que <code>core::splitMix64(0x0123456789ABCDEFULL)</code> vaut <code>0xB2C058E4EBB5112CULL</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="deterministicrandomtestderiveseedvecteursdereference">DeterministicRandomTest.DeriveSeedVecteursDeReference</h3>
+<p><em>Bloquant · Unitaire · Core Math</em> — <code>Source/Test/Unit/Core/Math/test_deterministic_random.cpp:44</code></p>
+<p>deriveSeed : vecteurs de référence et séparation du triplet.</p>
+<p><strong>Étapes</strong></p>
+<ol><li><code>deriveSeed</code> sur <code>(1,0,0)</code>, <code>(1,0,1)</code> et <code>(1,1,0)</code>.</li><li>Comparer les trois entre eux.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::deriveSeed(1, 0, 0)</code> vaut <code>0x71CAC37448049CE4ULL</code>.</li><li>Vérifie que <code>core::deriveSeed(1, 0, 1)</code> vaut <code>0xC14BF009DE212E89ULL</code>.</li><li>Vérifie que <code>core::deriveSeed(1, 1, 0)</code> vaut <code>0x98DCCAA31A8BAF69ULL</code>.</li><li>Vérifie que <code>core::deriveSeed(1, 0, 1)</code> diffère de <code>core::deriveSeed(1, 1, 0)</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="deterministicrandomtestsuitedereferencedepuisunegrainefixee">DeterministicRandomTest.SuiteDeReferenceDepuisUneGraineFixee</h3>
+<p><em>Bloquant · Unitaire · Core Math</em> — <code>Source/Test/Unit/Core/Math/test_deterministic_random.cpp:64</code></p>
+<p>DeterministicRandom : suite de référence depuis une graine fixée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li><code>DeterministicRandom(42)</code>.</li><li>Cinq appels à <code>nextUInt32()</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>random.nextUInt32()</code> vaut <code>0xBDD73226U</code>.</li><li>Vérifie que <code>random.nextUInt32()</code> vaut <code>0x28EFE333U</code>.</li><li>Vérifie que <code>random.nextUInt32()</code> vaut <code>0x47526757U</code>.</li><li>Vérifie que <code>random.nextUInt32()</code> vaut <code>0x581CE1FFU</code>.</li><li>Vérifie que <code>random.nextUInt32()</code> vaut <code>0x09BC585AU</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="deterministicrandomtestmemegrainememesuite">DeterministicRandomTest.MemeGraineMemeSuite</h3>
+<p><em>Bloquant · Unitaire · Core Math</em> — <code>Source/Test/Unit/Core/Math/test_deterministic_random.cpp:82</code></p>
+<p>DeterministicRandom : même graine, même suite ; graines différentes, suites différentes.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Deux instances de graine <code>7</code>, 16 tirages chacune.</li><li>Une instance de graine <code>8</code>, premier tirage.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>first.nextUInt32()</code> vaut <code>second.nextUInt32()</code>.</li><li>Vérifie que <code>other.nextUInt32()</code> diffère de <code>reference.nextUInt32()</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="deterministicrandomtestnextfloat01exclutlabornehaute">DeterministicRandomTest.NextFloat01ExclutLaBorneHaute</h3>
+<p><em>Majeur · Unitaire · Core Math</em> — <code>Source/Test/Unit/Core/Math/test_deterministic_random.cpp:105</code></p>
+<p>nextFloat01 : borne haute exclue.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>10 000 tirages depuis une graine fixée.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>value</code> est supérieur ou égal à <code>0.0f</code>.</li><li>Vérifie que <code>value</code> est strictement inférieur à <code>1.0f</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="deterministicrandomtestnextrangerespectelesbornes">DeterministicRandomTest.NextRangeRespecteLesBornes</h3>
+<p><em>Majeur · Unitaire · Core Math</em> — <code>Source/Test/Unit/Core/Math/test_deterministic_random.cpp:123</code></p>
+<p>nextRange : bornes respectées, intervalle dégénéré rendu exactement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>1 000 tirages dans <code>[-2, 5]</code>.</li><li>Un tirage dans <code>[3, 3]</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>value</code> est supérieur ou égal à <code>-2.0f</code>.</li><li>Vérifie que <code>value</code> est inférieur ou égal à <code>5.0f</code>.</li><li>Vérifie que <code>random.nextRange(3.0f, 3.0f)</code> vaut <code>3.0f</code> (comparaison flottante).</li></ul>
+</section><h2 id="test-math-utilscpp">test_math_utils.cpp</h2>
+<section class="case" data-crit="Mineur"><h3 id="mathutilstestegaliteexacte">MathUtilsTest.EgaliteExacte</h3>
+<p><em>Mineur · Unitaire · Mathématiques</em> — <code>Source/Test/Unit/Core/Math/test_math_utils.cpp:15</code></p>
+<p>approximatelyEqual : égalité exacte</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Comparer des valeurs identiques (1, 0, -2,5).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::approximatelyEqual(1.0f, 1.0f)</code> est vrai.</li><li>Vérifie que <code>core::approximatelyEqual(0.0f, 0.0f)</code> est vrai.</li><li>Vérifie que <code>core::approximatelyEqual(-2.5f, -2.5f)</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="mathutilstesttolerancepardefaut">MathUtilsTest.ToleranceParDefaut</h3>
+<p><em>Majeur · Unitaire · Mathématiques</em> — <code>Source/Test/Unit/Core/Math/test_math_utils.cpp:29</code></p>
+<p>approximatelyEqual : tolérance par défaut</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Comparer 1 et 1+1e-6.</li><li>Comparer 1 et 1,1.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::approximatelyEqual(1.0f, 1.0f + 1e-6f)</code> est vrai.</li><li>Vérifie que <code>core::approximatelyEqual(1.0f, 1.1f)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="mathutilstestmisealechellegrandesmagnitudes">MathUtilsTest.MiseALEchelleGrandesMagnitudes</h3>
+<p><em>Majeur · Unitaire · Mathématiques</em> — <code>Source/Test/Unit/Core/Math/test_math_utils.cpp:42</code></p>
+<p>approximatelyEqual : mise à l'échelle des grandes magnitudes</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Comparer 1e6 et 1e6+1.</li><li>Comparer 1e6 et 1e6+1000.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::approximatelyEqual(1.0e6f, 1.0e6f + 1.0f)</code> est vrai.</li><li>Vérifie que <code>core::approximatelyEqual(1.0e6f, 1.0e6f + 1000.0f)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="mathutilstestsignesopposes">MathUtilsTest.SignesOpposes</h3>
+<p><em>Mineur · Unitaire · Mathématiques</em> — <code>Source/Test/Unit/Core/Math/test_math_utils.cpp:55</code></p>
+<p>approximatelyEqual : signes opposés</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Comparer 2 et -2.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::approximatelyEqual(2.0f, -2.0f)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="mathutilstesttoleranceexplicite">MathUtilsTest.ToleranceExplicite</h3>
+<p><em>Mineur · Unitaire · Mathématiques</em> — <code>Source/Test/Unit/Core/Math/test_math_utils.cpp:67</code></p>
+<p>approximatelyEqual : tolérance explicite</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Comparer 1 et 1,5 sans tolérance.</li><li>Recomparer avec une tolérance de 1.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::approximatelyEqual(1.0f, 1.5f)</code> est faux.</li><li>Vérifie que <code>core::approximatelyEqual(1.0f, 1.5f, 1.0f)</code> est vrai.</li></ul>
+</section><h2 id="test-rectcpp">test_rect.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="recttestbords">RectTest.Bords</h3>
+<p><em>Majeur · Unitaire · Rect</em> — <code>Source/Test/Unit/Core/Math/test_rect.cpp:20</code></p>
+<p>Les bords exposés découlent de la position et de la taille.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>rect.left()</code> vaut <code>10.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>rect.top()</code> vaut <code>20.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>rect.right()</code> vaut <code>40.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>rect.bottom()</code> vaut <code>60.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="recttestcontientpointinterieur">RectTest.ContientPointInterieur</h3>
+<p><em>Majeur · Unitaire · Rect</em> — <code>Source/Test/Unit/Core/Math/test_rect.cpp:38</code></p>
+<p>Un point strictement intérieur est contenu.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>rect.contains(core::Vector2{5.0f, 5.0f})</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="recttestcontientbords">RectTest.ContientBords</h3>
+<p><em>Majeur · Unitaire · Rect</em> — <code>Source/Test/Unit/Core/Math/test_rect.cpp:53</code></p>
+<p>Contenance inclusive haut/gauche, exclusive bas/droit.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>rect.contains(core::Vector2{0.0f, 0.0f})</code> est vrai.</li><li>Vérifie que <code>rect.contains(core::Vector2{10.0f, 5.0f})</code> est faux.</li><li>Vérifie que <code>rect.contains(core::Vector2{5.0f, 10.0f})</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="recttestnecontientpasexterieur">RectTest.NeContientPasExterieur</h3>
+<p><em>Majeur · Unitaire · Rect</em> — <code>Source/Test/Unit/Core/Math/test_rect.cpp:70</code></p>
+<p>Un point extérieur n'est pas contenu.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>rect.contains(core::Vector2{-1.0f, 5.0f})</code> est faux.</li><li>Vérifie que <code>rect.contains(core::Vector2{5.0f, 100.0f})</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="recttestintersectionrecouvrement">RectTest.IntersectionRecouvrement</h3>
+<p><em>Majeur · Unitaire · Rect</em> — <code>Source/Test/Unit/Core/Math/test_rect.cpp:86</code></p>
+<p>Deux rectangles qui se recouvrent s'intersectent (relation symétrique).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>a.intersects(b)</code> est vrai.</li><li>Vérifie que <code>b.intersects(a)</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="recttestcontactbordsansintersection">RectTest.ContactBordSansIntersection</h3>
+<p><em>Majeur · Unitaire · Rect</em> — <code>Source/Test/Unit/Core/Math/test_rect.cpp:103</code></p>
+<p>Un simple contact par un bord ne compte pas comme intersection.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>a.intersects(b)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="recttestdisjonction">RectTest.Disjonction</h3>
+<p><em>Majeur · Unitaire · Rect</em> — <code>Source/Test/Unit/Core/Math/test_rect.cpp:119</code></p>
+<p>Deux rectangles disjoints ne s'intersectent pas.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>a.intersects(b)</code> est faux.</li></ul>
+</section><h2 id="test-vector2cpp">test_vector2.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="vector2testadditionsoustraction">Vector2Test.AdditionSoustraction</h3>
+<p><em>Majeur · Unitaire · Mathématiques</em> — <code>Source/Test/Unit/Core/Math/test_vector2.cpp:19</code></p>
+<p>Vector2 : addition et soustraction</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser deux vecteurs.</li><li>Calculer a+b et a-b.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>a + b</code> vaut <code>core::Vector2(4.0f, -2.0f)</code>.</li><li>Vérifie que <code>a - b</code> vaut <code>core::Vector2(-2.0f, 6.0f)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="vector2testechellescalaire">Vector2Test.EchelleScalaire</h3>
+<p><em>Majeur · Unitaire · Mathématiques</em> — <code>Source/Test/Unit/Core/Math/test_vector2.cpp:34</code></p>
+<p>Vector2 : échelle par un scalaire</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un vecteur.</li><li>Multiplier/diviser par un scalaire, prendre l'opposé.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>v * 2.0f</code> vaut <code>core::Vector2(4.0f, -6.0f)</code>.</li><li>Vérifie que <code>2.0f * v</code> vaut <code>core::Vector2(4.0f, -6.0f)</code>.</li><li>Vérifie que <code>v / 2.0f</code> vaut <code>core::Vector2(1.0f, -1.5f)</code>.</li><li>Vérifie que <code>-v</code> vaut <code>core::Vector2(-2.0f, 3.0f)</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="vector2testoperateurscomposes">Vector2Test.OperateursComposes</h3>
+<p><em>Mineur · Unitaire · Mathématiques</em> — <code>Source/Test/Unit/Core/Math/test_vector2.cpp:50</code></p>
+<p>Vector2 : opérateurs composés</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Appliquer +=, -=, *=, /= à un vecteur.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>v</code> vaut <code>core::Vector2(3.0f, 4.0f)</code>.</li><li>Vérifie que <code>v</code> vaut <code>core::Vector2(2.0f, 3.0f)</code>.</li><li>Vérifie que <code>v</code> vaut <code>core::Vector2(4.0f, 6.0f)</code>.</li><li>Vérifie que <code>v</code> vaut <code>core::Vector2(2.0f, 3.0f)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="vector2testproduitscalaire">Vector2Test.ProduitScalaire</h3>
+<p><em>Majeur · Unitaire · Mathématiques</em> — <code>Source/Test/Unit/Core/Math/test_vector2.cpp:70</code></p>
+<p>Vector2 : produit scalaire</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer a·b.</li><li>Calculer le produit de deux vecteurs orthogonaux.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>a.dot(b)</code> vaut <code>11.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>core::Vector2(1.0f, 0.0f).dot(core::Vector2(0.0f, 1.0f))</code> vaut <code>0.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="vector2testlongueur">Vector2Test.Longueur</h3>
+<p><em>Majeur · Unitaire · Mathématiques</em> — <code>Source/Test/Unit/Core/Math/test_vector2.cpp:86</code></p>
+<p>Vector2 : longueur</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Calculer <code>lengthSquared</code> et <code>length</code> de (3, 4).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>v.lengthSquared()</code> vaut <code>25.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>v.length()</code> vaut <code>5.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="vector2testnormalisationnonnulle">Vector2Test.NormalisationNonNulle</h3>
+<p><em>Majeur · Unitaire · Mathématiques</em> — <code>Source/Test/Unit/Core/Math/test_vector2.cpp:100</code></p>
+<p>Vector2 : normalisation (non nul)</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Normaliser (3, 4).</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>normalized.length()</code> vaut <code>1.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>normalized</code> vaut <code>core::Vector2(0.6f, 0.8f)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="vector2testnormalisationvecteurnul">Vector2Test.NormalisationVecteurNul</h3>
+<p><em>Majeur · Unitaire · Mathématiques</em> — <code>Source/Test/Unit/Core/Math/test_vector2.cpp:114</code></p>
+<p>Vector2 : normalisation (vecteur nul)</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Normaliser le vecteur nul.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::Vector2{}.normalized()</code> vaut <code>core::Vector2(0.0f, 0.0f)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="vector2testegaliteapprochee">Vector2Test.EgaliteApprochee</h3>
+<p><em>Majeur · Unitaire · Mathématiques</em> — <code>Source/Test/Unit/Core/Math/test_vector2.cpp:126</code></p>
+<p>Vector2 : égalité approchée</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Comparer (0,1+0,2 ; 1) à (0,3 ; 1).</li><li>Comparer deux vecteurs distincts.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>a</code> vaut <code>core::Vector2(0.3f, 1.0f)</code>.</li><li>Vérifie que <code>core::Vector2(0.0f, 0.0f)</code> diffère de <code>core::Vector2(1.0f, 0.0f)</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-levels.html"><span>Précédent</span>Core · Levels</a><a class="next" href="core-resources.html"><span>Suivant</span>Core · Resources</a></nav><p class="source">Source : <code>Documentation/CahierTest/core-math.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/AssetKey.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('AssetKey_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">AssetKey.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="AssetKey_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span></div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="};">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="structcore_1_1AssetFamilyDefinition.html">   28</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1AssetFamilyDefinition.html">AssetFamilyDefinition</a> {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="structcore_1_1AssetFamilyDefinition.html#aa727077c492419ded8bb94dc54aba778">   30</a></span>    std::string <a class="code hl_variable" href="structcore_1_1AssetFamilyDefinition.html#aa727077c492419ded8bb94dc54aba778">name</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structcore_1_1AssetFamilyDefinition.html#af2f83a989894f03374336dda4e5c4b02">   32</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1AssetFamilyDefinition.html#af2f83a989894f03374336dda4e5c4b02">width</a> = 0;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structcore_1_1AssetFamilyDefinition.html#a0d40f23c5b7eaae2222310490f5a0940">   33</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1AssetFamilyDefinition.html#a0d40f23c5b7eaae2222310490f5a0940">height</a> = 0;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structcore_1_1AssetFamilyDefinition.html#ab1b81c6e12ba391ef86ce27907304531">   35</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1AssetFamilyDefinition.html#ab1b81c6e12ba391ef86ce27907304531">catalogues</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
+</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="};">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structcore_1_1AssetFamilyTable.html">   39</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1AssetFamilyTable.html">AssetFamilyTable</a> {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structcore_1_1AssetFamilyTable.html#abf1ea9eabeb0cf6dc7432d207b08e1c2">   40</a></span>    std::vector&lt;AssetFamilyDefinition&gt; <a class="code hl_variable" href="structcore_1_1AssetFamilyTable.html#abf1ea9eabeb0cf6dc7432d207b08e1c2">families</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structcore_1_1AssetFamilyTable.html#a7ed50c4608335947839c455972fa07c0">   41</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1AssetFamilyTable.html#a7ed50c4608335947839c455972fa07c0">errors</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1AssetFamilyDefinition.html">AssetFamilyDefinition</a>* <a class="code hl_function" href="structcore_1_1AssetFamilyTable.html#af3f4a8e9fa8cf2b0b6554ca9ed700469">find</a>(std::string_view name) <span class="keyword">const</span>;</div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structcore_1_1AssetFamilyTable.html#a79efa43256483f01a9a8fff0b0d09455">   44</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1AssetFamilyTable.html#a79efa43256483f01a9a8fff0b0d09455">ok</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1AssetFamilyTable.html#a7ed50c4608335947839c455972fa07c0">errors</a>.empty() &amp;&amp; !<a class="code hl_variable" href="structcore_1_1AssetFamilyTable.html#abf1ea9eabeb0cf6dc7432d207b08e1c2">families</a>.empty();</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
+</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>};</div>
+</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>[[nodiscard]] AssetFamilyTable <a class="code hl_function" href="namespacecore.html#a572e98b67a306b182732d2396b1478fb">loadAssetFamilies</a>(<span class="keyword">const</span> std::filesystem::path&amp; familiesFile);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
+<div class="foldopen" id="foldopen00055" data-start="{" data-end="};">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structcore_1_1AssetKey.html">   55</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1AssetKey.html">AssetKey</a> {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="structcore_1_1AssetKey.html#ac4193cc7ff9e8388a87c0e41c2780c85">   56</a></span>    std::string <a class="code hl_variable" href="structcore_1_1AssetKey.html#ac4193cc7ff9e8388a87c0e41c2780c85">family</a>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structcore_1_1AssetKey.html#a0d2f592d40927b1aa4fdeda06e09ee9f">   57</a></span>    std::string <a class="code hl_variable" href="structcore_1_1AssetKey.html#a0d2f592d40927b1aa4fdeda06e09ee9f">id</a>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structcore_1_1AssetKey.html#abba20d1f4e14210d50f0965b2bebc202">   59</a></span>    [[nodiscard]] <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code hl_friend" href="structcore_1_1AssetKey.html#abba20d1f4e14210d50f0965b2bebc202">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1AssetKey.html">AssetKey</a>&amp;, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1AssetKey.html">AssetKey</a>&amp;) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>};</div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>[[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacecore.html#af313492482f82ad2391f0da874bfe2a7">isValidAssetKey</a>(std::string_view key);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>[[nodiscard]] std::optional&lt;AssetKey&gt; <a class="code hl_function" href="namespacecore.html#a7982d3072b1c46a8e83aaf501b9ec7c2">parseAssetKey</a>(std::string_view key);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#a511cc1f309ea0831c8af98b2df46b08a">defaultAssetKeyFor</a>(std::string_view family, std::string_view <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span></div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="};">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="structcore_1_1ExpectedAssetKey.html">   91</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1ExpectedAssetKey.html">ExpectedAssetKey</a> {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="structcore_1_1ExpectedAssetKey.html#a2161ca9d95bf648eb7c5c455aac2e171">   92</a></span>    std::string <a class="code hl_variable" href="structcore_1_1ExpectedAssetKey.html#a2161ca9d95bf648eb7c5c455aac2e171">key</a>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="structcore_1_1ExpectedAssetKey.html#a9e1598be068b11e9106b02cdc6285372">   93</a></span>    std::string <a class="code hl_variable" href="structcore_1_1ExpectedAssetKey.html#a9e1598be068b11e9106b02cdc6285372">family</a>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="structcore_1_1ExpectedAssetKey.html#a1219a273b945ba90502283ab90e52c53">   95</a></span>    std::string <a class="code hl_variable" href="structcore_1_1ExpectedAssetKey.html#a1219a273b945ba90502283ab90e52c53">sourceFile</a>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="structcore_1_1ExpectedAssetKey.html#af4c061be4e72494398eef6e44787977a">   97</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1ExpectedAssetKey.html#af4c061be4e72494398eef6e44787977a">explicitKey</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>};</div>
+</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>[[nodiscard]] std::vector&lt;ExpectedAssetKey&gt; <a class="code hl_function" href="namespacecore.html#aab57711f82ec7e7ced5a2c8d90d8abe1">expectedAssetKeys</a>(<span class="keyword">const</span> std::filesystem::path&amp; rpgDir,</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                                                              <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1AssetFamilyTable.html">AssetFamilyTable</a>&amp; families,</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                                                              std::vector&lt;std::string&gt;&amp; errors);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a511cc1f309ea0831c8af98b2df46b08a"><div class="ttname"><a href="namespacecore.html#a511cc1f309ea0831c8af98b2df46b08a">core::defaultAssetKeyFor</a></div><div class="ttdeci">std::string defaultAssetKeyFor(std::string_view family, std::string_view id)</div><div class="ttdoc">La clé par défaut d&#39;une entrée : famille/identifiant.</div><div class="ttdef"><b>Definition</b> AssetKey.cpp:72</div></div>
+<div class="ttc" id="anamespacecore_html_a572e98b67a306b182732d2396b1478fb"><div class="ttname"><a href="namespacecore.html#a572e98b67a306b182732d2396b1478fb">core::loadAssetFamilies</a></div><div class="ttdeci">AssetFamilyTable loadAssetFamilies(const std::filesystem::path &amp;familiesFile)</div><div class="ttdoc">Charge la table des familles depuis Assets/Entities/families.json.</div><div class="ttdef"><b>Definition</b> AssetKey.cpp:182</div></div>
+<div class="ttc" id="anamespacecore_html_a7982d3072b1c46a8e83aaf501b9ec7c2"><div class="ttname"><a href="namespacecore.html#a7982d3072b1c46a8e83aaf501b9ec7c2">core::parseAssetKey</a></div><div class="ttdeci">std::optional&lt; AssetKey &gt; parseAssetKey(std::string_view key)</div><div class="ttdoc">Décompose key. std::nullopt si elle est malformée — jamais devinée.</div><div class="ttdef"><b>Definition</b> AssetKey.cpp:63</div></div>
+<div class="ttc" id="anamespacecore_html_aab57711f82ec7e7ced5a2c8d90d8abe1"><div class="ttname"><a href="namespacecore.html#aab57711f82ec7e7ced5a2c8d90d8abe1">core::expectedAssetKeys</a></div><div class="ttdeci">std::vector&lt; ExpectedAssetKey &gt; expectedAssetKeys(const std::filesystem::path &amp;rpgDir, const AssetFamilyTable &amp;families, std::vector&lt; std::string &gt; &amp;errors)</div><div class="ttdoc">Énumère les clés qu&#39;attendent les catalogues de rpgDir, selon families.</div><div class="ttdef"><b>Definition</b> AssetKey.cpp:220</div></div>
+<div class="ttc" id="anamespacecore_html_af313492482f82ad2391f0da874bfe2a7"><div class="ttname"><a href="namespacecore.html#af313492482f82ad2391f0da874bfe2a7">core::isValidAssetKey</a></div><div class="ttdeci">bool isValidAssetKey(std::string_view key)</div><div class="ttdoc">Vrai si key respecte la syntaxe d&#39;une clé d&#39;asset.</div><div class="ttdef"><b>Definition</b> AssetKey.cpp:50</div></div>
+<div class="ttc" id="astructcore_1_1AssetFamilyDefinition_html"><div class="ttname"><a href="structcore_1_1AssetFamilyDefinition.html">core::AssetFamilyDefinition</a></div><div class="ttdoc">Une famille d&#39;assets d&#39;entité : ce qu&#39;elle illustre, et le contrat de dimensions.</div><div class="ttdef"><b>Definition</b> AssetKey.h:28</div></div>
+<div class="ttc" id="astructcore_1_1AssetFamilyDefinition_html_a0d40f23c5b7eaae2222310490f5a0940"><div class="ttname"><a href="structcore_1_1AssetFamilyDefinition.html#a0d40f23c5b7eaae2222310490f5a0940">core::AssetFamilyDefinition::height</a></div><div class="ttdeci">int height</div><div class="ttdef"><b>Definition</b> AssetKey.h:33</div></div>
+<div class="ttc" id="astructcore_1_1AssetFamilyDefinition_html_aa727077c492419ded8bb94dc54aba778"><div class="ttname"><a href="structcore_1_1AssetFamilyDefinition.html#aa727077c492419ded8bb94dc54aba778">core::AssetFamilyDefinition::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Premier segment de la clé : beast, item, species…</div><div class="ttdef"><b>Definition</b> AssetKey.h:30</div></div>
+<div class="ttc" id="astructcore_1_1AssetFamilyDefinition_html_ab1b81c6e12ba391ef86ce27907304531"><div class="ttname"><a href="structcore_1_1AssetFamilyDefinition.html#ab1b81c6e12ba391ef86ce27907304531">core::AssetFamilyDefinition::catalogues</a></div><div class="ttdeci">std::vector&lt; std::string &gt; catalogues</div><div class="ttdoc">Les dossiers de catalogue dont chaque entrée attend une illustration de cette famille.</div><div class="ttdef"><b>Definition</b> AssetKey.h:35</div></div>
+<div class="ttc" id="astructcore_1_1AssetFamilyDefinition_html_af2f83a989894f03374336dda4e5c4b02"><div class="ttname"><a href="structcore_1_1AssetFamilyDefinition.html#af2f83a989894f03374336dda4e5c4b02">core::AssetFamilyDefinition::width</a></div><div class="ttdeci">int width</div><div class="ttdoc">Dimensions attendues du fichier image, en pixels.</div><div class="ttdef"><b>Definition</b> AssetKey.h:32</div></div>
+<div class="ttc" id="astructcore_1_1AssetFamilyTable_html"><div class="ttname"><a href="structcore_1_1AssetFamilyTable.html">core::AssetFamilyTable</a></div><div class="ttdoc">La table des familles, et ce qui n&#39;a pas pu être lu.</div><div class="ttdef"><b>Definition</b> AssetKey.h:39</div></div>
+<div class="ttc" id="astructcore_1_1AssetFamilyTable_html_a79efa43256483f01a9a8fff0b0d09455"><div class="ttname"><a href="structcore_1_1AssetFamilyTable.html#a79efa43256483f01a9a8fff0b0d09455">core::AssetFamilyTable::ok</a></div><div class="ttdeci">bool ok() const</div><div class="ttdef"><b>Definition</b> AssetKey.h:44</div></div>
+<div class="ttc" id="astructcore_1_1AssetFamilyTable_html_a7ed50c4608335947839c455972fa07c0"><div class="ttname"><a href="structcore_1_1AssetFamilyTable.html#a7ed50c4608335947839c455972fa07c0">core::AssetFamilyTable::errors</a></div><div class="ttdeci">std::vector&lt; std::string &gt; errors</div><div class="ttdef"><b>Definition</b> AssetKey.h:41</div></div>
+<div class="ttc" id="astructcore_1_1AssetFamilyTable_html_abf1ea9eabeb0cf6dc7432d207b08e1c2"><div class="ttname"><a href="structcore_1_1AssetFamilyTable.html#abf1ea9eabeb0cf6dc7432d207b08e1c2">core::AssetFamilyTable::families</a></div><div class="ttdeci">std::vector&lt; AssetFamilyDefinition &gt; families</div><div class="ttdef"><b>Definition</b> AssetKey.h:40</div></div>
+<div class="ttc" id="astructcore_1_1AssetFamilyTable_html_af3f4a8e9fa8cf2b0b6554ca9ed700469"><div class="ttname"><a href="structcore_1_1AssetFamilyTable.html#af3f4a8e9fa8cf2b0b6554ca9ed700469">core::AssetFamilyTable::find</a></div><div class="ttdeci">const AssetFamilyDefinition * find(std::string_view name) const</div><div class="ttdef"><b>Definition</b> AssetKey.cpp:45</div></div>
+<div class="ttc" id="astructcore_1_1AssetKey_html"><div class="ttname"><a href="structcore_1_1AssetKey.html">core::AssetKey</a></div><div class="ttdoc">Une clé d&#39;asset décomposée : sa famille, et ce qu&#39;elle désigne dedans.</div><div class="ttdef"><b>Definition</b> AssetKey.h:55</div></div>
+<div class="ttc" id="astructcore_1_1AssetKey_html_a0d2f592d40927b1aa4fdeda06e09ee9f"><div class="ttname"><a href="structcore_1_1AssetKey.html#a0d2f592d40927b1aa4fdeda06e09ee9f">core::AssetKey::id</a></div><div class="ttdeci">std::string id</div><div class="ttdef"><b>Definition</b> AssetKey.h:57</div></div>
+<div class="ttc" id="astructcore_1_1AssetKey_html_abba20d1f4e14210d50f0965b2bebc202"><div class="ttname"><a href="structcore_1_1AssetKey.html#abba20d1f4e14210d50f0965b2bebc202">core::AssetKey::operator==</a></div><div class="ttdeci">friend bool operator==(const AssetKey &amp;, const AssetKey &amp;) noexcept=default</div></div>
+<div class="ttc" id="astructcore_1_1AssetKey_html_ac4193cc7ff9e8388a87c0e41c2780c85"><div class="ttname"><a href="structcore_1_1AssetKey.html#ac4193cc7ff9e8388a87c0e41c2780c85">core::AssetKey::family</a></div><div class="ttdeci">std::string family</div><div class="ttdef"><b>Definition</b> AssetKey.h:56</div></div>
+<div class="ttc" id="astructcore_1_1ExpectedAssetKey_html"><div class="ttname"><a href="structcore_1_1ExpectedAssetKey.html">core::ExpectedAssetKey</a></div><div class="ttdoc">Une clé attendue par le manifeste : ce qu&#39;elle illustre, et d&#39;où elle vient.</div><div class="ttdef"><b>Definition</b> AssetKey.h:91</div></div>
+<div class="ttc" id="astructcore_1_1ExpectedAssetKey_html_a1219a273b945ba90502283ab90e52c53"><div class="ttname"><a href="structcore_1_1ExpectedAssetKey.html#a1219a273b945ba90502283ab90e52c53">core::ExpectedAssetKey::sourceFile</a></div><div class="ttdeci">std::string sourceFile</div><div class="ttdoc">Le fichier de catalogue qui l&#39;attend — de quoi remonter à la donnée sans la chercher.</div><div class="ttdef"><b>Definition</b> AssetKey.h:95</div></div>
+<div class="ttc" id="astructcore_1_1ExpectedAssetKey_html_a2161ca9d95bf648eb7c5c455aac2e171"><div class="ttname"><a href="structcore_1_1ExpectedAssetKey.html#a2161ca9d95bf648eb7c5c455aac2e171">core::ExpectedAssetKey::key</a></div><div class="ttdeci">std::string key</div><div class="ttdef"><b>Definition</b> AssetKey.h:92</div></div>
+<div class="ttc" id="astructcore_1_1ExpectedAssetKey_html_a9e1598be068b11e9106b02cdc6285372"><div class="ttname"><a href="structcore_1_1ExpectedAssetKey.html#a9e1598be068b11e9106b02cdc6285372">core::ExpectedAssetKey::family</a></div><div class="ttdeci">std::string family</div><div class="ttdef"><b>Definition</b> AssetKey.h:93</div></div>
+<div class="ttc" id="astructcore_1_1ExpectedAssetKey_html_af4c061be4e72494398eef6e44787977a"><div class="ttname"><a href="structcore_1_1ExpectedAssetKey.html#af4c061be4e72494398eef6e44787977a">core::ExpectedAssetKey::explicitKey</a></div><div class="ttdeci">bool explicitKey</div><div class="ttdoc">Vrai si la donnée a dérogé en écrivant son propre asset.</div><div class="ttdef"><b>Definition</b> AssetKey.h:97</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_81575a0a6a20a380991b9ad2c16b89e5.html">Resources</a></li><li class="navelem"><a href="AssetKey_8h.html">AssetKey.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

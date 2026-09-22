@@ -1,0 +1,239 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/QuadRecorder.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('QuadRecorder_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">QuadRecorder.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="QuadRecorder_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="ComposedScene_8h.html">HMI/Graphics/ComposedScene.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="};">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classhmi_1_1QuadRecorder.html">   36</a></span><span class="keyword">class </span><a class="code hl_class" href="classhmi_1_1QuadRecorder.html">QuadRecorder</a> {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1QuadRecorder.html#a5b17f404e66d00792587142c72277263">record</a>(<span class="keyword">const</span> <a class="code hl_class" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&amp; scene);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1QuadRecorder.html#a137be42ad209fbb4f105582f2a9955e3">clear</a>() <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
+<div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classhmi_1_1QuadRecorder.html#aae56add6968b14a719fbcf9f624986ad">   48</a></span>    [[nodiscard]] <span class="keyword">const</span> std::vector&lt;ComposedQuad&gt;&amp; <a class="code hl_function" href="classhmi_1_1QuadRecorder.html#aae56add6968b14a719fbcf9f624986ad">quads</a>() const noexcept {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1QuadRecorder.html#a1d2092e08b3e446057d134d75d55f6ca">_quads</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
+</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classhmi_1_1QuadRecorder.html#a3cf974d0f0cc0050062727b9461a4d98">   53</a></span>    [[nodiscard]] std::size_t <a class="code hl_function" href="classhmi_1_1QuadRecorder.html#a3cf974d0f0cc0050062727b9461a4d98">size</a>() const noexcept {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1QuadRecorder.html#a1d2092e08b3e446057d134d75d55f6ca">_quads</a>.size();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
+</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
+<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="classhmi_1_1QuadRecorder.html#ad57a6ed0cddc2905a4ba7ec8af28bc6d">   58</a></span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a>&amp; <a class="code hl_function" href="classhmi_1_1QuadRecorder.html#ad57a6ed0cddc2905a4ba7ec8af28bc6d">statistics</a>() const noexcept {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1QuadRecorder.html#a619727deeab73edf775e9d5bcfb5061c">_statistics</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1QuadRecorder.html#acec4dde66b15ad82a4fe5e6f6ab898c2">isLayerOrderRespected</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1QuadRecorder.html#a7c183aae5a2bb4d0cf840699d6de1091">areTextureGroupsContiguous</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    [[nodiscard]] std::vector&lt;RenderLayer&gt; <a class="code hl_function" href="classhmi_1_1QuadRecorder.html#ae06f20049397c3be901e82df33a0343b">layerSequence</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    [[nodiscard]] std::vector&lt;TextureHandle&gt; <a class="code hl_function" href="classhmi_1_1QuadRecorder.html#acdea2dcd8f0e074027c719cd90581fe8">textureSequence</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="classhmi_1_1QuadRecorder.html#a7ae51d3dc90ca97809247b0b9fb78ca8">countOnLayer</a>(<a class="code hl_enumeration" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="classhmi_1_1QuadRecorder.html#a99b0d3c3b48d2d6d66fc34f8860b0372">countWithTexture</a>(<a class="code hl_typedef" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1QuadRecorder.html#ae7b026efca021dcceac2c07dddebcf0e">containsSpriteAt</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> tolerance = 1e-4f) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    [[nodiscard]] std::string <a class="code hl_function" href="classhmi_1_1QuadRecorder.html#af96b37a9440c9b0bb60437cbbdc30732">describe</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="classhmi_1_1QuadRecorder.html#a1d2092e08b3e446057d134d75d55f6ca">  124</a></span>    std::vector&lt;ComposedQuad&gt; <a class="code hl_variable" href="classhmi_1_1QuadRecorder.html#a1d2092e08b3e446057d134d75d55f6ca">_quads</a>;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="classhmi_1_1QuadRecorder.html#a619727deeab73edf775e9d5bcfb5061c">  125</a></span>    <a class="code hl_struct" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a> <a class="code hl_variable" href="classhmi_1_1QuadRecorder.html#a619727deeab73edf775e9d5bcfb5061c">_statistics</a>;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>};</div>
+</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aComposedScene_8h_html"><div class="ttname"><a href="ComposedScene_8h.html">ComposedScene.h</a></div><div class="ttdoc">Composition du rendu : liste ordonnée des primitives d&#39;une image, sans GPU (EX-NFR-004,...</div></div>
+<div class="ttc" id="aclasshmi_1_1ComposedScene_html"><div class="ttname"><a href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></div><div class="ttdoc">Liste ordonnée des primitives d&#39;une image, indépendante de Direct3D.</div><div class="ttdef"><b>Definition</b> ComposedScene.h:123</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html">hmi::QuadRecorder</a></div><div class="ttdoc">Capture la liste des primitives d&#39;une image et répond aux questions qu&#39;un test se pose.</div><div class="ttdef"><b>Definition</b> QuadRecorder.h:36</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_a137be42ad209fbb4f105582f2a9955e3"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#a137be42ad209fbb4f105582f2a9955e3">hmi::QuadRecorder::clear</a></div><div class="ttdeci">void clear() noexcept</div><div class="ttdoc">Oublie la capture courante.</div><div class="ttdef"><b>Definition</b> QuadRecorder.cpp:18</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_a1d2092e08b3e446057d134d75d55f6ca"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#a1d2092e08b3e446057d134d75d55f6ca">hmi::QuadRecorder::_quads</a></div><div class="ttdeci">std::vector&lt; ComposedQuad &gt; _quads</div><div class="ttdef"><b>Definition</b> QuadRecorder.h:124</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_a3cf974d0f0cc0050062727b9461a4d98"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#a3cf974d0f0cc0050062727b9461a4d98">hmi::QuadRecorder::size</a></div><div class="ttdeci">std::size_t size() const noexcept</div><div class="ttdef"><b>Definition</b> QuadRecorder.h:53</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_a5b17f404e66d00792587142c72277263"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#a5b17f404e66d00792587142c72277263">hmi::QuadRecorder::record</a></div><div class="ttdeci">void record(const ComposedScene &amp;scene)</div><div class="ttdoc">Capture l&#39;état d&#39;une scène composée (copie : la scène peut ensuite être réutilisée).</div><div class="ttdef"><b>Definition</b> QuadRecorder.cpp:12</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_a619727deeab73edf775e9d5bcfb5061c"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#a619727deeab73edf775e9d5bcfb5061c">hmi::QuadRecorder::_statistics</a></div><div class="ttdeci">SceneStatistics _statistics</div><div class="ttdef"><b>Definition</b> QuadRecorder.h:125</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_a7ae51d3dc90ca97809247b0b9fb78ca8"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#a7ae51d3dc90ca97809247b0b9fb78ca8">hmi::QuadRecorder::countOnLayer</a></div><div class="ttdeci">int countOnLayer(RenderLayer layer) const</div><div class="ttdoc">Nombre de primitives capturées sur un calque donné.</div><div class="ttdef"><b>Definition</b> QuadRecorder.cpp:78</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_a7c183aae5a2bb4d0cf840699d6de1091"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#a7c183aae5a2bb4d0cf840699d6de1091">hmi::QuadRecorder::areTextureGroupsContiguous</a></div><div class="ttdeci">bool areTextureGroupsContiguous() const</div><div class="ttdoc">Vérifie que chaque texture forme un seul groupe contigu par calque (EX-REN-043).</div><div class="ttdef"><b>Definition</b> QuadRecorder.cpp:39</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_a99b0d3c3b48d2d6d66fc34f8860b0372"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#a99b0d3c3b48d2d6d66fc34f8860b0372">hmi::QuadRecorder::countWithTexture</a></div><div class="ttdeci">int countWithTexture(TextureHandle texture) const</div><div class="ttdoc">Nombre de primitives capturées liées à une texture donnée.</div><div class="ttdef"><b>Definition</b> QuadRecorder.cpp:85</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_aae56add6968b14a719fbcf9f624986ad"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#aae56add6968b14a719fbcf9f624986ad">hmi::QuadRecorder::quads</a></div><div class="ttdeci">const std::vector&lt; ComposedQuad &gt; &amp; quads() const noexcept</div><div class="ttdef"><b>Definition</b> QuadRecorder.h:48</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_acdea2dcd8f0e074027c719cd90581fe8"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#acdea2dcd8f0e074027c719cd90581fe8">hmi::QuadRecorder::textureSequence</a></div><div class="ttdeci">std::vector&lt; TextureHandle &gt; textureSequence() const</div><div class="ttdoc">Suite des textures liées, sans répétition consécutive : une entrée par passe begin/end.</div><div class="ttdef"><b>Definition</b> QuadRecorder.cpp:67</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_acec4dde66b15ad82a4fe5e6f6ab898c2"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#acec4dde66b15ad82a4fe5e6f6ab898c2">hmi::QuadRecorder::isLayerOrderRespected</a></div><div class="ttdeci">bool isLayerOrderRespected() const</div><div class="ttdoc">Vérifie que l&#39;ordre des calques est respecté (EX-REN-014).</div><div class="ttdef"><b>Definition</b> QuadRecorder.cpp:27</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_ad57a6ed0cddc2905a4ba7ec8af28bc6d"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#ad57a6ed0cddc2905a4ba7ec8af28bc6d">hmi::QuadRecorder::statistics</a></div><div class="ttdeci">const SceneStatistics &amp; statistics() const noexcept</div><div class="ttdef"><b>Definition</b> QuadRecorder.h:58</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_ae06f20049397c3be901e82df33a0343b"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#ae06f20049397c3be901e82df33a0343b">hmi::QuadRecorder::layerSequence</a></div><div class="ttdeci">std::vector&lt; RenderLayer &gt; layerSequence() const</div><div class="ttdoc">Suite des calques rencontrés, sans répétition consécutive.</div><div class="ttdef"><b>Definition</b> QuadRecorder.cpp:56</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_ae7b026efca021dcceac2c07dddebcf0e"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#ae7b026efca021dcceac2c07dddebcf0e">hmi::QuadRecorder::containsSpriteAt</a></div><div class="ttdeci">bool containsSpriteAt(float x, float y, float tolerance=1e-4f) const</div><div class="ttdoc">Cherche un rectangle composé à une position monde donnée.</div><div class="ttdef"><b>Definition</b> QuadRecorder.cpp:92</div></div>
+<div class="ttc" id="aclasshmi_1_1QuadRecorder_html_af96b37a9440c9b0bb60437cbbdc30732"><div class="ttname"><a href="classhmi_1_1QuadRecorder.html#af96b37a9440c9b0bb60437cbbdc30732">hmi::QuadRecorder::describe</a></div><div class="ttdeci">std::string describe() const</div><div class="ttdoc">Résumé lisible de la capture, à joindre au message d&#39;échec d&#39;une assertion.</div><div class="ttdef"><b>Definition</b> QuadRecorder.cpp:100</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a979f7ffd7c87877cb1f65f0d08e4419d"><div class="ttname"><a href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">hmi::TextureHandle</a></div><div class="ttdeci">void * TextureHandle</div><div class="ttdoc">Identité opaque d&#39;une texture liée, du point de vue de la composition.</div><div class="ttdef"><b>Definition</b> RenderLayer.h:89</div></div>
+<div class="ttc" id="anamespacehmi_html_a9b5452f2d3a1019a3229b90a4f000919"><div class="ttname"><a href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">hmi::RenderLayer</a></div><div class="ttdeci">RenderLayer</div><div class="ttdoc">Calques de dessin, du plus arrière au plus avant (EX-REN-014).</div><div class="ttdef"><b>Definition</b> RenderLayer.h:30</div></div>
+<div class="ttc" id="astructhmi_1_1SceneStatistics_html"><div class="ttname"><a href="structhmi_1_1SceneStatistics.html">hmi::SceneStatistics</a></div><div class="ttdoc">Compteurs d&#39;une image composée, pour l&#39;observabilité du volume soumis (EX-NFR-005).</div><div class="ttdef"><b>Definition</b> ComposedScene.h:89</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="QuadRecorder_8h.html">QuadRecorder.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

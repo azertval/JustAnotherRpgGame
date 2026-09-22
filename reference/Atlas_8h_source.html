@@ -1,0 +1,353 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/Atlas.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('Atlas_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Atlas.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Atlas_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span></div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="};">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5a">   32</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5a">RegionGrade</a> : std::uint8_t {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aa89655e31f5f56a0f7860c4a85b7e9752">   33</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aa89655e31f5f56a0f7860c4a85b7e9752">VeryLow</a> = 0,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aa28d0edd045e05cf5af64e35ae0c4c6ef">   34</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aa28d0edd045e05cf5af64e35ae0c4c6ef">Low</a>,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aa960b44c579bc2f6818d2daaf9e4c16f0">   35</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a960b44c579bc2f6818d2daaf9e4c16f0">Normal</a>,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aa655d20c1ca69519ca647684edbb2db35">   36</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aa655d20c1ca69519ca647684edbb2db35">High</a>,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aaf0b44f10edcd3bdee6720430ac4111cd">   37</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aaf0b44f10edcd3bdee6720430ac4111cd">VeryHigh</a>,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>};</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="namespacecore.html#a29a08c23095e20f5b90a5799fb05f24a">   41</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::size_t <a class="code hl_variable" href="namespacecore.html#a29a08c23095e20f5b90a5799fb05f24a">kRegionGradeCount</a> = 5;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span></div>
+<div class="foldopen" id="foldopen00050" data-start="{" data-end="};">
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structcore_1_1RegionAppraisal.html">   50</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1RegionAppraisal.html">RegionAppraisal</a> {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structcore_1_1RegionAppraisal.html#a9cea16e7edc28da4c20902d603d19cf6">   51</a></span>    <a class="code hl_enumeration" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5a">RegionGrade</a> <a class="code hl_variable" href="structcore_1_1RegionAppraisal.html#a9cea16e7edc28da4c20902d603d19cf6">grade</a> = <a class="code hl_enumvalue" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aa960b44c579bc2f6818d2daaf9e4c16f0">RegionGrade::Normal</a>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structcore_1_1RegionAppraisal.html#a9b59db26754420a23c72569158a73861">   53</a></span>    std::string <a class="code hl_variable" href="structcore_1_1RegionAppraisal.html#a9b59db26754420a23c72569158a73861">scope</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
+</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="};">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structcore_1_1RegionStatistic.html">   62</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1RegionStatistic.html">RegionStatistic</a> {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="structcore_1_1RegionStatistic.html#a0b90743cbb7ee9c66d2c43e4dfb4fe5d">   63</a></span>    std::vector&lt;RegionAppraisal&gt; <a class="code hl_variable" href="structcore_1_1RegionStatistic.html#a0b90743cbb7ee9c66d2c43e4dfb4fe5d">appraisals</a>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span></div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="structcore_1_1RegionStatistic.html#a12e988d54a3cb1906e5b4f34ffce0385">   66</a></span>    [[nodiscard]] <a class="code hl_enumeration" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5a">RegionGrade</a> <a class="code hl_function" href="structcore_1_1RegionStatistic.html#a12e988d54a3cb1906e5b4f34ffce0385">grade</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1RegionStatistic.html#a0b90743cbb7ee9c66d2c43e4dfb4fe5d">appraisals</a>.empty() ? <a class="code hl_enumvalue" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aa960b44c579bc2f6818d2daaf9e4c16f0">RegionGrade::Normal</a> : <a class="code hl_variable" href="structcore_1_1RegionStatistic.html#a0b90743cbb7ee9c66d2c43e4dfb4fe5d">appraisals</a>.front().grade;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    }</div>
+</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span></div>
+<div class="foldopen" id="foldopen00071" data-start="{" data-end="}">
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structcore_1_1RegionStatistic.html#a3d10a89b2dabe4e7df4a6b0d9f6985a5">   71</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1RegionStatistic.html#a3d10a89b2dabe4e7df4a6b0d9f6985a5">varies</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1RegionStatistic.html#a0b90743cbb7ee9c66d2c43e4dfb4fe5d">appraisals</a>.size() &gt; 1;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    }</div>
+</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>};</div>
+</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span></div>
+<div class="foldopen" id="foldopen00077" data-start="{" data-end="};">
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="namespacecore.html#a1471b5a70feb139829909360f5b07940">   77</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#a1471b5a70feb139829909360f5b07940">RegionAxis</a> : std::uint8_t {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="namespacecore.html#a1471b5a70feb139829909360f5b07940ad0c9cc5815cd00065cd71899a4e59cec">   78</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a1471b5a70feb139829909360f5b07940ad0c9cc5815cd00065cd71899a4e59cec">CitizenFreedom</a> = 0,</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="namespacecore.html#a1471b5a70feb139829909360f5b07940a1ac8b82da41e7a78301dfa6e47b6bb23">   79</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a1471b5a70feb139829909360f5b07940a1ac8b82da41e7a78301dfa6e47b6bb23">CrimeAndViolence</a>,</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="namespacecore.html#a1471b5a70feb139829909360f5b07940a039bf742724aaeaf524d260c5ea676c1">   80</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a1471b5a70feb139829909360f5b07940a039bf742724aaeaf524d260c5ea676c1">EconomicProsperity</a>,</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="namespacecore.html#a1471b5a70feb139829909360f5b07940ab581cd8e9b61b71e5f3d39c384a643b8">   81</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a1471b5a70feb139829909360f5b07940ab581cd8e9b61b71e5f3d39c384a643b8">GovernmentCorruption</a>,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="namespacecore.html#a1471b5a70feb139829909360f5b07940a97c5c90f2b32eff62e6cf14f437133e0">   82</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a1471b5a70feb139829909360f5b07940a97c5c90f2b32eff62e6cf14f437133e0">MagicAccess</a>,</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="namespacecore.html#a1471b5a70feb139829909360f5b07940a60f27ec0b99545971fffccb1d416957b">   83</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a1471b5a70feb139829909360f5b07940a60f27ec0b99545971fffccb1d416957b">MonsterPresence</a>,</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="namespacecore.html#a1471b5a70feb139829909360f5b07940aa312dfd218c383fbed721ddb5c4247ce">   84</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a1471b5a70feb139829909360f5b07940aa312dfd218c383fbed721ddb5c4247ce">PoliticalStability</a>,</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>};</div>
+</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="namespacecore.html#abc767d4db86670c1b2d325f75023ca6c">   88</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::size_t <a class="code hl_variable" href="namespacecore.html#abc767d4db86670c1b2d325f75023ca6c">kRegionAxisCount</a> = 7;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span></div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="};">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="structcore_1_1RegionSpeciesShare.html">   91</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1RegionSpeciesShare.html">RegionSpeciesShare</a> {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="structcore_1_1RegionSpeciesShare.html#a18813e636060825b867b4c11118c9130">   93</a></span>    std::string <a class="code hl_variable" href="structcore_1_1RegionSpeciesShare.html#a18813e636060825b867b4c11118c9130">species</a>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="structcore_1_1RegionSpeciesShare.html#ae422c8474f9184f1d286186359ddbbd8">   95</a></span>    std::string <a class="code hl_variable" href="structcore_1_1RegionSpeciesShare.html#ae422c8474f9184f1d286186359ddbbd8">label</a>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="structcore_1_1RegionSpeciesShare.html#a10931c8c5278bd4cac24347d1d3b0706">   96</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1RegionSpeciesShare.html#a10931c8c5278bd4cac24347d1d3b0706">percent</a> = 0;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>};</div>
+</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span></div>
+<div class="foldopen" id="foldopen00105" data-start="{" data-end="};">
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="structcore_1_1RegionPopulation.html">  105</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1RegionPopulation.html">RegionPopulation</a> {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="structcore_1_1RegionPopulation.html#ae5218c13a0339fa70f6de858f628563d">  106</a></span>    std::optional&lt;int&gt; <a class="code hl_variable" href="structcore_1_1RegionPopulation.html#ae5218c13a0339fa70f6de858f628563d">total</a>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="structcore_1_1RegionPopulation.html#a05b581883b8e094dfa228be34ca064f1">  107</a></span>    std::vector&lt;RegionSpeciesShare&gt; <a class="code hl_variable" href="structcore_1_1RegionPopulation.html#a05b581883b8e094dfa228be34ca064f1">species</a>;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="structcore_1_1RegionPopulation.html#a0f8f13b808b437e0283dba47d3368a86">  109</a></span>    std::optional&lt;int&gt; <a class="code hl_variable" href="structcore_1_1RegionPopulation.html#a0f8f13b808b437e0283dba47d3368a86">otherPercent</a>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>};</div>
+</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span></div>
+<div class="foldopen" id="foldopen00113" data-start="{" data-end="};">
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="structcore_1_1Location.html">  113</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1Location.html">Location</a> {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="structcore_1_1Location.html#ad48a501b624c00c7c70183c3f12963c4">  114</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Location.html#ad48a501b624c00c7c70183c3f12963c4">id</a>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="structcore_1_1Location.html#adf9bd9b3c549243b625112c0623dfff3">  115</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Location.html#adf9bd9b3c549243b625112c0623dfff3">name</a>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="structcore_1_1Location.html#a1144f0c1a71664ed8ed4c3c98a9b8922">  116</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Location.html#a1144f0c1a71664ed8ed4c3c98a9b8922">source</a>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="structcore_1_1Location.html#a9ba858868f5d971ecf67214a963b6284">  118</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Location.html#a9ba858868f5d971ecf67214a963b6284">region</a>;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="structcore_1_1Location.html#af82580580fcf327bd9a3286244d96f29">  120</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Location.html#af82580580fcf327bd9a3286244d96f29">description</a>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>};</div>
+</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span></div>
+<div class="foldopen" id="foldopen00129" data-start="{" data-end="};">
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="structcore_1_1Region.html">  129</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1Region.html">Region</a> {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="structcore_1_1Region.html#aa41bf004fea057d95b7697ed03d4f9bf">  130</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Region.html#aa41bf004fea057d95b7697ed03d4f9bf">id</a>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="structcore_1_1Region.html#a11971cd6e7a446c9e11159608edd4e62">  131</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Region.html#a11971cd6e7a446c9e11159608edd4e62">name</a>;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="structcore_1_1Region.html#aa434b7bb92736689ceb7568f00fdc084">  132</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Region.html#aa434b7bb92736689ceb7568f00fdc084">source</a>;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="structcore_1_1Region.html#ab2fcfb2827210b97d085a810023d1196">  133</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Region.html#ab2fcfb2827210b97d085a810023d1196">government</a>;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="structcore_1_1Region.html#a6bb62937945a9ed10649b41925f5886d">  134</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Region.html#a6bb62937945a9ed10649b41925f5886d">faction</a>;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="structcore_1_1Region.html#a539d5b4b3b2b904cca50f64b1c0c1c06">  135</a></span>    <a class="code hl_struct" href="structcore_1_1RegionPopulation.html">RegionPopulation</a> <a class="code hl_variable" href="structcore_1_1Region.html#a539d5b4b3b2b904cca50f64b1c0c1c06">population</a>;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="structcore_1_1Region.html#aa5106f49a5fe7972e76eeb126bf1a9a2">  137</a></span>    std::array&lt;RegionStatistic, kRegionAxisCount&gt; <a class="code hl_variable" href="structcore_1_1Region.html#aa5106f49a5fe7972e76eeb126bf1a9a2">statistics</a>;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="structcore_1_1Region.html#ac64bf67c034921620cc585f808b7cd7e">  138</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1Region.html#ac64bf67c034921620cc585f808b7cd7e">neighbors</a>;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="structcore_1_1Region.html#aae7d6f162d8fbf1ac4be15fec2aac0bc">  139</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1Region.html#aae7d6f162d8fbf1ac4be15fec2aac0bc">locations</a>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span></div>
+<div class="foldopen" id="foldopen00142" data-start="{" data-end="}">
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="structcore_1_1Region.html#a4a3f1bd1764ea522e8bca603e1f4a121">  142</a></span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1RegionStatistic.html">RegionStatistic</a>&amp; <a class="code hl_function" href="structcore_1_1Region.html#a4a3f1bd1764ea522e8bca603e1f4a121">statistic</a>(<a class="code hl_enumeration" href="namespacecore.html#a1471b5a70feb139829909360f5b07940">RegionAxis</a> axis)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1Region.html#aa5106f49a5fe7972e76eeb126bf1a9a2">statistics</a>[<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(axis)];</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    }</div>
+</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>};</div>
+</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span></div>
+<div class="foldopen" id="foldopen00153" data-start="{" data-end="};">
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="structcore_1_1Atlas.html">  153</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1Atlas.html">Atlas</a> {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="structcore_1_1Atlas.html#a197a4a669141fe311770bcaeb0390c0b">  155</a></span>    std::vector&lt;Region&gt; <a class="code hl_variable" href="structcore_1_1Atlas.html#a197a4a669141fe311770bcaeb0390c0b">regions</a>;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="structcore_1_1Atlas.html#a00ee928f799e8c7ed2dd1de25133d482">  157</a></span>    std::vector&lt;Location&gt; <a class="code hl_variable" href="structcore_1_1Atlas.html#a00ee928f799e8c7ed2dd1de25133d482">locations</a>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="structcore_1_1Atlas.html#a22423e206bedd1faadb3e00880c79fac">  159</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1Atlas.html#a22423e206bedd1faadb3e00880c79fac">errors</a>;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Region.html">Region</a>* <a class="code hl_function" href="structcore_1_1Atlas.html#a641417a59ed11b7c345d9d4178777517">findRegion</a>(std::string_view <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Location.html">Location</a>* <a class="code hl_function" href="structcore_1_1Atlas.html#a30855b3e917e8a765e5038450b7841b8">findLocation</a>(std::string_view <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    [[nodiscard]] std::vector&lt;std::string&gt; <a class="code hl_function" href="structcore_1_1Atlas.html#a439fbd9274d9ae36c809c3411204e1fa">unreachableFrom</a>(std::string_view from) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>};</div>
+</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1Atlas.html">Atlas</a> <a class="code hl_function" href="namespacecore.html#a4a28b9f58a274691d57f2f961c7909e7">loadAtlas</a>(<span class="keyword">const</span> std::filesystem::path&amp; directory);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>[[nodiscard]] std::string_view <a class="code hl_function" href="namespacecore.html#ab4aa0ab49f1c6aa68a857e65576a2832">regionGradeName</a>(<a class="code hl_enumeration" href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5a">RegionGrade</a> grade);</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>[[nodiscard]] std::optional&lt;RegionGrade&gt; <a class="code hl_function" href="namespacecore.html#ae11b18a52cca73be017c8bd2989a79b9">regionGradeFromName</a>(std::string_view name);</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>[[nodiscard]] std::string_view <a class="code hl_function" href="namespacecore.html#a3cb4f147c529e897b3d66b33d07db7fd">regionAxisName</a>(<a class="code hl_enumeration" href="namespacecore.html#a1471b5a70feb139829909360f5b07940">RegionAxis</a> axis);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a1471b5a70feb139829909360f5b07940"><div class="ttname"><a href="namespacecore.html#a1471b5a70feb139829909360f5b07940">core::RegionAxis</a></div><div class="ttdeci">RegionAxis</div><div class="ttdoc">Les sept axes, dans l&#39;ordre où le livre les imprime.</div><div class="ttdef"><b>Definition</b> Atlas.h:77</div></div>
+<div class="ttc" id="anamespacecore_html_a1471b5a70feb139829909360f5b07940a039bf742724aaeaf524d260c5ea676c1"><div class="ttname"><a href="namespacecore.html#a1471b5a70feb139829909360f5b07940a039bf742724aaeaf524d260c5ea676c1">core::RegionAxis::EconomicProsperity</a></div><div class="ttdeci">@ EconomicProsperity</div><div class="ttdef"><b>Definition</b> Atlas.h:80</div></div>
+<div class="ttc" id="anamespacecore_html_a1471b5a70feb139829909360f5b07940a1ac8b82da41e7a78301dfa6e47b6bb23"><div class="ttname"><a href="namespacecore.html#a1471b5a70feb139829909360f5b07940a1ac8b82da41e7a78301dfa6e47b6bb23">core::RegionAxis::CrimeAndViolence</a></div><div class="ttdeci">@ CrimeAndViolence</div><div class="ttdef"><b>Definition</b> Atlas.h:79</div></div>
+<div class="ttc" id="anamespacecore_html_a1471b5a70feb139829909360f5b07940a60f27ec0b99545971fffccb1d416957b"><div class="ttname"><a href="namespacecore.html#a1471b5a70feb139829909360f5b07940a60f27ec0b99545971fffccb1d416957b">core::RegionAxis::MonsterPresence</a></div><div class="ttdeci">@ MonsterPresence</div><div class="ttdef"><b>Definition</b> Atlas.h:83</div></div>
+<div class="ttc" id="anamespacecore_html_a1471b5a70feb139829909360f5b07940a97c5c90f2b32eff62e6cf14f437133e0"><div class="ttname"><a href="namespacecore.html#a1471b5a70feb139829909360f5b07940a97c5c90f2b32eff62e6cf14f437133e0">core::RegionAxis::MagicAccess</a></div><div class="ttdeci">@ MagicAccess</div><div class="ttdef"><b>Definition</b> Atlas.h:82</div></div>
+<div class="ttc" id="anamespacecore_html_a1471b5a70feb139829909360f5b07940aa312dfd218c383fbed721ddb5c4247ce"><div class="ttname"><a href="namespacecore.html#a1471b5a70feb139829909360f5b07940aa312dfd218c383fbed721ddb5c4247ce">core::RegionAxis::PoliticalStability</a></div><div class="ttdeci">@ PoliticalStability</div><div class="ttdef"><b>Definition</b> Atlas.h:84</div></div>
+<div class="ttc" id="anamespacecore_html_a1471b5a70feb139829909360f5b07940ab581cd8e9b61b71e5f3d39c384a643b8"><div class="ttname"><a href="namespacecore.html#a1471b5a70feb139829909360f5b07940ab581cd8e9b61b71e5f3d39c384a643b8">core::RegionAxis::GovernmentCorruption</a></div><div class="ttdeci">@ GovernmentCorruption</div><div class="ttdef"><b>Definition</b> Atlas.h:81</div></div>
+<div class="ttc" id="anamespacecore_html_a1471b5a70feb139829909360f5b07940ad0c9cc5815cd00065cd71899a4e59cec"><div class="ttname"><a href="namespacecore.html#a1471b5a70feb139829909360f5b07940ad0c9cc5815cd00065cd71899a4e59cec">core::RegionAxis::CitizenFreedom</a></div><div class="ttdeci">@ CitizenFreedom</div><div class="ttdef"><b>Definition</b> Atlas.h:78</div></div>
+<div class="ttc" id="anamespacecore_html_a29a08c23095e20f5b90a5799fb05f24a"><div class="ttname"><a href="namespacecore.html#a29a08c23095e20f5b90a5799fb05f24a">core::kRegionGradeCount</a></div><div class="ttdeci">constexpr std::size_t kRegionGradeCount</div><div class="ttdoc">Nombre de notes — pour les parcours exhaustifs et les contrôles de couverture.</div><div class="ttdef"><b>Definition</b> Atlas.h:41</div></div>
+<div class="ttc" id="anamespacecore_html_a3cb4f147c529e897b3d66b33d07db7fd"><div class="ttname"><a href="namespacecore.html#a3cb4f147c529e897b3d66b33d07db7fd">core::regionAxisName</a></div><div class="ttdeci">std::string_view regionAxisName(RegionAxis axis)</div><div class="ttdoc">Le nom d&#39;un axe, tel que le schéma l&#39;écrit (citizenFreedom, …).</div><div class="ttdef"><b>Definition</b> Atlas.cpp:217</div></div>
+<div class="ttc" id="anamespacecore_html_a4a28b9f58a274691d57f2f961c7909e7"><div class="ttname"><a href="namespacecore.html#a4a28b9f58a274691d57f2f961c7909e7">core::loadAtlas</a></div><div class="ttdeci">Atlas loadAtlas(const std::filesystem::path &amp;directory)</div><div class="ttdoc">Charge l&#39;atlas — regions/ et locations/ sous le dossier donné.</div><div class="ttdef"><b>Definition</b> Atlas.cpp:259</div></div>
+<div class="ttc" id="anamespacecore_html_ab4aa0ab49f1c6aa68a857e65576a2832"><div class="ttname"><a href="namespacecore.html#ab4aa0ab49f1c6aa68a857e65576a2832">core::regionGradeName</a></div><div class="ttdeci">std::string_view regionGradeName(RegionGrade grade)</div><div class="ttdoc">Le nom d&#39;une note, tel que le schéma l&#39;écrit (veryLow, normal, …).</div><div class="ttdef"><b>Definition</b> Atlas.cpp:205</div></div>
+<div class="ttc" id="anamespacecore_html_abc767d4db86670c1b2d325f75023ca6c"><div class="ttname"><a href="namespacecore.html#abc767d4db86670c1b2d325f75023ca6c">core::kRegionAxisCount</a></div><div class="ttdeci">constexpr std::size_t kRegionAxisCount</div><div class="ttdoc">Nombre d&#39;axes.</div><div class="ttdef"><b>Definition</b> Atlas.h:88</div></div>
+<div class="ttc" id="anamespacecore_html_ae11b18a52cca73be017c8bd2989a79b9"><div class="ttname"><a href="namespacecore.html#ae11b18a52cca73be017c8bd2989a79b9">core::regionGradeFromName</a></div><div class="ttdeci">std::optional&lt; RegionGrade &gt; regionGradeFromName(std::string_view name)</div><div class="ttdoc">La note portant ce nom de schéma, ou std::nullopt.</div><div class="ttdef"><b>Definition</b> Atlas.cpp:209</div></div>
+<div class="ttc" id="anamespacecore_html_aee1e9954e6e76342687aaa9dcf3cbc5a"><div class="ttname"><a href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5a">core::RegionGrade</a></div><div class="ttdeci">RegionGrade</div><div class="ttdoc">Les cinq notes de l&#39;encart « Regional Statistics » (EX-CNT-060).</div><div class="ttdef"><b>Definition</b> Atlas.h:32</div></div>
+<div class="ttc" id="anamespacecore_html_aee1e9954e6e76342687aaa9dcf3cbc5aa28d0edd045e05cf5af64e35ae0c4c6ef"><div class="ttname"><a href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aa28d0edd045e05cf5af64e35ae0c4c6ef">core::RegionGrade::Low</a></div><div class="ttdeci">@ Low</div><div class="ttdef"><b>Definition</b> Atlas.h:34</div></div>
+<div class="ttc" id="anamespacecore_html_aee1e9954e6e76342687aaa9dcf3cbc5aa655d20c1ca69519ca647684edbb2db35"><div class="ttname"><a href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aa655d20c1ca69519ca647684edbb2db35">core::RegionGrade::High</a></div><div class="ttdeci">@ High</div><div class="ttdef"><b>Definition</b> Atlas.h:36</div></div>
+<div class="ttc" id="anamespacecore_html_aee1e9954e6e76342687aaa9dcf3cbc5aa89655e31f5f56a0f7860c4a85b7e9752"><div class="ttname"><a href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aa89655e31f5f56a0f7860c4a85b7e9752">core::RegionGrade::VeryLow</a></div><div class="ttdeci">@ VeryLow</div><div class="ttdef"><b>Definition</b> Atlas.h:33</div></div>
+<div class="ttc" id="anamespacecore_html_aee1e9954e6e76342687aaa9dcf3cbc5aa960b44c579bc2f6818d2daaf9e4c16f0"><div class="ttname"><a href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aa960b44c579bc2f6818d2daaf9e4c16f0">core::RegionGrade::Normal</a></div><div class="ttdeci">@ Normal</div><div class="ttdef"><b>Definition</b> Atlas.h:35</div></div>
+<div class="ttc" id="anamespacecore_html_aee1e9954e6e76342687aaa9dcf3cbc5aaf0b44f10edcd3bdee6720430ac4111cd"><div class="ttname"><a href="namespacecore.html#aee1e9954e6e76342687aaa9dcf3cbc5aaf0b44f10edcd3bdee6720430ac4111cd">core::RegionGrade::VeryHigh</a></div><div class="ttdeci">@ VeryHigh</div><div class="ttdef"><b>Definition</b> Atlas.h:37</div></div>
+<div class="ttc" id="anamespacecore_html_aff494cc4070ea4489c3d5ee57178f7c9a960b44c579bc2f6818d2daaf9e4c16f0"><div class="ttname"><a href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a960b44c579bc2f6818d2daaf9e4c16f0">core::RollStance::Normal</a></div><div class="ttdeci">@ Normal</div><div class="ttdef"><b>Definition</b> Check.h:33</div></div>
+<div class="ttc" id="astructcore_1_1Atlas_html"><div class="ttname"><a href="structcore_1_1Atlas.html">core::Atlas</a></div><div class="ttdoc">L&#39;atlas chargé, et ce qui n&#39;a pas pu l&#39;être.</div><div class="ttdef"><b>Definition</b> Atlas.h:153</div></div>
+<div class="ttc" id="astructcore_1_1Atlas_html_a00ee928f799e8c7ed2dd1de25133d482"><div class="ttname"><a href="structcore_1_1Atlas.html#a00ee928f799e8c7ed2dd1de25133d482">core::Atlas::locations</a></div><div class="ttdeci">std::vector&lt; Location &gt; locations</div><div class="ttdoc">Les lieux chargés, triés par identifiant.</div><div class="ttdef"><b>Definition</b> Atlas.h:157</div></div>
+<div class="ttc" id="astructcore_1_1Atlas_html_a197a4a669141fe311770bcaeb0390c0b"><div class="ttname"><a href="structcore_1_1Atlas.html#a197a4a669141fe311770bcaeb0390c0b">core::Atlas::regions</a></div><div class="ttdeci">std::vector&lt; Region &gt; regions</div><div class="ttdoc">Les régions chargées, triées par identifiant.</div><div class="ttdef"><b>Definition</b> Atlas.h:155</div></div>
+<div class="ttc" id="astructcore_1_1Atlas_html_a22423e206bedd1faadb3e00880c79fac"><div class="ttname"><a href="structcore_1_1Atlas.html#a22423e206bedd1faadb3e00880c79fac">core::Atlas::errors</a></div><div class="ttdeci">std::vector&lt; std::string &gt; errors</div><div class="ttdoc">Un message par fichier refusé, nommant le fichier et la raison.</div><div class="ttdef"><b>Definition</b> Atlas.h:159</div></div>
+<div class="ttc" id="astructcore_1_1Atlas_html_a30855b3e917e8a765e5038450b7841b8"><div class="ttname"><a href="structcore_1_1Atlas.html#a30855b3e917e8a765e5038450b7841b8">core::Atlas::findLocation</a></div><div class="ttdeci">const Location * findLocation(std::string_view id) const</div><div class="ttdoc">Le lieu portant cet identifiant, ou nullptr.</div><div class="ttdef"><b>Definition</b> Atlas.cpp:226</div></div>
+<div class="ttc" id="astructcore_1_1Atlas_html_a439fbd9274d9ae36c809c3411204e1fa"><div class="ttname"><a href="structcore_1_1Atlas.html#a439fbd9274d9ae36c809c3411204e1fa">core::Atlas::unreachableFrom</a></div><div class="ttdeci">std::vector&lt; std::string &gt; unreachableFrom(std::string_view from) const</div><div class="ttdoc">Les régions que l&#39;on ne peut pas atteindre depuis from en suivant neighbors (EX-CNT-062).</div><div class="ttdef"><b>Definition</b> Atlas.cpp:231</div></div>
+<div class="ttc" id="astructcore_1_1Atlas_html_a641417a59ed11b7c345d9d4178777517"><div class="ttname"><a href="structcore_1_1Atlas.html#a641417a59ed11b7c345d9d4178777517">core::Atlas::findRegion</a></div><div class="ttdeci">const Region * findRegion(std::string_view id) const</div><div class="ttdoc">La région portant cet identifiant, ou nullptr.</div><div class="ttdef"><b>Definition</b> Atlas.cpp:221</div></div>
+<div class="ttc" id="astructcore_1_1Location_html"><div class="ttname"><a href="structcore_1_1Location.html">core::Location</a></div><div class="ttdoc">Un lieu nommé d&#39;une région : un nœud terminal du graphe, une carte à créer.</div><div class="ttdef"><b>Definition</b> Atlas.h:113</div></div>
+<div class="ttc" id="astructcore_1_1Location_html_a1144f0c1a71664ed8ed4c3c98a9b8922"><div class="ttname"><a href="structcore_1_1Location.html#a1144f0c1a71664ed8ed4c3c98a9b8922">core::Location::source</a></div><div class="ttdeci">std::string source</div><div class="ttdef"><b>Definition</b> Atlas.h:116</div></div>
+<div class="ttc" id="astructcore_1_1Location_html_a9ba858868f5d971ecf67214a963b6284"><div class="ttname"><a href="structcore_1_1Location.html#a9ba858868f5d971ecf67214a963b6284">core::Location::region</a></div><div class="ttdeci">std::string region</div><div class="ttdoc">Identifiant de la région qui le porte. Jamais vide.</div><div class="ttdef"><b>Definition</b> Atlas.h:118</div></div>
+<div class="ttc" id="astructcore_1_1Location_html_ad48a501b624c00c7c70183c3f12963c4"><div class="ttname"><a href="structcore_1_1Location.html#ad48a501b624c00c7c70183c3f12963c4">core::Location::id</a></div><div class="ttdeci">std::string id</div><div class="ttdef"><b>Definition</b> Atlas.h:114</div></div>
+<div class="ttc" id="astructcore_1_1Location_html_adf9bd9b3c549243b625112c0623dfff3"><div class="ttname"><a href="structcore_1_1Location.html#adf9bd9b3c549243b625112c0623dfff3">core::Location::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> Atlas.h:115</div></div>
+<div class="ttc" id="astructcore_1_1Location_html_af82580580fcf327bd9a3286244d96f29"><div class="ttname"><a href="structcore_1_1Location.html#af82580580fcf327bd9a3286244d96f29">core::Location::description</a></div><div class="ttdeci">std::string description</div><div class="ttdoc">Le texte du livre. Vide pour une entrée qu&#39;il ne fait que nommer.</div><div class="ttdef"><b>Definition</b> Atlas.h:120</div></div>
+<div class="ttc" id="astructcore_1_1RegionAppraisal_html"><div class="ttname"><a href="structcore_1_1RegionAppraisal.html">core::RegionAppraisal</a></div><div class="ttdoc">Une appréciation d&#39;un axe : une note, et la portée où elle vaut.</div><div class="ttdef"><b>Definition</b> Atlas.h:50</div></div>
+<div class="ttc" id="astructcore_1_1RegionAppraisal_html_a9b59db26754420a23c72569158a73861"><div class="ttname"><a href="structcore_1_1RegionAppraisal.html#a9b59db26754420a23c72569158a73861">core::RegionAppraisal::scope</a></div><div class="ttdeci">std::string scope</div><div class="ttdoc">Portée, telle que le livre l&#39;écrit. Vide si l&#39;appréciation vaut pour toute la région.</div><div class="ttdef"><b>Definition</b> Atlas.h:53</div></div>
+<div class="ttc" id="astructcore_1_1RegionAppraisal_html_a9cea16e7edc28da4c20902d603d19cf6"><div class="ttname"><a href="structcore_1_1RegionAppraisal.html#a9cea16e7edc28da4c20902d603d19cf6">core::RegionAppraisal::grade</a></div><div class="ttdeci">RegionGrade grade</div><div class="ttdef"><b>Definition</b> Atlas.h:51</div></div>
+<div class="ttc" id="astructcore_1_1RegionPopulation_html"><div class="ttname"><a href="structcore_1_1RegionPopulation.html">core::RegionPopulation</a></div><div class="ttdoc">La population d&#39;une région.</div><div class="ttdef"><b>Definition</b> Atlas.h:105</div></div>
+<div class="ttc" id="astructcore_1_1RegionPopulation_html_a05b581883b8e094dfa228be34ca064f1"><div class="ttname"><a href="structcore_1_1RegionPopulation.html#a05b581883b8e094dfa228be34ca064f1">core::RegionPopulation::species</a></div><div class="ttdeci">std::vector&lt; RegionSpeciesShare &gt; species</div><div class="ttdef"><b>Definition</b> Atlas.h:107</div></div>
+<div class="ttc" id="astructcore_1_1RegionPopulation_html_a0f8f13b808b437e0283dba47d3368a86"><div class="ttname"><a href="structcore_1_1RegionPopulation.html#a0f8f13b808b437e0283dba47d3368a86">core::RegionPopulation::otherPercent</a></div><div class="ttdeci">std::optional&lt; int &gt; otherPercent</div><div class="ttdoc">La part que le livre range sous « others ». Absente s&#39;il n&#39;en donne pas.</div><div class="ttdef"><b>Definition</b> Atlas.h:109</div></div>
+<div class="ttc" id="astructcore_1_1RegionPopulation_html_ae5218c13a0339fa70f6de858f628563d"><div class="ttname"><a href="structcore_1_1RegionPopulation.html#ae5218c13a0339fa70f6de858f628563d">core::RegionPopulation::total</a></div><div class="ttdeci">std::optional&lt; int &gt; total</div><div class="ttdef"><b>Definition</b> Atlas.h:106</div></div>
+<div class="ttc" id="astructcore_1_1RegionSpeciesShare_html"><div class="ttname"><a href="structcore_1_1RegionSpeciesShare.html">core::RegionSpeciesShare</a></div><div class="ttdoc">La part d&#39;une espèce dans la population d&#39;une région.</div><div class="ttdef"><b>Definition</b> Atlas.h:91</div></div>
+<div class="ttc" id="astructcore_1_1RegionSpeciesShare_html_a10931c8c5278bd4cac24347d1d3b0706"><div class="ttname"><a href="structcore_1_1RegionSpeciesShare.html#a10931c8c5278bd4cac24347d1d3b0706">core::RegionSpeciesShare::percent</a></div><div class="ttdeci">int percent</div><div class="ttdef"><b>Definition</b> Atlas.h:96</div></div>
+<div class="ttc" id="astructcore_1_1RegionSpeciesShare_html_a18813e636060825b867b4c11118c9130"><div class="ttname"><a href="structcore_1_1RegionSpeciesShare.html#a18813e636060825b867b4c11118c9130">core::RegionSpeciesShare::species</a></div><div class="ttdeci">std::string species</div><div class="ttdoc">Clé d&#39;espèce, en anglais et au singulier. Voir la note de loadAtlas.</div><div class="ttdef"><b>Definition</b> Atlas.h:93</div></div>
+<div class="ttc" id="astructcore_1_1RegionSpeciesShare_html_ae422c8474f9184f1d286186359ddbbd8"><div class="ttname"><a href="structcore_1_1RegionSpeciesShare.html#ae422c8474f9184f1d286186359ddbbd8">core::RegionSpeciesShare::label</a></div><div class="ttdeci">std::string label</div><div class="ttdoc">Le mot du livre, tel qu&#39;il l&#39;écrit — « summer elves ».</div><div class="ttdef"><b>Definition</b> Atlas.h:95</div></div>
+<div class="ttc" id="astructcore_1_1RegionStatistic_html"><div class="ttname"><a href="structcore_1_1RegionStatistic.html">core::RegionStatistic</a></div><div class="ttdoc">Un axe de statistique régionale : une ou plusieurs appréciations (EX-CNT-061).</div><div class="ttdef"><b>Definition</b> Atlas.h:62</div></div>
+<div class="ttc" id="astructcore_1_1RegionStatistic_html_a0b90743cbb7ee9c66d2c43e4dfb4fe5d"><div class="ttname"><a href="structcore_1_1RegionStatistic.html#a0b90743cbb7ee9c66d2c43e4dfb4fe5d">core::RegionStatistic::appraisals</a></div><div class="ttdeci">std::vector&lt; RegionAppraisal &gt; appraisals</div><div class="ttdef"><b>Definition</b> Atlas.h:63</div></div>
+<div class="ttc" id="astructcore_1_1RegionStatistic_html_a12e988d54a3cb1906e5b4f34ffce0385"><div class="ttname"><a href="structcore_1_1RegionStatistic.html#a12e988d54a3cb1906e5b4f34ffce0385">core::RegionStatistic::grade</a></div><div class="ttdeci">RegionGrade grade() const</div><div class="ttdoc">La note principale : celle de la première appréciation.</div><div class="ttdef"><b>Definition</b> Atlas.h:66</div></div>
+<div class="ttc" id="astructcore_1_1RegionStatistic_html_a3d10a89b2dabe4e7df4a6b0d9f6985a5"><div class="ttname"><a href="structcore_1_1RegionStatistic.html#a3d10a89b2dabe4e7df4a6b0d9f6985a5">core::RegionStatistic::varies</a></div><div class="ttdeci">bool varies() const</div><div class="ttdoc">Vrai si la région n&#39;est pas uniforme sur cet axe.</div><div class="ttdef"><b>Definition</b> Atlas.h:71</div></div>
+<div class="ttc" id="astructcore_1_1Region_html"><div class="ttname"><a href="structcore_1_1Region.html">core::Region</a></div><div class="ttdoc">Une région : un nœud du graphe de cartes.</div><div class="ttdef"><b>Definition</b> Atlas.h:129</div></div>
+<div class="ttc" id="astructcore_1_1Region_html_a11971cd6e7a446c9e11159608edd4e62"><div class="ttname"><a href="structcore_1_1Region.html#a11971cd6e7a446c9e11159608edd4e62">core::Region::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> Atlas.h:131</div></div>
+<div class="ttc" id="astructcore_1_1Region_html_a4a3f1bd1764ea522e8bca603e1f4a121"><div class="ttname"><a href="structcore_1_1Region.html#a4a3f1bd1764ea522e8bca603e1f4a121">core::Region::statistic</a></div><div class="ttdeci">const RegionStatistic &amp; statistic(RegionAxis axis) const</div><div class="ttdoc">L&#39;axe demandé.</div><div class="ttdef"><b>Definition</b> Atlas.h:142</div></div>
+<div class="ttc" id="astructcore_1_1Region_html_a539d5b4b3b2b904cca50f64b1c0c1c06"><div class="ttname"><a href="structcore_1_1Region.html#a539d5b4b3b2b904cca50f64b1c0c1c06">core::Region::population</a></div><div class="ttdeci">RegionPopulation population</div><div class="ttdef"><b>Definition</b> Atlas.h:135</div></div>
+<div class="ttc" id="astructcore_1_1Region_html_a6bb62937945a9ed10649b41925f5886d"><div class="ttname"><a href="structcore_1_1Region.html#a6bb62937945a9ed10649b41925f5886d">core::Region::faction</a></div><div class="ttdeci">std::string faction</div><div class="ttdef"><b>Definition</b> Atlas.h:134</div></div>
+<div class="ttc" id="astructcore_1_1Region_html_aa41bf004fea057d95b7697ed03d4f9bf"><div class="ttname"><a href="structcore_1_1Region.html#aa41bf004fea057d95b7697ed03d4f9bf">core::Region::id</a></div><div class="ttdeci">std::string id</div><div class="ttdef"><b>Definition</b> Atlas.h:130</div></div>
+<div class="ttc" id="astructcore_1_1Region_html_aa434b7bb92736689ceb7568f00fdc084"><div class="ttname"><a href="structcore_1_1Region.html#aa434b7bb92736689ceb7568f00fdc084">core::Region::source</a></div><div class="ttdeci">std::string source</div><div class="ttdef"><b>Definition</b> Atlas.h:132</div></div>
+<div class="ttc" id="astructcore_1_1Region_html_aa5106f49a5fe7972e76eeb126bf1a9a2"><div class="ttname"><a href="structcore_1_1Region.html#aa5106f49a5fe7972e76eeb126bf1a9a2">core::Region::statistics</a></div><div class="ttdeci">std::array&lt; RegionStatistic, kRegionAxisCount &gt; statistics</div><div class="ttdoc">Les sept axes, indexés par core::RegionAxis.</div><div class="ttdef"><b>Definition</b> Atlas.h:137</div></div>
+<div class="ttc" id="astructcore_1_1Region_html_aae7d6f162d8fbf1ac4be15fec2aac0bc"><div class="ttname"><a href="structcore_1_1Region.html#aae7d6f162d8fbf1ac4be15fec2aac0bc">core::Region::locations</a></div><div class="ttdeci">std::vector&lt; std::string &gt; locations</div><div class="ttdef"><b>Definition</b> Atlas.h:139</div></div>
+<div class="ttc" id="astructcore_1_1Region_html_ab2fcfb2827210b97d085a810023d1196"><div class="ttname"><a href="structcore_1_1Region.html#ab2fcfb2827210b97d085a810023d1196">core::Region::government</a></div><div class="ttdeci">std::string government</div><div class="ttdef"><b>Definition</b> Atlas.h:133</div></div>
+<div class="ttc" id="astructcore_1_1Region_html_ac64bf67c034921620cc585f808b7cd7e"><div class="ttname"><a href="structcore_1_1Region.html#ac64bf67c034921620cc585f808b7cd7e">core::Region::neighbors</a></div><div class="ttdeci">std::vector&lt; std::string &gt; neighbors</div><div class="ttdef"><b>Definition</b> Atlas.h:138</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_c085377a8d45dfd2467facd710fb0ba3.html">World</a></li><li class="navelem"><a href="Atlas_8h.html">Atlas.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,644 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Levels/test_level_draft_editing.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__level__draft__editing_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_level_draft_editing.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests unitaires de l'édition des couches et des entités d'un brouillon (<span class="tt">LOT-11</span>) : création, peinture, déplacement, annulation, et aller-retour par le chargeur.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;variant&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelDraft_8h_source.html">Core/Levels/LevelDraft.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapEntity_8h_source.html">Core/Levels/MapEntity.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileLayer_8h_source.html">Core/Levels/TileLayer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a5a9aaa175be65b90d14489d37c9a4874" id="r_a5a9aaa175be65b90d14489d37c9a4874"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5a9aaa175be65b90d14489d37c9a4874">TEST</a> (EditionDeCarteTest, PremiereCoucheVisuellePromeutLaGrilleUnique)</td></tr>
+<tr class="memdesc:a5a9aaa175be65b90d14489d37c9a4874"><td class="mdescLeft">&#160;</td><td class="mdescRight">La première couche visuelle d'une carte à grille unique en reprend l'image, sans les types de collision, et la grille racine devient la collision.  <br /></td></tr>
+<tr class="memitem:a8d957e3f2fa4802b4123085025884e70" id="r_a8d957e3f2fa4802b4123085025884e70"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8d957e3f2fa4802b4123085025884e70">TEST</a> (EditionDeCarteTest, BrouillonViergeRecoitLaCoucheDeCollision)</td></tr>
+<tr class="memdesc:a8d957e3f2fa4802b4123085025884e70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un brouillon vierge reçoit l'entrée de collision que le chargeur lui donnerait, et une seconde couche naît vide.  <br /></td></tr>
+<tr class="memitem:a4883ae54de67b7e6216d163561676647" id="r_a4883ae54de67b7e6216d163561676647"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4883ae54de67b7e6216d163561676647">TEST</a> (EditionDeCarteTest, CoucheNonVisuelleRefusee)</td></tr>
+<tr class="memdesc:a4883ae54de67b7e6216d163561676647"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seules les couches visuelles se créent : la collision est la grille racine.  <br /></td></tr>
+<tr class="memitem:a02b08edde78a20e2de376e8abec919e2" id="r_a02b08edde78a20e2de376e8abec919e2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a02b08edde78a20e2de376e8abec919e2">TEST</a> (EditionDeCarteTest, PeindreUneCoucheVisuelleNeTouchePasLaCollision)</td></tr>
+<tr class="memdesc:a02b08edde78a20e2de376e8abec919e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peindre une couche visuelle n'accepte que des types d'image, et ne touche ni la collision ni les autres couches.  <br /></td></tr>
+<tr class="memitem:a4681a202a7536791b7cd5130ed744395" id="r_a4681a202a7536791b7cd5130ed744395"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4681a202a7536791b7cd5130ed744395">TEST</a> (EditionDeCarteTest, GesteDeCoucheSansEffetNEmpileRien)</td></tr>
+<tr class="memdesc:a4681a202a7536791b7cd5130ed744395"><td class="mdescLeft">&#160;</td><td class="mdescRight">La collision ne se peint pas par les mutateurs de couche, et un geste sans effet n'empile rien.  <br /></td></tr>
+<tr class="memitem:ac705e3a4e3569a52bc01266676be3af6" id="r_ac705e3a4e3569a52bc01266676be3af6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac705e3a4e3569a52bc01266676be3af6">TEST</a> (EditionDeCarteTest, BlocDeCoucheEnUnPasEtRefuseSiMixte)</td></tr>
+<tr class="memdesc:ac705e3a4e3569a52bc01266676be3af6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bloc peint sur une couche coûte un pas d'annulation, et un bloc contenant un type refusé est refusé en entier.  <br /></td></tr>
+<tr class="memitem:a633729b568157c60b10946619866c472" id="r_a633729b568157c60b10946619866c472"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a633729b568157c60b10946619866c472">TEST</a> (EditionDeCarteTest, DeplacerUneCoucheNeFranchitPasLaCollision)</td></tr>
+<tr class="memdesc:a633729b568157c60b10946619866c472"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplacer une couche échange son rang avec sa voisine visuelle, sans franchir la collision.  <br /></td></tr>
+<tr class="memitem:ae4d17fd9d1f571691b24df4aa180594c" id="r_ae4d17fd9d1f571691b24df4aa180594c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae4d17fd9d1f571691b24df4aa180594c">TEST</a> (EditionDeCarteTest, RetirerLesCouchesVisuellesRendLaGrilleUnique)</td></tr>
+<tr class="memdesc:ae4d17fd9d1f571691b24df4aa180594c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retirer la dernière couche visuelle rend la grille racine au rôle <span class="tt">Legacy</span>, comme la relecture le ferait.  <br /></td></tr>
+<tr class="memitem:a3779a5b9afda1313224b40435ef90a65" id="r_a3779a5b9afda1313224b40435ef90a65"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3779a5b9afda1313224b40435ef90a65">TEST</a> (EditionDeCarteTest, NomEtRoleDUneCoucheSEditent)</td></tr>
+<tr class="memdesc:a3779a5b9afda1313224b40435ef90a65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renommer et changer le rôle d'une couche sont annulables et traversent l'enregistrement.  <br /></td></tr>
+<tr class="memitem:a65bb4be26750f69cc36a3ccadad3a9f8" id="r_a65bb4be26750f69cc36a3ccadad3a9f8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a65bb4be26750f69cc36a3ccadad3a9f8">TEST</a> (EditionDeCarteTest, UneProprieteDeCoucheSEditeEtSeDefait)</td></tr>
+<tr class="memdesc:a65bb4be26750f69cc36a3ccadad3a9f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une couche prend une propriété — le lieu dont elle tire ses pièces (<span class="tt">LOT-EDITOR-06</span>) — en un pas d'annulation, et la garde à l'enregistrement.  <br /></td></tr>
+<tr class="memitem:a51d084f680294bc90d8b86ec14fd878e" id="r_a51d084f680294bc90d8b86ec14fd878e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a51d084f680294bc90d8b86ec14fd878e">TEST</a> (EditionDeCarteTest, EntiteSePoseSeDeplaceEtSeRenseigne)</td></tr>
+<tr class="memdesc:a51d084f680294bc90d8b86ec14fd878e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poser, déplacer, renseigner et retirer une entité : chaque geste est un pas d'annulation, et l'entité traverse l'enregistrement.  <br /></td></tr>
+<tr class="memitem:aab1cdb65dc58fea02315b93cce8d219e" id="r_aab1cdb65dc58fea02315b93cce8d219e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aab1cdb65dc58fea02315b93cce8d219e">TEST</a> (EditionDeCarteTest, GesteDEntiteSansEffetNEmpileRien)</td></tr>
+<tr class="memdesc:aab1cdb65dc58fea02315b93cce8d219e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les gestes d'entité refusés ou sans effet n'empilent rien.  <br /></td></tr>
+<tr class="memitem:a1fc772a30e835f0686dcca6407862222" id="r_a1fc772a30e835f0686dcca6407862222"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1fc772a30e835f0686dcca6407862222">TEST</a> (EditionDeCarteTest, CasePartageeDesigneLEntiteDuDessus)</td></tr>
+<tr class="memdesc:a1fc772a30e835f0686dcca6407862222"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">entityAt</span> rend la dernière entité posée sur une case partagée, et retirer une propriété est annulable.  <br /></td></tr>
+<tr class="memitem:a5bdbd2396abd6be99b775f7d53f06284" id="r_a5bdbd2396abd6be99b775f7d53f06284"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5bdbd2396abd6be99b775f7d53f06284">TEST</a> (EditionDeCarteTest, UnGesteSeDefaitEnUnPas)</td></tr>
+<tr class="memdesc:a5bdbd2396abd6be99b775f7d53f06284"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un geste qui enchaîne plusieurs mutations se défait en un pas (<span class="tt">LOT-EDITOR-04</span>).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests unitaires de l'édition des couches et des entités d'un brouillon (<span class="tt">LOT-11</span>) : création, peinture, déplacement, annulation, et aller-retour par le chargeur. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ac705e3a4e3569a52bc01266676be3af6" name="ac705e3a4e3569a52bc01266676be3af6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac705e3a4e3569a52bc01266676be3af6">&#9670;&#160;</a></span>TEST() <span class="overload">[1/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditionDeCarteTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">BlocDeCoucheEnUnPasEtRefuseSiMixte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un bloc peint sur une couche coûte un pas d'annulation, et un bloc contenant un type refusé est refusé en entier. </p>
+<p><b>Cas de test :</b> <b>Un bloc de couche est un seul pas d'annulation.</b><br  />
+ <b>Categorie :</b> Unitaire · Edition de carte<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Peindre un bloc 2x2 de sable qui deborde du bord droit.<br  />
+2. Annuler.<br  />
+3. Peindre un bloc melant sable et entree.<br  />
+ <b>Resultat attendu :</b> Le bloc est decoupe au bord, une annulation le retire entierement, le bloc mixte est refuse. </p>
+
+</div>
+</div>
+<a id="a8d957e3f2fa4802b4123085025884e70" name="a8d957e3f2fa4802b4123085025884e70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d957e3f2fa4802b4123085025884e70">&#9670;&#160;</a></span>TEST() <span class="overload">[2/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditionDeCarteTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">BrouillonViergeRecoitLaCoucheDeCollision</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un brouillon vierge reçoit l'entrée de collision que le chargeur lui donnerait, et une seconde couche naît vide. </p>
+<p><b>Cas de test :</b> <b>Un brouillon vierge s'aligne sur le chargeur.</b><br  />
+ <b>Categorie :</b> Unitaire · Edition de carte<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Creer un brouillon vierge et y poser un mur.<br  />
+2. Ajouter un sol puis un decor.<br  />
+ <b>Resultat attendu :</b> Trois couches : Collision en tete, le sol avec le mur, le decor vide. </p>
+
+</div>
+</div>
+<a id="a1fc772a30e835f0686dcca6407862222" name="a1fc772a30e835f0686dcca6407862222"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fc772a30e835f0686dcca6407862222">&#9670;&#160;</a></span>TEST() <span class="overload">[3/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditionDeCarteTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CasePartageeDesigneLEntiteDuDessus</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">entityAt</span> rend la dernière entité posée sur une case partagée, et retirer une propriété est annulable. </p>
+<p><b>Cas de test :</b> <b>La case partagee designe l'entite du dessus.</b><br  />
+ <b>Categorie :</b> Unitaire · Edition de carte<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un panneau sur la case du PNJ.<br  />
+2. Designer la case.<br  />
+3. Retirer le dialogue du PNJ puis annuler.<br  />
+ <b>Resultat attendu :</b> Le panneau est designe ; le dialogue revient apres annulation. </p>
+
+</div>
+</div>
+<a id="a4883ae54de67b7e6216d163561676647" name="a4883ae54de67b7e6216d163561676647"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4883ae54de67b7e6216d163561676647">&#9670;&#160;</a></span>TEST() <span class="overload">[4/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditionDeCarteTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CoucheNonVisuelleRefusee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Seules les couches visuelles se créent : la collision est la grille racine. </p>
+<p><b>Cas de test :</b> <b>Une couche de collision ne se cree pas.</b><br  />
+ <b>Categorie :</b> Unitaire · Edition de carte<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander une couche Collision, puis Legacy.<br  />
+ <b>Resultat attendu :</b> Les deux sont refusees, rien n'est empile. </p>
+
+</div>
+</div>
+<a id="a633729b568157c60b10946619866c472" name="a633729b568157c60b10946619866c472"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a633729b568157c60b10946619866c472">&#9670;&#160;</a></span>TEST() <span class="overload">[5/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditionDeCarteTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DeplacerUneCoucheNeFranchitPasLaCollision</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Déplacer une couche échange son rang avec sa voisine visuelle, sans franchir la collision. </p>
+<p><b>Cas de test :</b> <b>Une couche se deplace entre couches visuelles.</b><br  />
+ <b>Categorie :</b> Unitaire · Edition de carte<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Reculer le decor.<br  />
+2. Reculer encore le decor devenu premier visuel.<br  />
+3. Avancer le dernier, puis la collision.<br  />
+ <b>Resultat attendu :</b> Le decor passe derriere le sol, puis reste en place devant la collision ; le dernier reste dernier ; la collision est refusee. </p>
+
+</div>
+</div>
+<a id="a51d084f680294bc90d8b86ec14fd878e" name="a51d084f680294bc90d8b86ec14fd878e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51d084f680294bc90d8b86ec14fd878e">&#9670;&#160;</a></span>TEST() <span class="overload">[6/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditionDeCarteTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EntiteSePoseSeDeplaceEtSeRenseigne</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Poser, déplacer, renseigner et retirer une entité : chaque geste est un pas d'annulation, et l'entité traverse l'enregistrement. </p>
+<p><b>Cas de test :</b> <b>Une entite se pose, se deplace et se renseigne.</b><br  />
+ <b>Categorie :</b> Unitaire · Edition de carte<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un coffre en (0, 2).<br  />
+2. Le deplacer en (1, 2).<br  />
+3. Lui donner une propriete.<br  />
+4. Reconvertir, puis annuler trois fois.<br  />
+ <b>Resultat attendu :</b> Le niveau relu porte le coffre en (1, 2) avec sa propriete ; trois annulations le retirent. </p>
+
+</div>
+</div>
+<a id="a4681a202a7536791b7cd5130ed744395" name="a4681a202a7536791b7cd5130ed744395"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4681a202a7536791b7cd5130ed744395">&#9670;&#160;</a></span>TEST() <span class="overload">[7/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditionDeCarteTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GesteDeCoucheSansEffetNEmpileRien</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La collision ne se peint pas par les mutateurs de couche, et un geste sans effet n'empile rien. </p>
+<p><b>Cas de test :</b> <b>Un geste de couche refuse n'empile rien.</b><br  />
+ <b>Categorie :</b> Unitaire · Edition de carte<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Peindre l'entree de collision par paintLayerTile.<br  />
+2. Repeindre l'herbe deja posee sur le sol.<br  />
+ <b>Resultat attendu :</b> Les deux sont refuses et l'historique reste vide. </p>
+
+</div>
+</div>
+<a id="aab1cdb65dc58fea02315b93cce8d219e" name="aab1cdb65dc58fea02315b93cce8d219e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab1cdb65dc58fea02315b93cce8d219e">&#9670;&#160;</a></span>TEST() <span class="overload">[8/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditionDeCarteTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GesteDEntiteSansEffetNEmpileRien</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les gestes d'entité refusés ou sans effet n'empilent rien. </p>
+<p><b>Cas de test :</b> <b>Un geste d'entite refuse n'empile rien.</b><br  />
+ <b>Categorie :</b> Unitaire · Edition de carte<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser hors de la grille.<br  />
+2. Deplacer sur place, hors grille, un rang inconnu.<br  />
+3. Reassigner la meme propriete, retirer une propriete absente.<br  />
+ <b>Resultat attendu :</b> Tout est refuse, l'historique reste vide. </p>
+
+</div>
+</div>
+<a id="a3779a5b9afda1313224b40435ef90a65" name="a3779a5b9afda1313224b40435ef90a65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3779a5b9afda1313224b40435ef90a65">&#9670;&#160;</a></span>TEST() <span class="overload">[9/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditionDeCarteTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NomEtRoleDUneCoucheSEditent</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renommer et changer le rôle d'une couche sont annulables et traversent l'enregistrement. </p>
+<p><b>Cas de test :</b> <b>Nom et role d'une couche s'editent.</b><br  />
+ <b>Categorie :</b> Unitaire · Edition de carte<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Renommer le sol, puis en faire un decor.<br  />
+2. Reconvertir.<br  />
+3. Annuler deux fois.<br  />
+ <b>Resultat attendu :</b> Le niveau relu porte le nouveau nom et le role decor ; les annulations rendent l'etat d'origine. </p>
+
+</div>
+</div>
+<a id="a02b08edde78a20e2de376e8abec919e2" name="a02b08edde78a20e2de376e8abec919e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02b08edde78a20e2de376e8abec919e2">&#9670;&#160;</a></span>TEST() <span class="overload">[10/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditionDeCarteTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PeindreUneCoucheVisuelleNeTouchePasLaCollision</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Peindre une couche visuelle n'accepte que des types d'image, et ne touche ni la collision ni les autres couches. </p>
+<p><b>Cas de test :</b> <b>Peindre le sol laisse la collision intacte.</b><br  />
+ <b>Categorie :</b> Unitaire · Edition de carte<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Peindre de l'eau sur le sol.<br  />
+2. Tenter une entree sur le sol.<br  />
+3. Reconvertir.<br  />
+ <b>Resultat attendu :</b> L'eau est sur le sol, l'entree refusee, la collision et le decor vides en cette case. </p>
+
+</div>
+</div>
+<a id="a5a9aaa175be65b90d14489d37c9a4874" name="a5a9aaa175be65b90d14489d37c9a4874"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a9aaa175be65b90d14489d37c9a4874">&#9670;&#160;</a></span>TEST() <span class="overload">[11/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditionDeCarteTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PremiereCoucheVisuellePromeutLaGrilleUnique</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La première couche visuelle d'une carte à grille unique en reprend l'image, sans les types de collision, et la grille racine devient la collision. </p>
+<p><b>Cas de test :</b> <b>Ajouter la premiere couche promeut la grille unique.</b><br  />
+ <b>Categorie :</b> Unitaire · Edition de carte<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Ouvrir une carte sans couche declaree.<br  />
+2. Ajouter une couche de sol.<br  />
+3. Reconvertir en niveau.<br  />
+ <b>Resultat attendu :</b> Le sol porte le mur et l'herbe mais pas l'entree ; la racine est de role Collision, en tete, et la collision garde l'entree. </p>
+
+</div>
+</div>
+<a id="ae4d17fd9d1f571691b24df4aa180594c" name="ae4d17fd9d1f571691b24df4aa180594c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4d17fd9d1f571691b24df4aa180594c">&#9670;&#160;</a></span>TEST() <span class="overload">[12/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditionDeCarteTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RetirerLesCouchesVisuellesRendLaGrilleUnique</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retirer la dernière couche visuelle rend la grille racine au rôle <span class="tt">Legacy</span>, comme la relecture le ferait. </p>
+<p><b>Cas de test :</b> <b>Retirer toutes les couches visuelles rend la grille unique.</b><br  />
+ <b>Categorie :</b> Unitaire · Edition de carte<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Retirer le decor puis le sol.<br  />
+2. Reconvertir.<br  />
+ <b>Resultat attendu :</b> Une seule couche, Legacy, dans le brouillon comme dans le niveau relu. </p>
+
+</div>
+</div>
+<a id="a65bb4be26750f69cc36a3ccadad3a9f8" name="a65bb4be26750f69cc36a3ccadad3a9f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65bb4be26750f69cc36a3ccadad3a9f8">&#9670;&#160;</a></span>TEST() <span class="overload">[13/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditionDeCarteTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneProprieteDeCoucheSEditeEtSeDefait</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une couche prend une propriété — le lieu dont elle tire ses pièces (<span class="tt">LOT-EDITOR-06</span>) — en un pas d'annulation, et la garde à l'enregistrement. </p>
+<p><b>Cas de test :</b> <b>Une propriete de couche s'edite et se defait.</b><br  />
+ <b>Categorie :</b> Unitaire · Edition de carte<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Donner <span class="tt">scene = martpart</span> a la couche de sol, puis la meme valeur encore.<br  />
+2. Tenter une cle vide et la grille de collision.<br  />
+3. Reconvertir, puis annuler.<br  />
+ <b>Resultat attendu :</b> Un seul pas ; le niveau relu porte le lieu ; l'annulation le retire. </p>
+
+</div>
+</div>
+<a id="a5bdbd2396abd6be99b775f7d53f06284" name="a5bdbd2396abd6be99b775f7d53f06284"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bdbd2396abd6be99b775f7d53f06284">&#9670;&#160;</a></span>TEST() <span class="overload">[14/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditionDeCarteTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnGesteSeDefaitEnUnPas</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un geste qui enchaîne plusieurs mutations se défait en un pas (<span class="tt">LOT-EDITOR-04</span>). </p>
+<p><b>Cas de test :</b> <b>Un geste = un pas d'annulation.</b><br  />
+ <b>Categorie :</b> Unitaire · Edition de carte<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Ouvrir un geste, peindre trois cases l'une après l'autre, le fermer.<br  />
+2. Ouvrir un geste sans rien changer.<br  />
+3. Annuler, refaire.<br  />
+ <b>Resultat attendu :</b> Un seul pas empilé, aucun pour le geste vide ; annuler rend les trois cases, refaire les repeint ; la révision a changé à chaque mutation. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_53d6f249854b4ed4670fb00ec42270bb.html">Levels</a></li><li class="navelem"><a href="test__level__draft__editing_8cpp.html">test_level_draft_editing.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

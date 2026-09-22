@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="420" fill="#fbf8f0"/>
+
+  <!-- Panneau gauche : la prise en tenaille -->
+  <text x="20" y="30" font-size="15" font-weight="600" fill="#25201a">core::crossesOppositeSides : la ligne des centres tranche</text>
+  <g stroke="#d6c9a8" fill="#fbf8f0">
+    <rect x="40" y="60" width="70" height="70"/><rect x="110" y="60" width="70" height="70"/><rect x="180" y="60" width="70" height="70"/><rect x="250" y="60" width="70" height="70"/><rect x="320" y="60" width="70" height="70"/>
+    <rect x="40" y="130" width="70" height="70"/><rect x="110" y="130" width="70" height="70"/><rect x="180" y="130" width="70" height="70"/><rect x="250" y="130" width="70" height="70"/><rect x="320" y="130" width="70" height="70"/>
+    <rect x="40" y="200" width="70" height="70"/><rect x="110" y="200" width="70" height="70"/><rect x="180" y="200" width="70" height="70"/><rect x="250" y="200" width="70" height="70"/><rect x="320" y="200" width="70" height="70"/>
+  </g>
+  <!-- la cible T en (2, 1) -->
+  <rect x="180" y="130" width="70" height="70" fill="#ece4d1" stroke="#8a2233" stroke-width="1.5"/>
+  <circle cx="215" cy="165" r="13" fill="#8a2233"/>
+  <text x="210" y="170" font-size="12" font-weight="600" fill="#fbf8f0">T</text>
+  <!-- A en (1, 1), B en (3, 1) : côtés opposés -->
+  <circle cx="145" cy="165" r="13" fill="#9a7420"/>
+  <text x="140" y="170" font-size="12" font-weight="600" fill="#fbf8f0">A</text>
+  <circle cx="285" cy="165" r="13" fill="#3f6b34"/>
+  <text x="280" y="170" font-size="12" font-weight="600" fill="#fbf8f0">B</text>
+  <path d="M145,165 L285,165" stroke="#3f6b34" stroke-width="2"/>
+  <!-- B' en (3, 0) : un côté et le haut, pas opposés -->
+  <circle cx="285" cy="95" r="13" fill="#fbf8f0" stroke="#6a6152" stroke-dasharray="3 2"/>
+  <text x="279" y="100" font-size="12" font-weight="600" fill="#6a6152">B'</text>
+  <path d="M145,165 L285,95" stroke="#6a6152" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <text x="40" y="296" font-size="12" fill="#3f6b34" font-weight="600">A et B : la ligne touche le bord gauche et le bord droit de T → tenaille,</text>
+  <text x="40" y="312" font-size="12" fill="#3f6b34">avantage aux attaques de contact des deux (si l'arène joue la règle).</text>
+  <text x="40" y="336" font-size="12" fill="#6a6152">A et B' : la ligne entre par la gauche et sort par le haut → pas de tenaille.</text>
+  <text x="40" y="360" font-size="12" fill="#25201a">Conditions : chacun debout, adjacent (distance 1, emprises comprises)</text>
+  <text x="40" y="376" font-size="12" fill="#25201a">et voyant T ; les centres sont des points impairs, les bords des points pairs.</text>
+
+  <!-- Panneau droit : la zone d'effet à la moitié de case -->
+  <text x="450" y="30" font-size="15" font-weight="600" fill="#25201a">core::areaTemplate : une case est dans la zone à la moitié</text>
+  <g stroke="#d6c9a8" fill="#fbf8f0">
+    <rect x="470" y="60" width="60" height="60"/><rect x="530" y="60" width="60" height="60"/><rect x="590" y="60" width="60" height="60"/><rect x="650" y="60" width="60" height="60"/><rect x="710" y="60" width="60" height="60"/><rect x="770" y="60" width="60" height="60"/>
+    <rect x="470" y="120" width="60" height="60"/><rect x="530" y="120" width="60" height="60"/><rect x="590" y="120" width="60" height="60"/><rect x="650" y="120" width="60" height="60"/><rect x="710" y="120" width="60" height="60"/><rect x="770" y="120" width="60" height="60"/>
+    <rect x="470" y="180" width="60" height="60"/><rect x="530" y="180" width="60" height="60"/><rect x="590" y="180" width="60" height="60"/><rect x="650" y="180" width="60" height="60"/><rect x="710" y="180" width="60" height="60"/><rect x="770" y="180" width="60" height="60"/>
+    <rect x="470" y="240" width="60" height="60"/><rect x="530" y="240" width="60" height="60"/><rect x="590" y="240" width="60" height="60"/><rect x="650" y="240" width="60" height="60"/><rect x="710" y="240" width="60" height="60"/><rect x="770" y="240" width="60" height="60"/>
+    <rect x="470" y="300" width="60" height="60"/><rect x="530" y="300" width="60" height="60"/><rect x="590" y="300" width="60" height="60"/><rect x="650" y="300" width="60" height="60"/><rect x="710" y="300" width="60" height="60"/><rect x="770" y="300" width="60" height="60"/>
+  </g>
+  <!-- sphère de rayon 2 cases, origine sur l'intersection (3, 3) : carré 4 x 4 sans ses coins -->
+  <g fill="#2f7f86" fill-opacity="0.35" stroke="none">
+    <rect x="590" y="120" width="60" height="60"/><rect x="650" y="120" width="60" height="60"/>
+    <rect x="530" y="180" width="60" height="60"/><rect x="590" y="180" width="60" height="60"/><rect x="650" y="180" width="60" height="60"/><rect x="710" y="180" width="60" height="60"/>
+    <rect x="530" y="240" width="60" height="60"/><rect x="590" y="240" width="60" height="60"/><rect x="650" y="240" width="60" height="60"/><rect x="710" y="240" width="60" height="60"/>
+    <rect x="590" y="300" width="60" height="60"/><rect x="650" y="300" width="60" height="60"/>
+  </g>
+  <circle cx="650" cy="240" r="120" fill="none" stroke="#2f7f86" stroke-width="2"/>
+  <circle cx="650" cy="240" r="5" fill="#2f7f86"/>
+  <text x="658" y="236" font-family="Consolas, monospace" font-size="11" fill="#2f7f86">origin (coin)</text>
+  <text x="450" y="384" font-size="12" fill="#25201a">Sphère de rayon 2 cases sur une intersection : 12 cases, le carré 4 × 4 sans ses</text>
+  <text x="450" y="400" font-size="12" fill="#25201a">coins (couverts à 31 %). Surface exacte : polygone découpé, ou disque intégré.</text>
+</svg>

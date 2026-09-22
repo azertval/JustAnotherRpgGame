@@ -1,0 +1,195 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: Member List</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1OptionsModel.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::OptionsModel Member List</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This is the complete list of members for <a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a01a0d2de6adc2da202d0df5ac3904912">_diagnostics</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#aa245a170128ed5d3bfac38c336019e2a">_fullscreen</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a3493c096100070fb4963a76db2338fbc">_language</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a413ddbde5c79699d4f853ebb60eb3149">_sessionLog</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a4fddcc430039e273b0a8f0982515d4d4">_volume</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a715fd6e8ac838444b8dded0082cc4390">_vsync</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a1a9fcaff0d366deccfb2d1e630a01280">defaults</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a30be8a662c06a28ddc41e63449a4a2c7">defaults</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#ad4faa29a69a81e4c9987c7fab507397f">diagnostics</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a992cb73498ebeb078f7a10695ffae601">diagnostics</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a87c5da577e125eb3adfcbf1fdb4770f2">diagnosticsChanged</a>()</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#ab48d2a0c8793aa51af171d2ace788250">fullscreen</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a66079ad92a010525ebd1322090cd70d7">fullscreen</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a52fed7b94905c6aee2780303ae86b4fd">fullscreenChanged</a>()</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a03c96660aaef740d4ce080cfb9a8f417">language</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#ab752fc21fbc1785b1685e46abaa5ea34">language</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#ab58c4b2199b558425c3b5988dacb4d02">languageChanged</a>()</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a5b5e4ce99022db0ad4444625e1d528e8">languageNames</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a7ef3b5db34d5d24ad9e3a0b52d7d7d6d">languageNames</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a580407e9597675adca39c37cfcff008a">languages</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a796b8e9a864fc91684d5c452e2c56c6a">languages</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#ace9a52cbc002b12326f524777f7febd5">logsAvailable</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a11cf5c63f2f53adc2dcc833087916a60">logsAvailable</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a4d386dbcbbf08f038777ae1df87cd485">OptionsModel</a>(QObject *parent=nullptr)</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#aa322244ae20d5e9bbcbb0ed0d481fd58">saveLogs</a>()</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a523f95c24ef61868b16054620c87dd8d">setDiagnostics</a>(bool enabled)</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a09960f2f33b9dee001c62cb51e83c78a">setFullscreen</a>(bool enabled)</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a4752355bfd7ef1f06440add45bc71b85">setLanguage</a>(const QString &amp;code)</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#aae97c7caf76ea2d233b2102734e2c1b1">setSessionLog</a>(core::MemoryLogSink *sessionLog) noexcept</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#aaf42bc46d2a228bca9a6949411d86eb3">setVolume</a>(int percent)</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#aaa061a05f674dd471129a8f0b54ddcec">setVsync</a>(bool enabled)</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a0577a4c5c12f6bbc8f756bd92a0a4280">volume</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a7a71606593c8eeaa040cdaa4176c4945">volume</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a866a05dec00aced02a6b439d61431283">volumeChanged</a>()</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a8a907b9efd8a1079fb0dc6d88ca45e24">vsync</a></td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#a3aafc6f4b6558daad08c2b836fff9044">vsync</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html#af6d31966b77f2f9aa6bdb906d0da0bfb">vsyncChanged</a>()</td><td class="entry"><a class="el" href="classhmi_1_1OptionsModel.html">hmi::OptionsModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+</table></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

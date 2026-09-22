@@ -1,0 +1,393 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::CombatantProfile Struct Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('structcore_1_1CombatantProfile.html','','structcore_1_1CombatantProfile-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::CombatantProfile Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Ce que le combat doit savoir d'un combattant — ni fiche, ni bloc de statistiques.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="CombatState_8h_source.html">CombatState.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ac5cb9015587c83a1875e39b5d6fd4227" id="r_ac5cb9015587c83a1875e39b5d6fd4227"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ac5cb9015587c83a1875e39b5d6fd4227">name</a></td></tr>
+<tr class="memitem:a032fe17fa529b1a5d47c96bf8139bcc5" id="r_a032fe17fa529b1a5d47c96bf8139bcc5"><td class="memItemLeft"><a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">CombatSide</a>&#160;</td><td class="memItemRight"><a class="el" href="#a032fe17fa529b1a5d47c96bf8139bcc5">side</a> = <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">CombatSide::Allies</a></td></tr>
+<tr class="memitem:a5e599dd45695ea84581951275664d614" id="r_a5e599dd45695ea84581951275664d614"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5e599dd45695ea84581951275664d614">maximumHitPoints</a> = 0</td></tr>
+<tr class="memitem:a0e93aedad6e03dc07a91298babe5a459" id="r_a0e93aedad6e03dc07a91298babe5a459"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0e93aedad6e03dc07a91298babe5a459">currentHitPoints</a> = 0</td></tr>
+<tr class="memitem:ad628b91105fde9e22114102f52994eca" id="r_ad628b91105fde9e22114102f52994eca"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad628b91105fde9e22114102f52994eca">dexterity</a> = 10</td></tr>
+<tr class="memdesc:ad628b91105fde9e22114102f52994eca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeur de Dextérité, second critère de départage de l'initiative.  <br /></td></tr>
+<tr class="memitem:a8d35e824ec15edee5f629c40fbcd086b" id="r_a8d35e824ec15edee5f629c40fbcd086b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8d35e824ec15edee5f629c40fbcd086b">initiativeModifier</a> = 0</td></tr>
+<tr class="memdesc:a8d35e824ec15edee5f629c40fbcd086b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modificateur du test d'initiative — la Dextérité, et ce qui s'y ajoute.  <br /></td></tr>
+<tr class="memitem:a899a8abe9034ab57c2f630f6a4d92acc" id="r_a899a8abe9034ab57c2f630f6a4d92acc"><td class="memItemLeft"><a class="el" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9">RollStance</a>&#160;</td><td class="memItemRight"><a class="el" href="#a899a8abe9034ab57c2f630f6a4d92acc">initiativeStance</a> = <a class="el" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a960b44c579bc2f6818d2daaf9e4c16f0">RollStance::Normal</a></td></tr>
+<tr class="memitem:a39bdcb49ec9955df4be07f7c7a812824" id="r_a39bdcb49ec9955df4be07f7c7a812824"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a39bdcb49ec9955df4be07f7c7a812824">movement</a> = 0</td></tr>
+<tr class="memdesc:a39bdcb49ec9955df4be07f7c7a812824"><td class="mdescLeft">&#160;</td><td class="mdescRight">Budget de déplacement, en cases (<span class="tt"><a class="el" href="namespacecore.html#a29156af7de7653ab4fa06d96b0c881a1" title="Le budget de déplacement d&#39;une vitesse de speedMeters, en cases entières.">core::movementBudget</a></span>).  <br /></td></tr>
+<tr class="memitem:ae9504a084f7dcd5daad453732a93dd35" id="r_ae9504a084f7dcd5daad453732a93dd35"><td class="memItemLeft"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae9504a084f7dcd5daad453732a93dd35">locomotion</a> = <a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffa7a16a854f32231a8df9326136b09ee62">Locomotion::Walk</a></td></tr>
+<tr class="memitem:a025818f10d93efa6ad3544b9f5d0c908" id="r_a025818f10d93efa6ad3544b9f5d0c908"><td class="memItemLeft"><a class="el" href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204">CreatureSize</a>&#160;</td><td class="memItemRight"><a class="el" href="#a025818f10d93efa6ad3544b9f5d0c908">size</a> = <a class="el" href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204a87f8a6ab85c9ced3702b4ea641ad4bb5">CreatureSize::Medium</a></td></tr>
+<tr class="memitem:a28fe20ab1fc26414cddebd7e282c939c" id="r_a28fe20ab1fc26414cddebd7e282c939c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a28fe20ab1fc26414cddebd7e282c939c">floating</a> = false</td></tr>
+<tr class="memdesc:a28fe20ab1fc26414cddebd7e282c939c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pour un acteur <b>flottant</b> (<em>Law of Time</em>) : il n'a pas de place dans l'ordre, et joue une fois par round <b>avant n'importe quel tour</b> de son choix (<span class="tt"><a class="el" href="classcore_1_1CombatState.html#a50b0d58335080428272acee52ca4e17d" title="Demande qu&#39;un acteur flottant joue avant le prochain tour.">CombatState::interject</a></span>) — ou à la fin du round, s'il n'a pas choisi.  <br /></td></tr>
+<tr class="memitem:ada5d2d10aab3c03e3eeb1c997d5d14a8" id="r_ada5d2d10aab3c03e3eeb1c997d5d14a8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ada5d2d10aab3c03e3eeb1c997d5d14a8">armorClass</a> = 10</td></tr>
+<tr class="memdesc:ada5d2d10aab3c03e3eeb1c997d5d14a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">La classe d'armure contre laquelle on l'attaque (<span class="tt">EX-CBT-030</span>).  <br /></td></tr>
+<tr class="memitem:a56bfe782f09a73dadfb8dc635ae4566b" id="r_a56bfe782f09a73dadfb8dc635ae4566b"><td class="memItemLeft"><a class="el" href="structcore_1_1DamageTraits.html">DamageTraits</a>&#160;</td><td class="memItemRight"><a class="el" href="#a56bfe782f09a73dadfb8dc635ae4566b">damageTraits</a></td></tr>
+<tr class="memdesc:a56bfe782f09a73dadfb8dc635ae4566b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résistances, vulnérabilités et immunités (<span class="tt">EX-CBT-032</span>).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Ce que le combat doit savoir d'un combattant — ni fiche, ni bloc de statistiques. </p>
+<p>Le combat ne dépend ni de <span class="tt"><a class="el" href="structcore_1_1CharacterSheet.html" title="La fiche d&#39;une créature jouable ou non : héros, PNJ, ennemi.">core::CharacterSheet</a></span> ni de <span class="tt"><a class="el" href="structcore_1_1Creature.html" title="Un bloc de statistiques : ce que creature.schema.json décrit.">core::Creature</a></span> : un personnage, un compagnon et un gobelin s'y présentent sous la même forme, et <span class="tt"><a class="el" href="namespacecore.html#a781adb33ce539ef59c9ed60f57e51901" title="Le profil d&#39;un personnage : ses points de vie courants, sa Dextérité, sa vitesse.">profileFor</a></span> la construit depuis l'un ou l'autre. C'est ce qui garde la machine à états indifférente à « qui est le joueur ». </p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ada5d2d10aab3c03e3eeb1c997d5d14a8" name="ada5d2d10aab3c03e3eeb1c997d5d14a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada5d2d10aab3c03e3eeb1c997d5d14a8">&#9670;&#160;</a></span>armorClass</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::CombatantProfile::armorClass = 10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La classe d'armure contre laquelle on l'attaque (<span class="tt">EX-CBT-030</span>). </p>
+<p><b>Recalculée depuis ses sources</b> au moment où le profil se construit — l'équipement porté (<span class="tt"><a class="el" href="namespacecore.html#a9a5cbcc72fe725bdada14f1b5a38e3d1" title="Calcule tout ce que l&#39;équipement porté produit, depuis la fiche et les catalogues.">core::derivedStatsFor</a></span>), le bloc de bestiaire —, jamais tenue à jour à la main : un équipement ne change pas au milieu d'un combat, et ce qui la change en combat (un abri, une posture) s'ajoute au jet par un crochet, sans toucher à ce nombre. </p>
+
+</div>
+</div>
+<a id="a0e93aedad6e03dc07a91298babe5a459" name="a0e93aedad6e03dc07a91298babe5a459"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e93aedad6e03dc07a91298babe5a459">&#9670;&#160;</a></span>currentHitPoints</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::CombatantProfile::currentHitPoints = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a56bfe782f09a73dadfb8dc635ae4566b" name="a56bfe782f09a73dadfb8dc635ae4566b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56bfe782f09a73dadfb8dc635ae4566b">&#9670;&#160;</a></span>damageTraits</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1DamageTraits.html">DamageTraits</a> core::CombatantProfile::damageTraits</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Résistances, vulnérabilités et immunités (<span class="tt">EX-CBT-032</span>). </p>
+
+</div>
+</div>
+<a id="ad628b91105fde9e22114102f52994eca" name="ad628b91105fde9e22114102f52994eca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad628b91105fde9e22114102f52994eca">&#9670;&#160;</a></span>dexterity</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::CombatantProfile::dexterity = 10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valeur de Dextérité, second critère de départage de l'initiative. </p>
+
+</div>
+</div>
+<a id="a28fe20ab1fc26414cddebd7e282c939c" name="a28fe20ab1fc26414cddebd7e282c939c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28fe20ab1fc26414cddebd7e282c939c">&#9670;&#160;</a></span>floating</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatantProfile::floating = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrai pour un acteur <b>flottant</b> (<em>Law of Time</em>) : il n'a pas de place dans l'ordre, et joue une fois par round <b>avant n'importe quel tour</b> de son choix (<span class="tt"><a class="el" href="classcore_1_1CombatState.html#a50b0d58335080428272acee52ca4e17d" title="Demande qu&#39;un acteur flottant joue avant le prochain tour.">CombatState::interject</a></span>) — ou à la fin du round, s'il n'a pas choisi. </p>
+
+</div>
+</div>
+<a id="a8d35e824ec15edee5f629c40fbcd086b" name="a8d35e824ec15edee5f629c40fbcd086b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d35e824ec15edee5f629c40fbcd086b">&#9670;&#160;</a></span>initiativeModifier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::CombatantProfile::initiativeModifier = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Modificateur du test d'initiative — la Dextérité, et ce qui s'y ajoute. </p>
+
+</div>
+</div>
+<a id="a899a8abe9034ab57c2f630f6a4d92acc" name="a899a8abe9034ab57c2f630f6a4d92acc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a899a8abe9034ab57c2f630f6a4d92acc">&#9670;&#160;</a></span>initiativeStance</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9">RollStance</a> core::CombatantProfile::initiativeStance = <a class="el" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a960b44c579bc2f6818d2daaf9e4c16f0">RollStance::Normal</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae9504a084f7dcd5daad453732a93dd35" name="ae9504a084f7dcd5daad453732a93dd35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9504a084f7dcd5daad453732a93dd35">&#9670;&#160;</a></span>locomotion</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a> core::CombatantProfile::locomotion = <a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffa7a16a854f32231a8df9326136b09ee62">Locomotion::Walk</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5e599dd45695ea84581951275664d614" name="a5e599dd45695ea84581951275664d614"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e599dd45695ea84581951275664d614">&#9670;&#160;</a></span>maximumHitPoints</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::CombatantProfile::maximumHitPoints = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a39bdcb49ec9955df4be07f7c7a812824" name="a39bdcb49ec9955df4be07f7c7a812824"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39bdcb49ec9955df4be07f7c7a812824">&#9670;&#160;</a></span>movement</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::CombatantProfile::movement = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Budget de déplacement, en cases (<span class="tt"><a class="el" href="namespacecore.html#a29156af7de7653ab4fa06d96b0c881a1" title="Le budget de déplacement d&#39;une vitesse de speedMeters, en cases entières.">core::movementBudget</a></span>). </p>
+
+</div>
+</div>
+<a id="ac5cb9015587c83a1875e39b5d6fd4227" name="ac5cb9015587c83a1875e39b5d6fd4227"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5cb9015587c83a1875e39b5d6fd4227">&#9670;&#160;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::CombatantProfile::name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a032fe17fa529b1a5d47c96bf8139bcc5" name="a032fe17fa529b1a5d47c96bf8139bcc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a032fe17fa529b1a5d47c96bf8139bcc5">&#9670;&#160;</a></span>side</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">CombatSide</a> core::CombatantProfile::side = <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">CombatSide::Allies</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a025818f10d93efa6ad3544b9f5d0c908" name="a025818f10d93efa6ad3544b9f5d0c908"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a025818f10d93efa6ad3544b9f5d0c908">&#9670;&#160;</a></span>size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204">CreatureSize</a> core::CombatantProfile::size = <a class="el" href="namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204a87f8a6ab85c9ced3702b4ea641ad4bb5">CreatureSize::Medium</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/<a class="el" href="CombatState_8h_source.html">CombatState.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="structcore_1_1CombatantProfile.html">CombatantProfile</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

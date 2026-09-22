@@ -1,0 +1,720 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::ComponentPool&lt; T &gt; Class Template Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classcore_1_1ComponentPool.html','','classcore_1_1ComponentPool-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::ComponentPool&lt; T &gt; Class Template Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Stockage dense des composants d'un type <span class="tt">T</span>, indexé par entité (sparse set).  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="ComponentPool_8h_source.html">ComponentPool.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for core::ComponentPool&lt; T &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classcore_1_1ComponentPool.png" usemap="#core_3A_3AComponentPool_3C_20T_20_3E_map" alt=""/>
+  <map id="core_3A_3AComponentPool_3C_20T_20_3E_map" name="core_3A_3AComponentPool_3C_20T_20_3E_map">
+<area href="classcore_1_1IComponentPool.html" title="Interface type-effacée d&#39;une pool de composants." alt="core::IComponentPool" shape="rect" coords="0,0,163,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa1ea89339a0b953f501acb46dd31cf73" id="r_aa1ea89339a0b953f501acb46dd31cf73"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa1ea89339a0b953f501acb46dd31cf73">add</a> (<a class="el" href="structcore_1_1Entity.html">Entity</a> entity, const T &amp;component)</td></tr>
+<tr class="memdesc:aa1ea89339a0b953f501acb46dd31cf73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attache un composant à une entité.  <br /></td></tr>
+<tr class="memitem:abfe3af447f41425bf06d4db890f67bf4" id="r_abfe3af447f41425bf06d4db890f67bf4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abfe3af447f41425bf06d4db890f67bf4">remove</a> (<a class="el" href="structcore_1_1Entity.html">Entity</a> entity)</td></tr>
+<tr class="memdesc:abfe3af447f41425bf06d4db890f67bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire le composant d'une entité (swap-and-pop).  <br /></td></tr>
+<tr class="memitem:aefef3a7d8666a0722e213684ab287f31" id="r_aefef3a7d8666a0722e213684ab287f31"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aefef3a7d8666a0722e213684ab287f31">removeIfPresent</a> (<a class="el" href="structcore_1_1Entity.html">Entity</a> entity) override</td></tr>
+<tr class="memdesc:aefef3a7d8666a0722e213684ab287f31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire le composant d'une entité s'il existe (sans précondition).  <br /></td></tr>
+<tr class="memitem:aa6399864a2dc32b2625103a46c0ce6b8" id="r_aa6399864a2dc32b2625103a46c0ce6b8"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa6399864a2dc32b2625103a46c0ce6b8">has</a> (<a class="el" href="structcore_1_1Entity.html">Entity</a> entity) const</td></tr>
+<tr class="memdesc:aa6399864a2dc32b2625103a46c0ce6b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si une entité possède un composant de ce type.  <br /></td></tr>
+<tr class="memitem:a7f399e6294d15b47dcf6a665a5f71d08" id="r_a7f399e6294d15b47dcf6a665a5f71d08"><td class="memItemLeft">T &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a7f399e6294d15b47dcf6a665a5f71d08">get</a> (<a class="el" href="structcore_1_1Entity.html">Entity</a> entity)</td></tr>
+<tr class="memdesc:a7f399e6294d15b47dcf6a665a5f71d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accède au composant d'une entité (lecture-écriture).  <br /></td></tr>
+<tr class="memitem:a4ccf1839af203e6487c32b9a8c1ae00a" id="r_a4ccf1839af203e6487c32b9a8c1ae00a"><td class="memItemLeft">const T &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a4ccf1839af203e6487c32b9a8c1ae00a">get</a> (<a class="el" href="structcore_1_1Entity.html">Entity</a> entity) const</td></tr>
+<tr class="memdesc:a4ccf1839af203e6487c32b9a8c1ae00a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accède au composant d'une entité (lecture seule).  <br /></td></tr>
+<tr class="memitem:aa164388e6fac4b808c075cdf69f952b7" id="r_aa164388e6fac4b808c075cdf69f952b7"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#aa164388e6fac4b808c075cdf69f952b7">size</a> () const</td></tr>
+<tr class="memitem:a8df498c6d5a55e013535f294e92738b1" id="r_a8df498c6d5a55e013535f294e92738b1"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8df498c6d5a55e013535f294e92738b1">empty</a> () const</td></tr>
+<tr class="memitem:a79bfb21e11d5240cca2e36e86aebf356" id="r_a79bfb21e11d5240cca2e36e86aebf356"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1Entity.html">Entity</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a79bfb21e11d5240cca2e36e86aebf356">entities</a> () const</td></tr>
+<tr class="memdesc:a79bfb21e11d5240cca2e36e86aebf356"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entités possédant un composant, dans l'ordre du tableau dense.  <br /></td></tr>
+<tr class="memitem:a6877fc8d758f4e70c682a8e3aca9e832" id="r_a6877fc8d758f4e70c682a8e3aca9e832"><td class="memItemLeft">const std::vector&lt; T &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a6877fc8d758f4e70c682a8e3aca9e832">components</a> () const</td></tr>
+<tr class="memdesc:a6877fc8d758f4e70c682a8e3aca9e832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composants stockés, dans l'ordre du tableau dense.  <br /></td></tr>
+<tr class="inherit_header pub_methods_classcore_1_1IComponentPool"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classcore_1_1IComponentPool')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Public Member Functions inherited from <a class="el" href="classcore_1_1IComponentPool.html">core::IComponentPool</a></td></tr>
+<tr class="memitem:a0f0a0515092cd03e5e533b271f2a44df inherit pub_methods_classcore_1_1IComponentPool" id="r_a0f0a0515092cd03e5e533b271f2a44df"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1IComponentPool.html#a0f0a0515092cd03e5e533b271f2a44df">~IComponentPool</a> ()=default</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a1b125a165f29d95bd74bc14cdd40be64" id="r_a1b125a165f29d95bd74bc14cdd40be64"><td class="memItemLeft">static constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a1b125a165f29d95bd74bc14cdd40be64">INVALID_POSITION</a> = ~std::size_t{0}</td></tr>
+<tr class="memdesc:a1b125a165f29d95bd74bc14cdd40be64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position dense réservée signifiant « aucun composant pour cette entité ».  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a1b7f696c8e40313dc60b16c0970b68ad" id="r_a1b7f696c8e40313dc60b16c0970b68ad"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1b7f696c8e40313dc60b16c0970b68ad">ensureSparseSize</a> (<a class="el" href="structcore_1_1Entity.html#a9e7053bba3d45fb33819fc95e9a82989">Entity::Index</a> index)</td></tr>
+<tr class="memdesc:a1b7f696c8e40313dc60b16c0970b68ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agrandit le tableau creux pour qu'il couvre un index d'entité donné.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a7f018dd02b06e43193affdac6c6c82d2" id="r_a7f018dd02b06e43193affdac6c6c82d2"><td class="memItemLeft">std::vector&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7f018dd02b06e43193affdac6c6c82d2">_components</a></td></tr>
+<tr class="memdesc:a7f018dd02b06e43193affdac6c6c82d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tableau dense des composants (contigu, cache-friendly).  <br /></td></tr>
+<tr class="memitem:a24850e939e46dcf6a2c03f97cc023aa8" id="r_a24850e939e46dcf6a2c03f97cc023aa8"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a24850e939e46dcf6a2c03f97cc023aa8">_entities</a></td></tr>
+<tr class="memdesc:a24850e939e46dcf6a2c03f97cc023aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entités propriétaires, parallèle à <span class="tt"><a class="el" href="#a7f018dd02b06e43193affdac6c6c82d2" title="Tableau dense des composants (contigu, cache-friendly).">_components</a></span>.  <br /></td></tr>
+<tr class="memitem:a7152c6405c12d02065547778a664fcaf" id="r_a7152c6405c12d02065547778a664fcaf"><td class="memItemLeft">std::vector&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7152c6405c12d02065547778a664fcaf">_sparse</a></td></tr>
+<tr class="memdesc:a7152c6405c12d02065547778a664fcaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position dense de chaque entité, indexé par <a class="el" href="structcore_1_1Entity.html#a8549b4984fb56b9cb482921c204267c6">Entity::index</a> (INVALID_POSITION si absente).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
+class core::ComponentPool&lt; T &gt;</div><p>Stockage dense des composants d'un type <span class="tt">T</span>, indexé par entité (sparse set). </p>
+<p>Combine deux structures pour concilier itération rapide et accès direct :</p><ul>
+<li>un tableau <b>dense</b> de composants, contigu en mémoire (itération cache-friendly par les systèmes) et son tableau parallèle des entités propriétaires ;</li>
+<li>un tableau <b>creux</b> indexé par <a class="el" href="structcore_1_1Entity.html#a8549b4984fb56b9cb482921c204267c6">core::Entity::index</a>, associant chaque entité à la position de son composant dans le tableau dense (accès en temps constant).</li>
+</ul>
+<p>La suppression se fait par <em>swap-and-pop</em> : le composant retiré est échangé avec le dernier avant d'être retranché, ce qui maintient la densité sans décaler tout le tableau.</p>
+<dl class="section warning"><dt>Warning</dt><dd>Les références renvoyées par <a class="el" href="#a7f399e6294d15b47dcf6a665a5f71d08" title="Accède au composant d&#39;une entité (lecture-écriture).">get()</a> sont invalidées par tout <a class="el" href="#aa1ea89339a0b953f501acb46dd31cf73" title="Attache un composant à une entité.">add()</a> (réallocation possible) ou <a class="el" href="#abfe3af447f41425bf06d4db890f67bf4" title="Retire le composant d&#39;une entité (swap-and-pop).">remove()</a> (déplacement du dernier élément). Ne pas conserver une référence à un composant au-delà de telles opérations sur la même pool.</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Type de composant stocké. Doit être une donnée pure (<span class="tt">EX-ARCH-011</span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="aa1ea89339a0b953f501acb46dd31cf73" name="aa1ea89339a0b953f501acb46dd31cf73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1ea89339a0b953f501acb46dd31cf73">&#9670;&#160;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Entity.html">Entity</a></td>          <td class="paramname"><span class="paramname"><em>entity</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>component</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Attache un composant à une entité. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>Entité destinataire ; ne doit pas déjà posséder ce composant. </td></tr>
+    <tr><td class="paramname">component</td><td>Valeur du composant à copier dans le tableau dense. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>L'entité ne possède pas encore de composant de ce type (<a class="el" href="#aa6399864a2dc32b2625103a46c0ce6b8" title="Indique si une entité possède un composant de ce type.">has()</a> == false). </dd></dl>
+
+</div>
+</div>
+<a id="a6877fc8d758f4e70c682a8e3aca9e832" name="a6877fc8d758f4e70c682a8e3aca9e832"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6877fc8d758f4e70c682a8e3aca9e832">&#9670;&#160;</a></span>components()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; T &gt; &amp; <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::components </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Composants stockés, dans l'ordre du tableau dense. </p>
+<dl class="section return"><dt>Returns</dt><dd>Une référence constante sur le tableau dense des composants. </dd></dl>
+
+</div>
+</div>
+<a id="a8df498c6d5a55e013535f294e92738b1" name="a8df498c6d5a55e013535f294e92738b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8df498c6d5a55e013535f294e92738b1">&#9670;&#160;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::empty </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si la pool ne contient aucun composant. </dd></dl>
+
+</div>
+</div>
+<a id="a1b7f696c8e40313dc60b16c0970b68ad" name="a1b7f696c8e40313dc60b16c0970b68ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b7f696c8e40313dc60b16c0970b68ad">&#9670;&#160;</a></span>ensureSparseSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::ensureSparseSize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Entity.html#a9e7053bba3d45fb33819fc95e9a82989">Entity::Index</a></td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Agrandit le tableau creux pour qu'il couvre un index d'entité donné. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Index d'entité à rendre adressable dans le tableau creux. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a79bfb21e11d5240cca2e36e86aebf356" name="a79bfb21e11d5240cca2e36e86aebf356"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79bfb21e11d5240cca2e36e86aebf356">&#9670;&#160;</a></span>entities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1Entity.html">Entity</a> &gt; &amp; <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::entities </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Entités possédant un composant, dans l'ordre du tableau dense. </p>
+<dl class="section return"><dt>Returns</dt><dd>Une référence constante sur le tableau dense des entités. </dd></dl>
+
+</div>
+</div>
+<a id="a7f399e6294d15b47dcf6a665a5f71d08" name="a7f399e6294d15b47dcf6a665a5f71d08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f399e6294d15b47dcf6a665a5f71d08">&#9670;&#160;</a></span>get() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::get </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Entity.html">Entity</a></td>          <td class="paramname"><span class="paramname"><em>entity</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Accède au composant d'une entité (lecture-écriture). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>Entité porteuse du composant. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Une référence sur le composant stocké. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>L'entité possède ce composant (<a class="el" href="#aa6399864a2dc32b2625103a46c0ce6b8" title="Indique si une entité possède un composant de ce type.">has()</a> == true). </dd></dl>
+
+</div>
+</div>
+<a id="a4ccf1839af203e6487c32b9a8c1ae00a" name="a4ccf1839af203e6487c32b9a8c1ae00a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ccf1839af203e6487c32b9a8c1ae00a">&#9670;&#160;</a></span>get() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const T &amp; <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::get </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Entity.html">Entity</a></td>          <td class="paramname"><span class="paramname"><em>entity</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Accède au composant d'une entité (lecture seule). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>Entité porteuse du composant. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Une référence constante sur le composant stocké. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>L'entité possède ce composant (<a class="el" href="#aa6399864a2dc32b2625103a46c0ce6b8" title="Indique si une entité possède un composant de ce type.">has()</a> == true). </dd></dl>
+
+</div>
+</div>
+<a id="aa6399864a2dc32b2625103a46c0ce6b8" name="aa6399864a2dc32b2625103a46c0ce6b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6399864a2dc32b2625103a46c0ce6b8">&#9670;&#160;</a></span>has()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::has </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Entity.html">Entity</a></td>          <td class="paramname"><span class="paramname"><em>entity</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indique si une entité possède un composant de ce type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>Entité testée. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si un composant est associé à cette entité (génération incluse). </dd></dl>
+
+</div>
+</div>
+<a id="abfe3af447f41425bf06d4db890f67bf4" name="abfe3af447f41425bf06d4db890f67bf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfe3af447f41425bf06d4db890f67bf4">&#9670;&#160;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::remove </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Entity.html">Entity</a></td>          <td class="paramname"><span class="paramname"><em>entity</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retire le composant d'une entité (swap-and-pop). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>Entité dont le composant est retiré. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>L'entité possède ce composant (<a class="el" href="#aa6399864a2dc32b2625103a46c0ce6b8" title="Indique si une entité possède un composant de ce type.">has()</a> == true). </dd></dl>
+
+</div>
+</div>
+<a id="aefef3a7d8666a0722e213684ab287f31" name="aefef3a7d8666a0722e213684ab287f31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefef3a7d8666a0722e213684ab287f31">&#9670;&#160;</a></span>removeIfPresent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::removeIfPresent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Entity.html">Entity</a></td>          <td class="paramname"><span class="paramname"><em>entity</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retire le composant d'une entité s'il existe (sans précondition). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>Entité éventuellement porteuse du composant. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si un composant a été retiré, <span class="tt">false</span> s'il n'y en avait pas. </dd></dl>
+
+<p>Implements <a class="el" href="classcore_1_1IComponentPool.html#ab0b1a9b6d1ab67638c268e1dd678a90b">core::IComponentPool</a>.</p>
+
+</div>
+</div>
+<a id="aa164388e6fac4b808c075cdf69f952b7" name="aa164388e6fac4b808c075cdf69f952b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa164388e6fac4b808c075cdf69f952b7">&#9670;&#160;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::size </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Nombre de composants actuellement stockés. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a7f018dd02b06e43193affdac6c6c82d2" name="a7f018dd02b06e43193affdac6c6c82d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f018dd02b06e43193affdac6c6c82d2">&#9670;&#160;</a></span>_components</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;T&gt; <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::_components</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tableau dense des composants (contigu, cache-friendly). </p>
+
+</div>
+</div>
+<a id="a24850e939e46dcf6a2c03f97cc023aa8" name="a24850e939e46dcf6a2c03f97cc023aa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24850e939e46dcf6a2c03f97cc023aa8">&#9670;&#160;</a></span>_entities</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Entity.html">Entity</a>&gt; <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::_entities</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Entités propriétaires, parallèle à <span class="tt"><a class="el" href="#a7f018dd02b06e43193affdac6c6c82d2" title="Tableau dense des composants (contigu, cache-friendly).">_components</a></span>. </p>
+
+</div>
+</div>
+<a id="a7152c6405c12d02065547778a664fcaf" name="a7152c6405c12d02065547778a664fcaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7152c6405c12d02065547778a664fcaf">&#9670;&#160;</a></span>_sparse</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::size_t&gt; <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::_sparse</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Position dense de chaque entité, indexé par <a class="el" href="structcore_1_1Entity.html#a8549b4984fb56b9cb482921c204267c6">Entity::index</a> (INVALID_POSITION si absente). </p>
+
+</div>
+</div>
+<a id="a1b125a165f29d95bd74bc14cdd40be64" name="a1b125a165f29d95bd74bc14cdd40be64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b125a165f29d95bd74bc14cdd40be64">&#9670;&#160;</a></span>INVALID_POSITION</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="classcore_1_1ComponentPool.html">core::ComponentPool</a>&lt; T &gt;::INVALID_POSITION = ~std::size_t{0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Position dense réservée signifiant « aucun composant pour cette entité ». </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Ecs/<a class="el" href="ComponentPool_8h_source.html">ComponentPool.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="classcore_1_1ComponentPool.html">ComponentPool</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

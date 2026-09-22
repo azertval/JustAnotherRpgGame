@@ -1,181 +1,33 @@
-<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
-     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
-     En-tête HTML de la référence de code (Doxygen 1.16.1).
-     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
-     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
-     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
-     posée hors de ce bloc décalerait les deux de sa propre hauteur.
-     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
-     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
-     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
-     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
--->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<!doctype html>
+<html lang="fr">
 <head>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.16.1"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>JustAnotherRpgGame: JustAnotherRpgGame</title>
-<link href="tabs.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="dynsections.js"></script>
-<script type="text/javascript" src="clipboard.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript" src="cookie.js"></script>
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="search/searchdata.js"></script>
-<script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-  $(function() { init_search(); });
-</script>
-<link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="tokens.css" rel="stylesheet" type="text/css"/>
-<link href="topbar.css" rel="stylesheet" type="text/css"/>
-<link href="reference.css" rel="stylesheet" type="text/css"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JustAnotherRpgGame — Documentation</title>
+<link rel="stylesheet" href="assets/theme.css">
 </head>
-<body>
-<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
-<header class="topbar topbar--flux">
+<body data-root=".">
+<header class="topbar">
   <a class="brand" href="index.html"><span>Just Another RPG Game</span> Documentation</a>
-  <nav>
-    <a href="index.html">Accueil</a>
-    <a href="guide.html">Guide</a>
-    <a href="specifications.html">Spécifications</a>
-    <a href="lots.html">Lots</a>
-    <a href="cahiertest.html">Cahier de test</a>
-    <a href="manuel.html">Manuel</a>
-    <a href="annotated.html">Classes</a>
-    <a href="files.html">Fichiers</a>
-  </nav>
-  <div class="links">
-    <a class="active" href="index.html">Documentation</a>
-    <a href="planning/index.html">Planification</a>
-    <a href="qualite/index.html">Qualité</a>
-  </div>
+  <nav><a href="index.html" class="active">Accueil</a><a href="Guide/index.html">Guide</a><a href="Specification/index.html">Spécifications</a><a href="CahierTest/index.html">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="index.html">Documentation</a><a href="planning/">Planification</a><a href="qualite/">Qualité</a></div>
 </header>
-<script type="text/javascript">
-/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
-   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
-(function() {
-  var here = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.topbar nav a').forEach(function(link) {
-    if (link.getAttribute('href').split('/').pop() === here) { link.className = 'active'; }
-  });
-})();
-</script>
-<div id="titlearea">
-<table cellspacing="0" cellpadding="0">
- <tbody>
- <tr id="projectrow">
-  <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
-   </div>
-   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
-  </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
-          </span>
-        </div>
-</td>
- </tr>
- </tbody>
-</table>
-</div>
-<!-- end header part -->
-<!-- Generated by Doxygen 1.16.1 -->
-<script type="text/javascript">
-var searchBox = new SearchBox("searchBox", "search/",'.html');
-</script>
-<script type="text/javascript">
-$(function() { codefold.init(); });
-</script>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-$(function(){initNavTree('index.html','',''); });
-</script>
-<div id="container">
-<div id="doc-content">
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+<div class="shell">
 
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<div id="MSearchResults">
-<div class="SRPage">
-<div id="SRIndex">
-<div id="SRResults"></div>
-<div class="SRStatus" id="Loading">Loading...</div>
-<div class="SRStatus" id="Searching">Searching...</div>
-<div class="SRStatus" id="NoMatches">No Matches</div>
+<main>
+<section class="hero"><h1 id="justanotherrpggame">JustAnotherRpgGame</h1><div class="stats"><div><b>69</b><span>pages</span></div><div><b>273</b><span>exigences en vigueur</span></div><div><b>175</b><span>lots planifiés</span></div></div></section><div class="vcards"><a class="vcard" href="Guide/index.html"><strong>Guide</strong><p>Ce guide explique <strong>toutes les notions couvertes par le moteur</strong> et <strong>comment le code les implémente</strong>. Objectif : un développeur ayant des notions de C++ mais <strong>aucune expérience du développement de jeu vidéo</strong> comprend l'ensemble du code <strong>en autonomie</strong> — chaque page part des définitions de base (qu'est-ce qu'une boucle de jeu ? un ECS ? une couche de tuiles ? un lot de sprites ?) avant d'entrer dans l'implémentation, plutôt que de présupposer ce vocabulaire acquis. Chaque page décrit les fonctions clés, leurs invariants, le <strong>pourquoi</strong> des choix de conception (pas seulement le <em>quoi</em>), et renvoie aux <strong>explications mathématiques/algorithmiques</strong> derrière les concepts.</p><span class="meta">25 pages</span></a><a class="vcard" href="Specification/index.html"><strong>Spécifications</strong><p>Les spécifications disent <strong>quoi</strong> faire, et surtout <strong>pourquoi</strong> — indépendamment de la façon dont le code s'y prend. C'est la partie de la documentation qui <strong>engage</strong> : le <a href="../Guide/README.md">guide</a> peut être réécrit quand le code change, une exigence ne change que par une décision.</p><span class="meta">18 pages</span></a><a class="vcard" href="CahierTest/index.html"><strong>Cahier de test</strong><p><strong>922 cas de test</strong>, un par test automatisé du dépôt. Le cahier est <strong>engendré</strong> depuis les blocs <code>\castest{…}</code> écrits au-dessus de chaque test par <code>scripts/generate_cahier_test.py</code> : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc.</p><span class="meta">25 pages</span></a><a class="vcard" href="planning/"><strong>Planification</strong><p>Les versions, les lots livrés et à venir, leur ordre calculé et leurs maquettes.</p><span class="meta">175 lots</span></a><a class="vcard" href="qualite/"><strong>Qualité</strong><p>Couverture de code par domaine et mesures de performance de la nuit.</p><span class="meta">mise à jour à chaque publication</span></a><a class="vcard" href="reference/"><strong>Référence du code</strong><p>Classes, espaces de noms et fichiers de <code>Source/</code>, engendrés par Doxygen : l'annexe du guide.</p><span class="meta">Doxygen</span></a></div><article class="prose">
+<p>RPG 2D <strong>en vue isométrique</strong> développé <strong>from scratch</strong> en <strong>C++20 / Qt QRhi</strong> (Direct3D 11 sous Windows), sans moteur tiers : exploration en temps réel, et rencontres en <strong>combat tactique au tour par tour</strong> régi par un système <strong>d20</strong> maison, dans l'univers de Tanares.</p>
+<p>Cette documentation tient en un seul site, et chaque partie répond à une question :</p>
+<div class="table-wrap"><table><thead><tr><th>Partie</th><th>La question</th><th>La source</th></tr></thead><tbody><tr><td><a href="Guide/index.html">Guide</a></td><td><strong>Comment</strong> ça marche, et comment s'en servir ? Le manuel du joueur et de l'auteur de cartes, puis le moteur domaine par domaine.</td><td><code>Documentation/Guide/</code></td></tr><tr><td><a href="Specification/index.html">Spécifications</a></td><td><strong>Quoi</strong>, et <strong>pourquoi</strong> ? Les exigences <code>EX-…</code>, tracées jusqu'au code et aux tests.</td><td><code>Documentation/Specification/</code></td></tr><tr><td><a href="CahierTest/index.html">Cahier de test</a></td><td>Qu'est-ce qui est <strong>vérifié</strong> ? Un cas par test automatisé.</td><td>engendré depuis <code>Source/Test/</code></td></tr><tr><td><a href="planning/index.html">Planification</a></td><td><strong>Quand</strong>, et dans quel ordre ? Les versions, les lots livrés et à venir.</td><td><code>Planning/</code></td></tr><tr><td><a href="reference/index.html">Référence du code</a></td><td>Que fait <strong>ce symbole</strong> ? L'annexe du guide, engendrée par Doxygen.</td><td>les commentaires de <code>Source/</code></td></tr></tbody></table></div>
+<h2 id="en-bref">En bref</h2>
+<ul><li><strong>Langage et rendu</strong> : C++20, Qt QRhi (Direct3D 11 sous Windows), scène dessinée en isométrique.</li><li><strong>Architecture</strong> : un cœur de simulation (<code>Core</code>) <strong>indépendant</strong> de la présentation (<code>HMI</code>) ; le jeu en Qt Quick, l'éditeur de cartes en Qt Widgets ; les données et les assets vivent dans <code>Source/Elements</code>.</li><li><strong>Qualité</strong> : build sans avertissement (<code>/W4 /WX</code>), tests unitaires, d'intégration et système (GoogleTest), CI GitHub Actions, couverture et performances publiées sous <em>Qualité</em>.</li></ul>
+<h2 id="comment-cette-documentation-est-faite">Comment cette documentation est faite</h2>
+<p>Toutes les pages sont du <strong>Markdown nu</strong>, lisible tel quel dans le dépôt, et rendues par un seul moteur — celui de la planification (<code>Documentation/outils/build_docs_site.py</code>). Doxygen ne garde que le code. Les conventions d'écriture (liens, exigences, figures, encadrés) sont dans <a href="Guide/guide-documentation.html">Écrire la documentation</a> ; l'historique des livraisons est dans <code>CHANGELOG.md</code>.</p></article>
+</main>
 </div>
-</div>
-</div>
-</div>
-
-<div><div class="header">
-  <div class="headertitle"><div class="title">JustAnotherRpgGame </div></div>
-</div><!--header-->
-<div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_index"></a></p>
-<p>RPG 2D <b>en vue de dessus</b> développé <b>from scratch</b> en <b>C++20 / Qt QRhi</b> (Direct3D 11 sous Windows), sans moteur tiers : exploration en temps réel, et rencontres en <b>combat tactique au tour par tour</b> régi par un système <b>d20</b> maison.</p>
-<p>Cette documentation rassemble, en un seul endroit, les <b>spécifications</b> du projet, les <b>lots de travail</b>, le <b>manuel utilisateur</b> et la <b>référence de code</b> générée à partir des sources.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
-En bref</h1>
-<ul>
-<li><b>Langage &amp; rendu</b> : C++20, Qt QRhi (Direct3D 11 sous Windows), scène dessinée en isométrique.</li>
-<li><b>Architecture</b> : un cœur de simulation (<span class="tt">Core</span>) <b>indépendant</b> de la présentation (<span class="tt">HMI</span>) ; le jeu en Qt Quick, l'éditeur de cartes en Qt Widgets ; les données et assets vivent dans <span class="tt">Elements</span>.</li>
-<li><b>Qualité</b> : build sans avertissement (<span class="tt">/W4 /WX</span>), tests unitaires et d'intégration (GoogleTest), documentation Doxygen et CI GitHub Actions.</li>
-</ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
-Avancement</h1>
-<p>Le détail de chaque lot (objectifs, tâches, avancement) est dans la rubrique <a class="el" href="lots.html" title="Lots">Lots</a> ; l'historique des livraisons est dans <span class="tt">CHANGELOG.md</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
-Navigation</h1>
-<ul>
-<li><a class="el" href="guide.html" title="Guide du développeur">Guide du développeur</a> — <b>Guide du développeur</b> : comprendre tout le moteur (concepts, code, maths).</li>
-<li><a class="el" href="cahiertest.html" title="Cahier de test">Cahier de test</a> — <b>Cahier de test</b> : tous les cas de test (catégorie, criticité, étapes).</li>
-<li><a class="el" href="specifications.html" title="Spécifications">Spécifications</a> — besoins, contraintes et exigences (<span class="tt">EX-…</span>), conventions de code.</li>
-<li><a class="el" href="lots.html" title="Lots">Lots</a> — les lots <b>livrés</b> (<span class="tt">LOT-01</span> à <span class="tt">LOT-96</span>) et l'ancienne feuille de route, figée.</li>
-<li><b>Planification</b> — les versions et les lots <b>à venir</b>, leur avancement et leurs maquettes : <a href="planning/index.html">site de planification</a> (source : dossier <span class="tt">Planning/</span> du dépôt).</li>
-<li><b>Qualité</b> — couverture de code par domaine et mesures de performance de la nuit : <a href="qualite/index.html">page qualité</a> (assemblée à chaque publication du site).</li>
-<li><a class="el" href="manuel.html" title="Manuel utilisateur">Manuel utilisateur</a> — manuel utilisateur (télécharger et lancer le jeu).</li>
-<li><b>Référence de code</b> — classes, espaces de noms et fichiers de <span class="tt">Source/</span> : voir l'arbre de navigation (menu latéral) et les onglets <em>Namespaces</em> / <em>Classes</em>. </li>
-</ul>
-</div></div><!-- PageDoc -->
-<a href="doxygen_crawl.html"></a>
-</div><!-- contents -->
-</div><!-- doc-content -->
-</div><!-- container -->
-<!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
-  </ul>
-</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="assets/site.js"></script>
+<script src="assets/docs.js"></script>
 </body>
 </html>

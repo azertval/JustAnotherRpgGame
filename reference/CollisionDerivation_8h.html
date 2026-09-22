@@ -1,0 +1,208 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Levels/CollisionDerivation.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('CollisionDerivation_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CollisionDerivation.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>La collision d'une carte, <b>déduite</b> de ce qu'elle montre (<span class="tt">LOT-EDITOR-12</span>, décision D10, <span class="tt">EX-LVL-020</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileLayer_8h_source.html">Core/Levels/TileLayer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ScenePieceManifest_8h_source.html">Core/Resources/ScenePieceManifest.h</a>&quot;</code><br />
+</div>
+<p><a href="CollisionDerivation_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:core_3A_3ACollisionDerivation" id="r_core_3A_3ACollisionDerivation"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CollisionDerivation.html">core::CollisionDerivation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la déduction a produit, et ce qu'elle a relevé en chemin.  <a href="structcore_1_1CollisionDerivation.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
+<tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a54b64d433a22d60c2c1345b4aa840b6b" id="r_a54b64d433a22d60c2c1345b4aa840b6b"><td class="memItemLeft"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a54b64d433a22d60c2c1345b4aa840b6b">core::collisionTileOf</a> (<a class="el" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252">PieceTactical</a> tactical) noexcept</td></tr>
+<tr class="memitem:a3587c285d8e6987726dddee56f0420f5" id="r_a3587c285d8e6987726dddee56f0420f5"><td class="memItemLeft"><a class="el" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252">PieceTactical</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a3587c285d8e6987726dddee56f0420f5">core::tacticalOfTileType</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) noexcept</td></tr>
+<tr class="memitem:a3322a01062af04e9242df68f744c142f" id="r_a3322a01062af04e9242df68f744c142f"><td class="memItemLeft"><a class="el" href="structcore_1_1CollisionDerivation.html">CollisionDerivation</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a3322a01062af04e9242df68f744c142f">core::deriveCollision</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">TileLayer</a> &gt; &amp;layers, int width, int height, const <a class="el" href="classcore_1_1ScenePieceManifest.html">ScenePieceManifest</a> *manifest)</td></tr>
+<tr class="memdesc:a3322a01062af04e9242df68f744c142f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déduit la grille de collision d'une carte.  <br /></td></tr>
+<tr class="memitem:a9e7f745df4aabd6864d43a907531834f" id="r_a9e7f745df4aabd6864d43a907531834f"><td class="memItemLeft"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a9e7f745df4aabd6864d43a907531834f">core::canonicalCollisionTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) noexcept</td></tr>
+<tr class="memitem:a81edd55832615bfecbb8da06147ef2c6" id="r_a81edd55832615bfecbb8da06147ef2c6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a81edd55832615bfecbb8da06147ef2c6">core::collisionAgrees</a> (const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;written, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;derived, int column, int row)</td></tr>
+<tr class="memdesc:a81edd55832615bfecbb8da06147ef2c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si la grille de collision écrite <code class="param">written</code> s'accorde avec <code class="param">derived</code> en (<code class="param">column</code>, <code class="param">row</code>) : elles opposent la même chose (<span class="tt"><a class="el" href="namespacecore.html#a9e7f745df4aabd6864d43a907531834f">canonicalCollisionTile</a></span>).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>La collision d'une carte, <b>déduite</b> de ce qu'elle montre (<span class="tt">LOT-EDITOR-12</span>, décision D10, <span class="tt">EX-LVL-020</span>). </p>
+<p>Jusqu'à la v3, la grille de collision se peignait à part, et rien ne la tenait d'accord avec les pièces posées : un mur dessiné pouvait se traverser. En v4, elle se <b>déduit</b> des couches visuelles et du manifeste des pièces, puis s'<b>écrit</b> dans le fichier — le jeu la lit sans manifeste — avec la liste des cases que l'auteur a <b>forcées</b> à la main. <span class="tt">LevelEditor --check</span> vérifie que le fichier égale la déduction, cases forcées mises à part.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
+La règle, case par case</h2>
+<p>Chaque case reçoit la contribution <b>la plus forte</b> (<span class="tt"><a class="el" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252" title="Ce qu&#39;une pièce oppose à qui passe : son type tactique (décision D10, constat A5).">core::PieceTactical</a></span>) de :</p>
+<ol type="1">
+<li>chaque pièce nommée par une couche visuelle dont l'<b>emprise</b> la couvre (<span class="tt"><a class="el" href="namespacecore.html#ae5ef43ac4990d56ddac5719dd23eb279">core::footprintCells</a></span>) : son type tactique au manifeste ;</li>
+<li>chaque case de couche visuelle <b>sans pièce</b> (ou dont la pièce est absente du manifeste) mais d'un type non vide : la règle du type — mur et matière pleine arrêtent la vue, eau profonde et falaise arrêtent le pas, le reste passe ;</li>
+<li>une case que <b>rien</b> ne couvre — ni type, ni pièce, sur aucune couche — est du vide : elle arrête la vue. On ne se tient pas là où il n'y a pas de sol.</li>
+</ol>
+<p>La contribution s'écrit dans le vocabulaire de la grille de collision que le jeu lit déjà : <span class="tt">wall</span> (arrête la vue), <span class="tt">cliff</span> (arrête le pas), vide sinon. La gêne et l'abri se déduisent vides : aucune règle du jeu ne les joue encore depuis une pièce, et la déduction les relève (<span class="tt">CollisionDerivation::unplayed</span>) pour que le contrôle le dise.</p>
+<p>L'entrée n'est pas déduite : elle est un repère posé dans la grille, et l'appelant la replace. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_e9bc3547f945e106b199f4f7c7c6d92f.html">Levels</a></li><li class="navelem"><a href="CollisionDerivation_8h.html">CollisionDerivation.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

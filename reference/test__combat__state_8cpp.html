@@ -1,0 +1,631 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/test_combat_state.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__combat__state_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_combat_state.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests de la machine à états du combat : initiative, tour, crochets, entrées et sorties, les trois fins (<span class="tt">LOT-20</span>, <span class="tt">EX-CBT-010</span>, <span class="tt">EX-CBT-011</span>, <span class="tt">EX-CBT-012</span>, <span class="tt">EX-VIS-004</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="ActionEconomy_8h_source.html">Core/Combat/ActionEconomy.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="BattleGrid_8h_source.html">Core/Combat/BattleGrid.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CombatState_8h_source.html">Core/Combat/CombatState.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CombatTransition_8h_source.html">Core/Combat/CombatTransition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Encounter_8h_source.html">Core/Combat/Encounter.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldFlags_8h_source.html">Core/Gameplay/WorldFlags.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DeterministicRandom_8h_source.html">Core/Math/DeterministicRandom.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Bestiary_8h_source.html">Core/Rpg/Bestiary.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CharacterSheet_8h_source.html">Core/Rpg/CharacterSheet.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Check_8h_source.html">Core/Rpg/Check.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Dice_8h_source.html">Core/Rpg/Dice.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a08073ad1d9003ce703deaf8c06fbb4f2" id="r_a08073ad1d9003ce703deaf8c06fbb4f2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a08073ad1d9003ce703deaf8c06fbb4f2">TEST</a> (CombatStateTest, LInitiativeEstJeteeUneFoisEtLOrdreTient)</td></tr>
+<tr class="memdesc:a08073ad1d9003ce703deaf8c06fbb4f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'initiative est jetee une fois, et l'ordre tient jusqu'a la fin.  <br /></td></tr>
+<tr class="memitem:a75c5c7fcaf2ad9d74e31d6433f208040" id="r_a75c5c7fcaf2ad9d74e31d6433f208040"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a75c5c7fcaf2ad9d74e31d6433f208040">TEST</a> (CombatStateTest, LeTourNeFinitQueSurDemande)</td></tr>
+<tr class="memdesc:a75c5c7fcaf2ad9d74e31d6433f208040"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un tour ne se termine que sur demande, meme ressources epuisees.  <br /></td></tr>
+<tr class="memitem:ada60dcedf64778dc918a328e6ca9e2dd" id="r_ada60dcedf64778dc918a328e6ca9e2dd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ada60dcedf64778dc918a328e6ca9e2dd">TEST</a> (CombatStateTest, LaReactionRevientAuDebutDuTourDeSonPorteur)</td></tr>
+<tr class="memdesc:ada60dcedf64778dc918a328e6ca9e2dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">La reaction revient au debut du tour de son porteur, pas a la fin du tour courant.  <br /></td></tr>
+<tr class="memitem:a7c4604655b1a1fcb9180ccb84b4fcdd8" id="r_a7c4604655b1a1fcb9180ccb84b4fcdd8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7c4604655b1a1fcb9180ccb84b4fcdd8">TEST</a> (CombatStateTest, UneVictoireQuandPlusAucunEnnemiNEstDebout)</td></tr>
+<tr class="memdesc:a7c4604655b1a1fcb9180ccb84b4fcdd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Premiere fin : la victoire.  <br /></td></tr>
+<tr class="memitem:ac2b42c4dae24fb2e6edfd5cd51226848" id="r_ac2b42c4dae24fb2e6edfd5cd51226848"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac2b42c4dae24fb2e6edfd5cd51226848">TEST</a> (CombatStateTest, UneDefaiteQuandTousLesAlliesSontATerre)</td></tr>
+<tr class="memdesc:ac2b42c4dae24fb2e6edfd5cd51226848"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deuxieme fin : la defaite.  <br /></td></tr>
+<tr class="memitem:adfc180acbe51be64e64316450722b700" id="r_adfc180acbe51be64e64316450722b700"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adfc180acbe51be64e64316450722b700">TEST</a> (CombatStateTest, UneFuiteQuandLesAlliesQuittentLaZone)</td></tr>
+<tr class="memdesc:adfc180acbe51be64e64316450722b700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Troisieme fin : la fuite.  <br /></td></tr>
+<tr class="memitem:a9e8e3256472c05829c9fb6a65bcfac10" id="r_a9e8e3256472c05829c9fb6a65bcfac10"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9e8e3256472c05829c9fb6a65bcfac10">TEST</a> (CombatStateTest, QuatreAlliesSansHerosUnique)</td></tr>
+<tr class="memdesc:a9e8e3256472c05829c9fb6a65bcfac10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quatre allies : rien ne suppose un heros unique.  <br /></td></tr>
+<tr class="memitem:ab9d5976d3962176eecbd70d442c6575b" id="r_ab9d5976d3962176eecbd70d442c6575b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab9d5976d3962176eecbd70d442c6575b">TEST</a> (CombatStateTest, UnCombatACinqSeDerouleSansFenetreEtSeRejoue)</td></tr>
+<tr class="memdesc:ab9d5976d3962176eecbd70d442c6575b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un combat a cinq se deroule sans fenetre jusqu'a sa fin, et se rejoue a l'identique.  <br /></td></tr>
+<tr class="memitem:a690e6bc9631e6f3bad96ad7df4221ddd" id="r_a690e6bc9631e6f3bad96ad7df4221ddd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a690e6bc9631e6f3bad96ad7df4221ddd">TEST</a> (CombatStateTest, UnRenfortEntreEnCoursDeCombat)</td></tr>
+<tr class="memdesc:a690e6bc9631e6f3bad96ad7df4221ddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un renfort entre en cours de combat et prend sa place par la regle d'ordre.  <br /></td></tr>
+<tr class="memitem:adde82f584709bfbc2a823ea9cf884ea1" id="r_adde82f584709bfbc2a823ea9cf884ea1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adde82f584709bfbc2a823ea9cf884ea1">TEST</a> (CombatStateTest, LesCrochetsSAnnoncentDansLOrdre)</td></tr>
+<tr class="memdesc:adde82f584709bfbc2a823ea9cf884ea1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les points d'insertion s'annoncent dans l'ordre, et l'acteur flottant joue quand il veut.  <br /></td></tr>
+<tr class="memitem:a6f4c6122730b7e5d395e119b586ab876" id="r_a6f4c6122730b7e5d395e119b586ab876"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6f4c6122730b7e5d395e119b586ab876">TEST</a> (CombatStateTest, UnCombattantATerrePasseSonTour)</td></tr>
+<tr class="memdesc:a6f4c6122730b7e5d395e119b586ab876"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un combattant a terre passe ses tours, et celui qui tombe pendant son tour le termine.  <br /></td></tr>
+<tr class="memitem:af5a1a459214b2e55713e397ad9a04300" id="r_af5a1a459214b2e55713e397ad9a04300"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af5a1a459214b2e55713e397ad9a04300">TEST</a> (CombatStateTest, LeDeplacementPaieLeCheminEtLesCampsDisentQuiSeTraverse)</td></tr>
+<tr class="memdesc:af5a1a459214b2e55713e397ad9a04300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le deplacement du tour paie son chemin, et le camp dit qui l'on traverse.  <br /></td></tr>
+<tr class="memitem:aa90d37f6a8a8ec1e9bc0bf9950405cf5" id="r_aa90d37f6a8a8ec1e9bc0bf9950405cf5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa90d37f6a8a8ec1e9bc0bf9950405cf5">TEST</a> (CombatStateTest, LeMontageDUneRencontrePlaceEtRefuseEnLeDisant)</td></tr>
+<tr class="memdesc:aa90d37f6a8a8ec1e9bc0bf9950405cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le montage d'une rencontre attribue les identifiants, place, et dit ce qu'il refuse.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests de la machine à états du combat : initiative, tour, crochets, entrées et sorties, les trois fins (<span class="tt">LOT-20</span>, <span class="tt">EX-CBT-010</span>, <span class="tt">EX-CBT-011</span>, <span class="tt">EX-CBT-012</span>, <span class="tt">EX-VIS-004</span>). </p>
+<p><b>Aucune fenêtre</b> : un combat se déroule ici du premier round à sa fin, au rythme des appels du test. Les combattants sont écrits dans le test, jamais lus d'un catalogue livré. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ada60dcedf64778dc918a328e6ca9e2dd" name="ada60dcedf64778dc918a328e6ca9e2dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada60dcedf64778dc918a328e6ca9e2dd">&#9670;&#160;</a></span>TEST() <span class="overload">[1/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaReactionRevientAuDebutDuTourDeSonPorteur</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La reaction revient au debut du tour de son porteur, pas a la fin du tour courant. </p>
+<p><b>Cas de test :</b> <b>Une reaction depensee hors de son tour ne revient qu'au debut du tour de son porteur.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Ordre : heroine, loup, compagnon.<br  />
+2. Pendant le tour de l'heroine, le compagnon depense sa reaction.<br  />
+3. Terminer le tour de l'heroine, puis celui du loup.<br  />
+ <b>Resultat attendu :</b> Pendant le tour du loup, la reaction du compagnon est toujours a 0 ; elle revient a 1 quand son tour commence. </p>
+
+</div>
+</div>
+<a id="af5a1a459214b2e55713e397ad9a04300" name="af5a1a459214b2e55713e397ad9a04300"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5a1a459214b2e55713e397ad9a04300">&#9670;&#160;</a></span>TEST() <span class="overload">[2/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeDeplacementPaieLeCheminEtLesCampsDisentQuiSeTraverse</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le deplacement du tour paie son chemin, et le camp dit qui l'on traverse. </p>
+<p><b>Cas de test :</b> <b>Le deplacement se paie sur le budget restant ; on traverse un allie, un ennemi tres petit, jamais un ennemi de taille voisine.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Couloir 7x1 : heroine (6 cases) en 0, compagnon en 1, rat tres petit ennemi en 3.<br  />
+</p><ol type="1">
+<li>Aller en 2, puis en 4.<br  />
+3. Meme couloir avec un gobelin de taille M a la place du rat.<br  />
+ <b>Resultat attendu :</b> Destinations 2 et 4 ; aller en 2 coute 3 (la case du compagnon compte double) ; de 2, aller en 4 coute les 3 restantes ; avec le gobelin, seule la case 2 est une destination. </li>
+</ol>
+
+</div>
+</div>
+<a id="aa90d37f6a8a8ec1e9bc0bf9950405cf5" name="aa90d37f6a8a8ec1e9bc0bf9950405cf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa90d37f6a8a8ec1e9bc0bf9950405cf5">&#9670;&#160;</a></span>TEST() <span class="overload">[3/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeMontageDUneRencontrePlaceEtRefuseEnLeDisant</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le montage d'une rencontre attribue les identifiants, place, et dit ce qu'il refuse. </p>
+<p><b>Cas de test :</b> <b>Le montage pose le groupe puis les creatures de la rencontre, et nomme chaque refus avec sa raison.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Carte a un mur ; rencontre de cinq entrees : un gobelin libre, un dans le mur, une creature inconnue, une chauve-souris, un gobelin sur la case de l'heroine.<br  />
+2. Monter la rencontre avec l'heroine au declencheur.<br  />
+3. Gagner le combat et le terminer.<br  />
+ <b>Resultat attendu :</b> Allie 1, ennemis 2 et 3 ; trois refus : mur (Obstructed), inconnue (sans raison de grille), case prise (Occupied) ; la chauve-souris vole ; la fiche donne +3 et 6 cases ; la fuite est interdite comme dans la donnee ; la victoire pose le drapeau de la rencontre. </p>
+
+</div>
+</div>
+<a id="adde82f584709bfbc2a823ea9cf884ea1" name="adde82f584709bfbc2a823ea9cf884ea1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adde82f584709bfbc2a823ea9cf884ea1">&#9670;&#160;</a></span>TEST() <span class="overload">[4/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesCrochetsSAnnoncentDansLOrdre</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les points d'insertion s'annoncent dans l'ordre, et l'acteur flottant joue quand il veut. </p>
+<p><b>Cas de test :</b> <b>Les crochets du combat s'annoncent dans un ordre fixe, repere fixe et acteur flottant compris.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Heroine (haute initiative), acteur flottant, gobelin (basse), repere « repaire » au rang 20.<br  />
+2. Round 1 : l'acteur flottant demande a jouer pendant le tour de l'heroine ; une attaque est declaree.<br  />
+3. Round 2 : il ne demande rien.<br  />
+ <b>Resultat attendu :</b> Avant le premier tour, puis round 1 : heroine, flottant, repaire, gobelin ; round 2 : heroine, repaire, gobelin, flottant ; une seconde demande et une demande avant le round 1 sont refusees ; le flottant n'a pas de place dans l'ordre. </p>
+
+</div>
+</div>
+<a id="a75c5c7fcaf2ad9d74e31d6433f208040" name="a75c5c7fcaf2ad9d74e31d6433f208040"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75c5c7fcaf2ad9d74e31d6433f208040">&#9670;&#160;</a></span>TEST() <span class="overload">[5/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeTourNeFinitQueSurDemande</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un tour ne se termine que sur demande, meme ressources epuisees. </p>
+<p><b>Cas de test :</b> <b>La fin d'un tour est explicite : epuiser ses ressources ne la declenche pas.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Heroine puis loup.<br  />
+2. Depenser action, action bonus, reaction et les six cases de l'heroine.<br  />
+3. Terminer le tour, puis celui du loup.<br  />
+4. Tenter de terminer un tour depuis un abonne au debut de tour.<br  />
+ <b>Resultat attendu :</b> Ressources epuisees, le tour reste celui de l'heroine ; endTurn passe au loup, puis au round 2 ou l'heroine retrouve ses ressources ; endTurn depuis un abonne est refuse. </p>
+
+</div>
+</div>
+<a id="a08073ad1d9003ce703deaf8c06fbb4f2" name="a08073ad1d9003ce703deaf8c06fbb4f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08073ad1d9003ce703deaf8c06fbb4f2">&#9670;&#160;</a></span>TEST() <span class="overload">[6/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LInitiativeEstJeteeUneFoisEtLOrdreTient</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'initiative est jetee une fois, et l'ordre tient jusqu'a la fin. </p>
+<p><b>Cas de test :</b> <b>L'ordre d'initiative est jete au debut et reste stable de round en round.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Engager trois combattants, graine 7.<br  />
+2. Jouer trois rounds en terminant chaque tour.<br  />
+3. Rejouer le meme combat a la meme graine.<br  />
+ <b>Resultat attendu :</b> Chaque jet est restituable (de + modificateur = total) ; les neuf tours suivent trois fois l'ordre initial ; l'ordre n'a pas bouge ; le rejeu donne les memes des. </p>
+
+</div>
+</div>
+<a id="a9e8e3256472c05829c9fb6a65bcfac10" name="a9e8e3256472c05829c9fb6a65bcfac10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e8e3256472c05829c9fb6a65bcfac10">&#9670;&#160;</a></span>TEST() <span class="overload">[7/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QuatreAlliesSansHerosUnique</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Quatre allies : rien ne suppose un heros unique. </p>
+<p><b>Cas de test :</b> <b>Un combat a quatre allies se deroule sans qu'aucun ne soit traite a part.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Quatre allies contre deux ennemis, graine 11.<br  />
+2. Jouer trois rounds.<br  />
+3. Abattre trois allies, jouer un round, puis abattre les ennemis.<br  />
+ <b>Resultat attendu :</b> Chacun des six joue exactement trois tours ; trois allies a terre ne terminent pas le combat et leurs tours sont passes ; la fin est une Victoire. </p>
+
+</div>
+</div>
+<a id="ab9d5976d3962176eecbd70d442c6575b" name="ab9d5976d3962176eecbd70d442c6575b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9d5976d3962176eecbd70d442c6575b">&#9670;&#160;</a></span>TEST() <span class="overload">[8/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnCombatACinqSeDerouleSansFenetreEtSeRejoue</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un combat a cinq se deroule sans fenetre jusqu'a sa fin, et se rejoue a l'identique. </p>
+<p><b>Cas de test :</b> <b>Une escarmouche a cinq combattants va du premier round a une fin, et le rejeu a graine fixe est exact.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Deux allies contre trois gobelins, sur une carte a pilier.<br  />
+2. Chaque combattant marche vers l'ennemi le plus proche, frappe au contact, termine son tour.<br  />
+3. Rejouer a la meme graine, puis a une autre.<br  />
+ <b>Resultat attendu :</b> Le combat se termine sur une issue ; les cinq ont joue ; meme graine, meme journal, initiative, pas et jets compris ; une autre graine donne un autre journal. </p>
+
+</div>
+</div>
+<a id="a6f4c6122730b7e5d395e119b586ab876" name="a6f4c6122730b7e5d395e119b586ab876"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f4c6122730b7e5d395e119b586ab876">&#9670;&#160;</a></span>TEST() <span class="overload">[9/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnCombattantATerrePasseSonTour</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un combattant a terre passe ses tours, et celui qui tombe pendant son tour le termine. </p>
+<p><b>Cas de test :</b> <b>Les tours d'un combattant a terre sont passes ; tomber pendant son tour le termine.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Ordre : heroine, loup, compagnon, ours.<br  />
+2. Abattre le compagnon pendant le tour de l'heroine, puis terminer les tours.<br  />
+3. Le relever ; au round 2, abattre le loup pendant son propre tour.<br  />
+ <b>Resultat attendu :</b> Le compagnon est saute au round 1 et rejoue au round 2 ; le tour du loup se termine aussitot et le compagnon prend la main. </p>
+
+</div>
+</div>
+<a id="ac2b42c4dae24fb2e6edfd5cd51226848" name="ac2b42c4dae24fb2e6edfd5cd51226848"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2b42c4dae24fb2e6edfd5cd51226848">&#9670;&#160;</a></span>TEST() <span class="overload">[10/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneDefaiteQuandTousLesAlliesSontATerre</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deuxieme fin : la defaite. </p>
+<p><b>Cas de test :</b> <b>Un combat se termine par une defaite quand tous les allies sont a terre ; si les deux camps tombent ensemble, c'est une defaite.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Deux allies contre un ogre ; abattre un allie, puis l'autre.<br  />
+2. Second combat : une meme salve abat le premier allie, l'ogre et le second allie.<br  />
+ <b>Resultat attendu :</b> Premier combat : il continue apres le premier allie, puis Defaite. Second : Defaite, pas Victoire. </p>
+
+</div>
+</div>
+<a id="adfc180acbe51be64e64316450722b700" name="adfc180acbe51be64e64316450722b700"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfc180acbe51be64e64316450722b700">&#9670;&#160;</a></span>TEST() <span class="overload">[11/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneFuiteQuandLesAlliesQuittentLaZone</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Troisieme fin : la fuite. </p>
+<p><b>Cas de test :</b> <b>Un combat se termine par une fuite quand plus aucun allie n'est debout et que l'un d'eux est parti.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Rencontre dont on ne fuit pas : l'heroine tente de sortir.<br  />
+2. La rendre fuyable ; l'heroine sort pendant son tour ; un gobelin sort aussi.<br  />
+3. Le compagnon tombe.<br  />
+ <b>Resultat attendu :</b> Sortie refusee (NotEscapable) ; puis l'heroine quitte grille et ordre, son tour se termine et le suivant commence ; la sortie d'un ennemi ne termine rien ; la chute du compagnon donne Fuite. </p>
+
+</div>
+</div>
+<a id="a7c4604655b1a1fcb9180ccb84b4fcdd8" name="a7c4604655b1a1fcb9180ccb84b4fcdd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c4604655b1a1fcb9180ccb84b4fcdd8">&#9670;&#160;</a></span>TEST() <span class="overload">[12/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneVictoireQuandPlusAucunEnnemiNEstDebout</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Premiere fin : la victoire. </p>
+<p><b>Cas de test :</b> <b>Un combat se termine par une victoire quand plus aucun ennemi n'est debout.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Deux allies contre deux gobelins.<br  />
+2. Abattre un gobelin, puis faire fuir l'autre... non : abattre le second.<br  />
+3. Tenter de jouer apres la fin.<br  />
+ <b>Resultat attendu :</b> Le combat continue apres le premier ; au second, issue Victoire annoncee une seule fois, plus de tour actif, endTurn refuse. </p>
+
+</div>
+</div>
+<a id="a690e6bc9631e6f3bad96ad7df4221ddd" name="a690e6bc9631e6f3bad96ad7df4221ddd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a690e6bc9631e6f3bad96ad7df4221ddd">&#9670;&#160;</a></span>TEST() <span class="overload">[13/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnRenfortEntreEnCoursDeCombat</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un renfort entre en cours de combat et prend sa place par la regle d'ordre. </p>
+<p><b>Cas de test :</b> <b>Un renfort appele au rang 0 joue au round suivant ; un combattant qui entre apres la place en cours joue ce round-ci.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Heroine (tres haute initiative), repere « renforts » au rang 0, chef (tres basse).<br  />
+</p><ol type="1">
+<li>Au repere du round 1, faire entrer un gobelin a l'initiative 0.<br  />
+3. Au round 2, pendant le tour de l'heroine, faire entrer un loup d'initiative plus basse que tout, puis un combattant sur une case prise.<br  />
+ <b>Resultat attendu :</b> Round 1 : heroine, renforts, entree, chef ; round 2 : heroine, gobelin, renforts, loup, chef ; l'entree sur une case prise est refusee sans consommer d'identifiant. </li>
+</ol>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_e4f77e6506ec5ae5855f8bd23358af3b.html">Combat</a></li><li class="navelem"><a href="test__combat__state_8cpp.html">test_combat_state.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

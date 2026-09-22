@@ -1,0 +1,468 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Localization/test_localization.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__localization_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_localization.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests unitaires du catalogue de traduction : analyse, repli, changement de langue.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="Localization_8h_source.html">HMI/Localization/Localization.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a7e8eb2bb3157d681c09085881002fff4" id="r_a7e8eb2bb3157d681c09085881002fff4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7e8eb2bb3157d681c09085881002fff4">TEST</a> (LocalizationTest, AnalyseIgnoreCommentairesEtEspaces)</td></tr>
+<tr class="memdesc:a7e8eb2bb3157d681c09085881002fff4"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'analyse ignore les lignes vides et les commentaires, et retire les espaces autour de '='.  <br /></td></tr>
+<tr class="memitem:a7bebf5c22d39f742fe9043dd9227e660" id="r_a7bebf5c22d39f742fe9043dd9227e660"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7bebf5c22d39f742fe9043dd9227e660">TEST</a> (LocalizationTest, AnalyseConserveEgalDansLaValeur)</td></tr>
+<tr class="memdesc:a7bebf5c22d39f742fe9043dd9227e660"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seul le premier '=' sépare ; un '=' dans la valeur est conservé.  <br /></td></tr>
+<tr class="memitem:ae1a5862013a9d7ce5eeae7f57d8d5bde" id="r_ae1a5862013a9d7ce5eeae7f57d8d5bde"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae1a5862013a9d7ce5eeae7f57d8d5bde">TEST</a> (LocalizationTest, CleExistanteResolue)</td></tr>
+<tr class="memdesc:ae1a5862013a9d7ce5eeae7f57d8d5bde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une clé existante est résolue dans la langue active.  <br /></td></tr>
+<tr class="memitem:a3ecf9cfb47e20d462349e3339330b4c3" id="r_a3ecf9cfb47e20d462349e3339330b4c3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3ecf9cfb47e20d462349e3339330b4c3">TEST</a> (LocalizationTest, CleInconnueRenvoieLaCle)</td></tr>
+<tr class="memdesc:a3ecf9cfb47e20d462349e3339330b4c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une clé inconnue partout est renvoyée telle quelle (repli déterministe, pas de plantage).  <br /></td></tr>
+<tr class="memitem:a371b042811e159007f1c248fcd010c6f" id="r_a371b042811e159007f1c248fcd010c6f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a371b042811e159007f1c248fcd010c6f">TEST</a> (LocalizationTest, ChangementDeLangue)</td></tr>
+<tr class="memdesc:a371b042811e159007f1c248fcd010c6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changer de langue résout les valeurs de la nouvelle langue.  <br /></td></tr>
+<tr class="memitem:aa0f27340066e9efd017ea009fab79ba7" id="r_aa0f27340066e9efd017ea009fab79ba7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa0f27340066e9efd017ea009fab79ba7">TEST</a> (LocalizationTest, RepliSurLangueParDefaut)</td></tr>
+<tr class="memdesc:aa0f27340066e9efd017ea009fab79ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une clé manquante dans la langue active retombe sur la langue par défaut.  <br /></td></tr>
+<tr class="memitem:a5ce881987d6e372b6acc54d5b802a212" id="r_a5ce881987d6e372b6acc54d5b802a212"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5ce881987d6e372b6acc54d5b802a212">TEST</a> (LocalizationTest, LangueAbsenteEstRecuperable)</td></tr>
+<tr class="memdesc:a5ce881987d6e372b6acc54d5b802a212"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charger une langue absente échoue proprement et conserve la langue active (récupérable).  <br /></td></tr>
+<tr class="memitem:af91959f91fe36044c8b06e866baee930" id="r_af91959f91fe36044c8b06e866baee930"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af91959f91fe36044c8b06e866baee930">TEST</a> (LocalizationTest, CatalogueFrancaisLivreSeCharge)</td></tr>
+<tr class="memdesc:af91959f91fe36044c8b06e866baee930"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le catalogue français livré (Source/Elements/Localization) se charge et résout ses clés.  <br /></td></tr>
+<tr class="memitem:ab0e1fe6f444f7b1dc04c3d55ccc6e31f" id="r_ab0e1fe6f444f7b1dc04c3d55ccc6e31f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab0e1fe6f444f7b1dc04c3d55ccc6e31f">TEST</a> (LocalizationTest, LesDeuxCataloguesDeclarentLesMemesCles)</td></tr>
+<tr class="memdesc:ab0e1fe6f444f7b1dc04c3d55ccc6e31f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les deux catalogues livrés déclarent <b>exactement</b> les mêmes clés (<span class="tt">EX-REN-033</span>).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests unitaires du catalogue de traduction : analyse, repli, changement de langue. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a7bebf5c22d39f742fe9043dd9227e660" name="a7bebf5c22d39f742fe9043dd9227e660"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bebf5c22d39f742fe9043dd9227e660">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LocalizationTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AnalyseConserveEgalDansLaValeur</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Seul le premier '=' sépare ; un '=' dans la valeur est conservé. </p>
+<p><b>Cas de test :</b> <b>Seul le premier '=' sépare ; un '=' dans la valeur est conservé.</b><br  />
+ <b>Categorie :</b> Unitaire · Localization<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Seul le premier '=' sépare ; un '=' dans la valeur est conservé. </p>
+
+</div>
+</div>
+<a id="a7e8eb2bb3157d681c09085881002fff4" name="a7e8eb2bb3157d681c09085881002fff4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e8eb2bb3157d681c09085881002fff4">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LocalizationTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AnalyseIgnoreCommentairesEtEspaces</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'analyse ignore les lignes vides et les commentaires, et retire les espaces autour de '='. </p>
+<p><b>Cas de test :</b> <b>L'analyse ignore les lignes vides et les commentaires, et retire les espaces autour de '='.</b><br  />
+ <b>Categorie :</b> Unitaire · Localization<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> L'analyse ignore les lignes vides et les commentaires, et retire les espaces autour de '='. </p>
+
+</div>
+</div>
+<a id="af91959f91fe36044c8b06e866baee930" name="af91959f91fe36044c8b06e866baee930"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af91959f91fe36044c8b06e866baee930">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LocalizationTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CatalogueFrancaisLivreSeCharge</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le catalogue français livré (Source/Elements/Localization) se charge et résout ses clés. </p>
+<p><b>Cas de test :</b> <b>Le catalogue français livré (Source/Elements/Localization) se charge et résout ses clés.</b><br  />
+ <b>Categorie :</b> Unitaire · Localization<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le catalogue français livré (Source/Elements/Localization) se charge et résout ses clés. </p>
+
+</div>
+</div>
+<a id="a371b042811e159007f1c248fcd010c6f" name="a371b042811e159007f1c248fcd010c6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a371b042811e159007f1c248fcd010c6f">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LocalizationTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChangementDeLangue</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Changer de langue résout les valeurs de la nouvelle langue. </p>
+<p><b>Cas de test :</b> <b>Changer de langue résout les valeurs de la nouvelle langue.</b><br  />
+ <b>Categorie :</b> Unitaire · Localization<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Changer de langue résout les valeurs de la nouvelle langue. </p>
+
+</div>
+</div>
+<a id="ae1a5862013a9d7ce5eeae7f57d8d5bde" name="ae1a5862013a9d7ce5eeae7f57d8d5bde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1a5862013a9d7ce5eeae7f57d8d5bde">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LocalizationTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CleExistanteResolue</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une clé existante est résolue dans la langue active. </p>
+<p><b>Cas de test :</b> <b>Une clé existante est résolue dans la langue active.</b><br  />
+ <b>Categorie :</b> Unitaire · Localization<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Une clé existante est résolue dans la langue active. </p>
+
+</div>
+</div>
+<a id="a3ecf9cfb47e20d462349e3339330b4c3" name="a3ecf9cfb47e20d462349e3339330b4c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ecf9cfb47e20d462349e3339330b4c3">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LocalizationTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CleInconnueRenvoieLaCle</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une clé inconnue partout est renvoyée telle quelle (repli déterministe, pas de plantage). </p>
+<p><b>Cas de test :</b> <b>Une clé inconnue partout est renvoyée telle quelle (repli déterministe, pas de plantage).</b><br  />
+ <b>Categorie :</b> Unitaire · Localization<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Une clé inconnue partout est renvoyée telle quelle (repli déterministe, pas de plantage). </p>
+
+</div>
+</div>
+<a id="a5ce881987d6e372b6acc54d5b802a212" name="a5ce881987d6e372b6acc54d5b802a212"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ce881987d6e372b6acc54d5b802a212">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LocalizationTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LangueAbsenteEstRecuperable</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Charger une langue absente échoue proprement et conserve la langue active (récupérable). </p>
+<p><b>Cas de test :</b> <b>Charger une langue absente échoue proprement et conserve la langue active (récupérable).</b><br  />
+ <b>Categorie :</b> Unitaire · Localization<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Charger une langue absente échoue proprement et conserve la langue active (récupérable). </p>
+
+</div>
+</div>
+<a id="ab0e1fe6f444f7b1dc04c3d55ccc6e31f" name="ab0e1fe6f444f7b1dc04c3d55ccc6e31f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0e1fe6f444f7b1dc04c3d55ccc6e31f">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LocalizationTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesDeuxCataloguesDeclarentLesMemesCles</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les deux catalogues livrés déclarent <b>exactement</b> les mêmes clés (<span class="tt">EX-REN-033</span>). </p>
+<p>Une clé ajoutée d'un seul côté ne casse rien de visible : <span class="tt">Localization::text</span> replie sur la langue par défaut, et l'interface s'affiche — en français au milieu d'un écran anglais. Le défaut ne se voit donc qu'en changeant de langue, écran par écran, ce que personne ne fait après avoir ajouté un libellé. Ce test le voit pour nous, dans les deux sens : une clé anglaise oubliée en français compte autant. <b>Cas de test :</b> <b>Les catalogues francais et anglais declarent les memes cles.</b><br  />
+ <b>Categorie :</b> Unitaire · Localization<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger fr.lang et en.lang.<br  />
+2. Comparer les ensembles de cles dans les deux sens.<br  />
+ <b>Resultat attendu :</b> Aucune cle ne manque a l'un ni a l'autre. </p>
+
+</div>
+</div>
+<a id="aa0f27340066e9efd017ea009fab79ba7" name="aa0f27340066e9efd017ea009fab79ba7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0f27340066e9efd017ea009fab79ba7">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LocalizationTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RepliSurLangueParDefaut</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une clé manquante dans la langue active retombe sur la langue par défaut. </p>
+<p><b>Cas de test :</b> <b>Une clé manquante dans la langue active retombe sur la langue par défaut.</b><br  />
+ <b>Categorie :</b> Unitaire · Localization<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Une clé manquante dans la langue active retombe sur la langue par défaut. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_2675e67548493d20626cf18c4081fab8.html">HMI</a></li><li class="navelem"><a href="dir_d5ab67dc7e888e6863d95b418c75d001.html">Localization</a></li><li class="navelem"><a href="test__localization_8cpp.html">test_localization.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

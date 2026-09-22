@@ -1,0 +1,579 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::WorldMapModel Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1WorldMapModel.html','','classhmi_1_1WorldMapModel-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::WorldMapModel Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Vue-modèle de l'écran « Carte » : le monde, ses treize régions, les plans de ville.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="WorldMapModel_8h_source.html">WorldMapModel.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for hmi::WorldMapModel:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classhmi_1_1WorldMapModel.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:a33150efdd66c17ea689bec4217535450" id="r_a33150efdd66c17ea689bec4217535450"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a33150efdd66c17ea689bec4217535450">changed</a> ()</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a22b42403d4f833485b6be9d30784cbd7" id="r_a22b42403d4f833485b6be9d30784cbd7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a22b42403d4f833485b6be9d30784cbd7">WorldMapModel</a> (QObject *parent=nullptr)</td></tr>
+<tr class="memitem:a0e96fce71937aa2f2ff5977bafc4f154" id="r_a0e96fce71937aa2f2ff5977bafc4f154"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a0e96fce71937aa2f2ff5977bafc4f154">load</a> ()</td></tr>
+<tr class="memdesc:a0e96fce71937aa2f2ff5977bafc4f154"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge l'atlas et les cartes livrés à côté de l'exécutable.  <br /></td></tr>
+<tr class="memitem:ad57273da27b5293272ca8014afb84395" id="r_ad57273da27b5293272ca8014afb84395"><td class="memItemLeft">Q_INVOKABLE QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#ad57273da27b5293272ca8014afb84395">city</a> (const QString &amp;placeId) const</td></tr>
+<tr class="memdesc:ad57273da27b5293272ca8014afb84395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plan de la ville <span class="tt">placeId</span>, ou une table vide si ce lieu n'a pas de plan.  <br /></td></tr>
+<tr class="memitem:ae2f71ac8d7351f91c1da33ef8990cbba" id="r_ae2f71ac8d7351f91c1da33ef8990cbba"><td class="memItemLeft">Q_INVOKABLE int&#160;</td><td class="memItemRight"><a class="el" href="#ae2f71ac8d7351f91c1da33ef8990cbba">regionIndex</a> (const QString &amp;regionId) const</td></tr>
+<tr class="memdesc:ae2f71ac8d7351f91c1da33ef8990cbba"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'indice, dans <span class="tt"><a class="el" href="#aadf60fd8a6aae8fe2d6b3fe590b11292">regions</a></span>, de la région <span class="tt">regionId</span>, ou -1.  <br /></td></tr>
+<tr class="memitem:aa72cf60bd06df8059ce119ca99ddbebb" id="r_aa72cf60bd06df8059ce119ca99ddbebb"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aa72cf60bd06df8059ce119ca99ddbebb">worldImage</a> () const</td></tr>
+<tr class="memitem:ac847c24f6d9b024b8f1a5c3f1634ced2" id="r_ac847c24f6d9b024b8f1a5c3f1634ced2"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#ac847c24f6d9b024b8f1a5c3f1634ced2">regions</a> () const</td></tr>
+<tr class="memitem:a99db073749a448f57319774857baaa53" id="r_a99db073749a448f57319774857baaa53"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a99db073749a448f57319774857baaa53">placedCount</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:aee6ca8709d02839954670e963bedee4e" id="r_aee6ca8709d02839954670e963bedee4e"><td class="memItemLeft">QML_ELEMENTQString&#160;</td><td class="memItemRight"><a class="el" href="#aee6ca8709d02839954670e963bedee4e">worldImage</a></td></tr>
+<tr class="memitem:aadf60fd8a6aae8fe2d6b3fe590b11292" id="r_aadf60fd8a6aae8fe2d6b3fe590b11292"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#aadf60fd8a6aae8fe2d6b3fe590b11292">regions</a></td></tr>
+<tr class="memitem:a13b63b6ed89d4b3a2b9d59f7b71eaf5c" id="r_a13b63b6ed89d4b3a2b9d59f7b71eaf5c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a13b63b6ed89d4b3a2b9d59f7b71eaf5c">placedCount</a></td></tr>
+<tr class="memdesc:a13b63b6ed89d4b3a2b9d59f7b71eaf5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de lieux posés sur les cartes de région.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a7bf8da057fe6b764b45fae3066ccb795" id="r_a7bf8da057fe6b764b45fae3066ccb795"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a7bf8da057fe6b764b45fae3066ccb795">_worldImage</a></td></tr>
+<tr class="memitem:ab4935d7d766f3bc642926e9f07697118" id="r_ab4935d7d766f3bc642926e9f07697118"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#ab4935d7d766f3bc642926e9f07697118">_regions</a></td></tr>
+<tr class="memitem:abb18f1016e952c2f9f78b28c72e24bd7" id="r_abb18f1016e952c2f9f78b28c72e24bd7"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#abb18f1016e952c2f9f78b28c72e24bd7">_cities</a></td></tr>
+<tr class="memdesc:abb18f1016e952c2f9f78b28c72e24bd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifiant de lieu → plan.  <br /></td></tr>
+<tr class="memitem:ae7c9181b59e57fb843a90b1fae3d4e12" id="r_ae7c9181b59e57fb843a90b1fae3d4e12"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ae7c9181b59e57fb843a90b1fae3d4e12">_placedCount</a> = 0</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Vue-modèle de l'écran « Carte » : le monde, ses treize régions, les plans de ville. </p>
+<p>Charge l'atlas du <span class="tt">LOT-37</span> (<span class="tt">World/</span>, à côté de l'exécutable) et les positions relevées sur les cartes de l'auteur (<span class="tt">Maps/world-maps.json</span>), puis les joint par <span class="tt"><a class="el" href="namespacehmi.html#ab1a5bb49f127bf2cf10105f1e45da728" title="Joint les cartes à l&#39;atlas.">hmi::joinWorldMaps</a></span>. Chaque écart entre les deux est journalisé plutôt que tu.</p>
+<p>Les images sont désignées par leur <b>nom de fichier</b> : le formulaire les cherche sous <span class="tt">Elements/Assets/Maps/</span>, le même chemin dans l'atelier, depuis les sources et dans la ressource.</p>
+<ul>
+<li><span class="tt"><a class="el" href="#aadf60fd8a6aae8fe2d6b3fe590b11292">regions</a></span> : une table par région — <span class="tt">regionId</span>, <span class="tt">name</span>, <span class="tt">image</span>, <span class="tt">x</span>, <span class="tt">y</span> (repère sur le monde), <span class="tt">frame</span> (<span class="tt">x</span>, <span class="tt">y</span>, <span class="tt">width</span>, <span class="tt">height</span> : d'où part le zoom), <span class="tt">government</span>, <span class="tt">faction</span>, <span class="tt">population</span>, <span class="tt">grades</span> (sept entiers de 0 à 4, ordre de <span class="tt"><a class="el" href="namespacecore.html#a1471b5a70feb139829909360f5b07940" title="Les sept axes, dans l&#39;ordre où le livre les imprime.">core::RegionAxis</a></span>), <span class="tt">places</span> (une table par lieu : <span class="tt">placeId</span>, <span class="tt">name</span>, <span class="tt">description</span>, <span class="tt">placed</span>, <span class="tt">x</span>, <span class="tt">y</span>, <span class="tt">hasCityMap</span>), <span class="tt"><a class="el" href="#a13b63b6ed89d4b3a2b9d59f7b71eaf5c" title="Nombre de lieux posés sur les cartes de région.">placedCount</a></span> et <span class="tt">labels</span> (<span class="tt">name</span>, <span class="tt">kind</span>, <span class="tt">x</span>, <span class="tt">y</span>).</li>
+<li><span class="tt">city(placeId)</span> : le plan d'une ville — <span class="tt">cityId</span>, <span class="tt">name</span>, <span class="tt">regionId</span>, <span class="tt">image</span>, <span class="tt">points</span> (une table par quartier ou lieu numéroté : <span class="tt">pointId</span>, <span class="tt">number</span>, <span class="tt">name</span>, <span class="tt">description</span>, <span class="tt">x</span>, <span class="tt">y</span>) et <span class="tt">labels</span> — ou une table vide. </li>
+</ul>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a22b42403d4f833485b6be9d30784cbd7" name="a22b42403d4f833485b6be9d30784cbd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22b42403d4f833485b6be9d30784cbd7">&#9670;&#160;</a></span>WorldMapModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::WorldMapModel::WorldMapModel </td>
+          <td>(</td>
+          <td class="paramtype">QObject *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a33150efdd66c17ea689bec4217535450" name="a33150efdd66c17ea689bec4217535450"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33150efdd66c17ea689bec4217535450">&#9670;&#160;</a></span>changed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldMapModel::changed </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad57273da27b5293272ca8014afb84395" name="ad57273da27b5293272ca8014afb84395"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad57273da27b5293272ca8014afb84395">&#9670;&#160;</a></span>city()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantMap hmi::WorldMapModel::city </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>placeId</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le plan de la ville <span class="tt">placeId</span>, ou une table vide si ce lieu n'a pas de plan. </p>
+
+</div>
+</div>
+<a id="a0e96fce71937aa2f2ff5977bafc4f154" name="a0e96fce71937aa2f2ff5977bafc4f154"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e96fce71937aa2f2ff5977bafc4f154">&#9670;&#160;</a></span>load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldMapModel::load </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Charge l'atlas et les cartes livrés à côté de l'exécutable. </p>
+
+</div>
+</div>
+<a id="a99db073749a448f57319774857baaa53" name="a99db073749a448f57319774857baaa53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99db073749a448f57319774857baaa53">&#9670;&#160;</a></span>placedCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::WorldMapModel::placedCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae2f71ac8d7351f91c1da33ef8990cbba" name="ae2f71ac8d7351f91c1da33ef8990cbba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2f71ac8d7351f91c1da33ef8990cbba">&#9670;&#160;</a></span>regionIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::WorldMapModel::regionIndex </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>regionId</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'indice, dans <span class="tt"><a class="el" href="#aadf60fd8a6aae8fe2d6b3fe590b11292">regions</a></span>, de la région <span class="tt">regionId</span>, ou -1. </p>
+
+</div>
+</div>
+<a id="ac847c24f6d9b024b8f1a5c3f1634ced2" name="ac847c24f6d9b024b8f1a5c3f1634ced2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac847c24f6d9b024b8f1a5c3f1634ced2">&#9670;&#160;</a></span>regions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::WorldMapModel::regions </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa72cf60bd06df8059ce119ca99ddbebb" name="aa72cf60bd06df8059ce119ca99ddbebb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa72cf60bd06df8059ce119ca99ddbebb">&#9670;&#160;</a></span>worldImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldMapModel::worldImage </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="abb18f1016e952c2f9f78b28c72e24bd7" name="abb18f1016e952c2f9f78b28c72e24bd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb18f1016e952c2f9f78b28c72e24bd7">&#9670;&#160;</a></span>_cities</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantMap hmi::WorldMapModel::_cities</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Identifiant de lieu → plan. </p>
+
+</div>
+</div>
+<a id="ae7c9181b59e57fb843a90b1fae3d4e12" name="ae7c9181b59e57fb843a90b1fae3d4e12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7c9181b59e57fb843a90b1fae3d4e12">&#9670;&#160;</a></span>_placedCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::WorldMapModel::_placedCount = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab4935d7d766f3bc642926e9f07697118" name="ab4935d7d766f3bc642926e9f07697118"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4935d7d766f3bc642926e9f07697118">&#9670;&#160;</a></span>_regions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::WorldMapModel::_regions</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7bf8da057fe6b764b45fae3066ccb795" name="a7bf8da057fe6b764b45fae3066ccb795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bf8da057fe6b764b45fae3066ccb795">&#9670;&#160;</a></span>_worldImage</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldMapModel::_worldImage</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-property-members" id="doc-property-members"></a><h2 id="header-doc-property-members" class="groupheader">Property Documentation</h2>
+<a id="a13b63b6ed89d4b3a2b9d59f7b71eaf5c" name="a13b63b6ed89d4b3a2b9d59f7b71eaf5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13b63b6ed89d4b3a2b9d59f7b71eaf5c">&#9670;&#160;</a></span>placedCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::WorldMapModel::placedCount</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de lieux posés sur les cartes de région. </p>
+
+</div>
+</div>
+<a id="aadf60fd8a6aae8fe2d6b3fe590b11292" name="aadf60fd8a6aae8fe2d6b3fe590b11292"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadf60fd8a6aae8fe2d6b3fe590b11292">&#9670;&#160;</a></span>regions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::WorldMapModel::regions</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee6ca8709d02839954670e963bedee4e" name="aee6ca8709d02839954670e963bedee4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee6ca8709d02839954670e963bedee4e">&#9670;&#160;</a></span>worldImage</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QML_ELEMENTQString hmi::WorldMapModel::worldImage</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="WorldMapModel_8h_source.html">WorldMapModel.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="WorldMapModel_8cpp.html">WorldMapModel.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1WorldMapModel.html">WorldMapModel</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

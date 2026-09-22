@@ -1,0 +1,240 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Levels/LevelLoader.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LevelLoader_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LevelLoader.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LevelLoader_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="Level_8h.html">Core/Levels/Level.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span></div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823">   29</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823">LevelValidationError</a> {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754">   30</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999a6adf97f83acf6453d4a6a4b1070f3754">None</a>,                      </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165">   31</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0ae41199faa7290c167f70f314c5e6c165">ParseError</a>,                </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a5ffd7fe49fd2b1afb8178546f7a39b8e">   32</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a5ffd7fe49fd2b1afb8178546f7a39b8e">UnknownTileType</a>,           </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a46dc1018ac1d8fca7c2752a61ce2fd0f">   33</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a56ee2c3f69200e700ac0f1b65dc413b4a46dc1018ac1d8fca7c2752a61ce2fd0f">OutOfBounds</a>,               </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae661408101649d629107887d94faf5ba">   34</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae661408101649d629107887d94faf5ba">DuplicatePosition</a>,         </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff">   35</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff">InvalidEntryCount</a>,         </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2">   36</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0a2767828026039e8ba7b38973cbb701f2">FileNotFound</a>,              </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a7d194788f42fea83b92833f89101a8f4">   37</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a7d194788f42fea83b92833f89101a8f4">UnsupportedFormatVersion</a>,  </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a53820fd4c1e3f6efc92bd098c3ac3ded">   38</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a53820fd4c1e3f6efc92bd098c3ac3ded">DuplicateEntityId</a>,         </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ac47d91983ec7eede11379d041ecaac1b">   39</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ac47d91983ec7eede11379d041ecaac1b">MissingBase</a>,               </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>};</div>
+</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="namespacecore.html#a29f56cd5e629fb74668126bbf151066e">   68</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacecore.html#a29f56cd5e629fb74668126bbf151066e">LEVEL_FORMAT_VERSION</a> = 4;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span></div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="};">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="structcore_1_1LevelLoadResult.html">   78</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1LevelLoadResult.html">LevelLoadResult</a> {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="structcore_1_1LevelLoadResult.html#acd73f8d045b0de9992c2a35920b35324">   79</a></span>    std::optional&lt;Level&gt; <a class="code hl_variable" href="structcore_1_1LevelLoadResult.html#acd73f8d045b0de9992c2a35920b35324">level</a>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="structcore_1_1LevelLoadResult.html#ac21cc63832094fc7dda052a6372dd167">   80</a></span>    std::string <a class="code hl_variable" href="structcore_1_1LevelLoadResult.html#ac21cc63832094fc7dda052a6372dd167">error</a>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="structcore_1_1LevelLoadResult.html#a6e2623371658540ee9003d846c0840d9">   81</a></span>    <a class="code hl_enumeration" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823">LevelValidationError</a> <a class="code hl_variable" href="structcore_1_1LevelLoadResult.html#a6e2623371658540ee9003d846c0840d9">errorCode</a> = <a class="code hl_enumvalue" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754">LevelValidationError::None</a>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span></div>
+<div class="foldopen" id="foldopen00084" data-start="{" data-end="}">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="structcore_1_1LevelLoadResult.html#ab18f975c074af924854ff0ffe5218047">   84</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1LevelLoadResult.html#ab18f975c074af924854ff0ffe5218047">ok</a>() const noexcept {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1LevelLoadResult.html#acd73f8d045b0de9992c2a35920b35324">level</a>.has_value();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>};</div>
+</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span></div>
+<div class="foldopen" id="foldopen00098" data-start="{" data-end="};">
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="classcore_1_1LevelLoader.html">   98</a></span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1LevelLoader.html">LevelLoader</a> {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="classcore_1_1LevelLoader.html#a208c967d93340bab59a83ba4626dd472">  104</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="classcore_1_1LevelLoader.html#a208c967d93340bab59a83ba4626dd472">BaseResolver</a> = std::function&lt;<a class="code hl_struct" href="structcore_1_1LevelLoadResult.html">LevelLoadResult</a>(std::string_view baseId)&gt;;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structcore_1_1LevelLoadResult.html">LevelLoadResult</a> <a class="code hl_function" href="classcore_1_1LevelLoader.html#a4bcca95728207d0743b18a6c34a57cc8">loadFromString</a>(std::string_view json,</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                                                        <span class="keyword">const</span> <a class="code hl_typedef" href="classcore_1_1LevelLoader.html#a208c967d93340bab59a83ba4626dd472">BaseResolver</a>&amp; resolveBase = {});</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structcore_1_1LevelLoadResult.html">LevelLoadResult</a> <a class="code hl_function" href="classcore_1_1LevelLoader.html#a49dba279ed545b7230ceeb8752e63543">loadFromFile</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>};</div>
+</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aLevel_8h_html"><div class="ttname"><a href="Level_8h.html">Level.h</a></div><div class="ttdoc">Carte chargée : grille de collision, couches, entités, point d&#39;entrée, variante.</div></div>
+<div class="ttc" id="aclasscore_1_1LevelLoader_html"><div class="ttname"><a href="classcore_1_1LevelLoader.html">core::LevelLoader</a></div><div class="ttdoc">Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...</div><div class="ttdef"><b>Definition</b> LevelLoader.h:98</div></div>
+<div class="ttc" id="aclasscore_1_1LevelLoader_html_a208c967d93340bab59a83ba4626dd472"><div class="ttname"><a href="classcore_1_1LevelLoader.html#a208c967d93340bab59a83ba4626dd472">core::LevelLoader::BaseResolver</a></div><div class="ttdeci">std::function&lt; LevelLoadResult(std::string_view baseId)&gt; BaseResolver</div><div class="ttdoc">Ce qui rend la carte de base d&#39;une variante (décision D12), à partir de son identifiant (coliseum,...</div><div class="ttdef"><b>Definition</b> LevelLoader.h:104</div></div>
+<div class="ttc" id="aclasscore_1_1LevelLoader_html_a49dba279ed545b7230ceeb8752e63543"><div class="ttname"><a href="classcore_1_1LevelLoader.html#a49dba279ed545b7230ceeb8752e63543">core::LevelLoader::loadFromFile</a></div><div class="ttdeci">static LevelLoadResult loadFromFile(const std::filesystem::path &amp;path)</div><div class="ttdoc">Charge un niveau depuis un fichier.</div><div class="ttdef"><b>Definition</b> LevelLoader.cpp:548</div></div>
+<div class="ttc" id="aclasscore_1_1LevelLoader_html_a4bcca95728207d0743b18a6c34a57cc8"><div class="ttname"><a href="classcore_1_1LevelLoader.html#a4bcca95728207d0743b18a6c34a57cc8">core::LevelLoader::loadFromString</a></div><div class="ttdeci">static LevelLoadResult loadFromString(std::string_view json, const BaseResolver &amp;resolveBase={})</div><div class="ttdoc">Charge un niveau depuis une chaîne JSON.</div><div class="ttdef"><b>Definition</b> LevelLoader.cpp:523</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a0ddd67c0966fb31bf8c2de44a63d6999a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999a6adf97f83acf6453d4a6a4b1070f3754">core::Cover::None</a></div><div class="ttdeci">@ None</div><div class="ttdef"><b>Definition</b> BattleGrid.h:101</div></div>
+<div class="ttc" id="anamespacecore_html_a29f56cd5e629fb74668126bbf151066e"><div class="ttname"><a href="namespacecore.html#a29f56cd5e629fb74668126bbf151066e">core::LEVEL_FORMAT_VERSION</a></div><div class="ttdeci">constexpr int LEVEL_FORMAT_VERSION</div><div class="ttdoc">Version courante du format de niveau JSON (EX-LVL-005).</div><div class="ttdef"><b>Definition</b> LevelLoader.h:68</div></div>
+<div class="ttc" id="anamespacecore_html_a3fca58c67ec139153d0204122e9c32e0a2767828026039e8ba7b38973cbb701f2"><div class="ttname"><a href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0a2767828026039e8ba7b38973cbb701f2">core::JsonReadError::FileNotFound</a></div><div class="ttdeci">@ FileNotFound</div><div class="ttdoc">Fichier absent ou illisible.</div><div class="ttdef"><b>Definition</b> JsonDocument.h:30</div></div>
+<div class="ttc" id="anamespacecore_html_a3fca58c67ec139153d0204122e9c32e0ae41199faa7290c167f70f314c5e6c165"><div class="ttname"><a href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0ae41199faa7290c167f70f314c5e6c165">core::JsonReadError::ParseError</a></div><div class="ttdeci">@ ParseError</div><div class="ttdoc">JSON malformé, ou racine qui n&#39;est pas un objet.</div><div class="ttdef"><b>Definition</b> JsonDocument.h:31</div></div>
+<div class="ttc" id="anamespacecore_html_a56ee2c3f69200e700ac0f1b65dc413b4a46dc1018ac1d8fca7c2752a61ce2fd0f"><div class="ttname"><a href="namespacecore.html#a56ee2c3f69200e700ac0f1b65dc413b4a46dc1018ac1d8fca7c2752a61ce2fd0f">core::PlacementResult::OutOfBounds</a></div><div class="ttdeci">@ OutOfBounds</div><div class="ttdoc">L&#39;emprise sort de la carte.</div><div class="ttdef"><b>Definition</b> BattleGrid.h:142</div></div>
+<div class="ttc" id="anamespacecore_html_af2a63d18c9ef40479ebdc204e726e823"><div class="ttname"><a href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823">core::LevelValidationError</a></div><div class="ttdeci">LevelValidationError</div><div class="ttdoc">Catégorie d&#39;échec de chargement/validation d&#39;un niveau (EX-EDIT-012).</div><div class="ttdef"><b>Definition</b> LevelLoader.h:29</div></div>
+<div class="ttc" id="anamespacecore_html_af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff"><div class="ttname"><a href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff">core::LevelValidationError::InvalidEntryCount</a></div><div class="ttdeci">@ InvalidEntryCount</div><div class="ttdoc">Zéro ou plusieurs tuiles d&#39;entrée (une seule attendue).</div><div class="ttdef"><b>Definition</b> LevelLoader.h:35</div></div>
+<div class="ttc" id="anamespacecore_html_af2a63d18c9ef40479ebdc204e726e823a53820fd4c1e3f6efc92bd098c3ac3ded"><div class="ttname"><a href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a53820fd4c1e3f6efc92bd098c3ac3ded">core::LevelValidationError::DuplicateEntityId</a></div><div class="ttdeci">@ DuplicateEntityId</div><div class="ttdoc">Deux entités portent le même id (format v4, décision D8).</div><div class="ttdef"><b>Definition</b> LevelLoader.h:38</div></div>
+<div class="ttc" id="anamespacecore_html_af2a63d18c9ef40479ebdc204e726e823a5ffd7fe49fd2b1afb8178546f7a39b8e"><div class="ttname"><a href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a5ffd7fe49fd2b1afb8178546f7a39b8e">core::LevelValidationError::UnknownTileType</a></div><div class="ttdeci">@ UnknownTileType</div><div class="ttdoc">Type de tuile non reconnu.</div><div class="ttdef"><b>Definition</b> LevelLoader.h:32</div></div>
+<div class="ttc" id="anamespacecore_html_af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754">core::LevelValidationError::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">Pas d&#39;erreur (chargement réussi).</div><div class="ttdef"><b>Definition</b> LevelLoader.h:30</div></div>
+<div class="ttc" id="anamespacecore_html_af2a63d18c9ef40479ebdc204e726e823a7d194788f42fea83b92833f89101a8f4"><div class="ttname"><a href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a7d194788f42fea83b92833f89101a8f4">core::LevelValidationError::UnsupportedFormatVersion</a></div><div class="ttdeci">@ UnsupportedFormatVersion</div><div class="ttdoc">&quot;version&quot; du fichier supérieure à celle gérée (EX-LVL-005).</div><div class="ttdef"><b>Definition</b> LevelLoader.h:37</div></div>
+<div class="ttc" id="anamespacecore_html_af2a63d18c9ef40479ebdc204e726e823ac47d91983ec7eede11379d041ecaac1b"><div class="ttname"><a href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ac47d91983ec7eede11379d041ecaac1b">core::LevelValidationError::MissingBase</a></div><div class="ttdeci">@ MissingBase</div><div class="ttdoc">Variante dont la base est introuvable, ou elle-même variante.</div><div class="ttdef"><b>Definition</b> LevelLoader.h:39</div></div>
+<div class="ttc" id="anamespacecore_html_af2a63d18c9ef40479ebdc204e726e823ae661408101649d629107887d94faf5ba"><div class="ttname"><a href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae661408101649d629107887d94faf5ba">core::LevelValidationError::DuplicatePosition</a></div><div class="ttdeci">@ DuplicatePosition</div><div class="ttdoc">Deux tuiles à la même position.</div><div class="ttdef"><b>Definition</b> LevelLoader.h:34</div></div>
+<div class="ttc" id="astructcore_1_1LevelLoadResult_html"><div class="ttname"><a href="structcore_1_1LevelLoadResult.html">core::LevelLoadResult</a></div><div class="ttdoc">Résultat d&#39;un chargement de niveau : soit un Level, soit une erreur décrite.</div><div class="ttdef"><b>Definition</b> LevelLoader.h:78</div></div>
+<div class="ttc" id="astructcore_1_1LevelLoadResult_html_a6e2623371658540ee9003d846c0840d9"><div class="ttname"><a href="structcore_1_1LevelLoadResult.html#a6e2623371658540ee9003d846c0840d9">core::LevelLoadResult::errorCode</a></div><div class="ttdeci">LevelValidationError errorCode</div><div class="ttdef"><b>Definition</b> LevelLoader.h:81</div></div>
+<div class="ttc" id="astructcore_1_1LevelLoadResult_html_ab18f975c074af924854ff0ffe5218047"><div class="ttname"><a href="structcore_1_1LevelLoadResult.html#ab18f975c074af924854ff0ffe5218047">core::LevelLoadResult::ok</a></div><div class="ttdeci">bool ok() const noexcept</div><div class="ttdef"><b>Definition</b> LevelLoader.h:84</div></div>
+<div class="ttc" id="astructcore_1_1LevelLoadResult_html_ac21cc63832094fc7dda052a6372dd167"><div class="ttname"><a href="structcore_1_1LevelLoadResult.html#ac21cc63832094fc7dda052a6372dd167">core::LevelLoadResult::error</a></div><div class="ttdeci">std::string error</div><div class="ttdef"><b>Definition</b> LevelLoader.h:80</div></div>
+<div class="ttc" id="astructcore_1_1LevelLoadResult_html_acd73f8d045b0de9992c2a35920b35324"><div class="ttname"><a href="structcore_1_1LevelLoadResult.html#acd73f8d045b0de9992c2a35920b35324">core::LevelLoadResult::level</a></div><div class="ttdeci">std::optional&lt; Level &gt; level</div><div class="ttdef"><b>Definition</b> LevelLoader.h:79</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_e9bc3547f945e106b199f4f7c7c6d92f.html">Levels</a></li><li class="navelem"><a href="LevelLoader_8h.html">LevelLoader.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/CityPlan.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('CityPlan_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CityPlan.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="CityPlan_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span></div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="};">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="structcore_1_1CityDistrict.html">   28</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1CityDistrict.html">CityDistrict</a> {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="structcore_1_1CityDistrict.html#a2c3ddaf36344b6d2a3d1982781be8c4d">   30</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CityDistrict.html#a2c3ddaf36344b6d2a3d1982781be8c4d">id</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structcore_1_1CityDistrict.html#ac637df807c647bf56bc97172cc992ca8">   32</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CityDistrict.html#ac637df807c647bf56bc97172cc992ca8">map</a>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structcore_1_1CityDistrict.html#a9923745226857a2e0df0cfc283a67548">   34</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CityDistrict.html#a9923745226857a2e0df0cfc283a67548">guardMap</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span></div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structcore_1_1CityDistrict.html#ad09e8ae1956c76fe0ddc331777290478">   37</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1CityDistrict.html#ad09e8ae1956c76fe0ddc331777290478">hasMap</a>() const noexcept {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">return</span> !<a class="code hl_variable" href="structcore_1_1CityDistrict.html#ac637df807c647bf56bc97172cc992ca8">map</a>.empty();</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>};</div>
+</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="};">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structcore_1_1CityPlan.html">   43</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1CityPlan.html">CityPlan</a> {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structcore_1_1CityPlan.html#a5da25f912f6925d7e11b3ddcca9486b6">   44</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CityPlan.html#a5da25f912f6925d7e11b3ddcca9486b6">id</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structcore_1_1CityPlan.html#a4c9635e26d15fb8358877d2c841ee9c8">   45</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CityPlan.html#a4c9635e26d15fb8358877d2c841ee9c8">name</a>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structcore_1_1CityPlan.html#a9929b682302928c83f4abd4056b32234">   47</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CityPlan.html#a9929b682302928c83f4abd4056b32234">location</a>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structcore_1_1CityPlan.html#a3bd1b8abf440eb5250bbd54345195bc7">   49</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CityPlan.html#a3bd1b8abf440eb5250bbd54345195bc7">startDistrict</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structcore_1_1CityPlan.html#af5faf8b752cd253a3e27837f17e06a5b">   50</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CityPlan.html#af5faf8b752cd253a3e27837f17e06a5b">startArrival</a>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structcore_1_1CityPlan.html#aabd74854b3292a625c7977b70f8bfbd0">   51</a></span>    std::vector&lt;CityDistrict&gt; <a class="code hl_variable" href="structcore_1_1CityPlan.html#aabd74854b3292a625c7977b70f8bfbd0">districts</a>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CityDistrict.html">CityDistrict</a>* <a class="code hl_function" href="structcore_1_1CityPlan.html#a6ded850ba0eba7f7de074c818cba3416">find</a>(std::string_view districtId) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CityDistrict.html">CityDistrict</a>* <a class="code hl_function" href="structcore_1_1CityPlan.html#a1ef267d0dd2e4c272998b68ea9d27629">districtOfMap</a>(std::string_view mapId) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    [[nodiscard]] std::string <a class="code hl_function" href="structcore_1_1CityPlan.html#a495e6e10580094cf0a3b07e5c2d0b262">startMap</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>};</div>
+</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span></div>
+<div class="foldopen" id="foldopen00064" data-start="{" data-end="};">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="structcore_1_1CityPlanResult.html">   64</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1CityPlanResult.html">CityPlanResult</a> {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="structcore_1_1CityPlanResult.html#a330c0a8fa299dbf184f1fff9bb259a3b">   65</a></span>    <a class="code hl_struct" href="structcore_1_1CityPlan.html">CityPlan</a> <a class="code hl_variable" href="structcore_1_1CityPlanResult.html#a330c0a8fa299dbf184f1fff9bb259a3b">plan</a>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structcore_1_1CityPlanResult.html#aff682a1a16165fbe8f0f7914eb2d40d4">   67</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CityPlanResult.html#aff682a1a16165fbe8f0f7914eb2d40d4">error</a>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="foldopen" id="foldopen00069" data-start="{" data-end="}">
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structcore_1_1CityPlanResult.html#af0ef9f18d9fc763c8cbc96530dad3e31">   69</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1CityPlanResult.html#af0ef9f18d9fc763c8cbc96530dad3e31">ok</a>() const noexcept {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1CityPlanResult.html#aff682a1a16165fbe8f0f7914eb2d40d4">error</a>.empty();</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
+</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>};</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>[[nodiscard]] CityPlanResult <a class="code hl_function" href="namespacecore.html#aaecd848d6b8b1fee4c49ef3e9dcb36c3">loadCityPlan</a>(<span class="keyword">const</span> std::filesystem::path&amp; file);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_aaecd848d6b8b1fee4c49ef3e9dcb36c3"><div class="ttname"><a href="namespacecore.html#aaecd848d6b8b1fee4c49ef3e9dcb36c3">core::loadCityPlan</a></div><div class="ttdeci">CityPlanResult loadCityPlan(const std::filesystem::path &amp;file)</div><div class="ttdoc">Lit une ville jouable.</div><div class="ttdef"><b>Definition</b> CityPlan.cpp:45</div></div>
+<div class="ttc" id="astructcore_1_1CityDistrict_html"><div class="ttname"><a href="structcore_1_1CityDistrict.html">core::CityDistrict</a></div><div class="ttdoc">Un quartier d&#39;une ville jouable.</div><div class="ttdef"><b>Definition</b> CityPlan.h:28</div></div>
+<div class="ttc" id="astructcore_1_1CityDistrict_html_a2c3ddaf36344b6d2a3d1982781be8c4d"><div class="ttname"><a href="structcore_1_1CityDistrict.html#a2c3ddaf36344b6d2a3d1982781be8c4d">core::CityDistrict::id</a></div><div class="ttdeci">std::string id</div><div class="ttdoc">La fiche d&#39;atlas du quartier (central-empire-the-capital-city-martpart).</div><div class="ttdef"><b>Definition</b> CityPlan.h:30</div></div>
+<div class="ttc" id="astructcore_1_1CityDistrict_html_a9923745226857a2e0df0cfc283a67548"><div class="ttname"><a href="structcore_1_1CityDistrict.html#a9923745226857a2e0df0cfc283a67548">core::CityDistrict::guardMap</a></div><div class="ttdeci">std::string guardMap</div><div class="ttdoc">La carte où se tient la porte gardée d&#39;un quartier sans carte, vide s&#39;il en a une.</div><div class="ttdef"><b>Definition</b> CityPlan.h:34</div></div>
+<div class="ttc" id="astructcore_1_1CityDistrict_html_ac637df807c647bf56bc97172cc992ca8"><div class="ttname"><a href="structcore_1_1CityDistrict.html#ac637df807c647bf56bc97172cc992ca8">core::CityDistrict::map</a></div><div class="ttdeci">std::string map</div><div class="ttdoc">L&#39;identifiant de la carte du quartier (capital/martpart), vide s&#39;il n&#39;en a pas.</div><div class="ttdef"><b>Definition</b> CityPlan.h:32</div></div>
+<div class="ttc" id="astructcore_1_1CityDistrict_html_ad09e8ae1956c76fe0ddc331777290478"><div class="ttname"><a href="structcore_1_1CityDistrict.html#ad09e8ae1956c76fe0ddc331777290478">core::CityDistrict::hasMap</a></div><div class="ttdeci">bool hasMap() const noexcept</div><div class="ttdef"><b>Definition</b> CityPlan.h:37</div></div>
+<div class="ttc" id="astructcore_1_1CityPlanResult_html"><div class="ttname"><a href="structcore_1_1CityPlanResult.html">core::CityPlanResult</a></div><div class="ttdoc">Résultat d&#39;une lecture : le graphe, ou ce qui l&#39;a empêché.</div><div class="ttdef"><b>Definition</b> CityPlan.h:64</div></div>
+<div class="ttc" id="astructcore_1_1CityPlanResult_html_a330c0a8fa299dbf184f1fff9bb259a3b"><div class="ttname"><a href="structcore_1_1CityPlanResult.html#a330c0a8fa299dbf184f1fff9bb259a3b">core::CityPlanResult::plan</a></div><div class="ttdeci">CityPlan plan</div><div class="ttdef"><b>Definition</b> CityPlan.h:65</div></div>
+<div class="ttc" id="astructcore_1_1CityPlanResult_html_af0ef9f18d9fc763c8cbc96530dad3e31"><div class="ttname"><a href="structcore_1_1CityPlanResult.html#af0ef9f18d9fc763c8cbc96530dad3e31">core::CityPlanResult::ok</a></div><div class="ttdeci">bool ok() const noexcept</div><div class="ttdef"><b>Definition</b> CityPlan.h:69</div></div>
+<div class="ttc" id="astructcore_1_1CityPlanResult_html_aff682a1a16165fbe8f0f7914eb2d40d4"><div class="ttname"><a href="structcore_1_1CityPlanResult.html#aff682a1a16165fbe8f0f7914eb2d40d4">core::CityPlanResult::error</a></div><div class="ttdeci">std::string error</div><div class="ttdoc">Message technique, vide en cas de succès. Pour les journaux et les tests.</div><div class="ttdef"><b>Definition</b> CityPlan.h:67</div></div>
+<div class="ttc" id="astructcore_1_1CityPlan_html"><div class="ttname"><a href="structcore_1_1CityPlan.html">core::CityPlan</a></div><div class="ttdoc">Le graphe d&#39;une ville : ses quartiers et sa porte de départ.</div><div class="ttdef"><b>Definition</b> CityPlan.h:43</div></div>
+<div class="ttc" id="astructcore_1_1CityPlan_html_a1ef267d0dd2e4c272998b68ea9d27629"><div class="ttname"><a href="structcore_1_1CityPlan.html#a1ef267d0dd2e4c272998b68ea9d27629">core::CityPlan::districtOfMap</a></div><div class="ttdeci">const CityDistrict * districtOfMap(std::string_view mapId) const</div><div class="ttdef"><b>Definition</b> CityPlan.cpp:32</div></div>
+<div class="ttc" id="astructcore_1_1CityPlan_html_a3bd1b8abf440eb5250bbd54345195bc7"><div class="ttname"><a href="structcore_1_1CityPlan.html#a3bd1b8abf440eb5250bbd54345195bc7">core::CityPlan::startDistrict</a></div><div class="ttdeci">std::string startDistrict</div><div class="ttdoc">Le quartier où « Nouvelle partie » pose le héros, et le point d&#39;arrivée de sa carte.</div><div class="ttdef"><b>Definition</b> CityPlan.h:49</div></div>
+<div class="ttc" id="astructcore_1_1CityPlan_html_a495e6e10580094cf0a3b07e5c2d0b262"><div class="ttname"><a href="structcore_1_1CityPlan.html#a495e6e10580094cf0a3b07e5c2d0b262">core::CityPlan::startMap</a></div><div class="ttdeci">std::string startMap() const</div><div class="ttdef"><b>Definition</b> CityPlan.cpp:40</div></div>
+<div class="ttc" id="astructcore_1_1CityPlan_html_a4c9635e26d15fb8358877d2c841ee9c8"><div class="ttname"><a href="structcore_1_1CityPlan.html#a4c9635e26d15fb8358877d2c841ee9c8">core::CityPlan::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> CityPlan.h:45</div></div>
+<div class="ttc" id="astructcore_1_1CityPlan_html_a5da25f912f6925d7e11b3ddcca9486b6"><div class="ttname"><a href="structcore_1_1CityPlan.html#a5da25f912f6925d7e11b3ddcca9486b6">core::CityPlan::id</a></div><div class="ttdeci">std::string id</div><div class="ttdef"><b>Definition</b> CityPlan.h:44</div></div>
+<div class="ttc" id="astructcore_1_1CityPlan_html_a6ded850ba0eba7f7de074c818cba3416"><div class="ttname"><a href="structcore_1_1CityPlan.html#a6ded850ba0eba7f7de074c818cba3416">core::CityPlan::find</a></div><div class="ttdeci">const CityDistrict * find(std::string_view districtId) const</div><div class="ttdef"><b>Definition</b> CityPlan.cpp:27</div></div>
+<div class="ttc" id="astructcore_1_1CityPlan_html_a9929b682302928c83f4abd4056b32234"><div class="ttname"><a href="structcore_1_1CityPlan.html#a9929b682302928c83f4abd4056b32234">core::CityPlan::location</a></div><div class="ttdeci">std::string location</div><div class="ttdoc">La fiche d&#39;atlas de la ville, qui est aussi la clé de son plan dans world-maps.json.</div><div class="ttdef"><b>Definition</b> CityPlan.h:47</div></div>
+<div class="ttc" id="astructcore_1_1CityPlan_html_aabd74854b3292a625c7977b70f8bfbd0"><div class="ttname"><a href="structcore_1_1CityPlan.html#aabd74854b3292a625c7977b70f8bfbd0">core::CityPlan::districts</a></div><div class="ttdeci">std::vector&lt; CityDistrict &gt; districts</div><div class="ttdef"><b>Definition</b> CityPlan.h:51</div></div>
+<div class="ttc" id="astructcore_1_1CityPlan_html_af5faf8b752cd253a3e27837f17e06a5b"><div class="ttname"><a href="structcore_1_1CityPlan.html#af5faf8b752cd253a3e27837f17e06a5b">core::CityPlan::startArrival</a></div><div class="ttdeci">std::string startArrival</div><div class="ttdef"><b>Definition</b> CityPlan.h:50</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_c085377a8d45dfd2467facd710fb0ba3.html">World</a></li><li class="navelem"><a href="CityPlan_8h.html">CityPlan.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/ScenePieceManifest.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('ScenePieceManifest_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ScenePieceManifest.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="ScenePieceManifest_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="PieceFootprint_8h.html">Core/Levels/PieceFootprint.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1JsonDocument.html">JsonDocument</a>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span></div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="};">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461">   41</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461">ScenePieceClass</a> : std::uint8_t {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461af3f6d0343d56ce88ce7958170ed05cb3">   43</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461af3f6d0343d56ce88ce7958170ed05cb3">Floor</a>,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461a31fdedff3e473efdbd079e3b59fcb4f9">   45</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461a31fdedff3e473efdbd079e3b59fcb4f9">Tall</a>,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461ae7c770a61dbdf81ca922ae0260e327c1">   47</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461ae7c770a61dbdf81ca922ae0260e327c1">Wide</a>,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461a6311ae17c1ee52b36e68aaf4ad066387">   49</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461a6311ae17c1ee52b36e68aaf4ad066387">Other</a>,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
+</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
+<div class="foldopen" id="foldopen00058" data-start="{" data-end="};">
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252">   58</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252">PieceTactical</a> : std::uint8_t {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252ac3bf447eabe632720a3aa1a7ce401274">   60</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252ac3bf447eabe632720a3aa1a7ce401274">Open</a>,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252a429ee94cd13d541a0d434e93c798ac4c">   63</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252a429ee94cd13d541a0d434e93c798ac4c">Difficult</a>,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252ac795dfff10a7c952f4c5438951e9ece9">   66</a></span>    <a class="code hl_enumeration" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999">Cover</a>,</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252afe29c1262b319e6d200d32384ae636c7">   69</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252afe29c1262b319e6d200d32384ae636c7">Obstacle</a>,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252ae41480b6bbfbf7407974a88d3d34f4fa">   71</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">Solid</a>,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>};</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>[[nodiscard]] <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="namespacecore.html#a15ebe09385d339d43fa1f8031c5610a2">pieceTacticalName</a>(<a class="code hl_enumeration" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252">PieceTactical</a> tactical) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>[[nodiscard]] std::optional&lt;PieceTactical&gt; <a class="code hl_function" href="namespacecore.html#a24630c3d763af343ac0a0863bddcc5fd">parsePieceTactical</a>(std::string_view name) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
+<div class="foldopen" id="foldopen00081" data-start="{" data-end="};">
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html">   81</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1ScenePiece.html">ScenePiece</a> {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#ac358a548d00c1477032362dfb8f3247b">   83</a></span>    std::string <a class="code hl_variable" href="structcore_1_1ScenePiece.html#ac358a548d00c1477032362dfb8f3247b">name</a>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#a0baa3d1830021d1eedb0d067a05565bc">   85</a></span>    std::string <a class="code hl_variable" href="structcore_1_1ScenePiece.html#a0baa3d1830021d1eedb0d067a05565bc">key</a>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#aa07afc5d2306797a84be1b32a4981a80">   87</a></span>    std::string <a class="code hl_variable" href="structcore_1_1ScenePiece.html#aa07afc5d2306797a84be1b32a4981a80">file</a>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#a922394e6582c74f12072082c93615121">   88</a></span>    <a class="code hl_enumeration" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461">ScenePieceClass</a> <a class="code hl_variable" href="structcore_1_1ScenePiece.html#a922394e6582c74f12072082c93615121">pieceClass</a> = <a class="code hl_enumvalue" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461a6311ae17c1ee52b36e68aaf4ad066387">ScenePieceClass::Other</a>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#a55c584d71565d87dcea8934b154e7c98">   90</a></span>    std::string <a class="code hl_variable" href="structcore_1_1ScenePiece.html#a55c584d71565d87dcea8934b154e7c98">className</a>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#a5ec0d00b673779328de8528da7016640">   92</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1ScenePiece.html#a5ec0d00b673779328de8528da7016640">footprintColumns</a> = 1;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#aa41ab5bf7094ffe87fb5444a6a8272e0">   93</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1ScenePiece.html#aa41ab5bf7094ffe87fb5444a6a8272e0">footprintRows</a> = 1;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#aac4f007f8cb781f19e62f507d1257d7b">   95</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1ScenePiece.html#aac4f007f8cb781f19e62f507d1257d7b">width</a> = 0;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#a9529ec69148f8f8a393c21b188dcd7da">   96</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1ScenePiece.html#a9529ec69148f8f8a393c21b188dcd7da">height</a> = 0;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#af94e3b5b0fabf10f5afc596e42d521c6">   98</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1ScenePiece.html#af94e3b5b0fabf10f5afc596e42d521c6">anchorX</a> = -1;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#a6457afd02a3b99e9a3eb45f1f486b112">   99</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1ScenePiece.html#a6457afd02a3b99e9a3eb45f1f486b112">anchorY</a> = -1;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#a2edc0cbade8abd293671d037c45bd9a0">  102</a></span>    std::string <a class="code hl_variable" href="structcore_1_1ScenePiece.html#a2edc0cbade8abd293671d037c45bd9a0">mirrorOf</a>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#a9a5d01fa7da564a436751b3a588d2660">  105</a></span>    <a class="code hl_enumeration" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252">PieceTactical</a> <a class="code hl_variable" href="structcore_1_1ScenePiece.html#a9a5d01fa7da564a436751b3a588d2660">tactical</a> = <a class="code hl_enumvalue" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252ae41480b6bbfbf7407974a88d3d34f4fa">PieceTactical::Solid</a>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#a4c40e2acdc88439674762e5402ba224d">  107</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1ScenePiece.html#a4c40e2acdc88439674762e5402ba224d">aliases</a>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span></div>
+<div class="foldopen" id="foldopen00110" data-start="{" data-end="}">
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#a3007113a2df28f76da5e67d11eeb1986">  110</a></span>    [[nodiscard]] <a class="code hl_struct" href="structcore_1_1PieceFootprint.html">PieceFootprint</a> <a class="code hl_function" href="structcore_1_1ScenePiece.html#a3007113a2df28f76da5e67d11eeb1986">footprint</a>() const noexcept {</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordflow">return</span> <a class="code hl_struct" href="structcore_1_1PieceFootprint.html">PieceFootprint</a>{.columns = <a class="code hl_variable" href="structcore_1_1ScenePiece.html#a5ec0d00b673779328de8528da7016640">footprintColumns</a>, .rows = <a class="code hl_variable" href="structcore_1_1ScenePiece.html#aa41ab5bf7094ffe87fb5444a6a8272e0">footprintRows</a>};</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    }</div>
+</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePiece.html#a1e1b67c75d3e7d3ab6b5c389ddb71308">  114</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1ScenePiece.html#a1e1b67c75d3e7d3ab6b5c389ddb71308">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1ScenePiece.html">ScenePiece</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>};</div>
+</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span></div>
+<div class="foldopen" id="foldopen00118" data-start="{" data-end="};">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbcc">  118</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbcc">ScenePieceManifestError</a> : std::uint8_t {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbcca6adf97f83acf6453d4a6a4b1070f3754">  119</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999a6adf97f83acf6453d4a6a4b1070f3754">None</a>,</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbcca2767828026039e8ba7b38973cbb701f2">  120</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0a2767828026039e8ba7b38973cbb701f2">FileNotFound</a>,</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbccae41199faa7290c167f70f314c5e6c165">  121</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0ae41199faa7290c167f70f314c5e6c165">ParseError</a>,</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbcca0f89bc98e9b12bdeda0604e57bdc0518">  122</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0a0f89bc98e9b12bdeda0604e57bdc0518">UnsupportedVersion</a>,</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbccaa809debdbe0cae246d363461916d924d">  123</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0aa809debdbe0cae246d363461916d924d">MalformedStructure</a>,</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>};</div>
+</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="keyword">struct </span>ScenePieceManifestResult;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span></div>
+<div class="foldopen" id="foldopen00134" data-start="{" data-end="};">
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="classcore_1_1ScenePieceManifest.html">  134</a></span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1ScenePieceManifest.html">ScenePieceManifest</a> {</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="classcore_1_1ScenePieceManifest.html#a1749193ae1b438c94d4fc80c2b5e6aba">  136</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="classcore_1_1ScenePieceManifest.html#a1749193ae1b438c94d4fc80c2b5e6aba">FORMAT_VERSION</a> = 1;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structcore_1_1ScenePieceManifestResult.html">ScenePieceManifestResult</a> <a class="code hl_function" href="classcore_1_1ScenePieceManifest.html#a7517f6483f0ee8b55fe5c44cafb8efb0">loadFromString</a>(std::string_view json);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structcore_1_1ScenePieceManifestResult.html">ScenePieceManifestResult</a> <a class="code hl_function" href="classcore_1_1ScenePieceManifest.html#a6979cb457d32c2be9d8a6587068d7f22">loadFromFile</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span></div>
+<div class="foldopen" id="foldopen00142" data-start="{" data-end="}">
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="classcore_1_1ScenePieceManifest.html#a6ea382802f3c340421cc2acebf28da0c">  142</a></span>    [[nodiscard]] <span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="classcore_1_1ScenePieceManifest.html#a6ea382802f3c340421cc2acebf28da0c">place</a>() const noexcept {</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classcore_1_1ScenePieceManifest.html#a55c7fea9b7513cf6c37b3def80e6a488">_place</a>;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    }</div>
+</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span></div>
+<div class="foldopen" id="foldopen00147" data-start="{" data-end="}">
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="classcore_1_1ScenePieceManifest.html#a6395b628d5e55a75bd2a62bff6421a05">  147</a></span>    [[nodiscard]] <span class="keyword">const</span> std::vector&lt;ScenePiece&gt;&amp; <a class="code hl_function" href="classcore_1_1ScenePieceManifest.html#a6395b628d5e55a75bd2a62bff6421a05">pieces</a>() const noexcept {</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classcore_1_1ScenePieceManifest.html#ac98b1e9fb3d0fb154910f386c813c9ac">_pieces</a>;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    }</div>
+</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1ScenePiece.html">ScenePiece</a>* <a class="code hl_function" href="classcore_1_1ScenePieceManifest.html#adef82b97ddbffdc57811c0a9bcf22caf">find</a>(std::string_view name) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structcore_1_1ScenePieceManifestResult.html">ScenePieceManifestResult</a> <a class="code hl_function" href="classcore_1_1ScenePieceManifest.html#a013a5f6873b566b52e89b960cb0c81c9">fromDocument</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1JsonDocument.html">JsonDocument</a>&amp; document);</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="classcore_1_1ScenePieceManifest.html#a55c7fea9b7513cf6c37b3def80e6a488">  158</a></span>    std::string <a class="code hl_variable" href="classcore_1_1ScenePieceManifest.html#a55c7fea9b7513cf6c37b3def80e6a488">_place</a>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="classcore_1_1ScenePieceManifest.html#ac98b1e9fb3d0fb154910f386c813c9ac">  159</a></span>    std::vector&lt;ScenePiece&gt; <a class="code hl_variable" href="classcore_1_1ScenePieceManifest.html#ac98b1e9fb3d0fb154910f386c813c9ac">_pieces</a>;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>};</div>
+</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span></div>
+<div class="foldopen" id="foldopen00163" data-start="{" data-end="};">
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePieceManifestResult.html">  163</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1ScenePieceManifestResult.html">ScenePieceManifestResult</a> {</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePieceManifestResult.html#af36c89a67bcff9fb0515c6da5f9daecb">  164</a></span>    <a class="code hl_class" href="classcore_1_1ScenePieceManifest.html">ScenePieceManifest</a> <a class="code hl_variable" href="structcore_1_1ScenePieceManifestResult.html#af36c89a67bcff9fb0515c6da5f9daecb">manifest</a>;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePieceManifestResult.html#af37db2097af700b9a834132fadbe0628">  165</a></span>    <a class="code hl_enumeration" href="namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbcc">ScenePieceManifestError</a> <a class="code hl_variable" href="structcore_1_1ScenePieceManifestResult.html#af37db2097af700b9a834132fadbe0628">error</a> = <a class="code hl_enumvalue" href="namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbcca6adf97f83acf6453d4a6a4b1070f3754">ScenePieceManifestError::None</a>;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePieceManifestResult.html#a906a7bed17c34b60cf4b09d25b665729">  167</a></span>    std::string <a class="code hl_variable" href="structcore_1_1ScenePieceManifestResult.html#a906a7bed17c34b60cf4b09d25b665729">message</a>;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="foldopen" id="foldopen00169" data-start="{" data-end="}">
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="structcore_1_1ScenePieceManifestResult.html#a9fb450ea46f4f822a30698242f7363b4">  169</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1ScenePieceManifestResult.html#a9fb450ea46f4f822a30698242f7363b4">ok</a>() const noexcept {</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1ScenePieceManifestResult.html#af37db2097af700b9a834132fadbe0628">error</a> == <a class="code hl_enumvalue" href="namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbcca6adf97f83acf6453d4a6a4b1070f3754">ScenePieceManifestError::None</a>;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    }</div>
+</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>};</div>
+</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>[[nodiscard]] <a class="code hl_enumeration" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461">ScenePieceClass</a> <a class="code hl_function" href="namespacecore.html#ab61b34d0d8ae2acaa9aa552c099b2255">parseScenePieceClass</a>(std::string_view name) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>[[nodiscard]] std::string_view <a class="code hl_function" href="namespacecore.html#a40b827238eccb98a51e5d1e4966f6aae">scenePieceShortName</a>(std::string_view key) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aPieceFootprint_8h_html"><div class="ttname"><a href="PieceFootprint_8h.html">PieceFootprint.h</a></div><div class="ttdoc">L&#39;emprise d&#39;une pièce posée sur une carte : les cases qu&#39;elle occupe, et la case d&#39;où elle se trie (L...</div></div>
+<div class="ttc" id="aclasscore_1_1ScenePieceManifest_html"><div class="ttname"><a href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a></div><div class="ttdoc">Les pièces d&#39;un lieu, dans l&#39;ordre du manifeste.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:134</div></div>
+<div class="ttc" id="aclasscore_1_1ScenePieceManifest_html_a013a5f6873b566b52e89b960cb0c81c9"><div class="ttname"><a href="classcore_1_1ScenePieceManifest.html#a013a5f6873b566b52e89b960cb0c81c9">core::ScenePieceManifest::fromDocument</a></div><div class="ttdeci">static ScenePieceManifestResult fromDocument(const JsonDocument &amp;document)</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.cpp:146</div></div>
+<div class="ttc" id="aclasscore_1_1ScenePieceManifest_html_a1749193ae1b438c94d4fc80c2b5e6aba"><div class="ttname"><a href="classcore_1_1ScenePieceManifest.html#a1749193ae1b438c94d4fc80c2b5e6aba">core::ScenePieceManifest::FORMAT_VERSION</a></div><div class="ttdeci">static constexpr int FORMAT_VERSION</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:136</div></div>
+<div class="ttc" id="aclasscore_1_1ScenePieceManifest_html_a55c7fea9b7513cf6c37b3def80e6a488"><div class="ttname"><a href="classcore_1_1ScenePieceManifest.html#a55c7fea9b7513cf6c37b3def80e6a488">core::ScenePieceManifest::_place</a></div><div class="ttdeci">std::string _place</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:158</div></div>
+<div class="ttc" id="aclasscore_1_1ScenePieceManifest_html_a6395b628d5e55a75bd2a62bff6421a05"><div class="ttname"><a href="classcore_1_1ScenePieceManifest.html#a6395b628d5e55a75bd2a62bff6421a05">core::ScenePieceManifest::pieces</a></div><div class="ttdeci">const std::vector&lt; ScenePiece &gt; &amp; pieces() const noexcept</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:147</div></div>
+<div class="ttc" id="aclasscore_1_1ScenePieceManifest_html_a6979cb457d32c2be9d8a6587068d7f22"><div class="ttname"><a href="classcore_1_1ScenePieceManifest.html#a6979cb457d32c2be9d8a6587068d7f22">core::ScenePieceManifest::loadFromFile</a></div><div class="ttdeci">static ScenePieceManifestResult loadFromFile(const std::filesystem::path &amp;path)</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.cpp:129</div></div>
+<div class="ttc" id="aclasscore_1_1ScenePieceManifest_html_a6ea382802f3c340421cc2acebf28da0c"><div class="ttname"><a href="classcore_1_1ScenePieceManifest.html#a6ea382802f3c340421cc2acebf28da0c">core::ScenePieceManifest::place</a></div><div class="ttdeci">const std::string &amp; place() const noexcept</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:142</div></div>
+<div class="ttc" id="aclasscore_1_1ScenePieceManifest_html_a7517f6483f0ee8b55fe5c44cafb8efb0"><div class="ttname"><a href="classcore_1_1ScenePieceManifest.html#a7517f6483f0ee8b55fe5c44cafb8efb0">core::ScenePieceManifest::loadFromString</a></div><div class="ttdeci">static ScenePieceManifestResult loadFromString(std::string_view json)</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.cpp:125</div></div>
+<div class="ttc" id="aclasscore_1_1ScenePieceManifest_html_ac98b1e9fb3d0fb154910f386c813c9ac"><div class="ttname"><a href="classcore_1_1ScenePieceManifest.html#ac98b1e9fb3d0fb154910f386c813c9ac">core::ScenePieceManifest::_pieces</a></div><div class="ttdeci">std::vector&lt; ScenePiece &gt; _pieces</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:159</div></div>
+<div class="ttc" id="aclasscore_1_1ScenePieceManifest_html_adef82b97ddbffdc57811c0a9bcf22caf"><div class="ttname"><a href="classcore_1_1ScenePieceManifest.html#adef82b97ddbffdc57811c0a9bcf22caf">core::ScenePieceManifest::find</a></div><div class="ttdeci">const ScenePiece * find(std::string_view name) const noexcept</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.cpp:133</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a096c9cc059de39edb20ccea06d18f252"><div class="ttname"><a href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252">core::PieceTactical</a></div><div class="ttdeci">PieceTactical</div><div class="ttdoc">Ce qu&#39;une pièce oppose à qui passe : son type tactique (décision D10, constat A5).</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:58</div></div>
+<div class="ttc" id="anamespacecore_html_a096c9cc059de39edb20ccea06d18f252a429ee94cd13d541a0d434e93c798ac4c"><div class="ttname"><a href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252a429ee94cd13d541a0d434e93c798ac4c">core::PieceTactical::Difficult</a></div><div class="ttdeci">@ Difficult</div><div class="ttdoc">Gêne (difficult) : terrain difficile.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:63</div></div>
+<div class="ttc" id="anamespacecore_html_a096c9cc059de39edb20ccea06d18f252ac3bf447eabe632720a3aa1a7ce401274"><div class="ttname"><a href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252ac3bf447eabe632720a3aa1a7ce401274">core::PieceTactical::Open</a></div><div class="ttdeci">@ Open</div><div class="ttdoc">Passe (open) : un sol, un banc qu&#39;on enjambe, une arche.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:60</div></div>
+<div class="ttc" id="anamespacecore_html_a096c9cc059de39edb20ccea06d18f252ae41480b6bbfbf7407974a88d3d34f4fa"><div class="ttname"><a href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252ae41480b6bbfbf7407974a88d3d34f4fa">core::PieceTactical::Solid</a></div><div class="ttdeci">@ Solid</div><div class="ttdoc">Arrête la vue (solid) : un mur, une façade. Déduit en wall.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:71</div></div>
+<div class="ttc" id="anamespacecore_html_a096c9cc059de39edb20ccea06d18f252afe29c1262b319e6d200d32384ae636c7"><div class="ttname"><a href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252afe29c1262b319e6d200d32384ae636c7">core::PieceTactical::Obstacle</a></div><div class="ttdeci">@ Obstacle</div><div class="ttdoc">Arrête le pas (obstacle) : infranchissable au sol, mais on voit par-dessus et on le survole — une fos...</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:69</div></div>
+<div class="ttc" id="anamespacecore_html_a0ddd67c0966fb31bf8c2de44a63d6999"><div class="ttname"><a href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999">core::Cover</a></div><div class="ttdeci">Cover</div><div class="ttdoc">Les trois abris du Manuel des Joueurs (chapitre 9, « Abri »), et l&#39;absence d&#39;abri.</div><div class="ttdef"><b>Definition</b> BattleGrid.h:100</div></div>
+<div class="ttc" id="anamespacecore_html_a0ddd67c0966fb31bf8c2de44a63d6999a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999a6adf97f83acf6453d4a6a4b1070f3754">core::Cover::None</a></div><div class="ttdeci">@ None</div><div class="ttdef"><b>Definition</b> BattleGrid.h:101</div></div>
+<div class="ttc" id="anamespacecore_html_a15ebe09385d339d43fa1f8031c5610a2"><div class="ttname"><a href="namespacecore.html#a15ebe09385d339d43fa1f8031c5610a2">core::pieceTacticalName</a></div><div class="ttdeci">const char * pieceTacticalName(PieceTactical tactical) noexcept</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.cpp:80</div></div>
+<div class="ttc" id="anamespacecore_html_a24630c3d763af343ac0a0863bddcc5fd"><div class="ttname"><a href="namespacecore.html#a24630c3d763af343ac0a0863bddcc5fd">core::parsePieceTactical</a></div><div class="ttdeci">std::optional&lt; PieceTactical &gt; parsePieceTactical(std::string_view name) noexcept</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.cpp:96</div></div>
+<div class="ttc" id="anamespacecore_html_a3fca58c67ec139153d0204122e9c32e0a0f89bc98e9b12bdeda0604e57bdc0518"><div class="ttname"><a href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0a0f89bc98e9b12bdeda0604e57bdc0518">core::JsonReadError::UnsupportedVersion</a></div><div class="ttdeci">@ UnsupportedVersion</div><div class="ttdoc">Numéro de version supérieur à celui que le lecteur sait lire.</div><div class="ttdef"><b>Definition</b> JsonDocument.h:32</div></div>
+<div class="ttc" id="anamespacecore_html_a3fca58c67ec139153d0204122e9c32e0a2767828026039e8ba7b38973cbb701f2"><div class="ttname"><a href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0a2767828026039e8ba7b38973cbb701f2">core::JsonReadError::FileNotFound</a></div><div class="ttdeci">@ FileNotFound</div><div class="ttdoc">Fichier absent ou illisible.</div><div class="ttdef"><b>Definition</b> JsonDocument.h:30</div></div>
+<div class="ttc" id="anamespacecore_html_a3fca58c67ec139153d0204122e9c32e0aa809debdbe0cae246d363461916d924d"><div class="ttname"><a href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0aa809debdbe0cae246d363461916d924d">core::JsonReadError::MalformedStructure</a></div><div class="ttdeci">@ MalformedStructure</div><div class="ttdoc">Structure inattendue (champ absent, type incorrect…).</div><div class="ttdef"><b>Definition</b> JsonDocument.h:33</div></div>
+<div class="ttc" id="anamespacecore_html_a3fca58c67ec139153d0204122e9c32e0ae41199faa7290c167f70f314c5e6c165"><div class="ttname"><a href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0ae41199faa7290c167f70f314c5e6c165">core::JsonReadError::ParseError</a></div><div class="ttdeci">@ ParseError</div><div class="ttdoc">JSON malformé, ou racine qui n&#39;est pas un objet.</div><div class="ttdef"><b>Definition</b> JsonDocument.h:31</div></div>
+<div class="ttc" id="anamespacecore_html_a40b827238eccb98a51e5d1e4966f6aae"><div class="ttname"><a href="namespacecore.html#a40b827238eccb98a51e5d1e4966f6aae">core::scenePieceShortName</a></div><div class="ttdeci">std::string_view scenePieceShortName(std::string_view key) noexcept</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.cpp:120</div></div>
+<div class="ttc" id="anamespacecore_html_a4a3860a249c1a2e07497950f57f4d461"><div class="ttname"><a href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461">core::ScenePieceClass</a></div><div class="ttdeci">ScenePieceClass</div><div class="ttdoc">Classe d&#39;une pièce, telle que l&#39;atelier la range.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:41</div></div>
+<div class="ttc" id="anamespacecore_html_a4a3860a249c1a2e07497950f57f4d461a31fdedff3e473efdbd079e3b59fcb4f9"><div class="ttname"><a href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461a31fdedff3e473efdbd079e3b59fcb4f9">core::ScenePieceClass::Tall</a></div><div class="ttdeci">@ Tall</div><div class="ttdoc">Une pièce debout d&#39;une case : mur, porte, torche.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:45</div></div>
+<div class="ttc" id="anamespacecore_html_a4a3860a249c1a2e07497950f57f4d461a6311ae17c1ee52b36e68aaf4ad066387"><div class="ttname"><a href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461a6311ae17c1ee52b36e68aaf4ad066387">core::ScenePieceClass::Other</a></div><div class="ttdeci">@ Other</div><div class="ttdoc">Une classe que ce lecteur ne connaît pas : gardée par son nom, jamais refusée.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:49</div></div>
+<div class="ttc" id="anamespacecore_html_a4a3860a249c1a2e07497950f57f4d461ae7c770a61dbdf81ca922ae0260e327c1"><div class="ttname"><a href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461ae7c770a61dbdf81ca922ae0260e327c1">core::ScenePieceClass::Wide</a></div><div class="ttdeci">@ Wide</div><div class="ttdoc">Une pièce debout de plusieurs cases : façade, étal, gradin.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:47</div></div>
+<div class="ttc" id="anamespacecore_html_a4a3860a249c1a2e07497950f57f4d461af3f6d0343d56ce88ce7958170ed05cb3"><div class="ttname"><a href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461af3f6d0343d56ce88ce7958170ed05cb3">core::ScenePieceClass::Floor</a></div><div class="ttdeci">@ Floor</div><div class="ttdoc">Un losange de sol, posé à plat.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:43</div></div>
+<div class="ttc" id="anamespacecore_html_a79edc6fa3ed0d05e7bad4f1756e2fbcc"><div class="ttname"><a href="namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbcc">core::ScenePieceManifestError</a></div><div class="ttdeci">ScenePieceManifestError</div><div class="ttdoc">Catégorie d&#39;échec de lecture.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:118</div></div>
+<div class="ttc" id="anamespacecore_html_a79edc6fa3ed0d05e7bad4f1756e2fbcca6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbcca6adf97f83acf6453d4a6a4b1070f3754">core::ScenePieceManifestError::None</a></div><div class="ttdeci">@ None</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:119</div></div>
+<div class="ttc" id="anamespacecore_html_ab61b34d0d8ae2acaa9aa552c099b2255"><div class="ttname"><a href="namespacecore.html#ab61b34d0d8ae2acaa9aa552c099b2255">core::parseScenePieceClass</a></div><div class="ttdeci">ScenePieceClass parseScenePieceClass(std::string_view name) noexcept</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.cpp:107</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">core::TileType::Solid</a></div><div class="ttdeci">@ Solid</div><div class="ttdef"><b>Definition</b> TileType.h:26</div></div>
+<div class="ttc" id="astructcore_1_1JsonDocument_html"><div class="ttname"><a href="structcore_1_1JsonDocument.html">core::JsonDocument</a></div><div class="ttdoc">Résultat de la lecture de l&#39;enveloppe commune d&#39;un document JSON.</div><div class="ttdef"><b>Definition</b> JsonDocument.h:53</div></div>
+<div class="ttc" id="astructcore_1_1PieceFootprint_html"><div class="ttname"><a href="structcore_1_1PieceFootprint.html">core::PieceFootprint</a></div><div class="ttdoc">Emprise d&#39;une pièce, en cases : colonnes, puis lignes. Au moins 1 × 1.</div><div class="ttdef"><b>Definition</b> PieceFootprint.h:34</div></div>
+<div class="ttc" id="astructcore_1_1ScenePieceManifestResult_html"><div class="ttname"><a href="structcore_1_1ScenePieceManifestResult.html">core::ScenePieceManifestResult</a></div><div class="ttdoc">Résultat d&#39;une lecture : le manifeste, et ce qui a échoué.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:163</div></div>
+<div class="ttc" id="astructcore_1_1ScenePieceManifestResult_html_a906a7bed17c34b60cf4b09d25b665729"><div class="ttname"><a href="structcore_1_1ScenePieceManifestResult.html#a906a7bed17c34b60cf4b09d25b665729">core::ScenePieceManifestResult::message</a></div><div class="ttdeci">std::string message</div><div class="ttdoc">Message technique, vide en cas de succès.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:167</div></div>
+<div class="ttc" id="astructcore_1_1ScenePieceManifestResult_html_a9fb450ea46f4f822a30698242f7363b4"><div class="ttname"><a href="structcore_1_1ScenePieceManifestResult.html#a9fb450ea46f4f822a30698242f7363b4">core::ScenePieceManifestResult::ok</a></div><div class="ttdeci">bool ok() const noexcept</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:169</div></div>
+<div class="ttc" id="astructcore_1_1ScenePieceManifestResult_html_af36c89a67bcff9fb0515c6da5f9daecb"><div class="ttname"><a href="structcore_1_1ScenePieceManifestResult.html#af36c89a67bcff9fb0515c6da5f9daecb">core::ScenePieceManifestResult::manifest</a></div><div class="ttdeci">ScenePieceManifest manifest</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:164</div></div>
+<div class="ttc" id="astructcore_1_1ScenePieceManifestResult_html_af37db2097af700b9a834132fadbe0628"><div class="ttname"><a href="structcore_1_1ScenePieceManifestResult.html#af37db2097af700b9a834132fadbe0628">core::ScenePieceManifestResult::error</a></div><div class="ttdeci">ScenePieceManifestError error</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:165</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html"><div class="ttname"><a href="structcore_1_1ScenePiece.html">core::ScenePiece</a></div><div class="ttdoc">Une pièce de la planche d&#39;un lieu.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:81</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_a0baa3d1830021d1eedb0d067a05565bc"><div class="ttname"><a href="structcore_1_1ScenePiece.html#a0baa3d1830021d1eedb0d067a05565bc">core::ScenePiece::key</a></div><div class="ttdeci">std::string key</div><div class="ttdoc">Clé de l&#39;atelier (scene/martpart/wall-left).</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:85</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_a1e1b67c75d3e7d3ab6b5c389ddb71308"><div class="ttname"><a href="structcore_1_1ScenePiece.html#a1e1b67c75d3e7d3ab6b5c389ddb71308">core::ScenePiece::operator==</a></div><div class="ttdeci">bool operator==(const ScenePiece &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_a2edc0cbade8abd293671d037c45bd9a0"><div class="ttname"><a href="structcore_1_1ScenePiece.html#a2edc0cbade8abd293671d037c45bd9a0">core::ScenePiece::mirrorOf</a></div><div class="ttdeci">std::string mirrorOf</div><div class="ttdoc">Nom court de la pièce dont celle-ci est le miroir, vide sinon.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:102</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_a3007113a2df28f76da5e67d11eeb1986"><div class="ttname"><a href="structcore_1_1ScenePiece.html#a3007113a2df28f76da5e67d11eeb1986">core::ScenePiece::footprint</a></div><div class="ttdeci">PieceFootprint footprint() const noexcept</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:110</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_a4c40e2acdc88439674762e5402ba224d"><div class="ttname"><a href="structcore_1_1ScenePiece.html#a4c40e2acdc88439674762e5402ba224d">core::ScenePiece::aliases</a></div><div class="ttdeci">std::vector&lt; std::string &gt; aliases</div><div class="ttdoc">Anciens noms courts sous lesquels une carte peut citer la pièce (aliases).</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:107</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_a55c584d71565d87dcea8934b154e7c98"><div class="ttname"><a href="structcore_1_1ScenePiece.html#a55c584d71565d87dcea8934b154e7c98">core::ScenePiece::className</a></div><div class="ttdeci">std::string className</div><div class="ttdoc">Classe telle qu&#39;écrite (floor, tall, wide…), pour une classe inconnue.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:90</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_a5ec0d00b673779328de8528da7016640"><div class="ttname"><a href="structcore_1_1ScenePiece.html#a5ec0d00b673779328de8528da7016640">core::ScenePiece::footprintColumns</a></div><div class="ttdeci">int footprintColumns</div><div class="ttdoc">Emprise en cases : colonnes, puis lignes. Au moins 1 × 1.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:92</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_a6457afd02a3b99e9a3eb45f1f486b112"><div class="ttname"><a href="structcore_1_1ScenePiece.html#a6457afd02a3b99e9a3eb45f1f486b112">core::ScenePiece::anchorY</a></div><div class="ttdeci">int anchorY</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:99</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_a922394e6582c74f12072082c93615121"><div class="ttname"><a href="structcore_1_1ScenePiece.html#a922394e6582c74f12072082c93615121">core::ScenePiece::pieceClass</a></div><div class="ttdeci">ScenePieceClass pieceClass</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:88</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_a9529ec69148f8f8a393c21b188dcd7da"><div class="ttname"><a href="structcore_1_1ScenePiece.html#a9529ec69148f8f8a393c21b188dcd7da">core::ScenePiece::height</a></div><div class="ttdeci">int height</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:96</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_a9a5d01fa7da564a436751b3a588d2660"><div class="ttname"><a href="structcore_1_1ScenePiece.html#a9a5d01fa7da564a436751b3a588d2660">core::ScenePiece::tactical</a></div><div class="ttdeci">PieceTactical tactical</div><div class="ttdoc">Type tactique (tactical du manifeste).</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:105</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_aa07afc5d2306797a84be1b32a4981a80"><div class="ttname"><a href="structcore_1_1ScenePiece.html#aa07afc5d2306797a84be1b32a4981a80">core::ScenePiece::file</a></div><div class="ttdeci">std::string file</div><div class="ttdoc">Fichier image, relatif au dossier du lieu (wall-left.png).</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:87</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_aa41ab5bf7094ffe87fb5444a6a8272e0"><div class="ttname"><a href="structcore_1_1ScenePiece.html#aa41ab5bf7094ffe87fb5444a6a8272e0">core::ScenePiece::footprintRows</a></div><div class="ttdeci">int footprintRows</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:93</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_aac4f007f8cb781f19e62f507d1257d7b"><div class="ttname"><a href="structcore_1_1ScenePiece.html#aac4f007f8cb781f19e62f507d1257d7b">core::ScenePiece::width</a></div><div class="ttdeci">int width</div><div class="ttdoc">Taille de l&#39;image, en pixels d&#39;art ; 0 si le manifeste ne la donne pas.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:95</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_ac358a548d00c1477032362dfb8f3247b"><div class="ttname"><a href="structcore_1_1ScenePiece.html#ac358a548d00c1477032362dfb8f3247b">core::ScenePiece::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Nom court (wall-left) : celui que les cartes écrivent.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:83</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html_af94e3b5b0fabf10f5afc596e42d521c6"><div class="ttname"><a href="structcore_1_1ScenePiece.html#af94e3b5b0fabf10f5afc596e42d521c6">core::ScenePiece::anchorX</a></div><div class="ttdeci">int anchorX</div><div class="ttdoc">Ancre (sommet haut du losange de l&#39;emprise), en pixels d&#39;art ; -1 si non donnée.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:98</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_81575a0a6a20a380991b9ad2c16b89e5.html">Resources</a></li><li class="navelem"><a href="ScenePieceManifest_8h.html">ScenePieceManifest.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

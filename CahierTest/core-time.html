@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core · Time — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1 active" href="core-time.html">Core · Time</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-fixed-timestepcpp">test_fixed_timestep.cpp</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="core-time">Core · Time</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">7 cas</span></div>
+<p>Tests unitaires — <strong>7 cas</strong> (1 critique, 6 majeurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-fixed-timestepcpp"><code>test_fixed_timestep.cpp</code></a></td><td>7</td><td>-</td><td>1</td><td>6</td><td>-</td></tr></tbody></table></div>
+<h2 id="test-fixed-timestepcpp">test_fixed_timestep.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="fixedtimesteptestunpasexact">FixedTimestepTest.UnPasExact</h3>
+<p><em>Majeur · Unitaire · Fixed Timestep</em> — <code>Source/Test/Unit/Core/Time/test_fixed_timestep.cpp:19</code></p>
+<p>Un temps écoulé égal au pas fixe produit exactement un pas.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>timestep.advance(STEP)</code> vaut <code>1</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="fixedtimesteptesttempsinsuffisant">FixedTimestepTest.TempsInsuffisant</h3>
+<p><em>Majeur · Unitaire · Fixed Timestep</em> — <code>Source/Test/Unit/Core/Time/test_fixed_timestep.cpp:34</code></p>
+<p>Un temps écoulé inférieur au pas ne produit aucun pas.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>timestep.advance(STEP * 0.5f)</code> vaut <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="fixedtimesteptesttempsnulounegatif">FixedTimestepTest.TempsNulOuNegatif</h3>
+<p><em>Majeur · Unitaire · Fixed Timestep</em> — <code>Source/Test/Unit/Core/Time/test_fixed_timestep.cpp:49</code></p>
+<p>Un temps écoulé nul ou négatif ne produit aucun pas.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>timestep.advance(0.0f)</code> vaut <code>0</code>.</li><li>Vérifie que <code>timestep.advance(-1.0f)</code> vaut <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="fixedtimesteptestresteconserve">FixedTimestepTest.ResteConserve</h3>
+<p><em>Majeur · Unitaire · Fixed Timestep</em> — <code>Source/Test/Unit/Core/Time/test_fixed_timestep.cpp:65</code></p>
+<p>2,5 pas donnent 2 pas, et le reste (0,5 pas) est conservé puis complété.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>timestep.advance(STEP * 2.5f)</code> vaut <code>2</code>.</li><li>Vérifie que <code>timestep.interpolationAlpha()</code> vaut <code>0.5f</code>, à <code>1e-4f</code> près.</li><li>Vérifie que <code>timestep.advance(STEP * 0.6f)</code> vaut <code>1</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="fixedtimesteptestplafondantispirale">FixedTimestepTest.PlafondAntiSpirale</h3>
+<p><em>Majeur · Unitaire · Fixed Timestep</em> — <code>Source/Test/Unit/Core/Time/test_fixed_timestep.cpp:85</code></p>
+<p>Un temps écoulé énorme est plafonné (anti-spirale de la mort).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>timestep.advance(STEP * 1000.0f)</code> vaut <code>maximum</code>.</li><li>Vérifie que <code>timestep.advance(0.0f)</code> vaut <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="fixedtimesteptestpasfixeexpose">FixedTimestepTest.PasFixeExpose</h3>
+<p><em>Majeur · Unitaire · Fixed Timestep</em> — <code>Source/Test/Unit/Core/Time/test_fixed_timestep.cpp:103</code></p>
+<p>Le pas fixe exposé correspond à la configuration.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>timestep.fixedDeltaSeconds()</code> vaut <code>STEP</code>, à <code>1e-6f</code> près.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="fixedtimesteptestpausesansappelnaccumuleaucunpas">FixedTimestepTest.PauseSansAppelNAccumuleAucunPas</h3>
+<p><em>Critique · Unitaire · Fixed Timestep</em> — <code>Source/Test/Unit/Core/Time/test_fixed_timestep.cpp:122</code></p>
+<p>Une pause simulée (aucun appel à advance()) n'accumule aucun pas.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Avancer normalement de quelques pas.</li><li>Simuler une pause de longue durée en n'appelant PAS advance() (aucun appel, pas un appel à zéro).</li><li>Reprendre avec un petit delta, comme après réarmement de l'horloge de référence.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>timestep.advance(STEP * 3.0f)</code> vaut <code>3</code>.</li><li>Vérifie que <code>timestep.advance(STEP)</code> vaut <code>1</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-rpg.html"><span>Précédent</span>Core · Rpg</a><a class="next" href="core-world.html"><span>Suivant</span>Core · World</a></nav><p class="source">Source : <code>Documentation/CahierTest/core-time.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::ClipSet Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classcore_1_1ClipSet.html','','classcore_1_1ClipSet-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::ClipSet Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Ensemble nommé de clips, adressable par nom — l'unité que décrit un fichier <span class="tt">nom-asset.anim.json</span>.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="AnimationClip_8h_source.html">AnimationClip.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a0fa31fcb4f690f8f9f914b9b9fe693e0" id="r_a0fa31fcb4f690f8f9f914b9b9fe693e0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0fa31fcb4f690f8f9f914b9b9fe693e0">addClip</a> (<a class="el" href="structcore_1_1AnimationClip.html">AnimationClip</a> clip)</td></tr>
+<tr class="memdesc:a0fa31fcb4f690f8f9f914b9b9fe693e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un clip au jeu. Un clip du même nom qu'un clip déjà présent le remplace.  <br /></td></tr>
+<tr class="memitem:a64d712df72325595d40945b0514c6798" id="r_a64d712df72325595d40945b0514c6798"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a64d712df72325595d40945b0514c6798">indexOf</a> (std::string_view name) const noexcept</td></tr>
+<tr class="memitem:a5398de380c44dc9431ea8ae016ede861" id="r_a5398de380c44dc9431ea8ae016ede861"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5398de380c44dc9431ea8ae016ede861">clipCount</a> () const noexcept</td></tr>
+<tr class="memitem:a3acc2f97e91728933fe6bb55b9dd4c12" id="r_a3acc2f97e91728933fe6bb55b9dd4c12"><td class="memItemLeft">const <a class="el" href="structcore_1_1AnimationClip.html">AnimationClip</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a3acc2f97e91728933fe6bb55b9dd4c12">clipAt</a> (int index) const noexcept</td></tr>
+<tr class="memdesc:a3acc2f97e91728933fe6bb55b9dd4c12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clip à un index donné, borné aux clips existants.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a812205380d5e26bcdf115302177dc3f7" id="r_a812205380d5e26bcdf115302177dc3f7"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1AnimationClip.html">AnimationClip</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a812205380d5e26bcdf115302177dc3f7">_clips</a></td></tr>
+<tr class="memitem:ab1fc87cf82ce9e9afd32394185997458" id="r_ab1fc87cf82ce9e9afd32394185997458"><td class="memItemLeft">std::map&lt; std::string, int, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab1fc87cf82ce9e9afd32394185997458">_byName</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Ensemble nommé de clips, adressable par nom — l'unité que décrit un fichier <span class="tt">nom-asset.anim.json</span>. </p>
+<p>Résout un nom en index à l'ajout plutôt qu'à chaque pas fixe (<span class="tt">AnimationSystem</span>) : la progression générale d'une animation (avancer l'image courante) n'a donc jamais à comparer de chaînes, même pour des centaines de tuiles animées. Seule la sélection initiale d'un clip par son nom (ex. la projection état → clip du personnage) en compare.</p>
+<p>Accès <b>sûr</b> : interroger un clip par un index hors bornes ou un nom absent ne plante ni ne lève — repli déterministe sur le premier clip du jeu (<span class="tt">EX-NFR-040</span>). </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a0fa31fcb4f690f8f9f914b9b9fe693e0" name="a0fa31fcb4f690f8f9f914b9b9fe693e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fa31fcb4f690f8f9f914b9b9fe693e0">&#9670;&#160;</a></span>addClip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ClipSet::addClip </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1AnimationClip.html">AnimationClip</a></td>          <td class="paramname"><span class="paramname"><em>clip</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajoute un clip au jeu. Un clip du même nom qu'un clip déjà présent le remplace. </p>
+
+</div>
+</div>
+<a id="a3acc2f97e91728933fe6bb55b9dd4c12" name="a3acc2f97e91728933fe6bb55b9dd4c12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3acc2f97e91728933fe6bb55b9dd4c12">&#9670;&#160;</a></span>clipAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1AnimationClip.html">AnimationClip</a> &amp; core::ClipSet::clipAt </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clip à un index donné, borné aux clips existants. </p>
+<p>Un index hors bornes (négatif ou trop grand) retombe sur le premier clip du jeu : repli déterministe (<span class="tt">EX-NFR-040</span>), jamais un accès hors bornes. Un jeu <b>vide</b> renvoie un clip par défaut (nom vide, une seule image d'indice 0, jamais animé) : l'appelant peut toujours lire un <span class="tt"><a class="el" href="#a3acc2f97e91728933fe6bb55b9dd4c12" title="Clip à un index donné, borné aux clips existants.">clipAt</a></span>, même sans avoir vérifié <span class="tt"><a class="el" href="#a5398de380c44dc9431ea8ae016ede861">clipCount()</a></span> au préalable. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Index désiré (typiquement <span class="tt"><a class="el" href="structcore_1_1Animation.html#a5a7f2a8719b59a9db71f439a81937ee5" title="Index du clip courant dans clips, déjà résolu (ClipSet::indexOf) : la progression au pas fixe ne comp...">core::Animation::clipIndex</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le clip résolu. </dd></dl>
+
+</div>
+</div>
+<a id="a5398de380c44dc9431ea8ae016ede861" name="a5398de380c44dc9431ea8ae016ede861"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5398de380c44dc9431ea8ae016ede861">&#9670;&#160;</a></span>clipCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::ClipSet::clipCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le nombre de clips du jeu. </dd></dl>
+
+</div>
+</div>
+<a id="a64d712df72325595d40945b0514c6798" name="a64d712df72325595d40945b0514c6798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64d712df72325595d40945b0514c6798">&#9670;&#160;</a></span>indexOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::ClipSet::indexOf </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'index du clip nommé <code class="param">name</code> dans le jeu, ou <span class="tt">-1</span> s'il n'existe pas. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ab1fc87cf82ce9e9afd32394185997458" name="ab1fc87cf82ce9e9afd32394185997458"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1fc87cf82ce9e9afd32394185997458">&#9670;&#160;</a></span>_byName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, int, std::less&lt;&gt; &gt; core::ClipSet::_byName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a812205380d5e26bcdf115302177dc3f7" name="a812205380d5e26bcdf115302177dc3f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a812205380d5e26bcdf115302177dc3f7">&#9670;&#160;</a></span>_clips</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1AnimationClip.html">AnimationClip</a>&gt; core::ClipSet::_clips</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Ecs/<a class="el" href="AnimationClip_8h_source.html">AnimationClip.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Ecs/<a class="el" href="AnimationClip_8cpp.html">AnimationClip.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="classcore_1_1ClipSet.html">ClipSet</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

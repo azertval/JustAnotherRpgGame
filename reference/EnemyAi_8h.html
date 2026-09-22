@@ -1,0 +1,262 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/EnemyAi.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('EnemyAi_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">EnemyAi.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>L'IA tactique : des heuristiques pondérées, déterministes, qui jouent dans les mêmes actions que le joueur (<span class="tt">LOT-23</span>, <span class="tt">EX-CBT-050</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="Arena_8h_source.html">Core/Combat/Arena.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Attack_8h_source.html">Core/Combat/Attack.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Check_8h_source.html">Core/Rpg/Check.h</a>&quot;</code><br />
+</div>
+<p><a href="EnemyAi_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:core_3A_3ABehaviorProfile" id="r_core_3A_3ABehaviorProfile"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1BehaviorProfile.html">core::BehaviorProfile</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un profil de comportement : des poids, en pour cent, et deux règles.  <a href="structcore_1_1BehaviorProfile.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3ABehaviorAssignment" id="r_core_3A_3ABehaviorAssignment"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1BehaviorAssignment.html">core::BehaviorAssignment</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une règle d'attribution : un trait, une créature, ou le goût du tir.  <a href="structcore_1_1BehaviorAssignment.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3ABehaviorCatalog" id="r_core_3A_3ABehaviorCatalog"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1BehaviorCatalog.html">core::BehaviorCatalog</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les profils, les règles d'attribution dans l'ordre, et ce qui n'a pas pu être lu.  <a href="structcore_1_1BehaviorCatalog.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3ATurnPlan" id="r_core_3A_3ATurnPlan"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1TurnPlan.html">core::TurnPlan</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un tour décidé : où aller, puis quoi faire.  <a href="structcore_1_1TurnPlan.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
+<tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a004daf868d7dad4026ff9b7d3d75a11d" id="r_a004daf868d7dad4026ff9b7d3d75a11d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11d">core::TurnAction</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11dadcfafcb4323b102c7e204555d313ba0a">core::Attack</a>
+, <a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da3663598d5c5858b5a6040b1bbed4f187">core::Dash</a>
+, <a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11dab01b83048682460e96eb4bd2482b8c32">core::Dodge</a>
+, <a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da79e21afc57b7daacab6d6325caffc75f">core::Disengage</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da0f68101772bd5397ef8eb1b632798652">core::Wait</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a004daf868d7dad4026ff9b7d3d75a11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'IA fait de son action.  <a href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11d">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a4614784f31f78b56e87ec55af65262a8" id="r_a4614784f31f78b56e87ec55af65262a8"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a4614784f31f78b56e87ec55af65262a8">core::isBloodied</a> (const <a class="el" href="structcore_1_1CombatantProfile.html">CombatantProfile</a> &amp;profile) noexcept</td></tr>
+<tr class="memdesc:a4614784f31f78b56e87ec55af65262a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si le combattant a <b>moins de la moitié</b> de ses points de vie : ensanglanté, ce que le <em>Guide du Maître</em> laisse voir à la table.  <br /></td></tr>
+<tr class="memitem:a5914f428c3fbb6a6de8d9be7b2c69fae" id="r_a5914f428c3fbb6a6de8d9be7b2c69fae"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a5914f428c3fbb6a6de8d9be7b2c69fae">core::requiredRoll</a> (int armorClass, int attackBonus) noexcept</td></tr>
+<tr class="memdesc:a5914f428c3fbb6a6de8d9be7b2c69fae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le résultat minimal au d20 pour toucher : la CA moins le bonus d'attaque (<em>Guide du Maître</em>, « Gérer les foules »).  <br /></td></tr>
+<tr class="memitem:a1e9bfbd96616376fcd64474e6a97e576" id="r_a1e9bfbd96616376fcd64474e6a97e576"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a1e9bfbd96616376fcd64474e6a97e576">core::attackBonusOf</a> (const <a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a> &amp;profile) noexcept</td></tr>
+<tr class="memdesc:a1e9bfbd96616376fcd64474e6a97e576"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le bonus d'un profil d'attaque : la somme de ses modificateurs.  <br /></td></tr>
+<tr class="memitem:afedb4269a17e248656cb0dbe1fc7a21b" id="r_afedb4269a17e248656cb0dbe1fc7a21b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#afedb4269a17e248656cb0dbe1fc7a21b">core::hitChance</a> (int required, <a class="el" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9">RollStance</a> stance, int criticalThreshold=20) noexcept</td></tr>
+<tr class="memdesc:afedb4269a17e248656cb0dbe1fc7a21b"><td class="mdescLeft">&#160;</td><td class="mdescRight">La chance de toucher, en quatre-centièmes, pour un résultat requis et une posture.  <br /></td></tr>
+<tr class="memitem:a0e8f35f10be28c0f0d86c823d708bab0" id="r_a0e8f35f10be28c0f0d86c823d708bab0"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a0e8f35f10be28c0f0d86c823d708bab0">core::criticalChance</a> (int criticalThreshold, <a class="el" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9">RollStance</a> stance) noexcept</td></tr>
+<tr class="memdesc:a0e8f35f10be28c0f0d86c823d708bab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">La chance d'un critique, en quatre-centièmes, pour un seuil critique et une posture.  <br /></td></tr>
+<tr class="memitem:acbf44083989292fcedfb7dfaad861317" id="r_acbf44083989292fcedfb7dfaad861317"><td class="memItemLeft">long long&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#acbf44083989292fcedfb7dfaad861317">core::expectedDamage</a> (const <a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a> &amp;profile, int armorClass, <a class="el" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9">RollStance</a> stance) noexcept</td></tr>
+<tr class="memdesc:acbf44083989292fcedfb7dfaad861317"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'espérance de dégâts d'une attaque, en <b>huit-centièmes</b> de point de dégât.  <br /></td></tr>
+<tr class="memitem:a71acb15a48b4ccfba9c5fb43dcd8fee2" id="r_a71acb15a48b4ccfba9c5fb43dcd8fee2"><td class="memItemLeft"><a class="el" href="structcore_1_1BehaviorCatalog.html">BehaviorCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a71acb15a48b4ccfba9c5fb43dcd8fee2">core::loadBehaviors</a> (const std::filesystem::path &amp;file)</td></tr>
+<tr class="memdesc:a71acb15a48b4ccfba9c5fb43dcd8fee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les profils (<span class="tt">Source/Elements/Rpg/rules/behaviors.json</span>).  <br /></td></tr>
+<tr class="memitem:a055fef48903e3b743dc6440d3223375c" id="r_a055fef48903e3b743dc6440d3223375c"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a055fef48903e3b743dc6440d3223375c">core::behaviorFor</a> (const <a class="el" href="structcore_1_1Creature.html">Creature</a> &amp;creature, const <a class="el" href="structcore_1_1BehaviorCatalog.html">BehaviorCatalog</a> &amp;catalog)</td></tr>
+<tr class="memdesc:a055fef48903e3b743dc6440d3223375c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le profil d'une créature du bestiaire : la première règle qui la désigne, sinon le profil par défaut.  <br /></td></tr>
+<tr class="memitem:ac40f7658883a2ff354dd23d9e75731c5" id="r_ac40f7658883a2ff354dd23d9e75731c5"><td class="memItemLeft"><a class="el" href="structcore_1_1TurnPlan.html">TurnPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ac40f7658883a2ff354dd23d9e75731c5">core::planTurn</a> (const <a class="el" href="classcore_1_1ArenaSession.html">ArenaSession</a> &amp;session, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> actor, const <a class="el" href="structcore_1_1BehaviorProfile.html">BehaviorProfile</a> &amp;profile)</td></tr>
+<tr class="memdesc:ac40f7658883a2ff354dd23d9e75731c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décide le tour de <code class="param">actor</code>, qui doit être le combattant actif de la session.  <br /></td></tr>
+<tr class="memitem:a927dac700bedb90e5d0bb43bfeb537df" id="r_a927dac700bedb90e5d0bb43bfeb537df"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a927dac700bedb90e5d0bb43bfeb537df">core::playTurn</a> (<a class="el" href="classcore_1_1ArenaSession.html">ArenaSession</a> &amp;session, const <a class="el" href="structcore_1_1BehaviorCatalog.html">BehaviorCatalog</a> &amp;catalog)</td></tr>
+<tr class="memdesc:a927dac700bedb90e5d0bb43bfeb537df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue le tour du combattant actif selon son profil, et le termine.  <br /></td></tr>
+<tr class="memitem:ac58007f3f78da7cfddceb7509d3f5bbc" id="r_ac58007f3f78da7cfddceb7509d3f5bbc"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ac58007f3f78da7cfddceb7509d3f5bbc">core::shouldTakeOpportunity</a> (const <a class="el" href="classcore_1_1ArenaSession.html">ArenaSession</a> &amp;session, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> reactor, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> mover, const <a class="el" href="structcore_1_1BehaviorProfile.html">BehaviorProfile</a> &amp;profile)</td></tr>
+<tr class="memdesc:ac58007f3f78da7cfddceb7509d3f5bbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si <code class="param">reactor</code>, joué par <code class="param">profile</code>, prend l'attaque d'opportunité sur <code class="param">mover</code> : sa première attaque au contact, à un jet requis au plus égal à <span class="tt">opportunityMaximumRoll</span>.  <br /></td></tr>
+<tr class="memitem:a591c53d86ebc974b8661e312d96ec12a" id="r_a591c53d86ebc974b8661e312d96ec12a"><td class="memItemLeft"><a class="el" href="namespacecore.html#a838239698e3440af150c5de8127b830e">OpportunityPolicy</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a591c53d86ebc974b8661e312d96ec12a">core::aiOpportunityPolicy</a> (const <a class="el" href="structcore_1_1BehaviorCatalog.html">BehaviorCatalog</a> &amp;catalog)</td></tr>
+<tr class="memdesc:a591c53d86ebc974b8661e312d96ec12a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La politique d'opportunité d'une session où l'IA joue certains combattants : chacun d'eux décide par son profil, les autres prennent toutes leurs attaques.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:afcdc54b3ea46877a04d40a7840bffe57" id="r_afcdc54b3ea46877a04d40a7840bffe57"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#afcdc54b3ea46877a04d40a7840bffe57">core::CHANCE_SCALE</a> = 400</td></tr>
+<tr class="memdesc:afcdc54b3ea46877a04d40a7840bffe57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une chance, en <b>quatre-centièmes</b> : 400 est la certitude.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>L'IA tactique : des heuristiques pondérées, déterministes, qui jouent dans les mêmes actions que le joueur (<span class="tt">LOT-23</span>, <span class="tt">EX-CBT-050</span>). </p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md28"></a>
+Ce que le <em>Guide du Maître</em> en dit</h2>
+<p>Le chapitre 8, « Le combat » (PDF p. 247-255), ne donne pas de tactique aux monstres : il dit au MD <b>ce qu'il sait</b> et <b>comment il compte</b>. Ce fichier en tire ses règles, et nomme ce qu'il décide au-delà.</p>
+<ul>
+<li><b>Les points de vie des monstres se suivent en secret</b> ; mais « si le monstre a moins de la moitié de ses points de vie », il est <b>ensanglanté</b>, et la table le voit. L'IA lit la même chose chez ses adversaires : l'état ensanglanté (<span class="tt"><a class="el" href="namespacecore.html#a4614784f31f78b56e87ec55af65262a8" title="Vrai si le combattant a moins de la moitié de ses points de vie : ensanglanté, ce que le Guide du Maî...">core::isBloodied</a></span>), jamais le nombre de points de vie restants — c'est ce qu'<span class="tt">EX-CBT-050</span> appelle les mêmes informations.</li>
+<li><b>Gérer les foules</b> : le résultat minimal au d20 pour toucher est « la CA de la cible moins le bonus d'attaque » (<span class="tt"><a class="el" href="namespacecore.html#a5914f428c3fbb6a6de8d9be7b2c69fae" title="Le résultat minimal au d20 pour toucher : la CA moins le bonus d&#39;attaque (Guide du Maître,...">core::requiredRoll</a></span>). L'IA en tire la chance de toucher (<span class="tt"><a class="el" href="namespacecore.html#afedb4269a17e248656cb0dbe1fc7a21b" title="La chance de toucher, en quatre-centièmes, pour un résultat requis et une posture.">core::hitChance</a></span>), et l'espérance de dégâts : les <b>dégâts moyens</b> du bloc, et au critique les dés « ajoutés aux dégâts moyens » (« Les monstres et les coups critiques »).</li>
+<li><b>Le champ de vision et l'abri</b> se mesurent par la méthode du Guide, déjà celle du <span class="tt">LOT-22</span> : l'IA vise par <span class="tt"><a class="el" href="namespacecore.html#aba1d28cef88c61f722b2b034a8415f10" title="Vrai si les deux emprises se voient : un segment dégagé relie un point de grille de l&#39;une à un point ...">core::hasLineOfSight</a></span> et compte l'abri par <span class="tt"><a class="el" href="namespacecore.html#a870aa619bde747a0f4d7be56b323ebc3" title="L&#39;abri de target contre ce qui vient de attacker.">core::coverFrom</a></span>, comme le jet réel.</li>
+<li><b>La prise en tenaille</b>, règle optionnelle, donne l'avantage au corps à corps (<span class="tt"><a class="el" href="namespacecore.html#a26d6a0a3082a3c9ce76ab6958711ac13" title="Vrai si attacker, ancré en attackerAnchor, prend target en tenaille avec au moins un allié debout.">core::isFlankedFrom</a></span>) : une IA dans une arène qui la joue cherche la case d'en face.</li>
+<li><b>Le temps de réaction</b> : l'attaque d'opportunité interrompt son déclencheur ; la décision de la prendre est ici (<span class="tt"><a class="el" href="namespacecore.html#ac58007f3f78da7cfddceb7509d3f5bbc" title="Vrai si reactor, joué par profile, prend l&#39;attaque d&#39;opportunité sur mover : sa première attaque au c...">core::shouldTakeOpportunity</a></span>).</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md29"></a>
+Ce que ce fichier décide, et que le Guide ne dit pas</h2>
+<p>Les <b>poids</b> : combien pèse une cible ensanglantée, une menace subie, une case à parcourir. Ce sont des données (<span class="tt">Source/Elements/Rpg/rules/behaviors.json</span>, <span class="tt">EX-VIS-007</span>), pas des constantes. Et deux garde-fous, qui sont des règles de l'IA et non des poids :</p>
+<ul>
+<li><b>Le suicide.</b> Une IA ne finit pas son tour au contact de plus d'ennemis que son profil n'en tolère (<span class="tt">toleratedThreats</span>) quand une case qui en tolère moins existait : la comparaison est <b>lexicographique</b>, l'excès d'abord, le score ensuite. Seules les attaques <b>de contact</b> comptent : un tireur couvre toute l'arène, et le compter interdirait d'approcher.</li>
+<li><b>Le blocage.</b> Une IA qui peut attaquer attaque ; une IA qui ne le peut pas <b>avance</b> vers sa cible — c'est une clé de la comparaison, avant le score, sans quoi la menace d'un round entier la tiendrait hors de portée à jamais —, en se précipitant si le chemin est long. Le prudent choisit <b>d'où</b> frapper, et <b>recule</b> après, à menace égale le moins loin possible : il ne se cache pas indéfiniment.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md30"></a>
+Déterministe, en entiers</h2>
+<p>Aucun flottant : une chance de toucher est un nombre de quatre-centièmes (le carré d'un vingtième, pour l'avantage), des dégâts moyens un nombre de demi-points, un poids un pourcentage. Les cases se parcourent par indice croissant, les cibles par identifiant croissant, et une égalité garde le premier candidat. Deux exécutions, deux compilateurs, deux modes de construction donnent le même tour. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_bc520fdc8f4eadff60f94f8b29441948.html">Combat</a></li><li class="navelem"><a href="EnemyAi_8h.html">EnemyAi.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

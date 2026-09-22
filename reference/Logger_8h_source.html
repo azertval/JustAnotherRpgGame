@@ -1,0 +1,236 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Diagnostics/Logger.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('Logger_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Logger.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Logger_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;atomic&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="ILogSink_8h.html">Core/Diagnostics/ILogSink.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="LogLevel_8h.html">Core/Diagnostics/LogLevel.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span></div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="};">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="classcore_1_1Logger.html">   28</a></span><span class="keyword">class </span><a class="code hl_function" href="classcore_1_1Logger.html#a9fcf9b06e1d98a1be5e3a8d423ad0327">Logger</a> {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classcore_1_1Logger.html#a9fcf9b06e1d98a1be5e3a8d423ad0327">   30</a></span>    <a class="code hl_function" href="classcore_1_1Logger.html#a9fcf9b06e1d98a1be5e3a8d423ad0327">Logger</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classcore_1_1Logger.html#ae2ef4918898cb336d755cd0b657ba40e">   32</a></span>    <a class="code hl_function" href="classcore_1_1Logger.html#ae2ef4918898cb336d755cd0b657ba40e">Logger</a>(<span class="keyword">const</span> <a class="code hl_function" href="classcore_1_1Logger.html#a9fcf9b06e1d98a1be5e3a8d423ad0327">Logger</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classcore_1_1Logger.html#a6b94a49154efabb17a720d59cb0b241e">   33</a></span>    <a class="code hl_function" href="classcore_1_1Logger.html#a9fcf9b06e1d98a1be5e3a8d423ad0327">Logger</a>&amp; <a class="code hl_function" href="classcore_1_1Logger.html#a6b94a49154efabb17a720d59cb0b241e">operator=</a>(<span class="keyword">const</span> <a class="code hl_function" href="classcore_1_1Logger.html#a9fcf9b06e1d98a1be5e3a8d423ad0327">Logger</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1Logger.html#a6ba9df5830242dec4625286d6c045683">setMinimumLevel</a>(<a class="code hl_enumeration" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> level);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classcore_1_1Logger.html#af0c56db8ce83892c856e908c26c46f29">   39</a></span>    [[nodiscard]] <a class="code hl_enumeration" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> <a class="code hl_function" href="classcore_1_1Logger.html#af0c56db8ce83892c856e908c26c46f29">minimumLevel</a>() const noexcept {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classcore_1_1Logger.html#a76791beb2136fabbd72d691cf11af2c9">_minimumLevel</a>.load(std::memory_order_relaxed);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    }</div>
+</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1Logger.html#a3f0cbd4596e47500c6da1463ca6fda6f">beginLevelElevation</a>(<a class="code hl_enumeration" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> floor);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1Logger.html#ac9d9ee77c141647ab1c002550019438e">endLevelElevation</a>();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1Logger.html#a42b5979c9d78e520e0e6d684e329ba26">isEnabled</a>(<a class="code hl_enumeration" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> level) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1Logger.html#a2dd1f2eba4895d6077958a9e7295ec62">addSink</a>(std::unique_ptr&lt;ILogSink&gt; sink);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1Logger.html#a14d080b7aea34be62b6bd98897378e97">clearSinks</a>();</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1Logger.html#a1aeae4c7813133be7e1dc64490839bf2">log</a>(<a class="code hl_enumeration" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> level, std::string_view message);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="classcore_1_1Logger.html#a76791beb2136fabbd72d691cf11af2c9">   82</a></span>    std::atomic&lt;LogLevel&gt; <a class="code hl_variable" href="classcore_1_1Logger.html#a76791beb2136fabbd72d691cf11af2c9">_minimumLevel</a> = <a class="code hl_enumvalue" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1">LogLevel::Trace</a>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="classcore_1_1Logger.html#a7d91b33d8157b35aa9be6842b792bcad">   84</a></span>    std::mutex <a class="code hl_variable" href="classcore_1_1Logger.html#a7d91b33d8157b35aa9be6842b792bcad">_elevationMutex</a>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="classcore_1_1Logger.html#a8bee6555bde13a76d7c1083ea503232f">   85</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="classcore_1_1Logger.html#a8bee6555bde13a76d7c1083ea503232f">_elevationDepth</a> = 0;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="classcore_1_1Logger.html#af2c50f8b7488ee353dab6c98cc836b05">   86</a></span>    <a class="code hl_enumeration" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> <a class="code hl_variable" href="classcore_1_1Logger.html#af2c50f8b7488ee353dab6c98cc836b05">_levelBeforeElevation</a> = <a class="code hl_enumvalue" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1">LogLevel::Trace</a>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="classcore_1_1Logger.html#a4e5846a9e46e15964cfbf3ae7282f813">   87</a></span>    std::vector&lt;std::unique_ptr&lt;ILogSink&gt;&gt; <a class="code hl_variable" href="classcore_1_1Logger.html#a4e5846a9e46e15964cfbf3ae7282f813">_sinks</a>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>};</div>
+</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>[[nodiscard]] <a class="code hl_class" href="classcore_1_1Logger.html">Logger</a>&amp; <a class="code hl_function" href="namespacecore.html#a925cad771c457040a01272ff8be8e1a1">defaultLogger</a>();</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aILogSink_8h_html"><div class="ttname"><a href="ILogSink_8h.html">ILogSink.h</a></div><div class="ttdoc">Interface d&#39;une destination de journalisation.</div></div>
+<div class="ttc" id="aLogLevel_8h_html"><div class="ttname"><a href="LogLevel_8h.html">LogLevel.h</a></div><div class="ttdoc">Niveaux de journalisation, par gravité croissante.</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html"><div class="ttname"><a href="classcore_1_1Logger.html">core::Logger</a></div><div class="ttdoc">Filtre les messages par niveau minimal et les diffuse aux sinks enregistrés.</div><div class="ttdef"><b>Definition</b> Logger.h:28</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_a14d080b7aea34be62b6bd98897378e97"><div class="ttname"><a href="classcore_1_1Logger.html#a14d080b7aea34be62b6bd98897378e97">core::Logger::clearSinks</a></div><div class="ttdeci">void clearSinks()</div><div class="ttdoc">Retire tous les sinks.</div><div class="ttdef"><b>Definition</b> Logger.cpp:47</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_a1aeae4c7813133be7e1dc64490839bf2"><div class="ttname"><a href="classcore_1_1Logger.html#a1aeae4c7813133be7e1dc64490839bf2">core::Logger::log</a></div><div class="ttdeci">void log(LogLevel level, std::string_view message)</div><div class="ttdoc">Diffuse un message aux sinks s&#39;il passe le filtre de niveau.</div><div class="ttdef"><b>Definition</b> Logger.cpp:52</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_a2dd1f2eba4895d6077958a9e7295ec62"><div class="ttname"><a href="classcore_1_1Logger.html#a2dd1f2eba4895d6077958a9e7295ec62">core::Logger::addSink</a></div><div class="ttdeci">void addSink(std::unique_ptr&lt; ILogSink &gt; sink)</div><div class="ttdoc">Ajoute un sink (le journaliseur en prend la propriété).</div><div class="ttdef"><b>Definition</b> Logger.cpp:43</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_a3f0cbd4596e47500c6da1463ca6fda6f"><div class="ttname"><a href="classcore_1_1Logger.html#a3f0cbd4596e47500c6da1463ca6fda6f">core::Logger::beginLevelElevation</a></div><div class="ttdeci">void beginLevelElevation(LogLevel floor)</div><div class="ttdoc">Ouvre une élévation temporaire du niveau minimal à au moins floor.</div><div class="ttdef"><b>Definition</b> Logger.cpp:19</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_a42b5979c9d78e520e0e6d684e329ba26"><div class="ttname"><a href="classcore_1_1Logger.html#a42b5979c9d78e520e0e6d684e329ba26">core::Logger::isEnabled</a></div><div class="ttdeci">bool isEnabled(LogLevel level) const</div><div class="ttdoc">Indique si un niveau passe le filtre courant.</div><div class="ttdef"><b>Definition</b> Logger.cpp:15</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_a4e5846a9e46e15964cfbf3ae7282f813"><div class="ttname"><a href="classcore_1_1Logger.html#a4e5846a9e46e15964cfbf3ae7282f813">core::Logger::_sinks</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; ILogSink &gt; &gt; _sinks</div><div class="ttdef"><b>Definition</b> Logger.h:87</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_a6b94a49154efabb17a720d59cb0b241e"><div class="ttname"><a href="classcore_1_1Logger.html#a6b94a49154efabb17a720d59cb0b241e">core::Logger::operator=</a></div><div class="ttdeci">Logger &amp; operator=(const Logger &amp;)=delete</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_a6ba9df5830242dec4625286d6c045683"><div class="ttname"><a href="classcore_1_1Logger.html#a6ba9df5830242dec4625286d6c045683">core::Logger::setMinimumLevel</a></div><div class="ttdeci">void setMinimumLevel(LogLevel level)</div><div class="ttdoc">Définit le niveau minimal ; les messages moins graves sont ignorés.</div><div class="ttdef"><b>Definition</b> Logger.cpp:11</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_a76791beb2136fabbd72d691cf11af2c9"><div class="ttname"><a href="classcore_1_1Logger.html#a76791beb2136fabbd72d691cf11af2c9">core::Logger::_minimumLevel</a></div><div class="ttdeci">std::atomic&lt; LogLevel &gt; _minimumLevel</div><div class="ttdoc">Lu à chaque message depuis n&#39;importe quel fil, écrit par les élévations temporaires : le type atomiqu...</div><div class="ttdef"><b>Definition</b> Logger.h:82</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_a7d91b33d8157b35aa9be6842b792bcad"><div class="ttname"><a href="classcore_1_1Logger.html#a7d91b33d8157b35aa9be6842b792bcad">core::Logger::_elevationMutex</a></div><div class="ttdeci">std::mutex _elevationMutex</div><div class="ttdoc">Protège le compteur d&#39;élévations et le niveau mémorisé (voir beginLevelElevation).</div><div class="ttdef"><b>Definition</b> Logger.h:84</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_a8bee6555bde13a76d7c1083ea503232f"><div class="ttname"><a href="classcore_1_1Logger.html#a8bee6555bde13a76d7c1083ea503232f">core::Logger::_elevationDepth</a></div><div class="ttdeci">int _elevationDepth</div><div class="ttdef"><b>Definition</b> Logger.h:85</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_a9fcf9b06e1d98a1be5e3a8d423ad0327"><div class="ttname"><a href="classcore_1_1Logger.html#a9fcf9b06e1d98a1be5e3a8d423ad0327">core::Logger::Logger</a></div><div class="ttdeci">Logger()=default</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_ac9d9ee77c141647ab1c002550019438e"><div class="ttname"><a href="classcore_1_1Logger.html#ac9d9ee77c141647ab1c002550019438e">core::Logger::endLevelElevation</a></div><div class="ttdeci">void endLevelElevation()</div><div class="ttdoc">Ferme une élévation ouverte par beginLevelElevation ; restaure le niveau d&#39;origine lorsque la dernièr...</div><div class="ttdef"><b>Definition</b> Logger.cpp:32</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_ae2ef4918898cb336d755cd0b657ba40e"><div class="ttname"><a href="classcore_1_1Logger.html#ae2ef4918898cb336d755cd0b657ba40e">core::Logger::Logger</a></div><div class="ttdeci">Logger(const Logger &amp;)=delete</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_af0c56db8ce83892c856e908c26c46f29"><div class="ttname"><a href="classcore_1_1Logger.html#af0c56db8ce83892c856e908c26c46f29">core::Logger::minimumLevel</a></div><div class="ttdeci">LogLevel minimumLevel() const noexcept</div><div class="ttdef"><b>Definition</b> Logger.h:39</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_af2c50f8b7488ee353dab6c98cc836b05"><div class="ttname"><a href="classcore_1_1Logger.html#af2c50f8b7488ee353dab6c98cc836b05">core::Logger::_levelBeforeElevation</a></div><div class="ttdeci">LogLevel _levelBeforeElevation</div><div class="ttdef"><b>Definition</b> Logger.h:86</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a925cad771c457040a01272ff8be8e1a1"><div class="ttname"><a href="namespacecore.html#a925cad771c457040a01272ff8be8e1a1">core::defaultLogger</a></div><div class="ttdeci">Logger &amp; defaultLogger()</div><div class="ttdoc">Journaliseur global de l&#39;application (utilisé par les macros de log).</div><div class="ttdef"><b>Definition</b> Logger.cpp:62</div></div>
+<div class="ttc" id="anamespacecore_html_aa9b5a444ee11933c91d5e3235aa5b5e3"><div class="ttname"><a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">core::LogLevel</a></div><div class="ttdeci">LogLevel</div><div class="ttdoc">Niveau d&#39;un message de journalisation (ordre croissant de gravité).</div><div class="ttdef"><b>Definition</b> LogLevel.h:14</div></div>
+<div class="ttc" id="anamespacecore_html_aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1"><div class="ttname"><a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1">core::LogLevel::Trace</a></div><div class="ttdeci">@ Trace</div><div class="ttdoc">Détails fins de débogage.</div><div class="ttdef"><b>Definition</b> LogLevel.h:15</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_8e2ac860808ba0027dfb31d2758a18b0.html">Diagnostics</a></li><li class="navelem"><a href="Logger_8h.html">Logger.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

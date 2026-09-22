@@ -1,0 +1,448 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/Damage.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('Damage_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Damage.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Damage_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;span&gt;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &quot;<a class="code" href="GridPosition_8h.html">Core/Levels/GridPosition.h</a>&quot;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &quot;<a class="code" href="DeterministicRandom_8h.html">Core/Math/DeterministicRandom.h</a>&quot;</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#include &quot;<a class="code" href="Dice_8h.html">Core/Rpg/Dice.h</a>&quot;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &quot;<a class="code" href="RpgEnums_8h.html">Core/Rpg/RpgEnums.h</a>&quot;</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1BattleGrid.html">BattleGrid</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1CombatState.html">CombatState</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1Creature.html">Creature</a>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> : std::uint32_t;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="};">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4">   57</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4">DamageFlag</a> : std::uint8_t {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4af855e17eab2bd1a0b8f6c70a1635226a">   58</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4af855e17eab2bd1a0b8f6c70a1635226a">Magical</a> = 1U &lt;&lt; 0U,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4adea2f43b46e4448607c1eaec58dd855b">   59</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4adea2f43b46e4448607c1eaec58dd855b">Silvered</a> = 1U &lt;&lt; 1U,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a3d2e9d298e14a747db8a3e2c64691f85">   60</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a3d2e9d298e14a747db8a3e2c64691f85">Adamantine</a> = 1U &lt;&lt; 2U,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a968ae4f03d7e0c30fe4eb26b83c855dd">   61</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a968ae4f03d7e0c30fe4eb26b83c855dd">Spell</a> = 1U &lt;&lt; 3U,</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a16a1449394d124d5f792d1b5b5c097b5">   62</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a16a1449394d124d5f792d1b5b5c097b5">IgnoresResistance</a> = 1U &lt;&lt; 4U,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4ad37f77dacfbf160a4967b83e099d1a37">   63</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4ad37f77dacfbf160a4967b83e099d1a37">IgnoresReserves</a> = 1U &lt;&lt; 5U,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">   67</a></span><span class="keyword">using </span><a class="code hl_typedef" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">DamageFlags</a> = std::uint8_t;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="foldopen" id="foldopen00069" data-start="{" data-end="}">
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="namespacecore.html#af66d5aadf3d1710e4239a912dd6e4481">   69</a></span>[[nodiscard]] <span class="keyword">constexpr</span> <a class="code hl_typedef" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">DamageFlags</a> <a class="code hl_function" href="namespacecore.html#af66d5aadf3d1710e4239a912dd6e4481">flagsOf</a>(<a class="code hl_enumeration" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4">DamageFlag</a> flag) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">DamageFlags</a><span class="keyword">&gt;</span>(flag);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
+</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="namespacecore.html#a68ce34289da15bf414434daa7bda435c">   73</a></span>[[nodiscard]] <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacecore.html#a68ce34289da15bf414434daa7bda435c">hasFlag</a>(<a class="code hl_typedef" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">DamageFlags</a> flags, <a class="code hl_enumeration" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4">DamageFlag</a> flag) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">return</span> (flags &amp; <a class="code hl_function" href="namespacecore.html#af66d5aadf3d1710e4239a912dd6e4481">flagsOf</a>(flag)) != 0U;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span></div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="};">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88">   78</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88">DamageAffinityKind</a> : std::uint8_t {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88a9db444f7a3b8ba8f817647de53b7a6fe">   79</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88a9db444f7a3b8ba8f817647de53b7a6fe">Resistance</a>,</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88aca548e0ecd399b3118e0727e6fe84100">   80</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88aca548e0ecd399b3118e0727e6fe84100">Vulnerability</a>,</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88af830a68d1550d809c72524db82a1ca84">   81</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88af830a68d1550d809c72524db82a1ca84">Immunity</a>,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>};</div>
+</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span></div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="};">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="structcore_1_1DamageAffinity.html">   91</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1DamageAffinity.html">DamageAffinity</a> {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="structcore_1_1DamageAffinity.html#a82ce3e3a63d0e8bffe48f4817fe0e7cc">   92</a></span>    <a class="code hl_enumeration" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> <a class="code hl_variable" href="structcore_1_1DamageAffinity.html#a82ce3e3a63d0e8bffe48f4817fe0e7cc">type</a> = <a class="code hl_enumvalue" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda8c92f858070d9bb44fb8e3fa1b7224ed">DamageType::Bludgeoning</a>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="structcore_1_1DamageAffinity.html#a02b76bc7d2d4b713113770131942009e">   93</a></span>    <a class="code hl_enumeration" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88">DamageAffinityKind</a> <a class="code hl_variable" href="structcore_1_1DamageAffinity.html#a02b76bc7d2d4b713113770131942009e">kind</a> = <a class="code hl_enumvalue" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88a9db444f7a3b8ba8f817647de53b7a6fe">DamageAffinityKind::Resistance</a>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="structcore_1_1DamageAffinity.html#aee4369403d75f62d22159671ceb8a216">   94</a></span>    <a class="code hl_typedef" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">DamageFlags</a> <a class="code hl_variable" href="structcore_1_1DamageAffinity.html#aee4369403d75f62d22159671ceb8a216">bypassedBy</a> = 0;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="structcore_1_1DamageAffinity.html#a3705db02e5b23704a344fc7a8511de69">   96</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1DamageAffinity.html#a3705db02e5b23704a344fc7a8511de69">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1DamageAffinity.html">DamageAffinity</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>};</div>
+</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span></div>
+<div class="foldopen" id="foldopen00100" data-start="{" data-end="};">
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="structcore_1_1DamageTraits.html">  100</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1DamageTraits.html">DamageTraits</a> {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="structcore_1_1DamageTraits.html#ae0615061f554b94d20979ed1985b4596">  101</a></span>    std::vector&lt;DamageAffinity&gt; <a class="code hl_variable" href="structcore_1_1DamageTraits.html#ae0615061f554b94d20979ed1985b4596">affinities</a>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1DamageTraits.html#ac12264cba0a31747277669e59052a9da">applies</a>(<a class="code hl_enumeration" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88">DamageAffinityKind</a> kind, <a class="code hl_enumeration" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> type, <a class="code hl_typedef" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">DamageFlags</a> flags) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>};</div>
+</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span></div>
+<div class="foldopen" id="foldopen00114" data-start="{" data-end="};">
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="structcore_1_1DamageClause.html">  114</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1DamageClause.html">DamageClause</a> {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="structcore_1_1DamageClause.html#a593240e65c6f77b5ded1bcb3484692f0">  115</a></span>    <a class="code hl_struct" href="structcore_1_1Dice.html">Dice</a> <a class="code hl_variable" href="structcore_1_1DamageClause.html#a593240e65c6f77b5ded1bcb3484692f0">dice</a>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="structcore_1_1DamageClause.html#acb2f8d68d3399ec0a5c9f4525131ccb7">  116</a></span>    <a class="code hl_enumeration" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> <a class="code hl_variable" href="structcore_1_1DamageClause.html#acb2f8d68d3399ec0a5c9f4525131ccb7">type</a> = <a class="code hl_enumvalue" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda8c92f858070d9bb44fb8e3fa1b7224ed">DamageType::Bludgeoning</a>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="structcore_1_1DamageClause.html#a7b620a8a447f33c6f2b8062150381b0d">  117</a></span>    <a class="code hl_typedef" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">DamageFlags</a> <a class="code hl_variable" href="structcore_1_1DamageClause.html#a7b620a8a447f33c6f2b8062150381b0d">flags</a> = 0;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>};</div>
+</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span></div>
+<div class="foldopen" id="foldopen00127" data-start="{" data-end="};">
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="structcore_1_1RolledDamage.html">  127</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1RolledDamage.html">RolledDamage</a> {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="structcore_1_1RolledDamage.html#a5c67939005c377679a7cdc829fcb9c60">  128</a></span>    <a class="code hl_struct" href="structcore_1_1DamageClause.html">DamageClause</a> <a class="code hl_variable" href="structcore_1_1RolledDamage.html#a5c67939005c377679a7cdc829fcb9c60">clause</a>;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="structcore_1_1RolledDamage.html#a14b9fd265913f0697a03c2cc4f2df8fd">  129</a></span>    <a class="code hl_struct" href="structcore_1_1DiceRoll.html">DiceRoll</a> <a class="code hl_variable" href="structcore_1_1RolledDamage.html#a14b9fd265913f0697a03c2cc4f2df8fd">roll</a>;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="structcore_1_1RolledDamage.html#a3d00e1c88934507d49d16a3fcf51f715">  130</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1RolledDamage.html#a3d00e1c88934507d49d16a3fcf51f715">critical</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="structcore_1_1RolledDamage.html#a8265903511e3c2b66382578c78c9a0e6">  132</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1RolledDamage.html#a8265903511e3c2b66382578c78c9a0e6">amount</a> = 0;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>};</div>
+</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>[[nodiscard]] std::vector&lt;RolledDamage&gt; <a class="code hl_function" href="namespacecore.html#abfebc43646d1d520094ddedc511ffab2">rollDamage</a>(std::span&lt;const DamageClause&gt; clauses,</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                                                   <span class="keywordtype">bool</span> critical, <a class="code hl_class" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a>&amp; random);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span></div>
+<div class="foldopen" id="foldopen00150" data-start="{" data-end="};">
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6">  150</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6">DamageStage</a> : std::uint8_t {</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6af31bbdd1b3e85bccd652680e16935819">  151</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6af31bbdd1b3e85bccd652680e16935819">Source</a>,</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6a3bb1503332637805beddb73a2dd1fe1b">  152</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6a3bb1503332637805beddb73a2dd1fe1b">Conversion</a>,</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6afc83082bceda55a1c217dde140d278a3">  153</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6afc83082bceda55a1c217dde140d278a3">Resistances</a>,</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6a2e8d218f6db8ee586362d35f3aaf351d">  154</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6a2e8d218f6db8ee586362d35f3aaf351d">Reserves</a>,</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6af379b3194b7b06ec46708bf4fcec93c4">  155</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6af379b3194b7b06ec46708bf4fcec93c4">HitPoints</a>,</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>};</div>
+</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>[[nodiscard]] std::string_view <a class="code hl_function" href="namespacecore.html#a11b50a242751c4c8fd48e94bc3e9fb1d">damageTypeLabel</a>(<a class="code hl_enumeration" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> type) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>[[nodiscard]] std::string_view <a class="code hl_function" href="namespacecore.html#a47f6646fcdb009c8a840c8b84d2632ae">damageStageName</a>(<a class="code hl_enumeration" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6">DamageStage</a> stage) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span></div>
+<div class="foldopen" id="foldopen00182" data-start="{" data-end="};">
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="structcore_1_1HitPointReserve.html">  182</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1HitPointReserve.html">HitPointReserve</a> {</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno"><a class="line" href="structcore_1_1HitPointReserve.html#a41b411ab3dc0b646c435bb166ad359f9">  184</a></span>    std::string <a class="code hl_variable" href="structcore_1_1HitPointReserve.html#a41b411ab3dc0b646c435bb166ad359f9">source</a>;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="structcore_1_1HitPointReserve.html#aea6e6125189eaf45103305a7a5a04145">  185</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1HitPointReserve.html#aea6e6125189eaf45103305a7a5a04145">amount</a> = 0;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="structcore_1_1HitPointReserve.html#a3524f70e6085b7602005fc0ab120ef21">  186</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1HitPointReserve.html#a3524f70e6085b7602005fc0ab120ef21">stacks</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="structcore_1_1HitPointReserve.html#a0dd701d0804acd159e4fff3cbad5c96e">  188</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1HitPointReserve.html#a0dd701d0804acd159e4fff3cbad5c96e">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1HitPointReserve.html">HitPointReserve</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>};</div>
+</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="namespacecore.html#a5979311d6479176f341e393e4cdbe72a">  192</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="namespacecore.html#a5979311d6479176f341e393e4cdbe72a">TEMPORARY_HIT_POINTS</a> = <span class="stringliteral">&quot;points de vie temporaires&quot;</span>;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span></div>
+<div class="foldopen" id="foldopen00195" data-start="{" data-end="};">
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="structcore_1_1DamageStep.html">  195</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1DamageStep.html">DamageStep</a> {</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno"><a class="line" href="structcore_1_1DamageStep.html#a333b38c6f83f6dfff0128d0c7da7161c">  196</a></span>    <a class="code hl_enumeration" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6">DamageStage</a> <a class="code hl_variable" href="structcore_1_1DamageStep.html#a333b38c6f83f6dfff0128d0c7da7161c">stage</a> = <a class="code hl_enumvalue" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6af31bbdd1b3e85bccd652680e16935819">DamageStage::Source</a>;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="structcore_1_1DamageStep.html#a6c75e49f556cdd2552e895814f9a87d3">  198</a></span>    std::string <a class="code hl_variable" href="structcore_1_1DamageStep.html#a6c75e49f556cdd2552e895814f9a87d3">source</a>;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="structcore_1_1DamageStep.html#ad225f453e8e424a90702b9e46a640ec5">  199</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1DamageStep.html#ad225f453e8e424a90702b9e46a640ec5">before</a> = 0;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="structcore_1_1DamageStep.html#adeccc9878781be9356535be91369a111">  200</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1DamageStep.html#adeccc9878781be9356535be91369a111">after</a> = 0;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>};</div>
+</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span></div>
+<div class="foldopen" id="foldopen00204" data-start="{" data-end="};">
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="structcore_1_1DamagePortion.html">  204</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1DamagePortion.html">DamagePortion</a> {</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno"><a class="line" href="structcore_1_1DamagePortion.html#a57d0c947db6176f54e4d6c5395aee01c">  205</a></span>    <a class="code hl_enumeration" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> <a class="code hl_variable" href="structcore_1_1DamagePortion.html#a57d0c947db6176f54e4d6c5395aee01c">type</a> = <a class="code hl_enumvalue" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda8c92f858070d9bb44fb8e3fa1b7224ed">DamageType::Bludgeoning</a>;</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="structcore_1_1DamagePortion.html#a473b08c01ded992b8d1d57983219664c">  206</a></span>    <a class="code hl_typedef" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">DamageFlags</a> <a class="code hl_variable" href="structcore_1_1DamagePortion.html#a473b08c01ded992b8d1d57983219664c">flags</a> = 0;</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="structcore_1_1DamagePortion.html#a86761164916563eafacf1e803154f9ee">  207</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1DamagePortion.html#a86761164916563eafacf1e803154f9ee">amount</a> = 0;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>};</div>
+</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span></div>
+<div class="foldopen" id="foldopen00217" data-start="{" data-end="};">
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno"><a class="line" href="structcore_1_1DamageWork.html">  217</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1DamageWork.html">DamageWork</a> {</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno"><a class="line" href="structcore_1_1DamageWork.html#a299961b8fab933cf5b7f3cb820fc57df">  219</a></span>    std::optional&lt;CombatantId&gt; <a class="code hl_variable" href="structcore_1_1DamageWork.html#a299961b8fab933cf5b7f3cb820fc57df">target</a>;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="structcore_1_1DamageWork.html#a5c46960706058bb7bd1acb4b371ead83">  221</a></span>    std::optional&lt;GridPosition&gt; <a class="code hl_variable" href="structcore_1_1DamageWork.html#a5c46960706058bb7bd1acb4b371ead83">structure</a>;</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno"><a class="line" href="structcore_1_1DamageWork.html#a35390d8fbef6d72648a28c261d0d8bb3">  222</a></span>    std::vector&lt;DamagePortion&gt; <a class="code hl_variable" href="structcore_1_1DamageWork.html#a35390d8fbef6d72648a28c261d0d8bb3">portions</a>;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="structcore_1_1DamageWork.html#a620cc8e6913ee401066f391fd016ae03">  224</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1DamageWork.html#a620cc8e6913ee401066f391fd016ae03">absorbed</a> = 0;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno"><a class="line" href="structcore_1_1DamageWork.html#a968b5823523352a1e463d9ba96d2710e">  226</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1DamageWork.html#a968b5823523352a1e463d9ba96d2710e">hitPointLoss</a> = 0;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="structcore_1_1DamageWork.html#aa783bbb5659ba98b03df5f3d340b4bec">  227</a></span>    std::vector&lt;DamageStep&gt; <a class="code hl_variable" href="structcore_1_1DamageWork.html#aa783bbb5659ba98b03df5f3d340b4bec">trace</a>;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="structcore_1_1DamageWork.html#a4a593620443cb7e28979ce26a5791634">total</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="structcore_1_1DamageWork.html#a7b39ee53ae0d6b6eaedbb90dc41697ef">adjust</a>(std::size_t portion, <span class="keywordtype">int</span> amount, <a class="code hl_enumeration" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6">DamageStage</a> stage, std::string source);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>};</div>
+</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno"><a class="line" href="namespacecore.html#a3590dffd7f4abb831e517aafa42647d6">  236</a></span><span class="keyword">using </span><a class="code hl_typedef" href="namespacecore.html#a3590dffd7f4abb831e517aafa42647d6">DamageListener</a> = std::function&lt;void(<a class="code hl_struct" href="structcore_1_1DamageWork.html">DamageWork</a>&amp;, <a class="code hl_class" href="classcore_1_1CombatState.html">CombatState</a>*)&gt;;</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span></div>
+<div class="foldopen" id="foldopen00239" data-start="{" data-end="};">
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="structcore_1_1DamageRequest.html">  239</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1DamageRequest.html">DamageRequest</a> {</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="structcore_1_1DamageRequest.html#aedf13f3eff3746c3acb680ee2b97b70c">  240</a></span>    <a class="code hl_enumeration" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> <a class="code hl_variable" href="structcore_1_1DamageRequest.html#aedf13f3eff3746c3acb680ee2b97b70c">target</a>{};</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno"><a class="line" href="structcore_1_1DamageRequest.html#a1c34ec2760c59f2a9b0c5adb0d395c49">  241</a></span>    std::vector&lt;RolledDamage&gt; <a class="code hl_variable" href="structcore_1_1DamageRequest.html#a1c34ec2760c59f2a9b0c5adb0d395c49">damage</a>;</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>};</div>
+</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span></div>
+<div class="foldopen" id="foldopen00245" data-start="{" data-end="};">
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno"><a class="line" href="structcore_1_1DamageReport.html">  245</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1DamageReport.html">DamageReport</a> {</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="structcore_1_1DamageReport.html#ae44e1cddc1b312c97f6667fa9158f7d7">  246</a></span>    <a class="code hl_struct" href="structcore_1_1DamageWork.html">DamageWork</a> <a class="code hl_variable" href="structcore_1_1DamageReport.html#ae44e1cddc1b312c97f6667fa9158f7d7">work</a>;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno"><a class="line" href="structcore_1_1DamageReport.html#ae626ec8a63ea2c421db0b677f32b8103">  247</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1DamageReport.html#ae626ec8a63ea2c421db0b677f32b8103">hitPointsBefore</a> = 0;</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="structcore_1_1DamageReport.html#a5f0942dd61fdb70850c76bddf1937453">  248</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1DamageReport.html#a5f0942dd61fdb70850c76bddf1937453">hitPointsAfter</a> = 0;</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno"><a class="line" href="structcore_1_1DamageReport.html#ae06f13af66682a6bba8f5305e70db49c">  257</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1DamageReport.html#ae06f13af66682a6bba8f5305e70db49c">overflow</a> = 0;</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>};</div>
+</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span></div>
+<div class="foldopen" id="foldopen00268" data-start="{" data-end="};">
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno"><a class="line" href="classcore_1_1DamagePipeline.html">  268</a></span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1DamagePipeline.html">DamagePipeline</a> {</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1DamagePipeline.html#a01ca4dadd1149ce79923deadb2fc22de">insert</a>(<a class="code hl_enumeration" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6">DamageStage</a> stage, <a class="code hl_typedef" href="namespacecore.html#a3590dffd7f4abb831e517aafa42647d6">DamageListener</a> listener);</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span></div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    std::vector&lt;DamageReport&gt; <a class="code hl_function" href="classcore_1_1DamagePipeline.html#a03fcd203ed5822ecc5970512e181e0bf">apply</a>(<a class="code hl_class" href="classcore_1_1CombatState.html">CombatState</a>&amp; combat,</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>                                    std::span&lt;const DamageRequest&gt; volley) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span></div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    <a class="code hl_struct" href="structcore_1_1DamageReport.html">DamageReport</a> <a class="code hl_function" href="classcore_1_1DamagePipeline.html#ab12d245fc394a994f925b869404b0334">applyToStructure</a>(<a class="code hl_class" href="classcore_1_1BattleGrid.html">BattleGrid</a>&amp; grid, <a class="code hl_struct" href="structcore_1_1GridPosition.html">GridPosition</a> cell,</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>                                  std::span&lt;const RolledDamage&gt; damage) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span> </div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1DamagePipeline.html#a26df699e34a74d91e4d796c135adffd0">runStage</a>(<a class="code hl_enumeration" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6">DamageStage</a> stage, <a class="code hl_struct" href="structcore_1_1DamageWork.html">DamageWork</a>&amp; work, <a class="code hl_class" href="classcore_1_1CombatState.html">CombatState</a>* combat) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1DamagePipeline.html#aa51159eaf66dfbb540f516446600a571">applyAffinities</a>(<a class="code hl_struct" href="structcore_1_1DamageWork.html">DamageWork</a>&amp; work, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1DamageTraits.html">DamageTraits</a>&amp; traits);</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno"><a class="line" href="classcore_1_1DamagePipeline.html#a5a6fcaff98239efe8d3015623abc5912">  296</a></span>    std::vector&lt;std::pair&lt;DamageStage, DamageListener&gt;&gt; <a class="code hl_variable" href="classcore_1_1DamagePipeline.html#a5a6fcaff98239efe8d3015623abc5912">_listeners</a>;</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>};</div>
+</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span></div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1DamageTraits.html">DamageTraits</a> <a class="code hl_function" href="namespacecore.html#abcf6693a37e7a91f92befd98da11e106">damageTraitsFor</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Creature.html">Creature</a>&amp; creature);</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aDeterministicRandom_8h_html"><div class="ttname"><a href="DeterministicRandom_8h.html">DeterministicRandom.h</a></div><div class="ttdoc">Générateur pseudo-aléatoire déterministe, à graine explicite (jamais l&#39;horloge, EX-NFR-002).</div></div>
+<div class="ttc" id="aDice_8h_html"><div class="ttname"><a href="Dice_8h.html">Dice.h</a></div><div class="ttdoc">Notation de dés NdF+M : analyse, évaluation, bornes (EX-NFR-002).</div></div>
+<div class="ttc" id="aGridPosition_8h_html"><div class="ttname"><a href="GridPosition_8h.html">GridPosition.h</a></div><div class="ttdoc">Position entière dans la grille d&#39;un niveau (colonne, ligne).</div></div>
+<div class="ttc" id="aRpgEnums_8h_html"><div class="ttname"><a href="RpgEnums_8h.html">RpgEnums.h</a></div><div class="ttdoc">Les quatre énumérations fermées du RPG : dégâts, conditions, écoles, tailles.</div></div>
+<div class="ttc" id="aclasscore_1_1BattleGrid_html"><div class="ttname"><a href="classcore_1_1BattleGrid.html">core::BattleGrid</a></div><div class="ttdoc">La grille tactique d&#39;une rencontre.</div><div class="ttdef"><b>Definition</b> BattleGrid.h:179</div></div>
+<div class="ttc" id="aclasscore_1_1CombatState_html"><div class="ttname"><a href="classcore_1_1CombatState.html">core::CombatState</a></div><div class="ttdoc">Un combat, du montage de la rencontre à sa fin.</div><div class="ttdef"><b>Definition</b> CombatState.h:308</div></div>
+<div class="ttc" id="aclasscore_1_1DamagePipeline_html"><div class="ttname"><a href="classcore_1_1DamagePipeline.html">core::DamagePipeline</a></div><div class="ttdoc">Le pipeline de dégâts : cinq étapes nommées, et ce qui s&#39;y greffe.</div><div class="ttdef"><b>Definition</b> Damage.h:268</div></div>
+<div class="ttc" id="aclasscore_1_1DamagePipeline_html_a01ca4dadd1149ce79923deadb2fc22de"><div class="ttname"><a href="classcore_1_1DamagePipeline.html#a01ca4dadd1149ce79923deadb2fc22de">core::DamagePipeline::insert</a></div><div class="ttdeci">void insert(DamageStage stage, DamageListener listener)</div><div class="ttdef"><b>Definition</b> Damage.cpp:111</div></div>
+<div class="ttc" id="aclasscore_1_1DamagePipeline_html_a03fcd203ed5822ecc5970512e181e0bf"><div class="ttname"><a href="classcore_1_1DamagePipeline.html#a03fcd203ed5822ecc5970512e181e0bf">core::DamagePipeline::apply</a></div><div class="ttdeci">std::vector&lt; DamageReport &gt; apply(CombatState &amp;combat, std::span&lt; const DamageRequest &gt; volley) const</div><div class="ttdoc">Fait traverser une salve à des combattants, et la termine en un appel à core::CombatState::applyDamag...</div><div class="ttdef"><b>Definition</b> Damage.cpp:180</div></div>
+<div class="ttc" id="aclasscore_1_1DamagePipeline_html_a26df699e34a74d91e4d796c135adffd0"><div class="ttname"><a href="classcore_1_1DamagePipeline.html#a26df699e34a74d91e4d796c135adffd0">core::DamagePipeline::runStage</a></div><div class="ttdeci">void runStage(DamageStage stage, DamageWork &amp;work, CombatState *combat) const</div><div class="ttdef"><b>Definition</b> Damage.cpp:115</div></div>
+<div class="ttc" id="aclasscore_1_1DamagePipeline_html_a5a6fcaff98239efe8d3015623abc5912"><div class="ttname"><a href="classcore_1_1DamagePipeline.html#a5a6fcaff98239efe8d3015623abc5912">core::DamagePipeline::_listeners</a></div><div class="ttdeci">std::vector&lt; std::pair&lt; DamageStage, DamageListener &gt; &gt; _listeners</div><div class="ttdef"><b>Definition</b> Damage.h:296</div></div>
+<div class="ttc" id="aclasscore_1_1DamagePipeline_html_aa51159eaf66dfbb540f516446600a571"><div class="ttname"><a href="classcore_1_1DamagePipeline.html#aa51159eaf66dfbb540f516446600a571">core::DamagePipeline::applyAffinities</a></div><div class="ttdeci">static void applyAffinities(DamageWork &amp;work, const DamageTraits &amp;traits)</div><div class="ttdef"><b>Definition</b> Damage.cpp:123</div></div>
+<div class="ttc" id="aclasscore_1_1DamagePipeline_html_ab12d245fc394a994f925b869404b0334"><div class="ttname"><a href="classcore_1_1DamagePipeline.html#ab12d245fc394a994f925b869404b0334">core::DamagePipeline::applyToStructure</a></div><div class="ttdeci">DamageReport applyToStructure(BattleGrid &amp;grid, GridPosition cell, std::span&lt; const RolledDamage &gt; damage) const</div><div class="ttdoc">Fait traverser des dégâts à une structure de la grille : les structures ont des PV,...</div><div class="ttdef"><b>Definition</b> Damage.cpp:237</div></div>
+<div class="ttc" id="aclasscore_1_1DeterministicRandom_html"><div class="ttname"><a href="classcore_1_1DeterministicRandom.html">core::DeterministicRandom</a></div><div class="ttdoc">Générateur pseudo-aléatoire léger (SplitMix64), à graine explicite.</div><div class="ttdef"><b>Definition</b> DeterministicRandom.h:59</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a11b50a242751c4c8fd48e94bc3e9fb1d"><div class="ttname"><a href="namespacecore.html#a11b50a242751c4c8fd48e94bc3e9fb1d">core::damageTypeLabel</a></div><div class="ttdeci">std::string_view damageTypeLabel(DamageType type) noexcept</div><div class="ttdoc">Nom français d&#39;un type de dégâts, pour le journal : « tranchant », « feu ».</div><div class="ttdef"><b>Definition</b> Damage.cpp:41</div></div>
+<div class="ttc" id="anamespacecore_html_a3590dffd7f4abb831e517aafa42647d6"><div class="ttname"><a href="namespacecore.html#a3590dffd7f4abb831e517aafa42647d6">core::DamageListener</a></div><div class="ttdeci">std::function&lt; void(DamageWork &amp;, CombatState *)&gt; DamageListener</div><div class="ttdoc">Un point d&#39;insertion : reçoit les dégâts d&#39;une cible, et l&#39;état du combat s&#39;il y en a un.</div><div class="ttdef"><b>Definition</b> Damage.h:236</div></div>
+<div class="ttc" id="anamespacecore_html_a3acedcaf6cf80cdf2bc278d2bb7a4159"><div class="ttname"><a href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">core::DamageFlags</a></div><div class="ttdeci">std::uint8_t DamageFlags</div><div class="ttdoc">Un ensemble de core::DamageFlag.</div><div class="ttdef"><b>Definition</b> Damage.h:67</div></div>
+<div class="ttc" id="anamespacecore_html_a47f6646fcdb009c8a840c8b84d2632ae"><div class="ttname"><a href="namespacecore.html#a47f6646fcdb009c8a840c8b84d2632ae">core::damageStageName</a></div><div class="ttdeci">std::string_view damageStageName(DamageStage stage) noexcept</div><div class="ttdoc">Nom textuel d&#39;une étape, pour le journal.</div><div class="ttdef"><b>Definition</b> Damage.cpp:74</div></div>
+<div class="ttc" id="anamespacecore_html_a5979311d6479176f341e393e4cdbe72a"><div class="ttname"><a href="namespacecore.html#a5979311d6479176f341e393e4cdbe72a">core::TEMPORARY_HIT_POINTS</a></div><div class="ttdeci">constexpr std::string_view TEMPORARY_HIT_POINTS</div><div class="ttdoc">La source des points de vie temporaires du Manuel : ils ne se cumulent pas.</div><div class="ttdef"><b>Definition</b> Damage.h:192</div></div>
+<div class="ttc" id="anamespacecore_html_a68ce34289da15bf414434daa7bda435c"><div class="ttname"><a href="namespacecore.html#a68ce34289da15bf414434daa7bda435c">core::hasFlag</a></div><div class="ttdeci">constexpr bool hasFlag(DamageFlags flags, DamageFlag flag) noexcept</div><div class="ttdef"><b>Definition</b> Damage.h:73</div></div>
+<div class="ttc" id="anamespacecore_html_a8fe0c8f2f53edc1707d89c25b01a6a88"><div class="ttname"><a href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88">core::DamageAffinityKind</a></div><div class="ttdeci">DamageAffinityKind</div><div class="ttdoc">Résistance, vulnérabilité ou immunité.</div><div class="ttdef"><b>Definition</b> Damage.h:78</div></div>
+<div class="ttc" id="anamespacecore_html_a8fe0c8f2f53edc1707d89c25b01a6a88a9db444f7a3b8ba8f817647de53b7a6fe"><div class="ttname"><a href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88a9db444f7a3b8ba8f817647de53b7a6fe">core::DamageAffinityKind::Resistance</a></div><div class="ttdeci">@ Resistance</div><div class="ttdef"><b>Definition</b> Damage.h:79</div></div>
+<div class="ttc" id="anamespacecore_html_a8fe0c8f2f53edc1707d89c25b01a6a88aca548e0ecd399b3118e0727e6fe84100"><div class="ttname"><a href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88aca548e0ecd399b3118e0727e6fe84100">core::DamageAffinityKind::Vulnerability</a></div><div class="ttdeci">@ Vulnerability</div><div class="ttdef"><b>Definition</b> Damage.h:80</div></div>
+<div class="ttc" id="anamespacecore_html_a8fe0c8f2f53edc1707d89c25b01a6a88af830a68d1550d809c72524db82a1ca84"><div class="ttname"><a href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88af830a68d1550d809c72524db82a1ca84">core::DamageAffinityKind::Immunity</a></div><div class="ttdeci">@ Immunity</div><div class="ttdef"><b>Definition</b> Damage.h:81</div></div>
+<div class="ttc" id="anamespacecore_html_a91235fd72a18c305c494723774630841"><div class="ttname"><a href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></div><div class="ttdeci">CombatantId</div><div class="ttdoc">Identifiant d&#39;un combattant sur la grille.</div><div class="ttdef"><b>Definition</b> BattleGrid.h:38</div></div>
+<div class="ttc" id="anamespacecore_html_aa275f4ee3dcd04b2c433620118cf54c4"><div class="ttname"><a href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4">core::DamageFlag</a></div><div class="ttdeci">DamageFlag</div><div class="ttdoc">Ce qu&#39;une source de dégâts est, au-delà de son type.</div><div class="ttdef"><b>Definition</b> Damage.h:57</div></div>
+<div class="ttc" id="anamespacecore_html_aa275f4ee3dcd04b2c433620118cf54c4a16a1449394d124d5f792d1b5b5c097b5"><div class="ttname"><a href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a16a1449394d124d5f792d1b5b5c097b5">core::DamageFlag::IgnoresResistance</a></div><div class="ttdeci">@ IgnoresResistance</div><div class="ttdef"><b>Definition</b> Damage.h:62</div></div>
+<div class="ttc" id="anamespacecore_html_aa275f4ee3dcd04b2c433620118cf54c4a3d2e9d298e14a747db8a3e2c64691f85"><div class="ttname"><a href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a3d2e9d298e14a747db8a3e2c64691f85">core::DamageFlag::Adamantine</a></div><div class="ttdeci">@ Adamantine</div><div class="ttdef"><b>Definition</b> Damage.h:60</div></div>
+<div class="ttc" id="anamespacecore_html_aa275f4ee3dcd04b2c433620118cf54c4a968ae4f03d7e0c30fe4eb26b83c855dd"><div class="ttname"><a href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a968ae4f03d7e0c30fe4eb26b83c855dd">core::DamageFlag::Spell</a></div><div class="ttdeci">@ Spell</div><div class="ttdef"><b>Definition</b> Damage.h:61</div></div>
+<div class="ttc" id="anamespacecore_html_aa275f4ee3dcd04b2c433620118cf54c4ad37f77dacfbf160a4967b83e099d1a37"><div class="ttname"><a href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4ad37f77dacfbf160a4967b83e099d1a37">core::DamageFlag::IgnoresReserves</a></div><div class="ttdeci">@ IgnoresReserves</div><div class="ttdef"><b>Definition</b> Damage.h:63</div></div>
+<div class="ttc" id="anamespacecore_html_aa275f4ee3dcd04b2c433620118cf54c4adea2f43b46e4448607c1eaec58dd855b"><div class="ttname"><a href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4adea2f43b46e4448607c1eaec58dd855b">core::DamageFlag::Silvered</a></div><div class="ttdeci">@ Silvered</div><div class="ttdef"><b>Definition</b> Damage.h:59</div></div>
+<div class="ttc" id="anamespacecore_html_aa275f4ee3dcd04b2c433620118cf54c4af855e17eab2bd1a0b8f6c70a1635226a"><div class="ttname"><a href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4af855e17eab2bd1a0b8f6c70a1635226a">core::DamageFlag::Magical</a></div><div class="ttdeci">@ Magical</div><div class="ttdef"><b>Definition</b> Damage.h:58</div></div>
+<div class="ttc" id="anamespacecore_html_aabf3d04e881096180d288d8c6ad9fcf6"><div class="ttname"><a href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6">core::DamageStage</a></div><div class="ttdeci">DamageStage</div><div class="ttdoc">Les étapes du pipeline, dans l&#39;ordre où elles s&#39;exécutent.</div><div class="ttdef"><b>Definition</b> Damage.h:150</div></div>
+<div class="ttc" id="anamespacecore_html_aabf3d04e881096180d288d8c6ad9fcf6a2e8d218f6db8ee586362d35f3aaf351d"><div class="ttname"><a href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6a2e8d218f6db8ee586362d35f3aaf351d">core::DamageStage::Reserves</a></div><div class="ttdeci">@ Reserves</div><div class="ttdef"><b>Definition</b> Damage.h:154</div></div>
+<div class="ttc" id="anamespacecore_html_aabf3d04e881096180d288d8c6ad9fcf6a3bb1503332637805beddb73a2dd1fe1b"><div class="ttname"><a href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6a3bb1503332637805beddb73a2dd1fe1b">core::DamageStage::Conversion</a></div><div class="ttdeci">@ Conversion</div><div class="ttdef"><b>Definition</b> Damage.h:152</div></div>
+<div class="ttc" id="anamespacecore_html_aabf3d04e881096180d288d8c6ad9fcf6af31bbdd1b3e85bccd652680e16935819"><div class="ttname"><a href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6af31bbdd1b3e85bccd652680e16935819">core::DamageStage::Source</a></div><div class="ttdeci">@ Source</div><div class="ttdef"><b>Definition</b> Damage.h:151</div></div>
+<div class="ttc" id="anamespacecore_html_aabf3d04e881096180d288d8c6ad9fcf6af379b3194b7b06ec46708bf4fcec93c4"><div class="ttname"><a href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6af379b3194b7b06ec46708bf4fcec93c4">core::DamageStage::HitPoints</a></div><div class="ttdeci">@ HitPoints</div><div class="ttdef"><b>Definition</b> Damage.h:155</div></div>
+<div class="ttc" id="anamespacecore_html_aabf3d04e881096180d288d8c6ad9fcf6afc83082bceda55a1c217dde140d278a3"><div class="ttname"><a href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6afc83082bceda55a1c217dde140d278a3">core::DamageStage::Resistances</a></div><div class="ttdeci">@ Resistances</div><div class="ttdef"><b>Definition</b> Damage.h:153</div></div>
+<div class="ttc" id="anamespacecore_html_aae5ed49bedbf68049f008e4efac2edfd"><div class="ttname"><a href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">core::DamageType</a></div><div class="ttdeci">DamageType</div><div class="ttdoc">Type de dégâts infligés (EX-CBT-032, EX-CNT-011).</div><div class="ttdef"><b>Definition</b> RpgEnums.h:27</div></div>
+<div class="ttc" id="anamespacecore_html_aae5ed49bedbf68049f008e4efac2edfda8c92f858070d9bb44fb8e3fa1b7224ed"><div class="ttname"><a href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda8c92f858070d9bb44fb8e3fa1b7224ed">core::DamageType::Bludgeoning</a></div><div class="ttdeci">@ Bludgeoning</div><div class="ttdef"><b>Definition</b> RpgEnums.h:29</div></div>
+<div class="ttc" id="anamespacecore_html_abcf6693a37e7a91f92befd98da11e106"><div class="ttname"><a href="namespacecore.html#abcf6693a37e7a91f92befd98da11e106">core::damageTraitsFor</a></div><div class="ttdeci">DamageTraits damageTraitsFor(const Creature &amp;creature)</div><div class="ttdoc">Les affinités d&#39;une créature du bestiaire.</div><div class="ttdef"><b>Definition</b> Damage.cpp:260</div></div>
+<div class="ttc" id="anamespacecore_html_abfebc43646d1d520094ddedc511ffab2"><div class="ttname"><a href="namespacecore.html#abfebc43646d1d520094ddedc511ffab2">core::rollDamage</a></div><div class="ttdeci">std::vector&lt; RolledDamage &gt; rollDamage(std::span&lt; const DamageClause &gt; clauses, bool critical, DeterministicRandom &amp;random)</div><div class="ttdoc">Lance chaque clause, en doublant les dés si le coup est critique.</div><div class="ttdef"><b>Definition</b> Damage.cpp:22</div></div>
+<div class="ttc" id="anamespacecore_html_af66d5aadf3d1710e4239a912dd6e4481"><div class="ttname"><a href="namespacecore.html#af66d5aadf3d1710e4239a912dd6e4481">core::flagsOf</a></div><div class="ttdeci">constexpr DamageFlags flagsOf(DamageFlag flag) noexcept</div><div class="ttdef"><b>Definition</b> Damage.h:69</div></div>
+<div class="ttc" id="astructcore_1_1Creature_html"><div class="ttname"><a href="structcore_1_1Creature.html">core::Creature</a></div><div class="ttdoc">Un bloc de statistiques : ce que creature.schema.json décrit.</div><div class="ttdef"><b>Definition</b> Bestiary.h:73</div></div>
+<div class="ttc" id="astructcore_1_1DamageAffinity_html"><div class="ttname"><a href="structcore_1_1DamageAffinity.html">core::DamageAffinity</a></div><div class="ttdoc">Une affinité de la cible à un type de dégâts, et ce qui la contourne.</div><div class="ttdef"><b>Definition</b> Damage.h:91</div></div>
+<div class="ttc" id="astructcore_1_1DamageAffinity_html_a02b76bc7d2d4b713113770131942009e"><div class="ttname"><a href="structcore_1_1DamageAffinity.html#a02b76bc7d2d4b713113770131942009e">core::DamageAffinity::kind</a></div><div class="ttdeci">DamageAffinityKind kind</div><div class="ttdef"><b>Definition</b> Damage.h:93</div></div>
+<div class="ttc" id="astructcore_1_1DamageAffinity_html_a3705db02e5b23704a344fc7a8511de69"><div class="ttname"><a href="structcore_1_1DamageAffinity.html#a3705db02e5b23704a344fc7a8511de69">core::DamageAffinity::operator==</a></div><div class="ttdeci">bool operator==(const DamageAffinity &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1DamageAffinity_html_a82ce3e3a63d0e8bffe48f4817fe0e7cc"><div class="ttname"><a href="structcore_1_1DamageAffinity.html#a82ce3e3a63d0e8bffe48f4817fe0e7cc">core::DamageAffinity::type</a></div><div class="ttdeci">DamageType type</div><div class="ttdef"><b>Definition</b> Damage.h:92</div></div>
+<div class="ttc" id="astructcore_1_1DamageAffinity_html_aee4369403d75f62d22159671ceb8a216"><div class="ttname"><a href="structcore_1_1DamageAffinity.html#aee4369403d75f62d22159671ceb8a216">core::DamageAffinity::bypassedBy</a></div><div class="ttdeci">DamageFlags bypassedBy</div><div class="ttdef"><b>Definition</b> Damage.h:94</div></div>
+<div class="ttc" id="astructcore_1_1DamageClause_html"><div class="ttname"><a href="structcore_1_1DamageClause.html">core::DamageClause</a></div><div class="ttdoc">Une clause de dégâts, telle qu&#39;une attaque la porte avant les dés.</div><div class="ttdef"><b>Definition</b> Damage.h:114</div></div>
+<div class="ttc" id="astructcore_1_1DamageClause_html_a593240e65c6f77b5ded1bcb3484692f0"><div class="ttname"><a href="structcore_1_1DamageClause.html#a593240e65c6f77b5ded1bcb3484692f0">core::DamageClause::dice</a></div><div class="ttdeci">Dice dice</div><div class="ttdef"><b>Definition</b> Damage.h:115</div></div>
+<div class="ttc" id="astructcore_1_1DamageClause_html_a7b620a8a447f33c6f2b8062150381b0d"><div class="ttname"><a href="structcore_1_1DamageClause.html#a7b620a8a447f33c6f2b8062150381b0d">core::DamageClause::flags</a></div><div class="ttdeci">DamageFlags flags</div><div class="ttdef"><b>Definition</b> Damage.h:117</div></div>
+<div class="ttc" id="astructcore_1_1DamageClause_html_acb2f8d68d3399ec0a5c9f4525131ccb7"><div class="ttname"><a href="structcore_1_1DamageClause.html#acb2f8d68d3399ec0a5c9f4525131ccb7">core::DamageClause::type</a></div><div class="ttdeci">DamageType type</div><div class="ttdef"><b>Definition</b> Damage.h:116</div></div>
+<div class="ttc" id="astructcore_1_1DamagePortion_html"><div class="ttname"><a href="structcore_1_1DamagePortion.html">core::DamagePortion</a></div><div class="ttdoc">Une clause en cours de pipeline : type courant, drapeaux courants, montant courant.</div><div class="ttdef"><b>Definition</b> Damage.h:204</div></div>
+<div class="ttc" id="astructcore_1_1DamagePortion_html_a473b08c01ded992b8d1d57983219664c"><div class="ttname"><a href="structcore_1_1DamagePortion.html#a473b08c01ded992b8d1d57983219664c">core::DamagePortion::flags</a></div><div class="ttdeci">DamageFlags flags</div><div class="ttdef"><b>Definition</b> Damage.h:206</div></div>
+<div class="ttc" id="astructcore_1_1DamagePortion_html_a57d0c947db6176f54e4d6c5395aee01c"><div class="ttname"><a href="structcore_1_1DamagePortion.html#a57d0c947db6176f54e4d6c5395aee01c">core::DamagePortion::type</a></div><div class="ttdeci">DamageType type</div><div class="ttdef"><b>Definition</b> Damage.h:205</div></div>
+<div class="ttc" id="astructcore_1_1DamagePortion_html_a86761164916563eafacf1e803154f9ee"><div class="ttname"><a href="structcore_1_1DamagePortion.html#a86761164916563eafacf1e803154f9ee">core::DamagePortion::amount</a></div><div class="ttdeci">int amount</div><div class="ttdef"><b>Definition</b> Damage.h:207</div></div>
+<div class="ttc" id="astructcore_1_1DamageReport_html"><div class="ttname"><a href="structcore_1_1DamageReport.html">core::DamageReport</a></div><div class="ttdoc">Ce qu&#39;une cible a reçu, étape par étape.</div><div class="ttdef"><b>Definition</b> Damage.h:245</div></div>
+<div class="ttc" id="astructcore_1_1DamageReport_html_a5f0942dd61fdb70850c76bddf1937453"><div class="ttname"><a href="structcore_1_1DamageReport.html#a5f0942dd61fdb70850c76bddf1937453">core::DamageReport::hitPointsAfter</a></div><div class="ttdeci">int hitPointsAfter</div><div class="ttdef"><b>Definition</b> Damage.h:248</div></div>
+<div class="ttc" id="astructcore_1_1DamageReport_html_ae06f13af66682a6bba8f5305e70db49c"><div class="ttname"><a href="structcore_1_1DamageReport.html#ae06f13af66682a6bba8f5305e70db49c">core::DamageReport::overflow</a></div><div class="ttdeci">int overflow</div><div class="ttdoc">Les dégâts restants une fois la cible tombée à 0 (Manuel, chapitre 9, « Mort instantanée »).</div><div class="ttdef"><b>Definition</b> Damage.h:257</div></div>
+<div class="ttc" id="astructcore_1_1DamageReport_html_ae44e1cddc1b312c97f6667fa9158f7d7"><div class="ttname"><a href="structcore_1_1DamageReport.html#ae44e1cddc1b312c97f6667fa9158f7d7">core::DamageReport::work</a></div><div class="ttdeci">DamageWork work</div><div class="ttdef"><b>Definition</b> Damage.h:246</div></div>
+<div class="ttc" id="astructcore_1_1DamageReport_html_ae626ec8a63ea2c421db0b677f32b8103"><div class="ttname"><a href="structcore_1_1DamageReport.html#ae626ec8a63ea2c421db0b677f32b8103">core::DamageReport::hitPointsBefore</a></div><div class="ttdeci">int hitPointsBefore</div><div class="ttdef"><b>Definition</b> Damage.h:247</div></div>
+<div class="ttc" id="astructcore_1_1DamageRequest_html"><div class="ttname"><a href="structcore_1_1DamageRequest.html">core::DamageRequest</a></div><div class="ttdoc">Les dégâts d&#39;une cible dans une salve : le combattant et ses clauses lancées.</div><div class="ttdef"><b>Definition</b> Damage.h:239</div></div>
+<div class="ttc" id="astructcore_1_1DamageRequest_html_a1c34ec2760c59f2a9b0c5adb0d395c49"><div class="ttname"><a href="structcore_1_1DamageRequest.html#a1c34ec2760c59f2a9b0c5adb0d395c49">core::DamageRequest::damage</a></div><div class="ttdeci">std::vector&lt; RolledDamage &gt; damage</div><div class="ttdef"><b>Definition</b> Damage.h:241</div></div>
+<div class="ttc" id="astructcore_1_1DamageRequest_html_aedf13f3eff3746c3acb680ee2b97b70c"><div class="ttname"><a href="structcore_1_1DamageRequest.html#aedf13f3eff3746c3acb680ee2b97b70c">core::DamageRequest::target</a></div><div class="ttdeci">CombatantId target</div><div class="ttdef"><b>Definition</b> Damage.h:240</div></div>
+<div class="ttc" id="astructcore_1_1DamageStep_html"><div class="ttname"><a href="structcore_1_1DamageStep.html">core::DamageStep</a></div><div class="ttdoc">Une ligne de la trace : ce qu&#39;une étape a fait d&#39;une clause.</div><div class="ttdef"><b>Definition</b> Damage.h:195</div></div>
+<div class="ttc" id="astructcore_1_1DamageStep_html_a333b38c6f83f6dfff0128d0c7da7161c"><div class="ttname"><a href="structcore_1_1DamageStep.html#a333b38c6f83f6dfff0128d0c7da7161c">core::DamageStep::stage</a></div><div class="ttdeci">DamageStage stage</div><div class="ttdef"><b>Definition</b> Damage.h:196</div></div>
+<div class="ttc" id="astructcore_1_1DamageStep_html_a6c75e49f556cdd2552e895814f9a87d3"><div class="ttname"><a href="structcore_1_1DamageStep.html#a6c75e49f556cdd2552e895814f9a87d3">core::DamageStep::source</a></div><div class="ttdeci">std::string source</div><div class="ttdoc">Ce qui a agi : « resistance (tranchant) », « points de vie temporaires ».</div><div class="ttdef"><b>Definition</b> Damage.h:198</div></div>
+<div class="ttc" id="astructcore_1_1DamageStep_html_ad225f453e8e424a90702b9e46a640ec5"><div class="ttname"><a href="structcore_1_1DamageStep.html#ad225f453e8e424a90702b9e46a640ec5">core::DamageStep::before</a></div><div class="ttdeci">int before</div><div class="ttdef"><b>Definition</b> Damage.h:199</div></div>
+<div class="ttc" id="astructcore_1_1DamageStep_html_adeccc9878781be9356535be91369a111"><div class="ttname"><a href="structcore_1_1DamageStep.html#adeccc9878781be9356535be91369a111">core::DamageStep::after</a></div><div class="ttdeci">int after</div><div class="ttdef"><b>Definition</b> Damage.h:200</div></div>
+<div class="ttc" id="astructcore_1_1DamageTraits_html"><div class="ttname"><a href="structcore_1_1DamageTraits.html">core::DamageTraits</a></div><div class="ttdoc">Les affinités d&#39;une cible — combattant ou structure.</div><div class="ttdef"><b>Definition</b> Damage.h:100</div></div>
+<div class="ttc" id="astructcore_1_1DamageTraits_html_ac12264cba0a31747277669e59052a9da"><div class="ttname"><a href="structcore_1_1DamageTraits.html#ac12264cba0a31747277669e59052a9da">core::DamageTraits::applies</a></div><div class="ttdeci">bool applies(DamageAffinityKind kind, DamageType type, DamageFlags flags) const</div><div class="ttdoc">Vrai si une affinité de ce genre s&#39;applique à des dégâts de ce type et de cette source.</div><div class="ttdef"><b>Definition</b> Damage.cpp:15</div></div>
+<div class="ttc" id="astructcore_1_1DamageTraits_html_ae0615061f554b94d20979ed1985b4596"><div class="ttname"><a href="structcore_1_1DamageTraits.html#ae0615061f554b94d20979ed1985b4596">core::DamageTraits::affinities</a></div><div class="ttdeci">std::vector&lt; DamageAffinity &gt; affinities</div><div class="ttdef"><b>Definition</b> Damage.h:101</div></div>
+<div class="ttc" id="astructcore_1_1DamageWork_html"><div class="ttname"><a href="structcore_1_1DamageWork.html">core::DamageWork</a></div><div class="ttdoc">Les dégâts qu&#39;une cible reçoit, pendant qu&#39;ils traversent le pipeline.</div><div class="ttdef"><b>Definition</b> Damage.h:217</div></div>
+<div class="ttc" id="astructcore_1_1DamageWork_html_a299961b8fab933cf5b7f3cb820fc57df"><div class="ttname"><a href="structcore_1_1DamageWork.html#a299961b8fab933cf5b7f3cb820fc57df">core::DamageWork::target</a></div><div class="ttdeci">std::optional&lt; CombatantId &gt; target</div><div class="ttdoc">Le combattant visé, ou vide pour une structure.</div><div class="ttdef"><b>Definition</b> Damage.h:219</div></div>
+<div class="ttc" id="astructcore_1_1DamageWork_html_a35390d8fbef6d72648a28c261d0d8bb3"><div class="ttname"><a href="structcore_1_1DamageWork.html#a35390d8fbef6d72648a28c261d0d8bb3">core::DamageWork::portions</a></div><div class="ttdeci">std::vector&lt; DamagePortion &gt; portions</div><div class="ttdef"><b>Definition</b> Damage.h:222</div></div>
+<div class="ttc" id="astructcore_1_1DamageWork_html_a4a593620443cb7e28979ce26a5791634"><div class="ttname"><a href="structcore_1_1DamageWork.html#a4a593620443cb7e28979ce26a5791634">core::DamageWork::total</a></div><div class="ttdeci">int total() const</div><div class="ttdoc">Somme des portions.</div><div class="ttdef"><b>Definition</b> Damage.cpp:90</div></div>
+<div class="ttc" id="astructcore_1_1DamageWork_html_a5c46960706058bb7bd1acb4b371ead83"><div class="ttname"><a href="structcore_1_1DamageWork.html#a5c46960706058bb7bd1acb4b371ead83">core::DamageWork::structure</a></div><div class="ttdeci">std::optional&lt; GridPosition &gt; structure</div><div class="ttdoc">La case de la structure visée.</div><div class="ttdef"><b>Definition</b> Damage.h:221</div></div>
+<div class="ttc" id="astructcore_1_1DamageWork_html_a620cc8e6913ee401066f391fd016ae03"><div class="ttname"><a href="structcore_1_1DamageWork.html#a620cc8e6913ee401066f391fd016ae03">core::DamageWork::absorbed</a></div><div class="ttdeci">int absorbed</div><div class="ttdoc">Absorbé par les réserves.</div><div class="ttdef"><b>Definition</b> Damage.h:224</div></div>
+<div class="ttc" id="astructcore_1_1DamageWork_html_a7b39ee53ae0d6b6eaedbb90dc41697ef"><div class="ttname"><a href="structcore_1_1DamageWork.html#a7b39ee53ae0d6b6eaedbb90dc41697ef">core::DamageWork::adjust</a></div><div class="ttdeci">void adjust(std::size_t portion, int amount, DamageStage stage, std::string source)</div><div class="ttdoc">Change le montant d&#39;une portion, et l&#39;inscrit dans la trace.</div><div class="ttdef"><b>Definition</b> Damage.cpp:98</div></div>
+<div class="ttc" id="astructcore_1_1DamageWork_html_a968b5823523352a1e463d9ba96d2710e"><div class="ttname"><a href="structcore_1_1DamageWork.html#a968b5823523352a1e463d9ba96d2710e">core::DamageWork::hitPointLoss</a></div><div class="ttdeci">int hitPointLoss</div><div class="ttdoc">Perdu en points de vie — calculé à l&#39;étape Reserves, appliqué à l&#39;étape HitPoints.</div><div class="ttdef"><b>Definition</b> Damage.h:226</div></div>
+<div class="ttc" id="astructcore_1_1DamageWork_html_aa783bbb5659ba98b03df5f3d340b4bec"><div class="ttname"><a href="structcore_1_1DamageWork.html#aa783bbb5659ba98b03df5f3d340b4bec">core::DamageWork::trace</a></div><div class="ttdeci">std::vector&lt; DamageStep &gt; trace</div><div class="ttdef"><b>Definition</b> Damage.h:227</div></div>
+<div class="ttc" id="astructcore_1_1DiceRoll_html"><div class="ttname"><a href="structcore_1_1DiceRoll.html">core::DiceRoll</a></div><div class="ttdoc">Le détail d&#39;un lancer, pour que le joueur puisse le reconstituer (EX-REG-003).</div><div class="ttdef"><b>Definition</b> Dice.h:56</div></div>
+<div class="ttc" id="astructcore_1_1Dice_html"><div class="ttname"><a href="structcore_1_1Dice.html">core::Dice</a></div><div class="ttdoc">Une expression de dés analysée : 2d6+3, 1d8, 4.</div><div class="ttdef"><b>Definition</b> Dice.h:28</div></div>
+<div class="ttc" id="astructcore_1_1GridPosition_html"><div class="ttname"><a href="structcore_1_1GridPosition.html">core::GridPosition</a></div><div class="ttdoc">Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.</div><div class="ttdef"><b>Definition</b> GridPosition.h:20</div></div>
+<div class="ttc" id="astructcore_1_1HitPointReserve_html"><div class="ttname"><a href="structcore_1_1HitPointReserve.html">core::HitPointReserve</a></div><div class="ttdoc">Une réserve de points de vie : ce qui absorbe les dégâts avant les PV.</div><div class="ttdef"><b>Definition</b> Damage.h:182</div></div>
+<div class="ttc" id="astructcore_1_1HitPointReserve_html_a0dd701d0804acd159e4fff3cbad5c96e"><div class="ttname"><a href="structcore_1_1HitPointReserve.html#a0dd701d0804acd159e4fff3cbad5c96e">core::HitPointReserve::operator==</a></div><div class="ttdeci">bool operator==(const HitPointReserve &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1HitPointReserve_html_a3524f70e6085b7602005fc0ab120ef21"><div class="ttname"><a href="structcore_1_1HitPointReserve.html#a3524f70e6085b7602005fc0ab120ef21">core::HitPointReserve::stacks</a></div><div class="ttdeci">bool stacks</div><div class="ttdef"><b>Definition</b> Damage.h:186</div></div>
+<div class="ttc" id="astructcore_1_1HitPointReserve_html_a41b411ab3dc0b646c435bb166ad359f9"><div class="ttname"><a href="structcore_1_1HitPointReserve.html#a41b411ab3dc0b646c435bb166ad359f9">core::HitPointReserve::source</a></div><div class="ttdeci">std::string source</div><div class="ttdoc">Ce qui l&#39;a donnée : « points de vie temporaires », « Exosquelette ».</div><div class="ttdef"><b>Definition</b> Damage.h:184</div></div>
+<div class="ttc" id="astructcore_1_1HitPointReserve_html_aea6e6125189eaf45103305a7a5a04145"><div class="ttname"><a href="structcore_1_1HitPointReserve.html#aea6e6125189eaf45103305a7a5a04145">core::HitPointReserve::amount</a></div><div class="ttdeci">int amount</div><div class="ttdef"><b>Definition</b> Damage.h:185</div></div>
+<div class="ttc" id="astructcore_1_1RolledDamage_html"><div class="ttname"><a href="structcore_1_1RolledDamage.html">core::RolledDamage</a></div><div class="ttdoc">Une clause lancée.</div><div class="ttdef"><b>Definition</b> Damage.h:127</div></div>
+<div class="ttc" id="astructcore_1_1RolledDamage_html_a14b9fd265913f0697a03c2cc4f2df8fd"><div class="ttname"><a href="structcore_1_1RolledDamage.html#a14b9fd265913f0697a03c2cc4f2df8fd">core::RolledDamage::roll</a></div><div class="ttdeci">DiceRoll roll</div><div class="ttdef"><b>Definition</b> Damage.h:129</div></div>
+<div class="ttc" id="astructcore_1_1RolledDamage_html_a3d00e1c88934507d49d16a3fcf51f715"><div class="ttname"><a href="structcore_1_1RolledDamage.html#a3d00e1c88934507d49d16a3fcf51f715">core::RolledDamage::critical</a></div><div class="ttdeci">bool critical</div><div class="ttdef"><b>Definition</b> Damage.h:130</div></div>
+<div class="ttc" id="astructcore_1_1RolledDamage_html_a5c67939005c377679a7cdc829fcb9c60"><div class="ttname"><a href="structcore_1_1RolledDamage.html#a5c67939005c377679a7cdc829fcb9c60">core::RolledDamage::clause</a></div><div class="ttdeci">DamageClause clause</div><div class="ttdef"><b>Definition</b> Damage.h:128</div></div>
+<div class="ttc" id="astructcore_1_1RolledDamage_html_a8265903511e3c2b66382578c78c9a0e6"><div class="ttname"><a href="structcore_1_1RolledDamage.html#a8265903511e3c2b66382578c78c9a0e6">core::RolledDamage::amount</a></div><div class="ttdeci">int amount</div><div class="ttdoc">Le total, jamais négatif : un 1d4-3 qui fait -2 ne soigne pas.</div><div class="ttdef"><b>Definition</b> Damage.h:132</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_bc520fdc8f4eadff60f94f8b29441948.html">Combat</a></li><li class="navelem"><a href="Damage_8h.html">Damage.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

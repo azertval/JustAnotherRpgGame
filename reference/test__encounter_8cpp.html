@@ -1,0 +1,530 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/test_encounter.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__encounter_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_encounter.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests de l'aller-retour exploration ↔ combat (<span class="tt">LOT-18</span>, <span class="tt">EX-CBT-001</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="CombatTransition_8h_source.html">Core/Combat/CombatTransition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Encounter_8h_source.html">Core/Combat/Encounter.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldFlags_8h_source.html">Core/Gameplay/WorldFlags.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a4dd6e2a922824f004041e3c62f2bfa1b" id="r_a4dd6e2a922824f004041e3c62f2bfa1b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4dd6e2a922824f004041e3c62f2bfa1b">TEST</a> (EncounterTest, UnAllerRetourRestitueLEtatDExploration)</td></tr>
+<tr class="memdesc:a4dd6e2a922824f004041e3c62f2bfa1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un aller-retour restitue <b>exactement</b> l'état d'exploration.  <br /></td></tr>
+<tr class="memitem:ad9ed53b43753e978318c739829bf2bdb" id="r_ad9ed53b43753e978318c739829bf2bdb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad9ed53b43753e978318c739829bf2bdb">TEST</a> (EncounterTest, UnEnnemiVaincuNeReapparaitPas)</td></tr>
+<tr class="memdesc:ad9ed53b43753e978318c739829bf2bdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un ennemi vaincu ne réapparaît pas : la victoire acquiert un <b>drapeau de monde</b>.  <br /></td></tr>
+<tr class="memitem:a39fb3626c5468d955f811e5482044bb6" id="r_a39fb3626c5468d955f811e5482044bb6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a39fb3626c5468d955f811e5482044bb6">TEST</a> (EncounterTest, UneFuiteNeMarquePasLEnnemiVaincu)</td></tr>
+<tr class="memdesc:a39fb3626c5468d955f811e5482044bb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une fuite ramène à l'exploration <b>sans</b> marquer l'ennemi vaincu.  <br /></td></tr>
+<tr class="memitem:a88abd14a2bac975404bc1ee3b0dd7496" id="r_a88abd14a2bac975404bc1ee3b0dd7496"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a88abd14a2bac975404bc1ee3b0dd7496">TEST</a> (EncounterTest, UneRencontreSansCleSeRedeclenche)</td></tr>
+<tr class="memdesc:a88abd14a2bac975404bc1ee3b0dd7496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une rencontre <b>sans clé</b> se redéclenche : c'est le cas d'une zone de rencontre.  <br /></td></tr>
+<tr class="memitem:a303674bf6c1130056561cdbb940ee332" id="r_a303674bf6c1130056561cdbb940ee332"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a303674bf6c1130056561cdbb940ee332">TEST</a> (EncounterTest, LesCombattantsSePlacentRelativementAuDeclencheur)</td></tr>
+<tr class="memdesc:a303674bf6c1130056561cdbb940ee332"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les combattants se placent <b>relativement</b> au déclencheur.  <br /></td></tr>
+<tr class="memitem:a9a7e9db37e57edc732751573a938ef91" id="r_a9a7e9db37e57edc732751573a938ef91"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9a7e9db37e57edc732751573a938ef91">TEST</a> (EncounterTest, UneRencontreNonFuyableLeDeclare)</td></tr>
+<tr class="memdesc:a9a7e9db37e57edc732751573a938ef91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une rencontre non fuyable le déclare, et l'engagement le retient.  <br /></td></tr>
+<tr class="memitem:a1c676c021a6a16179f5c8d2553a98e53" id="r_a1c676c021a6a16179f5c8d2553a98e53"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1c676c021a6a16179f5c8d2553a98e53">TEST</a> (EncounterTest, LeCatalogueLivreSeCharge)</td></tr>
+<tr class="memdesc:a1c676c021a6a16179f5c8d2553a98e53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le catalogue LIVRÉ se charge, et chaque rencontre porte au moins un combattant.  <br /></td></tr>
+<tr class="memitem:a89ab34fd569e455ce083c6b1b0dfa030" id="r_a89ab34fd569e455ce083c6b1b0dfa030"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a89ab34fd569e455ce083c6b1b0dfa030">TEST</a> (EncounterTest, UnInstantaneNonReleveSeDistingueDeLOrigine)</td></tr>
+<tr class="memdesc:a89ab34fd569e455ce083c6b1b0dfa030"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un instantané <b>non relevé</b> se distingue d'un instantané à l'origine.  <br /></td></tr>
+<tr class="memitem:a1e4dce9d5f12d45a13d6306559d4a898" id="r_a1e4dce9d5f12d45a13d6306559d4a898"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1e4dce9d5f12d45a13d6306559d4a898">TEST</a> (EncounterTest, UnEnnemiPosePorteUneCleUneZoneNonN)</td></tr>
+<tr class="memdesc:a1e4dce9d5f12d45a13d6306559d4a898"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un ennemi <b>posé</b> sur la carte porte une clé de drapeau ; une <b>zone</b> n'en porte pas.  <br /></td></tr>
+<tr class="memitem:a297c9569a1f47e5464067390dbb5c3bb" id="r_a297c9569a1f47e5464067390dbb5c3bb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a297c9569a1f47e5464067390dbb5c3bb">TEST</a> (EncounterTest, DeuxDeclencheursNePartagentJamaisLeurCle)</td></tr>
+<tr class="memdesc:a297c9569a1f47e5464067390dbb5c3bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deux ennemis d'une même carte, et le même ennemi sur deux cartes, ne partagent jamais leur clé.  <br /></td></tr>
+<tr class="memitem:a15fb61b8d00b376ab51d5b887e32a8f1" id="r_a15fb61b8d00b376ab51d5b887e32a8f1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a15fb61b8d00b376ab51d5b887e32a8f1">TEST</a> (EncounterTest, CeQuiNEstPasUnDeclencheurNEnDevientPasUn)</td></tr>
+<tr class="memdesc:a15fb61b8d00b376ab51d5b887e32a8f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui n'est pas un déclencheur n'en devient pas un.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests de l'aller-retour exploration ↔ combat (<span class="tt">LOT-18</span>, <span class="tt">EX-CBT-001</span>). </p>
+<p><b>Aucune fenêtre, aucun GPU</b> : c'est un critère d'acceptation du lot, et c'est ce qui permet de vérifier qu'un aller-retour restitue l'état sans avoir à le regarder à l'écran. Le montage et le démontage d'une rencontre sont de la logique pure ; le mode de jeu, lui, ne fait qu'ordonner des passes. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a15fb61b8d00b376ab51d5b887e32a8f1" name="a15fb61b8d00b376ab51d5b887e32a8f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15fb61b8d00b376ab51d5b887e32a8f1">&#9670;&#160;</a></span>TEST() <span class="overload">[1/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CeQuiNEstPasUnDeclencheurNEnDevientPasUn</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce qui n'est pas un déclencheur n'en devient pas un. </p>
+<p><b>Cas de test :</b> <b>Ce qui n'est pas un declencheur n'en devient pas un.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire une entite d'un autre type.<br  />
+2. Lire une entite de rencontre sans encounterId.<br  />
+ <b>Resultat attendu :</b> Aucun declencheur dans les deux cas. </p>
+
+</div>
+</div>
+<a id="a297c9569a1f47e5464067390dbb5c3bb" name="a297c9569a1f47e5464067390dbb5c3bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a297c9569a1f47e5464067390dbb5c3bb">&#9670;&#160;</a></span>TEST() <span class="overload">[2/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DeuxDeclencheursNePartagentJamaisLeurCle</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deux ennemis d'une même carte, et le même ennemi sur deux cartes, ne partagent jamais leur clé. </p>
+<p><b>Cas de test :</b> <b>Deux declencheurs ne partagent jamais leur cle.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire deux entites de rencontre a des cases differentes de la meme carte.<br  />
+</p><ol type="1">
+<li>Lire la meme case sur deux cartes differentes.<br  />
+ <b>Resultat attendu :</b> Les cles different dans les deux cas. </li>
+</ol>
+
+</div>
+</div>
+<a id="a1c676c021a6a16179f5c8d2553a98e53" name="a1c676c021a6a16179f5c8d2553a98e53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c676c021a6a16179f5c8d2553a98e53">&#9670;&#160;</a></span>TEST() <span class="overload">[3/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeCatalogueLivreSeCharge</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le catalogue LIVRÉ se charge, et chaque rencontre porte au moins un combattant. </p>
+<p><b>Cas de test :</b> <b>Le catalogue de rencontres livre se charge.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger Source/Elements/Rpg/encounters.<br  />
+ <b>Resultat attendu :</b> Le catalogue est non vide, sans erreur, et chaque rencontre porte un identifiant et au moins un combattant. </p>
+
+</div>
+</div>
+<a id="a303674bf6c1130056561cdbb940ee332" name="a303674bf6c1130056561cdbb940ee332"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a303674bf6c1130056561cdbb940ee332">&#9670;&#160;</a></span>TEST() <span class="overload">[4/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesCombattantsSePlacentRelativementAuDeclencheur</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les combattants se placent <b>relativement</b> au déclencheur. </p>
+<p><b>Cas de test :</b> <b>Les combattants se placent relativement au declencheur.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Placer la meme rencontre a deux endroits differents.<br  />
+ <b>Resultat attendu :</b> La formation est conservee, decalee de l'ecart entre les deux declencheurs. </p>
+
+</div>
+</div>
+<a id="a4dd6e2a922824f004041e3c62f2bfa1b" name="a4dd6e2a922824f004041e3c62f2bfa1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dd6e2a922824f004041e3c62f2bfa1b">&#9670;&#160;</a></span>TEST() <span class="overload">[5/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnAllerRetourRestitueLEtatDExploration</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un aller-retour restitue <b>exactement</b> l'état d'exploration. </p>
+<p><b>Cas de test :</b> <b>Un aller-retour exploration -&gt; combat -&gt; exploration restitue l'etat.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Relever un etat d'exploration.<br  />
+2. Engager une rencontre.<br  />
+3. La terminer par une victoire.<br  />
+ <b>Resultat attendu :</b> Position, orientation et camera sont rendues a l'identique. </p>
+
+</div>
+</div>
+<a id="a39fb3626c5468d955f811e5482044bb6" name="a39fb3626c5468d955f811e5482044bb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39fb3626c5468d955f811e5482044bb6">&#9670;&#160;</a></span>TEST() <span class="overload">[6/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneFuiteNeMarquePasLEnnemiVaincu</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une fuite ramène à l'exploration <b>sans</b> marquer l'ennemi vaincu. </p>
+<p><b>Cas de test :</b> <b>Une fuite ne marque pas l'ennemi vaincu.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Engager une rencontre portant une cle de drapeau.<br  />
+2. La terminer par une fuite, puis par une defaite.<br  />
+ <b>Resultat attendu :</b> Le drapeau n'est acquis dans aucun des deux cas, et l'etat est tout de meme restitue. </p>
+
+</div>
+</div>
+<a id="a1e4dce9d5f12d45a13d6306559d4a898" name="a1e4dce9d5f12d45a13d6306559d4a898"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e4dce9d5f12d45a13d6306559d4a898">&#9670;&#160;</a></span>TEST() <span class="overload">[7/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnEnnemiPosePorteUneCleUneZoneNonN</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un ennemi <b>posé</b> sur la carte porte une clé de drapeau ; une <b>zone</b> n'en porte pas. </p>
+<p><b>Cas de test :</b> <b>Un ennemi pose porte une cle, une zone n'en porte pas.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire une entite de rencontre posee.<br  />
+2. Lire la meme avec respawns.<br  />
+ <b>Resultat attendu :</b> La premiere porte une cle fabriquee, la seconde aucune. </p>
+
+</div>
+</div>
+<a id="ad9ed53b43753e978318c739829bf2bdb" name="ad9ed53b43753e978318c739829bf2bdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9ed53b43753e978318c739829bf2bdb">&#9670;&#160;</a></span>TEST() <span class="overload">[8/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnEnnemiVaincuNeReapparaitPas</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un ennemi vaincu ne réapparaît pas : la victoire acquiert un <b>drapeau de monde</b>. </p>
+<p><b>Cas de test :</b> <b>Un ennemi vaincu ne reapparait pas.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Gagner une rencontre portant une cle de drapeau.<br  />
+2. Interroger les drapeaux.<br  />
+ <b>Resultat attendu :</b> Le drapeau est acquis, et la rencontre se declare deja nettoyee. </p>
+
+</div>
+</div>
+<a id="a9a7e9db37e57edc732751573a938ef91" name="a9a7e9db37e57edc732751573a938ef91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a7e9db37e57edc732751573a938ef91">&#9670;&#160;</a></span>TEST() <span class="overload">[9/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneRencontreNonFuyableLeDeclare</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une rencontre non fuyable le déclare, et l'engagement le retient. </p>
+<p><b>Cas de test :</b> <b>Une rencontre non fuyable le declare.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Engager une rencontre declaree non fuyable.<br  />
+ <b>Resultat attendu :</b> L'engagement porte l'interdiction de fuir. </p>
+
+</div>
+</div>
+<a id="a88abd14a2bac975404bc1ee3b0dd7496" name="a88abd14a2bac975404bc1ee3b0dd7496"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88abd14a2bac975404bc1ee3b0dd7496">&#9670;&#160;</a></span>TEST() <span class="overload">[10/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneRencontreSansCleSeRedeclenche</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une rencontre <b>sans clé</b> se redéclenche : c'est le cas d'une zone de rencontre. </p>
+<p><b>Cas de test :</b> <b>Une rencontre sans cle de drapeau se redeclenche.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Gagner une rencontre sans cle de drapeau.<br  />
+ <b>Resultat attendu :</b> Aucun drapeau n'est pose, et la rencontre ne se declare pas nettoyee. </p>
+
+</div>
+</div>
+<a id="a89ab34fd569e455ce083c6b1b0dfa030" name="a89ab34fd569e455ce083c6b1b0dfa030"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89ab34fd569e455ce083c6b1b0dfa030">&#9670;&#160;</a></span>TEST() <span class="overload">[11/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnInstantaneNonReleveSeDistingueDeLOrigine</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un instantané <b>non relevé</b> se distingue d'un instantané à l'origine. </p>
+<p><b>Cas de test :</b> <b>Un instantane non releve se distingue de l'origine.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Construire un instantane par defaut.<br  />
+ <b>Resultat attendu :</b> Il se declare non releve, ce qui interdit de le restituer. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_e4f77e6506ec5ae5855f8bd23358af3b.html">Combat</a></li><li class="navelem"><a href="test__encounter_8cpp.html">test_encounter.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

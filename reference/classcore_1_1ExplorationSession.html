@@ -1,0 +1,983 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::ExplorationSession Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classcore_1_1ExplorationSession.html','','classcore_1_1ExplorationSession-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::ExplorationSession Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Le héros sur la carte courante : marche, interaction, portails.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="ExplorationSession_8h_source.html">ExplorationSession.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a9bed0fda73221f828073712709a93691" id="r_a9bed0fda73221f828073712709a93691"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9bed0fda73221f828073712709a93691">ExplorationSession</a> (<a class="el" href="classcore_1_1WorldTravel.html#a3cb015fe13e6071f96b03ba0e819362e">WorldTravel::MapLoader</a> loader)</td></tr>
+<tr class="memitem:affe6baf83932a4eabcaa720517fbfddc" id="r_affe6baf83932a4eabcaa720517fbfddc"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#affe6baf83932a4eabcaa720517fbfddc">start</a> (std::string_view <a class="el" href="#a139e3bcdabc9bc7ce0d94faa820ad137">mapId</a>, std::string_view arrival)</td></tr>
+<tr class="memdesc:affe6baf83932a4eabcaa720517fbfddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entre sur <code class="param">mapId</code>, au point d'arrivée <code class="param">arrival</code> (vide : l'entrée de la carte).  <br /></td></tr>
+<tr class="memitem:af22834cdd0f0305a39eea299e837fcc3" id="r_af22834cdd0f0305a39eea299e837fcc3"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af22834cdd0f0305a39eea299e837fcc3">update</a> (const <a class="el" href="structcore_1_1ExplorationIntent.html">ExplorationIntent</a> &amp;intent, float seconds)</td></tr>
+<tr class="memdesc:af22834cdd0f0305a39eea299e837fcc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance d'un pas de <code class="param">seconds</code>.  <br /></td></tr>
+<tr class="memitem:ad9f46abef16cd0037c4fe2d951ae3797" id="r_ad9f46abef16cd0037c4fe2d951ae3797"><td class="memItemLeft">const <a class="el" href="classcore_1_1Level.html">Level</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ad9f46abef16cd0037c4fe2d951ae3797">map</a> () const</td></tr>
+<tr class="memitem:a139e3bcdabc9bc7ce0d94faa820ad137" id="r_a139e3bcdabc9bc7ce0d94faa820ad137"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a139e3bcdabc9bc7ce0d94faa820ad137">mapId</a> () const noexcept</td></tr>
+<tr class="memitem:a5400b1f5b9fc27c552f225e0ec4ce569" id="r_a5400b1f5b9fc27c552f225e0ec4ce569"><td class="memItemLeft"><a class="el" href="structcore_1_1CellPoint.html">CellPoint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5400b1f5b9fc27c552f225e0ec4ce569">heroPoint</a> () const noexcept</td></tr>
+<tr class="memitem:a0f80ebd17db245ab4229e3fae91a0243" id="r_a0f80ebd17db245ab4229e3fae91a0243"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0f80ebd17db245ab4229e3fae91a0243">placeHero</a> (<a class="el" href="structcore_1_1CellPoint.html">CellPoint</a> point) noexcept</td></tr>
+<tr class="memdesc:a0f80ebd17db245ab4229e3fae91a0243"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose le héros où l'appelant le veut — le retour du sable, à la case relevée.  <br /></td></tr>
+<tr class="memitem:a6781bd6415f58cae52d3698168a9060e" id="r_a6781bd6415f58cae52d3698168a9060e"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6781bd6415f58cae52d3698168a9060e">heroCell</a> () const noexcept</td></tr>
+<tr class="memitem:a0830d60319ca57c8da2a78cee858d0d8" id="r_a0830d60319ca57c8da2a78cee858d0d8"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0830d60319ca57c8da2a78cee858d0d8">facing</a> () const noexcept</td></tr>
+<tr class="memitem:af2e543bbcc2b7987acb40f4f0cd2d367" id="r_af2e543bbcc2b7987acb40f4f0cd2d367"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#af2e543bbcc2b7987acb40f4f0cd2d367">aimedCell</a> () const</td></tr>
+<tr class="memitem:af53b61732272ba7cb69bf2ed5f1a4e79" id="r_af53b61732272ba7cb69bf2ed5f1a4e79"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af53b61732272ba7cb69bf2ed5f1a4e79">flags</a> () noexcept</td></tr>
+<tr class="memitem:ac6da465cb6cdc7a08d0631394df45eb9" id="r_ac6da465cb6cdc7a08d0631394df45eb9"><td class="memItemLeft">const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac6da465cb6cdc7a08d0631394df45eb9">flags</a> () const noexcept</td></tr>
+<tr class="memitem:ab1517d211c44200e50a9195dfb0ca2b0" id="r_ab1517d211c44200e50a9195dfb0ca2b0"><td class="memItemLeft">const <a class="el" href="classcore_1_1WorldTravel.html">WorldTravel</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab1517d211c44200e50a9195dfb0ca2b0">travel</a> () const noexcept</td></tr>
+<tr class="memitem:a335330a71db09257b636e34996be93d0" id="r_a335330a71db09257b636e34996be93d0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a335330a71db09257b636e34996be93d0">freeze</a> (bool <a class="el" href="#aef08d7c2386bfb79b7b5fa8f69c8f6b7">frozen</a>) noexcept</td></tr>
+<tr class="memdesc:a335330a71db09257b636e34996be93d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gèle ou dégèle la carte (dialogue, combat).  <br /></td></tr>
+<tr class="memitem:aef08d7c2386bfb79b7b5fa8f69c8f6b7" id="r_aef08d7c2386bfb79b7b5fa8f69c8f6b7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aef08d7c2386bfb79b7b5fa8f69c8f6b7">frozen</a> () const noexcept</td></tr>
+<tr class="memitem:a91c0efcf0eab8c834155e00174a0b094" id="r_a91c0efcf0eab8c834155e00174a0b094"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1Interactable.html">Interactable</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a91c0efcf0eab8c834155e00174a0b094">interactables</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a61a51d1501e6ffc4b5bbd230ee851d16" id="r_a61a51d1501e6ffc4b5bbd230ee851d16"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a61a51d1501e6ffc4b5bbd230ee851d16">WALK_SPEED_CELLS_PER_SECOND</a> = 4.0F</td></tr>
+<tr class="memdesc:a61a51d1501e6ffc4b5bbd230ee851d16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse de marche, en cases par seconde.  <br /></td></tr>
+<tr class="memitem:a769e298bd9b04ff98be332a4e383cb00" id="r_a769e298bd9b04ff98be332a4e383cb00"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a769e298bd9b04ff98be332a4e383cb00">HERO_HALF_SIZE_CELLS</a> = 0.3F</td></tr>
+<tr class="memdesc:a769e298bd9b04ff98be332a4e383cb00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demi-côté du gabarit du héros, en cases : il ne tient pas tout à fait une case, si bien qu'un couloir d'une case se franchit sans frotter les deux murs.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a39d384fd1e8c3dccb780aa04017592d0" id="r_a39d384fd1e8c3dccb780aa04017592d0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a39d384fd1e8c3dccb780aa04017592d0">rebuildInteractables</a> ()</td></tr>
+<tr class="memdesc:a39d384fd1e8c3dccb780aa04017592d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit les entités interactives de la carte courante (changement de carte).  <br /></td></tr>
+<tr class="memitem:a371e5175317dc045a3020c27f35eed8e" id="r_a371e5175317dc045a3020c27f35eed8e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a371e5175317dc045a3020c27f35eed8e">fits</a> (<a class="el" href="structcore_1_1CellPoint.html">CellPoint</a> point) const</td></tr>
+<tr class="memitem:a809f6f2a0566700a8250e1139c3e4491" id="r_a809f6f2a0566700a8250e1139c3e4491"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a809f6f2a0566700a8250e1139c3e4491">walk</a> (<a class="el" href="structcore_1_1Vector2.html">Vector2</a> move, float seconds)</td></tr>
+<tr class="memdesc:a809f6f2a0566700a8250e1139c3e4491"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marche d'un pas, axe par axe : un mur pris en biais fait glisser le long, il n'arrête pas.  <br /></td></tr>
+<tr class="memitem:a29ef9f7951615bed2866ab6902a6ae1e" id="r_a29ef9f7951615bed2866ab6902a6ae1e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a29ef9f7951615bed2866ab6902a6ae1e">crossPortal</a> (std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt; &amp;events)</td></tr>
+<tr class="memdesc:a29ef9f7951615bed2866ab6902a6ae1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Franchit le portail de la case du héros, s'il y en a un.  <br /></td></tr>
+<tr class="memitem:a1f9d908231a964928680b68b3e544ee0" id="r_a1f9d908231a964928680b68b3e544ee0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1f9d908231a964928680b68b3e544ee0">resolveInteraction</a> (std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt; &amp;events)</td></tr>
+<tr class="memdesc:a1f9d908231a964928680b68b3e544ee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout l'interaction demandée.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a656c99045430e47cb75d3432c7771af7" id="r_a656c99045430e47cb75d3432c7771af7"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldTravel.html">WorldTravel</a>&#160;</td><td class="memItemRight"><a class="el" href="#a656c99045430e47cb75d3432c7771af7">_travel</a></td></tr>
+<tr class="memitem:aaf82af7c6c3eb86fff6d3ed106c52c3e" id="r_aaf82af7c6c3eb86fff6d3ed106c52c3e"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaf82af7c6c3eb86fff6d3ed106c52c3e">_flags</a></td></tr>
+<tr class="memitem:ae60b3de301ac07787799979e93fee49e" id="r_ae60b3de301ac07787799979e93fee49e"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Interactable.html">Interactable</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae60b3de301ac07787799979e93fee49e">_interactables</a></td></tr>
+<tr class="memitem:a78990bfe40fea6c6f66a3d3322afe532" id="r_a78990bfe40fea6c6f66a3d3322afe532"><td class="memItemLeft"><a class="el" href="structcore_1_1CellPoint.html">CellPoint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a78990bfe40fea6c6f66a3d3322afe532">_hero</a> {}</td></tr>
+<tr class="memitem:a6aac839cf41db1a8821d50f4da65ad16" id="r_a6aac839cf41db1a8821d50f4da65ad16"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6aac839cf41db1a8821d50f4da65ad16">_facing</a> {0.0F, 1.0F}</td></tr>
+<tr class="memitem:a8de37f24a97f9319f841c471451aadb2" id="r_a8de37f24a97f9319f841c471451aadb2"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8de37f24a97f9319f841c471451aadb2">_lastCell</a> {}</td></tr>
+<tr class="memdesc:a8de37f24a97f9319f841c471451aadb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case du héros au pas précédent : un portail se franchit <b>en y arrivant</b>, pas à chaque pas où l'on reste dessus — sans quoi un portail qui ramène sur place bouclerait.  <br /></td></tr>
+<tr class="memitem:a6aa8df4a937fec8ed16b697738d99994" id="r_a6aa8df4a937fec8ed16b697738d99994"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6aa8df4a937fec8ed16b697738d99994">_frozen</a> = false</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Le héros sur la carte courante : marche, interaction, portails. </p>
+<p>Gelée (<span class="tt"><a class="el" href="#a335330a71db09257b636e34996be93d0" title="Gèle ou dégèle la carte (dialogue, combat).">freeze</a></span>), la session ne bouge plus et n'interagit plus : c'est l'état de la carte pendant un dialogue ou un combat, qui la laisse telle quelle sans la détruire — la reprendre rendra le lieu comme on l'a quitté. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9bed0fda73221f828073712709a93691" name="a9bed0fda73221f828073712709a93691"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bed0fda73221f828073712709a93691">&#9670;&#160;</a></span>ExplorationSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::ExplorationSession::ExplorationSession </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1WorldTravel.html#a3cb015fe13e6071f96b03ba0e819362e">WorldTravel::MapLoader</a></td>          <td class="paramname"><span class="paramname"><em>loader</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="af2e543bbcc2b7987acb40f4f0cd2d367" name="af2e543bbcc2b7987acb40f4f0cd2d367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2e543bbcc2b7987acb40f4f0cd2d367">&#9670;&#160;</a></span>aimedCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> core::ExplorationSession::aimedCell </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La case que le héros regarde (<span class="tt"><a class="el" href="namespacecore.html#a241c2143642b12472d6bddb921dac0fa" title="La case que vise un personnage, d&#39;après son orientation.">core::aimedCell</a></span>). </dd></dl>
+
+</div>
+</div>
+<a id="a29ef9f7951615bed2866ab6902a6ae1e" name="a29ef9f7951615bed2866ab6902a6ae1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29ef9f7951615bed2866ab6902a6ae1e">&#9670;&#160;</a></span>crossPortal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ExplorationSession::crossPortal </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>events</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Franchit le portail de la case du héros, s'il y en a un. </p>
+
+</div>
+</div>
+<a id="a0830d60319ca57c8da2a78cee858d0d8" name="a0830d60319ca57c8da2a78cee858d0d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0830d60319ca57c8da2a78cee858d0d8">&#9670;&#160;</a></span>facing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::ExplorationSession::facing </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'orientation du héros : la dernière direction non nulle qu'il a prise. </dd></dl>
+
+</div>
+</div>
+<a id="a371e5175317dc045a3020c27f35eed8e" name="a371e5175317dc045a3020c27f35eed8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a371e5175317dc045a3020c27f35eed8e">&#9670;&#160;</a></span>fits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::ExplorationSession::fits </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1CellPoint.html">CellPoint</a></td>          <td class="paramname"><span class="paramname"><em>point</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai si le gabarit du héros tient en <code class="param">point</code> sans entrer dans du plein. </dd></dl>
+
+</div>
+</div>
+<a id="ac6da465cb6cdc7a08d0631394df45eb9" name="ac6da465cb6cdc7a08d0631394df45eb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6da465cb6cdc7a08d0631394df45eb9">&#9670;&#160;</a></span>flags() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp; core::ExplorationSession::flags </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af53b61732272ba7cb69bf2ed5f1a4e79" name="af53b61732272ba7cb69bf2ed5f1a4e79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af53b61732272ba7cb69bf2ed5f1a4e79">&#9670;&#160;</a></span>flags() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp; core::ExplorationSession::flags </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a335330a71db09257b636e34996be93d0" name="a335330a71db09257b636e34996be93d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a335330a71db09257b636e34996be93d0">&#9670;&#160;</a></span>freeze()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ExplorationSession::freeze </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>frozen</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gèle ou dégèle la carte (dialogue, combat). </p>
+
+</div>
+</div>
+<a id="aef08d7c2386bfb79b7b5fa8f69c8f6b7" name="aef08d7c2386bfb79b7b5fa8f69c8f6b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef08d7c2386bfb79b7b5fa8f69c8f6b7">&#9670;&#160;</a></span>frozen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::ExplorationSession::frozen </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6781bd6415f58cae52d3698168a9060e" name="a6781bd6415f58cae52d3698168a9060e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6781bd6415f58cae52d3698168a9060e">&#9670;&#160;</a></span>heroCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> core::ExplorationSession::heroCell </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La case du héros. </dd></dl>
+
+</div>
+</div>
+<a id="a5400b1f5b9fc27c552f225e0ec4ce569" name="a5400b1f5b9fc27c552f225e0ec4ce569"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5400b1f5b9fc27c552f225e0ec4ce569">&#9670;&#160;</a></span>heroPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1CellPoint.html">CellPoint</a> core::ExplorationSession::heroPoint </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La position continue du héros, en cases. </dd></dl>
+
+</div>
+</div>
+<a id="a91c0efcf0eab8c834155e00174a0b094" name="a91c0efcf0eab8c834155e00174a0b094"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91c0efcf0eab8c834155e00174a0b094">&#9670;&#160;</a></span>interactables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1Interactable.html">Interactable</a> &gt; &amp; core::ExplorationSession::interactables </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les entités interactives de la carte courante, dans l'ordre des entités. </dd></dl>
+
+</div>
+</div>
+<a id="ad9f46abef16cd0037c4fe2d951ae3797" name="ad9f46abef16cd0037c4fe2d951ae3797"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9f46abef16cd0037c4fe2d951ae3797">&#9670;&#160;</a></span>map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classcore_1_1Level.html">Level</a> * core::ExplorationSession::map </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La carte courante, ou <span class="tt">nullptr</span> avant une entrée réussie. </dd></dl>
+
+</div>
+</div>
+<a id="a139e3bcdabc9bc7ce0d94faa820ad137" name="a139e3bcdabc9bc7ce0d94faa820ad137"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a139e3bcdabc9bc7ce0d94faa820ad137">&#9670;&#160;</a></span>mapId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::ExplorationSession::mapId </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'identifiant de la carte courante. </dd></dl>
+
+</div>
+</div>
+<a id="a0f80ebd17db245ab4229e3fae91a0243" name="a0f80ebd17db245ab4229e3fae91a0243"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f80ebd17db245ab4229e3fae91a0243">&#9670;&#160;</a></span>placeHero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ExplorationSession::placeHero </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1CellPoint.html">CellPoint</a></td>          <td class="paramname"><span class="paramname"><em>point</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pose le héros où l'appelant le veut — le retour du sable, à la case relevée. </p>
+
+</div>
+</div>
+<a id="a39d384fd1e8c3dccb780aa04017592d0" name="a39d384fd1e8c3dccb780aa04017592d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39d384fd1e8c3dccb780aa04017592d0">&#9670;&#160;</a></span>rebuildInteractables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ExplorationSession::rebuildInteractables </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Relit les entités interactives de la carte courante (changement de carte). </p>
+
+</div>
+</div>
+<a id="a1f9d908231a964928680b68b3e544ee0" name="a1f9d908231a964928680b68b3e544ee0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f9d908231a964928680b68b3e544ee0">&#9670;&#160;</a></span>resolveInteraction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ExplorationSession::resolveInteraction </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>events</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Résout l'interaction demandée. </p>
+
+</div>
+</div>
+<a id="affe6baf83932a4eabcaa720517fbfddc" name="affe6baf83932a4eabcaa720517fbfddc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affe6baf83932a4eabcaa720517fbfddc">&#9670;&#160;</a></span>start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::ExplorationSession::start </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>arrival</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Entre sur <code class="param">mapId</code>, au point d'arrivée <code class="param">arrival</code> (vide : l'entrée de la carte). </p>
+<dl class="section return"><dt>Returns</dt><dd>Vrai si la carte est là et le point d'arrivée connu ; <span class="tt"><a class="el" href="#ab1517d211c44200e50a9195dfb0ca2b0">travel()</a>.lastIssue()</span> dit sinon pourquoi. </dd></dl>
+
+</div>
+</div>
+<a id="ab1517d211c44200e50a9195dfb0ca2b0" name="ab1517d211c44200e50a9195dfb0ca2b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1517d211c44200e50a9195dfb0ca2b0">&#9670;&#160;</a></span>travel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classcore_1_1WorldTravel.html">WorldTravel</a> &amp; core::ExplorationSession::travel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af22834cdd0f0305a39eea299e837fcc3" name="af22834cdd0f0305a39eea299e837fcc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af22834cdd0f0305a39eea299e837fcc3">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt; core::ExplorationSession::update </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1ExplorationIntent.html">ExplorationIntent</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>intent</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>seconds</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Avance d'un pas de <code class="param">seconds</code>. </p>
+<p>L'ordre compte : on marche, puis on franchit le portail de la case atteinte, puis on interagit. Marcher après avoir franchi ferait faire au héros un pas sur la carte d'arrivée avec l'intention qui l'a fait entrer. </p>
+
+</div>
+</div>
+<a id="a809f6f2a0566700a8250e1139c3e4491" name="a809f6f2a0566700a8250e1139c3e4491"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a809f6f2a0566700a8250e1139c3e4491">&#9670;&#160;</a></span>walk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ExplorationSession::walk </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">Vector2</a></td>          <td class="paramname"><span class="paramname"><em>move</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>seconds</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marche d'un pas, axe par axe : un mur pris en biais fait glisser le long, il n'arrête pas. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a6aac839cf41db1a8821d50f4da65ad16" name="a6aac839cf41db1a8821d50f4da65ad16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6aac839cf41db1a8821d50f4da65ad16">&#9670;&#160;</a></span>_facing</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::ExplorationSession::_facing {0.0F, 1.0F}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaf82af7c6c3eb86fff6d3ed106c52c3e" name="aaf82af7c6c3eb86fff6d3ed106c52c3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf82af7c6c3eb86fff6d3ed106c52c3e">&#9670;&#160;</a></span>_flags</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> core::ExplorationSession::_flags</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6aa8df4a937fec8ed16b697738d99994" name="a6aa8df4a937fec8ed16b697738d99994"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6aa8df4a937fec8ed16b697738d99994">&#9670;&#160;</a></span>_frozen</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::ExplorationSession::_frozen = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a78990bfe40fea6c6f66a3d3322afe532" name="a78990bfe40fea6c6f66a3d3322afe532"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78990bfe40fea6c6f66a3d3322afe532">&#9670;&#160;</a></span>_hero</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1CellPoint.html">CellPoint</a> core::ExplorationSession::_hero {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae60b3de301ac07787799979e93fee49e" name="ae60b3de301ac07787799979e93fee49e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae60b3de301ac07787799979e93fee49e">&#9670;&#160;</a></span>_interactables</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Interactable.html">Interactable</a>&gt; core::ExplorationSession::_interactables</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8de37f24a97f9319f841c471451aadb2" name="a8de37f24a97f9319f841c471451aadb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8de37f24a97f9319f841c471451aadb2">&#9670;&#160;</a></span>_lastCell</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> core::ExplorationSession::_lastCell {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Case du héros au pas précédent : un portail se franchit <b>en y arrivant</b>, pas à chaque pas où l'on reste dessus — sans quoi un portail qui ramène sur place bouclerait. </p>
+
+</div>
+</div>
+<a id="a656c99045430e47cb75d3432c7771af7" name="a656c99045430e47cb75d3432c7771af7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a656c99045430e47cb75d3432c7771af7">&#9670;&#160;</a></span>_travel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1WorldTravel.html">WorldTravel</a> core::ExplorationSession::_travel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a769e298bd9b04ff98be332a4e383cb00" name="a769e298bd9b04ff98be332a4e383cb00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a769e298bd9b04ff98be332a4e383cb00">&#9670;&#160;</a></span>HERO_HALF_SIZE_CELLS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::ExplorationSession::HERO_HALF_SIZE_CELLS = 0.3F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Demi-côté du gabarit du héros, en cases : il ne tient pas tout à fait une case, si bien qu'un couloir d'une case se franchit sans frotter les deux murs. </p>
+
+</div>
+</div>
+<a id="a61a51d1501e6ffc4b5bbd230ee851d16" name="a61a51d1501e6ffc4b5bbd230ee851d16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61a51d1501e6ffc4b5bbd230ee851d16">&#9670;&#160;</a></span>WALK_SPEED_CELLS_PER_SECOND</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::ExplorationSession::WALK_SPEED_CELLS_PER_SECOND = 4.0F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vitesse de marche, en cases par seconde. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/<a class="el" href="ExplorationSession_8h_source.html">ExplorationSession.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/<a class="el" href="ExplorationSession_8cpp.html">ExplorationSession.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="classcore_1_1ExplorationSession.html">ExplorationSession</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

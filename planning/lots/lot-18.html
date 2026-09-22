@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOT-18 — Bascule exploration ↔ combat — Planification</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="index.html" class="active">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="../standards/index.html">Standards</a></nav>
+  <div class="links"><a href="../../">Documentation</a><a class="active" href="../index.html">Planification</a><a href="../../qualite/">Qualité</a></div>
+</header>
+<div class="shell">
+
+<main>
+<p class="crumb"><a href="index.html">Lots</a> › <a href="../versions/v0-0-0.html">0.0.0 — Fondation du moteur</a></p><h1><span class="vid">LOT-18</span> Bascule exploration ↔ combat</h1><p class="lede">Une rencontre se déclenche depuis l'exploration, gèle le monde, monte ses combattants et rend l'exploration sans que le joueur perde quoi que ce soit.</p><dl class="facts"><div><dt>État</dt><dd><span class="badge etat-livre">livré</span></dd></div><div><dt>Filière</dt><dd><span class="filiere f-moteur">Moteur</span></dd></div><div><dt>Taille</dt><dd>M</dd></div><div><dt>Ordre calculé</dt><dd>—</dd></div><div><dt>Prérequis</dt><dd><a class="ref" href="lot-05.html">LOT-05</a> <a class="ref" href="lot-10.html">LOT-10</a> <a class="ref" href="lot-13.html">LOT-13</a></dd></div><div><dt>Débloque</dt><dd><a class="ref" href="lot-09.html">LOT-09</a> <a class="ref" href="lot-19.html">LOT-19</a></dd></div><div><dt>Reprend</dt><dd>—</dd></div></dl><section><h2>Livrables</h2><ul class=""><li><code>core::ExplorationSnapshot</code> : position, orientation et caméra mises de côté.</li><li><code>core::EncounterRun</code>, <code>core::beginEncounter</code> et <code>core::endEncounter</code> : l'aller-retour pur, sans widget.</li><li><code>hmi::CombatMode</code>, qui ordonne les passes et gèle déplacement libre, mécanismes et issue de niveau.</li><li><code>core::WorldFlags</code> et <code>core::keyForEntity</code> : l'ennemi vaincu est un drapeau de monde ; <code>encounterAlreadyCleared</code>.</li><li><code>core::placeCombatants</code> : positions relatives au déclencheur.</li><li><code>Rpg/encounters/nuee-de-rats.json</code>, rencontre provisoire de démonstration.</li></ul></section><section><h2>Critères d'acceptation</h2><ul class="checks"><li>Aller-retour exploration → combat → exploration restituant l'état, PV mis à jour.</li><li>Un ennemi vaincu ne réapparaît pas, y compris après avoir quitté et rechargé la carte — c'est un drapeau de monde, qui survit à la destruction de l'entité.</li><li>Une fuite ramène à l'exploration sans que l'ennemi soit marqué vaincu.</li><li>Testable headless : montage et démontage ne demandent ni fenêtre ni GPU.</li><li><code>ctest</code> : 1047/1047 (1034 avant, plus les treize cas de ce lot).</li></ul></section><section class="prose"><h2 id="pourquoi">Pourquoi</h2>
+<p>Déclencher une rencontre depuis l'exploration, geler le monde, monter les combattants, et en revenir — <strong>sans que le joueur perde quoi que ce soit au passage</strong>.</p>
+<h2 id="périmètre">Périmètre</h2>
+<p>Il livre la <strong>bascule</strong>, pas le combat. Ni initiative, ni tour actif, ni résolution d'action : ce sont les <a href="lot-19.html">LOT-19</a> et <a href="lot-20.html">LOT-20</a>. Séparer les deux n'est pas un découpage administratif — un aller-retour qui perd la position du personnage est un défaut qu'on ne voit plus une fois qu'il y a des tours à jouer par-dessus, et qu'on n'aurait jamais isolé.</p>
+<h2 id="conception">Conception</h2>
+<h3 id="laller-retour-est-pur-et-cest-ce-qui-le-rend-vérifiable">L'aller-retour est PUR, et c'est ce qui le rend vérifiable</h3>
+<p>Le critère d'acceptation demandait que le montage et le démontage d'une rencontre se testent <strong>headless</strong>. Ils le sont, parce que rien de ce qui décide n'est dans un widget :</p>
+<ul><li><code>core::ExplorationSnapshot</code> — ce qu'on met de côté ;</li><li><code>core::EncounterRun</code> — la rencontre engagée, sans widget, sans entité, sans pointeur de monde ;</li><li><code>core::beginEncounter</code> / <code>core::endEncounter</code> — deux fonctions, et toute la règle.</li></ul>
+<p><code>hmi::CombatMode</code>, lui, ne fait qu'<strong>ordonner des passes</strong>. Il ne retient rien de la rencontre : la tentation était de lui faire porter l'état, et l'aller-retour serait alors devenu invérifiable sans fenêtre.</p>
+<h3 id="ce-que-linstantané-porte-et-ce-quil-ne-porte-pas">Ce que l'instantané porte, et ce qu'il ne porte pas</h3>
+<p>Il porte la position du personnage, son <strong>orientation</strong> et la caméra. Sans mémoire, le personnage reviendrait de son combat ailleurs qu'il ne l'avait quitté — un pas de côté à chaque rencontre, invisible une fois, gênant au dixième — et regardant une direction par défaut (<code>EX-EXP-004</code>).</p>
+<p>Il ne porte <strong>pas les points de vie</strong>, et c'est délibéré. Le critère dit « restituer exactement l'état d'exploration, <em>aux PV près</em> » : les points de vie sont précisément ce que le combat a changé, et les remettre à leur valeur d'avant annulerait le combat. Les inclure « pour être complet » aurait été le bogue, pas la prudence.</p>
+<p>Il ne porte pas non plus les ennemis vaincus : cela ne se restitue pas, cela s'<strong>acquiert</strong>.</p>
+<h3 id="un-ennemi-vaincu-est-un-drapeau-de-monde-pas-un-booléen">Un ennemi vaincu est un drapeau de monde, pas un booléen</h3>
+<p>C'est le piège que le <a href="lot-10.html">LOT-10</a> avait déjà nommé pour les coffres, et il se pose identiquement ici : l'entité de l'ennemi est détruite et recréée depuis la couche <code>objects</code> au rechargement de la carte, et un booléen porté par elle disparaîtrait avec elle. L'ennemi réapparaîtrait à chaque passage — un défaut qui ne casse rien, ne lève aucune alerte, et se confond avec une carte peuplée.</p>
+<p><code>core::WorldFlags</code> porte donc le fait, sous une clé <strong>fabriquée</strong> par <code>core::keyForEntity</code> — jamais écrite à la main, sinon deux ennemis finiraient par la partager. Le test le vérifie dans les deux sens : deux cases d'une même carte, et la même case sur deux cartes.</p>
+<h4 id="seule-une-victoire-lacquiert">Seule une victoire l'acquiert</h4>
+<p>Une fuite ramène à l'exploration <strong>sans</strong> marquer l'ennemi vaincu, et une défaite non plus. Poser le drapeau à la sortie, quelle qu'elle soit, aurait fait de la fuite un moyen de nettoyer une carte — et le défaut ne se serait pas vu : la carte se serait vidée, ce qui ressemble à une progression.</p>
+<h3 id="deux-natures-de-déclencheur-distinguées-par-la-donnée">Deux natures de déclencheur, distinguées par la donnée</h3>
+<p>Une entité de type <code>encounter</code> nomme sa rencontre (<code>encounterId</code>). Ce qui la distingue n'est pas son type mais une propriété :</p>
+<ul><li>un <strong>ennemi posé</strong> — il se combat une fois, et sa clé le fait disparaître pour de bon ;</li><li>une <strong>zone</strong> (<code>respawns: true</code>) — elle se redéclenche, et n'a donc pas de clé.</li></ul>
+<p>Confondre les deux se paierait dans les deux sens : un ennemi sans clé réapparaîtrait à chaque passage, et une zone avec clé s'éteindrait au premier combat gagné. C'est pourquoi <code>encounterAlreadyCleared</code> répond <strong>non</strong> pour une clé vide : l'inverse aurait désactivé toutes les zones du jeu dès le premier combat.</p>
+<h3 id="une-rencontre-dit-qui-jamais-où">Une rencontre dit QUI, jamais OÙ</h3>
+<p>Les positions des combattants sont <strong>relatives au déclencheur</strong>. Une rencontre est écrite une fois et jouée partout : trois rats « un pas devant » gardent leur formation quel que soit l'endroit, alors que des coordonnées absolues les feraient apparaître au même endroit à chaque fois — ou hors de la carte.</p>
+<p><code>core::placeCombatants</code> rend la liste des cases <strong>voulues</strong>, sans consulter ni carte ni collision : c'est au montage de refuser celles qui tombent dans un mur, et il ne peut le faire que s'il les reçoit toutes.</p>
+<h3 id="ce-que-le-mode-combat-gèle-et-pourquoi">Ce que le mode combat gèle, et pourquoi</h3>
+<p>Trois passes de l'exploration disparaissent, chacune pour une raison précise :</p>
+<div class="table-wrap"><table><thead><tr><th>Passe retirée</th><th>Pourquoi</th></tr></thead><tbody><tr><td><code>moveCharacter</code></td><td>le déplacement suit le <strong>budget du tour</strong> (<a href="lot-19.html">LOT-19</a>), pas l'intention libre du joueur ; la laisser donnerait un combat où l'on marche pendant le tour d'un autre</td></tr><tr><td><code>updateMechanisms</code></td><td>une plaque de pression qui s'enfoncerait au milieu d'un tour ferait dépendre le combat d'une règle qu'aucun livre ne décrit</td></tr><tr><td><code>evaluateOutcome</code></td><td>tomber à zéro point de vie est une issue du <strong>combat</strong>, pas du niveau ; l'évaluer ici rechargerait le niveau au lieu d'ouvrir l'agonie (<a href="../vision/archives/feuille-de-route-jeu.html#lot-72">LOT-72</a>)</td></tr></tbody></table></div>
+<p>Ce qui reste tourne parce que le combat demeure une <strong>scène</strong> : particules et secousse d'écran finissent ce qu'elles ont commencé, les animations continuent — un combattant immobile respire — et la caméra suit. Un test compare la séquence réellement appelée à celle que le mode annonce, et vérifie qu'aucune passe gelée n'y figure.</p>
+<h3 id="le-personnage-de-démonstration">Le personnage de démonstration</h3>
+<p><code>Rpg/encounters/nuee-de-rats.json</code> : trois bêtes du SRD (<a href="lot-33.html">LOT-33</a>), seules créatures livrées à ce jour. Déclarée <strong>provisoire</strong> avec son critère de retrait — elle disparaît quand le contenu du <a href="../vision/archives/feuille-de-route-jeu.html#lot-27">LOT-27</a> fournira ses propres rencontres.</p>
+<h2 id="vérification">Vérification</h2>
+<p>Ce que l'epic relevait en face de chaque critère, dans l'ordre des critères de l'en-tête :</p>
+<ol><li>✔</li><li>✔</li><li>✔ (la défaite non plus)</li><li>✔</li><li>✔</li></ol>
+<h2 id="bilan">Bilan</h2>
+<p>Statut : <strong>fait</strong>. Vérification automatisée : build <code>/W4 /WX</code> sans avertissement, <code>ctest</code> à 1047/1047, <code>clang-format</code>, les huit lints, cahier de test et Doxygen verts.</p>
+<p>Aucune exigence ajoutée : <code>EX-CBT-001</code> couvre ce lot, et c'est son premier vrai emploi.</p></section><p class="source">Source : <code>Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-18-bascule-exploration-combat.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

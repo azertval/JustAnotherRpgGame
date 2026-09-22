@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="420" fill="#fbf8f0"/>
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+  </defs>
+
+  <!-- Colonne gauche : uiScale réel -->
+  <rect x="20" y="20" width="410" height="250" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="44" font-weight="600" fill="#25201a">Les écrans : Tokens.uiScale, un réel (charte v2)</text>
+  <text x="32" y="66" font-family="Consolas, monospace" font-size="12" fill="#25201a">uiScale = max(0,5 ; min(largeur / 1920, hauteur / 1080))</text>
+
+  <!-- Cadre 1920x1080 de conception -->
+  <rect x="40" y="86" width="192" height="108" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="46" y="104" font-size="12" fill="#9a7420">conception 1920 × 1080</text>
+  <text x="46" y="122" font-family="Consolas, monospace" font-size="12" fill="#25201a">uiScale = 1</text>
+  <text x="46" y="140" font-family="Consolas, monospace" font-size="12" fill="#25201a">fontBody = 18 px</text>
+  <text x="46" y="158" font-family="Consolas, monospace" font-size="12" fill="#25201a">gapLarge = 32 px</text>
+
+  <!-- Fenêtre 1280x720 -->
+  <rect x="260" y="104" width="128" height="72" fill="#fbf8f0" stroke="#2f7f86"/>
+  <text x="266" y="120" font-size="12" fill="#2f7f86">fenêtre 1280 × 720</text>
+  <text x="266" y="138" font-family="Consolas, monospace" font-size="12" fill="#25201a">uiScale = 0,667</text>
+  <text x="266" y="156" font-family="Consolas, monospace" font-size="12" fill="#25201a">fontBody = 12 px</text>
+  <path d="M232,140 L258,140" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#f)"/>
+
+  <!-- Fenêtre 21:9 -->
+  <rect x="40" y="206" width="240" height="54" fill="#fbf8f0" stroke="#2f7f86"/>
+  <text x="46" y="222" font-size="12" fill="#2f7f86">fenêtre plus large que 16:9</text>
+  <rect x="64" y="212" width="96" height="42" fill="none" stroke="#9a7420" stroke-dasharray="3 2"/>
+  <text x="166" y="240" font-size="12" fill="#6a6152">le plus petit rapport :</text>
+  <text x="166" y="254" font-size="12" fill="#6a6152">marge, jamais rogné</text>
+
+  <text x="300" y="216" font-size="12" fill="#25201a">Multiplié une fois,</text>
+  <text x="300" y="232" font-size="12" fill="#25201a">dans Tokens.qml :</text>
+  <text x="300" y="248" font-size="12" fill="#25201a">jamais dans un écran.</text>
+
+  <!-- Colonne droite : scale entier -->
+  <rect x="450" y="20" width="410" height="250" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="462" y="44" font-weight="600" fill="#25201a">Le viewport : Tokens.scale, un entier</text>
+  <text x="462" y="66" font-family="Consolas, monospace" font-size="12" fill="#25201a">hmi::identityScaleFor(h) = clamp(⌊h / 360⌋, 1, 3)</text>
+
+  <!-- Barres -->
+  <g font-family="Consolas, monospace" font-size="12">
+    <rect x="470" y="90" width="60" height="22" fill="#fbf8f0" stroke="#9a7420"/>
+    <text x="476" y="106" fill="#25201a">h &lt; 720</text>
+    <text x="540" y="106" fill="#25201a">→ ×1  (une fenêtre étroite rogne, jamais 1,5×)</text>
+    <rect x="470" y="122" width="60" height="22" fill="#fbf8f0" stroke="#9a7420"/>
+    <text x="476" y="138" fill="#25201a">h = 720</text>
+    <text x="540" y="138" fill="#25201a">→ ×2  (700 px resterait ×1 : division entière)</text>
+    <rect x="470" y="154" width="60" height="22" fill="#fbf8f0" stroke="#9a7420"/>
+    <text x="476" y="170" fill="#25201a">h ≥ 1080</text>
+    <text x="540" y="170" fill="#25201a">→ ×3  (plafond IDENTITY_MAX_SCALE)</text>
+  </g>
+  <text x="462" y="204" font-size="12" fill="#25201a">Entier, parce que les tuiles du viewport sont des pixels :</text>
+  <text x="462" y="220" font-size="12" fill="#25201a">à 1,5×, un trait d'une unité et un filet d'une unité</text>
+  <text x="462" y="236" font-size="12" fill="#25201a">s'arrondissent tous deux à 2 px — faux, et silencieux.</text>
+  <text x="462" y="258" font-size="12" fill="#8a2233">Borné par l'écran (identityScaleForDisplay, EX-IHM-081), pas par la fenêtre.</text>
+
+  <!-- Bas : la hauteur logique -->
+  <rect x="20" y="290" width="840" height="110" rx="8" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="32" y="314" font-weight="600" fill="#25201a">Les deux lisent la hauteur LOGIQUE de la fenêtre, jamais la hauteur réelle</text>
+  <text x="32" y="338" fill="#25201a">Qt applique la mise à l'échelle du système (150 %, 200 %) par-dessus, sur une disposition en unités logiques :</text>
+  <text x="32" y="356" fill="#25201a">multiplier une seconde fois par devicePixelRatio donnerait une interface deux fois trop grande sur un écran à 200 %.</text>
+  <text x="32" y="384" font-size="12" fill="#6a6152">Les grandeurs de Tokens.qml sont en pixels et non en points : un point vaut une fraction variable de pixel selon l'écran.</text>
+</svg>

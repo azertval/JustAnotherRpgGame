@@ -1,0 +1,227 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/AssetGallery.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('AssetGallery_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">AssetGallery.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>La galerie des assets, outil de débug : inventaire, disposition en blocs et visibilité, <b>sans GPU</b>.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+</div>
+<p><a href="AssetGallery_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:hmi_3A_3AAssetGalleryEntry" id="r_hmi_3A_3AAssetGalleryEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetGalleryEntry.html">hmi::AssetGalleryEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une forme d'un modèle : un clip d'une figure, une variante de texture, une pièce.  <a href="structhmi_1_1AssetGalleryEntry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AAssetGalleryFamily" id="r_hmi_3A_3AAssetGalleryFamily"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetGalleryFamily.html">hmi::AssetGalleryFamily</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une famille : une bande de la galerie.  <a href="structhmi_1_1AssetGalleryFamily.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AAssetGalleryCatalog" id="r_hmi_3A_3AAssetGalleryCatalog"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetGalleryCatalog.html">hmi::AssetGalleryCatalog</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'inventaire de la galerie, lu dans les manifestes des assets livrés.  <a href="structhmi_1_1AssetGalleryCatalog.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AAssetGalleryBloc" id="r_hmi_3A_3AAssetGalleryBloc"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetGalleryBloc.html">hmi::AssetGalleryBloc</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bloc : l'emprise d'une forme plus une case de marge tout autour, en cases.  <a href="structhmi_1_1AssetGalleryBloc.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AAssetGalleryBand" id="r_hmi_3A_3AAssetGalleryBand"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetGalleryBand.html">hmi::AssetGalleryBand</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'en-tête d'une famille : une ligne de la galerie.  <a href="structhmi_1_1AssetGalleryBand.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AAssetGalleryLayout" id="r_hmi_3A_3AAssetGalleryLayout"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetGalleryLayout.html">hmi::AssetGalleryLayout</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La galerie disposée : bandes, puis une ligne par modèle, une colonne par forme.  <a href="structhmi_1_1AssetGalleryLayout.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AAssetGalleryView" id="r_hmi_3A_3AAssetGalleryView"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetGalleryView.html">hmi::AssetGalleryView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un rectangle en cases (flottantes).  <a href="structhmi_1_1AssetGalleryView.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a9bcda977efbe65c2ab28905feb685040" id="r_a9bcda977efbe65c2ab28905feb685040"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040">hmi::AssetGalleryVisibility</a> { <a class="el" href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040ac4816e491f1e2cf4b8c26d844861d8fe">hmi::Drawn</a>
+, <a class="el" href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040ad2dca836f24df89491f958bac04a8ac8">hmi::Preloaded</a>
+, <a class="el" href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040aa5ae20aa7fda5bd38bf0dce98e65bd2d">hmi::Unloaded</a>
+ }</td></tr>
+<tr class="memdesc:a9bcda977efbe65c2ab28905feb685040"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que devient un bloc pour une caméra donnée.  <a href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a11b4cbe2fcfcc3f152293f1bdf5c7f8d" id="r_a11b4cbe2fcfcc3f152293f1bdf5c7f8d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d">hmi::assetGalleryExcludes</a> (std::string_view path) noexcept</td></tr>
+<tr class="memdesc:a11b4cbe2fcfcc3f152293f1bdf5c7f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l'interface (<span class="tt">UI/</span>), les cartes plein écran de l'écran « Carte » (<span class="tt">Maps/</span>, que cet écran montre déjà une à une) et les polices (<span class="tt">Fonts/</span>).  <br /></td></tr>
+<tr class="memitem:a3256818dab3b1990ebe3f4da0aed8a34" id="r_a3256818dab3b1990ebe3f4da0aed8a34"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a3256818dab3b1990ebe3f4da0aed8a34">hmi::assetGalleryUnlisted</a> (const std::filesystem::path &amp;assetsRoot, const <a class="el" href="structhmi_1_1AssetGalleryCatalog.html">AssetGalleryCatalog</a> &amp;catalog)</td></tr>
+<tr class="memdesc:a3256818dab3b1990ebe3f4da0aed8a34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les images livrées (PNG, JPEG) que la galerie ne montre pas et qu'aucune exclusion ne couvre : ce que <span class="tt">EX-CNT-042</span> interdit.  <br /></td></tr>
+<tr class="memitem:a83debe99d4ca04cebc854c1407f3a39e" id="r_a83debe99d4ca04cebc854c1407f3a39e"><td class="memItemLeft"><a class="el" href="structhmi_1_1AssetGalleryBloc.html">AssetGalleryBloc</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a83debe99d4ca04cebc854c1407f3a39e">hmi::assetGalleryBlocShape</a> (const <a class="el" href="structhmi_1_1AssetGalleryEntry.html">AssetGalleryEntry</a> &amp;entry)</td></tr>
+<tr class="memitem:aa873ff843c8cc02b063bb5f908cd92fd" id="r_aa873ff843c8cc02b063bb5f908cd92fd"><td class="memItemLeft"><a class="el" href="structhmi_1_1AssetGalleryLayout.html">AssetGalleryLayout</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aa873ff843c8cc02b063bb5f908cd92fd">hmi::layoutAssetGallery</a> (const <a class="el" href="structhmi_1_1AssetGalleryCatalog.html">AssetGalleryCatalog</a> &amp;catalog, int maximumColumns=40)</td></tr>
+<tr class="memdesc:aa873ff843c8cc02b063bb5f908cd92fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispose le catalogue : une bande par famille, une ligne par modèle, et au-delà de <code class="param">maximumColumns</code> cases une ligne continue la suivante.  <br /></td></tr>
+<tr class="memitem:a321807271cf7156d657e478bb442d8a8" id="r_a321807271cf7156d657e478bb442d8a8"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a9bcda977efbe65c2ab28905feb685040">AssetGalleryVisibility</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a321807271cf7156d657e478bb442d8a8">hmi::assetGalleryVisibility</a> (const <a class="el" href="structhmi_1_1AssetGalleryBloc.html">AssetGalleryBloc</a> &amp;bloc, const <a class="el" href="structhmi_1_1AssetGalleryView.html">AssetGalleryView</a> &amp;view, double ringCells) noexcept</td></tr>
+<tr class="memitem:aab46d733154ad31db3d8fa8af5afd259" id="r_aab46d733154ad31db3d8fa8af5afd259"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aab46d733154ad31db3d8fa8af5afd259">hmi::assetGalleryFrameRank</a> (const <a class="el" href="structhmi_1_1AssetGalleryEntry.html">AssetGalleryEntry</a> &amp;entry, double seconds) noexcept</td></tr>
+<tr class="memdesc:aab46d733154ad31db3d8fa8af5afd259"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'image jouée au temps <code class="param">seconds</code> : en boucle, ou jouée une fois puis tenue <span class="tt"><a class="el" href="namespacehmi.html#ab31c52802e91a9594d93c236912b4ffe" title="Temps de tenue, en secondes, d&#39;un clip joué une fois sur sa dernière image avant de reprendre.">ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS</a></span> avant de reprendre.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a5001ea43cce884ad77fb12944b48eaa6" id="r_a5001ea43cce884ad77fb12944b48eaa6"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a5001ea43cce884ad77fb12944b48eaa6">hmi::ASSET_GALLERY_CELL_PIXELS</a> = 68</td></tr>
+<tr class="memdesc:a5001ea43cce884ad77fb12944b48eaa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur d'une case de la galerie, en pixels d'art : celle du losange des scènes (LOT-92).  <br /></td></tr>
+<tr class="memitem:ab31c52802e91a9594d93c236912b4ffe" id="r_ab31c52802e91a9594d93c236912b4ffe"><td class="memItemLeft">constexpr double&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ab31c52802e91a9594d93c236912b4ffe">hmi::ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS</a> = 0.6</td></tr>
+<tr class="memdesc:ab31c52802e91a9594d93c236912b4ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps de tenue, en secondes, d'un clip joué une fois sur sa dernière image avant de reprendre.  <br /></td></tr>
+<tr class="memitem:adaabc2b6b080a376a0dce6d0edc58bd3" id="r_adaabc2b6b080a376a0dce6d0edc58bd3"><td class="memItemLeft">constexpr double&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#adaabc2b6b080a376a0dce6d0edc58bd3">hmi::ASSET_GALLERY_RING_CELLS</a> = 3.0</td></tr>
+<tr class="memdesc:adaabc2b6b080a376a0dce6d0edc58bd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Épaisseur de l'anneau de préchargement, en cases : un bloc ordinaire.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>La galerie des assets, outil de débug : inventaire, disposition en blocs et visibilité, <b>sans GPU</b>. </p>
+<p>Ce n'est pas un écran du jeu (décision du 16 septembre 2026) : un banc pour voir d'un coup d'œil tous les modèles, toutes leurs formes et toutes leurs animations, que le Colisée ne pouvait plus montrer à mesure que les ateliers (PNJ, textures) en produisent. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="AssetGallery_8h.html">AssetGallery.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

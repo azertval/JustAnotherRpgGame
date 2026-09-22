@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="400" fill="#fbf8f0"/>
+
+  <text x="20" y="30" font-size="15" font-weight="600" fill="#25201a">core::coverFrom : l'abri se compte en demi-cases, depuis le point qui arrange l'attaquant</text>
+
+  <!-- grille 6 x 3, case de 80 px, origine (40, 60) ; coordonnées en demi-cases : x = 2c, y = 2r -->
+  <g stroke="#d6c9a8" fill="#fbf8f0">
+    <rect x="40" y="60" width="80" height="80"/><rect x="120" y="60" width="80" height="80"/><rect x="200" y="60" width="80" height="80"/>
+    <rect x="280" y="60" width="80" height="80"/><rect x="360" y="60" width="80" height="80"/><rect x="440" y="60" width="80" height="80"/>
+    <rect x="40" y="140" width="80" height="80"/><rect x="120" y="140" width="80" height="80"/><rect x="200" y="140" width="80" height="80"/>
+    <rect x="280" y="140" width="80" height="80"/><rect x="360" y="140" width="80" height="80"/><rect x="440" y="140" width="80" height="80"/>
+    <rect x="40" y="220" width="80" height="80"/><rect x="120" y="220" width="80" height="80"/><rect x="200" y="220" width="80" height="80"/>
+    <rect x="280" y="220" width="80" height="80"/><rect x="360" y="220" width="80" height="80"/><rect x="440" y="220" width="80" height="80"/>
+  </g>
+
+  <!-- le pilier : case (2, 1), boîte fermée [4, 6] x [2, 4] -->
+  <rect x="200" y="140" width="80" height="80" fill="#6a6152" stroke="#25201a"/>
+  <text x="212" y="185" font-size="12" fill="#fbf8f0">pilier</text>
+  <text x="212" y="201" font-family="Consolas, monospace" font-size="11" fill="#fbf8f0">blocksSight</text>
+
+  <!-- l'attaquant : case (0, 1) ; la cible : case (4, 0) -->
+  <rect x="40" y="140" width="80" height="80" fill="#ece4d1" stroke="#9a7420"/>
+  <circle cx="80" cy="180" r="14" fill="#9a7420"/>
+  <text x="74" y="185" font-size="12" font-weight="600" fill="#fbf8f0">A</text>
+  <rect x="360" y="60" width="80" height="80" fill="#ece4d1" stroke="#8a2233"/>
+  <circle cx="400" cy="100" r="14" fill="#8a2233"/>
+  <text x="394" y="105" font-size="12" font-weight="600" fill="#fbf8f0">B</text>
+
+  <!-- les quatre lignes depuis le coin (2, 2) de A vers les coins de la case de B -->
+  <g stroke-width="1.5" fill="none">
+    <path d="M120,140 L360,60" stroke="#3f6b34"/>
+    <path d="M120,140 L440,60" stroke="#3f6b34"/>
+    <path d="M120,140 L360,140" stroke="#8a2233" stroke-dasharray="6 4"/>
+    <path d="M120,140 L440,140" stroke="#8a2233" stroke-dasharray="6 4"/>
+  </g>
+  <circle cx="120" cy="140" r="5" fill="#25201a"/>
+  <text x="96" y="132" font-family="Consolas, monospace" font-size="12" fill="#25201a">(2, 2)</text>
+  <g font-family="Consolas, monospace" font-size="11" fill="#25201a">
+    <text x="346" y="54">(8, 0)</text>
+    <text x="426" y="54">(10, 0)</text>
+    <text x="330" y="156">(8, 2)</text>
+    <text x="442" y="156">(10, 2)</text>
+  </g>
+
+  <!-- axes -->
+  <g font-family="Consolas, monospace" font-size="11" fill="#6a6152">
+    <text x="36" y="316">x = 0</text><text x="116" y="316">2</text><text x="196" y="316">4</text><text x="276" y="316">6</text><text x="356" y="316">8</text><text x="436" y="316">10</text><text x="516" y="316">12</text>
+    <text x="8" y="64">y=0</text><text x="8" y="144">2</text><text x="8" y="224">4</text><text x="8" y="304">6</text>
+  </g>
+  <text x="40" y="340" font-size="12" fill="#6a6152">La case (c, r) va de (2c, 2r) à (2c + 2, 2r + 2) : coins pairs, centre impair. Aucun flottant.</text>
+
+  <!-- légende -->
+  <rect x="560" y="60" width="300" height="240" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="572" y="84" font-weight="600" fill="#25201a">Depuis le coin (2, 2) de A</text>
+  <path d="M572,100 L600,100" stroke="#3f6b34" stroke-width="1.5"/>
+  <text x="608" y="104" font-size="12" fill="#25201a">2 lignes dégagées</text>
+  <path d="M572,120 L600,120" stroke="#8a2233" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="608" y="124" font-size="12" fill="#25201a">2 lignes coupées : elles rasent</text>
+  <text x="608" y="140" font-size="12" fill="#25201a">le bord du pilier (boîte fermée)</text>
+  <text x="572" y="168" font-size="12" font-weight="600" fill="#8a2233">→ abri partiel : CA + 2</text>
+  <text x="572" y="196" font-size="12" fill="#25201a">Ce qui arrête la vue abrite selon</text>
+  <text x="572" y="212" font-size="12" fill="#25201a">les lignes coupées : 1 ou 2 partiel,</text>
+  <text x="572" y="228" font-size="12" fill="#25201a">3 important (+ 5), 4 depuis chaque</text>
+  <text x="572" y="244" font-size="12" fill="#25201a">point : total, la cible ne se vise pas.</text>
+  <text x="572" y="268" font-size="12" fill="#6a6152">A prend le point de son emprise et la</text>
+  <text x="572" y="284" font-size="12" fill="#6a6152">case de B qui l'abritent le moins.</text>
+
+  <text x="40" y="372" font-size="12" fill="#3f6b34">Symétrique par construction : un segment n'a pas de sens de parcours, et B voit A si et seulement si A voit B.</text>
+</svg>

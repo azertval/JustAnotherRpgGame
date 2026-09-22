@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="520" fill="#fbf8f0"/>
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+    <marker id="fr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a2233"/>
+    </marker>
+    <marker id="fg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3f6b34"/>
+    </marker>
+  </defs>
+
+  <!-- Colonne 1 : le QML qui demande -->
+  <rect x="20" y="20" width="250" height="150" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="44" font-weight="600" fill="#25201a">Un écran QML (Jadg.App)</text>
+  <text x="32" y="64" font-family="Consolas, monospace" font-size="12" fill="#6a6152">Screens/GameView.qml</text>
+  <text x="32" y="92" fill="#25201a">Le joueur presse Échap.</text>
+  <text x="32" y="112" fill="#25201a">L'écran ne touche pas à la pile :</text>
+  <text x="32" y="134" font-family="Consolas, monospace" font-size="12" fill="#25201a">ScreenRouter.openPause()</text>
+  <text x="32" y="156" font-size="12" fill="#6a6152">idem : resume(), openRpgScreen(...)</text>
+
+  <!-- Colonne 2 : le routeur -->
+  <rect x="315" y="20" width="250" height="150" rx="8" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="327" y="44" font-weight="600" fill="#25201a">hmi::ScreenRouter</text>
+  <text x="327" y="64" font-family="Consolas, monospace" font-size="12" fill="#6a6152">singleton QML, C++</text>
+  <text x="327" y="92" fill="#25201a">Ne décide rien : traduit le geste</text>
+  <text x="327" y="110" fill="#25201a">en ScreenEvent::OpenPause et</text>
+  <text x="327" y="128" fill="#25201a">demande à la table.</text>
+  <text x="327" y="156" font-size="12" fill="#6a6152">état gardé + rien émis si refus</text>
+
+  <!-- Colonne 3 : la table pure -->
+  <rect x="610" y="20" width="250" height="150" rx="8" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="622" y="44" font-weight="600" fill="#25201a">hmi::resolveTransition</text>
+  <text x="622" y="64" font-family="Consolas, monospace" font-size="12" fill="#6a6152">ScreenFlow.h — sans Qt, testé</text>
+  <text x="622" y="92" font-family="Consolas, monospace" font-size="12" fill="#25201a">(Game, OpenPause)</text>
+  <text x="622" y="110" font-family="Consolas, monospace" font-size="12" fill="#3f6b34">→ {Pause, optionsReturnTo=Menu}</text>
+  <text x="622" y="134" font-family="Consolas, monospace" font-size="12" fill="#25201a">(Menu, OpenPause)</text>
+  <text x="622" y="152" font-family="Consolas, monospace" font-size="12" fill="#8a2233">→ nullopt : refusé</text>
+
+  <!-- Flèches entre colonnes -->
+  <g stroke="#6a6152" stroke-width="1.5" fill="none">
+    <path d="M270,95 L313,95" marker-end="url(#f)"/>
+    <path d="M565,95 L608,95" marker-end="url(#f)"/>
+  </g>
+  <path d="M735,170 L735,200 L440,200 L440,226" stroke="#3f6b34" stroke-width="1.5" fill="none" marker-end="url(#fg)"/>
+  <text x="450" y="192" font-size="12" fill="#3f6b34">nouvel état → currentScreen, signal changed</text>
+
+  <!-- La pile d'écrans -->
+  <rect x="315" y="230" width="250" height="120" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="327" y="254" font-weight="600" fill="#25201a">Logic/ScreenStack.qml</text>
+  <text x="327" y="274" fill="#25201a">byState() : un état → un Component.</text>
+  <text x="327" y="292" fill="#25201a">Un seul Loader : l'écran quitté</text>
+  <text x="327" y="310" fill="#25201a">est détruit, le nouveau construit.</text>
+  <text x="327" y="336" font-size="12" fill="#6a6152">seul endroit qui connaît les fichiers</text>
+
+  <!-- Trois sources -->
+  <rect x="20" y="230" width="250" height="120" rx="8" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="32" y="254" font-weight="600" fill="#25201a">Trois sources, dans l'ordre</text>
+  <text x="32" y="278" fill="#25201a">1. ScreenProbe (sélecteur, dev)</text>
+  <text x="32" y="298" fill="#25201a">2. --screen=&lt;Nom&gt; (vérification)</text>
+  <text x="32" y="318" fill="#25201a">3. le routeur (le seul chemin de jeu)</text>
+  <text x="32" y="340" font-size="12" fill="#6a6152">1 et 2 s'effacent dès que 3 navigue</text>
+  <path d="M270,290 L313,290" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#f)"/>
+
+  <!-- Ce qui survit : WorldModel -->
+  <rect x="610" y="230" width="250" height="120" rx="8" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="622" y="254" font-weight="600" fill="#25201a">hmi::WorldModel (singleton)</text>
+  <text x="622" y="278" fill="#25201a">La partie survit à la pile :</text>
+  <text x="622" y="296" fill="#25201a">GameView meurt à la pause,</text>
+  <text x="622" y="314" fill="#25201a">la session d'exploration non.</text>
+  <text x="622" y="340" font-size="12" fill="#6a6152">le gel suit le focus (frozen)</text>
+  <path d="M565,290 L608,290" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#f)"/>
+
+  <!-- Les sept états -->
+  <text x="20" y="390" font-weight="600" fill="#25201a">Les sept états de hmi::ScreenId, et les retours portés par l'état</text>
+  <g font-family="Consolas, monospace" font-size="12">
+    <rect x="20" y="402" width="90" height="34" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="44" y="424" fill="#25201a">Menu</text>
+    <rect x="150" y="402" width="90" height="34" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="174" y="424" fill="#25201a">Game</text>
+    <rect x="280" y="402" width="90" height="34" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="302" y="424" fill="#25201a">Pause</text>
+    <rect x="410" y="402" width="100" height="34" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="428" y="424" fill="#25201a">Options</text>
+    <rect x="550" y="402" width="100" height="34" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="568" y="424" fill="#25201a">Credits</text>
+    <rect x="20" y="460" width="110" height="34" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="34" y="482" fill="#25201a">RpgScreen</text>
+    <rect x="170" y="460" width="90" height="34" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="194" y="482" fill="#25201a">Arena</text>
+  </g>
+  <g stroke="#6a6152" stroke-width="1.5" fill="none">
+    <path d="M110,419 L148,419" marker-end="url(#f)"/>
+    <path d="M240,419 L278,419" marker-end="url(#f)"/>
+    <path d="M370,419 L408,419" marker-end="url(#f)"/>
+    <path d="M65,436 L65,458"/>
+    <path d="M510,419 L548,419" marker-end="url(#f)"/>
+  </g>
+  <g stroke="#8a2233" stroke-width="1.5" fill="none">
+    <path d="M460,436 C460,452 200,440 195,458" marker-end="url(#fr)"/>
+    <path d="M195,436 L215,458" marker-end="url(#fr)"/>
+  </g>
+  <g font-size="12" fill="#8a2233">
+    <text x="300" y="470">Options → optionsReturnTo (Menu | Pause)</text>
+    <text x="300" y="488">RpgScreen → rpgReturnTo (Menu | Game | Pause)</text>
+    <text x="300" y="506">Arena → arenaReturnTo (Menu | Game)</text>
+  </g>
+</svg>

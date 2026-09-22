@@ -1,0 +1,576 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/test_enemy_ai.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__enemy__ai_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_enemy_ai.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests unitaires de l'IA tactique (<span class="tt">LOT-23</span>) : la prise en tenaille du <em>Guide du Maître</em>, le jet requis et l'espérance de dégâts, les profils en données, ce que l'IA sait, le suicide, le blocage et le rejeu.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="Arena_8h_source.html">Core/Combat/Arena.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="EnemyAi_8h_source.html">Core/Combat/EnemyAi.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Flanking_8h_source.html">Core/Combat/Flanking.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DeterministicRandom_8h_source.html">Core/Math/DeterministicRandom.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Ability_8h_source.html">Core/Rpg/Ability.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Bestiary_8h_source.html">Core/Rpg/Bestiary.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a54e658ed6c022932f813043bb7c69781" id="r_a54e658ed6c022932f813043bb7c69781"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a54e658ed6c022932f813043bb7c69781">TEST</a> (FlankingTest, LaLigneDesCentresTranche)</td></tr>
+<tr class="memdesc:a54e658ed6c022932f813043bb7c69781"><td class="mdescLeft">&#160;</td><td class="mdescRight">La ligne des centres tranche la prise en tenaille (Guide du Maitre, chapitre 8).  <br /></td></tr>
+<tr class="memitem:a4ee09c20299ff1fdd88d758471db4b64" id="r_a4ee09c20299ff1fdd88d758471db4b64"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4ee09c20299ff1fdd88d758471db4b64">TEST</a> (FlankingTest, LaTenailleDonneLAvantageDansLArene)</td></tr>
+<tr class="memdesc:a4ee09c20299ff1fdd88d758471db4b64"><td class="mdescLeft">&#160;</td><td class="mdescRight">La tenaille donne l'avantage au corps a corps, et seulement dans une arene qui la joue.  <br /></td></tr>
+<tr class="memitem:a98457b4b2e1f53207a8dd63c20526b9b" id="r_a98457b4b2e1f53207a8dd63c20526b9b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a98457b4b2e1f53207a8dd63c20526b9b">TEST</a> (EnemyAiTest, LeJetRequisEtLEsperanceSuiventLeGuide)</td></tr>
+<tr class="memdesc:a98457b4b2e1f53207a8dd63c20526b9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le jet requis et l'esperance de degats suivent le Guide du Maitre.  <br /></td></tr>
+<tr class="memitem:af376624402db300ebf08ed2f346d944f" id="r_af376624402db300ebf08ed2f346d944f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af376624402db300ebf08ed2f346d944f">TEST</a> (EnemyAiTest, LesProfilsSontDesDonnees)</td></tr>
+<tr class="memdesc:af376624402db300ebf08ed2f346d944f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les profils se chargent de la donnee et s'attribuent par regle.  <br /></td></tr>
+<tr class="memitem:a4c97b99610bdf098fafb6f8f1bbc5a1f" id="r_a4c97b99610bdf098fafb6f8f1bbc5a1f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4c97b99610bdf098fafb6f8f1bbc5a1f">TEST</a> (EnemyAiTest, LIaNeLitQueLEtatEnsanglante)</td></tr>
+<tr class="memdesc:a4c97b99610bdf098fafb6f8f1bbc5a1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'IA lit l'etat ensanglante, jamais les points de vie (EX-CBT-050).  <br /></td></tr>
+<tr class="memitem:a59552bd44d58ebf7c5a922da461f3ab1" id="r_a59552bd44d58ebf7c5a922da461f3ab1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a59552bd44d58ebf7c5a922da461f3ab1">TEST</a> (EnemyAiTest, PasDeSuicideQuandUneCaseSureExiste)</td></tr>
+<tr class="memdesc:a59552bd44d58ebf7c5a922da461f3ab1"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'IA ne finit pas son tour a portee de trois ennemis quand une case sure existait.  <br /></td></tr>
+<tr class="memitem:a5d1d931fe526424c96a2f28975eabf99" id="r_a5d1d931fe526424c96a2f28975eabf99"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5d1d931fe526424c96a2f28975eabf99">TEST</a> (EnemyAiTest, UnTireurNeComptePasDansLAntiSuicide)</td></tr>
+<tr class="memdesc:a5d1d931fe526424c96a2f28975eabf99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un tireur ne compte pas dans la cle anti-suicide : sa portee couvre l'arene.  <br /></td></tr>
+<tr class="memitem:a07fce2f224f31d6622388462cf1c85df" id="r_a07fce2f224f31d6622388462cf1c85df"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a07fce2f224f31d6622388462cf1c85df">TEST</a> (EnemyAiTest, SansAttaquePossibleChaqueProfilAvance)</td></tr>
+<tr class="memdesc:a07fce2f224f31d6622388462cf1c85df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans attaque possible, chaque profil avance : la menace ne le tient pas a distance.  <br /></td></tr>
+<tr class="memitem:ac8a0ff87a6b80c975569063c86087bd6" id="r_ac8a0ff87a6b80c975569063c86087bd6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac8a0ff87a6b80c975569063c86087bd6">TEST</a> (EnemyAiTest, LeRepliVaALaCaseSureLaPlusProche)</td></tr>
+<tr class="memdesc:ac8a0ff87a6b80c975569063c86087bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le repli apres l'attaque va a la case sure la plus proche, pas au coin de la salle.  <br /></td></tr>
+<tr class="memitem:aebd28491e7b90bc8723cc5595c134cb9" id="r_aebd28491e7b90bc8723cc5595c134cb9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aebd28491e7b90bc8723cc5595c134cb9">TEST</a> (EnemyAiTest, LArchereChercheLaVue)</td></tr>
+<tr class="memdesc:aebd28491e7b90bc8723cc5595c134cb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'archere cherche la case d'ou elle voit, tire, et n'attaque jamais a travers un mur.  <br /></td></tr>
+<tr class="memitem:a5e542f86693e6d4820d8f273dd4e8b99" id="r_a5e542f86693e6d4820d8f273dd4e8b99"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5e542f86693e6d4820d8f273dd4e8b99">TEST</a> (EnemyAiTest, SePrecipiterEtChoisirSesOpportunites)</td></tr>
+<tr class="memdesc:a5e542f86693e6d4820d8f273dd4e8b99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loin de tout, l'IA se precipite ; la prudente refuse une opportunite trop difficile.  <br /></td></tr>
+<tr class="memitem:a8b73141e0812afdafd0f050d81cd52ff" id="r_a8b73141e0812afdafd0f050d81cd52ff"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8b73141e0812afdafd0f050d81cd52ff">TEST</a> (EnemyAiTest, UnCombatIaContreIaSeTermineToujoursEtSeRejoue)</td></tr>
+<tr class="memdesc:a8b73141e0812afdafd0f050d81cd52ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un combat IA contre IA se termine toujours, et se rejoue a l'identique.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests unitaires de l'IA tactique (<span class="tt">LOT-23</span>) : la prise en tenaille du <em>Guide du Maître</em>, le jet requis et l'espérance de dégâts, les profils en données, ce que l'IA sait, le suicide, le blocage et le rejeu. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="aebd28491e7b90bc8723cc5595c134cb9" name="aebd28491e7b90bc8723cc5595c134cb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebd28491e7b90bc8723cc5595c134cb9">&#9670;&#160;</a></span>TEST() <span class="overload">[1/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EnemyAiTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LArchereChercheLaVue</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'archere cherche la case d'ou elle voit, tire, et n'attaque jamais a travers un mur. </p>
+<p><b>Cas de test :</b> <b>Une IA archere cachee de sa cible par un pilier se deplace jusqu'a une case qui la voit et tire ; elle n'essaie jamais un tir que la ligne de vue refuse.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Une archere en (5,3), un heros en (7,3) derriere un pilier en (6,3).<br  />
+2. Jouer son tour par l'IA.<br  />
+ <b>Resultat attendu :</b> Une attaque jetee au journal, sans refus d'abri total, depuis une case qui voit le heros. </p>
+
+</div>
+</div>
+<a id="a98457b4b2e1f53207a8dd63c20526b9b" name="a98457b4b2e1f53207a8dd63c20526b9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98457b4b2e1f53207a8dd63c20526b9b">&#9670;&#160;</a></span>TEST() <span class="overload">[2/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EnemyAiTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeJetRequisEtLEsperanceSuiventLeGuide</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le jet requis et l'esperance de degats suivent le Guide du Maitre. </p>
+<p><b>Cas de test :</b> <b>Le jet requis est la CA moins le bonus d'attaque ; la chance de toucher et l'esperance de degats en decoulent, en entiers.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. L'exemple du Guide : des orcs a +5 contre un guerrier a CA 19.<br  />
+2. La chance d'un jet requis de 14, normal, avec avantage, avec desavantage ; d'un jet requis de 1 et de 25.<br  />
+3. L'esperance d'un gobelin (+4, 1d6+2) contre CA 15, et contre CA 15 avec un seuil critique a 19. <b>Resultat attendu :</b> Jet requis 14 ; 140, 231 et 49 quatre-centiemes ; 380 et 20 ; 2340 huit-centiemes (0,5 x 5,5 + 0,05 x 3,5 = 2,925 points), puis 2480 avec le seuil a 19. </p>
+
+</div>
+</div>
+<a id="ac8a0ff87a6b80c975569063c86087bd6" name="ac8a0ff87a6b80c975569063c86087bd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8a0ff87a6b80c975569063c86087bd6">&#9670;&#160;</a></span>TEST() <span class="overload">[3/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EnemyAiTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeRepliVaALaCaseSureLaPlusProche</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le repli apres l'attaque va a la case sure la plus proche, pas au coin de la salle. </p>
+<p><b>Cas de test :</b> <b>Une archere prudente tire puis recule juste hors de portee du heros, vers la case la plus proche de lui.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Salle 20x8, heros de contact en (16,3), archere prudente en (10,3) a sept cases de portee : le heros atteint en un tour toute case de la colonne 9 et au-dela, et elle ne peut tirer que de la.<br  />
+2. Jouer le tour de l'archere.<br  />
+ <b>Resultat attendu :</b> Un tir au journal, puis un repli en colonne 8 : hors de portee, et au moins de deplacement. Avant la correction, a menace egale le plus petit indice l'emportait, et elle filait en colonne 4. </p>
+
+</div>
+</div>
+<a id="af376624402db300ebf08ed2f346d944f" name="af376624402db300ebf08ed2f346d944f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af376624402db300ebf08ed2f346d944f">&#9670;&#160;</a></span>TEST() <span class="overload">[4/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EnemyAiTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesProfilsSontDesDonnees</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les profils se chargent de la donnee et s'attribuent par regle. </p>
+<p><b>Cas de test :</b> <b>Les profils de comportement livres se chargent sans erreur, ne tolerent jamais trois menaces, et s'attribuent aux creatures par leurs regles.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger behaviors.json.<br  />
+2. Charger le bestiaire, lire le profil du loup (Tactique de groupe), du sanglier et du singe.<br  />
+3. Un sanglier synthetique qui tire plus fort qu'il ne mord.<br  />
+ <b>Resultat attendu :</b> Agressif, prudent, soutien, archer et meute ; aucun ne tolere plus de deux menaces ; le loup est « pack », le sanglier « aggressive », le singe, dont le rocher frappe plus fort que le poing, « archer », comme le tireur synthetique. </p>
+
+</div>
+</div>
+<a id="a4c97b99610bdf098fafb6f8f1bbc5a1f" name="a4c97b99610bdf098fafb6f8f1bbc5a1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c97b99610bdf098fafb6f8f1bbc5a1f">&#9670;&#160;</a></span>TEST() <span class="overload">[5/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EnemyAiTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LIaNeLitQueLEtatEnsanglante</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'IA lit l'etat ensanglante, jamais les points de vie (EX-CBT-050). </p>
+<p><b>Cas de test :</b> <b>Les points de vie d'un adversaire restent secrets : deux cibles qui ne different que par des points de vie au-dessus de la moitie sont indiscernables ; une cible ensanglantee est preferee.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Un gobelin agressif au contact de deux heros identiques, a 20/20 et 11/20.<br  />
+2. Planifier son tour.<br  />
+3. Le second passe a 9/20, planifier encore.<br  />
+ <b>Resultat attendu :</b> Meme score et premiere cible (le plus petit identifiant) tant que 11/20 n'est pas ensanglante ; a 9/20, il vise le second. </p>
+
+</div>
+</div>
+<a id="a59552bd44d58ebf7c5a922da461f3ab1" name="a59552bd44d58ebf7c5a922da461f3ab1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59552bd44d58ebf7c5a922da461f3ab1">&#9670;&#160;</a></span>TEST() <span class="overload">[6/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EnemyAiTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PasDeSuicideQuandUneCaseSureExiste</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'IA ne finit pas son tour a portee de trois ennemis quand une case sure existait. </p>
+<p><b>Cas de test :</b> <b>Aucun profil ne finit son tour a portee immediate de trois ennemis quand une case moins exposee etait atteignable.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Trois heros inoffensifs en (6,2), (6,4) et (7,3), le dernier ensanglante ; la case (6,3) les touche tous, et c'est la seule d'ou le gobelin prend le heros ensanglante en tenaille avec son complice en (8,3) : la plus rentable, et la seule dangereuse. D'autres cases frappent au plus deux heros.<br  />
+2. Pour chaque profil livre, jouer le tour du gobelin.<br  />
+ <b>Resultat attendu :</b> Le tour se termine sur une case a portee d'au plus deux heros, jamais en (6,3). <b>Reintroduit a la main</b>, un classement au seul score y envoie le gobelin. </p>
+
+</div>
+</div>
+<a id="a07fce2f224f31d6622388462cf1c85df" name="a07fce2f224f31d6622388462cf1c85df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07fce2f224f31d6622388462cf1c85df">&#9670;&#160;</a></span>TEST() <span class="overload">[7/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EnemyAiTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SansAttaquePossibleChaqueProfilAvance</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sans attaque possible, chaque profil avance : la menace ne le tient pas a distance. </p>
+<p><b>Cas de test :</b> <b>Dans une salle aux dimensions de l'arene, un ennemi de chaque profil qui ne peut pas encore frapper se rapproche a chaque tour, jusqu'a attaquer.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Salle 20x14, heros en (3,6) (+4, 1d8+2), ennemi de contact en (16,6) a treize cases, pour chacun des profils livres.<br  />
+2. Le heros passe son tour ; jouer l'ennemi par l'IA, jusqu'a six tours.<br  />
+ <b>Resultat attendu :</b> Tant qu'il n'a pas attaque, la distance au heros diminue strictement a chaque tour de l'ennemi ; il attaque au plus tard au troisieme. Avant la correction, un prudent s'arretait au bord de la zone de menace et reculait quand le heros avancait. </p>
+
+</div>
+</div>
+<a id="a5e542f86693e6d4820d8f273dd4e8b99" name="a5e542f86693e6d4820d8f273dd4e8b99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e542f86693e6d4820d8f273dd4e8b99">&#9670;&#160;</a></span>TEST() <span class="overload">[8/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EnemyAiTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SePrecipiterEtChoisirSesOpportunites</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loin de tout, l'IA se precipite ; la prudente refuse une opportunite trop difficile. </p>
+<p><b>Cas de test :</b> <b>Une IA qui ne peut attaquer se precipite vers l'ennemi le plus proche ; une IA prudente laisse passer une attaque d'opportunite dont le jet requis depasse son seuil, une agressive la prend.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Un gobelin agressif a quinze cases d'un heros ; jouer son tour.<br  />
+2. Un ogre au contact d'un heros a CA 20 (+4 : jet requis 16) ; le heros s'eloigne, l'ogre prudent puis agressif.<br  />
+ <b>Resultat attendu :</b> « precipitation » au journal et le gobelin a plus de six cases de son depart ; aucune opportunite prise par le prudent, une par l'agressif. </p>
+
+</div>
+</div>
+<a id="a8b73141e0812afdafd0f050d81cd52ff" name="a8b73141e0812afdafd0f050d81cd52ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b73141e0812afdafd0f050d81cd52ff">&#9670;&#160;</a></span>TEST() <span class="overload">[9/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EnemyAiTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnCombatIaContreIaSeTermineToujoursEtSeRejoue</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un combat IA contre IA se termine toujours, et se rejoue a l'identique. </p>
+<p><b>Cas de test :</b> <b>Sur des configurations generees &ndash; salles, piliers, compositions, profils, tireurs, tenaille ou non &ndash;, un combat joue par l'IA des deux cotes atteint son issue ; a graine fixee, deux parties donnent le meme journal.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Pour trente graines, generer une salle de 10 a 16 cases sur 8 a 10 avec des piliers, deux a quatre combattants par camp, chacun avec un profil livre, un tiers de tireurs, la tenaille une fois sur deux.<br  />
+2. Jouer par l'IA jusqu'a l'issue, avec une garde de 600 tours.<br  />
+3. Une graine sur trois, rejouer par <span class="tt">replay</span>.<br  />
+ <b>Resultat attendu :</b> Chaque combat a une issue avant la garde ; le rejeu donne le meme journal et le meme nombre de tours. </p>
+
+</div>
+</div>
+<a id="a5d1d931fe526424c96a2f28975eabf99" name="a5d1d931fe526424c96a2f28975eabf99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d1d931fe526424c96a2f28975eabf99">&#9670;&#160;</a></span>TEST() <span class="overload">[10/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EnemyAiTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnTireurNeComptePasDansLAntiSuicide</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un tireur ne compte pas dans la cle anti-suicide : sa portee couvre l'arene. </p>
+<p><b>Cas de test :</b> <b>Deux archers allies qui couvrent toute la salle n'empechent pas un prudent d'aller frapper le heros au contact.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Salle 12x8 : un heros de contact en (7,3), deux archers allies en (2,2) et (2,5) dont la portee couvre la salle, un gobelin prudent (tolere une menace) en (5,3).<br  />
+2. Planifier le tour du gobelin.<br  />
+ <b>Resultat attendu :</b> Une attaque contre le heros depuis une case au contact. Avant la correction, toute case etait a portee des deux archers, la case de contact en depassait le seuil, et le gobelin fuyait. </p>
+
+</div>
+</div>
+<a id="a54e658ed6c022932f813043bb7c69781" name="a54e658ed6c022932f813043bb7c69781"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54e658ed6c022932f813043bb7c69781">&#9670;&#160;</a></span>TEST() <span class="overload">[11/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">FlankingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaLigneDesCentresTranche</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La ligne des centres tranche la prise en tenaille (Guide du Maitre, chapitre 8). </p>
+<p><b>Cas de test :</b> <b>Deux allies prennent un ennemi en tenaille si la ligne entre leurs centres passe par deux cotes ou deux angles opposes de son emplacement, s'ils lui sont adjacents, debout, et le voient.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Un ennemi en (5,5) ; tester la geometrie de cotes opposes, d'angles opposes, d'une position en L et de deux cases du meme cote.<br  />
+2. Un ennemi de taille G en (5,5)-(6,6).<br  />
+3. Dans un combat : l'allie a terre, puis un mur entre l'allie et l'ennemi.<br  />
+ <b>Resultat attendu :</b> Opposes et angles opposes : oui ; L et meme cote : non ; la grande creature se prend en tenaille par ses cotes opposes ; un allie a terre ou qui ne voit pas l'ennemi ne compte pas. </p>
+
+</div>
+</div>
+<a id="a4ee09c20299ff1fdd88d758471db4b64" name="a4ee09c20299ff1fdd88d758471db4b64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ee09c20299ff1fdd88d758471db4b64">&#9670;&#160;</a></span>TEST() <span class="overload">[12/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">FlankingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaTenailleDonneLAvantageDansLArene</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La tenaille donne l'avantage au corps a corps, et seulement dans une arene qui la joue. </p>
+<p><b>Cas de test :</b> <b>Dans une arene a prise en tenaille, une attaque au corps a corps contre un ennemi pris en tenaille est jetee avec avantage, et le journal le dit ; ailleurs, non.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Deux allies de part et d'autre d'un ennemi, le premier joue.<br  />
+2. Il attaque, dans une arene avec tenaille puis sans.<br  />
+ <b>Resultat attendu :</b> Avantage et « prise en tenaille » au journal avec la regle ; posture normale sans. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_e4f77e6506ec5ae5855f8bd23358af3b.html">Combat</a></li><li class="navelem"><a href="test__enemy__ai_8cpp.html">test_enemy_ai.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

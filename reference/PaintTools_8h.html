@@ -1,0 +1,228 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/PaintTools.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('PaintTools_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">PaintTools.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Les outils du peintre : trait, rectangle, ligne, seau, pipette, miroir et mesure (<span class="tt">LOT-EDITOR-04</span>, <span class="tt">EX-EDIT-066</span>, <span class="tt">EX-EDIT-067</span>, <span class="tt">EX-EDIT-069</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="BrushGesture_8h_source.html">Editor/Logic/BrushGesture.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LayerView_8h_source.html">Editor/Logic/LayerView.h</a>&quot;</code><br />
+</div>
+<p><a href="PaintTools_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:hmi_3A_3AMirrorAxis" id="r_hmi_3A_3AMirrorAxis"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MirrorAxis.html">hmi::MirrorAxis</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'axe du miroir : la diagonale <span class="tt">colonne − ligne = <a class="el" href="structhmi_1_1MirrorAxis.html#abdc1e7a5ac5c4383eac8d5545f55b132">offset</a></span>, verticale à l'écran iso.  <a href="structhmi_1_1MirrorAxis.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AStrokeContext" id="r_hmi_3A_3AStrokeContext"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1StrokeContext.html">hmi::StrokeContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui accompagne un geste : le miroir s'il est actif, la table du lieu pour les types.  <a href="structhmi_1_1StrokeContext.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3APickedBrush" id="r_hmi_3A_3APickedBrush"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PickedBrush.html">hmi::PickedBrush</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la pipette a pris : le pinceau, et la couche où il a été lu.  <a href="structhmi_1_1PickedBrush.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AMeasure" id="r_hmi_3A_3AMeasure"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1Measure.html">hmi::Measure</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une mesure entre deux cases.  <a href="structhmi_1_1Measure.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
+<tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
+<tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a13d0948bf5c40088ff4dc6eb01fd319c" id="r_a13d0948bf5c40088ff4dc6eb01fd319c"><td class="memItemLeft"><a class="el" href="structhmi_1_1MirrorAxis.html">MirrorAxis</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a13d0948bf5c40088ff4dc6eb01fd319c">hmi::mirrorAxisThrough</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell) noexcept</td></tr>
+<tr class="memitem:ac0ae9e678bcf9c742436127d81b94b40" id="r_ac0ae9e678bcf9c742436127d81b94b40"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ac0ae9e678bcf9c742436127d81b94b40">hmi::mirrorCell</a> (const <a class="el" href="structhmi_1_1MirrorAxis.html">MirrorAxis</a> &amp;axis, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell) noexcept</td></tr>
+<tr class="memitem:aa976a1e8cdd376c6e1142fad5214e286" id="r_aa976a1e8cdd376c6e1142fad5214e286"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aa976a1e8cdd376c6e1142fad5214e286">hmi::mirrorPieceName</a> (const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> *manifest, std::string_view piece)</td></tr>
+<tr class="memitem:aad110f20f3c42237d01dfeb1093565a3" id="r_aad110f20f3c42237d01dfeb1093565a3"><td class="memItemLeft"><a class="el" href="structhmi_1_1CanvasBrush.html">CanvasBrush</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aad110f20f3c42237d01dfeb1093565a3">hmi::pieceBrush</a> (const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> *appearance, std::string piece, bool floor)</td></tr>
+<tr class="memdesc:aad110f20f3c42237d01dfeb1093565a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le pinceau d'une pièce choisie dans la palette : la pièce, le type qu'écrit sa case d'ancrage (<span class="tt"><a class="el" href="namespacehmi.html#a2959b61f0394085789d35563568aac2d" title="Le type qu&#39;écrit la case d&#39;ancrage d&#39;une pièce posée à la main (décision D3 : le type garde le sens d...">hmi::pieceCellType</a></span>), sa couche.  <br /></td></tr>
+<tr class="memitem:ac28181ffcc60f1a3a3d72a1d1d4001be" id="r_ac28181ffcc60f1a3a3d72a1d1d4001be"><td class="memItemLeft"><a class="el" href="structhmi_1_1BrushResult.html">BrushResult</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ac28181ffcc60f1a3a3d72a1d1d4001be">hmi::applyStroke</a> (<a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const <a class="el" href="structhmi_1_1CanvasBrush.html">CanvasBrush</a> &amp;brush, <a class="el" href="namespacehmi.html#ad45953c7acf96290259f1333570fda4d">LayerSlot</a> active, const <a class="el" href="classhmi_1_1LayerViewState.html">LayerViewState</a> &amp;view, const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &amp;cells, bool continuing, const <a class="el" href="structhmi_1_1StrokeContext.html">StrokeContext</a> &amp;context)</td></tr>
+<tr class="memdesc:ac28181ffcc60f1a3a3d72a1d1d4001be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne <code class="param">brush</code> sur chacune de <code class="param">cells</code>, dans l'ordre, en <b>un</b> geste, reflets compris.  <br /></td></tr>
+<tr class="memitem:a1a59e0da62704797c214af4c224f7e57" id="r_a1a59e0da62704797c214af4c224f7e57"><td class="memItemLeft"><a class="el" href="structhmi_1_1BrushResult.html">BrushResult</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a1a59e0da62704797c214af4c224f7e57">hmi::applyRectangleStroke</a> (<a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const <a class="el" href="structhmi_1_1CanvasBrush.html">CanvasBrush</a> &amp;brush, <a class="el" href="namespacehmi.html#ad45953c7acf96290259f1333570fda4d">LayerSlot</a> active, const <a class="el" href="classhmi_1_1LayerViewState.html">LayerViewState</a> &amp;view, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> first, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> last, const <a class="el" href="structhmi_1_1StrokeContext.html">StrokeContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a1a59e0da62704797c214af4c224f7e57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne <code class="param">brush</code> sur le rectangle [<code class="param">first</code>, <code class="param">last</code>], en un geste, reflet compris (le rectangle reflété, qui pave au pas de l'emprise de la jumelle).  <br /></td></tr>
+<tr class="memitem:af759d2b783c12c7eb6e871adc4e19867" id="r_af759d2b783c12c7eb6e871adc4e19867"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#af759d2b783c12c7eb6e871adc4e19867">hmi::lineCells</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> from, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> to)</td></tr>
+<tr class="memitem:aae27f1521d18b1d80a966d54a3f06cfd" id="r_aae27f1521d18b1d80a966d54a3f06cfd"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aae27f1521d18b1d80a966d54a3f06cfd">hmi::floodRegion</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, <a class="el" href="namespacehmi.html#ad45953c7acf96290259f1333570fda4d">LayerSlot</a> slot, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> seed)</td></tr>
+<tr class="memdesc:aae27f1521d18b1d80a966d54a3f06cfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">La région que le seau remplit : les cases reliées à <code class="param">seed</code> par un côté (quatre voisins) qui portent <b>le même contenu</b> que lui sur la couche <code class="param">slot</code>.  <br /></td></tr>
+<tr class="memitem:ac6dc704de039d583d2c57eaa2ab073b2" id="r_ac6dc704de039d583d2c57eaa2ab073b2"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ad45953c7acf96290259f1333570fda4d">LayerSlot</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ac6dc704de039d583d2c57eaa2ab073b2">hmi::brushTargetLayer</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const <a class="el" href="structhmi_1_1CanvasBrush.html">CanvasBrush</a> &amp;brush, <a class="el" href="namespacehmi.html#ad45953c7acf96290259f1333570fda4d">LayerSlot</a> active)</td></tr>
+<tr class="memitem:a1b4b5266d93f723f666ec5bfa2958dc8" id="r_a1b4b5266d93f723f666ec5bfa2958dc8"><td class="memItemLeft"><a class="el" href="structhmi_1_1BrushResult.html">BrushResult</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a1b4b5266d93f723f666ec5bfa2958dc8">hmi::applyBucket</a> (<a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const <a class="el" href="structhmi_1_1CanvasBrush.html">CanvasBrush</a> &amp;brush, <a class="el" href="namespacehmi.html#ad45953c7acf96290259f1333570fda4d">LayerSlot</a> active, const <a class="el" href="classhmi_1_1LayerViewState.html">LayerViewState</a> &amp;view, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> seed, const <a class="el" href="structhmi_1_1StrokeContext.html">StrokeContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a1b4b5266d93f723f666ec5bfa2958dc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplit au seau depuis <code class="param">seed</code>, en un geste, reflet compris.  <br /></td></tr>
+<tr class="memitem:ab96fa423fcd48543b29174b992e6f5c0" id="r_ab96fa423fcd48543b29174b992e6f5c0"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1PickedBrush.html">PickedBrush</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ab96fa423fcd48543b29174b992e6f5c0">hmi::pickBrush</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, <a class="el" href="namespacehmi.html#ad45953c7acf96290259f1333570fda4d">LayerSlot</a> active, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell, const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> *appearance)</td></tr>
+<tr class="memdesc:ab96fa423fcd48543b29174b992e6f5c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">La pipette : le pinceau qui repeindrait ce qu'on voit en <code class="param">cell</code>.  <br /></td></tr>
+<tr class="memitem:a9e8aa722715e4ca8b1c75806a71e7b56" id="r_a9e8aa722715e4ca8b1c75806a71e7b56"><td class="memItemLeft"><a class="el" href="structhmi_1_1Measure.html">Measure</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a9e8aa722715e4ca8b1c75806a71e7b56">hmi::measureBetween</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> from, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> to) noexcept</td></tr>
+<tr class="memitem:ad700de438e32b031575672ea56198aed" id="r_ad700de438e32b031575672ea56198aed"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ad700de438e32b031575672ea56198aed">hmi::measureLabel</a> (const <a class="el" href="structhmi_1_1Measure.html">Measure</a> &amp;measure)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:af5e60955bb4306a6795b8f4d69ab310b" id="r_af5e60955bb4306a6795b8f4d69ab310b"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#af5e60955bb4306a6795b8f4d69ab310b">hmi::FEET_PER_CELL</a> = 5</td></tr>
+<tr class="memdesc:af5e60955bb4306a6795b8f4d69ab310b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de pieds par case : la règle du Manuel des Joueurs (« Jouer sur un quadrillage »).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Les outils du peintre : trait, rectangle, ligne, seau, pipette, miroir et mesure (<span class="tt">LOT-EDITOR-04</span>, <span class="tt">EX-EDIT-066</span>, <span class="tt">EX-EDIT-067</span>, <span class="tt">EX-EDIT-069</span>). </p>
+<p>Chaque outil est une <b>fonction pure</b> : il calcule les cases qu'il touche (<span class="tt">lineCells</span>, <span class="tt">floodRegion</span>) ou ce qu'il lit (<span class="tt">pickBrush</span>, <span class="tt">measureBetween</span>), puis le geste passe par le pinceau du <span class="tt">LOT-EDITOR-03</span> (<span class="tt"><a class="el" href="namespacehmi.html#a4a19c9c3981d4b0c1ad65c34b55d2b82" title="Applique brush au rectangle [first, last] (bornes incluses, dans n&#39;importe quel ordre).">hmi::applyBrush</a></span>), case par case, <b>dans un seul geste du brouillon</b> (<span class="tt"><a class="el" href="classcore_1_1GestureScope.html" title="Un geste ouvert le temps d&#39;une portée (LevelDraft::beginGesture).">core::GestureScope</a></span>) : un geste se défait en un pas, quel que soit le nombre de cases. Le canevas les appelle à la souris ; l'éditeur sans fenêtre (<span class="tt">LOT-EDITOR-13</span>, <span class="tt"><a class="el" href="namespacehmi.html#ac51afb66cf0175a7664c655c56674293" title="Rejoue les gestes de script sur draft.">hmi::applyGestureScript</a></span>) les appelle telles quelles (règle 4 de la feuille de route).</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md69"></a>
+Le miroir</h2>
+<p>Le miroir reflète chaque geste de l'autre côté d'un <b>axe vertical de l'écran iso</b>. En cases, c'est la diagonale <span class="tt">colonne − ligne = k</span> : la case (c, r) a pour reflet (r + k, c − k), une emprise de c × r cases devient r × c. C'est le seul miroir que les planches connaissent : une pièce et sa <b>jumelle</b> (<span class="tt">mirrorOf</span> du manifeste, <span class="tt">wall-left</span> et <span class="tt">wall-right</span>, <span class="tt">front-left</span> 1 × 2 et <span class="tt">front-right</span> 2 × 1) sont l'image l'une de l'autre dans ce miroir-là. Le reflet pose la jumelle ; une pièce sans jumelle se pose telle quelle. Un geste qui <b>chevauche son reflet</b> — une case sur l'axe, une emprise ou un rectangle qui le traverse — ne se reflète pas : le reflet écraserait ce qu'on vient de poser. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li><li class="navelem"><a href="PaintTools_8h.html">PaintTools.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

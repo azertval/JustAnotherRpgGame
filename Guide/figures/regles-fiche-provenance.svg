@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="620" fill="#fbf8f0"/>
+  <defs>
+    <marker id="fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+    <marker id="fg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3f6b34"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="30" font-size="15" font-weight="600" fill="#25201a">D'où vient chaque nombre de la fiche de Brenna Vaugris (demi-elfe, brawler 3, cartographe)</text>
+  <text x="20" y="50" fill="#6a6152">Le fichier ne porte que des choix ; tout le reste est construit par la règle, depuis les catalogues.</text>
+
+  <!-- Colonne gauche : le fichier -->
+  <rect x="20" y="70" width="230" height="230" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="92" font-weight="600" fill="#25201a">Le fichier : des choix</text>
+  <text x="32" y="110" font-family="Consolas, monospace" font-size="11" fill="#6a6152">characters/demonstration-brenna.json</text>
+  <g font-family="Consolas, monospace" font-size="12" fill="#25201a">
+    <text x="32" y="134">speciesId    : demi-elfe</text>
+    <text x="32" y="152">classId      : brawler</text>
+    <text x="32" y="170">backgroundId : cartographer</text>
+    <text x="32" y="188">baseAbilities: FOR 15, DEX 13,</text>
+    <text x="32" y="206">  CON 14, INT 10, SAG 12, CHA 8</text>
+    <text x="32" y="224">level        : 3</text>
+    <text x="32" y="242">skills       : athletics,</text>
+    <text x="32" y="260">               perception</text>
+  </g>
+  <text x="32" y="288" font-size="12" fill="#8a2233">ni PV, ni CA, ni valeurs finales</text>
+
+  <!-- Colonne centre : les catalogues et règles -->
+  <rect x="290" y="70" width="290" height="60" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="302" y="90" font-weight="600" fill="#25201a">Espèce — species/demi-elfe.json</text>
+  <text x="302" y="108" font-size="12" fill="#25201a">vitesse 9 m · CHA +2 · langues : commun, elfique</text>
+  <text x="302" y="124" font-size="12" fill="#6a6152">taille medium · traits : du texte nommé, non joué</text>
+
+  <rect x="290" y="140" width="290" height="60" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="302" y="160" font-weight="600" fill="#25201a">Classe — classes/brawler.json</text>
+  <text x="302" y="178" font-size="12" fill="#25201a">dé de vie d12 · sauvegardes FOR, CON</text>
+  <text x="302" y="194" font-size="12" fill="#6a6152">progression : 20 lignes, bonus de maîtrise lu là</text>
+
+  <rect x="290" y="210" width="290" height="44" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="302" y="230" font-weight="600" fill="#25201a">Historique — backgrounds/cartographer.json</text>
+  <text x="302" y="248" font-size="12" fill="#25201a">maîtrises : histoire, survie · le fichier ajoute les siennes</text>
+
+  <rect x="290" y="264" width="290" height="60" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="302" y="284" font-weight="600" fill="#25201a">Règles — rules/*.json</text>
+  <text x="302" y="302" font-size="12" fill="#25201a">character-creation : CA sans armure 10, plafond 20</text>
+  <text x="302" y="318" font-size="12" fill="#25201a">experience : niveau 3 = 900 PX, maîtrise +2</text>
+
+  <!-- Flèches vers buildCharacterSheet -->
+  <g stroke="#6a6152" stroke-width="1.5" fill="none">
+    <path d="M250,185 L290,185"/>
+    <path d="M435,130 L435,140"/>
+    <path d="M435,200 L435,210"/>
+    <path d="M435,254 L435,264"/>
+    <path d="M435,324 L435,352" marker-end="url(#fl)"/>
+  </g>
+
+  <!-- buildCharacterSheet -->
+  <rect x="250" y="354" width="370" height="96" rx="8" fill="#fbf8f0" stroke="#9a7420" stroke-width="1.5"/>
+  <text x="262" y="376" font-weight="600" fill="#25201a">core::buildCharacterSheet puis core::gainExperience</text>
+  <g font-size="12" fill="#25201a">
+    <text x="262" y="396">CHA : min(8 + 2, 20) = 10 ; FOR 15 → +2, DEX 13 → +1, CON 14 → +2</text>
+    <text x="262" y="414">PV niveau 1 : 12 + 2 = 14 ; niveaux 2 et 3 : (12/2 + 1) + 2 = 9 chacun → 32</text>
+    <text x="262" y="432">CA sans armure : 10 + 1 = 11 · niveau 3 atteint par 900 PX, pas posé</text>
+  </g>
+
+  <!-- Colonne droite : l'équipement -->
+  <rect x="620" y="264" width="240" height="60" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="632" y="284" font-weight="600" fill="#25201a">Équipement porté (inventory)</text>
+  <text x="632" y="302" font-size="12" fill="#25201a">cuir clouté 12 + DEX · bouclier +2</text>
+  <text x="632" y="318" font-size="12" fill="#25201a">épée longue 1d8 tranchant</text>
+  <path d="M740,324 L740,470 L622,470" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#fl)"/>
+
+  <!-- derivedStatsFor -->
+  <rect x="250" y="462" width="370" height="40" rx="8" fill="#fbf8f0" stroke="#9a7420" stroke-width="1.5"/>
+  <text x="262" y="486" font-weight="600" fill="#25201a">core::derivedStatsFor : CA = 12 + 1 + 2 = 15, recalculée</text>
+  <path d="M435,450 L435,460" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#fl)"/>
+  <path d="M435,502 L435,528" stroke="#3f6b34" stroke-width="1.5" fill="none" marker-end="url(#fg)"/>
+
+  <!-- Ce que l'écran affiche -->
+  <rect x="20" y="530" width="840" height="76" rx="8" fill="#25201a"/>
+  <text x="32" y="552" font-weight="600" fill="#ece4d1">Ce que l'écran affiche (hmi::characterSheetValues)</text>
+  <g font-family="Consolas, monospace" font-size="12" fill="#fbf8f0">
+    <text x="32" y="574">FOR 15 +2 · DEX 13 +1 · CON 14 +2 · INT 10 +0 · SAG 12 +1 · CHA 10 +0 · PV 32/32 · CA 15 · vitesse 9 m</text>
+    <text x="32" y="594">maîtrise +2 · Perception passive 10 + 1 + 2 = 13 · Athlétisme +4 (2 + 2 •) · Survie +3 · PX 900 · sauvegarde FOR +4</text>
+  </g>
+
+  <!-- Aucune valeur dans le C++ -->
+  <text x="20" y="352" font-size="12" fill="#8a2233">Aucun de ces nombres</text>
+  <text x="20" y="368" font-size="12" fill="#8a2233">— 10, 20, d12, +2, 900 —</text>
+  <text x="20" y="384" font-size="12" fill="#8a2233">n'est écrit en C++ :</text>
+  <text x="20" y="400" font-size="12" font-family="Consolas, monospace" fill="#8a2233">EX-VIS-007, EX-RPG-001</text>
+</svg>

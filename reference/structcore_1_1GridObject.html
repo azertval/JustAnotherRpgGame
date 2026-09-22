@@ -1,0 +1,268 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::GridObject Struct Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('structcore_1_1GridObject.html','','structcore_1_1GridObject-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::GridObject Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Un objet posé sur une case : une toile, une barricade, un tonneau.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="BattleGrid_8h_source.html">BattleGrid.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ac1d0fd3e869d620628a54fe6672e9f29" id="r_ac1d0fd3e869d620628a54fe6672e9f29"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ac1d0fd3e869d620628a54fe6672e9f29">kind</a></td></tr>
+<tr class="memdesc:ac1d0fd3e869d620628a54fe6672e9f29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nature de l'objet, libre (<span class="tt">"web"</span>, <span class="tt">"barricade"</span>) — la grille ne l'interprète pas.  <br /></td></tr>
+<tr class="memitem:aff9938e4fc616d5538368b29681c999f" id="r_aff9938e4fc616d5538368b29681c999f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aff9938e4fc616d5538368b29681c999f">hitPoints</a> = 1</td></tr>
+<tr class="memitem:aeaf196e6d2db7cd9d6c0b969f70435d3" id="r_aeaf196e6d2db7cd9d6c0b969f70435d3"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aeaf196e6d2db7cd9d6c0b969f70435d3">blocksMovement</a> = true</td></tr>
+<tr class="memdesc:aeaf196e6d2db7cd9d6c0b969f70435d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si l'objet empêche d'entrer dans sa case, comme un mur tant qu'il tient debout.  <br /></td></tr>
+<tr class="memitem:af0cf7e487e9228b4b241b8863df67312" id="r_af0cf7e487e9228b4b241b8863df67312"><td class="memItemLeft"><a class="el" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999">Cover</a>&#160;</td><td class="memItemRight"><a class="el" href="#af0cf7e487e9228b4b241b8863df67312">cover</a> = <a class="el" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999a6adf97f83acf6453d4a6a4b1070f3754">Cover::None</a></td></tr>
+<tr class="memdesc:af0cf7e487e9228b4b241b8863df67312"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'abri que l'objet procure à ce qui se tient derrière (<span class="tt">LOT-22</span>).  <br /></td></tr>
+<tr class="memitem:aa9ee822b3ce5094e14190420ec96c281" id="r_aa9ee822b3ce5094e14190420ec96c281"><td class="memItemLeft"><a class="el" href="structcore_1_1DamageTraits.html">DamageTraits</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa9ee822b3ce5094e14190420ec96c281">damageTraits</a></td></tr>
+<tr class="memdesc:aa9ee822b3ce5094e14190420ec96c281"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les structures résistent comme les créatures : une porte de fer ne craint pas le poison (<span class="tt"><a class="el" href="classcore_1_1DamagePipeline.html#ab12d245fc394a994f925b869404b0334" title="Fait traverser des dégâts à une structure de la grille : les structures ont des PV,...">core::DamagePipeline::applyToStructure</a></span>, <span class="tt">LOT-21</span>).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Un objet posé sur une case : une toile, une barricade, un tonneau. </p>
+<p>Il a des <b>points de vie</b> parce que le corpus en donne (les toiles du Sourcebook : CA 10, 10 PV) et qu'un objet de grille se détruit ; il n'est pas une créature, et n'entre donc ni dans l'occupation ni dans l'ordre du tour. </p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="aeaf196e6d2db7cd9d6c0b969f70435d3" name="aeaf196e6d2db7cd9d6c0b969f70435d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaf196e6d2db7cd9d6c0b969f70435d3">&#9670;&#160;</a></span>blocksMovement</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::GridObject::blocksMovement = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrai si l'objet empêche d'entrer dans sa case, comme un mur tant qu'il tient debout. </p>
+<p>Faux pour une toile, qu'on traverse — c'est l'état qu'elle inflige qui gêne, pas sa présence. </p>
+
+</div>
+</div>
+<a id="af0cf7e487e9228b4b241b8863df67312" name="af0cf7e487e9228b4b241b8863df67312"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0cf7e487e9228b4b241b8863df67312">&#9670;&#160;</a></span>cover</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999">Cover</a> core::GridObject::cover = <a class="el" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999a6adf97f83acf6453d4a6a4b1070f3754">Cover::None</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'abri que l'objet procure à ce qui se tient derrière (<span class="tt">LOT-22</span>). </p>
+<p>Le Manuel nomme ses exemples : un muret ou un grand meuble abrite partiellement, une herse ou une meurtrière abrite de façon importante. Aucun ne se déduit de <span class="tt"><a class="el" href="#ac1d0fd3e869d620628a54fe6672e9f29" title="Nature de l&#39;objet, libre (&quot;web&quot;, &quot;barricade&quot;) — la grille ne l&#39;interprète pas.">kind</a></span>, que la grille n'interprète pas. Un objet à <span class="tt"><a class="el" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999a96b0141273eabab320119c467cdcaf17" title="Complètement dissimulée : ne peut pas être ciblée directement.">Cover::Total</a></span> arrête la vue comme un mur ; une toile n'abrite de rien. </p>
+
+</div>
+</div>
+<a id="aa9ee822b3ce5094e14190420ec96c281" name="aa9ee822b3ce5094e14190420ec96c281"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9ee822b3ce5094e14190420ec96c281">&#9670;&#160;</a></span>damageTraits</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1DamageTraits.html">DamageTraits</a> core::GridObject::damageTraits</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les structures résistent comme les créatures : une porte de fer ne craint pas le poison (<span class="tt"><a class="el" href="classcore_1_1DamagePipeline.html#ab12d245fc394a994f925b869404b0334" title="Fait traverser des dégâts à une structure de la grille : les structures ont des PV,...">core::DamagePipeline::applyToStructure</a></span>, <span class="tt">LOT-21</span>). </p>
+
+</div>
+</div>
+<a id="aff9938e4fc616d5538368b29681c999f" name="aff9938e4fc616d5538368b29681c999f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff9938e4fc616d5538368b29681c999f">&#9670;&#160;</a></span>hitPoints</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::GridObject::hitPoints = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac1d0fd3e869d620628a54fe6672e9f29" name="ac1d0fd3e869d620628a54fe6672e9f29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1d0fd3e869d620628a54fe6672e9f29">&#9670;&#160;</a></span>kind</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::GridObject::kind</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Nature de l'objet, libre (<span class="tt">"web"</span>, <span class="tt">"barricade"</span>) — la grille ne l'interprète pas. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/<a class="el" href="BattleGrid_8h_source.html">BattleGrid.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="structcore_1_1GridObject.html">GridObject</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Audio/AudioEngine.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('AudioEngine_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">AudioEngine.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="AudioEngine_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">class </span>QSoundEffect;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span></div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classhmi_1_1AudioEngine.html">   35</a></span><span class="keyword">class </span><a class="code hl_function" href="classhmi_1_1AudioEngine.html#a741ad4c0ebb1550b254f7b396a9c9555">AudioEngine</a> {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classhmi_1_1AudioEngine.html#ad69604c7755d74dc1d662c64c5a65d16">   40</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="classhmi_1_1AudioEngine.html#ad69604c7755d74dc1d662c64c5a65d16">ForceMuted</a> { <a class="code hl_enumvalue" href="classhmi_1_1AudioEngine.html#ad69604c7755d74dc1d662c64c5a65d16a93cba07454f06a4a960172bbd6e2a435">Yes</a> };</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a741ad4c0ebb1550b254f7b396a9c9555">AudioEngine</a>();</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a741ad4c0ebb1550b254f7b396a9c9555">AudioEngine</a>(<a class="code hl_enumeration" href="classhmi_1_1AudioEngine.html#ad69604c7755d74dc1d662c64c5a65d16">ForceMuted</a>);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classhmi_1_1AudioEngine.html#a6b79fc488cc970d1f48f72d449ef8395">   49</a></span>    <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a6b79fc488cc970d1f48f72d449ef8395">~AudioEngine</a>();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="classhmi_1_1AudioEngine.html#a0adb63a4c0fdc59165bcb6ff891c5787">   51</a></span>    <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a0adb63a4c0fdc59165bcb6ff891c5787">AudioEngine</a>(<span class="keyword">const</span> <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a741ad4c0ebb1550b254f7b396a9c9555">AudioEngine</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classhmi_1_1AudioEngine.html#abaf52ff029a65d02f935fae872fb535b">   52</a></span>    <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a741ad4c0ebb1550b254f7b396a9c9555">AudioEngine</a>&amp; <a class="code hl_function" href="classhmi_1_1AudioEngine.html#abaf52ff029a65d02f935fae872fb535b">operator=</a>(<span class="keyword">const</span> <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a741ad4c0ebb1550b254f7b396a9c9555">AudioEngine</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classhmi_1_1AudioEngine.html#a28f25a37730ce0b183b792b081e51ce8">   53</a></span>    <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a28f25a37730ce0b183b792b081e51ce8">AudioEngine</a>(<a class="code hl_function" href="classhmi_1_1AudioEngine.html#a741ad4c0ebb1550b254f7b396a9c9555">AudioEngine</a>&amp;&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classhmi_1_1AudioEngine.html#ac7f7bba509dc1bb2573ce02543a6bd56">   54</a></span>    <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a741ad4c0ebb1550b254f7b396a9c9555">AudioEngine</a>&amp; <a class="code hl_function" href="classhmi_1_1AudioEngine.html#ac7f7bba509dc1bb2573ce02543a6bd56">operator=</a>(<a class="code hl_function" href="classhmi_1_1AudioEngine.html#a741ad4c0ebb1550b254f7b396a9c9555">AudioEngine</a>&amp;&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
+<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="classhmi_1_1AudioEngine.html#a5a6bbf74aac123458634ed6676ba961a">   58</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a5a6bbf74aac123458634ed6676ba961a">muted</a>() const noexcept {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1AudioEngine.html#a00504495b7fe931f05279ca2cb7e6537">_muted</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a760aa76b7d251cf767c9a1a52210544e">setVolume</a>(<span class="keywordtype">float</span> <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a1b97d12d3392c7284e221b9ff30d83dc">volume</a>);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span></div>
+<div class="foldopen" id="foldopen00071" data-start="{" data-end="}">
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classhmi_1_1AudioEngine.html#a1b97d12d3392c7284e221b9ff30d83dc">   71</a></span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a1b97d12d3392c7284e221b9ff30d83dc">volume</a>() const noexcept {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1AudioEngine.html#aeb16d11944013f07a8fbe738774feb7b">_volume</a>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    }</div>
+</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a930bcb518d0819c6d8d357282c1aca30">preload</a>(<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::filesystem::path&amp; file);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1AudioEngine.html#a2ca67b9690ea7b3a6f9dc02ea09c1029">play</a>(<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="classhmi_1_1AudioEngine.html#aedefa2f82cb6d1a74cb0728400b5d7e6">  105</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> std::size_t <a class="code hl_variable" href="classhmi_1_1AudioEngine.html#aedefa2f82cb6d1a74cb0728400b5d7e6">MAX_INSTANCES_PER_EVENT</a> = 3;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="foldopen" id="foldopen00107" data-start="{" data-end="};">
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="structhmi_1_1AudioEngine_1_1Sample.html">  107</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1AudioEngine_1_1Sample.html">Sample</a> {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="structhmi_1_1AudioEngine_1_1Sample.html#ab37159d7a242ef750ae7d8a8c07d9bab">  108</a></span>        std::vector&lt;std::unique_ptr&lt;QSoundEffect&gt;&gt; <a class="code hl_variable" href="structhmi_1_1AudioEngine_1_1Sample.html#ab37159d7a242ef750ae7d8a8c07d9bab">instances</a>;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="structhmi_1_1AudioEngine_1_1Sample.html#ad84aae5e0baeb4763c0fd52d43f119f6">  109</a></span>        std::size_t <a class="code hl_variable" href="structhmi_1_1AudioEngine_1_1Sample.html#ad84aae5e0baeb4763c0fd52d43f119f6">nextInstance</a> = 0;  </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    };</div>
+</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="classhmi_1_1AudioEngine.html#afbf9f3c2b16d4cb8a0187c8c808d5f03">  112</a></span>    std::unordered_map&lt;std::string, Sample&gt; <a class="code hl_variable" href="classhmi_1_1AudioEngine.html#afbf9f3c2b16d4cb8a0187c8c808d5f03">_samples</a>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="classhmi_1_1AudioEngine.html#aeb16d11944013f07a8fbe738774feb7b">  113</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="classhmi_1_1AudioEngine.html#aeb16d11944013f07a8fbe738774feb7b">_volume</a> = 1.0f;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="classhmi_1_1AudioEngine.html#a00504495b7fe931f05279ca2cb7e6537">  114</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="classhmi_1_1AudioEngine.html#a00504495b7fe931f05279ca2cb7e6537">_muted</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>};</div>
+</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_a00504495b7fe931f05279ca2cb7e6537"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#a00504495b7fe931f05279ca2cb7e6537">hmi::AudioEngine::_muted</a></div><div class="ttdeci">bool _muted</div><div class="ttdef"><b>Definition</b> AudioEngine.h:114</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_a0adb63a4c0fdc59165bcb6ff891c5787"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#a0adb63a4c0fdc59165bcb6ff891c5787">hmi::AudioEngine::AudioEngine</a></div><div class="ttdeci">AudioEngine(const AudioEngine &amp;)=delete</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_a1b97d12d3392c7284e221b9ff30d83dc"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#a1b97d12d3392c7284e221b9ff30d83dc">hmi::AudioEngine::volume</a></div><div class="ttdeci">float volume() const noexcept</div><div class="ttdef"><b>Definition</b> AudioEngine.h:71</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_a28f25a37730ce0b183b792b081e51ce8"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#a28f25a37730ce0b183b792b081e51ce8">hmi::AudioEngine::AudioEngine</a></div><div class="ttdeci">AudioEngine(AudioEngine &amp;&amp;)=delete</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_a2ca67b9690ea7b3a6f9dc02ea09c1029"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#a2ca67b9690ea7b3a6f9dc02ea09c1029">hmi::AudioEngine::play</a></div><div class="ttdeci">void play(const std::string &amp;id)</div><div class="ttdoc">Joue l&#39;échantillon préchargé sous cet identifiant.</div><div class="ttdef"><b>Definition</b> AudioEngine.cpp:62</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_a5a6bbf74aac123458634ed6676ba961a"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#a5a6bbf74aac123458634ed6676ba961a">hmi::AudioEngine::muted</a></div><div class="ttdeci">bool muted() const noexcept</div><div class="ttdef"><b>Definition</b> AudioEngine.h:58</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_a6b79fc488cc970d1f48f72d449ef8395"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#a6b79fc488cc970d1f48f72d449ef8395">hmi::AudioEngine::~AudioEngine</a></div><div class="ttdeci">~AudioEngine()</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_a741ad4c0ebb1550b254f7b396a9c9555"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#a741ad4c0ebb1550b254f7b396a9c9555">hmi::AudioEngine::AudioEngine</a></div><div class="ttdeci">AudioEngine()</div><div class="ttdoc">Ouvre le périphérique de sortie par défaut.</div><div class="ttdef"><b>Definition</b> AudioEngine.cpp:23</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_a760aa76b7d251cf767c9a1a52210544e"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#a760aa76b7d251cf767c9a1a52210544e">hmi::AudioEngine::setVolume</a></div><div class="ttdeci">void setVolume(float volume)</div><div class="ttdoc">Règle le volume global, appliqué immédiatement à tous les échantillons préchargés.</div><div class="ttdef"><b>Definition</b> AudioEngine.cpp:37</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_a930bcb518d0819c6d8d357282c1aca30"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#a930bcb518d0819c6d8d357282c1aca30">hmi::AudioEngine::preload</a></div><div class="ttdeci">void preload(const std::string &amp;id, const std::filesystem::path &amp;file)</div><div class="ttdoc">Précharge un échantillon sous un identifiant logique.</div><div class="ttdef"><b>Definition</b> AudioEngine.cpp:46</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_abaf52ff029a65d02f935fae872fb535b"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#abaf52ff029a65d02f935fae872fb535b">hmi::AudioEngine::operator=</a></div><div class="ttdeci">AudioEngine &amp; operator=(const AudioEngine &amp;)=delete</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_ac7f7bba509dc1bb2573ce02543a6bd56"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#ac7f7bba509dc1bb2573ce02543a6bd56">hmi::AudioEngine::operator=</a></div><div class="ttdeci">AudioEngine &amp; operator=(AudioEngine &amp;&amp;)=delete</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_ad69604c7755d74dc1d662c64c5a65d16"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#ad69604c7755d74dc1d662c64c5a65d16">hmi::AudioEngine::ForceMuted</a></div><div class="ttdeci">ForceMuted</div><div class="ttdoc">Étiquette du constructeur qui force l&#39;état « muet », sans tenter d&#39;ouvrir de périphérique — réservé a...</div><div class="ttdef"><b>Definition</b> AudioEngine.h:40</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_ad69604c7755d74dc1d662c64c5a65d16a93cba07454f06a4a960172bbd6e2a435"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#ad69604c7755d74dc1d662c64c5a65d16a93cba07454f06a4a960172bbd6e2a435">hmi::AudioEngine::ForceMuted::Yes</a></div><div class="ttdeci">@ Yes</div><div class="ttdef"><b>Definition</b> AudioEngine.h:40</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_aeb16d11944013f07a8fbe738774feb7b"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#aeb16d11944013f07a8fbe738774feb7b">hmi::AudioEngine::_volume</a></div><div class="ttdeci">float _volume</div><div class="ttdef"><b>Definition</b> AudioEngine.h:113</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_aedefa2f82cb6d1a74cb0728400b5d7e6"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#aedefa2f82cb6d1a74cb0728400b5d7e6">hmi::AudioEngine::MAX_INSTANCES_PER_EVENT</a></div><div class="ttdeci">static constexpr std::size_t MAX_INSTANCES_PER_EVENT</div><div class="ttdoc">Nombre d&#39;instances préchargées par événement — plafonne le recouvrement audible d&#39;un même son déclenc...</div><div class="ttdef"><b>Definition</b> AudioEngine.h:105</div></div>
+<div class="ttc" id="aclasshmi_1_1AudioEngine_html_afbf9f3c2b16d4cb8a0187c8c808d5f03"><div class="ttname"><a href="classhmi_1_1AudioEngine.html#afbf9f3c2b16d4cb8a0187c8c808d5f03">hmi::AudioEngine::_samples</a></div><div class="ttdeci">std::unordered_map&lt; std::string, Sample &gt; _samples</div><div class="ttdef"><b>Definition</b> AudioEngine.h:112</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="astructhmi_1_1AudioEngine_1_1Sample_html"><div class="ttname"><a href="structhmi_1_1AudioEngine_1_1Sample.html">hmi::AudioEngine::Sample</a></div><div class="ttdef"><b>Definition</b> AudioEngine.h:107</div></div>
+<div class="ttc" id="astructhmi_1_1AudioEngine_1_1Sample_html_ab37159d7a242ef750ae7d8a8c07d9bab"><div class="ttname"><a href="structhmi_1_1AudioEngine_1_1Sample.html#ab37159d7a242ef750ae7d8a8c07d9bab">hmi::AudioEngine::Sample::instances</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; QSoundEffect &gt; &gt; instances</div><div class="ttdef"><b>Definition</b> AudioEngine.h:108</div></div>
+<div class="ttc" id="astructhmi_1_1AudioEngine_1_1Sample_html_ad84aae5e0baeb4763c0fd52d43f119f6"><div class="ttname"><a href="structhmi_1_1AudioEngine_1_1Sample.html#ad84aae5e0baeb4763c0fd52d43f119f6">hmi::AudioEngine::Sample::nextInstance</a></div><div class="ttdeci">std::size_t nextInstance</div><div class="ttdoc">Tourniquet : prochaine instance a reutiliser.</div><div class="ttdef"><b>Definition</b> AudioEngine.h:109</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_ffb0cced123a830bb38647d5fc6270a2.html">Audio</a></li><li class="navelem"><a href="AudioEngine_8h.html">AudioEngine.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

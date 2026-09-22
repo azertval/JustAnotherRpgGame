@@ -1,0 +1,424 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::AutosaveStore Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1AutosaveStore.html','','classhmi_1_1AutosaveStore-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::AutosaveStore Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Le dossier des brouillons sauvegardés automatiquement.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Autosave_8h_source.html">Autosave.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad52ba1c9f6a5050259817d3367d0f515" id="r_ad52ba1c9f6a5050259817d3367d0f515"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad52ba1c9f6a5050259817d3367d0f515">AutosaveStore</a> (std::filesystem::path <a class="el" href="#a44d57ca6d5b3338dd4bb5a388481c51f">directory</a>)</td></tr>
+<tr class="memitem:a44d57ca6d5b3338dd4bb5a388481c51f" id="r_a44d57ca6d5b3338dd4bb5a388481c51f"><td class="memItemLeft">const std::filesystem::path &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a44d57ca6d5b3338dd4bb5a388481c51f">directory</a> () const noexcept</td></tr>
+<tr class="memitem:af6464469377b06edd15ff02bc57eee10" id="r_af6464469377b06edd15ff02bc57eee10"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#af6464469377b06edd15ff02bc57eee10">pathFor</a> (std::string_view mapId) const</td></tr>
+<tr class="memitem:ab18fe0793c98cb9b55a013a5d5fe7a7a" id="r_ab18fe0793c98cb9b55a013a5d5fe7a7a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab18fe0793c98cb9b55a013a5d5fe7a7a">write</a> (const <a class="el" href="structhmi_1_1AutosaveRecord.html">AutosaveRecord</a> &amp;record) const</td></tr>
+<tr class="memdesc:ab18fe0793c98cb9b55a013a5d5fe7a7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit (ou remplace) le brouillon de <code class="param">record</code>.  <br /></td></tr>
+<tr class="memitem:af69a2d646d9801684227e467503f1f38" id="r_af69a2d646d9801684227e467503f1f38"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1AutosaveRecord.html">AutosaveRecord</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af69a2d646d9801684227e467503f1f38">pending</a> () const</td></tr>
+<tr class="memitem:a044675e972e37c9df99c7108a9111734" id="r_a044675e972e37c9df99c7108a9111734"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a044675e972e37c9df99c7108a9111734">discard</a> (std::string_view mapId) const</td></tr>
+<tr class="memdesc:a044675e972e37c9df99c7108a9111734"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire le brouillon de <code class="param">mapId</code>, s'il y en a un.  <br /></td></tr>
+<tr class="memitem:a8e11fda4abcaf70a6a42994c2ee1fe54" id="r_a8e11fda4abcaf70a6a42994c2ee1fe54"><td class="memItemLeft">std::optional&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8e11fda4abcaf70a6a42994c2ee1fe54">keepAside</a> (std::string_view mapId, std::string_view label, std::string_view stamp, std::string_view content) const</td></tr>
+<tr class="memdesc:a8e11fda4abcaf70a6a42994c2ee1fe54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met de côté une version d'une carte qu'un choix de l'auteur va écarter : le fichier changé sur disque qu'il garde de côté, ou le brouillon qu'il abandonne pour recharger.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aafbaa49783fa4847cff26ffde7bda489" id="r_aafbaa49783fa4847cff26ffde7bda489"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#aafbaa49783fa4847cff26ffde7bda489">_directory</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Le dossier des brouillons sauvegardés automatiquement. </p>
+<p>Chaque écriture passe par un fichier temporaire renommé ensuite : un plantage pendant l'écriture laisse l'ancien brouillon intact, jamais un fichier tronqué. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad52ba1c9f6a5050259817d3367d0f515" name="ad52ba1c9f6a5050259817d3367d0f515"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad52ba1c9f6a5050259817d3367d0f515">&#9670;&#160;</a></span>AutosaveStore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::AutosaveStore::AutosaveStore </td>
+          <td>(</td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>directory</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="#a44d57ca6d5b3338dd4bb5a388481c51f">directory</a></td><td>Dossier des fichiers de reprise ; créé à la première écriture. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a44d57ca6d5b3338dd4bb5a388481c51f" name="a44d57ca6d5b3338dd4bb5a388481c51f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44d57ca6d5b3338dd4bb5a388481c51f">&#9670;&#160;</a></span>directory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::filesystem::path &amp; hmi::AutosaveStore::directory </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a044675e972e37c9df99c7108a9111734" name="a044675e972e37c9df99c7108a9111734"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a044675e972e37c9df99c7108a9111734">&#9670;&#160;</a></span>discard()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AutosaveStore::discard </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire le brouillon de <code class="param">mapId</code>, s'il y en a un. </p>
+
+</div>
+</div>
+<a id="a8e11fda4abcaf70a6a42994c2ee1fe54" name="a8e11fda4abcaf70a6a42994c2ee1fe54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e11fda4abcaf70a6a42994c2ee1fe54">&#9670;&#160;</a></span>keepAside()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::filesystem::path &gt; hmi::AutosaveStore::keepAside </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>label</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>stamp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>content</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Met de côté une version d'une carte qu'un choix de l'auteur va écarter : le fichier changé sur disque qu'il garde de côté, ou le brouillon qu'il abandonne pour recharger. </p>
+<p>Rien n'est jamais perdu : la copie reste sous <span class="tt">conflicts/</span> jusqu'à ce que l'auteur la retire. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mapId</td><td>Carte concernée. </td></tr>
+    <tr><td class="paramname">label</td><td>Nature de la copie (<span class="tt">disk</span>, <span class="tt">draft</span>), dans le nom du fichier. </td></tr>
+    <tr><td class="paramname">stamp</td><td>Horodatage du nom (<span class="tt">20260918-142501</span>), fourni par l'appelant. </td></tr>
+    <tr><td class="paramname">content</td><td>Contenu à conserver. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le chemin écrit, ou <span class="tt">std::nullopt</span> en cas d'échec. </dd></dl>
+
+</div>
+</div>
+<a id="af6464469377b06edd15ff02bc57eee10" name="af6464469377b06edd15ff02bc57eee10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6464469377b06edd15ff02bc57eee10">&#9670;&#160;</a></span>pathFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::AutosaveStore::pathFor </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le fichier de reprise de <code class="param">mapId</code>. </dd></dl>
+
+</div>
+</div>
+<a id="af69a2d646d9801684227e467503f1f38" name="af69a2d646d9801684227e467503f1f38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af69a2d646d9801684227e467503f1f38">&#9670;&#160;</a></span>pending()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1AutosaveRecord.html">AutosaveRecord</a> &gt; hmi::AutosaveStore::pending </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les brouillons en attente de reprise, triés par identifiant de carte. Un fichier illisible est ignoré (et laissé en place). </dd></dl>
+
+</div>
+</div>
+<a id="ab18fe0793c98cb9b55a013a5d5fe7a7a" name="ab18fe0793c98cb9b55a013a5d5fe7a7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab18fe0793c98cb9b55a013a5d5fe7a7a">&#9670;&#160;</a></span>write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AutosaveStore::write </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1AutosaveRecord.html">AutosaveRecord</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>record</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écrit (ou remplace) le brouillon de <code class="param">record</code>. </p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si le fichier n'a pas pu être écrit ; l'ancien reste alors en place. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="aafbaa49783fa4847cff26ffde7bda489" name="aafbaa49783fa4847cff26ffde7bda489"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafbaa49783fa4847cff26ffde7bda489">&#9670;&#160;</a></span>_directory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::AutosaveStore::_directory</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/<a class="el" href="Autosave_8h_source.html">Autosave.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/<a class="el" href="Autosave_8cpp.html">Autosave.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1AutosaveStore.html">AutosaveStore</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

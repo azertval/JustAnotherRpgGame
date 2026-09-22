@@ -1,0 +1,285 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/test_area_of_effect.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__area__of__effect_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_area_of_effect.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests des zones d'effet (<span class="tt">LOT-22</span>) : gabarits figés par des cas de référence dessinés, origine incluse ou non selon la forme, lignes d'effet coupées par les murs.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="AreaOfEffect_8h_source.html">Core/Combat/AreaOfEffect.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="BattleGrid_8h_source.html">Core/Combat/BattleGrid.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CombatState_8h_source.html">Core/Combat/CombatState.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DeterministicRandom_8h_source.html">Core/Math/DeterministicRandom.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae5b2e0db236c0366caf9dc149a8b0d10" id="r_ae5b2e0db236c0366caf9dc149a8b0d10"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae5b2e0db236c0366caf9dc149a8b0d10">TEST</a> (AreaOfEffectTest, LesGabaritsCouvrentLesCasesDeReference)</td></tr>
+<tr class="memdesc:ae5b2e0db236c0366caf9dc149a8b0d10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les gabarits couvrent exactement les cases de référence.  <br /></td></tr>
+<tr class="memitem:ab5bf72cf47ef0405dc4fc7b8575a3f88" id="r_ab5bf72cf47ef0405dc4fc7b8575a3f88"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab5bf72cf47ef0405dc4fc7b8575a3f88">TEST</a> (AreaOfEffectTest, LOrigineEtLesTailles)</td></tr>
+<tr class="memdesc:ab5bf72cf47ef0405dc4fc7b8575a3f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'origine est incluse dans une sphère, pas dans un cône ; une zone sans direction est vide.  <br /></td></tr>
+<tr class="memitem:a236863e2277eb41f15e2a66843d97958" id="r_a236863e2277eb41f15e2a66843d97958"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a236863e2277eb41f15e2a66843d97958">TEST</a> (AreaOfEffectTest, UnMurArreteLEffet)</td></tr>
+<tr class="memdesc:a236863e2277eb41f15e2a66843d97958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un mur arrête l'effet ; les combattants d'une zone se comptent une fois.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests des zones d'effet (<span class="tt">LOT-22</span>) : gabarits figés par des cas de référence dessinés, origine incluse ou non selon la forme, lignes d'effet coupées par les murs. </p>
+<p>Chaque gabarit se compare à un <b>dessin</b> : <span class="tt">X</span> pour une case de la zone. Un dessin se relit contre la règle — « au moins la moitié de la case » — en un coup d'œil, là où une liste de coordonnées ne se relit pas. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ae5b2e0db236c0366caf9dc149a8b0d10" name="ae5b2e0db236c0366caf9dc149a8b0d10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5b2e0db236c0366caf9dc149a8b0d10">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">AreaOfEffectTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesGabaritsCouvrentLesCasesDeReference</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les gabarits couvrent exactement les cases de référence. </p>
+<p><b>Cas de test :</b> <b>Sphère, cylindre, cône, ligne et cube couvrent chacun les cases de leur dessin de référence : une case est dans la zone si la forme en couvre au moins la moitié.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Sphère de rayon 2 sur une intersection ; cylindre identique.<br  />
+2. Cône de 3 vers l'est depuis le milieu du bord d'une case.<br  />
+3. Ligne de 4 sur 1 vers l'est depuis le milieu d'un bord ; la même en diagonale depuis un coin.<br  />
+4. Cube d'arête 2 vers le nord depuis une intersection.<br  />
+ <b>Resultat attendu :</b> Chaque gabarit est identique à son dessin, case pour case. </p>
+
+</div>
+</div>
+<a id="ab5bf72cf47ef0405dc4fc7b8575a3f88" name="ab5bf72cf47ef0405dc4fc7b8575a3f88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5bf72cf47ef0405dc4fc7b8575a3f88">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">AreaOfEffectTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LOrigineEtLesTailles</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'origine est incluse dans une sphère, pas dans un cône ; une zone sans direction est vide. </p>
+<p><b>Cas de test :</b> <b>Une sphère posée au centre d'une case la contient ; un cône qui part du même centre n'en couvre qu'un huitième et ne la contient pas ; un cône sans direction ne couvre rien.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Sphère de rayon 1 au centre de la case (2, 2).<br  />
+2. Cône de 2 vers l'est depuis le même centre.<br  />
+3. Un cône dont la direction est son origine.<br  />
+4. Convertir 6 m, 4,50 m, 7,50 m et 1 m en cases.<br  />
+ <b>Resultat attendu :</b> (2, 2) dans la sphère ; (2, 2) hors du cône ; aucune case ; 4, 3, 5, et rien pour 1 m. </p>
+
+</div>
+</div>
+<a id="a236863e2277eb41f15e2a66843d97958" name="a236863e2277eb41f15e2a66843d97958"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a236863e2277eb41f15e2a66843d97958">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">AreaOfEffectTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnMurArreteLEffet</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un mur arrête l'effet ; les combattants d'une zone se comptent une fois. </p>
+<p><b>Cas de test :</b> <b>Une sphère posée derrière un mur n'atteint pas les cases qu'aucune ligne droite ne relie à son origine, ni le mur lui-même ; une créature de grande taille à moitié dans la zone y est, une fois.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Une grille 7 × 7 barrée d'un mur vertical sur cinq cases, en colonne 4.<br  />
+2. Une sphère de rayon 3 au centre de la case (3, 3), dont le gabarit déborde derrière le mur.<br  />
+3. Un gobelin derrière le mur, un ogre de taille G à cheval sur le bord de la zone, un allié dans la zone.<br  />
+ <b>Resultat attendu :</b> Le gabarit couvre les colonnes 1 à 5 ; la colonne 5, derrière le mur, et le mur lui-même en sortent ; l'allié et l'ogre sont touchés, une fois chacun ; le gobelin non. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_e4f77e6506ec5ae5855f8bd23358af3b.html">Combat</a></li><li class="navelem"><a href="test__area__of__effect_8cpp.html">test_area_of_effect.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

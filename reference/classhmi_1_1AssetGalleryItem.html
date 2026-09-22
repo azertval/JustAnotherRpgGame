@@ -1,0 +1,2667 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::AssetGalleryItem Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1AssetGalleryItem.html','','classhmi_1_1AssetGalleryItem-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::AssetGalleryItem Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Surface QRhi qui dispose tous les assets livrés en blocs (emprise + une case de marge), joue toutes leurs animations, et ne garde en mémoire que ce qui est à l'écran.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="AssetGalleryItem_8h_source.html">AssetGalleryItem.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for hmi::AssetGalleryItem:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classhmi_1_1AssetGalleryItem.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:ac0475b093f53cdcc741983daed1d1dd6" id="r_ac0475b093f53cdcc741983daed1d1dd6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac0475b093f53cdcc741983daed1d1dd6">viewChanged</a> ()</td></tr>
+<tr class="memitem:a1f81c4c61c0e28e0f07709eedfe032c6" id="r_a1f81c4c61c0e28e0f07709eedfe032c6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1f81c4c61c0e28e0f07709eedfe032c6">displayChanged</a> ()</td></tr>
+<tr class="memitem:a429b848c176f5eeab006df001dd1671c" id="r_a429b848c176f5eeab006df001dd1671c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a429b848c176f5eeab006df001dd1671c">playbackChanged</a> ()</td></tr>
+<tr class="memitem:acd2e1f07a276030636bd4afe57e1ee85" id="r_acd2e1f07a276030636bd4afe57e1ee85"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acd2e1f07a276030636bd4afe57e1ee85">selectionChanged</a> ()</td></tr>
+<tr class="memitem:a7aad04a96ca481a73fc733009f3e672d" id="r_a7aad04a96ca481a73fc733009f3e672d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7aad04a96ca481a73fc733009f3e672d">frameChanged</a> ()</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a6665f4a5719b8a88a15c66bfdd648099" id="r_a6665f4a5719b8a88a15c66bfdd648099"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6665f4a5719b8a88a15c66bfdd648099">AssetGalleryItem</a> (QQuickItem *parent=nullptr)</td></tr>
+<tr class="memitem:a76cf16fca07843b325b3938cefa0adab" id="r_a76cf16fca07843b325b3938cefa0adab"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a76cf16fca07843b325b3938cefa0adab">zoom</a> () const noexcept</td></tr>
+<tr class="memitem:ad146ad218d2f0b063491be6576cdb168" id="r_ad146ad218d2f0b063491be6576cdb168"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad146ad218d2f0b063491be6576cdb168">setZoom</a> (qreal <a class="el" href="#a6c4e4bbfa297175d7d999f8defc69a87">zoom</a>)</td></tr>
+<tr class="memitem:a6ae20012aa7b7457404f606e5057d393" id="r_a6ae20012aa7b7457404f606e5057d393"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a6ae20012aa7b7457404f606e5057d393">offsetX</a> () const noexcept</td></tr>
+<tr class="memitem:a29162c648f389c8f49e421622cc31fe4" id="r_a29162c648f389c8f49e421622cc31fe4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a29162c648f389c8f49e421622cc31fe4">setOffsetX</a> (qreal offset)</td></tr>
+<tr class="memitem:ae2ee52946fc84b999fc4eff368a700e8" id="r_ae2ee52946fc84b999fc4eff368a700e8"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#ae2ee52946fc84b999fc4eff368a700e8">offsetY</a> () const noexcept</td></tr>
+<tr class="memitem:a5a701934cca9aab4f202f2246c7315ea" id="r_a5a701934cca9aab4f202f2246c7315ea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5a701934cca9aab4f202f2246c7315ea">setOffsetY</a> (qreal offset)</td></tr>
+<tr class="memitem:ab1ac5eac49f42db53715636d630e95c3" id="r_ab1ac5eac49f42db53715636d630e95c3"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#ab1ac5eac49f42db53715636d630e95c3">cellSize</a> () const noexcept</td></tr>
+<tr class="memitem:a91d637d411b04c13247c4222cf5fe760" id="r_a91d637d411b04c13247c4222cf5fe760"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a91d637d411b04c13247c4222cf5fe760">showGrid</a> () const noexcept</td></tr>
+<tr class="memitem:a4ae4315ab0de1fa53f83209e9a0bcfad" id="r_a4ae4315ab0de1fa53f83209e9a0bcfad"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4ae4315ab0de1fa53f83209e9a0bcfad">setShowGrid</a> (bool show)</td></tr>
+<tr class="memitem:acb3eb2174fed3be58f3959a15514f586" id="r_acb3eb2174fed3be58f3959a15514f586"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#acb3eb2174fed3be58f3959a15514f586">showFootprint</a> () const noexcept</td></tr>
+<tr class="memitem:a11920476ba182cb8fb3ee197c20b5a3a" id="r_a11920476ba182cb8fb3ee197c20b5a3a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a11920476ba182cb8fb3ee197c20b5a3a">setShowFootprint</a> (bool show)</td></tr>
+<tr class="memitem:a40457d198c34f5f670544321af04c537" id="r_a40457d198c34f5f670544321af04c537"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a40457d198c34f5f670544321af04c537">playing</a> () const noexcept</td></tr>
+<tr class="memitem:a6ba9a461558440754e6b1ebfc8264956" id="r_a6ba9a461558440754e6b1ebfc8264956"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6ba9a461558440754e6b1ebfc8264956">setPlaying</a> (bool <a class="el" href="#ad3ffcb25e4dcf5b58392de1a64fdbff3">playing</a>)</td></tr>
+<tr class="memitem:ada527eb0dc7b18cbccdf5bc6363b202b" id="r_ada527eb0dc7b18cbccdf5bc6363b202b"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#ada527eb0dc7b18cbccdf5bc6363b202b">speed</a> () const noexcept</td></tr>
+<tr class="memitem:a4fbef1117bf0589f627e5d5002d1b64f" id="r_a4fbef1117bf0589f627e5d5002d1b64f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4fbef1117bf0589f627e5d5002d1b64f">setSpeed</a> (qreal <a class="el" href="#afdaf2c3d4043aca33b47d6fed1c84cea">speed</a>)</td></tr>
+<tr class="memitem:abc82ff19a0ba57f0cd21c0f7c4551c95" id="r_abc82ff19a0ba57f0cd21c0f7c4551c95"><td class="memItemLeft">QColor&#160;</td><td class="memItemRight"><a class="el" href="#abc82ff19a0ba57f0cd21c0f7c4551c95">clearColor</a> () const noexcept</td></tr>
+<tr class="memitem:a8b899909f9dfbf96cc0c5a8ef9640013" id="r_a8b899909f9dfbf96cc0c5a8ef9640013"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8b899909f9dfbf96cc0c5a8ef9640013">setClearColor</a> (const QColor &amp;color)</td></tr>
+<tr class="memitem:aaebf5096184937e6f2c6553dd2dbd686" id="r_aaebf5096184937e6f2c6553dd2dbd686"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aaebf5096184937e6f2c6553dd2dbd686">selectedIndex</a> () const noexcept</td></tr>
+<tr class="memitem:a00d991f2a61a938e9870c67fe686bee7" id="r_a00d991f2a61a938e9870c67fe686bee7"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#a00d991f2a61a938e9870c67fe686bee7">selected</a> () const</td></tr>
+<tr class="memitem:a2f4fa2214790fe419a7f6e984e70b8da" id="r_a2f4fa2214790fe419a7f6e984e70b8da"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a2f4fa2214790fe419a7f6e984e70b8da">selectedFrame</a> () const</td></tr>
+<tr class="memitem:a2ed5b079e2e2336edcfeb59bb2a26aff" id="r_a2ed5b079e2e2336edcfeb59bb2a26aff"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a2ed5b079e2e2336edcfeb59bb2a26aff">siblings</a> () const</td></tr>
+<tr class="memitem:a964ca55213abc25cf3952351578b7340" id="r_a964ca55213abc25cf3952351578b7340"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a964ca55213abc25cf3952351578b7340">blocCount</a> () const noexcept</td></tr>
+<tr class="memitem:a95a99c8bad7fa656d6747edaad1e5dcd" id="r_a95a99c8bad7fa656d6747edaad1e5dcd"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a95a99c8bad7fa656d6747edaad1e5dcd">drawnCount</a> () const noexcept</td></tr>
+<tr class="memitem:a1cbbb2252df7ab192836c9b4ce4dc0e1" id="r_a1cbbb2252df7ab192836c9b4ce4dc0e1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a1cbbb2252df7ab192836c9b4ce4dc0e1">preloadedCount</a> () const noexcept</td></tr>
+<tr class="memitem:a5b154a9408b34efe0b27bbd9439b9288" id="r_a5b154a9408b34efe0b27bbd9439b9288"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5b154a9408b34efe0b27bbd9439b9288">unloadedCount</a> () const noexcept</td></tr>
+<tr class="memitem:ab1b4d45b23e89df7b91c325db3470855" id="r_ab1b4d45b23e89df7b91c325db3470855"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#ab1b4d45b23e89df7b91c325db3470855">labels</a> () const</td></tr>
+<tr class="memitem:a2fd230475343a07c80de5248a32ed1da" id="r_a2fd230475343a07c80de5248a32ed1da"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a2fd230475343a07c80de5248a32ed1da">bands</a> () const</td></tr>
+<tr class="memitem:add2635685a18f11078a8a444f803c36b" id="r_add2635685a18f11078a8a444f803c36b"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#add2635685a18f11078a8a444f803c36b">minimap</a> () const</td></tr>
+<tr class="memitem:acd55d25ca0b439a480af91504dc9101b" id="r_acd55d25ca0b439a480af91504dc9101b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#acd55d25ca0b439a480af91504dc9101b">layoutColumns</a> () const noexcept</td></tr>
+<tr class="memitem:a6688634d77fe25431d07e989377a6970" id="r_a6688634d77fe25431d07e989377a6970"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a6688634d77fe25431d07e989377a6970">layoutRows</a> () const noexcept</td></tr>
+<tr class="memitem:a743976d8b8b3701206c6dcc40b1c586a" id="r_a743976d8b8b3701206c6dcc40b1c586a"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a743976d8b8b3701206c6dcc40b1c586a">viewColumn</a> () const noexcept</td></tr>
+<tr class="memitem:ab7e41b9f6ce00c0576121e96ae994e79" id="r_ab7e41b9f6ce00c0576121e96ae994e79"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#ab7e41b9f6ce00c0576121e96ae994e79">viewRow</a> () const noexcept</td></tr>
+<tr class="memitem:a34dc7f8bcb243593c5af3f720bd96e27" id="r_a34dc7f8bcb243593c5af3f720bd96e27"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a34dc7f8bcb243593c5af3f720bd96e27">viewColumns</a> () const noexcept</td></tr>
+<tr class="memitem:aba0a5746650fab5082cc04d4aa08cf84" id="r_aba0a5746650fab5082cc04d4aa08cf84"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#aba0a5746650fab5082cc04d4aa08cf84">viewRows</a> () const noexcept</td></tr>
+<tr class="memitem:ae0cde76613c192c547ba409422398ada" id="r_ae0cde76613c192c547ba409422398ada"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#ae0cde76613c192c547ba409422398ada">ringCells</a> () const noexcept</td></tr>
+<tr class="memitem:a869a4265115a598add20c352480ee2f5" id="r_a869a4265115a598add20c352480ee2f5"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a869a4265115a598add20c352480ee2f5">errors</a> () const</td></tr>
+<tr class="memitem:a5b3e8e247b94354231958718a162fbf0" id="r_a5b3e8e247b94354231958718a162fbf0"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a5b3e8e247b94354231958718a162fbf0">panBy</a> (qreal dx, qreal dy)</td></tr>
+<tr class="memdesc:a5b3e8e247b94354231958718a162fbf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplace la vue de (<code class="param">dx</code>, <code class="param">dy</code>) unités d'élément : le geste du clic maintenu.  <br /></td></tr>
+<tr class="memitem:aa0d902cf5d710ce9f90afe56e861ace0" id="r_aa0d902cf5d710ce9f90afe56e861ace0"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#aa0d902cf5d710ce9f90afe56e861ace0">zoomAt</a> (qreal <a class="el" href="#a6c4e4bbfa297175d7d999f8defc69a87">zoom</a>, qreal x, qreal y)</td></tr>
+<tr class="memdesc:aa0d902cf5d710ce9f90afe56e861ace0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change le zoom en gardant fixe le point (<code class="param">x</code>, <code class="param">y</code>) de l'élément.  <br /></td></tr>
+<tr class="memitem:afda41d9c9b55bec3c39edd24e34a0929" id="r_afda41d9c9b55bec3c39edd24e34a0929"><td class="memItemLeft">Q_INVOKABLE int&#160;</td><td class="memItemRight"><a class="el" href="#afda41d9c9b55bec3c39edd24e34a0929">blocAt</a> (qreal x, qreal y) const</td></tr>
+<tr class="memitem:a424fdc496031eaca0a739e1bf13a24dd" id="r_a424fdc496031eaca0a739e1bf13a24dd"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a424fdc496031eaca0a739e1bf13a24dd">select</a> (int index)</td></tr>
+<tr class="memdesc:a424fdc496031eaca0a739e1bf13a24dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélectionne le bloc <code class="param">index</code> (-1 : aucun).  <br /></td></tr>
+<tr class="memitem:a01680969a06c7b3d0d9c6c84852a0ca5" id="r_a01680969a06c7b3d0d9c6c84852a0ca5"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a01680969a06c7b3d0d9c6c84852a0ca5">centerOn</a> (int index)</td></tr>
+<tr class="memdesc:a01680969a06c7b3d0d9c6c84852a0ca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centre la vue sur le bloc <code class="param">index</code>.  <br /></td></tr>
+<tr class="memitem:a4f6928b2be9b91a1b1150b49c00361d3" id="r_a4f6928b2be9b91a1b1150b49c00361d3"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a4f6928b2be9b91a1b1150b49c00361d3">centerOnCell</a> (qreal column, qreal row)</td></tr>
+<tr class="memdesc:a4f6928b2be9b91a1b1150b49c00361d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centre la vue sur la case (<code class="param">column</code>, <code class="param">row</code>) : le clic sur la minicarte.  <br /></td></tr>
+<tr class="memitem:ac81bbf9b914a7d4f8aa1185018e1c6ab" id="r_ac81bbf9b914a7d4f8aa1185018e1c6ab"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#ac81bbf9b914a7d4f8aa1185018e1c6ab">showBand</a> (int band)</td></tr>
+<tr class="memdesc:ac81bbf9b914a7d4f8aa1185018e1c6ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Amène l'en-tête de la famille <code class="param">band</code> en haut à gauche de la vue.  <br /></td></tr>
+<tr class="memitem:a7477d7a69158097154a39a8d7f169b1e" id="r_a7477d7a69158097154a39a8d7f169b1e"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a7477d7a69158097154a39a8d7f169b1e">step</a> (int frames)</td></tr>
+<tr class="memdesc:a7477d7a69158097154a39a8d7f169b1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met en pause et avance de <code class="param">frames</code> images de la forme sélectionnée (négatif : recule).  <br /></td></tr>
+<tr class="memitem:a846fc6cb51286cd0d439c2674242b6cb" id="r_a846fc6cb51286cd0d439c2674242b6cb"><td class="memItemLeft"><a class="el" href="structhmi_1_1AssetGalleryFrame.html">AssetGalleryFrame</a>&#160;</td><td class="memItemRight"><a class="el" href="#a846fc6cb51286cd0d439c2674242b6cb">frameFor</a> (float pixelsPerItem) const</td></tr>
+<tr class="memitem:ad0c415618d090e1dd3cd1f68e86a8b3a" id="r_ad0c415618d090e1dd3cd1f68e86a8b3a"><td class="memItemLeft">QQuickRhiItemRenderer *&#160;</td><td class="memItemRight"><a class="el" href="#ad0c415618d090e1dd3cd1f68e86a8b3a">createRenderer</a> () override</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a6c4e4bbfa297175d7d999f8defc69a87" id="r_a6c4e4bbfa297175d7d999f8defc69a87"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a6c4e4bbfa297175d7d999f8defc69a87">zoom</a></td></tr>
+<tr class="memdesc:a6c4e4bbfa297175d7d999f8defc69a87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unités d'élément par pixel d'art.  <br /></td></tr>
+<tr class="memitem:a3f9286c75e5c886ecf730eca4026854a" id="r_a3f9286c75e5c886ecf730eca4026854a"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a3f9286c75e5c886ecf730eca4026854a">offsetX</a></td></tr>
+<tr class="memdesc:a3f9286c75e5c886ecf730eca4026854a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position, en unités d'élément, du coin haut-gauche de la galerie.  <br /></td></tr>
+<tr class="memitem:a18039e59167d4c1e316d806bca421526" id="r_a18039e59167d4c1e316d806bca421526"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a18039e59167d4c1e316d806bca421526">offsetY</a></td></tr>
+<tr class="memitem:a464a11b8fa6b070c0987eb82eb6f853f" id="r_a464a11b8fa6b070c0987eb82eb6f853f"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a464a11b8fa6b070c0987eb82eb6f853f">cellSize</a></td></tr>
+<tr class="memdesc:a464a11b8fa6b070c0987eb82eb6f853f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté d'une case, en unités d'élément.  <br /></td></tr>
+<tr class="memitem:aeedd794c88bac6ababcdc08ee700300f" id="r_aeedd794c88bac6ababcdc08ee700300f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aeedd794c88bac6ababcdc08ee700300f">showGrid</a></td></tr>
+<tr class="memitem:ad99428686b852ca35133fefdceed2d09" id="r_ad99428686b852ca35133fefdceed2d09"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad99428686b852ca35133fefdceed2d09">showFootprint</a></td></tr>
+<tr class="memitem:ad3ffcb25e4dcf5b58392de1a64fdbff3" id="r_ad3ffcb25e4dcf5b58392de1a64fdbff3"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad3ffcb25e4dcf5b58392de1a64fdbff3">playing</a></td></tr>
+<tr class="memitem:afdaf2c3d4043aca33b47d6fed1c84cea" id="r_afdaf2c3d4043aca33b47d6fed1c84cea"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#afdaf2c3d4043aca33b47d6fed1c84cea">speed</a></td></tr>
+<tr class="memitem:ada82be0aab4a7466f67cacd3970b894d" id="r_ada82be0aab4a7466f67cacd3970b894d"><td class="memItemLeft">QColor&#160;</td><td class="memItemRight"><a class="el" href="#ada82be0aab4a7466f67cacd3970b894d">clearColor</a></td></tr>
+<tr class="memitem:a672cdc7161a90c06a9ab9d7aad8aee1a" id="r_a672cdc7161a90c06a9ab9d7aad8aee1a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a672cdc7161a90c06a9ab9d7aad8aee1a">selectedIndex</a></td></tr>
+<tr class="memitem:a69474b4e70523d1fe4d4eb7269903ef8" id="r_a69474b4e70523d1fe4d4eb7269903ef8"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#a69474b4e70523d1fe4d4eb7269903ef8">selected</a></td></tr>
+<tr class="memdesc:a69474b4e70523d1fe4d4eb7269903ef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fiche de la forme sélectionnée ; vide sans sélection.  <br /></td></tr>
+<tr class="memitem:a01045f0589c42813ee8cfef5d33c831e" id="r_a01045f0589c42813ee8cfef5d33c831e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a01045f0589c42813ee8cfef5d33c831e">selectedFrame</a></td></tr>
+<tr class="memdesc:a01045f0589c42813ee8cfef5d33c831e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang de l'image jouée par la forme sélectionnée.  <br /></td></tr>
+<tr class="memitem:ab0f9694107e4b5f149707c19243bca7d" id="r_ab0f9694107e4b5f149707c19243bca7d"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#ab0f9694107e4b5f149707c19243bca7d">siblings</a></td></tr>
+<tr class="memdesc:ab0f9694107e4b5f149707c19243bca7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les autres formes du même modèle : <span class="tt">{index, form}</span>.  <br /></td></tr>
+<tr class="memitem:a68bd516aa7b6381f8ed8bfcc3753a40b" id="r_a68bd516aa7b6381f8ed8bfcc3753a40b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a68bd516aa7b6381f8ed8bfcc3753a40b">blocCount</a></td></tr>
+<tr class="memitem:a2d342376ac387f84bc0652e4b203b114" id="r_a2d342376ac387f84bc0652e4b203b114"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a2d342376ac387f84bc0652e4b203b114">drawnCount</a></td></tr>
+<tr class="memitem:ad6121a361c717729d451ba8ef74d1a13" id="r_ad6121a361c717729d451ba8ef74d1a13"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad6121a361c717729d451ba8ef74d1a13">preloadedCount</a></td></tr>
+<tr class="memitem:adde224a9503dbcc12e78b31c3b8b3d3d" id="r_adde224a9503dbcc12e78b31c3b8b3d3d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#adde224a9503dbcc12e78b31c3b8b3d3d">unloadedCount</a></td></tr>
+<tr class="memitem:afccad1530564c4e1408577022a5b8c97" id="r_afccad1530564c4e1408577022a5b8c97"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#afccad1530564c4e1408577022a5b8c97">labels</a></td></tr>
+<tr class="memdesc:afccad1530564c4e1408577022a5b8c97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les étiquettes des blocs dessinés : <span class="tt">{index, x, y, width, height, title, meta}</span>.  <br /></td></tr>
+<tr class="memitem:a1ff68ad5d10eb9172f87892c14824aad" id="r_a1ff68ad5d10eb9172f87892c14824aad"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a1ff68ad5d10eb9172f87892c14824aad">bands</a></td></tr>
+<tr class="memdesc:a1ff68ad5d10eb9172f87892c14824aad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les familles : <span class="tt">{title, directory, count, row}</span>.  <br /></td></tr>
+<tr class="memitem:a00b0fddc5151717666c2c0858f33c901" id="r_a00b0fddc5151717666c2c0858f33c901"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a00b0fddc5151717666c2c0858f33c901">minimap</a></td></tr>
+<tr class="memdesc:a00b0fddc5151717666c2c0858f33c901"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tous les blocs, en cases, pour la minicarte : <span class="tt">{column, row, columns, rows}</span>.  <br /></td></tr>
+<tr class="memitem:aa8dd9a9c599eb851be7923005ccc5707" id="r_aa8dd9a9c599eb851be7923005ccc5707"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa8dd9a9c599eb851be7923005ccc5707">layoutColumns</a></td></tr>
+<tr class="memitem:a00eef329e9020aa0efc163cf6038ec88" id="r_a00eef329e9020aa0efc163cf6038ec88"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a00eef329e9020aa0efc163cf6038ec88">layoutRows</a></td></tr>
+<tr class="memitem:aa9cb30842fe09968b7e4d953f365778c" id="r_aa9cb30842fe09968b7e4d953f365778c"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#aa9cb30842fe09968b7e4d953f365778c">viewColumn</a></td></tr>
+<tr class="memdesc:aa9cb30842fe09968b7e4d953f365778c"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vue, en cases.  <br /></td></tr>
+<tr class="memitem:a9c8fb5641ea6d471df593648b5633c96" id="r_a9c8fb5641ea6d471df593648b5633c96"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a9c8fb5641ea6d471df593648b5633c96">viewRow</a></td></tr>
+<tr class="memitem:a60d675e73d9bd282cf067b39a3242723" id="r_a60d675e73d9bd282cf067b39a3242723"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a60d675e73d9bd282cf067b39a3242723">viewColumns</a></td></tr>
+<tr class="memitem:a43b42d31f31390cbaf26c6275e5a6f36" id="r_a43b42d31f31390cbaf26c6275e5a6f36"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a43b42d31f31390cbaf26c6275e5a6f36">viewRows</a></td></tr>
+<tr class="memitem:a66876af8f07c6722d33a67a2d4909611" id="r_a66876af8f07c6722d33a67a2d4909611"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a66876af8f07c6722d33a67a2d4909611">ringCells</a></td></tr>
+<tr class="memitem:ac8ce77ee0aa7458f5fa6d9b3c6595e15" id="r_ac8ce77ee0aa7458f5fa6d9b3c6595e15"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#ac8ce77ee0aa7458f5fa6d9b3c6595e15">errors</a></td></tr>
+<tr class="memdesc:ac8ce77ee0aa7458f5fa6d9b3c6595e15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les manifestes illisibles, nommés.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a2f7a48ade1a8298ef93224a7e6b53203" id="r_a2f7a48ade1a8298ef93224a7e6b53203"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2f7a48ade1a8298ef93224a7e6b53203">refreshView</a> ()</td></tr>
+<tr class="memitem:aef4f8b10553ba3677461074fbd7e6196" id="r_aef4f8b10553ba3677461074fbd7e6196"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aef4f8b10553ba3677461074fbd7e6196">tick</a> ()</td></tr>
+<tr class="memitem:a05687ff5340c5da9602374b7e8e29a34" id="r_a05687ff5340c5da9602374b7e8e29a34"><td class="memItemLeft">const <a class="el" href="structhmi_1_1AssetGalleryEntry.html">AssetGalleryEntry</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a05687ff5340c5da9602374b7e8e29a34">entryOf</a> (const <a class="el" href="structhmi_1_1AssetGalleryBloc.html">AssetGalleryBloc</a> &amp;bloc) const</td></tr>
+<tr class="memitem:a2fe12f3449ceca06b18050e59bf8e059" id="r_a2fe12f3449ceca06b18050e59bf8e059"><td class="memItemLeft"><a class="el" href="structhmi_1_1AssetGalleryView.html">AssetGalleryView</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2fe12f3449ceca06b18050e59bf8e059">view</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ae66d8566fd1cb185c4b499095952d9f4" id="r_ae66d8566fd1cb185c4b499095952d9f4"><td class="memItemLeft"><a class="el" href="structhmi_1_1AssetGalleryCatalog.html">AssetGalleryCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae66d8566fd1cb185c4b499095952d9f4">_catalog</a></td></tr>
+<tr class="memitem:ac5b9f9f741db91fe78c940e27edb00be" id="r_ac5b9f9f741db91fe78c940e27edb00be"><td class="memItemLeft"><a class="el" href="structhmi_1_1AssetGalleryLayout.html">AssetGalleryLayout</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac5b9f9f741db91fe78c940e27edb00be">_layout</a></td></tr>
+<tr class="memitem:a4be75833d367af36f29055a4cf493fbd" id="r_a4be75833d367af36f29055a4cf493fbd"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a4be75833d367af36f29055a4cf493fbd">_errors</a></td></tr>
+<tr class="memitem:a4620250ec3b7865b03d2f16bb0addeaa" id="r_a4620250ec3b7865b03d2f16bb0addeaa"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a4620250ec3b7865b03d2f16bb0addeaa">_zoom</a> = 1.0</td></tr>
+<tr class="memitem:adf115ca3ba9c7f080cdf6c6c604c58a2" id="r_adf115ca3ba9c7f080cdf6c6c604c58a2"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#adf115ca3ba9c7f080cdf6c6c604c58a2">_offsetX</a> = 24.0</td></tr>
+<tr class="memitem:adf1502ba2230ad5be1f9fe7ed59cf805" id="r_adf1502ba2230ad5be1f9fe7ed59cf805"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#adf1502ba2230ad5be1f9fe7ed59cf805">_offsetY</a> = 16.0</td></tr>
+<tr class="memitem:a6025212f57a8adf2fb9a1794775349f4" id="r_a6025212f57a8adf2fb9a1794775349f4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6025212f57a8adf2fb9a1794775349f4">_showGrid</a> = true</td></tr>
+<tr class="memitem:abc3a5b21d02f77be69b23836f8fb6d8a" id="r_abc3a5b21d02f77be69b23836f8fb6d8a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abc3a5b21d02f77be69b23836f8fb6d8a">_showFootprint</a> = true</td></tr>
+<tr class="memitem:a5563c6147cb7b9a9d403255d18c83666" id="r_a5563c6147cb7b9a9d403255d18c83666"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5563c6147cb7b9a9d403255d18c83666">_playing</a> = true</td></tr>
+<tr class="memitem:a8f5af9b019467add00ceaacddc42a9f6" id="r_a8f5af9b019467add00ceaacddc42a9f6"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a8f5af9b019467add00ceaacddc42a9f6">_speed</a> = 1.0</td></tr>
+<tr class="memitem:a10e4d5dbc13ec768a60f820499b15874" id="r_a10e4d5dbc13ec768a60f820499b15874"><td class="memItemLeft">QColor&#160;</td><td class="memItemRight"><a class="el" href="#a10e4d5dbc13ec768a60f820499b15874">_clearColor</a> {0x0e, 0x0f, 0x12}</td></tr>
+<tr class="memitem:a98ef764fbb8d1488c7baf978a5bfbde4" id="r_a98ef764fbb8d1488c7baf978a5bfbde4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a98ef764fbb8d1488c7baf978a5bfbde4">_selectedIndex</a> = -1</td></tr>
+<tr class="memitem:a4f7da61a0a05106fa8995fb0f828fdbe" id="r_a4f7da61a0a05106fa8995fb0f828fdbe"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a4f7da61a0a05106fa8995fb0f828fdbe">_seconds</a> = 0.0</td></tr>
+<tr class="memitem:a627bc78a5826a9bd94f85cb73813db4c" id="r_a627bc78a5826a9bd94f85cb73813db4c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a627bc78a5826a9bd94f85cb73813db4c">_drawnCount</a> = 0</td></tr>
+<tr class="memitem:ac4f8d6cb95d5385b1906219cf22a938a" id="r_ac4f8d6cb95d5385b1906219cf22a938a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac4f8d6cb95d5385b1906219cf22a938a">_preloadedCount</a> = 0</td></tr>
+<tr class="memitem:a5645e6ba056bf1184105b484d966c483" id="r_a5645e6ba056bf1184105b484d966c483"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a5645e6ba056bf1184105b484d966c483">_labels</a></td></tr>
+<tr class="memitem:a0cace42066c5d3f1b374c248e7ffff48" id="r_a0cace42066c5d3f1b374c248e7ffff48"><td class="memItemLeft">QTimer&#160;</td><td class="memItemRight"><a class="el" href="#a0cace42066c5d3f1b374c248e7ffff48">_clock</a></td></tr>
+<tr class="memitem:a37b01dc38e1521c3cf261709e47bcb9f" id="r_a37b01dc38e1521c3cf261709e47bcb9f"><td class="memItemLeft">QElapsedTimer&#160;</td><td class="memItemRight"><a class="el" href="#a37b01dc38e1521c3cf261709e47bcb9f">_elapsed</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Surface QRhi qui dispose tous les assets livrés en blocs (emprise + une case de marge), joue toutes leurs animations, et ne garde en mémoire que ce qui est à l'écran. </p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md101"></a>
+Qui décide quoi</h2>
+<p>L'item, sur le fil graphique, tient la caméra (<span class="tt"><a class="el" href="#a6c4e4bbfa297175d7d999f8defc69a87" title="Unités d&#39;élément par pixel d&#39;art.">zoom</a></span>, <span class="tt"><a class="el" href="#a3f9286c75e5c886ecf730eca4026854a" title="Position, en unités d&#39;élément, du coin haut-gauche de la galerie.">offsetX</a></span>, <span class="tt"><a class="el" href="#a18039e59167d4c1e316d806bca421526">offsetY</a></span>), la disposition et l'horloge d'animation ; il classe chaque bloc (dessiné, préchargé, déchargé) et publie au QML ce que le calque d'étiquettes, la minicarte et l'inspecteur lisent. Le peintre, sur le fil de rendu, reçoit dans <span class="tt">synchronize()</span> une <span class="tt"><a class="el" href="structhmi_1_1AssetGalleryFrame.html" title="Ce que le fil graphique remet au rendu pour une image : des valeurs.">hmi::AssetGalleryFrame</a></span> <b>en valeurs</b> et relaie <span class="tt"><a class="el" href="classhmi_1_1AssetGalleryRenderer.html" title="Dessine la galerie, et ne garde en mémoire que les textures voulues.">hmi::AssetGalleryRenderer</a></span>.</p>
+<p>Les positions publiées sont en unités d'élément : le calque QML tombe sur les blocs dessinés sans rien recalculer. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a6665f4a5719b8a88a15c66bfdd648099" name="a6665f4a5719b8a88a15c66bfdd648099"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6665f4a5719b8a88a15c66bfdd648099">&#9670;&#160;</a></span>AssetGalleryItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::AssetGalleryItem::AssetGalleryItem </td>
+          <td>(</td>
+          <td class="paramtype">QQuickItem *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a2fd230475343a07c80de5248a32ed1da" name="a2fd230475343a07c80de5248a32ed1da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fd230475343a07c80de5248a32ed1da">&#9670;&#160;</a></span>bands()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::AssetGalleryItem::bands </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afda41d9c9b55bec3c39edd24e34a0929" name="afda41d9c9b55bec3c39edd24e34a0929"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afda41d9c9b55bec3c39edd24e34a0929">&#9670;&#160;</a></span>blocAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::blocAt </td>
+          <td>(</td>
+          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'index du bloc sous le point (<code class="param">x</code>, <code class="param">y</code>), ou -1. </dd></dl>
+
+</div>
+</div>
+<a id="a964ca55213abc25cf3952351578b7340" name="a964ca55213abc25cf3952351578b7340"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a964ca55213abc25cf3952351578b7340">&#9670;&#160;</a></span>blocCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::blocCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab1ac5eac49f42db53715636d630e95c3" name="ab1ac5eac49f42db53715636d630e95c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1ac5eac49f42db53715636d630e95c3">&#9670;&#160;</a></span>cellSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::cellSize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a01680969a06c7b3d0d9c6c84852a0ca5" name="a01680969a06c7b3d0d9c6c84852a0ca5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01680969a06c7b3d0d9c6c84852a0ca5">&#9670;&#160;</a></span>centerOn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::centerOn </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Centre la vue sur le bloc <code class="param">index</code>. </p>
+
+</div>
+</div>
+<a id="a4f6928b2be9b91a1b1150b49c00361d3" name="a4f6928b2be9b91a1b1150b49c00361d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f6928b2be9b91a1b1150b49c00361d3">&#9670;&#160;</a></span>centerOnCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::centerOnCell </td>
+          <td>(</td>
+          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>column</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>row</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Centre la vue sur la case (<code class="param">column</code>, <code class="param">row</code>) : le clic sur la minicarte. </p>
+
+</div>
+</div>
+<a id="abc82ff19a0ba57f0cd21c0f7c4551c95" name="abc82ff19a0ba57f0cd21c0f7c4551c95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc82ff19a0ba57f0cd21c0f7c4551c95">&#9670;&#160;</a></span>clearColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QColor hmi::AssetGalleryItem::clearColor </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad0c415618d090e1dd3cd1f68e86a8b3a" name="ad0c415618d090e1dd3cd1f68e86a8b3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0c415618d090e1dd3cd1f68e86a8b3a">&#9670;&#160;</a></span>createRenderer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QQuickRhiItemRenderer * hmi::AssetGalleryItem::createRenderer </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel override">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1f81c4c61c0e28e0f07709eedfe032c6" name="a1f81c4c61c0e28e0f07709eedfe032c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f81c4c61c0e28e0f07709eedfe032c6">&#9670;&#160;</a></span>displayChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::displayChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a95a99c8bad7fa656d6747edaad1e5dcd" name="a95a99c8bad7fa656d6747edaad1e5dcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95a99c8bad7fa656d6747edaad1e5dcd">&#9670;&#160;</a></span>drawnCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::drawnCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a05687ff5340c5da9602374b7e8e29a34" name="a05687ff5340c5da9602374b7e8e29a34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05687ff5340c5da9602374b7e8e29a34">&#9670;&#160;</a></span>entryOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1AssetGalleryEntry.html">AssetGalleryEntry</a> &amp; hmi::AssetGalleryItem::entryOf </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1AssetGalleryBloc.html">AssetGalleryBloc</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>bloc</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a869a4265115a598add20c352480ee2f5" name="a869a4265115a598add20c352480ee2f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a869a4265115a598add20c352480ee2f5">&#9670;&#160;</a></span>errors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::AssetGalleryItem::errors </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7aad04a96ca481a73fc733009f3e672d" name="a7aad04a96ca481a73fc733009f3e672d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7aad04a96ca481a73fc733009f3e672d">&#9670;&#160;</a></span>frameChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::frameChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a846fc6cb51286cd0d439c2674242b6cb" name="a846fc6cb51286cd0d439c2674242b6cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a846fc6cb51286cd0d439c2674242b6cb">&#9670;&#160;</a></span>frameFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1AssetGalleryFrame.html">AssetGalleryFrame</a> hmi::AssetGalleryItem::frameFor </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>pixelsPerItem</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'image à remettre au rendu, en pixels de la cible (<code class="param">pixelsPerItem</code> par unité). </dd></dl>
+
+</div>
+</div>
+<a id="ab1b4d45b23e89df7b91c325db3470855" name="ab1b4d45b23e89df7b91c325db3470855"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1b4d45b23e89df7b91c325db3470855">&#9670;&#160;</a></span>labels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::AssetGalleryItem::labels </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acd55d25ca0b439a480af91504dc9101b" name="acd55d25ca0b439a480af91504dc9101b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd55d25ca0b439a480af91504dc9101b">&#9670;&#160;</a></span>layoutColumns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::layoutColumns </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6688634d77fe25431d07e989377a6970" name="a6688634d77fe25431d07e989377a6970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6688634d77fe25431d07e989377a6970">&#9670;&#160;</a></span>layoutRows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::layoutRows </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="add2635685a18f11078a8a444f803c36b" name="add2635685a18f11078a8a444f803c36b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add2635685a18f11078a8a444f803c36b">&#9670;&#160;</a></span>minimap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::AssetGalleryItem::minimap </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6ae20012aa7b7457404f606e5057d393" name="a6ae20012aa7b7457404f606e5057d393"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ae20012aa7b7457404f606e5057d393">&#9670;&#160;</a></span>offsetX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::offsetX </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae2ee52946fc84b999fc4eff368a700e8" name="ae2ee52946fc84b999fc4eff368a700e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2ee52946fc84b999fc4eff368a700e8">&#9670;&#160;</a></span>offsetY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::offsetY </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5b3e8e247b94354231958718a162fbf0" name="a5b3e8e247b94354231958718a162fbf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b3e8e247b94354231958718a162fbf0">&#9670;&#160;</a></span>panBy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::panBy </td>
+          <td>(</td>
+          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>dx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>dy</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Déplace la vue de (<code class="param">dx</code>, <code class="param">dy</code>) unités d'élément : le geste du clic maintenu. </p>
+
+</div>
+</div>
+<a id="a429b848c176f5eeab006df001dd1671c" name="a429b848c176f5eeab006df001dd1671c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a429b848c176f5eeab006df001dd1671c">&#9670;&#160;</a></span>playbackChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::playbackChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a40457d198c34f5f670544321af04c537" name="a40457d198c34f5f670544321af04c537"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40457d198c34f5f670544321af04c537">&#9670;&#160;</a></span>playing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AssetGalleryItem::playing </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1cbbb2252df7ab192836c9b4ce4dc0e1" name="a1cbbb2252df7ab192836c9b4ce4dc0e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cbbb2252df7ab192836c9b4ce4dc0e1">&#9670;&#160;</a></span>preloadedCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::preloadedCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f7a48ade1a8298ef93224a7e6b53203" name="a2f7a48ade1a8298ef93224a7e6b53203"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f7a48ade1a8298ef93224a7e6b53203">&#9670;&#160;</a></span>refreshView()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::refreshView </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae0cde76613c192c547ba409422398ada" name="ae0cde76613c192c547ba409422398ada"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0cde76613c192c547ba409422398ada">&#9670;&#160;</a></span>ringCells()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::ringCells </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a424fdc496031eaca0a739e1bf13a24dd" name="a424fdc496031eaca0a739e1bf13a24dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a424fdc496031eaca0a739e1bf13a24dd">&#9670;&#160;</a></span>select()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::select </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sélectionne le bloc <code class="param">index</code> (-1 : aucun). </p>
+
+</div>
+</div>
+<a id="a00d991f2a61a938e9870c67fe686bee7" name="a00d991f2a61a938e9870c67fe686bee7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00d991f2a61a938e9870c67fe686bee7">&#9670;&#160;</a></span>selected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantMap hmi::AssetGalleryItem::selected </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f4fa2214790fe419a7f6e984e70b8da" name="a2f4fa2214790fe419a7f6e984e70b8da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f4fa2214790fe419a7f6e984e70b8da">&#9670;&#160;</a></span>selectedFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::selectedFrame </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaebf5096184937e6f2c6553dd2dbd686" name="aaebf5096184937e6f2c6553dd2dbd686"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaebf5096184937e6f2c6553dd2dbd686">&#9670;&#160;</a></span>selectedIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::selectedIndex </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acd2e1f07a276030636bd4afe57e1ee85" name="acd2e1f07a276030636bd4afe57e1ee85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd2e1f07a276030636bd4afe57e1ee85">&#9670;&#160;</a></span>selectionChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::selectionChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8b899909f9dfbf96cc0c5a8ef9640013" name="a8b899909f9dfbf96cc0c5a8ef9640013"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b899909f9dfbf96cc0c5a8ef9640013">&#9670;&#160;</a></span>setClearColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::setClearColor </td>
+          <td>(</td>
+          <td class="paramtype">const QColor &amp;</td>          <td class="paramname"><span class="paramname"><em>color</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a29162c648f389c8f49e421622cc31fe4" name="a29162c648f389c8f49e421622cc31fe4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29162c648f389c8f49e421622cc31fe4">&#9670;&#160;</a></span>setOffsetX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::setOffsetX </td>
+          <td>(</td>
+          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>offset</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5a701934cca9aab4f202f2246c7315ea" name="a5a701934cca9aab4f202f2246c7315ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a701934cca9aab4f202f2246c7315ea">&#9670;&#160;</a></span>setOffsetY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::setOffsetY </td>
+          <td>(</td>
+          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>offset</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6ba9a461558440754e6b1ebfc8264956" name="a6ba9a461558440754e6b1ebfc8264956"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ba9a461558440754e6b1ebfc8264956">&#9670;&#160;</a></span>setPlaying()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::setPlaying </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>playing</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a11920476ba182cb8fb3ee197c20b5a3a" name="a11920476ba182cb8fb3ee197c20b5a3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11920476ba182cb8fb3ee197c20b5a3a">&#9670;&#160;</a></span>setShowFootprint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::setShowFootprint </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>show</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4ae4315ab0de1fa53f83209e9a0bcfad" name="a4ae4315ab0de1fa53f83209e9a0bcfad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ae4315ab0de1fa53f83209e9a0bcfad">&#9670;&#160;</a></span>setShowGrid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::setShowGrid </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>show</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4fbef1117bf0589f627e5d5002d1b64f" name="a4fbef1117bf0589f627e5d5002d1b64f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fbef1117bf0589f627e5d5002d1b64f">&#9670;&#160;</a></span>setSpeed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::setSpeed </td>
+          <td>(</td>
+          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>speed</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad146ad218d2f0b063491be6576cdb168" name="ad146ad218d2f0b063491be6576cdb168"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad146ad218d2f0b063491be6576cdb168">&#9670;&#160;</a></span>setZoom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::setZoom </td>
+          <td>(</td>
+          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>zoom</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac81bbf9b914a7d4f8aa1185018e1c6ab" name="ac81bbf9b914a7d4f8aa1185018e1c6ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac81bbf9b914a7d4f8aa1185018e1c6ab">&#9670;&#160;</a></span>showBand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::showBand </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>band</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Amène l'en-tête de la famille <code class="param">band</code> en haut à gauche de la vue. </p>
+
+</div>
+</div>
+<a id="acb3eb2174fed3be58f3959a15514f586" name="acb3eb2174fed3be58f3959a15514f586"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb3eb2174fed3be58f3959a15514f586">&#9670;&#160;</a></span>showFootprint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AssetGalleryItem::showFootprint </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a91d637d411b04c13247c4222cf5fe760" name="a91d637d411b04c13247c4222cf5fe760"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91d637d411b04c13247c4222cf5fe760">&#9670;&#160;</a></span>showGrid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AssetGalleryItem::showGrid </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2ed5b079e2e2336edcfeb59bb2a26aff" name="a2ed5b079e2e2336edcfeb59bb2a26aff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ed5b079e2e2336edcfeb59bb2a26aff">&#9670;&#160;</a></span>siblings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::AssetGalleryItem::siblings </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ada527eb0dc7b18cbccdf5bc6363b202b" name="ada527eb0dc7b18cbccdf5bc6363b202b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada527eb0dc7b18cbccdf5bc6363b202b">&#9670;&#160;</a></span>speed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::speed </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7477d7a69158097154a39a8d7f169b1e" name="a7477d7a69158097154a39a8d7f169b1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7477d7a69158097154a39a8d7f169b1e">&#9670;&#160;</a></span>step()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::step </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>frames</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Met en pause et avance de <code class="param">frames</code> images de la forme sélectionnée (négatif : recule). </p>
+
+</div>
+</div>
+<a id="aef4f8b10553ba3677461074fbd7e6196" name="aef4f8b10553ba3677461074fbd7e6196"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef4f8b10553ba3677461074fbd7e6196">&#9670;&#160;</a></span>tick()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::tick </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5b154a9408b34efe0b27bbd9439b9288" name="a5b154a9408b34efe0b27bbd9439b9288"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b154a9408b34efe0b27bbd9439b9288">&#9670;&#160;</a></span>unloadedCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::unloadedCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2fe12f3449ceca06b18050e59bf8e059" name="a2fe12f3449ceca06b18050e59bf8e059"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fe12f3449ceca06b18050e59bf8e059">&#9670;&#160;</a></span>view()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1AssetGalleryView.html">AssetGalleryView</a> hmi::AssetGalleryItem::view </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac0475b093f53cdcc741983daed1d1dd6" name="ac0475b093f53cdcc741983daed1d1dd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0475b093f53cdcc741983daed1d1dd6">&#9670;&#160;</a></span>viewChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::viewChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a743976d8b8b3701206c6dcc40b1c586a" name="a743976d8b8b3701206c6dcc40b1c586a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a743976d8b8b3701206c6dcc40b1c586a">&#9670;&#160;</a></span>viewColumn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::viewColumn </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a34dc7f8bcb243593c5af3f720bd96e27" name="a34dc7f8bcb243593c5af3f720bd96e27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34dc7f8bcb243593c5af3f720bd96e27">&#9670;&#160;</a></span>viewColumns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::viewColumns </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab7e41b9f6ce00c0576121e96ae994e79" name="ab7e41b9f6ce00c0576121e96ae994e79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7e41b9f6ce00c0576121e96ae994e79">&#9670;&#160;</a></span>viewRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::viewRow </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aba0a5746650fab5082cc04d4aa08cf84" name="aba0a5746650fab5082cc04d4aa08cf84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba0a5746650fab5082cc04d4aa08cf84">&#9670;&#160;</a></span>viewRows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::viewRows </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a76cf16fca07843b325b3938cefa0adab" name="a76cf16fca07843b325b3938cefa0adab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76cf16fca07843b325b3938cefa0adab">&#9670;&#160;</a></span>zoom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::zoom </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa0d902cf5d710ce9f90afe56e861ace0" name="aa0d902cf5d710ce9f90afe56e861ace0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0d902cf5d710ce9f90afe56e861ace0">&#9670;&#160;</a></span>zoomAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryItem::zoomAt </td>
+          <td>(</td>
+          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>zoom</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change le zoom en gardant fixe le point (<code class="param">x</code>, <code class="param">y</code>) de l'élément. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ae66d8566fd1cb185c4b499095952d9f4" name="ae66d8566fd1cb185c4b499095952d9f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae66d8566fd1cb185c4b499095952d9f4">&#9670;&#160;</a></span>_catalog</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1AssetGalleryCatalog.html">AssetGalleryCatalog</a> hmi::AssetGalleryItem::_catalog</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a10e4d5dbc13ec768a60f820499b15874" name="a10e4d5dbc13ec768a60f820499b15874"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10e4d5dbc13ec768a60f820499b15874">&#9670;&#160;</a></span>_clearColor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QColor hmi::AssetGalleryItem::_clearColor {0x0e, 0x0f, 0x12}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0cace42066c5d3f1b374c248e7ffff48" name="a0cace42066c5d3f1b374c248e7ffff48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cace42066c5d3f1b374c248e7ffff48">&#9670;&#160;</a></span>_clock</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QTimer hmi::AssetGalleryItem::_clock</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a627bc78a5826a9bd94f85cb73813db4c" name="a627bc78a5826a9bd94f85cb73813db4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a627bc78a5826a9bd94f85cb73813db4c">&#9670;&#160;</a></span>_drawnCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::_drawnCount = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a37b01dc38e1521c3cf261709e47bcb9f" name="a37b01dc38e1521c3cf261709e47bcb9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37b01dc38e1521c3cf261709e47bcb9f">&#9670;&#160;</a></span>_elapsed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QElapsedTimer hmi::AssetGalleryItem::_elapsed</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4be75833d367af36f29055a4cf493fbd" name="a4be75833d367af36f29055a4cf493fbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4be75833d367af36f29055a4cf493fbd">&#9670;&#160;</a></span>_errors</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::AssetGalleryItem::_errors</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5645e6ba056bf1184105b484d966c483" name="a5645e6ba056bf1184105b484d966c483"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5645e6ba056bf1184105b484d966c483">&#9670;&#160;</a></span>_labels</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::AssetGalleryItem::_labels</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac5b9f9f741db91fe78c940e27edb00be" name="ac5b9f9f741db91fe78c940e27edb00be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5b9f9f741db91fe78c940e27edb00be">&#9670;&#160;</a></span>_layout</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1AssetGalleryLayout.html">AssetGalleryLayout</a> hmi::AssetGalleryItem::_layout</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adf115ca3ba9c7f080cdf6c6c604c58a2" name="adf115ca3ba9c7f080cdf6c6c604c58a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf115ca3ba9c7f080cdf6c6c604c58a2">&#9670;&#160;</a></span>_offsetX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::_offsetX = 24.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adf1502ba2230ad5be1f9fe7ed59cf805" name="adf1502ba2230ad5be1f9fe7ed59cf805"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf1502ba2230ad5be1f9fe7ed59cf805">&#9670;&#160;</a></span>_offsetY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::_offsetY = 16.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5563c6147cb7b9a9d403255d18c83666" name="a5563c6147cb7b9a9d403255d18c83666"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5563c6147cb7b9a9d403255d18c83666">&#9670;&#160;</a></span>_playing</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AssetGalleryItem::_playing = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac4f8d6cb95d5385b1906219cf22a938a" name="ac4f8d6cb95d5385b1906219cf22a938a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4f8d6cb95d5385b1906219cf22a938a">&#9670;&#160;</a></span>_preloadedCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::_preloadedCount = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4f7da61a0a05106fa8995fb0f828fdbe" name="a4f7da61a0a05106fa8995fb0f828fdbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f7da61a0a05106fa8995fb0f828fdbe">&#9670;&#160;</a></span>_seconds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double hmi::AssetGalleryItem::_seconds = 0.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a98ef764fbb8d1488c7baf978a5bfbde4" name="a98ef764fbb8d1488c7baf978a5bfbde4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98ef764fbb8d1488c7baf978a5bfbde4">&#9670;&#160;</a></span>_selectedIndex</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::_selectedIndex = -1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abc3a5b21d02f77be69b23836f8fb6d8a" name="abc3a5b21d02f77be69b23836f8fb6d8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc3a5b21d02f77be69b23836f8fb6d8a">&#9670;&#160;</a></span>_showFootprint</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AssetGalleryItem::_showFootprint = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6025212f57a8adf2fb9a1794775349f4" name="a6025212f57a8adf2fb9a1794775349f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6025212f57a8adf2fb9a1794775349f4">&#9670;&#160;</a></span>_showGrid</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AssetGalleryItem::_showGrid = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8f5af9b019467add00ceaacddc42a9f6" name="a8f5af9b019467add00ceaacddc42a9f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f5af9b019467add00ceaacddc42a9f6">&#9670;&#160;</a></span>_speed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::_speed = 1.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4620250ec3b7865b03d2f16bb0addeaa" name="a4620250ec3b7865b03d2f16bb0addeaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4620250ec3b7865b03d2f16bb0addeaa">&#9670;&#160;</a></span>_zoom</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::_zoom = 1.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-property-members" id="doc-property-members"></a><h2 id="header-doc-property-members" class="groupheader">Property Documentation</h2>
+<a id="a1ff68ad5d10eb9172f87892c14824aad" name="a1ff68ad5d10eb9172f87892c14824aad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ff68ad5d10eb9172f87892c14824aad">&#9670;&#160;</a></span>bands</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::AssetGalleryItem::bands</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les familles : <span class="tt">{title, directory, count, row}</span>. </p>
+
+</div>
+</div>
+<a id="a68bd516aa7b6381f8ed8bfcc3753a40b" name="a68bd516aa7b6381f8ed8bfcc3753a40b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68bd516aa7b6381f8ed8bfcc3753a40b">&#9670;&#160;</a></span>blocCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::blocCount</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a464a11b8fa6b070c0987eb82eb6f853f" name="a464a11b8fa6b070c0987eb82eb6f853f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a464a11b8fa6b070c0987eb82eb6f853f">&#9670;&#160;</a></span>cellSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::cellSize</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Côté d'une case, en unités d'élément. </p>
+
+</div>
+</div>
+<a id="ada82be0aab4a7466f67cacd3970b894d" name="ada82be0aab4a7466f67cacd3970b894d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada82be0aab4a7466f67cacd3970b894d">&#9670;&#160;</a></span>clearColor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QColor hmi::AssetGalleryItem::clearColor</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2d342376ac387f84bc0652e4b203b114" name="a2d342376ac387f84bc0652e4b203b114"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d342376ac387f84bc0652e4b203b114">&#9670;&#160;</a></span>drawnCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::drawnCount</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac8ce77ee0aa7458f5fa6d9b3c6595e15" name="ac8ce77ee0aa7458f5fa6d9b3c6595e15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8ce77ee0aa7458f5fa6d9b3c6595e15">&#9670;&#160;</a></span>errors</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::AssetGalleryItem::errors</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les manifestes illisibles, nommés. </p>
+
+</div>
+</div>
+<a id="afccad1530564c4e1408577022a5b8c97" name="afccad1530564c4e1408577022a5b8c97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afccad1530564c4e1408577022a5b8c97">&#9670;&#160;</a></span>labels</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::AssetGalleryItem::labels</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les étiquettes des blocs dessinés : <span class="tt">{index, x, y, width, height, title, meta}</span>. </p>
+
+</div>
+</div>
+<a id="aa8dd9a9c599eb851be7923005ccc5707" name="aa8dd9a9c599eb851be7923005ccc5707"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8dd9a9c599eb851be7923005ccc5707">&#9670;&#160;</a></span>layoutColumns</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::layoutColumns</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a00eef329e9020aa0efc163cf6038ec88" name="a00eef329e9020aa0efc163cf6038ec88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00eef329e9020aa0efc163cf6038ec88">&#9670;&#160;</a></span>layoutRows</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::layoutRows</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a00b0fddc5151717666c2c0858f33c901" name="a00b0fddc5151717666c2c0858f33c901"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00b0fddc5151717666c2c0858f33c901">&#9670;&#160;</a></span>minimap</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::AssetGalleryItem::minimap</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tous les blocs, en cases, pour la minicarte : <span class="tt">{column, row, columns, rows}</span>. </p>
+
+</div>
+</div>
+<a id="a3f9286c75e5c886ecf730eca4026854a" name="a3f9286c75e5c886ecf730eca4026854a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f9286c75e5c886ecf730eca4026854a">&#9670;&#160;</a></span>offsetX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::offsetX</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Position, en unités d'élément, du coin haut-gauche de la galerie. </p>
+
+</div>
+</div>
+<a id="a18039e59167d4c1e316d806bca421526" name="a18039e59167d4c1e316d806bca421526"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18039e59167d4c1e316d806bca421526">&#9670;&#160;</a></span>offsetY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::offsetY</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad3ffcb25e4dcf5b58392de1a64fdbff3" name="ad3ffcb25e4dcf5b58392de1a64fdbff3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3ffcb25e4dcf5b58392de1a64fdbff3">&#9670;&#160;</a></span>playing</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AssetGalleryItem::playing</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad6121a361c717729d451ba8ef74d1a13" name="ad6121a361c717729d451ba8ef74d1a13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6121a361c717729d451ba8ef74d1a13">&#9670;&#160;</a></span>preloadedCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::preloadedCount</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a66876af8f07c6722d33a67a2d4909611" name="a66876af8f07c6722d33a67a2d4909611"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66876af8f07c6722d33a67a2d4909611">&#9670;&#160;</a></span>ringCells</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::ringCells</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a69474b4e70523d1fe4d4eb7269903ef8" name="a69474b4e70523d1fe4d4eb7269903ef8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69474b4e70523d1fe4d4eb7269903ef8">&#9670;&#160;</a></span>selected</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantMap hmi::AssetGalleryItem::selected</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fiche de la forme sélectionnée ; vide sans sélection. </p>
+
+</div>
+</div>
+<a id="a01045f0589c42813ee8cfef5d33c831e" name="a01045f0589c42813ee8cfef5d33c831e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01045f0589c42813ee8cfef5d33c831e">&#9670;&#160;</a></span>selectedFrame</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::selectedFrame</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rang de l'image jouée par la forme sélectionnée. </p>
+
+</div>
+</div>
+<a id="a672cdc7161a90c06a9ab9d7aad8aee1a" name="a672cdc7161a90c06a9ab9d7aad8aee1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a672cdc7161a90c06a9ab9d7aad8aee1a">&#9670;&#160;</a></span>selectedIndex</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::selectedIndex</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad99428686b852ca35133fefdceed2d09" name="ad99428686b852ca35133fefdceed2d09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad99428686b852ca35133fefdceed2d09">&#9670;&#160;</a></span>showFootprint</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AssetGalleryItem::showFootprint</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeedd794c88bac6ababcdc08ee700300f" name="aeedd794c88bac6ababcdc08ee700300f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeedd794c88bac6ababcdc08ee700300f">&#9670;&#160;</a></span>showGrid</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AssetGalleryItem::showGrid</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab0f9694107e4b5f149707c19243bca7d" name="ab0f9694107e4b5f149707c19243bca7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0f9694107e4b5f149707c19243bca7d">&#9670;&#160;</a></span>siblings</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::AssetGalleryItem::siblings</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les autres formes du même modèle : <span class="tt">{index, form}</span>. </p>
+
+</div>
+</div>
+<a id="afdaf2c3d4043aca33b47d6fed1c84cea" name="afdaf2c3d4043aca33b47d6fed1c84cea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdaf2c3d4043aca33b47d6fed1c84cea">&#9670;&#160;</a></span>speed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::speed</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adde224a9503dbcc12e78b31c3b8b3d3d" name="adde224a9503dbcc12e78b31c3b8b3d3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adde224a9503dbcc12e78b31c3b8b3d3d">&#9670;&#160;</a></span>unloadedCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AssetGalleryItem::unloadedCount</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa9cb30842fe09968b7e4d953f365778c" name="aa9cb30842fe09968b7e4d953f365778c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9cb30842fe09968b7e4d953f365778c">&#9670;&#160;</a></span>viewColumn</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::viewColumn</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La vue, en cases. </p>
+
+</div>
+</div>
+<a id="a60d675e73d9bd282cf067b39a3242723" name="a60d675e73d9bd282cf067b39a3242723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60d675e73d9bd282cf067b39a3242723">&#9670;&#160;</a></span>viewColumns</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::viewColumns</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9c8fb5641ea6d471df593648b5633c96" name="a9c8fb5641ea6d471df593648b5633c96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c8fb5641ea6d471df593648b5633c96">&#9670;&#160;</a></span>viewRow</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::viewRow</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a43b42d31f31390cbaf26c6275e5a6f36" name="a43b42d31f31390cbaf26c6275e5a6f36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43b42d31f31390cbaf26c6275e5a6f36">&#9670;&#160;</a></span>viewRows</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::viewRows</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6c4e4bbfa297175d7d999f8defc69a87" name="a6c4e4bbfa297175d7d999f8defc69a87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c4e4bbfa297175d7d999f8defc69a87">&#9670;&#160;</a></span>zoom</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::AssetGalleryItem::zoom</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Unités d'élément par pixel d'art. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="AssetGalleryItem_8h_source.html">AssetGalleryItem.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="AssetGalleryItem_8cpp.html">AssetGalleryItem.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1AssetGalleryItem.html">AssetGalleryItem</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

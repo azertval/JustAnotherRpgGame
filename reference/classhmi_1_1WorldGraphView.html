@@ -1,0 +1,990 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::WorldGraphView Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1WorldGraphView.html','','classhmi_1_1WorldGraphView-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::WorldGraphView Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Peint un <span class="tt"><a class="el" href="structcore_1_1WorldGraph.html" title="Les cartes et leurs portails.">core::WorldGraph</a></span> disposé par <span class="tt"><a class="el" href="namespacehmi.html#a05055b81b0f1c8241eeef2c9e9d3a588" title="Dispose graph : nœuds sur un cercle, fantômes et flèches regroupées.">hmi::layoutWorldGraph</a></span>.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="WorldGraphView_8h_source.html">WorldGraphView.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for hmi::WorldGraphView:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classhmi_1_1WorldGraphView.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:ac13b54b5a3c70cb00c8f168141aca8e8" id="r_ac13b54b5a3c70cb00c8f168141aca8e8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac13b54b5a3c70cb00c8f168141aca8e8">levelOpenRequested</a> (const QString &amp;path)</td></tr>
+<tr class="memdesc:ac13b54b5a3c70cb00c8f168141aca8e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis au double-clic sur une carte lisible (chemin absolu du fichier).  <br /></td></tr>
+<tr class="memitem:a0be0a8292fa421e343f575297933aa23" id="r_a0be0a8292fa421e343f575297933aa23"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0be0a8292fa421e343f575297933aa23">linkRequested</a> (const QString &amp;fromMap, const QString &amp;toMap)</td></tr>
+<tr class="memdesc:a0be0a8292fa421e343f575297933aa23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand un lien est tiré d'une carte à une autre (<span class="tt">LOT-EDITOR-09</span>), par identifiants.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ab419ca0b48a7a9aed1eaf8451d140d4a" id="r_ab419ca0b48a7a9aed1eaf8451d140d4a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab419ca0b48a7a9aed1eaf8451d140d4a">WorldGraphView</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="memitem:a071f2c78c595498c2d697d89354557c9" id="r_a071f2c78c595498c2d697d89354557c9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a071f2c78c595498c2d697d89354557c9">setGraph</a> (<a class="el" href="structcore_1_1WorldGraph.html">core::WorldGraph</a> graph, std::filesystem::path levelsDir)</td></tr>
+<tr class="memdesc:a071f2c78c595498c2d697d89354557c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplace le graphe affiché ; <code class="param">levelsDir</code> sert à rebâtir le chemin d'une carte à ouvrir.  <br /></td></tr>
+<tr class="memitem:af52c4b259a16a7a6988ecfb7e8db6b87" id="r_af52c4b259a16a7a6988ecfb7e8db6b87"><td class="memItemLeft">const <a class="el" href="structhmi_1_1WorldGraphLayout.html">WorldGraphLayout</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af52c4b259a16a7a6988ecfb7e8db6b87">graphLayout</a> () const noexcept</td></tr>
+<tr class="memitem:aaf512f6d92a857b93fe6d876f0b70eee" id="r_aaf512f6d92a857b93fe6d876f0b70eee"><td class="memItemLeft">QSize&#160;</td><td class="memItemRight"><a class="el" href="#aaf512f6d92a857b93fe6d876f0b70eee">sizeHint</a> () const override</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a32aa0408b7bce015c35800fe770b6c15" id="r_a32aa0408b7bce015c35800fe770b6c15"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a32aa0408b7bce015c35800fe770b6c15">event</a> (QEvent *event) override</td></tr>
+<tr class="memitem:a14bf3f0d12b65db7f8f628d41a95a600" id="r_a14bf3f0d12b65db7f8f628d41a95a600"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a14bf3f0d12b65db7f8f628d41a95a600">paintEvent</a> (QPaintEvent *<a class="el" href="#a32aa0408b7bce015c35800fe770b6c15">event</a>) override</td></tr>
+<tr class="memitem:a73c563d0bdee1b2e28e4590ef89e31f8" id="r_a73c563d0bdee1b2e28e4590ef89e31f8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a73c563d0bdee1b2e28e4590ef89e31f8">mousePressEvent</a> (QMouseEvent *<a class="el" href="#a32aa0408b7bce015c35800fe770b6c15">event</a>) override</td></tr>
+<tr class="memitem:ac4fc383fbc9ca4d6cb9a5f6cd5afe47e" id="r_ac4fc383fbc9ca4d6cb9a5f6cd5afe47e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac4fc383fbc9ca4d6cb9a5f6cd5afe47e">mouseMoveEvent</a> (QMouseEvent *<a class="el" href="#a32aa0408b7bce015c35800fe770b6c15">event</a>) override</td></tr>
+<tr class="memitem:a5b1b2e0a9d9f348abca9a47f7bdc3159" id="r_a5b1b2e0a9d9f348abca9a47f7bdc3159"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5b1b2e0a9d9f348abca9a47f7bdc3159">mouseReleaseEvent</a> (QMouseEvent *<a class="el" href="#a32aa0408b7bce015c35800fe770b6c15">event</a>) override</td></tr>
+<tr class="memitem:a6caae3cd45d950cdc09614c1b2571e74" id="r_a6caae3cd45d950cdc09614c1b2571e74"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6caae3cd45d950cdc09614c1b2571e74">mouseDoubleClickEvent</a> (QMouseEvent *<a class="el" href="#a32aa0408b7bce015c35800fe770b6c15">event</a>) override</td></tr>
+<tr class="memitem:af619ffc04825f844525711d406f8e3c7" id="r_af619ffc04825f844525711d406f8e3c7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af619ffc04825f844525711d406f8e3c7">leaveEvent</a> (QEvent *<a class="el" href="#a32aa0408b7bce015c35800fe770b6c15">event</a>) override</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a99aef4a014f2c34637143869a6e542d6" id="r_a99aef4a014f2c34637143869a6e542d6"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a99aef4a014f2c34637143869a6e542d6">toLayout</a> (QPointF widgetPoint) const</td></tr>
+<tr class="memitem:a99e0337e4acb33a23f91876278c6dec2" id="r_a99e0337e4acb33a23f91876278c6dec2"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a99e0337e4acb33a23f91876278c6dec2">scale</a> () const</td></tr>
+<tr class="memitem:ae9dde0b588fc25d7c59a5bf65dd338fb" id="r_ae9dde0b588fc25d7c59a5bf65dd338fb"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae9dde0b588fc25d7c59a5bf65dd338fb">nodeLabel</a> (std::size_t node) const</td></tr>
+<tr class="memitem:a9f90d85faf73f76eeffa42a7cb169c6a" id="r_a9f90d85faf73f76eeffa42a7cb169c6a"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a9f90d85faf73f76eeffa42a7cb169c6a">nodeToolTip</a> (std::size_t node) const</td></tr>
+<tr class="memitem:af41396f73223cf49d642a449d14122ef" id="r_af41396f73223cf49d642a449d14122ef"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#af41396f73223cf49d642a449d14122ef">edgeToolTip</a> (std::size_t edge) const</td></tr>
+<tr class="memitem:a05c9cedc87c8f81677657b07739d7a31" id="r_a05c9cedc87c8f81677657b07739d7a31"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a05c9cedc87c8f81677657b07739d7a31">paintEdges</a> (QPainter &amp;painter) const</td></tr>
+<tr class="memitem:aa34a5dc4e17280de01b27e06ac5f5e21" id="r_aa34a5dc4e17280de01b27e06ac5f5e21"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa34a5dc4e17280de01b27e06ac5f5e21">paintNodes</a> (QPainter &amp;painter) const</td></tr>
+<tr class="memitem:a30f216375bc206190eec999704a771c6" id="r_a30f216375bc206190eec999704a771c6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a30f216375bc206190eec999704a771c6">paintLegend</a> (QPainter &amp;painter) const</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a935bdb05c29954b8a75110b36d0ffa67" id="r_a935bdb05c29954b8a75110b36d0ffa67"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#a935bdb05c29954b8a75110b36d0ffa67">statusText</a> (<a class="el" href="namespacecore.html#af11c258a9c6ef53d57b7f409006e48df">core::PortalLinkStatus</a> status)</td></tr>
+<tr class="memitem:a9d37c5fc2a07d3b9ccc4547ee17dfb97" id="r_a9d37c5fc2a07d3b9ccc4547ee17dfb97"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#a9d37c5fc2a07d3b9ccc4547ee17dfb97">nodeDetail</a> (const <a class="el" href="structhmi_1_1WorldGraphLayoutNode.html">WorldGraphLayoutNode</a> &amp;node)</td></tr>
+<tr class="memdesc:a9d37c5fc2a07d3b9ccc4547ee17dfb97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seconde ligne sous un nœud.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ab52350abc952eabccd47d5b4eeb882d2" id="r_ab52350abc952eabccd47d5b4eeb882d2"><td class="memItemLeft"><a class="el" href="structcore_1_1WorldGraph.html">core::WorldGraph</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab52350abc952eabccd47d5b4eeb882d2">_graph</a></td></tr>
+<tr class="memitem:a90c3e97b1b88ac595b6b42d4218049ed" id="r_a90c3e97b1b88ac595b6b42d4218049ed"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldGraphLayout.html">WorldGraphLayout</a>&#160;</td><td class="memItemRight"><a class="el" href="#a90c3e97b1b88ac595b6b42d4218049ed">_layout</a></td></tr>
+<tr class="memitem:ae1d1f82efb2ca7456b830e9edd4983f8" id="r_ae1d1f82efb2ca7456b830e9edd4983f8"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#ae1d1f82efb2ca7456b830e9edd4983f8">_dir</a></td></tr>
+<tr class="memitem:a15721eb44283d54fe4e88b56a9afc2b0" id="r_a15721eb44283d54fe4e88b56a9afc2b0"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a15721eb44283d54fe4e88b56a9afc2b0">_hoveredNode</a></td></tr>
+<tr class="memitem:adced865a8a4d54b8e0c6c80dd85e8b69" id="r_adced865a8a4d54b8e0c6c80dd85e8b69"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adced865a8a4d54b8e0c6c80dd85e8b69">_hoveredEdge</a></td></tr>
+<tr class="memitem:a71708049f16d60dccc975214b06f3913" id="r_a71708049f16d60dccc975214b06f3913"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a71708049f16d60dccc975214b06f3913">_linkFrom</a></td></tr>
+<tr class="memdesc:a71708049f16d60dccc975214b06f3913"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte d'où part le lien qu'on tire, et le point où le trait s'arrête.  <br /></td></tr>
+<tr class="memitem:a4caecf2b3bb4bc6c7058d473fb3fe036" id="r_a4caecf2b3bb4bc6c7058d473fb3fe036"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4caecf2b3bb4bc6c7058d473fb3fe036">_linkPoint</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Peint un <span class="tt"><a class="el" href="structcore_1_1WorldGraph.html" title="Les cartes et leurs portails.">core::WorldGraph</a></span> disposé par <span class="tt"><a class="el" href="namespacehmi.html#a05055b81b0f1c8241eeef2c9e9d3a588" title="Dispose graph : nœuds sur un cercle, fantômes et flèches regroupées.">hmi::layoutWorldGraph</a></span>. </p>
+<p><b>Tirer d'une carte à une autre crée le lien</b> (<span class="tt">LOT-EDITOR-09</span>, <span class="tt">EX-EDIT-089</span>) : la paire portail / point d'arrivée des deux côtés, par <span class="tt"><a class="el" href="namespacehmi.html#a64455acf952fc368012a3ad74e8da8d4" title="Plan du lien fromMap ↔ toMap : le portail et le point d&#39;arrivée des deux côtés.">hmi::planLinkMaps</a></span> ; la vue ne fait qu'émettre le geste, <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;éditeur (Qt Widgets, style Fusion, textes anglais).">hmi::MainWindow</a></span> montre le plan et l'écrit. Un fantôme ne se relie pas : sa carte n'existe pas.</p>
+<p>Une carte est un disque (nom et identifiant dessous) ; une carte illisible a un contour pointillé de la couleur d'erreur ; une carte absente (fantôme) n'est qu'un contour tireté atténué. Une flèche par paire ordonnée de cartes, tiretée en couleur d'erreur si un de ses portails est cassé, avec une pastille de compte quand elle en regroupe plusieurs. Survoler une carte ou une flèche en donne le détail en infobulle ; double-cliquer une carte lisible émet <span class="tt"><a class="el" href="#ac13b54b5a3c70cb00c8f168141aca8e8" title="Émis au double-clic sur une carte lisible (chemin absolu du fichier).">levelOpenRequested</a></span>, le même signal que la liste du navigateur.</p>
+<p>Les couleurs sont celles de la palette du widget (style Fusion), relues à chaque peinture : la vue suit une bascule de thème à chaud. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab419ca0b48a7a9aed1eaf8451d140d4a" name="ab419ca0b48a7a9aed1eaf8451d140d4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab419ca0b48a7a9aed1eaf8451d140d4a">&#9670;&#160;</a></span>WorldGraphView()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::WorldGraphView::WorldGraphView </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="af41396f73223cf49d642a449d14122ef" name="af41396f73223cf49d642a449d14122ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af41396f73223cf49d642a449d14122ef">&#9670;&#160;</a></span>edgeToolTip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldGraphView::edgeToolTip </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>edge</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a32aa0408b7bce015c35800fe770b6c15" name="a32aa0408b7bce015c35800fe770b6c15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32aa0408b7bce015c35800fe770b6c15">&#9670;&#160;</a></span>event()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldGraphView::event </td>
+          <td>(</td>
+          <td class="paramtype">QEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af52c4b259a16a7a6988ecfb7e8db6b87" name="af52c4b259a16a7a6988ecfb7e8db6b87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af52c4b259a16a7a6988ecfb7e8db6b87">&#9670;&#160;</a></span>graphLayout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1WorldGraphLayout.html">WorldGraphLayout</a> &amp; hmi::WorldGraphView::graphLayout </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La disposition peinte (pour les tests et le diagnostic). </dd></dl>
+
+</div>
+</div>
+<a id="af619ffc04825f844525711d406f8e3c7" name="af619ffc04825f844525711d406f8e3c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af619ffc04825f844525711d406f8e3c7">&#9670;&#160;</a></span>leaveEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::leaveEvent </td>
+          <td>(</td>
+          <td class="paramtype">QEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac13b54b5a3c70cb00c8f168141aca8e8" name="ac13b54b5a3c70cb00c8f168141aca8e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac13b54b5a3c70cb00c8f168141aca8e8">&#9670;&#160;</a></span>levelOpenRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::levelOpenRequested </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis au double-clic sur une carte lisible (chemin absolu du fichier). </p>
+
+</div>
+</div>
+<a id="a0be0a8292fa421e343f575297933aa23" name="a0be0a8292fa421e343f575297933aa23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0be0a8292fa421e343f575297933aa23">&#9670;&#160;</a></span>linkRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::linkRequested </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>fromMap</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>toMap</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand un lien est tiré d'une carte à une autre (<span class="tt">LOT-EDITOR-09</span>), par identifiants. </p>
+
+</div>
+</div>
+<a id="a6caae3cd45d950cdc09614c1b2571e74" name="a6caae3cd45d950cdc09614c1b2571e74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6caae3cd45d950cdc09614c1b2571e74">&#9670;&#160;</a></span>mouseDoubleClickEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::mouseDoubleClickEvent </td>
+          <td>(</td>
+          <td class="paramtype">QMouseEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac4fc383fbc9ca4d6cb9a5f6cd5afe47e" name="ac4fc383fbc9ca4d6cb9a5f6cd5afe47e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4fc383fbc9ca4d6cb9a5f6cd5afe47e">&#9670;&#160;</a></span>mouseMoveEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::mouseMoveEvent </td>
+          <td>(</td>
+          <td class="paramtype">QMouseEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a73c563d0bdee1b2e28e4590ef89e31f8" name="a73c563d0bdee1b2e28e4590ef89e31f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73c563d0bdee1b2e28e4590ef89e31f8">&#9670;&#160;</a></span>mousePressEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::mousePressEvent </td>
+          <td>(</td>
+          <td class="paramtype">QMouseEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5b1b2e0a9d9f348abca9a47f7bdc3159" name="a5b1b2e0a9d9f348abca9a47f7bdc3159"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b1b2e0a9d9f348abca9a47f7bdc3159">&#9670;&#160;</a></span>mouseReleaseEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::mouseReleaseEvent </td>
+          <td>(</td>
+          <td class="paramtype">QMouseEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9d37c5fc2a07d3b9ccc4547ee17dfb97" name="a9d37c5fc2a07d3b9ccc4547ee17dfb97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d37c5fc2a07d3b9ccc4547ee17dfb97">&#9670;&#160;</a></span>nodeDetail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldGraphView::nodeDetail </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1WorldGraphLayoutNode.html">WorldGraphLayoutNode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Seconde ligne sous un nœud. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Nœud dessiné. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'état d'une carte à problème, ou rien : le nœud porte déjà l'identifiant. </dd></dl>
+
+</div>
+</div>
+<a id="ae9dde0b588fc25d7c59a5bf65dd338fb" name="ae9dde0b588fc25d7c59a5bf65dd338fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9dde0b588fc25d7c59a5bf65dd338fb">&#9670;&#160;</a></span>nodeLabel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldGraphView::nodeLabel </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>node</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Libellé court d'un nœud (nom, ou identifiant, ou « sans cible »). </dd></dl>
+
+</div>
+</div>
+<a id="a9f90d85faf73f76eeffa42a7cb169c6a" name="a9f90d85faf73f76eeffa42a7cb169c6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f90d85faf73f76eeffa42a7cb169c6a">&#9670;&#160;</a></span>nodeToolTip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldGraphView::nodeToolTip </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>node</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a05c9cedc87c8f81677657b07739d7a31" name="a05c9cedc87c8f81677657b07739d7a31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05c9cedc87c8f81677657b07739d7a31">&#9670;&#160;</a></span>paintEdges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::paintEdges </td>
+          <td>(</td>
+          <td class="paramtype">QPainter &amp;</td>          <td class="paramname"><span class="paramname"><em>painter</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a14bf3f0d12b65db7f8f628d41a95a600" name="a14bf3f0d12b65db7f8f628d41a95a600"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14bf3f0d12b65db7f8f628d41a95a600">&#9670;&#160;</a></span>paintEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::paintEvent </td>
+          <td>(</td>
+          <td class="paramtype">QPaintEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a30f216375bc206190eec999704a771c6" name="a30f216375bc206190eec999704a771c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30f216375bc206190eec999704a771c6">&#9670;&#160;</a></span>paintLegend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::paintLegend </td>
+          <td>(</td>
+          <td class="paramtype">QPainter &amp;</td>          <td class="paramname"><span class="paramname"><em>painter</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa34a5dc4e17280de01b27e06ac5f5e21" name="aa34a5dc4e17280de01b27e06ac5f5e21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa34a5dc4e17280de01b27e06ac5f5e21">&#9670;&#160;</a></span>paintNodes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::paintNodes </td>
+          <td>(</td>
+          <td class="paramtype">QPainter &amp;</td>          <td class="paramname"><span class="paramname"><em>painter</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a99e0337e4acb33a23f91876278c6dec2" name="a99e0337e4acb33a23f91876278c6dec2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99e0337e4acb33a23f91876278c6dec2">&#9670;&#160;</a></span>scale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qreal hmi::WorldGraphView::scale </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'échelle appliquée à la disposition pour la faire tenir dans le widget. </dd></dl>
+
+</div>
+</div>
+<a id="a071f2c78c595498c2d697d89354557c9" name="a071f2c78c595498c2d697d89354557c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a071f2c78c595498c2d697d89354557c9">&#9670;&#160;</a></span>setGraph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldGraphView::setGraph </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1WorldGraph.html">core::WorldGraph</a></td>          <td class="paramname"><span class="paramname"><em>graph</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>levelsDir</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remplace le graphe affiché ; <code class="param">levelsDir</code> sert à rebâtir le chemin d'une carte à ouvrir. </p>
+
+</div>
+</div>
+<a id="aaf512f6d92a857b93fe6d876f0b70eee" name="aaf512f6d92a857b93fe6d876f0b70eee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf512f6d92a857b93fe6d876f0b70eee">&#9670;&#160;</a></span>sizeHint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QSize hmi::WorldGraphView::sizeHint </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel override">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a935bdb05c29954b8a75110b36d0ffa67" name="a935bdb05c29954b8a75110b36d0ffa67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a935bdb05c29954b8a75110b36d0ffa67">&#9670;&#160;</a></span>statusText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldGraphView::statusText </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#af11c258a9c6ef53d57b7f409006e48df">core::PortalLinkStatus</a></td>          <td class="paramname"><span class="paramname"><em>status</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a99aef4a014f2c34637143869a6e542d6" name="a99aef4a014f2c34637143869a6e542d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99aef4a014f2c34637143869a6e542d6">&#9670;&#160;</a></span>toLayout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::WorldGraphView::toLayout </td>
+          <td>(</td>
+          <td class="paramtype">QPointF</td>          <td class="paramname"><span class="paramname"><em>widgetPoint</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le point de disposition sous le point <code class="param">widgetPoint</code> du widget. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ae1d1f82efb2ca7456b830e9edd4983f8" name="ae1d1f82efb2ca7456b830e9edd4983f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1d1f82efb2ca7456b830e9edd4983f8">&#9670;&#160;</a></span>_dir</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::WorldGraphView::_dir</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab52350abc952eabccd47d5b4eeb882d2" name="ab52350abc952eabccd47d5b4eeb882d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab52350abc952eabccd47d5b4eeb882d2">&#9670;&#160;</a></span>_graph</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1WorldGraph.html">core::WorldGraph</a> hmi::WorldGraphView::_graph</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adced865a8a4d54b8e0c6c80dd85e8b69" name="adced865a8a4d54b8e0c6c80dd85e8b69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adced865a8a4d54b8e0c6c80dd85e8b69">&#9670;&#160;</a></span>_hoveredEdge</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; hmi::WorldGraphView::_hoveredEdge</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a15721eb44283d54fe4e88b56a9afc2b0" name="a15721eb44283d54fe4e88b56a9afc2b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15721eb44283d54fe4e88b56a9afc2b0">&#9670;&#160;</a></span>_hoveredNode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; hmi::WorldGraphView::_hoveredNode</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a90c3e97b1b88ac595b6b42d4218049ed" name="a90c3e97b1b88ac595b6b42d4218049ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90c3e97b1b88ac595b6b42d4218049ed">&#9670;&#160;</a></span>_layout</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1WorldGraphLayout.html">WorldGraphLayout</a> hmi::WorldGraphView::_layout</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a71708049f16d60dccc975214b06f3913" name="a71708049f16d60dccc975214b06f3913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71708049f16d60dccc975214b06f3913">&#9670;&#160;</a></span>_linkFrom</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; hmi::WorldGraphView::_linkFrom</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La carte d'où part le lien qu'on tire, et le point où le trait s'arrête. </p>
+
+</div>
+</div>
+<a id="a4caecf2b3bb4bc6c7058d473fb3fe036" name="a4caecf2b3bb4bc6c7058d473fb3fe036"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4caecf2b3bb4bc6c7058d473fb3fe036">&#9670;&#160;</a></span>_linkPoint</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::WorldGraphView::_linkPoint</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/<a class="el" href="WorldGraphView_8h_source.html">WorldGraphView.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/<a class="el" href="WorldGraphView_8cpp.html">WorldGraphView.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1WorldGraphView.html">WorldGraphView</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

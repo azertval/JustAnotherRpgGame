@@ -1,0 +1,392 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/CharacterSheet.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('CharacterSheet_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CharacterSheet.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="CharacterSheet_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;set&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="Ability_8h.html">Core/Rpg/Ability.h</a>&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="CharacterOptions_8h.html">Core/Rpg/CharacterOptions.h</a>&quot;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="Inventory_8h.html">Core/Rpg/Inventory.h</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="Skill_8h.html">Core/Rpg/Skill.h</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span></div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structcore_1_1ExperienceLevel.html">   31</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1ExperienceLevel.html">ExperienceLevel</a> {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structcore_1_1ExperienceLevel.html#a9fc1fda7641a17a2636f2809fcece328">   32</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1ExperienceLevel.html#a9fc1fda7641a17a2636f2809fcece328">level</a> = 0;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structcore_1_1ExperienceLevel.html#a183cfeb9efc4f74a3300ebc67a05ad36">   33</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1ExperienceLevel.html#a183cfeb9efc4f74a3300ebc67a05ad36">experience</a> = 0;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structcore_1_1ExperienceLevel.html#a92272e583843efa1be6caffd40c4ebbe">   34</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1ExperienceLevel.html#a92272e583843efa1be6caffd40c4ebbe">proficiencyBonus</a> = 0;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span></div>
+<div class="foldopen" id="foldopen00045" data-start="{" data-end="};">
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structcore_1_1ExperienceTable.html">   45</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structcore_1_1ExperienceTable.html#a9e65e5ea94c02d465eba06800a23582f">   46</a></span>    std::vector&lt;ExperienceLevel&gt; <a class="code hl_variable" href="structcore_1_1ExperienceTable.html#a9e65e5ea94c02d465eba06800a23582f">levels</a>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structcore_1_1ExperienceTable.html#ad9dde6f2407aa0c999f75ddfc5417ce9">   47</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1ExperienceTable.html#ad9dde6f2407aa0c999f75ddfc5417ce9">errors</a>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="structcore_1_1ExperienceTable.html#ad19109a8565e21ba8cffecd2fe08d6b8">levelFor</a>(<span class="keywordtype">int</span> experiencePoints) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="structcore_1_1ExperienceTable.html#afa97dc8b533b171aa3e2d18478e56709">proficiencyBonusAt</a>(<span class="keywordtype">int</span> level) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="structcore_1_1ExperienceTable.html#a42de4fb45c3c88b1e45174f3bce840ac">thresholdAt</a>(<span class="keywordtype">int</span> level) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="structcore_1_1ExperienceTable.html#a8931fcd0c93f1ed417f037b4674a1722">maximumLevel</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>};</div>
+</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="};">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterCreationRules.html">   67</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a> {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterCreationRules.html#a55c630d71778ec4af8dd73e20cc4e06b">   68</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1CharacterCreationRules.html#a55c630d71778ec4af8dd73e20cc4e06b">unarmoredArmorClass</a> = 0;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterCreationRules.html#a60d8aa35ec9abbd2c966a756ffe5d93c">   69</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1CharacterCreationRules.html#a60d8aa35ec9abbd2c966a756ffe5d93c">maximumAbilityScore</a> = 0;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterCreationRules.html#acff321e628837094fcbac46586144609">   70</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1CharacterCreationRules.html#acff321e628837094fcbac46586144609">errors</a>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
+<div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterCreationRules.html#a5f08684144546968d98a8f9118256da6">   73</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1CharacterCreationRules.html#a5f08684144546968d98a8f9118256da6">ok</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1CharacterCreationRules.html#a55c630d71778ec4af8dd73e20cc4e06b">unarmoredArmorClass</a> &gt; 0 &amp;&amp; <a class="code hl_variable" href="structcore_1_1CharacterCreationRules.html#a60d8aa35ec9abbd2c966a756ffe5d93c">maximumAbilityScore</a> &gt; 0;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
+</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>};</div>
+</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>[[nodiscard]] CharacterCreationRules <a class="code hl_function" href="namespacecore.html#aed30bfa90cc61678be84164457f76dab">loadCharacterCreationRules</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>[[nodiscard]] ExperienceTable <a class="code hl_function" href="namespacecore.html#a00be15bd9376cf46d81dedf0bc0f7d54">loadExperienceTable</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span></div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="};">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html">  102</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#a7241e6e9ef7011f52c22b682520c3334">  103</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#a7241e6e9ef7011f52c22b682520c3334">name</a>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#a9877610cbb279159f796da46604ddf21">  106</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#a9877610cbb279159f796da46604ddf21">speciesId</a>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#a1640d00d2df5367190b36bf6311b3789">  107</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#a1640d00d2df5367190b36bf6311b3789">classId</a>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#adb7761c709fc5f7c6aa09bee4f66d03b">  108</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#adb7761c709fc5f7c6aa09bee4f66d03b">backgroundId</a>;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#ae057f2c7a4e57eb368fd0c0b006dcaf1">  111</a></span>    std::array&lt;int, 6&gt; <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#ae057f2c7a4e57eb368fd0c0b006dcaf1">abilities</a>{};</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#ae2c8d1ca720a72f4c137cc9efee5c4cc">  113</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#ae2c8d1ca720a72f4c137cc9efee5c4cc">level</a> = 1;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#aa1c2dffd68f832ebdfdfb79428399c70">  114</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#aa1c2dffd68f832ebdfdfb79428399c70">experiencePoints</a> = 0;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#adc72310f4953b5d7ccee96cdbea2972e">  115</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#adc72310f4953b5d7ccee96cdbea2972e">maximumHitPoints</a> = 0;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#a866fe7b5be97e74f1de1068d17c6392c">  116</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#a866fe7b5be97e74f1de1068d17c6392c">currentHitPoints</a> = 0;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#ab92e71f78ebaed0cd98af3b48cf3a495">  117</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#ab92e71f78ebaed0cd98af3b48cf3a495">armorClass</a> = 0;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#acb6e1037ecf2517ccd754447a9d5d04f">  119</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#acb6e1037ecf2517ccd754447a9d5d04f">speedMeters</a> = 0.0F;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#ad9f5e6c341a1df8f0646a09b05067643">  122</a></span>    std::set&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#ad9f5e6c341a1df8f0646a09b05067643">skillProficiencies</a>;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#a74fd59e8a9d1e2de82abdba2792be1ec">  124</a></span>    std::set&lt;Ability&gt; <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#a74fd59e8a9d1e2de82abdba2792be1ec">savingThrowProficiencies</a>;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#af4449f47520b2b4db9d35eb0e2abb9b5">  132</a></span>    std::set&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#af4449f47520b2b4db9d35eb0e2abb9b5">languages</a>;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span></div>
+<div class="foldopen" id="foldopen00135" data-start="{" data-end="}">
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#a108c1b3e24bb31cb5a940dcb3ef17ea1">  135</a></span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="structcore_1_1CharacterSheet.html#a108c1b3e24bb31cb5a940dcb3ef17ea1">ability</a>(<a class="code hl_enumeration" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> which)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#ae057f2c7a4e57eb368fd0c0b006dcaf1">abilities</a>[<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(which)];</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    }</div>
+</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span></div>
+<div class="foldopen" id="foldopen00139" data-start="{" data-end="}">
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#a7630295f7d3f3aae393329eb9843e811">  139</a></span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="structcore_1_1CharacterSheet.html#a7630295f7d3f3aae393329eb9843e811">modifier</a>(<a class="code hl_enumeration" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> which)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespacecore.html#ab1f3cc471902daa6c652cd68eee0bcef">abilityModifier</a>(<a class="code hl_function" href="structcore_1_1CharacterSheet.html#a108c1b3e24bb31cb5a940dcb3ef17ea1">ability</a>(which));</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    }</div>
+</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span></div>
+<div class="foldopen" id="foldopen00143" data-start="{" data-end="}">
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheet.html#a2e02cda70505003379223fc63a4fe9d3">  143</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1CharacterSheet.html#a2e02cda70505003379223fc63a4fe9d3">isDown</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1CharacterSheet.html#a866fe7b5be97e74f1de1068d17c6392c">currentHitPoints</a> &lt;= 0;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    }</div>
+</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="structcore_1_1CharacterSheet.html#a40356a4a6954a5f575f2956fcddda652">speedInTiles</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>};</div>
+</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span></div>
+<div class="foldopen" id="foldopen00156" data-start="{" data-end="};">
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="structcore_1_1LevelUpResult.html">  156</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1LevelUpResult.html">LevelUpResult</a> {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="structcore_1_1LevelUpResult.html#a39f0583b4e1e9b8901a41ee9dff52b9e">  157</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1LevelUpResult.html#a39f0583b4e1e9b8901a41ee9dff52b9e">previousLevel</a> = 0;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="structcore_1_1LevelUpResult.html#a389daf1533c77ff71faa5eef2ed7c6a2">  158</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1LevelUpResult.html#a389daf1533c77ff71faa5eef2ed7c6a2">newLevel</a> = 0;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="structcore_1_1LevelUpResult.html#a06e76aff6d73239de44e902c26bc2f84">  159</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1LevelUpResult.html#a06e76aff6d73239de44e902c26bc2f84">hitPointsGained</a> = 0;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="structcore_1_1LevelUpResult.html#a31534678202e3fe14179cd571f7ee505">  160</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1LevelUpResult.html#a31534678202e3fe14179cd571f7ee505">previousProficiencyBonus</a> = 0;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="structcore_1_1LevelUpResult.html#a573fb566de511424337cfa537b129ec3">  161</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1LevelUpResult.html#a573fb566de511424337cfa537b129ec3">newProficiencyBonus</a> = 0;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span></div>
+<div class="foldopen" id="foldopen00164" data-start="{" data-end="}">
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="structcore_1_1LevelUpResult.html#aee2205830ac9f8f070747cbe19f2a605">  164</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1LevelUpResult.html#aee2205830ac9f8f070747cbe19f2a605">gainedLevel</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1LevelUpResult.html#a389daf1533c77ff71faa5eef2ed7c6a2">newLevel</a> &gt; <a class="code hl_variable" href="structcore_1_1LevelUpResult.html#a39f0583b4e1e9b8901a41ee9dff52b9e">previousLevel</a>;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    }</div>
+</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>};</div>
+</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span></div>
+<div class="foldopen" id="foldopen00176" data-start="{" data-end="};">
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="structcore_1_1LoadedCharacterSheet.html">  176</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1LoadedCharacterSheet.html">LoadedCharacterSheet</a> {</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno"><a class="line" href="structcore_1_1LoadedCharacterSheet.html#a237a072a9a88300e93923a84bdddd320">  177</a></span>    <a class="code hl_struct" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> <a class="code hl_variable" href="structcore_1_1LoadedCharacterSheet.html#a237a072a9a88300e93923a84bdddd320">sheet</a>;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="structcore_1_1LoadedCharacterSheet.html#a5ba188fafec172937a0f7176a4a5957a">  181</a></span>    <a class="code hl_struct" href="structcore_1_1Inventory.html">Inventory</a> <a class="code hl_variable" href="structcore_1_1LoadedCharacterSheet.html#a5ba188fafec172937a0f7176a4a5957a">inventory</a>;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="structcore_1_1LoadedCharacterSheet.html#a5290cd19c104f815fda79411362e093c">  182</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1LoadedCharacterSheet.html#a5290cd19c104f815fda79411362e093c">errors</a>;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="foldopen" id="foldopen00184" data-start="{" data-end="}">
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno"><a class="line" href="structcore_1_1LoadedCharacterSheet.html#a5b2cd3709c111558ee572afe5051e058">  184</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1LoadedCharacterSheet.html#a5b2cd3709c111558ee572afe5051e058">ok</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1LoadedCharacterSheet.html#a5290cd19c104f815fda79411362e093c">errors</a>.empty();</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    }</div>
+</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>};</div>
+</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>[[nodiscard]] LoadedCharacterSheet <a class="code hl_function" href="namespacecore.html#a79d320ec991d82d7cb18080669d551a5">loadCharacterSheet</a>(<span class="keyword">const</span> std::filesystem::path&amp; path,</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                                                      <span class="keyword">const</span> CharacterOptions&amp; options,</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>                                                      <span class="keyword">const</span> CharacterCreationRules&amp; rules,</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>                                                      <span class="keyword">const</span> ExperienceTable&amp; table);</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>[[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="namespacecore.html#ab3286191c0a02de9afbc9e711ec799d1">proficiencyBonus</a>(<span class="keyword">const</span> CharacterSheet&amp; sheet, <span class="keyword">const</span> ExperienceTable&amp; table);</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>[[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="namespacecore.html#a5f742da51af4901d06af8def76937d57">savingThrowModifier</a>(<span class="keyword">const</span> CharacterSheet&amp; sheet, <span class="keyword">const</span> ExperienceTable&amp; table,</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>                                      <a class="code hl_enumeration" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> which);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span></div>
+<div class="foldopen" id="foldopen00228" data-start="{" data-end="};">
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="structcore_1_1SkillCheckModifier.html">  228</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1SkillCheckModifier.html">SkillCheckModifier</a> {</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno"><a class="line" href="structcore_1_1SkillCheckModifier.html#abc3d0b280075c40dc8a2ae9e8b099785">  229</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1SkillCheckModifier.html#abc3d0b280075c40dc8a2ae9e8b099785">value</a> = 0;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno"><a class="line" href="structcore_1_1SkillCheckModifier.html#ab7aba02abe8f184dcfebb04e3c0f39f6">  230</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1SkillCheckModifier.html#ab7aba02abe8f184dcfebb04e3c0f39f6">found</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno"><a class="line" href="structcore_1_1SkillCheckModifier.html#a0031e06d33916dfdb6a653c8ac9e76b5">  231</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1SkillCheckModifier.html#a0031e06d33916dfdb6a653c8ac9e76b5">proficient</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>};</div>
+</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1SkillCheckModifier.html">SkillCheckModifier</a> <a class="code hl_function" href="namespacecore.html#a29026a1c7235970e3f432ac5d08229ad">skillModifier</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CharacterSheet.html">CharacterSheet</a>&amp; sheet,</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>                                               <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1ExperienceTable.html">ExperienceTable</a>&amp; table,</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>                                               <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1SkillCatalog.html">SkillCatalog</a>&amp; catalog,</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>                                               std::string_view skillId);</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>[[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="namespacecore.html#ae73047aa52884ecfd7eebb21af3990bb">maximumHitPointsFor</a>(<span class="keywordtype">int</span> hitDie, <span class="keywordtype">int</span> level, <span class="keywordtype">int</span> constitutionModifier);</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span><a class="code hl_struct" href="structcore_1_1LevelUpResult.html">LevelUpResult</a> <a class="code hl_function" href="namespacecore.html#a7cfff9a8cfc89ebc9d4074d1db13eacd">gainExperience</a>(<a class="code hl_struct" href="structcore_1_1CharacterSheet.html">CharacterSheet</a>&amp; sheet, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1ExperienceTable.html">ExperienceTable</a>&amp; table, <span class="keywordtype">int</span> hitDie,</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>                             <span class="keywordtype">int</span> amount);</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> <a class="code hl_function" href="namespacecore.html#ae5471fabe4f247c99a3c50293f59f91e">buildCharacterSheet</a>(</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    std::string name, <span class="keyword">const</span> std::array&lt;int, 6&gt;&amp; baseAbilities, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Species.html">Species</a>* species,</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1PlayableClass.html">PlayableClass</a>* playableClass, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Background.html">Background</a>* background,</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a>&amp; rules, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1ExperienceTable.html">ExperienceTable</a>&amp; table);</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aAbility_8h_html"><div class="ttname"><a href="Ability_8h.html">Ability.h</a></div><div class="ttdoc">Les six caractéristiques et leur modificateur (EX-REG-010).</div></div>
+<div class="ttc" id="aCharacterOptions_8h_html"><div class="ttname"><a href="CharacterOptions_8h.html">CharacterOptions.h</a></div><div class="ttdoc">Espèces, historiques et classes : de quoi construire un personnage (LOT-36).</div></div>
+<div class="ttc" id="aInventory_8h_html"><div class="ttname"><a href="Inventory_8h.html">Inventory.h</a></div><div class="ttdoc">Objets portés, emplacements d&#39;équipement et statistiques dérivées (LOT-14, EX-INV-020).</div></div>
+<div class="ttc" id="aSkill_8h_html"><div class="ttname"><a href="Skill_8h.html">Skill.h</a></div><div class="ttdoc">Le catalogue des compétences et la caractéristique de chacune (LOT-13).</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a00be15bd9376cf46d81dedf0bc0f7d54"><div class="ttname"><a href="namespacecore.html#a00be15bd9376cf46d81dedf0bc0f7d54">core::loadExperienceTable</a></div><div class="ttdeci">ExperienceTable loadExperienceTable(const std::filesystem::path &amp;path)</div><div class="ttdoc">Charge la table d&#39;expérience depuis Source/Elements/Rpg/rules/experience.json.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:80</div></div>
+<div class="ttc" id="anamespacecore_html_a29026a1c7235970e3f432ac5d08229ad"><div class="ttname"><a href="namespacecore.html#a29026a1c7235970e3f432ac5d08229ad">core::skillModifier</a></div><div class="ttdeci">SkillCheckModifier skillModifier(const CharacterSheet &amp;sheet, const ExperienceTable &amp;table, const SkillCatalog &amp;catalog, std::string_view skillId)</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:297</div></div>
+<div class="ttc" id="anamespacecore_html_a5f742da51af4901d06af8def76937d57"><div class="ttname"><a href="namespacecore.html#a5f742da51af4901d06af8def76937d57">core::savingThrowModifier</a></div><div class="ttdeci">int savingThrowModifier(const CharacterSheet &amp;sheet, const ExperienceTable &amp;table, Ability which)</div><div class="ttdoc">Le modificateur d&#39;un jet de sauvegarde : caractéristique, plus la maîtrise si elle s&#39;applique.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:291</div></div>
+<div class="ttc" id="anamespacecore_html_a79d320ec991d82d7cb18080669d551a5"><div class="ttname"><a href="namespacecore.html#a79d320ec991d82d7cb18080669d551a5">core::loadCharacterSheet</a></div><div class="ttdeci">LoadedCharacterSheet loadCharacterSheet(const std::filesystem::path &amp;path, const CharacterOptions &amp;options, const CharacterCreationRules &amp;rules, const ExperienceTable &amp;table)</div><div class="ttdoc">Charge un personnage depuis son fichier JSON (Source/Elements/Rpg/characters/, schéma character....</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:213</div></div>
+<div class="ttc" id="anamespacecore_html_a7cfff9a8cfc89ebc9d4074d1db13eacd"><div class="ttname"><a href="namespacecore.html#a7cfff9a8cfc89ebc9d4074d1db13eacd">core::gainExperience</a></div><div class="ttdeci">LevelUpResult gainExperience(CharacterSheet &amp;sheet, const ExperienceTable &amp;table, int hitDie, int amount)</div><div class="ttdoc">Ajoute des points d&#39;expérience et applique la montée de niveau qui en découle.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:329</div></div>
+<div class="ttc" id="anamespacecore_html_a97f31c7914a6cfc54cc026a77da58fd1"><div class="ttname"><a href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">core::Ability</a></div><div class="ttdeci">Ability</div><div class="ttdoc">Une des six caractéristiques d&#39;un personnage ou d&#39;une créature (EX-REG-010).</div><div class="ttdef"><b>Definition</b> Ability.h:24</div></div>
+<div class="ttc" id="anamespacecore_html_ab1f3cc471902daa6c652cd68eee0bcef"><div class="ttname"><a href="namespacecore.html#ab1f3cc471902daa6c652cd68eee0bcef">core::abilityModifier</a></div><div class="ttdeci">constexpr int abilityModifier(int score) noexcept</div><div class="ttdoc">Modificateur d&#39;une valeur de caractéristique : (score - 10) / 2, arrondi vers le bas.</div><div class="ttdef"><b>Definition</b> Ability.h:49</div></div>
+<div class="ttc" id="anamespacecore_html_ab3286191c0a02de9afbc9e711ec799d1"><div class="ttname"><a href="namespacecore.html#ab3286191c0a02de9afbc9e711ec799d1">core::proficiencyBonus</a></div><div class="ttdeci">int proficiencyBonus(const CharacterSheet &amp;sheet, const ExperienceTable &amp;table)</div><div class="ttdoc">Le bonus de maîtrise de la fiche, lu dans la table au niveau courant.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:287</div></div>
+<div class="ttc" id="anamespacecore_html_ae5471fabe4f247c99a3c50293f59f91e"><div class="ttname"><a href="namespacecore.html#ae5471fabe4f247c99a3c50293f59f91e">core::buildCharacterSheet</a></div><div class="ttdeci">CharacterSheet buildCharacterSheet(std::string name, const std::array&lt; int, 6 &gt; &amp;baseAbilities, const Species *species, const PlayableClass *playableClass, const Background *background, const CharacterCreationRules &amp;rules, const ExperienceTable &amp;table)</div><div class="ttdoc">Construit une fiche depuis une espèce, une classe et un historique.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:363</div></div>
+<div class="ttc" id="anamespacecore_html_ae73047aa52884ecfd7eebb21af3990bb"><div class="ttname"><a href="namespacecore.html#ae73047aa52884ecfd7eebb21af3990bb">core::maximumHitPointsFor</a></div><div class="ttdeci">int maximumHitPointsFor(int hitDie, int level, int constitutionModifier)</div><div class="ttdoc">Les points de vie d&#39;un niveau, selon la règle du livre.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:313</div></div>
+<div class="ttc" id="anamespacecore_html_aed30bfa90cc61678be84164457f76dab"><div class="ttname"><a href="namespacecore.html#aed30bfa90cc61678be84164457f76dab">core::loadCharacterCreationRules</a></div><div class="ttdeci">CharacterCreationRules loadCharacterCreationRules(const std::filesystem::path &amp;path)</div><div class="ttdoc">Charge les constantes depuis Source/Elements/Rpg/rules/character-creation.json.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:26</div></div>
+<div class="ttc" id="astructcore_1_1Background_html"><div class="ttname"><a href="structcore_1_1Background.html">core::Background</a></div><div class="ttdoc">Un historique : maîtrises, langues accordées et capacité.</div><div class="ttdef"><b>Definition</b> CharacterOptions.h:74</div></div>
+<div class="ttc" id="astructcore_1_1CharacterCreationRules_html"><div class="ttname"><a href="structcore_1_1CharacterCreationRules.html">core::CharacterCreationRules</a></div><div class="ttdoc">Les deux constantes de règle qu&#39;une fiche emploie, lues dans la donnée.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:67</div></div>
+<div class="ttc" id="astructcore_1_1CharacterCreationRules_html_a55c630d71778ec4af8dd73e20cc4e06b"><div class="ttname"><a href="structcore_1_1CharacterCreationRules.html#a55c630d71778ec4af8dd73e20cc4e06b">core::CharacterCreationRules::unarmoredArmorClass</a></div><div class="ttdeci">int unarmoredArmorClass</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:68</div></div>
+<div class="ttc" id="astructcore_1_1CharacterCreationRules_html_a5f08684144546968d98a8f9118256da6"><div class="ttname"><a href="structcore_1_1CharacterCreationRules.html#a5f08684144546968d98a8f9118256da6">core::CharacterCreationRules::ok</a></div><div class="ttdeci">bool ok() const</div><div class="ttdoc">Vrai si les deux valeurs ont été lues. Une règle absente ne se devine pas.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:73</div></div>
+<div class="ttc" id="astructcore_1_1CharacterCreationRules_html_a60d8aa35ec9abbd2c966a756ffe5d93c"><div class="ttname"><a href="structcore_1_1CharacterCreationRules.html#a60d8aa35ec9abbd2c966a756ffe5d93c">core::CharacterCreationRules::maximumAbilityScore</a></div><div class="ttdeci">int maximumAbilityScore</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:69</div></div>
+<div class="ttc" id="astructcore_1_1CharacterCreationRules_html_acff321e628837094fcbac46586144609"><div class="ttname"><a href="structcore_1_1CharacterCreationRules.html#acff321e628837094fcbac46586144609">core::CharacterCreationRules::errors</a></div><div class="ttdeci">std::vector&lt; std::string &gt; errors</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:70</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html"><div class="ttname"><a href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a></div><div class="ttdoc">La fiche d&#39;une créature jouable ou non : héros, PNJ, ennemi.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:102</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_a108c1b3e24bb31cb5a940dcb3ef17ea1"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#a108c1b3e24bb31cb5a940dcb3ef17ea1">core::CharacterSheet::ability</a></div><div class="ttdeci">int ability(Ability which) const</div><div class="ttdoc">La valeur d&#39;une caractéristique.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:135</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_a1640d00d2df5367190b36bf6311b3789"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#a1640d00d2df5367190b36bf6311b3789">core::CharacterSheet::classId</a></div><div class="ttdeci">std::string classId</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:107</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_a2e02cda70505003379223fc63a4fe9d3"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#a2e02cda70505003379223fc63a4fe9d3">core::CharacterSheet::isDown</a></div><div class="ttdeci">bool isDown() const</div><div class="ttdoc">Vrai si la fiche est tombée à 0 point de vie.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:143</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_a40356a4a6954a5f575f2956fcddda652"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#a40356a4a6954a5f575f2956fcddda652">core::CharacterSheet::speedInTiles</a></div><div class="ttdeci">float speedInTiles() const</div><div class="ttdoc">La vitesse en cases de la grille tactique (LOT-19, LOT-22).</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:283</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_a7241e6e9ef7011f52c22b682520c3334"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#a7241e6e9ef7011f52c22b682520c3334">core::CharacterSheet::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:103</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_a74fd59e8a9d1e2de82abdba2792be1ec"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#a74fd59e8a9d1e2de82abdba2792be1ec">core::CharacterSheet::savingThrowProficiencies</a></div><div class="ttdeci">std::set&lt; Ability &gt; savingThrowProficiencies</div><div class="ttdoc">Jets de sauvegarde maîtrisés.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:124</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_a7630295f7d3f3aae393329eb9843e811"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#a7630295f7d3f3aae393329eb9843e811">core::CharacterSheet::modifier</a></div><div class="ttdeci">int modifier(Ability which) const</div><div class="ttdoc">Le modificateur d&#39;une caractéristique.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:139</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_a866fe7b5be97e74f1de1068d17c6392c"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#a866fe7b5be97e74f1de1068d17c6392c">core::CharacterSheet::currentHitPoints</a></div><div class="ttdeci">int currentHitPoints</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:116</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_a9877610cbb279159f796da46604ddf21"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#a9877610cbb279159f796da46604ddf21">core::CharacterSheet::speciesId</a></div><div class="ttdeci">std::string speciesId</div><div class="ttdoc">Identifiants des trois choix qui ont construit la fiche.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:106</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_aa1c2dffd68f832ebdfdfb79428399c70"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#aa1c2dffd68f832ebdfdfb79428399c70">core::CharacterSheet::experiencePoints</a></div><div class="ttdeci">int experiencePoints</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:114</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_ab92e71f78ebaed0cd98af3b48cf3a495"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#ab92e71f78ebaed0cd98af3b48cf3a495">core::CharacterSheet::armorClass</a></div><div class="ttdeci">int armorClass</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:117</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_acb6e1037ecf2517ccd754447a9d5d04f"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#acb6e1037ecf2517ccd754447a9d5d04f">core::CharacterSheet::speedMeters</a></div><div class="ttdeci">float speedMeters</div><div class="ttdoc">Vitesse de base, en mètres — l&#39;unité du corpus. speedInTiles() la convertit.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:119</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_ad9f5e6c341a1df8f0646a09b05067643"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#ad9f5e6c341a1df8f0646a09b05067643">core::CharacterSheet::skillProficiencies</a></div><div class="ttdeci">std::set&lt; std::string &gt; skillProficiencies</div><div class="ttdoc">Compétences maîtrisées, par identifiant du catalogue.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:122</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_adb7761c709fc5f7c6aa09bee4f66d03b"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#adb7761c709fc5f7c6aa09bee4f66d03b">core::CharacterSheet::backgroundId</a></div><div class="ttdeci">std::string backgroundId</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:108</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_adc72310f4953b5d7ccee96cdbea2972e"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#adc72310f4953b5d7ccee96cdbea2972e">core::CharacterSheet::maximumHitPoints</a></div><div class="ttdeci">int maximumHitPoints</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:115</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_ae057f2c7a4e57eb368fd0c0b006dcaf1"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#ae057f2c7a4e57eb368fd0c0b006dcaf1">core::CharacterSheet::abilities</a></div><div class="ttdeci">std::array&lt; int, 6 &gt; abilities</div><div class="ttdoc">Les six valeurs finales, augmentations d&#39;espèce comprises, indexées par core::Ability.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:111</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_ae2c8d1ca720a72f4c137cc9efee5c4cc"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#ae2c8d1ca720a72f4c137cc9efee5c4cc">core::CharacterSheet::level</a></div><div class="ttdeci">int level</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:113</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_af4449f47520b2b4db9d35eb0e2abb9b5"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#af4449f47520b2b4db9d35eb0e2abb9b5">core::CharacterSheet::languages</a></div><div class="ttdeci">std::set&lt; std::string &gt; languages</div><div class="ttdoc">Langues parlées, par identifiant du catalogue (EX-RPG-042, LOT-15).</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:132</div></div>
+<div class="ttc" id="astructcore_1_1ExperienceLevel_html"><div class="ttname"><a href="structcore_1_1ExperienceLevel.html">core::ExperienceLevel</a></div><div class="ttdoc">Une ligne de la table d&#39;expérience : le seuil d&#39;un niveau et son bonus de maîtrise.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:31</div></div>
+<div class="ttc" id="astructcore_1_1ExperienceLevel_html_a183cfeb9efc4f74a3300ebc67a05ad36"><div class="ttname"><a href="structcore_1_1ExperienceLevel.html#a183cfeb9efc4f74a3300ebc67a05ad36">core::ExperienceLevel::experience</a></div><div class="ttdeci">int experience</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:33</div></div>
+<div class="ttc" id="astructcore_1_1ExperienceLevel_html_a92272e583843efa1be6caffd40c4ebbe"><div class="ttname"><a href="structcore_1_1ExperienceLevel.html#a92272e583843efa1be6caffd40c4ebbe">core::ExperienceLevel::proficiencyBonus</a></div><div class="ttdeci">int proficiencyBonus</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:34</div></div>
+<div class="ttc" id="astructcore_1_1ExperienceLevel_html_a9fc1fda7641a17a2636f2809fcece328"><div class="ttname"><a href="structcore_1_1ExperienceLevel.html#a9fc1fda7641a17a2636f2809fcece328">core::ExperienceLevel::level</a></div><div class="ttdeci">int level</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:32</div></div>
+<div class="ttc" id="astructcore_1_1ExperienceTable_html"><div class="ttname"><a href="structcore_1_1ExperienceTable.html">core::ExperienceTable</a></div><div class="ttdoc">La table d&#39;expérience, du niveau 1 au niveau 20.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:45</div></div>
+<div class="ttc" id="astructcore_1_1ExperienceTable_html_a42de4fb45c3c88b1e45174f3bce840ac"><div class="ttname"><a href="structcore_1_1ExperienceTable.html#a42de4fb45c3c88b1e45174f3bce840ac">core::ExperienceTable::thresholdAt</a></div><div class="ttdeci">int thresholdAt(int level) const</div><div class="ttdoc">Le seuil d&#39;expérience d&#39;un niveau. 0 si la table ne le porte pas.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:67</div></div>
+<div class="ttc" id="astructcore_1_1ExperienceTable_html_a8931fcd0c93f1ed417f037b4674a1722"><div class="ttname"><a href="structcore_1_1ExperienceTable.html#a8931fcd0c93f1ed417f037b4674a1722">core::ExperienceTable::maximumLevel</a></div><div class="ttdeci">int maximumLevel() const</div><div class="ttdoc">Le niveau le plus élevé que la table porte.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:72</div></div>
+<div class="ttc" id="astructcore_1_1ExperienceTable_html_a9e65e5ea94c02d465eba06800a23582f"><div class="ttname"><a href="structcore_1_1ExperienceTable.html#a9e65e5ea94c02d465eba06800a23582f">core::ExperienceTable::levels</a></div><div class="ttdeci">std::vector&lt; ExperienceLevel &gt; levels</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:46</div></div>
+<div class="ttc" id="astructcore_1_1ExperienceTable_html_ad19109a8565e21ba8cffecd2fe08d6b8"><div class="ttname"><a href="structcore_1_1ExperienceTable.html#ad19109a8565e21ba8cffecd2fe08d6b8">core::ExperienceTable::levelFor</a></div><div class="ttdeci">int levelFor(int experiencePoints) const</div><div class="ttdoc">Le niveau qu&#39;atteint un total de points d&#39;expérience.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:52</div></div>
+<div class="ttc" id="astructcore_1_1ExperienceTable_html_ad9dde6f2407aa0c999f75ddfc5417ce9"><div class="ttname"><a href="structcore_1_1ExperienceTable.html#ad9dde6f2407aa0c999f75ddfc5417ce9">core::ExperienceTable::errors</a></div><div class="ttdeci">std::vector&lt; std::string &gt; errors</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:47</div></div>
+<div class="ttc" id="astructcore_1_1ExperienceTable_html_afa97dc8b533b171aa3e2d18478e56709"><div class="ttname"><a href="structcore_1_1ExperienceTable.html#afa97dc8b533b171aa3e2d18478e56709">core::ExperienceTable::proficiencyBonusAt</a></div><div class="ttdeci">int proficiencyBonusAt(int level) const</div><div class="ttdoc">Le bonus de maîtrise d&#39;un niveau. 0 si la table ne le porte pas.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:62</div></div>
+<div class="ttc" id="astructcore_1_1Inventory_html"><div class="ttname"><a href="structcore_1_1Inventory.html">core::Inventory</a></div><div class="ttdoc">Ce qu&#39;un personnage porte : son sac, et ce qu&#39;il a sur lui.</div><div class="ttdef"><b>Definition</b> Inventory.h:147</div></div>
+<div class="ttc" id="astructcore_1_1LevelUpResult_html"><div class="ttname"><a href="structcore_1_1LevelUpResult.html">core::LevelUpResult</a></div><div class="ttdoc">Ce qu&#39;une montée de niveau a produit — de quoi le dire au joueur (EX-REG-003).</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:156</div></div>
+<div class="ttc" id="astructcore_1_1LevelUpResult_html_a06e76aff6d73239de44e902c26bc2f84"><div class="ttname"><a href="structcore_1_1LevelUpResult.html#a06e76aff6d73239de44e902c26bc2f84">core::LevelUpResult::hitPointsGained</a></div><div class="ttdeci">int hitPointsGained</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:159</div></div>
+<div class="ttc" id="astructcore_1_1LevelUpResult_html_a31534678202e3fe14179cd571f7ee505"><div class="ttname"><a href="structcore_1_1LevelUpResult.html#a31534678202e3fe14179cd571f7ee505">core::LevelUpResult::previousProficiencyBonus</a></div><div class="ttdeci">int previousProficiencyBonus</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:160</div></div>
+<div class="ttc" id="astructcore_1_1LevelUpResult_html_a389daf1533c77ff71faa5eef2ed7c6a2"><div class="ttname"><a href="structcore_1_1LevelUpResult.html#a389daf1533c77ff71faa5eef2ed7c6a2">core::LevelUpResult::newLevel</a></div><div class="ttdeci">int newLevel</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:158</div></div>
+<div class="ttc" id="astructcore_1_1LevelUpResult_html_a39f0583b4e1e9b8901a41ee9dff52b9e"><div class="ttname"><a href="structcore_1_1LevelUpResult.html#a39f0583b4e1e9b8901a41ee9dff52b9e">core::LevelUpResult::previousLevel</a></div><div class="ttdeci">int previousLevel</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:157</div></div>
+<div class="ttc" id="astructcore_1_1LevelUpResult_html_a573fb566de511424337cfa537b129ec3"><div class="ttname"><a href="structcore_1_1LevelUpResult.html#a573fb566de511424337cfa537b129ec3">core::LevelUpResult::newProficiencyBonus</a></div><div class="ttdeci">int newProficiencyBonus</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:161</div></div>
+<div class="ttc" id="astructcore_1_1LevelUpResult_html_aee2205830ac9f8f070747cbe19f2a605"><div class="ttname"><a href="structcore_1_1LevelUpResult.html#aee2205830ac9f8f070747cbe19f2a605">core::LevelUpResult::gainedLevel</a></div><div class="ttdeci">bool gainedLevel() const</div><div class="ttdoc">Vrai si un niveau au moins a été gagné.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:164</div></div>
+<div class="ttc" id="astructcore_1_1LoadedCharacterSheet_html"><div class="ttname"><a href="structcore_1_1LoadedCharacterSheet.html">core::LoadedCharacterSheet</a></div><div class="ttdoc">Une fiche chargée depuis un fichier, et ce qui n&#39;a pas pu l&#39;être.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:176</div></div>
+<div class="ttc" id="astructcore_1_1LoadedCharacterSheet_html_a237a072a9a88300e93923a84bdddd320"><div class="ttname"><a href="structcore_1_1LoadedCharacterSheet.html#a237a072a9a88300e93923a84bdddd320">core::LoadedCharacterSheet::sheet</a></div><div class="ttdeci">CharacterSheet sheet</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:177</div></div>
+<div class="ttc" id="astructcore_1_1LoadedCharacterSheet_html_a5290cd19c104f815fda79411362e093c"><div class="ttname"><a href="structcore_1_1LoadedCharacterSheet.html#a5290cd19c104f815fda79411362e093c">core::LoadedCharacterSheet::errors</a></div><div class="ttdeci">std::vector&lt; std::string &gt; errors</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:182</div></div>
+<div class="ttc" id="astructcore_1_1LoadedCharacterSheet_html_a5b2cd3709c111558ee572afe5051e058"><div class="ttname"><a href="structcore_1_1LoadedCharacterSheet.html#a5b2cd3709c111558ee572afe5051e058">core::LoadedCharacterSheet::ok</a></div><div class="ttdeci">bool ok() const</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:184</div></div>
+<div class="ttc" id="astructcore_1_1LoadedCharacterSheet_html_a5ba188fafec172937a0f7176a4a5957a"><div class="ttname"><a href="structcore_1_1LoadedCharacterSheet.html#a5ba188fafec172937a0f7176a4a5957a">core::LoadedCharacterSheet::inventory</a></div><div class="ttdeci">Inventory inventory</div><div class="ttdoc">Ce que le personnage PORTE (LOT-14), lu dans le même fichier.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:181</div></div>
+<div class="ttc" id="astructcore_1_1PlayableClass_html"><div class="ttname"><a href="structcore_1_1PlayableClass.html">core::PlayableClass</a></div><div class="ttdoc">Une classe jouable et sa table de progression.</div><div class="ttdef"><b>Definition</b> CharacterOptions.h:101</div></div>
+<div class="ttc" id="astructcore_1_1SkillCatalog_html"><div class="ttname"><a href="structcore_1_1SkillCatalog.html">core::SkillCatalog</a></div><div class="ttdoc">Les compétences chargées, et ce qui n&#39;a pas pu l&#39;être.</div><div class="ttdef"><b>Definition</b> Skill.h:35</div></div>
+<div class="ttc" id="astructcore_1_1SkillCheckModifier_html"><div class="ttname"><a href="structcore_1_1SkillCheckModifier.html">core::SkillCheckModifier</a></div><div class="ttdoc">Le modificateur d&#39;un jet de compétence.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:228</div></div>
+<div class="ttc" id="astructcore_1_1SkillCheckModifier_html_a0031e06d33916dfdb6a653c8ac9e76b5"><div class="ttname"><a href="structcore_1_1SkillCheckModifier.html#a0031e06d33916dfdb6a653c8ac9e76b5">core::SkillCheckModifier::proficient</a></div><div class="ttdeci">bool proficient</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:231</div></div>
+<div class="ttc" id="astructcore_1_1SkillCheckModifier_html_ab7aba02abe8f184dcfebb04e3c0f39f6"><div class="ttname"><a href="structcore_1_1SkillCheckModifier.html#ab7aba02abe8f184dcfebb04e3c0f39f6">core::SkillCheckModifier::found</a></div><div class="ttdeci">bool found</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:230</div></div>
+<div class="ttc" id="astructcore_1_1SkillCheckModifier_html_abc3d0b280075c40dc8a2ae9e8b099785"><div class="ttname"><a href="structcore_1_1SkillCheckModifier.html#abc3d0b280075c40dc8a2ae9e8b099785">core::SkillCheckModifier::value</a></div><div class="ttdeci">int value</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:229</div></div>
+<div class="ttc" id="astructcore_1_1Species_html"><div class="ttname"><a href="structcore_1_1Species.html">core::Species</a></div><div class="ttdoc">Une espèce jouable : ce que species.schema.json décrit.</div><div class="ttdef"><b>Definition</b> CharacterOptions.h:52</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_de25d93b7b4ef75f45504127491f58b5.html">Rpg</a></li><li class="navelem"><a href="CharacterSheet_8h.html">CharacterSheet.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HMI · Runtime — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1 active" href="hmi-runtime.html">HMI · Runtime</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-arena-modelcpp">test_arena_model.cpp</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="hmi-runtime">HMI · Runtime</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">3 cas</span></div>
+<p>Tests unitaires — <strong>3 cas</strong> (1 critique, 2 majeurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-arena-modelcpp"><code>test_arena_model.cpp</code></a></td><td>3</td><td>-</td><td>1</td><td>2</td><td>-</td></tr></tbody></table></div>
+<h2 id="test-arena-modelcpp">test_arena_model.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="arenamodeltestlareactionsebasculedepuislabarre">ArenaModelTest.LaReactionSeBasculeDepuisLaBarre</h3>
+<p><em>Critique · Unitaire · IHM</em> — <code>Source/Test/Unit/HMI/Runtime/test_arena_model.cpp:55</code></p>
+<p>La derniere action du tour est la reaction : la confirmer fait laisser passer les attaques d'opportunite, la confirmer encore les fait saisir ; les actions du Manuel se choisissent au numero et en boucle.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lancer ; lire les actions.</li><li>Choisir la derniere, confirmer, relire ; confirmer encore.</li><li>Passer a l'action suivante depuis la derniere.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>actions.size()</code> est supérieur ou égal à <code>5</code>.</li><li>Vérifie que <code>actions[derniere - 3].toMap().value(&quot;kind&quot;).toString()</code> vaut <code>&quot;dodge&quot;</code>.</li><li>Vérifie que <code>actions[derniere - 2].toMap().value(&quot;kind&quot;).toString()</code> vaut <code>&quot;disengage&quot;</code>.</li><li>Vérifie que <code>actions[derniere - 1].toMap().value(&quot;kind&quot;).toString()</code> vaut <code>&quot;dash&quot;</code>.</li><li>Vérifie que <code>actions[derniere].toMap().value(&quot;kind&quot;).toString()</code> vaut <code>&quot;reaction&quot;</code>.</li><li>Vérifie que <code>arena.turnActions()[derniere].toMap().value(&quot;selected&quot;).toBool()</code> est vrai.</li><li>Vérifie que <code>arena.preview().isEmpty()</code> est faux.</li><li>Vérifie que <code>apres</code> diffère de <code>avant</code>.</li><li>Vérifie que <code>arena.turnActions()[derniere].toMap().value(&quot;label&quot;).toString()</code> vaut <code>avant</code>.</li><li>Vérifie que <code>arena.turnActions()[0].toMap().value(&quot;selected&quot;).toBool()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenamodeltestlesurvolposelecurseur">ArenaModelTest.LeSurvolPoseLeCurseur</h3>
+<p><em>Majeur · Unitaire · IHM</em> — <code>Source/Test/Unit/HMI/Runtime/test_arena_model.cpp:93</code></p>
+<p>pointCursor pose le curseur sur la case survolee, et ignore ce qui n'en est pas une.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Avant le combat, pointer une case.</li><li>Lancer ; pointer l'ennemi le plus proche depuis une autre case.</li><li>Pointer hors de la grille.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>arena.cursorColumn()</code> vaut <code>colonneInitiale</code>.</li><li>Vérifie que <code>arena.cursorRow()</code> vaut <code>ligneInitiale</code>.</li><li>Vérifie que <code>arena.cursorColumn() == colonne &amp;&amp; arena.cursorRow() == ligne</code> est faux.</li><li>Vérifie que <code>arena.cursorColumn()</code> vaut <code>colonne</code>.</li><li>Vérifie que <code>arena.cursorRow()</code> vaut <code>ligne</code>.</li><li>Vérifie que <code>arena.cursorColumn()</code> vaut <code>colonne</code>.</li><li>Vérifie que <code>arena.cursorRow()</code> vaut <code>ligne</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="arenamodeltestlecalquedelagrilledecritcombattantsetcasesatteignables">ArenaModelTest.LeCalqueDeLaGrilleDecritCombattantsEtCasesAtteignables</h3>
+<p><em>Majeur · Unitaire · IHM</em> — <code>Source/Test/Unit/HMI/Runtime/test_arena_model.cpp:128</code></p>
+<p>fighters decrit chaque combattant sur la grille et garde secrets les points de vie ennemis ; reachableCells ne liste que des cases libres.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Avant le combat, lire les deux listes.</li><li>Lancer ; lire les combattants et les cases atteignables.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>arena.fighters().isEmpty()</code> est vrai.</li><li>Vérifie que <code>arena.reachableCells().isEmpty()</code> est vrai.</li><li>Vérifie que <code>fighters.size()</code> vaut <code>2</code>.</li><li>Vérifie que <code>fighter.value(&quot;footprint&quot;).toInt()</code> est supérieur ou égal à <code>1</code>.</li><li>Vérifie que <code>hitPoints.contains(&#x27;/&#x27;)</code> est vrai.</li><li>Vérifie que <code>fighter.value(&quot;side&quot;).toString()</code> vaut <code>&quot;enemies&quot;</code>.</li><li>Vérifie que <code>hitPoints.contains(&#x27;/&#x27;)</code> est faux.</li><li>Vérifie que <code>actifs</code> vaut <code>1</code>.</li><li>Vérifie que <code>reachable.isEmpty()</code> est faux.</li><li>Vérifie que <code>cell.value(&quot;column&quot;) == fighter.value(&quot;column&quot;) &amp;&amp; cell.value(&quot;row&quot;) == fighter.value(&quot;row&quot;)</code> est faux.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-presentation.html"><span>Précédent</span>HMI · Presentation</a><a class="next" href="integration.html"><span>Suivant</span>Tests d&#x27;intégration</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-runtime.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

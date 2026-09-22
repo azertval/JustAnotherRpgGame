@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="470" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — la grille tactique vue de dessus : portée de déplacement, ligne de vue, abri</text>
+  <text x="20" y="42" font-size="11" fill="#6a6152">Une case = 1,5 m (EX-REG-051). La grille est la couche de collision de la carte (EX-CBT-001), dessinée ici à plat pour la lisibilité ; le jeu la montre en isométrie.</text>
+
+  <g transform="translate(40,60)">
+    <g stroke="#d6c9a8" fill="#fbf8f0">
+      <rect x="0" y="0" width="400" height="280"/>
+      <path d="M40,0v280M80,0v280M120,0v280M160,0v280M200,0v280M240,0v280M280,0v280M320,0v280M360,0v280"/>
+      <path d="M0,40h400M0,80h400M0,120h400M0,160h400M0,200h400M0,240h400"/>
+    </g>
+    <g fill="#3f6b34" fill-opacity="0.22">
+      <rect x="80" y="80" width="40" height="40"/><rect x="40" y="120" width="40" height="40"/><rect x="80" y="120" width="40" height="40"/><rect x="120" y="120" width="40" height="40"/>
+      <rect x="0" y="160" width="40" height="40"/><rect x="40" y="160" width="40" height="40"/><rect x="120" y="160" width="40" height="40"/><rect x="160" y="160" width="40" height="40"/>
+      <rect x="40" y="200" width="40" height="40"/><rect x="80" y="200" width="40" height="40"/><rect x="120" y="200" width="40" height="40"/><rect x="160" y="120" width="40" height="40"/>
+      <rect x="120" y="80" width="40" height="40"/><rect x="40" y="80" width="40" height="40"/><rect x="80" y="40" width="40" height="40"/>
+    </g>
+    <g fill="#6a6152"><rect x="160" y="40" width="40" height="120"/><rect x="280" y="120" width="40" height="40"/></g>
+    <rect x="240" y="200" width="40" height="40" fill="#d6c9a8"/>
+    <text x="244" y="224" font-size="9" fill="#25201a">difficile</text>
+    <text x="164" y="30" font-size="10" fill="#6a6152">mur : bloque pas et vue</text>
+    <text x="284" y="112" font-size="10" fill="#6a6152">muret (Half)</text>
+    <circle cx="100" cy="180" r="13" fill="#3f6b34"/><text x="95" y="184" font-size="10" fill="#fbf8f0">H</text>
+    <circle cx="340" cy="100" r="13" fill="#8a2233"/><text x="335" y="104" font-size="10" fill="#fbf8f0">A</text>
+    <circle cx="220" cy="60" r="13" fill="#8a2233"/><text x="215" y="64" font-size="10" fill="#fbf8f0">B</text>
+    <path d="M100,180 L140,180 L140,220 L180,220 L220,180 L220,140" stroke="#9a7420" stroke-width="2" fill="none" stroke-dasharray="5 3"/>
+    <text x="226" y="150" font-size="10" fill="#9a7420">détour : 6 cases</text>
+    <path d="M100,180 L340,100" stroke="#2f7f86" stroke-width="1.5"/>
+    <path d="M100,180 L220,60" stroke="#8a2233" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <text x="150" y="105" font-size="10" fill="#8a2233">vue coupée par le mur</text>
+    <text x="230" y="130" font-size="10" fill="#2f7f86">segment dégagé → A visible, abri partiel (+2 CA)</text>
+    <g fill="none" stroke="#2f7f86" stroke-width="0.8"><rect x="300" y="80" width="20" height="20"/><rect x="320" y="80" width="20" height="20"/><rect x="320" y="100" width="20" height="20"/><rect x="300" y="100" width="20" height="20"/></g>
+    <text x="300" y="150" font-size="9" fill="#2f7f86">demi-cases (LineOfSight)</text>
+  </g>
+
+  <g fill="#25201a" font-size="12">
+    <text x="480" y="80" font-weight="600">Ce que la grille montre au joueur</text>
+    <text x="480" y="102"><tspan fill="#3f6b34" font-weight="600">■</tspan> cases atteignables ce tour : un parcours</text>
+    <text x="480" y="118">sur la grille, jamais à vol d'oiseau (EX-CBT-020) ;</text>
+    <text x="480" y="134">le mur coûte le détour, le terrain difficile</text>
+    <text x="480" y="150">compte double.</text>
+    <text x="480" y="178"><tspan fill="#2f7f86" font-weight="600">—</tspan> ligne de vue : un segment en demi-cases,</text>
+    <text x="480" y="194">d'un point de l'emprise à un point de l'autre ;</text>
+    <text x="480" y="210">un mur l'arrête, un muret laisse voir mais</text>
+    <text x="480" y="226">abrite (EX-CBT-021).</text>
+    <text x="480" y="254">Abri : aucun, partiel (+2), important (+5),</text>
+    <text x="480" y="270">total (pas de cible) — le plus protecteur seul</text>
+    <text x="480" y="286">compte, les abris ne s'additionnent pas.</text>
+    <text x="480" y="314">Le curseur donne, avant le geste, le coût</text>
+    <text x="480" y="330">du chemin et le jet à atteindre : la</text>
+    <text x="480" y="346">prévisualisation est le jet (LOT-24).</text>
+  </g>
+  <g fill="#6a6152" font-size="11">
+    <text x="40" y="370">Réalisation : <tspan font-family="Consolas, monospace">core::BattleGrid</tspan> (occupation, objets, zones), <tspan font-family="Consolas, monospace">core::reachableCells</tspan> (Dijkstra, LOT-19),</text>
+    <text x="40" y="386"><tspan font-family="Consolas, monospace">core::hasLineOfSight</tspan> et <tspan font-family="Consolas, monospace">core::coverBetween</tspan> (LOT-22). Le combat se joue sur la carte au LOT-118 ;</text>
+    <text x="40" y="402">jusque-là, la même grille se rejoue dans l'arène (LOT-50, capture jeu-arena.jpg).</text>
+  </g>
+</svg>

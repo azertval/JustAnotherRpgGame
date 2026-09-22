@@ -1,0 +1,218 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/Equipment.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('Equipment_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Equipment.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Armes, armures et le calcul de la classe d'armure (<span class="tt">LOT-34</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="Dice_8h_source.html">Core/Rpg/Dice.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="RpgEnums_8h_source.html">Core/Rpg/RpgEnums.h</a>&quot;</code><br />
+</div>
+<p><a href="Equipment_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:core_3A_3AArmor" id="r_core_3A_3AArmor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Armor.html">core::Armor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une armure ou un bouclier du catalogue.  <a href="structcore_1_1Armor.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AWeapon" id="r_core_3A_3AWeapon"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Weapon.html">core::Weapon</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une arme du catalogue.  <a href="structcore_1_1Weapon.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AEquipmentCatalog" id="r_core_3A_3AEquipmentCatalog"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1EquipmentCatalog.html">core::EquipmentCatalog</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les deux catalogues chargés, et ce qui n'a pas pu l'être.  <a href="structcore_1_1EquipmentCatalog.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AInventoryEntry" id="r_core_3A_3AInventoryEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1InventoryEntry.html">core::InventoryEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une ligne d'inventaire : un objet et sa quantité.  <a href="structcore_1_1InventoryEntry.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
+<tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a7ad0450d2b476419d40745fbfa9ac105" id="r_a7ad0450d2b476419d40745fbfa9ac105"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105">core::ArmorCategory</a> { <a class="el" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105a9914a0ce04a7b7b6a8e39bec55064b82">core::Light</a>
+, <a class="el" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105a87f8a6ab85c9ced3702b4ea641ad4bb5">core::Medium</a>
+, <a class="el" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105af9ffe67a20da9cbff56b420fca4bd491">core::Heavy</a>
+, <a class="el" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105a970da5f1f2e32aeb9e488dd017160ab4">core::Shield</a>
+ }</td></tr>
+<tr class="memdesc:a7ad0450d2b476419d40745fbfa9ac105"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catégorie d'armure. Ensemble <b>fermé</b> : le livre n'en connaît pas d'autre.  <a href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ad0fe834d01c603c0df43af69133dc1e3" id="r_ad0fe834d01c603c0df43af69133dc1e3"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ad0fe834d01c603c0df43af69133dc1e3">core::hasProperty</a> (const <a class="el" href="structcore_1_1Weapon.html">Weapon</a> &amp;weapon, std::string_view property)</td></tr>
+<tr class="memdesc:ad0fe834d01c603c0df43af69133dc1e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si l'arme porte la propriété <code class="param">property</code> (<span class="tt">"finesse"</span>, <span class="tt">"reach"</span>, <span class="tt">"thrown"</span>...).  <br /></td></tr>
+<tr class="memitem:a06839f5ee0eea764bdcd5f6b865f194c" id="r_a06839f5ee0eea764bdcd5f6b865f194c"><td class="memItemLeft"><a class="el" href="structcore_1_1EquipmentCatalog.html">EquipmentCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a06839f5ee0eea764bdcd5f6b865f194c">core::loadEquipment</a> (const std::filesystem::path &amp;weaponsDir, const std::filesystem::path &amp;armorsDir)</td></tr>
+<tr class="memdesc:a06839f5ee0eea764bdcd5f6b865f194c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les armes et les armures depuis leurs dossiers.  <br /></td></tr>
+<tr class="memitem:aec44b80878262388830e480b169c6b70" id="r_aec44b80878262388830e480b169c6b70"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#aec44b80878262388830e480b169c6b70">core::armorClassFor</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a> &amp;rules, const <a class="el" href="structcore_1_1Armor.html">Armor</a> *armor, const <a class="el" href="structcore_1_1Armor.html">Armor</a> *shield)</td></tr>
+<tr class="memdesc:aec44b80878262388830e480b169c6b70"><td class="mdescLeft">&#160;</td><td class="mdescRight">La classe d'armure d'un personnage, armure et bouclier compris.  <br /></td></tr>
+<tr class="memitem:aed30b768048177bf363d9c058c5a0e1d" id="r_aed30b768048177bf363d9c058c5a0e1d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#aed30b768048177bf363d9c058c5a0e1d">core::totalWeightGrams</a> (const std::vector&lt; <a class="el" href="structcore_1_1InventoryEntry.html">InventoryEntry</a> &gt; &amp;entries)</td></tr>
+<tr class="memdesc:aed30b768048177bf363d9c058c5a0e1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le poids total d'un inventaire, en <b>grammes</b>.  <br /></td></tr>
+<tr class="memitem:a8f90cc0f92ab13611bbb2c2730e4efdd" id="r_a8f90cc0f92ab13611bbb2c2730e4efdd"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a8f90cc0f92ab13611bbb2c2730e4efdd">core::armorCategoryName</a> (<a class="el" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105">ArmorCategory</a> category)</td></tr>
+<tr class="memdesc:a8f90cc0f92ab13611bbb2c2730e4efdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom textuel d'une catégorie d'armure, tel que la donnée l'écrit.  <br /></td></tr>
+<tr class="memitem:ac58652f079d9fa10658f52da30750d24" id="r_ac58652f079d9fa10658f52da30750d24"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105">ArmorCategory</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ac58652f079d9fa10658f52da30750d24">core::parseArmorCategory</a> (std::string_view name)</td></tr>
+<tr class="memdesc:ac58652f079d9fa10658f52da30750d24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse d'<span class="tt"><a class="el" href="namespacecore.html#a8f90cc0f92ab13611bbb2c2730e4efdd" title="Nom textuel d&#39;une catégorie d&#39;armure, tel que la donnée l&#39;écrit.">armorCategoryName</a></span>. <span class="tt">std::nullopt</span> si le nom est inconnu — jamais deviné.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Armes, armures et le calcul de la classe d'armure (<span class="tt">LOT-34</span>). </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_de25d93b7b4ef75f45504127491f58b5.html">Rpg</a></li><li class="navelem"><a href="Equipment_8h.html">Equipment.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

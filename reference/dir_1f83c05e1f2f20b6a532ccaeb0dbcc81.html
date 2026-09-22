@@ -1,0 +1,263 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics Directory Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Graphics Directory Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-files" class="groupheader"><a id="files" name="files"></a>
+Files</h2></td></tr>
+<tr class="memitem:AnimationCatalog_2Ecpp" id="r_AnimationCatalog_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="AnimationCatalog_8cpp.html">AnimationCatalog.cpp</a></td></tr>
+<tr class="memitem:AnimationCatalog_2Eh" id="r_AnimationCatalog_2Eh"><td class="memItemLeft"><a href="AnimationCatalog_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="AnimationCatalog_8h.html">AnimationCatalog.h</a></td></tr>
+<tr class="memdesc:AnimationCatalog_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lecture et validation du format <span class="tt">nom-asset.anim.json</span>. <br /></td></tr>
+<tr class="memitem:ArenaAnimationDriver_2Ecpp" id="r_ArenaAnimationDriver_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="ArenaAnimationDriver_8cpp.html">ArenaAnimationDriver.cpp</a></td></tr>
+<tr class="memitem:ArenaAnimationDriver_2Eh" id="r_ArenaAnimationDriver_2Eh"><td class="memItemLeft"><a href="ArenaAnimationDriver_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="ArenaAnimationDriver_8h.html">ArenaAnimationDriver.h</a></td></tr>
+<tr class="memdesc:ArenaAnimationDriver_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait vivre les figurines du Colisée au temps réel du rendu (<span class="tt">LOT-86</span> Phase 4) : quelle image de quel fichier de la planche chaque combattant montre, indépendamment de tout pas fixe ou de l'ECS du monde exploré. <br /></td></tr>
+<tr class="memitem:ArenaAnimationState_2Eh" id="r_ArenaAnimationState_2Eh"><td class="memItemLeft"><a href="ArenaAnimationState_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="ArenaAnimationState_8h.html">ArenaAnimationState.h</a></td></tr>
+<tr class="memdesc:ArenaAnimationState_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'image courante de chaque figurine du Colisée, telle que <span class="tt"><a class="el" href="namespacehmi.html#aa5e3c79f66ed2e7f47977044cb6d51ba" title="Compose la scène de combat dans un tampon réutilisé, depuis un instantané.">hmi::composeArenaScene</a></span> la lit. <br /></td></tr>
+<tr class="memitem:ArenaAppearanceCatalog_2Ecpp" id="r_ArenaAppearanceCatalog_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="ArenaAppearanceCatalog_8cpp.html">ArenaAppearanceCatalog.cpp</a></td></tr>
+<tr class="memitem:ArenaAppearanceCatalog_2Eh" id="r_ArenaAppearanceCatalog_2Eh"><td class="memItemLeft"><a href="ArenaAppearanceCatalog_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="ArenaAppearanceCatalog_8h.html">ArenaAppearanceCatalog.h</a></td></tr>
+<tr class="memdesc:ArenaAppearanceCatalog_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rôle de case et figurine du Colisée, portés en <span class="tt">HMI</span> pur depuis <span class="tt">ArenaTile.ui.qml</span> (LOT-50, lignes 57-84) pour que <span class="tt"><a class="el" href="namespacehmi.html#aa5e3c79f66ed2e7f47977044cb6d51ba" title="Compose la scène de combat dans un tampon réutilisé, depuis un instantané.">hmi::composeArenaScene</a></span> les lise sans repasser par QML. <br /></td></tr>
+<tr class="memitem:ArenaSceneComposer_2Ecpp" id="r_ArenaSceneComposer_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="ArenaSceneComposer_8cpp.html">ArenaSceneComposer.cpp</a></td></tr>
+<tr class="memitem:ArenaSceneComposer_2Eh" id="r_ArenaSceneComposer_2Eh"><td class="memItemLeft"><a href="ArenaSceneComposer_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="ArenaSceneComposer_8h.html">ArenaSceneComposer.h</a></td></tr>
+<tr class="memdesc:ArenaSceneComposer_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">La scène de combat du Colisée composée en primitives, <b>sans GPU</b> : ce que dessinait <span class="tt">ArenaScene.ui.qml</span>/<span class="tt">ArenaTile.ui.qml</span> (<span class="tt">LOT-50</span>), prêt pour <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence et échantillonnage nearest (pixel ar...">hmi::SpriteBatch</a></span>. <br /></td></tr>
+<tr class="memitem:ArenaSceneRenderer_2Ecpp" id="r_ArenaSceneRenderer_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="ArenaSceneRenderer_8cpp.html">ArenaSceneRenderer.cpp</a></td></tr>
+<tr class="memitem:ArenaSceneRenderer_2Eh" id="r_ArenaSceneRenderer_2Eh"><td class="memItemLeft"><a href="ArenaSceneRenderer_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="ArenaSceneRenderer_8h.html">ArenaSceneRenderer.h</a></td></tr>
+<tr class="memdesc:ArenaSceneRenderer_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rendu QRhi de la scène de combat du Colisée, côté <b>fil de rendu</b> (<span class="tt">LOT-86</span> Phase 5). <br /></td></tr>
+<tr class="memitem:AssetContract_2Eh" id="r_AssetContract_2Eh"><td class="memItemLeft"><a href="AssetContract_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="AssetContract_8h.html">AssetContract.h</a></td></tr>
+<tr class="memdesc:AssetContract_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verdict de validation d'un asset graphique contre ses dimensions décodées (<span class="tt">EX-REN-007</span>). <br /></td></tr>
+<tr class="memitem:AssetGallery_2Ecpp" id="r_AssetGallery_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="AssetGallery_8cpp.html">AssetGallery.cpp</a></td></tr>
+<tr class="memitem:AssetGallery_2Eh" id="r_AssetGallery_2Eh"><td class="memItemLeft"><a href="AssetGallery_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="AssetGallery_8h.html">AssetGallery.h</a></td></tr>
+<tr class="memdesc:AssetGallery_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">La galerie des assets, outil de débug : inventaire, disposition en blocs et visibilité, <b>sans GPU</b>. <br /></td></tr>
+<tr class="memitem:AssetGalleryRenderer_2Ecpp" id="r_AssetGalleryRenderer_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="AssetGalleryRenderer_8cpp.html">AssetGalleryRenderer.cpp</a></td></tr>
+<tr class="memitem:AssetGalleryRenderer_2Eh" id="r_AssetGalleryRenderer_2Eh"><td class="memItemLeft"><a href="AssetGalleryRenderer_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="AssetGalleryRenderer_8h.html">AssetGalleryRenderer.h</a></td></tr>
+<tr class="memdesc:AssetGalleryRenderer_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rendu QRhi de la galerie des assets (outil de débug), côté <b>fil de rendu</b>. <br /></td></tr>
+<tr class="memitem:CacheRegistry_2Eh" id="r_CacheRegistry_2Eh"><td class="memItemLeft"><a href="CacheRegistry_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="CacheRegistry_8h.html">CacheRegistry.h</a></td></tr>
+<tr class="memdesc:CacheRegistry_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registre générique clé → ressource chargée paresseusement, avec invalidation (<span class="tt">EX-REN-043</span>). <br /></td></tr>
+<tr class="memitem:Camera2D_2Ecpp" id="r_Camera2D_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="Camera2D_8cpp.html">Camera2D.cpp</a></td></tr>
+<tr class="memitem:Camera2D_2Eh" id="r_Camera2D_2Eh"><td class="memItemLeft"><a href="Camera2D_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="Camera2D_8h.html">Camera2D.h</a></td></tr>
+<tr class="memdesc:Camera2D_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Caméra 2D : conversion entre unités monde et pixels écran. <br /></td></tr>
+<tr class="memitem:CityBlockRender_2Ecpp" id="r_CityBlockRender_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="CityBlockRender_8cpp.html">CityBlockRender.cpp</a></td></tr>
+<tr class="memitem:CityBlockRender_2Eh" id="r_CityBlockRender_2Eh"><td class="memItemLeft"><a href="CityBlockRender_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="CityBlockRender_8h.html">CityBlockRender.h</a></td></tr>
+<tr class="memdesc:CityBlockRender_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'<b>îlot</b> vu sur le plan : la carte du quartier telle que le jeu la dessine, cadrée sur un rectangle nommé (<span class="tt">LOT-96</span>). <br /></td></tr>
+<tr class="memitem:ComposedScene_2Ecpp" id="r_ComposedScene_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="ComposedScene_8cpp.html">ComposedScene.cpp</a></td></tr>
+<tr class="memitem:ComposedScene_2Eh" id="r_ComposedScene_2Eh"><td class="memItemLeft"><a href="ComposedScene_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="ComposedScene_8h.html">ComposedScene.h</a></td></tr>
+<tr class="memdesc:ComposedScene_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composition du rendu : liste ordonnée des primitives d'une image, <b>sans GPU</b> (<span class="tt">EX-NFR-004</span>, <span class="tt">EX-NFR-005</span>). <br /></td></tr>
+<tr class="memitem:EntityMarkers_2Ecpp" id="r_EntityMarkers_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="EntityMarkers_8cpp.html">EntityMarkers.cpp</a></td></tr>
+<tr class="memitem:EntityMarkers_2Eh" id="r_EntityMarkers_2Eh"><td class="memItemLeft"><a href="EntityMarkers_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="EntityMarkers_8h.html">EntityMarkers.h</a></td></tr>
+<tr class="memdesc:EntityMarkers_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le marqueur d'une entité de carte : sa clé d'asset et ses pixels (<span class="tt">LOT-11</span>, <span class="tt">LOT-39</span>). <br /></td></tr>
+<tr class="memitem:GraphicsLog_2Eh" id="r_GraphicsLog_2Eh"><td class="memItemLeft"><a href="GraphicsLog_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="GraphicsLog_8h.html">GraphicsLog.h</a></td></tr>
+<tr class="memdesc:GraphicsLog_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macros de journalisation de la catégorie « Graphics ». <br /></td></tr>
+<tr class="memitem:MaquettePalette_2Eh" id="r_MaquettePalette_2Eh"><td class="memItemLeft"><a href="MaquettePalette_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="MaquettePalette_8h.html">MaquettePalette.h</a></td></tr>
+<tr class="memdesc:MaquettePalette_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">La palette du <b>rendu de maquette</b> : la teinte de chaque type de tuile quand aucune pièce ne l'habille (<span class="tt">LOT-128</span>, décision D5). <br /></td></tr>
+<tr class="memitem:MaquetteTokens_2Ecpp" id="r_MaquetteTokens_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="MaquetteTokens_8cpp.html">MaquetteTokens.cpp</a></td></tr>
+<tr class="memitem:MaquetteTokens_2Eh" id="r_MaquetteTokens_2Eh"><td class="memItemLeft"><a href="MaquetteTokens_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="MaquetteTokens_8h.html">MaquetteTokens.h</a></td></tr>
+<tr class="memdesc:MaquetteTokens_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les <b>jetons</b> du rendu de maquette : un rond de couleur, avec sa lettre, à la place d'une figurine qui n'existe pas (<span class="tt">LOT-128</span>, décision D2). <br /></td></tr>
+<tr class="memitem:MissingTexture_2Ecpp" id="r_MissingTexture_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="MissingTexture_8cpp.html">MissingTexture.cpp</a></td></tr>
+<tr class="memitem:MissingTexture_2Eh" id="r_MissingTexture_2Eh"><td class="memItemLeft"><a href="MissingTexture_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="MissingTexture_8h.html">MissingTexture.h</a></td></tr>
+<tr class="memdesc:MissingTexture_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repli visible (damier magenta) pour toute texture attendue mais absente (<span class="tt">EX-NFR-040</span>). <br /></td></tr>
+<tr class="memitem:PlaceAppearance_2Ecpp" id="r_PlaceAppearance_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="PlaceAppearance_8cpp.html">PlaceAppearance.cpp</a></td></tr>
+<tr class="memitem:PlaceAppearance_2Eh" id="r_PlaceAppearance_2Eh"><td class="memItemLeft"><a href="PlaceAppearance_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="PlaceAppearance_8h.html">PlaceAppearance.h</a></td></tr>
+<tr class="memdesc:PlaceAppearance_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un <b>lieu</b> met sur une case : la table qui traduit un type de tuile en pièce de la planche de l'atelier des textures (<span class="tt">LOT-92</span>, <span class="tt">LOT-09</span>). <br /></td></tr>
+<tr class="memitem:ProceduralAtlas_2Ecpp" id="r_ProceduralAtlas_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="ProceduralAtlas_8cpp.html">ProceduralAtlas.cpp</a></td></tr>
+<tr class="memitem:ProceduralAtlas_2Eh" id="r_ProceduralAtlas_2Eh"><td class="memItemLeft"><a href="ProceduralAtlas_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="ProceduralAtlas_8h.html">ProceduralAtlas.h</a></td></tr>
+<tr class="memdesc:ProceduralAtlas_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génération procédurale (CPU, sans GPU) des pixels de l'atlas de repli. <br /></td></tr>
+<tr class="memitem:Quad_2Eh" id="r_Quad_2Eh"><td class="memItemLeft"><a href="Quad_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="Quad_8h.html">Quad.h</a></td></tr>
+<tr class="memdesc:Quad_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primitives de dessin 2D (quads texturés), <b>indépendantes de Direct3D</b>. <br /></td></tr>
+<tr class="memitem:QuadRecorder_2Ecpp" id="r_QuadRecorder_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="QuadRecorder_8cpp.html">QuadRecorder.cpp</a></td></tr>
+<tr class="memitem:QuadRecorder_2Eh" id="r_QuadRecorder_2Eh"><td class="memItemLeft"><a href="QuadRecorder_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="QuadRecorder_8h.html">QuadRecorder.h</a></td></tr>
+<tr class="memdesc:QuadRecorder_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Capture et inspection des primitives composées pour une image (<span class="tt">EX-NFR-004</span>). <br /></td></tr>
+<tr class="memitem:RenderLayer_2Eh" id="r_RenderLayer_2Eh"><td class="memItemLeft"><a href="RenderLayer_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="RenderLayer_8h.html">RenderLayer.h</a></td></tr>
+<tr class="memdesc:RenderLayer_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ordonnancement de calques <b>unique et explicite</b> du rendu (<span class="tt">EX-REN-014</span>). <br /></td></tr>
+<tr class="memitem:RhiContext_2Eh" id="r_RhiContext_2Eh"><td class="memItemLeft"><a href="RhiContext_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="RhiContext_8h.html">RhiContext.h</a></td></tr>
+<tr class="memdesc:RhiContext_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accès partagé au <span class="tt">QRhi</span> courant et au lot de mises à jour de ressources de l'image en cours (<span class="tt">EX-REN-050</span>). <br /></td></tr>
+<tr class="memitem:ScenePiecePlacement_2Eh" id="r_ScenePiecePlacement_2Eh"><td class="memItemLeft"><a href="ScenePiecePlacement_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="ScenePiecePlacement_8h.html">ScenePiecePlacement.h</a></td></tr>
+<tr class="memitem:ScenePieces_2Eh" id="r_ScenePieces_2Eh"><td class="memItemLeft"><a href="ScenePieces_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="ScenePieces_8h.html">ScenePieces.h</a></td></tr>
+<tr class="memdesc:ScenePieces_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">La géométrie des <b>pièces de l'atelier des textures</b> (<span class="tt">LOT-92</span>), commune au Colisée en combat et aux lieux qu'on parcourt (<span class="tt">LOT-09</span>). <br /></td></tr>
+<tr class="memitem:SceneResources_2Ecpp" id="r_SceneResources_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="SceneResources_8cpp.html">SceneResources.cpp</a></td></tr>
+<tr class="memitem:SceneResources_2Eh" id="r_SceneResources_2Eh"><td class="memItemLeft"><a href="SceneResources_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="SceneResources_8h.html">SceneResources.h</a></td></tr>
+<tr class="memdesc:SceneResources_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les ressources QRhi que <b>toute</b> surface de rendu du projet possède (<span class="tt">LOT-86</span>). <br /></td></tr>
+<tr class="memitem:SpriteBatch_2Ecpp" id="r_SpriteBatch_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="SpriteBatch_8cpp.html">SpriteBatch.cpp</a></td></tr>
+<tr class="memitem:SpriteBatch_2Eh" id="r_SpriteBatch_2Eh"><td class="memItemLeft"><a href="SpriteBatch_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="SpriteBatch_8h.html">SpriteBatch.h</a></td></tr>
+<tr class="memdesc:SpriteBatch_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pipeline de rendu 2D sur <b>QRhi</b> : accumule des quads texturés et les dessine par lots (<span class="tt">EX-REN-050</span>). <br /></td></tr>
+<tr class="memitem:SpriteRenderer_2Ecpp" id="r_SpriteRenderer_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="SpriteRenderer_8cpp.html">SpriteRenderer.cpp</a></td></tr>
+<tr class="memitem:SpriteRenderer_2Eh" id="r_SpriteRenderer_2Eh"><td class="memItemLeft"><a href="SpriteRenderer_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="SpriteRenderer_8h.html">SpriteRenderer.h</a></td></tr>
+<tr class="memdesc:SpriteRenderer_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Soumission d'une scène composée au pipeline de dessin. <br /></td></tr>
+<tr class="memitem:TextureAtlas_2Ecpp" id="r_TextureAtlas_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="TextureAtlas_8cpp.html">TextureAtlas.cpp</a></td></tr>
+<tr class="memitem:TextureAtlas_2Eh" id="r_TextureAtlas_2Eh"><td class="memItemLeft"><a href="TextureAtlas_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="TextureAtlas_8h.html">TextureAtlas.h</a></td></tr>
+<tr class="memdesc:TextureAtlas_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Atlas de textures (spritesheet) et ses régions de tuiles. <br /></td></tr>
+<tr class="memitem:TextureAtlasRegions_2Ecpp" id="r_TextureAtlasRegions_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="TextureAtlasRegions_8cpp.html">TextureAtlasRegions.cpp</a></td></tr>
+<tr class="memdesc:TextureAtlasRegions_8cpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mapping (colonne, ligne) -&gt; région d'atlas de <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas procédurale et table de régions de tuiles (EX-REN-041/EX-REN-042).">hmi::TextureAtlas</a></span> (<span class="tt">tile</span>). <br /></td></tr>
+<tr class="memitem:TextureCache_2Ecpp" id="r_TextureCache_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="TextureCache_8cpp.html">TextureCache.cpp</a></td></tr>
+<tr class="memitem:TextureCache_2Eh" id="r_TextureCache_2Eh"><td class="memItemLeft"><a href="TextureCache_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="TextureCache_8h.html">TextureCache.h</a></td></tr>
+<tr class="memdesc:TextureCache_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registre des textures <b>générées</b> à la demande : les marqueurs d'entité (<span class="tt">LOT-39</span>). <br /></td></tr>
+<tr class="memitem:TextureLoader_2Ecpp" id="r_TextureLoader_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="TextureLoader_8cpp.html">TextureLoader.cpp</a></td></tr>
+<tr class="memitem:TextureLoader_2Eh" id="r_TextureLoader_2Eh"><td class="memItemLeft"><a href="TextureLoader_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="TextureLoader_8h.html">TextureLoader.h</a></td></tr>
+<tr class="memdesc:TextureLoader_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chargement de textures GPU depuis des fichiers image (<span class="tt">EX-REN-041</span>), au travers de QRhi. <br /></td></tr>
+<tr class="memitem:TileVisuals_2Ecpp" id="r_TileVisuals_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="TileVisuals_8cpp.html">TileVisuals.cpp</a></td></tr>
+<tr class="memitem:TileVisuals_2Eh" id="r_TileVisuals_2Eh"><td class="memItemLeft"><a href="TileVisuals_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="TileVisuals_8h.html">TileVisuals.h</a></td></tr>
+<tr class="memdesc:TileVisuals_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Correspondance type de tuile → région d'atlas, partagée par le canevas et la palette de l'éditeur. <br /></td></tr>
+<tr class="memitem:WorldSceneComposer_2Ecpp" id="r_WorldSceneComposer_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="WorldSceneComposer_8cpp.html">WorldSceneComposer.cpp</a></td></tr>
+<tr class="memitem:WorldSceneComposer_2Eh" id="r_WorldSceneComposer_2Eh"><td class="memItemLeft"><a href="WorldSceneComposer_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="WorldSceneComposer_8h.html">WorldSceneComposer.h</a></td></tr>
+<tr class="memdesc:WorldSceneComposer_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un <b>lieu qu'on parcourt</b> composé en primitives, sans GPU : le jumeau d'<span class="tt">hmi::ArenaSceneComposer</span> pour la carte du jeu (<span class="tt">LOT-09</span>). <br /></td></tr>
+<tr class="memitem:WorldSceneRenderer_2Ecpp" id="r_WorldSceneRenderer_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="WorldSceneRenderer_8cpp.html">WorldSceneRenderer.cpp</a></td></tr>
+<tr class="memitem:WorldSceneRenderer_2Eh" id="r_WorldSceneRenderer_2Eh"><td class="memItemLeft"><a href="WorldSceneRenderer_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="WorldSceneRenderer_8h.html">WorldSceneRenderer.h</a></td></tr>
+<tr class="memdesc:WorldSceneRenderer_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rendu QRhi d'un <b>lieu qu'on parcourt</b> : le jumeau d'<span class="tt"><a class="el" href="classhmi_1_1ArenaSceneRenderer.html" title="Ce qui dessine le Colisée : ressources GPU, textures de la planche, animation des figurines,...">hmi::ArenaSceneRenderer</a></span> (<span class="tt">LOT-09</span>). <br /></td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

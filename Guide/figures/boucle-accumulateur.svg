@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="400" fill="#fbf8f0"/>
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="28" font-weight="600" fill="#25201a">core::FixedTimestep::advance(elapsedSeconds) — trois frames réelles, pas fixe 1/60 s ≈ 16,7 ms</text>
+
+  <!-- axe du temps réel -->
+  <line x1="60" y1="70" x2="840" y2="70" stroke="#6a6152" stroke-width="1.5" marker-end="url(#f)"/>
+  <text x="20" y="74" fill="#6a6152">réel</text>
+  <!-- frames : 20 ms, 15 ms, 40 ms ; échelle 8 px/ms -->
+  <g stroke="#25201a" stroke-width="1.5">
+    <line x1="80" y1="60" x2="80" y2="80"/>
+    <line x1="240" y1="60" x2="240" y2="80"/>
+    <line x1="360" y1="60" x2="360" y2="80"/>
+    <line x1="680" y1="60" x2="680" y2="80"/>
+  </g>
+  <g fill="#25201a">
+    <text x="130" y="56">frame 1 : 20 ms</text>
+    <text x="262" y="56">frame 2 : 15 ms</text>
+    <text x="480" y="56">frame 3 : 40 ms</text>
+  </g>
+
+  <!-- accumulateur : trois barres -->
+  <text x="20" y="128" font-weight="600" fill="#25201a">accumulateur</text>
+  <text x="20" y="146" font-size="12" fill="#6a6152">(1 pas = 133 px)</text>
+
+  <!-- frame 1 : avant 0, après ajout 20 ms -> 1 pas, reste 3,3 ms -->
+  <g>
+    <rect x="200" y="112" width="133" height="22" fill="#3f6b34" stroke="#25201a"/>
+    <rect x="333" y="112" width="27" height="22" fill="#9a7420" stroke="#25201a"/>
+    <text x="370" y="128" fill="#25201a">0 + 20 ms → 1 pas, reste 3,3 ms</text>
+  </g>
+  <!-- frame 2 : 3,3 + 15 = 18,3 -> 1 pas, reste 1,6 ms -->
+  <g>
+    <rect x="200" y="152" width="133" height="22" fill="#3f6b34" stroke="#25201a"/>
+    <rect x="333" y="152" width="13" height="22" fill="#9a7420" stroke="#25201a"/>
+    <text x="370" y="168" fill="#25201a">3,3 + 15 ms → 1 pas, reste 1,6 ms</text>
+  </g>
+  <!-- frame 3 : 1,6 + 40 = 41,6 -> 2 pas, reste 8,3 ms -->
+  <g>
+    <rect x="200" y="192" width="133" height="22" fill="#3f6b34" stroke="#25201a"/>
+    <rect x="333" y="192" width="133" height="22" fill="#3f6b34" stroke="#25201a"/>
+    <rect x="466" y="192" width="66" height="22" fill="#9a7420" stroke="#25201a"/>
+    <text x="545" y="208" fill="#25201a">1,6 + 40 ms → 2 pas, reste 8,3 ms</text>
+  </g>
+  <g font-size="12" fill="#6a6152">
+    <text x="150" y="128">frame 1</text>
+    <text x="150" y="168">frame 2</text>
+    <text x="150" y="208">frame 3</text>
+  </g>
+
+  <!-- légende -->
+  <rect x="200" y="236" width="18" height="14" fill="#3f6b34" stroke="#25201a"/>
+  <text x="226" y="248" fill="#25201a">un pas fixe retranché : play.step(intent, 1/60 s)</text>
+  <rect x="520" y="236" width="18" height="14" fill="#9a7420" stroke="#25201a"/>
+  <text x="546" y="248" fill="#25201a">reste, gardé pour la frame suivante</text>
+
+  <!-- plafond -->
+  <rect x="20" y="276" width="840" height="104" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="34" y="300" font-weight="600" fill="#8a2233">Plafond : maximumStepsPerCall = 5</text>
+  <text x="34" y="322" fill="#25201a">Une frame de 200 ms vaudrait 12 pas. advance() en rend 5, puis, s'il reste encore au moins un pas,</text>
+  <text x="34" y="340" fill="#25201a">remet l'accumulateur à zéro : le retard est abandonné, jamais rattrapé — c'est ce qui coupe la spirale de la mort.</text>
+  <text x="34" y="366" font-family="Consolas, monospace" font-size="13" fill="#6a6152">elapsedSeconds ≤ 0 : ignoré (horloge non monotone) — interpolationAlpha() = reste / pas ∈ [0, 1[</text>
+</svg>

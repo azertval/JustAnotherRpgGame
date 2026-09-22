@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOT-34 — Équipement, monnaie, objets magiques — Planification</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="index.html" class="active">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="../standards/index.html">Standards</a></nav>
+  <div class="links"><a href="../../">Documentation</a><a class="active" href="../index.html">Planification</a><a href="../../qualite/">Qualité</a></div>
+</header>
+<div class="shell">
+
+<main>
+<p class="crumb"><a href="index.html">Lots</a> › <a href="../versions/v0-0-0.html">0.0.0 — Fondation du moteur</a></p><h1><span class="vid">LOT-34</span> Équipement, monnaie, objets magiques</h1><p class="lede">Armes, armures et matériel des Basic Rules sont des données justes au prix, au poids et à la classe d'armure près.</p><dl class="facts"><div><dt>État</dt><dd><span class="badge etat-livre">livré</span></dd></div><div><dt>Filière</dt><dd><span class="filiere f-donnees">Corpus et extraction</span></dd></div><div><dt>Taille</dt><dd>M</dd></div><div><dt>Ordre calculé</dt><dd>—</dd></div><div><dt>Prérequis</dt><dd><a class="ref" href="lot-32.html">LOT-32</a></dd></div><div><dt>Débloque</dt><dd><a class="ref" href="lot-14.html">LOT-14</a> <a class="ref" href="lot-39.html">LOT-39</a></dd></div><div><dt>Reprend</dt><dd>—</dd></div></dl><section><h2>Livrables</h2><ul class=""><li>175 fichiers de données : <code>weapons/</code> (37), <code>armors/</code> (13), <code>items/</code> (125).</li><li><code>scripts/sourcebook/equipement.py</code> et la sous-commande <code>python scripts/sourcebook equipement</code>.</li><li><code>core::loadEquipment</code> et <code>core::armorClassFor</code> (<code>Source/Core/Rpg/Equipment.{h,cpp}</code>).</li><li><code>damage</code> et <code>damageType</code> rendus facultatifs au schéma des armes, avec leur raison (le filet).</li><li>Sept tests, dont la CA des 13 armures contre la table du livre.</li></ul></section><section><h2>Critères d'acceptation</h2><ul class="checks"><li>La CA calculée par le moteur pour chacune des 13 armures égale la colonne CA de la table, vérifié par un test dont les valeurs sont recopiées à la main du livre.</li><li>Le poids total d'un inventaire de départ correspond au calcul manuel — cotte de mailles, épée longue, bouclier et deux javelines : 27,5 + 1,5 + 3 + 2 × 1 = 34 kg.</li><li>Le bouclier ajoute et ne remplace pas, seul comme avec une armure.</li><li>Les 37 armes portent la catégorie et la portée de leur intertitre.</li><li>Les 125 objets de matériel, d'outillage et de monture valident contre leur schéma.</li><li><code>ctest</code> : 1008/1008 (1001 avant le lot, plus 7).</li></ul></section><section class="prose"><h2 id="pourquoi">Pourquoi</h2>
+<p>Les tables d'équipement des <em>Basic Rules</em> vers <code>Source/Elements/Rpg/</code> : <strong>37 armes</strong>, <strong>13 armures</strong> et <strong>125 objets</strong> — matériel d'aventurier, outils, montures et véhicules — avec leurs dégâts, leur classe d'armure, leur poids, leur prix et leurs propriétés.</p>
+<h2 id="périmètre">Périmètre</h2>
+<h3 id="ce-que-le-lot-livre">Ce que le lot livre</h3>
+<p><strong>175 fichiers de données</strong> — <code>weapons/</code> (37), <code>armors/</code> (13), <code>items/</code> (125 : 96 de matériel, 16 outils, 13 montures et véhicules).</p>
+<p><strong><code>scripts/sourcebook/equipement.py</code></strong> et la sous-commande <code>python scripts/sourcebook equipement</code>.</p>
+<p><strong><code>core::loadEquipment</code> et <code>core::armorClassFor</code></strong> (<code>Source/Core/Rpg/Equipment.{h,cpp}</code>), et <strong>sept tests</strong>.</p>
+<h3 id="ce-que-le-lot-ne-fait-pas">Ce que le lot ne fait pas</h3>
+<p><strong>Il ne livre pas les objets magiques.</strong> Le chapitre 10 du <em>Sourcebook</em> est en anglais et demande une étape de traduction ; il alimente le <a href="../vision/archives/feuille-de-route-jeu.html#lot-26">LOT-26</a>, qui ne l'attend pas pour exister.</p>
+<p><strong>Il ne livre ni les marchandises ni les services.</strong> Leurs deux tables, pages 57 et 58, sont noyées dans du texte courant et ne se relèvent pas comme des tables : elles restent à extraire, et rien de ce que le lot doit prouver n'en dépend.</p>
+<p><strong>Quatre selles portent le nom que le livre leur donne dans sa sous-rubrique</strong> — « D'équitation », « De bât », « Exotique », « Militaire » — parce que le mot « Selle » est un intertitre de la table des montures et non une cellule de leur rangée. C'est le nom du livre, pas une faute d'extraction ; le rendre lisible demanderait de propager l'intertitre comme le fait la table des armes, ce que cette table-là ne justifie pas pour quatre lignes.</p>
+<p><strong>Il ne gère pas l'inventaire.</strong> <code>totalWeightGrams</code> calcule un poids ; porter, équiper et encombrer sont le <a href="lot-14.html">LOT-14</a>.</p>
+<h2 id="conception">Conception</h2>
+<h3 id="cest-le-lot-où-le-4-se-paie">C'est le lot où le §4 se paie</h3>
+<p>« Un tableau ne s'extrait pas en flux de texte » (<code>EX-CNT-021</code>) est une règle que le corpus impose depuis le <code>LOT-30</code>. Nulle part sa conséquence n'est aussi silencieuse qu'ici : <strong>une valeur de prix décalée d'une ligne ne casse rien, ne lève aucune alerte, et déséquilibre l'économie sans que personne ne comprenne pourquoi</strong>. Les deux tables sont donc lues par coordonnée — les rangées par ordonnée, les cellules par abscisse.</p>
+<p>Ces tables sont <strong>pleine largeur</strong>, contrairement au reste du livre : elles traversent la gouttière que le <code>LOT-33</code> avait mesurée, et les découper en colonnes couperait chaque rangée en deux au milieu d'un prix. Leur région est donc déclarée — page et bande d'ordonnées — et le module contrôle le nombre de rangées qu'il en tire.</p>
+<h3 id="le-groupe-dune-arme-nest-pas-dans-sa-rangée">Le groupe d'une arme n'est pas dans sa rangée</h3>
+<p>Le livre range ses armes sous quatre intertitres — « Armes courantes de corps à corps », « Armes de guerre à distance »… — et ses armures sous quatre autres. <strong>Ce sont ces intertitres, et eux seuls, qui disent qu'une arme est courante ou de guerre</strong> ; la rangée ne porte rien de tel.</p>
+<p>Une extraction qui ne lirait que les rangées produirait trente-sept armes sans catégorie — et <code>category</code> est requis au schéma, mais <strong>rien ne dit qu'il est juste</strong>. Les intertitres sont reconnus à leur rangée à <strong>une seule cellule</strong> : une table à cinq colonnes n'en produit pas d'autre.</p>
+<p>Le défaut s'est manifesté à la première exécution, et c'est le contrôle de cardinal qui l'a dit : la bande d'ordonnées commençait <strong>après</strong> le premier intertitre, si bien que les dix premières armes sortaient sans catégorie et étaient silencieusement écartées. 27 armes au lieu de 37 — sans le contrôle, un catalogue amputé de dix armes se serait chargé et validé sans un mot.</p>
+<h3 id="trois-cas-que-le-livre-écrit-et-quun-schéma-refusait">Trois cas que le livre écrit et qu'un schéma refusait</h3>
+<p><strong>Le filet n'inflige aucun dégât.</strong> Sa rangée a une cellule de moins que les autres, et le schéma du <code>LOT-32</code> exigeait <code>damage</code> et <code>damageType</code>. Lui inventer des dés en ferait une arme qui touche pour rien, ce qui est faux : le filet <strong>entrave</strong>. Les deux champs sont devenus facultatifs, avec la raison écrite dans le schéma — et l'alignement des colonnes se fait sur la première cellule qui <em>ressemble</em> à des dégâts, jamais sur un indice fixe : un décalage mettrait le poids dans la colonne des dégâts, ce que rien ne refuserait.</p>
+<p><strong>La fronde n'a pas de poids.</strong> Sa colonne porte un tiret. Le tiret vaut <strong>absent</strong>, jamais zéro — une case que le livre n'a pas remplie n'est pas une valeur nulle. Le cas est rapporté à chaque génération plutôt que masqué.</p>
+<p><strong>Le bouclier n'est pas une armure.</strong> Il est dans la même table, et le livre l'y met ; mais il <strong>ajoute</strong> à la classe d'armure au lieu de la remplacer. Le traiter comme une armure donnerait une CA de 2 à un personnage en bouclier seul. La table porte donc treize rangées — douze armures et le bouclier — et c'est le chiffre que la feuille de route annonce.</p>
+<h3 id="les-trois-formes-de-la-colonne-ca-disent-trois-règles">Les trois formes de la colonne CA disent trois règles</h3>
+<p>C'est la faute qui ne se voit pas :</p>
+<div class="table-wrap"><table><thead><tr><th>Ce que le livre écrit</th><th>Ce que cela veut dire</th></tr></thead><tbody><tr><td><code>11 + Mod.Dex</code></td><td>la Dextérité s'ajoute <strong>sans plafond</strong> (armures légères)</td></tr><tr><td><code>14 + Mod.Dex (max +2)</code></td><td>elle s'ajoute <strong>plafonnée à 2</strong> (armures intermédiaires)</td></tr><tr><td><code>18</code></td><td>elle ne s'ajoute <strong>pas du tout</strong> (armures lourdes)</td></tr></tbody></table></div>
+<p>Réduire les trois à leur premier nombre appliquerait la Dextérité au harnois — ce qui rend le personnage <strong>plus</strong> résistant, jamais moins, ne provoque aucune erreur, et passe pour de l'équilibrage.</p>
+<p>Le test choisit une Dextérité de 18 (modificateur +4) précisément pour révéler la faute : avec +1, un harnois à 19 au lieu de 18 se lit mal ; avec +4, il donne 22, et le plafond des intermédiaires se distingue nettement du sans-plafond des légères.</p>
+<h3 id="deux-unités-converties-une-seule-fois">Deux unités, converties une seule fois</h3>
+<p>Le livre écrit des prix en pièces (po, pa, pc) et des poids en kilogrammes <strong>et</strong> en grammes dans la même table — « 6,5 kg », « 500 g ». Les schémas veulent des <strong>pièces de cuivre</strong> et des <strong>grammes</strong>. La conversion se fait à l'extraction : mélanger deux unités dans un total donnerait un sac de cinq cents kilos pour une poignée de fléchettes, et une masse d'armes moins chère qu'une dague.</p>
+<h3 id="la-table-du-matériel-est-composée-en-deux-sous-tables-côte-à-côte">La table du matériel est composée en deux sous-tables côte à côte</h3>
+<p>Une rangée y porte <strong>six</strong> cellules, donc deux objets. Les lire d'un bloc donnerait un objet nommé « Acide (fiole) » coûtant « 25 po » et pesant « 500 g Billes de fronde (20) » — une valeur qui n'est pas un poids, et qu'aucun schéma ne refuserait puisque le champ serait simplement absent. La forme est déclarée table par table, et le découpage se fait par triplets.</p>
+<p>Une ligne dont le prix n'est pas lisible <strong>n'est pas un objet</strong> : c'est un intertitre — « Barde ×4 ×2 » — ou une ligne de continuation. L'écrire produirait un objet gratuit portant un nom de section.</p>
+<h2 id="vérification">Vérification</h2>
+<p>Ce que l'epic relevait en face de chaque critère, dans l'ordre des critères de l'en-tête :</p>
+<ol><li>✔</li><li>✔</li><li>✔</li><li>✔</li><li>✔</li><li>✔</li></ol>
+<h2 id="bilan">Bilan</h2>
+<p>Statut : <strong>fait</strong>. Vérification automatisée : build <code>/W4 /WX</code> sans avertissement, <code>ctest</code> à 1008/1008, <code>clang-format</code>, les six lints, cahier de test et Doxygen verts.</p>
+<p>Alimente <a href="lot-14.html">LOT-14</a>, <a href="../vision/archives/feuille-de-route-jeu.html#lot-26">LOT-26</a>, <a href="../vision/archives/feuille-de-route-jeu.html#lot-27">LOT-27</a>.</p>
+<p>Exigences couvertes : <a href="../../Specification/inventaire.html#EX-INV-001"><code>EX-INV-001</code></a>, <a href="../../Specification/inventaire.html#EX-INV-010"><code>EX-INV-010</code></a>, <a href="../../Specification/inventaire.html#EX-INV-011"><code>EX-INV-011</code></a>, <a href="../../Specification/inventaire.html#EX-INV-041"><code>EX-INV-041</code></a>.</p></section><section><h2>Sources du corpus</h2><ul class=""><li>Basic Rules, tables d'équipement (armes, armures, matériel, montures) ; p. 57-58 pour les marchandises et services, non extraits</li></ul></section><p class="source">Source : <code>Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-34-equipement.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

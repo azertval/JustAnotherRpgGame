@@ -1,0 +1,302 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/Equipment.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('Equipment_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Equipment.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Equipment_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="Dice_8h.html">Core/Rpg/Dice.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="RpgEnums_8h.html">Core/Rpg/RpgEnums.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1CharacterSheet.html">CharacterSheet</a>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span></div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105">   26</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105">ArmorCategory</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105a9914a0ce04a7b7b6a8e39bec55064b82">   27</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105a9914a0ce04a7b7b6a8e39bec55064b82">Light</a>,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105a87f8a6ab85c9ced3702b4ea641ad4bb5">   28</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105a87f8a6ab85c9ced3702b4ea641ad4bb5">Medium</a>,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105af9ffe67a20da9cbff56b420fca4bd491">   29</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105af9ffe67a20da9cbff56b420fca4bd491">Heavy</a>,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105a970da5f1f2e32aeb9e488dd017160ab4">   34</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105a970da5f1f2e32aeb9e488dd017160ab4">Shield</a>,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span></div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="};">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structcore_1_1Armor.html">   38</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1Armor.html">Armor</a> {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structcore_1_1Armor.html#ac581b54cd1588b03d17d0463925ef430">   39</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Armor.html#ac581b54cd1588b03d17d0463925ef430">id</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structcore_1_1Armor.html#af3e5388cf7cd161984dbfc9a70114dd7">   40</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Armor.html#af3e5388cf7cd161984dbfc9a70114dd7">name</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structcore_1_1Armor.html#aa06d559649a795a2c18bfbdce1111d3b">   41</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Armor.html#aa06d559649a795a2c18bfbdce1111d3b">source</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structcore_1_1Armor.html#a90783bcb508be463b57290a61a33677c">   42</a></span>    <a class="code hl_enumeration" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105">ArmorCategory</a> <a class="code hl_variable" href="structcore_1_1Armor.html#a90783bcb508be463b57290a61a33677c">category</a> = <a class="code hl_enumvalue" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105a9914a0ce04a7b7b6a8e39bec55064b82">ArmorCategory::Light</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structcore_1_1Armor.html#acf5fbaa640c57b18396a1291da9d476a">   44</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1Armor.html#acf5fbaa640c57b18396a1291da9d476a">baseArmorClass</a> = 0;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structcore_1_1Armor.html#a2c6bc3b29c5d46addce60c3a75db0ae3">   46</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1Armor.html#a2c6bc3b29c5d46addce60c3a75db0ae3">dexterityBonus</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="structcore_1_1Armor.html#a85302f29d0dc9ffb9baacc68a4164970">   48</a></span>    std::optional&lt;int&gt; <a class="code hl_variable" href="structcore_1_1Armor.html#a85302f29d0dc9ffb9baacc68a4164970">dexterityBonusMax</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structcore_1_1Armor.html#a45e0e4bd46f6ae92084e636491468774">   50</a></span>    std::optional&lt;int&gt; <a class="code hl_variable" href="structcore_1_1Armor.html#a45e0e4bd46f6ae92084e636491468774">strengthRequired</a>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structcore_1_1Armor.html#a198aa3edecd4e85377e78ddaa76b5f95">   51</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1Armor.html#a198aa3edecd4e85377e78ddaa76b5f95">stealthDisadvantage</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structcore_1_1Armor.html#a38f98cdc5c0fa98e199993a06b8faf4d">   53</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1Armor.html#a38f98cdc5c0fa98e199993a06b8faf4d">price</a> = 0;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structcore_1_1Armor.html#a3331842f0dc956a9db2c00c1e0baa79c">   55</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1Armor.html#a3331842f0dc956a9db2c00c1e0baa79c">weightGrams</a> = 0;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>};</div>
+</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span></div>
+<div class="foldopen" id="foldopen00059" data-start="{" data-end="};">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structcore_1_1Weapon.html">   59</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1Weapon.html">Weapon</a> {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="structcore_1_1Weapon.html#a1e7d7f051f4a90b0d1b831531dcb69fe">   60</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Weapon.html#a1e7d7f051f4a90b0d1b831531dcb69fe">id</a>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="structcore_1_1Weapon.html#a5e4dd01ea65cf7138efbb5a507bbcfae">   61</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Weapon.html#a5e4dd01ea65cf7138efbb5a507bbcfae">name</a>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structcore_1_1Weapon.html#a3d22574944ce1bc272271a3f240d65bf">   62</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Weapon.html#a3d22574944ce1bc272271a3f240d65bf">source</a>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="structcore_1_1Weapon.html#a4a1e89b89afd0a730d9c2741345647cb">   64</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Weapon.html#a4a1e89b89afd0a730d9c2741345647cb">category</a>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="structcore_1_1Weapon.html#acede503f77d6dabcdc129a8516521ab8">   65</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1Weapon.html#acede503f77d6dabcdc129a8516521ab8">ranged</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structcore_1_1Weapon.html#a68520b1a13724b2da2d55c0cc056c472">   67</a></span>    std::optional&lt;Dice&gt; <a class="code hl_variable" href="structcore_1_1Weapon.html#a68520b1a13724b2da2d55c0cc056c472">damage</a>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structcore_1_1Weapon.html#a7858e37c1bb97bc58cec8c049950e520">   68</a></span>    std::optional&lt;DamageType&gt; <a class="code hl_variable" href="structcore_1_1Weapon.html#a7858e37c1bb97bc58cec8c049950e520">damageType</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structcore_1_1Weapon.html#a3cdec223de84b5b9b5157dc189bd6779">   69</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1Weapon.html#a3cdec223de84b5b9b5157dc189bd6779">price</a> = 0;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structcore_1_1Weapon.html#aef8513fda1d2ec89e5aa319cd10269a5">   70</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1Weapon.html#aef8513fda1d2ec89e5aa319cd10269a5">weightGrams</a> = 0;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="structcore_1_1Weapon.html#ac62202bd71942549c7ac157a6d5f8a29">   72</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Weapon.html#ac62202bd71942549c7ac157a6d5f8a29">text</a>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="structcore_1_1Weapon.html#a9986cbc0168902014d9325354732679e">   77</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1Weapon.html#a9986cbc0168902014d9325354732679e">properties</a>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="structcore_1_1Weapon.html#a9f1fddf610991fb4077c93984088a0c0">   80</a></span>    std::optional&lt;float&gt; <a class="code hl_variable" href="structcore_1_1Weapon.html#a9f1fddf610991fb4077c93984088a0c0">rangeNormal</a>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="structcore_1_1Weapon.html#abafc87e5b8b54b956fc4d11a141b7a2b">   82</a></span>    std::optional&lt;float&gt; <a class="code hl_variable" href="structcore_1_1Weapon.html#abafc87e5b8b54b956fc4d11a141b7a2b">rangeLong</a>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>};</div>
+</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>[[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacecore.html#ad0fe834d01c603c0df43af69133dc1e3">hasProperty</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Weapon.html">Weapon</a>&amp; weapon, std::string_view property);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span></div>
+<div class="foldopen" id="foldopen00089" data-start="{" data-end="};">
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="structcore_1_1EquipmentCatalog.html">   89</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1EquipmentCatalog.html">EquipmentCatalog</a> {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="structcore_1_1EquipmentCatalog.html#a33a019dde366ba0f3533a767fd7a7197">   90</a></span>    std::vector&lt;Weapon&gt; <a class="code hl_variable" href="structcore_1_1EquipmentCatalog.html#a33a019dde366ba0f3533a767fd7a7197">weapons</a>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="structcore_1_1EquipmentCatalog.html#af2ff0e7cf7e8d531789852a50a28eb5c">   91</a></span>    std::vector&lt;Armor&gt; <a class="code hl_variable" href="structcore_1_1EquipmentCatalog.html#af2ff0e7cf7e8d531789852a50a28eb5c">armors</a>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="structcore_1_1EquipmentCatalog.html#a71aaecb419bed65f8160328f4472eb0b">   92</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1EquipmentCatalog.html#a71aaecb419bed65f8160328f4472eb0b">errors</a>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Weapon.html">Weapon</a>* <a class="code hl_function" href="structcore_1_1EquipmentCatalog.html#ae874026fe924676ed53031720e26ddf9">findWeapon</a>(std::string_view <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Armor.html">Armor</a>* <a class="code hl_function" href="structcore_1_1EquipmentCatalog.html#ac9213d35eacfa405d5d98bd0e3999cce">findArmor</a>(std::string_view <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>};</div>
+</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1EquipmentCatalog.html">EquipmentCatalog</a> <a class="code hl_function" href="namespacecore.html#a06839f5ee0eea764bdcd5f6b865f194c">loadEquipment</a>(<span class="keyword">const</span> std::filesystem::path&amp; weaponsDir,</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                                             <span class="keyword">const</span> std::filesystem::path&amp; armorsDir);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>[[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="namespacecore.html#aec44b80878262388830e480b169c6b70">armorClassFor</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CharacterSheet.html">CharacterSheet</a>&amp; sheet, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a>&amp; rules,</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>                                <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Armor.html">Armor</a>* armor, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Armor.html">Armor</a>* shield);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span></div>
+<div class="foldopen" id="foldopen00127" data-start="{" data-end="};">
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="structcore_1_1InventoryEntry.html">  127</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1InventoryEntry.html">InventoryEntry</a> {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="structcore_1_1InventoryEntry.html#a718b8ea11349a9de0c522cfd35b321ee">  129</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1InventoryEntry.html#a718b8ea11349a9de0c522cfd35b321ee">weightGrams</a> = 0;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="structcore_1_1InventoryEntry.html#ac50d61855e15bd9894448eb3f8182496">  131</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1InventoryEntry.html#ac50d61855e15bd9894448eb3f8182496">quantity</a> = 1;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>};</div>
+</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>[[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="namespacecore.html#aed30b768048177bf363d9c058c5a0e1d">totalWeightGrams</a>(<span class="keyword">const</span> std::vector&lt;InventoryEntry&gt;&amp; entries);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>[[nodiscard]] std::string_view <a class="code hl_function" href="namespacecore.html#a8f90cc0f92ab13611bbb2c2730e4efdd">armorCategoryName</a>(<a class="code hl_enumeration" href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105">ArmorCategory</a> category);</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>[[nodiscard]] std::optional&lt;ArmorCategory&gt; <a class="code hl_function" href="namespacecore.html#ac58652f079d9fa10658f52da30750d24">parseArmorCategory</a>(std::string_view name);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aDice_8h_html"><div class="ttname"><a href="Dice_8h.html">Dice.h</a></div><div class="ttdoc">Notation de dés NdF+M : analyse, évaluation, bornes (EX-NFR-002).</div></div>
+<div class="ttc" id="aRpgEnums_8h_html"><div class="ttname"><a href="RpgEnums_8h.html">RpgEnums.h</a></div><div class="ttdoc">Les quatre énumérations fermées du RPG : dégâts, conditions, écoles, tailles.</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a06839f5ee0eea764bdcd5f6b865f194c"><div class="ttname"><a href="namespacecore.html#a06839f5ee0eea764bdcd5f6b865f194c">core::loadEquipment</a></div><div class="ttdeci">EquipmentCatalog loadEquipment(const std::filesystem::path &amp;weaponsDir, const std::filesystem::path &amp;armorsDir)</div><div class="ttdoc">Charge les armes et les armures depuis leurs dossiers.</div><div class="ttdef"><b>Definition</b> Equipment.cpp:179</div></div>
+<div class="ttc" id="anamespacecore_html_a7ad0450d2b476419d40745fbfa9ac105"><div class="ttname"><a href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105">core::ArmorCategory</a></div><div class="ttdeci">ArmorCategory</div><div class="ttdoc">Catégorie d&#39;armure. Ensemble fermé : le livre n&#39;en connaît pas d&#39;autre.</div><div class="ttdef"><b>Definition</b> Equipment.h:26</div></div>
+<div class="ttc" id="anamespacecore_html_a7ad0450d2b476419d40745fbfa9ac105a87f8a6ab85c9ced3702b4ea641ad4bb5"><div class="ttname"><a href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105a87f8a6ab85c9ced3702b4ea641ad4bb5">core::ArmorCategory::Medium</a></div><div class="ttdeci">@ Medium</div><div class="ttdef"><b>Definition</b> Equipment.h:28</div></div>
+<div class="ttc" id="anamespacecore_html_a7ad0450d2b476419d40745fbfa9ac105a970da5f1f2e32aeb9e488dd017160ab4"><div class="ttname"><a href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105a970da5f1f2e32aeb9e488dd017160ab4">core::ArmorCategory::Shield</a></div><div class="ttdeci">@ Shield</div><div class="ttdoc">Le bouclier n&#39;est pas une armure : il ajoute à la classe d&#39;armure au lieu de la remplacer.</div><div class="ttdef"><b>Definition</b> Equipment.h:34</div></div>
+<div class="ttc" id="anamespacecore_html_a7ad0450d2b476419d40745fbfa9ac105a9914a0ce04a7b7b6a8e39bec55064b82"><div class="ttname"><a href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105a9914a0ce04a7b7b6a8e39bec55064b82">core::ArmorCategory::Light</a></div><div class="ttdeci">@ Light</div><div class="ttdef"><b>Definition</b> Equipment.h:27</div></div>
+<div class="ttc" id="anamespacecore_html_a7ad0450d2b476419d40745fbfa9ac105af9ffe67a20da9cbff56b420fca4bd491"><div class="ttname"><a href="namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105af9ffe67a20da9cbff56b420fca4bd491">core::ArmorCategory::Heavy</a></div><div class="ttdeci">@ Heavy</div><div class="ttdef"><b>Definition</b> Equipment.h:29</div></div>
+<div class="ttc" id="anamespacecore_html_a8f90cc0f92ab13611bbb2c2730e4efdd"><div class="ttname"><a href="namespacecore.html#a8f90cc0f92ab13611bbb2c2730e4efdd">core::armorCategoryName</a></div><div class="ttdeci">std::string_view armorCategoryName(ArmorCategory category)</div><div class="ttdoc">Nom textuel d&#39;une catégorie d&#39;armure, tel que la donnée l&#39;écrit.</div><div class="ttdef"><b>Definition</b> Equipment.cpp:64</div></div>
+<div class="ttc" id="anamespacecore_html_ac58652f079d9fa10658f52da30750d24"><div class="ttname"><a href="namespacecore.html#ac58652f079d9fa10658f52da30750d24">core::parseArmorCategory</a></div><div class="ttdeci">std::optional&lt; ArmorCategory &gt; parseArmorCategory(std::string_view name)</div><div class="ttdoc">Inverse d&#39;armorCategoryName. std::nullopt si le nom est inconnu — jamais deviné.</div><div class="ttdef"><b>Definition</b> Equipment.cpp:79</div></div>
+<div class="ttc" id="anamespacecore_html_ad0fe834d01c603c0df43af69133dc1e3"><div class="ttname"><a href="namespacecore.html#ad0fe834d01c603c0df43af69133dc1e3">core::hasProperty</a></div><div class="ttdeci">bool hasProperty(const Weapon &amp;weapon, std::string_view property)</div><div class="ttdoc">Vrai si l&#39;arme porte la propriété property (&quot;finesse&quot;, &quot;reach&quot;, &quot;thrown&quot;...).</div><div class="ttdef"><b>Definition</b> Equipment.cpp:89</div></div>
+<div class="ttc" id="anamespacecore_html_aec44b80878262388830e480b169c6b70"><div class="ttname"><a href="namespacecore.html#aec44b80878262388830e480b169c6b70">core::armorClassFor</a></div><div class="ttdeci">int armorClassFor(const CharacterSheet &amp;sheet, const CharacterCreationRules &amp;rules, const Armor *armor, const Armor *shield)</div><div class="ttdoc">La classe d&#39;armure d&#39;un personnage, armure et bouclier compris.</div><div class="ttdef"><b>Definition</b> Equipment.cpp:200</div></div>
+<div class="ttc" id="anamespacecore_html_aed30b768048177bf363d9c058c5a0e1d"><div class="ttname"><a href="namespacecore.html#aed30b768048177bf363d9c058c5a0e1d">core::totalWeightGrams</a></div><div class="ttdeci">int totalWeightGrams(const std::vector&lt; InventoryEntry &gt; &amp;entries)</div><div class="ttdoc">Le poids total d&#39;un inventaire, en grammes.</div><div class="ttdef"><b>Definition</b> Equipment.cpp:228</div></div>
+<div class="ttc" id="astructcore_1_1Armor_html"><div class="ttname"><a href="structcore_1_1Armor.html">core::Armor</a></div><div class="ttdoc">Une armure ou un bouclier du catalogue.</div><div class="ttdef"><b>Definition</b> Equipment.h:38</div></div>
+<div class="ttc" id="astructcore_1_1Armor_html_a198aa3edecd4e85377e78ddaa76b5f95"><div class="ttname"><a href="structcore_1_1Armor.html#a198aa3edecd4e85377e78ddaa76b5f95">core::Armor::stealthDisadvantage</a></div><div class="ttdeci">bool stealthDisadvantage</div><div class="ttdef"><b>Definition</b> Equipment.h:51</div></div>
+<div class="ttc" id="astructcore_1_1Armor_html_a2c6bc3b29c5d46addce60c3a75db0ae3"><div class="ttname"><a href="structcore_1_1Armor.html#a2c6bc3b29c5d46addce60c3a75db0ae3">core::Armor::dexterityBonus</a></div><div class="ttdeci">bool dexterityBonus</div><div class="ttdoc">Vrai si le modificateur de Dextérité s&#39;ajoute.</div><div class="ttdef"><b>Definition</b> Equipment.h:46</div></div>
+<div class="ttc" id="astructcore_1_1Armor_html_a3331842f0dc956a9db2c00c1e0baa79c"><div class="ttname"><a href="structcore_1_1Armor.html#a3331842f0dc956a9db2c00c1e0baa79c">core::Armor::weightGrams</a></div><div class="ttdeci">int weightGrams</div><div class="ttdoc">Poids en grammes.</div><div class="ttdef"><b>Definition</b> Equipment.h:55</div></div>
+<div class="ttc" id="astructcore_1_1Armor_html_a38f98cdc5c0fa98e199993a06b8faf4d"><div class="ttname"><a href="structcore_1_1Armor.html#a38f98cdc5c0fa98e199993a06b8faf4d">core::Armor::price</a></div><div class="ttdeci">int price</div><div class="ttdoc">Prix en pièces de cuivre — l&#39;unité interne du projet (LOT-32).</div><div class="ttdef"><b>Definition</b> Equipment.h:53</div></div>
+<div class="ttc" id="astructcore_1_1Armor_html_a45e0e4bd46f6ae92084e636491468774"><div class="ttname"><a href="structcore_1_1Armor.html#a45e0e4bd46f6ae92084e636491468774">core::Armor::strengthRequired</a></div><div class="ttdeci">std::optional&lt; int &gt; strengthRequired</div><div class="ttdoc">Force exigée pour ne pas être ralenti. Absente si l&#39;armure n&#39;en demande pas.</div><div class="ttdef"><b>Definition</b> Equipment.h:50</div></div>
+<div class="ttc" id="astructcore_1_1Armor_html_a85302f29d0dc9ffb9baacc68a4164970"><div class="ttname"><a href="structcore_1_1Armor.html#a85302f29d0dc9ffb9baacc68a4164970">core::Armor::dexterityBonusMax</a></div><div class="ttdeci">std::optional&lt; int &gt; dexterityBonusMax</div><div class="ttdoc">Plafond du modificateur de Dextérité, s&#39;il y en a un (+2 sur les armures intermédiaires).</div><div class="ttdef"><b>Definition</b> Equipment.h:48</div></div>
+<div class="ttc" id="astructcore_1_1Armor_html_a90783bcb508be463b57290a61a33677c"><div class="ttname"><a href="structcore_1_1Armor.html#a90783bcb508be463b57290a61a33677c">core::Armor::category</a></div><div class="ttdeci">ArmorCategory category</div><div class="ttdef"><b>Definition</b> Equipment.h:42</div></div>
+<div class="ttc" id="astructcore_1_1Armor_html_aa06d559649a795a2c18bfbdce1111d3b"><div class="ttname"><a href="structcore_1_1Armor.html#aa06d559649a795a2c18bfbdce1111d3b">core::Armor::source</a></div><div class="ttdeci">std::string source</div><div class="ttdef"><b>Definition</b> Equipment.h:41</div></div>
+<div class="ttc" id="astructcore_1_1Armor_html_ac581b54cd1588b03d17d0463925ef430"><div class="ttname"><a href="structcore_1_1Armor.html#ac581b54cd1588b03d17d0463925ef430">core::Armor::id</a></div><div class="ttdeci">std::string id</div><div class="ttdef"><b>Definition</b> Equipment.h:39</div></div>
+<div class="ttc" id="astructcore_1_1Armor_html_acf5fbaa640c57b18396a1291da9d476a"><div class="ttname"><a href="structcore_1_1Armor.html#acf5fbaa640c57b18396a1291da9d476a">core::Armor::baseArmorClass</a></div><div class="ttdeci">int baseArmorClass</div><div class="ttdoc">Classe d&#39;armure de base — ou le bonus du bouclier, qui s&#39;ajoute.</div><div class="ttdef"><b>Definition</b> Equipment.h:44</div></div>
+<div class="ttc" id="astructcore_1_1Armor_html_af3e5388cf7cd161984dbfc9a70114dd7"><div class="ttname"><a href="structcore_1_1Armor.html#af3e5388cf7cd161984dbfc9a70114dd7">core::Armor::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> Equipment.h:40</div></div>
+<div class="ttc" id="astructcore_1_1CharacterCreationRules_html"><div class="ttname"><a href="structcore_1_1CharacterCreationRules.html">core::CharacterCreationRules</a></div><div class="ttdoc">Les deux constantes de règle qu&#39;une fiche emploie, lues dans la donnée.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:67</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html"><div class="ttname"><a href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a></div><div class="ttdoc">La fiche d&#39;une créature jouable ou non : héros, PNJ, ennemi.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:102</div></div>
+<div class="ttc" id="astructcore_1_1EquipmentCatalog_html"><div class="ttname"><a href="structcore_1_1EquipmentCatalog.html">core::EquipmentCatalog</a></div><div class="ttdoc">Les deux catalogues chargés, et ce qui n&#39;a pas pu l&#39;être.</div><div class="ttdef"><b>Definition</b> Equipment.h:89</div></div>
+<div class="ttc" id="astructcore_1_1EquipmentCatalog_html_a33a019dde366ba0f3533a767fd7a7197"><div class="ttname"><a href="structcore_1_1EquipmentCatalog.html#a33a019dde366ba0f3533a767fd7a7197">core::EquipmentCatalog::weapons</a></div><div class="ttdeci">std::vector&lt; Weapon &gt; weapons</div><div class="ttdef"><b>Definition</b> Equipment.h:90</div></div>
+<div class="ttc" id="astructcore_1_1EquipmentCatalog_html_a71aaecb419bed65f8160328f4472eb0b"><div class="ttname"><a href="structcore_1_1EquipmentCatalog.html#a71aaecb419bed65f8160328f4472eb0b">core::EquipmentCatalog::errors</a></div><div class="ttdeci">std::vector&lt; std::string &gt; errors</div><div class="ttdef"><b>Definition</b> Equipment.h:92</div></div>
+<div class="ttc" id="astructcore_1_1EquipmentCatalog_html_ac9213d35eacfa405d5d98bd0e3999cce"><div class="ttname"><a href="structcore_1_1EquipmentCatalog.html#ac9213d35eacfa405d5d98bd0e3999cce">core::EquipmentCatalog::findArmor</a></div><div class="ttdeci">const Armor * findArmor(std::string_view id) const</div><div class="ttdef"><b>Definition</b> Equipment.cpp:98</div></div>
+<div class="ttc" id="astructcore_1_1EquipmentCatalog_html_ae874026fe924676ed53031720e26ddf9"><div class="ttname"><a href="structcore_1_1EquipmentCatalog.html#ae874026fe924676ed53031720e26ddf9">core::EquipmentCatalog::findWeapon</a></div><div class="ttdeci">const Weapon * findWeapon(std::string_view id) const</div><div class="ttdef"><b>Definition</b> Equipment.cpp:93</div></div>
+<div class="ttc" id="astructcore_1_1EquipmentCatalog_html_af2ff0e7cf7e8d531789852a50a28eb5c"><div class="ttname"><a href="structcore_1_1EquipmentCatalog.html#af2ff0e7cf7e8d531789852a50a28eb5c">core::EquipmentCatalog::armors</a></div><div class="ttdeci">std::vector&lt; Armor &gt; armors</div><div class="ttdef"><b>Definition</b> Equipment.h:91</div></div>
+<div class="ttc" id="astructcore_1_1InventoryEntry_html"><div class="ttname"><a href="structcore_1_1InventoryEntry.html">core::InventoryEntry</a></div><div class="ttdoc">Une ligne d&#39;inventaire : un objet et sa quantité.</div><div class="ttdef"><b>Definition</b> Equipment.h:127</div></div>
+<div class="ttc" id="astructcore_1_1InventoryEntry_html_a718b8ea11349a9de0c522cfd35b321ee"><div class="ttname"><a href="structcore_1_1InventoryEntry.html#a718b8ea11349a9de0c522cfd35b321ee">core::InventoryEntry::weightGrams</a></div><div class="ttdeci">int weightGrams</div><div class="ttdoc">Poids unitaire, en grammes.</div><div class="ttdef"><b>Definition</b> Equipment.h:129</div></div>
+<div class="ttc" id="astructcore_1_1InventoryEntry_html_ac50d61855e15bd9894448eb3f8182496"><div class="ttname"><a href="structcore_1_1InventoryEntry.html#ac50d61855e15bd9894448eb3f8182496">core::InventoryEntry::quantity</a></div><div class="ttdeci">int quantity</div><div class="ttdoc">Quantité. Une quantité nulle ou négative ne pèse rien.</div><div class="ttdef"><b>Definition</b> Equipment.h:131</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html"><div class="ttname"><a href="structcore_1_1Weapon.html">core::Weapon</a></div><div class="ttdoc">Une arme du catalogue.</div><div class="ttdef"><b>Definition</b> Equipment.h:59</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html_a1e7d7f051f4a90b0d1b831531dcb69fe"><div class="ttname"><a href="structcore_1_1Weapon.html#a1e7d7f051f4a90b0d1b831531dcb69fe">core::Weapon::id</a></div><div class="ttdeci">std::string id</div><div class="ttdef"><b>Definition</b> Equipment.h:60</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html_a3cdec223de84b5b9b5157dc189bd6779"><div class="ttname"><a href="structcore_1_1Weapon.html#a3cdec223de84b5b9b5157dc189bd6779">core::Weapon::price</a></div><div class="ttdeci">int price</div><div class="ttdef"><b>Definition</b> Equipment.h:69</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html_a3d22574944ce1bc272271a3f240d65bf"><div class="ttname"><a href="structcore_1_1Weapon.html#a3d22574944ce1bc272271a3f240d65bf">core::Weapon::source</a></div><div class="ttdeci">std::string source</div><div class="ttdef"><b>Definition</b> Equipment.h:62</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html_a4a1e89b89afd0a730d9c2741345647cb"><div class="ttname"><a href="structcore_1_1Weapon.html#a4a1e89b89afd0a730d9c2741345647cb">core::Weapon::category</a></div><div class="ttdeci">std::string category</div><div class="ttdoc">simple ou martial.</div><div class="ttdef"><b>Definition</b> Equipment.h:64</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html_a5e4dd01ea65cf7138efbb5a507bbcfae"><div class="ttname"><a href="structcore_1_1Weapon.html#a5e4dd01ea65cf7138efbb5a507bbcfae">core::Weapon::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> Equipment.h:61</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html_a68520b1a13724b2da2d55c0cc056c472"><div class="ttname"><a href="structcore_1_1Weapon.html#a68520b1a13724b2da2d55c0cc056c472">core::Weapon::damage</a></div><div class="ttdeci">std::optional&lt; Dice &gt; damage</div><div class="ttdoc">Dés de dégâts. Absents pour le filet, qui n&#39;inflige rien et entrave.</div><div class="ttdef"><b>Definition</b> Equipment.h:67</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html_a7858e37c1bb97bc58cec8c049950e520"><div class="ttname"><a href="structcore_1_1Weapon.html#a7858e37c1bb97bc58cec8c049950e520">core::Weapon::damageType</a></div><div class="ttdeci">std::optional&lt; DamageType &gt; damageType</div><div class="ttdef"><b>Definition</b> Equipment.h:68</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html_a9986cbc0168902014d9325354732679e"><div class="ttname"><a href="structcore_1_1Weapon.html#a9986cbc0168902014d9325354732679e">core::Weapon::properties</a></div><div class="ttdeci">std::vector&lt; std::string &gt; properties</div><div class="ttdoc">Les mêmes, structurées (finesse, light, reach, thrown...), tirées de la colonne des propriétés à l&#39;ex...</div><div class="ttdef"><b>Definition</b> Equipment.h:77</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html_a9f1fddf610991fb4077c93984088a0c0"><div class="ttname"><a href="structcore_1_1Weapon.html#a9f1fddf610991fb4077c93984088a0c0">core::Weapon::rangeNormal</a></div><div class="ttdeci">std::optional&lt; float &gt; rangeNormal</div><div class="ttdoc">Portée normale, en mètres, telle que le livre l&#39;écrit (« portée 24 m/96 m »).</div><div class="ttdef"><b>Definition</b> Equipment.h:80</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html_abafc87e5b8b54b956fc4d11a141b7a2b"><div class="ttname"><a href="structcore_1_1Weapon.html#abafc87e5b8b54b956fc4d11a141b7a2b">core::Weapon::rangeLong</a></div><div class="ttdeci">std::optional&lt; float &gt; rangeLong</div><div class="ttdoc">Longue portée, en mètres.</div><div class="ttdef"><b>Definition</b> Equipment.h:82</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html_ac62202bd71942549c7ac157a6d5f8a29"><div class="ttname"><a href="structcore_1_1Weapon.html#ac62202bd71942549c7ac157a6d5f8a29">core::Weapon::text</a></div><div class="ttdeci">std::string text</div><div class="ttdoc">Les propriétés, telles que le livre les écrit — en toutes lettres, et en français.</div><div class="ttdef"><b>Definition</b> Equipment.h:72</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html_acede503f77d6dabcdc129a8516521ab8"><div class="ttname"><a href="structcore_1_1Weapon.html#acede503f77d6dabcdc129a8516521ab8">core::Weapon::ranged</a></div><div class="ttdeci">bool ranged</div><div class="ttdef"><b>Definition</b> Equipment.h:65</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html_aef8513fda1d2ec89e5aa319cd10269a5"><div class="ttname"><a href="structcore_1_1Weapon.html#aef8513fda1d2ec89e5aa319cd10269a5">core::Weapon::weightGrams</a></div><div class="ttdeci">int weightGrams</div><div class="ttdef"><b>Definition</b> Equipment.h:70</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_de25d93b7b4ef75f45504127491f58b5.html">Rpg</a></li><li class="navelem"><a href="Equipment_8h.html">Equipment.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

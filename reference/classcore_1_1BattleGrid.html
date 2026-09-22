@@ -1,0 +1,1356 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::BattleGrid Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classcore_1_1BattleGrid.html','','classcore_1_1BattleGrid-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::BattleGrid Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>La grille tactique d'une rencontre.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="BattleGrid_8h_source.html">BattleGrid.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:Placement" id="r_Placement"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1BattleGrid_1_1Placement.html">Placement</a></td></tr>
+<tr class="memitem:Zone" id="r_Zone"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1BattleGrid_1_1Zone.html">Zone</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a9a72b3f8bd2b12d3e81e55d12b2a6531" id="r_a9a72b3f8bd2b12d3e81e55d12b2a6531"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9a72b3f8bd2b12d3e81e55d12b2a6531">BattleGrid</a> (const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;collision)</td></tr>
+<tr class="memdesc:a9a72b3f8bd2b12d3e81e55d12b2a6531"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une grille sans zone, dont les obstacles sont les cases pleines de <code class="param">collision</code>.  <br /></td></tr>
+<tr class="memitem:a48b304db624d384b40ae4a6f34dd532b" id="r_a48b304db624d384b40ae4a6f34dd532b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a48b304db624d384b40ae4a6f34dd532b">BattleGrid</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;collision)</td></tr>
+<tr class="memdesc:a48b304db624d384b40ae4a6f34dd532b"><td class="mdescLeft">&#160;</td><td class="mdescRight">La grille de <code class="param">level</code> : obstacles de <code class="param">collision</code>, zones de ses couches.  <br /></td></tr>
+<tr class="memitem:a60fcd046ff5926aab2911a8369bdc0bf" id="r_a60fcd046ff5926aab2911a8369bdc0bf"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a60fcd046ff5926aab2911a8369bdc0bf">BattleGrid</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
+<tr class="memdesc:a60fcd046ff5926aab2911a8369bdc0bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">La grille de <code class="param">level</code>, sur sa seule solidité statique.  <br /></td></tr>
+<tr class="memitem:ab7d7cbb5a4348e90c82deae5bfd2e3c1" id="r_ab7d7cbb5a4348e90c82deae5bfd2e3c1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ab7d7cbb5a4348e90c82deae5bfd2e3c1">width</a> () const noexcept</td></tr>
+<tr class="memitem:aa86684cfb35851fcb057779307a9a35d" id="r_aa86684cfb35851fcb057779307a9a35d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa86684cfb35851fcb057779307a9a35d">height</a> () const noexcept</td></tr>
+<tr class="memitem:af14ee1f54d1bb850979ff7c207345546" id="r_af14ee1f54d1bb850979ff7c207345546"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af14ee1f54d1bb850979ff7c207345546">inBounds</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) const noexcept</td></tr>
+<tr class="memitem:a7fca87989c8f66ac8c24d937a53d2b31" id="r_a7fca87989c8f66ac8c24d937a53d2b31"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7fca87989c8f66ac8c24d937a53d2b31">isObstructed</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell, <a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a> locomotion=<a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffa7a16a854f32231a8df9326136b09ee62">Locomotion::Walk</a>) const</td></tr>
+<tr class="memdesc:a7fca87989c8f66ac8c24d937a53d2b31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si la case arrête un combattant qui se déplace par <code class="param">locomotion</code> : matière pleine, objet bloquant, et — au sol seulement — eau profonde et falaise.  <br /></td></tr>
+<tr class="memitem:a240ddd200a9497878959f5db6bc73caa" id="r_a240ddd200a9497878959f5db6bc73caa"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a240ddd200a9497878959f5db6bc73caa">isDifficult</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) const</td></tr>
+<tr class="memdesc:a240ddd200a9497878959f5db6bc73caa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si entrer dans la case coûte double <b>au sol</b> — un volant n'en tient pas compte (<span class="tt"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff" title="Comment un combattant se déplace : au sol, ou en vol.">core::Locomotion</a></span>).  <br /></td></tr>
+<tr class="memitem:abd943492bc2fc0b8ac1269bf46baaf0d" id="r_abd943492bc2fc0b8ac1269bf46baaf0d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abd943492bc2fc0b8ac1269bf46baaf0d">blocksSight</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) const</td></tr>
+<tr class="memdesc:abd943492bc2fc0b8ac1269bf46baaf0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si la case arrête la vue : matière pleine, ou objet à abri total (<span class="tt">LOT-22</span>).  <br /></td></tr>
+<tr class="memitem:a31889408e785ac672e553a7d52246993" id="r_a31889408e785ac672e553a7d52246993"><td class="memItemLeft"><a class="el" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999">Cover</a>&#160;</td><td class="memItemRight"><a class="el" href="#a31889408e785ac672e553a7d52246993">objectCoverAt</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) const</td></tr>
+<tr class="memdesc:a31889408e785ac672e553a7d52246993"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'abri que procure l'objet posé sur la case, <span class="tt"><a class="el" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999a6adf97f83acf6453d4a6a4b1070f3754">Cover::None</a></span> s'il n'y en a pas.  <br /></td></tr>
+<tr class="memitem:ab68b755acff765a64c3618e558555444" id="r_ab68b755acff765a64c3618e558555444"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab68b755acff765a64c3618e558555444">setDifficult</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell, bool difficult)</td></tr>
+<tr class="memdesc:ab68b755acff765a64c3618e558555444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend une case difficile, ou la rend à la normale — en cours de combat.  <br /></td></tr>
+<tr class="memitem:a0c816b168810ff9052c1f41225f44186" id="r_a0c816b168810ff9052c1f41225f44186"><td class="memItemLeft">std::vector&lt; const <a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a> * &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0c816b168810ff9052c1f41225f44186">zonesAt</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) const</td></tr>
+<tr class="memdesc:a0c816b168810ff9052c1f41225f44186"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les propriétés de toutes les zones qui couvrent la case, dans l'ordre des couches.  <br /></td></tr>
+<tr class="memitem:ae717e61951843569c4bed5e1b9adba67" id="r_ae717e61951843569c4bed5e1b9adba67"><td class="memItemLeft"><a class="el" href="namespacecore.html#a56ee2c3f69200e700ac0f1b65dc413b4">PlacementResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae717e61951843569c4bed5e1b9adba67">place</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> anchor, int side=1, <a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a> locomotion=<a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffa7a16a854f32231a8df9326136b09ee62">Locomotion::Walk</a>)</td></tr>
+<tr class="memdesc:ae717e61951843569c4bed5e1b9adba67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Place <code class="param">combatant</code>, d'emprise <code class="param">side</code> × <code class="param">side</code>, avec <code class="param">anchor</code> pour coin haut-gauche.  <br /></td></tr>
+<tr class="memitem:ad268f78729d34e98bd7fca885900cad7" id="r_ad268f78729d34e98bd7fca885900cad7"><td class="memItemLeft"><a class="el" href="namespacecore.html#a56ee2c3f69200e700ac0f1b65dc413b4">PlacementResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad268f78729d34e98bd7fca885900cad7">moveTo</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> anchor, <a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a> locomotion=<a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffa7a16a854f32231a8df9326136b09ee62">Locomotion::Walk</a>)</td></tr>
+<tr class="memdesc:ad268f78729d34e98bd7fca885900cad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplace un combattant déjà placé.  <br /></td></tr>
+<tr class="memitem:a44455571fe0dd82a1262f39af39b1e65" id="r_a44455571fe0dd82a1262f39af39b1e65"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a44455571fe0dd82a1262f39af39b1e65">remove</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant)</td></tr>
+<tr class="memdesc:a44455571fe0dd82a1262f39af39b1e65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire un combattant de la grille (mort, fuite). Faux s'il n'y était pas.  <br /></td></tr>
+<tr class="memitem:aa853407639f33478105a7b62d0ace618" id="r_aa853407639f33478105a7b62d0ace618"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa853407639f33478105a7b62d0ace618">occupantAt</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) const</td></tr>
+<tr class="memdesc:aa853407639f33478105a7b62d0ace618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le combattant qui tient la case, s'il y en a un.  <br /></td></tr>
+<tr class="memitem:a27b9d17fd8c8a7399622ce8037b758e6" id="r_a27b9d17fd8c8a7399622ce8037b758e6"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a27b9d17fd8c8a7399622ce8037b758e6">positionOf</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
+<tr class="memdesc:a27b9d17fd8c8a7399622ce8037b758e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le coin haut-gauche de l'emprise du combattant, s'il est sur la grille.  <br /></td></tr>
+<tr class="memitem:a3f8b1a66e091a5db66010da34721bfc7" id="r_a3f8b1a66e091a5db66010da34721bfc7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3f8b1a66e091a5db66010da34721bfc7">sideOf</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
+<tr class="memdesc:a3f8b1a66e091a5db66010da34721bfc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le côté de l'emprise du combattant, ou 0 s'il n'est pas sur la grille.  <br /></td></tr>
+<tr class="memitem:ad541c35faece5fef76b23fe5cab9ca11" id="r_ad541c35faece5fef76b23fe5cab9ca11"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad541c35faece5fef76b23fe5cab9ca11">canStand</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> anchor, int side, std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt; self=std::nullopt, <a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a> locomotion=<a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffa7a16a854f32231a8df9326136b09ee62">Locomotion::Walk</a>) const</td></tr>
+<tr class="memdesc:ad541c35faece5fef76b23fe5cab9ca11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si une emprise <code class="param">side</code> × <code class="param">side</code> ancrée en <code class="param">anchor</code> tient sur la grille : dans les bornes, sans obstacle pour <code class="param">locomotion</code>, et sans autre combattant que <code class="param">self</code>.  <br /></td></tr>
+<tr class="memitem:a854f13083bbcbe9e7327237105ec9e17" id="r_a854f13083bbcbe9e7327237105ec9e17"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a854f13083bbcbe9e7327237105ec9e17">isClear</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> anchor, int side, <a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a> locomotion=<a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffa7a16a854f32231a8df9326136b09ee62">Locomotion::Walk</a>) const</td></tr>
+<tr class="memdesc:a854f13083bbcbe9e7327237105ec9e17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si l'emprise <code class="param">side</code> × <code class="param">side</code> ancrée en <code class="param">anchor</code> ne touche aucun obstacle pour <code class="param">locomotion</code>, sans regarder les combattants.  <br /></td></tr>
+<tr class="memitem:a6d8f9cbc88d49e6b202f35ea58ae8985" id="r_a6d8f9cbc88d49e6b202f35ea58ae8985"><td class="memItemLeft"><a class="el" href="namespacecore.html#a56ee2c3f69200e700ac0f1b65dc413b4">PlacementResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6d8f9cbc88d49e6b202f35ea58ae8985">placeObject</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell, <a class="el" href="structcore_1_1GridObject.html">GridObject</a> object)</td></tr>
+<tr class="memdesc:a6d8f9cbc88d49e6b202f35ea58ae8985"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose un objet sur une case.  <br /></td></tr>
+<tr class="memitem:adf5ddd3fe14b482355ca202829a5df64" id="r_adf5ddd3fe14b482355ca202829a5df64"><td class="memItemLeft">const <a class="el" href="structcore_1_1GridObject.html">GridObject</a> *&#160;</td><td class="memItemRight"><a class="el" href="#adf5ddd3fe14b482355ca202829a5df64">objectAt</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) const</td></tr>
+<tr class="memdesc:adf5ddd3fe14b482355ca202829a5df64"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'objet posé sur la case, ou <span class="tt">nullptr</span>.  <br /></td></tr>
+<tr class="memitem:a8cdc5cef5a4d2b8068bbb90b913771ee" id="r_a8cdc5cef5a4d2b8068bbb90b913771ee"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8cdc5cef5a4d2b8068bbb90b913771ee">damageObject</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell, int damage)</td></tr>
+<tr class="memdesc:a8cdc5cef5a4d2b8068bbb90b913771ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inflige <code class="param">damage</code> points de dégâts à l'objet de la case.  <br /></td></tr>
+<tr class="memitem:a6663109994c3ca7fcdbfbed351473fd9" id="r_a6663109994c3ca7fcdbfbed351473fd9"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6663109994c3ca7fcdbfbed351473fd9">combatants</a> () const</td></tr>
+<tr class="memdesc:a6663109994c3ca7fcdbfbed351473fd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tous les combattants placés, par identifiant croissant.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-types" class="groupheader"><a id="pri-types" name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:afa362bf2c8a692ba969b6a319c7a987f" id="r_afa362bf2c8a692ba969b6a319c7a987f"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#afa362bf2c8a692ba969b6a319c7a987f">Terrain</a> : std::uint8_t { <a class="el" href="#afa362bf2c8a692ba969b6a319c7a987fac3bf447eabe632720a3aa1a7ce401274">Open</a>
+, <a class="el" href="#afa362bf2c8a692ba969b6a319c7a987fa9359d5f3ea6721150c54b95c46f49cba">GroundObstacle</a>
+, <a class="el" href="#afa362bf2c8a692ba969b6a319c7a987fae41480b6bbfbf7407974a88d3d34f4fa">Solid</a>
+ }</td></tr>
+<tr class="memdesc:afa362bf2c8a692ba969b6a319c7a987f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une case de la carte oppose au déplacement.  <a href="#afa362bf2c8a692ba969b6a319c7a987f">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a0bd357bfbcd9d0c45f955b1cdfea96a6" id="r_a0bd357bfbcd9d0c45f955b1cdfea96a6"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a0bd357bfbcd9d0c45f955b1cdfea96a6">indexOf</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) const noexcept</td></tr>
+<tr class="memitem:a9c8889e9f69bff54e9562f1cf5263eaa" id="r_a9c8889e9f69bff54e9562f1cf5263eaa"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9c8889e9f69bff54e9562f1cf5263eaa">fill</a> (const <a class="el" href="structcore_1_1BattleGrid_1_1Placement.html">Placement</a> &amp;placement, std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt; occupant)</td></tr>
+<tr class="memitem:acfb41d95fe00ce6b35df57404320d9b8" id="r_acfb41d95fe00ce6b35df57404320d9b8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acfb41d95fe00ce6b35df57404320d9b8">addZones</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
+<tr class="memitem:ae894796313ad8ce47138ae3742934e2f" id="r_ae894796313ad8ce47138ae3742934e2f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae894796313ad8ce47138ae3742934e2f">addLayerZones</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
+<tr class="memdesc:ae894796313ad8ce47138ae3742934e2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une zone par couche qui porte des propriétés.  <br /></td></tr>
+<tr class="memitem:a6d4aaa5aa23c4c2b65dca09a5f04164e" id="r_a6d4aaa5aa23c4c2b65dca09a5f04164e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6d4aaa5aa23c4c2b65dca09a5f04164e">addEntityZones</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
+<tr class="memdesc:a6d4aaa5aa23c4c2b65dca09a5f04164e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une zone par entité de zone (décision D13), après celles des couches.  <br /></td></tr>
+<tr class="memitem:a8ab7ae1207fe1040f5f685e00c8250db" id="r_a8ab7ae1207fe1040f5f685e00c8250db"><td class="memItemLeft"><a class="el" href="namespacecore.html#a56ee2c3f69200e700ac0f1b65dc413b4">PlacementResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8ab7ae1207fe1040f5f685e00c8250db">check</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> anchor, int side, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> self, <a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a> locomotion) const</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a66c8a6675f9750dfdccca2464c2aabbf" id="r_a66c8a6675f9750dfdccca2464c2aabbf"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a66c8a6675f9750dfdccca2464c2aabbf">_width</a></td></tr>
+<tr class="memitem:a6feccb632a0934cee70683671a6afade" id="r_a6feccb632a0934cee70683671a6afade"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a6feccb632a0934cee70683671a6afade">_height</a></td></tr>
+<tr class="memitem:a7facc72fad59238cc1f48bfb8ec7aa68" id="r_a7facc72fad59238cc1f48bfb8ec7aa68"><td class="memItemLeft">std::vector&lt; <a class="el" href="#afa362bf2c8a692ba969b6a319c7a987f">Terrain</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7facc72fad59238cc1f48bfb8ec7aa68">_terrain</a></td></tr>
+<tr class="memitem:a60afa7d113aab4916b96ad89c1c77867" id="r_a60afa7d113aab4916b96ad89c1c77867"><td class="memItemLeft">std::vector&lt; bool &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a60afa7d113aab4916b96ad89c1c77867">_difficult</a></td></tr>
+<tr class="memitem:a2ab4363b9ad5e7a87285f4e3fbf860b3" id="r_a2ab4363b9ad5e7a87285f4e3fbf860b3"><td class="memItemLeft">std::vector&lt; std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2ab4363b9ad5e7a87285f4e3fbf860b3">_occupants</a></td></tr>
+<tr class="memitem:acdd16ed28a4efcaba589fb1f6c76a561" id="r_acdd16ed28a4efcaba589fb1f6c76a561"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1BattleGrid_1_1Zone.html">Zone</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acdd16ed28a4efcaba589fb1f6c76a561">_zones</a></td></tr>
+<tr class="memitem:ae1c46ff0bd7fe6f440336711d9338dcd" id="r_ae1c46ff0bd7fe6f440336711d9338dcd"><td class="memItemLeft">std::map&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a>, <a class="el" href="structcore_1_1BattleGrid_1_1Placement.html">Placement</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae1c46ff0bd7fe6f440336711d9338dcd">_placements</a></td></tr>
+<tr class="memdesc:ae1c46ff0bd7fe6f440336711d9338dcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ordonnés : parcourir les combattants ou les objets doit donner le même ordre d'une partie à l'autre, et un conteneur non ordonné ne le garantit pas.  <br /></td></tr>
+<tr class="memitem:ae0ba6838aef1098920abdc585688fcdb" id="r_ae0ba6838aef1098920abdc585688fcdb"><td class="memItemLeft">std::map&lt; std::size_t, <a class="el" href="structcore_1_1GridObject.html">GridObject</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae0ba6838aef1098920abdc585688fcdb">_objects</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>La grille tactique d'une rencontre. </p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+Une seule source de vérité pour « peut-on se tenir ici »</h2>
+<p>Les obstacles viennent de la <b>grille de collision</b> de la carte — <span class="tt"><a class="el" href="classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef">core::Level::tileMap()</a></span> —, jamais d'un masque dessiné pour le combat (<span class="tt">EX-CBT-001</span>). La grille la <b>recopie</b> à la construction : une copie ne peut pas changer sous un tour en cours.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
+Les propriétés de zone</h2>
+<p>Une couche de la carte qui porte des propriétés libres (<span class="tt">EX-LVL-018</span>) déclare une <b>zone</b> : les cases non vides de cette couche. Une entité <span class="tt">zone</span> en déclare une aussi, rectangle ou ensemble de cases peint (<span class="tt"><a class="el" href="namespacecore.html#acdcfbe0879d84908d423e478039532c3" title="Les cases que couvre la zone entity : ses cases peintes si elle en a, sinon son rectangle (width × he...">core::zoneCells</a></span>, décision D13 de l'éditeur). La grille les relève sans les interpréter, sauf une — <span class="tt">difficultTerrain: true</span>, qui double le coût d'entrée. Les autres (combat interdit, aucun soin, type de dégâts aléatoire) sont lues par ceux qui en ont l'usage (<span class="tt">LOT-50</span>, <span class="tt">LOT-81</span>) au moyen de <span class="tt"><a class="el" href="#a0c816b168810ff9052c1f41225f44186" title="Les propriétés de toutes les zones qui couvrent la case, dans l&#39;ordre des couches.">zonesAt</a></span>, et ce lot n'en invente aucune.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+Ce qu'elle ne fait pas</h2>
+<p>Elle ne calcule aucun chemin : c'est <span class="tt"><a class="el" href="namespacecore.html#ad018fcc5c0c0bcabf187d6ae09568067" title="Le meilleur chemin de mover jusqu&#39;à destination, sans limite de budget.">core::findPath</a></span> et <span class="tt"><a class="el" href="classcore_1_1ReachableArea.html" title="Les cases qu&#39;un combattant peut atteindre ce tour-ci, et par où.">core::ReachableArea</a></span>. Elle ne connaît aucun camp : c'est la requête de déplacement qui dit qui l'on peut traverser. Elle n'a pas d'altitude : l'altitude est un <b>attribut</b> du déplacement, jamais une géométrie de la grille (voir <span class="tt"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff" title="Comment un combattant se déplace : au sol, ou en vol.">core::Locomotion</a></span>). </p>
+</div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
+<a id="afa362bf2c8a692ba969b6a319c7a987f" name="afa362bf2c8a692ba969b6a319c7a987f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa362bf2c8a692ba969b6a319c7a987f">&#9670;&#160;</a></span>Terrain</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#afa362bf2c8a692ba969b6a319c7a987f">core::BattleGrid::Terrain</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qu'une case de la carte oppose au déplacement. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="afa362bf2c8a692ba969b6a319c7a987fac3bf447eabe632720a3aa1a7ce401274" name="afa362bf2c8a692ba969b6a319c7a987fac3bf447eabe632720a3aa1a7ce401274"></a>Open&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="afa362bf2c8a692ba969b6a319c7a987fa9359d5f3ea6721150c54b95c46f49cba" name="afa362bf2c8a692ba969b6a319c7a987fa9359d5f3ea6721150c54b95c46f49cba"></a>GroundObstacle&#160;</td><td class="fielddoc"><p>Eau profonde, falaise : infranchissable au sol, survolé. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afa362bf2c8a692ba969b6a319c7a987fae41480b6bbfbf7407974a88d3d34f4fa" name="afa362bf2c8a692ba969b6a319c7a987fae41480b6bbfbf7407974a88d3d34f4fa"></a>Solid&#160;</td><td class="fielddoc"><p>Mur, matière pleine, bloc : infranchissable, y compris en vol. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9a72b3f8bd2b12d3e81e55d12b2a6531" name="a9a72b3f8bd2b12d3e81e55d12b2a6531"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a72b3f8bd2b12d3e81e55d12b2a6531">&#9670;&#160;</a></span>BattleGrid() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::BattleGrid::BattleGrid </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>collision</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Une grille sans zone, dont les obstacles sont les cases pleines de <code class="param">collision</code>. </p>
+
+</div>
+</div>
+<a id="a48b304db624d384b40ae4a6f34dd532b" name="a48b304db624d384b40ae4a6f34dd532b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48b304db624d384b40ae4a6f34dd532b">&#9670;&#160;</a></span>BattleGrid() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::BattleGrid::BattleGrid </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>level</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>collision</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La grille de <code class="param">level</code> : obstacles de <code class="param">collision</code>, zones de ses couches. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>La carte, dont les couches déclarent les zones. </td></tr>
+    <tr><td class="paramname">collision</td><td>La grille de collision à retenir — <span class="tt">level.tileMap()</span> pour la solidité statique, ou une grille dérivée (une zone de combat découpée, par exemple). Une couche aux dimensions différentes est ignorée. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a60fcd046ff5926aab2911a8369bdc0bf" name="a60fcd046ff5926aab2911a8369bdc0bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60fcd046ff5926aab2911a8369bdc0bf">&#9670;&#160;</a></span>BattleGrid() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::BattleGrid::BattleGrid </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La grille de <code class="param">level</code>, sur sa seule solidité statique. </p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a6d4aaa5aa23c4c2b65dca09a5f04164e" name="a6d4aaa5aa23c4c2b65dca09a5f04164e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d4aaa5aa23c4c2b65dca09a5f04164e">&#9670;&#160;</a></span>addEntityZones()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::BattleGrid::addEntityZones </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ajoute une zone par entité de zone (décision D13), après celles des couches. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>La carte dont on lit les entités. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae894796313ad8ce47138ae3742934e2f" name="ae894796313ad8ce47138ae3742934e2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae894796313ad8ce47138ae3742934e2f">&#9670;&#160;</a></span>addLayerZones()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::BattleGrid::addLayerZones </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ajoute une zone par couche qui porte des propriétés. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>La carte dont on lit les couches. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acfb41d95fe00ce6b35df57404320d9b8" name="acfb41d95fe00ce6b35df57404320d9b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfb41d95fe00ce6b35df57404320d9b8">&#9670;&#160;</a></span>addZones()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::BattleGrid::addZones </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abd943492bc2fc0b8ac1269bf46baaf0d" name="abd943492bc2fc0b8ac1269bf46baaf0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd943492bc2fc0b8ac1269bf46baaf0d">&#9670;&#160;</a></span>blocksSight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::BattleGrid::blocksSight </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si la case arrête la vue : matière pleine, ou objet à abri total (<span class="tt">LOT-22</span>). </p>
+<p>L'eau profonde et la falaise arrêtent la marche, pas le regard : on voit par-dessus un gouffre. Hors de la carte, faux — un tracé entre deux cases de la carte n'en sort jamais, et les bords ne sont pas des murs pour la vue. </p>
+
+</div>
+</div>
+<a id="ad541c35faece5fef76b23fe5cab9ca11" name="ad541c35faece5fef76b23fe5cab9ca11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad541c35faece5fef76b23fe5cab9ca11">&#9670;&#160;</a></span>canStand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::BattleGrid::canStand </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>anchor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>side</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>self</em></span><span class="paramdefsep"> = </span><span class="paramdefval">std::nullopt</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a></td>          <td class="paramname"><span class="paramname"><em>locomotion</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffa7a16a854f32231a8df9326136b09ee62">Locomotion::Walk</a></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si une emprise <code class="param">side</code> × <code class="param">side</code> ancrée en <code class="param">anchor</code> tient sur la grille : dans les bornes, sans obstacle pour <code class="param">locomotion</code>, et sans autre combattant que <code class="param">self</code>. </p>
+
+</div>
+</div>
+<a id="a8ab7ae1207fe1040f5f685e00c8250db" name="a8ab7ae1207fe1040f5f685e00c8250db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ab7ae1207fe1040f5f685e00c8250db">&#9670;&#160;</a></span>check()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a56ee2c3f69200e700ac0f1b65dc413b4">PlacementResult</a> core::BattleGrid::check </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>anchor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>side</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a></td>          <td class="paramname"><span class="paramname"><em>locomotion</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6663109994c3ca7fcdbfbed351473fd9" name="a6663109994c3ca7fcdbfbed351473fd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6663109994c3ca7fcdbfbed351473fd9">&#9670;&#160;</a></span>combatants()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt; core::BattleGrid::combatants </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tous les combattants placés, par identifiant croissant. </p>
+
+</div>
+</div>
+<a id="a8cdc5cef5a4d2b8068bbb90b913771ee" name="a8cdc5cef5a4d2b8068bbb90b913771ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cdc5cef5a4d2b8068bbb90b913771ee">&#9670;&#160;</a></span>damageObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::BattleGrid::damageObject </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>damage</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inflige <code class="param">damage</code> points de dégâts à l'objet de la case. </p>
+<dl class="section return"><dt>Returns</dt><dd>Vrai si l'objet est détruit par ce coup — il quitte alors la grille, et sa case redevient franchissable. </dd></dl>
+
+</div>
+</div>
+<a id="a9c8889e9f69bff54e9562f1cf5263eaa" name="a9c8889e9f69bff54e9562f1cf5263eaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c8889e9f69bff54e9562f1cf5263eaa">&#9670;&#160;</a></span>fill()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::BattleGrid::fill </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1BattleGrid_1_1Placement.html">Placement</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>placement</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>occupant</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa86684cfb35851fcb057779307a9a35d" name="aa86684cfb35851fcb057779307a9a35d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa86684cfb35851fcb057779307a9a35d">&#9670;&#160;</a></span>height()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::BattleGrid::height </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af14ee1f54d1bb850979ff7c207345546" name="af14ee1f54d1bb850979ff7c207345546"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af14ee1f54d1bb850979ff7c207345546">&#9670;&#160;</a></span>inBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::BattleGrid::inBounds </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0bd357bfbcd9d0c45f955b1cdfea96a6" name="a0bd357bfbcd9d0c45f955b1cdfea96a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bd357bfbcd9d0c45f955b1cdfea96a6">&#9670;&#160;</a></span>indexOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t core::BattleGrid::indexOf </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a854f13083bbcbe9e7327237105ec9e17" name="a854f13083bbcbe9e7327237105ec9e17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a854f13083bbcbe9e7327237105ec9e17">&#9670;&#160;</a></span>isClear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::BattleGrid::isClear </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>anchor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>side</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a></td>          <td class="paramname"><span class="paramname"><em>locomotion</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffa7a16a854f32231a8df9326136b09ee62">Locomotion::Walk</a></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si l'emprise <code class="param">side</code> × <code class="param">side</code> ancrée en <code class="param">anchor</code> ne touche aucun obstacle pour <code class="param">locomotion</code>, sans regarder les combattants. </p>
+
+</div>
+</div>
+<a id="a240ddd200a9497878959f5db6bc73caa" name="a240ddd200a9497878959f5db6bc73caa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a240ddd200a9497878959f5db6bc73caa">&#9670;&#160;</a></span>isDifficult()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::BattleGrid::isDifficult </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si entrer dans la case coûte double <b>au sol</b> — un volant n'en tient pas compte (<span class="tt"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff" title="Comment un combattant se déplace : au sol, ou en vol.">core::Locomotion</a></span>). </p>
+
+</div>
+</div>
+<a id="a7fca87989c8f66ac8c24d937a53d2b31" name="a7fca87989c8f66ac8c24d937a53d2b31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fca87989c8f66ac8c24d937a53d2b31">&#9670;&#160;</a></span>isObstructed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::BattleGrid::isObstructed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a></td>          <td class="paramname"><span class="paramname"><em>locomotion</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffa7a16a854f32231a8df9326136b09ee62">Locomotion::Walk</a></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si la case arrête un combattant qui se déplace par <code class="param">locomotion</code> : matière pleine, objet bloquant, et — au sol seulement — eau profonde et falaise. </p>
+<p>Hors de la carte compte pour plein — un appelant qui oublie la borne doit se heurter à un mur, pas lire hors du tableau. </p>
+
+</div>
+</div>
+<a id="ad268f78729d34e98bd7fca885900cad7" name="ad268f78729d34e98bd7fca885900cad7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad268f78729d34e98bd7fca885900cad7">&#9670;&#160;</a></span>moveTo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a56ee2c3f69200e700ac0f1b65dc413b4">PlacementResult</a> core::BattleGrid::moveTo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>anchor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a></td>          <td class="paramname"><span class="paramname"><em>locomotion</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffa7a16a854f32231a8df9326136b09ee62">Locomotion::Walk</a></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Déplace un combattant déjà placé. </p>
+<p>Ne vérifie <b>aucun</b> chemin ni budget : c'est l'appelant qui a validé le trajet (<span class="tt"><a class="el" href="classcore_1_1ReachableArea.html" title="Les cases qu&#39;un combattant peut atteindre ce tour-ci, et par où.">core::ReachableArea</a></span>). La grille ne tient que l'occupation, et refuse tout ce qui la violerait. </p>
+
+</div>
+</div>
+<a id="adf5ddd3fe14b482355ca202829a5df64" name="adf5ddd3fe14b482355ca202829a5df64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf5ddd3fe14b482355ca202829a5df64">&#9670;&#160;</a></span>objectAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1GridObject.html">GridObject</a> * core::BattleGrid::objectAt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'objet posé sur la case, ou <span class="tt">nullptr</span>. </p>
+
+</div>
+</div>
+<a id="a31889408e785ac672e553a7d52246993" name="a31889408e785ac672e553a7d52246993"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31889408e785ac672e553a7d52246993">&#9670;&#160;</a></span>objectCoverAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999">Cover</a> core::BattleGrid::objectCoverAt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'abri que procure l'objet posé sur la case, <span class="tt"><a class="el" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999a6adf97f83acf6453d4a6a4b1070f3754">Cover::None</a></span> s'il n'y en a pas. </p>
+
+</div>
+</div>
+<a id="aa853407639f33478105a7b62d0ace618" name="aa853407639f33478105a7b62d0ace618"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa853407639f33478105a7b62d0ace618">&#9670;&#160;</a></span>occupantAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt; core::BattleGrid::occupantAt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le combattant qui tient la case, s'il y en a un. </p>
+
+</div>
+</div>
+<a id="ae717e61951843569c4bed5e1b9adba67" name="ae717e61951843569c4bed5e1b9adba67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae717e61951843569c4bed5e1b9adba67">&#9670;&#160;</a></span>place()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a56ee2c3f69200e700ac0f1b65dc413b4">PlacementResult</a> core::BattleGrid::place </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>anchor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>side</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a></td>          <td class="paramname"><span class="paramname"><em>locomotion</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffa7a16a854f32231a8df9326136b09ee62">Locomotion::Walk</a></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Place <code class="param">combatant</code>, d'emprise <code class="param">side</code> × <code class="param">side</code>, avec <code class="param">anchor</code> pour coin haut-gauche. </p>
+<p>Refuse plutôt que de corriger : une case voulue qui tombe dans un mur est une information pour le montage de la rencontre (<span class="tt"><a class="el" href="namespacecore.html#a63e47d6c989b07bf0c2c7e0a568d1e02" title="Place les combattants d&#39;une rencontre autour de trigger.">core::placeCombatants</a></span>), et la déplacer d'office cacherait une formation mal écrite. Un combattant placé <b>au sol</b> ne peut l'être sur l'eau profonde ; un volant, si — il s'y tient en vol stationnaire. </p>
+
+</div>
+</div>
+<a id="a6d8f9cbc88d49e6b202f35ea58ae8985" name="a6d8f9cbc88d49e6b202f35ea58ae8985"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d8f9cbc88d49e6b202f35ea58ae8985">&#9670;&#160;</a></span>placeObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a56ee2c3f69200e700ac0f1b65dc413b4">PlacementResult</a> core::BattleGrid::placeObject </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridObject.html">GridObject</a></td>          <td class="paramname"><span class="paramname"><em>object</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pose un objet sur une case. </p>
+<p>Refusé hors carte, sur une case pleine, sur un autre objet, et — pour un objet bloquant — sur une case tenue par un combattant. </p>
+
+</div>
+</div>
+<a id="a27b9d17fd8c8a7399622ce8037b758e6" name="a27b9d17fd8c8a7399622ce8037b758e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27b9d17fd8c8a7399622ce8037b758e6">&#9670;&#160;</a></span>positionOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; core::BattleGrid::positionOf </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le coin haut-gauche de l'emprise du combattant, s'il est sur la grille. </p>
+
+</div>
+</div>
+<a id="a44455571fe0dd82a1262f39af39b1e65" name="a44455571fe0dd82a1262f39af39b1e65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44455571fe0dd82a1262f39af39b1e65">&#9670;&#160;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::BattleGrid::remove </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire un combattant de la grille (mort, fuite). Faux s'il n'y était pas. </p>
+
+</div>
+</div>
+<a id="ab68b755acff765a64c3618e558555444" name="ab68b755acff765a64c3618e558555444"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab68b755acff765a64c3618e558555444">&#9670;&#160;</a></span>setDifficult()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::BattleGrid::setDifficult </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>difficult</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rend une case difficile, ou la rend à la normale — en cours de combat. </p>
+<p>Le terrain difficile n'est pas seulement une donnée de carte : un séisme en crée, un sort l'efface. Une case hors de la carte est ignorée. </p>
+
+</div>
+</div>
+<a id="a3f8b1a66e091a5db66010da34721bfc7" name="a3f8b1a66e091a5db66010da34721bfc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f8b1a66e091a5db66010da34721bfc7">&#9670;&#160;</a></span>sideOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::BattleGrid::sideOf </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le côté de l'emprise du combattant, ou 0 s'il n'est pas sur la grille. </p>
+
+</div>
+</div>
+<a id="ab7d7cbb5a4348e90c82deae5bfd2e3c1" name="ab7d7cbb5a4348e90c82deae5bfd2e3c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d7cbb5a4348e90c82deae5bfd2e3c1">&#9670;&#160;</a></span>width()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::BattleGrid::width </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0c816b168810ff9052c1f41225f44186" name="a0c816b168810ff9052c1f41225f44186"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c816b168810ff9052c1f41225f44186">&#9670;&#160;</a></span>zonesAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; const <a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a> * &gt; core::BattleGrid::zonesAt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les propriétés de toutes les zones qui couvrent la case, dans l'ordre des couches. </p>
+<p>Les pointeurs vivent aussi longtemps que la grille. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a60afa7d113aab4916b96ad89c1c77867" name="a60afa7d113aab4916b96ad89c1c77867"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60afa7d113aab4916b96ad89c1c77867">&#9670;&#160;</a></span>_difficult</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;bool&gt; core::BattleGrid::_difficult</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6feccb632a0934cee70683671a6afade" name="a6feccb632a0934cee70683671a6afade"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6feccb632a0934cee70683671a6afade">&#9670;&#160;</a></span>_height</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::BattleGrid::_height</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae0ba6838aef1098920abdc585688fcdb" name="ae0ba6838aef1098920abdc585688fcdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0ba6838aef1098920abdc585688fcdb">&#9670;&#160;</a></span>_objects</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::size_t, <a class="el" href="structcore_1_1GridObject.html">GridObject</a>&gt; core::BattleGrid::_objects</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2ab4363b9ad5e7a87285f4e3fbf860b3" name="a2ab4363b9ad5e7a87285f4e3fbf860b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ab4363b9ad5e7a87285f4e3fbf860b3">&#9670;&#160;</a></span>_occupants</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::optional&lt;<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a>&gt; &gt; core::BattleGrid::_occupants</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae1c46ff0bd7fe6f440336711d9338dcd" name="ae1c46ff0bd7fe6f440336711d9338dcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1c46ff0bd7fe6f440336711d9338dcd">&#9670;&#160;</a></span>_placements</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a>, <a class="el" href="structcore_1_1BattleGrid_1_1Placement.html">Placement</a>&gt; core::BattleGrid::_placements</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ordonnés : parcourir les combattants ou les objets doit donner le même ordre d'une partie à l'autre, et un conteneur non ordonné ne le garantit pas. </p>
+
+</div>
+</div>
+<a id="a7facc72fad59238cc1f48bfb8ec7aa68" name="a7facc72fad59238cc1f48bfb8ec7aa68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7facc72fad59238cc1f48bfb8ec7aa68">&#9670;&#160;</a></span>_terrain</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="#afa362bf2c8a692ba969b6a319c7a987f">Terrain</a>&gt; core::BattleGrid::_terrain</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a66c8a6675f9750dfdccca2464c2aabbf" name="a66c8a6675f9750dfdccca2464c2aabbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66c8a6675f9750dfdccca2464c2aabbf">&#9670;&#160;</a></span>_width</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::BattleGrid::_width</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acdd16ed28a4efcaba589fb1f6c76a561" name="acdd16ed28a4efcaba589fb1f6c76a561"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdd16ed28a4efcaba589fb1f6c76a561">&#9670;&#160;</a></span>_zones</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1BattleGrid_1_1Zone.html">Zone</a>&gt; core::BattleGrid::_zones</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/<a class="el" href="BattleGrid_8h_source.html">BattleGrid.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/<a class="el" href="BattleGrid_8cpp.html">BattleGrid.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="classcore_1_1BattleGrid.html">BattleGrid</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

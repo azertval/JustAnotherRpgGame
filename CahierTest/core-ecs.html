@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core · Ecs — Documentation</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body data-root="..">
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav><a href="../index.html">Accueil</a><a href="../Guide/index.html">Guide</a><a href="../Specification/index.html">Spécifications</a><a href="index.html" class="active">Cahier de test</a></nav>
+  <form class="search" role="search"><input type="search" placeholder="Chercher…" aria-label="Chercher dans la documentation"><div class="results" hidden></div></form>
+  <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1 active" href="core-ecs.html">Core · Ecs</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-animation-clipcpp">test_animation_clip.cpp</a><a class="toc depth-2" href="#test-component-poolcpp">test_component_pool.cpp</a><a class="toc depth-2" href="#test-entity-managercpp">test_entity_manager.cpp</a><a class="toc depth-2" href="#test-spritecpp">test_sprite.cpp</a><a class="toc depth-2" href="#test-viewcpp">test_view.cpp</a><a class="toc depth-2" href="#test-worldcpp">test_world.cpp</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<main>
+<article class="prose"><h1 id="core-ecs">Core · Ecs</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">35 cas</span></div>
+<p>Tests unitaires — <strong>35 cas</strong> (5 critiques, 30 majeurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-animation-clipcpp"><code>test_animation_clip.cpp</code></a></td><td>7</td><td>-</td><td>5</td><td>2</td><td>-</td></tr><tr><td><a href="#test-component-poolcpp"><code>test_component_pool.cpp</code></a></td><td>7</td><td>-</td><td>-</td><td>7</td><td>-</td></tr><tr><td><a href="#test-entity-managercpp"><code>test_entity_manager.cpp</code></a></td><td>6</td><td>-</td><td>-</td><td>6</td><td>-</td></tr><tr><td><a href="#test-spritecpp"><code>test_sprite.cpp</code></a></td><td>3</td><td>-</td><td>-</td><td>3</td><td>-</td></tr><tr><td><a href="#test-viewcpp"><code>test_view.cpp</code></a></td><td>5</td><td>-</td><td>-</td><td>5</td><td>-</td></tr><tr><td><a href="#test-worldcpp"><code>test_world.cpp</code></a></td><td>7</td><td>-</td><td>-</td><td>7</td><td>-</td></tr></tbody></table></div>
+<h2 id="test-animation-clipcpp">test_animation_clip.cpp</h2>
+<section class="case" data-crit="Critique"><h3 id="animationcliptestclipexistantresoluparnom">AnimationClipTest.ClipExistantResoluParNom</h3>
+<p><em>Critique · Unitaire · Clip d'animation</em> — <code>Source/Test/Unit/Core/Ecs/test_animation_clip.cpp:32</code></p>
+<p>Un clip existant est résolu par son nom.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>clips.clipCount()</code> vaut <code>2</code>.</li><li>Vérifie que <code>clips.indexOf(&quot;idle&quot;)</code> est supérieur ou égal à <code>0</code>.</li><li>Vérifie que <code>clips.indexOf(&quot;run&quot;)</code> est supérieur ou égal à <code>0</code>.</li><li>Vérifie que <code>clips.clipAt(clips.indexOf(&quot;idle&quot;)).name</code> vaut <code>&quot;idle&quot;</code>.</li><li>Vérifie que <code>clips.clipAt(clips.indexOf(&quot;run&quot;)).name</code> vaut <code>&quot;run&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="animationcliptestclipinexistantreplideterministe">AnimationClipTest.ClipInexistantRepliDeterministe</h3>
+<p><em>Critique · Unitaire · Clip d'animation</em> — <code>Source/Test/Unit/Core/Ecs/test_animation_clip.cpp:55</code></p>
+<p>Un nom inconnu ou un index hors bornes retombe sur le premier clip, sans plantage.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>clips.indexOf(&quot;inconnu&quot;)</code> vaut <code>-1</code>.</li><li>Vérifie que <code>clips.clipAt(-1).name</code> vaut <code>&quot;idle&quot;</code>.</li><li>Vérifie que <code>clips.clipAt(42).name</code> vaut <code>&quot;idle&quot;</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="animationcliptestjeuvidereplisurunclippardefaut">AnimationClipTest.JeuVideRepliSurUnClipParDefaut</h3>
+<p><em>Critique · Unitaire · Clip d'animation</em> — <code>Source/Test/Unit/Core/Ecs/test_animation_clip.cpp:78</code></p>
+<p>Un jeu de clips vide se replie sur un clip par défaut portant au moins une image.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>clips.clipCount()</code> vaut <code>0</code>.</li><li>Vérifie que <code>fallback.name.empty()</code> est vrai.</li><li>Vérifie que <code>fallback.frames.empty()</code> est faux.</li><li>Vérifie que <code>fallback.frameDuration</code> vaut <code>0.0f</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="animationcliptestclipauneseuleimage">AnimationClipTest.ClipAUneSeuleImage</h3>
+<p><em>Majeur · Unitaire · Clip d'animation</em> — <code>Source/Test/Unit/Core/Ecs/test_animation_clip.cpp:98</code></p>
+<p>Un clip d'une seule image est un clip valide.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>clip.frames.size()</code> vaut <code>1u</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="animationcliptestdureesinegalesentreclips">AnimationClipTest.DureesInegalesEntreClips</h3>
+<p><em>Majeur · Unitaire · Clip d'animation</em> — <code>Source/Test/Unit/Core/Ecs/test_animation_clip.cpp:115</code></p>
+<p>Chaque clip garde sa propre durée d'image.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>clips.clipAt(clips.indexOf(&quot;idle&quot;)).frameDuration</code> vaut <code>0.5f</code> (comparaison flottante).</li><li>Vérifie que <code>clips.clipAt(clips.indexOf(&quot;run&quot;)).frameDuration</code> vaut <code>0.1f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="animationcliptestclipjoueunefoisavecclipsuivant">AnimationClipTest.ClipJoueUneFoisAvecClipSuivant</h3>
+<p><em>Critique · Unitaire · Clip d'animation</em> — <code>Source/Test/Unit/Core/Ecs/test_animation_clip.cpp:135</code></p>
+<p>Un clip joué une fois désigne un clip suivant, résolu dans le même jeu.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>opening.endMode</code> vaut <code>core::ClipEndMode::OneShot</code>.</li><li>Vérifie que <code>opening.nextClip</code> vaut <code>&quot;open&quot;</code>.</li><li>Vérifie que <code>clips.indexOf(opening.nextClip)</code> est supérieur ou égal à <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="animationcliptestajouterunclipdememenomleremplace">AnimationClipTest.AjouterUnClipDeMemeNomLeRemplace</h3>
+<p><em>Critique · Unitaire · Clip d'animation</em> — <code>Source/Test/Unit/Core/Ecs/test_animation_clip.cpp:157</code></p>
+<p>Ajouter un clip de même nom remplace l'existant, à index constant.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>clips.clipCount()</code> vaut <code>1</code>.</li><li>Vérifie que <code>clips.indexOf(&quot;idle&quot;)</code> vaut <code>firstIndex</code>.</li><li>Vérifie que <code>clips.clipAt(firstIndex).frames.size()</code> vaut <code>3u</code>.</li></ul>
+</section><h2 id="test-component-poolcpp">test_component_pool.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="componentpooltestajoutpuisacces">ComponentPoolTest.AjoutPuisAcces</h3>
+<p><em>Majeur · Unitaire · Component Pool</em> — <code>Source/Test/Unit/Core/Ecs/test_component_pool.cpp:28</code></p>
+<p><code>add</code> puis <code>get</code> renvoie la valeur stockée ; <code>has</code> est cohérent.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>pool.has(entity)</code> est faux.</li><li>Vérifie que <code>pool.has(entity)</code> est vrai.</li><li>Vérifie que <code>pool.get(entity).x</code> vaut <code>3</code>.</li><li>Vérifie que <code>pool.get(entity).y</code> vaut <code>4</code>.</li><li>Vérifie que <code>pool.size()</code> vaut <code>1u</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="componentpooltestgetrenvoiereferencemodifiable">ComponentPoolTest.GetRenvoieReferenceModifiable</h3>
+<p><em>Majeur · Unitaire · Component Pool</em> — <code>Source/Test/Unit/Core/Ecs/test_component_pool.cpp:52</code></p>
+<p><code>get</code> renvoie une référence modifiable sur le composant stocké.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>pool.get(entity).x</code> vaut <code>42</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="componentpooltestremoveaumilieuswapandpop">ComponentPoolTest.RemoveAuMilieuSwapAndPop</h3>
+<p><em>Majeur · Unitaire · Component Pool</em> — <code>Source/Test/Unit/Core/Ecs/test_component_pool.cpp:74</code></p>
+<p><code>remove</code> d'un élément au milieu (swap-and-pop) laisse les autres composants accessibles et corrects, et le stockage dense reste contigu.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>pool.has(middle)</code> est faux.</li><li>Vérifie que <code>pool.has(first)</code> est vrai.</li><li>Vérifie que <code>pool.has(last)</code> est vrai.</li><li>Vérifie que <code>pool.get(first)</code> vaut <code>10</code>.</li><li>Vérifie que <code>pool.get(last)</code> vaut <code>30</code>.</li><li>Vérifie que <code>pool.size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>pool.components().size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>pool.entities().size()</code> vaut <code>2u</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="componentpooltestremovedernierelement">ComponentPoolTest.RemoveDernierElement</h3>
+<p><em>Majeur · Unitaire · Component Pool</em> — <code>Source/Test/Unit/Core/Ecs/test_component_pool.cpp:110</code></p>
+<p>Retirer le dernier élément ne perturbe pas les précédents.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>pool.has(a)</code> est vrai.</li><li>Vérifie que <code>pool.has(b)</code> est faux.</li><li>Vérifie que <code>pool.get(a)</code> vaut <code>1</code>.</li><li>Vérifie que <code>pool.size()</code> vaut <code>1u</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="componentpooltesthandleperimenepossedepaslecomposant">ComponentPoolTest.HandlePerimeNePossedePasLeComposant</h3>
+<p><em>Majeur · Unitaire · Component Pool</em> — <code>Source/Test/Unit/Core/Ecs/test_component_pool.cpp:137</code></p>
+<p>Un handle périmé (index recyclé, génération différente) ne possède pas le composant de l'ancienne entité.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>pool.has(original)</code> est vrai.</li><li>Vérifie que <code>pool.has(recycled)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="componentpooltestremoveifpresent">ComponentPoolTest.RemoveIfPresent</h3>
+<p><em>Majeur · Unitaire · Component Pool</em> — <code>Source/Test/Unit/Core/Ecs/test_component_pool.cpp:164</code></p>
+<p><code>removeIfPresent</code> retire si le composant existe, sinon ne fait rien.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>pool.removeIfPresent(entity)</code> est faux.</li><li>Vérifie que <code>pool.removeIfPresent(entity)</code> est vrai.</li><li>Vérifie que <code>pool.has(entity)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="componentpooltestgetsurentiteabsentevioleprecondition">ComponentPoolTest.GetSurEntiteAbsenteViolePrecondition</h3>
+<p><em>Majeur · Unitaire · Component Pool</em> — <code>Source/Test/Unit/Core/Ecs/test_component_pool.cpp:185</code></p>
+<p><code>get</code> sur une entité absente viole une précondition (assertion en Debug).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que l'opération lève bien une exception <code>std::runtime_error</code>.</li></ul>
+</section><h2 id="test-entity-managercpp">test_entity_manager.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="entitymanagertestcreeentitesvivantesetdistinctes">EntityManagerTest.CreeEntitesVivantesEtDistinctes</h3>
+<p><em>Majeur · Unitaire · Entity Manager</em> — <code>Source/Test/Unit/Core/Ecs/test_entity_manager.cpp:16</code></p>
+<p><code>create</code> renvoie des entités vivantes et distinctes.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>manager.isAlive(a)</code> est vrai.</li><li>Vérifie que <code>manager.isAlive(b)</code> est vrai.</li><li>Vérifie que <code>a</code> diffère de <code>b</code>.</li><li>Vérifie que <code>manager.aliveCount()</code> vaut <code>2u</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="entitymanagertestdestructioninvalidelehandle">EntityManagerTest.DestructionInvalideLeHandle</h3>
+<p><em>Majeur · Unitaire · Entity Manager</em> — <code>Source/Test/Unit/Core/Ecs/test_entity_manager.cpp:37</code></p>
+<p>Après destruction, l'ancien handle n'est plus vivant.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>manager.isAlive(entity)</code> est faux.</li><li>Vérifie que <code>manager.aliveCount()</code> vaut <code>0u</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="entitymanagertestrecyclagechangelageneration">EntityManagerTest.RecyclageChangeLaGeneration</h3>
+<p><em>Majeur · Unitaire · Entity Manager</em> — <code>Source/Test/Unit/Core/Ecs/test_entity_manager.cpp:58</code></p>
+<p>Un index recyclé produit une génération différente : l'ancien handle reste invalide, le nouveau est valide.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>recycled.index</code> vaut <code>first.index</code>.</li><li>Vérifie que <code>recycled.generation</code> diffère de <code>first.generation</code>.</li><li>Vérifie que <code>manager.isAlive(first)</code> est faux.</li><li>Vérifie que <code>manager.isAlive(recycled)</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="entitymanagertestdestructionhandleperimesanseffet">EntityManagerTest.DestructionHandlePerimeSansEffet</h3>
+<p><em>Majeur · Unitaire · Entity Manager</em> — <code>Source/Test/Unit/Core/Ecs/test_entity_manager.cpp:86</code></p>
+<p>Détruire un handle périmé est sans effet (idempotent) et ne touche pas l'entité vivante qui occupe désormais le même index.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>manager.isAlive(live)</code> est vrai.</li><li>Vérifie que <code>manager.aliveCount()</code> vaut <code>1u</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="entitymanagertestentiteinvalidejamaisvivante">EntityManagerTest.EntiteInvalideJamaisVivante</h3>
+<p><em>Majeur · Unitaire · Entity Manager</em> — <code>Source/Test/Unit/Core/Ecs/test_entity_manager.cpp:110</code></p>
+<p>L'entité invalide conventionnelle n'est jamais vivante.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>manager.isAlive(core::INVALID_ENTITY)</code> est faux.</li><li>Vérifie que <code>manager.isAlive(created)</code> est vrai.</li><li>Vérifie que <code>manager.isAlive(core::INVALID_ENTITY)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="entitymanagertestegalitehandleinvalide">EntityManagerTest.EgaliteHandleInvalide</h3>
+<p><em>Majeur · Unitaire · Entity Manager</em> — <code>Source/Test/Unit/Core/Ecs/test_entity_manager.cpp:128</code></p>
+<p>Le handle invalide se compare comme tel.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <a class="ref" href="../reference/namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272"><code>core::INVALID_ENTITY</code></a> vaut <a class="ref" href="../reference/namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272"><code>core::INVALID_ENTITY</code></a>.</li><li>Vérifie que <code>core::INVALID_ENTITY.index</code> vaut <a class="ref" href="../reference/structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38"><code>core::Entity::INVALID_INDEX</code></a>.</li></ul>
+</section><h2 id="test-spritecpp">test_sprite.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="spritetestvaleurspardefaut">SpriteTest.ValeursParDefaut</h3>
+<p><em>Majeur · Unitaire · Sprite</em> — <code>Source/Test/Unit/Core/Ecs/test_sprite.cpp:15</code></p>
+<p>Un sprite par défaut a une teinte blanche opaque, la couche 0 et une région nulle.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>sprite.layer</code> vaut <code>0</code>.</li><li>Vérifie que <code>sprite.region.x</code> vaut <code>0</code>.</li><li>Vérifie que <code>sprite.region.y</code> vaut <code>0</code>.</li><li>Vérifie que <code>sprite.region.width</code> vaut <code>0</code>.</li><li>Vérifie que <code>sprite.region.height</code> vaut <code>0</code>.</li><li>Vérifie que <code>sprite.tint.r</code> vaut <code>1.0f</code> (comparaison flottante).</li><li>Vérifie que <code>sprite.tint.g</code> vaut <code>1.0f</code> (comparaison flottante).</li><li>Vérifie que <code>sprite.tint.b</code> vaut <code>1.0f</code> (comparaison flottante).</li><li>Vérifie que <code>sprite.tint.a</code> vaut <code>1.0f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="spritetestchampsassignables">SpriteTest.ChampsAssignables</h3>
+<p><em>Majeur · Unitaire · Sprite</em> — <code>Source/Test/Unit/Core/Ecs/test_sprite.cpp:40</code></p>
+<p>Les champs sont librement assignables (donnée pure).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>sprite.region.x</code> vaut <code>16</code>.</li><li>Vérifie que <code>sprite.region.y</code> vaut <code>32</code>.</li><li>Vérifie que <code>sprite.region.width</code> vaut <code>16</code>.</li><li>Vérifie que <code>sprite.region.height</code> vaut <code>16</code>.</li><li>Vérifie que <code>sprite.layer</code> vaut <code>2</code>.</li><li>Vérifie que <code>sprite.tint.g</code> vaut <code>0.5f</code> (comparaison flottante).</li><li>Vérifie que <code>sprite.tint.a</code> vaut <code>0.8f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="spritetestcopievaleur">SpriteTest.CopieValeur</h3>
+<p><em>Majeur · Unitaire · Sprite</em> — <code>Source/Test/Unit/Core/Ecs/test_sprite.cpp:65</code></p>
+<p>Le composant est utilisable comme un composant d'ECS (stockage/copie de données pures).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>copy.layer</code> vaut <code>5</code>.</li><li>Vérifie que <code>copy.region.width</code> vaut <code>16</code>.</li><li>Vérifie que <code>copy.tint.r</code> vaut <code>0.2f</code> (comparaison flottante).</li></ul>
+</section><h2 id="test-viewcpp">test_view.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="viewtestselectionneuniquementlintersection">ViewTest.SelectionneUniquementLIntersection</h3>
+<p><em>Majeur · Unitaire · View</em> — <code>Source/Test/Unit/Core/Ecs/test_view.cpp:30</code></p>
+<p>Une vue &lt;A, B&gt; itère exactement les entités possédant A et B.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>visited.size()</code> vaut <code>1u</code>.</li><li>Vérifie que <code>visited.front()</code> vaut <code>both</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="viewtestcomposantscorrespondentalentite">ViewTest.ComposantsCorrespondentALEntite</h3>
+<p><em>Majeur · Unitaire · View</em> — <code>Source/Test/Unit/Core/Ecs/test_view.cpp:61</code></p>
+<p>Les composants fournis par la vue correspondent bien à l'entité itérée.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>velocity.value</code> vaut <code>position.value * 10</code>.</li><li>Vérifie que <code>position.value</code> vaut <code>1</code>.</li><li>Vérifie que <code>position.value</code> vaut <code>2</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="viewtestmodificationviavueestvisible">ViewTest.ModificationViaVueEstVisible</h3>
+<p><em>Majeur · Unitaire · View</em> — <code>Source/Test/Unit/Core/Ecs/test_view.cpp:95</code></p>
+<p>La modification d'un composant via la vue est visible ensuite (référence).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>positions.get(entity).value</code> vaut <code>8</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="viewtestvuevideniterepas">ViewTest.VueVideNIterePas</h3>
+<p><em>Majeur · Unitaire · View</em> — <code>Source/Test/Unit/Core/Ecs/test_view.cpp:121</code></p>
+<p>Une vue sans entité correspondante s'itère sans erreur (aucune visite).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>visits</code> vaut <code>0</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="viewtestiterationforeteachcoherentes">ViewTest.IterationForEtEachCoherentes</h3>
+<p><em>Majeur · Unitaire · View</em> — <code>Source/Test/Unit/Core/Ecs/test_view.cpp:148</code></p>
+<p>L'itération par <code>for</code> visite les mêmes entités que <code>each</code>.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>fromEach.size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>fromFor</code> vaut <code>fromEach</code>.</li></ul>
+</section><h2 id="test-worldcpp">test_world.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="worldtestcyclecomposant">WorldTest.CycleComposant</h3>
+<p><em>Majeur · Unitaire · World</em> — <code>Source/Test/Unit/Core/Ecs/test_world.cpp:56</code></p>
+<p>Le cycle add/has/get/remove d'un composant est cohérent via le <code>World</code>.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>world.hasComponent&lt;Health&gt;(entity)</code> est faux.</li><li>Vérifie que <code>world.hasComponent&lt;Health&gt;(entity)</code> est vrai.</li><li>Vérifie que <code>world.getComponent&lt;Health&gt;(entity).value</code> vaut <code>100</code>.</li><li>Vérifie que <code>world.getComponent&lt;Health&gt;(entity).value</code> vaut <code>60</code>.</li><li>Vérifie que <code>world.hasComponent&lt;Health&gt;(entity)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldtesthascomponentsanspool">WorldTest.HasComponentSansPool</h3>
+<p><em>Majeur · Unitaire · World</em> — <code>Source/Test/Unit/Core/Ecs/test_world.cpp:83</code></p>
+<p><code>hasComponent</code> est faux quand aucune pool du type n'existe encore.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>world.hasComponent&lt;Health&gt;(entity)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldtestdestroyentityretiretouslescomposants">WorldTest.DestroyEntityRetireTousLesComposants</h3>
+<p><em>Majeur · Unitaire · World</em> — <code>Source/Test/Unit/Core/Ecs/test_world.cpp:99</code></p>
+<p><code>destroyEntity</code> retire l'entité de toutes les pools et la rend non vivante.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>world.isAlive(entity)</code> est faux.</li><li>Vérifie que <code>world.hasComponent&lt;Health&gt;(entity)</code> est faux.</li><li>Vérifie que <code>world.hasComponent&lt;Position&gt;(entity)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldtestsystemesexecutesdanslordre">WorldTest.SystemesExecutesDansLOrdre</h3>
+<p><em>Majeur · Unitaire · World</em> — <code>Source/Test/Unit/Core/Ecs/test_world.cpp:122</code></p>
+<p>Les systèmes enregistrés s'exécutent dans l'ordre d'enregistrement.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>world.systemCount()</code> vaut <code>3u</code>.</li><li>Vérifie que <code>log</code> vaut <code>(std::vector&lt;int&gt;{1, 2, 3})</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldtestupdatenfoisexecutenfois">WorldTest.UpdateNFoisExecuteNFois</h3>
+<p><em>Majeur · Unitaire · World</em> — <code>Source/Test/Unit/Core/Ecs/test_world.cpp:145</code></p>
+<p><code>update</code> appelé N fois exécute chaque système N fois (cadencement déterministe).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>log.size()</code> vaut <code>static_cast&lt;std::size_t&gt;(calls)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldtestfixeddeltatransmisauxsystemes">WorldTest.FixedDeltaTransmisAuxSystemes</h3>
+<p><em>Majeur · Unitaire · World</em> — <code>Source/Test/Unit/Core/Ecs/test_world.cpp:169</code></p>
+<p>Le <code>fixedDelta</code> passé à <code>update</code> est transmis tel quel aux systèmes.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>observed</code> vaut <code>0.25f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="worldtestviewviaworld">WorldTest.ViewViaWorld</h3>
+<p><em>Majeur · Unitaire · World</em> — <code>Source/Test/Unit/Core/Ecs/test_world.cpp:189</code></p>
+<p>La vue exposée par le <code>World</code> itère l'intersection des composants.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>visited.size()</code> vaut <code>1u</code>.</li><li>Vérifie que <code>visited.front()</code> vaut <code>both</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-diagnostics.html"><span>Précédent</span>Core · Diagnostics</a><a class="next" href="core-gameplay.html"><span>Suivant</span>Core · Gameplay</a></nav><p class="source">Source : <code>Documentation/CahierTest/core-ecs.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-22 · <code>fb6aab53e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>
