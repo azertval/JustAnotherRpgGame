@@ -6,6 +6,30 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Le guide poussé à fond, le manuel remis d'aplomb, le cahier de test navigable.** Les treize
+  pages déjà refondues du guide reçoivent trente figures SVG — l'accumulateur du pas de temps fixe,
+  le *sparse set* de l'ECS, la pile du routeur, le cycle d'un tour, l'évaluation de l'IA, la ligne
+  de vue et l'abri, la résolution d'une clé d'asset, l'ordre de tri, la projection isométrique, le
+  document et les gestes de l'éditeur — et `capture_screens.py` photographie désormais l'éditeur
+  sur la racine de données d'essai. Les pages restées en arrière sont reprises à leur tour :
+  **guide-audio** documente chaque fonction de `hmi::AudioEngine` (le préchargement qui ne peut pas
+  être paresseux, le tourniquet de trois instances, l'état muet qu'il faut pouvoir forcer) ;
+  **guide-design-ihm** ne décrivait qu'une règle d'échelle héritée du pixel art alors qu'il y en a
+  **deux**, un réel pour les écrans peints et un entier pour le viewport, et dit pourquoi chacune a
+  son type ; **guide-niveaux** décrivait le **format v3** — il passe en **v4** : collision
+  **déduite** des pièces posées, cases forcées, relevés `unplayed` et `unknownPieces`, identifiants
+  d'entités, variantes, hauteur réservée, écriture canonique ; **guide-journalisation** gagne le
+  **rapport de plantage** que le plan du guide lui attribuait sans qu'il le couvre — les quatre
+  tentatives d'écriture du minidump et pourquoi la dernière se replie sur le seul thread fautif, le
+  relevé par tentative qu'il faut lire au lieu de relancer le job, les assertions CRT routées vers
+  `stderr`. Le **manuel** promettait un monde qui n'existe plus depuis la table rase du `LOT-102` —
+  une partie ouverte à Martpart, une avenue vers Arenarea, un héraut au Colisée — alors que
+  « Nouvelle partie » affiche *« La ville de départ ne s'ouvre pas »* : il dit maintenant l'état
+  réel, châssis fini et contenu à revenir, et reçoit huit captures, lui qui n'en avait aucune. Le
+  **cahier de test** ouvre chaque page de domaine sur un sommaire — un fichier de test par ligne,
+  ses cas et leur criticité, chaque ligne menant à sa section — et son index explique enfin comment
+  **écrire un bloc `\castest`**, et ce que le cahier ne dit pas.
+
 - **Les spécifications reprises, et onze maquettes qui les argumentent.** Chaque page de
   `Documentation/Specification/` porte désormais un **statut exact** : celles qui annonçaient « à
   faire (LOT-77 écrit ce document) » disent ce qui est livré, ce qui manque et quel lot le porte —
