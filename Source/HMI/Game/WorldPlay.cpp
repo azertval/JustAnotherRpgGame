@@ -69,11 +69,12 @@ void WorldPlay::reloadAppearance() {
     }
     const std::string place = scenePlaceOf(*map);
     if (place.empty()) {
-        // Une carte qui ne nomme aucun lieu ne dessine aucune pièce : le dire vaut mieux que
-        // couvrir la carte de damiers.
+        // Une carte qui ne nomme aucun lieu se joue en MAQUETTE (LOT-128) : la composition dessine
+        // ses types en couleurs, ses murs en blocs et ses entites en jetons. Ce n'est plus un
+        // manque a signaler, c'est l'etat de depart normal d'une carte.
         _appearance = PlaceAppearance{};
-        HMI_LOG_WARNING("Monde : la carte " + _session.mapId() +
-                        " ne declare aucun lieu (propriete « scene » de couche).");
+        HMI_LOG_INFO("Monde : la carte " + _session.mapId() +
+                     " ne declare aucun lieu ; elle se joue en maquette.");
         return;
     }
     PlaceAppearanceResult read =

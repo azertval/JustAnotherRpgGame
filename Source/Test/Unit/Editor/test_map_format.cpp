@@ -268,6 +268,37 @@ TEST(MapFormatTest, ChaqueDefautSortEtLeControleEchoue) {
 }
 
 /**
+ * @brief Un type de tuile que la table du lieu ne couvre pas n'est plus invisible : il prend le
+ *        rendu de maquette, et `--check` le dit (`LOT-128`).
+ * \castest{<b>Un type absent de la table du lieu est signale par le controle.</b><br/>
+ * 	cat Unitaire · Format v4<br/>
+ * 	crit Majeur<br/>
+ * 	etapes 1. Ecrire une carte du lieu d'essai portant une case d'eau, que sa table ne couvre
+ * pas.<br/>2. La controler.<br/>
+ * 	attendu Un avertissement nomme le type et la table ; aucune erreur ne vise le type.
+ * }
+ */
+TEST(MapFormatTest, UnTypeNonCouvertParLeLieuEstSignale) {
+    const DossierDeDonnees donnees;
+    donnees.ecrire("mare", R"({"version": 4, "name": "mare", "width": 2, "height": 1,
+      "nextEntityId": 1,
+      "tiles": [ {"x": 0, "y": 0, "type": "entry"} ],
+      "layers": [ {"kind": "ground", "scene": "bourg", "tiles": [
+        {"x": 0, "y": 0, "type": "dirt", "piece": "street"},
+        {"x": 1, "y": 0, "type": "water"} ]} ],
+      "entities": []
+    })");
+
+    const std::vector<hmi::MapCheckFinding> constats =
+        hmi::checkMapFile("mare", donnees.racine() / "Levels" / "mare.json", donnees.racine());
+
+    EXPECT_TRUE(signale(constats, MapCheckSeverity::Warning, "tile type \"water\" is not covered"));
+    EXPECT_TRUE(signale(constats, MapCheckSeverity::Warning, "shown as a mock-up"));
+    // Un avertissement, pas une erreur : la case se voit, elle n'est simplement pas habillee.
+    EXPECT_FALSE(signale(constats, MapCheckSeverity::Error, "tile type"));
+}
+
+/**
  * @brief `--migrate` réécrit une carte en place, et la carte migrée passe le contrôle.
  * \castest{<b>--migrate rend une carte que --check accepte.</b><br/>
  * \tcat Unitaire · Format v4<br/>

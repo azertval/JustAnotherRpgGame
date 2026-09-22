@@ -98,6 +98,26 @@ bool ComposedScene::addLine(RenderLayer layer, TextureHandle texture, std::int32
     return true;
 }
 
+// Ajoute un quadrilatere a quatre sommets libres a la scene, s'il est visible.
+// true si la primitive a ete conservee, false si le culling l'a ecartee.
+bool ComposedScene::addPoly(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
+                            const PolyQuad& quad) {
+    ++_considered;
+    if (!isVisible(polyQuadBounds(quad))) {
+        ++_culled;
+        return false;
+    }
+    ComposedQuad composed;
+    composed.layer = layer;
+    composed.texture = texture;
+    composed.textureRank = textureRank(texture);
+    composed.sortOrder = sortOrder;
+    composed.kind = QuadKind::Poly;
+    composed.poly = quad;
+    _quads.push_back(composed);
+    return true;
+}
+
 // Ordre de profondeur d'une primitive, a partir du pied de son quad (voir en-tete).
 std::int32_t depthSortOrder(float footWorldY) noexcept {
     return static_cast<std::int32_t>(std::lround(footWorldY * DEPTH_SUBDIVISIONS_PER_UNIT));
@@ -193,6 +213,15 @@ core::Rect lineQuadBounds(const LineQuad& quad) noexcept {
     const float right = (std::max)(quad.ax, quad.bx) + half;
     const float bottom = (std::max)(quad.ay, quad.by) + half;
     return core::Rect{core::Vector2{left, top}, core::Vector2{right - left, bottom - top}};
+}
+
+// Boite englobante d'un quadrilatere a sommets libres : les extremes de ses quatre sommets. Pas de
+// demi-epaisseur a ajouter ici, contrairement au segment : un quad a toujours une aire, sauf a etre
+// degenere -- auquel cas il ne dessine rien de toute facon.
+core::Rect polyQuadBounds(const PolyQuad& quad) noexcept {
+    const auto [minX, maxX] = std::ranges::minmax(quad.x);
+    const auto [minY, maxY] = std::ranges::minmax(quad.y);
+    return core::Rect{core::Vector2{minX, minY}, core::Vector2{maxX - minX, maxY - minY}};
 }
 
 }  // namespace hmi

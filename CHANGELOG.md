@@ -6,6 +6,31 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Une carte se dessine et se joue sans texture (LOT-128).** Jusqu'ici, une carte qui ne nommait
+  aucun lieu était un **écran uniforme** : ni sol ni mur, on butait sans savoir pourquoi, et
+  `EX-EXP-005` — « une carte lisible sans qu'aucun fichier d'image ne soit présent » — n'était pas
+  tenue. Le **rendu de maquette** vit désormais dans la composition que le jeu et l'éditeur
+  partagent : une case qui ne nomme aucune pièce se dessine à la couleur de son type, `wall`,
+  `solid` et `cliff` en bloc de trois faces qui masque ce qui est derrière, et une entité sans
+  figurine en **jeton** rond à lettre — vert le joueur, jaune le PNJ qui parle, rouge l'hostile, or
+  le portail, avec sa flèche. La couleur se déduit de ce que le format dit déjà, sans propriété
+  nouvelle. Le repli se déclenche sur « cette case n'a nommé aucune pièce », si bien que le même
+  geste referme la carte sans lieu **et** le type qu'`appearance.json` ne couvre pas, jusqu'ici
+  invisible et que `--check` signale maintenant.
+
+  Il a fallu pour cela une primitive nouvelle, `hmi::PolyQuad` — un quad à quatre sommets libres,
+  d'une seule teinte : un losange isométrique au rapport 0,62 n'est ni un rectangle aligné ni un
+  segment. Le pipeline, lui, ne bouge pas. Les jetons sont des **images engendrées en code pur**,
+  lettre comprise, à la manière du marqueur d'asset manquant : il n'existe aucun rendu de texte en
+  scène côté jeu, et le jeu comme l'éditeur montrent ainsi la même image au pixel près — ce qu'un
+  test prouve en rendant une carte sans un seul fichier d'image par les deux chemins.
+
+  L'atelier suit : « New map » crée ses couches lieu ou pas — sans elles, `Change sheet…` refusait
+  d'habiller la carte plus tard —, un modèle **Blockout** s'ajoute, l'annexe connaît l'état
+  `blockout`, et `--render --plan` rend la carte au vocabulaire des plans de principe du planning,
+  légende comprise. Une seule palette, enfin, pour le canevas isométrique, le canevas à plat, la
+  vignette de la palette et la mini-carte, là où quatre teintes voisines se ressemblaient.
+
 - **Un seul site, une seule charte.** Le site publié avait trois rendus pour trois générateurs :
   le bleu et blanc de Doxygen à la racine, l'ivoire de la planification sous `planning/`, et une
   troisième palette écrite à la main dans la page qualité. Ils partagent désormais `Site/` —

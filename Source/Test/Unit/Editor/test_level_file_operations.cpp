@@ -15,6 +15,7 @@
 #include "Core/Levels/TileLayer.h"
 #include "Editor/Logic/LevelFileOperations.h"
 #include "Editor/Logic/MapFormat.h"
+#include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace {
@@ -87,6 +88,40 @@ TEST_F(LevelFileOps, UneCarteCreeeAvecUnLieuASesDeuxCouches) {
     }
     EXPECT_EQ(sols, 1);
     EXPECT_EQ(decors, 1);
+}
+
+/**
+ * @brief Une carte créée **sans lieu** a elle aussi ses deux couches (`LOT-128`) : sans elles,
+ * `Change sheet…` refuserait de l'habiller plus tard, et la maquette serait un cul-de-sac.
+ * \castest{<b>Une carte creee sans lieu a ses deux couches, et aucun lieu.</b><br/>
+ * 	cat Unitaire · Opérations sur fichiers de niveau<br/>
+ * 	crit Bloquant<br/>
+ * 	etapes 1. Créer une carte 12 × 8 sans lieu.<br/>2. La relire.<br/>
+ * 	attendu Une couche de sol et une de décor ; aucune propriété `scene` ; la case de l'entrée
+ * porte un sol.
+ * }
+ */
+TEST_F(LevelFileOps, UneCarteCreeeSansLieuASesDeuxCouches) {
+    const hmi::LevelFileOperations ops(dir);
+    const hmi::FileOperationResult result = ops.create("Maquette", 12, 8);
+    ASSERT_TRUE(result.ok()) << result.error;
+
+    const core::LevelLoadResult lu = core::LevelLoader::loadFromFile(result.path);
+    ASSERT_TRUE(lu.ok()) << lu.error;
+    EXPECT_TRUE(hmi::scenePlaceOf(*lu.level).empty());
+    int sols = 0;
+    int decors = 0;
+    for (const core::TileLayer& couche : lu.level->layers()) {
+        sols += couche.kind == core::LayerKind::Ground ? 1 : 0;
+        decors += couche.kind == core::LayerKind::Decor ? 1 : 0;
+    }
+    EXPECT_EQ(sols, 1);
+    EXPECT_EQ(decors, 1);
+
+    // L'entree ne se tient pas dans le vide : sa case porte un sol, que la maquette peint.
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(*lu.level, hmi::PlaceAppearance{}, {});
+    EXPECT_EQ(instantane.typeAt({.column = 0, .row = 7}), core::TileType::Dirt);
 }
 
 /**

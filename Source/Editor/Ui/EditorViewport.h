@@ -410,8 +410,6 @@ private:
     void paintIso(QPainter& painter, const QRectF& exposed);
     void paintFlat(QPainter& painter, const QRectF& exposed);
     void paintPlaytest(QPainter& painter, const QRectF& exposed);
-    /// Les types en couleurs, en losanges : une carte sans lieu (aucune planche à peindre).
-    void paintIsoTypeColors(QPainter& painter, const CellRange& cells);
     void paintIsoOverlays(QPainter& painter, const CellRange& cells, const IsoBandOpacity& bands);
     /// Le masque de collision en losanges : une teinte par catégorie de règle.
     /// @param painter Le peintre du canevas.

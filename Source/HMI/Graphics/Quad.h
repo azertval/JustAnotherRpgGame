@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <array>
+
 /**
  * @file HMI/Graphics/Quad.h
  * @brief Primitives de dessin 2D (quads texturés), **indépendantes de Direct3D**.
@@ -32,6 +34,36 @@ struct SpriteQuad {
     float width = 0.0f;
     float height = 0.0f;
     float rotation = 0.0f;
+    float u0 = 0.0f;
+    float v0 = 0.0f;
+    float u1 = 1.0f;
+    float v1 = 1.0f;
+    float r = 1.0f;
+    float g = 1.0f;
+    float b = 1.0f;
+    float a = 1.0f;
+};
+
+/**
+ * @brief Un quadrilatère à **quatre sommets libres**, en unités monde, d'une seule teinte — la
+ *        primitive du **rendu de maquette** (`LOT-128`, décision D1).
+ *
+ * Un losange isométrique n'est ni un `SpriteQuad` (rectangle aligné sur les axes) ni un `LineQuad`
+ * (segment) : au rapport 0,62, ce n'est même pas un carré tourné, puisque sa hauteur et sa largeur
+ * ne sont pas dans le même rapport que ses côtés. Les faces d'un bloc extrudé sont, elles, des
+ * parallélogrammes. Un quad à sommets libres couvre les deux, et n'est **pas** un cas nouveau pour
+ * le GPU : un quad, ce sont déjà quatre sommets, et `SpriteBatch::draw(const LineQuad&)` en produit
+ * déjà à des positions libres.
+ *
+ * Les sommets se donnent dans l'ordre du **pourtour** (sans croisement), même convention que les
+ * coins des deux autres primitives : le tampon d'indices attend un quadrilatère convexe cohérent.
+ * La texture liée est l'aplat blanc 1 × 1 (`hmi::SceneImages::solid` côté éditeur), de sorte que la
+ * teinte seule décide de la couleur, et que le culling, le regroupement par texture et le tri
+ * restent ceux de toutes les autres primitives.
+ */
+struct PolyQuad {
+    std::array<float, 4> x{};
+    std::array<float, 4> y{};
     float u0 = 0.0f;
     float v0 = 0.0f;
     float u1 = 1.0f;

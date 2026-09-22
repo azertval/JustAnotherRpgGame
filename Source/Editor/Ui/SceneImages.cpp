@@ -9,10 +9,11 @@
 #include "Core/Resources/AssetMarker.h"
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/EntityMarkers.h"
+#include "HMI/Graphics/MaquettePalette.h"
+#include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
 #include "HMI/Graphics/ScenePiecePlacement.h"
-#include "HMI/Graphics/TileVisuals.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/HmiLog.h"
 
@@ -64,6 +65,8 @@ SceneImages::SceneImages(std::filesystem::path assetsDirectory)
     const ProceduralAtlasImage checker = buildMissingTextureImage();
     _missing = fromRgba8(checker.width, checker.height, checker.pixels);
     _textures.missing = textureOf(_missing, 0);
+    // L'aplat du rendu de maquette (LOT-128) : l'image statique, jamais rechargee.
+    _textures.solid = textureOf(solidImage(), 0);
     const ProceduralAtlasImage atlas = buildProceduralAtlasImage();
     _atlas = fromRgba8(atlas.width, atlas.height, atlas.pixels);
 }
@@ -73,10 +76,10 @@ TextureHandle SceneImages::solid() noexcept {
 }
 
 QColor SceneImages::tileColor(core::TileType type) const {
-    const core::AtlasRegion region = regionForTile(type);
-    const int x = region.x + (region.width / 2);
-    const int y = region.y + (region.height / 2);
-    return _atlas.valid(x, y) ? _atlas.pixelColor(x, y) : QColor(Qt::magenta);
+    // La palette de maquette, et non le pixel central de l'atlas procedural (LOT-128, decision
+    // D5) : la vignette de la palette montre desormais la couleur que la case prendra vraiment.
+    const MaquetteColor tint = maquetteColor(type);
+    return QColor::fromRgbF(tint.r, tint.g, tint.b);
 }
 
 const QImage* SceneImages::marker(const std::string& key) {
@@ -109,6 +112,16 @@ int SceneImages::bandFrameWidth(const std::string& path) const {
 void SceneImages::ensure(const std::vector<std::string>& paths) {
     for (const std::string& path : paths) {
         if (!_requested.insert(path).second) {
+            continue;
+        }
+        // Un jeton n'est pas un fichier : il se peint (LOT-128, decision D2). La meme image, au
+        // pixel pres, que celle que le jeu televerse.
+        if (const core::MarkerImage token =
+                maquetteTokenImage(path, MAQUETTE_TOKEN_SIZE_PIXELS);
+            !token.isEmpty()) {
+            QImage& stored = _images[path] =
+                fromRgba8(token.width, token.height, markerPixelsRgba8(token));
+            _textures.byPath[path] = textureOf(stored, 0);
             continue;
         }
         QImage loaded(QString::fromStdWString((_directory / path).wstring()));

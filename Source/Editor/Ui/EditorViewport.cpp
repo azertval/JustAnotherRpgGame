@@ -552,48 +552,10 @@ void EditorViewport::paintIso(QPainter& painter, const QRectF& exposed) {
     const CellRange cells = isoCellsCovering(iso, visible);
     const IsoBandOpacity bands =
         isoBandOpacity(_draft.layers(), _layerView, _activeLayer, _seeThroughRelief);
-    if (_snapshot.place.empty()) {
-        // Une carte qui ne nomme aucun lieu n'a aucune pièce : ses types, en couleurs.
-        paintIsoTypeColors(painter, cells);
-    }
     paintComposedScene(painter, _isoScene, visible, [&bands](const ComposedQuad& quad) {
         return bandOpacity(bands, quad.layer);
     });
     paintIsoOverlays(painter, cells, bands);
-}
-
-void EditorViewport::paintIsoTypeColors(QPainter& painter, const CellRange& cells) {
-    const core::IsoProjection iso = projection();
-    const bool visual = hasVisualLayers();
-    painter.setPen(Qt::NoPen);
-    const auto paintGrid = [&](const core::TileMap& tiles, float opacity) {
-        if (opacity <= 0.0F) {
-            return;
-        }
-        for (int row = cells.firstRow; row <= cells.lastRow; ++row) {
-            for (int column = cells.firstColumn; column <= cells.lastColumn; ++column) {
-                if (!tiles.inBounds(column, row)) {
-                    continue;
-                }
-                const core::TileType type = tiles.tile(column, row);
-                if (type == core::TileType::Empty) {
-                    continue;
-                }
-                painter.setBrush(withAlpha(_images->tileColor(type), opacity));
-                painter.drawPolygon(diamondOf(iso, {.column = column, .row = row}));
-            }
-        }
-    };
-    if (!visual) {
-        paintGrid(_draft.tileMap(), _layerView.display(std::nullopt, false).effectiveOpacity());
-        return;
-    }
-    const std::vector<core::TileLayer>& layers = _draft.layers();
-    for (std::size_t index = 0; index < layers.size(); ++index) {
-        if (core::isVisualLayerKind(layers[index].kind)) {
-            paintGrid(layers[index].tiles, _layerView.display(index, true).effectiveOpacity());
-        }
-    }
 }
 
 void EditorViewport::paintIsoOverlays(QPainter& painter, const CellRange& cells,

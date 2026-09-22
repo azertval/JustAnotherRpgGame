@@ -146,21 +146,24 @@ FileOperationResult LevelFileOperations::create(const std::string& name, int wid
         addNameTranslation(target, trimmed);
         return FileOperationResult::success(target);
     }
+    // Les couches, TOUJOURS, lieu ou pas (LOT-128) : une carte maquettée doit pouvoir recevoir son
+    // lieu plus tard par « Change sheet… », et cette conversion exige des couches. Une carte neuve
+    // sans couche était un cul-de-sac silencieux. Le lieu, lui, ne se nomme que s'il y en a un.
+    const std::optional<std::size_t> ground = draft.addLayer(core::LayerKind::Ground, "sol");
     if (!place.empty()) {
-        // Les couches des cartes livrées. Le sol nomme le lieu ; la collision est celle que la
-        // déduction donne à une carte vide : le vide arrête la vue (décision D10).
-        const std::optional<std::size_t> ground = draft.addLayer(core::LayerKind::Ground, "sol");
         draft.setLayerProperty(*ground, std::string{SCENE_PLACE_PROPERTY}, place);
-        draft.addLayer(core::LayerKind::Decor, "relief");
-        draft.paintRegion(0, 0,
-                          std::vector<std::vector<core::TileType>>(
-                              static_cast<std::size_t>(height),
-                              std::vector<core::TileType>(static_cast<std::size_t>(width),
-                                                          core::TileType::Wall)));
-        // L'entrée ne se tient pas dans le vide : sa case reçoit un sol de terre, que la table du
-        // lieu traduit en pièce.
-        draft.paintLayerTile(*ground, 0, height - 1, core::TileType::Dirt);
     }
+    draft.addLayer(core::LayerKind::Decor, "relief");
+    // La collision est celle que la déduction donne à une carte pleine : le mur arrête la vue
+    // (décision D10 de l'éditeur).
+    draft.paintRegion(0, 0,
+                      std::vector<std::vector<core::TileType>>(
+                          static_cast<std::size_t>(height),
+                          std::vector<core::TileType>(static_cast<std::size_t>(width),
+                                                      core::TileType::Wall)));
+    // L'entrée ne se tient pas dans le vide : sa case reçoit un sol de terre, que la table du lieu
+    // traduit en pièce, et que la maquette peint en couleur.
+    draft.paintLayerTile(*ground, 0, height - 1, core::TileType::Dirt);
     draft.setEntry(0, height - 1);
     core::LevelLoadResult validated = draft.toLevel();
     if (!validated.ok()) {

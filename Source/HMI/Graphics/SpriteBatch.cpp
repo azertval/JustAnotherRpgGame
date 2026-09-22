@@ -345,6 +345,28 @@ void SpriteBatch::draw(const LineQuad& line) {
                                .a = line.a});
 }
 
+// Ajoute un quadrilatere a quatre sommets libres au lot courant (LOT-128, decision D1).
+//
+// Rien de particulier a calculer : les quatre sommets sont deja la, et le tampon d'indices ne
+// demande qu'un quadrilatere convexe donne dans l'ordre de son pourtour -- exactement ce que
+// draw(LineQuad) lui fournit deja pour un segment oriente. Les UV suivent le meme tour que les
+// coins d'un SpriteQuad (u0v0, u1v0, u1v1, u0v1) : avec l'aplat blanc, elles ne servent qu'a
+// rester coherentes avec les deux autres primitives.
+void SpriteBatch::draw(const PolyQuad& poly) {
+    const std::array<float, 4> us = {poly.u0, poly.u1, poly.u1, poly.u0};
+    const std::array<float, 4> vs = {poly.v0, poly.v0, poly.v1, poly.v1};
+    for (std::size_t i = 0; i < 4; ++i) {
+        _vertices.push_back(Vertex{.x = poly.x[i],
+                                   .y = poly.y[i],
+                                   .u = us[i],
+                                   .v = vs[i],
+                                   .r = poly.r,
+                                   .g = poly.g,
+                                   .b = poly.b,
+                                   .a = poly.a});
+    }
+}
+
 // Termine le lot : fige la plage de quads enregistree.
 void SpriteBatch::end() {
     closeBatch();

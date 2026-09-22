@@ -23,6 +23,7 @@
 #include "Core/Levels/TileType.h"
 #include "Core/Resources/ScenePieceManifest.h"
 #include "HMI/Graphics/ComposedScene.h"
+#include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/RenderLayer.h"
 #include "HMI/Graphics/ScenePiecePlacement.h"
@@ -418,4 +419,319 @@ TEST(ScenePiecePlacement, DepthRequiresOptInAndValidAnchor) {
     auto legacy = manifest;
     legacy.erase("placementVersion");
     EXPECT_FALSE(hmi::scenePieceDepthOffset(legacy, "gate.png"));
+}
+
+// --- Le rendu de maquette (LOT-128) ---------------------------------------------------------
+
+namespace {
+
+/// L'aplat blanc, tel que les deux rendus le fournissent a la composition.
+hmi::TextureHandle aplat() {
+    static int pixel = 0;
+    return &pixel;
+}
+
+/// Une carte 2 x 1 **sans lieu** : de l'eau, puis un mur. Aucune couche ne nomme de `scene`.
+[[nodiscard]] core::Level carteNue() {
+    core::TileMap collision{2, 1};
+    collision.setTile(0, 0, core::TileType::Water);
+    collision.setTile(1, 0, core::TileType::Wall);
+    return core::Level{core::LevelData{.name = "maquette", .tileMap = std::move(collision)}};
+}
+
+/// La projection des cartes d'essai, au rapport du losange de l'atelier.
+[[nodiscard]] core::IsoProjection projectionDe(const hmi::WorldSceneSnapshot& instantane) {
+    return core::IsoProjection{instantane.columns, instantane.rows, core::ARENA_TILE_WIDTH_UNITS,
+                               instantane.diamondRatio};
+}
+
+}  // namespace
+
+/**
+ * @brief Une carte sans lieu se compose en losanges de couleur, un par case, a la teinte de son
+ *        type : c'est le rendu de maquette.
+ * \castest{<b>Une carte sans lieu se compose en losanges de couleur.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Composer une carte de deux cases qui ne nomme aucun lieu.<br/>
+ * \tattendu Deux primitives Poly sur le calque des tuiles, aux teintes de l'eau et du mur.
+ * }
+ */
+TEST(MaquetteRenderTest, UneCarteSansLieuSeComposeEnLosangesDeCouleur) {
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(carteNue(), hmi::PlaceAppearance{}, {});
+    ASSERT_EQ(instantane.typeAt({0, 0}), core::TileType::Water);
+    ASSERT_EQ(instantane.typeAt({1, 0}), core::TileType::Wall);
+
+    hmi::ScenePieceTextures resolues;
+    resolues.solid = hmi::SceneTexture{.texture = aplat(), .width = 1, .height = 1};
+    const hmi::ComposedScene scene =
+        hmi::composeWorldScene(instantane, projectionDe(instantane), resolues);
+
+    // L'eau est un losange plat sur le calque des tuiles ; le mur, un bloc de trois faces sur le
+    // calque du decor (LOT-128, decision D6).
+    ASSERT_EQ(scene.size(), 4U);
+    for (const hmi::ComposedQuad& quad : scene.quads()) {
+        EXPECT_EQ(quad.kind, hmi::QuadKind::Poly);
+        EXPECT_EQ(quad.texture, aplat());
+    }
+    EXPECT_EQ(scene.quads()[0].layer, hmi::RenderLayer::Tile);
+    const hmi::MaquetteColor eau = hmi::maquetteColor(core::TileType::Water);
+    EXPECT_FLOAT_EQ(scene.quads()[0].poly.r, eau.r);
+    EXPECT_FLOAT_EQ(scene.quads()[0].poly.b, eau.b);
+    for (std::size_t i = 1; i < scene.size(); ++i) {
+        EXPECT_EQ(scene.quads()[i].layer, hmi::RenderLayer::Object);
+    }
+}
+
+/**
+ * @brief Sur une carte **avec** lieu, un type que la table ne couvre pas n'est plus invisible : il
+ *        prend le losange de maquette, les cases couvertes gardant leur piece.
+ * \castest{<b>Un type absent de la table du lieu prend le rendu de maquette.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Peindre une case d'eau sur la carte du Colisee, dont la table ne couvre que le
+ * sable et la pierre.<br/>2. Composer.<br/>
+ * \tattendu La case d'eau est un losange de couleur ; les autres restent des pieces texturees.
+ * }
+ */
+TEST(MaquetteRenderTest, UnTypeNonCouvertParLeLieuPrendLaMaquette) {
+    core::TileMap collision{2, 1};
+    core::TileMap sol{2, 1};
+    sol.setTile(0, 0, core::TileType::Sand);
+    sol.setTile(1, 0, core::TileType::Water);  // la table du Colisee ne couvre pas l'eau
+    core::LevelData donnees{.name = "colisee", .tileMap = std::move(collision)};
+    donnees.layers.push_back(core::TileLayer{.name = "sol",
+                                             .kind = core::LayerKind::Ground,
+                                             .tiles = std::move(sol),
+                                             .properties = {{"scene", std::string{"coliseum"}}}});
+
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(core::Level{std::move(donnees)}, table(), {});
+    EXPECT_FALSE(instantane.floorAt({0, 0}).empty());
+    EXPECT_TRUE(instantane.floorAt({1, 0}).empty());
+
+    hmi::ScenePieceTextures resolues = textures({"Scene/coliseum/sand.png"});
+    resolues.solid = hmi::SceneTexture{.texture = aplat(), .width = 1, .height = 1};
+    const hmi::ComposedScene scene =
+        hmi::composeWorldScene(instantane, projectionDe(instantane), resolues);
+
+    ASSERT_EQ(scene.size(), 2U);
+    int sprites = 0;
+    int losanges = 0;
+    for (const hmi::ComposedQuad& quad : scene.quads()) {
+        quad.kind == hmi::QuadKind::Poly ? ++losanges : ++sprites;
+    }
+    EXPECT_EQ(sprites, 1);
+    EXPECT_EQ(losanges, 1);
+}
+
+/**
+ * @brief Sans aplat, rien n'est dessine plutot que quelque chose de faux : la maquette est une
+ *        primitive de couleur, et une couleur sans texture liee ne se soumet pas.
+ * \castest{<b>Sans aplat, la maquette ne compose rien.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Composer une carte sans lieu avec une table de textures sans aplat.<br/>
+ * \tattendu Aucune primitive.
+ * }
+ */
+TEST(MaquetteRenderTest, SansAplatRienNEstCompose) {
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(carteNue(), hmi::PlaceAppearance{}, {});
+    const hmi::ComposedScene scene =
+        hmi::composeWorldScene(instantane, projectionDe(instantane), hmi::ScenePieceTextures{});
+
+    EXPECT_EQ(scene.size(), 0U);
+}
+
+/**
+ * @brief Un type qui bloque se compose en bloc extrude : trois faces, d'eclairements distincts,
+ *        montant d'une case au-dessus du losange, sur le calque du decor.
+ * \castest{<b>Un mur se compose en bloc de trois faces, haut d'une case.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Composer une carte d'une seule case de mur, sans lieu.<br/>
+ * \tattendu Trois primitives sur le calque du decor ; le dessus monte d'une hauteur de losange
+ * au-dessus du sommet de la case, et les trois faces n'ont pas la meme teinte.
+ * }
+ */
+TEST(MaquetteRenderTest, UnMurSeComposeEnBlocDeTroisFaces) {
+    core::TileMap collision{1, 1};
+    collision.setTile(0, 0, core::TileType::Wall);
+    const core::Level carte{core::LevelData{.name = "mur", .tileMap = std::move(collision)}};
+
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(carte, hmi::PlaceAppearance{}, {});
+    const core::IsoProjection projection = projectionDe(instantane);
+    hmi::ScenePieceTextures resolues;
+    resolues.solid = hmi::SceneTexture{.texture = aplat(), .width = 1, .height = 1};
+    const hmi::ComposedScene scene = hmi::composeWorldScene(instantane, projection, resolues);
+
+    ASSERT_EQ(scene.size(), 3U);
+    for (const hmi::ComposedQuad& quad : scene.quads()) {
+        EXPECT_EQ(quad.layer, hmi::RenderLayer::Object);
+        EXPECT_EQ(quad.kind, hmi::QuadKind::Poly);
+    }
+    // Trois eclairements distincts : sans cet ecart, le bloc redevient une tache plate.
+    const float premiere = scene.quads()[0].poly.r;
+    const float deuxieme = scene.quads()[1].poly.r;
+    const float troisieme = scene.quads()[2].poly.r;
+    EXPECT_NE(premiere, deuxieme);
+    EXPECT_NE(deuxieme, troisieme);
+
+    // Le point le plus haut du bloc est une hauteur de losange au-dessus du sommet de la case.
+    const core::Rect bounds = projection.tileBounds({.column = 0, .row = 0});
+    float plusHaut = bounds.position.y;
+    for (const hmi::ComposedQuad& quad : scene.quads()) {
+        for (const float y : quad.poly.y) {
+            plusHaut = std::min(plusHaut, y);
+        }
+    }
+    EXPECT_FLOAT_EQ(plusHaut, bounds.position.y - bounds.size.y);
+}
+
+/**
+ * @brief L'eau profonde bloque le pas mais n'est pas de la matiere : elle reste un losange plat,
+ *        plus sombre que l'eau vive, et l'on voit par-dessus.
+ * \castest{<b>L'eau profonde reste un losange plat, plus sombre que l'eau vive.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Interroger l'extrusion et la palette pour l'eau profonde.<br/>
+ * \tattendu Elle ne s'extrude pas, et sa teinte est plus sombre que celle de l'eau.
+ * }
+ */
+TEST(MaquetteRenderTest, LEauProfondeNeSExtrudePas) {
+    EXPECT_FALSE(hmi::maquetteExtrudes(core::TileType::DeepWater));
+    EXPECT_TRUE(hmi::maquetteExtrudes(core::TileType::Wall));
+    EXPECT_TRUE(hmi::maquetteExtrudes(core::TileType::Solid));
+    EXPECT_TRUE(hmi::maquetteExtrudes(core::TileType::Cliff));
+
+    const hmi::MaquetteColor vive = hmi::maquetteColor(core::TileType::Water);
+    const hmi::MaquetteColor profonde = hmi::maquetteColor(core::TileType::DeepWater);
+    EXPECT_LT(profonde.r + profonde.g + profonde.b, vive.r + vive.g + vive.b);
+}
+
+/**
+ * @brief La couleur d'un jeton se déduit de ce que le format dit déjà, sans propriété nouvelle
+ *        (décision D3) : le dialogue fait le jaune, la rencontre le rouge, le camp d'une entrée
+ *        d'arène l'un ou l'autre.
+ * \castest{<b>La couleur d'un jeton se deduit de ce que le format dit deja.</b><br/>
+ * \tcat Unitaire · Jetons de maquette<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Poser un PNJ avec dialogue, un sans, un avec figurine, une rencontre, deux entrees
+ * d'arene, un point d'apparition, un portail et un coffre.<br/>2. En tirer les marques.<br/>
+ * \tattendu Chaque jeton porte la nature attendue ; le PNJ qui a deja sa figurine n'a pas de
+ * jeton.
+ * }
+ */
+TEST(MaquetteRenderTest, LaCouleurDuJetonSeDeduitDeLEntite) {
+    const auto entite = [](std::string type, core::PropertyMap properties) {
+        return core::MapEntity{.type = std::move(type),
+                               .position = {.column = 0, .row = 0},
+                               .properties = std::move(properties)};
+    };
+    const std::vector<core::MapEntity> entites = {
+        entite("npc", {{"dialogue", std::string{"market-mother"}}}),
+        entite("npc", {}),
+        entite("npc", {{"figure", std::string{"anariel"}}}),
+        entite("encounter", {{"encounterId", std::string{"wolves"}}}),
+        entite("arenaEntry", {{"side", std::string{"enemies"}}}),
+        entite("arenaEntry", {{"side", std::string{"allies"}}}),
+        entite("spawnPoint", {{"name", std::string{"gate"}}}),
+        entite("portal", {{"targetMap", std::string{"arenarea"}}}),
+        entite("chest", {}),
+    };
+
+    const hmi::MaquetteMarks marques = hmi::maquetteMarks(entites, /*maquette=*/true);
+
+    // Huit jetons : le PNJ qui porte deja sa figurine se dessine par elle, pas par un jeton.
+    ASSERT_EQ(marques.tokens.size(), 8U);
+    EXPECT_EQ(marques.tokens[0].kind, hmi::MaquetteTokenKind::Talker);
+    EXPECT_EQ(marques.tokens[0].letter, 'M');
+    EXPECT_EQ(marques.tokens[1].kind, hmi::MaquetteTokenKind::Neutral);
+    EXPECT_EQ(marques.tokens[1].letter, 'N');  // a defaut de nom, son type
+    EXPECT_EQ(marques.tokens[2].kind, hmi::MaquetteTokenKind::Hostile);
+    EXPECT_EQ(marques.tokens[2].letter, 'W');
+    EXPECT_EQ(marques.tokens[3].kind, hmi::MaquetteTokenKind::Hostile);
+    EXPECT_EQ(marques.tokens[4].kind, hmi::MaquetteTokenKind::Player);
+    EXPECT_EQ(marques.tokens[5].kind, hmi::MaquetteTokenKind::Player);
+    EXPECT_EQ(marques.tokens[5].letter, 'G');
+    EXPECT_EQ(marques.tokens[6].kind, hmi::MaquetteTokenKind::Portal);
+    EXPECT_EQ(marques.tokens[6].letter, 'A');
+    EXPECT_TRUE(marques.tokens[6].arrow);
+    EXPECT_EQ(marques.tokens[7].kind, hmi::MaquetteTokenKind::Object);
+}
+
+/**
+ * @brief Les jetons se posent toujours ; les tracés et la flèche du portail ne paraissent qu'en
+ *        maquette — une carte finie ne montre pas ses déclencheurs.
+ * \castest{<b>Une carte habillee garde ses jetons mais perd ses traces.</b><br/>
+ * \tcat Unitaire · Jetons de maquette<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Tirer les marques d'un portail, d'une zone de combat et d'un trajet, en maquette
+ * puis hors maquette.<br/>
+ * \tattendu En maquette : un jeton a fleche et deux traces. Hors maquette : le jeton sans sa
+ * fleche, et aucune trace.
+ * }
+ */
+TEST(MaquetteRenderTest, LesTracesNeParaissentQuEnMaquette) {
+    std::vector<core::MapEntity> entites = {
+        core::MapEntity{.type = "portal",
+                        .position = {.column = 1, .row = 1},
+                        .properties = {{"targetMap", std::string{"arenarea"}}}},
+        core::MapEntity{.type = "combatZone",
+                        .position = {.column = 2, .row = 2},
+                        .properties = {{"name", std::string{"duel"}},
+                                       {"width", std::int64_t{3}},
+                                       {"height", std::int64_t{2}}}},
+        core::MapEntity{.type = "route",
+                        .position = {.column = 0, .row = 0},
+                        .properties = {{"name", std::string{"ronde"}}}},
+    };
+    entites.back().cells = {{.column = 0, .row = 0}, {.column = 0, .row = 3}};
+
+    const hmi::MaquetteMarks maquette = hmi::maquetteMarks(entites, /*maquette=*/true);
+    EXPECT_EQ(maquette.tokens.size(), 1U);
+    EXPECT_TRUE(maquette.tokens.front().arrow);
+    ASSERT_EQ(maquette.traces.size(), 2U);
+    // La zone de combat couvre bien ses 3 x 2 cases.
+    EXPECT_EQ(maquette.traces[0].shape, hmi::MaquetteTraceShape::Outline);
+    EXPECT_EQ(maquette.traces[0].cells.size(), 6U);
+    EXPECT_EQ(maquette.traces[1].shape, hmi::MaquetteTraceShape::Path);
+
+    const hmi::MaquetteMarks habillee = hmi::maquetteMarks(entites, /*maquette=*/false);
+    EXPECT_EQ(habillee.tokens.size(), 1U);
+    EXPECT_FALSE(habillee.tokens.front().arrow);
+    EXPECT_TRUE(habillee.traces.empty());
+}
+
+/**
+ * @brief Un jeton se demande par un chemin, comme une planche : le rendu n'a rien de neuf à
+ *        apprendre, il voit un chemin de plus.
+ * \castest{<b>Les chemins de textures d'une carte contiennent ceux de ses jetons.</b><br/>
+ * \tcat Unitaire · Jetons de maquette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Batir une carte sans lieu portant une rencontre.<br/>2. Lister ses chemins de
+ * texture.<br/>
+ * \tattendu Le chemin du jeton rouge « W » y figure.
+ * }
+ */
+TEST(MaquetteRenderTest, LesCheminsContiennentLesJetons) {
+    core::TileMap collision{2, 1};
+    collision.setTile(0, 0, core::TileType::Grass);
+    collision.setTile(1, 0, core::TileType::Grass);
+    core::LevelData donnees{.name = "maquette", .tileMap = std::move(collision)};
+    donnees.entities.push_back(core::MapEntity{.type = "encounter",
+                                               .position = {.column = 1, .row = 0},
+                                               .properties = {{"encounterId",
+                                                               std::string{"wolves"}}}});
+
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(core::Level{std::move(donnees)}, hmi::PlaceAppearance{}, {});
+    const std::vector<std::string> chemins = hmi::worldTexturePaths(instantane);
+
+    EXPECT_NE(std::ranges::find(chemins,
+                                hmi::maquetteTokenPath(hmi::MaquetteTokenKind::Hostile, 'W')),
+              chemins.end());
 }

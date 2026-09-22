@@ -4,11 +4,15 @@
 #include "Editor/Ui/MapRender.h"
 
 #include <QPainter>
+#include <QPoint>
 #include <QPolygonF>
 #include <QString>
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <cstdint>
+#include <set>
+#include <vector>
 #include <functional>
 #include <memory>
 #include <utility>
@@ -17,6 +21,7 @@
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/TileLayer.h"
+#include "Core/Levels/TileTypeName.h"
 #include "Core/World/WorldGraph.h"
 #include "Editor/Logic/CanvasPicking.h"
 #include "Editor/Logic/LayerView.h"
@@ -25,6 +30,9 @@
 #include "Editor/Ui/ScenePainter.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/ComposedScene.h"
+#include "HMI/Graphics/MaquettePalette.h"
+#include "HMI/Graphics/EntityMarkers.h"
+#include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
@@ -137,6 +145,98 @@ QImage renderStamp(const Stamp& stamp, const std::filesystem::path& dataRoot,
     return image.scaled(maxSide, maxSide, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 }
 
+namespace {
+
+// --- Legende du plan de principe (--plan, LOT-128) ---------------------------------------------
+
+// Les types que la carte emploie vraiment, dans l'ordre de l'enumeration : une legende ne nomme que
+// ce qu'on voit sur l'image.
+[[nodiscard]] std::vector<core::TileType> typesOf(const WorldSceneSnapshot& snapshot) {
+    std::set<int> seen;
+    for (const std::vector<core::TileType>* couche : {&snapshot.types, &snapshot.reliefTypes}) {
+        for (const core::TileType type : *couche) {
+            if (type != core::TileType::Empty) {
+                seen.insert(static_cast<int>(type));
+            }
+        }
+    }
+    std::vector<core::TileType> types;
+    types.reserve(seen.size());
+    for (const int value : seen) {
+        types.push_back(static_cast<core::TileType>(value));
+    }
+    return types;
+}
+
+// Les natures de jeton posees sur la carte, sans doublon, dans l'ordre de leur premiere apparition.
+[[nodiscard]] std::vector<MaquetteTokenKind> tokenKindsOf(const WorldSceneSnapshot& snapshot) {
+    std::vector<MaquetteTokenKind> kinds;
+    for (const MaquetteTokenSnapshot& token : snapshot.marks.tokens) {
+        if (std::ranges::find(kinds, token.kind) == kinds.end()) {
+            kinds.push_back(token.kind);
+        }
+    }
+    return kinds;
+}
+
+// La legende : une pastille de couleur et son nom, par type puis par nature de jeton.
+//
+// Peinte en coordonnees ECRAN, la transformation du monde mise de cote : elle doit garder la meme
+// taille quelle que soit l'echelle du rendu, comme la legende d'un plan sur le papier.
+//
+// Ses libelles s'ecrivent avec la table de glyphes des jetons, et non avec QPainter::drawText :
+// `--render` tourne sans QApplication (LOT-EDITOR-13, decision D9), donc sans aucune police.
+void paintPlanLegend(QPainter& painter, const WorldSceneSnapshot& snapshot, double scale) {
+    const std::vector<core::TileType> types = typesOf(snapshot);
+    const std::vector<MaquetteTokenKind> kinds = tokenKindsOf(snapshot);
+    if (types.empty() && kinds.empty()) {
+        return;
+    }
+    painter.save();
+    painter.resetTransform();
+    painter.setRenderHint(QPainter::SmoothPixmapTransform, false);
+    const int glyph = std::max(2, static_cast<int>(std::lround(scale / 24.0)));
+    const int step = glyph * 11;
+    const int swatch = glyph * 7;
+    const int left = step;
+    int top = step;
+
+    const auto line = [&](const QColor& color, std::string_view label, bool round) {
+        painter.setPen(Qt::NoPen);
+        painter.setBrush(color);
+        if (round) {
+            painter.drawEllipse(QRect(left, top, swatch, swatch));
+        } else {
+            painter.drawRect(QRect(left, top, swatch, swatch));
+        }
+        const core::MarkerImage text = maquetteTextImage(
+            label, glyph, core::MarkerColor{.r = 0xef, .g = 0xe6, .b = 0xd2, .a = 255});
+        if (!text.isEmpty()) {
+            // Les pixels sont nommes : une QImage enveloppe leur memoire sans la posseder, et un
+            // temporaire mourrait avant le dessin.
+            const std::vector<std::uint32_t> pixels = markerPixelsRgba8(text);
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+            const QImage image(reinterpret_cast<const uchar*>(pixels.data()), text.width,
+                               text.height, static_cast<qsizetype>(text.width) * 4,
+                               QImage::Format_RGBA8888);
+            painter.drawImage(QPoint(left + swatch + (glyph * 3), top), image);
+        }
+        top += step;
+    };
+
+    for (const core::TileType type : types) {
+        const MaquetteColor tint = maquetteColor(type);
+        line(QColor::fromRgbF(tint.r, tint.g, tint.b), core::tileTypeName(type), false);
+    }
+    for (const MaquetteTokenKind kind : kinds) {
+        const MaquetteColor tint = maquetteTokenColor(kind);
+        line(QColor::fromRgbF(tint.r, tint.g, tint.b), maquetteTokenKindKey(kind), true);
+    }
+    painter.restore();
+}
+
+}  // namespace
+
 QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot,
                  const MapRenderOptions& options) {
     const core::LevelDraft draft = core::LevelDraft::fromLevel(level);
@@ -152,7 +252,8 @@ QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot
     SceneImages images(dataRoot / "Assets");
     images.ensure(worldTexturePaths(snapshot));
     ComposedScene scene;
-    composeWorldScene(scene, snapshot, projection, images.textures());
+    composeWorldScene(scene, snapshot, projection, images.textures(),
+                      WorldComposeOptions{.flatBlocks = options.plan});
     scene.sort();
 
     // Le cadre du canevas : la carte et une marge d'un losange, où dépassent les reliefs.
@@ -172,24 +273,9 @@ QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot
     painter.setRenderHint(QPainter::Antialiasing, false);
     painter.setTransform(QTransform(scale, 0.0, 0.0, scale, margin * scale, margin * scale));
 
+    // Une carte sans lieu n'a plus de chemin de peinture a part : le rendu de maquette est dans la
+    // composition, que le jeu, le canevas et `--render` partagent (LOT-128).
     const IsoBandOpacity& bands = options.bands;
-    if (place.empty() && bands.floors > 0.0F) {
-        // Une carte sans lieu n'a aucune pièce : ses types, en couleurs, comme dans le canevas.
-        const auto typeColor = [&images, &bands](core::TileType type) {
-            return type == core::TileType::Empty ? QColor{}
-                                                 : withAlpha(images.tileColor(type), bands.floors);
-        };
-        bool visual = false;
-        for (const core::TileLayer& layer : draft.layers()) {
-            if (core::isVisualLayerKind(layer.kind)) {
-                visual = true;
-                paintDiamonds(painter, projection, layer.tiles, typeColor);
-            }
-        }
-        if (!visual) {
-            paintDiamonds(painter, projection, draft.tileMap(), typeColor);
-        }
-    }
     paintComposedScene(painter, scene, std::nullopt, [&bands](const ComposedQuad& quad) {
         return bandOpacity(bands, quad.layer);
     });
@@ -206,6 +292,9 @@ QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot
             }
             return QColor{};
         });
+    }
+    if (options.plan) {
+        paintPlanLegend(painter, snapshot, scale);
     }
     painter.end();
     return image;
@@ -243,6 +332,8 @@ struct RenderCommandLine {
             } else {
                 line.error = "--layers takes floors, relief, figures, collision";
             }
+        } else if (argument == "--plan") {
+            line.options.plan = true;
         } else if (argument == "--scale" && hasValue) {
             bool ok = false;
             line.options.scale = QString::fromStdString(arguments[++index]).toDouble(&ok);

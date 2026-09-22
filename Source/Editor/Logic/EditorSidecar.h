@@ -40,6 +40,10 @@ enum class MapState {
     Unset,
     /// Sortie du générateur, ou posée par un modèle : personne ne l'a encore regardée.
     Generated,
+    /// **Maquettée** (`LOT-128`) : sa physique est tracée — où l'on marche, ce qui bloque, qui est
+    /// où, par où l'on sort — et elle se joue telle quelle, sans une seule pièce. L'état de départ
+    /// normal d'une carte, avant qu'un lieu ne l'habille.
+    Blockout,
     /// Retouchée à la main, mais pas terminée.
     Retouched,
     /// Finie : elle se joue telle quelle.

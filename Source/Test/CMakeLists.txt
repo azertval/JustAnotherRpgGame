@@ -90,6 +90,8 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_quad_recorder.cpp
     Unit/HMI/Graphics/test_depth_sort.cpp
     Unit/HMI/Graphics/test_render_culling.cpp
+    Unit/HMI/Graphics/test_poly_quad.cpp
+    Unit/HMI/Graphics/test_maquette_tokens.cpp
     Unit/HMI/Graphics/test_arena_appearance_catalog.cpp
     Unit/HMI/Graphics/test_asset_gallery.cpp
     Unit/HMI/Graphics/test_arena_scene_composer.cpp

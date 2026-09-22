@@ -162,6 +162,53 @@ rien. Chaque instantané porte la **révision** du brouillon (`LevelDraft::revis
 en donne une neuve, `undo` et `redo` rendent celle de l'état qu'ils restaurent. C'est elle qui dit
 si la carte est modifiée.
 
+## Maquetter, jouer, puis habiller {#guide-editeur-maquette}
+
+Une carte se dessine d'abord par sa **physique** — où l'on marche, ce qui bloque, qui attend où,
+par où l'on sort — et se **joue** telle quelle, sans une seule pièce d'atelier (`LOT-128`,
+`EX-EXP-005`). Les textures viennent après, sans rien refaire. C'est l'ordre de travail normal, pas
+un mode dégradé : une erreur de tracé se paie alors en minutes, et non en pièces redessinées.
+
+**1. Maquetter.** « New map » sans lieu — l'entrée *(none: colored tile types)* — ou le modèle
+**Blockout**, qui pose déjà une enceinte et son ouverture. La carte reçoit ses couches dans tous
+les cas : elle pourra recevoir un lieu plus tard. On peint ensuite avec la palette *Types*, dont
+chaque vignette montre exactement la couleur que la case prendra, et l'on pose entités, portails et
+zones comme sur n'importe quelle carte. La collision se déduit du type et suit chaque geste : il
+n'y a rien à déclarer.
+
+Ce que la maquette montre :
+
+| Sur la carte | Rendu |
+|---|---|
+| une case qui ne nomme aucune pièce | un **losange plein**, à la teinte de son type (`hmi::maquetteColor`) |
+| `wall`, `solid`, `cliff` | un **bloc** de trois faces, haut d'une case, qui masque ce qui est derrière |
+| `deepWater` | un losange plat, plus sombre que l'eau vive : elle arrête le pas, elle n'arrête pas la vue |
+| une entité sans figurine | un **jeton** rond à lettre — vert le joueur, jaune le PNJ qui parle, rouge l'hostile, gris le PNJ muet, gris-bleu coffre et panneau, or le portail |
+| un portail | son jeton, surmonté d'une **flèche** |
+| une zone, un îlot, une zone de combat | le **contour** de chacune de ses cases |
+| un trajet | la **ligne brisée** de ses points de passage |
+
+Les jetons paraissent dès qu'une figurine manque, maquette ou non. Contours, trajets et flèches ne
+paraissent, eux, que sur une carte **sans lieu** : une carte finie ne montre pas ses déclencheurs.
+
+**2. Jouer.** `P` pour l'essai immédiat, `F5` pour l'essai complet dans le vrai jeu : les deux
+montrent la maquette, puisque c'est la **même** composition. On marche, on bute sur les murs, on
+franchit les portails. C'est là que se voient une rue trop étroite ou un escalier mal placé.
+
+`LevelEditor --render <carte>` en donne une image hors écran, jetons compris.
+`--render --plan` la rend au **vocabulaire des plans de principe** du planning : blocs couchés à
+plat, pastilles, et une légende des types et des natures de jeton employés. Un plan se lit, il ne
+se joue pas — l'extrusion y cacherait justement ce qu'on vient y voir.
+
+**3. Habiller.** `Change sheet…` donne un lieu à la carte. Collision, entités, portails et zones ne
+changent **pas d'un octet** : seules les couches gagnent leur propriété `scene`, et chaque case
+prend la pièce que la table du lieu donne à son type. Une case que la table ne couvre pas garde son
+rendu de maquette, et `--check` le signale — un avertissement, pas une erreur : la case se voit,
+elle n'est simplement pas encore habillée.
+
+L'annexe `<carte>.editor.json` note où en est la carte : `blockout` avant `retouched` et
+`finished`. « Livré », pour une carte, veut toujours dire *avec son lieu et ses pièces*.
+
 ## Essai immédiat : jouer sans quitter l'éditeur
 
 Appuyer sur `P` lance une **vraie** exploration sur la carte en cours d'édition, puis, à `Échap`,

@@ -29,7 +29,7 @@
 #include "Editor/Logic/TileTaxonomy.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
-#include "HMI/Graphics/TileVisuals.h"
+#include "HMI/Graphics/MaquettePalette.h"
 
 namespace hmi {
 
@@ -259,20 +259,13 @@ void PalettePanel::buildPieceModel() {
     }
 }
 
-// Vignette d'un type : sa couleur dans l'atlas procedural, celle que le canevas peint.
+// Vignette d'un type : sa teinte de maquette, celle que le canevas peint (LOT-128, decision D5).
 QPixmap PalettePanel::thumbnailFor(core::TileType type) {
-    const ProceduralAtlasImage atlas = buildProceduralAtlasImage();
-    const QImage source = toImage(atlas);
-    const core::AtlasRegion region = regionForTile(type);
-    const QImage tile = source.copy(region.x, region.y, region.width, region.height);
-
-    // Mise a l'echelle en PLUS PROCHE VOISIN, a la resolution REELLE : sans quoi
-    // l'interpolation lisse de Qt (fond d'ecran a 125%/150%) rendrait le pixel art flou, incoherent
-    // avec le rendu du canevas (EX-ARCH-022).
     const qreal scale = devicePixelRatioF();
     const int pixelSize = thumbnailPixelSize(THUMBNAIL_SIZE, scale);
-    QPixmap pixmap = QPixmap::fromImage(
-        tile.scaled(pixelSize, pixelSize, Qt::KeepAspectRatio, Qt::FastTransformation));
+    const MaquetteColor tint = maquetteColor(type);
+    QPixmap pixmap(pixelSize, pixelSize);
+    pixmap.fill(QColor::fromRgbF(tint.r, tint.g, tint.b));
     pixmap.setDevicePixelRatio(scale);
     return pixmap;
 }

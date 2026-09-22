@@ -13,6 +13,7 @@
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ScenePiecePlacement.h"
 #include "HMI/Graphics/SpriteBatch.h"
@@ -86,6 +87,14 @@ bool WorldSceneRenderer::ensureResources(QRhi* rhi) {
         _textures.missing = SceneTexture{
             .texture = _missing.handle(), .width = _missing.width, .height = _missing.height};
     }
+    // L'aplat du rendu de maquette : un pixel blanc, que la teinte de chaque primitive colore
+    // (LOT-128). Un seul pixel, donc une seule texture pour toutes les cases d'une carte nue.
+    if (std::optional<LoadedTexture> solid =
+            createTexture(_resources.context(), 1, 1, {0xFFFFFFFFU})) {
+        _solid = std::move(*solid);
+        _textures.solid = SceneTexture{
+            .texture = _solid.handle(), .width = _solid.width, .height = _solid.height};
+    }
     _resources.setFrameUpdates(nullptr);
     GRAPHICS_LOG_INFO("Lieu : ressources QRhi creees (" + std::string(rhi->backendName()) + ").");
     return true;
@@ -123,6 +132,19 @@ void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
     for (const std::string& path : paths) {
         // Deja tente : une piece absente ne doit pas etre redemandee a chaque image.
         if (!_requested.insert(path).second) {
+            continue;
+        }
+        // Un jeton n'est pas un fichier : il se peint (LOT-128, decision D2). La meme image, au
+        // pixel pres, que celle que l'editeur dessine.
+        if (const core::MarkerImage token = maquetteTokenImage(path, MAQUETTE_TOKEN_SIZE_PIXELS);
+            !token.isEmpty()) {
+            if (std::optional<LoadedTexture> painted = createTexture(
+                    _resources.context(), token.width, token.height, markerPixelsRgba8(token))) {
+                _textures.byPath[path] = SceneTexture{.texture = painted->handle(),
+                                                      .width = painted->width,
+                                                      .height = painted->height};
+                _loaded.push_back(std::move(*painted));
+            }
             continue;
         }
         std::optional<LoadedTexture> texture =
@@ -167,8 +189,10 @@ void WorldSceneRenderer::release() noexcept {
     _composed.clear();
     _textures.byPath.clear();
     _textures.missing = SceneTexture{};
+    _textures.solid = SceneTexture{};
     _loaded.clear();
     _missing = LoadedTexture{};
+    _solid = LoadedTexture{};
     _requested.clear();
     if (_pendingUploads != nullptr) {
         _pendingUploads->release();

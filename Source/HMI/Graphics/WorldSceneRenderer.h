@@ -151,6 +151,9 @@ private:
     SceneResources _resources;
     std::vector<LoadedTexture> _loaded;
     LoadedTexture _missing;
+    /// L'aplat blanc de 1 x 1 : la texture que lient les primitives de couleur du rendu de
+    /// maquette (`LOT-128`). Creee avec le reste, liberee avec lui.
+    LoadedTexture _solid;
     ScenePieceTextures _textures;
 };
 

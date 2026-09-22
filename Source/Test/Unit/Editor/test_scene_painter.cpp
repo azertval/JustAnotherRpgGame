@@ -38,9 +38,12 @@
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
+#include "Core/Levels/MapEntity.h"
+#include "Core/Levels/TileMap.h"
 #include "Editor/Ui/SceneImages.h"
 #include "Editor/Ui/ScenePainter.h"
 #include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/Graphics/WorldSceneRenderer.h"
@@ -238,4 +241,76 @@ TEST(ScenePainterTest, LaSecondeCartePeinteEgaleLeRenduDuJeu) {
     }
     expectSamePicture(*rhi, mapOnDisk("donjon.json", "bourg"), {19.5F, 30.5F},
                       "donjon-porte");
+}
+
+namespace {
+
+/// Une carte de maquette batie **en memoire** : aucun lieu, aucune piece, aucun fichier d'image.
+/// Des sols, de l'eau, une enceinte de murs, et une entite de chaque couleur de jeton.
+[[nodiscard]] hmi::WorldSceneSnapshot mockUpMap() {
+    constexpr int WIDTH = 12;
+    constexpr int HEIGHT = 9;
+    core::TileMap tiles{WIDTH, HEIGHT};
+    for (int row = 0; row < HEIGHT; ++row) {
+        for (int column = 0; column < WIDTH; ++column) {
+            const bool border = column == 0 || row == 0 || column == WIDTH - 1 || row == HEIGHT - 1;
+            core::TileType type = border ? core::TileType::Wall : core::TileType::Grass;
+            if (!border && column >= 3 && column <= 5 && row >= 3 && row <= 5) {
+                type = core::TileType::Water;
+            }
+            if (!border && row == 7) {
+                type = core::TileType::Dirt;
+            }
+            tiles.setTile(column, row, type);
+        }
+    }
+    core::LevelData data{.name = "maquette", .tileMap = std::move(tiles)};
+    data.entities = {
+        core::MapEntity{.type = "npc",
+                        .position = {.column = 2, .row = 2},
+                        .properties = {{"dialogue", std::string{"market-mother"}}}},
+        core::MapEntity{.type = "encounter",
+                        .position = {.column = 8, .row = 2},
+                        .properties = {{"encounterId", std::string{"wolves"}}}},
+        core::MapEntity{.type = "spawnPoint",
+                        .position = {.column = 2, .row = 7},
+                        .properties = {{"name", std::string{"gate"}}}},
+        core::MapEntity{.type = "portal",
+                        .position = {.column = 8, .row = 7},
+                        .properties = {{"targetMap", std::string{"arenarea"}},
+                                       {"arrival", std::string{"gate"}}}},
+    };
+    const core::Level level{std::move(data)};
+    return hmi::snapshotWorldScene(level, hmi::PlaceAppearance{},
+                                   hmi::npcFigures(level.entities(), 0));
+}
+
+}  // namespace
+
+/**
+ * @brief Une carte **sans un seul fichier d'image** se voit, dans le jeu comme dans l'éditeur, et
+ *        les deux en donnent la même image (`EX-EXP-005`, `LOT-128`).
+ * \castest{<b>Une carte sans aucun fichier d'image se voit, pareillement dans les deux
+ * rendus.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Batir en memoire une carte sans lieu : sols, eau, enceinte de murs, quatre
+ * entites.<br/>2. La rendre hors ecran par le rendu QRhi du jeu, puis par le peintre de
+ * l'editeur.<br/>
+ * \tattendu L'image est peinte sur plus de la moitie de sa surface -- rien n'est reste vide --, et
+ * moins de 0,5 % des pixels different entre les deux rendus.
+ * }
+ */
+TEST(ScenePainterTest, UneCarteSansAucuneImageSeVoitDansLesDeuxRendus) {
+    const std::unique_ptr<QRhi> rhi = createOffscreenRhi();
+    if (!rhi) {
+        GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
+    }
+    const hmi::WorldSceneSnapshot maquette = mockUpMap();
+    ASSERT_TRUE(maquette.place.empty());
+    // Aucune planche : les seules textures demandees sont celles des jetons.
+    for (const std::string& path : hmi::worldTexturePaths(maquette)) {
+        EXPECT_TRUE(hmi::parseMaquetteTokenPath(path).has_value()) << path;
+    }
+    expectSamePicture(*rhi, maquette, {6.0F, 4.0F}, "maquette-centre");
 }

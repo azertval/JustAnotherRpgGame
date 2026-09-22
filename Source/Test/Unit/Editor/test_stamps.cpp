@@ -346,7 +346,7 @@ TEST(DonneesPrefabriques, UnEtalSeReposeAvecSonMarchand) {
  * \tcat Unitaire · Modèles de carte<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Lire les modèles de `Editor/Templates`. 2. Contrôler toute la bibliothèque.<br/>
- * \tattendu Les trois modèles — intérieur, rue, arène — sont là, chacun avec ses couches, et le
+ * \tattendu Les quatre modèles — maquette, intérieur, rue, arène — sont là, chacun avec ses couches, et le
  * contrôle ne rend aucun constat.
  * }
  */
@@ -362,7 +362,8 @@ TEST(DonneesPrefabriques, LesModelesLivresSeLisent) {
             modele.layers, [](const hmi::MapTemplateLayer& couche) { return couche.scene; }))
             << modele.id << " : aucune couche ne nomme le lieu";
     }
-    EXPECT_EQ(identifiants, (std::vector<std::string>{"arena", "interior", "street"}));
+    EXPECT_EQ(identifiants,
+              (std::vector<std::string>{"arena", "blockout", "interior", "street"}));
 
     const std::vector<hmi::LibraryFinding> constats = hmi::checkEditorLibrary(dataRoot());
     for (const hmi::LibraryFinding& constat : constats) {

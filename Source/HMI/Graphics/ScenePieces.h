@@ -70,11 +70,27 @@ struct ScenePieceTextures {
     std::map<std::string, SceneTexture, std::less<>> byPath;
     /// Damier de repli.
     SceneTexture missing;
+    /// L'**aplat** : une texture blanche de 1 × 1, que les primitives de couleur du rendu de
+    /// maquette lient pour n'être que leur teinte (`LOT-128`). Nulle : pas de maquette dessinée.
+    SceneTexture solid;
 
     /// @return La texture de @p path, le damier si elle n'est pas chargée.
     [[nodiscard]] const SceneTexture& resolve(std::string_view path) const {
         const auto found = byPath.find(path);
         return found != byPath.end() ? found->second : missing;
+    }
+
+    /**
+     * @brief La texture de @p path, **sans** repli sur le damier.
+     *
+     * Pour ce qui n'a de sens que dessiné juste : un jeton de maquette (`LOT-128`) est peint ou
+     * n'est pas là — un damier à sa place ne dirait rien à personne, et se ferait passer pour une
+     * pièce manquante.
+     * @return La texture, ou `nullptr` si elle n'est pas chargée.
+     */
+    [[nodiscard]] const SceneTexture* find(std::string_view path) const {
+        const auto found = byPath.find(path);
+        return found != byPath.end() ? &found->second : nullptr;
     }
 };
 

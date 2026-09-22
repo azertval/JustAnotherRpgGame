@@ -11,8 +11,11 @@
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/PieceFootprint.h"
+#include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
 #include "HMI/Graphics/ComposedScene.h"
+#include "HMI/Graphics/MaquettePalette.h"
+#include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/ScenePieces.h"
 
 /**
@@ -91,6 +94,62 @@ struct WorldFigureSnapshot {
 };
 
 /**
+ * @brief Un **jeton** posé sur une case : ce qui tient lieu de figurine tant qu'il n'y en a pas
+ *        (`LOT-128`, décision D3).
+ */
+struct MaquetteTokenSnapshot {
+    MaquetteTokenKind kind = MaquetteTokenKind::Neutral;
+    /// La lettre du jeton, déjà choisie (`hmi::maquetteTokenLetter`).
+    char letter = '?';
+    core::GridPosition cell{};
+    /// Un portail porte en plus sa flèche : la sortie se voit avant qu'on lise sa lettre.
+    bool arrow = false;
+
+    [[nodiscard]] bool operator==(const MaquetteTokenSnapshot&) const = default;
+};
+
+/// @brief Ce qu'un tracé de maquette dessine.
+enum class MaquetteTraceShape {
+    /// Le contour du losange de **chaque** case citée : une zone, quelle que soit sa forme.
+    Outline,
+    /// Une ligne brisée reliant les centres des cases citées, dans l'ordre : un trajet.
+    Path,
+};
+
+/// @brief Un **tracé** de maquette : le contour d'une zone, ou le trajet d'un PNJ.
+struct MaquetteTraceSnapshot {
+    MaquetteTraceShape shape = MaquetteTraceShape::Outline;
+    MaquetteColor color{};
+    std::vector<core::GridPosition> cells;
+
+    [[nodiscard]] bool operator==(const MaquetteTraceSnapshot&) const = default;
+};
+
+/**
+ * @brief Les marques de maquette d'une carte : ses jetons et ses tracés.
+ */
+struct MaquetteMarks {
+    std::vector<MaquetteTokenSnapshot> tokens;
+    std::vector<MaquetteTraceSnapshot> traces;
+
+    [[nodiscard]] bool operator==(const MaquetteMarks&) const = default;
+};
+
+/**
+ * @brief Les marques que @p entities méritent.
+ *
+ * Les **jetons** se posent toujours : une entité sans figurine est invisible autrement, sur une
+ * carte habillée comme sur une maquette. Les **tracés** — contours de zone, trajets — et les
+ * flèches de portail ne paraissent qu'en maquette : une carte finie ne montre pas ses
+ * déclencheurs.
+ *
+ * @param entities Les entités de la carte.
+ * @param maquette Vrai si la carte ne nomme aucun lieu.
+ */
+[[nodiscard]] MaquetteMarks maquetteMarks(const std::vector<core::MapEntity>& entities,
+                                          bool maquette);
+
+/**
  * @brief Le lieu **en valeurs** : ce que la composition lit, et rien d'autre.
  *
  * `floors` et `relief` portent une entrée par case, ligne par ligne : le **nom** de la pièce de la
@@ -105,13 +164,25 @@ struct WorldSceneSnapshot {
     std::string place;
     std::vector<std::string> floors;
     std::vector<std::string> relief;
+    /// Le **type** de chaque case, une entrée par case, ligne par ligne : ce que le rendu de
+    /// maquette dessine là où aucune pièce n'est nommée (`LOT-128`).
+    std::vector<core::TileType> types;
+    /// Le type de chaque case de la couche **décor**, même disposition. Un mur s'y peint aussi
+    /// souvent que sur le sol, et il doit s'y extruder pareillement.
+    std::vector<core::TileType> reliefTypes;
     std::map<std::string, core::PieceFootprint, std::less<>> footprints;
     std::vector<WorldFigureSnapshot> figures;
+    /// Les jetons et les tracés de maquette (`LOT-128`), déjà choisis par `maquetteMarks`.
+    MaquetteMarks marks;
 
     /// @return Le nom de la pièce de sol de @p cell, vide hors grille ou sans pièce.
     [[nodiscard]] std::string_view floorAt(core::GridPosition cell) const;
     /// @return Le nom de la pièce de relief de @p cell, vide hors grille ou sans relief.
     [[nodiscard]] std::string_view reliefAt(core::GridPosition cell) const;
+    /// @return Le type de @p cell, `core::TileType::Empty` hors grille.
+    [[nodiscard]] core::TileType typeAt(core::GridPosition cell) const;
+    /// @return Le type de @p cell sur la couche décor, `core::TileType::Empty` hors grille.
+    [[nodiscard]] core::TileType reliefTypeAt(core::GridPosition cell) const;
 
     [[nodiscard]] bool operator==(const WorldSceneSnapshot&) const = default;
 };
@@ -205,6 +276,20 @@ template <class Map>
 /// @return Tous les chemins de texture que @p snapshot demandera, sans doublon, triés.
 [[nodiscard]] std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot);
 
+/// @brief Ce que l'appelant peut changer à la composition — rien, par défaut.
+struct WorldComposeOptions {
+    /**
+     * @brief Les blocs de maquette se dessinent **à plat** : le vocabulaire des plans de principe
+     *        du planning (`LevelEditor --render --plan`, `LOT-128`).
+     *
+     * Un plan dit ce que la carte contient et comment on y circule ; l'extrusion, qui sert à
+     * *jouer*, y cacherait justement ce qu'on vient lire — ce qui se trouve derrière un mur.
+     */
+    bool flatBlocks = false;
+
+    [[nodiscard]] bool operator==(const WorldComposeOptions&) const = default;
+};
+
 /**
  * @brief Compose le lieu dans un tampon réutilisé.
  *
@@ -212,11 +297,13 @@ template <class Map>
  * enchaîne `clear()`, les compositions, puis `sort()`.
  */
 void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
-                       const core::IsoProjection& projection, const ScenePieceTextures& textures);
+                       const core::IsoProjection& projection, const ScenePieceTextures& textures,
+                       WorldComposeOptions options = {});
 
 /// @brief Compose le lieu dans une scène neuve, **triée** — commodité des tests et des captures.
 [[nodiscard]] ComposedScene composeWorldScene(const WorldSceneSnapshot& snapshot,
                                               const core::IsoProjection& projection,
-                                              const ScenePieceTextures& textures);
+                                              const ScenePieceTextures& textures,
+                                              WorldComposeOptions options = {});
 
 }  // namespace hmi
