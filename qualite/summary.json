@@ -1,11 +1,11 @@
 {
-  "generated": "2026-09-22 20:25 UTC",
-  "commit": "b55256fe9",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/35778407454",
+  "generated": "2026-09-22 21:16 UTC",
+  "commit": "33de88bc1",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/35783625563",
   "coverage": {
     "percent": 90.55,
-    "covered": 26964,
-    "valid": 29779,
+    "covered": 27136,
+    "valid": 29968,
     "files": 252,
     "areas": [
       {
@@ -46,9 +46,9 @@
       },
       {
         "name": "Core/Levels",
-        "covered": 1593,
-        "valid": 1656,
-        "percent": 96.2
+        "covered": 1617,
+        "valid": 1681,
+        "percent": 96.19
       },
       {
         "name": "Core/Math",
@@ -106,9 +106,9 @@
       },
       {
         "name": "HMI/Graphics",
-        "covered": 2850,
-        "valid": 3238,
-        "percent": 88.02
+        "covered": 2911,
+        "valid": 3306,
+        "percent": 88.05
       },
       {
         "name": "HMI/Input",

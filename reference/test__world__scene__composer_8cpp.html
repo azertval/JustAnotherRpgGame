@@ -157,6 +157,7 @@ $(function(){initNavTree('test__world__scene__composer_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="TileLayer_8h_source.html">Core/Levels/TileLayer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileTypeName_8h_source.html">Core/Levels/TileTypeName.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ScenePieceManifest_8h_source.html">Core/Resources/ScenePieceManifest.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MaquettePalette_8h_source.html">HMI/Graphics/MaquettePalette.h</a>&quot;</code><br />
@@ -194,6 +195,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a4cd27ffc67925c9d6bef6551ebc9d1e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un type qui bloque se compose en bloc extrude : trois faces, d'eclairements distincts, montant d'une case au-dessus du losange, sur le calque du decor.  <br /></td></tr>
 <tr class="memitem:a12c3a8d5de9df25cf5a65ac5b27640fe" id="r_a12c3a8d5de9df25cf5a65ac5b27640fe"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a12c3a8d5de9df25cf5a65ac5b27640fe">TEST</a> (MaquetteRenderTest, LEauProfondeNeSExtrudePas)</td></tr>
 <tr class="memdesc:a12c3a8d5de9df25cf5a65ac5b27640fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'eau profonde bloque le pas mais n'est pas de la matiere : elle reste un losange plat, plus sombre que l'eau vive, et l'on voit par-dessus.  <br /></td></tr>
+<tr class="memitem:a5a0af25b3dc5caaaf8af528a6eea3506" id="r_a5a0af25b3dc5caaaf8af528a6eea3506"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5a0af25b3dc5caaaf8af528a6eea3506">TEST</a> (MaquetteRenderTest, ChaqueTypeASaTeinteEtSaForme)</td></tr>
+<tr class="memdesc:a5a0af25b3dc5caaaf8af528a6eea3506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le vocabulaire de la maquette se distingue sans texture : deux types ne partagent jamais une teinte, et la fosse et la lave restent plates comme l'eau profonde.  <br /></td></tr>
+<tr class="memitem:affa200f8d415b074c029ffd8c93422d2" id="r_affa200f8d415b074c029ffd8c93422d2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#affa200f8d415b074c029ffd8c93422d2">TEST</a> (MaquetteRenderTest, UneColonneSeComposeEnBlocEtroitSurSonSocle)</td></tr>
+<tr class="memdesc:affa200f8d415b074c029ffd8c93422d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une colonne se compose en bloc etroit de deux cases de haut, sur un socle qui couvre sa case : sans lui, un trou entourerait le bloc.  <br /></td></tr>
 <tr class="memitem:afcbc974d7d7f9fcec82934247d2bd185" id="r_afcbc974d7d7f9fcec82934247d2bd185"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afcbc974d7d7f9fcec82934247d2bd185">TEST</a> (MaquetteRenderTest, LaCouleurDuJetonSeDeduitDeLEntite)</td></tr>
 <tr class="memdesc:afcbc974d7d7f9fcec82934247d2bd185"><td class="mdescLeft">&#160;</td><td class="mdescRight">La couleur d'un jeton se déduit de ce que le format dit déjà, sans propriété nouvelle (décision D3) : le dialogue fait le jaune, la rencontre le rouge, le camp d'une entrée d'arène l'un ou l'autre.  <br /></td></tr>
 <tr class="memitem:a63371f8a0021934134423ad30e3411b0" id="r_a63371f8a0021934134423ad30e3411b0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a63371f8a0021934134423ad30e3411b0">TEST</a> (MaquetteRenderTest, LesTracesNeParaissentQuEnMaquette)</td></tr>
@@ -204,8 +209,38 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests de la composition d'un lieu parcouru (LOT-09) : le sol vient du type de tuile, le relief de la piece nommee a la case, et la figurine se pose au pied de sa case. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a5a0af25b3dc5caaaf8af528a6eea3506" name="a5a0af25b3dc5caaaf8af528a6eea3506"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a0af25b3dc5caaaf8af528a6eea3506">&#9670;&#160;</a></span>TEST() <span class="overload">[1/18]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MaquetteRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChaqueTypeASaTeinteEtSaForme</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le vocabulaire de la maquette se distingue sans texture : deux types ne partagent jamais une teinte, et la fosse et la lave restent plates comme l'eau profonde. </p>
+<p><b>Cas de test :</b> <b>Deux types de tuile ne partagent jamais une teinte de maquette.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu de maquette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Relever la teinte de maquette de chaque type, hors case vide.<br  />
+2. Interroger la forme de la fosse, de la lave, de la colonne et de la palissade.<br  />
+ <b>Resultat attendu :</b> Les teintes sont toutes distinctes ; fosse et lave sont plates ; la colonne est plus haute et plus etroite qu'un mur, la palissade plus basse. </p>
+
+</div>
+</div>
 <a id="afcbc974d7d7f9fcec82934247d2bd185" name="afcbc974d7d7f9fcec82934247d2bd185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcbc974d7d7f9fcec82934247d2bd185">&#9670;&#160;</a></span>TEST() <span class="overload">[1/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afcbc974d7d7f9fcec82934247d2bd185">&#9670;&#160;</a></span>TEST() <span class="overload">[2/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -235,7 +270,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a12c3a8d5de9df25cf5a65ac5b27640fe" name="a12c3a8d5de9df25cf5a65ac5b27640fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12c3a8d5de9df25cf5a65ac5b27640fe">&#9670;&#160;</a></span>TEST() <span class="overload">[2/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a12c3a8d5de9df25cf5a65ac5b27640fe">&#9670;&#160;</a></span>TEST() <span class="overload">[3/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -264,7 +299,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af52962bde3a465f576bb566d156ff90c" name="af52962bde3a465f576bb566d156ff90c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af52962bde3a465f576bb566d156ff90c">&#9670;&#160;</a></span>TEST() <span class="overload">[3/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af52962bde3a465f576bb566d156ff90c">&#9670;&#160;</a></span>TEST() <span class="overload">[4/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -294,7 +329,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a63371f8a0021934134423ad30e3411b0" name="a63371f8a0021934134423ad30e3411b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63371f8a0021934134423ad30e3411b0">&#9670;&#160;</a></span>TEST() <span class="overload">[4/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a63371f8a0021934134423ad30e3411b0">&#9670;&#160;</a></span>TEST() <span class="overload">[5/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -323,7 +358,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a684b74bee119ab5f78057e124ed31e99" name="a684b74bee119ab5f78057e124ed31e99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a684b74bee119ab5f78057e124ed31e99">&#9670;&#160;</a></span>TEST() <span class="overload">[5/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a684b74bee119ab5f78057e124ed31e99">&#9670;&#160;</a></span>TEST() <span class="overload">[6/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -352,7 +387,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae8cd32e1e6942aa912e6f9033548c020" name="ae8cd32e1e6942aa912e6f9033548c020"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8cd32e1e6942aa912e6f9033548c020">&#9670;&#160;</a></span>TEST() <span class="overload">[6/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8cd32e1e6942aa912e6f9033548c020">&#9670;&#160;</a></span>TEST() <span class="overload">[7/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -380,8 +415,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="affa200f8d415b074c029ffd8c93422d2" name="affa200f8d415b074c029ffd8c93422d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affa200f8d415b074c029ffd8c93422d2">&#9670;&#160;</a></span>TEST() <span class="overload">[8/18]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MaquetteRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneColonneSeComposeEnBlocEtroitSurSonSocle</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une colonne se compose en bloc etroit de deux cases de haut, sur un socle qui couvre sa case : sans lui, un trou entourerait le bloc. </p>
+<p><b>Cas de test :</b> <b>Une colonne se compose en bloc etroit, sur son socle.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu de maquette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer une carte d'une seule case de colonne, sans lieu.<br  />
+ <b>Resultat attendu :</b> Un socle sur le calque des tuiles, trois faces sur le calque du decor ; le sommet monte de deux hauteurs de losange, et le bloc tient dans la case sans en toucher les pointes. </p>
+
+</div>
+</div>
 <a id="a4cd27ffc67925c9d6bef6551ebc9d1e1" name="a4cd27ffc67925c9d6bef6551ebc9d1e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4cd27ffc67925c9d6bef6551ebc9d1e1">&#9670;&#160;</a></span>TEST() <span class="overload">[7/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cd27ffc67925c9d6bef6551ebc9d1e1">&#9670;&#160;</a></span>TEST() <span class="overload">[9/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -410,7 +474,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aeb89fab5296bd03b69dd87113352de18" name="aeb89fab5296bd03b69dd87113352de18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb89fab5296bd03b69dd87113352de18">&#9670;&#160;</a></span>TEST() <span class="overload">[8/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb89fab5296bd03b69dd87113352de18">&#9670;&#160;</a></span>TEST() <span class="overload">[10/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -440,7 +504,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aafd2a49e40673331a3c61dbd242f9dd7" name="aafd2a49e40673331a3c61dbd242f9dd7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafd2a49e40673331a3c61dbd242f9dd7">&#9670;&#160;</a></span>TEST() <span class="overload">[9/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aafd2a49e40673331a3c61dbd242f9dd7">&#9670;&#160;</a></span>TEST() <span class="overload">[11/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -469,7 +533,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5ee72efc0163defc5a481d004b6b43c3" name="a5ee72efc0163defc5a481d004b6b43c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ee72efc0163defc5a481d004b6b43c3">&#9670;&#160;</a></span>TEST() <span class="overload">[10/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ee72efc0163defc5a481d004b6b43c3">&#9670;&#160;</a></span>TEST() <span class="overload">[12/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -498,7 +562,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7556eaa6accbc6c4a13f5424eb93cc77" name="a7556eaa6accbc6c4a13f5424eb93cc77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7556eaa6accbc6c4a13f5424eb93cc77">&#9670;&#160;</a></span>TEST() <span class="overload">[11/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7556eaa6accbc6c4a13f5424eb93cc77">&#9670;&#160;</a></span>TEST() <span class="overload">[13/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -528,7 +592,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aadbe4639439ea45a431150c3697e021b" name="aadbe4639439ea45a431150c3697e021b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadbe4639439ea45a431150c3697e021b">&#9670;&#160;</a></span>TEST() <span class="overload">[12/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aadbe4639439ea45a431150c3697e021b">&#9670;&#160;</a></span>TEST() <span class="overload">[14/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -560,7 +624,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad2ad8454eec9aafefe119b74cc7788e5" name="ad2ad8454eec9aafefe119b74cc7788e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2ad8454eec9aafefe119b74cc7788e5">&#9670;&#160;</a></span>TEST() <span class="overload">[13/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2ad8454eec9aafefe119b74cc7788e5">&#9670;&#160;</a></span>TEST() <span class="overload">[15/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -592,7 +656,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab30cbd95fc4caaa26ca67d77523819db" name="ab30cbd95fc4caaa26ca67d77523819db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab30cbd95fc4caaa26ca67d77523819db">&#9670;&#160;</a></span>TEST() <span class="overload">[14/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab30cbd95fc4caaa26ca67d77523819db">&#9670;&#160;</a></span>TEST() <span class="overload">[16/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -621,7 +685,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1700c5de254e103b6545603cbbfcaeb5" name="a1700c5de254e103b6545603cbbfcaeb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1700c5de254e103b6545603cbbfcaeb5">&#9670;&#160;</a></span>TEST() <span class="overload">[15/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1700c5de254e103b6545603cbbfcaeb5">&#9670;&#160;</a></span>TEST() <span class="overload">[17/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -650,7 +714,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a635e2755bc4cfa9ee321162ebe959f1f" name="a635e2755bc4cfa9ee321162ebe959f1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a635e2755bc4cfa9ee321162ebe959f1f">&#9670;&#160;</a></span>TEST() <span class="overload">[16/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a635e2755bc4cfa9ee321162ebe959f1f">&#9670;&#160;</a></span>TEST() <span class="overload">[18/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

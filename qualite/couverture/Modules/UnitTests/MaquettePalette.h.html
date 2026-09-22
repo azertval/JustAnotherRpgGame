@@ -35,8 +35,9 @@
  * carte**, qu'on regarde en jouant. Les teintes sont donc celles des plans de principe du planning
  * (`Planning/versions/.../maquettes/plan-*.svg`), sourdes et accordÃ©es entre elles.
  *
- * Les douze types gÃ©nÃ©riques ne diront jamais un gradin d'un podium (dÃ©cision D4) : la maquette
- * *se lit comme* le plan du planning, elle ne s'y superpose pas.
+ * Le vocabulaire a Ã©tÃ© Ã©toffÃ© pour que la maquette dise ce que les plans montrent : pavÃ© et ruelle,
+ * Ã©tals, gradins, marbre des colonnes y ont chacun leur type et la teinte de leur lÃ©gende. Elle
+ * *se lit comme* le plan du planning, elle ne s'y superpose pas (dÃ©cision D4).
  */
 
 namespace hmi {
@@ -75,11 +76,12 @@ struct MaquetteColor {
         case core::TileType::Solid:
 <span style = "background-color:#dfd">            return maquetteColorOf(0x8d8272);</span>
         case core::TileType::Entry:
-<span style = "background-color:#fdd">            return maquetteColorOf(0xd9c7a3);</span>
+<span style = "background-color:#dfd">            return maquetteColorOf(0xd9c7a3);</span>
         case core::TileType::Grass:
 <span style = "background-color:#dfd">            return maquetteColorOf(0x3f6b34);</span>
         case core::TileType::Dirt:
-<span style = "background-color:#dfd">            return maquetteColorOf(0xd9c7a3);</span>
+            // Terre battue : plus brune que le pavÃ©, qui a repris la teinte Â« pavÃ© Â» des plans.
+<span style = "background-color:#dfd">            return maquetteColorOf(0xb08d5f);</span>
         case core::TileType::Sand:
 <span style = "background-color:#dfd">            return maquetteColorOf(0xc9a86a);</span>
         case core::TileType::Water:
@@ -93,25 +95,137 @@ struct MaquetteColor {
         case core::TileType::Bridge:
 <span style = "background-color:#dfd">            return maquetteColorOf(0x8e6f45);</span>
         case core::TileType::Stairs:
-<span style = "background-color:#dfd">            return maquetteColorOf(0xc9b48a);</span>
+            // Pierre claire : la teinte Â« ruelle Â» des plans revient Ã  `Alley`.
+<span style = "background-color:#dfd">            return maquetteColorOf(0xe4d8bc);</span>
+        case core::TileType::Pavement:
+<span style = "background-color:#dfd">            return maquetteColorOf(0xd9c7a3);  // Â« PavÃ© Â» des plans</span>
+        case core::TileType::Alley:
+<span style = "background-color:#dfd">            return maquetteColorOf(0xc9b48a);  // Â« Ruelle Â» des plans</span>
+        case core::TileType::Planks:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x9a7650);</span>
+        case core::TileType::Flagstone:
+<span style = "background-color:#dfd">            return maquetteColorOf(0xb7b0a2);</span>
+        case core::TileType::Snow:
+<span style = "background-color:#dfd">            return maquetteColorOf(0xe9eef0);</span>
+        case core::TileType::Mud:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x6b5a3c);</span>
+        case core::TileType::Rubble:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x8f877a);</span>
+        case core::TileType::Door:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x5b3a22);</span>
+        case core::TileType::Bush:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x2f5a2b);</span>
+        case core::TileType::Tree:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x234a22);</span>
+        case core::TileType::Rock:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x77705f);</span>
+        case core::TileType::Fence:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x7a5a36);</span>
+        case core::TileType::LowWall:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x9a8f7c);</span>
+        case core::TileType::Stall:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x8e2335);  // Â« Ãtals / auvents Â» des plans</span>
+        case core::TileType::Crate:
+<span style = "background-color:#dfd">            return maquetteColorOf(0xa27a48);</span>
+        case core::TileType::Column:
+<span style = "background-color:#dfd">            return maquetteColorOf(0xefe6d2);  // le marbre des plans</span>
+        case core::TileType::Roof:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x8a4a3a);</span>
+        case core::TileType::Tiers:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x6f6a5d);  // Â« Gradins Â» des plans</span>
+        case core::TileType::Pit:
+<span style = "background-color:#dfd">            return maquetteColorOf(0x1b1712);</span>
+        case core::TileType::Lava:
+<span style = "background-color:#dfd">            return maquetteColorOf(0xc4501f);</span>
     }
 <span style = "background-color:#fdd">    return MaquetteColor{};</span>
 <span style = "background-color:#dfd">}</span>
 
 /**
+ * @brief La forme d'un type en maquette : un losange plat, ou un bloc d'une hauteur et d'une
+ *        emprise donnÃ©es.
+ *
+ * Un bloc d'une case de cÃ´tÃ© et d'une case de haut dit Â« mur Â» ; il ne dit ni une colonne, ni une
+ * palissade, ni un arbre. La hauteur et l'emprise sont ce qui les distingue d'un coup d'Åil, sans
+ * texture.
+ */
+struct MaquetteShape {
+    /// Hauteur du bloc, en hauteurs de losange ; `0` : losange plat, sans bloc.
+    float height = 0.0F;
+    /// Fraction du losange de la case qu'occupe la base du bloc, centrÃ©e (`1` : toute la case).
+    float footprint = 1.0F;
+
+    [[nodiscard]] friend constexpr bool operator==(const MaquetteShape&amp;,
+                                                   const MaquetteShape&amp;) noexcept = default;
+};
+
+/**
+ * @brief La forme de maquette d'un type de tuile.
+ * @param type Type de tuile.
+ * @return Un bloc pour la matiÃ¨re et le mobilier, un losange plat (`height == 0`) pour les sols.
+ */
+<span style = "background-color:#dfd">[[nodiscard]] constexpr MaquetteShape maquetteShape(core::TileType type) noexcept {
+    switch (type) {</span>
+        case core::TileType::Wall:
+        case core::TileType::Solid:
+        case core::TileType::Cliff:
+<span style = "background-color:#dfd">            return MaquetteShape{.height = 1.0F, .footprint = 1.0F};</span>
+        case core::TileType::Tree:
+<span style = "background-color:#fdd">            return MaquetteShape{.height = 2.0F, .footprint = 0.6F};</span>
+        case core::TileType::Column:
+<span style = "background-color:#dfd">            return MaquetteShape{.height = 2.0F, .footprint = 0.45F};</span>
+        case core::TileType::Roof:
+        case core::TileType::Tiers:
+<span style = "background-color:#fdd">            return MaquetteShape{.height = 1.5F, .footprint = 1.0F};</span>
+        case core::TileType::Stall:
+<span style = "background-color:#fdd">            return MaquetteShape{.height = 0.7F, .footprint = 0.9F};</span>
+        case core::TileType::Rock:
+<span style = "background-color:#fdd">            return MaquetteShape{.height = 0.6F, .footprint = 0.75F};</span>
+        case core::TileType::Crate:
+<span style = "background-color:#fdd">            return MaquetteShape{.height = 0.5F, .footprint = 0.7F};</span>
+        case core::TileType::Fence:
+<span style = "background-color:#dfd">            return MaquetteShape{.height = 0.45F, .footprint = 1.0F};</span>
+        case core::TileType::LowWall:
+<span style = "background-color:#fdd">            return MaquetteShape{.height = 0.4F, .footprint = 1.0F};</span>
+        case core::TileType::Bush:
+<span style = "background-color:#fdd">            return MaquetteShape{.height = 0.35F, .footprint = 0.85F};</span>
+        case core::TileType::Empty:
+        case core::TileType::Entry:
+        case core::TileType::Grass:
+        case core::TileType::Dirt:
+        case core::TileType::Sand:
+        case core::TileType::Water:
+        case core::TileType::DeepWater:
+        case core::TileType::Bridge:
+        case core::TileType::Stairs:
+        case core::TileType::Pavement:
+        case core::TileType::Alley:
+        case core::TileType::Planks:
+        case core::TileType::Flagstone:
+        case core::TileType::Snow:
+        case core::TileType::Mud:
+        case core::TileType::Rubble:
+        case core::TileType::Door:
+        case core::TileType::Pit:
+        case core::TileType::Lava:
+<span style = "background-color:#dfd">            return MaquetteShape{};</span>
+    }
+<span style = "background-color:#fdd">    return MaquetteShape{};</span>
+<span style = "background-color:#dfd">}</span>
+
+/**
  * @brief Une case de ce type se dessine-t-elle en **bloc extrudÃ©** plutÃ´t qu'en losange plat ?
  *
- * La matiÃ¨re pleine â bÃ¢tie (`Wall`), gÃ©nÃ©rique (`Solid`) ou naturelle (`Cliff`) â doit se **lire**
- * comme un obstacle et masquer ce qui est derriÃ¨re elle. `DeepWater` bloque le pas
- * (`core::isSolid`) mais n'est pas de la matiÃ¨re : elle reste un losange plat, plus sombre que
- * l'eau vive, et on voit par-dessus.
+ * La matiÃ¨re pleine â bÃ¢tie (`Wall`), gÃ©nÃ©rique (`Solid`) ou naturelle (`Cliff`) â et le mobilier
+ * doivent se **lire** comme des volumes et masquer ce qui est derriÃ¨re eux. `DeepWater`, la fosse
+ * et la lave bloquent le pas (`core::isSolid`) mais ne sont pas de la matiÃ¨re : ils restent des
+ * losanges plats, et on voit par-dessus.
  * @param type Type de tuile.
- * @return `true` pour `Wall`, `Solid` et `Cliff`.
+ * @return `true` quand `maquetteShape` lui donne une hauteur.
  */
 <span style = "background-color:#dfd">[[nodiscard]] constexpr bool maquetteExtrudes(core::TileType type) noexcept {
-    return type == core::TileType::Wall || type == core::TileType::Solid ||</span>
-           type == core::TileType::Cliff;
-<span style = "background-color:#dfd">}</span>
+    return maquetteShape(type).height &gt; 0.0F;
+}</span>
 
 }  // namespace hmi</pre>
         <hr />

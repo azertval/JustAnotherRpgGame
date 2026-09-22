@@ -46,6 +46,49 @@ namespace hmi {
 <span style = "background-color:#dfd">            return TextureAtlas::tile(2, 4);  // bois</span>
         case core::TileType::Stairs:
 <span style = "background-color:#dfd">            return TextureAtlas::tile(4, 4);  // pierre claire</span>
+        // Vocabulaire etoffe de la maquette : les cases libres de l'atlas, sans souci de teinte --
+        // le rendu de maquette a sa propre palette (MaquettePalette.h) ; ici, il suffit que deux
+        // types ne partagent jamais une couleur.
+        case core::TileType::Pavement:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(0, 3);</span>
+        case core::TileType::Alley:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(1, 3);</span>
+        case core::TileType::Planks:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(3, 4);</span>
+        case core::TileType::Flagstone:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(1, 2);</span>
+        case core::TileType::Snow:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(5, 3);</span>
+        case core::TileType::Mud:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(3, 2);</span>
+        case core::TileType::Rubble:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(2, 2);</span>
+        case core::TileType::Door:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(2, 1);</span>
+        case core::TileType::Bush:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(5, 1);</span>
+        case core::TileType::Tree:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(1, 1);</span>
+        case core::TileType::Rock:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(0, 0);</span>
+        case core::TileType::Fence:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(3, 1);</span>
+        case core::TileType::LowWall:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(0, 1);</span>
+        case core::TileType::Stall:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(5, 2);</span>
+        case core::TileType::Crate:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(3, 0);</span>
+        case core::TileType::Column:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(2, 0);</span>
+        case core::TileType::Roof:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(4, 0);</span>
+        case core::TileType::Tiers:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(5, 0);</span>
+        case core::TileType::Pit:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(5, 4);</span>
+        case core::TileType::Lava:
+<span style = "background-color:#dfd">            return TextureAtlas::tile(0, 5);</span>
         case core::TileType::Empty:
             break;
     }

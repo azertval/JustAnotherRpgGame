@@ -49,10 +49,26 @@ namespace {
     switch (type) {</span>
         case TileType::Solid:
         case TileType::Wall:
+        case TileType::Tree:
+        case TileType::Column:
+        case TileType::Roof:
+        case TileType::Tiers:
 <span style = "background-color:#dfd">            return PieceTactical::Solid;</span>
         case TileType::DeepWater:
         case TileType::Cliff:
+        case TileType::Rock:
+        case TileType::Fence:
+        case TileType::Stall:
+        case TileType::Crate:
+        case TileType::Pit:
+        case TileType::Lava:
 <span style = "background-color:#dfd">            return PieceTactical::Obstacle;</span>
+        case TileType::Mud:
+        case TileType::Rubble:
+        case TileType::Bush:
+<span style = "background-color:#dfd">            return PieceTactical::Difficult;</span>
+        case TileType::LowWall:
+<span style = "background-color:#dfd">            return PieceTactical::Cover;</span>
         case TileType::Empty:
         case TileType::Entry:
         case TileType::Grass:
@@ -61,6 +77,12 @@ namespace {
         case TileType::Water:
         case TileType::Bridge:
         case TileType::Stairs:
+        case TileType::Pavement:
+        case TileType::Alley:
+        case TileType::Planks:
+        case TileType::Flagstone:
+        case TileType::Snow:
+        case TileType::Door:
 <span style = "background-color:#dfd">            return PieceTactical::Open;</span>
     }
 <span style = "background-color:#fdd">    return PieceTactical::Open;</span>

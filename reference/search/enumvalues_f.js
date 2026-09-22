@@ -24,10 +24,13 @@ var searchData=
   ['rightshoulder_21',['RightShoulder',['../namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a27a5390f2d1b44a43f74d57703f8d354',1,'hmi']]],
   ['ringleft_22',['RingLeft',['../namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a40cfe9b834ee37afb1bb5543c11666c1',1,'core']]],
   ['ringright_23',['RingRight',['../namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a2390e3a8317e0d192cdbaebaaa54a716',1,'core']]],
-  ['round_24',['Round',['../namespacecore.html#a9b42f3467a678d16bee619bc34ddf4e2ab7f41fc1412ad2ee75e9b2635d3b9d5c',1,'core']]],
-  ['roundstart_25',['RoundStart',['../namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840ae279ccaa0940305fd66b36348b823963',1,'core::RoundStart'],['../namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9ae279ccaa0940305fd66b36348b823963',1,'core::RoundStart']]],
-  ['rpgscreen_26',['RpgScreen',['../classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a74f7bb96f40b089d24eea4863b269139',1,'hmi::ScreenRouter::RpgScreen'],['../namespacehmi.html#a168b24f798c2e6d06beb9472a071528da74f7bb96f40b089d24eea4863b269139',1,'hmi::RpgScreen']]],
-  ['runingame_27',['RunInGame',['../namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a5d0f2b7a44ba7eab9a517ad0879a7013',1,'hmi']]],
-  ['runingamehere_28',['RunInGameHere',['../namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a',1,'hmi']]],
-  ['runingameoptions_29',['RunInGameOptions',['../namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793',1,'hmi']]]
+  ['rock_24',['Rock',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4cfbb125e9878528bab91d12421134d8',1,'core']]],
+  ['roof_25',['Roof',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a64230583b0483604ea026c80b127f16a',1,'core']]],
+  ['round_26',['Round',['../namespacecore.html#a9b42f3467a678d16bee619bc34ddf4e2ab7f41fc1412ad2ee75e9b2635d3b9d5c',1,'core']]],
+  ['roundstart_27',['RoundStart',['../namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840ae279ccaa0940305fd66b36348b823963',1,'core::RoundStart'],['../namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9ae279ccaa0940305fd66b36348b823963',1,'core::RoundStart']]],
+  ['rpgscreen_28',['RpgScreen',['../classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a74f7bb96f40b089d24eea4863b269139',1,'hmi::ScreenRouter::RpgScreen'],['../namespacehmi.html#a168b24f798c2e6d06beb9472a071528da74f7bb96f40b089d24eea4863b269139',1,'hmi::RpgScreen']]],
+  ['rubble_29',['Rubble',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad0d3be07afef13e318956c9c470925ee',1,'core']]],
+  ['runingame_30',['RunInGame',['../namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a5d0f2b7a44ba7eab9a517ad0879a7013',1,'hmi']]],
+  ['runingamehere_31',['RunInGameHere',['../namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a',1,'hmi']]],
+  ['runingameoptions_32',['RunInGameOptions',['../namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793',1,'hmi']]]
 ];

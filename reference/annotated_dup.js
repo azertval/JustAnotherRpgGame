@@ -341,6 +341,7 @@ var annotated_dup =
       [ "SceneStatistics", "structhmi_1_1SceneStatistics.html", "structhmi_1_1SceneStatistics" ],
       [ "ComposedScene", "classhmi_1_1ComposedScene.html", "classhmi_1_1ComposedScene" ],
       [ "MaquetteColor", "structhmi_1_1MaquetteColor.html", "structhmi_1_1MaquetteColor" ],
+      [ "MaquetteShape", "structhmi_1_1MaquetteShape.html", "structhmi_1_1MaquetteShape" ],
       [ "MaquetteTokenRequest", "structhmi_1_1MaquetteTokenRequest.html", "structhmi_1_1MaquetteTokenRequest" ],
       [ "PlaceAppearance", "classhmi_1_1PlaceAppearance.html", "classhmi_1_1PlaceAppearance" ],
       [ "PlaceAppearanceResult", "structhmi_1_1PlaceAppearanceResult.html", "structhmi_1_1PlaceAppearanceResult" ],

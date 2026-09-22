@@ -284,6 +284,7 @@ var hierarchy =
     [ "hmi::MapTemplateLayer", "structhmi_1_1MapTemplateLayer.html", null ],
     [ "hmi::MaquetteColor", "structhmi_1_1MaquetteColor.html", null ],
     [ "hmi::MaquetteMarks", "structhmi_1_1MaquetteMarks.html", null ],
+    [ "hmi::MaquetteShape", "structhmi_1_1MaquetteShape.html", null ],
     [ "hmi::MaquetteTokenRequest", "structhmi_1_1MaquetteTokenRequest.html", null ],
     [ "hmi::MaquetteTokenSnapshot", "structhmi_1_1MaquetteTokenSnapshot.html", null ],
     [ "hmi::MaquetteTraceSnapshot", "structhmi_1_1MaquetteTraceSnapshot.html", null ],

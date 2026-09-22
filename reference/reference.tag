@@ -4137,6 +4137,7 @@
     <filename>MaquettePalette_8h.html</filename>
     <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
     <class kind="struct">hmi::MaquetteColor</class>
+    <class kind="struct">hmi::MaquetteShape</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -7618,6 +7619,7 @@
     <name>test_rpg_terrain.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Levels/</path>
     <filename>test__rpg__terrain_8cpp.html</filename>
+    <includes id="CollisionDerivation_8h" name="CollisionDerivation.h" local="yes" import="no" module="no" objc="no">Core/Levels/CollisionDerivation.h</includes>
     <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
     <includes id="LevelWriter_8h" name="LevelWriter.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelWriter.h</includes>
     <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
@@ -7649,6 +7651,20 @@
       <anchorfile>test__rpg__terrain_8cpp.html</anchorfile>
       <anchor>a0e23556d52b047f2edc5f7cd384c3a8e</anchor>
       <arglist>(TerrainRpgTest, BorneDeLEnumerationDerivee)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__rpg__terrain_8cpp.html</anchorfile>
+      <anchor>acf26866cce7f85b1da9f6bf68eff3e45</anchor>
+      <arglist>(TerrainRpgTest, AllerRetourSurChaqueTypeDeTuile)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__rpg__terrain_8cpp.html</anchorfile>
+      <anchor>aaabe23011be578ea27ff8259719ed560</anchor>
+      <arglist>(TerrainRpgTest, IsSolidSAccordeAvecLaCollisionDeduite)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -11722,6 +11738,7 @@
     <includes id="TileLayer_8h" name="TileLayer.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileLayer.h</includes>
     <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
     <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
+    <includes id="TileTypeName_8h" name="TileTypeName.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileTypeName.h</includes>
     <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
     <includes id="MaquettePalette_8h" name="MaquettePalette.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquettePalette.h</includes>
@@ -11820,6 +11837,20 @@
       <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
       <anchor>a12c3a8d5de9df25cf5a65ac5b27640fe</anchor>
       <arglist>(MaquetteRenderTest, LEauProfondeNeSExtrudePas)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
+      <anchor>a5a0af25b3dc5caaaf8af528a6eea3506</anchor>
+      <arglist>(MaquetteRenderTest, ChaqueTypeASaTeinteEtSaForme)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
+      <anchor>affa200f8d415b074c029ffd8c93422d2</anchor>
+      <arglist>(MaquetteRenderTest, UneColonneSeComposeEnBlocEtroitSurSonSocle)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -33339,6 +33370,31 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::MaquetteShape</name>
+    <filename>structhmi_1_1MaquetteShape.html</filename>
+    <member kind="variable">
+      <type>float</type>
+      <name>height</name>
+      <anchorfile>structhmi_1_1MaquetteShape.html</anchorfile>
+      <anchor>a7a8e5e5c3be5a323ece90cfd419eb666</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>footprint</name>
+      <anchorfile>structhmi_1_1MaquetteShape.html</anchorfile>
+      <anchor>a47ac7af82febd3837776603efd24016c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="friend">
+      <type>friend constexpr bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1MaquetteShape.html</anchorfile>
+      <anchor>a159203ed2666c3cb811baaeb558bebc6</anchor>
+      <arglist>(const MaquetteShape &amp;, const MaquetteShape &amp;) noexcept=default</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::MaquetteTokenRequest</name>
     <filename>structhmi_1_1MaquetteTokenRequest.html</filename>
     <member kind="variable">
@@ -42261,6 +42317,26 @@
       <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875a9b3411d2812eceb6de37c13f57825a76">Cliff</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875ade8504b73ea228d0ea9bbce69752092e">Bridge</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875a0b01cc688e1e0b5f6b70f858a1b389ae">Stairs</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875ab30bf56ad8903e769032af2055d02581">Pavement</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875a67a9a13318c92022d3693d56249a3405">Alley</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875adb3e96c1db62b54d8e7863faf819d0d5">Planks</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875aa4019dc9817ce78261338412d71190d1">Flagstone</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875ab46d3c8ee8032551c011745d587705cc">Snow</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875a1e1361636e1b8cdfa06e107c2e6370a0">Mud</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875ad0d3be07afef13e318956c9c470925ee">Rubble</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">Door</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875ac7174dc75237a0361780548a1af6872b">Bush</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875a3b0c14770e6bd663518496da60f524da">Tree</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875a4cfbb125e9878528bab91d12421134d8">Rock</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875afa1124a61230804809a9b5fc57932b40">Fence</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875ac94f03b02c0f041bfdbf79b4dfc83bc6">LowWall</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875aa0f50ad4a913f4008911c70870d4028b">Stall</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875a007f02e6c93f2be268b88351c16843c5">Crate</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875a1976d7f704de389d9fe064e08ea35b2d">Column</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875a64230583b0483604ea026c80b127f16a">Roof</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875afe925ee04a93d96abc7adb5118b5ccc3">Tiers</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875acd9aff70b6e031ddc3e265ccf104e7fe">Pit</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875a1d18fe2cdd43a72d46421ecfe81b599e">Lava</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -44885,6 +44961,7 @@
     <class kind="struct">hmi::SceneStatistics</class>
     <class kind="class">hmi::ComposedScene</class>
     <class kind="struct">hmi::MaquetteColor</class>
+    <class kind="struct">hmi::MaquetteShape</class>
     <class kind="struct">hmi::MaquetteTokenRequest</class>
     <class kind="class">hmi::PlaceAppearance</class>
     <class kind="struct">hmi::PlaceAppearanceResult</class>
@@ -46905,6 +46982,13 @@
       <name>maquetteColor</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>ac9a5002afda4ff75f1362e0c1e9032b6</anchor>
+      <arglist>(core::TileType type) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>constexpr MaquetteShape</type>
+      <name>maquetteShape</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a5a9a68c04366f419d1c4492c8e4e2ae6</anchor>
       <arglist>(core::TileType type) noexcept</arglist>
     </member>
     <member kind="function">

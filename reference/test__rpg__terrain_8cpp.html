@@ -149,6 +149,7 @@ $(function(){initNavTree('test__rpg__terrain_8cpp.html','',''); });
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="CollisionDerivation_8h_source.html">Core/Levels/CollisionDerivation.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelWriter_8h_source.html">Core/Levels/LevelWriter.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
@@ -164,12 +165,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:ac6e1126519d88734422b46d5b10c0052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une rive existe : l'eau peu profonde se traverse, l'eau profonde non — c'est la seule distinction qui rende une côte jouable.  <br /></td></tr>
 <tr class="memitem:a0e23556d52b047f2edc5f7cd384c3a8e" id="r_a0e23556d52b047f2edc5f7cd384c3a8e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0e23556d52b047f2edc5f7cd384c3a8e">TEST</a> (TerrainRpgTest, BorneDeLEnumerationDerivee)</td></tr>
 <tr class="memdesc:a0e23556d52b047f2edc5f7cd384c3a8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">La borne de l'énumération reste <b>dérivée</b> du dernier type : aucune valeur recopiée à la main ne peut se désynchroniser.  <br /></td></tr>
+<tr class="memitem:acf26866cce7f85b1da9f6bf68eff3e45" id="r_acf26866cce7f85b1da9f6bf68eff3e45"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#acf26866cce7f85b1da9f6bf68eff3e45">TEST</a> (TerrainRpgTest, AllerRetourSurChaqueTypeDeTuile)</td></tr>
+<tr class="memdesc:acf26866cce7f85b1da9f6bf68eff3e45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le vocabulaire de la maquette survit à l'aller-retour de format, comme le terrain du <span class="tt">LOT-08</span> : chaque type se relit sous son nom.  <br /></td></tr>
+<tr class="memitem:aaabe23011be578ea27ff8259719ed560" id="r_aaabe23011be578ea27ff8259719ed560"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aaabe23011be578ea27ff8259719ed560">TEST</a> (TerrainRpgTest, IsSolidSAccordeAvecLaCollisionDeduite)</td></tr>
+<tr class="memdesc:aaabe23011be578ea27ff8259719ed560"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span> et la collision déduite disent la même chose de chaque type : ce qui bloque le pas se déduit en mur ou en falaise, ce qui le laisse passer se déduit ouvert.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires du vocabulaire de terrain du RPG (<span class="tt">EX-EXP-005</span>, <span class="tt">LOT-08</span>) : franchissabilité, aller-retour de format, et chaîne complète jusqu'aux libellés livrés. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ad2902d0d1c8666b440219d97b3aef383" name="ad2902d0d1c8666b440219d97b3aef383"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2902d0d1c8666b440219d97b3aef383">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2902d0d1c8666b440219d97b3aef383">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,8 +203,39 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="acf26866cce7f85b1da9f6bf68eff3e45" name="acf26866cce7f85b1da9f6bf68eff3e45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf26866cce7f85b1da9f6bf68eff3e45">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TerrainRpgTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AllerRetourSurChaqueTypeDeTuile</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le vocabulaire de la maquette survit à l'aller-retour de format, comme le terrain du <span class="tt">LOT-08</span> : chaque type se relit sous son nom. </p>
+<p><b>Cas de test :</b> <b>Chaque type de tuile survit a l'aller-retour de format.</b><br  />
+ cat Unitaire · Terrain RPG<br  />
+ crit Critique<br  />
+ etapes 1. Pour chaque type de tuile hors vide et entree, charger une carte qui le porte.<br  />
+</p><ol type="1">
+<li>La reserialiser puis la recharger.<br  />
+ attendu La case porte toujours le meme type. </li>
+</ol>
+
+</div>
+</div>
 <a id="a0e23556d52b047f2edc5f7cd384c3a8e" name="a0e23556d52b047f2edc5f7cd384c3a8e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e23556d52b047f2edc5f7cd384c3a8e">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e23556d52b047f2edc5f7cd384c3a8e">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,12 +260,12 @@ Functions</h2></td></tr>
  <b>Etapes :</b><br  />
  1. Comparer TILE_TYPE_COUNT au dernier enumerateur.<br  />
 2. Verifier que chaque valeur jusqu'a cette borne porte un nom.<br  />
- <b>Resultat attendu :</b> La borne vaut le dernier type plus un, et les douze noms sont non vides et uniques. </p>
+ <b>Resultat attendu :</b> La borne vaut le dernier type plus un, et les trente-deux noms sont non vides et uniques. </p>
 
 </div>
 </div>
 <a id="aaccf2137d2566cfcf87d62e30296f2bf" name="aaccf2137d2566cfcf87d62e30296f2bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaccf2137d2566cfcf87d62e30296f2bf">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaccf2137d2566cfcf87d62e30296f2bf">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -257,8 +293,36 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aaabe23011be578ea27ff8259719ed560" name="aaabe23011be578ea27ff8259719ed560"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaabe23011be578ea27ff8259719ed560">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TerrainRpgTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IsSolidSAccordeAvecLaCollisionDeduite</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span> et la collision déduite disent la même chose de chaque type : ce qui bloque le pas se déduit en mur ou en falaise, ce qui le laisse passer se déduit ouvert. </p>
+<p><b>Cas de test :</b> <b>isSolid et la collision deduite s'accordent sur chaque type.</b><br  />
+ cat Unitaire · Terrain RPG<br  />
+ crit Critique<br  />
+ etapes 1. Pour chaque type de tuile, comparer isSolid a isSolid de sa collision deduite.<br  />
+ attendu Les deux s'accordent ; arbre, colonne, toit et gradins arretent aussi la vue (mur), rocher, palissade, etal, caisses, fosse et lave seulement le pas (falaise). </p>
+
+</div>
+</div>
 <a id="ac6e1126519d88734422b46d5b10c0052" name="ac6e1126519d88734422b46d5b10c0052"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6e1126519d88734422b46d5b10c0052">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6e1126519d88734422b46d5b10c0052">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

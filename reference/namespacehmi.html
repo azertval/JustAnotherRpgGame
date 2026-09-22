@@ -404,6 +404,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste <b>ordonnée</b> des primitives d'une image, indépendante de Direct3D.  <a href="classhmi_1_1ComposedScene.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MaquetteColor" id="r_MaquetteColor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteColor.html">MaquetteColor</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une teinte de maquette, en composantes <span class="tt">[0, 1]</span> — ce que les primitives attendent.  <a href="structhmi_1_1MaquetteColor.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MaquetteShape" id="r_MaquetteShape"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteShape.html">MaquetteShape</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La forme d'un type en maquette : un losange plat, ou un bloc d'une hauteur et d'une emprise données.  <a href="structhmi_1_1MaquetteShape.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MaquetteTokenRequest" id="r_MaquetteTokenRequest"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteTokenRequest.html">MaquetteTokenRequest</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un chemin de jeton désigne, ou rien si <code class="param">path</code> n'en est pas un.  <a href="structhmi_1_1MaquetteTokenRequest.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PlaceAppearance" id="r_PlaceAppearance"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a></td></tr>
@@ -1290,6 +1292,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa7d25fd4aa9bba5308563cf224f4977e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une teinte depuis son écriture hexadécimale à six chiffres (<span class="tt">0x3f6b34</span>).  <br /></td></tr>
 <tr class="memitem:ac9a5002afda4ff75f1362e0c1e9032b6" id="r_ac9a5002afda4ff75f1362e0c1e9032b6"><td class="memItemLeft">constexpr <a class="el" href="structhmi_1_1MaquetteColor.html">MaquetteColor</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac9a5002afda4ff75f1362e0c1e9032b6">maquetteColor</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) noexcept</td></tr>
 <tr class="memdesc:ac9a5002afda4ff75f1362e0c1e9032b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">La teinte de maquette d'un type de tuile.  <br /></td></tr>
+<tr class="memitem:a5a9a68c04366f419d1c4492c8e4e2ae6" id="r_a5a9a68c04366f419d1c4492c8e4e2ae6"><td class="memItemLeft">constexpr <a class="el" href="structhmi_1_1MaquetteShape.html">MaquetteShape</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5a9a68c04366f419d1c4492c8e4e2ae6">maquetteShape</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) noexcept</td></tr>
+<tr class="memdesc:a5a9a68c04366f419d1c4492c8e4e2ae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">La forme de maquette d'un type de tuile.  <br /></td></tr>
 <tr class="memitem:a5eba850ea51228d1e09a6d4e1ffc7087" id="r_a5eba850ea51228d1e09a6d4e1ffc7087"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a5eba850ea51228d1e09a6d4e1ffc7087">maquetteExtrudes</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) noexcept</td></tr>
 <tr class="memdesc:a5eba850ea51228d1e09a6d4e1ffc7087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une case de ce type se dessine-t-elle en <b>bloc extrudé</b> plutôt qu'en losange plat ?  <br /></td></tr>
 <tr class="memitem:a7e28c46424c3e42b110004f742df0023" id="r_a7e28c46424c3e42b110004f742df0023"><td class="memItemLeft"><a class="el" href="structhmi_1_1MaquetteColor.html">MaquetteColor</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7e28c46424c3e42b110004f742df0023">maquetteTokenColor</a> (<a class="el" href="#a9dbe00de1bc58b0fc3cc63b38ec7569e">MaquetteTokenKind</a> kind) noexcept</td></tr>
@@ -8367,13 +8371,13 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Une case de ce type se dessine-t-elle en <b>bloc extrudé</b> plutôt qu'en losange plat ? </p>
-<p>La matière pleine — bâtie (<span class="tt">Wall</span>), générique (<span class="tt">Solid</span>) ou naturelle (<span class="tt">Cliff</span>) — doit se <b>lire</b> comme un obstacle et masquer ce qui est derrière elle. <span class="tt">DeepWater</span> bloque le pas (<span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span>) mais n'est pas de la matière : elle reste un losange plat, plus sombre que l'eau vive, et on voit par-dessus. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>La matière pleine — bâtie (<span class="tt">Wall</span>), générique (<span class="tt">Solid</span>) ou naturelle (<span class="tt">Cliff</span>) — et le mobilier doivent se <b>lire</b> comme des volumes et masquer ce qui est derrière eux. <span class="tt">DeepWater</span>, la fosse et la lave bloquent le pas (<span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span>) mais ne sont pas de la matière : ils restent des losanges plats, et on voit par-dessus. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> pour <span class="tt">Wall</span>, <span class="tt">Solid</span> et <span class="tt">Cliff</span>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> quand <span class="tt"><a class="el" href="#a5a9a68c04366f419d1c4492c8e4e2ae6" title="La forme de maquette d&#39;un type de tuile.">maquetteShape</a></span> lui donne une hauteur. </dd></dl>
 
 </div>
 </div>
@@ -8413,6 +8417,40 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a5a9a68c04366f419d1c4492c8e4e2ae6" name="a5a9a68c04366f419d1c4492c8e4e2ae6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a9a68c04366f419d1c4492c8e4e2ae6">&#9670;&#160;</a></span>maquetteShape()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1MaquetteShape.html">MaquetteShape</a> hmi::maquetteShape </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La forme de maquette d'un type de tuile. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Un bloc pour la matière et le mobilier, un losange plat (<span class="tt">height == 0</span>) pour les sols. </dd></dl>
 
 </div>
 </div>

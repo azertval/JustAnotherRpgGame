@@ -805,6 +805,31 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a9b3411d2812eceb6de37c13f57825a76">Cliff</a>
 , <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875ade8504b73ea228d0ea9bbce69752092e">Bridge</a>
 , <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a0b01cc688e1e0b5f6b70f858a1b389ae">Stairs</a>
+, <br />
+&#160;&#160;<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875ab30bf56ad8903e769032af2055d02581">Pavement</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a67a9a13318c92022d3693d56249a3405">Alley</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875adb3e96c1db62b54d8e7863faf819d0d5">Planks</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875aa4019dc9817ce78261338412d71190d1">Flagstone</a>
+, <br />
+&#160;&#160;<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875ab46d3c8ee8032551c011745d587705cc">Snow</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a1e1361636e1b8cdfa06e107c2e6370a0">Mud</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875ad0d3be07afef13e318956c9c470925ee">Rubble</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">Door</a>
+, <br />
+&#160;&#160;<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875ac7174dc75237a0361780548a1af6872b">Bush</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a3b0c14770e6bd663518496da60f524da">Tree</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a4cfbb125e9878528bab91d12421134d8">Rock</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875afa1124a61230804809a9b5fc57932b40">Fence</a>
+, <br />
+&#160;&#160;<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875ac94f03b02c0f041bfdbf79b4dfc83bc6">LowWall</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875aa0f50ad4a913f4008911c70870d4028b">Stall</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a007f02e6c93f2be268b88351c16843c5">Crate</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a1976d7f704de389d9fe064e08ea35b2d">Column</a>
+, <br />
+&#160;&#160;<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a64230583b0483604ea026c80b127f16a">Roof</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875afe925ee04a93d96abc7adb5118b5ccc3">Tiers</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875acd9aff70b6e031ddc3e265ccf104e7fe">Pit</a>
+, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a1d18fe2cdd43a72d46421ecfe81b599e">Lava</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ace99a1be913e6294e42e9ebb145eb875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type d'une tuile de la grille d'une carte (<span class="tt">EX-LVL-002</span>).  <a href="#ace99a1be913e6294e42e9ebb145eb875">More...</a><br /></td></tr>
@@ -1603,7 +1628,7 @@ Variables</h2></td></tr>
 <tr class="memdesc:a444fa8848bf1762434e629e734038e20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'une zone rectangle : sa hauteur, en cases.  <br /></td></tr>
 <tr class="memitem:a1639bde29cbf10d2ed8629a0fe495374" id="r_a1639bde29cbf10d2ed8629a0fe495374"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a1639bde29cbf10d2ed8629a0fe495374">LAYER_KIND_COUNT</a> = static_cast&lt;int&gt;(<a class="el" href="#ab0cf50b7ad0dce1357c85662e0fb7e5da0cc0a0507cf3d31e5089f420a4cf8b4b">LayerKind::Legacy</a>) + 1</td></tr>
 <tr class="memdesc:a1639bde29cbf10d2ed8629a0fe495374"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de valeurs de <span class="tt"><a class="el" href="#ab0cf50b7ad0dce1357c85662e0fb7e5d" title="Rôle d&#39;une couche de tuiles dans une carte.">core::LayerKind</a></span> — même convention que <span class="tt"><a class="el" href="#a319e1d0258052359525fdc83ee93f269" title="Nombre de valeurs de core::TileType — seule source de vérité de la fin de l&#39;énumération.">core::TILE_TYPE_COUNT</a></span> : toute valeur ajoutée doit l'être <b>avant</b> le dernier énumérateur.  <br /></td></tr>
-<tr class="memitem:a319e1d0258052359525fdc83ee93f269" id="r_a319e1d0258052359525fdc83ee93f269"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a319e1d0258052359525fdc83ee93f269">TILE_TYPE_COUNT</a> = static_cast&lt;int&gt;(<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a0b01cc688e1e0b5f6b70f858a1b389ae">TileType::Stairs</a>) + 1</td></tr>
+<tr class="memitem:a319e1d0258052359525fdc83ee93f269" id="r_a319e1d0258052359525fdc83ee93f269"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a319e1d0258052359525fdc83ee93f269">TILE_TYPE_COUNT</a> = static_cast&lt;int&gt;(<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a1d18fe2cdd43a72d46421ecfe81b599e">TileType::Lava</a>) + 1</td></tr>
 <tr class="memdesc:a319e1d0258052359525fdc83ee93f269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de valeurs de <span class="tt"><a class="el" href="#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;une carte (EX-LVL-002).">core::TileType</a></span> — <b>seule</b> source de vérité de la fin de l'énumération.  <br /></td></tr>
 <tr class="memitem:a49c6e01fbd8905740993109a36f65c11" id="r_a49c6e01fbd8905740993109a36f65c11"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a49c6e01fbd8905740993109a36f65c11">EPSILON</a> = 1e-5f</td></tr>
 <tr class="memdesc:a49c6e01fbd8905740993109a36f65c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tolérance par défaut pour les comparaisons de flottants issus de calculs.  <br /></td></tr>
@@ -3690,7 +3715,7 @@ L'altitude est un attribut, jamais une géométrie</h2>
 </div><div class="memdoc">
 
 <p>Type d'une tuile de la grille d'une carte (<span class="tt">EX-LVL-002</span>). </p>
-<p><span class="tt">Empty</span> est la case traversable par défaut ; <span class="tt">Solid</span> bloque le déplacement ; <span class="tt">Entry</span> est le point d'arrivée par défaut du héros sur la carte. Le reste est le vocabulaire du <b>terrain</b> en vue de dessus (<span class="tt">EX-EXP-005</span>, <span class="tt">LOT-08</span>) : <span class="tt">Grass</span>, <span class="tt">Dirt</span>, <span class="tt">Sand</span>, <span class="tt">Water</span> et <span class="tt">DeepWater</span> (sols, les quatre premiers traversables), <span class="tt">Wall</span> et <span class="tt">Cliff</span> (obstacles), <span class="tt">Bridge</span> et <span class="tt">Stairs</span> (passages).</p>
+<p><span class="tt">Empty</span> est la case traversable par défaut ; <span class="tt">Solid</span> bloque le déplacement ; <span class="tt">Entry</span> est le point d'arrivée par défaut du héros sur la carte. Le reste est le vocabulaire du <b>terrain</b> en vue de dessus (<span class="tt">EX-EXP-005</span>, <span class="tt">LOT-08</span>) : <span class="tt">Grass</span>, <span class="tt">Dirt</span>, <span class="tt">Sand</span>, <span class="tt">Water</span> et <span class="tt">DeepWater</span> (sols, les quatre premiers traversables), <span class="tt">Wall</span> et <span class="tt">Cliff</span> (obstacles), <span class="tt">Bridge</span> et <span class="tt">Stairs</span> (passages). Les vingt derniers étoffent ce vocabulaire pour qu'une carte <b>sans texture</b> se dessine avec précision : sols (pavé, ruelle, plancher, dallage, neige), terrains difficiles, végétation, mobilier, bâti vu de dessus et dangers. Leur règle de pas est <span class="tt"><a class="el" href="#a3587c285d8e6987726dddee56f0420f5">core::tacticalOfTileType</a></span>.</p>
 <p>Ce qui <b>agit</b> sur une carte — PNJ, coffres, portails, rencontres — n'est pas un type de tuile mais une entité (<span class="tt"><a class="el" href="structcore_1_1MapEntity.html" title="Une entité de carte — ce qui n&#39;est pas une tuile.">core::MapEntity</a></span>, <span class="tt">EX-LVL-017</span>) : une grille ne retient qu'un type par case. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07" name="ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07"></a>Empty&#160;</td><td class="fielddoc"></td></tr>
@@ -3715,6 +3740,46 @@ L'altitude est un attribut, jamais une géométrie</h2>
 </td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a0b01cc688e1e0b5f6b70f858a1b389ae" name="ace99a1be913e6294e42e9ebb145eb875a0b01cc688e1e0b5f6b70f858a1b389ae"></a>Stairs&#160;</td><td class="fielddoc"><p>Escalier : liaison verticale d'une carte à l'autre, traversable. </p>
 <p>Ce qu'il <b>relie</b> est une donnée du graphe de cartes (<span class="tt">LOT-09</span>), jamais du type de tuile. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ab30bf56ad8903e769032af2055d02581" name="ace99a1be913e6294e42e9ebb145eb875ab30bf56ad8903e769032af2055d02581"></a>Pavement&#160;</td><td class="fielddoc"><p>Pavé : le sol des rues et des places. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a67a9a13318c92022d3693d56249a3405" name="ace99a1be913e6294e42e9ebb145eb875a67a9a13318c92022d3693d56249a3405"></a>Alley&#160;</td><td class="fielddoc"><p>Ruelle : un pavé étroit et plus sombre, qu'une maquette doit distinguer de la rue. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875adb3e96c1db62b54d8e7863faf819d0d5" name="ace99a1be913e6294e42e9ebb145eb875adb3e96c1db62b54d8e7863faf819d0d5"></a>Planks&#160;</td><td class="fielddoc"><p>Plancher : le sol de bois d'un intérieur, d'un quai, d'une estrade. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875aa4019dc9817ce78261338412d71190d1" name="ace99a1be913e6294e42e9ebb145eb875aa4019dc9817ce78261338412d71190d1"></a>Flagstone&#160;</td><td class="fielddoc"><p>Dallage : le sol de pierre taillée d'un temple, d'une cour, d'une salle. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ab46d3c8ee8032551c011745d587705cc" name="ace99a1be913e6294e42e9ebb145eb875ab46d3c8ee8032551c011745d587705cc"></a>Snow&#160;</td><td class="fielddoc"><p>Neige : un sol extérieur, traversable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a1e1361636e1b8cdfa06e107c2e6370a0" name="ace99a1be913e6294e42e9ebb145eb875a1e1361636e1b8cdfa06e107c2e6370a0"></a>Mud&#160;</td><td class="fielddoc"><p>Boue : terrain <b>difficile</b> (pas encore joué : traversable comme un sol). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ad0d3be07afef13e318956c9c470925ee" name="ace99a1be913e6294e42e9ebb145eb875ad0d3be07afef13e318956c9c470925ee"></a>Rubble&#160;</td><td class="fielddoc"><p>Éboulis : terrain <b>difficile</b>, comme la boue. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1" name="ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1"></a>Door&#160;</td><td class="fielddoc"><p>Porte : un passage dans un mur, traversable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ac7174dc75237a0361780548a1af6872b" name="ace99a1be913e6294e42e9ebb145eb875ac7174dc75237a0361780548a1af6872b"></a>Bush&#160;</td><td class="fielddoc"><p>Buisson : végétation basse, terrain <b>difficile</b>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a3b0c14770e6bd663518496da60f524da" name="ace99a1be913e6294e42e9ebb145eb875a3b0c14770e6bd663518496da60f524da"></a>Tree&#160;</td><td class="fielddoc"><p>Arbre : arrête le pas et la vue. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a4cfbb125e9878528bab91d12421134d8" name="ace99a1be913e6294e42e9ebb145eb875a4cfbb125e9878528bab91d12421134d8"></a>Rock&#160;</td><td class="fielddoc"><p>Rocher : arrête le pas, on voit par-dessus. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875afa1124a61230804809a9b5fc57932b40" name="ace99a1be913e6294e42e9ebb145eb875afa1124a61230804809a9b5fc57932b40"></a>Fence&#160;</td><td class="fielddoc"><p>Palissade, barrière : arrête le pas, on voit par-dessus. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ac94f03b02c0f041bfdbf79b4dfc83bc6" name="ace99a1be913e6294e42e9ebb145eb875ac94f03b02c0f041bfdbf79b4dfc83bc6"></a>LowWall&#160;</td><td class="fielddoc"><p>Muret : un <b>abri</b> (pas encore joué : traversable). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875aa0f50ad4a913f4008911c70870d4028b" name="ace99a1be913e6294e42e9ebb145eb875aa0f50ad4a913f4008911c70870d4028b"></a>Stall&#160;</td><td class="fielddoc"><p>Étal, auvent : arrête le pas, on voit par-dessus. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a007f02e6c93f2be268b88351c16843c5" name="ace99a1be913e6294e42e9ebb145eb875a007f02e6c93f2be268b88351c16843c5"></a>Crate&#160;</td><td class="fielddoc"><p>Caisses, tonneaux, mobilier : arrête le pas, on voit par-dessus. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a1976d7f704de389d9fe064e08ea35b2d" name="ace99a1be913e6294e42e9ebb145eb875a1976d7f704de389d9fe064e08ea35b2d"></a>Column&#160;</td><td class="fielddoc"><p>Colonne, statue, socle : arrête le pas et la vue. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a64230583b0483604ea026c80b127f16a" name="ace99a1be913e6294e42e9ebb145eb875a64230583b0483604ea026c80b127f16a"></a>Roof&#160;</td><td class="fielddoc"><p>Toit : le bâti vu de dessus ; arrête le pas et la vue. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875afe925ee04a93d96abc7adb5118b5ccc3" name="ace99a1be913e6294e42e9ebb145eb875afe925ee04a93d96abc7adb5118b5ccc3"></a>Tiers&#160;</td><td class="fielddoc"><p>Gradins : arrêtent le pas et la vue. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875acd9aff70b6e031ddc3e265ccf104e7fe" name="ace99a1be913e6294e42e9ebb145eb875acd9aff70b6e031ddc3e265ccf104e7fe"></a>Pit&#160;</td><td class="fielddoc"><p>Fosse, ravin, vide : arrête le pas, on voit par-dessus. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a1d18fe2cdd43a72d46421ecfe81b599e" name="ace99a1be913e6294e42e9ebb145eb875a1d18fe2cdd43a72d46421ecfe81b599e"></a>Lava&#160;</td><td class="fielddoc"><p>Lave : arrête le pas, on voit par-dessus. </p>
 </td></tr>
 </table>
 
@@ -7672,7 +7737,7 @@ Déterministe, et c'est le point</h2>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> pour la matière pleine (<span class="tt">Solid</span>, <span class="tt">Wall</span>, <span class="tt">Cliff</span>) et pour l'eau profonde. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> pour la matière pleine (<span class="tt">Solid</span>, <span class="tt">Wall</span>, <span class="tt">Cliff</span>), l'eau profonde, et tout type que <span class="tt"><a class="el" href="#a3587c285d8e6987726dddee56f0420f5">core::tacticalOfTileType</a></span> dit infranchissable (arbre, rocher, palissade, étal, caisses, colonne, toit, gradins, fosse, lave). Le muret et les terrains difficiles restent traversables tant que l'abri et la gêne ne sont pas joués. </dd></dl>
 
 </div>
 </div>
@@ -12748,7 +12813,7 @@ Déterministe, et c'est le point</h2>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int core::TILE_TYPE_COUNT = static_cast&lt;int&gt;(<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a0b01cc688e1e0b5f6b70f858a1b389ae">TileType::Stairs</a>) + 1</td>
+          <td class="memname">int core::TILE_TYPE_COUNT = static_cast&lt;int&gt;(<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a1d18fe2cdd43a72d46421ecfe81b599e">TileType::Lava</a>) + 1</td>
         </tr>
       </table>
   </td>
