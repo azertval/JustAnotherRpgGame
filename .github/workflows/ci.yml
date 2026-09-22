@@ -859,11 +859,11 @@ jobs:
         env:
           OUTCOMES: |
             Identifiants d'exigences=${{ steps.exigences.outcome }}
-            Graphe de lots=${{ steps.lots.outcome }}
             Planification=${{ steps.planning.outcome }}
             Version de Qt CMake / CI=${{ steps.qt_pin.outcome }}
             Séparation conception / code=${{ steps.ui_layers.outcome }}
             Contrat Qt Design Studio=${{ steps.designer.outcome }}
+            Pages de documentation=${{ steps.docs_pages.outcome }}
             Cahier de test à jour=${{ steps.cahier.outcome }}
             Lexique de règles=${{ steps.glossary.outcome }}
             Manifeste du corpus=${{ steps.corpus.outcome }}
