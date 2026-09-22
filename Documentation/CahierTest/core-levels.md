@@ -2,6 +2,22 @@
 
 Tests unitaires — **117 cas** (24 critiques, 76 majeurs, 17 mineurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_format_v4.cpp`](#test-format-v4cpp) | 19 | - | 8 | 7 | 4 |
+| [`test_layer_pieces.cpp`](#test-layer-piecescpp) | 9 | - | 3 | 6 | - |
+| [`test_level.cpp`](#test-levelcpp) | 6 | - | - | 6 | - |
+| [`test_level_draft.cpp`](#test-level-draftcpp) | 25 | - | 1 | 21 | 3 |
+| [`test_level_draft_editing.cpp`](#test-level-draft-editingcpp) | 14 | - | 1 | 7 | 6 |
+| [`test_level_draft_pieces.cpp`](#test-level-draft-piecescpp) | 14 | - | 6 | 7 | 1 |
+| [`test_level_loader.cpp`](#test-level-loadercpp) | 5 | - | 1 | 4 | - |
+| [`test_level_writer.cpp`](#test-level-writercpp) | 4 | - | - | 3 | 1 |
+| [`test_map_layers.cpp`](#test-map-layerscpp) | 14 | - | - | 12 | 2 |
+| [`test_rpg_terrain.cpp`](#test-rpg-terraincpp) | 4 | - | 2 | 2 | - |
+| [`test_tile_type_name.cpp`](#test-tile-type-namecpp) | 3 | - | 2 | 1 | - |
+
 ## test_format_v4.cpp
 
 ### FormatV4Test.UneCarteDeChaqueVersionSeCharge

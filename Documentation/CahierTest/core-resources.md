@@ -2,6 +2,13 @@
 
 Tests unitaires — **12 cas** (2 bloquants, 6 critiques, 4 majeurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_asset_keys.cpp`](#test-asset-keyscpp) | 9 | - | 6 | 3 | - |
+| [`test_scene_piece_manifest.cpp`](#test-scene-piece-manifestcpp) | 3 | 2 | - | 1 | - |
+
 ## test_asset_keys.cpp
 
 ### AssetKeyTest.UneCleNEstJamaisUnCheminDeFichier

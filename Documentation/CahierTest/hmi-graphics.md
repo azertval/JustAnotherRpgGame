@@ -2,6 +2,34 @@
 
 Tests unitaires — **156 cas** (18 bloquants, 57 critiques, 74 majeurs, 7 mineurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_animation_catalog.cpp`](#test-animation-catalogcpp) | 12 | - | 5 | 7 | - |
+| [`test_arena_animation_driver.cpp`](#test-arena-animation-drivercpp) | 8 | - | 3 | 4 | 1 |
+| [`test_arena_appearance_catalog.cpp`](#test-arena-appearance-catalogcpp) | 13 | 4 | 2 | 6 | 1 |
+| [`test_arena_scene_composer.cpp`](#test-arena-scene-composercpp) | 11 | 5 | - | 6 | - |
+| [`test_arena_scene_renderer.cpp`](#test-arena-scene-renderercpp) | 6 | 2 | 3 | - | 1 |
+| [`test_asset_gallery.cpp`](#test-asset-gallerycpp) | 7 | 3 | - | 4 | - |
+| [`test_asset_gallery_renderer.cpp`](#test-asset-gallery-renderercpp) | 2 | 1 | - | 1 | - |
+| [`test_cache_registry.cpp`](#test-cache-registrycpp) | 5 | - | 5 | - | - |
+| [`test_camera2d.cpp`](#test-camera2dcpp) | 10 | - | - | 9 | 1 |
+| [`test_city_block_render.cpp`](#test-city-block-rendercpp) | 2 | - | - | 2 | - |
+| [`test_depth_sort.cpp`](#test-depth-sortcpp) | 5 | - | 4 | 1 | - |
+| [`test_entity_markers.cpp`](#test-entity-markerscpp) | 5 | - | 1 | 4 | - |
+| [`test_image_encode.cpp`](#test-image-encodecpp) | 5 | - | 1 | 4 | - |
+| [`test_maquette_tokens.cpp`](#test-maquette-tokenscpp) | 6 | - | 2 | 4 | - |
+| [`test_missing_texture.cpp`](#test-missing-texturecpp) | 5 | - | 2 | 3 | - |
+| [`test_poly_quad.cpp`](#test-poly-quadcpp) | 4 | - | 2 | 2 | - |
+| [`test_procedural_atlas.cpp`](#test-procedural-atlascpp) | 4 | - | 1 | 2 | 1 |
+| [`test_quad_recorder.cpp`](#test-quad-recordercpp) | 7 | - | 3 | 3 | 1 |
+| [`test_render_culling.cpp`](#test-render-cullingcpp) | 10 | - | 5 | 4 | 1 |
+| [`test_rhi_offscreen.cpp`](#test-rhi-offscreencpp) | 2 | - | 1 | 1 | - |
+| [`test_texture_atlas.cpp`](#test-texture-atlascpp) | 1 | - | 1 | - | - |
+| [`test_world_scene_composer.cpp`](#test-world-scene-composercpp) | 20 | - | 13 | 7 | - |
+| [`test_world_scene_renderer.cpp`](#test-world-scene-renderercpp) | 6 | 3 | 3 | - | - |
+
 ## test_animation_catalog.cpp
 
 ### AnimationCatalogTest.RoundTripClipsMultiplesDureeParDefautEtOneShot

@@ -2,6 +2,17 @@
 
 Tests unitaires — **35 cas** (5 critiques, 30 majeurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_animation_clip.cpp`](#test-animation-clipcpp) | 7 | - | 5 | 2 | - |
+| [`test_component_pool.cpp`](#test-component-poolcpp) | 7 | - | - | 7 | - |
+| [`test_entity_manager.cpp`](#test-entity-managercpp) | 6 | - | - | 6 | - |
+| [`test_sprite.cpp`](#test-spritecpp) | 3 | - | - | 3 | - |
+| [`test_view.cpp`](#test-viewcpp) | 5 | - | - | 5 | - |
+| [`test_world.cpp`](#test-worldcpp) | 7 | - | - | 7 | - |
+
 ## test_animation_clip.cpp
 
 ### AnimationClipTest.ClipExistantResoluParNom

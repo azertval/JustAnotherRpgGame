@@ -2,6 +2,18 @@
 
 Tests unitaires — **22 cas** (19 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_assert.cpp`](#test-assertcpp) | 2 | - | - | 2 | - |
+| [`test_file_log_sink.cpp`](#test-file-log-sinkcpp) | 5 | - | - | 2 | 3 |
+| [`test_log_format.cpp`](#test-log-formatcpp) | 4 | - | - | 4 | - |
+| [`test_log_level_parse.cpp`](#test-log-level-parsecpp) | 3 | - | - | 3 | - |
+| [`test_logger.cpp`](#test-loggercpp) | 3 | - | - | 3 | - |
+| [`test_scoped_log_level.cpp`](#test-scoped-log-levelcpp) | 3 | - | - | 3 | - |
+| [`test_sinks.cpp`](#test-sinkscpp) | 2 | - | - | 2 | - |
+
 ## test_assert.cpp
 
 ### AssertTest.ConditionVraieNInvoquePasLeHandler

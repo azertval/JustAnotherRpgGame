@@ -2,6 +2,12 @@
 
 Tests d'intégration — **2 cas** (1 critique, 1 majeur). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_exploration_carte.cpp`](#test-exploration-cartecpp) | 2 | - | 1 | 1 | - |
+
 ## test_exploration_carte.cpp
 
 ### ExplorationCarteIntegration.UneCarteSeChargeEtSeCompose

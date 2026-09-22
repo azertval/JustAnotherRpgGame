@@ -2,6 +2,12 @@
 
 Tests unitaires — **7 cas** (1 critique, 6 majeurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_fixed_timestep.cpp`](#test-fixed-timestepcpp) | 7 | - | 1 | 6 | - |
+
 ## test_fixed_timestep.cpp
 
 ### FixedTimestepTest.UnPasExact

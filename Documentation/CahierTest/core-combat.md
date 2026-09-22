@@ -2,6 +2,26 @@
 
 Tests unitaires — **112 cas** (33 bloquants, 48 critiques, 30 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_action_economy.cpp`](#test-action-economycpp) | 3 | - | 1 | 2 | - |
+| [`test_area_of_effect.cpp`](#test-area-of-effectcpp) | 3 | 1 | 1 | 1 | - |
+| [`test_arena.cpp`](#test-arenacpp) | 7 | 2 | 5 | - | - |
+| [`test_attack.cpp`](#test-attackcpp) | 9 | 3 | 4 | 2 | - |
+| [`test_battle_grid.cpp`](#test-battle-gridcpp) | 7 | 1 | 2 | 4 | - |
+| [`test_combat_preview.cpp`](#test-combat-previewcpp) | 2 | 1 | 1 | - | - |
+| [`test_combat_state.cpp`](#test-combat-statecpp) | 13 | 6 | 6 | 1 | - |
+| [`test_damage.cpp`](#test-damagecpp) | 7 | 3 | 3 | 1 | - |
+| [`test_encounter.cpp`](#test-encountercpp) | 11 | - | 6 | 5 | - |
+| [`test_enemy_ai.cpp`](#test-enemy-aicpp) | 12 | 5 | 7 | - | - |
+| [`test_iso_projection.cpp`](#test-iso-projectioncpp) | 9 | 5 | - | 3 | 1 |
+| [`test_line_of_sight.cpp`](#test-line-of-sightcpp) | 3 | 1 | 1 | 1 | - |
+| [`test_pathfinding.cpp`](#test-pathfindingcpp) | 13 | 4 | 6 | 3 | - |
+| [`test_tactical_terrain.cpp`](#test-tactical-terraincpp) | 10 | - | 4 | 6 | - |
+| [`test_turn_order.cpp`](#test-turn-ordercpp) | 3 | 1 | 1 | 1 | - |
+
 ## test_action_economy.cpp
 
 ### ActionEconomyTest.ChaqueRessourceUneFoisParTour

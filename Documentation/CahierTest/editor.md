@@ -2,6 +2,41 @@
 
 Tests unitaires — **179 cas** (15 bloquants, 43 critiques, 94 majeurs, 27 mineurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_autosave.cpp`](#test-autosavecpp) | 5 | - | 3 | 2 | - |
+| [`test_brush_gesture.cpp`](#test-brush-gesturecpp) | 7 | - | 3 | 3 | 1 |
+| [`test_canvas_picking.cpp`](#test-canvas-pickingcpp) | 5 | 2 | - | 3 | - |
+| [`test_canvas_scene.cpp`](#test-canvas-scenecpp) | 5 | 1 | - | 3 | 1 |
+| [`test_city_view.cpp`](#test-city-viewcpp) | 3 | - | 1 | 1 | 1 |
+| [`test_content_check.cpp`](#test-content-checkcpp) | 5 | 3 | 1 | 1 | - |
+| [`test_disk_guard.cpp`](#test-disk-guardcpp) | 3 | - | 2 | 1 | - |
+| [`test_editor_key_bindings.cpp`](#test-editor-key-bindingscpp) | 7 | - | - | 7 | - |
+| [`test_editor_sidecar.cpp`](#test-editor-sidecarcpp) | 4 | - | 1 | 3 | - |
+| [`test_editor_status.cpp`](#test-editor-statuscpp) | 8 | - | 3 | 4 | 1 |
+| [`test_entity_editing.cpp`](#test-entity-editingcpp) | 8 | - | - | 7 | 1 |
+| [`test_entity_shapes.cpp`](#test-entity-shapescpp) | 11 | 1 | - | 8 | 2 |
+| [`test_game_launch.cpp`](#test-game-launchcpp) | 6 | - | 1 | 4 | 1 |
+| [`test_gesture_script.cpp`](#test-gesture-scriptcpp) | 5 | 1 | 2 | 2 | - |
+| [`test_level_file_operations.cpp`](#test-level-file-operationscpp) | 10 | 1 | 5 | 4 | - |
+| [`test_level_name_validation.cpp`](#test-level-name-validationcpp) | 5 | - | - | 3 | 2 |
+| [`test_map_documents.cpp`](#test-map-documentscpp) | 3 | - | - | 2 | 1 |
+| [`test_map_format.cpp`](#test-map-formatcpp) | 8 | - | 5 | 2 | 1 |
+| [`test_map_refactor.cpp`](#test-map-refactorcpp) | 9 | - | 5 | 3 | 1 |
+| [`test_map_render.cpp`](#test-map-rendercpp) | 4 | - | - | 3 | 1 |
+| [`test_paint_tools.cpp`](#test-paint-toolscpp) | 8 | - | 5 | 2 | 1 |
+| [`test_panel_focus.cpp`](#test-panel-focuscpp) | 3 | - | - | 3 | - |
+| [`test_piece_catalog.cpp`](#test-piece-catalogcpp) | 6 | - | 1 | 4 | 1 |
+| [`test_scene_painter.cpp`](#test-scene-paintercpp) | 3 | 2 | - | 1 | - |
+| [`test_shipped_maps.cpp`](#test-shipped-mapscpp) | 4 | 4 | - | - | - |
+| [`test_stamps.cpp`](#test-stampscpp) | 9 | - | 2 | 6 | 1 |
+| [`test_thumbnail_geometry.cpp`](#test-thumbnail-geometrycpp) | 3 | - | 2 | - | 1 |
+| [`test_tile_taxonomy.cpp`](#test-tile-taxonomycpp) | 2 | - | - | 2 | - |
+| [`test_world_graph_layout.cpp`](#test-world-graph-layoutcpp) | 16 | - | - | 8 | 8 |
+| [`test_world_links.cpp`](#test-world-linkscpp) | 4 | - | 1 | 2 | 1 |
+
 ## test_autosave.cpp
 
 ### AutosaveTest.UnBrouillonSeRelitALIdentique

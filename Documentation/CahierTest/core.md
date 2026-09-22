@@ -2,6 +2,12 @@
 
 Tests unitaires — **1 cas** (1 majeur). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_core.cpp`](#test-corecpp) | 1 | - | - | 1 | - |
+
 ## test_core.cpp
 
 ### EngineTest.VersionNonVide

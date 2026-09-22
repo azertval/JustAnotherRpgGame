@@ -2,6 +2,15 @@
 
 Tests unitaires — **25 cas** (1 bloquant, 3 critiques, 19 majeurs, 2 mineurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_button_repeat.cpp`](#test-button-repeatcpp) | 1 | - | 1 | - | - |
+| [`test_gamepad_probe.cpp`](#test-gamepad-probecpp) | 3 | - | 2 | 1 | - |
+| [`test_input_state.cpp`](#test-input-statecpp) | 16 | - | - | 15 | 1 |
+| [`test_qt_key_map.cpp`](#test-qt-key-mapcpp) | 5 | 1 | - | 3 | 1 |
+
 ## test_button_repeat.cpp
 
 ### ButtonRepeatTest.UnAppuiPuisUneRepetitionReguliere

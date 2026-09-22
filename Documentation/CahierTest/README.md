@@ -52,3 +52,46 @@ ctest --preset ninja -R AttackTest       # une suite
 ```
 
 Un cas qui échoue se retrouve ici par son identifiant (la recherche du site le trouve), et dans le code par l'emplacement que donne sa fiche.
+
+
+## Ajouter un cas
+
+Un test **sans** bloc `\castest{}` fait échouer la CI : le cahier est exhaustif par construction,
+sinon il ne vaut rien — un cahier partiel laisse croire que ce qui n'y figure pas n'est pas testé.
+Le bloc se met dans le commentaire du test, juste au-dessus de sa déclaration :
+
+```cpp
+/**
+ * @brief Un 20 naturel touche quelle que soit la CA, et double les des de degats.
+ * \castest{<b>Un 20 naturel touche une CA hors d'atteinte, est un critique, et double les des
+ * de degats sans doubler le modificateur.</b><br/>
+ * \tcat Unitaire · Combat<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. L'heroine (+5, 1d8+3) attaque un gobelin a la CA 40.<br/>2. Le d20 est force
+ * a 20.<br/>
+ * \tattendu Touche et critique ; deux d8 lances, modificateur 3.
+ * }
+ */
+TEST(AttackTest, UnVingtNaturelToucheEtDoubleLesDes) {
+```
+
+| Champ | Ce qu'il porte |
+|---|---|
+| `<b>…</b>` | L'**objet** du cas, en une phrase : ce que le test établit, pas ce qu'il fait. |
+| `\tcat` | La **catégorie**, telle qu'elle paraîtra sur la fiche. |
+| `\tcrit` | La **criticité**, parmi les quatre du tableau ci-dessus. |
+| `\tetapes` | Les **étapes**, numérotées, séparées par `<br/>`. |
+| `\tattendu` | Le **résultat attendu**, en français. |
+
+Le **résultat attendu** d'une fiche n'est toutefois pas recopié de `\tattendu` quand le test porte
+des assertions : le générateur lit les assertions GoogleTest du corps de la fonction et les
+traduit. Une fiche dit donc ce que le test **vérifie réellement**, et non ce que son auteur a écrit
+qu'il vérifiait — les deux divergent au premier remaniement, et c'est toujours le commentaire qui a
+tort. `\tattendu` ne sert que de repli, pour un cas dont aucune assertion ne se laisse traduire.
+
+## Ce que le cahier ne dit pas
+
+Il recense ce qui est **vérifié automatiquement**, et cela seul. Une règle du jeu qu'aucun test ne
+couvre n'y laisse aucune trace — l'absence d'une fiche n'est donc pas la preuve qu'un comportement
+est libre, seulement qu'il n'est pas gardé. Ce qui **doit** être vrai se lit dans les
+[spécifications](../Specification/README.md) ; ce cahier dit ce qui est tenu.

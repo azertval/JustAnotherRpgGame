@@ -2,6 +2,21 @@
 
 Tests unitaires — **81 cas** (3 bloquants, 44 critiques, 33 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_bestiary.cpp`](#test-bestiarycpp) | 6 | - | 3 | 3 | - |
+| [`test_character_options.cpp`](#test-character-optionscpp) | 9 | - | 5 | 4 | - |
+| [`test_character_sheet.cpp`](#test-character-sheetcpp) | 9 | - | 5 | 4 | - |
+| [`test_check.cpp`](#test-checkcpp) | 5 | - | 4 | 1 | - |
+| [`test_dialogue.cpp`](#test-dialoguecpp) | 12 | 3 | 4 | 5 | - |
+| [`test_dice.cpp`](#test-dicecpp) | 9 | - | 5 | 4 | - |
+| [`test_equipment.cpp`](#test-equipmentcpp) | 7 | - | 6 | 1 | - |
+| [`test_inventory.cpp`](#test-inventorycpp) | 13 | - | 5 | 7 | 1 |
+| [`test_multiclassing.cpp`](#test-multiclassingcpp) | 6 | - | 4 | 2 | - |
+| [`test_rpg_enums.cpp`](#test-rpg-enumscpp) | 5 | - | 3 | 2 | - |
+
 ## test_bestiary.cpp
 
 ### BestiaryTest.LesQuatreVingtQuatorzeProfilsChargent

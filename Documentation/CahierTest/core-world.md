@@ -2,6 +2,20 @@
 
 Tests unitaires — **53 cas** (1 bloquant, 26 critiques, 23 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_atlas.cpp`](#test-atlascpp) | 13 | - | 8 | 4 | 1 |
+| [`test_city_block.cpp`](#test-city-blockcpp) | 1 | - | - | 1 | - |
+| [`test_city_plan.cpp`](#test-city-plancpp) | 3 | - | 1 | 2 | - |
+| [`test_combat_zone.cpp`](#test-combat-zonecpp) | 3 | - | 3 | - | - |
+| [`test_entity_kinds.cpp`](#test-entity-kindscpp) | 9 | 1 | - | 7 | 1 |
+| [`test_exploration_reach.cpp`](#test-exploration-reachcpp) | 3 | - | 2 | 1 | - |
+| [`test_exploration_session.cpp`](#test-exploration-sessioncpp) | 4 | - | 3 | 1 | - |
+| [`test_world_graph.cpp`](#test-world-graphcpp) | 10 | - | 5 | 4 | 1 |
+| [`test_world_travel.cpp`](#test-world-travelcpp) | 7 | - | 4 | 3 | - |
+
 ## test_atlas.cpp
 
 ### AtlasTest.LesTreizeRegionsEtLeursLieuxChargentSansErreur

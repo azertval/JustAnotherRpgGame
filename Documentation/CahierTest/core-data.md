@@ -2,6 +2,12 @@
 
 Tests unitaires — **12 cas** (5 critiques, 5 majeurs, 2 mineurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_json_document.cpp`](#test-json-documentcpp) | 12 | - | 5 | 5 | 2 |
+
 ## test_json_document.cpp
 
 ### JsonDocumentPosition.ConvertitUnDecalageEnLigneEtColonne

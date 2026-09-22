@@ -2,6 +2,12 @@
 
 Tests unitaires — **3 cas** (1 critique, 2 majeurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_arena_model.cpp`](#test-arena-modelcpp) | 3 | - | 1 | 2 | - |
+
 ## test_arena_model.cpp
 
 ### ArenaModelTest.LaReactionSeBasculeDepuisLaBarre

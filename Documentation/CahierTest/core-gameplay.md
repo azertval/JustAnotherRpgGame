@@ -2,6 +2,12 @@
 
 Tests unitaires — **9 cas** (5 critiques, 3 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_interaction.cpp`](#test-interactioncpp) | 9 | - | 5 | 3 | 1 |
+
 ## test_interaction.cpp
 
 ### InteractionTest.LaCaseViseeSuitLaDirectionDominante

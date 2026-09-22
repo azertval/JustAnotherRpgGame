@@ -2,6 +2,16 @@
 
 Tests unitaires — **29 cas** (2 bloquants, 10 critiques, 16 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_character_sheet_values.cpp`](#test-character-sheet-valuescpp) | 6 | - | 2 | 3 | 1 |
+| [`test_dialogue_screen.cpp`](#test-dialogue-screencpp) | 3 | - | - | 3 | - |
+| [`test_identity_scale.cpp`](#test-identity-scalecpp) | 8 | 2 | 2 | 4 | - |
+| [`test_rpg_screens.cpp`](#test-rpg-screenscpp) | 7 | - | 1 | 6 | - |
+| [`test_screen_flow.cpp`](#test-screen-flowcpp) | 5 | - | 5 | - | - |
+
 ## test_character_sheet_values.cpp
 
 ### CharacterSheetValuesTest.LesModificateursSAffichentAvecLeurSigne

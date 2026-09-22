@@ -28,6 +28,10 @@ import os
 import re
 import sys
 
+sys.path.insert(0, os.path.join('Planning', 'outils'))
+
+import mini_markdown  # noqa: E402  (chemin ajoute juste au-dessus)
+
 TEST_ROOT = 'Source/Test'
 OUTPUT_DIR = 'Documentation/CahierTest'
 
@@ -336,11 +340,31 @@ def render_domain(title, category, cases):
     by_file = {}
     for case in cases:
         by_file.setdefault(os.path.basename(case['path']), []).append(case)
+
+    # Sommaire de la page : un domaine porte jusqu'a deux cents fiches, et sans cette
+    # table il fallait derouler la page pour savoir quels fichiers de test il couvre.
+    # Les ancres sont celles que le moteur du site calcule pour les titres `##`
+    # ci-dessous -- d'ou `mini_markdown.slugify`, plutot qu'une seconde regle a tenir
+    # d'accord avec la premiere.
+    lines += ['## Ce que cette page couvre', '',
+              '| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |',
+              '|---|---|---|---|---|---|']
+    for filename in sorted(by_file):
+        group = by_file[filename]
+        per = {c: sum(1 for case in group if criticite_of(case) == c) for c in CRITICITES}
+        cells = ' | '.join(str(per[c]) if per[c] else '-' for c in CRITICITES)
+        lines.append(f'| [`{filename}`](#{mini_markdown.slugify(filename)}) '
+                     f'| {len(group)} | {cells} |')
+    lines.append('')
+
     for filename in sorted(by_file):
         lines += [f'## {filename}', '']
         for case in by_file[filename]:
             lines += render_case(case)
     return '\n'.join(lines).rstrip() + '\n'
+
+
+CASTEST_HOWTO = "## Ajouter un cas\n\nUn test **sans** bloc `\\castest{}` fait échouer la CI : le cahier est exhaustif par construction,\nsinon il ne vaut rien — un cahier partiel laisse croire que ce qui n'y figure pas n'est pas testé.\nLe bloc se met dans le commentaire du test, juste au-dessus de sa déclaration :\n\n```cpp\n/**\n * @brief Un 20 naturel touche quelle que soit la CA, et double les des de degats.\n * \\castest{<b>Un 20 naturel touche une CA hors d'atteinte, est un critique, et double les des\n * de degats sans doubler le modificateur.</b><br/>\n * \\tcat Unitaire · Combat<br/>\n * \\tcrit Bloquant<br/>\n * \\tetapes 1. L'heroine (+5, 1d8+3) attaque un gobelin a la CA 40.<br/>2. Le d20 est force\n * a 20.<br/>\n * \\tattendu Touche et critique ; deux d8 lances, modificateur 3.\n * }\n */\nTEST(AttackTest, UnVingtNaturelToucheEtDoubleLesDes) {\n```\n\n| Champ | Ce qu'il porte |\n|---|---|\n| `<b>…</b>` | L'**objet** du cas, en une phrase : ce que le test établit, pas ce qu'il fait. |\n| `\\tcat` | La **catégorie**, telle qu'elle paraîtra sur la fiche. |\n| `\\tcrit` | La **criticité**, parmi les quatre du tableau ci-dessus. |\n| `\\tetapes` | Les **étapes**, numérotées, séparées par `<br/>`. |\n| `\\tattendu` | Le **résultat attendu**, en français. |\n\nLe **résultat attendu** d'une fiche n'est toutefois pas recopié de `\\tattendu` quand le test porte\ndes assertions : le générateur lit les assertions GoogleTest du corps de la fonction et les\ntraduit. Une fiche dit donc ce que le test **vérifie réellement**, et non ce que son auteur a écrit\nqu'il vérifiait — les deux divergent au premier remaniement, et c'est toujours le commentaire qui a\ntort. `\\tattendu` ne sert que de repli, pour un cas dont aucune assertion ne se laisse traduire.\n\n## Ce que le cahier ne dit pas\n\nIl recense ce qui est **vérifié automatiquement**, et cela seul. Une règle du jeu qu'aucun test ne\ncouvre n'y laisse aucune trace — l'absence d'une fiche n'est donc pas la preuve qu'un comportement\nest libre, seulement qu'il n'est pas gardé. Ce qui **doit** être vrai se lit dans les\n[spécifications](../Specification/README.md) ; ce cahier dit ce qui est tenu."
 
 
 def render_readme(domains):
@@ -381,6 +405,7 @@ def render_readme(domains):
               'ctest --preset ninja -R AttackTest       # une suite', '```', '',
               'Un cas qui échoue se retrouve ici par son identifiant (la recherche du site le trouve), '
               'et dans le code par l\'emplacement que donne sa fiche.', '']
+    lines += ['', CASTEST_HOWTO, '']
     return '\n'.join(lines)
 
 

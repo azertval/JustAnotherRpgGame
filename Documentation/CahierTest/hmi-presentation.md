@@ -2,6 +2,14 @@
 
 Tests unitaires — **17 cas** (4 critiques, 10 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_credits_catalog.cpp`](#test-credits-catalogcpp) | 7 | - | 2 | 4 | 1 |
+| [`test_inventory_screen.cpp`](#test-inventory-screencpp) | 6 | - | 1 | 3 | 2 |
+| [`test_world_maps.cpp`](#test-world-mapscpp) | 4 | - | 1 | 3 | - |
+
 ## test_credits_catalog.cpp
 
 ### CreditsCatalogTest.CreditsLusDansLaLangueDemandee

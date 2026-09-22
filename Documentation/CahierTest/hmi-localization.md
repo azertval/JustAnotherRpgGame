@@ -2,6 +2,12 @@
 
 Tests unitaires — **9 cas** (9 majeurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_localization.cpp`](#test-localizationcpp) | 9 | - | - | 9 | - |
+
 ## test_localization.cpp
 
 ### LocalizationTest.AnalyseIgnoreCommentairesEtEspaces

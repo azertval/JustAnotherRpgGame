@@ -2,6 +2,15 @@
 
 Tests unitaires — **26 cas** (4 bloquants, 18 majeurs, 4 mineurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_deterministic_random.cpp`](#test-deterministic-randomcpp) | 6 | 4 | - | 2 | - |
+| [`test_math_utils.cpp`](#test-math-utilscpp) | 5 | - | - | 2 | 3 |
+| [`test_rect.cpp`](#test-rectcpp) | 7 | - | - | 7 | - |
+| [`test_vector2.cpp`](#test-vector2cpp) | 8 | - | - | 7 | 1 |
+
 ## test_deterministic_random.cpp
 
 ### DeterministicRandomTest.SplitMix64VecteursDeReference

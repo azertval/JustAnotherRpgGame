@@ -2,6 +2,12 @@
 
 Tests unitaires — **5 cas** (2 critiques, 3 majeurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_crash_dump.cpp`](#test-crash-dumpcpp) | 5 | - | 2 | 3 | - |
+
 ## test_crash_dump.cpp
 
 ### CrashDumpFileName.PorteApplicationVersionEtHorodatage

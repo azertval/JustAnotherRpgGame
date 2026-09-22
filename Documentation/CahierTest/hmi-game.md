@@ -2,6 +2,12 @@
 
 Tests unitaires — **6 cas** (1 critique, 3 majeurs, 2 mineurs). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_launch_options.cpp`](#test-launch-optionscpp) | 6 | - | 1 | 3 | 2 |
+
 ## test_launch_options.cpp
 
 ### LaunchOptions.CarteSeuleNePosePasDOptionVide

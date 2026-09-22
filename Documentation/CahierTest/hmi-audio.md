@@ -2,6 +2,12 @@
 
 Tests unitaires — **3 cas** (1 critique, 1 majeur, 1 mineur). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_audio_engine.cpp`](#test-audio-enginecpp) | 3 | - | 1 | 1 | 1 |
+
 ## test_audio_engine.cpp
 
 ### AudioEngine.MutedEngineAcceptsPreloadAndPlayWithoutError

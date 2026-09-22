@@ -2,6 +2,12 @@
 
 Tests système — **1 cas** (1 critique). [Retour à la synthèse](README.md).
 
+## Ce que cette page couvre
+
+| Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
+|---|---|---|---|---|---|
+| [`test_parcours_edition_rpg.cpp`](#test-parcours-edition-rpgcpp) | 1 | - | 1 | - | - |
+
 ## test_parcours_edition_rpg.cpp
 
 ### ParcoursEditionSysteme.ProduitUneCarteDuRpgSansEcrireDeJson
