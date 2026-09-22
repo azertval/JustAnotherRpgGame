@@ -24,9 +24,9 @@ namespace core {
  *
  * Ensuite, et surtout : **une fiche n'appartient pas à une entité**. Un personnage du groupe garde
  * la sienne quand il change de carte et que son entité est détruite puis recréée
- * ([LOT-09](@ref lot-09)) ; une fiche survit à l'entité qui la représente. Loger la fiche dans le
+ * (`LOT-09`) ; une fiche survit à l'entité qui la représente. Loger la fiche dans le
  * composant lierait la vie de l'une à celle de l'autre, et le passage au groupe de quatre
- * ([LOT-29](@ref lot-29)) obligerait à défaire ce lien.
+ * (`LOT-29`) obligerait à défaire ce lien.
  *
  * `INDICE_ABSENT` distingue une entité **sans fiche** — un décor animé, un projectile — d'une
  * entité dont la fiche serait la première du registre. Les confondre ferait attaquer un tonneau

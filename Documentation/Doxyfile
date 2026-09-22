@@ -60,6 +60,10 @@ OPTIMIZE_OUTPUT_FOR_C  = NO
 # Sorties.
 GENERATE_HTML          = YES
 HTML_OUTPUT            = html
+# Le fichier d'étiquettes : pour chaque symbole, la page et l'ancre qui le documentent. Le site de
+# documentation le lit (`build_docs_site.py --tagfile`) pour relier un `core::World` cité en code
+# dans le guide à sa page de référence. Écrit dans `html/` pour voyager avec l'artefact.
+GENERATE_TAGFILE       = generated/html/reference.tag
 GENERATE_LATEX         = NO
 
 # Verbosité.

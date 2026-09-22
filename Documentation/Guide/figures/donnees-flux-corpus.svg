@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" font-family="Segoe UI, system-ui, sans-serif" font-size="13" fill="#25201a">
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#6a6152"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="560" fill="#fbf8f0"/>
+  <text x="24" y="32" font-size="17" font-weight="600">Du corpus au jeu : ce qui est versionné, ce qui ne l'est pas</text>
+
+  <!-- zone poste -->
+  <rect x="20" y="52" width="300" height="488" rx="8" fill="none" stroke="#8a2233" stroke-dasharray="6 4"/>
+  <text x="34" y="74" fill="#8a2233" font-weight="600">Sur un poste qui a le corpus — jamais en CI</text>
+
+  <rect x="40" y="92" width="260" height="78" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="54" y="114" font-weight="600">Documentation/SourceBook/</text>
+  <text x="54" y="134" fill="#6a6152">PDF, planches, jetons — hors dépôt</text>
+  <text x="54" y="154" fill="#6a6152">(.gitignore, EX-CNT-023)</text>
+
+  <rect x="40" y="206" width="260" height="78" rx="6" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="54" y="228" font-weight="600">corpus.toml</text>
+  <text x="54" y="248" fill="#6a6152">empreinte SHA-256, pages,</text>
+  <text x="54" y="268" fill="#6a6152">pagination, provenance</text>
+
+  <rect x="40" y="320" width="260" height="120" rx="6" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="54" y="342" font-weight="600">python scripts/sourcebook …</text>
+  <text x="54" y="364" font-family="Consolas, monospace" font-size="12">glossaire  bestiaire  options</text>
+  <text x="54" y="382" font-family="Consolas, monospace" font-size="12">personnage  equipement  atlas</text>
+  <text x="54" y="406" fill="#6a6152">lecture par coordonnée,</text>
+  <text x="54" y="424" fill="#6a6152">arrêt si l'empreinte diffère</text>
+
+  <line x1="170" y1="170" x2="170" y2="204" stroke="#6a6152" stroke-width="1.5" marker-end="url(#f)"/>
+  <line x1="170" y1="284" x2="170" y2="318" stroke="#6a6152" stroke-width="1.5" marker-end="url(#f)"/>
+  <text x="40" y="478" fill="#6a6152">Se rejoue à la demande ; deux</text>
+  <text x="40" y="496" fill="#6a6152">exécutions donnent la même</text>
+  <text x="40" y="514" fill="#6a6152">sortie (EX-CNT-020).</text>
+
+  <!-- dépôt -->
+  <rect x="350" y="52" width="300" height="488" rx="8" fill="none" stroke="#3f6b34" stroke-dasharray="6 4"/>
+  <text x="364" y="74" fill="#3f6b34" font-weight="600">Dans le dépôt — versionné, gardé en CI</text>
+
+  <rect x="370" y="92" width="260" height="150" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="384" y="114" font-weight="600">Source/Elements/</text>
+  <text x="384" y="136" font-family="Consolas, monospace" font-size="12">Rpg/&lt;famille&gt;/&lt;id&gt;.json</text>
+  <text x="384" y="154" font-family="Consolas, monospace" font-size="12">World/regions, locations</text>
+  <text x="384" y="172" font-family="Consolas, monospace" font-size="12">Localization/rpg.glossary.csv</text>
+  <text x="384" y="196" fill="#6a6152">chaque donnée porte son champ</text>
+  <text x="384" y="214" fill="#6a6152">« source » (EX-CNT-001)</text>
+
+  <rect x="370" y="278" width="260" height="162" rx="6" fill="#fbf8f0" stroke="#3f6b34"/>
+  <text x="384" y="300" font-weight="600">Contrôles (job de lint, check.py)</text>
+  <text x="384" y="322" font-family="Consolas, monospace" font-size="12">check_rpg_data.py    schémas</text>
+  <text x="384" y="340" font-family="Consolas, monospace" font-size="12">check_glossary.py    lexique</text>
+  <text x="384" y="358" font-family="Consolas, monospace" font-size="12">check_asset_keys.py  clés</text>
+  <text x="384" y="376" font-family="Consolas, monospace" font-size="12">check_json_files.py  syntaxe</text>
+  <text x="384" y="394" font-family="Consolas, monospace" font-size="12">check_corpus_manifest.py</text>
+  <text x="384" y="418" fill="#6a6152">un échec nomme fichier et ligne</text>
+
+  <line x1="300" y1="380" x2="368" y2="170" stroke="#6a6152" stroke-width="1.5" marker-end="url(#f)"/>
+  <line x1="500" y1="242" x2="500" y2="276" stroke="#6a6152" stroke-width="1.5" marker-end="url(#f)"/>
+  <text x="370" y="478" fill="#6a6152">La CI ne lit aucun PDF : elle valide</text>
+  <text x="370" y="496" fill="#6a6152">les données produites, pas</text>
+  <text x="370" y="514" fill="#6a6152">l'extraction.</text>
+
+  <!-- exécution -->
+  <rect x="680" y="52" width="300" height="488" rx="8" fill="none" stroke="#2f7f86" stroke-dasharray="6 4"/>
+  <text x="694" y="74" fill="#2f7f86" font-weight="600">À la construction et à l'exécution</text>
+
+  <rect x="700" y="92" width="260" height="78" rx="6" fill="#fbf8f0" stroke="#2f7f86"/>
+  <text x="714" y="114" font-weight="600">cible CMake CopyGameData</text>
+  <text x="714" y="134" fill="#6a6152">copie Elements/ à côté de</text>
+  <text x="714" y="154" fill="#6a6152">l'exécutable, à chaque build</text>
+
+  <rect x="700" y="206" width="260" height="98" rx="6" fill="#fbf8f0" stroke="#2f7f86"/>
+  <text x="714" y="228" font-weight="600">core::readJsonObjectFromFile</text>
+  <text x="714" y="248" fill="#6a6152">enveloppe commune : objet,</text>
+  <text x="714" y="268" fill="#6a6152">version, position de l'erreur ;</text>
+  <text x="714" y="288" fill="#6a6152">ne lève jamais</text>
+
+  <rect x="700" y="340" width="260" height="100" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="714" y="362" font-weight="600">Catalogues en mémoire</text>
+  <text x="714" y="384" font-family="Consolas, monospace" font-size="12">core::loadBestiary, loadItems,</text>
+  <text x="714" y="402" font-family="Consolas, monospace" font-size="12">loadAtlas, loadDialogues…</text>
+  <text x="714" y="424" fill="#6a6152">valeurs + liste d'erreurs</text>
+
+  <rect x="700" y="476" width="260" height="48" rx="6" fill="#25201a"/>
+  <text x="830" y="506" fill="#fbf8f0" font-weight="600" text-anchor="middle">Écrans du jeu, éditeur, tests</text>
+
+  <line x1="630" y1="130" x2="698" y2="130" stroke="#6a6152" stroke-width="1.5" marker-end="url(#f)"/>
+  <line x1="830" y1="170" x2="830" y2="204" stroke="#6a6152" stroke-width="1.5" marker-end="url(#f)"/>
+  <line x1="830" y1="304" x2="830" y2="338" stroke="#6a6152" stroke-width="1.5" marker-end="url(#f)"/>
+  <line x1="830" y1="440" x2="830" y2="474" stroke="#6a6152" stroke-width="1.5" marker-end="url(#f)"/>
+</svg>

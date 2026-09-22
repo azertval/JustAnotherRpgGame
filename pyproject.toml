@@ -34,7 +34,7 @@ dev = [
 package = false
 
 [tool.pytest.ini_options]
-testpaths = ["scripts/tests", "Planning/outils/tests"]
+testpaths = ["scripts/tests", "Planning/outils/tests", "Documentation/outils/tests"]
 addopts = ["-ra", "--strict-markers"]
 # Le dossier des scripts est ajouté au chemin d'import : un test importe `check_json_files` comme
 # le fait un script voisin.

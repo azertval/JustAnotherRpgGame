@@ -139,17 +139,22 @@ jobs:
       # La racine du site : les pages (accueil, guide, specifications, cahier de test), rendues
       # depuis Documentation/. Le generateur remplace son dossier de sortie en entier : il passe donc
       # en premier, et les autres parties viennent se poser dedans.
-      - name: Assembler les pages de documentation
-        env:
-          COMMIT: ${{ github.sha }}
-        run: python3 Documentation/outils/build_docs_site.py --out site --commit "$COMMIT"
-
-      # La reference de code (Doxygen) : l'annexe du guide, sous reference/.
+      # La reference de code (Doxygen) arrive d'abord, a part : son fichier d'etiquettes
+      # (reference.tag) sert a relier les symboles cites dans le guide a leur page de reference.
       - name: Recuperer la reference de code
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: site-api
-          path: site/reference
+          path: reference
+
+      - name: Assembler les pages de documentation
+        env:
+          COMMIT: ${{ github.sha }}
+        run: |
+          python3 Documentation/outils/build_docs_site.py --out site --commit "$COMMIT" \
+            --tagfile reference/reference.tag
+          # L'annexe du guide, sous reference/.
+          mv reference site/reference
 
       - name: Recuperer la couverture
         if: ${{ needs.coverage.result == 'success' }}
