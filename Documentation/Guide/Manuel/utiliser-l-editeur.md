@@ -17,6 +17,13 @@ que la construction refait à côté de l'exécutable : ce qu'on enregistre arri
 construction suivante ne l'écrase pas. Le titre de la fenêtre dit quel dossier est ouvert ;
 `--data <dossier>` en ouvre un autre.
 
+![La fenêtre de LevelEditor ouverte sur une carte : la palette de pièces et la liste des couches à gauche, le canevas isométrique au centre, le navigateur de cartes et l'inspecteur d'entités à droite, la barre d'état en pied](../captures/editeur-fenetre-place.jpg)
+
+Six panneaux, qu'on retrouvera tout au long de cette page : **Palette** (les pièces),
+**Layers** (les couches), le **canevas** au centre, **Maps** (les cartes du dépôt),
+**Entities · Inspector** (ce qu'on a posé) et **Problems** (ce qui cloche). Ils se déplacent, se
+détachent et se referment ; la disposition est retenue d'une session à l'autre.
+
 ## 1. Créer la carte, avec son lieu
 
 Panneau **Maps**, onglet *List*, bouton **New** : un nom (`echoppe`), une taille en cases, un
@@ -99,6 +106,12 @@ d'à côté aussi quand on passe son portail. Deux choses restent celles de la d
 construction : les **catalogues** du jeu (dialogues, rencontres, figurines, villes, assets) et son
 propre `Levels/` pour les cartes qu'aucun onglet ne porte. Un essai n'enregistre rien, et fermer
 l'éditeur ferme le jeu.
+
+Le canevas montre la carte **comme le jeu la jouera** : mêmes pièces, même ordre de dessin, même
+projection. Ce n'est pas une vue d'édition qui ressemblerait au jeu — c'est le même code de
+composition, ce qui interdit à l'éditeur de vous montrer quelque chose que le jeu démentira.
+
+![La même carte rendue sans ouvrir la fenêtre : les pièces posées, telles que le jeu les dessinera](../captures/editeur-rendu-place.jpg)
 
 ## 7. Enregistrer, contrôler, publier
 
