@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790044757346,
+  "lastUpdate": 1790060348385,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -744,6 +744,70 @@ window.BENCHMARK_DATA = {
             "value": 302.83955606145105,
             "unit": "us/iter",
             "extra": "iterations: 5271\ncpu: 263.82564978182506 us\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "711ae9f5112b1e351cdce9eae0c9f62181e0560f",
+          "message": "LOT-128 — Les cartes maquettes : dessiner et jouer sans texture (#108)\n\n* docs(planning) : LOT-128 planifié, six décisions et six phases\n\nL'audit M1-M8 de la fiche est recoupé dans le code. Quatre points qui ne se\ntranchaient pas depuis la fiche sont arbitrés, deux autres apparaissent en\nl'écrivant :\n\n- D1, la primitive est un quad à quatre sommets libres : un losange iso au\n  rapport 0,62 n'est ni un rectangle aligné ni un segment ;\n- D2, le jeton est une image engendrée en code pur, lettre comprise — il\n  n'existe aucun rendu de texte en scène côté jeu depuis le LOT-88 ;\n- D3, la couleur du jeton se déduit de ce que le format dit déjà : « npc\n  hostile » n'a aucune existence dans MapEntity ;\n- D4, « --render --plan » se lit comme la maquette du planning, il ne s'y\n  superpose pas : douze types génériques ne diront jamais gradins ni podium ;\n- D5, la palette vit dans le code — une maquette se dessine sans aucun asset ;\n- D6, un bloc fait une case de haut, quel que soit le type.\n\nLe repli se déclenche sur « cette case n'a nommé aucune pièce », pas sur « la\ncarte n'a pas de lieu » : M1 et M6 se referment du même geste.\n\nTaille M -> L. Le lot passe en cours.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* LOT-128 — La primitive de maquette : un quad à quatre sommets libres\n\nPhase 1 sur six. Rien ne change à l'écran : aucun appelant encore.\n\nUn losange isométrique au rapport 0,62 n'est ni un SpriteQuad (rectangle\naligné sur les axes) ni un LineQuad, et ce n'est même pas un carré tourné,\npuisque sa hauteur et sa largeur ne sont pas dans le même rapport que ses\ncôtés. Les faces d'un bloc extrudé sont, elles, des parallélogrammes.\nhmi::PolyQuad couvre les deux.\n\nCe n'est pas un cas nouveau pour le GPU : un quad, ce sont déjà quatre\nsommets, et draw(LineQuad) en produisait déjà à des positions libres. Le\nformat de sommet, le tampon d'indices et le pipeline ne bougent pas. La\ntexture liée est l'aplat blanc, de sorte que le culling, le regroupement par\ntexture et le tri restent ceux de toutes les autres primitives — ce que les\ntests vérifient.\n\nLes deux soumissions apprennent la primitive au même endroit qu'avant, par un\nswitch exhaustif : submitComposedScene côté GPU, paintComposedScene côté\nQPainter. La parité de ces deux chemins reste tenue par test_scene_painter.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* LOT-128 — La palette de maquette, et le sol qu'elle peint\n\nPhase 2 sur six. Referme M1 et M6.\n\nLe repli ne se déclenche pas sur « la carte n'a pas de lieu » mais sur « cette\ncase n'a nommé aucune pièce ». Les deux manques se referment alors du même\ngeste : la carte sans lieu, où aucune case n'en nomme, et le type que la table\ndu lieu ne couvre pas — l'eau du Colisée, jusqu'ici invisible. Un seul chemin à\nécrire, un seul à tester.\n\nL'instantané gagne le type de chaque case, tiré de la même grille que son sol :\nce qui se dessine en maquette est ce que la couche de sol dit, jamais une\nautre. La composition émet alors un losange de couleur, trié à la profondeur de\nsa case comme une pièce, lié à un aplat blanc de 1 x 1 que les deux rendus\nfournissent désormais dans leur table de textures.\n\nLa palette vit dans le code (décision D5) : une maquette doit se dessiner quand\naucun fichier d'asset n'est présent, et une palette chargée depuis le disque\nréintroduirait la dépendance que le lot supprime.\n\nTrois chemins de peinture de types disparaissent, remplacés par celui de la\ncomposition : paintIsoTypeColors du canevas, le repli de « --render », et les\ncouleurs de l'atlas procédural dans la vue à plat. La vignette de la palette et\nla mini-carte suivent : le canevas iso, le canevas à plat, la vignette et la\nmini-carte montrent enfin UNE couleur par type, et non quatre qui se\nressemblent.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* LOT-128 — Les blocs : un mur se lit comme un mur\n\nPhase 3 sur six. Referme M3.\n\nUn type qui bloque — wall, solid, cliff — ne se dessine plus en losange plat\nmais en bloc de trois faces, haut d'une case (décision D6). Les trois faces\nprennent trois éclairements : sans cet écart, trois quads de la même teinte ne\nse distinguent pas et le bloc redevient la tache plate qu'on voulait quitter.\n\nLe bloc va sur le calque du décor, trié au pied de sa case exactement comme une\npièce de relief. C'est ce qui le fait masquer ce qui est derrière lui,\nfigurines comprises : posé sur le calque des tuiles, il passerait sous le héros\nquel que soit leur ordre, et le mur cesserait d'être un mur.\n\nL'eau profonde bloque le pas mais n'est pas de la matière : elle reste un\nlosange plat, plus sombre que l'eau vive, et l'on voit par-dessus.\n\nVérifié à l'œil sur une carte d'essai sans lieu, rendue par « --render » :\nenceinte de murs, herbe, chemins de sable et de terre, mare avec son eau\nprofonde, un bloc de pierre et une falaise — tout se distingue, et les murs\nmasquent ce qu'ils doivent masquer.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* LOT-128 — Les jetons : qui est où, et par où l'on sort\n\nPhase 4 sur six. Referme M4.\n\nLe jeton entier — disque, cerne et lettre — est peint en code pur, comme\ncore::assetMarker peint le marqueur d'un asset manquant, puis téléversé comme\nn'importe quelle texture (décision D2). Il n'existe aucun rendu de texte en\nscène côté jeu, et en introduire un pour trente-six caractères aurait coûté\nplus que la table de glyphes 5 × 7 qui tient ici.\n\nIl s'adresse par un chemin, « Token/<nature>/<lettre>.png », comme une pièce de\nlieu : les deux rendus n'ont rien de neuf à apprendre, ils voient un chemin de\nplus et savent qu'un chemin de jeton se peint au lieu de se charger. Le jeu et\nl'éditeur montrent donc la même image, au pixel près, sans qu'on ait à le\nvouloir.\n\nLa couleur se déduit de ce que le format dit déjà (décision D3) : aucune\npropriété n'est ajoutée. « npc hostile » n'existe pas dans MapEntity — le jaune\nse règle sur « ce PNJ porte un dialogue », et le LOT-116 le rebranchera sur la\nquête. Un PNJ qui a déjà sa figurine n'a pas de jeton par-dessus.\n\nTrois décisions sont venues du rendu, pas du plan, et sont écrites dans la\nfiche : le jeton vit sur le calque de l'interface, sans quoi un mur d'en face\nle coupe en deux (D7) ; sa lettre vient du type à défaut d'étiquette, jamais de\nl'identifiant, qui vaut « E » pour tout le monde (D8) ; et il est peint ou\nabsent, jamais un damier (D9).\n\nVérifié à l'œil : M la mère, N le PNJ muet, C le coffre, G la porte, W les\nloups, A le portail avec sa flèche, la zone de combat cernée de rouge et la\nronde tracée en blanc.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* LOT-128 — Le jeu, les essais, et la preuve qu'une carte nue se voit\n\nPhase 5 sur six. Referme M2, M6 et M8, et tient EX-EXP-005.\n\nL'essai immédiat (P) et l'essai complet (F5) passaient déjà par\ncomposeWorldScene : ils héritent de la maquette sans une ligne, ce qui était\nl'intérêt de la mettre là. Le jeu aussi. Ne restait que le message : une carte\nsans lieu n'est plus un manque à signaler mais l'état de départ normal d'une\ncarte, et le journal le dit maintenant en information, pas en avertissement.\n\n« --check » signale un type de tuile que la table du lieu ne couvre pas — l'eau\net l'eau profonde aujourd'hui. Un avertissement, pas une erreur : la case se\nvoit désormais, elle n'est simplement pas encore habillée.\n\nLa preuve tient en un test. Une carte bâtie en mémoire, sans lieu, sans pièce\net sans aucun fichier d'image, est rendue hors écran deux fois : par le rendu\nQRhi du jeu, puis par le peintre QPainter de l'éditeur. Le test vérifie que les\nseules textures demandées sont celles des jetons, que plus de la moitié de la\nsurface est peinte — rien n'est resté vide — et que moins de 0,5 % des pixels\ndiffèrent entre les deux rendus. EX-EXP-005 et la parité des deux chemins\ntiennent donc par la même assertion, sur le cas qui les mettait le plus en\ndanger.\n\nLa capture jointe au test montre ce que le GPU du jeu dessine : l'enceinte en\nblocs, la mare, les quatre jetons et la flèche du portail.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* LOT-128 — L'atelier : maquetter, jouer, puis habiller\n\nPhase 6 sur six. Referme M5 et M7.\n\n« New map » crée désormais ses couches dans tous les cas, lieu ou pas : une\ncarte neuve sans couche était un cul-de-sac silencieux, puisque\n« Change sheet… » refuse ensuite de l'habiller. Un modèle Blockout — une\nenceinte et son ouverture — s'ajoute aux trois existants, et l'annexe connaît\nl'état « blockout », entre « generated » et « retouched ».\n\nLe modèle a mis au jour un trou : les modèles livrés peignent leurs murs sur la\ncouche DÉCOR, que la maquette ne regardait pas. Un mur s'y extrude maintenant\ncomme sur le sol, sans quoi une carte maquettée à la manière des modèles aurait\nété vide.\n\n« --render --plan » rend la carte au vocabulaire des plans de principe du\nplanning : blocs couchés à plat — un plan se lit, il ne se joue pas, et\nl'extrusion y cacherait justement ce qu'on vient y voir —, pastilles, et une\nlégende des types et des natures de jeton employés. Ses libellés s'écrivent\navec la table de glyphes des jetons : « --render » tourne sans QApplication\n(LOT-EDITOR-13), donc sans aucune police, et QPainter::drawText y échoue.\n\nLe guide d'usage ouvre le chapitre « maquetter, jouer, puis habiller » : ce que\nla maquette montre, comment l'essayer, et ce que « Change sheet… » change — ou\nplutôt ne change pas.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* docs(changelog) : les cartes maquettes du LOT-128\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* docs(planning) : LOT-128 livré, et la recette qui reste à l'auteur\n\nLe cahier de test suit les vingt-deux cas ajoutés par le lot.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n* docs(planning) : LOT-128, le numéro de sa PR\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude Opus 5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-22T06:54:26Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/711ae9f5112b1e351cdce9eae0c9f62181e0560f"
+        },
+        "date": 1790060345410,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "ReachableAreaDashing",
+            "value": 156815.93749999732,
+            "unit": "ns/iter",
+            "extra": "iterations: 8960\ncpu: 156947.54464285713 ns\nthreads: 1"
+          },
+          {
+            "name": "FindPathAcrossGrid",
+            "value": 217657.1532211364,
+            "unit": "ns/iter",
+            "extra": "iterations: 6892\ncpu: 217643.64480557168 ns\nthreads: 1"
+          },
+          {
+            "name": "LineOfSightAcrossGrid",
+            "value": 57173.06085139341,
+            "unit": "ns/iter",
+            "extra": "iterations: 22974\ncpu: 57129.79890310786 ns\nthreads: 1"
+          },
+          {
+            "name": "CoverFromWithInterposed",
+            "value": 163074.9888392862,
+            "unit": "ns/iter",
+            "extra": "iterations: 8960\ncpu: 163922.99107142858 ns\nthreads: 1"
+          },
+          {
+            "name": "PlanTurnFourVersusFour",
+            "value": 1180887.9687499995,
+            "unit": "ns/iter",
+            "extra": "iterations: 1280\ncpu: 1184082.03125 ns\nthreads: 1"
+          },
+          {
+            "name": "LoadTestLevel",
+            "value": 2671517.5847457102,
+            "unit": "ns/iter",
+            "extra": "iterations: 472\ncpu: 2681408.8983050846 ns\nthreads: 1"
+          },
+          {
+            "name": "ComposeTestMap",
+            "value": 550.9304539975998,
+            "unit": "us/iter",
+            "extra": "iterations: 2489\ncpu: 552.4306950582563 us\nthreads: 1"
           }
         ]
       }
