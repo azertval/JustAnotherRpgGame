@@ -13,9 +13,9 @@ import Jadg.Ui
     et barre d'actions, fiche de la cible, ordre d'initiative -- se pose dans le formulaire, comme
     le contenu d'un `ScreenPage`.
 
-    **La scene n'est pas la maquette.** La maquette peint une scene isometrique ; le moteur rend un
-    viewport en pixel art (epic, charte v2). Le cadre se pose PAR-DESSUS l'hote, sans fond : tout
-    ce qui n'est pas un bloc laisse voir la scene.
+    **La scene n'est pas la maquette.** La maquette peint une scene isometrique ; le moteur rend le
+    viewport de la scene 2D HD (LOT-103). Le cadre se pose PAR-DESSUS l'hote, sans fond : tout ce
+    qui n'est pas un bloc laisse voir la scene.
 
     Cotes relevees sur `01_InGame_HUD_Mockup.png` (1672 x 940), ramenees a 1920 x 1080 (x 1,148),
     puis multipliees par `Tokens.uiScale`. Les proprietes portent des VALEURS D'EXEMPLE ; les

@@ -99,6 +99,16 @@ public:
     }
 
     /**
+     * @brief La plus haute élévation d'une pièce du lieu au-dessus du losange de sa case, en
+     *        largeurs de case (`LOT-103`) : l'ancre d'une pièce, rapportée au losange de l'art que
+     *        le manifeste déclare. Le cadrage d'un îlot la réserve au-dessus de ses cases.
+     * @return 0 sans manifeste, ou pour un lieu de pièces plates.
+     */
+    [[nodiscard]] float maximumRise() const noexcept {
+        return _maximumRise;
+    }
+
+    /**
      * @brief La pièce de sol d'une case.
      *
      * La variante est choisie par la case : `(colonne × 7 + ligne × 13) % nombre de variantes`.
@@ -137,6 +147,7 @@ private:
 
     std::string _place;
     float _diamondRatio = core::ARENA_DIAMOND_RATIO;
+    float _maximumRise = 0.0F;
     Table _floors;
     Table _relief;
     /// Ancien nom -> nom courant (`aliases` du manifeste).

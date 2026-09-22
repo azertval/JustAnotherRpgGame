@@ -18,6 +18,7 @@
 #include "Core/Data/JsonDocument.h"
 #include "Core/Resources/ScenePieceManifest.h"
 #include "HMI/Graphics/AnimationCatalog.h"
+#include "HMI/Graphics/SceneTextureTraits.h"
 
 namespace hmi {
 
@@ -142,6 +143,7 @@ void readFigures(const std::filesystem::path& root, const std::string& directory
     }
     std::ranges::sort(models);
     const std::vector<std::string> animations = stringList(document.root, "animations");
+    const auto tile = static_cast<int>(manifestArtTile(document.root).x);
     for (const std::string& model : models) {
         const std::string folder = std::string{directory}.append("/").append(model).append("/");
         for (const std::string& animation : animations) {
@@ -149,7 +151,8 @@ void readFigures(const std::filesystem::path& root, const std::string& directory
                                     .model = model,
                                     .form = animation,
                                     .path = folder + animation + ".png",
-                                    .frames = {}};
+                                    .frames = {},
+                                    .tilePixels = tile};
             if (readAnimatedEntry(entry, root / directory / model / (animation + ".anim.json"),
                                   catalog.errors)) {
                 family.entries.push_back(std::move(entry));
@@ -163,7 +166,8 @@ void readFigures(const std::filesystem::path& root, const std::string& directory
                                                        .path = folder + "portrait.png",
                                                        .frameWidth = width,
                                                        .frameHeight = height,
-                                                       .frames = {}});
+                                                       .frames = {},
+                                                       .tilePixels = tile});
         }
     }
     if (!family.entries.empty()) {
@@ -271,7 +275,8 @@ void readSceneFamily(const std::filesystem::path& root, const std::string& direc
             .footprintColumns = piece.footprintColumns,
             .footprintRows = piece.footprintRows,
             .anchorX = piece.anchorX,
-            .anchorY = piece.anchorY});
+            .anchorY = piece.anchorY,
+            .tilePixels = read.manifest.tileWidth()});
     }
     std::ranges::stable_sort(family.entries,
                              [](const AssetGalleryEntry& left, const AssetGalleryEntry& right) {
@@ -343,8 +348,10 @@ void readTree(const std::filesystem::path& root, AssetGalleryCatalog& catalog) {
     }
 }
 
-[[nodiscard]] int ceilCells(int pixels) {
-    return pixels <= 0 ? 0 : (pixels + ASSET_GALLERY_CELL_PIXELS - 1) / ASSET_GALLERY_CELL_PIXELS;
+/// Le nombre de cases que couvrent @p pixels d'art, une case valant @p tilePixels.
+[[nodiscard]] int ceilCells(int pixels, int tilePixels) {
+    const int tile = std::max(1, tilePixels);
+    return pixels <= 0 ? 0 : (pixels + tile - 1) / tile;
 }
 
 }  // namespace
@@ -400,8 +407,9 @@ AssetGalleryBloc assetGalleryBlocShape(const AssetGalleryEntry& entry) {
     const int footprintColumns = std::max(1, entry.footprintColumns);
     const int footprintRows = std::max(1, entry.footprintRows);
     // Le dessin monte au-dessus du bas de l'emprise ; en largeur, il est centré sur elle.
-    const int inner = std::max(footprintColumns, ceilCells(entry.frameWidth));
-    const int above = std::max(footprintRows, ceilCells(entry.frameHeight));
+    const int tile = entry.tileWidthPixels();
+    const int inner = std::max(footprintColumns, ceilCells(entry.frameWidth, tile));
+    const int above = std::max(footprintRows, ceilCells(entry.frameHeight, tile));
     AssetGalleryBloc bloc;
     bloc.columns = inner + 2;
     bloc.rows = above + 2;

@@ -45,19 +45,22 @@ namespace hmi {
 /**
  * @brief Le cadrage d'un lieu : la caméra **suit** le héros, et ne sort pas de la carte.
  *
- * Le Colisée ne tient pas dans un écran : le cadrage entier de l'arène ne convient
- * plus. L'agrandissement est **entier** — le pixel art se brouille dès qu'on le met à une échelle
- * fractionnaire —, l'art étant dessiné pour 720 lignes ; au-delà, on double. La caméra se centre
- * ensuite sur le point suivi, puis se ramène dans la scène : sur un axe où la scène est plus petite
- * que la vue, elle reste centrée, faute de quoi la carte collerait à un bord.
+ * Un lieu ne tient pas dans un écran : le cadrage entier de l'arène ne convient pas. Le facteur est
+ * **libre** et fixé par la définition (`EX-REN-013`) : une case occupe à l'écran la hauteur de la
+ * surface divisée par 10,8 (`hmi::worldTilePixels`), si bien que 1080p et 2160p cadrent la même
+ * étendue de monde. La caméra se centre ensuite sur le point suivi, puis se ramène dans la scène :
+ * sur un axe où la scène est plus petite que la vue, elle reste centrée, faute de quoi la carte
+ * collerait à un bord.
  *
  * @param projection  La projection du lieu.
  * @param focus       Le point suivi, en unités monde (le héros).
  * @param pixelWidth  Largeur de la surface, en pixels physiques.
  * @param pixelHeight Hauteur de la surface.
+ * @param tilePixels  Largeur d'une case à l'écran, en pixels, quand l'appelant l'impose (l'image
+ *                    d'un îlot, `hmi::renderCityBlock`) ; 0 : celle que donne la définition.
  */
 [[nodiscard]] Camera2D worldCamera(const core::IsoProjection& projection, core::Vector2 focus,
-                                   int pixelWidth, int pixelHeight);
+                                   int pixelWidth, int pixelHeight, float tilePixels = 0.0F);
 
 /**
  * @brief Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la
@@ -111,6 +114,12 @@ public:
         return _focus;
     }
 
+    /// @brief Impose la largeur d'une case à l'écran, en pixels ; 0 rend la règle de la
+    ///        définition (`hmi::worldCamera`).
+    void setTilePixels(float tilePixels) noexcept {
+        _tilePixels = tilePixels;
+    }
+
     /// @brief Dessine une image dans @p target : efface à @p clear, puis le lieu cadré sur le
     /// héros.
     void render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target, const float* clear);
@@ -132,18 +141,16 @@ public:
 private:
     /// Charge les textures de @p paths qui manquent encore. Sur le fil de rendu.
     void ensureTextures(const std::vector<std::string>& paths);
-    /// La largeur d'image d'une bande d'animation, lue de son `.anim.json` s'il y en a un.
-    [[nodiscard]] int bandFrameWidth(const std::string& path);
     /// Le marqueur d'une figurine sans image (`hmi::figureMarkerKey`), rien pour une autre piece.
     [[nodiscard]] std::optional<LoadedTexture> figureMarker(const std::string& path);
 
     std::filesystem::path _directory;
     WorldSceneSnapshot _snapshot;
     core::Vector2 _focus{};
+    float _tilePixels = 0.0F;
     ComposedScene _composed;
     /// Chemins déjà tentés : une pièce absente ne doit pas être redemandée à chaque image.
     std::set<std::string> _requested;
-    std::map<std::string, int> _bandFrameWidths;
 
     QRhi* _rhi = nullptr;
     QRhiResourceUpdateBatch* _pendingUploads = nullptr;

@@ -93,9 +93,8 @@ struct DiamondVertices {
     const float halfHeight = bounds.size.y / 2.0F;
     const float left = bounds.position.x;
     const float top = bounds.position.y;
-    return DiamondVertices{
-        .x = {left + halfWidth, left + bounds.size.x, left + halfWidth, left},
-        .y = {top, top + halfHeight, top + bounds.size.y, top + halfHeight}};
+    return DiamondVertices{.x = {left + halfWidth, left + bounds.size.x, left + halfWidth, left},
+                           .y = {top, top + halfHeight, top + bounds.size.y, top + halfHeight}};
 }
 
 // Eclairement des trois faces d'un bloc : le dessus prend la lumiere, la face gauche moins, la
@@ -137,10 +136,10 @@ void composeMaquetteBlock(ComposedScene& scene, const core::IsoProjection& proje
     const DiamondVertices base = diamondOf(bounds);
     const float height = bounds.size.y;  // une case de haut : la hauteur du losange
     const MaquetteColor tint = maquetteColor(type);
-    const float footY = projection
-                            .gridToWorld(gridPoint(static_cast<float>(cell.column),
-                                                   static_cast<float>(cell.row)))
-                            .y;
+    const float footY =
+        projection
+            .gridToWorld(gridPoint(static_cast<float>(cell.column), static_cast<float>(cell.row)))
+            .y;
     const std::int32_t order = worldDepthSortOrder(footY, WorldDepthSlot::Relief);
     const auto raised = [height](float y) { return y - height; };
 
@@ -176,19 +175,16 @@ constexpr float TRACE_THICKNESS = 0.09F;
 // monde : c'est une marque sur un plan, et une marque a demi cachee par le mur d'en face ne dit
 // plus ou est le PNJ -- ce qui est precisement son seul travail.
 void composeToken(ComposedScene& scene, const core::IsoProjection& projection,
-                  const ScenePieceTextures& textures, const MaquetteTokenSnapshot& token,
-                  float unitsPerScenePixel) {
+                  const ScenePieceTextures& textures, const MaquetteTokenSnapshot& token) {
     // Sans repli sur le damier : un jeton est peint ou n'est pas la. C'est aussi ce qui fait qu'un
     // rendu qui ignore les jetons -- l'arriere-plan de combat de l'arene -- n'en herite pas.
-    const SceneTexture* const texture =
-        textures.find(maquetteTokenPath(token.kind, token.letter));
+    const SceneTexture* const texture = textures.find(maquetteTokenPath(token.kind, token.letter));
     if (texture == nullptr || texture->texture == nullptr) {
         return;
     }
-    const core::Vector2 centre =
-        projection.gridToWorld(gridPoint(static_cast<float>(token.cell.column) + 0.5F,
-                                         static_cast<float>(token.cell.row) + 0.5F));
-    const float side = static_cast<float>(MAQUETTE_TOKEN_SIZE_PIXELS) * unitsPerScenePixel;
+    const core::Vector2 centre = projection.gridToWorld(gridPoint(
+        static_cast<float>(token.cell.column) + 0.5F, static_cast<float>(token.cell.row) + 0.5F));
+    const float side = MAQUETTE_TOKEN_TILE_FRACTION * projection.tileWidth();
     const float footY = projection
                             .gridToWorld(gridPoint(static_cast<float>(token.cell.column),
                                                    static_cast<float>(token.cell.row)))
@@ -224,8 +220,7 @@ void composeToken(ComposedScene& scene, const core::IsoProjection& projection,
     // La pointe : un quad dont deux sommets coincident, donc un triangle.
     PolyQuad head = tintedQuad(gold, 1.0F);
     head.x = {centre.x, centre.x + headHalf, centre.x, centre.x - headHalf};
-    head.y = {top - headHeight - headHeight, top - headHeight, top - headHeight,
-              top - headHeight};
+    head.y = {top - headHeight - headHeight, top - headHeight, top - headHeight, top - headHeight};
     scene.addPoly(RenderLayer::UI, textures.solid.texture, order, head);
 }
 
@@ -303,19 +298,15 @@ void composeFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
     if (texture.texture == nullptr) {
         return;
     }
-    // Le sol est etire sur la boite du losange : c'est la pièce du lieu, dessinee a sa taille.
-    const core::Rect bounds = projection.tileBounds(cell);
-    SpriteQuad quad;
-    quad.x = bounds.position.x;
-    quad.y = bounds.position.y;
-    quad.width = bounds.size.x;
-    quad.height = bounds.size.y;
-    scene.addSprite(RenderLayer::Tile, texture.texture, core::IsoProjection::depth(cell), quad);
+    // Le sol est etire sur la boite du losange, un peu elargie pour couvrir la couture
+    // (`floorQuad`, LOT-103).
+    scene.addSprite(RenderLayer::Tile, texture.texture, core::IsoProjection::depth(cell),
+                    floorQuad(projection.tileBounds(cell)));
 }
 
 void composeRelief(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                    const core::IsoProjection& projection, const ScenePieceTextures& textures,
-                   core::GridPosition cell, float unitsPerScenePixel, bool flatBlocks) {
+                   core::GridPosition cell, bool flatBlocks) {
     const std::string_view piece = snapshot.reliefAt(cell);
     if (piece.empty()) {
         // Un mur se peint aussi souvent sur la couche decor que sur le sol : il doit s'y extruder
@@ -346,14 +337,15 @@ void composeRelief(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                   .gridToWorld(
                       gridPoint(static_cast<float>(pied.column), static_cast<float>(pied.row)))
                   .y;
-    const SpriteQuad quad = standingPieceQuad(texture, topVertex, unitsPerScenePixel);
+    // A l'echelle de son lieu : le losange que son manifeste declare occupe celui de la case.
+    const SpriteQuad quad = standingPieceQuad(texture, topVertex, projection.tileWidth(),
+                                              projection.tileHeight() / projection.tileWidth());
     scene.addSprite(RenderLayer::Object, texture.texture,
                     worldDepthSortOrder(footY, WorldDepthSlot::Relief), quad);
 }
 
 void composeFigure(ComposedScene& scene, const core::IsoProjection& projection,
-                   const ScenePieceTextures& textures, const WorldFigureSnapshot& figure,
-                   float unitsPerPixel) {
+                   const ScenePieceTextures& textures, const WorldFigureSnapshot& figure) {
     if (figure.figure.empty()) {
         return;
     }
@@ -361,31 +353,17 @@ void composeFigure(ComposedScene& scene, const core::IsoProjection& projection,
     if (texture.texture == nullptr) {
         return;
     }
-    // La bande dit sa propre decoupe : sa largeur d'image, et avec sa largeur totale son nombre
-    // d'images. Une image hors bande est ramenee dedans plutot que de lire a cote de la texture.
-    const int frameWidthPixels =
-        texture.frameWidth > 0 ? texture.frameWidth : FIGURE_FRAME_WIDTH_PIXELS;
-    const int frameCount = texture.width > 0 ? std::max(1, texture.width / frameWidthPixels) : 1;
+    // La bande dit sa propre decoupe : sa cellule, et avec sa largeur totale son nombre d'images.
+    // Une image hors bande est ramenee dedans plutot que de lire a cote de la texture.
+    const int frameCount = frameCountOf(texture);
     const int frame = ((figure.frame % frameCount) + frameCount) % frameCount;
 
     const core::Vector2 center = projection.gridToWorld(figure.point);
     const float footY =
         projection.gridToWorld(gridPoint(figure.point.x + 0.5F, figure.point.y + 0.5F)).y;
-    const float scale = unitsPerPixel * FIGURE_SCALE;
-
-    SpriteQuad quad;
-    quad.width = static_cast<float>(frameWidthPixels) * scale;
-    quad.height = static_cast<float>(FIGURE_FRAME_HEIGHT_PIXELS) * scale;
-    quad.x = center.x - (quad.width / 2.0F);
-    quad.y = footY - (projection.tileHeight() * WORLD_FIGURE_BOTTOM_MARGIN) - quad.height;
-    if (texture.width > 0 && texture.height > 0) {
-        const auto frameWidth = static_cast<float>(frameWidthPixels);
-        quad.u0 = static_cast<float>(frame) * frameWidth / static_cast<float>(texture.width);
-        quad.u1 = static_cast<float>(frame + 1) * frameWidth / static_cast<float>(texture.width);
-        quad.v0 = 0.0F;
-        quad.v1 = std::min(1.0F, static_cast<float>(FIGURE_FRAME_HEIGHT_PIXELS) /
-                                     static_cast<float>(texture.height));
-    }
+    const SpriteQuad quad = figureQuad(
+        texture, frame, center.x, footY - (projection.tileHeight() * WORLD_FIGURE_BOTTOM_MARGIN),
+        projection.tileWidth());
     scene.addSprite(RenderLayer::Player, texture.texture,
                     worldDepthSortOrder(footY, WorldDepthSlot::Figure), quad);
 }
@@ -612,6 +590,7 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
 
     WorldSceneSnapshot snapshot;
     snapshot.diamondRatio = appearance.diamondRatio();
+    snapshot.maximumRise = appearance.maximumRise();
     snapshot.columns = std::max(0, grilleSol.width());
     snapshot.rows = std::max(0, grilleSol.height());
     snapshot.place = scenePlaceOf(source.layers);
@@ -715,23 +694,18 @@ std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot) {
 void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                        const core::IsoProjection& projection, const ScenePieceTextures& textures,
                        WorldComposeOptions options) {
-    const float unitsPerPixel = projection.tileWidth() / core::ARENA_SHEET_TILE_WIDTH_PIXELS;
-    const float unitsPerScenePixel =
-        projection.tileWidth() / static_cast<float>(SCENE_TILE_WIDTH_PIXELS);
-
     for (int row = 0; row < snapshot.rows; ++row) {
         for (int column = 0; column < snapshot.columns; ++column) {
             const core::GridPosition cell{.column = column, .row = row};
             composeFloor(scene, snapshot, projection, textures, cell, options.flatBlocks);
-            composeRelief(scene, snapshot, projection, textures, cell, unitsPerScenePixel,
-                          options.flatBlocks);
+            composeRelief(scene, snapshot, projection, textures, cell, options.flatBlocks);
         }
     }
     for (const WorldFigureSnapshot& figure : snapshot.figures) {
-        composeFigure(scene, projection, textures, figure, unitsPerPixel);
+        composeFigure(scene, projection, textures, figure);
     }
     for (const MaquetteTokenSnapshot& token : snapshot.marks.tokens) {
-        composeToken(scene, projection, textures, token, unitsPerScenePixel);
+        composeToken(scene, projection, textures, token);
     }
     for (const MaquetteTraceSnapshot& trace : snapshot.marks.traces) {
         composeTrace(scene, projection, textures, trace);
@@ -740,8 +714,7 @@ void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
 
 ComposedScene composeWorldScene(const WorldSceneSnapshot& snapshot,
                                 const core::IsoProjection& projection,
-                                const ScenePieceTextures& textures,
-                                WorldComposeOptions options) {
+                                const ScenePieceTextures& textures, WorldComposeOptions options) {
     ComposedScene scene;
     composeWorldScene(scene, snapshot, projection, textures, options);
     scene.sort();

@@ -440,8 +440,8 @@ void AssetGalleryItem::step(int frames) {
 
 AssetGalleryFrame AssetGalleryItem::frameFor(float pixelsPerItem) const {
     AssetGalleryFrame frame;
-    frame.artScale = static_cast<float>(_zoom) * pixelsPerItem;
-    frame.cellPixels = frame.artScale * static_cast<float>(ASSET_GALLERY_CELL_PIXELS);
+    frame.pixelScale = static_cast<float>(_zoom) * pixelsPerItem;
+    frame.cellPixels = frame.pixelScale * static_cast<float>(ASSET_GALLERY_CELL_PIXELS);
     frame.showGrid = _showGrid;
     frame.showFootprint = _showFootprint;
 
@@ -473,7 +473,8 @@ AssetGalleryFrame AssetGalleryItem::frameFor(float pixelsPerItem) const {
             .frameWidth = entry.frameWidth,
             .frameHeight = entry.frameHeight,
             .frameIndex = entry.frames.empty() ? 0 : entry.frames[static_cast<std::size_t>(rank)],
-            .selected = index == _selectedIndex});
+            .selected = index == _selectedIndex,
+            .tilePixels = entry.tileWidthPixels()});
     }
     frame.wanted.assign(wanted.begin(), wanted.end());
     return frame;

@@ -62,9 +62,10 @@ struct ComposedQuad {
 /**
  * @brief Sous-divisions de profondeur par unité monde, pour la quantification du tri par Y.
  *
- * Le rendu est du pixel art à 16 px/unité (`EX-ARCH-021`) : deux sprites dont les pieds sont
- * distants de moins d'un pixel ne peuvent pas se départager **à l'écran**, et les départager dans
- * le tri ne ferait que les faire scintiller au gré des arrondis flottants. Quantifier au pixel est
+ * Seize crans par unité monde (`EX-ARCH-021`), soit à peu près un pixel d'écran à 1080p, où une
+ * case de 5,375 unités occupe 100 pixels (`EX-REN-013`) : deux sprites dont les pieds sont
+ * distants de moins d'un cran ne peuvent pas se départager **à l'écran**, et les départager dans
+ * le tri ne ferait que les faire scintiller au gré des arrondis flottants. Quantifier au cran est
  * donc à la fois suffisant et stabilisateur.
  */
 inline constexpr float DEPTH_SUBDIVISIONS_PER_UNIT = 16.0f;
@@ -254,6 +255,5 @@ private:
  * @return Son rectangle englobant.
  */
 [[nodiscard]] core::Rect polyQuadBounds(const PolyQuad& quad) noexcept;
-
 
 }  // namespace hmi

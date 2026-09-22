@@ -94,12 +94,13 @@ std::filesystem::path assets() {
 /// Un bloc de figure en (0, 0), sans grille ni emprise : seul le sprite peint.
 hmi::AssetGalleryFrame figureFrame(const std::string& path) {
     hmi::AssetGalleryFrame frame;
+    // Une case de 68 pixels pour un lieu qui declare un losange de 68 : l'art a sa taille.
     frame.cellPixels = 68.0f;
-    frame.artScale = 1.0f;
+    frame.pixelScale = 1.0f;
     frame.showGrid = false;
     frame.showFootprint = false;
-    frame.drawn.push_back(
-        hmi::AssetGalleryDrawnBloc{.path = path, .frameWidth = 48, .frameHeight = 64});
+    frame.drawn.push_back(hmi::AssetGalleryDrawnBloc{
+        .path = path, .frameWidth = 48, .frameHeight = 64, .tilePixels = 68});
     frame.wanted = {path};
     return frame;
 }

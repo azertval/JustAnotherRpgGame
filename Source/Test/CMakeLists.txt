@@ -156,10 +156,13 @@ find_package(Qt6 QUIET COMPONENTS Gui GuiPrivate)
 if(Qt6_FOUND)
     target_sources(UnitTests PRIVATE
         Unit/HMI/Graphics/test_image_encode.cpp
-        # Non-regression VISUELLE du portage QRhi : rendu hors ecran d'un motif
-        # temoin, relu pixel par pixel. Se saute proprement si la machine n'offre aucune interface
-        # QRhi -- c'est le seul test qui protege la nettete du pixel art.
+        # Non-regression VISUELLE du pipeline QRhi : rendu hors ecran de motifs temoins, relus
+        # pixel par pixel -- une image engendree reste nette, l'art peint se lisse et se
+        # premultiplie. Se saute proprement si la machine n'offre aucune interface QRhi.
         Unit/HMI/Graphics/test_rhi_offscreen.cpp
+        # La maquette du standard 2D HD (LOT-101), rendue par le moteur a 1080p et 2160p et
+        # comparee a la maquette montee a la main (LOT-103).
+        Unit/HMI/Graphics/test_hd_mockup_render.cpp
         # La scene du Colisee rendue hors ecran (LOT-86 Phase 5) : creation, recreation sur une autre
         # interface QRhi, liberation, et une image qui n'est pas que le fond.
         Unit/HMI/Graphics/test_arena_scene_renderer.cpp
@@ -252,6 +255,10 @@ target_compile_definitions(UnitTests PRIVATE
     # tests seraient tombes avec eux : ils lisent desormais cette racine, qui ne prouve pas du
     # contenu mais des MECANISMES. Voir Fixtures/GameData/README.md.
     JADG_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/GameData"
+    # La maquette du LOT-101 installee comme une zone livree, et ses deux images de reference :
+    # le rendu HD du LOT-103 se juge contre elles (scripts/build_hd_mockup.py ecrit les deux).
+    JADG_HD_MOCKUP_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/HdMockup"
+    JADG_MOCKUP_REFERENCE_DIR="${PROJECT_SOURCE_DIR}/Planning/versions/v0.1.0/v0.0.1-demo/maquettes"
     JADG_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
     JADG_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization"
     # Schemas RPG (LOT-32) : le test d'enumerations lit la donnee LIVREE, pas une copie -- une

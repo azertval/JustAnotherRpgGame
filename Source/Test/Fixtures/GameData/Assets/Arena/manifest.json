@@ -1,4 +1,8 @@
 {
+  "tile": [
+    68,
+    42
+  ],
   "scene": "bourg",
   "frame": [
     48,

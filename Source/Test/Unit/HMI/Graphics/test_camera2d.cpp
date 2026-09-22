@@ -172,22 +172,19 @@ TEST(Camera2DTest, BordEcranVersBordClip) {
 }
 
 /**
- * @brief fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit niveau).
- * \castest{<b>fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit
- * niveau).</b><br/>
+ * @brief fitZoom remplit la surface sans arrondir, même au-dessus de 1 (`LOT-103`).
+ * \castest{<b>fitZoom remplit la surface sans arrondi a l'entier.</b><br/>
  * \tcat Unitaire · Camera2 D<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit
- * niveau).
+ * \tetapes 1. Cadrer un niveau de 14 x 8 unites dans une fenetre de 1280 x 720, marge 0,85.<br/>
+ * \tattendu Le facteur vaut exactement 0,85 fois le plus petit rapport, sans arrondi : la grille
+ * du pixel art n'est plus a proteger (EX-ARCH-022).
  * }
  */
-TEST(Camera2DTest, FitZoomEntierPourPetitNiveau) {
-    // 14x8 cases, 16 px/unite -> 224x128 px. Fenetre 1280x720 : le facteur brut est tres > 1.
+TEST(Camera2DTest, FitZoomRemplitSansArrondi) {
+    // 14x8 unites, 16 px/unite -> 224x128 px. Fenetre 1280x720 : min(5,714 ; 5,625) = 5,625.
     const float zoom = hmi::Camera2D::fitZoom(1280.0f, 720.0f, 14.0f, 8.0f, 0.85f);
-    EXPECT_GE(zoom, 1.0f);
-    EXPECT_FLOAT_EQ(zoom, std::floor(zoom));  // valeur entiere
+    EXPECT_FLOAT_EQ(zoom, 5.625f * 0.85f);
 }
 
 /**
@@ -212,19 +209,18 @@ TEST(Camera2DTest, FitZoomFractionnairePourGrandNiveau) {
 }
 
 /**
- * @brief fitZoom applique la marge avant l'arrondi.
- * \castest{<b>fitZoom applique la marge avant l'arrondi.</b><br/>
+ * @brief fitZoom applique la marge telle quelle.
+ * \castest{<b>fitZoom applique la marge telle quelle.</b><br/>
  * \tcat Unitaire · Camera2 D<br/>
  * \tcrit Mineur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu fitZoom applique la marge avant l'arrondi.
+ * \tetapes 1. Cadrer 16 x 16 unites dans 1280 x 1280 pixels, sans marge puis a 0,85.<br/>
+ * \tattendu 5 sans marge, 4,25 avec : la marge multiplie le facteur, rien ne l'arrondit.
  * }
  */
 TEST(Camera2DTest, FitZoomAppliqueLaMarge) {
-    // Facteur brut exact = 5 (1280 / (16*16)) ; une marge de 0.85 le fait passer sous 5 -> floor 4.
+    // Facteur brut exact = 5 (1280 / (16*16)).
     const float zoomSansMarge = hmi::Camera2D::fitZoom(1280.0f, 1280.0f, 16.0f, 16.0f, 1.0f);
     const float zoomAvecMarge = hmi::Camera2D::fitZoom(1280.0f, 1280.0f, 16.0f, 16.0f, 0.85f);
     EXPECT_FLOAT_EQ(zoomSansMarge, 5.0f);
-    EXPECT_FLOAT_EQ(zoomAvecMarge, 4.0f);
+    EXPECT_FLOAT_EQ(zoomAvecMarge, 4.25f);
 }

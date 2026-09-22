@@ -10,38 +10,27 @@
 #include <rhi/qrhi.h>
 
 #include "Core/Resources/AssetMarker.h"
-#include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/MissingTexture.h"
-#include "HMI/Graphics/ScenePiecePlacement.h"
+#include "HMI/Graphics/SceneTextureTraits.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 
 namespace hmi {
 
-namespace {
-
-/// Le chemin du `.anim.json` d'une bande : `idle.png` -> `idle.anim.json`.
-[[nodiscard]] std::filesystem::path animationDescriptionOf(const std::filesystem::path& band) {
-    std::filesystem::path description = band;
-    description.replace_extension();
-    description += ".anim.json";
-    return description;
-}
-
-}  // namespace
-
 Camera2D worldCamera(const core::IsoProjection& projection, core::Vector2 focus, int pixelWidth,
-                     int pixelHeight) {
+                     int pixelHeight, float tilePixels) {
     const int width = std::max(1, pixelWidth);
     const int height = std::max(1, pixelHeight);
     Camera2D camera(width, height);
 
-    // Un agrandissement ENTIER, jamais un cadrage ajuste : le pixel art se brouille des qu'on le
-    // met a l'echelle 0,62. L'art est dessine pour 720 lignes ; au-dela, on double.
-    camera.setZoom(static_cast<float>(std::max(1, height / WORLD_ART_HEIGHT_PIXELS)));
+    // Un facteur LIBRE, fixe par la definition (EX-REN-013) : une case occupe la hauteur de la vue
+    // divisee par 10,8. L'art est toujours reduit, jamais agrandi, et filtre par mipmaps : aucune
+    // grille de pixels n'est plus a proteger.
+    const float onScreen = tilePixels > 0.0F ? tilePixels : worldTilePixels(height);
+    camera.setZoom(onScreen / (projection.tileWidth() * Camera2D::PIXELS_PER_UNIT));
 
     // Le point suivi, ramene dans la scene : la vue ne montre pas le vide autour de la carte. Sur
     // un axe ou la scene est plus petite que la vue, elle reste centree. La scene occupe
@@ -100,27 +89,13 @@ bool WorldSceneRenderer::ensureResources(QRhi* rhi) {
     return true;
 }
 
-int WorldSceneRenderer::bandFrameWidth(const std::string& path) {
-    const auto connue = _bandFrameWidths.find(path);
-    if (connue != _bandFrameWidths.end()) {
-        return connue->second;
-    }
-    // Seules les figurines ont un `.anim.json` ; une piece de decor n'en a pas, et son absence est
-    // un cas legitime, pas une anomalie.
-    const AnimationDescriptionResult lue =
-        AnimationCatalog::loadFromFile(animationDescriptionOf(_directory / path));
-    const int largeur = lue.ok() ? lue.description->frameWidth : 0;
-    _bandFrameWidths.emplace(path, largeur);
-    return largeur;
-}
-
 std::optional<LoadedTexture> WorldSceneRenderer::figureMarker(const std::string& path) {
     const std::string cle = figureMarkerKey(path);
     if (cle.empty()) {
         return std::nullopt;
     }
     const core::MarkerImage image =
-        core::assetMarker(cle, FIGURE_FRAME_WIDTH_PIXELS, FIGURE_FRAME_HEIGHT_PIXELS);
+        core::assetMarker(cle, FIGURE_MARKER_WIDTH_PIXELS, FIGURE_MARKER_HEIGHT_PIXELS);
     if (image.isEmpty()) {
         return std::nullopt;
     }
@@ -151,7 +126,7 @@ void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
             loadTextureFromFile(_resources.context(), _directory / path);
         if (!texture.has_value()) {
             // Une figurine sans image se dessine par son marqueur (LOT-39, LOT-96) : la
-            // sentinelle se voit avant que l'atelier ne l'ait dessinee.
+            // sentinelle se voit avant que l'atelier ne l'ait dessinee. Une case de large.
             if (std::optional<LoadedTexture> marqueur = figureMarker(path)) {
                 _textures.byPath[path] = SceneTexture{.texture = marqueur->handle(),
                                                       .width = marqueur->width,
@@ -164,21 +139,10 @@ void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
             GRAPHICS_LOG_WARNING(missingTextureWarning(path));
             continue;
         }
-        _textures.byPath[path] = SceneTexture{.texture = texture->handle(),
-                                              .width = texture->width,
-                                              .height = texture->height,
-                                              .frameWidth = bandFrameWidth(path)};
-        if (path.starts_with("Scene/")) {
-            const auto file = _directory / path;
-            const auto document =
-                core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
-            if (document.ok()) {
-                _textures.byPath[path].anchor =
-                    scenePieceAnchor(document.root, file.filename().string());
-                _textures.byPath[path].depthOffset =
-                    scenePieceDepthOffset(document.root, file.filename().string());
-            }
-        }
+        // Decoupe, echelle et ancre : ce que ses fichiers voisins disent de l'image (LOT-103).
+        SceneTexture& loaded = _textures.byPath[path] = SceneTexture{
+            .texture = texture->handle(), .width = texture->width, .height = texture->height};
+        applySceneTextureTraits(loaded, readSceneTextureTraits(_directory, path));
         _loaded.push_back(std::move(*texture));
     }
 }
@@ -228,8 +192,8 @@ void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarg
     _composed.sort();
 
     const QSize pixels = target->pixelSize();
-    const Camera2D camera =
-        worldCamera(projection, projection.gridToWorld(_focus), pixels.width(), pixels.height());
+    const Camera2D camera = worldCamera(projection, projection.gridToWorld(_focus), pixels.width(),
+                                        pixels.height(), _tilePixels);
 
     SpriteBatch& sprites = _resources.sprites();
     sprites.beginFrame();

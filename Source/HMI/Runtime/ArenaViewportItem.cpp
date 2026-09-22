@@ -120,7 +120,7 @@ ArenaViewportItem::Framing ArenaViewportItem::framing() const {
     const ArenaModel* const model = _model.data();
     core::IsoProjection projection(model != nullptr ? model->gridColumns() : 0,
                                    model != nullptr ? model->gridRows() : 0,
-                                   core::ARENA_TILE_WIDTH_UNITS, 42.0F / 68.0F);
+                                   core::ARENA_TILE_WIDTH_UNITS, core::ARENA_DIAMOND_RATIO);
     // La taille réelle de la texture une fois le rendu passé ; avant, celle qu'il prendra.
     QSize pixels = effectiveColorBufferSize();
     if (pixels.isEmpty()) {

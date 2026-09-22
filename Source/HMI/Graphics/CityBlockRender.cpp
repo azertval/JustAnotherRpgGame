@@ -21,10 +21,6 @@ namespace hmi {
 
 namespace {
 
-// La plus haute piece de l'atelier : une piece large (102 x 135), dont 93 pixels d'art s'elevent
-// au-dessus du losange de sa case.
-constexpr float PLUS_HAUTE_ELEVATION_PIXELS = 135.0F - static_cast<float>(SCENE_TILE_HEIGHT_PIXELS);
-
 // Fond de l'image : celui de l'ecran de jeu, que le dehors d'une carte laisse voir.
 constexpr std::array<float, 4> FOND = {0.043F, 0.043F, 0.043F, 1.0F};
 
@@ -41,7 +37,8 @@ std::unique_ptr<QRhi> interfaceHorsEcran() {
 }  // namespace
 
 CityBlockFraming cityBlockFraming(const core::IsoProjection& projection,
-                                  const core::CityBlock& block) {
+                                  const core::CityBlock& block, float maximumRise,
+                                  float tilePixels) {
     const auto gauche = static_cast<float>(block.origin.column);
     const auto haut = static_cast<float>(block.origin.row);
     const float droite = gauche + static_cast<float>(block.columns);
@@ -59,15 +56,14 @@ CityBlockFraming cityBlockFraming(const core::IsoProjection& projection,
         minY = std::min(minY, coin.y);
         maxY = std::max(maxY, coin.y);
     }
-    const float unitesParPixelDArt =
-        projection.tileWidth() / static_cast<float>(SCENE_TILE_WIDTH_PIXELS);
-    minY -= PLUS_HAUTE_ELEVATION_PIXELS * unitesParPixelDArt;
+    minY -= std::max(0.0F, maximumRise) * projection.tileWidth();
 
     const core::Vector2 centre{(minX + maxX) / 2.0F, (minY + maxY) / 2.0F};
+    const float pixelsParUnite = std::max(1.0F, tilePixels) / projection.tileWidth();
     return CityBlockFraming{
         .focus = projection.worldToGrid(centre),
-        .pixelWidth = static_cast<int>(std::ceil((maxX - minX) * Camera2D::PIXELS_PER_UNIT)),
-        .pixelHeight = static_cast<int>(std::ceil((maxY - minY) * Camera2D::PIXELS_PER_UNIT))};
+        .pixelWidth = static_cast<int>(std::ceil((maxX - minX) * pixelsParUnite)),
+        .pixelHeight = static_cast<int>(std::ceil((maxY - minY) * pixelsParUnite))};
 }
 
 QImage renderCityBlock(const std::filesystem::path& assetsDirectory,
@@ -77,8 +73,9 @@ QImage renderCityBlock(const std::filesystem::path& assetsDirectory,
         GRAPHICS_LOG_WARNING("Plan : aucune interface QRhi hors ecran, l'ilot ne se dessine pas.");
         return {};
     }
-    const core::IsoProjection projection(snapshot.columns, snapshot.rows);
-    const CityBlockFraming cadrage = cityBlockFraming(projection, block);
+    const core::IsoProjection projection(snapshot.columns, snapshot.rows,
+                                         core::ARENA_TILE_WIDTH_UNITS, snapshot.diamondRatio);
+    const CityBlockFraming cadrage = cityBlockFraming(projection, block, snapshot.maximumRise);
     const QSize taille(std::max(1, cadrage.pixelWidth), std::max(1, cadrage.pixelHeight));
 
     const std::unique_ptr<QRhiTexture> texture(
@@ -106,6 +103,7 @@ QImage renderCityBlock(const std::filesystem::path& assetsDirectory,
         }
         rendu.setSnapshot(snapshot);
         rendu.setFocus(cadrage.focus);
+        rendu.setTilePixels(CITY_BLOCK_TILE_PIXELS);
 
         QRhiCommandBuffer* commandes = nullptr;
         if (rhi->beginOffscreenFrame(&commandes) != QRhi::FrameOpSuccess) {

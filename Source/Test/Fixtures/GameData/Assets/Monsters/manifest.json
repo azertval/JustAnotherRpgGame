@@ -1,5 +1,9 @@
 {
   "version": 1,
+  "tile": [
+    68,
+    42
+  ],
   "animations": [
     "idle",
     "walk",

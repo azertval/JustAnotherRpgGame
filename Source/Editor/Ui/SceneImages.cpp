@@ -7,13 +7,12 @@
 
 #include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion
 #include "Core/Resources/AssetMarker.h"
-#include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
-#include "HMI/Graphics/ScenePiecePlacement.h"
+#include "HMI/Graphics/SceneTextureTraits.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/HmiLog.h"
 
@@ -41,14 +40,6 @@ namespace {
         return image;
     }();
     return solid;
-}
-
-/// Le chemin du `.anim.json` d'une bande : `idle.png` -> `idle.anim.json`.
-[[nodiscard]] std::filesystem::path animationDescriptionOf(const std::filesystem::path& band) {
-    std::filesystem::path description = band;
-    description.replace_extension();
-    description += ".anim.json";
-    return description;
 }
 
 [[nodiscard]] SceneTexture textureOf(const QImage& image, int frameWidth) {
@@ -102,13 +93,6 @@ const QImage* SceneImages::image(const std::string& path) {
     return found == _images.end() ? nullptr : &found->second;
 }
 
-int SceneImages::bandFrameWidth(const std::string& path) const {
-    // Seules les figurines ont un `.anim.json` ; une pièce de décor n'en a pas.
-    const AnimationDescriptionResult read =
-        AnimationCatalog::loadFromFile(animationDescriptionOf(_directory / path));
-    return read.ok() ? read.description->frameWidth : 0;
-}
-
 void SceneImages::ensure(const std::vector<std::string>& paths) {
     for (const std::string& path : paths) {
         if (!_requested.insert(path).second) {
@@ -116,8 +100,7 @@ void SceneImages::ensure(const std::vector<std::string>& paths) {
         }
         // Un jeton n'est pas un fichier : il se peint (LOT-128, decision D2). La meme image, au
         // pixel pres, que celle que le jeu televerse.
-        if (const core::MarkerImage token =
-                maquetteTokenImage(path, MAQUETTE_TOKEN_SIZE_PIXELS);
+        if (const core::MarkerImage token = maquetteTokenImage(path, MAQUETTE_TOKEN_SIZE_PIXELS);
             !token.isEmpty()) {
             QImage& stored = _images[path] =
                 fromRgba8(token.width, token.height, markerPixelsRgba8(token));
@@ -128,25 +111,17 @@ void SceneImages::ensure(const std::vector<std::string>& paths) {
         if (!loaded.isNull()) {
             QImage& stored = _images[path] =
                 loaded.convertToFormat(QImage::Format_ARGB32_Premultiplied);
-            _textures.byPath[path] = textureOf(stored, bandFrameWidth(path));
-            if (path.starts_with("Scene/")) {
-                const auto file = _directory / path;
-                const auto document =
-                    core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
-                if (document.ok()) {
-                    _textures.byPath[path].anchor =
-                        scenePieceAnchor(document.root, file.filename().string());
-                    _textures.byPath[path].depthOffset =
-                        scenePieceDepthOffset(document.root, file.filename().string());
-                }
-            }
+            // Decoupe, echelle et ancre : les memes traits que le jeu lit (LOT-103).
+            _textures.byPath[path] = textureOf(stored, 0);
+            applySceneTextureTraits(_textures.byPath[path],
+                                    readSceneTextureTraits(_directory, path));
             continue;
         }
         // Une figurine sans image se dessine par son marqueur, comme en jeu (LOT-39, LOT-96).
         const std::string key = figureMarkerKey(path);
         if (!key.empty()) {
             const core::MarkerImage marker =
-                core::assetMarker(key, FIGURE_FRAME_WIDTH_PIXELS, FIGURE_FRAME_HEIGHT_PIXELS);
+                core::assetMarker(key, FIGURE_MARKER_WIDTH_PIXELS, FIGURE_MARKER_HEIGHT_PIXELS);
             if (!marker.isEmpty()) {
                 QImage& stored = _images[path] =
                     fromRgba8(marker.width, marker.height, markerPixelsRgba8(marker));
