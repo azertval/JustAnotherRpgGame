@@ -11,6 +11,7 @@
 #include <filesystem>
 #include <fstream>
 #include <string>
+#include <vector>
 
 #include <gtest/gtest.h>
 
@@ -248,6 +249,57 @@ TEST(AssetGalleryTest, ToutAssetLivreEstDansLaGalerie) {
     EXPECT_FALSE(
         hmi::assetGalleryExcludes("Regions/central-empire/capital/martpart/Scene/street.png"));
     EXPECT_FALSE(hmi::assetGalleryExcludes("Npc/figurant/portrait.png"));
+}
+
+/**
+ * @brief L'arborescence par niveaux paraît dans la galerie : un dossier `Scene/` de zone est une
+ *        famille nommée par son lieu, et un manifeste encore vide n'en fait pas (LOT-104).
+ * \castest{<b>Les pièces de l'arborescence par niveaux paraissent dans la galerie.</b><br/>
+ * \tcat Unitaire · Galerie des assets<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Écrire `Regions/r/ville/zone/Scene/manifest.json` avec un mur 3 × 1, et
+ * `Common/Terrain/manifest.json` sans pièce. 2. Lire le catalogue. 3. Chercher les images non
+ * listées.<br/>
+ * \tattendu Une famille « Scène · r/ville/zone » ; le mur à son chemin, sa taille, son emprise et
+ * son ancre ; aucune famille pour le commun vide ; aucune erreur, aucune image non listée.
+ * }
+ */
+TEST(AssetGalleryTest, ArborescenceParNiveaux) {
+    const std::filesystem::path root =
+        std::filesystem::temp_directory_path() / "jadg_asset_gallery_tree";
+    std::filesystem::remove_all(root);
+    const std::filesystem::path scene = root / "Regions" / "r" / "ville" / "zone" / "Scene";
+    std::filesystem::create_directories(scene);
+    std::filesystem::create_directories(root / "Common" / "Terrain");
+    std::ofstream(scene / "manifest.json")
+        << R"({"version": 1, "disposition": "zone", "tile": [256, 159], "textures": {)"
+           R"("scene/zone/wall-arcade-u": {"file": "wall-arcade-u.png", "class": "wide",)"
+           R"( "footprint": [3, 1], "size": [426, 539], "anchor": [6, 295]}}})";
+    std::ofstream(scene / "wall-arcade-u.png") << "png";
+    std::ofstream(root / "Common" / "Terrain" / "manifest.json")
+        << R"({"version": 1, "tile": [256, 159], "textures": {}})";
+
+    const hmi::AssetGalleryCatalog catalog = hmi::AssetGalleryCatalog::load(root);
+    const std::vector<std::string> unlisted = hmi::assetGalleryUnlisted(root, catalog);
+    std::filesystem::remove_all(root);
+
+    EXPECT_TRUE(catalog.errors.empty());
+    EXPECT_TRUE(unlisted.empty());
+    ASSERT_EQ(catalog.families.size(), 1U);
+    const hmi::AssetGalleryFamily& family = catalog.families.front();
+    EXPECT_EQ(family.title, "Scène · r/ville/zone");
+    EXPECT_EQ(family.directory, "Regions/r/ville/zone/Scene");
+    ASSERT_EQ(family.entries.size(), 1U);
+    const hmi::AssetGalleryEntry& wall = family.entries.front();
+    EXPECT_EQ(wall.form, "wall-arcade-u");
+    EXPECT_EQ(wall.model, "wide");
+    EXPECT_EQ(wall.path, "Regions/r/ville/zone/Scene/wall-arcade-u.png");
+    EXPECT_EQ(wall.frameWidth, 426);
+    EXPECT_EQ(wall.frameHeight, 539);
+    EXPECT_EQ(wall.footprintColumns, 3);
+    EXPECT_EQ(wall.footprintRows, 1);
+    EXPECT_EQ(wall.anchorX, 6);
+    EXPECT_EQ(wall.anchorY, 295);
 }
 
 /**

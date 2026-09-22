@@ -941,8 +941,11 @@ toutes leurs animations. Tout asset livré doit y paraître (`EX-CNT-042`), et u
   ce qui sert à disposer un asset est lu dans les manifestes : la galerie place sans charger, ce
   qui lui permet de ne charger que ce qui est à l'écran ;
 - `hmi::AssetGalleryFamily` et `hmi::AssetGalleryCatalog::load(assetsRoot)` : l'inventaire, lu
-  dans les manifestes existants (PNJ, monstres, Colisée, scènes), chacun seulement s'il existe ; un
-  manifeste illisible est une erreur **nommée** dans `errors`, jamais un arrêt ; `entryCount()` ;
+  dans les manifestes existants (PNJ, monstres, Colisée, scènes), chacun seulement s'il existe,
+  puis dans l'**arborescence par niveaux** où la chaîne HD installe (`LOT-104`) : chaque
+  `manifest.json` sous `Common/` et `Regions/`, un dossier `Scene/` en une famille
+  `Scène · <lieu>`, un dossier `Characters/` en `Figurines · <dossier>` ; un manifeste illisible
+  est une erreur **nommée** dans `errors`, jamais un arrêt ; `entryCount()` ;
 - `hmi::assetGalleryExcludes(path)` : les images livrées qui ne sont pas des assets à montrer, par
   règle nommée — l'interface (`UI/`), les cartes plein écran (`Maps/`, que l'écran « Carte » montre
   déjà), les polices (`Fonts/`) ; `hmi::assetGalleryUnlisted(assetsRoot, catalog)` : les images

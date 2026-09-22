@@ -765,6 +765,15 @@ jobs:
         if: ${{ !cancelled() }}
         run: python3 scripts/check_map_assets.py
 
+      # Assets HD installés (LOT-104) : sous Common/ et Regions/, tout fichier cité par un manifeste
+      # existe, toute image est citée (EX-CNT-042), chaque pièce tient dans les bornes du standard
+      # 2D HD, et chaque zone sous son budget de 40 Mio -- dont le poids s'écrit dans le résumé du
+      # job. Les sources ne sont pas sur le runner : c'est l'installé qu'on contrôle. Sans dépendance.
+      - name: Assets HD conformes a leur manifeste et au budget par zone (EX-CNT-042)
+        id: hd_assets
+        if: ${{ !cancelled() }}
+        run: python3 scripts/check_hd_assets.py
+
       # Les cles d'assets d'ENTITE (LOT-39). Ce controle echoue sur une cle orpheline -- une
       # derogation malformee, ou qui nomme une famille inconnue (EX-CNT-040) -- mais se contente de
       # LISTER les cles encore servies par un marqueur genere (EX-CNT-041) : c'est un etat
@@ -869,6 +878,7 @@ jobs:
             Manifeste du corpus=${{ steps.corpus.outcome }}
             Illustrations et manifeste=${{ steps.ui_assets.outcome }}
             Cartes, manifeste et atlas=${{ steps.map_assets.outcome }}
+            Assets HD et budget par zone=${{ steps.hd_assets.outcome }}
             Clés d'assets d'entité=${{ steps.asset_keys.outcome }}
             Catalogues RPG=${{ steps.rpg_data.outcome }}
             Cahier des assets=${{ steps.assets_brief.outcome }}
