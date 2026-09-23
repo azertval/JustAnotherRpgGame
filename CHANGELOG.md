@@ -6,6 +6,16 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-125 — Le canevas de l'éditeur en HD.** Le canevas, l'essai immédiat, les vignettes et
+  `--render` peignent l'art HD comme le jeu : lissé, lu sur des **niveaux réduits** calculés à la
+  demande (`QPainter` n'a pas de mipmaps), les images engendrées restant au plus proche. Le cadre se
+  mesure sur ce qui est peint : une pièce haute n'est plus rognée. `--render` : l'échelle 1 est la
+  carte vue à 1080p, et l'image ne dépasse jamais 8 192 pixels de côté. Un seul cache d'images par
+  dossier d'assets, partagé par les onglets et les vignettes, borné à 256 Mio de pixels et qui ne lit
+  plus un manifeste par image. La parité avec le rendu du jeu se mesure désormais sur la maquette HD
+  du LOT-101, et le seuil des cartes d'essai redescend de 2,5 % à 0,5 %. Une nouvelle mesure,
+  `CanvasBenchmarks`, suit chaque nuit le coût de la peinture.
+  
 - **Planning — LOT-129, les étages et les toits de la scène.** Nouveau lot moteur de la démo, entrant
   du `LOT-108` : un décor se bâtit en niveaux modulaires (un étage de mur sur un autre, une toiture
   au sommet, sur la couche `floor` réservée par le format v4), ce qui masque le héros s'efface, et la

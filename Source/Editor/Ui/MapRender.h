@@ -30,18 +30,28 @@ class Level;
  * collision par-dessus. Une carte qui ne nomme aucun lieu se peint par les couleurs de ses types,
  * comme dans le canevas.
  *
- * L'échelle 1 est celle des planches : un pixel d'image par pixel d'art (`Camera2D`, zoom 1), ce
- * qui donne à Martpart (48 × 40) une image de 3 800 × 2 400 pixels environ.
+ * L'échelle 1 est **la carte vue à 1080p** : une case de 100 pixels, celle du jeu en plein écran
+ * (`hmi::worldTilePixels`, `LOT-125`). Une carte de 48 × 40 y fait environ 4 400 × 2 800 pixels ;
+ * l'image ne dépasse jamais `MapRenderOptions::maxSide` de côté, quitte à réduire l'échelle. Le
+ * cadre est ce qui est peint — une pièce haute n'est jamais rognée.
  */
 
 namespace hmi {
+
+/// Le plus grand côté d'une image de `--render` par défaut, en pixels (`LOT-125`).
+inline constexpr int MAP_RENDER_MAX_SIDE = 8192;
+
+/// @return Les pixels d'image par unité monde de l'échelle @p scale de `--render`.
+[[nodiscard]] double renderPixelsPerUnit(double scale);
 
 /// @brief Les réglages d'un rendu.
 struct MapRenderOptions {
     /// Les bandes peintes ; par défaut, ce que le jeu montre, sans la collision.
     IsoBandOpacity bands;
-    /// Pixels d'image par pixel d'art, dans ]0, 4].
+    /// L'échelle, dans ]0, 4] : 1 est la carte vue à 1080p, 2 à 2160p.
     double scale = 1.0;
+    /// Le plus grand côté de l'image, en pixels : au-delà, l'échelle se réduit pour y tenir.
+    int maxSide = MAP_RENDER_MAX_SIDE;
     /// Le fond, autour du losange de la carte.
     QColor background = QColor(24, 26, 30);
     /// **Plan de principe** (`--plan`, `LOT-128`) : les blocs se couchent en losanges plats et une

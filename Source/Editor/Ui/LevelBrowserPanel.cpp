@@ -242,9 +242,9 @@ QPixmap LevelBrowserPanel::thumbnailFor(const std::filesystem::path& path) {
     QPixmap thumbnail;
     const core::LevelLoadResult level = core::LevelLoader::loadFromFile(path);
     if (level.ok()) {
-        const QImage rendered =
-            renderMap(*level.level, _dir.parent_path(),
-                     MapRenderOptions{.bands = {}, .scale = THUMBNAIL_SCALE});
+        const QImage rendered = renderMap(
+            *level.level, _dir.parent_path(),
+            MapRenderOptions{.bands = {}, .scale = THUMBNAIL_SCALE, .maxSide = 2 * THUMBNAIL_SIDE});
         if (!rendered.isNull()) {
             thumbnail = QPixmap::fromImage(rendered.scaled(
                 THUMBNAIL_SIDE, THUMBNAIL_SIDE, Qt::KeepAspectRatio, Qt::SmoothTransformation));

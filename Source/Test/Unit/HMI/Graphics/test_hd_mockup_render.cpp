@@ -42,6 +42,7 @@
 #include "Core/Resources/ScenePieceManifest.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/Graphics/WorldSceneRenderer.h"
+#include "Test/Support/HdMockupScene.h"
 
 namespace {
 
@@ -84,51 +85,6 @@ std::unique_ptr<QRhi> createOffscreenRhi() {
     return nullptr;
 }
 
-nlohmann::json readJson(const std::filesystem::path& path) {
-    std::ifstream stream(path);
-    return nlohmann::json::parse(stream, nullptr, false);
-}
-
-/// La scène de `scene.json`, en instantané : les sols par la légende, les pièces à leur case.
-hmi::WorldSceneSnapshot mockupSnapshot(const nlohmann::json& scene) {
-    hmi::WorldSceneSnapshot snapshot;
-    snapshot.place = scene["place"].get<std::string>();
-    snapshot.diamondRatio = scene["diamondRatio"].get<float>();
-    snapshot.columns = scene["columns"].get<int>();
-    snapshot.rows = scene["rows"].get<int>();
-    const auto cells =
-        static_cast<std::size_t>(snapshot.columns) * static_cast<std::size_t>(snapshot.rows);
-    snapshot.floors.assign(cells, std::string{});
-    snapshot.relief.assign(cells, std::string{});
-    snapshot.types.assign(cells, core::TileType::Solid);
-    snapshot.reliefTypes.assign(cells, core::TileType::Empty);
-
-    const nlohmann::json& legend = scene["legend"];
-    const nlohmann::json& floors = scene["floors"];
-    for (int row = 0; row < snapshot.rows; ++row) {
-        const std::string line = floors[static_cast<std::size_t>(row)].get<std::string>();
-        for (int column = 0; column < snapshot.columns; ++column) {
-            const std::string symbol(1, line[static_cast<std::size_t>(column)]);
-            snapshot.floors[(static_cast<std::size_t>(row) * snapshot.columns) + column] =
-                legend[symbol].get<std::string>();
-        }
-    }
-
-    const core::ScenePieceManifestResult manifest = core::ScenePieceManifest::loadFromFile(
-        mockupDirectory() / "Scene" / snapshot.place / "manifest.json");
-    EXPECT_TRUE(manifest.ok()) << manifest.message;
-    for (const nlohmann::json& piece : scene["pieces"]) {
-        const std::string name = piece["piece"].get<std::string>();
-        const int column = piece["column"].get<int>();
-        const int row = piece["row"].get<int>();
-        snapshot.relief[(static_cast<std::size_t>(row) * snapshot.columns) + column] = name;
-        if (const core::ScenePiece* const declared = manifest.manifest.find(name)) {
-            snapshot.footprints.insert_or_assign(name, declared->footprint());
-        }
-    }
-    return snapshot;
-}
-
 /// Des images du moteur à la définition @p size, une par point suivi de @p focuses (en cases).
 std::vector<QImage> renderViews(QRhi& rhi, const nlohmann::json& scene, QSize size,
                                 const std::vector<core::Vector2>& focuses) {
@@ -152,7 +108,7 @@ std::vector<QImage> renderViews(QRhi& rhi, const nlohmann::json& scene, QSize si
     {
         hmi::WorldSceneRenderer renderer(mockupDirectory());
         EXPECT_TRUE(renderer.ensureResources(&rhi));
-        renderer.setSnapshot(mockupSnapshot(scene));
+        renderer.setSnapshot(test_support::hdMockupSnapshot(scene, mockupDirectory()));
         for (const core::Vector2 focus : focuses) {
             renderer.setFocus(focus);
             QRhiCommandBuffer* commandBuffer = nullptr;
@@ -180,14 +136,10 @@ std::vector<QImage> renderViews(QRhi& rhi, const nlohmann::json& scene, QSize si
     return images;
 }
 
-/// Le point suivi de la scène, en cases.
-core::Vector2 sceneFocus(const nlohmann::json& scene) {
-    return {scene["focus"][0].get<float>(), scene["focus"][1].get<float>()};
-}
-
 /// Une image du moteur, à la définition @p size, cadrée sur le point suivi de la scène.
 QImage renderView(QRhi& rhi, const nlohmann::json& scene, QSize size) {
-    std::vector<QImage> images = renderViews(rhi, scene, size, {sceneFocus(scene)});
+    std::vector<QImage> images =
+        renderViews(rhi, scene, size, {test_support::hdMockupFocus(scene)});
     return images.empty() ? QImage{} : images.front();
 }
 
@@ -230,7 +182,7 @@ void expectViewMatchesReference(const std::string& name) {
     if (!rhi) {
         GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
     }
-    const nlohmann::json scene = readJson(mockupDirectory() / "scene.json");
+    const nlohmann::json scene = test_support::readHdMockupJson(mockupDirectory() / "scene.json");
     ASSERT_FALSE(scene.is_discarded());
     const nlohmann::json& view = scene["views"][name];
     const QSize size(view["size"][0].get<int>(), view["size"][1].get<int>());
@@ -321,14 +273,14 @@ TEST(HdMockupRender, WritesASlowTravellingForTheAuthor) {
     if (!rhi) {
         GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
     }
-    const nlohmann::json scene = readJson(mockupDirectory() / "scene.json");
+    const nlohmann::json scene = test_support::readHdMockupJson(mockupDirectory() / "scene.json");
     ASSERT_FALSE(scene.is_discarded());
 
     // Un quart de pixel d'ecran par image, en largeur : a 1080p une case vaut 100 pixels, et un pas
     // d'une colonne de grille n'en avance que la moitie a l'ecran -- d'ou 0,005 colonne.
     constexpr int FRAMES = 96;
     constexpr float STEP_CELLS = 0.25F / 50.0F;
-    const core::Vector2 start = sceneFocus(scene);
+    const core::Vector2 start = test_support::hdMockupFocus(scene);
     std::vector<core::Vector2> focuses;
     for (int frame = 0; frame < FRAMES; ++frame) {
         const float offset = STEP_CELLS * static_cast<float>(frame);

@@ -56,6 +56,16 @@ namespace {
 const QColor EDIT_BACKGROUND(0x1e, 0x22, 0x2b);
 const QColor PLAYTEST_BACKGROUND(0xd0, 0xc0, 0xa0);
 
+/// Le vide laissé autour de ce qui est peint, en largeurs de case.
+constexpr double FRAME_PADDING_TILES = 0.25;
+
+/// Le losange entier de la carte d'un instantané, en unités monde.
+[[nodiscard]] core::Rect snapshotRect(const WorldSceneSnapshot& snapshot) {
+    const core::IsoProjection iso(snapshot.columns, snapshot.rows, core::ARENA_TILE_WIDTH_UNITS,
+                                  snapshot.diamondRatio);
+    return core::Rect{{0.0F, 0.0F}, iso.sceneSize()};
+}
+
 /// Un cran de molette agrandit ou réduit d'autant.
 constexpr double ZOOM_STEP = 1.25;
 /// Agrandissement maximal : une unité monde fait alors 8 × 16 pixels.
@@ -232,7 +242,7 @@ EditorViewport::EditorViewport(StartContent content, QWidget* parent)
     : QGraphicsView(parent),
       _canvasScene(new QGraphicsScene(this)),
       _item(new CanvasItem(*this)),
-      _images(std::make_unique<SceneImages>(assetsDirectory())),
+      _images(SceneImages::shared(assetsDirectory())),
       _editorBindings(hmi::EditorKeyBindings::load(keybindingsPath())),
       _draft(core::LevelDraft::empty("New map", 24, 14)),
       _mapId(_draft.name()) {
@@ -310,24 +320,28 @@ core::IsoProjection EditorViewport::projection() const {
 }
 
 QRectF EditorViewport::contentBounds() const {
+    // Le cadre se mesure sur ce qui est peint (`hmi::composedSceneBounds`, `LOT-125`) : une pièce
+    // haute n'est plus rognée par une marge d'un losange supposée assez grande.
+    const auto framed = [](const core::Rect& bounds, double padding) {
+        return QRectF(static_cast<double>(bounds.position.x) - padding,
+                      static_cast<double>(bounds.position.y) - padding,
+                      static_cast<double>(bounds.size.x) + (2 * padding),
+                      static_cast<double>(bounds.size.y) + (2 * padding));
+    };
     if (_play) {
-        const core::IsoProjection played(_playSnapshot.columns, _playSnapshot.rows,
-                                         core::ARENA_TILE_WIDTH_UNITS, _playSnapshot.diamondRatio);
-        const core::Vector2 size = played.sceneSize();
-        const double margin = played.tileWidth();
-        return {-margin, -margin, size.x + (2 * margin), size.y + (2 * margin)};
+        return framed(_playBounds, FRAME_PADDING_TILES * core::ARENA_TILE_WIDTH_UNITS);
     }
     if (_view == CanvasView::Flat) {
         return {-1.0, -1.0, static_cast<double>(_draft.tileMap().width()) + 2.0,
                 static_cast<double>(_draft.tileMap().height()) + 2.0};
     }
-    const core::IsoProjection iso = projection();
-    const core::Vector2 size = iso.sceneSize();
-    const double margin = iso.tileWidth();
-    return {-margin, -margin, size.x + (2 * margin), size.y + (2 * margin)};
+    return framed(_isoBounds, FRAME_PADDING_TILES * projection().tileWidth());
 }
 
 void EditorViewport::refreshBounds() {
+    if (!_play && _view != CanvasView::Flat) {
+        ensureIsoScene();
+    }
     const QRectF bounds = contentBounds();
     _item->setBounds(bounds);
     _canvasScene->setSceneRect(bounds);
@@ -335,6 +349,9 @@ void EditorViewport::refreshBounds() {
 }
 
 void EditorViewport::resetCamera() {
+    if (!_play && _view != CanvasView::Flat) {
+        ensureIsoScene();
+    }
     fitInView(contentBounds(), Qt::KeepAspectRatio);
     _framed = false;
     emitZoomIfChanged();
@@ -487,6 +504,7 @@ void EditorViewport::ensureIsoScene() {
                                           core::ARENA_TILE_WIDTH_UNITS, _snapshot.diamondRatio),
                       _images->textures());
     _isoScene.sort();
+    _isoBounds = composedSceneBounds(_isoScene, snapshotRect(_snapshot));
     _isoSceneDirty = false;
 }
 
@@ -1121,6 +1139,7 @@ void EditorViewport::stepPlaytest() {
     _playScene.clear();
     composeWorldScene(_playScene, _playSnapshot, played, _images->textures());
     _playScene.sort();
+    _playBounds = composedSceneBounds(_playScene, snapshotRect(_playSnapshot));
     if (_playSnapshot.columns != previousColumns || _playSnapshot.rows != previousRows) {
         refreshBounds();  // un portail a mené sur une autre carte.
     }
@@ -2153,8 +2172,8 @@ void EditorViewport::paintEntities(QPainter& painter, const CellRange& cells, bo
             const QPointF center = geometry.center(entity.position);
             const QRectF target(center.x() - (markerSide / 2.0), center.y() - (markerSide / 2.0),
                                 markerSide, markerSide);
-            if (const QImage* const marker = _images->marker(entityMarkerKey(entity.type))) {
-                painter.drawImage(target, *marker);
+            if (const SceneImage* const marker = _images->marker(entityMarkerKey(entity.type))) {
+                painter.drawImage(target, marker->pinned());
             } else {
                 painter.fillRect(target, QColor(255, 0, 255, 204));
             }
